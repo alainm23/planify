@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/github/artegeek/planner/" id="com.github.artegeek.planner" gettext-domain="com.github.artegeek.planner">
+    <key name="prefer-dark-style" type="b">
+      <default>false</default>
+      <summary>If the dark Gtk stylesheet should be used</summary>
+      <description>If the dark Gtk stylesheet should be used</description>
+    </key>
+
+    <key name="window-width" type="i">
+      <default>-1</default>
+      <summary>Window Width</summary>
+      <description>Saves the window width for restoring it later.</description>
+    </key>
+
+    <key name="window-height" type="i">
+      <default>-1</default>
+      <summary>Window Height</summary>
+      <description>Saves the window height for restoring it later.</description>
+    </key>
+
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Window X position</summary>
+      <description>Stores the window's last X position</description>
+    </key>
+
+    <key name="window-y" type="i">
+      <default>-1</default>
+      <summary>Window Y position</summary>
+      <description>Stores the window's last Y position</description>
+    </key>
+
+    <key name="project-sidebar-width" type="i">
+      <default>312</default>
+      <summary>Project Sidebar Width</summary>
+      <description>Save the width of the sidebar in the Project List</description>
+    </key>
+  </schema>
+</schemalist>

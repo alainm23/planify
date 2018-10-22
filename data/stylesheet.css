@@ -1,0 +1,177 @@
+.titlebar {
+    padding: 1 6px;
+}
+
+.task {
+    transition: all 150ms ease;
+}
+
+.task:selected {
+    background-color: transparent;
+    color: @fg_color;
+}
+
+.label-child {
+    transition: all 150ms ease;
+}
+
+.label-child:focus {
+    background-color: transparent;
+    color: @fg_color;
+}
+
+.note-view text {
+    background-color:  @bg_color;
+}
+
+.checklist-preview {
+    padding: 0px 6px 0px 6px;
+}
+
+.button-circular {
+    border-radius: 100px;
+}
+
+.button-overlay-circular {
+    border-radius: 100px;
+    padding: 0 0px;
+}
+
+.active-switch slider {
+    min-height: 16px;
+    min-width: 16px;
+}
+
+.settings-button {
+    border-radius: 4px;
+    padding: 2px;
+}
+.model-button:hover {
+    background-color: #d7d7d7;
+}
+
+.revealer-button {
+    padding: 0 8px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.revealer-button image {
+    transition: all 240ms ease-in-out;
+}
+
+.revealer-button.closed image {
+    -gtk-icon-transform: rotate(-90deg);
+}
+
+.item-row {
+    border-radius: 3px;
+}
+
+.planner-radio check {
+    border-radius: 50%;
+}
+
+.planner-radio-disable check {
+    border-radius: 50%;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @base_color,
+                0.99
+            ),
+            shade (
+                @base_color,
+                0.97
+            )
+        );
+}
+
+.duedate-item {
+    transition: all 200ms ease;
+    background-color: alpha (@text_color, 0.15);
+}
+
+.calendar-selected:selected {
+    background-color: @colorAccent;
+    color: @selected_fg_color;
+
+    padding: 0 8px;
+    border-radius: 3px;
+    border: none;
+    box-shadow: none;
+}
+
+.calendar-no-selected:selected {
+    background-color: transparent;
+    color: @text_color;
+}
+
+.planner-entry {
+    border: none;
+}
+
+.planner-checked label {
+    padding: 0px 0px 1px 0px;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+.label-accent {
+    color: #3689e6;
+}
+
+.color-button:hover {
+    border: 3px solid @bg_color;
+}
+
+.color-button:focus {
+    border: 3px solid @bg_color;
+}
+
+.color-1 {
+  background-color: #c6262e;
+  border-radius: 100px;
+}
+
+.color-2 {
+  background-color: #f37329;
+  border-radius: 100px;
+}
+
+.color-3 {
+  background-color: #f9c440;
+  border-radius: 100px;
+}
+
+.color-4 {
+  background-color: #68b723;
+  border-radius: 100px;
+}
+
+.color-5 {
+  background-color: #3689e6;
+  border-radius: 100px;
+}
+
+.color-6 {
+  background-color: #a56de2;
+  border-radius: 100px;
+}
+
+
+.color-7 {
+  background-color: #333333;
+  border-radius: 100px;
+}
+
+
+.color-n {
+    border-radius: 100px;
+    padding: 1 1px;
+}

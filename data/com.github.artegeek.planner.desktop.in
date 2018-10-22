@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Planner
+GenericName=Planner
+Comment=The most intuitive project and task management tool.
+Categories=Development;
+Exec=com.github.artegeek.planner
+Icon=com.github.artegeek.planner
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=planner
+Keywords=Github;Repositories;Development;
+X-GNOME-UsesNotifications=true

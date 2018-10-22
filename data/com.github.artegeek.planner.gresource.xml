@@ -1,0 +1,10 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/github/artegeek/planner">
+    <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
+    <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
+    <file alias="planner-today.svg">resources/planner-today.svg</file>
+    <file alias="planner-tomorrow.svg">resources/planner-tomorrow.svg</file>
+  </gresource>
+</gresources>
