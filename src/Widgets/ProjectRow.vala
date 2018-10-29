@@ -104,8 +104,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         eventbox.add (main_grid);
 
         add (eventbox);
-
-        build_darg_and_drop ();
+        //build_drag_and_drop ();
 
         var provider = new Gtk.CssProvider ();
 
@@ -240,10 +239,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
-    private void build_darg_and_drop () {
+    private void build_drag_and_drop () {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);
 
         drag_begin.connect (on_drag_begin);
+        //get.Gtk (this, Gtk.DestDefaults.MOTION, targetEntriesProjectRow, Gdk.DragAction.MOVE);
+        drag_motion.connect (on_drag_motion);
+        drag_leave.connect (on_drag_leave);
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -272,4 +274,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
 		Gtk.drag_set_icon_surface (context, surface);
     }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        get_style_context ().add_class ("highlight");
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+		get_style_context ().remove_class ("highlight");
+	}
 }

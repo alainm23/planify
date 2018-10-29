@@ -9,7 +9,7 @@ public class Views.Today : Gtk.EventBox {
         //get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
-        var today_icon = new Gtk.Image.from_icon_name ("user-bookmarks", Gtk.IconSize.DND);
+        var today_icon = new Gtk.Image.from_icon_name ("planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), Gtk.IconSize.DND);
 
         var today_name = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         today_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

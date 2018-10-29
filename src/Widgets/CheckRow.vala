@@ -65,6 +65,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         remove_button.valign = Gtk.Align.CENTER;
         remove_button.halign = Gtk.Align.CENTER;
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        remove_button.get_style_context ().add_class ("planner-button-no-focus");
 
         var remove_revealer = new Gtk.Revealer ();
         remove_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -78,6 +79,13 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         main_box.pack_start (name_entry, true, true, 6);
         main_box.pack_start (name_eventbox, true, true, 6);
         main_box.pack_end (remove_revealer, false, false, 0);
+
+        /*
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Align.VERTICAL;
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (main_box);
+        */
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -129,16 +137,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 		});
 
         remove_button.clicked.connect (() => {
-            Timeout.add (25, () => {
-                this.opacity = this.opacity - 0.1;
-
-                if (this.opacity <= 0) {
-                    destroy ();
-                    return false;
-                }
-
-                return true;
-            });
+            destroy ();
         });
     }
 

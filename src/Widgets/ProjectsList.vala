@@ -20,11 +20,11 @@ public class Widgets.ProjectsList : Gtk.Grid {
         items_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         items_listbox.hexpand = true;
 
-        var inbox_item = new Widgets.ItemRow (_("Inbox"), "internet-mail");
+        var inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
         inbox_item.number_label.label = Planner.database.get_inbox_number ();
 
-        var today_item = new Widgets.ItemRow (_("Today"), "user-bookmarks");
-        var tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "document-open-recent");
+        var today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
+        var tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "planner-tomorrow");
 
         items_listbox.add (inbox_item);
         items_listbox.add (today_item);
@@ -121,6 +121,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
         });
 
         Planner.database.add_inbox_task_signal.connect (() => {
+            inbox_item.number_label.label = Planner.database.get_inbox_number ();
+        });
+
+        Planner.database.update_inbox_task_signal.connect (() => {
             inbox_item.number_label.label = Planner.database.get_inbox_number ();
         });
     }

@@ -43,8 +43,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         width_request = 290;
         height_request = 300;
 
-        var toast = new Granite.Widgets.Toast (_("Delete this Label?"));
-
         var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Labels")));
         title_label.halign = Gtk.Align.CENTER;
         title_label.hexpand = true;
@@ -53,7 +51,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
 
         add_button = new Gtk.Button.with_label (_("Create label"));
         add_button.margin = 6;
-        //add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         add_button.tooltip_text = _("Add new label");
 
         labels_listbox = new Gtk.ListBox  ();
@@ -68,11 +65,10 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         list_labels_grid.expand = true;
         list_labels_grid.orientation = Gtk.Orientation.VERTICAL;
         list_labels_grid.attach (title_label, 0, 0, 1, 1);
-        list_labels_grid.attach (toast, 0, 1, 1, 1);
         list_labels_grid.attach (scrolled_window, 0, 2, 1, 1);
         list_labels_grid.attach (add_button, 0, 3, 1, 1);
 
-        var title_new_label = new Gtk.Label ("<small>%s</small>".printf (_("Create Labels")));
+        var title_new_label = new Gtk.Label ("<small>%s</small>".printf (_("Label")));
         title_new_label.halign = Gtk.Align.CENTER;
         title_new_label.hexpand = true;
         title_new_label.use_markup = true;

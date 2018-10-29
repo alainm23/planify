@@ -4,23 +4,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
     public const string COLOR_CSS = """
         .label-list-%i {
-            background-image:
-              linear-gradient(
-                    to bottom,
-                    shade (
-                    %s,
-                        1.3
-                    ),
-                    %s
-                );
-            border: 1px solid shade (%s, 0.9);
-            border-radius: 6px;
-            box-shadow:
-                inset 0 0 0 1px alpha (#fff, 0.05),
-                inset 0 1px 0 0 alpha (#fff, 0.25),
-                inset 0 -1px 0 0 alpha (#fff, 0.1),
-                0 1px 2px alpha (#000, 0.3);
-            margin: 2px;
+            color: %s;
         }
     """;
     public LabelRow (Objects.Label _label) {
@@ -32,11 +16,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     construct {
         can_focus = true;
 
-        var label_color = new Gtk.Label (null);
-        label_color.get_style_context ().add_class ("label-list-%i".printf (label.id));
-        label_color.valign = Gtk.Align.CENTER;
-
-        label_color.width_request = 32;
+        var icon_label = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
+        icon_label.get_style_context ().add_class ("label-list-%i".printf (label.id));
 
         var name_label = new Gtk.Label ("<b>%s</b>".printf(label.name));
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -51,9 +32,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.halign = Gtk.Align.END;
-        action_box.hexpand = true;
-        action_box.pack_start (edit_button, false, false, 0);
+        //action_box.pack_start (edit_button, false, false, 0);
         action_box.pack_start (remove_button, false, false, 0);
 
         var action_revealer = new Gtk.Revealer ();
@@ -61,25 +40,23 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         action_revealer.add (action_box);
         action_revealer.reveal_child = false;
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.column_spacing = 12;
-        main_grid.row_spacing = 3;
-        main_grid.margin = 6;
-
-        main_grid.add (label_color);
-        main_grid.add (name_label);
-        main_grid.add (action_revealer);
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        main_box.hexpand = true;
+        main_box.margin = 3;
+        main_box.pack_start (icon_label, false, false, 3);
+        main_box.pack_start (name_label, true, true, 6);
+        main_box.pack_end (action_revealer, false, false, 0);
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        eventbox.add (main_grid);
+        eventbox.add (main_box);
 
         add (eventbox);
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (label.id, label.color, label.color, label.color);
+            var colored_css = COLOR_CSS.printf (label.id, label.color);
             provider.load_from_data (colored_css, colored_css.length);
 
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

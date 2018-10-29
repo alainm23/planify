@@ -9,6 +9,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
 
     private Gtk.Box reminder_box;
     private Gtk.Label duedate_label;
+    private Gtk.Label reminder_label;
     public WhenButton () {
         Object (
             margin_start: 6,
@@ -18,13 +19,14 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        get_style_context ().add_class ("planner-button-no-focus");
 
-        var duedate_icon = new Gtk.Image.from_icon_name ("office-calendar", Gtk.IconSize.MENU);
+        var duedate_icon = new Gtk.Image.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.MENU);
         duedate_label = new Gtk.Label (when_text);
         duedate_label.margin_bottom = 1;
 
-        var reminder_icon = new Gtk.Image.from_icon_name ("preferences-system-notifications", Gtk.IconSize.MENU);
-        var reminder_label = new Gtk.Label ("");
+        var reminder_icon = new Gtk.Image.from_icon_name ("preferences-system-notifications-symbolic", Gtk.IconSize.MENU);
+        reminder_label = new Gtk.Label ("");
 
         reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         reminder_box.no_show_all = true;
@@ -58,29 +60,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         });
 
         when_popover.on_selected_date.connect ((date, _has_reminder, _reminder_datetime) => {
-            reminder_box.no_show_all = !_has_reminder;
-            reminder_box.visible = _has_reminder;
-            reminder_label.label = "%i: %i".printf (_reminder_datetime.get_hour (), _reminder_datetime.get_minute ());
-
-            when_datetime = date;
-            reminder_datetime = _reminder_datetime;
-            has_reminder = _has_reminder;
-            has_duedate = true;
-
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), date)) {
-                duedate_label.label = _("Today");
-                has_duedate = true;
-            } else if (is_tomorrow (date)) {
-                duedate_label.label = _("Tomorrow");
-                has_duedate = true;
-            } else {
-                int day = date.get_day_of_month ();
-                string month = Planner.utils.get_month_name () [date.get_month () - 1];
-                duedate_label.label = "%i %s".printf (day, month);
-                has_duedate = true;
-            }
-
-            show_all ();
+            set_date (date, _has_reminder, _reminder_datetime);
         });
     }
 
@@ -108,5 +88,31 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
 
         has_duedate = false;
         has_reminder = false;
+    }
+
+    public void set_date (GLib.DateTime date, bool _has_reminder, GLib.DateTime _reminder_datetime) {
+        reminder_box.no_show_all = !_has_reminder;
+        reminder_box.visible = _has_reminder;
+        reminder_label.label = "%i: %i".printf (_reminder_datetime.get_hour (), _reminder_datetime.get_minute ());
+
+        when_datetime = date;
+        reminder_datetime = _reminder_datetime;
+        has_reminder = _has_reminder;
+        has_duedate = true;
+
+        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), date)) {
+            duedate_label.label = _("Today");
+            has_duedate = true;
+        } else if (is_tomorrow (date)) {
+            duedate_label.label = _("Tomorrow");
+            has_duedate = true;
+        } else {
+            int day = date.get_day_of_month ();
+            string month = Planner.utils.get_month_name (date.get_month ());
+            duedate_label.label = "%i %s".printf (day, month);
+            has_duedate = true;
+        }
+        
+        show_all ();
     }
 }

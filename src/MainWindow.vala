@@ -27,13 +27,11 @@ public class MainWindow : Gtk.Window {
     public override bool configure_event (Gdk.EventConfigure event) {
         Gtk.Allocation rect;
         get_allocation (out rect);
-        Planner.settings.set_int ("window-height", rect.height);
-        Planner.settings.set_int ("window-width", rect.width);
+        Planner.settings.set_value ("window-size",  new int[] { rect.height, rect.width });
 
         int root_x, root_y;
         get_position (out root_x, out root_y);
-        Planner.settings.set_int ("window-x", root_x);
-        Planner.settings.set_int ("window-y", root_y);
+        Planner.settings.set_value ("window-position",  new int[] { root_x, root_y });
 
         return base.configure_event (event);
     }

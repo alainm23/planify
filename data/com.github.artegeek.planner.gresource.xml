@@ -4,7 +4,37 @@
   <gresource prefix="/com/github/artegeek/planner">
     <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
     <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
-    <file alias="planner-today.svg">resources/planner-today.svg</file>
+    <file alias="planner-today-1.svg">resources/planner-today-1.svg</file>
+    <file alias="planner-today-2.svg">resources/planner-today-2.svg</file>
+    <file alias="planner-today-3.svg">resources/planner-today-3.svg</file>
+    <file alias="planner-today-4.svg">resources/planner-today-4.svg</file>
+    <file alias="planner-today-5.svg">resources/planner-today-5.svg</file>
+    <file alias="planner-today-6.svg">resources/planner-today-6.svg</file>
+    <file alias="planner-today-7.svg">resources/planner-today-7.svg</file>
+    <file alias="planner-today-8.svg">resources/planner-today-8.svg</file>
+    <file alias="planner-today-9.svg">resources/planner-today-9.svg</file>
+    <file alias="planner-today-10.svg">resources/planner-today-10.svg</file>
+    <file alias="planner-today-11.svg">resources/planner-today-11.svg</file>
+    <file alias="planner-today-12.svg">resources/planner-today-12.svg</file>
+    <file alias="planner-today-13.svg">resources/planner-today-13.svg</file>
+    <file alias="planner-today-14.svg">resources/planner-today-14.svg</file>
+    <file alias="planner-today-15.svg">resources/planner-today-15.svg</file>
+    <file alias="planner-today-16.svg">resources/planner-today-16.svg</file>
+    <file alias="planner-today-17.svg">resources/planner-today-17.svg</file>
+    <file alias="planner-today-18.svg">resources/planner-today-18.svg</file>
+    <file alias="planner-today-19.svg">resources/planner-today-19.svg</file>
+    <file alias="planner-today-20.svg">resources/planner-today-20.svg</file>
+    <file alias="planner-today-21.svg">resources/planner-today-21.svg</file>
+    <file alias="planner-today-22.svg">resources/planner-today-22.svg</file>
+    <file alias="planner-today-23.svg">resources/planner-today-23.svg</file>
+    <file alias="planner-today-24.svg">resources/planner-today-24.svg</file>
+    <file alias="planner-today-25.svg">resources/planner-today-25.svg</file>
+    <file alias="planner-today-26.svg">resources/planner-today-26.svg</file>
+    <file alias="planner-today-27.svg">resources/planner-today-27.svg</file>
+    <file alias="planner-today-28.svg">resources/planner-today-28.svg</file>
+    <file alias="planner-today-29.svg">resources/planner-today-29.svg</file>
+    <file alias="planner-today-30.svg">resources/planner-today-30.svg</file>
+    <file alias="planner-today-31.svg">resources/planner-today-31.svg</file>    
     <file alias="planner-tomorrow.svg">resources/planner-tomorrow.svg</file>
   </gresource>
 </gresources>

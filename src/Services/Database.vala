@@ -3,6 +3,7 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void add_inbox_task_signal ();
+    public signal void update_inbox_task_signal ();
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.local/share/com.github.artegeek.planner/database.db";
@@ -48,6 +49,7 @@ public class Services.Database : GLib.Object {
             "project_id     INTEGER," +
             "task_order     INTEGER," +
             "is_inbox       INTEGER," +
+            "has_reminder   INTEGER," +
             "content        VARCHAR," +
             "note           VARCHAR," +
             "when_date_utc  VARCHAR," +
@@ -142,12 +144,12 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var project = new Objects.Project ();
 
-            project.id = int.parse (stmt.column_text (0));
+            project.id = stmt.column_int (0);
             project.name = stmt.column_text (1);
             project.description = stmt.column_text (2);
             project.duedate = stmt.column_text (3);
-            project.item_order = int.parse (stmt.column_text (4));
-            project.is_deleted = int.parse (stmt.column_text (5));
+            project.item_order = stmt.column_int (4);
+            project.is_deleted = stmt.column_int (5);
             project.color = stmt.column_text (6);
 
             all.add (project);
@@ -160,8 +162,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, task_order, is_inbox, content, note, when_date_utc, reminder_time, labels, checklist)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+            "project_id, task_order, is_inbox, has_reminder, content, note, when_date_utc, reminder_time, labels, checklist)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (1, task.checked);
@@ -176,22 +178,25 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (4, task.is_inbox);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (5, task.content);
+        res = stmt.bind_int (5, task.has_reminder);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (6, task.note);
+        res = stmt.bind_text (6, task.content);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (7, task.when_date_utc);
+        res = stmt.bind_text (7, task.note);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (8, task.reminder_time);
+        res = stmt.bind_text (8, task.when_date_utc);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (9, task.labels);
+        res = stmt.bind_text (9, task.reminder_time);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (10, task.checklist);
+        res = stmt.bind_text (10, task.labels);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (11, task.checklist);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -204,45 +209,78 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
-    /*
+
     public int update_task (Objects.Task task) {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("UPDATE TASKS SET checked = ?, " +
-            "title = ?, note = ?, duedate = ?, has_reminder = ?, id_project = ? " +
-            "WHERE id = ?", -1, out stmt);
+            "project_id = ?, task_order = ?, is_inbox = ?, has_reminder = ?, content = ?, note = ?, " +
+            "when_date_utc = ?, reminder_time = ?, checklist = ?, labels = ? WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (1, task.checked);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, task.title);
+        res = stmt.bind_int (2, task.project_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (3, task.note);
+        res = stmt.bind_int (3, task.task_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (4, task.duedate);
+        res = stmt.bind_int (4, task.is_inbox);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (5, task.has_reminder);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (6, task.id_project);
+        res = stmt.bind_text (6, task.content);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (7, task.id);
+        res = stmt.bind_text (7, task.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (8, task.when_date_utc);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (9, task.reminder_time);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (10, task.checklist);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (11, task.labels);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (12, task.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            add_inbox_task_signal ();
+            update_inbox_task_signal ();
         }
 
         return res;
     }
-    */
+
+    public int remove_task (Objects.Task task) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("DELETE FROM TASKS " +
+            "WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, task.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            update_inbox_task_signal ();
+        }
+
+        return res;
+    }
 
     public Gee.ArrayList<Objects.Task?> get_all_inbox_tasks () {
         Sqlite.Statement stmt;
@@ -256,17 +294,18 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var task = new Objects.Task ();
 
-            task.id = int.parse (stmt.column_text (0));
-            task.checked = int.parse (stmt.column_text (1));
-            task.project_id = int.parse (stmt.column_text (2));
-            task.task_order = int.parse (stmt.column_text (3));
-            task.is_inbox = int.parse (stmt.column_text (4));
-            task.content = stmt.column_text (5);
-            task.note = stmt.column_text (6);
-            task.when_date_utc = stmt.column_text (7);
-            task.reminder_time = stmt.column_text (8);
-            task.checklist = stmt.column_text (9);
-            task.labels = stmt.column_text (10);
+            task.id = stmt.column_int (0);
+            task.checked = stmt.column_int (1);
+            task.project_id = stmt.column_int (2);
+            task.task_order = stmt.column_int (3);
+            task.is_inbox = stmt.column_int (4);
+            task.has_reminder = stmt.column_int (5);
+            task.content = stmt.column_text (6);
+            task.note = stmt.column_text (7);
+            task.when_date_utc = stmt.column_text (8);
+            task.reminder_time = stmt.column_text (9);
+            task.checklist = stmt.column_text (10);
+            task.labels = stmt.column_text (11);
 
             all.add (task);
         }
@@ -286,7 +325,7 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var task = new Objects.Task ();
 
-            task.id = int.parse (stmt.column_text (0));
+            task.id = stmt.column_int (0);
 
             all.add (task);
         }
@@ -328,6 +367,26 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
+    public Objects.Label get_label (string id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM LABELS WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, id);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        var label = new Objects.Label ();
+
+        label.id = stmt.column_int (0);
+        label.name = stmt.column_text (1);
+        label.color = stmt.column_text (2);
+
+        return label;
+    }
+
     public Gee.ArrayList<Objects.Label?> get_all_labels () {
         Sqlite.Statement stmt;
 
@@ -340,7 +399,7 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var label = new Objects.Label ();
 
-            label.id = int.parse (stmt.column_text (0));
+            label.id = stmt.column_int (0);
             label.name = stmt.column_text (1);
             label.color = stmt.column_text (2);
 

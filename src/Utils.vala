@@ -73,9 +73,9 @@ public class Utils : GLib.Object {
         return s;
     }
 
-    public Gee.ArrayList<string> get_month_name () {
+    public string get_month_name (int index) {
         var months = new Gee.ArrayList<string> ();
-
+        months.add ("_");
         months.add (_("January"));
         months.add (_("February"));
         months.add (_("March"));
@@ -89,6 +89,6 @@ public class Utils : GLib.Object {
         months.add (_("November"));
         months.add (_("December"));
 
-        return months;
+        return months [index];
     }
 }

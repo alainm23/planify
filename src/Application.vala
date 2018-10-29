@@ -26,24 +26,21 @@ public class Planner : Gtk.Application {
             return;
         }
 
+        var window_size = settings.get_value ("window-size");
+        var rect = Gtk.Allocation ();
+        rect.height = (int32) window_size.get_child_value (0);
+        rect.width =  (int32) window_size.get_child_value (1);
+
+        var window_position = settings.get_value ("window-position");
+        var window_x = (int32) window_position.get_child_value (0);
+        var window_y = (int32) window_position.get_child_value (1);
+
         main_window = new MainWindow (this);
-
-        var window_height = settings.get_int ("window-height");
-        var window_width = settings.get_int ("window-width");
-        var window_x = settings.get_int ("window-x");
-        var window_y = settings.get_int ("window-y");
-
         if (window_x != -1 ||  window_y != -1) {
             main_window.move (window_x, window_y);
         }
 
-        if (window_height != -1 ||  window_width != -1) {
-            var rect = Gtk.Allocation ();
-            rect.height = window_height;
-            rect.width = window_width;
-            main_window.set_allocation (rect);
-        }
-
+        main_window.set_allocation (rect);
         main_window.show_all ();
 
         var quit_action = new SimpleAction ("quit", null);

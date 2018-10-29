@@ -26,11 +26,14 @@ executable(
     'src/Application.vala',
     'src/MainWindow.vala',
     'src/Utils.vala',
+
     'src/Services/Database.vala',
+
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
     'src/Views/Tomorrow.vala',
+
     'src/Widgets/WhenButton.vala',
     'src/Widgets/LabelButton.vala',
     'src/Widgets/HeaderBar.vala',
@@ -42,11 +45,14 @@ executable(
     'src/Widgets/LabelRow.vala',
     'src/Widgets/LabelChild.vala',
     'src/Widgets/TaskNew.vala',
+    'src/Widgets/ModelButton.vala',
+
     'src/Widgets/Popovers/AddProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
+    'src/Widgets/Popovers/ItemMenu.vala',
     'src/Widgets/Popovers/WhenPopover.vala',
     'src/Widgets/Popovers/LabelsPopover.vala',
-    'src/Widgets/ModelButton.vala',
+
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
     'src/Objects/Label.vala',

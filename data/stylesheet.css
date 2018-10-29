@@ -3,7 +3,7 @@
 }
 
 .task {
-    transition: all 150ms ease;
+    transition: all 200ms ease;
 }
 
 .task:selected {
@@ -74,6 +74,10 @@
     border-radius: 50%;
 }
 
+.planner-button-no-focus {
+    background-color: @bg_color;
+}
+
 .planner-radio-disable check {
     border-radius: 50%;
     background-image:
@@ -128,6 +132,10 @@
 
 .color-button:hover {
     border: 3px solid @bg_color;
+}
+
+.highlight {
+    border: 1px solid @BLUEBERRY_500;
 }
 
 .color-button:focus {

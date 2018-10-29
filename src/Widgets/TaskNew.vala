@@ -38,7 +38,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         close_button.width_request = 24;
         close_button.can_focus = false;
         close_button.valign = Gtk.Align.START;
-        close_button.halign = Gtk.Align.END;
+        close_button.halign = Gtk.Align.START;
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         note_view = new Gtk.TextView ();
@@ -118,12 +118,12 @@ public class Widgets.TaskNew : Gtk.Revealer {
         main_grid.hexpand = true;
         main_grid.margin_top = 3;
         main_grid.margin_end = 5;
+        main_grid.margin_start = 5;
         main_grid.row_spacing = 6;
         main_grid.get_style_context ().add_class ("popover");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (name_entry);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (note_checklist_grid);
         main_grid.add (labels_flowbox_revealer);
         main_grid.add (bottom_box);
@@ -233,6 +233,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
             }
 
             if (when_button.has_reminder) {
+                task.has_reminder = 1;
                 task.reminder_time = when_button.reminder_datetime.to_string ();
             }
 

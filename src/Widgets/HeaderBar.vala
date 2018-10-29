@@ -73,7 +73,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         //set_custom_title (overview_grid);
 
-        pack_start (overview_grid);
+        //pack_start (overview_grid);
         pack_end (app_menu);
         pack_end (mode_switch);
         pack_end (search_entry);
