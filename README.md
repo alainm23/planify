@@ -1,5 +1,5 @@
-# planner
-Project and Task manager designed for elementary OS
+# Planner
+Task and project manager for elementary OS
 
 ### Building
 
