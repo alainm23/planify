@@ -9,7 +9,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         Object (
             relative_to: relative,
             modal: true,
-            position: Gtk.PositionType.TOP
+            position: Gtk.PositionType.RIGHT
         );
     }
 

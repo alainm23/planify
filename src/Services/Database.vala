@@ -47,9 +47,12 @@ public class Services.Database : GLib.Object {
             "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "checked        INTEGER," +
             "project_id     INTEGER," +
+            "list_id        INTEGER," +
             "task_order     INTEGER," +
             "is_inbox       INTEGER," +
             "has_reminder   INTEGER," +
+            "sidebar_width  INTEGER," +
+            "was_notified   INTEGER," +
             "content        VARCHAR," +
             "note           VARCHAR," +
             "when_date_utc  VARCHAR," +
@@ -162,41 +165,49 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, task_order, is_inbox, has_reminder, content, note, when_date_utc, reminder_time, labels, checklist)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (1, task.checked);
         assert (res == Sqlite.OK);
-
         res = stmt.bind_int (2, task.project_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (3, task.task_order);
+        res = stmt.bind_int (3, task.list_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (4, task.is_inbox);
+        res = stmt.bind_int (4, task.task_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (5, task.has_reminder);
+        res = stmt.bind_int (5, task.is_inbox);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (6, task.content);
+        res = stmt.bind_int (6, task.has_reminder);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (7, task.note);
+        res = stmt.bind_int (7, task.sidebar_width);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (8, task.when_date_utc);
+        res = stmt.bind_int (8, task.was_notified);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (9, task.reminder_time);
+        res = stmt.bind_text (9, task.content);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (10, task.labels);
+        res = stmt.bind_text (10, task.note);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (11, task.checklist);
+        res = stmt.bind_text (11, task.when_date_utc);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (12, task.reminder_time);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (13, task.labels);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (14, task.checklist);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -214,7 +225,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("UPDATE TASKS SET checked = ?, " +
-            "project_id = ?, task_order = ?, is_inbox = ?, has_reminder = ?, content = ?, note = ?, " +
+            "project_id = ?, list_id = ?, task_order = ?, is_inbox = ?, has_reminder = ?, sidebar_width = ?, was_notified = ?, content = ?, note = ?, " +
             "when_date_utc = ?, reminder_time = ?, checklist = ?, labels = ? WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -224,34 +235,43 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (2, task.project_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (3, task.task_order);
+        res = stmt.bind_int (3, task.list_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (4, task.is_inbox);
+        res = stmt.bind_int (4, task.task_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (5, task.has_reminder);
+        res = stmt.bind_int (5, task.is_inbox);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (6, task.content);
+        res = stmt.bind_int (6, task.has_reminder);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (7, task.note);
+        res = stmt.bind_int (7, task.sidebar_width);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (8, task.when_date_utc);
+        res = stmt.bind_int (8, task.was_notified);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (9, task.reminder_time);
+        res = stmt.bind_text (9, task.content);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (10, task.checklist);
+        res = stmt.bind_text (10, task.note);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (11, task.labels);
+        res = stmt.bind_text (11, task.when_date_utc);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (12, task.id);
+        res = stmt.bind_text (12, task.reminder_time);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (13, task.checklist);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (14, task.labels);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (15, task.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -297,15 +317,18 @@ public class Services.Database : GLib.Object {
             task.id = stmt.column_int (0);
             task.checked = stmt.column_int (1);
             task.project_id = stmt.column_int (2);
-            task.task_order = stmt.column_int (3);
-            task.is_inbox = stmt.column_int (4);
-            task.has_reminder = stmt.column_int (5);
-            task.content = stmt.column_text (6);
-            task.note = stmt.column_text (7);
-            task.when_date_utc = stmt.column_text (8);
-            task.reminder_time = stmt.column_text (9);
-            task.checklist = stmt.column_text (10);
-            task.labels = stmt.column_text (11);
+            task.list_id = stmt.column_int (3);
+            task.task_order = stmt.column_int (4);
+            task.is_inbox = stmt.column_int (5);
+            task.has_reminder = stmt.column_int (6);
+            task.sidebar_width = stmt.column_int (7);
+            task.was_notified = stmt.column_int (8);
+            task.content = stmt.column_text (9);
+            task.note = stmt.column_text (10);
+            task.when_date_utc = stmt.column_text (11);
+            task.reminder_time = stmt.column_text (12);
+            task.checklist = stmt.column_text (13);
+            task.labels = stmt.column_text (14);
 
             all.add (task);
         }
@@ -313,10 +336,45 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Gee.ArrayList<Objects.Task?> get_all_reminder_tasks () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE has_reminder = 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Task?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var task = new Objects.Task ();
+
+            task.id = stmt.column_int (0);
+            task.checked = stmt.column_int (1);
+            task.project_id = stmt.column_int (2);
+            task.list_id = stmt.column_int (3);
+            task.task_order = stmt.column_int (4);
+            task.is_inbox = stmt.column_int (5);
+            task.has_reminder = stmt.column_int (6);
+            task.sidebar_width = stmt.column_int (7);
+            task.was_notified = stmt.column_int (8);
+            task.content = stmt.column_text (9);
+            task.note = stmt.column_text (10);
+            task.when_date_utc = stmt.column_text (11);
+            task.reminder_time = stmt.column_text (12);
+            task.checklist = stmt.column_text (13);
+            task.labels = stmt.column_text (14);
+
+            all.add (task);
+        }
+
+        return all;
+
+    }
+
     public string get_inbox_number () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = 0 and checked = 0",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 and checked = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

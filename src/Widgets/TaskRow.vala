@@ -14,6 +14,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     private Gtk.ListBox checklist;
 
+    private Gtk.Paned paned;
+
     private Gtk.Box top_box;
     private Gtk.Revealer remove_revealer;
     private Gtk.Revealer close_revealer;
@@ -79,11 +81,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_button.get_style_context ().add_class ("button-overlay-circular");
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
-        remove_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
+        remove_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         remove_button.height_request = 24;
         remove_button.width_request = 24;
         remove_button.get_style_context ().add_class ("button-overlay-circular");
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         close_revealer = new Gtk.Revealer ();
         close_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -107,6 +109,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         //top_box.pack_start (checklist_preview, false, false, 0);
 
         note_view = new Gtk.TextView ();
+        note_view.opacity = 0.8;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
 		note_view.buffer.text = task.note;
         note_view.get_style_context ().add_class ("note-view");
@@ -114,6 +117,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var note_scrolled = new Gtk.ScrolledWindow (null, null);
         note_scrolled.height_request = 100;
         note_scrolled.margin_start = 36;
+        note_scrolled.margin_end = 12;
         note_scrolled.add (note_view);
 
         var note_eventbox = new Gtk.EventBox ();
@@ -161,16 +165,22 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         checklist_box.pack_start (checklist_entry, true, true, 6);
 
         var checklist_grid = new Gtk.Grid ();
+        checklist_grid.margin_start = 12;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);
+
+        paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        paned.position = task.sidebar_width;
+        paned.pack1 (note_eventbox, false, false);
+        paned.pack2 (checklist_grid, true, true);
 
         var note_checklist_grid = new Gtk.Grid ();
         note_checklist_grid.margin_end = 12;
         note_checklist_grid.column_spacing = 12;
         note_checklist_grid.column_homogeneous = true;
-        note_checklist_grid.add (note_eventbox);
-        note_checklist_grid.add (checklist_grid);
+        //note_checklist_grid.add (note_eventbox);
+        //note_checklist_grid.add (checklist_grid);
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -213,7 +223,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             has_reminder,
             new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
         );
-
+        
         var labels = new Widgets.LabelButton ();
 
         var projects = new Gtk.ComboBoxText ();
@@ -225,10 +235,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         action_box.margin_end = 6;
         action_box.pack_start (when_button, false, false, 0);
         action_box.pack_start (labels, false, false, 0);
-        action_box.pack_end (projects, false, false, 0);
+        //action_box.pack_end (projects, false, false, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        bottom_box.pack_start (note_checklist_grid);
+        bottom_box.pack_start (paned);
         bottom_box.pack_start (labels_flowbox_revealer);
         bottom_box.pack_start (action_box);
 
@@ -256,6 +266,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_eventbox.add (main_overlay);
 
         add (main_eventbox);
+        check_task_completed ();
         //build_drag_and_drop ();
 
         name_eventbox.button_press_event.connect ((event) => {
@@ -418,9 +429,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     private void check_task_completed () {
         if (checked_button.active) {
-            name_label.label = "<s>%s</s>".printf(name_label.label);
+            //name_label.label = "<s>%s</s>".printf(name_label.label);
+            name_label.opacity = 0.7;
         } else {
             name_label.label = name_entry.text;
+            name_label.opacity = 1;
         }
     }
 
@@ -461,46 +474,50 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     public void update_task () {
         if (name_entry.text != "") {
-            task.project_id = task.project_id;
-            task.content = name_entry.text;
-            task.note = note_view.buffer.text;
+            Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
+                task.project_id = task.project_id;
+                task.content = name_entry.text;
+                task.note = note_view.buffer.text;
+                task.sidebar_width = paned.position;
 
+                if (checked_button.active) {
+                    task.checked = 1;
+                } else {
+                    task.checked = 0;
+                }
 
-            if (checked_button.active) {
-                task.checked = 1;
-            } else {
-                task.checked = 0;
-            }
+                if (when_button.has_duedate) {
+                    task.when_date_utc = when_button.when_datetime.to_string ();
+                } else {
+                    task.when_date_utc = "";
+                }
 
-            if (when_button.has_duedate) {
-                task.when_date_utc = when_button.when_datetime.to_string ();
-            } else {
-                task.when_date_utc = "";
-            }
+                if (when_button.has_reminder) {
+                    task.has_reminder = 1;
+                    task.reminder_time = when_button.reminder_datetime.to_string ();
+                } else {
+                    task.has_reminder = 0;
+                    task.reminder_time = "";
+                }
 
-            if (when_button.has_reminder) {
-                task.has_reminder = 1;
-                task.reminder_time = when_button.reminder_datetime.to_string ();
-            } else {
-                task.has_reminder = 0;
-                task.reminder_time = "";
-            }
+                task.labels = "";
+                foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
+                    var child = element as Widgets.LabelChild;
+                    task.labels = task.labels + child.label.id.to_string () + ";";
+                }
 
-            task.labels = "";
-            foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
-                var child = element as Widgets.LabelChild;
-                task.labels = task.labels + child.label.id.to_string () + ";";
-            }
+                task.checklist = "";
+                foreach (Gtk.Widget element in checklist.get_children ()) {
+                    var row = element as Widgets.CheckRow;
+                    task.checklist = task.checklist + row.get_check ();
+                }
 
-            task.checklist = "";
-            foreach (Gtk.Widget element in checklist.get_children ()) {
-                var row = element as Widgets.CheckRow;
-                task.checklist = task.checklist + row.get_check ();
-            }
+                if (Planner.database.update_task (task) == Sqlite.DONE) {
 
-            if (Planner.database.update_task (task) == Sqlite.DONE) {
+                }
 
-            }
+    			return null;
+    		});
         }
     }
 

@@ -35,7 +35,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         Object (
             relative_to: relative,
             modal: true,
-            position: Gtk.PositionType.TOP
+            position: Gtk.PositionType.RIGHT
         );
     }
 

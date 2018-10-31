@@ -93,6 +93,9 @@ public class Views.Inbox : Gtk.EventBox {
         add (main_overlay);
         update_tasks_list ();
 
+        Gdk.Display display = Gdk.Display.get_default ();
+        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+
         add_task_button.clicked.connect (() => {
             task_on_revealer ();
         });
@@ -124,9 +127,6 @@ public class Views.Inbox : Gtk.EventBox {
 
         menu_popover.on_selected_menu.connect((index) => {
             if (index == 1) {
-                Gdk.Display display = Gdk.Display.get_default ();
-                Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-
                 string text = clipboard.wait_for_text ();
                 task_new_revealer.name_entry.text = text ?? "";
 

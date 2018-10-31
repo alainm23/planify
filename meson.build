@@ -28,6 +28,7 @@ executable(
     'src/Utils.vala',
 
     'src/Services/Database.vala',
+    'src/Services/Notifications.vala',
 
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
@@ -62,6 +63,7 @@ executable(
         dependency('granite'),
         dependency('gtk+-3.0'),
         dependency('sqlite3'),
+        dependency('unity'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

@@ -1,9 +1,12 @@
 public class MainWindow : Gtk.Window {
+    public weak Planner app { get; construct; }
     public Widgets.HeaderBar headerbar;
     public Views.Main main_view;
 
-    public MainWindow (Gtk.Application application) {
-        Object (application: application,
+    public MainWindow (Planner application) {
+        Object (
+            application: application,
+            app: application,
             icon_name: "com.github.artegeek.planner",
             title: _("Planner"),
             height_request: 700,
@@ -19,8 +22,18 @@ public class MainWindow : Gtk.Window {
 
         add (main_view);
 
-        this.destroy.connect (() => {
+        var noti = new Services.Notifications (app);
+        /*
+        var launcher_entry = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
+        launcher_entry.count = 2;
+        launcher_entry.count_visible = 2 != 0U;
+        */
+        destroy.connect (() => {
             Planner.settings.set_int ("project-sidebar-width", main_view.position);
+        });
+
+        delete_event.connect (() => {
+            return hide_on_delete ();
         });
     }
 

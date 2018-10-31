@@ -10,6 +10,8 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     private Gtk.Box reminder_box;
     private Gtk.Label duedate_label;
     private Gtk.Label reminder_label;
+
+    public signal void on_signal_selected ();
     public WhenButton () {
         Object (
             margin_start: 6,
@@ -61,6 +63,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
 
         when_popover.on_selected_date.connect ((date, _has_reminder, _reminder_datetime) => {
             set_date (date, _has_reminder, _reminder_datetime);
+            on_signal_selected ();
         });
     }
 
@@ -112,7 +115,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
             duedate_label.label = "%i %s".printf (day, month);
             has_duedate = true;
         }
-        
+
         show_all ();
     }
 }

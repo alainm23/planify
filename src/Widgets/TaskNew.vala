@@ -42,6 +42,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         note_view = new Gtk.TextView ();
+        note_view.opacity = 0.7;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
         note_view.get_style_context ().add_class ("note-view");
 

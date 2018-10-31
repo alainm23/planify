@@ -27,6 +27,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("task");
+        tooltip_text = checklist_name;
 
         checked_button = new Gtk.CheckButton ();
         checked_button.valign = Gtk.Align.CENTER;
@@ -38,6 +39,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_label.halign = Gtk.Align.START;
         name_label.hexpand = true;
         name_label.use_markup = true;
+        name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
         var name_eventbox = new Gtk.EventBox ();
@@ -92,6 +94,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         eventbox.add (main_box);
 
         add (eventbox);
+        check_task_completed ();
 
         eventbox.enter_notify_event.connect ((event) => {
             remove_revealer.reveal_child = true;
@@ -143,9 +146,10 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private void check_task_completed () {
         if (checked_button.active) {
-            name_label.label = "<s>%s</s>".printf(name_label.label);
+            opacity = 0.7;
         } else {
-            name_label.label = name_entry.text;
+            opacity = 1;
+            //name_label.label = name_entry.text;
         }
     }
 }
