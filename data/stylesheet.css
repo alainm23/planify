@@ -21,7 +21,7 @@
 }
 
 .note-view text {
-    background-color:  @bg_color;
+    background-color: @bg_highlight_color;
 }
 
 .checklist-preview {
@@ -75,7 +75,7 @@
 }
 
 .planner-button-no-focus {
-    background-color: @bg_color;
+    background-color: @bg_highlight_color;
 }
 
 .planner-radio-disable check {
@@ -140,6 +140,10 @@
 
 .color-button:focus {
     border: 3px solid @bg_color;
+}
+
+.planner-popover {
+    background-color:  @bg_highlight_color;
 }
 
 .color-1 {

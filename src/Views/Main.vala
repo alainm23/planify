@@ -14,6 +14,7 @@ public class Views.Main : Gtk.Paned {
     }
 
     construct {
+        get_style_context ().add_class ("view");
         projects_list = new Widgets.ProjectsList ();
 
         inbox_view = new Views.Inbox ();

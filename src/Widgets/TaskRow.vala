@@ -125,7 +125,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
-        checklist.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
+        checklist.get_style_context ().add_class ("view");
         checklist.selection_mode = Gtk.SelectionMode.SINGLE;
 
         string[] checklist_array = task.checklist.split (";");
@@ -223,7 +223,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             has_reminder,
             new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
         );
-        
+
         var labels = new Widgets.LabelButton ();
 
         var projects = new Gtk.ComboBoxText ();
@@ -235,7 +235,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         action_box.margin_end = 6;
         action_box.pack_start (when_button, false, false, 0);
         action_box.pack_start (labels, false, false, 0);
-        //action_box.pack_end (projects, false, false, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (paned);
@@ -439,6 +438,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     public void show_content () {
         main_grid.get_style_context ().add_class ("popover");
+        main_grid.get_style_context ().add_class ("planner-popover");
         note_view.grab_focus ();
 
         bottom_box_revealer.reveal_child = true;
@@ -456,6 +456,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public void hide_content () {
         if (name_entry.text != "") {
             main_grid.get_style_context ().remove_class ("popover");
+            main_grid.get_style_context ().remove_class ("planner-popover");
 
             main_grid.margin_start = 0;
             top_box.margin_top = 0;
@@ -490,6 +491,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                     task.when_date_utc = when_button.when_datetime.to_string ();
                 } else {
                     task.when_date_utc = "";
+                }
+
+                if (when_button.reminder_datetime.to_string () != task.reminder_time) {
+                    task.was_notified = 0;
                 }
 
                 if (when_button.has_reminder) {

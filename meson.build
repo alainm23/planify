@@ -64,6 +64,7 @@ executable(
         dependency('gtk+-3.0'),
         dependency('sqlite3'),
         dependency('unity'),
+        dependency('libnotify'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

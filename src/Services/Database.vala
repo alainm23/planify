@@ -339,7 +339,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Task?> get_all_reminder_tasks () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE has_reminder = 1",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE has_reminder = 1 AND was_notified = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

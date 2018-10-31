@@ -12,12 +12,13 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
     construct {
         get_style_context ().add_class ("welcome");
-        get_style_context ().add_class ("view");
+        get_style_context ().add_class ("background");
         orientation = Gtk.Orientation.VERTICAL;
 
         items_listbox = new Gtk.ListBox  ();
         items_listbox.activate_on_single_click = true;
         items_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        items_listbox.get_style_context ().add_class ("background");
         items_listbox.hexpand = true;
 
         var inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
@@ -42,6 +43,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         projects_listbox = new Gtk.ListBox  ();
         projects_listbox.activate_on_single_click = true;
         projects_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        projects_listbox.get_style_context ().add_class ("background");
         projects_listbox.expand = true;
 
         var add_project_button = new Gtk.ToggleButton ();

@@ -5,6 +5,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.Button close_button;
     private Gtk.ListBox checklist;
     private Widgets.WhenButton when_button;
+    private Gtk.Paned paned;
 
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
@@ -51,12 +52,13 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
         var note_scrolled = new Gtk.ScrolledWindow (null, null);
         note_scrolled.margin_start = 15;
+        note_scrolled.margin_end = 12;
         note_scrolled.height_request = 80;
         note_scrolled.add (note_view);
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
-        checklist.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
+        checklist.get_style_context ().add_class ("view");
         checklist.selection_mode = Gtk.SelectionMode.SINGLE;
 
         var checklist_button = new Gtk.CheckButton ();
@@ -78,16 +80,15 @@ public class Widgets.TaskNew : Gtk.Revealer {
         checklist_box.pack_start (checklist_entry, true, true, 6);
 
         var checklist_grid = new Gtk.Grid ();
+        checklist_grid.margin_start = 12;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);
 
-        var note_checklist_grid = new Gtk.Grid ();
-        note_checklist_grid.margin_end = 12;
-        note_checklist_grid.column_spacing = 12;
-        note_checklist_grid.column_homogeneous = true;
-        note_checklist_grid.add (note_scrolled);
-        note_checklist_grid.add (checklist_grid);
+        paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        paned.position = 400;
+        paned.pack1 (note_scrolled, false, false);
+        paned.pack2 (checklist_grid, true, true);
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -122,10 +123,11 @@ public class Widgets.TaskNew : Gtk.Revealer {
         main_grid.margin_start = 5;
         main_grid.row_spacing = 6;
         main_grid.get_style_context ().add_class ("popover");
+        main_grid.get_style_context ().add_class ("planner-popover");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (name_entry);
-        main_grid.add (note_checklist_grid);
+        main_grid.add (paned);
         main_grid.add (labels_flowbox_revealer);
         main_grid.add (bottom_box);
 
@@ -222,7 +224,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
             task.project_id = project_id;
             task.content = name_entry.text;
             task.note = note_view.buffer.text;
-
+            task.sidebar_width = paned.position;
             if (is_inbox) {
                 task.is_inbox = 1;
             } else {

@@ -1,6 +1,7 @@
 public class Widgets.Popovers.WhenPopover : Gtk.Popover {
     public Gtk.Button remove_button;
     public Gtk.Button add_button;
+    public Gtk.Switch reminder_switch;
     public signal void on_selected_date (GLib.DateTime duedate, bool has_reminder, GLib.DateTime reminder_datetime);
     public signal void on_selected_remove ();
 
@@ -55,7 +56,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         var reminder_icon = new Gtk.Image.from_icon_name ("preferences-system-notifications", Gtk.IconSize.MENU);
         var reminder_label = new Gtk.Label ("Reminder");
 
-        var reminder_switch = new Gtk.Switch ();
+        reminder_switch = new Gtk.Switch ();
         reminder_switch.get_style_context ().add_class ("active-switch");
         reminder_switch.valign = Gtk.Align.CENTER;
 

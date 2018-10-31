@@ -1,4 +1,5 @@
 public class Widgets.WhenButton : Gtk.ToggleButton {
+    private Widgets.Popovers.WhenPopover when_popover;
     const string when_text = _("When");
 
     public bool has_duedate = false;
@@ -35,7 +36,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         reminder_box.pack_start (reminder_icon, false, false, 0);
         reminder_box.pack_start (reminder_label, false, false, 0);
 
-        var when_popover = new Widgets.Popovers.WhenPopover (this);
+        when_popover = new Widgets.Popovers.WhenPopover (this);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.pack_start (duedate_icon, false, false, 0);
@@ -96,7 +97,20 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     public void set_date (GLib.DateTime date, bool _has_reminder, GLib.DateTime _reminder_datetime) {
         reminder_box.no_show_all = !_has_reminder;
         reminder_box.visible = _has_reminder;
-        reminder_label.label = "%i: %i".printf (_reminder_datetime.get_hour (), _reminder_datetime.get_minute ());
+        when_popover.reminder_switch.active = _has_reminder;
+
+        string hour = _reminder_datetime.get_hour ().to_string ();
+        string minute = _reminder_datetime.get_minute ().to_string ();
+
+        if (minute.length <= 1) {
+            minute = "0" + minute;
+        }
+
+        if (hour.length <= 1) {
+            hour = "0" + hour;
+        }
+
+        reminder_label.label = "%s: %s".printf (hour, minute);
 
         when_datetime = date;
         reminder_datetime = _reminder_datetime;

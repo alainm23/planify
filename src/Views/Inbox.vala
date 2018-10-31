@@ -41,7 +41,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
-        tasks_list.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
+        //tasks_list.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.expand = true;
         tasks_list.margin_start = 24;
