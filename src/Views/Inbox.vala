@@ -74,7 +74,7 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.valign = Gtk.Align.START;
         top_box.hexpand = true;
         top_box.margin_start = 24;
-        top_box.margin_end = 24;
+        top_box.margin_end = 16;
         top_box.margin_top = 24;
 
         top_box.pack_start (inbox_icon, false, false, 0);
@@ -248,6 +248,31 @@ public class Views.Inbox : Gtk.EventBox {
                 labels_flowbox_revealer.reveal_child = false;
                 tasks_list.set_filter_func ((row) => {
                     return true;
+                });
+            } else {
+                // Filter
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    var labels = new Gee.ArrayList<int> ();
+                    var _labels = new Gee.ArrayList<int> ();
+
+                    foreach (string label_id in item.task.labels.split (";")) {
+                        labels.add (int.parse (label_id));
+                    }
+
+                    foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
+                        var child = element as Widgets.LabelChild;
+                        _labels.add (child.label.id);
+                    }
+
+                    // Filter
+                    foreach (int x in labels) {
+                        if (x in _labels) {
+                            return true;
+                        }
+                    }
+
+                    return false;
                 });
             }
         });
