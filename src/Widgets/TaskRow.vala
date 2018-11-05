@@ -25,13 +25,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
 	};
+
+    public signal void on_signal_update ();
     public TaskRow (Objects.Task _task) {
         Object (
             task: _task,
-            margin_start: 3,
-            margin_end: 24,
-            margin_top: 3,
-            margin_bottom: 3
+            margin_end: 24
         );
     }
 
@@ -79,7 +78,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_button.height_request = 24;
         close_button.width_request = 24;
         close_button.get_style_context ().add_class ("button-overlay-circular");
-        close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         remove_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         remove_button.height_request = 24;
@@ -106,7 +104,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (name_eventbox, true, true, 6);
         top_box.pack_start (name_entry, true, true, 6);
-        //top_box.pack_start (checklist_preview, false, false, 0);
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.8;
@@ -175,18 +172,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         paned.pack1 (note_eventbox, false, false);
         paned.pack2 (checklist_grid, true, true);
 
-        var note_checklist_grid = new Gtk.Grid ();
-        note_checklist_grid.margin_end = 12;
-        note_checklist_grid.column_spacing = 12;
-        note_checklist_grid.column_homogeneous = true;
-        //note_checklist_grid.add (note_eventbox);
-        //note_checklist_grid.add (checklist_grid);
-
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         labels_flowbox.margin_start = 6;
         labels_flowbox.height_request = 38;
-        labels_flowbox.expand = false;
+        labels_flowbox.expand = true;
 
         var labels_flowbox_revealer = new Gtk.Revealer ();
         labels_flowbox_revealer.add (labels_flowbox);
@@ -201,9 +191,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 var child = new Widgets.LabelChild (label);
                 labels_flowbox.add (child);
             }
-        }
 
-        labels_flowbox.show_all ();
+            labels_flowbox.show_all ();
+        }
 
         if (is_empty (labels_flowbox) == false) {
             labels_flowbox_revealer.reveal_child = true;
@@ -243,6 +233,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         bottom_box_revealer = new Gtk.Revealer ();
         bottom_box_revealer.add (bottom_box);
+        bottom_box_revealer.transition_duration = 300;
         bottom_box_revealer.reveal_child = false;
 
         main_grid = new Gtk.Grid ();
@@ -257,10 +248,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (close_revealer);
-        main_overlay.add_overlay (remove_revealer);
+        //main_overlay.add_overlay (remove_revealer);
         main_overlay.add (main_grid);
 
         var main_eventbox = new Gtk.EventBox ();
+        main_eventbox.margin_start = 6;
+        main_eventbox.margin_bottom = 3;
         main_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         main_eventbox.add (main_overlay);
 
@@ -275,12 +268,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         close_button.clicked.connect (() => {
+            close_revealer.reveal_child = false;
+            remove_revealer.reveal_child = false;
+
             name_label.label = name_entry.text;
             check_task_completed ();
             hide_content ();
-
-            close_revealer.reveal_child = false;
-            remove_revealer.reveal_child = false;
         });
 
         note_eventbox.button_press_event.connect ((event) => {
@@ -298,7 +291,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         name_eventbox.enter_notify_event.connect ((event) => {
-            name_label.get_style_context ().add_class ("label-accent");
+            //name_label.get_style_context ().add_class ("label-accent");
+            get_style_context ().add_class ("task-hover");
 
             return false;
         });
@@ -308,7 +302,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            name_label.get_style_context ().remove_class ("label-accent");
+            //name_label.get_style_context ().remove_class ("label-accent");
+            get_style_context ().remove_class ("task-hover");
             return false;
         });
 
@@ -472,7 +467,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
     }
 
-
     public void update_task () {
         if (name_entry.text != "") {
             Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
@@ -518,7 +512,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 }
 
                 if (Planner.database.update_task (task) == Sqlite.DONE) {
-
+                    on_signal_update ();
                 }
 
     			return null;

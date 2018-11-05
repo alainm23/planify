@@ -14,7 +14,7 @@ public class Planner : Gtk.Application {
     static construct {
         // Dir to Database
         utils = new Utils ();
-        utils.create_dir_with_parents ("/.local/share/com.github.artegeek.planner");
+        utils.create_dir_with_parents ("/.cache/com.github.artegeek.planner");
 
         settings = new Settings ("com.github.artegeek.planner");
         database = new Services.Database ();

@@ -1,6 +1,6 @@
 public class Widgets.LabelChild : Gtk.FlowBoxChild {
     public Objects.Label label { get; construct; }
-
+    public bool show_close = true;
     public const string COLOR_CSS = """
         .label-%i {
             background-image:
@@ -40,7 +40,6 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
 
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         remove_button.get_style_context ().add_class ("button-overlay-circular");
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         var remove_revealer = new Gtk.Revealer ();
         remove_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -82,7 +81,10 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         }
 
         eventbox.enter_notify_event.connect ((event) => {
-            remove_revealer.reveal_child = true;
+            if (show_close) {
+                remove_revealer.reveal_child = true;
+            }
+
             return false;
         });
 
@@ -91,7 +93,10 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
                 return false;
             }
 
-            remove_revealer.reveal_child = false;
+            if (show_close) {
+                remove_revealer.reveal_child = false;
+            }
+
             return false;
         });
 

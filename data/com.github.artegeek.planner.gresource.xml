@@ -34,7 +34,14 @@
     <file alias="planner-today-28.svg">resources/planner-today-28.svg</file>
     <file alias="planner-today-29.svg">resources/planner-today-29.svg</file>
     <file alias="planner-today-30.svg">resources/planner-today-30.svg</file>
-    <file alias="planner-today-31.svg">resources/planner-today-31.svg</file>    
+    <file alias="planner-today-31.svg">resources/planner-today-31.svg</file>
     <file alias="planner-tomorrow.svg">resources/planner-tomorrow.svg</file>
+
+    <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
+    <file alias="planner-share-symbolic.svg">resources/planner-share-symbolic.svg</file>
+    <file alias="planner-copy-symbolic.svg">resources/planner-copy-symbolic.svg</file>
+    <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
+    <file alias="planner-when-symbolic.svg">resources/planner-when-symbolic.svg</file>
+    <file alias="planner-deadline-symbolic.svg">resources/planner-deadline-symbolic.svg</file>
   </gresource>
 </gresources>

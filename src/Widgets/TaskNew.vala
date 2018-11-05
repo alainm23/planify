@@ -5,6 +5,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.Button close_button;
     private Gtk.ListBox checklist;
     private Widgets.WhenButton when_button;
+    private Widgets.DeadlineButton deadline_button;
     private Gtk.Paned paned;
 
     public bool is_inbox { get; construct; }
@@ -40,7 +41,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         close_button.can_focus = false;
         close_button.valign = Gtk.Align.START;
         close_button.halign = Gtk.Align.START;
-        close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.7;
@@ -101,6 +101,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         labels_flowbox_revealer.reveal_child = false;
 
         when_button = new Widgets.WhenButton ();
+        deadline_button = new Widgets.DeadlineButton ();
 
         var labels = new Widgets.LabelButton ();
 
@@ -114,6 +115,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         bottom_box.margin_end = 6;
         bottom_box.pack_start (when_button, false, false, 0);
         bottom_box.pack_start (labels, false, false, 0);
+        bottom_box.pack_start (deadline_button, false, false, 0);
         bottom_box.pack_end (submit_task_button, false, false, 0);
 
         var main_grid = new Gtk.Grid ();

@@ -1,12 +1,16 @@
 public class Widgets.HeaderBar : Gtk.HeaderBar {
-    public HeaderBar () {
+    public weak MainWindow window { get; construct; }
+    public Dialogs.SettingsDialog settings_dialog;
+
+    public HeaderBar (MainWindow parent) {
         Object (
+            window: parent,
             show_close_button: true
         );
     }
 
     construct {
-        //get_style_context ().add_class ("compact");
+        get_style_context ().add_class ("compact");
 
         var username = GLib.Environment.get_user_name ();
         var iconfile = @"/var/lib/AccountsService/icons/$username";
@@ -45,21 +49,16 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
         Planner.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
 
+        var settings_menuitem = new Gtk.ModelButton ();
+        settings_menuitem.text = _("Settings");
+
         var menu_grid = new Gtk.Grid ();
         menu_grid.margin_bottom = 3;
         menu_grid.orientation = Gtk.Orientation.VERTICAL;
         menu_grid.width_request = 200;
 
-        /*
-        menu_grid.attach (font_size_grid, 0, 0, 3, 1);
-        menu_grid.attach (color_button_white, 0, 1, 1, 1);
-        menu_grid.attach (color_button_light, 1, 1, 1, 1);
-        menu_grid.attach (color_button_dark, 2, 1, 1, 1);
-        menu_grid.attach (menu_separator, 0, 2, 3, 1);
-        menu_grid.attach (new_view_menuitem, 0, 3, 3, 1);
-        menu_grid.attach (remove_view_menuitem, 0, 4, 3, 1);
-        menu_grid.attach (preferences_menuitem, 0, 5, 3, 1);
-        */
+        menu_grid.add (settings_menuitem);
+
         menu_grid.show_all ();
 
         var menu = new Gtk.Popover (null);
@@ -71,11 +70,15 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         app_menu.tooltip_text = _("Menu");
         app_menu.popover = menu;
 
-        //set_custom_title (overview_grid);
+        settings_dialog = new Dialogs.SettingsDialog (window);
+        settings_dialog.destroy.connect (Gtk.main_quit);
 
-        //pack_start (overview_grid);
         pack_end (app_menu);
         pack_end (mode_switch);
         pack_end (search_entry);
+
+        settings_menuitem.clicked.connect (() => {
+            settings_dialog.show_all ();
+        });
     }
 }

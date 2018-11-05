@@ -6,7 +6,7 @@ public class Services.Database : GLib.Object {
     public signal void update_inbox_task_signal ();
     public Database (bool skip_tables = false) {
         int rc = 0;
-        db_path = Environment.get_home_dir () + "/.local/share/com.github.artegeek.planner/database.db";
+        db_path = Environment.get_home_dir () + "/.cache/com.github.artegeek.planner/database.db";
 
         if (!skip_tables) {
             if (create_tables () != Sqlite.OK) {
@@ -305,7 +305,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Task?> get_all_inbox_tasks () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 AND when_date_utc = ''",
             -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -374,7 +374,7 @@ public class Services.Database : GLib.Object {
     public string get_inbox_number () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 and checked = 0",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 and checked = 0 AND when_date_utc = ''",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

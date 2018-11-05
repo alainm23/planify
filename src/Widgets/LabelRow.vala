@@ -5,6 +5,9 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     public const string COLOR_CSS = """
         .label-list-%i {
             color: %s;
+            background-color: %s;
+            border-radius: 6px;
+            padding: 2px;
         }
     """;
     public LabelRow (Objects.Label _label) {
@@ -16,7 +19,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     construct {
         can_focus = true;
 
-        var icon_label = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
+        var icon_label = new Gtk.Image.from_icon_name ("planner-label-symbolic", Gtk.IconSize.MENU);
+        icon_label.valign = Gtk.Align.CENTER;
         icon_label.get_style_context ().add_class ("label-list-%i".printf (label.id));
 
         var name_label = new Gtk.Label ("<b>%s</b>".printf(label.name));
@@ -56,7 +60,11 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (label.id, label.color);
+            var colored_css = COLOR_CSS.printf (
+                label.id,
+                Planner.utils.convert_invert (label.color),
+                label.color
+            );
             provider.load_from_data (colored_css, colored_css.length);
 
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);

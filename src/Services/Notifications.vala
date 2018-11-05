@@ -1,19 +1,12 @@
 public class Services.Notifications : GLib.Object {
-    public weak Planner application { get; construct; }
 
-    public Notifications (Planner _application) {
-        Object (
-			application: _application
-		);
-    }
-
-    construct {
+    public Notifications () {
         Notify.init ("Planner");
         start_notification ();
     }
 
     public void start_notification () {
-        GLib.Timeout.add_seconds (10, () => {
+        GLib.Timeout.add_seconds (15, () => {
             var all_tasks = new Gee.ArrayList<Objects.Task?> ();
             all_tasks = Planner.database.get_all_reminder_tasks ();
 
@@ -24,16 +17,6 @@ public class Services.Notifications : GLib.Object {
                 if (Granite.DateTime.is_same_day (now_date, reminder_date)) {
                     if (now_date.get_hour () == reminder_date.get_hour ()) {
                         if (now_date.get_minute () == reminder_date.get_minute ()) {
-
-                            /*
-                            var notification = new Notification (task.content);
-                            notification.set_body (task.note);
-                            notification.add_button ("action", "action");
-                            notification.set_priority (GLib.NotificationPriority.URGENT);
-
-                            application.send_notification ("com.github.artegeek.planner", notification);
-                            task.was_notified = 1;
-                            */
 
                             var notification = new Notify.Notification (task.content, task.note, "com.github.artegeek.planner");
                             notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
@@ -50,6 +33,7 @@ public class Services.Notifications : GLib.Object {
                     }
                 }
             }
+
             return true;
         });
     }

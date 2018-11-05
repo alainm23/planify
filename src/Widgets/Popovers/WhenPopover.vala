@@ -15,7 +15,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
     }
 
     construct {
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Duedate")));
+        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("When")));
         title_label.use_markup = true;
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
 
@@ -24,7 +24,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
 
         var today_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         today_box.margin = 6;
-        today_box.pack_start (new Gtk.Image.from_icon_name ("user-bookmarks", Gtk.IconSize.MENU), false, false, 0);
+        today_box.pack_start (new Gtk.Image.from_icon_name ("planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), Gtk.IconSize.MENU), false, false, 0);
         today_box.pack_start (new Gtk.Label (_("Today")), false, false, 0);
         today_box.pack_end (today_radio, false, false, 0);
 

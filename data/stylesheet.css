@@ -3,7 +3,7 @@
 }
 
 .task {
-    transition: all 200ms ease;
+    transition: all 250ms ease;
 }
 
 .task:selected {
@@ -35,6 +35,8 @@
 .button-overlay-circular {
     border-radius: 100px;
     padding: 0 0px;
+    background-color: @fg_color;
+    color: @bg_color;
 }
 
 .active-switch slider {
@@ -63,7 +65,22 @@
 }
 
 .revealer-button.closed image {
-    -gtk-icon-transform: rotate(-90deg);
+    -gtk-icon-transform: rotate(-180deg);
+}
+
+.show-settings-button {
+    border: 0.5px solid @fg_color;
+    box-shadow: none;
+    padding: 3px;
+    background-color: transparent;
+}
+
+.show-settings-button image {
+    transition: all 240ms ease-in-out;
+}
+
+.show-settings-button.closed image {
+    -gtk-icon-transform: rotate(-180deg);
 }
 
 .item-row {
@@ -118,16 +135,17 @@
     border: none;
 }
 
+.task-hover {
+    background-color: #3689e6;
+    border-radius: 3px;
+}
+
 .planner-checked label {
     padding: 0px 0px 1px 0px;
 }
 
 .no-padding {
     padding: 0px;
-}
-
-.label-accent {
-    color: #3689e6;
 }
 
 .color-button:hover {
@@ -144,6 +162,30 @@
 
 .planner-popover {
     background-color:  @bg_highlight_color;
+}
+
+.planner-paste-menu {
+    color: #FF5600;
+    background-color: #FFF0D9;
+    border-radius: 6px;
+    border: 0.5px solid #FF5600;
+    padding: 3px;
+}
+
+.planner-label-menu {
+    color: #4A31CB;
+    background-color: #E9ECFC;
+    border-radius: 6px;
+    border: 0.5px solid #4A31CB;
+    padding: 3px;
+}
+
+.planner-share-menu {
+    color: #CA55E2;
+    background-color: #FCEDFF;
+    border-radius: 6px;
+    border: 0.5px solid #CA55E2;
+    padding: 3px;
 }
 
 .color-1 {
