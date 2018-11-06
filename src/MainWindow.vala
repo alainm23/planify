@@ -21,8 +21,6 @@ public class MainWindow : Gtk.Window {
         main_view = new Views.Main ();
 
         add (main_view);
-
-        var noti = new Services.Notifications ();
         /*
         var launcher_entry = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
         launcher_entry.count = 2;

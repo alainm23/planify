@@ -5,6 +5,18 @@ public class Services.Notifications : GLib.Object {
         start_notification ();
     }
 
+    public void send_notification (string title, string body) {
+        var notification = new Notify.Notification (title, body, "com.github.artegeek.planner");
+        notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
+        notification.set_urgency (Notify.Urgency.LOW);
+
+        try {
+            notification.show ();
+        } catch (GLib.Error e) {
+            warning ("Failed to show notification: %s", e.message);
+        }
+    }
+
     public void start_notification () {
         GLib.Timeout.add_seconds (15, () => {
             var all_tasks = new Gee.ArrayList<Objects.Task?> ();

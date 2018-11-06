@@ -43,5 +43,7 @@
     <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
     <file alias="planner-when-symbolic.svg">resources/planner-when-symbolic.svg</file>
     <file alias="planner-deadline-symbolic.svg">resources/planner-deadline-symbolic.svg</file>
+    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
+
   </gresource>
 </gresources>

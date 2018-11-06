@@ -11,7 +11,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Revealer bottom_box_revealer;
     private Gtk.Grid main_grid;
     private Gtk.EventBox name_eventbox;
-
+    private Gtk.Grid checklist_preview;
     private Gtk.ListBox checklist;
 
     private Gtk.Paned paned;
@@ -48,7 +48,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (task.content);
         name_label.halign = Gtk.Align.START;
         name_label.use_markup = true;
-        name_label.margin_bottom = 1;
+        //name_label.margin_bottom = 1;
+        name_label.margin_start = 6;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
         name_eventbox = new Gtk.EventBox ();
@@ -65,13 +66,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.no_show_all = true;
 
-        var checklist_preview = new Gtk.Grid ();
+        checklist_preview = new Gtk.Grid ();
         checklist_preview.column_spacing = 6;
-        checklist_preview.get_style_context ().add_class ("button");
+        checklist_preview.width_request = 70;
         checklist_preview.get_style_context ().add_class ("checklist-preview");
         var checklist_label = new Gtk.Label ("4/10");
 
-        checklist_preview.add (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.MENU));
+        checklist_preview.add (new Gtk.Image.from_icon_name ("planner-checklist-symbolic", Gtk.IconSize.MENU));
         checklist_preview.add (checklist_label);
 
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
@@ -102,8 +103,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.pack_start (checked_button, false, false, 0);
-        top_box.pack_start (name_eventbox, true, true, 6);
+        top_box.pack_start (name_eventbox, false, false, 0);
         top_box.pack_start (name_entry, true, true, 6);
+        top_box.pack_start (checklist_preview, false, false, 12);
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.8;
@@ -291,7 +293,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         name_eventbox.enter_notify_event.connect ((event) => {
-            //name_label.get_style_context ().add_class ("label-accent");
+            name_label.get_style_context ().add_class ("text-hover");
             get_style_context ().add_class ("task-hover");
 
             return false;
@@ -302,7 +304,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            //name_label.get_style_context ().remove_class ("label-accent");
+            name_label.get_style_context ().remove_class ("text-hover");
             get_style_context ().remove_class ("task-hover");
             return false;
         });
@@ -444,6 +446,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         name_entry.visible = true;
         name_eventbox.visible = false;
+        checklist_preview.visible = false;
 
         close_revealer.halign = Gtk.Align.START;
     }
@@ -459,6 +462,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             name_entry.visible = false;
             name_eventbox.visible = true;
+            checklist_preview.visible = true;
 
             bottom_box_revealer.reveal_child = false;
             close_revealer.halign = Gtk.Align.END;
@@ -489,6 +493,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
                 if (when_button.reminder_datetime.to_string () != task.reminder_time) {
                     task.was_notified = 0;
+
+                    if (when_button.has_reminder) {
+                        string body = _("El recordatorio se lanzara ");
+                        string time = Granite.DateTime.get_relative_datetime (new GLib.DateTime.from_iso8601 (when_button.reminder_datetime.to_string (), new GLib.TimeZone.local ()));
+                        Planner.notification.send_notification (
+                            task.content,
+                            body + time
+                        );
+                    }
                 }
 
                 if (when_button.has_reminder) {

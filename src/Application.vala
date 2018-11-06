@@ -2,6 +2,7 @@ public class Planner : Gtk.Application {
     private MainWindow main_window;
     public static GLib.Settings settings;
     public static Services.Database database;
+    public static Services.Notifications notification;
     public static Utils utils;
 
     public Planner () {
@@ -18,6 +19,8 @@ public class Planner : Gtk.Application {
 
         settings = new Settings ("com.github.artegeek.planner");
         database = new Services.Database ();
+
+        notification = new Services.Notifications ();
     }
 
     protected override void activate () {

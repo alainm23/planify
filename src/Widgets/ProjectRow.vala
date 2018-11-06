@@ -137,7 +137,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 name_label.visible = false;
                 name_entry.visible = true;
 
-                Timeout.add (200, () => {
+                Timeout.add_seconds (200, () => {
 				    name_entry.grab_focus ();
 				    return false;
 			    });

@@ -58,7 +58,6 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         menu_grid.width_request = 200;
 
         menu_grid.add (settings_menuitem);
-
         menu_grid.show_all ();
 
         var menu = new Gtk.Popover (null);
@@ -71,7 +70,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         app_menu.popover = menu;
 
         settings_dialog = new Dialogs.SettingsDialog (window);
-        settings_dialog.destroy.connect (Gtk.main_quit);
+        //settings_dialog.destroy.connect (Gtk.main_quit);
 
         pack_end (app_menu);
         pack_end (mode_switch);

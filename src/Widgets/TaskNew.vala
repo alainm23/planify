@@ -115,7 +115,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         bottom_box.margin_end = 6;
         bottom_box.pack_start (when_button, false, false, 0);
         bottom_box.pack_start (labels, false, false, 0);
-        bottom_box.pack_start (deadline_button, false, false, 0);
+        //bottom_box.pack_start (deadline_button, false, false, 0);
         bottom_box.pack_end (submit_task_button, false, false, 0);
 
         var main_grid = new Gtk.Grid ();

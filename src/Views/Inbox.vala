@@ -88,6 +88,7 @@ public class Views.Inbox : Gtk.EventBox {
         tasks_list.expand = true;
         tasks_list.margin_start = 20;
         tasks_list.margin_end = 6;
+        tasks_list.margin_top = 6;
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
@@ -170,6 +171,8 @@ public class Views.Inbox : Gtk.EventBox {
                     task_on_revealer ();
                 }
             }
+
+            tasks_list.unselect_all ();
         });
 
         this.event.connect ((event) => {
@@ -180,6 +183,7 @@ public class Views.Inbox : Gtk.EventBox {
                 }
             }
 
+            tasks_list.unselect_all ();
             return false;
         });
 
@@ -310,6 +314,8 @@ public class Views.Inbox : Gtk.EventBox {
                 } else {
                     infobar.revealed = false;
                 }
+
+                tasks_list.unselect_all ();
             });
         }
 
@@ -353,5 +359,7 @@ public class Views.Inbox : Gtk.EventBox {
             add_task_revealer.reveal_child = false;
             task_new_revealer.name_entry.grab_focus ();
         }
+
+        tasks_list.unselect_all ();
     }
 }

@@ -11,6 +11,11 @@
     color: @fg_color;
 }
 
+.format-bar {
+    background-color: @bg_color;
+    border-radius: 3px;
+}
+
 .label-child {
     transition: all 150ms ease;
 }
@@ -20,12 +25,12 @@
     color: @fg_color;
 }
 
-.note-view text {
-    background-color: @bg_highlight_color;
+.text-hover {
+    color: #fff;
 }
 
-.checklist-preview {
-    padding: 0px 6px 0px 6px;
+.note-view text {
+    background-color: @bg_highlight_color;
 }
 
 .button-circular {
@@ -146,6 +151,30 @@
 
 .no-padding {
     padding: 0px;
+}
+
+.checklist-preview {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+            #666666,
+                1.3
+            ),
+            #666666
+        );
+    border: 1px solid shade (#666666, 0.9);
+    border-radius: 3px;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 2px alpha (#000, 0.3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px;
+    padding: 2px 6px 2px 6px;
 }
 
 .color-button:hover {
