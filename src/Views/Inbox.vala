@@ -95,7 +95,7 @@ public class Views.Inbox : Gtk.EventBox {
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
-        add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        //add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         add_task_button.tooltip_text = _("Add new task");
 
         add_task_revealer = new Gtk.Revealer ();

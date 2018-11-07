@@ -6,7 +6,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.ListBox checklist;
     private Widgets.WhenButton when_button;
     private Widgets.DeadlineButton deadline_button;
-    private Gtk.Paned paned;
 
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
@@ -44,17 +43,15 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.7;
+        note_view.margin_start = 15;
+        note_view.margin_end = 12;
+        note_view.height_request = 50;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
         note_view.get_style_context ().add_class ("note-view");
 
         var note_view_placeholder_label = new Gtk.Label (_("Note"));
         note_view_placeholder_label.opacity = 0.65;
-
-        var note_scrolled = new Gtk.ScrolledWindow (null, null);
-        note_scrolled.margin_start = 15;
-        note_scrolled.margin_end = 12;
-        note_scrolled.height_request = 80;
-        note_scrolled.add (note_view);
+        note_view.add (note_view_placeholder_label);
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
@@ -80,20 +77,14 @@ public class Widgets.TaskNew : Gtk.Revealer {
         checklist_box.pack_start (checklist_entry, true, true, 6);
 
         var checklist_grid = new Gtk.Grid ();
-        checklist_grid.margin_start = 12;
+        checklist_grid.margin_start = 14;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);
 
-        paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        paned.position = 400;
-        paned.pack1 (note_scrolled, false, false);
-        paned.pack2 (checklist_grid, true, true);
-
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         labels_flowbox.margin_start = 6;
-        labels_flowbox.height_request = 38;
         labels_flowbox.expand = false;
 
         var labels_flowbox_revealer = new Gtk.Revealer ();
@@ -108,6 +99,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         var submit_task_button = new Gtk.Button.with_label (_("Create Task"));
         submit_task_button.valign = Gtk.Align.CENTER;
         submit_task_button.margin_bottom = 6;
+        submit_task_button.margin_start = 12;
         submit_task_button.sensitive = false;
         submit_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
@@ -115,7 +107,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         bottom_box.margin_end = 6;
         bottom_box.pack_start (when_button, false, false, 0);
         bottom_box.pack_start (labels, false, false, 0);
-        //bottom_box.pack_start (deadline_button, false, false, 0);
         bottom_box.pack_end (submit_task_button, false, false, 0);
 
         var main_grid = new Gtk.Grid ();
@@ -129,7 +120,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (name_entry);
-        main_grid.add (paned);
+        main_grid.add (note_view);
+        main_grid.add (checklist_grid);
         main_grid.add (labels_flowbox_revealer);
         main_grid.add (bottom_box);
 
@@ -193,6 +185,22 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 show_all ();
             }
         });
+
+        note_view.focus_out_event.connect (() => {
+            if (note_view.buffer.text == "") {
+                note_view_placeholder_label.visible = true;
+                note_view_placeholder_label.no_show_all = false;
+            }
+
+            return false;
+        });
+
+        note_view.focus_in_event.connect (() => {
+            note_view_placeholder_label.visible = false;
+            note_view_placeholder_label.no_show_all = true;
+
+            return false;
+        });
     }
 
     private bool is_repeted (int id) {
@@ -226,7 +234,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
             task.project_id = project_id;
             task.content = name_entry.text;
             task.note = note_view.buffer.text;
-            task.sidebar_width = paned.position;
             if (is_inbox) {
                 task.is_inbox = 1;
             } else {

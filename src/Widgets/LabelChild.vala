@@ -20,13 +20,9 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
                 inset 0 -1px 0 0 alpha (#fff, 0.1),
                 0 1px 2px alpha (#000, 0.3);
             color: %s;
-            padding: 1 6px;
             font-size: 11px;
             font-weight: 700;
             margin: 2px;
-            min-width: 18px;
-            min-height: 18px;
-            text-shadow: 0 1px 1px alpha (#000, 0.3);
         }
     """;
     public LabelChild (Objects.Label _label) {

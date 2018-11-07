@@ -2,6 +2,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     public Gtk.CheckButton checked_button;
     public Gtk.Entry name_entry;
     public Gtk.Label name_label;
+    private Gtk.EventBox name_eventbox;
 
     public string checklist_name { get; construct; }
     public bool checked { get; construct; }
@@ -42,7 +43,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        var name_eventbox = new Gtk.EventBox ();
+        name_eventbox = new Gtk.EventBox ();
         name_eventbox.margin_start = 3;
         name_eventbox.margin_bottom = 1;
         name_eventbox.add (name_label);
@@ -66,11 +67,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         remove_button.focus_on_click = false;
         remove_button.valign = Gtk.Align.CENTER;
         remove_button.halign = Gtk.Align.CENTER;
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        remove_button.get_style_context ().add_class ("button-overlay-circular");
         remove_button.get_style_context ().add_class ("planner-button-no-focus");
 
         var remove_revealer = new Gtk.Revealer ();
-        remove_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        remove_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         remove_revealer.add (remove_button);
         remove_revealer.reveal_child = false;
 
@@ -98,6 +100,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         eventbox.enter_notify_event.connect ((event) => {
             remove_revealer.reveal_child = true;
+            remove_button.get_style_context ().add_class ("closed");
             return false;
         });
 
@@ -107,6 +110,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
                 return false;
             }
 
+            remove_button.get_style_context ().remove_class ("closed");
             remove_revealer.reveal_child = false;
             return false;
         });
@@ -146,10 +150,11 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private void check_task_completed () {
         if (checked_button.active) {
-            opacity = 0.7;
+            name_eventbox.opacity = 0.7;
+            name_entry.opacity = 0.7;
         } else {
-            opacity = 1;
-            //name_label.label = name_entry.text;
+            name_eventbox.opacity = 1;
+            name_entry.opacity = 1;
         }
     }
 }

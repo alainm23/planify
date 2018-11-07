@@ -1,21 +1,27 @@
 public class Dialogs.SettingsDialog : Gtk.Dialog {
-    public weak MainWindow window { get; construct; }
+    public weak MainWindow parent_window { private get; construct; }
     private Gtk.Stack main_stack;
 
+    public signal void on_close ();
     public SettingsDialog (MainWindow parent) {
-		Object (
-			resizable: false,
-			transient_for: parent,
-			window: parent,
-            use_header_bar: 1,
-            height_request: 400,
-            width_request: 600
-		);
+		 Object (parent_window: parent);
 	}
 
     construct {
+        // Window properties
+        title = _("Preferences");
+        set_size_request (600, 400);
+        resizable = false;
+        deletable = true;
+        destroy_with_parent = true;
+        window_position = Gtk.WindowPosition.CENTER;
+        set_transient_for (parent_window);
+
+        Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
+        headerbar.show_close_button = true;
+
         var general = new FormatButton ();
-        general.icon = new ThemedIcon ("emblem-default");
+        general.icon = new ThemedIcon ("planner-settings");
         general.text = _("General");
 
         var cloud = new FormatButton ();
@@ -36,23 +42,24 @@ public class Dialogs.SettingsDialog : Gtk.Dialog {
         mode_button.append (cloud);
         mode_button.append (calendar);
 
-        var headerbar = get_header_bar () as Gtk.HeaderBar;
-        headerbar.show_close_button = true;
-        headerbar.custom_title = mode_button;
+        var stack = new Gtk.Stack ();
 
-        /*
-        var headerbar = new Gtk.HeaderBar ();
+        var close_button = new Gtk.Button.with_label (_("Close"));
+        close_button.clicked.connect (() => {
+            on_close ();
+            this.destroy ();
+        });
 
+        var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
+        button_box.margin_right = 10;
+        button_box.set_layout (Gtk.ButtonBoxStyle.END);
+        button_box.pack_end (close_button);
 
-        //
-        set_titlebar (headerbar);
+        var content_grid = new Gtk.Grid ();
+        content_grid.attach (mode_button, 0, 0, 1, 1);
+        content_grid.attach (stack, 0, 1, 1, 1);
 
-        main_stack = new Gtk.Stack ();
-        main_stack.expand = true;
-
-        Gtk.Box content = get_content_area () as Gtk.Box;
-        content.pack_start (mode_grid, false, true, 0);
-        */
+        ((Gtk.Container) get_content_area ()).add (content_grid);
     }
 }
 

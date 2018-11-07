@@ -12,13 +12,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
     construct {
         get_style_context ().add_class ("welcome");
-        get_style_context ().add_class ("background");
+        get_style_context ().add_class ("view");
         orientation = Gtk.Orientation.VERTICAL;
 
         items_listbox = new Gtk.ListBox  ();
         items_listbox.activate_on_single_click = true;
         items_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        items_listbox.get_style_context ().add_class ("background");
         items_listbox.hexpand = true;
 
         var inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
@@ -43,7 +42,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         projects_listbox = new Gtk.ListBox  ();
         projects_listbox.activate_on_single_click = true;
         projects_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        projects_listbox.get_style_context ().add_class ("background");
         projects_listbox.expand = true;
 
         var add_project_button = new Gtk.ToggleButton ();
@@ -52,7 +50,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add_project_button.margin = 6;
         add_project_button.width_request = 48;
         add_project_button.get_style_context ().add_class ("button-circular");
-        add_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        //add_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         add_project_button.tooltip_text = _("Add new project");
         add_project_button.add (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
@@ -67,6 +65,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         var action_bar = new Gtk.ActionBar ();
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.get_style_context ().add_class ("planner-button-no-focus");
         action_bar.set_center_widget (add_project_button);
         action_bar.pack_end (settings_button);
 

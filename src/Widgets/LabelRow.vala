@@ -17,6 +17,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
+        get_style_context ().add_class ("item-row");
         can_focus = true;
 
         var icon_label = new Gtk.Image.from_icon_name ("planner-label-symbolic", Gtk.IconSize.MENU);

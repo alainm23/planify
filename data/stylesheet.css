@@ -1,3 +1,6 @@
+@define-color colorPrimary #ffe16b;
+@define-color textColorPrimary #333;
+
 .titlebar {
     padding: 1 6px;
 }
@@ -11,11 +14,6 @@
     color: @fg_color;
 }
 
-.format-bar {
-    background-color: @bg_color;
-    border-radius: 3px;
-}
-
 .label-child {
     transition: all 150ms ease;
 }
@@ -26,11 +24,11 @@
 }
 
 .text-hover {
-    color: #fff;
+    color: #333;
 }
 
 .note-view text {
-    background-color: @bg_highlight_color;
+    background-color: @base_color;
 }
 
 .button-circular {
@@ -38,10 +36,18 @@
 }
 
 .button-overlay-circular {
-    border-radius: 100px;
+    border-radius: 50px;
     padding: 0 0px;
     background-color: @fg_color;
     color: @bg_color;
+}
+
+.button-overlay-circular image {
+    transition: all 240ms ease-in-out;
+}
+
+.button-overlay-circular.closed image {
+    -gtk-icon-transform: rotate(-90deg);
 }
 
 .active-switch slider {
@@ -92,12 +98,24 @@
     border-radius: 3px;
 }
 
+.item-row:selected {
+    background-color: shade (@base_color, 0.8);
+    color: color: @text_color;;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+}
+
+.item-row:selected:focus {
+    background-color: #ffe16b;
+    color: #333;
+}
+
 .planner-radio check {
     border-radius: 50%;
 }
 
 .planner-button-no-focus {
-    background-color: @bg_highlight_color;
+    background-color: @base_color;
 }
 
 .planner-radio-disable check {
@@ -141,7 +159,7 @@
 }
 
 .task-hover {
-    background-color: #3689e6;
+    background-color: #ffe16b;
     border-radius: 3px;
 }
 
@@ -190,7 +208,7 @@
 }
 
 .planner-popover {
-    background-color:  @bg_highlight_color;
+    background-color: @base_color;
 }
 
 .planner-paste-menu {

@@ -69,14 +69,13 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         app_menu.tooltip_text = _("Menu");
         app_menu.popover = menu;
 
-        settings_dialog = new Dialogs.SettingsDialog (window);
-        //settings_dialog.destroy.connect (Gtk.main_quit);
-
         pack_end (app_menu);
         pack_end (mode_switch);
         pack_end (search_entry);
 
         settings_menuitem.clicked.connect (() => {
+            settings_dialog = new Dialogs.SettingsDialog (window);
+            settings_dialog.destroy.connect (Gtk.main_quit);
             settings_dialog.show_all ();
         });
     }

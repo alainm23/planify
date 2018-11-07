@@ -14,8 +14,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Grid checklist_preview;
     private Gtk.ListBox checklist;
 
-    private Gtk.Paned paned;
-
     private Gtk.Box top_box;
     private Gtk.Revealer remove_revealer;
     private Gtk.Revealer close_revealer;
@@ -103,24 +101,25 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.pack_start (checked_button, false, false, 0);
-        top_box.pack_start (name_eventbox, false, false, 0);
+        top_box.pack_start (name_eventbox, true, true, 0);
         top_box.pack_start (name_entry, true, true, 6);
-        top_box.pack_start (checklist_preview, false, false, 12);
+        //top_box.pack_start (checklist_preview, false, false, 12);
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.8;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
+        note_view.height_request = 50;
+        note_view.margin_start = 36;
+        note_view.margin_end = 12;
 		note_view.buffer.text = task.note;
         note_view.get_style_context ().add_class ("note-view");
 
-        var note_scrolled = new Gtk.ScrolledWindow (null, null);
-        note_scrolled.height_request = 100;
-        note_scrolled.margin_start = 36;
-        note_scrolled.margin_end = 12;
-        note_scrolled.add (note_view);
+        var note_view_placeholder_label = new Gtk.Label (_("Note"));
+        note_view_placeholder_label.opacity = 0.65;
+        note_view.add (note_view_placeholder_label);
 
         var note_eventbox = new Gtk.EventBox ();
-        note_eventbox.add (note_scrolled);
+        note_eventbox.add (note_view);
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
@@ -164,15 +163,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         checklist_box.pack_start (checklist_entry, true, true, 6);
 
         var checklist_grid = new Gtk.Grid ();
-        checklist_grid.margin_start = 12;
+        checklist_grid.margin_start = 36;
+        checklist_grid.margin_end = 24;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);
-
-        paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        paned.position = task.sidebar_width;
-        paned.pack1 (note_eventbox, false, false);
-        paned.pack2 (checklist_grid, true, true);
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -181,6 +176,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         labels_flowbox.expand = true;
 
         var labels_flowbox_revealer = new Gtk.Revealer ();
+        labels_flowbox_revealer.margin_start = 22;
+        labels_flowbox_revealer.margin_top = 6;
         labels_flowbox_revealer.add (labels_flowbox);
         labels_flowbox_revealer.reveal_child = false;
 
@@ -224,12 +221,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         projects.append_text ("Project 3");
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_end = 6;
+        action_box.margin_top = 6;
+        action_box.margin_start = 23;
         action_box.pack_start (when_button, false, false, 0);
         action_box.pack_start (labels, false, false, 0);
+        //action_box.pack_end (labels_flowbox_revealer, true, true, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        bottom_box.pack_start (paned);
+        bottom_box.pack_start (note_eventbox);
+        bottom_box.pack_start (checklist_grid);
         bottom_box.pack_start (labels_flowbox_revealer);
         bottom_box.pack_start (action_box);
 
@@ -397,6 +397,21 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             labels_flowbox_revealer.reveal_child = !is_empty (labels_flowbox);
         });
 
+        note_view.focus_out_event.connect (() => {
+            if (note_view.buffer.text == "") {
+                note_view_placeholder_label.visible = true;
+                note_view_placeholder_label.no_show_all = false;
+            }
+
+            return false;
+        });
+
+        note_view.focus_in_event.connect (() => {
+            note_view_placeholder_label.visible = false;
+            note_view_placeholder_label.no_show_all = true;
+
+            return false;
+        });
     }
 
     private bool is_repeted (int id) {
@@ -436,8 +451,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public void show_content () {
         main_grid.get_style_context ().add_class ("popover");
         main_grid.get_style_context ().add_class ("planner-popover");
-        note_view.grab_focus ();
-
+        
         bottom_box_revealer.reveal_child = true;
 
         main_grid.margin_start = 5;
@@ -477,7 +491,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.project_id = task.project_id;
                 task.content = name_entry.text;
                 task.note = note_view.buffer.text;
-                task.sidebar_width = paned.position;
 
                 if (checked_button.active) {
                     task.checked = 1;

@@ -10,9 +10,9 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        get_style_context ().add_class ("planner-button-no-focus");
+        //get_style_context ().add_class ("planner-button-no-focus");
 
-        var label_icon = new Gtk.Image.from_icon_name ("planner-label-symbolic", Gtk.IconSize.MENU);
+        var label_icon = new Gtk.Image.from_icon_name ("planner-label", Gtk.IconSize.MENU);
         var label_name = new Gtk.Label (_("Labels"));
         label_name.margin_bottom = 1;
 
