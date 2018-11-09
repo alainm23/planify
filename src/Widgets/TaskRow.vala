@@ -1,5 +1,7 @@
 public class Widgets.TaskRow : Gtk.ListBoxRow {
     public Objects.Task task { get; construct; }
+    public string view { get; construct; }
+    public int project_id { get; construct; }
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.CheckButton checked_button;
@@ -25,9 +27,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 	};
 
     public signal void on_signal_update ();
-    public TaskRow (Objects.Task _task) {
+    public TaskRow (Objects.Task _task, string _view, int _project_id) {
         Object (
             task: _task,
+            view: _view,
+            project_id: _project_id,
             margin_end: 24
         );
     }
@@ -46,7 +50,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (task.content);
         name_label.halign = Gtk.Align.START;
         name_label.use_markup = true;
-        //name_label.margin_bottom = 1;
+        name_label.margin_bottom = 1;
         name_label.margin_start = 6;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
@@ -78,12 +82,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_button.width_request = 24;
         close_button.get_style_context ().add_class ("button-overlay-circular");
 
-        remove_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
-        remove_button.height_request = 24;
-        remove_button.width_request = 24;
-        remove_button.get_style_context ().add_class ("button-overlay-circular");
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-
         close_revealer = new Gtk.Revealer ();
         close_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         close_revealer.add (close_button);
@@ -91,12 +89,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.valign = Gtk.Align.START;
         close_revealer.halign = Gtk.Align.END;
 
-        remove_revealer = new Gtk.Revealer ();
-        remove_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        remove_revealer.add (remove_button);
-        remove_revealer.reveal_child = false;
-        remove_revealer.valign = Gtk.Align.END;
-        remove_revealer.halign = Gtk.Align.END;
+        remove_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        remove_button.valign = Gtk.Align.CENTER;
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
@@ -117,6 +112,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var note_view_placeholder_label = new Gtk.Label (_("Note"));
         note_view_placeholder_label.opacity = 0.65;
         note_view.add (note_view_placeholder_label);
+
+        if (note_view.buffer.text != "") {
+            note_view_placeholder_label.visible = false;
+            note_view_placeholder_label.no_show_all = true;
+        }
 
         var note_eventbox = new Gtk.EventBox ();
         note_eventbox.add (note_view);
@@ -215,6 +215,24 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var labels = new Widgets.LabelButton ();
 
+        var move_button = new Widgets.MoveButton ();
+
+        move_button.on_selected_project.connect ((is_inbox, project) => {
+            if (is_inbox) {
+                task.is_inbox = 1;
+                task.project_id = 0;
+
+                hide_content ();
+
+                update_task ();
+            } else {
+                task.is_inbox = 0;
+                task.project_id = project.id;
+
+                hide_content ();
+            }
+        });
+
         var projects = new Gtk.ComboBoxText ();
         projects.append_text ("Project 1");
         projects.append_text ("Project 2");
@@ -222,10 +240,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 6;
-        action_box.margin_start = 23;
+        action_box.margin_bottom = 6;
+        action_box.margin_start = 28;
+        action_box.valign = Gtk.Align.CENTER;
         action_box.pack_start (when_button, false, false, 0);
         action_box.pack_start (labels, false, false, 0);
-        //action_box.pack_end (labels_flowbox_revealer, true, true, 0);
+        action_box.pack_end (remove_button, false, false, 0);
+        action_box.pack_end (move_button, false, false, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (note_eventbox);
@@ -451,7 +472,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public void show_content () {
         main_grid.get_style_context ().add_class ("popover");
         main_grid.get_style_context ().add_class ("planner-popover");
-        
+
         bottom_box_revealer.reveal_child = true;
 
         main_grid.margin_start = 5;

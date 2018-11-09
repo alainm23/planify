@@ -94,6 +94,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         when_button = new Widgets.WhenButton ();
         deadline_button = new Widgets.DeadlineButton ();
 
+
         var labels = new Widgets.LabelButton ();
 
         var submit_task_button = new Gtk.Button.with_label (_("Create Task"));

@@ -1,13 +1,12 @@
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Grid main_grid;
-    private bool menu_open = false;
+    public bool menu_open = false;
 
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
 
     public Objects.Project project { get; construct; }
     public MainWindow window { get; construct; }
-
 
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }

@@ -15,14 +15,12 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     public signal void on_signal_selected ();
     public WhenButton () {
         Object (
-            margin_start: 6,
-            margin_bottom: 6
+            valign: Gtk.Align.CENTER
         );
     }
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //get_style_context ().add_class ("planner-button-no-focus");
 
         var duedate_icon = new Gtk.Image.from_icon_name ("planner-when", Gtk.IconSize.MENU);
         duedate_label = new Gtk.Label (when_text);

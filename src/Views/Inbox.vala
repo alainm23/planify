@@ -131,6 +131,7 @@ public class Views.Inbox : Gtk.EventBox {
         scrolled.add (box);
 
         infobar = new Gtk.InfoBar ();
+        //infobar.message_type = Gtk.MessageType.QUESTION;
         infobar.add_button (_("OK"), 1);
         infobar.revealed = false;
 
@@ -295,15 +296,15 @@ public class Views.Inbox : Gtk.EventBox {
         all_tasks = Planner.database.get_all_inbox_tasks ();
 
         foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
+            var row = new Widgets.TaskRow (task, "inbox", 0);
             tasks_list.add (row);
 
             row.on_signal_update.connect (() => {
                 int i = 0;
                 foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var t = element as Widgets.TaskRow;
+                    var item = element as Widgets.TaskRow;
 
-                    if (t.task.when_date_utc != "") {
+                    if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
                         i = i + 1;
                     }
                 }

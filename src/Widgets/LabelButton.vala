@@ -3,14 +3,12 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
     public signal void on_selected_label (Objects.Label label);
     public LabelButton () {
         Object (
-            margin_start: 6,
-            margin_bottom: 6
+            valign: Gtk.Align.CENTER
         );
     }
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //get_style_context ().add_class ("planner-button-no-focus");
 
         var label_icon = new Gtk.Image.from_icon_name ("planner-label", Gtk.IconSize.MENU);
         var label_name = new Gtk.Label (_("Labels"));

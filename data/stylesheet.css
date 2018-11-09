@@ -96,13 +96,20 @@
 
 .item-row {
     border-radius: 3px;
+    color: @text_color;
+}
+
+.item-row:hover {
+    border-radius: 3px;
+    background-color: #fff394;
+    color: #333;
 }
 
 .item-row:selected {
-    background-color: shade (@base_color, 0.8);
-    color: color: @text_color;;
+    background-color: #fff394;
     text-shadow: none;
     -gtk-icon-shadow: none;
+    color: #333;
 }
 
 .item-row:selected:focus {

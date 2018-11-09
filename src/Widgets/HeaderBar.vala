@@ -48,6 +48,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
         Planner.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+    
+        var notification_button = new Gtk.Button.from_icon_name ("preferences-system-notifications-symbolic", Gtk.IconSize.LARGE_TOOLBAR); 
 
         var settings_menuitem = new Gtk.ModelButton ();
         settings_menuitem.text = _("Settings");
@@ -70,7 +72,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         app_menu.popover = menu;
 
         pack_end (app_menu);
-        pack_end (mode_switch);
+        //pack_end (mode_switch);
+        pack_end (notification_button);
         pack_end (search_entry);
 
         settings_menuitem.clicked.connect (() => {
