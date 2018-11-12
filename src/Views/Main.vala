@@ -5,6 +5,7 @@ public class Views.Main : Gtk.Paned {
     private Views.Inbox inbox_view;
     private Views.Today today_view;
     private Views.Tomorrow tomorrow_view;
+    private Views.Project project_view;
 
     public Main () {
         Object (
@@ -20,6 +21,7 @@ public class Views.Main : Gtk.Paned {
         inbox_view = new Views.Inbox ();
         today_view = new Views.Today ();
         tomorrow_view = new Views.Tomorrow ();
+        project_view = new Views.Project ();
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -27,6 +29,7 @@ public class Views.Main : Gtk.Paned {
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (tomorrow_view, "tomorrow_view");
+        stack.add_named (project_view, "project_view");
         stack.visible_child_name = "today_view";
 
         pack1 (projects_list, false, false);
@@ -36,11 +39,20 @@ public class Views.Main : Gtk.Paned {
             if (type == "item") {
                 if (index == 0) {
                     stack.visible_child_name = "inbox_view";
+                    inbox_view.update_tasks_list ();
+                    inbox_view.infobar.revealed = false;
                 } else if (index == 1) {
                     stack.visible_child_name = "today_view";
+                    today_view.update_tasks_list ();
+                    today_view.infobar.revealed = false;
                 } else {
                     stack.visible_child_name = "tomorrow_view";
                 }
+            } else {
+                stack.visible_child_name = "project_view";
+
+                var project = Planner.database.get_project (index);
+                project_view.set_project (project);
             }
         });
     }

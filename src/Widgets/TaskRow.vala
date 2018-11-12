@@ -1,7 +1,5 @@
 public class Widgets.TaskRow : Gtk.ListBoxRow {
     public Objects.Task task { get; construct; }
-    public string view { get; construct; }
-    public int project_id { get; construct; }
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.CheckButton checked_button;
@@ -27,11 +25,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 	};
 
     public signal void on_signal_update ();
-    public TaskRow (Objects.Task _task, string _view, int _project_id) {
+    public TaskRow (Objects.Task _task) {
         Object (
             task: _task,
-            view: _view,
-            project_id: _project_id,
             margin_end: 24
         );
     }
@@ -47,8 +43,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             checked_button.active = false;
         }
 
+        tooltip_text = task.content;
+
         name_label = new Gtk.Label (task.content);
         name_label.halign = Gtk.Align.START;
+        name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
         name_label.margin_bottom = 1;
         name_label.margin_start = 6;
@@ -67,6 +66,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("planner-entry");
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.no_show_all = true;
+        name_entry.secondary_icon_name = "edit-clear-symbolic";
 
         checklist_preview = new Gtk.Grid ();
         checklist_preview.column_spacing = 6;
@@ -240,6 +240,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 6;
+        action_box.margin_end = 6;
         action_box.margin_bottom = 6;
         action_box.margin_start = 28;
         action_box.valign = Gtk.Align.CENTER;
@@ -289,6 +290,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             check_task_completed ();
             show_content ();
         });
+
+        name_entry.icon_press.connect ((pos, event) => {
+			if (pos == Gtk.EntryIconPosition.SECONDARY) {
+				name_entry.text = "";
+			}
+		});
 
         close_button.clicked.connect (() => {
             close_revealer.reveal_child = false;

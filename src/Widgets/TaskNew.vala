@@ -4,7 +4,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.TextView note_view;
     private Gtk.Button close_button;
     private Gtk.ListBox checklist;
-    private Widgets.WhenButton when_button;
+    public Widgets.WhenButton when_button;
     private Widgets.DeadlineButton deadline_button;
 
     public bool is_inbox { get; construct; }
@@ -32,6 +32,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         name_entry.get_style_context ().add_class ("planner-entry");
+        name_entry.secondary_icon_name = "edit-clear-symbolic";
 
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         close_button.get_style_context ().add_class ("button-overlay-circular");
@@ -94,7 +95,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         when_button = new Widgets.WhenButton ();
         deadline_button = new Widgets.DeadlineButton ();
 
-
         var labels = new Widgets.LabelButton ();
 
         var submit_task_button = new Gtk.Button.with_label (_("Create Task"));
@@ -105,6 +105,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
         submit_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         var bottom_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        bottom_box.margin_bottom = 6;
+        bottom_box.margin_start = 6;
         bottom_box.margin_end = 6;
         bottom_box.pack_start (when_button, false, false, 0);
         bottom_box.pack_start (labels, false, false, 0);
@@ -144,6 +146,12 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 submit_task_button.sensitive = true;
             }
         });
+
+        name_entry.icon_press.connect ((pos, event) => {
+			if (pos == Gtk.EntryIconPosition.SECONDARY) {
+				name_entry.text = "";
+			}
+		});
 
         submit_task_button.clicked.connect (add_task);
 
@@ -235,6 +243,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
             task.project_id = project_id;
             task.content = name_entry.text;
             task.note = note_view.buffer.text;
+
             if (is_inbox) {
                 task.is_inbox = 1;
             } else {

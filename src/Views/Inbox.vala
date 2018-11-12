@@ -4,7 +4,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
     private Gtk.Revealer add_task_revealer;
-    private Gtk.InfoBar infobar;
+    public Gtk.InfoBar infobar;
     private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
 
@@ -30,6 +30,18 @@ public class Views.Inbox : Gtk.EventBox {
         inbox_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         inbox_name.use_markup = true;
 
+        var show_all_button = new Gtk.Button.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
+        show_all_button.get_style_context ().add_class ("planner-paste-menu");
+        show_all_button.tooltip_text = _("Paste");
+        show_all_button.valign = Gtk.Align.CENTER;
+        show_all_button.halign = Gtk.Align.CENTER;
+
+        var hide_all_button = new Gtk.Button.from_icon_name ("zoom-out-symbolic", Gtk.IconSize.MENU);
+        hide_all_button.get_style_context ().add_class ("planner-paste-menu");
+        hide_all_button.tooltip_text = _("Paste");
+        hide_all_button.valign = Gtk.Align.CENTER;
+        hide_all_button.halign = Gtk.Align.CENTER;
+
         var paste_button = new Gtk.Button.from_icon_name ("planner-paste-symbolic", Gtk.IconSize.MENU);
         paste_button.get_style_context ().add_class ("planner-paste-menu");
         paste_button.tooltip_text = _("Paste");
@@ -54,6 +66,8 @@ public class Views.Inbox : Gtk.EventBox {
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
 
+        action_grid.add (show_all_button);
+        action_grid.add (hide_all_button);
         action_grid.add (labels_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
@@ -95,7 +109,6 @@ public class Views.Inbox : Gtk.EventBox {
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
-        //add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         add_task_button.tooltip_text = _("Add new task");
 
         add_task_revealer = new Gtk.Revealer ();
@@ -131,9 +144,9 @@ public class Views.Inbox : Gtk.EventBox {
         scrolled.add (box);
 
         infobar = new Gtk.InfoBar ();
-        //infobar.message_type = Gtk.MessageType.QUESTION;
         infobar.add_button (_("OK"), 1);
         infobar.revealed = false;
+        infobar.get_style_context ().add_class ("planner-infobar");
 
         infobar_label = new Gtk.Label ("");
         infobar.get_content_area ().add (infobar_label);
@@ -166,10 +179,13 @@ public class Views.Inbox : Gtk.EventBox {
                 notification_toast.title = _("No clipboard text");
                 notification_toast.send_notification ();
             } else {
-                task_new_revealer.name_entry.text = text ?? "";
+                var task = new Objects.Task ();
+                task.content = text;
+                task.is_inbox = 1;
 
-                if (task_new_revealer.reveal_child == false) {
-                    task_on_revealer ();
+                if (Planner.database.add_task (task) == Sqlite.DONE) {
+                    notification_toast.title = _("Clipboard task created");
+                    notification_toast.send_notification ();
                 }
             }
 
@@ -186,6 +202,20 @@ public class Views.Inbox : Gtk.EventBox {
 
             tasks_list.unselect_all ();
             return false;
+        });
+
+        hide_all_button.clicked.connect (() => {
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+                row.hide_content ();
+            }
+        });
+
+        show_all_button.clicked.connect (() => {
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+                row.show_content ();
+            }
         });
 
         settings_button.toggled.connect (() => {
@@ -282,7 +312,7 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Planner.database.add_inbox_task_signal.connect (() => {
+        Planner.database.add_task_signal.connect (() => {
             update_tasks_list ();
         });
     }
@@ -296,11 +326,12 @@ public class Views.Inbox : Gtk.EventBox {
         all_tasks = Planner.database.get_all_inbox_tasks ();
 
         foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task, "inbox", 0);
+            var row = new Widgets.TaskRow (task);
             tasks_list.add (row);
 
             row.on_signal_update.connect (() => {
                 int i = 0;
+
                 foreach (Gtk.Widget element in tasks_list.get_children ()) {
                     var item = element as Widgets.TaskRow;
 

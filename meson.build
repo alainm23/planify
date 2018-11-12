@@ -34,6 +34,7 @@ executable(
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
     'src/Views/Tomorrow.vala',
+    'src/Views/Project.vala',
 
     'src/Dialogs/SettingsDialog.vala',
 

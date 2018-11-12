@@ -3,6 +3,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Widgets.ItemRow inbox_item;
     private Widgets.ItemRow today_item;
     private Widgets.ItemRow tomorrow_item;
+    private Gtk.Separator separator;
 
     public signal void on_selected_item (string type, int index);
 
@@ -21,7 +22,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
         inbox_item.number_label.label = Planner.database.get_inbox_number ();
 
         today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
+        today_item.number_label.label = Planner.database.get_today_number ();
+
         tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "planner-tomorrow");
+        tomorrow_item.margin_bottom = 6;
+
+        check_number_labels ();
 
         listbox = new Gtk.ListBox  ();
         listbox.activate_on_single_click = true;
@@ -66,7 +72,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add (action_bar);
 
         add_project_button.grab_focus ();
-
         update_project_list ();
 
         // Events
@@ -84,21 +89,49 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         add_popover.on_add_project_signal.connect (() => {
             update_project_list ();
+            listbox.invalidate_headers ();
         });
 
-        listbox.row_selected.connect ((project_row) => {
-            if (project_row.get_index () == 0 || project_row.get_index () == 1 || project_row.get_index () == 2) {
-                on_selected_item ("item", project_row.get_index ());
+        listbox.row_selected.connect ((row) => {
+            if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2) {
+                on_selected_item ("item", row.get_index ());
+            } else {
+                var project = row as Widgets.ProjectRow;
+                on_selected_item ("project", project.project.id);
             }
         });
 
-        Planner.database.add_inbox_task_signal.connect (() => {
+        Planner.database.add_task_signal.connect (() => {
             inbox_item.number_label.label = Planner.database.get_inbox_number ();
+            today_item.number_label.label = Planner.database.get_today_number ();
+
+            check_number_labels ();
         });
 
-        Planner.database.update_inbox_task_signal.connect (() => {
+        Planner.database.update_task_signal.connect (() => {
             inbox_item.number_label.label = Planner.database.get_inbox_number ();
+            today_item.number_label.label = Planner.database.get_today_number ();
+
+            check_number_labels ();
         });
+    }
+
+    private void check_number_labels () {
+        if (int.parse (inbox_item.number_label.label) <= 0) {
+            inbox_item.number_label.visible = false;
+            inbox_item.number_label.no_show_all = true;
+        } else {
+            inbox_item.number_label.visible = true;
+            inbox_item.number_label.no_show_all = false;
+        }
+
+        if (int.parse (today_item.number_label.label) < 0) {
+            today_item.number_label.visible = false;
+            today_item.number_label.no_show_all = true;
+        } else {
+            today_item.number_label.visible = true;
+            today_item.number_label.no_show_all = false;
+        }
     }
 
     public void update_project_list () {
@@ -122,7 +155,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
         separator.margin_top = 6;
         separator.margin_bottom = 6;
 
-        listbox.insert (separator, 3);
+        var separator_row = new Gtk.ListBoxRow ();
+        separator_row.selectable = false;
+        separator_row.activatable = false;
+        separator_row.add (separator);
+
+        listbox.insert (separator_row, 3);
 
         listbox.show_all ();
     }

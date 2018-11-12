@@ -1,5 +1,7 @@
-@define-color colorPrimary #ffe16b;
-@define-color textColorPrimary #333;
+@define-color headerbar_color #ffe16b;
+
+@define-color colorPrimary @headerbar_color;
+@define-color textColorPrimary #3331;
 
 .titlebar {
     padding: 1 6px;
@@ -139,6 +141,10 @@
                 0.97
             )
         );
+}
+
+.planner-infobar revealer box {
+    background-color: @base_color;
 }
 
 .duedate-item {

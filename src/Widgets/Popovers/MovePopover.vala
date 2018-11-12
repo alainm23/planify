@@ -21,6 +21,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         projects_listbox.activate_on_single_click = true;
         projects_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         projects_listbox.expand = true;
+        projects_listbox.set_header_func (update_headers);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.expand = true;
@@ -89,13 +90,18 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         inbox_row.get_style_context ().add_class ("item-row");
         inbox_row.add (grid);
 
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 6;
-        separator.margin_bottom = 6;
-
         projects_listbox.insert (inbox_row, 0);
-        projects_listbox.insert (separator, 1);
-
         projects_listbox.show_all ();
+
+        projects_listbox.invalidate_headers ();
+    }
+
+    private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
+        if (row == projects_listbox.get_row_at_index (1)) {
+            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            separator.margin_top = 6;
+            separator.margin_bottom = 6;
+            row.set_header (separator);
+        }
     }
 }
