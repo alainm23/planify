@@ -36,7 +36,7 @@ executable(
     'src/Views/Tomorrow.vala',
     'src/Views/Project.vala',
 
-    'src/Dialogs/SettingsDialog.vala',
+    'src/Dialogs/PreferencesDialog.vala',
 
     'src/Widgets/WhenButton.vala',
     'src/Widgets/DeadlineButton.vala',
@@ -60,6 +60,7 @@ executable(
     'src/Widgets/Popovers/LabelsPopover.vala',
     'src/Widgets/Popovers/DeadlinePopover.vala',
     'src/Widgets/Popovers/MovePopover.vala',
+    'src/Widgets/Popovers/NotificationsPopover.vala',
 
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',

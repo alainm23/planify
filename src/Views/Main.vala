@@ -39,10 +39,12 @@ public class Views.Main : Gtk.Paned {
             if (type == "item") {
                 if (index == 0) {
                     stack.visible_child_name = "inbox_view";
+
                     inbox_view.update_tasks_list ();
                     inbox_view.infobar.revealed = false;
                 } else if (index == 1) {
                     stack.visible_child_name = "today_view";
+
                     today_view.update_tasks_list ();
                     today_view.infobar.revealed = false;
                 } else {

@@ -4,7 +4,6 @@ public class Planner : Gtk.Application {
     public static Services.Database database;
     public static Services.Notifications notification;
     public static Utils utils;
-    public static Unity.LauncherEntry launcher;
 
     public const string CSS = """
         @define-color headerbar_color %s;
@@ -26,10 +25,6 @@ public class Planner : Gtk.Application {
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
-
-        launcher = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
-        launcher.count = 2;
-        launcher.count_visible = 2 != 0U;
     }
 
     protected override void activate () {

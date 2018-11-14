@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-  <schema path="/com/github/artegeek/planner/" id="com.github.artegeek.planner" gettext-domain="com.github.artegeek.planner">
-    <key name="prefer-dark-style" type="b">
-      <default>false</default>
-      <summary>If the dark Gtk stylesheet should be used</summary>
-      <description>If the dark Gtk stylesheet should be used</description>
-    </key>
+    <enum id="com.github.artegeek.planner.badge-count">
+        <value nick="None" value="0" />
+        <value nick="Inbox" value="1" />
+        <value nick="Today" value="2" />
+        <value nick="Today + Inbox" value="3" />
+        <value nick="Notifications" value="4" />
+    </enum>
+    <schema path="/com/github/artegeek/planner/" id="com.github.artegeek.planner" gettext-domain="com.github.artegeek.planner">
+        <key name="prefer-dark-style" type="b">
+            <default>false</default>
+            <summary>If the dark Gtk stylesheet should be used</summary>
+            <description>If the dark Gtk stylesheet should be used</description>
+        </key>
 
-    <key name="window-size" type="ai">
-      <default>[1000, 700]</default>
-      <summary>Most recent window size (height, width)</summary>
-      <description>Most recent window size (height, width)</description>
-    </key>
+        <key name="badge-count" enum="com.github.artegeek.planner.badge-count">
+            <default>"None"</default>
+            <summary>Choose which items should be counted for the badge on the application icon</summary>
+            <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
 
-     <key name="window-position" type="ai">
-      <default>[-1, -1]</default>
-      <summary>Most recent window position (x, y)</summary>
-      <description>Most recent window position (x, y)</description>
-    </key>
+        <key name="window-size" type="ai">
+            <default>[1000, 700]</default>
+            <summary>Most recent window size (height, width)</summary>
+            <description>Most recent window size (height, width)</description>
+        </key>
 
-    <key name="project-sidebar-width" type="i">
-      <default>312</default>
-      <summary>Project Sidebar Width</summary>
-      <description>Save the width of the sidebar in the Project List</description>
-    </key>
-  </schema>
+        <key name="window-position" type="ai">
+            <default>[-1, -1]</default>
+            <summary>Most recent window position (x, y)</summary>
+            <description>Most recent window position (x, y)</description>
+        </key>
+
+        <key name="project-sidebar-width" type="i">
+            <default>312</default>
+            <summary>Project Sidebar Width</summary>
+            <description>Save the width of the sidebar in the Project List</description>
+        </key>
+    </schema>
 </schemalist>

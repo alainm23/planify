@@ -432,7 +432,7 @@ public class Services.Database : GLib.Object {
 
     }
 
-    public string get_inbox_number () {
+    public int get_inbox_number () {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 and checked = 0 AND when_date_utc = ''",
@@ -449,10 +449,10 @@ public class Services.Database : GLib.Object {
             all.add (task);
         }
 
-        return all.size.to_string ();
+        return all.size;
     }
 
-    public string get_today_number () {
+    public int get_today_number () {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("SELECT * FROM TASKS",
@@ -472,7 +472,7 @@ public class Services.Database : GLib.Object {
             }
         }
 
-        return all.size.to_string ();
+        return all.size;
     }
 
     public int add_label (Objects.Label label) {

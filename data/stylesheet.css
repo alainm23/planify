@@ -147,6 +147,10 @@
     background-color: @base_color;
 }
 
+.planner-preferences-headerbar {
+    background-color: @base_color;
+}
+
 .duedate-item {
     transition: all 200ms ease;
     background-color: alpha (@text_color, 0.15);
@@ -245,6 +249,22 @@
     background-color: #FCEDFF;
     border-radius: 6px;
     border: 0.5px solid #CA55E2;
+    padding: 3px;
+}
+
+.planner-zoom-in-menu {
+    color: #00CCA5;
+    background-color: #DAFDF4;
+    border-radius: 6px;
+    border: 0.5px solid #00CCA5;
+    padding: 3px;
+}
+
+.planner-zoom-out-menu {
+    color: #48C522;
+    background-color: #DBFCCE;
+    border-radius: 6px;
+    border: 0.5px solid #48C522;
     padding: 3px;
 }
 

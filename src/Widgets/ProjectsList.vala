@@ -19,10 +19,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
         orientation = Gtk.Orientation.VERTICAL;
 
         inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
-        inbox_item.number_label.label = Planner.database.get_inbox_number ();
+        inbox_item.number_label.label = Planner.database.get_inbox_number ().to_string ();
 
         today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
-        today_item.number_label.label = Planner.database.get_today_number ();
+        today_item.number_label.label = Planner.database.get_today_number ().to_string ();
 
         tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "planner-tomorrow");
         tomorrow_item.margin_bottom = 6;
@@ -89,10 +89,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         add_popover.on_add_project_signal.connect (() => {
             update_project_list ();
-            listbox.invalidate_headers ();
         });
 
-        listbox.row_selected.connect ((row) => {
+
+        listbox.row_activated.connect ((row) => {
             if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2) {
                 on_selected_item ("item", row.get_index ());
             } else {
@@ -102,15 +102,15 @@ public class Widgets.ProjectsList : Gtk.Grid {
         });
 
         Planner.database.add_task_signal.connect (() => {
-            inbox_item.number_label.label = Planner.database.get_inbox_number ();
-            today_item.number_label.label = Planner.database.get_today_number ();
+            inbox_item.number_label.label = Planner.database.get_inbox_number ().to_string ();
+            today_item.number_label.label = Planner.database.get_today_number ().to_string ();
 
             check_number_labels ();
         });
 
         Planner.database.update_task_signal.connect (() => {
-            inbox_item.number_label.label = Planner.database.get_inbox_number ();
-            today_item.number_label.label = Planner.database.get_today_number ();
+            inbox_item.number_label.label = Planner.database.get_inbox_number ().to_string ();
+            today_item.number_label.label = Planner.database.get_today_number ().to_string ();
 
             check_number_labels ();
         });
@@ -125,7 +125,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             inbox_item.number_label.no_show_all = false;
         }
 
-        if (int.parse (today_item.number_label.label) < 0) {
+        if (int.parse (today_item.number_label.label) <= 0) {
             today_item.number_label.visible = false;
             today_item.number_label.no_show_all = true;
         } else {

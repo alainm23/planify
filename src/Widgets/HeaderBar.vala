@@ -1,6 +1,5 @@
 public class Widgets.HeaderBar : Gtk.HeaderBar {
     public weak MainWindow window { get; construct; }
-    public Dialogs.SettingsDialog settings_dialog;
 
     public const string CSS = """
         @define-color headerbar_color %s;
@@ -14,10 +13,11 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     }
 
     construct {
-        get_style_context ().add_class ("compact");
+        //get_style_context ().add_class ("compact");
 
         var search_entry = new Gtk.SearchEntry ();
-        search_entry.width_request = 200;
+        search_entry.width_request = 250;
+        search_entry.margin_end = 12;
         search_entry.valign = Gtk.Align.CENTER;
         search_entry.placeholder_text = _("Quick search");
 
@@ -27,20 +27,31 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         mode_switch.secondary_icon_tooltip_text = ("Dark background");
         mode_switch.valign = Gtk.Align.CENTER;
 
-        var gtk_settings = Gtk.Settings.get_default ();
-
-        mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
-        Planner.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
-
-        var notification_button = new Gtk.Button.from_icon_name ("preferences-system-notifications", Gtk.IconSize.LARGE_TOOLBAR);
-
         var label = new Gtk.Label (_("Night Mode"));
         label.margin_start = 6;
 
-        var night_mode_menuitem = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        night_mode_menuitem.get_style_context ().add_class ("menuitem");
-        night_mode_menuitem.pack_start (label, false, false, 0);
-        night_mode_menuitem.pack_end (mode_switch, false, false, 0);
+        var night_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        night_mode_box.get_style_context ().add_class ("menuitem");
+        night_mode_box.pack_start (label, false, false, 0);
+        night_mode_box.pack_end (mode_switch, false, false, 0);
+
+        var night_mode_eventbox = new Gtk.EventBox ();
+        night_mode_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        night_mode_eventbox.get_style_context ().add_class ("menuitem");
+        night_mode_eventbox.add (night_mode_box);
+
+        var notification_menu = new Gtk.ToggleButton ();
+        notification_menu.border_width = 6;
+        notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        notification_menu.tooltip_text = _("Notifications");
+
+        var notification_icon = new Gtk.Image ();
+        notification_icon.gicon = new ThemedIcon ("notification-new-symbolic");
+        notification_icon.pixel_size = 20;
+
+        notification_menu.add (notification_icon);
+
+        var notifications_popover = new Widgets.Popovers.NotificationsPopover (notification_menu);
 
         var preferences_menuitem = new Gtk.ModelButton ();
         preferences_menuitem.text = _("Preferences");
@@ -51,23 +62,41 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         menu_grid.width_request = 250;
 
         menu_grid.add (get_overview ());
-        menu_grid.add (night_mode_menuitem);
+        menu_grid.add (night_mode_eventbox);
         menu_grid.add (preferences_menuitem);
         menu_grid.show_all ();
 
-        var menu = new Gtk.Popover (null);
-        menu.add (menu_grid);
+        var menu_popover = new Gtk.Popover (null);
+        menu_popover.add (menu_grid);
 
         var app_menu = new Gtk.MenuButton ();
-        app_menu.border_width = 4;
-        app_menu.image = new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR);
+        app_menu.border_width = 6;
+
         app_menu.tooltip_text = _("Menu");
-        app_menu.popover = menu;
+        app_menu.popover = menu_popover;
+
+        var menu_icon = new Gtk.Image ();
+        menu_icon.gicon = new ThemedIcon ("open-menu-symbolic");
+        menu_icon.pixel_size = 20;
+
+        app_menu.image = menu_icon;
+
+        notification_menu.add (notification_icon);
 
         pack_end (app_menu);
-        //pack_end (mode_switch);
-        pack_end (notification_button);
+        pack_end (notification_menu);
         pack_end (search_entry);
+
+        // Signals
+        notification_menu.toggled.connect (() => {
+          if (notification_menu.active) {
+            notifications_popover.show_all ();
+          }
+        });
+
+        notifications_popover.closed.connect (() => {
+            notification_menu.active = false;
+        });
 
         mode_switch.notify["active"].connect (() => {
             var provider = new Gtk.CssProvider ();
@@ -89,9 +118,39 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         });
 
         preferences_menuitem.clicked.connect (() => {
-            settings_dialog = new Dialogs.SettingsDialog (window);
-            settings_dialog.destroy.connect (Gtk.main_quit);
-            settings_dialog.show_all ();
+            var preferences_dialog = new Dialogs.PreferencesDialog (window);
+            preferences_dialog.destroy.connect (Gtk.main_quit);
+            preferences_dialog.show_all ();
+        });
+
+        var gtk_settings = Gtk.Settings.get_default ();
+        mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
+        Planner.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+
+        night_mode_eventbox.enter_notify_event.connect ((event) => {
+            night_mode_eventbox.get_style_context ().add_class ("duedate-item");
+            return false;
+        });
+
+        night_mode_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            night_mode_eventbox.get_style_context ().remove_class ("duedate-item");
+            return false;
+        });
+
+        night_mode_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (mode_switch.active) {
+                    mode_switch.active = false;
+                } else {
+                    mode_switch.active = true;
+                }
+            }
+
+            return false;
         });
     }
 

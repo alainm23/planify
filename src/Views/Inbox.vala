@@ -31,14 +31,14 @@ public class Views.Inbox : Gtk.EventBox {
         inbox_name.use_markup = true;
 
         var show_all_button = new Gtk.Button.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
-        show_all_button.get_style_context ().add_class ("planner-paste-menu");
-        show_all_button.tooltip_text = _("Paste");
+        show_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
+        show_all_button.tooltip_text = _("Open all tasks");
         show_all_button.valign = Gtk.Align.CENTER;
         show_all_button.halign = Gtk.Align.CENTER;
 
         var hide_all_button = new Gtk.Button.from_icon_name ("zoom-out-symbolic", Gtk.IconSize.MENU);
-        hide_all_button.get_style_context ().add_class ("planner-paste-menu");
-        hide_all_button.tooltip_text = _("Paste");
+        hide_all_button.get_style_context ().add_class ("planner-zoom-out-menu");
+        hide_all_button.tooltip_text = _("Close all tasks");
         hide_all_button.valign = Gtk.Align.CENTER;
         hide_all_button.halign = Gtk.Align.CENTER;
 
@@ -66,11 +66,11 @@ public class Views.Inbox : Gtk.EventBox {
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
 
-        action_grid.add (show_all_button);
-        action_grid.add (hide_all_button);
         action_grid.add (labels_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
+        action_grid.add (show_all_button);
+        action_grid.add (hide_all_button);
 
         var action_revealer = new Gtk.Revealer ();
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -337,6 +337,7 @@ public class Views.Inbox : Gtk.EventBox {
 
                     if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
                         i = i + 1;
+                        item.name_label.opacity = 0.7;
                     }
                 }
 
@@ -351,7 +352,7 @@ public class Views.Inbox : Gtk.EventBox {
             });
         }
 
-        show_all ();
+        tasks_list.show_all ();
     }
 
     private bool is_repeted (int id) {

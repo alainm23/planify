@@ -3,7 +3,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.CheckButton checked_button;
-    private Gtk.Label name_label;
+    public Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Button close_button;
     private Gtk.Button remove_button;
@@ -491,6 +491,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         checklist_preview.visible = false;
 
         close_revealer.halign = Gtk.Align.START;
+        has_tooltip = false;
     }
 
     public void hide_content () {
@@ -510,6 +511,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             close_revealer.halign = Gtk.Align.END;
 
             update_task ();
+            tooltip_text = name_entry.text;
+            has_tooltip = true;
         }
     }
 

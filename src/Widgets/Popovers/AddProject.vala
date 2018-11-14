@@ -130,7 +130,7 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
         color_hex_revealer.add (color_grid);
         color_hex_revealer.reveal_child = false;
 
-        var duedate_label = new Granite.HeaderLabel (_("Duedate"));
+        var duedate_label = new Granite.HeaderLabel (_("Deadline"));
         duedate_label.margin_top = 6;
 
         duedate_switch = new Gtk.Switch ();

@@ -10,7 +10,6 @@ public class Views.Today : Gtk.EventBox {
 
     private Widgets.Popovers.LabelsPopover labels_popover;
     private Granite.Widgets.Toast notification_toast;
-
     public Today () {
         Object (
             expand: true
@@ -30,6 +29,18 @@ public class Views.Today : Gtk.EventBox {
         var today_name = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         today_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         today_name.use_markup = true;
+
+        var show_all_button = new Gtk.Button.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
+        show_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
+        show_all_button.tooltip_text = _("Open all tasks");
+        show_all_button.valign = Gtk.Align.CENTER;
+        show_all_button.halign = Gtk.Align.CENTER;
+
+        var hide_all_button = new Gtk.Button.from_icon_name ("zoom-out-symbolic", Gtk.IconSize.MENU);
+        hide_all_button.get_style_context ().add_class ("planner-zoom-out-menu");
+        hide_all_button.tooltip_text = _("Close all tasks");
+        hide_all_button.valign = Gtk.Align.CENTER;
+        hide_all_button.halign = Gtk.Align.CENTER;
 
         var paste_button = new Gtk.Button.from_icon_name ("planner-paste-symbolic", Gtk.IconSize.MENU);
         paste_button.get_style_context ().add_class ("planner-paste-menu");
@@ -58,6 +69,8 @@ public class Views.Today : Gtk.EventBox {
         action_grid.add (labels_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
+        action_grid.add (show_all_button);
+        action_grid.add (hide_all_button);
 
         var action_revealer = new Gtk.Revealer ();
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -194,6 +207,20 @@ public class Views.Today : Gtk.EventBox {
             }
 
             tasks_list.unselect_all ();
+        });
+
+        hide_all_button.clicked.connect (() => {
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+                row.hide_content ();
+            }
+        });
+
+        show_all_button.clicked.connect (() => {
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+                row.show_content ();
+            }
         });
 
         this.event.connect ((event) => {
@@ -339,6 +366,7 @@ public class Views.Today : Gtk.EventBox {
 
                     if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {
                         i = i + 1;
+                        item.name_label.opacity = 0.7;
                     }
                 }
 
