@@ -65,6 +65,7 @@ executable(
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
     'src/Objects/Label.vala',
+    'src/Objects/Notification.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('glib-2.0'),

@@ -70,6 +70,22 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         reminder_timepicker.margin_start = 6;
         reminder_timepicker.margin_end = 6;
 
+        reminder_timepicker.activate.connect (() => {
+            if (item_selected == 0) {
+                var duedate_now = new GLib.DateTime.now_local ();
+                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
+                popdown ();
+            } else if (item_selected == 1) {
+                var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+                on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+                popdown ();
+            } else {
+                var duedate = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
+                on_selected_date (duedate, reminder_switch.active, reminder_timepicker.time);
+                popdown ();
+            }        
+        });
+
         var timepicker_revealer = new Gtk.Revealer ();
         timepicker_revealer.margin_start = 3;
         timepicker_revealer.reveal_child = false;

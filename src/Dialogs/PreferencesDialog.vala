@@ -32,7 +32,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
         //headerbar.custom_title = mode_button;
         //headerbar.spacing = 0;
-        //headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
+        headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -53,7 +53,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         button_box.pack_end (close_button);
 
         var content_grid = new Gtk.Grid ();
-        content_grid.attach (mode_button, 0, 0, 1, 1);
+        //content_grid.attach (mode_button, 0, 0, 1, 1);
         content_grid.attach (main_stack, 0, 1, 1, 1);
 
         ((Gtk.Container) get_content_area ()).add (content_grid);

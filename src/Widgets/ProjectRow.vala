@@ -14,29 +14,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public const string COLOR_CSS = """
         .proyect-%i {
-            background-image:
-                linear-gradient(
-                    to bottom,
-                    shade (
-                    %s,
-                        1.3
-                    ),
-                    %s
-                );
-            border: 1px solid shade (%s, 0.9);
-            border-radius: 12px;
-            box-shadow:
-                inset 0 0 0 1px alpha (#fff, 0.05),
-                inset 0 1px 0 0 alpha (#fff, 0.25),
-                inset 0 -1px 0 0 alpha (#fff, 0.1),
-                0 1px 2px alpha (#000, 0.3);
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            margin: 2px;
-            min-width: 18px;
-            min-height: 18px;
-            text-shadow: 0 1px 1px alpha (#000, 0.3);
+            color: %s;
         }
     """;
 
@@ -53,11 +31,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         can_focus = true;
         get_style_context ().add_class ("item-row");
 
-        var label_color = new Gtk.Label (null);
+        //var label_color = new Gtk.Image ("mail-unread-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        var label_color = new Gtk.Image ();
+        label_color.gicon = new ThemedIcon ("mail-unread-symbolic");
         label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
-        label_color.valign = Gtk.Align.CENTER;
-        label_color.height_request = 16;
-        label_color.width_request = 16;
+        label_color.pixel_size = 24;
 
         name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -108,7 +86,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (project.id, project.color, project.color, project.color);
+            var colored_css = COLOR_CSS.printf (
+                project.id,
+                project.color);
             provider.load_from_data (colored_css, colored_css.length);
 
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
