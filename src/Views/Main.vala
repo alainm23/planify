@@ -1,6 +1,6 @@
 public class Views.Main : Gtk.Paned {
     public Widgets.ProjectsList projects_list;
-    private Gtk.Stack stack;
+    public Gtk.Stack stack;
 
     private Views.Inbox inbox_view;
     private Views.Today today_view;
@@ -30,7 +30,19 @@ public class Views.Main : Gtk.Paned {
         stack.add_named (today_view, "today_view");
         stack.add_named (tomorrow_view, "tomorrow_view");
         stack.add_named (project_view, "project_view");
-        stack.visible_child_name = "today_view";
+
+        stack.visible_child = tomorrow_view;
+        /*
+        var start_page = Planner.settings.get_enum ("start-page");
+
+        if (start_page == 0) {
+            stack.visible_child_name = "inbox_view";
+        } else if (start_page == 1) {
+            stack.visible_child_name = "today_view";
+        } else {
+            stack.visible_child_name = "tomorrow_view";
+        }
+        */
 
         pack1 (projects_list, false, false);
         pack2 (stack, true, true);
@@ -38,20 +50,20 @@ public class Views.Main : Gtk.Paned {
         projects_list.on_selected_item.connect ((type, index) => {
             if (type == "item") {
                 if (index == 0) {
-                    stack.visible_child_name = "inbox_view";
+                    stack.visible_child = inbox_view;
 
                     inbox_view.update_tasks_list ();
                     inbox_view.infobar.revealed = false;
                 } else if (index == 1) {
-                    stack.visible_child_name = "today_view";
+                    stack.visible_child = today_view;
 
                     today_view.update_tasks_list ();
                     today_view.infobar.revealed = false;
                 } else {
-                    stack.visible_child_name = "tomorrow_view";
+                    stack.visible_child = tomorrow_view;
                 }
             } else {
-                stack.visible_child_name = "project_view";
+                stack.visible_child = project_view;
 
                 var project = Planner.database.get_project (index);
                 project_view.set_project (project);

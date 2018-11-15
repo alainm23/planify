@@ -73,7 +73,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         add_project_button.grab_focus ();
         update_project_list ();
-
+    
         // Events
         var add_popover = new Widgets.Popovers.AddProject (add_project_button);
 

@@ -26,7 +26,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         duedate_label = new Gtk.Label (when_text);
         duedate_label.margin_bottom = 1;
 
-        var reminder_icon = new Gtk.Image.from_icon_name ("preferences-system-notifications-symbolic", Gtk.IconSize.MENU);
+        var reminder_icon = new Gtk.Image.from_icon_name ("notification-new-symbolic", Gtk.IconSize.MENU);
         reminder_label = new Gtk.Label ("");
 
         reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

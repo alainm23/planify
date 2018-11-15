@@ -99,8 +99,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
         var submit_task_button = new Gtk.Button.with_label (_("Create Task"));
         submit_task_button.valign = Gtk.Align.CENTER;
-        submit_task_button.margin_bottom = 6;
-        submit_task_button.margin_start = 12;
         submit_task_button.sensitive = false;
         submit_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 

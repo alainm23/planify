@@ -30,7 +30,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.append_text ("Calendar");
 
         Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
-        headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
+        //headerbar.custom_title = mode_button;
+        //headerbar.spacing = 0;
+        //headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -95,8 +97,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		start_page_combobox.append_text (_("Inbox"));
 		start_page_combobox.append_text (_("Today"));
         start_page_combobox.append_text (_("Tomorrow"));
-		start_page_combobox.append_text (_("Last Project"));
-		start_page_combobox.active = 0;
+		start_page_combobox.active = 1;
 
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         start_page_box.hexpand = true;

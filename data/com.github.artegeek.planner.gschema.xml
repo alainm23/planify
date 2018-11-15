@@ -7,6 +7,13 @@
         <value nick="Today + Inbox" value="3" />
         <value nick="Notifications" value="4" />
     </enum>
+
+    <enum id="com.github.artegeek.planner.start-page">
+        <value nick="Inbox" value="0" />
+        <value nick="Today" value="1" />
+        <value nick="Tomorrow" value="2" />
+    </enum>
+
     <schema path="/com/github/artegeek/planner/" id="com.github.artegeek.planner" gettext-domain="com.github.artegeek.planner">
         <key name="prefer-dark-style" type="b">
             <default>false</default>
@@ -16,6 +23,12 @@
 
         <key name="badge-count" enum="com.github.artegeek.planner.badge-count">
             <default>"None"</default>
+            <summary>Choose which items should be counted for the badge on the application icon</summary>
+            <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
+
+        <key name="start-page" enum="com.github.artegeek.planner.start-page">
+            <default>"Today"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>

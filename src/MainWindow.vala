@@ -20,9 +20,8 @@ public class MainWindow : Gtk.Window {
         set_titlebar (headerbar);
 
         main_view = new Views.Main ();
-
         add (main_view);
-
+        
         launcher = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
         check_badge_count ();
 
@@ -57,15 +56,15 @@ public class MainWindow : Gtk.Window {
             launcher.count_visible = false;
         } else if (badge_count == 1) {
             launcher.count = Planner.database.get_inbox_number ();
-            launcher.count_visible = true;
+            launcher.count_visible = launcher.count > 0;
         } else if (badge_count == 2) {
             launcher.count = Planner.database.get_today_number ();
-            launcher.count_visible = true;
+            launcher.count_visible = launcher.count > 0;
         } else if (badge_count == 3) {
             launcher.count = Planner.database.get_inbox_number () + Planner.database.get_today_number ();
-            launcher.count_visible = true;
+            launcher.count_visible = launcher.count > 0;
         } else {
-            
+
         }
     }
 
