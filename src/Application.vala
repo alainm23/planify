@@ -55,6 +55,12 @@ public class Planner : Gtk.Application {
         add_action (quit_action);
         set_accels_for_action ("app.quit", {"<Control>q"});
 
+        quit_action.activate.connect (() => {
+            if (main_window != null) {
+                main_window.destroy ();
+            }
+        });
+
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/artegeek/planner");
 
@@ -82,13 +88,6 @@ public class Planner : Gtk.Application {
         } catch (GLib.Error e) {
             debug ("Theme error");
         }
-
-        quit_action.activate.connect (() => {
-            if (main_window != null) {
-                main_window.destroy ();
-            }
-        });
-
     }
     public static int main (string[] args) {
         var app = new Planner ();

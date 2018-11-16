@@ -31,7 +31,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         can_focus = true;
         get_style_context ().add_class ("item-row");
 
-        //var label_color = new Gtk.Image ("mail-unread-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         var label_color = new Gtk.Image ();
         label_color.gicon = new ThemedIcon ("mail-unread-symbolic");
         label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));

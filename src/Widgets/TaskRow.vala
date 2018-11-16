@@ -82,7 +82,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         close_button.height_request = 24;
         close_button.width_request = 24;
-        close_button.get_style_context ().add_class ("button-overlay-circular");
+        close_button.get_style_context ().add_class ("button-close");
 
         close_revealer = new Gtk.Revealer ();
         close_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -96,6 +96,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_icon.pixel_size = 16;
 
         var project_name = new Gtk.Label (null);
+        project_name.margin_bottom = 2;
 
         if (task.is_inbox == 1) {
             project_name.label = _("Inbox");
@@ -179,7 +180,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var checklist_grid = new Gtk.Grid ();
         checklist_grid.margin_start = 36;
-        checklist_grid.margin_end = 24;
+        checklist_grid.margin_end = 12;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);
@@ -258,7 +259,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 6;
-        action_box.margin_end = 6;
+        action_box.margin_end = 3;
         action_box.margin_bottom = 6;
         action_box.margin_start = 28;
         action_box.valign = Gtk.Align.CENTER;
@@ -501,7 +502,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_grid.margin_start = 5;
         top_box.margin_top = 6;
         top_box.margin_start = 12;
-        project_box.margin_end = 12;
+        project_box.margin_end = 6;
 
         name_entry.visible = true;
         name_eventbox.visible = false;
@@ -556,15 +557,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             if (when_button.reminder_datetime.to_string () != task.reminder_time) {
                 task.was_notified = 0;
-
-            if (when_button.has_reminder) {
-                string body = _("El recordatorio se lanzara ");
-                string time = Granite.DateTime.get_relative_datetime (new GLib.DateTime.from_iso8601 (when_button.reminder_datetime.to_string (), new GLib.TimeZone.local ()));
-                Planner.notification.send_notification (
-                    task.content,
-                    body + time
-                    );
-                }
             }
 
             if (when_button.has_reminder) {

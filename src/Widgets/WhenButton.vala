@@ -22,7 +22,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var duedate_icon = new Gtk.Image.from_icon_name ("planner-when", Gtk.IconSize.MENU);
+        var duedate_icon = new Gtk.Image.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.MENU);
         duedate_label = new Gtk.Label (when_text);
         duedate_label.margin_bottom = 1;
 

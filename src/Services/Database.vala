@@ -328,7 +328,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Task?> get_all_inbox_tasks () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 AND when_date_utc = ''",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 AND when_date_utc = '' AND checked = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -362,7 +362,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Task?> get_all_today_tasks () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -455,7 +455,7 @@ public class Services.Database : GLib.Object {
     public int get_today_number () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

@@ -37,11 +37,18 @@
     border-radius: 100px;
 }
 
-.button-overlay-circular {
+.button-close {
     border-radius: 50px;
     padding: 0 0px;
     background-color: @fg_color;
     color: @bg_color;
+}
+
+.button-overlay-circular {
+    border-radius: 50px;
+    padding: 0 0px;
+    background-color: @fg_color;
+    color: @text_color;
 }
 
 .button-overlay-circular image {

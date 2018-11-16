@@ -224,10 +224,23 @@ public class Views.Today : Gtk.EventBox {
         });
 
         this.event.connect ((event) => {
-            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var row = element as Widgets.TaskRow;
-                    row.hide_content ();
+            var button_press = Planner.settings.get_enum ("button-press");
+
+            if (button_press == 0) {
+
+            } else if (button_press == 1) {
+                if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                    foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                        var row = element as Widgets.TaskRow;
+                        row.hide_content ();
+                    }
+                }
+            } else {
+                if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
+                    foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                        var row = element as Widgets.TaskRow;
+                        row.hide_content ();
+                    }
                 }
             }
 

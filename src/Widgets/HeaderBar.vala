@@ -16,7 +16,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         //get_style_context ().add_class ("compact");
 
         var search_entry = new Gtk.SearchEntry ();
-        search_entry.width_request = 250;
+        search_entry.width_request = 200;
         search_entry.margin_end = 12;
         search_entry.valign = Gtk.Align.CENTER;
         search_entry.placeholder_text = _("Quick search");

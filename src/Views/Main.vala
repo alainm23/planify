@@ -16,6 +16,7 @@ public class Views.Main : Gtk.Paned {
 
     construct {
         get_style_context ().add_class ("view");
+
         projects_list = new Widgets.ProjectsList ();
 
         inbox_view = new Views.Inbox ();
@@ -31,18 +32,21 @@ public class Views.Main : Gtk.Paned {
         stack.add_named (tomorrow_view, "tomorrow_view");
         stack.add_named (project_view, "project_view");
 
-        stack.visible_child = tomorrow_view;
-        /*
         var start_page = Planner.settings.get_enum ("start-page");
+        var start_page_name = "";
 
         if (start_page == 0) {
-            stack.visible_child_name = "inbox_view";
+            start_page_name = "inbox_view";
         } else if (start_page == 1) {
-            stack.visible_child_name = "today_view";
+            start_page_name = "today_view";
         } else {
-            stack.visible_child_name = "tomorrow_view";
+            start_page_name = "tomorrow_view";
         }
-        */
+
+        Timeout.add (200, () => {
+            stack.visible_child_name = start_page_name;
+            return false;
+        });
 
         pack1 (projects_list, false, false);
         pack2 (stack, true, true);
@@ -67,6 +71,12 @@ public class Views.Main : Gtk.Paned {
 
                 var project = Planner.database.get_project (index);
                 project_view.set_project (project);
+            }
+        });
+
+        Planner.notification.on_signal_highlight_task.connect ((task) => {
+            if (task.is_inbox == 1) {
+                stack.visible_child = inbox_view;
             }
         });
     }

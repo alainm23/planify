@@ -35,7 +35,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         name_entry.secondary_icon_name = "edit-clear-symbolic";
 
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        close_button.get_style_context ().add_class ("button-overlay-circular");
+        close_button.get_style_context ().add_class ("button-close");
         close_button.height_request = 24;
         close_button.width_request = 24;
         close_button.can_focus = false;
@@ -79,6 +79,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
         var checklist_grid = new Gtk.Grid ();
         checklist_grid.margin_start = 14;
+        checklist_grid.margin_end = 12;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
         checklist_grid.add (checklist);
         checklist_grid.add (checklist_box);

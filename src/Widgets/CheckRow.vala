@@ -67,7 +67,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         remove_button.focus_on_click = false;
         remove_button.valign = Gtk.Align.CENTER;
         remove_button.halign = Gtk.Align.CENTER;
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        //remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         remove_button.get_style_context ().add_class ("button-overlay-circular");
         remove_button.get_style_context ().add_class ("planner-button-no-focus");
 

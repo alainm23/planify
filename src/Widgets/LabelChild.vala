@@ -35,7 +35,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         get_style_context ().add_class ("label-child");
 
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
-        remove_button.get_style_context ().add_class ("button-overlay-circular");
+        remove_button.get_style_context ().add_class ("button-close");
 
         var remove_revealer = new Gtk.Revealer ();
         remove_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
