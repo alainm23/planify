@@ -1,4 +1,6 @@
 public class Views.Main : Gtk.Paned {
+    public weak MainWindow parent_window { get; construct; }
+
     public Widgets.ProjectsList projects_list;
     public Gtk.Stack stack;
 
@@ -7,8 +9,9 @@ public class Views.Main : Gtk.Paned {
     private Views.Tomorrow tomorrow_view;
     private Views.Project project_view;
 
-    public Main () {
+    public Main (MainWindow parent) {
         Object (
+            parent_window: parent,
             orientation: Gtk.Orientation.HORIZONTAL,
             position: Planner.settings.get_int ("project-sidebar-width")
         );
@@ -22,15 +25,18 @@ public class Views.Main : Gtk.Paned {
         inbox_view = new Views.Inbox ();
         today_view = new Views.Today ();
         tomorrow_view = new Views.Tomorrow ();
-        project_view = new Views.Project ();
+
 
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (tomorrow_view, "tomorrow_view");
         stack.add_named (project_view, "project_view");
+
+        update_views ();
 
         var start_page = Planner.settings.get_enum ("start-page");
         var start_page_name = "";
@@ -40,6 +46,7 @@ public class Views.Main : Gtk.Paned {
         } else if (start_page == 1) {
             start_page_name = "today_view";
         } else {
+            start_page_name = "tomorrow_view";
             start_page_name = "tomorrow_view";
         }
 
@@ -56,28 +63,41 @@ public class Views.Main : Gtk.Paned {
                 if (index == 0) {
                     stack.visible_child = inbox_view;
 
-                    inbox_view.update_tasks_list ();
-                    inbox_view.infobar.revealed = false;
+                    inbox_view.infobar_apply_remove ();
                 } else if (index == 1) {
                     stack.visible_child = today_view;
 
-                    today_view.update_tasks_list ();
-                    today_view.infobar.revealed = false;
+                    today_view.infobar_apply_remove ();
                 } else {
                     stack.visible_child = tomorrow_view;
                 }
             } else {
-                stack.visible_child = project_view;
-
-                var project = Planner.database.get_project (index);
-                project_view.set_project (project);
+                stack.visible_child_name = "project_view-" + index.to_string ();
             }
+        });
+
+        projects_list.on_add_project_signal.connect (() => {
+            var project = Planner.database.get_last_project ();
+
+            var project_view = new Views.Project (project, parent_window);
+            stack.add_named (project_view, "project_view-" + project.id.to_string ());
+
+            stack.show_all ();
         });
 
         Planner.notification.on_signal_highlight_task.connect ((task) => {
-            if (task.is_inbox == 1) {
-                stack.visible_child = inbox_view;
-            }
+            stack.visible_child = inbox_view;
+            destroy ();
         });
+    }
+
+    public void update_views () {
+        var all_projects = new Gee.ArrayList<Objects.Project?> ();
+        all_projects = Planner.database.get_all_projects ();
+
+        foreach (var project in all_projects) {
+            var project_view = new Views.Project (project, parent_window);
+            stack.add_named (project_view, "project_view-" + project.id.to_string ());
+        }
     }
 }

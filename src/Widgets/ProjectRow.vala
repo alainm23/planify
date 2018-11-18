@@ -80,20 +80,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         eventbox.add (main_grid);
 
         add (eventbox);
+        apply_styles ();
         //build_drag_and_drop ();
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var colored_css = COLOR_CSS.printf (
-                project.id,
-                project.color);
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
-        }
 
         show_all ();
 
@@ -202,6 +190,32 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             return false;
         });
+
+        Planner.database.update_project_signal.connect ((_project) => {
+            if (project.id == _project.id) {
+                name_label.label = "<b>%s</b>".printf(_project.name);
+                project.color = _project.color;
+
+                apply_styles ();
+            }
+        });
+    }
+
+    private void apply_styles () {
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var colored_css = COLOR_CSS.printf (
+                project.id,
+                project.color
+            );
+
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
     }
 
     private void update_project () {

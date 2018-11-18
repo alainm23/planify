@@ -29,7 +29,6 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
 
         main_grid.add (finalize_menu);
         main_grid.add (edit_menu);
-        main_grid.add (favorite_menu);
         main_grid.add (separator_1);
         main_grid.add (share_menu);
         main_grid.add (remove_menu);

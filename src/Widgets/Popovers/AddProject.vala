@@ -119,7 +119,6 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
         var color_button  = new Gtk.ColorButton ();
         color_button.valign = Gtk.Align.START;
 
-
         var color_grid = new Gtk.Grid ();
         color_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         color_grid.add (color_hex_entry);

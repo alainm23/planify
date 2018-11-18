@@ -38,7 +38,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
 
         var tomorrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tomorrow_box.margin = 6;
-        tomorrow_box.pack_start (new Gtk.Image.from_icon_name ("weather-clear-symbolic", Gtk.IconSize.MENU), false, false, 0);
+        tomorrow_box.pack_start (new Gtk.Image.from_icon_name ("weather-few-clouds-symbolic", Gtk.IconSize.MENU), false, false, 0);
         tomorrow_box.pack_start (new Gtk.Label (_("Tomorrow")), false, false, 0);
         tomorrow_box.pack_end (tomorrow_radio, false, false, 0);
 
@@ -83,7 +83,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 var duedate = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
                 on_selected_date (duedate, reminder_switch.active, reminder_timepicker.time);
                 popdown ();
-            }        
+            }
         });
 
         var timepicker_revealer = new Gtk.Revealer ();

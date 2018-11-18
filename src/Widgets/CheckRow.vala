@@ -1,8 +1,6 @@
 public class Widgets.CheckRow : Gtk.ListBoxRow {
     public Gtk.CheckButton checked_button;
     public Gtk.Entry name_entry;
-    public Gtk.Label name_label;
-    private Gtk.EventBox name_eventbox;
 
     public string checklist_name { get; construct; }
     public bool checked { get; construct; }
@@ -36,18 +34,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.active = checked;
         checked_button.get_style_context ().add_class ("planner-radio");
 
-        name_label = new Gtk.Label (checklist_name);
-        name_label.halign = Gtk.Align.START;
-        name_label.hexpand = true;
-        name_label.use_markup = true;
-        name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-
-        name_eventbox = new Gtk.EventBox ();
-        name_eventbox.margin_start = 3;
-        name_eventbox.margin_bottom = 1;
-        name_eventbox.add (name_label);
-
         name_entry = new Gtk.Entry ();
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
@@ -55,7 +41,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("planner-entry");
         name_entry.get_style_context ().add_class ("no-padding");
         name_entry.hexpand = true;
-        name_entry.no_show_all = true;
         name_entry.margin_bottom = 1;
         name_entry.margin_start = 3;
         name_entry.max_length = 50;
@@ -67,7 +52,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         remove_button.focus_on_click = false;
         remove_button.valign = Gtk.Align.CENTER;
         remove_button.halign = Gtk.Align.CENTER;
-        //remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         remove_button.get_style_context ().add_class ("button-overlay-circular");
         remove_button.get_style_context ().add_class ("planner-button-no-focus");
 
@@ -81,15 +65,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         main_box.pack_start (checked_button, false, false, 0);
         main_box.pack_start (name_entry, true, true, 6);
-        main_box.pack_start (name_eventbox, true, true, 6);
         main_box.pack_end (remove_revealer, false, false, 0);
-
-        /*
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Align.VERTICAL;
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (main_box);
-        */
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -104,7 +80,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             return false;
         });
 
-
         eventbox.leave_notify_event.connect ((event) => {
             if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
@@ -113,30 +88,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             remove_button.get_style_context ().remove_class ("closed");
             remove_revealer.reveal_child = false;
             return false;
-        });
-
-        name_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                name_eventbox.visible = false;
-                name_entry.visible = true;
-
-                Timeout.add (200, () => {
-				    name_entry.grab_focus ();
-				    return false;
-			    });
-            }
-
-            return false;
-        });
-
-        name_entry.focus_out_event.connect (() => {
-            name_eventbox.visible = true;
-            name_entry.visible = false;
-            return false;
-        });
-
-        name_entry.changed.connect (() => {
-            name_label.label = name_entry.text;
         });
 
         checked_button.toggled.connect (() => {
@@ -150,10 +101,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private void check_task_completed () {
         if (checked_button.active) {
-            name_eventbox.opacity = 0.7;
             name_entry.opacity = 0.7;
         } else {
-            name_eventbox.opacity = 1;
             name_entry.opacity = 1;
         }
     }

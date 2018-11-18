@@ -10,8 +10,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 	}
 
     construct {
-        //get_style_context ().add_class ("view");
-
         title = _("Preferences");
         set_size_request (600, 400);
         resizable = false;

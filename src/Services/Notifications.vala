@@ -1,7 +1,13 @@
 public class Services.Notifications : GLib.Object {
-    public signal void on_signal_highlight_task (Objects.Task task);
+    public weak MainWindow window { private get; construct; }
+    private Notify.Notification notification;
 
-    public Notifications () {
+    public signal void on_signal_highlight_task (Objects.Task task);
+    public Notifications (MainWindow parent) {
+        Object (
+            window: parent
+        );
+
         Notify.init ("Planner");
         start_notification ();
     }
@@ -39,20 +45,18 @@ public class Services.Notifications : GLib.Object {
                                 summary = Planner.database.get_project (task.project_id).name;
                             }
 
-                            var notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
+                            notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
                             notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
                             notification.set_urgency (Notify.Urgency.CRITICAL);
 
-                            /*
-                            notification.add_action ("xxx", "xxx", (notification, action) => {
-                                try {
-				                    notification.close ();
-			                    } catch (Error e) {
-				                    debug ("Error: %s", e.message);
-			                    }
+                            notification.add_action ("view", _("View"), (notification, action) => {
+                                on_signal_highlight_task (task);
+                                window.present ();
+                                window.present_with_time (0);
+
+                                notification.close ();
                             });
-                            */
-                            
+
                             try {
                                 notification.show ();
                                 task.was_notified = 1;

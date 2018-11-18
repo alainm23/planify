@@ -158,6 +158,11 @@
     background-color: @base_color;
 }
 
+.planner-entry-bold {
+    font-weight: bold;
+}
+
+
 .duedate-item {
     transition: all 200ms ease;
     background-color: alpha (@text_color, 0.15);

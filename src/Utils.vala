@@ -91,4 +91,40 @@ public class Utils : GLib.Object {
 
         return months [index];
     }
+
+    public bool is_label_repeted (Gtk.FlowBox flowbox, int id) {
+        foreach (Gtk.Widget element in flowbox.get_children ()) {
+            var child = element as Widgets.LabelChild;
+            if (child.label.id == id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool is_empty (Gtk.FlowBox flowbox) {
+        int l = 0;
+        foreach (Gtk.Widget element in flowbox.get_children ()) {
+            l = l + 1;
+        }
+
+        if (l <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool is_task_repeted (Gtk.ListBox listbox, int id) {
+        foreach (Gtk.Widget element in listbox.get_children ()) {
+            var item = element as Widgets.TaskRow;
+
+            if (id == item.task.id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

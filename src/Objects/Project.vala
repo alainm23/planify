@@ -1,7 +1,7 @@
 public class Objects.Project {
     public int id;
     public string name;
-    public string description;
+    public string note;
     public string deadline;
     public int item_order;
     public int is_deleted;
@@ -11,13 +11,13 @@ public class Objects.Project {
                     int item_order = 0,
                     int is_deleted = 0,
                     string name = "",
-                    string description = "",
+                    string note = "",
                     string deadline = "",
                     string color = "") {
 
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.note = note;
         this.deadline = deadline;
         this.item_order = item_order;
         this.is_deleted = is_deleted;

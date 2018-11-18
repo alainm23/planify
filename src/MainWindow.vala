@@ -19,9 +19,9 @@ public class MainWindow : Gtk.Window {
         headerbar = new Widgets.HeaderBar (this);
         set_titlebar (headerbar);
 
-        main_view = new Views.Main ();
+        main_view = new Views.Main (this);
         add (main_view);
-        
+
         launcher = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
         check_badge_count ();
 
@@ -39,12 +39,10 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        Planner.database.add_task_signal.connect (() => {
+        GLib.Timeout.add (1000, () => {
             check_badge_count ();
-        });
 
-        Planner.database.update_task_signal.connect (() => {
-            check_badge_count ();
+            return true;
         });
     }
 

@@ -250,8 +250,7 @@ public class Views.Today : Gtk.EventBox {
 
 
         infobar.response.connect ((id) => {
-            update_tasks_list ();
-            infobar.revealed = false;
+            infobar_apply_remove ();
         });
 
         labels_button.clicked.connect (() => {
@@ -260,12 +259,12 @@ public class Views.Today : Gtk.EventBox {
         });
 
         labels_popover.on_selected_label.connect ((label) => {
-            if (is_repeted (label.id) == false) {
+            if (Planner.utils.is_label_repeted (labels_flowbox, label.id) == false) {
                 var child = new Widgets.LabelChild (label);
                 labels_flowbox.add (child);
             }
 
-            labels_flowbox_revealer.reveal_child = !is_empty (labels_flowbox);
+            labels_flowbox_revealer.reveal_child = !Planner.utils.is_empty (labels_flowbox);
             labels_flowbox.show_all ();
             labels_popover.popdown ();
 
@@ -296,7 +295,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         labels_flowbox.remove.connect ((widget) => {
-            if (is_empty (labels_flowbox)) {
+            if (Planner.utils.is_empty (labels_flowbox)) {
                 labels_flowbox_revealer.reveal_child = false;
                 tasks_list.set_filter_func ((row) => {
                     return true;
@@ -329,32 +328,64 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
+        Planner.database.update_task_signal.connect ((task) => {
+            if (Planner.utils.is_task_repeted (tasks_list, task.id) == false) {
+                add_new_task (task);
+            }
+        });
+
+
         Planner.database.add_task_signal.connect (() => {
-            update_tasks_list ();
+            var task = Planner.database.get_last_task ();
+            add_new_task (task);
         });
     }
 
-    private bool is_repeted (int id) {
-        foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
-            var child = element as Widgets.LabelChild;
-            if (child.label.id == id) {
-                return true;
-            }
-        }
+    private void add_new_task (Objects.Task task) {
+        var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-        return false;
+        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
+            var row = new Widgets.TaskRow (task);
+
+            row.on_signal_update.connect (() => {
+                int i = 0;
+                foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                    var item = element as Widgets.TaskRow;
+
+                    var _when = new GLib.DateTime.from_iso8601 (item.task.when_date_utc, new GLib.TimeZone.local ());
+
+                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                        i = i + 1;
+                        item.name_label.opacity = 0.7;
+                    }
+                }
+
+                if (i > 0) {
+                    infobar_label.label = i.to_string () + " " + _("to-do moved out of the Today");
+                    infobar.revealed = true;
+                } else {
+                    infobar.revealed = false;
+                }
+
+                tasks_list.unselect_all ();
+            });
+
+            tasks_list.add (row);
+            tasks_list.show_all ();
+        }
     }
 
-    private bool is_empty (Gtk.FlowBox flowbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in flowbox.get_children ()) {
-            l = l + 1;
-        }
+    public void infobar_apply_remove () {
+        infobar.revealed = false;
 
-        if (l <= 0) {
-            return true;
-        } else {
-            return false;
+        foreach (Gtk.Widget element in tasks_list.get_children ()) {
+            var row = element as Widgets.TaskRow;
+
+            var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
+
+            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {
+                tasks_list.remove (element);
+            }
         }
     }
 
@@ -394,7 +425,7 @@ public class Views.Today : Gtk.EventBox {
             });
         }
 
-        show_all ();
+        tasks_list.show_all ();
     }
 
     private void task_on_revealer () {

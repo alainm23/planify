@@ -13,7 +13,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     }
 
     construct {
-        //get_style_context ().add_class ("compact");
+        get_style_context ().add_class ("compact");
 
         var search_entry = new Gtk.SearchEntry ();
         search_entry.width_request = 200;
@@ -46,7 +46,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         notification_menu.tooltip_text = _("Notifications");
 
         var notification_icon = new Gtk.Image ();
-        notification_icon.gicon = new ThemedIcon ("notification-new-symbolic");
+        notification_icon.gicon = new ThemedIcon ("notification-symbolic");
         notification_icon.pixel_size = 20;
 
         notification_menu.add (notification_icon);

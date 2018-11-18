@@ -23,8 +23,6 @@ public class Planner : Gtk.Application {
 
         settings = new Settings ("com.github.artegeek.planner");
         database = new Services.Database ();
-
-        notification = new Services.Notifications ();
     }
 
     protected override void activate () {
@@ -88,6 +86,9 @@ public class Planner : Gtk.Application {
         } catch (GLib.Error e) {
             debug ("Theme error");
         }
+
+        // Notification
+        notification = new Services.Notifications (main_window);
     }
     public static int main (string[] args) {
         var app = new Planner ();

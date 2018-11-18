@@ -3,7 +3,9 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void add_task_signal ();
-    public signal void update_task_signal ();
+    public signal void update_task_signal (Objects.Task task);
+
+    public signal void update_project_signal (Objects.Project project);
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.cache/com.github.artegeek.planner/database.db";
@@ -36,7 +38,7 @@ public class Services.Database : GLib.Object {
         rc = db.exec ("CREATE TABLE IF NOT EXISTS PROJECTS (" +
             "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name           VARCHAR," +
-            "description    VARCHAR," +
+            "note    VARCHAR," +
             "deadline       VARCHAR," +
             "item_order     INTEGER," +
             "is_deleted     INTEGER," +
@@ -74,14 +76,14 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO PROJECTS (name," +
-            "description, deadline, item_order, is_deleted, color)" +
+            "note, deadline, item_order, is_deleted, color)" +
             "VALUES (?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (1, project.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, project.description);
+        res = stmt.bind_text (2, project.note);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (3, project.deadline);
@@ -105,14 +107,14 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("UPDATE PROJECTS SET name = ?, " +
-            "description = ?, deadline = ?, item_order = ?, is_deleted = ?, color = ? " +
+            "note = ?, deadline = ?, item_order = ?, is_deleted = ?, color = ? " +
             "WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (1, project.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, project.description);
+        res = stmt.bind_text (2, project.note);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (3, project.deadline);
@@ -132,6 +134,10 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
+        if (res == Sqlite.DONE) {
+            update_project_signal (project);
+        }
+
         return res;
     }
 
@@ -149,7 +155,7 @@ public class Services.Database : GLib.Object {
 
             project.id = stmt.column_int (0);
             project.name = stmt.column_text (1);
-            project.description = stmt.column_text (2);
+            project.note = stmt.column_text (2);
             project.deadline = stmt.column_text (3);
             project.item_order = stmt.column_int (4);
             project.is_deleted = stmt.column_int (5);
@@ -177,7 +183,29 @@ public class Services.Database : GLib.Object {
 
         project.id = stmt.column_int (0);
         project.name = stmt.column_text (1);
-        project.description = stmt.column_text (2);
+        project.note = stmt.column_text (2);
+        project.deadline = stmt.column_text (3);
+        project.item_order = stmt.column_int (4);
+        project.is_deleted = stmt.column_int (5);
+        project.color = stmt.column_text (6);
+
+        return project;
+    }
+
+    public Objects.Project get_last_project () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM PROJECTS ORDER BY id DESC LIMIT 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        var project = new Objects.Project ();
+
+        project.id = stmt.column_int (0);
+        project.name = stmt.column_text (1);
+        project.note = stmt.column_text (2);
         project.deadline = stmt.column_text (3);
         project.item_order = stmt.column_int (4);
         project.is_deleted = stmt.column_int (5);
@@ -244,6 +272,36 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
+    public Objects.Task get_last_task () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS ORDER BY id DESC LIMIT 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        var task = new Objects.Task ();
+
+        task.id = stmt.column_int (0);
+        task.checked = stmt.column_int (1);
+        task.project_id = stmt.column_int (2);
+        task.list_id = stmt.column_int (3);
+        task.task_order = stmt.column_int (4);
+        task.is_inbox = stmt.column_int (5);
+        task.has_reminder = stmt.column_int (6);
+        task.sidebar_width = stmt.column_int (7);
+        task.was_notified = stmt.column_int (8);
+        task.content = stmt.column_text (9);
+        task.note = stmt.column_text (10);
+        task.when_date_utc = stmt.column_text (11);
+        task.reminder_time = stmt.column_text (12);
+        task.checklist = stmt.column_text (13);
+        task.labels = stmt.column_text (14);
+
+        return task;
+    }
+
 
     public int update_task (Objects.Task task) {
         Sqlite.Statement stmt;
@@ -300,9 +358,11 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
+        /*
         if (res == Sqlite.DONE) {
-            update_task_signal ();
+            update_task_signal (task);
         }
+        */
 
         return res;
     }
@@ -317,10 +377,11 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
-
+        /*
         if (res == Sqlite.DONE) {
-            update_task_signal ();
+            update_task_signal (task);
         }
+        */
 
         return res;
     }

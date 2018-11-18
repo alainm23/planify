@@ -18,13 +18,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Revealer remove_revealer;
     private Gtk.Revealer close_revealer;
 
-    private Gtk.Box project_box;
+    public Gtk.Box project_box;
 
     private Widgets.WhenButton when_button;
 
+    /*
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
 	};
+    */
 
     public signal void on_signal_update ();
     public TaskRow (Objects.Task _task) {
@@ -538,35 +540,37 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     }
 
     public void update_task () {
+        task.project_id = task.project_id;
+        task.content = name_entry.text;
+        task.note = note_view.buffer.text;
+
+        if (checked_button.active) {
+            task.checked = 1;
+        } else {
+            task.checked = 0;
+        }
+
+        if (when_button.has_duedate) {
+            task.when_date_utc = when_button.when_datetime.to_string ();
+        } else {
+            task.when_date_utc = "";
+        }
+
+        if (when_button.reminder_datetime.to_string () != task.reminder_time) {
+            task.was_notified = 0;
+        }
+
+        if (when_button.has_reminder) {
+            task.has_reminder = 1;
+            task.reminder_time = when_button.reminder_datetime.to_string ();
+        } else {
+            task.has_reminder = 0;
+            task.reminder_time = "";
+        }
+
+        Planner.database.update_task_signal (task);
+
         Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
-            task.project_id = task.project_id;
-            task.content = name_entry.text;
-            task.note = note_view.buffer.text;
-
-            if (checked_button.active) {
-                task.checked = 1;
-            } else {
-                task.checked = 0;
-            }
-
-            if (when_button.has_duedate) {
-                task.when_date_utc = when_button.when_datetime.to_string ();
-            } else {
-                task.when_date_utc = "";
-            }
-
-            if (when_button.reminder_datetime.to_string () != task.reminder_time) {
-                task.was_notified = 0;
-            }
-
-            if (when_button.has_reminder) {
-                task.has_reminder = 1;
-                task.reminder_time = when_button.reminder_datetime.to_string ();
-            } else {
-                task.has_reminder = 0;
-                task.reminder_time = "";
-            }
-
             task.labels = "";
             foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
                 var child = element as Widgets.LabelChild;
@@ -579,14 +583,16 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.checklist = task.checklist + row.get_check ();
             }
 
+
             if (Planner.database.update_task (task) == Sqlite.DONE) {
                 on_signal_update ();
             }
 
-    		return null;
+            return null;
     	});
     }
 
+    /*
     private void build_drag_and_drop () {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);
 
@@ -619,4 +625,5 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
 		Gtk.drag_set_icon_surface (context, surface);
     }
+    */
  }
