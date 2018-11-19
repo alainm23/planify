@@ -19,8 +19,8 @@ public class Views.Inbox : Gtk.EventBox {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Granite.Widgets.AlertView (
-            "No Inbox Task",
-            "Lorem ipst occaecat cupidatat non proident, sunt in culpa qui officia deser",
+            _("All clear"),
+            _("Looks like everything's is organized in the right place. Tap <b>+</b> to add a task."),
             "mail-mailbox-symbolic"
         );
         alert_view.margin_bottom = 64;

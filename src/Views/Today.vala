@@ -20,9 +20,9 @@ public class Views.Today : Gtk.EventBox {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Granite.Widgets.AlertView (
-            "No Today Task",
-            "Lorem ipst occaecat cupidatat non proident, sunt in culpa qui officia deser",
-            "office-calendar-symbolic"
+            _("Enjoy your day"),
+            _("You're all done for today!"),
+            "process-completed-symbolic"
         );
         alert_view.margin_bottom = 64;
         alert_view.no_show_all = true;
