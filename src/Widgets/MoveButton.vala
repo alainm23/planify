@@ -1,7 +1,7 @@
 public class Widgets.MoveButton : Gtk.ToggleButton {
     private Widgets.Popovers.MovePopover move_popover;
 
-    public signal void on_selected_project (bool is_inbox = false, Objects.Project project = null);
+    public signal void on_selected_project (bool is_inbox, Objects.Project project);
     public MoveButton () {
         Object (
             valign: Gtk.Align.CENTER

@@ -7,9 +7,9 @@ public class Views.Today : Gtk.EventBox {
     public Gtk.InfoBar infobar;
     private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
-
+    private Granite.Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
-    private Granite.Widgets.Toast notification_toast;
+
     public Today () {
         Object (
             expand: true
@@ -19,10 +19,14 @@ public class Views.Today : Gtk.EventBox {
     construct {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
-        notification_toast = new Granite.Widgets.Toast ("");
-        notification_toast.valign = Gtk.Align.END;
-        notification_toast.halign = Gtk.Align.START;
-        notification_toast.margin = 12;
+        alert_view = new Granite.Widgets.AlertView (
+            "No Today Task",
+            "Lorem ipst occaecat cupidatat non proident, sunt in culpa qui officia deser",
+            "office-calendar-symbolic"
+        );
+        alert_view.margin_bottom = 64;
+        alert_view.no_show_all = true;
+        alert_view.visible = false;
 
         var today_icon = new Gtk.Image.from_icon_name ("planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), Gtk.IconSize.DND);
 
@@ -139,6 +143,7 @@ public class Views.Today : Gtk.EventBox {
         box.expand = true;
         box.pack_start (top_box, false, false, 0);
         box.pack_start (labels_flowbox_revealer, false, false, 0);
+        box.pack_start (alert_view, true, true, 0);
         box.pack_start (tasks_list, true, true, 0);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
@@ -160,7 +165,6 @@ public class Views.Today : Gtk.EventBox {
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (add_task_revealer);
         main_overlay.add_overlay (task_new_revealer);
-        main_overlay.add_overlay (notification_toast);
         main_overlay.add (main_box);
 
         add (main_overlay);
@@ -192,8 +196,7 @@ public class Views.Today : Gtk.EventBox {
             string text = clipboard.wait_for_text ();
 
             if (text == "") {
-                notification_toast.title = _("No clipboard text");
-                notification_toast.send_notification ();
+                // Notificacion Here ...
             } else {
                 var task = new Objects.Task ();
                 task.content = text;
@@ -201,8 +204,7 @@ public class Views.Today : Gtk.EventBox {
                 task.when_date_utc = new GLib.DateTime.now_local ().to_string ();
 
                 if (Planner.database.add_task (task) == Sqlite.DONE) {
-                    notification_toast.title = _("Clipboard task created");
-                    notification_toast.send_notification ();
+                    // Notificacion Here ...
                 }
             }
 
@@ -328,12 +330,29 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
+        tasks_list.remove.connect ((widget) => {
+            if (Planner.utils.is_listbox_empty (tasks_list)) {
+                alert_view.visible = true;
+                alert_view.no_show_all = false;
+
+                tasks_list.visible = false;
+                tasks_list.no_show_all = true;
+            } else {
+                alert_view.visible = false;
+                alert_view.no_show_all = true;
+
+                tasks_list.visible = true;
+                tasks_list.no_show_all = false;
+            }
+
+            show_all ();
+        });
+
         Planner.database.update_task_signal.connect ((task) => {
             if (Planner.utils.is_task_repeted (tasks_list, task.id) == false) {
                 add_new_task (task);
             }
         });
-
 
         Planner.database.add_task_signal.connect (() => {
             var task = Planner.database.get_last_task ();
@@ -373,6 +392,22 @@ public class Views.Today : Gtk.EventBox {
             tasks_list.add (row);
             tasks_list.show_all ();
         }
+
+        if (Planner.utils.is_listbox_empty (tasks_list)) {
+            alert_view.visible = true;
+            alert_view.no_show_all = false;
+
+            tasks_list.visible = false;
+            tasks_list.no_show_all = true;
+        } else {
+            alert_view.visible = false;
+            alert_view.no_show_all = true;
+
+            tasks_list.visible = true;
+            tasks_list.no_show_all = false;
+        }
+
+        show_all ();
     }
 
     public void infobar_apply_remove () {
@@ -426,6 +461,14 @@ public class Views.Today : Gtk.EventBox {
         }
 
         tasks_list.show_all ();
+
+        if (Planner.utils.is_listbox_empty (tasks_list)) {
+            alert_view.visible = true;
+            alert_view.no_show_all = false;
+
+            tasks_list.visible = false;
+            tasks_list.no_show_all = true;
+        }
     }
 
     private void task_on_revealer () {

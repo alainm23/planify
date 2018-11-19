@@ -9,7 +9,7 @@ public class Views.Tomorrow : Gtk.EventBox {
         //get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
-        var tomorrow_icon = new Gtk.Image.from_icon_name ("document-open-recent", Gtk.IconSize.DND);
+        var tomorrow_icon = new Gtk.Image.from_icon_name ("planner-tomorrow", Gtk.IconSize.DND);
 
         var tomorrow_name = new Gtk.Label ("<b>%s</b>".printf (_("Tomorrow")));
         tomorrow_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

@@ -231,6 +231,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
+    /*
     private void build_drag_and_drop () {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);
 
@@ -275,4 +276,5 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public void on_drag_leave (Gdk.DragContext context, uint time) {
 		get_style_context ().remove_class ("highlight");
 	}
+    */
 }

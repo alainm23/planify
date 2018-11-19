@@ -3,7 +3,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Widgets.ItemRow inbox_item;
     private Widgets.ItemRow today_item;
     private Widgets.ItemRow tomorrow_item;
-    private Gtk.Separator separator;
 
     public signal void on_selected_item (string type, int index);
     public signal void on_add_project_signal ();
@@ -24,7 +23,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
         today_item.number_label.label = Planner.database.get_today_number ().to_string ();
 
-        tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "weather-few-clouds-symbolic");
+        tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "planner-tomorrow");
         tomorrow_item.margin_bottom = 6;
 
         check_number_labels ();

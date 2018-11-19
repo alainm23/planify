@@ -42,5 +42,7 @@
     <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
     <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
     <file alias="planner-when.svg">resources/planner-when.svg</file>
+    <file alias="planner-dialog-inbox.svg">resources/planner-dialog-inbox.svg</file>
+    <file alias="planner-dialog-today.svg">resources/planner-dialog-today.svg</file>
   </gresource>
 </gresources>

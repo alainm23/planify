@@ -358,12 +358,6 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
-        /*
-        if (res == Sqlite.DONE) {
-            update_task_signal (task);
-        }
-        */
-
         return res;
     }
 
@@ -377,11 +371,6 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
-        /*
-        if (res == Sqlite.DONE) {
-            update_task_signal (task);
-        }
-        */
 
         return res;
     }
@@ -500,17 +489,12 @@ public class Services.Database : GLib.Object {
             -1, out stmt);
         assert (res == Sqlite.OK);
 
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
+        int count = 0;
         while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-
-            all.add (task);
+            count++;
         }
 
-        return all.size;
+        return count;
     }
 
     public int get_today_number () {
@@ -520,20 +504,16 @@ public class Services.Database : GLib.Object {
             -1, out stmt);
         assert (res == Sqlite.OK);
 
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
+        int count = 0;
         while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-            task.when_date_utc = stmt.column_text (11);
-
-            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
-                all.add (task);
+                count++;
             }
         }
 
-        return all.size;
+        return count;
     }
 
     public int add_label (Objects.Label label) {
