@@ -7,7 +7,7 @@ public class Views.Today : Gtk.EventBox {
     public Gtk.InfoBar infobar;
     private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
-    private Granite.Widgets.AlertView alert_view;
+    private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
 
     public Today () {
@@ -19,10 +19,10 @@ public class Views.Today : Gtk.EventBox {
     construct {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
-        alert_view = new Granite.Widgets.AlertView (
-            _("Enjoy your day"),
+        alert_view = new Widgets.AlertView (
             _("You're all done for today!"),
-            "process-completed-symbolic"
+            _("Enjoy your day"),
+            "emblem-default-symbolic"
         );
         alert_view.margin_bottom = 64;
         alert_view.no_show_all = true;

@@ -7,7 +7,7 @@ public class Views.Inbox : Gtk.EventBox {
     public Gtk.InfoBar infobar;
     private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
-    private Granite.Widgets.AlertView alert_view;
+    private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
     public Inbox () {
         Object (
@@ -18,9 +18,9 @@ public class Views.Inbox : Gtk.EventBox {
     construct {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
-        alert_view = new Granite.Widgets.AlertView (
+        alert_view = new Widgets.AlertView (
             _("All clear"),
-            _("Looks like everything's is organized in the right place. Tap <b>+</b> to add a task."),
+            _("Looks like everything's is organized in the right place. Tap + to add a task."),
             "mail-mailbox-symbolic"
         );
         alert_view.margin_bottom = 64;
