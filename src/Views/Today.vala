@@ -10,6 +10,8 @@ public class Views.Today : Gtk.EventBox {
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
 
+    private bool show_all_tasks = true;
+    private Gtk.Button show_all_tasks_button;
     public Today () {
         Object (
             expand: true
@@ -127,6 +129,34 @@ public class Views.Today : Gtk.EventBox {
         task_new_revealer.valign = Gtk.Align.END;
         task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());
 
+        show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
+        show_all_tasks_button.can_focus = false;
+        show_all_tasks_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        show_all_tasks_button.valign = Gtk.Align.END;
+        show_all_tasks_button.halign = Gtk.Align.START;
+        show_all_tasks_button.margin_bottom = 6;
+        show_all_tasks_button.margin_start = 12;
+
+        show_all_tasks_button.clicked.connect (() => {
+			if (show_all_tasks) {
+                show_all_tasks = false;
+                show_all_tasks_button.label = _("Hide completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return true;
+                });
+			} else {
+                show_all_tasks = true;
+                show_all_tasks_button.label = _("Show completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
+                });
+			}
+		});
+
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         labels_flowbox.margin_start = 6;
@@ -165,10 +195,12 @@ public class Views.Today : Gtk.EventBox {
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (add_task_revealer);
         main_overlay.add_overlay (task_new_revealer);
+        main_overlay.add_overlay (show_all_tasks_button);
         main_overlay.add (main_box);
 
         add (main_overlay);
         update_tasks_list ();
+        check_visible_alertview ();
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
@@ -186,10 +218,16 @@ public class Views.Today : Gtk.EventBox {
 
         add_task_button.clicked.connect (() => {
             task_on_revealer ();
+
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
         });
 
         task_new_revealer.on_signal_close.connect (() => {
             task_on_revealer ();
+
+            show_all_tasks_button.visible = true;
+            show_all_tasks_button.no_show_all = false;
         });
 
         paste_button.clicked.connect (() => {
@@ -331,21 +369,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         tasks_list.remove.connect ((widget) => {
-            if (Planner.utils.is_listbox_empty (tasks_list)) {
-                alert_view.visible = true;
-                alert_view.no_show_all = false;
-
-                tasks_list.visible = false;
-                tasks_list.no_show_all = true;
-            } else {
-                alert_view.visible = false;
-                alert_view.no_show_all = true;
-
-                tasks_list.visible = true;
-                tasks_list.no_show_all = false;
-            }
-
-            show_all ();
+            check_visible_alertview ();
         });
 
         Planner.database.update_task_signal.connect ((task) => {
@@ -358,6 +382,30 @@ public class Views.Today : Gtk.EventBox {
             var task = Planner.database.get_last_task ();
             add_new_task (task);
         });
+    }
+
+    public void check_visible_alertview () {
+        if (Planner.utils.is_listbox_empty (tasks_list)) {
+            alert_view.visible = true;
+            alert_view.no_show_all = false;
+
+            tasks_list.visible = false;
+            tasks_list.no_show_all = true;
+
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
+        } else {
+            alert_view.visible = false;
+            alert_view.no_show_all = true;
+
+            tasks_list.visible = true;
+            tasks_list.no_show_all = false;
+
+            show_all_tasks_button.visible = true;
+            show_all_tasks_button.no_show_all = false;
+        }
+
+        show_all ();
     }
 
     private void add_new_task (Objects.Task task) {
@@ -393,21 +441,7 @@ public class Views.Today : Gtk.EventBox {
             tasks_list.show_all ();
         }
 
-        if (Planner.utils.is_listbox_empty (tasks_list)) {
-            alert_view.visible = true;
-            alert_view.no_show_all = false;
-
-            tasks_list.visible = false;
-            tasks_list.no_show_all = true;
-        } else {
-            alert_view.visible = false;
-            alert_view.no_show_all = true;
-
-            tasks_list.visible = true;
-            tasks_list.no_show_all = false;
-        }
-
-        show_all ();
+        check_visible_alertview ();
     }
 
     public void infobar_apply_remove () {

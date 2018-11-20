@@ -8,7 +8,6 @@ public class Planner : Gtk.Application {
     public const string CSS = """
         @define-color headerbar_color %s;
     """;
-
     public Planner () {
         Object (
             application_id: "com.github.artegeek.planner",
@@ -23,6 +22,8 @@ public class Planner : Gtk.Application {
 
         settings = new Settings ("com.github.artegeek.planner");
         database = new Services.Database ();
+
+        notification = new Services.Notifications ();
     }
 
     protected override void activate () {
@@ -86,9 +87,6 @@ public class Planner : Gtk.Application {
         } catch (GLib.Error e) {
             debug ("Theme error");
         }
-
-        // Notification
-        notification = new Services.Notifications (main_window);
     }
     public static int main (string[] args) {
         var app = new Planner ();

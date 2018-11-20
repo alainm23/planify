@@ -9,6 +9,9 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.FlowBox labels_flowbox;
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
+
+    private bool show_all_tasks = true;
+    private Gtk.Button show_all_tasks_button;
     public Inbox () {
         Object (
             expand: true
@@ -107,6 +110,11 @@ public class Views.Inbox : Gtk.EventBox {
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
 
+        tasks_list.set_filter_func ((row) => {
+            var item = row as Widgets.TaskRow;
+            return item.task.checked == 0;
+        });
+
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
@@ -124,6 +132,34 @@ public class Views.Inbox : Gtk.EventBox {
 
         task_new_revealer = new Widgets.TaskNew (true);
         task_new_revealer.valign = Gtk.Align.END;
+
+        show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
+        show_all_tasks_button.can_focus = false;
+        show_all_tasks_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        show_all_tasks_button.valign = Gtk.Align.END;
+        show_all_tasks_button.halign = Gtk.Align.START;
+        show_all_tasks_button.margin_bottom = 6;
+        show_all_tasks_button.margin_start = 12;
+
+        show_all_tasks_button.clicked.connect (() => {
+			if (show_all_tasks) {
+                show_all_tasks = false;
+                show_all_tasks_button.label = _("Hide completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return true;
+                });
+			} else {
+                show_all_tasks = true;
+                show_all_tasks_button.label = _("Show completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
+                });
+			}
+		});
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -163,16 +199,20 @@ public class Views.Inbox : Gtk.EventBox {
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (add_task_revealer);
         main_overlay.add_overlay (task_new_revealer);
+        main_overlay.add_overlay (show_all_tasks_button);
         main_overlay.add (main_box);
 
         add (main_overlay);
         update_tasks_list ();
+        check_visible_alertview ();
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
         add_task_button.clicked.connect (() => {
             task_on_revealer ();
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
         });
 
         paste_button.clicked.connect (() => {
@@ -180,13 +220,20 @@ public class Views.Inbox : Gtk.EventBox {
 
             if (text == "") {
                 // Notificacion Here ...
+                Planner.notification.send_local_notification (
+                    _("Empty clipboard"),
+                    _("Try copying some text and try again"),
+                    "dialog-error");
             } else {
                 var task = new Objects.Task ();
                 task.content = text;
                 task.is_inbox = 1;
 
                 if (Planner.database.add_task (task) == Sqlite.DONE) {
-                    // Notificacion Here ...
+                    Planner.notification.send_local_notification (
+                        _("His task was created from the clipboard"),
+                        _("Tap to undo"),
+                        "edit-paste");
                 }
             }
 
@@ -244,6 +291,8 @@ public class Views.Inbox : Gtk.EventBox {
 
         task_new_revealer.on_signal_close.connect (() => {
             task_on_revealer ();
+            show_all_tasks_button.visible = true;
+            show_all_tasks_button.no_show_all = false;
         });
 
         infobar.response.connect ((id) => {
@@ -326,21 +375,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         tasks_list.remove.connect ((widget) => {
-            if (Planner.utils.is_listbox_empty (tasks_list)) {
-                alert_view.visible = true;
-                alert_view.no_show_all = false;
-
-                tasks_list.visible = false;
-                tasks_list.no_show_all = true;
-            } else {
-                alert_view.visible = false;
-                alert_view.no_show_all = true;
-
-                tasks_list.visible = true;
-                tasks_list.no_show_all = false;
-            }
-
-            show_all ();
+            check_visible_alertview ();
         });
 
         Planner.database.update_task_signal.connect ((task) => {
@@ -385,18 +420,28 @@ public class Views.Inbox : Gtk.EventBox {
             tasks_list.show_all ();
         }
 
+        check_visible_alertview ();
+    }
+
+    public void check_visible_alertview () {
         if (Planner.utils.is_listbox_empty (tasks_list)) {
             alert_view.visible = true;
             alert_view.no_show_all = false;
 
             tasks_list.visible = false;
             tasks_list.no_show_all = true;
+
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
         } else {
             alert_view.visible = false;
             alert_view.no_show_all = true;
 
             tasks_list.visible = true;
             tasks_list.no_show_all = false;
+
+            show_all_tasks_button.visible = true;
+            show_all_tasks_button.no_show_all = false;
         }
 
         show_all ();
@@ -408,7 +453,7 @@ public class Views.Inbox : Gtk.EventBox {
         foreach (Gtk.Widget element in tasks_list.get_children ()) {
             var row = element as Widgets.TaskRow;
 
-            if (row.task.is_inbox == 0 || row.task.when_date_utc != "" || row.task.checked != 0) {
+            if (row.task.is_inbox == 0 || row.task.when_date_utc != "") {
                 tasks_list.remove (element);
             }
         }

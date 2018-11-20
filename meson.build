@@ -62,6 +62,7 @@ executable(
     'src/Widgets/Popovers/DeadlinePopover.vala',
     'src/Widgets/Popovers/MovePopover.vala',
     'src/Widgets/Popovers/NotificationsPopover.vala',
+    'src/Widgets/Popovers/NotificationActionPopover.vala',
 
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',

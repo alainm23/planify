@@ -244,11 +244,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.is_inbox = 1;
                 task.project_id = 0;
 
-                hide_content ();
-
                 project_name.label = _("Inbox");
 
-                update_task ();
+                hide_content ();
             } else {
                 task.is_inbox = 0;
                 task.project_id = project.id;
@@ -257,6 +255,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
                 hide_content ();
             }
+            
+            Planner.notification.send_local_notification (
+                task.content,
+                _("It was moved to <b>%s</b>").printf (project_name.label),
+                "document-export");
+
+            update_task ();
         });
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -293,7 +298,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (close_revealer);
-        //main_overlay.add_overlay (remove_revealer);
         main_overlay.add (main_grid);
 
         var main_eventbox = new Gtk.EventBox ();
@@ -558,6 +562,14 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         if (when_button.reminder_datetime.to_string () != task.reminder_time) {
             task.was_notified = 0;
+
+            if (when_button.has_reminder) {
+                // Send Notification
+                Planner.notification.send_local_notification (
+                    task.content,
+                    _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
+                    "preferences-system-time");
+            }
         }
 
         if (when_button.has_reminder) {

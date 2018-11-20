@@ -52,6 +52,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         notification_menu.add (notification_icon);
 
         var notifications_popover = new Widgets.Popovers.NotificationsPopover (notification_menu);
+        var notification_action = new  Widgets.Popovers.NotificationActionPopover (notification_menu);
 
         var preferences_menuitem = new Gtk.ModelButton ();
         preferences_menuitem.text = _("Preferences");
@@ -96,6 +97,18 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         notifications_popover.closed.connect (() => {
             notification_menu.active = false;
+        });
+
+        Planner.notification.send_local_notification.connect ((title, description, icon_name) => {
+            notification_action.send_local_notification (title, description, icon_name);
+        });
+
+        notification_action.show.connect (() => {
+            notification_icon.icon_name = "notification-new-symbolic";
+        });
+
+        notification_action.closed.connect (() => {
+            notification_icon.icon_name = "notification-symbolic";
         });
 
         mode_switch.notify["active"].connect (() => {

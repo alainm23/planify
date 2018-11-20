@@ -1,13 +1,10 @@
 public class Services.Notifications : GLib.Object {
-    public weak MainWindow window { private get; construct; }
     private Notify.Notification notification;
 
     public signal void on_signal_highlight_task (Objects.Task task);
-    public Notifications (MainWindow parent) {
-        Object (
-            window: parent
-        );
+    public signal void send_local_notification (string title, string description, string icon_name);
 
+    public Notifications () {
         Notify.init ("Planner");
         start_notification ();
     }
@@ -48,14 +45,6 @@ public class Services.Notifications : GLib.Object {
                             notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
                             notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
                             notification.set_urgency (Notify.Urgency.CRITICAL);
-
-                            notification.add_action ("view", _("View"), (notification, action) => {
-                                on_signal_highlight_task (task);
-                                window.present ();
-                                window.present_with_time (0);
-
-                                notification.close ();
-                            });
 
                             try {
                                 notification.show ();

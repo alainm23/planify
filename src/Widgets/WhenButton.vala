@@ -96,6 +96,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         reminder_box.no_show_all = !_has_reminder;
         reminder_box.visible = _has_reminder;
         when_popover.reminder_switch.active = _has_reminder;
+        when_popover.reminder_timepicker.time = _reminder_datetime;
 
         string hour = _reminder_datetime.get_hour ().to_string ();
         string minute = _reminder_datetime.get_minute ().to_string ();

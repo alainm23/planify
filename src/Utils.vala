@@ -119,7 +119,11 @@ public class Utils : GLib.Object {
     public bool is_listbox_empty (Gtk.ListBox listbox) {
         int l = 0;
         foreach (Gtk.Widget element in listbox.get_children ()) {
-            l = l + 1;
+            var item = element as Widgets.TaskRow;
+
+            if (item.task.checked == 0) {
+                l = l + 1;
+            }
         }
 
         if (l <= 0) {

@@ -256,6 +256,12 @@ public class Widgets.TaskNew : Gtk.Revealer {
             if (when_button.has_reminder) {
                 task.has_reminder = 1;
                 task.reminder_time = when_button.reminder_datetime.to_string ();
+
+                // Local Notification
+                Planner.notification.send_local_notification (
+                    task.content,
+                    _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
+                    "preferences-system-time");
             }
 
             foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
