@@ -255,7 +255,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
                 hide_content ();
             }
-            
+
             Planner.notification.send_local_notification (
                 task.content,
                 _("It was moved to <b>%s</b>").printf (project_name.label),

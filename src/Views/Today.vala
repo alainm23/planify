@@ -26,6 +26,7 @@ public class Views.Today : Gtk.EventBox {
             _("Enjoy your day"),
             "emblem-default-symbolic"
         );
+
         alert_view.margin_bottom = 64;
         alert_view.no_show_all = true;
         alert_view.visible = false;
@@ -110,6 +111,11 @@ public class Views.Today : Gtk.EventBox {
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
 
+        tasks_list.set_filter_func ((row) => {
+            var item = row as Widgets.TaskRow;
+            return item.task.checked == 0;
+        });
+
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
@@ -155,6 +161,8 @@ public class Views.Today : Gtk.EventBox {
                     return item.task.checked == 0;
                 });
 			}
+
+            check_visible_alertview ();
 		});
 
         labels_flowbox = new Gtk.FlowBox ();
@@ -235,6 +243,10 @@ public class Views.Today : Gtk.EventBox {
 
             if (text == "") {
                 // Notificacion Here ...
+                Planner.notification.send_local_notification (
+                    _("Empty clipboard"),
+                    _("Try copying some text and try again"),
+                    "dialog-error");
             } else {
                 var task = new Objects.Task ();
                 task.content = text;
@@ -243,6 +255,10 @@ public class Views.Today : Gtk.EventBox {
 
                 if (Planner.database.add_task (task) == Sqlite.DONE) {
                     // Notificacion Here ...
+                    Planner.notification.send_local_notification (
+                        _("His task was created from the clipboard"),
+                        _("Tap to undo"),
+                        "edit-paste");
                 }
             }
 
@@ -409,39 +425,41 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void add_new_task (Objects.Task task) {
-        var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+        if (task.when_date_utc != "") {
+            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
-            var row = new Widgets.TaskRow (task);
+            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
+                var row = new Widgets.TaskRow (task);
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+                row.on_signal_update.connect (() => {
+                    int i = 0;
+                    foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                        var item = element as Widgets.TaskRow;
 
-                    var _when = new GLib.DateTime.from_iso8601 (item.task.when_date_utc, new GLib.TimeZone.local ());
+                        var _when = new GLib.DateTime.from_iso8601 (item.task.when_date_utc, new GLib.TimeZone.local ());
 
-                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
-                        i = i + 1;
-                        item.name_label.opacity = 0.7;
+                        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                            i = i + 1;
+                            item.name_label.opacity = 0.7;
+                        }
                     }
-                }
 
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + _("to-do moved out of the Today");
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
-                }
+                    if (i > 0) {
+                        infobar_label.label = i.to_string () + " " + _("to-do moved out of the Today");
+                        infobar.revealed = true;
+                    } else {
+                        infobar.revealed = false;
+                    }
 
-                tasks_list.unselect_all ();
-            });
+                    tasks_list.unselect_all ();
+                });
 
-            tasks_list.add (row);
-            tasks_list.show_all ();
+                tasks_list.add (row);
+                tasks_list.show_all ();
+            }
+
+            check_visible_alertview ();
         }
-
-        check_visible_alertview ();
     }
 
     public void infobar_apply_remove () {
@@ -449,7 +467,6 @@ public class Views.Today : Gtk.EventBox {
 
         foreach (Gtk.Widget element in tasks_list.get_children ()) {
             var row = element as Widgets.TaskRow;
-
             var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {

@@ -159,6 +159,8 @@ public class Views.Inbox : Gtk.EventBox {
                     return item.task.checked == 0;
                 });
 			}
+
+            check_visible_alertview ();
 		});
 
         labels_flowbox = new Gtk.FlowBox ();

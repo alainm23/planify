@@ -39,7 +39,7 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        GLib.Timeout.add (1000, () => {
+        GLib.Timeout.add (1 * 1000, () => {
             check_badge_count ();
 
             return true;

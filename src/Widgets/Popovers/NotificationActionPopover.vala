@@ -70,7 +70,7 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
         image.pixel_size = 32;
         image.no_show_all = false;
 
-        Timeout.add_seconds (1, () => {
+        Timeout.add (500, () => {
             popup ();
             show_all ();
             return false;

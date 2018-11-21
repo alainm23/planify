@@ -178,12 +178,11 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         username_label.halign = Gtk.Align.CENTER;
         username_label.use_markup = true;
 
-        var overview_levelbar = new Gtk.LevelBar.for_interval (0.0, 1.0);
+        var overview_levelbar = new Gtk.LevelBar.for_interval (0, 1);
         overview_levelbar.margin_top = 12;
         overview_levelbar.valign = Gtk.Align.CENTER;
         overview_levelbar.hexpand = true;
         overview_levelbar.width_request = 200;
-        overview_levelbar.value = 0.5;
 
         var completed_task_label = new Gtk.Label (_("Completed tasks"));
         completed_task_label.max_width_chars = 1;
@@ -192,7 +191,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         completed_task_label.use_markup = true;
         completed_task_label.justify = Gtk.Justification.CENTER;
 
-        var completed_task_number = new Gtk.Label ("12");
+        var completed_task_number = new Gtk.Label (null);
         completed_task_number.get_style_context ().add_class ("h3");
         completed_task_number.get_style_context ().add_class ("h4");
 
@@ -207,7 +206,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         todo_task_label.use_markup = true;
         todo_task_label.justify = Gtk.Justification.CENTER;
 
-        var todo_task_number = new Gtk.Label ("22");
+        var todo_task_number = new Gtk.Label (null);
         todo_task_number.get_style_context ().add_class ("h3");
         todo_task_number.get_style_context ().add_class ("h4");
 
@@ -222,7 +221,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         all_task_label.use_markup = true;
         all_task_label.justify = Gtk.Justification.CENTER;
 
-        var all_task_number = new Gtk.Label ("69");
+        var all_task_number = new Gtk.Label (null);
         all_task_number.get_style_context ().add_class ("h3");
         all_task_number.get_style_context ().add_class ("h4");
 
@@ -244,6 +243,21 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         overview_grid.add (username_label);
         overview_grid.add (overview_levelbar);
         overview_grid.add (grid);
+
+        // Events
+        GLib.Timeout.add (1 * 1000, () => {
+            int completed_tasks = Planner.database.get_all_completed_tasks ();
+            int todo_tasks = Planner.database.get_all_todo_tasks ();
+            int all_tasks = Planner.database.get_all_tasks ();
+
+            completed_task_number.label = completed_tasks.to_string ();
+            todo_task_number.label = todo_tasks.to_string ();
+            all_task_number.label = all_tasks.to_string ();
+
+            overview_levelbar.value = (double) completed_tasks / (double) all_tasks;
+
+            return true;
+        });
 
         return overview_grid;
     }
