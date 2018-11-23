@@ -108,13 +108,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    return false;
 			    });
             } else if (index == 4) {
+                int tasks_number = Planner.database.get_project_tasks_number (project.id);
+                // Algoritmo para saber si hay o no tareas y si es plural o singular
+
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                     _("Are you sure you want to delete this project?"),
-                    _("It contains 26 elements that are also deleted, this operation can be undone"),
+                    _("It contains %i elements that are also deleted, this operation can be undone".printf (tasks_number)),
                     "dialog-warning",
                 Gtk.ButtonsType.CANCEL);
 
-                var remove_button = new Gtk.Button.with_label (_("Remove"));
+                var remove_button = new Gtk.Button.with_label (_("Delete Project"));
                 remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
                 message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 

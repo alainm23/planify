@@ -215,6 +215,24 @@ public class Services.Database : GLib.Object {
         return project;
     }
 
+    public int get_project_tasks_number (int id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        int count = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            count++;
+        }
+
+        return count;
+    }
+
     public int add_task (Objects.Task task) {
         Sqlite.Statement stmt;
 
