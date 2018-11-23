@@ -4,8 +4,9 @@ public class Services.Database : GLib.Object {
 
     public signal void add_task_signal ();
     public signal void update_task_signal (Objects.Task task);
-
     public signal void update_project_signal (Objects.Project project);
+    public signal void on_signal_remove_task (Objects.Task task);
+
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.cache/com.github.artegeek.planner/database.db";
@@ -371,6 +372,10 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            on_signal_remove_task (task);
+        }
 
         return res;
     }

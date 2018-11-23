@@ -2,7 +2,7 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
     private Gtk.Label title_label;
     private Gtk.Label description_label;
     private Gtk.Image image;
-
+    private bool remove_action = false;
     public NotificationActionPopover (Gtk.Widget relative) {
         Object (
             relative_to: relative,
@@ -29,11 +29,13 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
 
         var close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         close_button.can_focus = false;
+        close_button.hexpand = true;
         close_button.valign = Gtk.Align.CENTER;
-        close_button.halign = Gtk.Align.CENTER;
+        close_button.halign = Gtk.Align.END;
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var main_grid = new Gtk.Grid ();
+        main_grid.width_request = 200;
         main_grid.margin = 6;
         main_grid.column_spacing = 12;
 
@@ -54,6 +56,14 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
 
         eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (remove_action) {
+                    // Eliminamos la tarea aqui
+                    debug ("Tarea eliminada");
+                    var task = Planner.database.get_last_task ();
+
+                    Planner.database.remove_task (task);
+                }
+                
                 popdown ();
             }
 
@@ -61,7 +71,7 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
         });
     }
 
-    public void send_local_notification (string title, string description, string icon_name) {
+    public void send_local_notification (string title, string description, string icon_name, int time, bool remove) {
         title_label.label = "<b>%s</b>".printf (title);
 
         description_label.label = description;
@@ -70,13 +80,19 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
         image.pixel_size = 32;
         image.no_show_all = false;
 
+        remove_action = remove;
+
+        if (visible) {
+            popdown ();
+        }
+
         Timeout.add (500, () => {
             popup ();
             show_all ();
             return false;
         });
 
-        Timeout.add_seconds (5, () => {
+        Timeout.add_seconds (time, () => {
             popdown ();
             return false;
         });

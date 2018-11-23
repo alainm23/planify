@@ -22,3 +22,4 @@ meson build && cd build
 meson configure -Dprefix=/usr
 sudo ninja install
 ```
+Made with 💛 in Perú

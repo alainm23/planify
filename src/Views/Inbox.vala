@@ -218,6 +218,9 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         paste_button.clicked.connect (() => {
+            settings_button.get_style_context ().remove_class ("closed");
+            action_revealer.reveal_child = false;
+
             string text = clipboard.wait_for_text ();
 
             if (text == "") {
@@ -225,7 +228,9 @@ public class Views.Inbox : Gtk.EventBox {
                 Planner.notification.send_local_notification (
                     _("Empty clipboard"),
                     _("Try copying some text and try again"),
-                    "dialog-error");
+                    "dialog-error",
+                    3,
+                    false);
             } else {
                 var task = new Objects.Task ();
                 task.content = text;
@@ -235,7 +240,9 @@ public class Views.Inbox : Gtk.EventBox {
                     Planner.notification.send_local_notification (
                         _("His task was created from the clipboard"),
                         _("Tap to undo"),
-                        "edit-paste");
+                        "edit-paste",
+                        3,
+                        true);
                 }
             }
 
@@ -389,6 +396,16 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.add_task_signal.connect (() => {
             var task = Planner.database.get_last_task ();
             add_new_task (task);
+        });
+
+        Planner.database.on_signal_remove_task.connect ((task) => {
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+
+                if (row.task.id == task.id) {
+                    tasks_list.remove (element);
+                }
+            }
         });
     }
 

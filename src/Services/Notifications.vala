@@ -2,7 +2,11 @@ public class Services.Notifications : GLib.Object {
     private Notify.Notification notification;
 
     public signal void on_signal_highlight_task (Objects.Task task);
-    public signal void send_local_notification (string title, string description, string icon_name);
+    public signal void send_local_notification (string title,
+                                                string description,
+                                                string icon_name,
+                                                int    time,
+                                                bool   remove_clipboard_task);
 
     public Notifications () {
         Notify.init ("Planner");

@@ -119,6 +119,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
                 message_dialog.show_all ();
+
                 if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                     project.is_deleted = 1;
 

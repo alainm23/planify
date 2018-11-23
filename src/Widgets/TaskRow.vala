@@ -259,7 +259,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             Planner.notification.send_local_notification (
                 task.content,
                 _("It was moved to <b>%s</b>").printf (project_name.label),
-                "document-export");
+                "document-export",
+                3,
+                false);
 
             update_task ();
         });
@@ -364,18 +366,41 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             close_revealer.reveal_child = false;
             remove_revealer.reveal_child = false;
 
-            if (Planner.database.remove_task (task) == Sqlite.DONE) {
-                Timeout.add (20, () => {
-                    this.opacity = this.opacity - 0.1;
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Are you sure you want to delete this to-do?"),
+                "",
+                "dialog-warning",
+            Gtk.ButtonsType.CANCEL);
 
-                    if (this.opacity <= 0) {
-                        destroy ();
-                        return false;
+            var remove_button = new Gtk.Button.with_label (_("Delete To-Do"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                if (Planner.database.remove_task (task) == Sqlite.DONE) {
+                    var task_preview = "";
+                    if (task.content.length > 15) {
+                        task_preview = task.content.substring (0, 14) + " ...";
+                    } else {
+                        task_preview = task.content;
                     }
 
-                    return true;
-                });
+                    Timeout.add (20, () => {
+                        this.opacity = this.opacity - 0.1;
+
+                        if (this.opacity <= 0) {
+                            destroy ();
+                            return false;
+                        }
+
+                        return true;
+                    });
+                }
             }
+
+            message_dialog.destroy ();
         });
 
         checklist_entry.activate.connect (() => {
@@ -568,7 +593,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 Planner.notification.send_local_notification (
                     task.content,
                     _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
-                    "preferences-system-time");
+                    "preferences-system-time",
+                    3,
+                    false);
             }
         }
 

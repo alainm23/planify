@@ -99,8 +99,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             notification_menu.active = false;
         });
 
-        Planner.notification.send_local_notification.connect ((title, description, icon_name) => {
-            notification_action.send_local_notification (title, description, icon_name);
+        Planner.notification.send_local_notification.connect ((title, description, icon_name, time, remove) => {
+            notification_action.send_local_notification (title, description, icon_name, time, remove);
         });
 
         notification_action.show.connect (() => {
