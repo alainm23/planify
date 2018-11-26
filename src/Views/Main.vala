@@ -13,7 +13,7 @@ public class Views.Main : Gtk.Paned {
         Object (
             parent_window: parent,
             orientation: Gtk.Orientation.HORIZONTAL,
-            position: Planner.settings.get_int ("project-sidebar-width")
+            position: Application.settings.get_int ("project-sidebar-width")
         );
     }
 
@@ -38,7 +38,7 @@ public class Views.Main : Gtk.Paned {
 
         update_views ();
 
-        var start_page = Planner.settings.get_enum ("start-page");
+        var start_page = Application.settings.get_enum ("start-page");
         var start_page_name = "";
 
         if (start_page == 0) {
@@ -77,7 +77,7 @@ public class Views.Main : Gtk.Paned {
         });
 
         projects_list.on_add_project_signal.connect (() => {
-            var project = Planner.database.get_last_project ();
+            var project = Application.database.get_last_project ();
 
             var project_view = new Views.Project (project, parent_window);
             stack.add_named (project_view, "project_view-" + project.id.to_string ());
@@ -85,7 +85,7 @@ public class Views.Main : Gtk.Paned {
             stack.show_all ();
         });
 
-        Planner.notification.on_signal_highlight_task.connect ((task) => {
+        Application.notification.on_signal_highlight_task.connect ((task) => {
             stack.visible_child = inbox_view;
             destroy ();
         });
@@ -93,7 +93,7 @@ public class Views.Main : Gtk.Paned {
 
     public void update_views () {
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects = Planner.database.get_all_projects ();
+        all_projects = Application.database.get_all_projects ();
 
         foreach (var project in all_projects) {
             var project_view = new Views.Project (project, parent_window);

@@ -61,7 +61,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         }
 
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects = Planner.database.get_all_projects ();
+        all_projects = Application.database.get_all_projects ();
 
         foreach (var project in all_projects) {
             var row = new Widgets.ProjectRow (project);

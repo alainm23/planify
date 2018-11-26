@@ -67,7 +67,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
                 label.color,
                 label.color,
                 label.color,                                // Background Color
-                Planner.utils.convert_invert (label.color)  // Text Color
+                Application.utils.convert_invert (label.color)  // Text Color
             );
             provider.load_from_data (colored_css, colored_css.length);
 

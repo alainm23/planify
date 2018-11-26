@@ -18,10 +18,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
         orientation = Gtk.Orientation.VERTICAL;
 
         inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
-        inbox_item.number_label.label = Planner.database.get_inbox_number ().to_string ();
+        inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
 
         today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
-        today_item.number_label.label = Planner.database.get_today_number ().to_string ();
+        today_item.number_label.label = Application.database.get_today_number ().to_string ();
 
         tomorrow_item = new Widgets.ItemRow (_("Tomorrow"), "planner-tomorrow");
         tomorrow_item.margin_bottom = 6;
@@ -55,7 +55,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
         action_bar.get_style_context ().add_class ("planner-button-no-focus");
         action_bar.set_center_widget (add_project_button);
-        action_bar.pack_end (settings_button);
+        //action_bar.pack_end (settings_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -89,7 +89,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add_popover.on_add_project_signal.connect (() => {
             on_add_project_signal ();
 
-            var project = Planner.database.get_last_project ();
+            var project = Application.database.get_last_project ();
             var row = new Widgets.ProjectRow (project);
             listbox.add (row);
             listbox.show_all ();
@@ -106,8 +106,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
         });
 
         GLib.Timeout.add (1000, () => {
-            inbox_item.number_label.label = Planner.database.get_inbox_number ().to_string ();
-            today_item.number_label.label = Planner.database.get_today_number ().to_string ();
+            inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
+            today_item.number_label.label = Application.database.get_today_number ().to_string ();
 
             check_number_labels ();
 
@@ -139,7 +139,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         }
 
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects= Planner.database.get_all_projects ();
+        all_projects= Application.database.get_all_projects ();
 
         foreach (var project in all_projects) {
             var row = new Widgets.ProjectRow (project);

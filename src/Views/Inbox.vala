@@ -36,17 +36,34 @@ public class Views.Inbox : Gtk.EventBox {
         inbox_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         inbox_name.use_markup = true;
 
-        var show_all_button = new Gtk.Button.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
-        show_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
-        show_all_button.tooltip_text = _("Open all tasks");
-        show_all_button.valign = Gtk.Align.CENTER;
-        show_all_button.halign = Gtk.Align.CENTER;
+        var show_hide_all_button = new Gtk.ToggleButton ();
+        show_hide_all_button.valign = Gtk.Align.CENTER;
+        show_hide_all_button.halign = Gtk.Align.CENTER;
+        show_hide_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
+        show_hide_all_button.tooltip_text = _("Open all tasks");
 
-        var hide_all_button = new Gtk.Button.from_icon_name ("zoom-out-symbolic", Gtk.IconSize.MENU);
-        hide_all_button.get_style_context ().add_class ("planner-zoom-out-menu");
-        hide_all_button.tooltip_text = _("Close all tasks");
-        hide_all_button.valign = Gtk.Align.CENTER;
-        hide_all_button.halign = Gtk.Align.CENTER;
+        var show_hide_image = new Gtk.Image.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
+        show_hide_all_button.add (show_hide_image);
+
+        show_hide_all_button.toggled.connect (() => {
+          if (show_hide_all_button.active) {
+              show_hide_all_button.tooltip_text = _("Close all tasks");
+              show_hide_image.icon_name = "zoom-out-symbolic";
+
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.show_content ();
+              }
+          } else {
+              show_hide_all_button.tooltip_text = _("Open all tasks");
+              show_hide_image.icon_name = "zoom-in-symbolic";
+
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.hide_content ();
+              }
+          }
+        });
 
         var paste_button = new Gtk.Button.from_icon_name ("planner-paste-symbolic", Gtk.IconSize.MENU);
         paste_button.get_style_context ().add_class ("planner-paste-menu");
@@ -75,8 +92,7 @@ public class Views.Inbox : Gtk.EventBox {
         action_grid.add (labels_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
-        action_grid.add (show_all_button);
-        action_grid.add (hide_all_button);
+        action_grid.add (show_hide_all_button);
 
         var action_revealer = new Gtk.Revealer ();
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -225,7 +241,7 @@ public class Views.Inbox : Gtk.EventBox {
 
             if (text == "") {
                 // Notificacion Here ...
-                Planner.notification.send_local_notification (
+                Application.notification.send_local_notification (
                     _("Empty clipboard"),
                     _("Try copying some text and try again"),
                     "dialog-error",
@@ -236,8 +252,8 @@ public class Views.Inbox : Gtk.EventBox {
                 task.content = text;
                 task.is_inbox = 1;
 
-                if (Planner.database.add_task (task) == Sqlite.DONE) {
-                    Planner.notification.send_local_notification (
+                if (Application.database.add_task (task) == Sqlite.DONE) {
+                    Application.notification.send_local_notification (
                         _("His task was created from the clipboard"),
                         _("Tap to undo"),
                         "edit-paste",
@@ -250,7 +266,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         this.event.connect ((event) => {
-            var button_press = Planner.settings.get_enum ("button-press");
+            var button_press = Application.settings.get_enum ("button-press");
 
             if (button_press == 0) {
 
@@ -272,20 +288,6 @@ public class Views.Inbox : Gtk.EventBox {
 
             tasks_list.unselect_all ();
             return false;
-        });
-
-        hide_all_button.clicked.connect (() => {
-            foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                var row = element as Widgets.TaskRow;
-                row.hide_content ();
-            }
-        });
-
-        show_all_button.clicked.connect (() => {
-            foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                var row = element as Widgets.TaskRow;
-                row.show_content ();
-            }
         });
 
         settings_button.toggled.connect (() => {
@@ -314,12 +316,12 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         labels_popover.on_selected_label.connect ((label) => {
-            if (Planner.utils.is_label_repeted (labels_flowbox, label.id) == false) {
+            if (Application.utils.is_label_repeted (labels_flowbox, label.id) == false) {
                 var child = new Widgets.LabelChild (label);
                 labels_flowbox.add (child);
             }
 
-            labels_flowbox_revealer.reveal_child = !Planner.utils.is_empty (labels_flowbox);
+            labels_flowbox_revealer.reveal_child = !Application.utils.is_empty (labels_flowbox);
             labels_flowbox.show_all ();
             labels_popover.popdown ();
 
@@ -350,7 +352,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         labels_flowbox.remove.connect ((widget) => {
-            if (Planner.utils.is_empty (labels_flowbox)) {
+            if (Application.utils.is_empty (labels_flowbox)) {
                 labels_flowbox_revealer.reveal_child = false;
                 tasks_list.set_filter_func ((row) => {
                     return true;
@@ -387,18 +389,18 @@ public class Views.Inbox : Gtk.EventBox {
             check_visible_alertview ();
         });
 
-        Planner.database.update_task_signal.connect ((task) => {
-            if (Planner.utils.is_task_repeted (tasks_list, task.id) == false) {
+        Application.database.update_task_signal.connect ((task) => {
+            if (Application.utils.is_task_repeted (tasks_list, task.id) == false) {
                 add_new_task (task);
             }
         });
 
-        Planner.database.add_task_signal.connect (() => {
-            var task = Planner.database.get_last_task ();
+        Application.database.add_task_signal.connect (() => {
+            var task = Application.database.get_last_task ();
             add_new_task (task);
         });
 
-        Planner.database.on_signal_remove_task.connect ((task) => {
+        Application.database.on_signal_remove_task.connect ((task) => {
             foreach (Gtk.Widget element in tasks_list.get_children ()) {
                 var row = element as Widgets.TaskRow;
 
@@ -443,7 +445,7 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     public void check_visible_alertview () {
-        if (Planner.utils.is_listbox_empty (tasks_list)) {
+        if (Application.utils.is_listbox_empty (tasks_list)) {
             alert_view.visible = true;
             alert_view.no_show_all = false;
 
@@ -484,7 +486,7 @@ public class Views.Inbox : Gtk.EventBox {
         }
 
         var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Planner.database.get_all_inbox_tasks ();
+        all_tasks = Application.database.get_all_inbox_tasks ();
 
         foreach (var task in all_tasks) {
             var row = new Widgets.TaskRow (task);
@@ -515,7 +517,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         tasks_list.show_all ();
 
-        if (Planner.utils.is_listbox_empty (tasks_list)) {
+        if (Application.utils.is_listbox_empty (tasks_list)) {
             alert_view.visible = true;
             alert_view.no_show_all = false;
 

@@ -14,8 +14,8 @@ public class Services.Notifications : GLib.Object {
     }
 
     public void send_notification (string summary, string body) {
-        var notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
-        notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
+        var notification = new Notify.Notification (summary, body, "com.github.artegeek.Application");
+        notification.set_hint_string ("desktop-entry", "com.github.artegeek.Application");
         notification.set_urgency (Notify.Urgency.LOW);
 
         try {
@@ -28,7 +28,7 @@ public class Services.Notifications : GLib.Object {
     public void start_notification () {
         GLib.Timeout.add_seconds (15, () => {
             var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Planner.database.get_all_reminder_tasks ();
+            all_tasks = Application.database.get_all_reminder_tasks ();
 
             foreach (Objects.Task task in all_tasks) {
                 var now_date = new GLib.DateTime.now_local ();
@@ -43,17 +43,17 @@ public class Services.Notifications : GLib.Object {
                             if (task.is_inbox == 1) {
                                 summary = _("Inbox");
                             } else {
-                                summary = Planner.database.get_project (task.project_id).name;
+                                summary = Application.database.get_project (task.project_id).name;
                             }
 
-                            notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
-                            notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
+                            notification = new Notify.Notification (summary, body, "com.github.artegeek.Application");
+                            notification.set_hint_string ("desktop-entry", "com.github.artegeek.Application");
                             notification.set_urgency (Notify.Urgency.CRITICAL);
 
                             try {
                                 notification.show ();
                                 task.was_notified = 1;
-                                Planner.database.update_task (task);
+                                Application.database.update_task (task);
                             } catch (GLib.Error e) {
                                 warning ("Failed to show notification: %s", e.message);
                             }

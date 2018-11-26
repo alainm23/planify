@@ -144,4 +144,21 @@ public class Utils : GLib.Object {
 
         return false;
     }
+
+    public bool is_tomorrow (GLib.DateTime duedate) {
+        var datetime_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+        if (datetime_tomorrow.get_year () == duedate.get_year ()) {
+            if (datetime_tomorrow.get_month () == duedate.get_month ()) {
+                if (datetime_tomorrow.get_day_of_month () == duedate.get_day_of_month ()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

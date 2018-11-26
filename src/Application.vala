@@ -1,4 +1,4 @@
-public class Planner : Gtk.Application {
+public class Application : Gtk.Application {
     private MainWindow main_window;
     public static GLib.Settings settings;
     public static Services.Database database;
@@ -8,7 +8,7 @@ public class Planner : Gtk.Application {
     public const string CSS = """
         @define-color headerbar_color %s;
     """;
-    public Planner () {
+    public Application () {
         Object (
             application_id: "com.github.artegeek.planner",
             flags: ApplicationFlags.FLAGS_NONE
@@ -60,15 +60,16 @@ public class Planner : Gtk.Application {
             }
         });
 
+        // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/artegeek/planner");
 
+        // Stylesheet
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/artegeek/planner/stylesheet.css");
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-
-        // Theme
+        // Window Theme
         var theme_provider = new Gtk.CssProvider ();
         var colored_css = "";
 
@@ -89,7 +90,7 @@ public class Planner : Gtk.Application {
         }
     }
     public static int main (string[] args) {
-        var app = new Planner ();
+        var app = new Application ();
         return app.run (args);
     }
 }

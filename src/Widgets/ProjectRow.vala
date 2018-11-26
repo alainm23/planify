@@ -108,7 +108,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    return false;
 			    });
             } else if (index == 4) {
-                int tasks_number = Planner.database.get_project_tasks_number (project.id);
+                int tasks_number = Application.database.get_project_tasks_number (project.id);
                 // Algoritmo para saber si hay o no tareas y si es plural o singular
 
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
@@ -126,7 +126,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                     project.is_deleted = 1;
 
-                    if (Planner.database.update_project (project) == Sqlite.DONE) {
+                    if (Application.database.update_project (project) == Sqlite.DONE) {
                         Timeout.add (20, () => {
                             this.opacity = this.opacity - 0.1;
 
@@ -195,7 +195,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             return false;
         });
 
-        Planner.database.update_project_signal.connect ((_project) => {
+        Application.database.update_project_signal.connect ((_project) => {
             if (project.id == _project.id) {
                 name_label.label = "<b>%s</b>".printf(_project.name);
                 project.color = _project.color;
@@ -226,7 +226,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         if (name_entry.text != "") {
             project.name = name_entry.text;
 
-            if (Planner.database.update_project (project) == Sqlite.DONE) {
+            if (Application.database.update_project (project) == Sqlite.DONE) {
                 name_label.label = "<b>%s</b>".printf(name_entry.text);
 
                 name_label.visible = true;

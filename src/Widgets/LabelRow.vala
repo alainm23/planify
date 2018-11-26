@@ -98,7 +98,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
             message_dialog.show_all ();
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                if (Planner.database.remove_label (label) == Sqlite.DONE) {
+                if (Application.database.remove_label (label) == Sqlite.DONE) {
                     destroy ();
                 }
             }

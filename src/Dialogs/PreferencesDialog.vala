@@ -27,7 +27,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.append_text ("Calendar");
 
         Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
-        headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
+        headerbar.get_style_context ().add_class ("Application-preferences-headerbar");
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -69,7 +69,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		badge_count_combobox.append_text (_("Today + Inbox"));
         badge_count_combobox.append_text (_("Notifications"));
 
-		badge_count_combobox.active = Planner.settings.get_enum ("badge-count");
+		badge_count_combobox.active = Application.settings.get_enum ("badge-count");
 
         var badge_count_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         badge_count_box.hexpand = true;
@@ -90,11 +90,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		start_page_combobox.append_text (_("Inbox"));
 		start_page_combobox.append_text (_("Today"));
         start_page_combobox.append_text (_("Tomorrow"));
-		start_page_combobox.active = Planner.settings.get_enum ("start-page");
+		start_page_combobox.active = Application.settings.get_enum ("start-page");
 
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         start_page_box.hexpand = true;
-        start_page_box.tooltip_text = _("Choose that page should be first initial \n when Planner is open.");
+        start_page_box.tooltip_text = _("Choose that page should be first initial \n when Application is open.");
         start_page_box.pack_start (start_page_icon, false, false, 0);
         start_page_box.pack_start (start_page_label, false, false, 6);
         start_page_box.pack_end (start_page_combobox, false, false, 0);
@@ -112,7 +112,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         button_press_combobox.append_text (_("Double Button Press"));
 		button_press_combobox.append_text (_("Triple Button Press"));
 
-		button_press_combobox.active = Planner.settings.get_enum ("button-press");
+		button_press_combobox.active = Application.settings.get_enum ("button-press");
 
         var button_press_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         button_press_box.hexpand = true;
@@ -131,15 +131,15 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Events
         badge_count_combobox.changed.connect (() => {
-            Planner.settings.set_enum ("badge-count", badge_count_combobox.active);
+            Application.settings.set_enum ("badge-count", badge_count_combobox.active);
         });
 
         start_page_combobox.changed.connect(() => {
-            Planner.settings.set_enum ("start-page", start_page_combobox.active);
+            Application.settings.set_enum ("start-page", start_page_combobox.active);
         });
 
         button_press_combobox.changed.connect(() => {
-            Planner.settings.set_enum ("button-press", button_press_combobox.active);
+            Application.settings.set_enum ("button-press", button_press_combobox.active);
         });
 
         return main_grid;

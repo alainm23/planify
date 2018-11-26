@@ -5,7 +5,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.Button close_button;
     private Gtk.ListBox checklist;
     public Widgets.WhenButton when_button;
-    private Widgets.DeadlineButton deadline_button;
 
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
@@ -28,6 +27,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         name_entry.margin_top = 6;
         name_entry.hexpand = true;
         name_entry.placeholder_text = _("New task");
+        name_entry.input_hints = Gtk.InputHints.UPPERCASE_SENTENCES;
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
@@ -94,7 +94,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         labels_flowbox_revealer.reveal_child = false;
 
         when_button = new Widgets.WhenButton ();
-        deadline_button = new Widgets.DeadlineButton ();
 
         var labels = new Widgets.LabelButton ();
 
@@ -258,7 +257,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 task.reminder_time = when_button.reminder_datetime.to_string ();
 
                 // Local Notification
-                Planner.notification.send_local_notification (
+                Application.notification.send_local_notification (
                     task.content,
                     _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
                     "preferences-system-time",
@@ -276,7 +275,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 task.checklist = task.checklist + row.get_check ();
             }
 
-            if (Planner.database.add_task (task) == Sqlite.DONE) {
+            if (Application.database.add_task (task) == Sqlite.DONE) {
                 on_signal_close ();
 
                 name_entry.text = "";

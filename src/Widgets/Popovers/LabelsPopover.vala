@@ -127,7 +127,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         });
 
         color_button.color_set.connect (() => {
-            add_styles (Planner.utils.rgb_to_hex_string (color_button.rgba));
+            add_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
         });
 
         stack = new Gtk.Stack ();
@@ -155,9 +155,9 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         submit_button.clicked.connect (() => {
             var label = new Objects.Label ();
             label.name = label_entry.text;
-            label.color = Planner.utils.rgb_to_hex_string (color_button.rgba);
+            label.color = Application.utils.rgb_to_hex_string (color_button.rgba);
 
-            if (Planner.database.add_label (label) == Sqlite.DONE) {
+            if (Application.database.add_label (label) == Sqlite.DONE) {
                 label_entry.text = "";
                 stack.visible_child_name = "list_labels_grid";
 
@@ -178,7 +178,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         }
 
         var all_labels = new Gee.ArrayList<Objects.Label?> ();
-        all_labels = Planner.database.get_all_labels ();
+        all_labels = Application.database.get_all_labels ();
 
         foreach (var label in all_labels) {
             var row = new Widgets.LabelRow (label);
@@ -194,7 +194,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
                 color_hex,                  // Background Color
                 color_hex,
                 color_hex,
-                Planner.utils.convert_invert (color_hex)  // Text Color
+                Application.utils.convert_invert (color_hex)  // Text Color
             );
             provider.load_from_data (colored_css, colored_css.length);
 

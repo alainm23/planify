@@ -234,7 +234,7 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
         });
 
         color_button.color_set.connect (() => {
-            color_hex_entry.text = Planner.utils.rgb_to_hex_string (color_button.rgba);
+            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
         });
 
         color_hex_entry.changed.connect (() => {
@@ -266,7 +266,7 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
         project.name = name_entry.text;
         project.color = color_hex_entry.text;
 
-        if (Planner.database.add_project (project) == Sqlite.DONE) {
+        if (Application.database.add_project (project) == Sqlite.DONE) {
             on_add_project_signal ();
             popdown ();
 

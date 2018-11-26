@@ -7,6 +7,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Entry name_entry;
     private Gtk.Button close_button;
     private Gtk.Button remove_button;
+
+    private Gtk.Box when_preview_box;
+    private Gtk.Image when_preview_icon;
+    private Gtk.Label when_preview_label;
+
+    private Gtk.Box reminder_preview_box;
+    private Gtk.Label reminder_preview_label;
+    private Gtk.Box project_preview_box;
+
     private Gtk.TextView note_view;
     private Gtk.Revealer bottom_box_revealer;
     private Gtk.Grid main_grid;
@@ -57,10 +66,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_label.margin_start = 6;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        name_eventbox = new Gtk.EventBox ();
-        name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        name_eventbox.add (name_label);
-
         name_entry = new Gtk.Entry ();
         name_entry.text = task.content;
         name_entry.hexpand = true;
@@ -70,16 +75,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("planner-entry");
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.no_show_all = true;
-
-        name_entry.focus_in_event.connect (() => {
-            name_entry.secondary_icon_name = "edit-clear-symbolic";
-            return false;
-        });
-
-        name_entry.focus_out_event.connect (() => {
-            name_entry.secondary_icon_name = null;
-            return false;
-        });
 
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         close_button.height_request = 24;
@@ -93,30 +88,72 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.valign = Gtk.Align.START;
         close_revealer.halign = Gtk.Align.END;
 
-        var project_icon = new Gtk.Image ();
-        project_icon.gicon = new ThemedIcon ("mail-read-symbolic");
-        project_icon.pixel_size = 16;
+        when_preview_icon = new Gtk.Image ();
+        when_preview_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
+        when_preview_icon.pixel_size = 16;
 
-        var project_name = new Gtk.Label (null);
-        project_name.margin_bottom = 2;
+        when_preview_label = new Gtk.Label ("Today");
+        when_preview_label.get_style_context ().add_class ("h3");
 
-        if (task.is_inbox == 1) {
-            project_name.label = _("Inbox");
-        } else {
-            var project = Planner.database.get_project (task.project_id);
-            project_name.label = project.name;
+        when_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        when_preview_box.pack_start (when_preview_icon, false, false, 0);
+        when_preview_box.pack_start (when_preview_label, false, false, 3);
+
+        var reminder_preview_icon = new Gtk.Image ();
+        reminder_preview_icon.gicon = new ThemedIcon ("notification-new-symbolic");
+        reminder_preview_icon.pixel_size = 16;
+
+        reminder_preview_label = new Gtk.Label ("06:48");
+        reminder_preview_label.get_style_context ().add_class ("h3");
+
+        reminder_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        reminder_preview_box.pack_start (reminder_preview_icon, false, false, 0);
+        reminder_preview_box.pack_start (reminder_preview_label, false, false, 3);
+
+        if (task.when_date_utc == "") {
+            when_preview_box.no_show_all = true;
+            when_preview_box.visible = false;
         }
 
-        project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        project_box.pack_start (project_name, false, false, 0);
-        project_box.pack_start (project_icon, false, false, 3);
+        if (task.has_reminder == 0) {
+            reminder_preview_box.no_show_all = true;
+            reminder_preview_box.visible = false;
+        }
+
+        var project_preview_icon = new Gtk.Image ();
+        project_preview_icon.gicon = new ThemedIcon ("mail-unread-symbolic");
+        project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
+        project_preview_icon.pixel_size = 16;
+
+        var project_preview_label = new Gtk.Label (null);
+        project_preview_label.get_style_context ().add_class ("h3");
+
+        project_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        project_preview_box.pack_start (project_preview_icon, false, false, 0);
+        project_preview_box.pack_start (project_preview_label, false, false, 3);
+
+        if (task.is_inbox == 1) {
+            project_preview_label.label = _("Inbox");
+        } else {
+            var project = Application.database.get_project (task.project_id);
+            project_preview_label.label = project.name;
+        }
+
+        var previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        previews_box.pack_start (name_label, false, false, 0);
+        previews_box.pack_end (project_preview_box, false, false, 0);
+        previews_box.pack_end (reminder_preview_box, false, false, 3);
+        previews_box.pack_end (when_preview_box, false, false, 3);
+
+        name_eventbox = new Gtk.EventBox ();
+        name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        name_eventbox.add (previews_box);
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (name_eventbox, true, true, 0);
         top_box.pack_start (name_entry, true, true, 6);
-        top_box.pack_end (project_box, false, false);
 
         note_view = new Gtk.TextView ();
         note_view.opacity = 0.8;
@@ -202,7 +239,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         string[] labels_array = task.labels.split (";");
 
         foreach (string id in labels_array) {
-            var label = Planner.database.get_label (id);
+            var label = Application.database.get_label (id);
 
             if (label.id != 0) {
                 var child = new Widgets.LabelChild (label);
@@ -244,21 +281,23 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.is_inbox = 1;
                 task.project_id = 0;
 
-                project_name.label = _("Inbox");
+                project_preview_label.label = _("Inbox");
+                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
 
                 hide_content ();
             } else {
                 task.is_inbox = 0;
                 task.project_id = project.id;
 
-                project_name.label = project.name;
+                project_preview_label.label = project.name;
+                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
 
                 hide_content ();
             }
 
-            Planner.notification.send_local_notification (
+            Application.notification.send_local_notification (
                 task.content,
-                _("It was moved to <b>%s</b>").printf (project_name.label),
+                _("It was moved to <b>%s</b>").printf (project_preview_label.label),
                 "document-export",
                 3,
                 false);
@@ -311,6 +350,17 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         add (main_eventbox);
         check_task_completed ();
         //build_drag_and_drop ();
+
+        // Signals
+        name_entry.focus_in_event.connect (() => {
+            name_entry.secondary_icon_name = "edit-clear-symbolic";
+            return false;
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            name_entry.secondary_icon_name = null;
+            return false;
+        });
 
         name_eventbox.button_press_event.connect ((event) => {
             check_task_completed ();
@@ -379,7 +429,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                if (Planner.database.remove_task (task) == Sqlite.DONE) {
+                if (Application.database.remove_task (task) == Sqlite.DONE) {
                     var task_preview = "";
                     if (task.content.length > 15) {
                         task_preview = task.content.substring (0, 14) + " ...";
@@ -581,8 +631,24 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         if (when_button.has_duedate) {
             task.when_date_utc = when_button.when_datetime.to_string ();
+
+            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+                when_preview_label.label = _("Today");
+            } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
+                when_preview_label.label = _("Tomorrow");
+            } else {
+                int day = when_button.when_datetime.get_day_of_month ();
+                string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
+                when_preview_label.label = "%i %s".printf (day, month);
+            }
+
+            when_preview_box.visible = true;
+            when_preview_box.no_show_all = false;
         } else {
             task.when_date_utc = "";
+
+            when_preview_box.visible = false;
+            when_preview_box.no_show_all = true;
         }
 
         if (when_button.reminder_datetime.to_string () != task.reminder_time) {
@@ -590,7 +656,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             if (when_button.has_reminder) {
                 // Send Notification
-                Planner.notification.send_local_notification (
+                Application.notification.send_local_notification (
                     task.content,
                     _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
                     "preferences-system-time",
@@ -602,12 +668,32 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         if (when_button.has_reminder) {
             task.has_reminder = 1;
             task.reminder_time = when_button.reminder_datetime.to_string ();
+
+            string hour = when_button.reminder_datetime.get_hour ().to_string ();
+            string minute = when_button.reminder_datetime.get_minute ().to_string ();
+
+            if (minute.length <= 1) {
+                minute = "0" + minute;
+            }
+
+            if (hour.length <= 1) {
+                hour = "0" + hour;
+            }
+
+            reminder_preview_label.label = "%s:%s".printf (hour, minute);
+
+            reminder_preview_box.visible = true;
+            reminder_preview_box.no_show_all = false;
         } else {
             task.has_reminder = 0;
             task.reminder_time = "";
+
+            reminder_preview_box.visible = false;
+            reminder_preview_box.no_show_all = true;
         }
 
-        Planner.database.update_task_signal (task);
+        show_all ();
+        Application.database.update_task_signal (task);
 
         Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
             task.labels = "";
@@ -623,7 +709,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
 
 
-            if (Planner.database.update_task (task) == Sqlite.DONE) {
+            if (Application.database.update_task (task) == Sqlite.DONE) {
                 on_signal_update ();
             }
 

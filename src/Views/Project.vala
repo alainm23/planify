@@ -226,7 +226,7 @@ public class Views.Project : Gtk.EventBox {
         color_button.clicked.connect (() => {
             var color_dialog = new Gtk.ColorChooserDialog (_("Select Your Favorite Color"), parent_window);
     		if (color_dialog.run () == Gtk.ResponseType.OK) {
-                project.color = Planner.utils.rgb_to_hex_string (color_dialog.rgba);
+                project.color = Application.utils.rgb_to_hex_string (color_dialog.rgba);
 
                 update_project ();
     		}
@@ -263,7 +263,7 @@ public class Views.Project : Gtk.EventBox {
             return false;
         });
 
-        Planner.database.update_project_signal.connect ((_project) => {
+        Application.database.update_project_signal.connect ((_project) => {
             if (project.id == _project.id) {
                 name_entry.text = _project.name;
             }
@@ -274,15 +274,11 @@ public class Views.Project : Gtk.EventBox {
         if (name_entry.text == "") {
             name_entry.text = project.name;
         } else {
-            Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
-                project.name = name_entry.text;
+            project.name = name_entry.text;
 
-                if (Planner.database.update_project (project) == Sqlite.DONE) {
+            if (Application.database.update_project (project) == Sqlite.DONE) {
 
-                }
-
-        		return null;
-        	});
+            }
         }
     }
 }

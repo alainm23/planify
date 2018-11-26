@@ -59,11 +59,11 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
                 if (remove_action) {
                     // Eliminamos la tarea aqui
                     debug ("Tarea eliminada");
-                    var task = Planner.database.get_last_task ();
+                    var task = Application.database.get_last_task ();
 
-                    Planner.database.remove_task (task);
+                    Application.database.remove_task (task);
                 }
-                
+
                 popdown ();
             }
 

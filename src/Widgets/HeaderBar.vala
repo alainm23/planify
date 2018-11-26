@@ -99,7 +99,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             notification_menu.active = false;
         });
 
-        Planner.notification.send_local_notification.connect ((title, description, icon_name, time, remove) => {
+        Application.notification.send_local_notification.connect ((title, description, icon_name, time, remove) => {
             notification_action.send_local_notification (title, description, icon_name, time, remove);
         });
 
@@ -138,7 +138,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         var gtk_settings = Gtk.Settings.get_default ();
         mode_switch.bind_property ("active", gtk_settings, "gtk_application_prefer_dark_theme");
-        Planner.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        Application.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
 
         night_mode_eventbox.enter_notify_event.connect ((event) => {
             night_mode_eventbox.get_style_context ().add_class ("duedate-item");
@@ -246,9 +246,9 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         // Events
         GLib.Timeout.add (1 * 1000, () => {
-            int completed_tasks = Planner.database.get_all_completed_tasks ();
-            int todo_tasks = Planner.database.get_all_todo_tasks ();
-            int all_tasks = Planner.database.get_all_tasks ();
+            int completed_tasks = Application.database.get_all_completed_tasks ();
+            int todo_tasks = Application.database.get_all_todo_tasks ();
+            int all_tasks = Application.database.get_all_tasks ();
 
             completed_task_number.label = completed_tasks.to_string ();
             todo_task_number.label = todo_tasks.to_string ();

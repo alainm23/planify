@@ -9,7 +9,7 @@ public class Services.Database : GLib.Object {
 
     public Database (bool skip_tables = false) {
         int rc = 0;
-        db_path = Environment.get_home_dir () + "/.cache/com.github.artegeek.planner/database.db";
+        db_path = Environment.get_home_dir () + "/.cache/com.github.artegeek.Application/database.db";
 
         if (!skip_tables) {
             if (create_tables () != Sqlite.OK) {
