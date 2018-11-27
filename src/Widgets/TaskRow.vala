@@ -156,9 +156,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_preview_label.get_style_context ().add_class ("h3");
 
         project_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        project_preview_box.pack_start (project_preview_icon, false, false, 0);
-        project_preview_box.pack_start (project_preview_label, false, false, 3);
-
+        project_preview_box.pack_start (project_preview_label, false, false, 0);
+        project_preview_box.pack_start (project_preview_icon, false, false, 3);
+        
         if (task.is_inbox == 1) {
             project_preview_label.label = _("Inbox");
         } else {
