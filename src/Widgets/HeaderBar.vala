@@ -3,6 +3,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
     public const string CSS = """
         @define-color headerbar_color %s;
+        @define-color textColorPrimary %s;
     """;
 
     public HeaderBar (MainWindow parent) {
@@ -116,9 +117,9 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             var colored_css = "";
 
             if (mode_switch.active) {
-                colored_css = CSS.printf ("@base_color");
+                colored_css = CSS.printf ("@base_color", "@text_color");
             } else {
-                colored_css = CSS.printf ("#ffe16b");
+                colored_css = CSS.printf ("#ffe16b", "#333");
             }
 
             try {

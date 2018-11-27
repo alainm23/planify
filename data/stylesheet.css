@@ -1,7 +1,7 @@
 @define-color headerbar_color #ffe16b;
 
 @define-color colorPrimary @headerbar_color;
-@define-color textColorPrimary #331;
+@define-color textColorPrimary #333;
 
 .titlebar {
     padding: 1px 6px;

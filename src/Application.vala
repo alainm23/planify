@@ -7,6 +7,7 @@ public class Application : Gtk.Application {
 
     public const string CSS = """
         @define-color headerbar_color %s;
+        @define-color textColorPrimary %s;
     """;
     public Application () {
         Object (
@@ -74,10 +75,10 @@ public class Application : Gtk.Application {
         var colored_css = "";
 
         if (settings.get_boolean ("prefer-dark-style")) {
-            colored_css = CSS.printf ("@base_color");
+            colored_css = CSS.printf ("@base_color", "@text_color");
             stdout.printf ("true");
         } else {
-            colored_css = CSS.printf ("#ffe16b");
+            colored_css = CSS.printf ("#ffe16b", "#333");
             stdout.printf ("true");
         }
 
