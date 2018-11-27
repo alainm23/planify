@@ -8,19 +8,22 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Button close_button;
     private Gtk.Button remove_button;
 
-    private Gtk.Box when_preview_box;
+    private Gtk.Image note_preview_icon;
+    private Gtk.Image label_preview_icon;
+    private Gtk.Label checklist_preview_label;
+    private Gtk.Box checklist_preview_box;
+    public Gtk.Box when_preview_box;
     private Gtk.Image when_preview_icon;
     private Gtk.Label when_preview_label;
 
     private Gtk.Box reminder_preview_box;
     private Gtk.Label reminder_preview_label;
-    private Gtk.Box project_preview_box;
+    public Gtk.Box project_preview_box;
 
     private Gtk.TextView note_view;
     private Gtk.Revealer bottom_box_revealer;
     private Gtk.Grid main_grid;
     private Gtk.EventBox name_eventbox;
-    private Gtk.Grid checklist_preview;
     private Gtk.ListBox checklist;
 
     private Gtk.Box top_box;
@@ -30,7 +33,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public Gtk.Box project_box;
 
     private Widgets.WhenButton when_button;
-
     /*
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
@@ -88,32 +90,57 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.valign = Gtk.Align.START;
         close_revealer.halign = Gtk.Align.END;
 
+        note_preview_icon = new Gtk.Image ();
+        note_preview_icon.gicon = new ThemedIcon ("text-x-generic-symbolic");
+        note_preview_icon.pixel_size = 12;
+
+        check_note_preview_icon ();
+
+        label_preview_icon = new Gtk.Image ();
+        label_preview_icon.gicon = new ThemedIcon ("tag-symbolic");
+        label_preview_icon.pixel_size = 12;
+
+        check_label_preview_icon ();
+
+        var checklist_preview_icon = new Gtk.Image ();
+        checklist_preview_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
+        checklist_preview_icon.pixel_size = 12;
+
+        checklist_preview_label = new Gtk.Label (null);
+        checklist_preview_label.use_markup = true;
+
+        checklist_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        checklist_preview_box.pack_start (checklist_preview_icon, false, false, 0);
+        checklist_preview_box.pack_start (checklist_preview_label, false, false, 3);
+
+        check_checklist_progress ();
+
         when_preview_icon = new Gtk.Image ();
         when_preview_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
-        when_preview_icon.pixel_size = 16;
+        when_preview_icon.pixel_size = 12;
 
         when_preview_label = new Gtk.Label ("Today");
-        when_preview_label.get_style_context ().add_class ("h3");
+        //when_preview_label.get_style_context ().add_class ("h3");
 
         when_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         when_preview_box.pack_start (when_preview_icon, false, false, 0);
         when_preview_box.pack_start (when_preview_label, false, false, 3);
 
-        var reminder_preview_icon = new Gtk.Image ();
-        reminder_preview_icon.gicon = new ThemedIcon ("notification-new-symbolic");
-        reminder_preview_icon.pixel_size = 16;
-
-        reminder_preview_label = new Gtk.Label ("06:48");
-        reminder_preview_label.get_style_context ().add_class ("h3");
-
-        reminder_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        reminder_preview_box.pack_start (reminder_preview_icon, false, false, 0);
-        reminder_preview_box.pack_start (reminder_preview_label, false, false, 3);
-
         if (task.when_date_utc == "") {
             when_preview_box.no_show_all = true;
             when_preview_box.visible = false;
         }
+
+        var reminder_preview_icon = new Gtk.Image ();
+        reminder_preview_icon.gicon = new ThemedIcon ("notification-new-symbolic");
+        reminder_preview_icon.pixel_size = 12;
+
+        reminder_preview_label = new Gtk.Label (null);
+        //reminder_preview_label.get_style_context ().add_class ("h3");
+
+        reminder_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        reminder_preview_box.pack_start (reminder_preview_icon, false, false, 0);
+        reminder_preview_box.pack_start (reminder_preview_label, false, false, 3);
 
         if (task.has_reminder == 0) {
             reminder_preview_box.no_show_all = true;
@@ -140,10 +167,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         var previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        previews_box.pack_start (name_label, false, false, 0);
+        previews_box.pack_start (name_label, false, false, 3);
+        previews_box.pack_start (note_preview_icon, false, false, 3);
+        previews_box.pack_start (label_preview_icon, false, false, 3);
+        previews_box.pack_start (checklist_preview_box, false, false, 3);
+        previews_box.pack_start (when_preview_box, false, false, 3);
+        previews_box.pack_start (reminder_preview_box, false, false, 3);
         previews_box.pack_end (project_preview_box, false, false, 0);
-        previews_box.pack_end (reminder_preview_box, false, false, 3);
-        previews_box.pack_end (when_preview_box, false, false, 3);
 
         name_eventbox = new Gtk.EventBox ();
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -362,9 +392,23 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             return false;
         });
 
-        name_eventbox.button_press_event.connect ((event) => {
+        name_entry.changed.connect (() => {
+            name_entry.text = Application.utils.first_letter_to_up (name_entry.text);
+        });
+
+        name_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                name_label.label = name_entry.text;
+                check_task_completed ();
+                hide_content ();
+            }
+
+            return false;
+        });
+
+        name_entry.activate.connect (() => {
             check_task_completed ();
-            show_content ();
+            hide_content ();
         });
 
         name_entry.icon_press.connect ((pos, event) => {
@@ -372,6 +416,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 				name_entry.text = "";
 			}
 		});
+
+        name_eventbox.button_press_event.connect ((event) => {
+            check_task_completed ();
+            show_content ();
+        });
 
         close_button.clicked.connect (() => {
             close_revealer.reveal_child = false;
@@ -463,19 +512,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
         });
 
-        name_entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                name_label.label = name_entry.text;
-                check_task_completed ();
-                hide_content ();
-            }
-
-            return false;
-        });
-
-        name_entry.activate.connect (() => {
-            check_task_completed ();
-            hide_content ();
+        checklist_entry.changed.connect (() => {
+            checklist_entry.text = Application.utils.first_letter_to_up (checklist_entry.text);
         });
 
         note_view.key_release_event.connect ((key) => {
@@ -574,6 +612,30 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
     }
 
+    public void check_checklist_progress () {
+        if (task.checklist == "") {
+            checklist_preview_box.visible = false;
+            checklist_preview_box.no_show_all = true;
+        } else {
+            checklist_preview_box.visible = true;
+            checklist_preview_box.no_show_all = false;
+
+            string[] checklist_array = task.checklist.split (";");
+            int all = -1;
+            int completed = 0;
+
+            foreach (string str in checklist_array) {
+                if (str.substring (0, 1) == "1") {
+                    completed = completed + 1;
+                }
+
+                all = all + 1;
+            }
+
+            checklist_preview_label.label = "%i/%i".printf (completed, all);
+        }
+    }
+
     public void show_content () {
         main_grid.get_style_context ().add_class ("popover");
         main_grid.get_style_context ().add_class ("planner-popover");
@@ -587,7 +649,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         name_entry.visible = true;
         name_eventbox.visible = false;
-        checklist_preview.visible = false;
+        name_eventbox.no_show_all = true;
 
         close_revealer.halign = Gtk.Align.START;
         has_tooltip = false;
@@ -606,7 +668,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         name_entry.visible = false;
         name_eventbox.visible = true;
-        checklist_preview.visible = true;
+        name_eventbox.no_show_all = false;
 
         bottom_box_revealer.reveal_child = false;
         close_revealer.halign = Gtk.Align.END;
@@ -618,10 +680,32 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
     }
 
+    public void check_note_preview_icon () {
+        if (task.note == "") {
+            note_preview_icon.visible = false;
+            note_preview_icon.no_show_all = true;
+        } else {
+            note_preview_icon.visible = true;
+            note_preview_icon.no_show_all = false;
+        }
+    }
+
+    public void check_label_preview_icon () {
+        if (task.labels == "") {
+            label_preview_icon.visible = false;
+            label_preview_icon.no_show_all = true;
+        } else {
+            label_preview_icon.visible = true;
+            label_preview_icon.no_show_all = false;
+        }
+    }
+
     public void update_task () {
         task.project_id = task.project_id;
         task.content = name_entry.text;
         task.note = note_view.buffer.text;
+
+        check_note_preview_icon ();
 
         if (checked_button.active) {
             task.checked = 1;
@@ -629,7 +713,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.checked = 0;
         }
 
-        if (when_button.has_duedate) {
+        if (when_button.has_when) {
             task.when_date_utc = when_button.when_datetime.to_string ();
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
@@ -692,9 +776,27 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             reminder_preview_box.no_show_all = true;
         }
 
-        show_all ();
-        Application.database.update_task_signal (task);
+        task.labels = "";
+        foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
+            var child = element as Widgets.LabelChild;
+            task.labels = task.labels + child.label.id.to_string () + ";";
+        }
 
+        task.checklist = "";
+        foreach (Gtk.Widget element in checklist.get_children ()) {
+            var row = element as Widgets.CheckRow;
+            task.checklist = task.checklist + row.get_check ();
+        }
+
+        if (Application.database.update_task (task) == Sqlite.DONE) {
+            on_signal_update ();
+            check_label_preview_icon ();
+            check_checklist_progress ();
+
+            Application.database.update_task_signal (task);
+            show_all ();
+        }
+        /*
         Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
             task.labels = "";
             foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
@@ -702,12 +804,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.labels = task.labels + child.label.id.to_string () + ";";
             }
 
+            check_label_preview_icon ();
+
             task.checklist = "";
                 foreach (Gtk.Widget element in checklist.get_children ()) {
                 var row = element as Widgets.CheckRow;
                 task.checklist = task.checklist + row.get_check ();
             }
 
+            check_checklist_progress ();
 
             if (Application.database.update_task (task) == Sqlite.DONE) {
                 on_signal_update ();
@@ -715,6 +820,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             return null;
     	});
+        */
     }
 
     /*

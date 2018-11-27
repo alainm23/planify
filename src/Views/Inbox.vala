@@ -414,7 +414,9 @@ public class Views.Inbox : Gtk.EventBox {
     private void add_new_task (Objects.Task task) {
         if (task.is_inbox == 1 && task.when_date_utc == "" && task.checked == 0) {
             var row = new Widgets.TaskRow (task);
-
+            row.project_preview_box.visible = false;
+            row.project_preview_box.no_show_all = true;
+            
             row.on_signal_update.connect (() => {
                 int i = 0;
 
@@ -490,6 +492,9 @@ public class Views.Inbox : Gtk.EventBox {
 
         foreach (var task in all_tasks) {
             var row = new Widgets.TaskRow (task);
+            row.project_preview_box.visible = false;
+            row.project_preview_box.no_show_all = true;
+
             tasks_list.add (row);
 
             row.on_signal_update.connect (() => {

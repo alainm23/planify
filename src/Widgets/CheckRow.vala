@@ -44,8 +44,9 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_entry.margin_bottom = 1;
         name_entry.margin_start = 3;
         name_entry.max_length = 50;
-        name_entry.text = checklist_name;
+        name_entry.text = Application.utils.first_letter_to_up (checklist_name);
         name_entry.placeholder_text = _("Checklist");
+
 
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         remove_button.can_focus = false;
@@ -78,6 +79,10 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             remove_revealer.reveal_child = true;
             remove_button.get_style_context ().add_class ("closed");
             return false;
+        });
+
+        name_entry.changed.connect (() => {
+            name_entry.text = Application.utils.first_letter_to_up (name_entry.text);
         });
 
         eventbox.leave_notify_event.connect ((event) => {

@@ -504,6 +504,7 @@ public class Views.Today : Gtk.EventBox {
 
         foreach (var task in all_tasks) {
             var row = new Widgets.TaskRow (task);
+
             tasks_list.add (row);
 
             row.on_signal_update.connect (() => {

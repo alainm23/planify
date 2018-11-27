@@ -2,7 +2,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     private Widgets.Popovers.WhenPopover when_popover;
     const string when_text = _("When");
 
-    public bool has_duedate = false;
+    public bool has_when = false;
     public bool has_reminder = false;
 
     public GLib.DateTime reminder_datetime;
@@ -46,7 +46,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         this.toggled.connect (() => {
           if (this.active) {
             when_popover.show_all ();
-            if (has_duedate) {
+            if (has_when) {
                 when_popover.remove_button.visible = true;
             }
           }
@@ -71,7 +71,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         reminder_box.no_show_all = true;
         reminder_box.visible = false;
 
-        has_duedate = false;
+        has_when = false;
         has_reminder = false;
     }
 
@@ -97,19 +97,19 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         when_datetime = date;
         reminder_datetime = _reminder_datetime;
         has_reminder = _has_reminder;
-        has_duedate = true;
+        has_when = true;
 
         if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), date)) {
             when_label.label = _("Today");
-            has_duedate = true;
+            has_when = true;
         } else if (Application.utils.is_tomorrow (date)) {
             when_label.label = _("Tomorrow");
-            has_duedate = true;
+            has_when = true;
         } else {
             int day = date.get_day_of_month ();
             string month = Application.utils.get_month_name (date.get_month ());
             when_label.label = "%i %s".printf (day, month);
-            has_duedate = true;
+            has_when = true;
         }
 
         show_all ();

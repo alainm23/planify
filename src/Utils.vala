@@ -161,4 +161,9 @@ public class Utils : GLib.Object {
             return false;
         }
     }
+
+    public string first_letter_to_up (string text) {
+        string l = text.substring (0, 1);
+        return l.up () + text.substring (1);
+    }
 }

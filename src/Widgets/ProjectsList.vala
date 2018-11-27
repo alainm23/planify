@@ -74,7 +74,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         update_project_list ();
 
         // Events
-        var add_popover = new Widgets.Popovers.AddProject (add_project_button);
+        var add_popover = new Widgets.Popovers.NewProject (add_project_button);
 
         add_project_button.toggled.connect (() => {
           if (add_project_button.active) {

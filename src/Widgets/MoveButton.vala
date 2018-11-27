@@ -26,6 +26,7 @@ public class Widgets.MoveButton : Gtk.ToggleButton {
         this.toggled.connect (() => {
           if (this.active) {
             move_popover.show_all ();
+            move_popover.update_project_list ();
           }
         });
 

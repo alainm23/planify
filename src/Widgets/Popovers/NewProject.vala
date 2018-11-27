@@ -1,4 +1,4 @@
-public class Widgets.Popovers.AddProject : Gtk.Popover {
+public class Widgets.Popovers.NewProject : Gtk.Popover {
     private Gtk.Entry name_entry;
     private Gtk.Button add_button;
     private Gtk.Entry color_hex_entry;
@@ -10,7 +10,7 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
     private Gtk.Revealer color_hex_revealer;
 
     public signal void on_add_project_signal ();
-    public AddProject (Gtk.Widget relative) {
+    public NewProject (Gtk.Widget relative) {
         Object (
             relative_to: relative,
             modal: true,
@@ -179,6 +179,8 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
             } else {
                 add_button.sensitive = false;
             }
+
+            name_entry.text = Application.utils.first_letter_to_up (name_entry.text);
         });
 
         name_entry.activate.connect (() => {
@@ -186,6 +188,22 @@ public class Widgets.Popovers.AddProject : Gtk.Popover {
                 on_click_add_project ();
             }
         });
+
+        name_entry.focus_in_event.connect (() => {
+            name_entry.secondary_icon_name = "edit-clear-symbolic";
+            return false;
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            name_entry.secondary_icon_name = null;
+            return false;
+        });
+
+        name_entry.icon_press.connect ((pos, event) => {
+			if (pos == Gtk.EntryIconPosition.SECONDARY) {
+				name_entry.text = "";
+			}
+		});
 
         add_button.clicked.connect (on_click_add_project);
 

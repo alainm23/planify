@@ -53,7 +53,7 @@ executable(
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AlertView.vala',
 
-    'src/Widgets/Popovers/AddProject.vala',
+    'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
     'src/Widgets/Popovers/ItemMenu.vala',
     'src/Widgets/Popovers/WhenPopover.vala',

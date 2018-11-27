@@ -32,7 +32,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         name_entry.get_style_context ().add_class ("planner-entry");
-        name_entry.secondary_icon_name = "edit-clear-symbolic";
 
         close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         close_button.get_style_context ().add_class ("button-close");
@@ -143,6 +142,18 @@ public class Widgets.TaskNew : Gtk.Revealer {
             } else {
                 submit_task_button.sensitive = true;
             }
+
+            name_entry.text = Application.utils.first_letter_to_up (name_entry.text);
+        });
+
+        name_entry.focus_in_event.connect (() => {
+            name_entry.secondary_icon_name = "edit-clear-symbolic";
+            return false;
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            name_entry.secondary_icon_name = null;
+            return false;
         });
 
         name_entry.icon_press.connect ((pos, event) => {
@@ -191,6 +202,10 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 checklist_entry.text = "";
                 show_all ();
             }
+        });
+
+        checklist_entry.changed.connect (() => {
+            checklist_entry.text = Application.utils.first_letter_to_up (checklist_entry.text);
         });
 
         note_view.focus_out_event.connect (() => {
@@ -248,7 +263,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 task.is_inbox = 0;
             }
 
-            if (when_button.has_duedate) {
+            if (when_button.has_when) {
                 task.when_date_utc = when_button.when_datetime.to_string ();
             }
 
