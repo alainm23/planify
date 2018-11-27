@@ -1,10 +1,10 @@
 @define-color headerbar_color #ffe16b;
 
 @define-color colorPrimary @headerbar_color;
-@define-color textColorPrimary #3331;
+@define-color textColorPrimary #331;
 
 .titlebar {
-    padding: 1 6px;
+    padding: 1px 6px;
 }
 
 .task {
@@ -319,5 +319,5 @@
 
 .color-n {
     border-radius: 100px;
-    padding: 1 1px;
+    padding: 1px 1px;
 }
