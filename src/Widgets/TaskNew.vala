@@ -271,12 +271,39 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 task.has_reminder = 1;
                 task.reminder_time = when_button.reminder_datetime.to_string ();
 
+                // Send Notification
+                var day = "";
+                var hour = "";
+
+                string _hour = when_button.reminder_datetime.get_hour ().to_string ();
+                string _minute = when_button.reminder_datetime.get_minute ().to_string ();
+
+                if (_minute.length <= 1) {
+                    _minute = "0" + _minute;
+                }
+
+                if (_hour.length <= 1) {
+                    _hour = "0" + _hour;
+                }
+
+                hour = "%s:%s".printf (_hour, _minute);
+
+                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+                    day = _("today");
+                } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
+                    day = _("tomorrow");
+                } else {
+                    int _day = when_button.when_datetime.get_day_of_month ();
+                    string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
+                    day = "on %i %s".printf (_day, month);
+                }
+
                 // Local Notification
                 Application.notification.send_local_notification (
                     task.content,
-                    _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
+                    _("You'll be notified %s at %s".printf (day.down (), hour.down ())),
                     "preferences-system-time",
-                    3,
+                    5,
                     false);
             }
 

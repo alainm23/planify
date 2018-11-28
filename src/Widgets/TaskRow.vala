@@ -136,7 +136,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         reminder_preview_icon.pixel_size = 12;
 
         reminder_preview_label = new Gtk.Label (null);
-        //reminder_preview_label.get_style_context ().add_class ("h3");
 
         reminder_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         reminder_preview_box.pack_start (reminder_preview_icon, false, false, 0);
@@ -145,6 +144,20 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         if (task.has_reminder == 0) {
             reminder_preview_box.no_show_all = true;
             reminder_preview_box.visible = false;
+        } else {
+            var reminder_datetime = new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ());
+            string hour = reminder_datetime.get_hour ().to_string ();
+            string minute = reminder_datetime.get_minute ().to_string ();
+
+            if (minute.length <= 1) {
+                minute = "0" + minute;
+            }
+
+            if (hour.length <= 1) {
+                hour = "0" + hour;
+            }
+
+            reminder_preview_label.label = "%s:%s".printf (hour, minute);
         }
 
         var project_preview_icon = new Gtk.Image ();
@@ -158,7 +171,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         project_preview_box.pack_start (project_preview_label, false, false, 0);
         project_preview_box.pack_start (project_preview_icon, false, false, 3);
-        
+
         if (task.is_inbox == 1) {
             project_preview_label.label = _("Inbox");
         } else {
@@ -740,11 +753,37 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             if (when_button.has_reminder) {
                 // Send Notification
+                string day = "";
+                string hour = "";
+
+                string _hour = when_button.reminder_datetime.get_hour ().to_string ();
+                string _minute = when_button.reminder_datetime.get_minute ().to_string ();
+
+                if (_minute.length <= 1) {
+                    _minute = "0" + _minute;
+                }
+
+                if (_hour.length <= 1) {
+                    _hour = "0" + _hour;
+                }
+
+                hour = "%s:%s".printf (_hour, _minute);
+
+                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+                    day = _("today");
+                } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
+                    day = _("tomorrow");
+                } else {
+                    int _day = when_button.when_datetime.get_day_of_month ();
+                    string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
+                    day = "on %i %s".printf (_day, month);
+                }
+
                 Application.notification.send_local_notification (
                     task.content,
-                    _("You'll be notified %s".printf (Granite.DateTime.get_relative_datetime (when_button.reminder_datetime))),
+                    _("You'll be notified %s at %s".printf (day.down (), hour.down ())),
                     "preferences-system-time",
-                    3,
+                    5,
                     false);
             }
         }
