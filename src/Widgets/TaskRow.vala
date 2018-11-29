@@ -12,8 +12,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Image label_preview_icon;
     private Gtk.Label checklist_preview_label;
     private Gtk.Box checklist_preview_box;
-    public Gtk.Box when_preview_box;
-    private Gtk.Image when_preview_icon;
     private Gtk.Label when_preview_label;
 
     public Gtk.Box previews_box;
@@ -66,7 +64,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
         name_label.margin_bottom = 1;
-        name_label.margin_start = 6;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
         name_entry = new Gtk.Entry ();
@@ -92,7 +89,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.halign = Gtk.Align.END;
 
         note_preview_icon = new Gtk.Image ();
-        note_preview_icon.gicon = new ThemedIcon ("emblem-documents-symbolic");
+        note_preview_icon.gicon = new ThemedIcon ("planner-note-symbolic");
         note_preview_icon.pixel_size = 14;
 
         check_note_preview_icon ();
@@ -104,7 +101,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         check_label_preview_icon ();
 
         var checklist_preview_icon = new Gtk.Image ();
-        checklist_preview_icon.gicon = new ThemedIcon ("view-list-compact-symbolic");
+        checklist_preview_icon.gicon = new ThemedIcon ("planner-checklist-symbolic");
         checklist_preview_icon.pixel_size = 14;
 
         checklist_preview_label = new Gtk.Label (null);
@@ -116,37 +113,32 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         check_checklist_progress ();
 
-        when_preview_icon = new Gtk.Image ();
-        when_preview_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
-        when_preview_icon.pixel_size = 14;
-
         when_preview_label = new Gtk.Label (null);
-
-        when_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        when_preview_box.pack_start (when_preview_icon, false, false, 0);
-        when_preview_box.pack_start (when_preview_label, false, false, 3);
+        when_preview_label.valign = Gtk.Align.CENTER;
+        when_preview_label.use_markup = true;
+        when_preview_label.get_style_context ().add_class ("planner-when-preview");
 
         if (task.when_date_utc == "") {
-            when_preview_box.no_show_all = true;
-            when_preview_box.visible = false;
+            when_preview_label.no_show_all = true;
+            when_preview_label.visible = false;
         } else {
-            when_preview_box.no_show_all = false;
-            when_preview_box.visible = true;
+            when_preview_label.no_show_all = false;
+            when_preview_label.visible = true;
 
             string date_format = Granite.DateTime.get_default_date_format (false, true, false);
             var when_datetime = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_datetime)) {
-                when_preview_label.label = Application.utils.TODAY_STRING;
+                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
             } else if (Application.utils.is_tomorrow (when_datetime)) {
-                when_preview_label.label = Application.utils.TOMORROW_STRING;
+                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
             } else {
-                when_preview_label.label = when_datetime.format (date_format);
+                when_preview_label.label = "<small>%s</small>".printf (when_datetime.format (date_format));
             }
         }
 
         var reminder_preview_icon = new Gtk.Image ();
-        reminder_preview_icon.gicon = new ThemedIcon ("notification-new-symbolic");
+        reminder_preview_icon.gicon = new ThemedIcon ("planner-notification-symbolic");
         reminder_preview_icon.pixel_size = 14;
 
         reminder_preview_label = new Gtk.Label (null);
@@ -170,7 +162,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_preview_icon.pixel_size = 14;
 
         var project_preview_label = new Gtk.Label (null);
-        project_preview_label.get_style_context ().add_class ("h3");
 
         project_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         project_preview_box.pack_start (project_preview_label, false, false, 0);
@@ -184,15 +175,16 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        previews_box.pack_start (name_label, false, false, 6);
-        previews_box.pack_start (when_preview_box, false, false, 0);
-        previews_box.pack_start (reminder_preview_box, false, false, 3);
+        previews_box.pack_start (when_preview_label, false, false, 6);
+        previews_box.pack_start (name_label, false, false, 3);
         previews_box.pack_start (note_preview_icon, false, false, 3);
-        previews_box.pack_start (checklist_preview_box, false, false, 3);
         previews_box.pack_start (label_preview_icon, false, false, 3);
+        previews_box.pack_start (checklist_preview_box, false, false, 3);
+        previews_box.pack_start (reminder_preview_box, false, false, 3);
         previews_box.pack_end (project_preview_box, false, false, 0);
 
         name_eventbox = new Gtk.EventBox ();
+        name_eventbox.margin_top = 1;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.add (previews_box);
 
@@ -463,6 +455,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         name_eventbox.enter_notify_event.connect ((event) => {
             name_label.get_style_context ().add_class ("text-hover");
+            previews_box.get_style_context ().add_class ("text-hover");
             get_style_context ().add_class ("task-hover");
 
             return false;
@@ -474,6 +467,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
 
             name_label.get_style_context ().remove_class ("text-hover");
+            previews_box.get_style_context ().remove_class ("text-hover");
             get_style_context ().remove_class ("task-hover");
             return false;
         });
@@ -734,21 +728,21 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.when_date_utc = when_button.when_datetime.to_string ();
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
-                when_preview_label.label = Application.utils.TODAY_STRING;
+                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
             } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                when_preview_label.label = Application.utils.TOMORROW_STRING;
+                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
             } else {
                 string date_format = Granite.DateTime.get_default_date_format (false, true, false);
-                when_preview_label.label = when_button.when_datetime.format (date_format);
+                when_preview_label.label = "<small>%s</small>".printf (when_button.when_datetime.format (date_format));
             }
 
-            when_preview_box.visible = true;
-            when_preview_box.no_show_all = false;
+            when_preview_label.visible = true;
+            when_preview_label.no_show_all = false;
         } else {
             task.when_date_utc = "";
 
-            when_preview_box.visible = false;
-            when_preview_box.no_show_all = true;
+            when_preview_label.visible = false;
+            when_preview_label.no_show_all = true;
         }
 
         if (when_button.reminder_datetime.to_string () != task.reminder_time) {

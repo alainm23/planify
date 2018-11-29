@@ -162,6 +162,12 @@
     font-weight: bold;
 }
 
+.planner-when-preview {
+    color: @bg_color;
+    padding: 0px 6px 0px 6px;
+    background-color: @fg_color;
+    border-radius: 3px;
+}
 
 .duedate-item {
     transition: all 200ms ease;

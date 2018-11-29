@@ -23,6 +23,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var when_icon = new Gtk.Image.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.MENU);
+
         when_label = new Gtk.Label (when_text);
         when_label.margin_bottom = 1;
 

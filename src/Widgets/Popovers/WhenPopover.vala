@@ -40,7 +40,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         var tomorrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tomorrow_box.margin = 6;
         tomorrow_box.pack_start (new Gtk.Image.from_icon_name ("planner-tomorrow", Gtk.IconSize.MENU), false, false, 0);
-        tomorrow_box.pack_start (new Gtk.Label (Application.utils.TODAY_STRING), false, false, 0);
+        tomorrow_box.pack_start (new Gtk.Label (Application.utils.TOMORROW_STRING), false, false, 0);
         tomorrow_box.pack_end (tomorrow_radio, false, false, 0);
 
         var tomorrow_eventbox = new Gtk.EventBox ();

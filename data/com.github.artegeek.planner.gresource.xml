@@ -37,6 +37,9 @@
     <file alias="planner-today-31.svg">resources/planner-today-31.svg</file>
     <file alias="planner-tomorrow.svg">resources/planner-tomorrow.svg</file>
 
+    <file alias="planner-notification-symbolic.svg">resources/planner-notification-symbolic.svg</file>
+    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
+    <file alias="planner-note-symbolic.svg">resources/planner-note-symbolic.svg</file>
     <file alias="planner-share-symbolic.svg">resources/planner-share-symbolic.svg</file>
     <file alias="planner-copy-symbolic.svg">resources/planner-copy-symbolic.svg</file>
     <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
