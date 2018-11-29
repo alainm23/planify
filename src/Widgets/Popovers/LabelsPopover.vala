@@ -43,7 +43,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         width_request = 290;
         height_request = 300;
 
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Labels")));
+        var title_label = new Gtk.Label ("<small>%s</small>".printf (Application.utils.LABELS_STRING));
         title_label.halign = Gtk.Align.CENTER;
         title_label.hexpand = true;
         title_label.use_markup = true;

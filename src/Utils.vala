@@ -1,4 +1,12 @@
 public class Utils : GLib.Object {
+    public string INBOX_STRING = _("Inbox");
+    public string TODAY_STRING = _("Today");
+    public string TOMORROW_STRING = _("Tomorrow");
+    public string NONE_STRING = _("None");
+    public string NOTIFICATIONS_STRING = _("Notifications");
+    public string LABELS_STRING = _("Labels");
+    public string MOVE_STRING = _("Move");
+
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;
         File tmp = File.new_for_path (path);
@@ -71,25 +79,6 @@ public class Utils : GLib.Object {
             (uint) (rgba.green * 255),
             (uint) (rgba.blue * 255));
         return s;
-    }
-
-    public string get_month_name (int index) {
-        var months = new Gee.ArrayList<string> ();
-        months.add ("_");
-        months.add (_("January"));
-        months.add (_("February"));
-        months.add (_("March"));
-        months.add (_("April"));
-        months.add (_("May"));
-        months.add (_("June"));
-        months.add (_("July"));
-        months.add (_("August"));
-        months.add (_("September"));
-        months.add (_("October"));
-        months.add (_("November"));
-        months.add (_("December"));
-
-        return months [index];
     }
 
     public bool is_label_repeted (Gtk.FlowBox flowbox, int id) {

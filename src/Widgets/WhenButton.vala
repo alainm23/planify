@@ -81,18 +81,8 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         when_popover.reminder_switch.active = _has_reminder;
         when_popover.reminder_timepicker.time = _reminder_datetime;
 
-        string hour = _reminder_datetime.get_hour ().to_string ();
-        string minute = _reminder_datetime.get_minute ().to_string ();
-
-        if (minute.length <= 1) {
-            minute = "0" + minute;
-        }
-
-        if (hour.length <= 1) {
-            hour = "0" + hour;
-        }
-
-        reminder_label.label = "%s:%s".printf (hour, minute);
+        string time_format = Granite.DateTime.get_default_time_format (true, false);
+        reminder_label.label = _reminder_datetime.format (time_format);
 
         when_datetime = date;
         reminder_datetime = _reminder_datetime;
@@ -100,15 +90,14 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         has_when = true;
 
         if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), date)) {
-            when_label.label = _("Today");
+            when_label.label = Application.utils.TODAY_STRING;
             has_when = true;
         } else if (Application.utils.is_tomorrow (date)) {
-            when_label.label = _("Tomorrow");
+            when_label.label = Application.utils.TOMORROW_STRING;
             has_when = true;
         } else {
-            int day = date.get_day_of_month ();
-            string month = Application.utils.get_month_name (date.get_month ());
-            when_label.label = "%i %s".printf (day, month);
+            string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+            when_label.label = date.format (date_format);
             has_when = true;
         }
 

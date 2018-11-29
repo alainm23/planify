@@ -11,9 +11,9 @@ public class Views.Tomorrow : Gtk.EventBox {
 
         var tomorrow_icon = new Gtk.Image.from_icon_name ("planner-tomorrow", Gtk.IconSize.DND);
 
-        var tomorrow_name = new Gtk.Label ("<b>%s</b>".printf (_("Tomorrow")));
-        tomorrow_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        tomorrow_name.use_markup = true;
+        var tomorrow_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.TOMORROW_STRING));
+        tomorrow_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        tomorrow_label.use_markup = true;
 
         var settings_button = new Gtk.ToggleButton ();
         settings_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.BUTTON));
@@ -27,10 +27,8 @@ public class Views.Tomorrow : Gtk.EventBox {
         top_box.margin = 24;
 
         top_box.pack_start (tomorrow_icon, false, false, 0);
-        top_box.pack_start (tomorrow_name, false, false, 12);
+        top_box.pack_start (tomorrow_label, false, false, 12);
         top_box.pack_end (settings_button, false, false, 0);
-
-
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;

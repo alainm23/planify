@@ -16,6 +16,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Image when_preview_icon;
     private Gtk.Label when_preview_label;
 
+    public Gtk.Box previews_box;
     private Gtk.Box reminder_preview_box;
     private Gtk.Label reminder_preview_label;
     public Gtk.Box project_preview_box;
@@ -91,20 +92,20 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.halign = Gtk.Align.END;
 
         note_preview_icon = new Gtk.Image ();
-        note_preview_icon.gicon = new ThemedIcon ("text-x-generic-symbolic");
-        note_preview_icon.pixel_size = 12;
+        note_preview_icon.gicon = new ThemedIcon ("emblem-documents-symbolic");
+        note_preview_icon.pixel_size = 14;
 
         check_note_preview_icon ();
 
         label_preview_icon = new Gtk.Image ();
-        label_preview_icon.gicon = new ThemedIcon ("tag-symbolic");
-        label_preview_icon.pixel_size = 12;
+        label_preview_icon.gicon = new ThemedIcon ("planner-label-symbolic");
+        label_preview_icon.pixel_size = 14;
 
         check_label_preview_icon ();
 
         var checklist_preview_icon = new Gtk.Image ();
-        checklist_preview_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
-        checklist_preview_icon.pixel_size = 12;
+        checklist_preview_icon.gicon = new ThemedIcon ("view-list-compact-symbolic");
+        checklist_preview_icon.pixel_size = 14;
 
         checklist_preview_label = new Gtk.Label (null);
         checklist_preview_label.use_markup = true;
@@ -117,10 +118,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         when_preview_icon = new Gtk.Image ();
         when_preview_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
-        when_preview_icon.pixel_size = 12;
+        when_preview_icon.pixel_size = 14;
 
-        when_preview_label = new Gtk.Label ("Today");
-        //when_preview_label.get_style_context ().add_class ("h3");
+        when_preview_label = new Gtk.Label (null);
 
         when_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         when_preview_box.pack_start (when_preview_icon, false, false, 0);
@@ -129,11 +129,25 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         if (task.when_date_utc == "") {
             when_preview_box.no_show_all = true;
             when_preview_box.visible = false;
+        } else {
+            when_preview_box.no_show_all = false;
+            when_preview_box.visible = true;
+
+            string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+            var when_datetime = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+
+            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_datetime)) {
+                when_preview_label.label = Application.utils.TODAY_STRING;
+            } else if (Application.utils.is_tomorrow (when_datetime)) {
+                when_preview_label.label = Application.utils.TOMORROW_STRING;
+            } else {
+                when_preview_label.label = when_datetime.format (date_format);
+            }
         }
 
         var reminder_preview_icon = new Gtk.Image ();
         reminder_preview_icon.gicon = new ThemedIcon ("notification-new-symbolic");
-        reminder_preview_icon.pixel_size = 12;
+        reminder_preview_icon.pixel_size = 14;
 
         reminder_preview_label = new Gtk.Label (null);
 
@@ -145,25 +159,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             reminder_preview_box.no_show_all = true;
             reminder_preview_box.visible = false;
         } else {
+            string time_format = Granite.DateTime.get_default_time_format (true, false);
             var reminder_datetime = new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ());
-            string hour = reminder_datetime.get_hour ().to_string ();
-            string minute = reminder_datetime.get_minute ().to_string ();
-
-            if (minute.length <= 1) {
-                minute = "0" + minute;
-            }
-
-            if (hour.length <= 1) {
-                hour = "0" + hour;
-            }
-
-            reminder_preview_label.label = "%s:%s".printf (hour, minute);
+            reminder_preview_label.label = reminder_datetime.format (time_format);
         }
 
         var project_preview_icon = new Gtk.Image ();
         project_preview_icon.gicon = new ThemedIcon ("mail-unread-symbolic");
         project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
-        project_preview_icon.pixel_size = 16;
+        project_preview_icon.pixel_size = 14;
 
         var project_preview_label = new Gtk.Label (null);
         project_preview_label.get_style_context ().add_class ("h3");
@@ -173,19 +177,19 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_preview_box.pack_start (project_preview_icon, false, false, 3);
 
         if (task.is_inbox == 1) {
-            project_preview_label.label = _("Inbox");
+            project_preview_label.label = Application.utils.INBOX_STRING;
         } else {
             var project = Application.database.get_project (task.project_id);
             project_preview_label.label = project.name;
         }
 
-        var previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        previews_box.pack_start (name_label, false, false, 3);
-        previews_box.pack_start (note_preview_icon, false, false, 3);
-        previews_box.pack_start (label_preview_icon, false, false, 3);
-        previews_box.pack_start (checklist_preview_box, false, false, 3);
-        previews_box.pack_start (when_preview_box, false, false, 3);
+        previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        previews_box.pack_start (name_label, false, false, 6);
+        previews_box.pack_start (when_preview_box, false, false, 0);
         previews_box.pack_start (reminder_preview_box, false, false, 3);
+        previews_box.pack_start (note_preview_icon, false, false, 3);
+        previews_box.pack_start (checklist_preview_box, false, false, 3);
+        previews_box.pack_start (label_preview_icon, false, false, 3);
         previews_box.pack_end (project_preview_box, false, false, 0);
 
         name_eventbox = new Gtk.EventBox ();
@@ -324,7 +328,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.is_inbox = 1;
                 task.project_id = 0;
 
-                project_preview_label.label = _("Inbox");
+                project_preview_label.label = Application.utils.INBOX_STRING;
                 project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
 
                 hide_content ();
@@ -619,9 +623,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         if (checked_button.active) {
-            name_label.opacity = 0.7;
+            previews_box.opacity = 0.7;
         } else {
-            name_label.opacity = 1;
+            previews_box.opacity = 1;
         }
     }
 
@@ -730,13 +734,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.when_date_utc = when_button.when_datetime.to_string ();
 
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
-                when_preview_label.label = _("Today");
+                when_preview_label.label = Application.utils.TODAY_STRING;
             } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                when_preview_label.label = _("Tomorrow");
+                when_preview_label.label = Application.utils.TOMORROW_STRING;
             } else {
-                int day = when_button.when_datetime.get_day_of_month ();
-                string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
-                when_preview_label.label = "%i %s".printf (day, month);
+                string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+                when_preview_label.label = when_button.when_datetime.format (date_format);
             }
 
             when_preview_box.visible = true;
@@ -753,35 +756,24 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             if (when_button.has_reminder) {
                 // Send Notification
-                string day = "";
-                string hour = "";
+                string date = "";
+                string time = "";
 
-                string _hour = when_button.reminder_datetime.get_hour ().to_string ();
-                string _minute = when_button.reminder_datetime.get_minute ().to_string ();
-
-                if (_minute.length <= 1) {
-                    _minute = "0" + _minute;
-                }
-
-                if (_hour.length <= 1) {
-                    _hour = "0" + _hour;
-                }
-
-                hour = "%s:%s".printf (_hour, _minute);
+                string time_format = Granite.DateTime.get_default_time_format (true, false);
+                time = when_button.reminder_datetime.format (time_format);
 
                 if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
-                    day = _("today");
+                    date = Application.utils.TODAY_STRING.down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                    day = _("tomorrow");
+                    date = Application.utils.TOMORROW_STRING.down ();
                 } else {
-                    int _day = when_button.when_datetime.get_day_of_month ();
-                    string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
-                    day = "on %i %s".printf (_day, month);
+                    string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+                    date = when_button.when_datetime.format (date_format);
                 }
 
                 Application.notification.send_local_notification (
                     task.content,
-                    _("You'll be notified %s at %s".printf (day.down (), hour.down ())),
+                    _("You'll be notified %s at %s".printf (date, time)),
                     "preferences-system-time",
                     5,
                     false);
@@ -792,21 +784,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.has_reminder = 1;
             task.reminder_time = when_button.reminder_datetime.to_string ();
 
-            string hour = when_button.reminder_datetime.get_hour ().to_string ();
-            string minute = when_button.reminder_datetime.get_minute ().to_string ();
-
-            if (minute.length <= 1) {
-                minute = "0" + minute;
-            }
-
-            if (hour.length <= 1) {
-                hour = "0" + hour;
-            }
-
-            reminder_preview_label.label = "%s:%s".printf (hour, minute);
-
             reminder_preview_box.visible = true;
             reminder_preview_box.no_show_all = false;
+
+            string time_format = Granite.DateTime.get_default_time_format (true, false);
+            reminder_preview_label.label = when_button.reminder_datetime.format (time_format);
         } else {
             task.has_reminder = 0;
             task.reminder_time = "";
@@ -835,31 +817,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             Application.database.update_task_signal (task);
             show_all ();
         }
-        /*
-        Thread<void*> thread = new Thread<void*>.try("Update Task Thread", () => {
-            task.labels = "";
-            foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
-                var child = element as Widgets.LabelChild;
-                task.labels = task.labels + child.label.id.to_string () + ";";
-            }
-
-            check_label_preview_icon ();
-
-            task.checklist = "";
-                foreach (Gtk.Widget element in checklist.get_children ()) {
-                var row = element as Widgets.CheckRow;
-                task.checklist = task.checklist + row.get_check ();
-            }
-
-            check_checklist_progress ();
-
-            if (Application.database.update_task (task) == Sqlite.DONE) {
-                on_signal_update ();
-            }
-
-            return null;
-    	});
-        */
     }
 
     /*

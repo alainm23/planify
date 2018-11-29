@@ -33,9 +33,9 @@ public class Views.Today : Gtk.EventBox {
 
         var today_icon = new Gtk.Image.from_icon_name ("planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), Gtk.IconSize.DND);
 
-        var today_name = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
-        today_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        today_name.use_markup = true;
+        var today_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.TODAY_STRING));
+        today_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        today_label.use_markup = true;
 
         var show_hide_all_button = new Gtk.ToggleButton ();
         show_hide_all_button.valign = Gtk.Align.CENTER;
@@ -115,7 +115,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.margin_top = 24;
 
         top_box.pack_start (today_icon, false, false, 0);
-        top_box.pack_start (today_name, false, false, 12);
+        top_box.pack_start (today_label, false, false, 12);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 
@@ -459,7 +459,7 @@ public class Views.Today : Gtk.EventBox {
 
                         if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
                             i = i + 1;
-                            item.name_label.opacity = 0.7;
+                            item.previews_box.opacity = 0.7;
                         }
                     }
 
@@ -516,7 +516,7 @@ public class Views.Today : Gtk.EventBox {
 
                     if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {
                         i = i + 1;
-                        item.name_label.opacity = 0.7;
+                        item.previews_box.opacity = 0.7;
                     }
                 }
 

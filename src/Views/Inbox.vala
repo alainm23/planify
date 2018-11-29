@@ -32,9 +32,9 @@ public class Views.Inbox : Gtk.EventBox {
 
         var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.DND);
 
-        var inbox_name = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
-        inbox_name.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        inbox_name.use_markup = true;
+        var inbox_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.INBOX_STRING));
+        inbox_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        inbox_label.use_markup = true;
 
         var show_hide_all_button = new Gtk.ToggleButton ();
         show_hide_all_button.valign = Gtk.Align.CENTER;
@@ -114,7 +114,7 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.margin_top = 24;
 
         top_box.pack_start (inbox_icon, false, false, 0);
-        top_box.pack_start (inbox_name, false, false, 12);
+        top_box.pack_start (inbox_label, false, false, 12);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 
@@ -416,7 +416,7 @@ public class Views.Inbox : Gtk.EventBox {
             var row = new Widgets.TaskRow (task);
             row.project_preview_box.visible = false;
             row.project_preview_box.no_show_all = true;
-            
+
             row.on_signal_update.connect (() => {
                 int i = 0;
 
@@ -425,7 +425,7 @@ public class Views.Inbox : Gtk.EventBox {
 
                     if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
                         i = i + 1;
-                        item.name_label.opacity = 0.7;
+                        item.previews_box.opacity = 0.7;
                     }
                 }
 
@@ -505,7 +505,7 @@ public class Views.Inbox : Gtk.EventBox {
 
                     if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
                         i = i + 1;
-                        item.name_label.opacity = 0.7;
+                        item.previews_box.opacity = 0.7;
                     }
                 }
 

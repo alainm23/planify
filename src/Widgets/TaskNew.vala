@@ -272,36 +272,24 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 task.reminder_time = when_button.reminder_datetime.to_string ();
 
                 // Send Notification
-                var day = "";
-                var hour = "";
+                string date = "";
+                string time = "";
 
-                string _hour = when_button.reminder_datetime.get_hour ().to_string ();
-                string _minute = when_button.reminder_datetime.get_minute ().to_string ();
-
-                if (_minute.length <= 1) {
-                    _minute = "0" + _minute;
-                }
-
-                if (_hour.length <= 1) {
-                    _hour = "0" + _hour;
-                }
-
-                hour = "%s:%s".printf (_hour, _minute);
+                string time_format = Granite.DateTime.get_default_time_format (true, false);
+                time = when_button.reminder_datetime.format (time_format);
 
                 if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
-                    day = _("today");
+                    date = Application.utils.TODAY_STRING.down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                    day = _("tomorrow");
+                    date = Application.utils.TOMORROW_STRING.down ();
                 } else {
-                    int _day = when_button.when_datetime.get_day_of_month ();
-                    string month = Application.utils.get_month_name (when_button.when_datetime.get_month ());
-                    day = "on %i %s".printf (_day, month);
+                    string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+                    date = when_button.when_datetime.format (date_format);
                 }
 
-                // Local Notification
                 Application.notification.send_local_notification (
                     task.content,
-                    _("You'll be notified %s at %s".printf (day.down (), hour.down ())),
+                    _("You'll be notified %s at %s".printf (date, time)),
                     "preferences-system-time",
                     5,
                     false);

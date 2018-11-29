@@ -63,11 +63,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var badge_count_combobox = new Gtk.ComboBoxText ();
         badge_count_combobox.width_request = 120;
-		badge_count_combobox.append_text (_("None"));
-        badge_count_combobox.append_text (_("Inbox"));
-		badge_count_combobox.append_text (_("Today"));
-		badge_count_combobox.append_text (_("Today + Inbox"));
-        badge_count_combobox.append_text (_("Notifications"));
+		badge_count_combobox.append_text (Application.utils.NONE_STRING);
+        badge_count_combobox.append_text (Application.utils.INBOX_STRING);
+		badge_count_combobox.append_text (Application.utils.TODAY_STRING);
+		badge_count_combobox.append_text ("%s + %s".printf (Application.utils.TODAY_STRING, Application.utils.INBOX_STRING));
+        badge_count_combobox.append_text (Application.utils.NOTIFICATIONS_STRING);
 
 		badge_count_combobox.active = Application.settings.get_enum ("badge-count");
 
@@ -87,9 +87,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var start_page_combobox = new Gtk.ComboBoxText ();
         start_page_combobox.width_request = 120;
-		start_page_combobox.append_text (_("Inbox"));
-		start_page_combobox.append_text (_("Today"));
-        start_page_combobox.append_text (_("Tomorrow"));
+		start_page_combobox.append_text (Application.utils.INBOX_STRING);
+		start_page_combobox.append_text (Application.utils.TODAY_STRING);
+        start_page_combobox.append_text (Application.utils.TOMORROW_STRING);
 		start_page_combobox.active = Application.settings.get_enum ("start-page");
 
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
