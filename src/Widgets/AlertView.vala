@@ -68,7 +68,7 @@ public class Widgets.AlertView : Gtk.Grid {
         description_label.halign = Gtk.Align.CENTER;
 
         image = new Gtk.Image ();
-        image.opacity = 0.7;
+        image.opacity = 1;
         image.valign = Gtk.Align.START;
 
         var layout = new Gtk.Grid ();

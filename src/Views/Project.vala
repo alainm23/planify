@@ -36,9 +36,9 @@ public class Views.Project : Gtk.EventBox {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Widgets.AlertView (
-            _("All clear"),
-            _("Looks like everything's is organized in the right place. Tap + to add a task."),
-            "mail-mailbox-symbolic"
+            _("keep your tasks organized in projects"),
+            _("Tap + to add a task"),
+            "planner-startup"
         );
 
         alert_view.margin_bottom = 64;
