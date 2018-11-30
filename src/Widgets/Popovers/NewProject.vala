@@ -276,7 +276,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         }
 
         if (duedate_switch.active) {
-            project.deadline = duedate_datepicker.date.format ("%F");
+            project.deadline = duedate_datepicker.date.to_string ();
         } else {
             project.deadline = "";
         }

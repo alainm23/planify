@@ -6,6 +6,7 @@ public class Utils : GLib.Object {
     public string NOTIFICATIONS_STRING = _("Notifications");
     public string LABELS_STRING = _("Labels");
     public string MOVE_STRING = _("Move");
+    public string TODO_MOVED_STRING = _("to-do moved out of the");
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;

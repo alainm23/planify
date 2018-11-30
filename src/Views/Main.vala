@@ -61,18 +61,20 @@ public class Views.Main : Gtk.Paned {
         projects_list.on_selected_item.connect ((type, index) => {
             if (type == "item") {
                 if (index == 0) {
-                    stack.visible_child = inbox_view;
+                    stack.visible_child_name = "inbox_view";
 
                     inbox_view.infobar_apply_remove ();
                 } else if (index == 1) {
-                    stack.visible_child = today_view;
+                    stack.visible_child_name = "today_view";
 
                     today_view.infobar_apply_remove ();
                 } else {
-                    stack.visible_child = tomorrow_view;
+                    stack.visible_child_name = "tomorrow_view";
                 }
             } else {
                 stack.visible_child_name = "project_view-" + index.to_string ();
+                var project_view = stack.get_child_by_name ("project_view-" + index.to_string ()) as Views.Project;
+                project_view.infobar_apply_remove ();
             }
         });
 

@@ -50,6 +50,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("task");
 
         checked_button = new Gtk.CheckButton ();
+        checked_button.can_focus = false;
 
         if (task.checked == 1) {
             checked_button.active = true;
@@ -184,7 +185,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         previews_box.pack_end (project_preview_box, false, false, 0);
 
         name_eventbox = new Gtk.EventBox ();
-        name_eventbox.margin_top = 1;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.add (previews_box);
 

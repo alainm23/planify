@@ -78,7 +78,7 @@ public class Application : Gtk.Application {
             colored_css = CSS.printf ("@base_color", "@text_color");
             stdout.printf ("true");
         } else {
-            colored_css = CSS.printf ("#ffe16b", "#333");
+            colored_css = CSS.printf ("#ffe16b", "#1a1a1a");
             stdout.printf ("true");
         }
 

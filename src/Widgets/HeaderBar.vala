@@ -119,7 +119,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             if (mode_switch.active) {
                 colored_css = CSS.printf ("@base_color", "@text_color");
             } else {
-                colored_css = CSS.printf ("#ffe16b", "#333");
+                colored_css = CSS.printf ("#ffe16b", "#1a1a1a");
             }
 
             try {

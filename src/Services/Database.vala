@@ -432,6 +432,43 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Gee.ArrayList<Objects.Task?> get_all_tasks_by_project (int id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Task?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var task = new Objects.Task ();
+
+            task.id = stmt.column_int (0);
+            task.checked = stmt.column_int (1);
+            task.project_id = stmt.column_int (2);
+            task.list_id = stmt.column_int (3);
+            task.task_order = stmt.column_int (4);
+            task.is_inbox = stmt.column_int (5);
+            task.has_reminder = stmt.column_int (6);
+            task.sidebar_width = stmt.column_int (7);
+            task.was_notified = stmt.column_int (8);
+            task.content = stmt.column_text (9);
+            task.note = stmt.column_text (10);
+            task.when_date_utc = stmt.column_text (11);
+            task.reminder_time = stmt.column_text (12);
+            task.checklist = stmt.column_text (13);
+            task.labels = stmt.column_text (14);
+
+            all.add (task);
+        }
+
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Task?> get_all_today_tasks () {
         Sqlite.Statement stmt;
 

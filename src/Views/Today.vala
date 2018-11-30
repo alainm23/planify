@@ -122,7 +122,8 @@ public class Views.Today : Gtk.EventBox {
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
-        tasks_list.expand = true;
+        tasks_list.valign = Gtk.Align.START;
+        tasks_list.hexpand = true;
         tasks_list.margin_start = 20;
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
@@ -135,6 +136,7 @@ public class Views.Today : Gtk.EventBox {
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
+        add_task_button.get_style_context ().add_class ("planner-add-new-task");
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
@@ -154,10 +156,10 @@ public class Views.Today : Gtk.EventBox {
         show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
         show_all_tasks_button.can_focus = false;
         show_all_tasks_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        show_all_tasks_button.valign = Gtk.Align.END;
+        show_all_tasks_button.get_style_context ().add_class ("h4");
+        show_all_tasks_button.valign = Gtk.Align.START;
         show_all_tasks_button.halign = Gtk.Align.START;
-        show_all_tasks_button.margin_bottom = 6;
-        show_all_tasks_button.margin_start = 12;
+        show_all_tasks_button.margin_start = 14;
 
         show_all_tasks_button.clicked.connect (() => {
 			if (show_all_tasks) {
@@ -198,7 +200,8 @@ public class Views.Today : Gtk.EventBox {
         box.pack_start (top_box, false, false, 0);
         box.pack_start (labels_flowbox_revealer, false, false, 0);
         box.pack_start (alert_view, true, true, 0);
-        box.pack_start (tasks_list, true, true, 0);
+        box.pack_start (tasks_list, false, true, 0);
+        box.pack_start (show_all_tasks_button, false, true, 0);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (box);
@@ -219,12 +222,15 @@ public class Views.Today : Gtk.EventBox {
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (add_task_revealer);
         main_overlay.add_overlay (task_new_revealer);
-        main_overlay.add_overlay (show_all_tasks_button);
         main_overlay.add (main_box);
 
         add (main_overlay);
         update_tasks_list ();
         check_visible_alertview ();
+        tasks_list.set_filter_func ((row) => {
+            var item = row as Widgets.TaskRow;
+            return item.task.checked == 0;
+        });
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
@@ -242,16 +248,10 @@ public class Views.Today : Gtk.EventBox {
 
         add_task_button.clicked.connect (() => {
             task_on_revealer ();
-
-            show_all_tasks_button.visible = false;
-            show_all_tasks_button.no_show_all = true;
         });
 
         task_new_revealer.on_signal_close.connect (() => {
             task_on_revealer ();
-
-            show_all_tasks_button.visible = true;
-            show_all_tasks_button.no_show_all = false;
         });
 
         paste_button.clicked.connect (() => {
@@ -401,6 +401,15 @@ public class Views.Today : Gtk.EventBox {
             if (Application.utils.is_task_repeted (tasks_list, task.id) == false) {
                 add_new_task (task);
             }
+
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+
+                if (row.task.id == task.id) {
+                    tasks_list.remove (element);
+                    add_new_task (task);
+                }
+            }
         });
 
         Application.database.add_task_signal.connect (() => {
@@ -464,7 +473,7 @@ public class Views.Today : Gtk.EventBox {
                     }
 
                     if (i > 0) {
-                        infobar_label.label = i.to_string () + " " + _("to-do moved out of the Today");
+                        infobar_label.label = i.to_string () + " " + Application.utils.TODO_MOVED_STRING + " " + Application.utils.TODAY_STRING;
                         infobar.revealed = true;
                     } else {
                         infobar.revealed = false;
@@ -529,9 +538,9 @@ public class Views.Today : Gtk.EventBox {
 
                 tasks_list.unselect_all ();
             });
-        }
 
-        tasks_list.show_all ();
+            tasks_list.show_all ();
+        }
 
         if (Application.utils.is_listbox_empty (tasks_list)) {
             alert_view.visible = true;
@@ -539,6 +548,9 @@ public class Views.Today : Gtk.EventBox {
 
             tasks_list.visible = false;
             tasks_list.no_show_all = true;
+
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
         }
     }
 

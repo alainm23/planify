@@ -43,7 +43,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_entry.hexpand = true;
         name_entry.margin_bottom = 1;
         name_entry.margin_start = 3;
-        name_entry.max_length = 50;
         name_entry.text = Application.utils.first_letter_to_up (checklist_name);
         name_entry.placeholder_text = _("Checklist");
 

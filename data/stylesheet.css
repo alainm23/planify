@@ -1,7 +1,7 @@
 @define-color headerbar_color #ffe16b;
 
 @define-color colorPrimary @headerbar_color;
-@define-color textColorPrimary #333;
+@define-color textColorPrimary #1a1a1a;
 
 .titlebar {
     padding: 1px 6px;
@@ -42,6 +42,11 @@
     padding: 0 0px;
     background-color: @fg_color;
     color: @bg_color;
+}
+
+.planner-add-new-task {
+    background-color: #ffe16b;
+    color: #1a1a1a;
 }
 
 .button-overlay-circular {
