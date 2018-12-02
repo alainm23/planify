@@ -52,6 +52,7 @@ executable(
     'src/Widgets/TaskNew.vala',
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AlertView.vala',
+    'src/Widgets/TimePicker.vala',
 
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',

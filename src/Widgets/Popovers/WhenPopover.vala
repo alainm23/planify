@@ -2,7 +2,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
     public Gtk.Button remove_button;
     public Gtk.Button add_button;
     public Gtk.Switch reminder_switch;
-    public Granite.Widgets.TimePicker reminder_timepicker;
+    public Widgets.TimePicker reminder_timepicker;
     public signal void on_selected_date (GLib.DateTime duedate, bool has_reminder, GLib.DateTime reminder_datetime);
     public signal void on_selected_remove ();
 
@@ -67,11 +67,12 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         reminder_box.pack_start (reminder_label, false, false, 6);
         reminder_box.pack_end (reminder_switch, false, false, 0);
 
-        reminder_timepicker = new Granite.Widgets.TimePicker ();
+        reminder_timepicker = new Widgets.TimePicker ();
         reminder_timepicker.margin_start = 6;
         reminder_timepicker.margin_end = 6;
 
-        reminder_timepicker.activate.connect (() => {
+
+        reminder_timepicker.time_entry.activate.connect (() => {
             if (item_selected == 0) {
                 var duedate_now = new GLib.DateTime.now_local ();
                 on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);

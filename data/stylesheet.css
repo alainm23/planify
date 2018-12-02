@@ -26,7 +26,7 @@
 }
 
 .text-hover {
-    color: #333;
+    color: #1a1a1a;
 }
 
 .note-view text {
@@ -116,19 +116,23 @@
 .item-row:hover {
     border-radius: 3px;
     background-color: #fff394;
-    color: #333;
+    color: #1a1a1a;
+}
+
+.item-row:hover > widget > box > revealer > button > image {
+    color: #1a1a1a;
 }
 
 .item-row:selected {
     background-color: #fff394;
     text-shadow: none;
     -gtk-icon-shadow: none;
-    color: #333;
+    color: #1a1a1a;
 }
 
 .item-row:selected:focus {
     background-color: #ffe16b;
-    color: #333;
+    color: #1a1a1a;
 }
 
 .planner-radio check {
@@ -323,7 +327,7 @@
 
 
 .color-7 {
-  background-color: #333333;
+  background-color: #1a1a1a333;
   border-radius: 100px;
 }
 
