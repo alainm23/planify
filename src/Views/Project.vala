@@ -11,8 +11,6 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
     private Gtk.Revealer add_task_revealer;
-    private Gtk.InfoBar infobar;
-    private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
 
     Gtk.ToggleButton show_hide_all_button;
@@ -38,7 +36,7 @@ public class Views.Project : Gtk.EventBox {
         alert_view = new Widgets.AlertView (
             _("keep your tasks organized in projects"),
             _("Tap + to add a task"),
-            "planner-startup"
+            "planner-startup-symbolic"
         );
 
         alert_view.margin_bottom = 64;
@@ -128,26 +126,6 @@ public class Views.Project : Gtk.EventBox {
 
         var show_hide_image = new Gtk.Image.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
         show_hide_all_button.add (show_hide_image);
-
-        show_hide_all_button.toggled.connect (() => {
-          if (show_hide_all_button.active) {
-              show_hide_all_button.tooltip_text = _("Close all tasks");
-              show_hide_image.icon_name = "zoom-out-symbolic";
-
-              foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                  var row = element as Widgets.TaskRow;
-                  row.show_content ();
-              }
-          } else {
-              show_hide_all_button.tooltip_text = _("Open all tasks");
-              show_hide_image.icon_name = "zoom-in-symbolic";
-
-              foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                  var row = element as Widgets.TaskRow;
-                  row.hide_content ();
-              }
-          }
-        });
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
@@ -260,17 +238,8 @@ public class Views.Project : Gtk.EventBox {
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (box);
 
-        infobar = new Gtk.InfoBar ();
-        infobar.add_button (_("OK"), 1);
-        infobar.revealed = false;
-        infobar.get_style_context ().add_class ("planner-infobar");
-
-        infobar_label = new Gtk.Label ("");
-        infobar.get_content_area ().add (infobar_label);
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-        main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (scrolled, true, true, 0);
 
         var main_overlay = new Gtk.Overlay ();
@@ -287,6 +256,26 @@ public class Views.Project : Gtk.EventBox {
         });
 
         // Signals
+        show_hide_all_button.toggled.connect (() => {
+          if (show_hide_all_button.active) {
+              show_hide_all_button.tooltip_text = _("Close all tasks");
+              show_hide_image.icon_name = "zoom-out-symbolic";
+
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.show_content ();
+              }
+          } else {
+              show_hide_all_button.tooltip_text = _("Open all tasks");
+              show_hide_image.icon_name = "zoom-in-symbolic";
+
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.hide_content ();
+              }
+          }
+        });
+
         name_entry.focus_out_event.connect (() => {
             update_project ();
             return false;
@@ -426,10 +415,6 @@ public class Views.Project : Gtk.EventBox {
             return false;
         });
 
-        infobar.response.connect ((id) => {
-            infobar_apply_remove ();
-        });
-
         add_task_button.clicked.connect (() => {
             task_on_revealer ();;
         });
@@ -457,8 +442,7 @@ public class Views.Project : Gtk.EventBox {
                 var row = element as Widgets.TaskRow;
 
                 if (row.task.id == task.id) {
-                    tasks_list.remove (element);
-                    add_new_task (task);
+                    row.set_update_task (task);
                 }
             }
         });
@@ -479,9 +463,7 @@ public class Views.Project : Gtk.EventBox {
         });
     }
 
-    public void infobar_apply_remove () {
-        infobar.revealed = false;
-
+    public void apply_remove () {
         foreach (Gtk.Widget element in tasks_list.get_children ()) {
             var row = element as Widgets.TaskRow;
 
@@ -506,23 +488,18 @@ public class Views.Project : Gtk.EventBox {
 
             tasks_list.add (row);
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
+            row.on_signal_update.connect ((_task) => {
+                if (_task.project_id != project.id) {
+                    Timeout.add (20, () => {
+                        row.opacity = row.opacity - 0.1;
 
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+                        if (row.opacity <= 0) {
+                            row.destroy ();
+                            return false;
+                        }
 
-                    if (item.task.project_id != project.id) {
-                        i = i + 1;
-                        item.previews_box.opacity = 0.7;
-                    }
-                }
-
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + Application.utils.TODO_MOVED_STRING + " " + project.name;
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
+                        return true;
+                    });
                 }
 
                 tasks_list.unselect_all ();
@@ -587,29 +564,23 @@ public class Views.Project : Gtk.EventBox {
 
             tasks_list.add (row);
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
+            row.on_signal_update.connect ((_task) => {
+                if (_task.project_id != project.id) {
+                    Timeout.add (20, () => {
+                        row.opacity = row.opacity - 0.1;
 
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+                        if (row.opacity <= 0) {
+                            row.destroy ();
+                            return false;
+                        }
 
-                    if (item.task.project_id != project.id) {
-                        i = i + 1;
-                        item.previews_box.opacity = 0.7;
-                    }
-                }
-
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + Application.utils.TODO_MOVED_STRING + " " + project.name;
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
+                        return true;
+                    });
                 }
 
                 tasks_list.unselect_all ();
             });
 
-            tasks_list.add (row);
             tasks_list.show_all ();
         }
 

@@ -4,8 +4,6 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
     private Gtk.Revealer add_task_revealer;
-    public Gtk.InfoBar infobar;
-    private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
@@ -161,28 +159,6 @@ public class Views.Today : Gtk.EventBox {
         show_all_tasks_button.halign = Gtk.Align.START;
         show_all_tasks_button.margin_start = 14;
 
-        show_all_tasks_button.clicked.connect (() => {
-			if (show_all_tasks) {
-                show_all_tasks = false;
-                show_all_tasks_button.label = _("Hide completed tasks");
-
-                tasks_list.set_filter_func ((row) => {
-                    var item = row as Widgets.TaskRow;
-                    return true;
-                });
-			} else {
-                show_all_tasks = true;
-                show_all_tasks_button.label = _("Show completed tasks");
-
-                tasks_list.set_filter_func ((row) => {
-                    var item = row as Widgets.TaskRow;
-                    return item.task.checked == 0;
-                });
-			}
-
-            check_visible_alertview ();
-		});
-
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         labels_flowbox.margin_start = 6;
@@ -206,17 +182,8 @@ public class Views.Today : Gtk.EventBox {
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (box);
 
-        infobar = new Gtk.InfoBar ();
-        infobar.add_button (_("OK"), 1);
-        infobar.get_style_context ().add_class ("planner-infobar");
-        infobar.revealed = false;
-
-        infobar_label = new Gtk.Label ("");
-        infobar.get_content_area ().add (infobar_label);
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-        main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (scrolled, true, true, 0);
 
         var main_overlay = new Gtk.Overlay ();
@@ -236,6 +203,28 @@ public class Views.Today : Gtk.EventBox {
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
         // Signals
+        show_all_tasks_button.clicked.connect (() => {
+			if (show_all_tasks) {
+                show_all_tasks = false;
+                show_all_tasks_button.label = _("Hide completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return true;
+                });
+			} else {
+                show_all_tasks = true;
+                show_all_tasks_button.label = _("Show completed tasks");
+
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
+                });
+			}
+
+            check_visible_alertview ();
+		});
+
         settings_button.toggled.connect (() => {
             if (action_revealer.reveal_child) {
                 settings_button.get_style_context ().remove_class ("closed");
@@ -311,11 +300,6 @@ public class Views.Today : Gtk.EventBox {
 
             tasks_list.unselect_all ();
             return false;
-        });
-
-
-        infobar.response.connect ((id) => {
-            infobar_apply_remove ();
         });
 
         labels_button.clicked.connect (() => {
@@ -406,8 +390,22 @@ public class Views.Today : Gtk.EventBox {
                 var row = element as Widgets.TaskRow;
 
                 if (row.task.id == task.id) {
-                    tasks_list.remove (element);
-                    add_new_task (task);
+                    var _when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+
+                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                        Timeout.add (20, () => {
+                            row.opacity = row.opacity - 0.1;
+
+                            if (row.opacity <= 0) {
+                                row.destroy ();
+                                return false;
+                            }
+
+                            return true;
+                        });
+                    } else {
+                        row.set_update_task (task);
+                    }
                 }
             }
         });
@@ -459,27 +457,21 @@ public class Views.Today : Gtk.EventBox {
             if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
                 var row = new Widgets.TaskRow (task);
 
-                row.on_signal_update.connect (() => {
-                    int i = 0;
-                    foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                        var item = element as Widgets.TaskRow;
+                row.on_signal_update.connect ((_task) => {
+                    var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                        var _when = new GLib.DateTime.from_iso8601 (item.task.when_date_utc, new GLib.TimeZone.local ());
+                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                        Timeout.add (20, () => {
+                            row.opacity = row.opacity - 0.1;
 
-                        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
-                            i = i + 1;
-                            item.previews_box.opacity = 0.7;
-                        }
+                            if (row.opacity <= 0) {
+                                row.destroy ();
+                                return false;
+                            }
+
+                            return true;
+                        });
                     }
-
-                    if (i > 0) {
-                        infobar_label.label = i.to_string () + " " + Application.utils.TODO_MOVED_STRING + " " + Application.utils.TODAY_STRING;
-                        infobar.revealed = true;
-                    } else {
-                        infobar.revealed = false;
-                    }
-
-                    tasks_list.unselect_all ();
                 });
 
                 tasks_list.add (row);
@@ -490,9 +482,7 @@ public class Views.Today : Gtk.EventBox {
         }
     }
 
-    public void infobar_apply_remove () {
-        infobar.revealed = false;
-
+    public void apply_remove () {
         foreach (Gtk.Widget element in tasks_list.get_children ()) {
             var row = element as Widgets.TaskRow;
             var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
@@ -516,24 +506,20 @@ public class Views.Today : Gtk.EventBox {
 
             tasks_list.add (row);
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+            row.on_signal_update.connect ((_task) => {
+                var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                    var when = new GLib.DateTime.from_iso8601 (item.task.when_date_utc, new GLib.TimeZone.local ());
+                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                    Timeout.add (20, () => {
+                        row.opacity = row.opacity - 0.1;
 
-                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {
-                        i = i + 1;
-                        item.previews_box.opacity = 0.7;
-                    }
-                }
+                        if (row.opacity <= 0) {
+                            row.destroy ();
+                            return false;
+                        }
 
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + _("to-do moved out of the Today");
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
+                        return true;
+                    });
                 }
 
                 tasks_list.unselect_all ();

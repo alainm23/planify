@@ -23,8 +23,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         number_label = new Gtk.Label (null);
         number_label.valign = Gtk.Align.CENTER;
-        number_label.margin_end = 6;
-        //number_label.get_style_context ().add_class (Granite.STYLE_CLASS_BADGE);
+        number_label.margin_end = 12;
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.margin = 6;

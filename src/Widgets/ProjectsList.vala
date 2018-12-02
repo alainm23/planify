@@ -105,7 +105,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             }
         });
 
-        GLib.Timeout.add (1000, () => {
+        GLib.Timeout.add_seconds (1, () => {
             inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
             today_item.number_label.label = Application.database.get_today_number ().to_string ();
 
@@ -113,7 +113,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
             return true;
         });
-    }
+    }  
 
     private void check_number_labels () {
         if (int.parse (inbox_item.number_label.label) <= 0) {

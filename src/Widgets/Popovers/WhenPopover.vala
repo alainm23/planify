@@ -92,7 +92,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         timepicker_revealer.reveal_child = false;
         timepicker_revealer.add (reminder_timepicker);
 
-        remove_button = new Gtk.Button.with_label (_("Remove"));
+        remove_button = new Gtk.Button.with_label (_("Clear"));
         remove_button.no_show_all = true;
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 

@@ -4,8 +4,6 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
     private Gtk.Revealer add_task_revealer;
-    public Gtk.InfoBar infobar;
-    private Gtk.Label infobar_label;
     private Gtk.FlowBox labels_flowbox;
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
@@ -199,17 +197,8 @@ public class Views.Inbox : Gtk.EventBox {
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (box);
 
-        infobar = new Gtk.InfoBar ();
-        infobar.add_button (_("OK"), 1);
-        infobar.revealed = false;
-        infobar.get_style_context ().add_class ("planner-infobar");
-
-        infobar_label = new Gtk.Label ("");
-        infobar.get_content_area ().add (infobar_label);
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-        main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (scrolled, true, true, 0);
 
         var main_overlay = new Gtk.Overlay ();
@@ -224,7 +213,7 @@ public class Views.Inbox : Gtk.EventBox {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
-        
+
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
@@ -301,10 +290,6 @@ public class Views.Inbox : Gtk.EventBox {
 
         task_new_revealer.on_signal_close.connect (() => {
             task_on_revealer ();
-        });
-
-        infobar.response.connect ((id) => {
-            infobar_apply_remove ();
         });
 
         labels_button.clicked.connect (() => {
@@ -414,29 +399,25 @@ public class Views.Inbox : Gtk.EventBox {
             row.project_preview_box.visible = false;
             row.project_preview_box.no_show_all = true;
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
+            tasks_list.add (row);
 
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+            row.on_signal_update.connect ((_task) => {
+                if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                    Timeout.add (20, () => {
+                        row.opacity = row.opacity - 0.1;
 
-                    if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
-                        i = i + 1;
-                        item.previews_box.opacity = 0.7;
-                    }
-                }
+                        if (row.opacity <= 0) {
+                            row.destroy ();
+                            return false;
+                        }
 
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + Application.utils.TODO_MOVED_STRING + " " + Application.utils.INBOX_STRING;
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
+                        return true;
+                    });
                 }
 
                 tasks_list.unselect_all ();
             });
 
-            tasks_list.add (row);
             tasks_list.show_all ();
         }
 
@@ -467,9 +448,7 @@ public class Views.Inbox : Gtk.EventBox {
         show_all ();
     }
 
-    public void infobar_apply_remove () {
-        infobar.revealed = false;
-
+    public void apply_remove () {
         foreach (Gtk.Widget element in tasks_list.get_children ()) {
             var row = element as Widgets.TaskRow;
 
@@ -494,23 +473,18 @@ public class Views.Inbox : Gtk.EventBox {
 
             tasks_list.add (row);
 
-            row.on_signal_update.connect (() => {
-                int i = 0;
+            row.on_signal_update.connect ((_task) => {
+                if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                    Timeout.add (20, () => {
+                        row.opacity = row.opacity - 0.1;
 
-                foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                    var item = element as Widgets.TaskRow;
+                        if (row.opacity <= 0) {
+                            row.destroy ();
+                            return false;
+                        }
 
-                    if (item.task.when_date_utc != "" || item.task.is_inbox != 1) {
-                        i = i + 1;
-                        item.previews_box.opacity = 0.7;
-                    }
-                }
-
-                if (i > 0) {
-                    infobar_label.label = i.to_string () + " " + _("to-do moved out of the Inbox");
-                    infobar.revealed = true;
-                } else {
-                    infobar.revealed = false;
+                        return true;
+                    });
                 }
 
                 tasks_list.unselect_all ();

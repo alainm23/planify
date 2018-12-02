@@ -6,7 +6,6 @@ public class Views.Tomorrow : Gtk.EventBox {
     }
 
     construct {
-        //get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         var tomorrow_icon = new Gtk.Image.from_icon_name ("planner-tomorrow", Gtk.IconSize.DND);

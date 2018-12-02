@@ -218,7 +218,7 @@ public class Services.Database : GLib.Object {
     public int get_project_tasks_number (int id) {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ? AND checked = 0",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

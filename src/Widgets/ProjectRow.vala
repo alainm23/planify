@@ -1,5 +1,5 @@
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
-    private Gtk.Grid main_grid;
+    private Gtk.Box main_box;
     public bool menu_open = false;
 
     private Gtk.Label name_label;
@@ -39,7 +39,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.valign = Gtk.Align.CENTER;
-        name_label.halign = Gtk.Align.START;
         name_label.use_markup = true;
 
         name_entry = new Gtk.Entry ();
@@ -57,27 +56,27 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         settings_button.get_style_context ().add_class ("settings-button");
 
         var settings_revealer = new Gtk.Revealer ();
-        settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        settings_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         settings_revealer.add (settings_button);
         settings_revealer.reveal_child = false;
-        settings_revealer.hexpand = true;
-        settings_revealer.halign = Gtk.Align.END;
 
         var menu_popover = new Widgets.Popovers.ProjectMenu (settings_button);
 
-        main_grid = new Gtk.Grid ();
-        main_grid.column_spacing = 12;
-        main_grid.row_spacing = 3;
-        main_grid.margin = 6;
+        var number_label = new Gtk.Label (null);
+        number_label.valign = Gtk.Align.CENTER;
 
-        main_grid.add (label_color);
-        main_grid.add (name_label);
-        main_grid.add (name_entry);
-        main_grid.add (settings_revealer);
+        main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
+        main_box.margin = 6;
+
+        main_box.pack_start (label_color, false, false, 0);
+        main_box.pack_start (name_label, false, false, 0);
+        main_box.pack_start (name_entry, false, false, 0);
+        main_box.pack_end (settings_revealer, false, false, 0);
+        main_box.pack_end (number_label, false, false, 0);
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        eventbox.add (main_grid);
+        eventbox.add (main_box);
 
         add (eventbox);
         apply_styles ();
@@ -86,6 +85,20 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         show_all ();
 
         // Event
+        GLib.Timeout.add_seconds (1, () => {
+            int number = Application.database.get_project_tasks_number (project.id);
+            number_label.label = number.to_string ();
+
+            if (number <= 0) {
+                number_label.visible = false;
+                number_label.no_show_all = true;
+            } else {
+                number_label.visible = true;
+                number_label.no_show_all = false;
+            }
+
+            return true;
+        });
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 menu_open = true;
