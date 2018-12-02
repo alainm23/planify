@@ -427,6 +427,81 @@ public class Views.Project : Gtk.EventBox {
             check_visible_alertview ();
         });
 
+        labels_button.clicked.connect (() => {
+            labels_popover.update_label_list ();
+            labels_popover.show_all ();
+        });
+
+        labels_popover.on_selected_label.connect ((label) => {
+            if (Application.utils.is_label_repeted (labels_flowbox, label.id) == false) {
+                var child = new Widgets.LabelChild (label);
+                labels_flowbox.add (child);
+            }
+
+            labels_flowbox_revealer.reveal_child = !Application.utils.is_empty (labels_flowbox);
+            labels_flowbox.show_all ();
+            labels_popover.popdown ();
+
+            // Filter
+            tasks_list.set_filter_func ((row) => {
+                var item = row as Widgets.TaskRow;
+                var labels = new Gee.ArrayList<int> ();
+                var _labels = new Gee.ArrayList<int> ();
+
+                foreach (string label_id in item.task.labels.split (";")) {
+                    labels.add (int.parse (label_id));
+                }
+
+                foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
+                    var child = element as Widgets.LabelChild;
+                    _labels.add (child.label.id);
+                }
+
+                // Filter
+                foreach (int x in labels) {
+                    if (x in _labels) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        });
+
+        labels_flowbox.remove.connect ((widget) => {
+            if (Application.utils.is_empty (labels_flowbox)) {
+                labels_flowbox_revealer.reveal_child = false;
+                tasks_list.set_filter_func ((row) => {
+                    return true;
+                });
+            } else {
+                // Filter
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    var labels = new Gee.ArrayList<int> ();
+                    var _labels = new Gee.ArrayList<int> ();
+
+                    foreach (string label_id in item.task.labels.split (";")) {
+                        labels.add (int.parse (label_id));
+                    }
+
+                    foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
+                        var child = element as Widgets.LabelChild;
+                        _labels.add (child.label.id);
+                    }
+
+                    // Filter
+                    foreach (int x in labels) {
+                        if (x in _labels) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                });
+            }
+        });
+
         Application.database.update_project_signal.connect ((_project) => {
             if (project.id == _project.id) {
                 name_entry.text = _project.name;

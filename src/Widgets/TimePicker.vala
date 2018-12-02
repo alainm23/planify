@@ -30,9 +30,6 @@ public class Widgets.TimePicker : Gtk.EventBox {
 
     private bool changing_time = false;
     private string old_string = "";
-    private Gtk.Popover popover;
-    private Gtk.SpinButton hours_spinbutton;
-    private Gtk.SpinButton minutes_spinbutton;
     private Granite.Widgets.ModeButton am_pm_modebutton;
     public Gtk.Entry time_entry;
     public TimePicker () {
@@ -42,7 +39,6 @@ public class Widgets.TimePicker : Gtk.EventBox {
     construct {
         time_entry = new Gtk.Entry ();
         time_entry.max_length = 8;
-        hours_spinbutton = new Gtk.SpinButton.with_range (1, 12, 1);
 
         am_pm_modebutton = new Granite.Widgets.ModeButton ();
         am_pm_modebutton.orientation = Gtk.Orientation.HORIZONTAL;

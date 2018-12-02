@@ -22,12 +22,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.hexpand = true;
         mode_button.halign = Gtk.Align.CENTER;
 
-        mode_button.append_text ("General");
-        mode_button.append_text ("Cloud");
-        mode_button.append_text ("Calendar");
+        mode_button.append_text (_("General"));
+        mode_button.append_text (_("Theme"));
+        mode_button.append_text (_("Labels"));
 
         Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
-        headerbar.get_style_context ().add_class ("Application-preferences-headerbar");
+        headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -37,8 +37,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.visible_child_name = "general";
 
         var content_grid = new Gtk.Grid ();
-        //content_grid.attach (mode_button, 0, 0, 1, 1);
-        content_grid.attach (main_stack, 0, 1, 1, 1);
+        content_grid.orientation = Gtk.Orientation.VERTICAL;
+        content_grid.row_spacing = 12;
+        content_grid.add (mode_button);
+        content_grid.add (main_stack);
 
         ((Gtk.Container) get_content_area ()).add (content_grid);
 
@@ -62,6 +64,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         badge_count_label.get_style_context ().add_class ("h3");
 
         var badge_count_combobox = new Gtk.ComboBoxText ();
+        badge_count_combobox.can_focus = false;
         badge_count_combobox.width_request = 120;
 		badge_count_combobox.append_text (Application.utils.NONE_STRING);
         badge_count_combobox.append_text (Application.utils.INBOX_STRING);
@@ -86,6 +89,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         start_page_label.get_style_context ().add_class ("h3");
 
         var start_page_combobox = new Gtk.ComboBoxText ();
+        start_page_combobox.can_focus = false;
         start_page_combobox.width_request = 120;
 		start_page_combobox.append_text (Application.utils.INBOX_STRING);
 		start_page_combobox.append_text (Application.utils.TODAY_STRING);
@@ -107,6 +111,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         button_press_label.get_style_context ().add_class ("h3");
 
         var button_press_combobox = new Gtk.ComboBoxText ();
+        button_press_combobox.can_focus = false;
         button_press_combobox.width_request = 120;
 		button_press_combobox.append_text (_("None"));
         button_press_combobox.append_text (_("Double Button Press"));

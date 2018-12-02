@@ -3,9 +3,9 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void add_task_signal ();
-    public signal void update_task_signal (Objects.Task task);
     public signal void update_project_signal (Objects.Project project);
     public signal void on_signal_remove_task (Objects.Task task);
+    public signal void update_task_signal (Objects.Task task);
 
     public Database (bool skip_tables = false) {
         int rc = 0;
@@ -142,6 +142,30 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
+    public int remove_project (int id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("DELETE FROM PROJECTS WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            // Remove all tasks project
+            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+            all_tasks = Application.database.get_all_tasks_by_project (id);
+
+            foreach (var task in all_tasks) {
+                remove_task (task);
+            }
+        }
+
+        return res;
+    }
+
     public Gee.ArrayList<Objects.Project?> get_all_projects () {
         Sqlite.Statement stmt;
 
@@ -215,10 +239,46 @@ public class Services.Database : GLib.Object {
         return project;
     }
 
-    public int get_project_tasks_number (int id) {
+    public int get_project_no_completed_tasks_number (int id) {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ? AND checked = 0",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        int count = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            count++;
+        }
+
+        return count;
+    }
+
+    public int get_project_completed_tasks_number (int id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ? AND checked = 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        int count = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            count++;
+        }
+
+        return count;
+    }
+
+    public int get_project_tasks_number (int id) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
             -1, out stmt);
         assert (res == Sqlite.OK);
 

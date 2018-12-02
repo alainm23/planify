@@ -423,12 +423,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             remove_revealer.reveal_child = false;
 
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure you want to delete this to-do?"),
+                _("Are you sure you want to delete this task?"),
                 "",
                 "dialog-warning",
             Gtk.ButtonsType.CANCEL);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete To-Do"));
+            var remove_button = new Gtk.Button.with_label (_("Delete Task"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
@@ -471,6 +471,18 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         checklist_entry.changed.connect (() => {
             checklist_entry.text = Application.utils.first_letter_to_up (checklist_entry.text);
+        });
+
+        checklist_entry.focus_out_event.connect (() => {
+            if (checklist_entry.text != "") {
+                var row = new Widgets.CheckRow (checklist_entry.text, false);
+                checklist.add (row);
+
+                checklist_entry.text = "";
+                checklist.show_all ();
+            }
+
+            return false;
         });
 
         note_view.key_release_event.connect ((key) => {

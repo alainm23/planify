@@ -7,11 +7,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public Objects.Project project { get; construct; }
     public MainWindow window { get; construct; }
-
+    /*
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
 	};
-
+    */
     public const string COLOR_CSS = """
         .proyect-%i {
             color: %s;
@@ -69,8 +69,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_box.margin = 6;
 
         main_box.pack_start (label_color, false, false, 0);
-        main_box.pack_start (name_label, false, false, 0);
-        main_box.pack_start (name_entry, false, false, 0);
+        main_box.pack_start (name_label, false, true, 0);
+        main_box.pack_start (name_entry, false, true, 0);
         main_box.pack_end (settings_revealer, false, false, 0);
         main_box.pack_end (number_label, false, false, 0);
 
@@ -86,8 +86,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         // Event
         GLib.Timeout.add_seconds (1, () => {
-            int number = Application.database.get_project_tasks_number (project.id);
+            int number = Application.database.get_project_no_completed_tasks_number (project.id);
             number_label.label = number.to_string ();
+
+            update_tooltip_text ();
 
             if (number <= 0) {
                 number_label.visible = false;
@@ -99,6 +101,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             return true;
         });
+        
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 menu_open = true;
@@ -112,7 +115,35 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         menu_popover.on_selected_menu.connect((index) => {
-            if (index == 2) {
+            if (index == 0) {
+                int tasks_number = Application.database.get_project_no_completed_tasks_number (project.id);
+
+                var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                    _("Are you sure you want to mark as completed this project?"),
+                    _("This project contains %i incomplete tasks".printf (tasks_number)),
+                    "dialog-warning",
+                Gtk.ButtonsType.CANCEL);
+
+                var remove_button = new Gtk.Button.with_label (_("Mark as Completed"));
+                remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+                message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+                message_dialog.show_all ();
+
+                if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                    var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                    all_tasks = Application.database.get_all_tasks_by_project (project.id);
+
+                    foreach (var task in all_tasks) {
+                        task.checked = 1;
+                        if (Application.database.update_task (task) == Sqlite.DONE) {
+                            Application.database.update_task_signal (task);
+                        }
+                    }
+                }
+
+                message_dialog.destroy ();
+            } else if (index == 1) {
                 name_label.visible = false;
                 name_entry.visible = true;
 
@@ -120,7 +151,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    name_entry.grab_focus ();
 				    return false;
 			    });
-            } else if (index == 4) {
+            } else if (index == 2) {
+
+            } else if (index == 3) {
                 int tasks_number = Application.database.get_project_tasks_number (project.id);
                 // Algoritmo para saber si hay o no tareas y si es plural o singular
 
@@ -137,9 +170,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 message_dialog.show_all ();
 
                 if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                    project.is_deleted = 1;
-
-                    if (Application.database.update_project (project) == Sqlite.DONE) {
+                    if (Application.database.remove_project (project.id) == Sqlite.DONE) {
                         Timeout.add (20, () => {
                             this.opacity = this.opacity - 0.1;
 
@@ -240,7 +271,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             project.name = name_entry.text;
 
             if (Application.database.update_project (project) == Sqlite.DONE) {
-                name_label.label = "<b>%s</b>".printf(name_entry.text);
+                name_label.label = "<b>%s</b>".printf(project.name);
 
                 name_label.visible = true;
                 name_entry.visible = false;
@@ -248,6 +279,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
+    private void update_tooltip_text () {
+        int all_tasks = Application.database.get_project_tasks_number (project.id);
+        int completed_tasks = Application.database.get_project_completed_tasks_number (project.id);
+
+        set_tooltip_text (project.name + " %i/%i".printf (completed_tasks, all_tasks));
+        show_all ();
+    }
     /*
     private void build_drag_and_drop () {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);

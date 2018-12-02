@@ -34,10 +34,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
         listbox.expand = true;
 
         var add_project_button = new Gtk.ToggleButton ();
+        add_project_button.can_focus = false;
         add_project_button.valign = Gtk.Align.CENTER;
         add_project_button.halign = Gtk.Align.CENTER;
         add_project_button.margin = 6;
         add_project_button.width_request = 48;
+        add_project_button.get_style_context ().add_class ("planner-add-new-task");
         add_project_button.get_style_context ().add_class ("button-circular");
         add_project_button.tooltip_text = _("Add new project");
         add_project_button.add (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -113,7 +115,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
             return true;
         });
-    }  
+    }
 
     private void check_number_labels () {
         if (int.parse (inbox_item.number_label.label) <= 0) {

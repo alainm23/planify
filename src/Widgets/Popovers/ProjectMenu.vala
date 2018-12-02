@@ -10,12 +10,9 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
     }
 
     construct {
-        var finalize_menu = new Widgets.ModelButton (_("Finalize"), "emblem-default-symbolic", _("Finalize project"));
+        var finalize_menu = new Widgets.ModelButton (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
         var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", _("Change project name"));
-
-        var favorite_menu = new Widgets.ModelButton (_("Favorite"), "emblem-favorite-symbolic", _("Favorite"));
-
-        var remove_menu = new Widgets.ModelButton (_("Remove"), "user-trash-symbolic", _("Remove project"));
+        var remove_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic", _("Remove project"));
         var share_menu = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", _("Share project"));
 
         var separator_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -36,14 +33,24 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
         add (main_grid);
 
         // Event
+        finalize_menu.clicked.connect (() => {
+            popdown ();
+            on_selected_menu (0);
+        });
+
         edit_menu.clicked.connect (() => {
+            popdown ();
+            on_selected_menu (1);
+        });
+
+        share_menu.clicked.connect (() => {
             popdown ();
             on_selected_menu (2);
         });
 
         remove_menu.clicked.connect (() => {
             popdown ();
-            on_selected_menu (4);
+            on_selected_menu (3);
         });
     }
 }
