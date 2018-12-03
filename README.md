@@ -22,4 +22,8 @@ meson build && cd build
 meson configure -Dprefix=/usr
 sudo ninja install
 ```
-Made with 💛 in Perú
+
+### Donations
+Stripe is not yet available in my country, If you like Planner and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alainm23)
+
+Made with 💗 in Perú
