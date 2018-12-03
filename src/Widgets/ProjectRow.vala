@@ -4,6 +4,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
+    private Gtk.Label number_label;
 
     public Objects.Project project { get; construct; }
     public MainWindow window { get; construct; }
@@ -62,7 +63,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var menu_popover = new Widgets.Popovers.ProjectMenu (settings_button);
 
-        var number_label = new Gtk.Label (null);
+        number_label = new Gtk.Label (null);
         number_label.valign = Gtk.Align.CENTER;
 
         main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
@@ -80,28 +81,17 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         add (eventbox);
         apply_styles ();
+        update_tooltip_text ();
+        check_number_label ();
         //build_drag_and_drop ();
 
         show_all ();
 
-        // Event
-        GLib.Timeout.add_seconds (1, () => {
-            int number = Application.database.get_project_no_completed_tasks_number (project.id);
-            number_label.label = number.to_string ();
-
-            update_tooltip_text ();
-
-            if (number <= 0) {
-                number_label.visible = false;
-                number_label.no_show_all = true;
-            } else {
-                number_label.visible = true;
-                number_label.no_show_all = false;
-            }
-
-            return true;
+        // Signals
+        Application.database.update_indicators.connect (() => {
+            check_number_label ();
         });
-        
+
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 menu_open = true;
@@ -285,6 +275,21 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         set_tooltip_text (project.name + " %i/%i".printf (completed_tasks, all_tasks));
         show_all ();
+    }
+
+    private void check_number_label () {
+        int number = Application.database.get_project_no_completed_tasks_number (project.id);
+        number_label.label = number.to_string ();
+
+        update_tooltip_text ();
+
+        if (number <= 0) {
+            number_label.visible = false;
+            number_label.no_show_all = true;
+        } else {
+            number_label.visible = true;
+            number_label.no_show_all = false;
+        }
     }
     /*
     private void build_drag_and_drop () {

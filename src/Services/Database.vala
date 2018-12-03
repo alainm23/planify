@@ -6,6 +6,7 @@ public class Services.Database : GLib.Object {
     public signal void update_project_signal (Objects.Project project);
     public signal void on_signal_remove_task (Objects.Task task);
     public signal void update_task_signal (Objects.Task task);
+    public signal void update_indicators ();
 
     public Database (bool skip_tables = false) {
         int rc = 0;
@@ -346,6 +347,7 @@ public class Services.Database : GLib.Object {
 
         if (res == Sqlite.DONE) {
             add_task_signal ();
+            update_indicators ();
         }
 
         return res;
@@ -437,6 +439,10 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
+        if (res == Sqlite.DONE) {
+            update_indicators ();
+        }
+
         return res;
     }
 
@@ -453,6 +459,7 @@ public class Services.Database : GLib.Object {
 
         if (res == Sqlite.DONE) {
             on_signal_remove_task (task);
+            update_indicators ();
         }
 
         return res;

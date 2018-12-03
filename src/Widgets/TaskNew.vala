@@ -8,6 +8,11 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
+    public GLib.DateTime when_datetime {
+        set {
+            when_button.set_date (value, false, new GLib.DateTime.now_local ());
+        }
+    }
 
     public signal void on_signal_close ();
     public TaskNew (bool _is_inbox = false, int _project_id = 0) {

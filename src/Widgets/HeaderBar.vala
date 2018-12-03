@@ -245,8 +245,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         overview_grid.add (overview_levelbar);
         overview_grid.add (grid);
 
-        // Events
-        GLib.Timeout.add (1 * 1000, () => {
+        Application.database.update_indicators.connect (() => {
             int completed_tasks = Application.database.get_all_completed_tasks ();
             int todo_tasks = Application.database.get_all_todo_tasks ();
             int all_tasks = Application.database.get_all_tasks ();
@@ -256,10 +255,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             all_task_number.label = all_tasks.to_string ();
 
             overview_levelbar.value = (double) completed_tasks / (double) all_tasks;
-
-            return true;
         });
-
+        
         return overview_grid;
     }
 }

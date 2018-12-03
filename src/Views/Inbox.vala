@@ -21,7 +21,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         alert_view = new Widgets.AlertView (
             _("All clear"),
-            _("Looks like everything's is organized in the right place. Tap + to add a task."),
+            _("Looks like everything's is organized in the right view. Tap + to add a task."),
             "mail-mailbox-symbolic"
         );
         alert_view.margin_bottom = 64;
@@ -124,6 +124,14 @@ public class Views.Inbox : Gtk.EventBox {
         tasks_list.margin_start = 20;
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
+        tasks_list.set_sort_func ((row1, row2) => {
+            var item1 = row1 as Widgets.TaskRow;
+            if (item1.task.checked == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
@@ -213,6 +221,7 @@ public class Views.Inbox : Gtk.EventBox {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
+        tasks_list.invalidate_sort ();
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
@@ -403,6 +412,25 @@ public class Views.Inbox : Gtk.EventBox {
 
             row.on_signal_update.connect ((_task) => {
                 if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                    if (_task.when_date_utc != "") {
+                        // Send a quick notification
+                        var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                        string view = "";
+
+                        if (Application.utils.is_today (_when)) {
+                            view = Application.utils.TODAY_STRING;
+                        } else if (Application.utils.is_upcoming (_when)) {
+                            view = Application.utils.UPCOMING_STRING;
+                        }
+
+                        Application.notification.send_local_notification (
+                            task.content,
+                            _("It was moved to %s").printf (view),
+                            "document-export",
+                            3,
+                            false);
+                    }
+
                     Timeout.add (20, () => {
                         row.opacity = row.opacity - 0.1;
 
@@ -456,6 +484,8 @@ public class Views.Inbox : Gtk.EventBox {
                 tasks_list.remove (element);
             }
         }
+
+        tasks_list.invalidate_sort ();
     }
 
     public void update_tasks_list () {
@@ -475,6 +505,25 @@ public class Views.Inbox : Gtk.EventBox {
 
             row.on_signal_update.connect ((_task) => {
                 if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                    if (_task.when_date_utc != "") {
+                        // Send a quick notification
+                        var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                        string view = "";
+
+                        if (Application.utils.is_today (_when)) {
+                            view = Application.utils.TODAY_STRING;
+                        } else if (Application.utils.is_upcoming (_when)) {
+                            view = Application.utils.UPCOMING_STRING;
+                        }
+
+                        Application.notification.send_local_notification (
+                            task.content,
+                            _("It was moved to %s").printf (view),
+                            "document-export",
+                            3,
+                            false);
+                    }
+
                     Timeout.add (20, () => {
                         row.opacity = row.opacity - 0.1;
 

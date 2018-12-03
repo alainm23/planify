@@ -126,9 +126,14 @@ public class Views.Upcoming : Gtk.EventBox {
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
 
-        tasks_list.set_filter_func ((row) => {
-            var item = row as Widgets.TaskRow;
-            return item.task.checked == 0;
+        tasks_list.set_sort_func ((row1, row2) => {
+            var item1 = row1 as Widgets.TaskRow;
+            var item2 = row2 as Widgets.TaskRow;
+
+            var date1 = new GLib.DateTime.from_iso8601 (item1.task.when_date_utc, new GLib.TimeZone.local ());
+            var date2 = new GLib.DateTime.from_iso8601 (item2.task.when_date_utc, new GLib.TimeZone.local ());
+
+            return date1.compare (date2);
         });
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -149,7 +154,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         task_new_revealer = new Widgets.TaskNew (true);
         task_new_revealer.valign = Gtk.Align.END;
-        task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());
+        task_new_revealer.when_datetime = new GLib.DateTime.now_local ().add_days (1);
 
         show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
         show_all_tasks_button.can_focus = false;
@@ -198,6 +203,8 @@ public class Views.Upcoming : Gtk.EventBox {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
+
+        tasks_list.invalidate_sort ();
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
@@ -261,7 +268,7 @@ public class Views.Upcoming : Gtk.EventBox {
                 var task = new Objects.Task ();
                 task.content = text;
                 task.is_inbox = 1;
-                task.when_date_utc = new GLib.DateTime.now_local ().to_string ();
+                task.when_date_utc = new GLib.DateTime.now_local ().add_days (1).to_string ();
 
                 if (Application.database.add_task (task) == Sqlite.DONE) {
                     // Notificacion Here ...
@@ -461,6 +468,28 @@ public class Views.Upcoming : Gtk.EventBox {
                     var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
                     if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
+                        string view = "";
+
+                        if (_task.when_date_utc == "") {
+                            if (_task.is_inbox == 1) {
+                                view = Application.utils.INBOX_STRING;
+                            } else {
+                                var project = new Objects.Project ();
+                                project = Application.database.get_project (_task.project_id);
+                                view = project.name;
+                            }
+                        } else if (Application.utils.is_today (_when)) {
+                            view = Application.utils.TODAY_STRING;
+                        }
+
+                        Application.notification.send_local_notification (
+                            task.content,
+                            _("It was moved to %s").printf (view),
+                            "document-export",
+                            3,
+                            false
+                        );
+
                         Timeout.add (20, () => {
                             row.opacity = row.opacity - 0.1;
 
@@ -491,6 +520,8 @@ public class Views.Upcoming : Gtk.EventBox {
                 tasks_list.remove (element);
             }
         }
+
+        tasks_list.invalidate_sort ();
     }
 
     public void update_tasks_list () {
@@ -510,6 +541,28 @@ public class Views.Upcoming : Gtk.EventBox {
                 var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
                 if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
+                    string view = "";
+
+                    if (_task.when_date_utc == "") {
+                        if (_task.is_inbox == 1) {
+                            view = Application.utils.INBOX_STRING;
+                        } else {
+                            var project = new Objects.Project ();
+                            project = Application.database.get_project (_task.project_id);
+                            view = project.name;
+                        }
+                    } else if (Application.utils.is_today (_when)) {
+                        view = Application.utils.TODAY_STRING;
+                    }
+
+                    Application.notification.send_local_notification (
+                        task.content,
+                        _("It was moved to %s").printf (view),
+                        "document-export",
+                        3,
+                        false
+                    );
+
                     Timeout.add (20, () => {
                         row.opacity = row.opacity - 0.1;
 
@@ -553,7 +606,7 @@ public class Views.Upcoming : Gtk.EventBox {
             add_task_revealer.reveal_child = false;
             task_new_revealer.name_entry.grab_focus ();
 
-            task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());
+            task_new_revealer.when_datetime = new GLib.DateTime.now_local ().add_days (1);
         }
 
         tasks_list.unselect_all ();

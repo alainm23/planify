@@ -187,6 +187,15 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
 
+        tasks_list.set_sort_func ((row1, row2) => {
+            var item1 = row1 as Widgets.TaskRow;
+            if (item1.task.checked == 0) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
@@ -254,6 +263,8 @@ public class Views.Project : Gtk.EventBox {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
+
+        tasks_list.invalidate_sort ();
 
         // Signals
         show_hide_all_button.toggled.connect (() => {
@@ -546,6 +557,8 @@ public class Views.Project : Gtk.EventBox {
                 tasks_list.remove (element);
             }
         }
+
+        tasks_list.invalidate_sort ();
     }
 
     public void update_tasks_list () {

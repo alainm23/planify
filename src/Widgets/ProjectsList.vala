@@ -107,14 +107,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
             }
         });
 
-        GLib.Timeout.add_seconds (1, () => {
+        Application.database.update_indicators.connect (() => {
             inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
             today_item.number_label.label = Application.database.get_today_number ().to_string ();
             upcoming_item.number_label.label = Application.database.get_upcoming_number ().to_string ();
 
             check_number_labels ();
-
-            return true;
         });
     }
 

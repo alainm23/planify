@@ -39,11 +39,11 @@ public class MainWindow : Gtk.ApplicationWindow {
             }
         });
 
-        GLib.Timeout.add_seconds (1, () => {
+        Application.database.update_indicators.connect (() => {
             check_badge_count ();
-
-            return true;
         });
+
+        Application.database.update_indicators ();
     }
 
     private void check_badge_count () {
