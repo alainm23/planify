@@ -208,7 +208,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var checklist_entry = new Gtk.Entry ();
         checklist_entry.hexpand = true;
         checklist_entry.margin_bottom = 1;
-        checklist_entry.max_length = 50;
         checklist_entry.placeholder_text = _("Checklist");
         checklist_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         checklist_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
@@ -664,7 +663,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             string date_format = Granite.DateTime.get_default_date_format (false, true, false);
             var when_datetime = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_datetime)) {
+            if (Application.utils.is_today (when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
             } else if (Application.utils.is_tomorrow (when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
@@ -831,7 +830,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         if (when_button.has_when) {
             task.when_date_utc = when_button.when_datetime.to_string ();
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+            if (Application.utils.is_today (when_button.when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
             } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
@@ -860,7 +859,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 string time_format = Granite.DateTime.get_default_time_format (true, false);
                 time = when_button.reminder_datetime.format (time_format);
 
-                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+                if (Application.utils.is_today (when_button.when_datetime)) {
                     date = Application.utils.TODAY_STRING.down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
                     date = Application.utils.TOMORROW_STRING.down ();

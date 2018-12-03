@@ -11,7 +11,7 @@
     <enum id="com.github.artegeek.planner.start-page">
         <value nick="Inbox" value="0" />
         <value nick="Today" value="1" />
-        <value nick="Tomorrow" value="2" />
+        <value nick="Upcoming" value="2" />
     </enum>
 
     <enum id="com.github.artegeek.planner.button-press">

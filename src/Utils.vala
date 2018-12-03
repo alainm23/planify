@@ -1,6 +1,7 @@
 public class Utils : GLib.Object {
     public string INBOX_STRING = _("Inbox");
     public string TODAY_STRING = _("Today");
+    public string UPCOMING_STRING = _("Upcoming");
     public string TOMORROW_STRING = _("Tomorrow");
     public string NONE_STRING = _("None");
     public string NOTIFICATIONS_STRING = _("Notifications");
@@ -135,20 +136,21 @@ public class Utils : GLib.Object {
         return false;
     }
 
-    public bool is_tomorrow (GLib.DateTime duedate) {
-        var datetime_tomorrow = new GLib.DateTime.now_local ().add_days (1);
-        if (datetime_tomorrow.get_year () == duedate.get_year ()) {
-            if (datetime_tomorrow.get_month () == duedate.get_month ()) {
-                if (datetime_tomorrow.get_day_of_month () == duedate.get_day_of_month ()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
+    public bool is_tomorrow (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ().add_days (1);
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+
+    public bool is_today (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ();
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+
+    public bool is_upcoming (GLib.DateTime date) {
+        if (is_today (date)) {
             return false;
+        } else {
+            return true;
         }
     }
 

@@ -1,5 +1,4 @@
 public class Widgets.LabelButton : Gtk.ToggleButton {
-
     public signal void on_selected_label (Objects.Label label);
     public LabelButton () {
         Object (

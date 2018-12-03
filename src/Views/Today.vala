@@ -21,7 +21,7 @@ public class Views.Today : Gtk.EventBox {
 
         alert_view = new Widgets.AlertView (
             _("You're all done for today!"),
-            _("Enjoy your day"),
+            _("Enjoy your day."),
             "emblem-default-symbolic"
         );
 
@@ -392,7 +392,7 @@ public class Views.Today : Gtk.EventBox {
                 if (row.task.id == task.id) {
                     var _when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                    if (Application.utils.is_today (_when) == false) {
                         Timeout.add (20, () => {
                             row.opacity = row.opacity - 0.1;
 
@@ -454,13 +454,13 @@ public class Views.Today : Gtk.EventBox {
         if (task.when_date_utc != "") {
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
+            if (Application.utils.is_today (when)) {
                 var row = new Widgets.TaskRow (task);
 
                 row.on_signal_update.connect ((_task) => {
                     var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                    if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                    if (Application.utils.is_today (_when) == false) {
                         Timeout.add (20, () => {
                             row.opacity = row.opacity - 0.1;
 
@@ -487,7 +487,7 @@ public class Views.Today : Gtk.EventBox {
             var row = element as Widgets.TaskRow;
             var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when) == false) {
+            if (Application.utils.is_today (when) == false) {
                 tasks_list.remove (element);
             }
         }
@@ -509,7 +509,7 @@ public class Views.Today : Gtk.EventBox {
             row.on_signal_update.connect ((_task) => {
                 var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), _when) == false) {
+                if (Application.utils.is_today (_when) == false) {
                     Timeout.add (20, () => {
                         row.opacity = row.opacity - 0.1;
 

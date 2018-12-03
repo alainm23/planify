@@ -6,7 +6,7 @@ public class Views.Main : Gtk.Paned {
 
     private Views.Inbox inbox_view;
     private Views.Today today_view;
-    private Views.Tomorrow tomorrow_view;
+    private Views.Upcoming upcoming_view;
     private Views.Project project_view;
 
     public Main (MainWindow parent) {
@@ -24,7 +24,7 @@ public class Views.Main : Gtk.Paned {
 
         inbox_view = new Views.Inbox ();
         today_view = new Views.Today ();
-        tomorrow_view = new Views.Tomorrow ();
+        upcoming_view = new Views.Upcoming ();
 
 
         stack = new Gtk.Stack ();
@@ -33,7 +33,7 @@ public class Views.Main : Gtk.Paned {
 
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
-        stack.add_named (tomorrow_view, "tomorrow_view");
+        stack.add_named (upcoming_view, "upcoming_view");
         stack.add_named (project_view, "project_view");
 
         update_views ();
@@ -46,8 +46,7 @@ public class Views.Main : Gtk.Paned {
         } else if (start_page == 1) {
             start_page_name = "today_view";
         } else {
-            start_page_name = "tomorrow_view";
-            start_page_name = "tomorrow_view";
+            start_page_name = "upcoming_view";
         }
 
         Timeout.add (200, () => {
@@ -69,7 +68,7 @@ public class Views.Main : Gtk.Paned {
 
                     today_view.apply_remove ();
                 } else {
-                    stack.visible_child_name = "tomorrow_view";
+                    stack.visible_child_name = "upcoming_view";
                 }
             } else {
                 stack.visible_child_name = "project_view-" + index.to_string ();

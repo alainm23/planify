@@ -1,31 +1,17 @@
-public class Views.Project : Gtk.EventBox {
-    public weak MainWindow parent_window { get; construct; }
-    public Objects.Project project { get; construct; }
-
-    private Gtk.Entry name_entry;
-    private Gtk.ToggleButton deadline_project_button;
-    private Gtk.Label deadline_project_label;
-    private Gtk.TextView note_view;
-
+public class Views.Upcoming : Gtk.EventBox {
+    public MainWindow window { get; construct; }
     private Widgets.TaskNew task_new_revealer;
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
     private Gtk.Revealer add_task_revealer;
     private Gtk.FlowBox labels_flowbox;
-
-    Gtk.ToggleButton show_hide_all_button;
-
     private Widgets.AlertView alert_view;
-
     private Widgets.Popovers.LabelsPopover labels_popover;
 
     private bool show_all_tasks = true;
     private Gtk.Button show_all_tasks_button;
-
-    public Project (Objects.Project _project, MainWindow parent) {
+    public Upcoming () {
         Object (
-            parent_window: parent,
-            project: _project,
             expand: true
         );
     }
@@ -34,68 +20,49 @@ public class Views.Project : Gtk.EventBox {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Widgets.AlertView (
-            _("keep your tasks organized in projects"),
-            _("Tap + to add a task."),
-            "planner-startup-symbolic"
+            _("Get a bird's eye view of yours upcoming tasks"),
+            _("This is your timeline for the next tasks."),
+            "office-calendar-symbolic"
         );
 
         alert_view.margin_bottom = 64;
         alert_view.no_show_all = true;
         alert_view.visible = false;
 
-        var color_image = new Gtk.Image ();
-        color_image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        color_image.get_style_context ().add_class ("proyect-%i".printf (project.id));
-        color_image.pixel_size = 24;
+        var upcoming_icon = new Gtk.Image.from_icon_name ("planner-upcoming", Gtk.IconSize.DND);
 
-        var color_button = new Gtk.Button ();
-        color_button.valign = Gtk.Align.CENTER;
-        color_button.halign = Gtk.Align.CENTER;
-        color_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        color_button.get_style_context ().add_class ("button-circular");
-        color_button.get_style_context ().add_class ("no-padding");
-        color_button.tooltip_text = _("Add new project");
-        color_button.add (color_image);
+        var upcoming_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.UPCOMING_STRING));
+        upcoming_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        upcoming_label.use_markup = true;
 
-        name_entry = new Gtk.Entry ();
-        name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        name_entry.get_style_context ().add_class ("planner-entry");
-        name_entry.get_style_context ().add_class ("no-padding");
-        name_entry.get_style_context ().add_class ("planner-entry-bold");
-        name_entry.hexpand = false;
-        name_entry.text = project.name;
-        name_entry.placeholder_text = _("Name");
+        var show_hide_all_button = new Gtk.ToggleButton ();
+        show_hide_all_button.valign = Gtk.Align.CENTER;
+        show_hide_all_button.halign = Gtk.Align.CENTER;
+        show_hide_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
+        show_hide_all_button.tooltip_text = _("Open all tasks");
 
-        deadline_project_button = new Gtk.ToggleButton ();
-        deadline_project_button.margin_top = 2;
-        deadline_project_button.get_style_context ().add_class ("no-padding");
-        deadline_project_button.get_style_context ().add_class ("planner-when-preview");
-        deadline_project_button.valign = Gtk.Align.CENTER;
+        var show_hide_image = new Gtk.Image.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
+        show_hide_all_button.add (show_hide_image);
 
-        deadline_project_label = new Gtk.Label (null);
-        deadline_project_button.get_style_context ().add_class ("h4");
-        deadline_project_button.add (deadline_project_label);
+        show_hide_all_button.toggled.connect (() => {
+          if (show_hide_all_button.active) {
+              show_hide_all_button.tooltip_text = _("Close all tasks");
+              show_hide_image.icon_name = "zoom-out-symbolic";
 
-        if (project.deadline == "") {
-            deadline_project_button.visible = false;
-            deadline_project_button.no_show_all = true;
-        } else {
-            deadline_project_button.visible = true;
-            deadline_project_button.no_show_all = false;
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.show_content ();
+              }
+          } else {
+              show_hide_all_button.tooltip_text = _("Open all tasks");
+              show_hide_image.icon_name = "zoom-in-symbolic";
 
-            string date_format = Granite.DateTime.get_default_date_format (false, true, true);
-            var deadline_datetime = new GLib.DateTime.from_iso8601 (project.deadline, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TODAY_STRING;
-            } else if (Application.utils.is_tomorrow (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TOMORROW_STRING;
-            } else {
-                deadline_project_label.label = deadline_datetime.format (date_format);
-            }
-        }
+              foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                  var row = element as Widgets.TaskRow;
+                  row.hide_content ();
+              }
+          }
+        });
 
         var paste_button = new Gtk.Button.from_icon_name ("planner-paste-symbolic", Gtk.IconSize.MENU);
         paste_button.get_style_context ().add_class ("planner-paste-menu");
@@ -117,15 +84,6 @@ public class Views.Project : Gtk.EventBox {
         share_button.tooltip_text = _("Share");
         share_button.valign = Gtk.Align.CENTER;
         share_button.halign = Gtk.Align.CENTER;
-
-        show_hide_all_button = new Gtk.ToggleButton ();
-        show_hide_all_button.valign = Gtk.Align.CENTER;
-        show_hide_all_button.halign = Gtk.Align.CENTER;
-        show_hide_all_button.get_style_context ().add_class ("planner-zoom-in-menu");
-        show_hide_all_button.tooltip_text = _("Open all tasks");
-
-        var show_hide_image = new Gtk.Image.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
-        show_hide_all_button.add (show_hide_image);
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
@@ -150,33 +108,14 @@ public class Views.Project : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.valign = Gtk.Align.START;
         top_box.hexpand = true;
-        top_box.margin_start = 12;
+        top_box.margin_start = 24;
         top_box.margin_end = 16;
         top_box.margin_top = 24;
 
-        top_box.pack_start (color_button, false, false, 0);
-        top_box.pack_start (deadline_project_button, false, false, 6);
-        top_box.pack_start (name_entry, true, true, 6);
+        top_box.pack_start (upcoming_icon, false, false, 0);
+        top_box.pack_start (upcoming_label, false, false, 12);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
-
-        note_view = new Gtk.TextView ();
-        note_view.opacity = 0.7;
-		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
-        note_view.margin_start = 18;
-        note_view.margin_top = 6;
-        note_view.margin_end = 32;
-		note_view.buffer.text = project.note;
-        note_view.get_style_context ().add_class ("note-view");
-
-        var note_view_placeholder_label = new Gtk.Label (_("Note"));
-        note_view_placeholder_label.opacity = 0.65;
-        note_view.add (note_view_placeholder_label);
-
-        if (note_view.buffer.text != "") {
-            note_view_placeholder_label.visible = false;
-            note_view_placeholder_label.no_show_all = true;
-        }
 
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
@@ -186,6 +125,11 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.margin_start = 20;
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
+
+        tasks_list.set_filter_func ((row) => {
+            var item = row as Widgets.TaskRow;
+            return item.task.checked == 0;
+        });
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
@@ -203,8 +147,9 @@ public class Views.Project : Gtk.EventBox {
         add_task_revealer.margin = 12;
         add_task_revealer.reveal_child = true;
 
-        task_new_revealer = new Widgets.TaskNew (false, project.id);
+        task_new_revealer = new Widgets.TaskNew (true);
         task_new_revealer.valign = Gtk.Align.END;
+        task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());
 
         show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
         show_all_tasks_button.can_focus = false;
@@ -229,7 +174,6 @@ public class Views.Project : Gtk.EventBox {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (top_box, false, false, 0);
-        box.pack_start (note_view, false, false, 0);
         box.pack_start (labels_flowbox_revealer, false, false, 0);
         box.pack_start (alert_view, true, true, 0);
         box.pack_start (tasks_list, false, true, 0);
@@ -255,65 +199,10 @@ public class Views.Project : Gtk.EventBox {
             return item.task.checked == 0;
         });
 
+        Gdk.Display display = Gdk.Display.get_default ();
+        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+
         // Signals
-        show_hide_all_button.toggled.connect (() => {
-          if (show_hide_all_button.active) {
-              show_hide_all_button.tooltip_text = _("Close all tasks");
-              show_hide_image.icon_name = "zoom-out-symbolic";
-
-              foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                  var row = element as Widgets.TaskRow;
-                  row.show_content ();
-              }
-          } else {
-              show_hide_all_button.tooltip_text = _("Open all tasks");
-              show_hide_image.icon_name = "zoom-in-symbolic";
-
-              foreach (Gtk.Widget element in tasks_list.get_children ()) {
-                  var row = element as Widgets.TaskRow;
-                  row.hide_content ();
-              }
-          }
-        });
-
-        name_entry.focus_out_event.connect (() => {
-            update_project ();
-            return false;
-        });
-
-        name_entry.activate.connect (() => {
-            update_project ();
-        });
-
-        name_entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                update_project ();
-            }
-
-            return false;
-        });
-
-        color_button.clicked.connect (() => {
-            var color_dialog = new Gtk.ColorChooserDialog (_("Select Your Favorite Color"), parent_window);
-    		if (color_dialog.run () == Gtk.ResponseType.OK) {
-                project.color = Application.utils.rgb_to_hex_string (color_dialog.rgba);
-
-                update_project ();
-    		}
-
-    		color_dialog.close ();
-        });
-
-        settings_button.toggled.connect (() => {
-            if (action_revealer.reveal_child) {
-                settings_button.get_style_context ().remove_class ("closed");
-                action_revealer.reveal_child = false;
-            } else {
-                action_revealer.reveal_child = true;
-                settings_button.get_style_context ().add_class ("closed");
-            }
-        });
-
         show_all_tasks_button.clicked.connect (() => {
 			if (show_all_tasks) {
                 show_all_tasks = false;
@@ -336,8 +225,23 @@ public class Views.Project : Gtk.EventBox {
             check_visible_alertview ();
 		});
 
-        Gdk.Display display = Gdk.Display.get_default ();
-        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+        settings_button.toggled.connect (() => {
+            if (action_revealer.reveal_child) {
+                settings_button.get_style_context ().remove_class ("closed");
+                action_revealer.reveal_child = false;
+            } else {
+                action_revealer.reveal_child = true;
+                settings_button.get_style_context ().add_class ("closed");
+            }
+        });
+
+        add_task_button.clicked.connect (() => {
+            task_on_revealer ();
+        });
+
+        task_new_revealer.on_signal_close.connect (() => {
+            task_on_revealer ();
+        });
 
         paste_button.clicked.connect (() => {
             settings_button.get_style_context ().remove_class ("closed");
@@ -356,9 +260,11 @@ public class Views.Project : Gtk.EventBox {
             } else {
                 var task = new Objects.Task ();
                 task.content = text;
-                task.project_id = project.id;
+                task.is_inbox = 1;
+                task.when_date_utc = new GLib.DateTime.now_local ().to_string ();
 
                 if (Application.database.add_task (task) == Sqlite.DONE) {
+                    // Notificacion Here ...
                     Application.notification.send_local_notification (
                         _("His task was created from the clipboard"),
                         _("Tap to undo"),
@@ -394,37 +300,6 @@ public class Views.Project : Gtk.EventBox {
 
             tasks_list.unselect_all ();
             return false;
-        });
-
-        note_view.focus_out_event.connect (() => {
-            if (note_view.buffer.text == "") {
-                note_view_placeholder_label.visible = true;
-                note_view_placeholder_label.no_show_all = false;
-            }
-
-            project.note = note_view.buffer.text;
-            update_project ();
-
-            return false;
-        });
-
-        note_view.focus_in_event.connect (() => {
-            note_view_placeholder_label.visible = false;
-            note_view_placeholder_label.no_show_all = true;
-
-            return false;
-        });
-
-        add_task_button.clicked.connect (() => {
-            task_on_revealer ();;
-        });
-
-        task_new_revealer.on_signal_close.connect (() => {
-            task_on_revealer ();
-        });
-
-        tasks_list.remove.connect ((widget) => {
-            check_visible_alertview ();
         });
 
         labels_button.clicked.connect (() => {
@@ -502,10 +377,8 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.update_project_signal.connect ((_project) => {
-            if (project.id == _project.id) {
-                name_entry.text = _project.name;
-            }
+        tasks_list.remove.connect ((widget) => {
+            check_visible_alertview ();
         });
 
         Application.database.update_task_signal.connect ((task) => {
@@ -517,7 +390,22 @@ public class Views.Project : Gtk.EventBox {
                 var row = element as Widgets.TaskRow;
 
                 if (row.task.id == task.id) {
-                    row.set_update_task (task);
+                    var _when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+
+                    if ((Application.utils.is_upcoming (_when) == false) || task.when_date_utc == "") {
+                        Timeout.add (20, () => {
+                            row.opacity = row.opacity - 0.1;
+
+                            if (row.opacity <= 0) {
+                                row.destroy ();
+                                return false;
+                            }
+
+                            return true;
+                        });
+                    } else {
+                        row.set_update_task (task);
+                    }
                 }
             }
         });
@@ -536,75 +424,6 @@ public class Views.Project : Gtk.EventBox {
                 }
             }
         });
-    }
-
-    public void apply_remove () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            var row = element as Widgets.TaskRow;
-
-            if (row.task.project_id != project.id) {
-                tasks_list.remove (element);
-            }
-        }
-    }
-
-    public void update_tasks_list () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            tasks_list.remove (element);
-        }
-
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_tasks_by_project (project.id);
-
-        foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
-            row.project_preview_box.visible = false;
-            row.project_preview_box.no_show_all = true;
-
-            tasks_list.add (row);
-
-            row.on_signal_update.connect ((_task) => {
-                if (_task.project_id != project.id) {
-                    Timeout.add (20, () => {
-                        row.opacity = row.opacity - 0.1;
-
-                        if (row.opacity <= 0) {
-                            row.destroy ();
-                            return false;
-                        }
-
-                        return true;
-                    });
-                }
-
-                tasks_list.unselect_all ();
-            });
-
-            tasks_list.show_all ();
-        }
-
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            alert_view.visible = true;
-            alert_view.no_show_all = false;
-
-            tasks_list.visible = false;
-            tasks_list.no_show_all = true;
-
-            show_all_tasks_button.visible = false;
-            show_all_tasks_button.no_show_all = true;
-        }
-    }
-
-    private void update_project () {
-        if (name_entry.text == "") {
-            name_entry.text = project.name;
-        } else {
-            project.name = name_entry.text;
-
-            if (Application.database.update_project (project) == Sqlite.DONE) {
-
-            }
-        }
     }
 
     public void check_visible_alertview () {
@@ -632,15 +451,65 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_new_task (Objects.Task task) {
-        if (task.project_id == project.id) {
+        if (task.when_date_utc != "") {
+            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+
+            if (Application.utils.is_upcoming (when)) {
+                var row = new Widgets.TaskRow (task);
+
+                row.on_signal_update.connect ((_task) => {
+                    var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+
+                    if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
+                        Timeout.add (20, () => {
+                            row.opacity = row.opacity - 0.1;
+
+                            if (row.opacity <= 0) {
+                                row.destroy ();
+                                return false;
+                            }
+
+                            return true;
+                        });
+                    }
+                });
+
+                tasks_list.add (row);
+                tasks_list.show_all ();
+            }
+
+            check_visible_alertview ();
+        }
+    }
+
+    public void apply_remove () {
+        foreach (Gtk.Widget element in tasks_list.get_children ()) {
+            var row = element as Widgets.TaskRow;
+            var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
+
+            if ((Application.utils.is_upcoming (when) == false) || row.task.when_date_utc == "") {
+                tasks_list.remove (element);
+            }
+        }
+    }
+
+    public void update_tasks_list () {
+        foreach (Gtk.Widget element in tasks_list.get_children ()) {
+            tasks_list.remove (element);
+        }
+
+        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+        all_tasks = Application.database.get_all_upcoming_tasks ();
+
+        foreach (var task in all_tasks) {
             var row = new Widgets.TaskRow (task);
-            row.project_preview_box.visible = false;
-            row.project_preview_box.no_show_all = true;
 
             tasks_list.add (row);
 
             row.on_signal_update.connect ((_task) => {
-                if (_task.project_id != project.id) {
+                var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+
+                if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
                     Timeout.add (20, () => {
                         row.opacity = row.opacity - 0.1;
 
@@ -659,7 +528,16 @@ public class Views.Project : Gtk.EventBox {
             tasks_list.show_all ();
         }
 
-        check_visible_alertview ();
+        if (Application.utils.is_listbox_empty (tasks_list)) {
+            alert_view.visible = true;
+            alert_view.no_show_all = false;
+
+            tasks_list.visible = false;
+            tasks_list.no_show_all = true;
+
+            show_all_tasks_button.visible = false;
+            show_all_tasks_button.no_show_all = true;
+        }
     }
 
     private void task_on_revealer () {
@@ -674,6 +552,8 @@ public class Views.Project : Gtk.EventBox {
 
             add_task_revealer.reveal_child = false;
             task_new_revealer.name_entry.grab_focus ();
+
+            task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());
         }
 
         tasks_list.unselect_all ();

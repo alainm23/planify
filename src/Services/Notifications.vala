@@ -34,7 +34,7 @@ public class Services.Notifications : GLib.Object {
                 var now_date = new GLib.DateTime.now_local ();
                 var reminder_date = new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ());
 
-                if (Granite.DateTime.is_same_day (now_date, reminder_date)) {
+                if (Application.utils.is_today (reminder_date)) {
                     if (now_date.get_hour () == reminder_date.get_hour ()) {
                         if (now_date.get_minute () == reminder_date.get_minute ()) {
                             var summary = "";

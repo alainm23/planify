@@ -90,7 +90,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         has_reminder = _has_reminder;
         has_when = true;
 
-        if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), date)) {
+        if (Application.utils.is_today (date)) {
             when_label.label = Application.utils.TODAY_STRING;
             has_when = true;
         } else if (Application.utils.is_tomorrow (date)) {

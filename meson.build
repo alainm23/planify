@@ -33,7 +33,7 @@ executable(
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
-    'src/Views/Tomorrow.vala',
+    'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
 
     'src/Dialogs/PreferencesDialog.vala',

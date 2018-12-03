@@ -65,7 +65,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
         var checklist_entry = new Gtk.Entry ();
         checklist_entry.hexpand = true;
         checklist_entry.margin_bottom = 1;
-        checklist_entry.max_length = 50;
         checklist_entry.placeholder_text = _("Checklist");
         checklist_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         checklist_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
@@ -208,6 +207,18 @@ public class Widgets.TaskNew : Gtk.Revealer {
             checklist_entry.text = Application.utils.first_letter_to_up (checklist_entry.text);
         });
 
+        checklist_entry.focus_out_event.connect (() => {
+            if (checklist_entry.text != "") {
+                var row = new Widgets.CheckRow (checklist_entry.text, false);
+                checklist.add (row);
+
+                checklist_entry.text = "";
+                checklist.show_all ();
+            }
+
+            return false;
+        });
+
         note_view.focus_out_event.connect (() => {
             if (note_view.buffer.text == "") {
                 note_view_placeholder_label.visible = true;
@@ -278,7 +289,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 string time_format = Granite.DateTime.get_default_time_format (true, false);
                 time = when_button.reminder_datetime.format (time_format);
 
-                if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when_button.when_datetime)) {
+                if (Application.utils.is_today (when_button.when_datetime)) {
                     date = Application.utils.TODAY_STRING.down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
                     date = Application.utils.TOMORROW_STRING.down ();

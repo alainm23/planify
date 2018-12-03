@@ -559,7 +559,45 @@ public class Services.Database : GLib.Object {
 
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
+            if (Application.utils.is_today (when)) {
+                all.add (task);
+            }
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Task?> get_all_upcoming_tasks () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE when_date_utc != ''",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Task?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var task = new Objects.Task ();
+
+            task.id = stmt.column_int (0);
+            task.checked = stmt.column_int (1);
+            task.project_id = stmt.column_int (2);
+            task.list_id = stmt.column_int (3);
+            task.task_order = stmt.column_int (4);
+            task.is_inbox = stmt.column_int (5);
+            task.has_reminder = stmt.column_int (6);
+            task.sidebar_width = stmt.column_int (7);
+            task.was_notified = stmt.column_int (8);
+            task.content = stmt.column_text (9);
+            task.note = stmt.column_text (10);
+            task.when_date_utc = stmt.column_text (11);
+            task.reminder_time = stmt.column_text (12);
+            task.checklist = stmt.column_text (13);
+            task.labels = stmt.column_text (14);
+
+            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+
+            if (Application.utils.is_upcoming (when)) {
                 all.add (task);
             }
         }
@@ -673,7 +711,26 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
 
-            if (Granite.DateTime.is_same_day (new GLib.DateTime.now_local (), when)) {
+            if (Application.utils.is_today (when)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int get_upcoming_number () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0 AND when_date_utc != ''",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        int count = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
+
+            if (Application.utils.is_today (when) == false) {
                 count++;
             }
         }

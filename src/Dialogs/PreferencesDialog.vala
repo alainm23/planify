@@ -93,7 +93,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         start_page_combobox.width_request = 120;
 		start_page_combobox.append_text (Application.utils.INBOX_STRING);
 		start_page_combobox.append_text (Application.utils.TODAY_STRING);
-        start_page_combobox.append_text (Application.utils.TOMORROW_STRING);
+        start_page_combobox.append_text (Application.utils.UPCOMING_STRING);
 		start_page_combobox.active = Application.settings.get_enum ("start-page");
 
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

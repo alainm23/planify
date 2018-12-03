@@ -2,7 +2,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Gtk.ListBox listbox;
     private Widgets.ItemRow inbox_item;
     private Widgets.ItemRow today_item;
-    private Widgets.ItemRow tomorrow_item;
+    private Widgets.ItemRow upcoming_item;
 
     public signal void on_selected_item (string type, int index);
     public signal void on_add_project_signal ();
@@ -23,8 +23,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
         today_item = new Widgets.ItemRow (Application.utils.TODAY_STRING, "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
         today_item.number_label.label = Application.database.get_today_number ().to_string ();
 
-        tomorrow_item = new Widgets.ItemRow (Application.utils.TOMORROW_STRING, "planner-tomorrow");
-        tomorrow_item.margin_bottom = 6;
+        upcoming_item = new Widgets.ItemRow (Application.utils.UPCOMING_STRING, "planner-upcoming");
+        upcoming_item.margin_bottom = 6;
 
         check_number_labels ();
 
@@ -110,6 +110,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         GLib.Timeout.add_seconds (1, () => {
             inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
             today_item.number_label.label = Application.database.get_today_number ().to_string ();
+            upcoming_item.number_label.label = Application.database.get_upcoming_number ().to_string ();
 
             check_number_labels ();
 
@@ -133,6 +134,14 @@ public class Widgets.ProjectsList : Gtk.Grid {
             today_item.number_label.visible = true;
             today_item.number_label.no_show_all = false;
         }
+
+        if (int.parse (upcoming_item.number_label.label) <= 0) {
+            upcoming_item.number_label.visible = false;
+            upcoming_item.number_label.no_show_all = true;
+        } else {
+            upcoming_item.number_label.visible = true;
+            upcoming_item.number_label.no_show_all = false;
+        }
     }
 
     public void update_project_list () {
@@ -150,7 +159,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         listbox.insert (inbox_item, 0);
         listbox.insert (today_item, 1);
-        listbox.insert (tomorrow_item, 2);
+        listbox.insert (upcoming_item, 2);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_top = 6;
