@@ -1,4 +1,4 @@
-project('com.github.artegeek.planner', 'vala', 'c')
+project('com.github.alainm23.planner', 'vala', 'c')
 
 gnome = import('gnome')
 i18n = import('i18n')

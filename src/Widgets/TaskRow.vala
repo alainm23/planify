@@ -286,7 +286,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 _("It was moved to <b>%s</b>").printf (project_preview_label.label),
                 "document-export",
                 3,
-                false);
+                false
+            );
         });
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

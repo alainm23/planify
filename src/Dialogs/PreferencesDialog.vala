@@ -25,6 +25,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.append_text (_("General"));
         mode_button.append_text (_("Theme"));
         mode_button.append_text (_("Labels"));
+        mode_button.selected = 0;
 
         Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
         headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
@@ -126,6 +127,25 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         button_press_box.pack_start (button_press_label, false, false, 6);
         button_press_box.pack_end (button_press_combobox, false, false, 0);
 
+        var tutorial_project_icon = new Gtk.Image ();
+        tutorial_project_icon.gicon = new ThemedIcon ("help-about");
+        tutorial_project_icon.pixel_size = pixel_size;
+
+        var tutorial_project_label = new Gtk.Label (_("Create Tutorial Project"));
+        tutorial_project_label.get_style_context ().add_class ("h3");
+
+        var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        tutorial_project_box.hexpand = true;
+        tutorial_project_box.tooltip_text = _("Learn the app step by step with a \n short tutorial project.");
+        tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
+        tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
+
+        var tutorial_project_button = new Gtk.Button ();
+        tutorial_project_button.can_focus = false;
+        tutorial_project_button.get_style_context ().add_class ("no-padding");
+        tutorial_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        tutorial_project_button.add (tutorial_project_box);
+
         var main_grid = new Gtk.Grid ();
         main_grid.row_spacing = 12;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -133,6 +153,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (badge_count_box);
         main_grid.add (start_page_box);
         main_grid.add (button_press_box);
+        main_grid.add (tutorial_project_button);
 
         // Events
         badge_count_combobox.changed.connect (() => {
@@ -145,6 +166,18 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         button_press_combobox.changed.connect(() => {
             Application.settings.set_enum ("button-press", button_press_combobox.active);
+        });
+
+        tutorial_project_button.clicked.connect (() => {
+            destroy ();
+
+            Application.notification.send_local_notification (
+                _("Tutorial Project Created"),
+                _("A tutorial project has been created."),
+                "help-about",
+                4,
+                false
+            );
         });
 
         return main_grid;

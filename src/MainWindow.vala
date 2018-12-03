@@ -8,7 +8,7 @@ public class MainWindow : Gtk.ApplicationWindow {
         Object (
             application: application,
             app: application,
-            icon_name: "com.github.artegeek.planner",
+            icon_name: "com.github.alainm23.planner",
             title: _("Planner"),
             height_request: 700,
             width_request: 1024

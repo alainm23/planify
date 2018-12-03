@@ -14,8 +14,8 @@ public class Services.Notifications : GLib.Object {
     }
 
     public void send_notification (string summary, string body) {
-        var notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
-        notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
+        var notification = new Notify.Notification (summary, body, "com.github.alainm23.planner");
+        notification.set_hint_string ("desktop-entry", "com.github.alainm23.planner");
         notification.set_urgency (Notify.Urgency.LOW);
 
         try {
@@ -46,8 +46,8 @@ public class Services.Notifications : GLib.Object {
                                 summary = Application.database.get_project (task.project_id).name;
                             }
 
-                            notification = new Notify.Notification (summary, body, "com.github.artegeek.planner");
-                            notification.set_hint_string ("desktop-entry", "com.github.artegeek.planner");
+                            notification = new Notify.Notification (summary, body, "com.github.alainm23.planner");
+                            notification.set_hint_string ("desktop-entry", "com.github.alainm23.planner");
                             notification.set_urgency (Notify.Urgency.CRITICAL);
 
                             try {

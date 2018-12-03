@@ -11,7 +11,7 @@ public class Application : Gtk.Application {
     """;
     public Application () {
         Object (
-            application_id: "com.github.artegeek.planner",
+            application_id: "com.github.alainm23.planner",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
@@ -19,9 +19,9 @@ public class Application : Gtk.Application {
     static construct {
         // Dir to Database
         utils = new Utils ();
-        utils.create_dir_with_parents ("/.cache/com.github.artegeek.planner");
+        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner");
 
-        settings = new Settings ("com.github.artegeek.planner");
+        settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
@@ -63,11 +63,11 @@ public class Application : Gtk.Application {
 
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/com/github/artegeek/planner");
+        default_theme.add_resource_path ("/com/github/alainm23/planner");
 
         // Stylesheet
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/artegeek/planner/stylesheet.css");
+        provider.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // Window Theme
