@@ -5,7 +5,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Label number_label;
-
     public Objects.Project project { get; construct; }
     public MainWindow window { get; construct; }
     /*
@@ -50,18 +49,19 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_entry.no_show_all = true;
         name_entry.placeholder_text = _("Project name");
 
-        var settings_button = new Gtk.ToggleButton ();
-        settings_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
-        settings_button.tooltip_text = _("Settings");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("settings-button");
+        var menu_button = new Gtk.ToggleButton ();
+        menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
+        menu_button.tooltip_text = _("Menu");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("settings-button");
+        menu_button.get_style_context ().add_class ("menu-button");
 
-        var settings_revealer = new Gtk.Revealer ();
-        settings_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        settings_revealer.add (settings_button);
-        settings_revealer.reveal_child = false;
+        var menu_revealer = new Gtk.Revealer ();
+        menu_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        menu_revealer.add (menu_button);
+        menu_revealer.reveal_child = false;
 
-        var menu_popover = new Widgets.Popovers.ProjectMenu (settings_button);
+        var menu_popover = new Widgets.Popovers.ProjectMenu (menu_button);
 
         number_label = new Gtk.Label (null);
         number_label.valign = Gtk.Align.CENTER;
@@ -72,7 +72,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_box.pack_start (label_color, false, false, 0);
         main_box.pack_start (name_label, false, true, 0);
         main_box.pack_start (name_entry, false, true, 0);
-        main_box.pack_end (settings_revealer, false, false, 0);
+        main_box.pack_end (menu_revealer, false, false, 0);
         main_box.pack_end (number_label, false, false, 0);
 
         var eventbox = new Gtk.EventBox ();
@@ -92,8 +92,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             check_number_label ();
         });
 
-        settings_button.toggled.connect (() => {
-            if (settings_button.active) {
+        menu_button.toggled.connect (() => {
+            if (menu_button.active) {
                 menu_open = true;
                 menu_popover.show_all ();
             }
@@ -101,7 +101,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu_popover.closed.connect (() => {
             menu_open = false;
-            settings_button.active = false;
+            menu_button.active = false;
+            menu_revealer.reveal_child = false;
         });
 
         menu_popover.on_selected_menu.connect((index) => {
@@ -211,7 +212,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         eventbox.enter_notify_event.connect ((event) => {
             if (menu_open != true) {
-                settings_revealer.reveal_child = true;
+                menu_revealer.reveal_child = true;
             }
 
             return false;
@@ -223,7 +224,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             if (menu_open != true) {
-                settings_revealer.reveal_child = false;
+                menu_revealer.reveal_child = false;
             }
 
             return false;

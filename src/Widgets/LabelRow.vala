@@ -14,8 +14,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("item-row");
         can_focus = true;
+        get_style_context ().add_class ("item-row");
 
         var icon_label = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
         icon_label.valign = Gtk.Align.CENTER;
@@ -28,17 +28,21 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_label.use_markup = true;
 
         var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+        edit_button.tooltip_text = _("Edit Label");
+        edit_button.get_style_context ().add_class ("menu-button");
         edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var remove_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
+        remove_button.get_style_context ().add_class ("menu-button");
+        remove_button.tooltip_text = _("Delete Label");
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        //action_box.pack_start (edit_button, false, false, 0);
+        action_box.pack_start (edit_button, false, false, 0);
         action_box.pack_start (remove_button, false, false, 0);
 
         var action_revealer = new Gtk.Revealer ();
-        action_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         action_revealer.add (action_box);
         action_revealer.reveal_child = false;
 
@@ -86,13 +90,12 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         remove_button.clicked.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure you want to delete this project?"),
-                _("It contains 26 elements that are also deleted, this operation can be undone"),
+                _("Are you sure you want to delete this Label?"),
+                "",
                 "dialog-warning",
             Gtk.ButtonsType.CANCEL);
-            message_dialog.transient_for = window;
 
-            var remove = new Gtk.Button.with_label (_("Remove"));
+            var remove = new Gtk.Button.with_label (_("Delete Label"));
             remove.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove, Gtk.ResponseType.ACCEPT);
 

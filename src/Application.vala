@@ -1,5 +1,5 @@
 public class Application : Gtk.Application {
-    private MainWindow main_window;
+    public MainWindow main_window;
     public static GLib.Settings settings;
     public static Services.Database database;
     public static Services.Notifications notification;
@@ -25,6 +25,17 @@ public class Application : Gtk.Application {
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
+    }
+
+    public static Application _instance = null;
+
+    public static Application instance {
+        get {
+            if (_instance == null) {
+                _instance = new Application ();
+            }
+            return _instance;
+        }
     }
 
     protected override void activate () {
@@ -91,7 +102,7 @@ public class Application : Gtk.Application {
         }
     }
     public static int main (string[] args) {
-        var app = new Application ();
+        Application app = Application.instance;
         return app.run (args);
     }
 }

@@ -1,12 +1,12 @@
 public class Widgets.HeaderBar : Gtk.HeaderBar {
-    public weak MainWindow window { get; construct; }
+    public weak Gtk.Window window { get; construct; }
 
     public const string CSS = """
         @define-color headerbar_color %s;
         @define-color textColorPrimary %s;
     """;
 
-    public HeaderBar (MainWindow parent) {
+    public HeaderBar (Gtk.Window parent) {
         Object (
             window: parent,
             show_close_button: true
@@ -256,7 +256,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
             overview_levelbar.value = (double) completed_tasks / (double) all_tasks;
         });
-        
+
         return overview_grid;
     }
 }

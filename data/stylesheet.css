@@ -73,6 +73,7 @@
     border-radius: 4px;
     padding: 2px;
 }
+
 .model-button:hover {
     background-color: #d7d7d7;
 }
@@ -141,6 +142,10 @@
 
 .planner-button-no-focus {
     background-color: @base_color;
+}
+
+.menu-button > widget > box > image {
+    color: #333;
 }
 
 .planner-radio-disable check {

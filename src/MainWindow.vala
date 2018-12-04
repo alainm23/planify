@@ -1,4 +1,4 @@
-public class MainWindow : Gtk.ApplicationWindow {
+public class MainWindow : Gtk.Window {
     public weak Application app { get; construct; }
     public Widgets.HeaderBar headerbar;
     public Views.Main main_view;

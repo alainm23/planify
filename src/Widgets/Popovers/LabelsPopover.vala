@@ -75,8 +75,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         title_new_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
 
         var label_preview = new Gtk.Label ("Label name");
-        label_preview.margin_top = 12;
-        label_preview.margin_bottom = 12;
         label_preview.valign = Gtk.Align.CENTER;
         label_preview.get_style_context ().add_class ("label-preview");
 
@@ -84,7 +82,20 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         label_entry.hexpand = true;
         label_entry.placeholder_text = _("Priority: Low");
 
+        var random_button = new Gtk.Button.from_icon_name ("system-reboot-symbolic", Gtk.IconSize.MENU);
+
+        var color_hex_entry = new Gtk.Entry ();
+        color_hex_entry.hexpand = true;
+        color_hex_entry.placeholder_text = "#7239b3";
+        color_hex_entry.max_length = 7;
+
         var color_button  = new Gtk.ColorButton ();
+
+        var color_grid = new Gtk.Grid ();
+        color_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        color_grid.add (color_hex_entry);
+        color_grid.add (random_button);
+        color_grid.add (color_button);
 
         var submit_button = new Gtk.Button.with_label (_("Create label"));
         submit_button.sensitive = false;
@@ -107,27 +118,26 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         add_label_grid.margin = 6;
         add_label_grid.margin_top = 0;
         add_label_grid.expand = true;
+        add_label_grid.row_spacing = 3;
         add_label_grid.orientation = Gtk.Orientation.VERTICAL;
 
         add_label_grid.add (title_new_label);
+        add_label_grid.add (new Granite.HeaderLabel (_("Preview")));
         add_label_grid.add (label_preview);
         add_label_grid.add (new Granite.HeaderLabel (_("Name")));
         add_label_grid.add (label_entry);
         add_label_grid.add (new Granite.HeaderLabel (_("Color")));
-        add_label_grid.add (color_button);
+        add_label_grid.add (color_grid);
         add_label_grid.add (bottom_box);
 
         label_entry.changed.connect (() => {
             if (label_entry.text == "") {
                 submit_button.sensitive = false;
+                label_preview.label = "";
             } else {
                 submit_button.sensitive = true;
                 label_preview.label = label_entry.text;
             }
-        });
-
-        color_button.color_set.connect (() => {
-            add_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
         });
 
         stack = new Gtk.Stack ();
@@ -169,6 +179,30 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         labels_listbox.row_activated.connect ((item_row) => {
             var row = item_row as Widgets.LabelRow;
             on_selected_label (row.label);
+        });
+
+        color_hex_entry.changed.connect (() => {
+            var rgba = Gdk.RGBA ();
+            if (rgba.parse (color_hex_entry.text)) {
+                color_button.rgba = rgba;
+                add_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
+            }
+        });
+
+        random_button.clicked.connect (() => {
+            string random_color = "rgb(%i, %i, %i)".printf (GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255));
+            var rgba = Gdk.RGBA ();
+            rgba.parse (random_color);
+
+            color_button.rgba = rgba;
+            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
+
+            add_styles (Application.utils.rgb_to_hex_string (rgba));
+        });
+
+        color_button.color_set.connect (() => {
+            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
+            add_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
         });
     }
 

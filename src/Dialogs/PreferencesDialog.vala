@@ -1,22 +1,22 @@
 public class Dialogs.PreferencesDialog : Gtk.Dialog {
-    public weak MainWindow parent_window { private get; construct; }
+    public weak Gtk.Window window { get; construct; }
     private Gtk.Stack main_stack;
 
     public signal void on_close ();
-    public PreferencesDialog (MainWindow parent) {
+    public PreferencesDialog (Gtk.Window parent) {
         Object (
-            parent_window: parent
+            window: parent,
+            transient_for: parent,
+            deletable: false,
+            resizable: false,
+            destroy_with_parent: true,
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT
         );
 	}
 
     construct {
         title = _("Preferences");
         set_size_request (600, 400);
-        resizable = false;
-        //use_header_bar = 1;
-        destroy_with_parent = true;
-        window_position = Gtk.WindowPosition.CENTER_ON_PARENT;
-        transient_for = parent_window;
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -26,9 +26,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.append_text (_("Theme"));
         mode_button.append_text (_("Labels"));
         mode_button.selected = 0;
-
-        Gtk.HeaderBar headerbar = get_header_bar () as Gtk.HeaderBar;
-        headerbar.get_style_context ().add_class ("planner-preferences-headerbar");
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;

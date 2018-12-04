@@ -116,12 +116,15 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         color_hex_entry.placeholder_text = "#7239b3";
         color_hex_entry.max_length = 7;
 
+        var random_button = new Gtk.Button.from_icon_name ("system-reboot-symbolic", Gtk.IconSize.MENU);
+
         var color_button  = new Gtk.ColorButton ();
         color_button.valign = Gtk.Align.START;
 
         var color_grid = new Gtk.Grid ();
         color_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         color_grid.add (color_hex_entry);
+        color_grid.add (random_button);
         color_grid.add (color_button);
 
         color_hex_revealer = new Gtk.Revealer ();
@@ -249,6 +252,15 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             } else {
                 datepicker_revealer.reveal_child = false;
             }
+        });
+
+        random_button.clicked.connect (() => {
+            string random_color = "rgb(%i, %i, %i)".printf (GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255));
+            var rgba = Gdk.RGBA ();
+            rgba.parse (random_color);
+
+            color_button.rgba = rgba;
+            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
         });
 
         color_button.color_set.connect (() => {
