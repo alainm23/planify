@@ -383,7 +383,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         this.event.connect ((event) => {
-            var button_press = Application.settings.get_enum ("button-press");
+            var button_press = Application.settings.get_enum ("quick-save");
 
             if (button_press == 0) {
 

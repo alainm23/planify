@@ -4,6 +4,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     private Gtk.Label start_page_preview_label;
     private Gtk.Label badge_count_preview_label;
+    private Gtk.Label quick_save_preview_label;
 
     public signal void on_close ();
     public PreferencesDialog (Gtk.Window parent) {
@@ -37,6 +38,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_general_widget (), "general");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
+        main_stack.add_named (get_quick_save_widget (), "quick_save");
 
         main_stack.visible_child_name = "general";
 
@@ -58,103 +60,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         add_action_widget (close_button, 0);
     }
 
-    private Gtk.Widget get_start_page_widget () {
-        var back_button = new Gtk.Button.with_label (_("Back"));
-        back_button.valign = Gtk.Align.CENTER;
-        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
-
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Start Page")));
-        title_label.use_markup = true;
-
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin = 6;
-        top_box.hexpand = true;
-        top_box.pack_start (back_button, false, false, 0);
-        top_box.set_center_widget (title_label);
-
-        var start_page_icon = new Gtk.Image ();
-        start_page_icon.gicon = new ThemedIcon ("go-home");
-        start_page_icon.pixel_size = 32;
-
-        var start_page_label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
-        start_page_label.get_style_context ().add_class ("h3");
-        start_page_label.max_width_chars = 41;
-        start_page_label.wrap = true;
-
-        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        description_box.margin = 6;
-        description_box.hexpand = true;
-        description_box.pack_start (start_page_icon, false, false, 0);
-        description_box.pack_start (start_page_label, false, false, 6);
-
-        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.INBOX_STRING);
-        inbox_radio.get_style_context ().add_class ("h3");
-        inbox_radio.margin_start = 12;
-        inbox_radio.margin_top = 6;
-
-        var today_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.TODAY_STRING);
-        today_radio.get_style_context ().add_class ("h3");
-        today_radio.margin_start = 12;
-        today_radio.margin_top = 3;
-
-        var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.UPCOMING_STRING);
-        upcoming_radio.get_style_context ().add_class ("h3");
-        upcoming_radio.margin_start = 12;
-        upcoming_radio.margin_top = 3;
-        upcoming_radio.margin_bottom = 6;
-
-        int index = Application.settings.get_enum ("start-page");
-
-        if (index == 0) {
-            inbox_radio.active = true;
-        } else if (index == 1) {
-            today_radio.active = true;
-        } else if (index == 2) {
-            upcoming_radio.active = true;
-        }
-
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.add (top_box);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (description_box);
-        main_grid.add (inbox_radio);
-        main_grid.add (today_radio);
-        main_grid.add (upcoming_radio);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (main_grid);
-
-        var main_frame = new Gtk.Frame (null);
-        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
-
-        back_button.clicked.connect (() => {
-            check_start_page_preview ();
-            main_stack.visible_child_name = "general";
-        });
-
-        inbox_radio.toggled.connect (() => {
-            Application.settings.set_enum ("start-page", 0);
-        });
-
-        today_radio.toggled.connect (() => {
-            Application.settings.set_enum ("start-page", 1);
-        });
-
-        upcoming_radio.toggled.connect (() => {
-            Application.settings.set_enum ("start-page", 2);
-        });
-
-        return main_frame;
-    }
-
     private Gtk.Widget get_badge_count_widget () {
-        var back_button = new Gtk.Button.with_label (_("Back"));
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Badge Count")));
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.BADGE_COUNT_STRING));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -168,12 +79,13 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         badge_count_icon.pixel_size = 32;
 
         var badge_count_label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
+        badge_count_label.selectable = true;
         badge_count_label.get_style_context ().add_class ("h3");
         badge_count_label.max_width_chars = 41;
         badge_count_label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        description_box.margin = 6;
+        description_box.margin = 10;
         description_box.hexpand = true;
         description_box.pack_start (badge_count_icon, false, false, 0);
         description_box.pack_start (badge_count_label, false, false, 0);
@@ -264,6 +176,190 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         return main_frame;
     }
 
+    private Gtk.Widget get_start_page_widget () {
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.START_PAGE_STRING));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var start_page_icon = new Gtk.Image ();
+        start_page_icon.gicon = new ThemedIcon ("go-home");
+        start_page_icon.pixel_size = 32;
+
+        var start_page_label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
+        start_page_label.selectable = true;
+        start_page_label.get_style_context ().add_class ("h3");
+        start_page_label.max_width_chars = 41;
+        start_page_label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (start_page_icon, false, false, 0);
+        description_box.pack_start (start_page_label, false, false, 6);
+
+        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.INBOX_STRING);
+        inbox_radio.get_style_context ().add_class ("h3");
+        inbox_radio.margin_start = 12;
+        inbox_radio.margin_top = 6;
+
+        var today_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.TODAY_STRING);
+        today_radio.get_style_context ().add_class ("h3");
+        today_radio.margin_start = 12;
+        today_radio.margin_top = 3;
+
+        var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.UPCOMING_STRING);
+        upcoming_radio.get_style_context ().add_class ("h3");
+        upcoming_radio.margin_start = 12;
+        upcoming_radio.margin_top = 3;
+        upcoming_radio.margin_bottom = 6;
+
+        int index = Application.settings.get_enum ("start-page");
+
+        if (index == 0) {
+            inbox_radio.active = true;
+        } else if (index == 1) {
+            today_radio.active = true;
+        } else if (index == 2) {
+            upcoming_radio.active = true;
+        }
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (description_box);
+        main_grid.add (inbox_radio);
+        main_grid.add (today_radio);
+        main_grid.add (upcoming_radio);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
+
+        back_button.clicked.connect (() => {
+            check_start_page_preview ();
+            main_stack.visible_child_name = "general";
+        });
+
+        inbox_radio.toggled.connect (() => {
+            Application.settings.set_enum ("start-page", 0);
+        });
+
+        today_radio.toggled.connect (() => {
+            Application.settings.set_enum ("start-page", 1);
+        });
+
+        upcoming_radio.toggled.connect (() => {
+            Application.settings.set_enum ("start-page", 2);
+        });
+
+        return main_frame;
+    }
+
+    private Gtk.Widget get_quick_save_widget () {
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.QUICK_SAVE_STRING));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var quick_save_icon = new Gtk.Image ();
+        quick_save_icon.gicon = new ThemedIcon ("input-mouse");
+        quick_save_icon.pixel_size = 32;
+
+        var quick_save_label = new Gtk.Label (_("Choose how many clicks to close and save all open tasks."));
+        quick_save_label.selectable = true;
+        quick_save_label.get_style_context ().add_class ("h3");
+        quick_save_label.max_width_chars = 41;
+        quick_save_label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (quick_save_icon, false, false, 0);
+        description_box.pack_start (quick_save_label, false, false, 6);
+
+        var none_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.NONE_STRING);
+        none_radio.get_style_context ().add_class ("h3");
+        none_radio.margin_start = 12;
+        none_radio.margin_top = 6;
+
+        var double_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.DOUBLE_STRING);
+        double_radio.get_style_context ().add_class ("h3");
+        double_radio.margin_start = 12;
+        double_radio.margin_top = 3;
+
+        var triple_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.TRIPLE_STRING);
+        triple_radio.get_style_context ().add_class ("h3");
+        triple_radio.margin_start = 12;
+        triple_radio.margin_top = 3;
+        triple_radio.margin_bottom = 6;
+
+        int index = Application.settings.get_enum ("quick-save");
+
+        if (index == 0) {
+            none_radio.active = true;
+        } else if (index == 1) {
+            double_radio.active = true;
+        } else if (index == 2) {
+            triple_radio.active = true;
+        }
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (description_box);
+        main_grid.add (none_radio);
+        main_grid.add (double_radio);
+        main_grid.add (triple_radio);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
+
+        back_button.clicked.connect (() => {
+            check_quick_save_preview ();
+            main_stack.visible_child_name = "general";
+        });
+
+        none_radio.toggled.connect (() => {
+            Application.settings.set_enum ("quick-save", 0);
+        });
+
+        double_radio.toggled.connect (() => {
+            Application.settings.set_enum ("quick-save", 1);
+        });
+
+        triple_radio.toggled.connect (() => {
+            Application.settings.set_enum ("quick-save", 2);
+        });
+
+        return main_frame;
+    }
+
     private void check_start_page_preview () {
         int index = Application.settings.get_enum ("start-page");
 
@@ -292,6 +388,18 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         }
     }
 
+    private void check_quick_save_preview () {
+        int index = Application.settings.get_enum ("quick-save");
+
+        if (index == 0) {
+            quick_save_preview_label.label = Application.utils.NONE_STRING;
+        } else if (index == 1) {
+            quick_save_preview_label.label = Application.utils.DOUBLE_STRING;
+        } else if (index == 2) {
+            quick_save_preview_label.label = Application.utils.TRIPLE_STRING;
+        }
+    }
+
     private Gtk.Widget get_general_widget () {
         int pixel_size = 24;
 
@@ -300,7 +408,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         badge_count_icon.gicon = new ThemedIcon ("preferences-system-notifications");
         badge_count_icon.pixel_size = pixel_size;
 
-        var badge_count_label = new Gtk.Label (_("Badge Count"));
+        var badge_count_label = new Gtk.Label (Application.utils.BADGE_COUNT_STRING);
         badge_count_label.get_style_context ().add_class ("h3");
 
         badge_count_preview_label = new Gtk.Label (null);
@@ -321,7 +429,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         start_page_icon.gicon = new ThemedIcon ("go-home");
         start_page_icon.pixel_size = pixel_size;
 
-        var start_page_label = new Gtk.Label (_("Start Page"));
+        var start_page_label = new Gtk.Label (Application.utils.START_PAGE_STRING);
         start_page_label.get_style_context ().add_class ("h3");
 
         start_page_preview_label = new Gtk.Label (null);
@@ -330,7 +438,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         start_page_box.margin = 6;
         start_page_box.hexpand = true;
-        start_page_box.tooltip_text = _("");
         start_page_box.pack_start (start_page_icon, false, false, 0);
         start_page_box.pack_start (start_page_label, false, false, 6);
         start_page_box.pack_end (start_page_preview_label, false, false, 0);
@@ -338,28 +445,28 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var start_page_eventbox = new Gtk.EventBox ();
         start_page_eventbox.add (start_page_box);
 
-        // Button Press
-        var button_press_icon = new Gtk.Image ();
-        button_press_icon.gicon = new ThemedIcon ("input-mouse");
-        button_press_icon.pixel_size = pixel_size;
+        // Quick save
+        var quick_save_icon = new Gtk.Image ();
+        quick_save_icon.gicon = new ThemedIcon ("input-mouse");
+        quick_save_icon.pixel_size = pixel_size;
 
-        var button_press_label = new Gtk.Label (_("Button Press"));
-        button_press_label.get_style_context ().add_class ("h3");
+        var quick_save_label = new Gtk.Label (Application.utils.QUICK_SAVE_STRING);
+        quick_save_label.get_style_context ().add_class ("h3");
 
-        var button_press_combobox = new Gtk.ComboBoxText ();
-		button_press_combobox.append_text (_("None"));
-        button_press_combobox.append_text (_("Double Button Press"));
-		button_press_combobox.append_text (_("Triple Button Press"));
-		button_press_combobox.active = Application.settings.get_enum ("button-press");
+        quick_save_preview_label = new Gtk.Label (null);
+        check_quick_save_preview ();
 
-        var button_press_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        button_press_box.margin = 6;
-        button_press_box.hexpand = true;
-        button_press_box.tooltip_text = _("You can click on any part of the interface \n to close all open tasks.");
-        button_press_box.pack_start (button_press_icon, false, false, 0);
-        button_press_box.pack_start (button_press_label, false, false, 6);
-        button_press_box.pack_end (button_press_combobox, false, false, 0);
+        var quick_save_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        quick_save_box.margin = 6;
+        quick_save_box.hexpand = true;
+        quick_save_box.pack_start (quick_save_icon, false, false, 0);
+        quick_save_box.pack_start (quick_save_label, false, false, 6);
+        quick_save_box.pack_end (quick_save_preview_label, false, false, 0);
 
+        var quick_save_eventbox = new Gtk.EventBox ();
+        quick_save_eventbox.add (quick_save_box);
+
+        // Run Background
         var run_background_icon = new Gtk.Image ();
         run_background_icon.gicon = new ThemedIcon ("system-shutdown");
         run_background_icon.pixel_size = pixel_size;
@@ -408,13 +515,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (start_page_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (button_press_box);
+        main_grid.add (quick_save_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (run_background_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (tutorial_project_box);
 
         var main_frame = new Gtk.Frame (null);
+        main_frame.valign = Gtk.Align.START;
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         main_frame.add (main_grid);
 
@@ -435,8 +543,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             return false;
         });
 
-        button_press_combobox.changed.connect(() => {
-            Application.settings.set_enum ("button-press", button_press_combobox.active);
+        quick_save_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "quick_save";
+            }
+
+            return false;
         });
 
         tutorial_project_button.clicked.connect (() => {

@@ -8,6 +8,12 @@ public class Utils : GLib.Object {
     public string LABELS_STRING = _("Labels");
     public string MOVE_STRING = _("Move");
     public string TODO_MOVED_STRING = _("to-do moved out of the");
+    public string BACK_STRING = _("Move");
+    public string DOUBLE_STRING = _("Double click");
+    public string TRIPLE_STRING = _("Triple click");
+    public string BADGE_COUNT_STRING = _("Badge Count");
+    public string START_PAGE_STRING = _("Start Page");
+    public string QUICK_SAVE_STRING = _("Quick save");
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;

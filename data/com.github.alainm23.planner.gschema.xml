@@ -14,10 +14,10 @@
         <value nick="Upcoming" value="2" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.button-press">
+    <enum id="com.github.alainm23.planner.quick-save">
         <value nick="None" value="0" />
-        <value nick="Double Button Press" value="1" />
-        <value nick="Triple Button Press" value="2" />
+        <value nick="Double click" value="1" />
+        <value nick="Triple click" value="2" />
     </enum>
 
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">
@@ -39,7 +39,7 @@
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
 
-        <key name="button-press" enum="com.github.alainm23.planner.button-press">
+        <key name="quick-save" enum="com.github.alainm23.planner.quick-save">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
