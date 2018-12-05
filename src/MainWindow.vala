@@ -25,12 +25,20 @@ public class MainWindow : Gtk.Window {
         launcher = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
         check_badge_count ();
 
+        /*
         destroy.connect (() => {
-            Application.settings.set_int ("project-sidebar-width", main_view.position);
-        });
 
+        });
+        */
+        
         delete_event.connect (() => {
-            return hide_on_delete ();
+            Application.settings.set_int ("project-sidebar-width", main_view.position);
+
+            if (Application.settings.get_boolean ("run-background")) {
+                return hide_on_delete ();
+            } else {
+                return false;
+            }
         });
 
         Application.settings.changed.connect (key => {

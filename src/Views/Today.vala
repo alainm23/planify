@@ -24,7 +24,6 @@ public class Views.Today : Gtk.EventBox {
             _("Enjoy your day."),
             "emblem-default-symbolic"
         );
-
         alert_view.margin_bottom = 64;
         alert_view.no_show_all = true;
         alert_view.visible = false;
