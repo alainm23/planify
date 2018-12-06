@@ -3,13 +3,20 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
     private Gtk.Button add_button;
     private Gtk.Entry color_hex_entry;
 
-    private Granite.Widgets.DatePicker duedate_datepicker;
-    private Gtk.Switch duedate_switch;
+    private Granite.Widgets.DatePicker deadline_datepicker;
+    private Gtk.Switch deadline_switch;
 
     private Gtk.Revealer datepicker_revealer;
     private Gtk.Revealer color_hex_revealer;
 
     public signal void on_add_project_signal ();
+
+    public const string COLOR_CSS = """
+        .proyect-color-preview {
+            color: %s;
+        }
+    """;
+
     public NewProject (Gtk.Widget relative) {
         Object (
             relative_to: relative,
@@ -28,6 +35,17 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         name_entry.max_length = 50;
         name_entry.margin_bottom = 12;
         name_entry.placeholder_text = _("Personal");
+
+        var color_preview_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
+        color_preview_button.image.get_style_context ().add_class ("proyect-color-preview");
+        color_preview_button.height_request = 25;
+        color_preview_button.valign = Gtk.Align.START;
+        color_preview_button.can_focus = false;
+
+        var name_grid = new Gtk.Grid ();
+        name_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        name_grid.add (name_entry);
+        name_grid.add (color_preview_button);
 
         var color_1 = new Gtk.Button ();
         color_1.valign = Gtk.Align.CENTER;
@@ -87,6 +105,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 
 
         var color_n = new Gtk.ToggleButton ();
+        color_n.can_focus = false;
         color_n.valign = Gtk.Align.CENTER;
         color_n.halign = Gtk.Align.CENTER;
         color_n.height_request = 24;
@@ -132,22 +151,22 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         color_hex_revealer.add (color_grid);
         color_hex_revealer.reveal_child = false;
 
-        var duedate_label = new Granite.HeaderLabel (_("Deadline"));
-        duedate_label.margin_top = 6;
+        var deadline_label = new Granite.HeaderLabel (_("Deadline"));
+        deadline_label.margin_top = 6;
 
-        duedate_switch = new Gtk.Switch ();
-        duedate_switch.get_style_context ().add_class ("active-switch");
-        duedate_switch.valign = Gtk.Align.CENTER;
+        deadline_switch = new Gtk.Switch ();
+        deadline_switch.get_style_context ().add_class ("active-switch");
+        deadline_switch.valign = Gtk.Align.CENTER;
 
-        var duedate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        duedate_box.pack_start (duedate_label, false, false, 0);
-        duedate_box.pack_end (duedate_switch, false, false, 0);
+        var deadline_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        deadline_box.pack_start (deadline_label, false, false, 0);
+        deadline_box.pack_end (deadline_switch, false, false, 0);
 
-        duedate_datepicker = new Granite.Widgets.DatePicker ();
+        deadline_datepicker = new Granite.Widgets.DatePicker ();
 
         datepicker_revealer = new Gtk.Revealer ();
         datepicker_revealer.reveal_child = false;
-        datepicker_revealer.add (duedate_datepicker);
+        datepicker_revealer.add (deadline_datepicker);
 
         add_button = new Gtk.Button.with_label (_("Create"));
         add_button.tooltip_text = _("Create a new project");
@@ -164,11 +183,11 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 
         main_grid.add (title_label);
         main_grid.add (new Granite.HeaderLabel (_("Name")));
-        main_grid.add (name_entry);
+        main_grid.add (name_grid);
         main_grid.add (new Granite.HeaderLabel (_("Color")));
         main_grid.add (color_box);
         main_grid.add (color_hex_revealer);
-        main_grid.add (duedate_box);
+        main_grid.add (deadline_box);
         main_grid.add (datepicker_revealer);
         main_grid.add (add_button);
 
@@ -192,6 +211,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             }
         });
 
+        /*
         name_entry.focus_in_event.connect (() => {
             name_entry.secondary_icon_name = "edit-clear-symbolic";
             return false;
@@ -207,6 +227,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 				name_entry.text = "";
 			}
 		});
+        */
 
         add_button.clicked.connect (on_click_add_project);
 
@@ -246,8 +267,8 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             color_hex_entry.text = "#333333";
         });
 
-        duedate_switch.notify["active"].connect(() => {
-            if (duedate_switch.active) {
+        deadline_switch.notify["active"].connect(() => {
+            if (deadline_switch.active) {
                 datepicker_revealer.reveal_child = true;
             } else {
                 datepicker_revealer.reveal_child = false;
@@ -260,17 +281,24 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             rgba.parse (random_color);
 
             color_button.rgba = rgba;
-            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
+            string hex = Application.utils.rgb_to_hex_string (color_button.rgba);
+
+            color_hex_entry.text = hex;
+            apply_styles (hex);
         });
 
         color_button.color_set.connect (() => {
-            color_hex_entry.text = Application.utils.rgb_to_hex_string (color_button.rgba);
+            string hex = Application.utils.rgb_to_hex_string (color_button.rgba);
+            color_hex_entry.text = hex;
+            apply_styles (hex);
         });
 
         color_hex_entry.changed.connect (() => {
             var rgba = Gdk.RGBA ();
             if (rgba.parse (color_hex_entry.text)) {
                 color_button.rgba = rgba;
+
+                apply_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
                 if (name_entry.text != "") {
                     add_button.sensitive = true;
                 }
@@ -280,6 +308,20 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         });
     }
 
+    private void apply_styles (string hex) {
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var colored_css = COLOR_CSS.printf (hex);
+
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
+
     private void on_click_add_project () {
         var project = new Objects.Project ();
 
@@ -287,8 +329,8 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             color_hex_entry.text = "#3689e6";
         }
 
-        if (duedate_switch.active) {
-            project.deadline = duedate_datepicker.date.to_string ();
+        if (deadline_switch.active) {
+            project.deadline = deadline_datepicker.date.to_string ();
         } else {
             project.deadline = "";
         }
@@ -302,7 +344,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 
             name_entry.text = "";
             color_hex_entry.text = "";
-            duedate_switch.active = false;
+            deadline_switch.active = false;
         }
     }
 }

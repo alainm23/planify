@@ -151,8 +151,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.valign = Gtk.Align.START;
         top_box.hexpand = true;
         top_box.margin_start = 12;
-        top_box.margin_end = 16;
-        top_box.margin_top = 24;
+        top_box.margin_top = 12;
 
         top_box.pack_start (color_button, false, false, 0);
         top_box.pack_start (deadline_project_button, false, false, 6);
@@ -183,7 +182,7 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.valign = Gtk.Align.START;
         tasks_list.hexpand = true;
-        tasks_list.margin_start = 20;
+        tasks_list.margin_start = 12;
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
 
@@ -221,7 +220,7 @@ public class Views.Project : Gtk.EventBox {
         show_all_tasks_button.get_style_context ().add_class ("h4");
         show_all_tasks_button.valign = Gtk.Align.START;
         show_all_tasks_button.halign = Gtk.Align.START;
-        show_all_tasks_button.margin_start = 14;
+        show_all_tasks_button.margin_start = 6;
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -230,6 +229,8 @@ public class Views.Project : Gtk.EventBox {
         labels_flowbox.expand = false;
 
         var labels_flowbox_revealer = new Gtk.Revealer ();
+        labels_flowbox_revealer.valign = Gtk.Align.START;
+        labels_flowbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         labels_flowbox_revealer.margin_start = 12;
         labels_flowbox_revealer.margin_top = 6;
         labels_flowbox_revealer.add (labels_flowbox);
@@ -391,14 +392,20 @@ public class Views.Project : Gtk.EventBox {
                 if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
-                        row.hide_content ();
+
+                        if (row.bottom_box_revealer.reveal_child) {
+                            row.hide_content ();
+                        }
                     }
                 }
             } else {
                 if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
-                        row.hide_content ();
+
+                        if (row.bottom_box_revealer.reveal_child) {
+                            row.hide_content ();
+                        }
                     }
                 }
             }

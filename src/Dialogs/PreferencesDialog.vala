@@ -5,6 +5,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Gtk.Label start_page_preview_label;
     private Gtk.Label badge_count_preview_label;
     private Gtk.Label quick_save_preview_label;
+    private Gtk.Label weather_preview_label;
+    private Gtk.Label calendar_preview_label;
 
     public signal void on_close ();
     public PreferencesDialog (Gtk.Window parent) {
@@ -20,14 +22,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        set_size_request (640, 500);
+        set_size_request (640, 494);
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
         mode_button.halign = Gtk.Align.CENTER;
 
         mode_button.append_text (_("General"));
-        mode_button.append_text (_("Theme"));
+        mode_button.append_text (_("Help"));
         mode_button.selected = 0;
 
         main_stack = new Gtk.Stack ();
@@ -36,6 +38,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
         main_stack.add_named (get_general_widget (), "general");
+        main_stack.add_named (get_help_widget (), "help");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
@@ -56,6 +59,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         close_button.clicked.connect (() => {
 			destroy ();
 		});
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                main_stack.visible_child_name = "general";
+            } else {
+                main_stack.visible_child_name = "help";
+            }
+        });
 
         add_action_widget (close_button, 0);
     }
@@ -400,6 +411,77 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         }
     }
 
+    private Gtk.Widget get_help_widget () {
+        int pixel_size = 24;
+
+        var tutorial_project_icon = new Gtk.Image ();
+        tutorial_project_icon.gicon = new ThemedIcon ("help-about");
+        tutorial_project_icon.pixel_size = pixel_size;
+
+        var tutorial_project_label = new Gtk.Label (_("Create Tutorial Project"));
+        tutorial_project_label.get_style_context ().add_class ("h3");
+
+        var tutorial_project_button = new Gtk.Button.with_label (_("Create"));
+        tutorial_project_button.margin_end = 6;
+        tutorial_project_button.can_focus = false;
+        //tutorial_project_button.get_style_context ().add_class ("flat");
+        tutorial_project_button.get_style_context ().add_class ("no-padding");
+
+        var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        tutorial_project_box.margin = 6;
+        tutorial_project_box.hexpand = true;
+        tutorial_project_box.tooltip_text = _("Learn the app step by step with a \n short tutorial project.");
+        tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
+        tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
+        tutorial_project_box.pack_end (tutorial_project_button, false, false, 0);
+
+        var bug_icon = new Gtk.Image ();
+        bug_icon.gicon = new ThemedIcon ("bug");
+        bug_icon.pixel_size = pixel_size;
+
+        var bug_label = new Gtk.Label (_("Report a issue"));
+        bug_label.get_style_context ().add_class ("h3");
+
+        var bug_button = new Gtk.LinkButton.with_label ("https://github.com/alainm23/planner/issues", _("Go Github"));
+        bug_button.can_focus = false;
+        bug_button.get_style_context ().add_class ("no-padding");
+        bug_button.get_style_context ().remove_class ("flat");
+        bug_button.get_style_context ().remove_class ("link");
+
+        var bug_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        bug_box.margin = 6;
+        bug_box.hexpand = true;
+        bug_box.pack_start (bug_icon, false, false, 0);
+        bug_box.pack_start (bug_label, false, false, 6);
+        bug_box.pack_end (bug_button, false, false, 6);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (tutorial_project_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (bug_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        tutorial_project_button.clicked.connect (() => {
+            destroy ();
+
+            Application.notification.send_local_notification (
+                _("Tutorial Project Created"),
+                _("A tutorial project has been created."),
+                "help-about",
+                4,
+                false
+            );
+        });
+
+        return main_frame;
+    }
+
     private Gtk.Widget get_general_widget () {
         int pixel_size = 24;
 
@@ -416,6 +498,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var badge_count_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         badge_count_box.margin = 6;
+        badge_count_box.margin_end = 12;
         badge_count_box.hexpand = true;
         badge_count_box.pack_start (badge_count_icon, false, false, 0);
         badge_count_box.pack_start (badge_count_label, false, false, 6);
@@ -437,6 +520,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var start_page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         start_page_box.margin = 6;
+        start_page_box.margin_end = 12;
         start_page_box.hexpand = true;
         start_page_box.pack_start (start_page_icon, false, false, 0);
         start_page_box.pack_start (start_page_label, false, false, 6);
@@ -458,6 +542,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var quick_save_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         quick_save_box.margin = 6;
+        quick_save_box.margin_end = 12;
         quick_save_box.hexpand = true;
         quick_save_box.pack_start (quick_save_icon, false, false, 0);
         quick_save_box.pack_start (quick_save_label, false, false, 6);
@@ -466,9 +551,51 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var quick_save_eventbox = new Gtk.EventBox ();
         quick_save_eventbox.add (quick_save_box);
 
+        // Weather
+        var weather_icon = new Gtk.Image ();
+        weather_icon.gicon = new ThemedIcon ("applications-internet");
+        weather_icon.pixel_size = pixel_size;
+
+        var weather_label = new Gtk.Label (Application.utils.WEATHER_STRING);
+        weather_label.get_style_context ().add_class ("h3");
+
+        weather_preview_label = new Gtk.Label (null);
+
+        var weather_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        weather_box.margin = 6;
+        weather_box.margin_end = 12;
+        weather_box.hexpand = true;
+        weather_box.pack_start (weather_icon, false, false, 0);
+        weather_box.pack_start (weather_label, false, false, 6);
+        weather_box.pack_end (weather_preview_label, false, false, 0);
+
+        var weather_eventbox = new Gtk.EventBox ();
+        weather_eventbox.add (weather_box);
+
+        // Calendar
+        var calendar_icon = new Gtk.Image ();
+        calendar_icon.gicon = new ThemedIcon ("office-calendar");
+        calendar_icon.pixel_size = pixel_size;
+
+        var calendar_label = new Gtk.Label (Application.utils.CALENDAR_STRING);
+        calendar_label.get_style_context ().add_class ("h3");
+
+        calendar_preview_label = new Gtk.Label (null);
+
+        var calendar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        calendar_box.margin = 6;
+        calendar_box.margin_end = 12;
+        calendar_box.hexpand = true;
+        calendar_box.pack_start (calendar_icon, false, false, 0);
+        calendar_box.pack_start (calendar_label, false, false, 6);
+        calendar_box.pack_end (calendar_preview_label, false, false, 0);
+
+        var calendar_eventbox = new Gtk.EventBox ();
+        calendar_eventbox.add (calendar_box);
+
         // Run Background
         var run_background_icon = new Gtk.Image ();
-        run_background_icon.gicon = new ThemedIcon ("system-shutdown");
+        run_background_icon.gicon = new ThemedIcon ("preferences-system");
         run_background_icon.pixel_size = pixel_size;
 
         var run_background_label = new Gtk.Label (_("Run in background"));
@@ -481,32 +608,39 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var run_background_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         run_background_box.margin = 6;
+        run_background_box.margin_end = 12;
         run_background_box.hexpand = true;
         run_background_box.tooltip_text = _("Let Planner run in background and send notifications.");
         run_background_box.pack_start (run_background_icon, false, false, 0);
         run_background_box.pack_start (run_background_label, false, false, 6);
         run_background_box.pack_end (run_background_switch, false, false, 0);
 
-        var tutorial_project_icon = new Gtk.Image ();
-        tutorial_project_icon.gicon = new ThemedIcon ("help-about");
-        tutorial_project_icon.pixel_size = pixel_size;
+        var run_background_eventbox = new Gtk.EventBox ();
+        run_background_eventbox.add (run_background_box);
 
-        var tutorial_project_label = new Gtk.Label (_("Create Tutorial Project"));
-        tutorial_project_label.get_style_context ().add_class ("h3");
+        // Launch at login
+        var launch_icon = new Gtk.Image ();
+        launch_icon.gicon = new ThemedIcon ("system-shutdown");
+        launch_icon.pixel_size = pixel_size;
 
-        var tutorial_project_button = new Gtk.Button.with_label (_("Create"));
-        tutorial_project_button.get_style_context ().add_class ("no-padding");
+        var launch_icon_label = new Gtk.Label (_("Launch at Login"));
+        launch_icon_label.get_style_context ().add_class ("h3");
 
-        var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        tutorial_project_box.margin = 6;
-        tutorial_project_box.hexpand = true;
-        tutorial_project_box.tooltip_text = _("Learn the app step by step with a \n short tutorial project.");
-        tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
-        tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
-        tutorial_project_box.pack_end (tutorial_project_button, false, false, 0);
+        var launch_switch = new Gtk.Switch ();
+        launch_switch.valign = Gtk.Align.CENTER;
+        launch_switch.get_style_context ().add_class ("active-switch");
+        launch_switch.active = Application.settings.get_boolean ("launch-login");
 
-        var help_label = new Granite.HeaderLabel (_("Help"));
-        help_label.margin_start = 6;
+        var launch_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        launch_box.margin = 6;
+        launch_box.margin_end = 12;
+        launch_box.hexpand = true;
+        launch_box.pack_start (launch_icon, false, false, 0);
+        launch_box.pack_start (launch_icon_label, false, false, 6);
+        launch_box.pack_end (launch_switch, false, false, 0);
+
+        var launch_eventbox = new Gtk.EventBox ();
+        launch_eventbox.add (launch_box);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -517,14 +651,22 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (quick_save_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (run_background_box);
+        main_grid.add (weather_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (tutorial_project_box);
+        main_grid.add (calendar_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (run_background_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (launch_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
-        main_frame.valign = Gtk.Align.START;
+        //main_frame.valign = Gtk.Align.START;
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (main_grid);
+        main_frame.add (scrolled);
 
         // Events
         badge_count_eventbox.event.connect ((event) => {
@@ -551,16 +693,28 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             return false;
         });
 
-        tutorial_project_button.clicked.connect (() => {
-            destroy ();
+        run_background_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (run_background_switch.active) {
+                    run_background_switch.active = false;
+                } else {
+                    run_background_switch.active = true;
+                }
+            }
 
-            Application.notification.send_local_notification (
-                _("Tutorial Project Created"),
-                _("A tutorial project has been created."),
-                "help-about",
-                4,
-                false
-            );
+            return false;
+        });
+
+        launch_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (launch_switch.active) {
+                    launch_switch.active = false;
+                } else {
+                    launch_switch.active = true;
+                }
+            }
+
+            return false;
         });
 
         run_background_switch.notify["active"].connect (() => {
@@ -571,7 +725,42 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             }
         });
 
+        launch_switch.notify["active"].connect (() => {
+            if (launch_switch.active) {
+                set_autostart (true);
+                Application.settings.set_boolean ("launch-login", true);
+            } else {
+                set_autostart (false);
+                Application.settings.set_boolean ("launch-login", false);
+            }
+        });
+
         return main_frame;
+    }
+
+    private void set_autostart (bool active) {
+        var desktop_file_name = "com.github.alainm23.planner.desktop";
+        var desktop_file_path = new DesktopAppInfo (desktop_file_name).filename;
+        var desktop_file = File.new_for_path (desktop_file_path);
+        var dest_path = Path.build_path (Path.DIR_SEPARATOR_S,
+                                         Environment.get_user_config_dir (),
+                                         "autostart",
+                                         desktop_file_name);
+        var dest_file = File.new_for_path (dest_path);
+        try {
+            desktop_file.copy (dest_file, FileCopyFlags.OVERWRITE);
+        } catch (Error e) {
+            warning ("Error making copy of desktop file for autostart: %s", e.message);
+        }
+
+        var keyfile = new KeyFile ();
+        try {
+            keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
+            keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
+            keyfile.save_to_file (dest_path);
+        } catch (Error e) {
+            warning ("Error enabling autostart: %s", e.message);
+        }
     }
 
     private class SettingsButton : Gtk.Button {

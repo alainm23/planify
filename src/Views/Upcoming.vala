@@ -108,9 +108,8 @@ public class Views.Upcoming : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.valign = Gtk.Align.START;
         top_box.hexpand = true;
-        top_box.margin_start = 24;
-        top_box.margin_end = 16;
-        top_box.margin_top = 24;
+        top_box.margin_start = 12;
+        top_box.margin_top = 12;
 
         top_box.pack_start (upcoming_icon, false, false, 0);
         top_box.pack_start (upcoming_label, false, false, 12);
@@ -293,14 +292,20 @@ public class Views.Upcoming : Gtk.EventBox {
                 if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
-                        row.hide_content ();
+
+                        if (row.bottom_box_revealer.reveal_child) {
+                            row.hide_content ();
+                        }
                     }
                 }
             } else {
                 if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
-                        row.hide_content ();
+
+                        if (row.bottom_box_revealer.reveal_child) {
+                            row.hide_content ();
+                        }
                     }
                 }
             }

@@ -263,6 +263,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             if (Application.database.update_project (project) == Sqlite.DONE) {
                 name_label.label = "<b>%s</b>".printf(project.name);
+                update_tooltip_text ();
 
                 name_label.visible = true;
                 name_entry.visible = false;

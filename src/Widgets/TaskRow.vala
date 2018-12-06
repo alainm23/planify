@@ -24,7 +24,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     private Gtk.TextView note_view;
     private Gtk.Label note_view_placeholder_label;
-    private Gtk.Revealer bottom_box_revealer;
+    public Gtk.Revealer bottom_box_revealer;
     private Gtk.Grid main_grid;
     private Gtk.EventBox name_eventbox;
     private Gtk.ListBox checklist;
