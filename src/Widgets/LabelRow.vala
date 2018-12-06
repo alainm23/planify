@@ -2,6 +2,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     public weak MainWindow window { get; construct; }
     public Objects.Label label { get; construct; }
 
+    public signal void on_signal_edit (Objects.Label label);
     public const string COLOR_CSS = """
         .label-list-%i {
             color: %s;
@@ -107,6 +108,10 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             }
 
             message_dialog.destroy ();
+        });
+
+        edit_button.clicked.connect (() => {
+            on_signal_edit (label);
         });
     }
 }

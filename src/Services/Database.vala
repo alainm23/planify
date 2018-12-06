@@ -764,6 +764,27 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
+    public int update_label (Objects.Label label) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("UPDATE LABELS SET name = ?, " +
+            "color = ? WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, label.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, label.color);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, label.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        return res;
+    }
+
     public int remove_label (Objects.Label label) {
         Sqlite.Statement stmt;
 
