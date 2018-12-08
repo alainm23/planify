@@ -42,6 +42,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
+        main_stack.add_named (get_weather_widget (), "weather");
 
         main_stack.visible_child_name = "general";
 
@@ -52,7 +53,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         ((Gtk.Container) get_content_area ()).add (content_grid);
 
-        var close_button = new SettingsButton (_("Close"));
+        var close_button = new Gtk.Button.with_label (_("Close"));
+        close_button.valign = Gtk.Align.END;
+        close_button.get_style_context ().add_class ("suggested-action");
         close_button.margin_bottom = 6;
         close_button.margin_end = 6;
 
@@ -73,6 +76,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     private Gtk.Widget get_badge_count_widget () {
         var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
@@ -90,7 +94,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         badge_count_icon.pixel_size = 32;
 
         var badge_count_label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
-        badge_count_label.selectable = true;
         badge_count_label.get_style_context ().add_class ("h3");
         badge_count_label.max_width_chars = 41;
         badge_count_label.wrap = true;
@@ -189,6 +192,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     private Gtk.Widget get_start_page_widget () {
         var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
@@ -206,7 +210,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         start_page_icon.pixel_size = 32;
 
         var start_page_label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
-        start_page_label.selectable = true;
         start_page_label.get_style_context ().add_class ("h3");
         start_page_label.max_width_chars = 41;
         start_page_label.wrap = true;
@@ -281,6 +284,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     private Gtk.Widget get_quick_save_widget () {
         var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
@@ -298,7 +302,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         quick_save_icon.pixel_size = 32;
 
         var quick_save_label = new Gtk.Label (_("Choose how many clicks to close and save all open tasks."));
-        quick_save_label.selectable = true;
         quick_save_label.get_style_context ().add_class ("h3");
         quick_save_label.max_width_chars = 41;
         quick_save_label.wrap = true;
@@ -366,6 +369,133 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         triple_radio.toggled.connect (() => {
             Application.settings.set_enum ("quick-save", 2);
+        });
+
+        return main_frame;
+    }
+
+    private Gtk.Widget get_weather_widget () {
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.WEATHER_STRING));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var weather_icon = new Gtk.Image ();
+        weather_icon.gicon = new ThemedIcon ("applications-internet");
+        weather_icon.pixel_size = 32;
+
+        var weather_label = new Gtk.Label (_("Get the weather forecast in a simple and beautiful widget."));
+        weather_label.get_style_context ().add_class ("h3");
+        weather_label.max_width_chars = 41;
+        weather_label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (weather_icon, false, false, 0);
+        description_box.pack_start (weather_label, false, false, 6);
+
+        var temperature_label = new Granite.HeaderLabel (_("Temperature"));
+        temperature_label.margin_start = 12;
+
+        var temperature_modebutton = new Granite.Widgets.ModeButton ();
+        temperature_modebutton.margin_start = 12;
+        temperature_modebutton.valign = Gtk.Align.CENTER;
+        temperature_modebutton.halign = Gtk.Align.START;
+        temperature_modebutton.append_text (_("°F"));
+        temperature_modebutton.append_text (_("°C"));
+        temperature_modebutton.selected = Application.settings.get_enum ("weather-unit-format");
+
+        var location_label = new Granite.HeaderLabel (_("Location"));
+        location_label.margin_start = 12;
+
+        var manual_location_entry = new Gtk.Entry ();
+        manual_location_entry.placeholder_text = "Seattle, US";
+        manual_location_entry.text = Application.settings.get_string ("location-manual-value");
+
+        var location_help_button = new Gtk.Button.from_icon_name ("help-contents-symbolic", Gtk.IconSize.MENU);
+        location_help_button.can_focus = false;
+
+        var manual_location_grid = new Gtk.Grid ();
+        manual_location_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        manual_location_grid.add (manual_location_entry);
+        manual_location_grid.add (location_help_button);
+
+        var automatic_switch = new Gtk.Switch ();
+        automatic_switch.tooltip_text = _("Automatic Location");
+
+        var location_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        location_box.margin_start = 12;
+        location_box.pack_start (manual_location_grid, false, false, 0);
+        location_box.pack_start (automatic_switch, false, false, 0);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (description_box);
+        main_grid.add (temperature_label);
+        main_grid.add (temperature_modebutton);
+        main_grid.add (location_label);
+        main_grid.add (location_box);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
+
+        back_button.clicked.connect (() => {
+            check_quick_save_preview ();
+            main_stack.visible_child_name = "general";
+        });
+
+        manual_location_entry.activate.connect (() =>{
+            Application.settings.set_string ("location-manual-value", manual_location_entry.text);
+            Application.notification.on_signal_location_manual ();
+        });
+
+        manual_location_entry.focus_out_event.connect (() => {
+            Application.settings.set_string ("location-manual-value", manual_location_entry.text);
+            Application.notification.on_signal_location_manual ();
+            return false;
+        });
+
+        automatic_switch.notify["active"].connect (() => {
+			if (automatic_switch.active) {
+                Application.settings.set_boolean ("location-automatic", true);
+                manual_location_entry.sensitive = false;
+
+                Application.notification.on_signal_weather_update ();
+			} else {
+                Application.settings.set_boolean ("location-automatic", false);
+			    manual_location_entry.sensitive = true;
+
+                Application.notification.on_signal_location_manual ();
+			}
+		});
+
+        location_help_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://openweathermap.org/find?q=", 0);
+            } catch (Error e) {
+                stderr.printf ("Failed to open uri.\n");
+            }
+        });
+
+        temperature_modebutton.mode_changed.connect (() => {
+            Application.settings.set_enum ("weather-unit-format", temperature_modebutton.selected);
+            Application.notification.on_signal_weather_update ();
         });
 
         return main_frame;
@@ -693,6 +823,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             return false;
         });
 
+        weather_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "weather";
+            }
+
+            return false;
+        });
+
         run_background_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 if (run_background_switch.active) {
@@ -762,12 +900,4 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             warning ("Error enabling autostart: %s", e.message);
         }
     }
-
-    private class SettingsButton : Gtk.Button {
-		public SettingsButton (string text) {
-			label = text;
-			valign = Gtk.Align.END;
-			get_style_context ().add_class ("suggested-action");
-		}
-	}
 }

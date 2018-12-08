@@ -3,7 +3,7 @@ public class Views.Today : Gtk.EventBox {
     private Widgets.TaskNew task_new_revealer;
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
-    private Gtk.Revealer add_task_revealer;
+    private Gtk.Revealer box_revealer;
     private Gtk.FlowBox labels_flowbox;
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
@@ -132,6 +132,14 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
+        var events_button = new Gtk.Button.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        events_button.can_focus = false;
+        events_button.tooltip_text = _("Weather & Events");
+        events_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        events_button.height_request = 32;
+        events_button.width_request = 32;
+        events_button.get_style_context ().add_class ("planner-events");
+
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
@@ -140,17 +148,24 @@ public class Views.Today : Gtk.EventBox {
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
 
-        add_task_revealer = new Gtk.Revealer ();
-        add_task_revealer.valign = Gtk.Align.END;
-        add_task_revealer.halign = Gtk.Align.END;
-        add_task_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        add_task_revealer.add (add_task_button);
-        add_task_revealer.margin = 12;
-        add_task_revealer.reveal_child = true;
+        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        revealer_box.pack_start (events_button, false, false, 0);
+        revealer_box.pack_start (add_task_button, false, false, 0);
+
+        box_revealer = new Gtk.Revealer ();
+        box_revealer.valign = Gtk.Align.END;
+        box_revealer.halign = Gtk.Align.END;
+        box_revealer.margin = 12;
+        box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        box_revealer.add (revealer_box);
+        box_revealer.reveal_child = true;
 
         task_new_revealer = new Widgets.TaskNew (true);
         task_new_revealer.valign = Gtk.Align.END;
         task_new_revealer.when_datetime = new GLib.DateTime.now_local ();
+
+        var events_widget = new Widgets.Events ();
+        events_widget.halign = Gtk.Align.END;
 
         show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
         show_all_tasks_button.can_focus = false;
@@ -188,7 +203,8 @@ public class Views.Today : Gtk.EventBox {
         main_box.pack_start (scrolled, true, true, 0);
 
         var main_overlay = new Gtk.Overlay ();
-        main_overlay.add_overlay (add_task_revealer);
+        main_overlay.add_overlay (events_widget);
+        main_overlay.add_overlay (box_revealer);
         main_overlay.add_overlay (task_new_revealer);
         main_overlay.add (main_box);
 
@@ -235,6 +251,19 @@ public class Views.Today : Gtk.EventBox {
                 action_revealer.reveal_child = true;
                 settings_button.get_style_context ().add_class ("closed");
             }
+        });
+
+        events_button.clicked.connect (() => {
+            if (events_widget.reveal_child == false) {
+                events_widget.reveal_child = true;
+
+                box_revealer.reveal_child = false;
+            }
+        });
+
+        events_widget.on_signal_close.connect (() => {
+            events_widget.reveal_child = false;
+            box_revealer.reveal_child = true;
         });
 
         add_task_button.clicked.connect (() => {
@@ -286,6 +315,9 @@ public class Views.Today : Gtk.EventBox {
 
             } else if (button_press == 1) {
                 if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                    box_revealer.reveal_child = true;
+                    events_widget.reveal_child = false;
+
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
 
@@ -296,6 +328,9 @@ public class Views.Today : Gtk.EventBox {
                 }
             } else {
                 if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
+                    box_revealer.reveal_child = true;
+                    events_widget.reveal_child = false;
+
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
 
@@ -597,12 +632,12 @@ public class Views.Today : Gtk.EventBox {
             task_new_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             task_new_revealer.reveal_child = false;
 
-            add_task_revealer.reveal_child = true;
+            box_revealer.reveal_child = true;
         } else {
             task_new_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             task_new_revealer.reveal_child = true;
 
-            add_task_revealer.reveal_child = false;
+            box_revealer.reveal_child = false;
             task_new_revealer.name_entry.grab_focus ();
 
             task_new_revealer.when_button.set_date (new GLib.DateTime.now_local (), false, new GLib.DateTime.now_local ());

@@ -166,4 +166,29 @@ public class Utils : GLib.Object {
         string l = text.substring (0, 1);
         return l.up () + text.substring (1);
     }
+
+    public string get_weather_icon_name (string key) {
+        var weather_icon_name = new Gee.HashMap<string, string> ();
+
+        weather_icon_name.set ("01d", "weather-clear-symbolic");
+        weather_icon_name.set ("01n", "weather-clear-night-symbolic");
+        weather_icon_name.set ("02d", "weather-few-clouds-symbolic");
+        weather_icon_name.set ("02n", "weather-few-clouds-night-symbolic");
+        weather_icon_name.set ("03d", "weather-overcast-symbolic");
+        weather_icon_name.set ("03n", "weather-overcast-symbolic");
+        weather_icon_name.set ("04d", "weather-overcast-symbolic");
+        weather_icon_name.set ("04n", "weather-overcast-symbolic");
+        weather_icon_name.set ("09d", "weather-showers-symbolic");
+        weather_icon_name.set ("09n", "weather-showers-symbolic");
+        weather_icon_name.set ("10d", "weather-showers-scattered-symbolic");
+        weather_icon_name.set ("10n", "weather-showers-scattered-symbolic");
+        weather_icon_name.set ("11d", "weather-storm-symbolic");
+        weather_icon_name.set ("11n", "weather-storm-symbolic");
+        weather_icon_name.set ("13d", "weather-snow-symbolic");
+        weather_icon_name.set ("13n", "weather-snow-symbolic");
+        weather_icon_name.set ("50d", "weather-fog-symbolic");
+        weather_icon_name.set ("50n", "weather-fog-symbolic");
+
+        return weather_icon_name.get (key);
+    }
 }

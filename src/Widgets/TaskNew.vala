@@ -21,7 +21,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
             project_id: _project_id,
             margin_start: 27,
             margin_end: 30,
-            reveal_child: false
+            reveal_child: false,
+            transition_type: Gtk.RevealerTransitionType.SLIDE_DOWN
         );
     }
 

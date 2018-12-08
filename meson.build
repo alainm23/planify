@@ -12,9 +12,10 @@ c_args = [
   '-include', 'config.h'
 ]
 
+add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 add_global_arguments('-DGETTEXT_PACKAGE="' + meson.project_name() + '"', language:'c')
 
-asresources = gnome.compile_resources(
+asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
@@ -29,6 +30,7 @@ executable(
 
     'src/Services/Database.vala',
     'src/Services/Notifications.vala',
+    'src/Services/Weather.vala',
 
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
@@ -53,6 +55,8 @@ executable(
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AlertView.vala',
     'src/Widgets/TimePicker.vala',
+    'src/Widgets/Events.vala',
+    'src/Widgets/Weather.vala',
 
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
@@ -75,6 +79,10 @@ executable(
         dependency('sqlite3'),
         dependency('unity'),
         dependency('libnotify'),
+        dependency('gweather-3.0'),
+        dependency('libgeoclue-2.0'),
+        dependency('libsoup-2.4'),
+        dependency('json-glib-1.0'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

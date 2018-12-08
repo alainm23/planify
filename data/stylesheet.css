@@ -207,6 +207,23 @@
     border: none;
 }
 
+.planner-weather-widget {
+    border-radius: 6px;
+    background-color: #0e141f;
+}
+
+.planner-weather-widget label {
+    color: #fafafa;
+}
+
+.planner-weather-widget image {
+    color: #fafafa;
+}
+
+.planner-weather-widget spinner {
+    color: #fafafa;
+}
+
 .task-hover {
     background-color: #ffe16b;
     border-radius: 3px;
@@ -214,6 +231,11 @@
 
 .planner-checked label {
     padding: 0px 0px 1px 0px;
+}
+
+.planner-events {
+    border-radius: 50px;
+    padding: 3px
 }
 
 .no-padding {

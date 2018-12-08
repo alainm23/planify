@@ -1,12 +1,12 @@
 [Desktop Entry]
 Name=Planner
 GenericName=Planner
-Comment=The most intuitive project and task management tool.
-Categories=Development;
+Comment=Don't worry about forgetting important things
+Categories=Development;Utility;Office;Education;
 Exec=com.github.alainm23.planner
 Icon=com.github.alainm23.planner
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=planner
-Keywords=Github;Repositories;Development;
+Keywords=development;task;project;todo;
 X-GNOME-UsesNotifications=true
