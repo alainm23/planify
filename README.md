@@ -6,10 +6,13 @@ Task and project manager for elementary OS
 ## Building and Installation
 
 You'll need the following dependencies:
+* libgtk-3-dev
 * libunity-dev
 * libgee-0.8-dev
-* libgtk-3-dev
+* libjson-glib-dev
+* libgeoclue-2-dev
 * libsqlite3-dev
+* libsoup2.4-dev
 * libgranite-dev (>=0.5)
 * libnotify-dev
 * meson
