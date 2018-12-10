@@ -84,6 +84,13 @@ public class Views.Inbox : Gtk.EventBox {
         share_button.valign = Gtk.Align.CENTER;
         share_button.halign = Gtk.Align.CENTER;
 
+        share_button.clicked.connect (() => {
+            var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
+            share_dialog.inbox = true;
+            share_dialog.destroy.connect (Gtk.main_quit);
+            share_dialog.show_all ();
+        });
+
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
 

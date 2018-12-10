@@ -430,12 +430,17 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         manual_location_grid.add (manual_location_entry);
         manual_location_grid.add (location_help_button);
 
+        var automatic_label = new Gtk.Label (_("Automatic:"));
+
         var automatic_switch = new Gtk.Switch ();
         automatic_switch.tooltip_text = _("Automatic Location");
+        automatic_switch.active = Application.settings.get_boolean ("location-automatic");
 
         var location_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         location_box.margin_start = 12;
+        location_box.margin_end = 12;
         location_box.pack_start (manual_location_grid, false, false, 0);
+        location_box.pack_start (automatic_label, false, false, 6);
         location_box.pack_start (automatic_switch, false, false, 0);
 
         var main_grid = new Gtk.Grid ();
@@ -456,7 +461,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_frame.add (scrolled);
 
         back_button.clicked.connect (() => {
-            check_quick_save_preview ();
+            check_weather_preview ();
             main_stack.visible_child_name = "general";
         });
 
@@ -541,6 +546,25 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         }
     }
 
+    private void check_weather_preview () {
+        string location = "";
+        string unit = "";
+
+        if (Application.settings.get_boolean ("location-automatic")) {
+            location = "%s, %s".printf ("-", "-");
+        } else {
+            location = Application.settings.get_string ("location-manual-value");
+        }
+
+        if (Application.settings.get_enum ("weather-unit-format") == 0) {
+            unit = "°F";
+        } else {
+            unit = "°C";
+        }
+
+        weather_preview_label.label = "%s / %s".printf (location, unit);
+    }
+
     private Gtk.Widget get_help_widget () {
         int pixel_size = 24;
 
@@ -557,6 +581,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         //tutorial_project_button.get_style_context ().add_class ("flat");
         tutorial_project_button.get_style_context ().add_class ("no-padding");
 
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.active = true;
+        loading_spinner.visible = false;
+        loading_spinner.no_show_all = true;
+
         var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tutorial_project_box.margin = 6;
         tutorial_project_box.hexpand = true;
@@ -564,6 +593,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
         tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
         tutorial_project_box.pack_end (tutorial_project_button, false, false, 0);
+        tutorial_project_box.pack_end (loading_spinner, false, false, 0);
 
         var bug_icon = new Gtk.Image ();
         bug_icon.gicon = new ThemedIcon ("bug");
@@ -598,7 +628,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_frame.add (main_grid);
 
         tutorial_project_button.clicked.connect (() => {
-            destroy ();
+            tutorial_project_button.visible = false;
+            loading_spinner.visible = true;
+            loading_spinner.no_show_all = false;
+
+            Application.utils.create_tutorial_project ();
 
             Application.notification.send_local_notification (
                 _("Tutorial Project Created"),
@@ -607,6 +641,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
                 4,
                 false
             );
+
+            destroy ();
         });
 
         return main_frame;
@@ -690,6 +726,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         weather_label.get_style_context ().add_class ("h3");
 
         weather_preview_label = new Gtk.Label (null);
+        check_weather_preview ();
 
         var weather_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         weather_box.margin = 6;

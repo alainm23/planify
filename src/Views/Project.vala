@@ -118,6 +118,13 @@ public class Views.Project : Gtk.EventBox {
         share_button.valign = Gtk.Align.CENTER;
         share_button.halign = Gtk.Align.CENTER;
 
+        share_button.clicked.connect (() => {
+            var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
+            share_dialog.project = project.id;
+            share_dialog.destroy.connect (Gtk.main_quit);
+            share_dialog.show_all ();
+        });
+
         show_hide_all_button = new Gtk.ToggleButton ();
         show_hide_all_button.valign = Gtk.Align.CENTER;
         show_hide_all_button.halign = Gtk.Align.CENTER;

@@ -39,7 +39,7 @@
 
 .button-close {
     border-radius: 50px;
-    padding: 0 0px;
+    padding: 0px;
     background-color: @fg_color;
     color: @bg_color;
 }
@@ -51,7 +51,7 @@
 
 .button-overlay-circular {
     border-radius: 50px;
-    padding: 0 0px;
+    padding: 0px;
     background-color: @fg_color;
     color: @text_color;
 }
@@ -79,7 +79,7 @@
 }
 
 .revealer-button {
-    padding: 0 8px;
+    padding: 0px 8px;
     border-radius: 0;
     border: none;
     box-shadow: none;
@@ -192,7 +192,7 @@
     background-color: @colorAccent;
     color: @selected_fg_color;
 
-    padding: 0 8px;
+    padding: 0px 8px;
     border-radius: 3px;
     border: none;
     box-shadow: none;
@@ -320,6 +320,14 @@
     border-radius: 6px;
     border: 0.5px solid #48C522;
     padding: 3px;
+}
+
+.share-view text {
+background-color: @bg_color;
+}
+
+.share-view {
+background-color: @bg_color;
 }
 
 .color-1 {

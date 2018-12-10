@@ -5,9 +5,11 @@ public class Widgets.Weather : Gtk.EventBox {
     private Gtk.Image weather_icon;
 
     private Gtk.Spinner loading_spinner;
-    private Services.Weather weather_info;
 
     private Gtk.Stack main_stack;
+
+    private NetworkMonitor monitor;
+    private Services.Weather weather_info;
     public Weather () {
         Object (
             hexpand: true,
@@ -16,8 +18,8 @@ public class Widgets.Weather : Gtk.EventBox {
     }
 
     construct {
-        // Weather Services
         weather_info = new Services.Weather ();
+        monitor = NetworkMonitor.get_default ();
 
         temperature_label = new Gtk.Label (weather_info.get_temperature ());
         temperature_label.get_style_context ().add_class ("h1");
@@ -52,7 +54,6 @@ public class Widgets.Weather : Gtk.EventBox {
         main_stack = new Gtk.Stack ();
         main_stack.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
         main_stack.get_style_context ().add_class ("planner-weather-widget");
-        main_stack.margin = 6;
         main_stack.hexpand = true;
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
@@ -79,8 +80,8 @@ public class Widgets.Weather : Gtk.EventBox {
             main_stack.visible_child_name = "error";
         });
 
-        NetworkMonitor.get_default ().network_changed.connect (() => {
-            var connection_available = NetworkMonitor.get_default ().get_network_available ();
+        monitor.network_changed.connect (() => {
+            var connection_available = monitor.get_network_available ();
 
             if (connection_available) {
                 weather_info.set_automatic_location (false);
@@ -88,7 +89,7 @@ public class Widgets.Weather : Gtk.EventBox {
                 if (Application.settings.get_boolean ("location-automatic") == false) {
                     weather_info.set_manual_location (Application.settings.get_string ("location-manual-value"));
                 } else {
-                    weather_info.update_weather_info ();
+                    weather_info.weather_info_updated ();
                 }
 
                 main_stack.visible_child_name = "weather";
@@ -99,8 +100,8 @@ public class Widgets.Weather : Gtk.EventBox {
     }
 
     private void check_network_available () {
-        var connection_available = NetworkMonitor.get_default ().get_network_available ();
-        
+        var connection_available = monitor.get_network_available ();
+
         Timeout.add (200, () => {
             if (connection_available) {
                 main_stack.visible_child_name = "weather";
@@ -109,6 +110,5 @@ public class Widgets.Weather : Gtk.EventBox {
             }
             return false;
         });
-
     }
 }

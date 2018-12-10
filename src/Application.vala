@@ -25,6 +25,7 @@ public class Application : Gtk.Application {
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
+        
     }
 
     public static Application _instance = null;

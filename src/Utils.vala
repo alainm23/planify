@@ -191,4 +191,66 @@ public class Utils : GLib.Object {
 
         return weather_icon_name.get (key);
     }
+
+    public string get_default_date_format (string date_string) {
+        var now = new GLib.DateTime.now_local ();
+        var date = new GLib.DateTime.from_iso8601 (date_string, new GLib.TimeZone.local ());
+
+        if (date.get_year () == now.get_year ()) {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
+        } else {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
+        }
+    }
+
+    public string get_default_date_format_from_date (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+        
+        if (date.get_year () == now.get_year ()) {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
+        } else {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
+        }
+    }
+
+    public void create_tutorial_project () {
+        var tutorial = new Objects.Project ();
+        tutorial.name = _("Meet Planner!!!");
+        tutorial.note = _("This project shows you everything you need to know use Planner. Don't hesitateto play arount in it - you can always create a new one in 'Preferences > Help'");
+        tutorial.color = "#f9c440";
+
+        if (Application.database.add_project (tutorial) == Sqlite.DONE) {
+            var last_project = Application.database.get_last_project ();
+
+            var task_1 = new Objects.Task ();
+            task_1.project_id = last_project.id;
+            task_1.content = _("Complete this task");
+            task_1.note = _("Complete it by taping the checkbox on the left.");
+            Application.database.add_task (task_1);
+
+            var task_2 = new Objects.Task ();
+            task_2.project_id = last_project.id;
+            task_2.content = _("Create a new task");
+            task_2.note = _("Tap the '+' button down on the right to create a new task.");
+            Application.database.add_task (task_2);
+
+            var task_3 = new Objects.Task ();
+            task_3.project_id = last_project.id;
+            task_3.content = _("Put this task in Today");
+            task_3.note = _("Tap the calendar button below to decide when you'll do this task. Choose Today with a double click.");
+            Application.database.add_task (task_3);
+
+            var task_4 = new Objects.Task ();
+            task_4.project_id = last_project.id;
+            task_4.content = _("Plan this task for later");
+            task_4.note = _("Tap the calendar button again, but now, choose a date in the calendar. It will appear on your Today list when the day comes. While the day comes, this task appear in the Upcoming list.");
+            Application.database.add_task (task_4);
+
+            var task_5 = new Objects.Task ();
+            task_5.project_id = last_project.id;
+            task_5.content = _("Create a project");
+            task_5.note = _("Do you want to group your tasks? On the left side, tap the '+' button to create a project.");
+            Application.database.add_task (task_5);
+        }
+    }
 }

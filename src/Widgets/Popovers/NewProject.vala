@@ -339,7 +339,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         project.color = color_hex_entry.text;
 
         if (Application.database.add_project (project) == Sqlite.DONE) {
-            on_add_project_signal ();
             popdown ();
 
             name_entry.text = "";

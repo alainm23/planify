@@ -1,10 +1,9 @@
 public class Services.Notifications : GLib.Object {
     private Notify.Notification notification;
-
-    // Signals Weather
+    
     public signal void on_signal_weather_update ();
     public signal void on_signal_location_manual ();
-
+    
     public signal void on_signal_highlight_task (Objects.Task task);
     public signal void send_local_notification (string title,
                                                 string description,

@@ -143,7 +143,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    return false;
 			    });
             } else if (index == 2) {
-
+                // Share project
+                var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
+                share_dialog.project = project.id;
+                share_dialog.destroy.connect (Gtk.main_quit);
+                share_dialog.show_all ();
             } else if (index == 3) {
                 int tasks_number = Application.database.get_project_tasks_number (project.id);
                 // Algoritmo para saber si hay o no tareas y si es plural o singular
@@ -166,7 +170,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                             this.opacity = this.opacity - 0.1;
 
                             if (this.opacity <= 0) {
-                                hide ();
+                                destroy ();
                                 return false;
                             }
 

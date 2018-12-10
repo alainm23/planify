@@ -5,7 +5,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Widgets.ItemRow upcoming_item;
 
     public signal void on_selected_item (string type, int index);
-    public signal void on_add_project_signal ();
     public ProjectsList () {
         Object (
             expand: true
@@ -88,9 +87,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             add_project_button.active = false;
         });
 
-        add_popover.on_add_project_signal.connect (() => {
-            on_add_project_signal ();
-
+        Application.database.on_add_project_signal.connect (() => {
             var project = Application.database.get_last_project ();
             var row = new Widgets.ProjectRow (project);
             listbox.add (row);

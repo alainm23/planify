@@ -1,0 +1,36 @@
+# libical.metadata
+
+iCal cheader_filename="libical/ical.h" cprefix=""
+
+# TODO
+
+#--- classes ---#
+
+icalattachtype hidden="1" # seems private
+icalproperty_add_parameters.prop type_name="icalproperty"
+icalproperty_impl hidden="1" # private
+
+#--- structs ---#
+
+icaldatetimeperiodtype is_value_type="1"
+icalgeotype is_value_type="1"
+icalperiodtype is_value_type="1"
+icalrecurrencetype is_value_type="1"
+icalreqstattype is_value_type="1"
+icaltimetype is_value_type="1" simple_type="1"
+icaltimezonephase is_value_type="1"
+icaltimezonetype is_value_type="1"
+icaltriggertype is_value_type="1"
+sspm_action_map is_value_type="1"
+sspm_header is_value_type="1"
+sspm_part is_value_type="1"
+
+#--- functions ---#
+
+icalrecur_expand_recurrence.start type_name="time_t"
+
+icalrecur_expand_recurrence.count hidden="1"
+icalrecur_expand_recurrence.array type_name="time_t" is_array="1" array_length_type="int" array_length_pos="2"
+
+icaltime_from_timet.v type_name="time_t"
+icaltime_from_timet_with_zone.tm type_name="time_t"

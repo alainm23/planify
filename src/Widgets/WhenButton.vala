@@ -97,8 +97,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
             when_label.label = Application.utils.TOMORROW_STRING;
             has_when = true;
         } else {
-            string date_format = Granite.DateTime.get_default_date_format (false, true, false);
-            when_label.label = date.format (date_format);
+            when_label.label = Application.utils.get_default_date_format_from_date (date);
             has_when = true;
         }
 

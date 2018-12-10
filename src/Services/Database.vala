@@ -2,10 +2,13 @@ public class Services.Database : GLib.Object {
     private Sqlite.Database db;
     private string db_path;
 
-    public signal void add_task_signal ();
     public signal void update_project_signal (Objects.Project project);
+    public signal void on_add_project_signal ();
+
+    public signal void add_task_signal ();
     public signal void on_signal_remove_task (Objects.Task task);
     public signal void update_task_signal (Objects.Task task);
+
     public signal void update_indicators ();
 
     public Database (bool skip_tables = false) {
@@ -101,6 +104,10 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            on_add_project_signal ();
+        }
 
         return res;
     }

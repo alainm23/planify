@@ -77,7 +77,7 @@ public class Views.Main : Gtk.Paned {
             }
         });
 
-        projects_list.on_add_project_signal.connect (() => {
+        Application.database.on_add_project_signal.connect (() => {
             var project = Application.database.get_last_project ();
 
             var project_view = new Views.Project (project, parent_window);

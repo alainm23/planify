@@ -13,6 +13,10 @@ public class Services.Weather : GLib.Object {
     public signal void weather_info_updated ();
     public signal void weather_error ();
 
+    // Signals Weather
+    public signal void on_signal_weather_update ();
+    public signal void on_signal_location_manual ();
+
     public Weather () {
         latitude = 0.0;
         longitude = 0.0;
@@ -21,8 +25,11 @@ public class Services.Weather : GLib.Object {
         temperature = 0;
         description = "-";
 
+        geo_city = "-";
+        geo_country = "-";
+        
         set_automatic_location (false);
-
+            
         if (Application.settings.get_boolean ("location-automatic") == false) {
             set_manual_location (Application.settings.get_string ("location-manual-value"));
         } else {

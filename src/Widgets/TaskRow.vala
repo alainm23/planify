@@ -661,8 +661,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             when_preview_label.no_show_all = false;
             when_preview_label.visible = true;
 
-            string date_format = Granite.DateTime.get_default_date_format (false, true, false);
             var when_datetime = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
+            string date_format = Application.utils.get_default_date_format_from_date (when_datetime);
 
             if (Application.utils.is_today (when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
@@ -836,7 +836,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
                 when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
             } else {
-                string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+                string date_format = Application.utils.get_default_date_format_from_date (when_button.when_datetime);
                 when_preview_label.label = "<small>%s</small>".printf (when_button.when_datetime.format (date_format));
             }
 
@@ -865,7 +865,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
                     date = Application.utils.TOMORROW_STRING.down ();
                 } else {
-                    string date_format = Granite.DateTime.get_default_date_format (false, true, false);
+                    string date_format = Application.utils.get_default_date_format_from_date (when_button.when_datetime);
                     date = when_button.when_datetime.format (date_format);
                 }
 

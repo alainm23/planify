@@ -31,6 +31,7 @@ executable(
     'src/Services/Database.vala',
     'src/Services/Notifications.vala',
     'src/Services/Weather.vala',
+    #'src/Services/Calendar.vala',
 
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
@@ -39,6 +40,7 @@ executable(
     'src/Views/Project.vala',
 
     'src/Dialogs/PreferencesDialog.vala',
+    'src/Dialogs/ShareDialog.vala',
 
     'src/Widgets/WhenButton.vala',
     'src/Widgets/LabelButton.vala',
@@ -82,6 +84,10 @@ executable(
         dependency('libgeoclue-2.0'),
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0'),
+        dependency('gtksourceview-3.0'),
+        dependency('libecal-1.2'),
+        dependency('libedataserver-1.2'),
+        dependency('libical'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true
