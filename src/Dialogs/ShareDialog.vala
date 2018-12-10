@@ -133,6 +133,19 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
 			destroy ();
 		});
 
+        var copy_button = new Gtk.Button.with_label (_("Copy"));
+        copy_button.valign = Gtk.Align.END;
+        copy_button.margin_bottom = 6;
+        copy_button.margin_end = 6;
+
+        copy_button.clicked.connect (() => {
+            Gdk.Display display = Gdk.Display.get_default ();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+
+            clipboard.set_text (source_view.buffer.text, -1);
+        });
+
+        add_action_widget (copy_button, 1);
         add_action_widget (close_button, 0);
     }
 

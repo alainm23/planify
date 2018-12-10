@@ -551,7 +551,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         string unit = "";
 
         if (Application.settings.get_boolean ("location-automatic")) {
-            location = "%s, %s".printf ("-", "-");
+            location = _("Automatic Location");
         } else {
             location = Application.settings.get_string ("location-manual-value");
         }
