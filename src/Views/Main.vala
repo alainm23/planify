@@ -50,7 +50,7 @@ public class Views.Main : Gtk.Paned {
         }
 
         Timeout.add (200, () => {
-            stack.visible_child_name = start_page_name;
+            stack.visible_child_name = start_page_name;         
             return false;
         });
 

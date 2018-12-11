@@ -1,4 +1,6 @@
-project('com.github.alainm23.planner', 'vala', 'c')
+project('com.github.alainm23.planner',
+        'vala', 'c',
+        version: '0.2.1')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -12,8 +14,9 @@ c_args = [
   '-include', 'config.h'
 ]
 
+#add_global_arguments('-DGETTEXT_PACKAGE="' + meson.project_name() + '"', language:'c')
+add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
-add_global_arguments('-DGETTEXT_PACKAGE="' + meson.project_name() + '"', language:'c')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
@@ -31,7 +34,13 @@ executable(
     'src/Services/Database.vala',
     'src/Services/Notifications.vala',
     'src/Services/Weather.vala',
-    #'src/Services/Calendar.vala',
+    'src/Services/Calendar/CalendarModel.vala',
+    'src/Services/Calendar/Utils.vala',
+    'src/Services/Calendar/GesturesUtils.vala',
+    'src/Services/Calendar/DateRange.vala',
+    'src/Services/Calendar/LanguagesFormat.vala',
+    'src/Services/Calendar/MayaSettings.vala',
+    'src/Services/Calendar/SavedState.vala',
 
     'src/Views/Main.vala',
     'src/Views/Inbox.vala',
@@ -60,6 +69,8 @@ executable(
     'src/Widgets/Events.vala',
     'src/Widgets/Weather.vala',
 
+    'src/Widgets/AgendaEventRow.vala',
+
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
     'src/Widgets/Popovers/ItemMenu.vala',
@@ -68,6 +79,8 @@ executable(
     'src/Widgets/Popovers/MovePopover.vala',
     'src/Widgets/Popovers/NotificationsPopover.vala',
     'src/Widgets/Popovers/NotificationActionPopover.vala',
+    'src/Widgets/Popovers/QuickSearchPopover.vala',
+
 
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
@@ -85,9 +98,11 @@ executable(
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0'),
         dependency('gtksourceview-3.0'),
-        dependency('libecal-1.2'),
-        dependency('libedataserver-1.2'),
+        dependency('libecal-1.2', version: '>=3.8.0'),
+        dependency('libedataserver-1.2', version: '>=3.8.0'),
+        dependency('libedataserverui-1.2', version: '>=3.8.0'),
         dependency('libical'),
+        dependency('gmodule-2.0'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

@@ -205,7 +205,7 @@ public class Utils : GLib.Object {
 
     public string get_default_date_format_from_date (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
-        
+
         if (date.get_year () == now.get_year ()) {
             return date.format (Granite.DateTime.get_default_date_format (false, true, false));
         } else {

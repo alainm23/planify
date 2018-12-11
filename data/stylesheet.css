@@ -323,7 +323,7 @@
 }
 
 .share-view text {
-background-color: @bg_color;
+    background-color: @bg_color;
 }
 
 .share-view {

@@ -108,18 +108,24 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         set_size_request (640, 494);
 
         source_view = new Gtk.SourceView ();
-        source_view.get_style_context ().add_class ("share-view");
+        source_view.margin = 6;
+        //source_view.wrap_mode = Gtk.WrapMode.WORD;
         source_view.monospace = true;
         source_view.expand = true;
 
         var scrolled_window = new Gtk.ScrolledWindow (null, null);
         scrolled_window.add (source_view);
 
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled_window);
+
         var content_grid = new Gtk.Grid ();
         content_grid.margin_start = 12;
         content_grid.margin_end = 12;
+        content_grid.margin_bottom = 6;
         content_grid.orientation = Gtk.Orientation.VERTICAL;
-        content_grid.add (scrolled_window);
+        content_grid.add (main_frame);
 
         ((Gtk.Container) get_content_area ()).add (content_grid);
 
@@ -133,7 +139,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
 			destroy ();
 		});
 
-        var copy_button = new Gtk.Button.with_label (_("Copy"));
+        var copy_button = new Gtk.Button.with_label (_("Copy to clipboard"));
         copy_button.valign = Gtk.Align.END;
         copy_button.margin_bottom = 6;
         copy_button.margin_end = 6;
@@ -143,10 +149,20 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
             Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
             clipboard.set_text (source_view.buffer.text, -1);
+
+            Application.notification.send_local_notification (
+                _("Your project is ready to share"),
+                _("Copy to clipboard."),
+                "edit-copy",
+                4,
+                false
+            );
+
+            destroy ();
         });
 
-        add_action_widget (copy_button, 1);
-        add_action_widget (close_button, 0);
+        add_action_widget (copy_button, 0);
+        add_action_widget (close_button, 1);
     }
 
     private void add_line (string text) {
