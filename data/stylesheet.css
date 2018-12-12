@@ -144,6 +144,10 @@
     background-color: @base_color;
 }
 
+.planner-card-radius {
+    border-radius: 6px;
+}
+
 .menu-button > widget > box > image {
     color: #333;
 }

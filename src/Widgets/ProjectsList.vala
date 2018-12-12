@@ -74,6 +74,14 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add_project_button.grab_focus ();
         update_project_list ();
 
+        if (Application.settings.get_enum ("start-page") == 0) {
+            listbox.select_row (inbox_item);
+        } else if (Application.settings.get_enum ("start-page") == 1) {
+            listbox.select_row (today_item);
+        } else {
+            listbox.select_row (upcoming_item);
+        }
+
         // Events
         var add_popover = new Widgets.Popovers.NewProject (add_project_button);
 

@@ -44,6 +44,12 @@
             <description></description>
         </key>
 
+        <key name="show-calendar-events" type="b">
+            <default>false</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="location-automatic" type="b">
             <default>false</default>
             <summary>Location type</summary>

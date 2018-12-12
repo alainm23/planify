@@ -52,7 +52,6 @@ public class Widgets.Weather : Gtk.EventBox {
         main_box.pack_end (weather_icon, false, false, 0);
 
         main_stack = new Gtk.Stack ();
-        main_stack.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
         main_stack.get_style_context ().add_class ("planner-weather-widget");
         main_stack.hexpand = true;
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;

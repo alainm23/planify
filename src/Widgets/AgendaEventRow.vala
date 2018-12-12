@@ -50,7 +50,7 @@ public class AgendaEventRow : Gtk.ListBoxRow {
 
         E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
 
-        event_image = new Gtk.Image.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.MENU);
+        event_image = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
         event_image.margin_start = 6;
         Maya.Util.style_calendar_color (event_image, cal.dup_color ());
 
@@ -59,6 +59,7 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         });
 
         name_label = new Gtk.Label ("");
+        name_label.margin_bottom = 1;
         name_label.hexpand = true;
         name_label.wrap = true;
         name_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
@@ -96,40 +97,9 @@ public class AgendaEventRow : Gtk.ListBoxRow {
             revealer.set_reveal_child (false);
         });
 
-        add_events (Gdk.EventMask.BUTTON_PRESS_MASK);
-        button_press_event.connect (on_button_press);
-
         // Fill in the information
         update (calevent);
     }
-
-    private bool on_button_press (Gdk.EventButton event) {
-        if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-             modified (calevent);
-        } else if (event.type == Gdk.EventType.BUTTON_PRESS && event.button == Gdk.BUTTON_SECONDARY) {
-            Gtk.Menu menu = new Gtk.Menu ();
-            menu.attach_to_widget (this, null);
-            var edit_item = new Gtk.MenuItem.with_label (_("Edit…"));
-            var remove_item = new Gtk.MenuItem.with_label (_("Remove"));
-            edit_item.activate.connect (() => { modified (calevent); });
-            remove_item.activate.connect (() => { removed (calevent); });
-
-            E.Source src = calevent.get_data ("source");
-            if (src.writable != true && Maya.Model.CalendarModel.get_default ().calclient_is_readonly (src) != false) {
-                edit_item.sensitive = false;
-                remove_item.sensitive = false;
-            }
-
-            menu.append (edit_item);
-            menu.append (remove_item);
-
-            menu.popup_at_pointer (event);
-            menu.show_all ();
-        }
-
-        return true;
-    }
-
     /**
      * Updates the event to match the given event.
      */

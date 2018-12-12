@@ -15,7 +15,7 @@ public class Utils : GLib.Object {
     public string START_PAGE_STRING = _("Start Page");
     public string QUICK_SAVE_STRING = _("Quick save");
     public string WEATHER_STRING = _("Weather");
-    public string CALENDAR_STRING = _("Calendar");
+    public string CALENDAR_STRING = _("Calendar Events");
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;

@@ -8,10 +8,13 @@ public class Widgets.Popovers.QuickSearchPopover : Gtk.Popover {
     }
 
     construct {
+        margin_top = 6;
+        get_style_context ().add_class ("view");
+
         var main_grid = new Gtk.Grid ();
         main_grid.expand = true;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.width_request = 250;
+        main_grid.width_request = 312;
         main_grid.height_request = 250;
 
         add (main_grid);

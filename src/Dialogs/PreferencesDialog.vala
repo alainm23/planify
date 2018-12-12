@@ -2,6 +2,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     public weak Gtk.Window window { get; construct; }
     private Gtk.Stack main_stack;
 
+    private GLib.HashTable<string, Widgets.SourceItem?> src_map;
+    private Gtk.ListBox calendar_list;
+    private Gtk.ScrolledWindow calendar_scroll;
+
     private Gtk.Label start_page_preview_label;
     private Gtk.Label badge_count_preview_label;
     private Gtk.Label quick_save_preview_label;
@@ -43,6 +47,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
         main_stack.add_named (get_weather_widget (), "weather");
+        main_stack.add_named (get_calendar_widget (), "calendar");
 
         main_stack.visible_child_name = "general";
 
@@ -89,20 +94,20 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.pack_start (back_button, false, false, 0);
         top_box.set_center_widget (title_label);
 
-        var badge_count_icon = new Gtk.Image ();
-        badge_count_icon.gicon = new ThemedIcon ("preferences-system-notifications");
-        badge_count_icon.pixel_size = 32;
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("preferences-system-notifications");
+        icon.pixel_size = 32;
 
-        var badge_count_label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
-        badge_count_label.get_style_context ().add_class ("h3");
-        badge_count_label.max_width_chars = 41;
-        badge_count_label.wrap = true;
+        var label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         description_box.margin = 10;
         description_box.hexpand = true;
-        description_box.pack_start (badge_count_icon, false, false, 0);
-        description_box.pack_start (badge_count_label, false, false, 0);
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, true, true, 0);
 
         var none_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.NONE_STRING);
         none_radio.get_style_context ().add_class ("h3");
@@ -144,23 +149,28 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             notification_radio.active = true;
         }
 
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (none_radio);
+        grid.add (inbox_radio);
+        grid.add (today_radio);
+        grid.add (today_string_radio);
+        grid.add (notification_radio);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (description_box);
-        main_grid.add (none_radio);
-        main_grid.add (inbox_radio);
-        main_grid.add (today_radio);
-        main_grid.add (today_string_radio);
-        main_grid.add (notification_radio);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (main_grid);
+        main_grid.add (scrolled);
 
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        main_frame.add (main_grid);
 
         back_button.clicked.connect (() => {
             check_badge_count_preview ();
@@ -205,20 +215,20 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.pack_start (back_button, false, false, 0);
         top_box.set_center_widget (title_label);
 
-        var start_page_icon = new Gtk.Image ();
-        start_page_icon.gicon = new ThemedIcon ("go-home");
-        start_page_icon.pixel_size = 32;
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("go-home");
+        icon.pixel_size = 32;
 
-        var start_page_label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
-        start_page_label.get_style_context ().add_class ("h3");
-        start_page_label.max_width_chars = 41;
-        start_page_label.wrap = true;
+        var label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         description_box.margin = 10;
         description_box.hexpand = true;
-        description_box.pack_start (start_page_icon, false, false, 0);
-        description_box.pack_start (start_page_label, false, false, 6);
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
 
         var inbox_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.INBOX_STRING);
         inbox_radio.get_style_context ().add_class ("h3");
@@ -246,21 +256,26 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             upcoming_radio.active = true;
         }
 
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (inbox_radio);
+        grid.add (today_radio);
+        grid.add (upcoming_radio);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (description_box);
-        main_grid.add (inbox_radio);
-        main_grid.add (today_radio);
-        main_grid.add (upcoming_radio);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (main_grid);
+        main_grid.add (scrolled);
 
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        main_frame.add (main_grid);
 
         back_button.clicked.connect (() => {
             check_start_page_preview ();
@@ -297,20 +312,20 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.pack_start (back_button, false, false, 0);
         top_box.set_center_widget (title_label);
 
-        var quick_save_icon = new Gtk.Image ();
-        quick_save_icon.gicon = new ThemedIcon ("input-mouse");
-        quick_save_icon.pixel_size = 32;
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("input-mouse");
+        icon.pixel_size = 32;
 
-        var quick_save_label = new Gtk.Label (_("Choose how many clicks to close and save all open tasks."));
-        quick_save_label.get_style_context ().add_class ("h3");
-        quick_save_label.max_width_chars = 41;
-        quick_save_label.wrap = true;
+        var label = new Gtk.Label (_("Choose how many clicks to close and save all open tasks."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         description_box.margin = 10;
         description_box.hexpand = true;
-        description_box.pack_start (quick_save_icon, false, false, 0);
-        description_box.pack_start (quick_save_label, false, false, 6);
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
 
         var none_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.NONE_STRING);
         none_radio.get_style_context ().add_class ("h3");
@@ -338,21 +353,26 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             triple_radio.active = true;
         }
 
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (none_radio);
+        grid.add (double_radio);
+        grid.add (triple_radio);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (description_box);
-        main_grid.add (none_radio);
-        main_grid.add (double_radio);
-        main_grid.add (triple_radio);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (main_grid);
+        main_grid.add (scrolled);
 
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        main_frame.add (main_grid);
 
         back_button.clicked.connect (() => {
             check_quick_save_preview ();
@@ -389,20 +409,20 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.pack_start (back_button, false, false, 0);
         top_box.set_center_widget (title_label);
 
-        var weather_icon = new Gtk.Image ();
-        weather_icon.gicon = new ThemedIcon ("applications-internet");
-        weather_icon.pixel_size = 32;
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("applications-internet");
+        icon.pixel_size = 32;
 
-        var weather_label = new Gtk.Label (_("Get the weather forecast in a simple and beautiful widget."));
-        weather_label.get_style_context ().add_class ("h3");
-        weather_label.max_width_chars = 41;
-        weather_label.wrap = true;
+        var label = new Gtk.Label (_("Get the weather forecast in a simple and beautiful widget."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         description_box.margin = 10;
         description_box.hexpand = true;
-        description_box.pack_start (weather_icon, false, false, 0);
-        description_box.pack_start (weather_label, false, false, 6);
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
 
         var temperature_label = new Granite.HeaderLabel (_("Temperature"));
         temperature_label.margin_start = 12;
@@ -443,22 +463,27 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         location_box.pack_start (automatic_label, false, false, 6);
         location_box.pack_start (automatic_switch, false, false, 0);
 
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (temperature_label);
+        grid.add (temperature_modebutton);
+        grid.add (location_label);
+        grid.add (location_box);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (description_box);
-        main_grid.add (temperature_label);
-        main_grid.add (temperature_modebutton);
-        main_grid.add (location_label);
-        main_grid.add (location_box);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (main_grid);
+        main_grid.add (scrolled);
 
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        main_frame.add (main_grid);
 
         back_button.clicked.connect (() => {
             check_weather_preview ();
@@ -504,6 +529,175 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         return main_frame;
+    }
+
+    private Gtk.Widget get_calendar_widget () {
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.CALENDAR_STRING));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("office-calendar");
+        icon.pixel_size = 32;
+
+        var label = new Gtk.Label (_("Events from your personal and shared calendars can be shown alongside your task in he Today lists."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
+
+        var show_label = new Gtk.Label (_("Show Calendar Events"));
+        show_label.get_style_context ().add_class ("h3");
+
+        var show_switch = new Gtk.Switch ();
+        show_switch.get_style_context ().add_class ("active-switch");
+        show_switch.valign = Gtk.Align.CENTER;
+        show_switch.active = Application.settings.get_boolean ("show-calendar-events");
+
+        var show_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        show_box.margin_start = 12;
+        show_box.pack_start (show_label, false, false, 0);
+        show_box.pack_start (show_switch, false, false, 12);
+
+        calendar_list = new Gtk.ListBox ();
+        calendar_list.selection_mode = Gtk.SelectionMode.NONE;
+        calendar_list.set_header_func (header_update_func);
+        calendar_list.set_sort_func ((child1, child2) => {
+            var comparison = ((Widgets.SourceItem)child1).location.collate (((Widgets.SourceItem)child2).location);
+            if (comparison == 0)
+                return ((Widgets.SourceItem)child1).label.collate (((Widgets.SourceItem)child2).label);
+            else
+                return comparison;
+        });
+
+        calendar_scroll = new Gtk.ScrolledWindow (null, null);
+        calendar_scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        calendar_scroll.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC;
+        calendar_scroll.expand = true;
+        calendar_scroll.add (calendar_list);
+
+        var calendar_list_revealer = new Gtk.Revealer ();
+        calendar_list_revealer.margin_start = 6;
+        calendar_list_revealer.margin_top = 6;
+        calendar_list_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        calendar_list_revealer.add (calendar_scroll);
+        calendar_list_revealer.reveal_child = true;
+
+        src_map = new GLib.HashTable<string, Widgets.SourceItem?>(str_hash, str_equal);
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (show_box);
+        grid.add (calendar_list_revealer);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        populate.begin ();
+
+        back_button.clicked.connect (() => {
+            main_stack.visible_child_name = "general";
+        });
+
+        show_switch.notify["active"].connect(() => {
+            calendar_list_revealer.reveal_child = show_switch.active;
+            Application.settings.set_boolean ("show-calendar-events", show_switch.active);
+        });
+
+        return main_frame;
+    }
+
+    public async void populate () {
+        try {
+            var registry = yield new E.SourceRegistry (null);
+            //registry.source_disabled.connect (source_disabled);
+            registry.source_enabled.connect (add_source_to_view);
+            registry.source_added.connect (add_source_to_view);
+
+            // Add sources
+            registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
+                add_source_to_view (source);
+            });
+        } catch (GLib.Error error) {
+            critical (error.message);
+        }
+    }
+
+    private void header_update_func (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
+        var row_location = ((Widgets.SourceItem)row).location;
+        if (before != null) {
+            var before_row_location = ((Widgets.SourceItem)before).location;
+            if (before_row_location == row_location) {
+                row.set_header (null);
+                return;
+            }
+        }
+
+        var header = new Widgets.SourceItemHeader (row_location);
+        row.set_header (header);
+        header.show_all ();
+    }
+
+    private void add_source_to_view (E.Source source) {
+        if (source.enabled == false)
+            return;
+
+        if (source.dup_uid () in src_map)
+            return;
+
+        var source_item = new Widgets.SourceItem (source);
+        //source_item.edit_request.connect (edit_source);
+
+        calendar_list.add (source_item);
+
+        int minimum_height;
+        int natural_height;
+        calendar_list.show_all ();
+        calendar_list.get_preferred_height (out minimum_height, out natural_height);
+        if (natural_height > 200) {
+            calendar_scroll.set_size_request (-1, 200);
+        } else {
+            calendar_scroll.set_size_request (-1, natural_height);
+        }
+
+        source_item.destroy.connect (() => {
+            calendar_list.show_all ();
+            calendar_list.get_preferred_height (out minimum_height, out natural_height);
+            if (natural_height > 200) {
+                calendar_scroll.set_size_request (-1, 200);
+            } else {
+                calendar_scroll.set_size_request (-1, natural_height);
+            }
+        });
+
+        src_map.set (source.dup_uid (), source_item);
     }
 
     private void check_start_page_preview () {
@@ -749,16 +943,16 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         calendar_preview_label = new Gtk.Label (null);
 
-        var calendar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        calendar_box.margin = 6;
-        calendar_box.margin_end = 12;
-        calendar_box.hexpand = true;
-        calendar_box.pack_start (calendar_icon, false, false, 0);
-        calendar_box.pack_start (calendar_label, false, false, 6);
-        calendar_box.pack_end (calendar_preview_label, false, false, 0);
+        var calendar_list = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        calendar_list.margin = 6;
+        calendar_list.margin_end = 12;
+        calendar_list.hexpand = true;
+        calendar_list.pack_start (calendar_icon, false, false, 0);
+        calendar_list.pack_start (calendar_label, false, false, 6);
+        calendar_list.pack_end (calendar_preview_label, false, false, 0);
 
         var calendar_eventbox = new Gtk.EventBox ();
-        calendar_eventbox.add (calendar_box);
+        calendar_eventbox.add (calendar_list);
 
         // Run Background
         var run_background_icon = new Gtk.Image ();
@@ -863,6 +1057,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         weather_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 main_stack.visible_child_name = "weather";
+            }
+
+            return false;
+        });
+
+        calendar_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "calendar";
             }
 
             return false;

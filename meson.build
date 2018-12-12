@@ -66,10 +66,10 @@ executable(
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AlertView.vala',
     'src/Widgets/TimePicker.vala',
-    'src/Widgets/Events.vala',
+    'src/Widgets/CalendarEvents.vala',
     'src/Widgets/Weather.vala',
-
     'src/Widgets/AgendaEventRow.vala',
+    'src/Widgets/SourceItem.vala',
 
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',

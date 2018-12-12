@@ -171,7 +171,7 @@ public class Views.Today : Gtk.EventBox {
         task_new_revealer.valign = Gtk.Align.END;
         task_new_revealer.when_datetime = new GLib.DateTime.now_local ();
 
-        var events_widget = new Widgets.Events ();
+        var events_widget = new Widgets.CalendarEvents ();
         events_widget.halign = Gtk.Align.END;
 
         show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));

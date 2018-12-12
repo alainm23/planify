@@ -15,23 +15,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
     construct {
         get_style_context ().add_class ("compact");
-
-        var quick_search_entry = new Gtk.SearchEntry ();
-        quick_search_entry.width_request = 200;
-        quick_search_entry.margin_end = 12;
-        quick_search_entry.valign = Gtk.Align.CENTER;
-        quick_search_entry.placeholder_text = _("Quick search");
         
-        var quick_search_popover = new Widgets.Popovers.QuickSearchPopover (quick_search_entry);    
-            
-        quick_search_entry.changed.connect (() => {
-            if (quick_search_entry.text != "") {
-                quick_search_popover.show_all ();
-            } else {
-                quick_search_popover.popdown ();        
-            }        
-        });
-    
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
         mode_switch.primary_icon_tooltip_text = ("Light background");
@@ -97,7 +81,6 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         pack_end (app_menu);
         pack_end (notification_menu);
-        pack_end (quick_search_entry);
 
         // Signals
         notification_menu.toggled.connect (() => {
