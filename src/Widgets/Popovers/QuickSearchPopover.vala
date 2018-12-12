@@ -8,7 +8,6 @@ public class Widgets.Popovers.QuickSearchPopover : Gtk.Popover {
     }
 
     construct {
-        margin_top = 6;
         get_style_context ().add_class ("view");
 
         var main_grid = new Gtk.Grid ();
