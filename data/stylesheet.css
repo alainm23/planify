@@ -136,6 +136,40 @@
     color: #1a1a1a;
 }
 
+.search-row {
+    border-radius: 3px;
+}
+
+.search-row:hover {
+    border-radius: 3px;
+    background-color: #fff394;
+    color: #1a1a1a;
+}
+
+.search-row:hover image {
+    color: #1a1a1a;
+}
+
+.search-row:selected {
+    background-color: #fff394;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+    color: #1a1a1a;
+}
+
+.search-row:selected image {
+    color: #1a1a1a;
+}
+
+.search-row:selected:focus {
+    background-color: #ffe16b;
+    color: #1a1a1a;
+}
+
+.search-row:selected:focus image {
+    color: #1a1a1a;
+}
+
 .planner-radio check {
     border-radius: 50%;
 }

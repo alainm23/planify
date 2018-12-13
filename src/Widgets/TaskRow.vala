@@ -44,8 +44,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public signal void on_signal_update (Objects.Task task);
     public TaskRow (Objects.Task _task) {
         Object (
-            task: _task,
-            margin_end: 24
+            task: _task
         );
     }
 

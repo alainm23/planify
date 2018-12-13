@@ -127,7 +127,7 @@ public class Views.Inbox : Gtk.EventBox {
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.valign = Gtk.Align.START;
         tasks_list.hexpand = true;
-        tasks_list.margin_start = 20;
+        tasks_list.margin_start = 9;
         tasks_list.margin_end = 6;
         tasks_list.margin_top = 6;
         tasks_list.set_sort_func ((row1, row2) => {
@@ -164,7 +164,7 @@ public class Views.Inbox : Gtk.EventBox {
         show_all_tasks_button.get_style_context ().add_class ("h4");
         show_all_tasks_button.valign = Gtk.Align.START;
         show_all_tasks_button.halign = Gtk.Align.START;
-        show_all_tasks_button.margin_start = 14;
+        show_all_tasks_button.margin_start = 3;
 
         show_all_tasks_button.clicked.connect (() => {
 			if (show_all_tasks) {

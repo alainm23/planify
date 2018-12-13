@@ -3,6 +3,7 @@ public class Application : Gtk.Application {
     public static GLib.Settings settings;
     public static Services.Database database;
     public static Services.Notifications notification;
+    public static Services.Signals signals;
     public static Utils utils;
 
     public const string CSS = """
@@ -25,7 +26,7 @@ public class Application : Gtk.Application {
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
-        
+        signals = new Services.Signals ();
     }
 
     public static Application _instance = null;
@@ -62,6 +63,8 @@ public class Application : Gtk.Application {
         main_window.set_allocation (rect);
         main_window.show_all ();
 
+
+        // Actions
         var quit_action = new SimpleAction ("quit", null);
 
         add_action (quit_action);
@@ -71,6 +74,15 @@ public class Application : Gtk.Application {
             if (main_window != null) {
                 main_window.destroy ();
             }
+        });
+
+        var quick_search_action = new SimpleAction ("quick_search", null);
+        add_action (quick_search_action);
+        set_accels_for_action ("app.quick_search", {"<Control>s"});
+
+        quick_search_action.activate.connect (() => {
+            signals.on_signal_show_quick_search ();
+            main_window.show_all ();
         });
 
         // Default Icon Theme
