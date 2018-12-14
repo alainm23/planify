@@ -542,6 +542,43 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             return false;
         });
+
+        Application.signals.go_task_page.connect ((task_id, project_id) => {
+            if (task.id == task_id) {
+                bool b = false;
+                int c = 0;
+
+                Timeout.add (200, () => {
+                    if (b) {
+                        name_label.get_style_context ().add_class ("text-hover");
+                        previews_box.get_style_context ().add_class ("text-hover");
+                        get_style_context ().add_class ("task-hover");
+
+                        b = false;
+                    } else {
+                        name_label.get_style_context ().remove_class ("text-hover");
+                        previews_box.get_style_context ().remove_class ("text-hover");
+                        get_style_context ().remove_class ("task-hover");
+
+                        b = true;
+                    }
+
+                    c = c + 1;
+
+                    if (c > 5) {
+                        c = 0;
+
+                        name_label.get_style_context ().remove_class ("text-hover");
+                        previews_box.get_style_context ().remove_class ("text-hover");
+                        get_style_context ().remove_class ("task-hover");
+
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+        });
     }
 
     private bool is_repeted (int id) {

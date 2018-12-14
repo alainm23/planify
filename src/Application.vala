@@ -82,7 +82,6 @@ public class Application : Gtk.Application {
 
         quick_search_action.activate.connect (() => {
             signals.on_signal_show_quick_search ();
-            main_window.show_all ();
         });
 
         // Default Icon Theme

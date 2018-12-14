@@ -119,6 +119,44 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
             check_number_labels ();
         });
+
+        Application.signals.go_action_page.connect ((index) => {
+            if (index == 0) {
+                listbox.select_row (inbox_item);
+            } else if (index == 1) {
+                listbox.select_row (today_item);
+            } else if (index == 2) {
+                listbox.select_row (upcoming_item);
+            }
+        });
+
+        Application.signals.go_project_page.connect ((project_id) => {
+            listbox.set_filter_func ((row) => {
+                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3) {
+                    var project = row as Widgets.ProjectRow;
+
+                    if (project.project.id == project_id) {
+                        listbox.select_row (project);
+                    }
+                }
+
+                return true;
+            });
+        });
+
+        Application.signals.go_task_page.connect ((task_id, project_id) => {
+            listbox.set_filter_func ((row) => {
+                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3) {
+                    var project = row as Widgets.ProjectRow;
+
+                    if (project.project.id == project_id) {
+                        listbox.select_row (project);
+                    }
+                }
+
+                return true;
+            });
+        });
     }
 
     private void check_number_labels () {

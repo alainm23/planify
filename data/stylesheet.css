@@ -136,37 +136,39 @@
     color: #1a1a1a;
 }
 
-.search-row {
+.find-row {
     border-radius: 3px;
 }
 
-.search-row:hover {
+/*
+.find-row:hover {
     border-radius: 3px;
     background-color: #fff394;
     color: #1a1a1a;
 }
 
-.search-row:hover image {
+.find-row:hover image {
     color: #1a1a1a;
 }
+*/
 
-.search-row:selected {
+.find-row:selected {
     background-color: #fff394;
     text-shadow: none;
     -gtk-icon-shadow: none;
     color: #1a1a1a;
 }
 
-.search-row:selected image {
+.find-row:selected image {
     color: #1a1a1a;
 }
 
-.search-row:selected:focus {
+.find-row:selected:focus {
     background-color: #ffe16b;
     color: #1a1a1a;
 }
 
-.search-row:selected:focus image {
+.find-row:selected:focus image {
     color: #1a1a1a;
 }
 

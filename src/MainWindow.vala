@@ -3,7 +3,7 @@ public class MainWindow : Gtk.Window {
     public Widgets.HeaderBar headerbar;
     public Views.Main main_view;
     public Unity.LauncherEntry launcher;
-    public Widgets.QuickSearch quick_search;
+    public Widgets.QuickFind quick_find;
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -20,10 +20,10 @@ public class MainWindow : Gtk.Window {
         set_titlebar (headerbar);
 
         main_view = new Views.Main (this);
-        quick_search = new Widgets.QuickSearch ();
+        quick_find = new Widgets.QuickFind ();
 
         var overlay = new Gtk.Overlay ();
-        overlay.add_overlay (quick_search);
+        overlay.add_overlay (quick_find);
         overlay.add (main_view);
 
         add (overlay);

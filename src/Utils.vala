@@ -9,13 +9,14 @@ public class Utils : GLib.Object {
     public string MOVE_STRING = _("Move");
     public string TODO_MOVED_STRING = _("to-do moved out of the");
     public string BACK_STRING = _("Back");
-    public string DOUBLE_STRING = _("Double click");
-    public string TRIPLE_STRING = _("Triple click");
+    public string DOUBLE_STRING = _("Double Click");
+    public string TRIPLE_STRING = _("Triple Click");
     public string BADGE_COUNT_STRING = _("Badge Count");
     public string START_PAGE_STRING = _("Start Page");
-    public string QUICK_SAVE_STRING = _("Quick save");
+    public string QUICK_SAVE_STRING = _("Quick Save");
     public string WEATHER_STRING = _("Weather");
     public string CALENDAR_STRING = _("Calendar Events");
+    public string QUICK_FIND_STRING = _("Quick Find");
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;

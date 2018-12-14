@@ -71,8 +71,8 @@ executable(
     'src/Widgets/Weather.vala',
     'src/Widgets/AgendaEventRow.vala',
     'src/Widgets/SourceItem.vala',
-    'src/Widgets/QuickSearch.vala',
-    
+    'src/Widgets/QuickFind.vala',
+
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
     'src/Widgets/Popovers/ItemMenu.vala',

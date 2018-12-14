@@ -7,7 +7,6 @@ public class Views.Main : Gtk.Paned {
     private Views.Inbox inbox_view;
     private Views.Today today_view;
     private Views.Upcoming upcoming_view;
-    private Views.Project project_view;
 
     public Main (MainWindow parent) {
         Object (
@@ -34,7 +33,6 @@ public class Views.Main : Gtk.Paned {
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (upcoming_view, "upcoming_view");
-        stack.add_named (project_view, "project_view");
 
         update_views ();
 
@@ -50,7 +48,7 @@ public class Views.Main : Gtk.Paned {
         }
 
         Timeout.add (200, () => {
-            stack.visible_child_name = start_page_name;         
+            stack.visible_child_name = start_page_name;
             return false;
         });
 
@@ -81,14 +79,32 @@ public class Views.Main : Gtk.Paned {
             var project = Application.database.get_last_project ();
 
             var project_view = new Views.Project (project, parent_window);
-            stack.add_named (project_view, "project_view-" + project.id.to_string ());
+            stack.add_named (project_view, "project_view-%i".printf (project.id));
 
             stack.show_all ();
         });
 
         Application.notification.on_signal_highlight_task.connect ((task) => {
-            stack.visible_child = inbox_view;
+            stack.visible_child_name = "inbox_view";
             destroy ();
+        });
+
+        Application.signals.go_action_page.connect ((index) => {
+            if (index == 0) {
+                stack.visible_child_name = "inbox_view";
+            } else if (index == 1) {
+                stack.visible_child_name = "today_view";
+            } else if (index == 2) {
+                stack.visible_child_name = "upcoming_view";
+            }
+        });
+
+        Application.signals.go_project_page.connect ((project_id) => {
+            stack.visible_child_name = "project_view-%i".printf (project_id);
+        });
+
+        Application.signals.go_task_page.connect ((task_id, project_id) => {
+            stack.visible_child_name = "project_view-%i".printf (project_id);
         });
     }
 
@@ -98,7 +114,7 @@ public class Views.Main : Gtk.Paned {
 
         foreach (var project in all_projects) {
             var project_view = new Views.Project (project, parent_window);
-            stack.add_named (project_view, "project_view-" + project.id.to_string ());
+            stack.add_named (project_view, "project_view-%i".printf (project.id));
         }
     }
 }

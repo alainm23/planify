@@ -15,7 +15,15 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
     construct {
         get_style_context ().add_class ("compact");
-        
+
+        var quick_find_button = new Gtk.Button ();
+        quick_find_button.border_width = 4;
+
+        var quick_find_icon = new Gtk.Image ();
+        quick_find_icon.gicon = new ThemedIcon ("edit-find-symbolic");
+        quick_find_icon.pixel_size = 24;
+        quick_find_button.image = quick_find_icon;
+
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
         mode_switch.primary_icon_tooltip_text = ("Light background");
@@ -81,8 +89,14 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         pack_end (app_menu);
         pack_end (notification_menu);
+        pack_end (quick_find_button);
+
+        quick_find_button.clicked.connect (() => {
+            Application.signals.on_signal_show_quick_search ();
+        });
 
         // Signals
+        /*
         notification_menu.toggled.connect (() => {
           if (notification_menu.active) {
             notifications_popover.show_all ();
@@ -92,6 +106,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         notifications_popover.closed.connect (() => {
             notification_menu.active = false;
         });
+        */
 
         Application.notification.send_local_notification.connect ((title, description, icon_name, time, remove) => {
             notification_action.send_local_notification (title, description, icon_name, time, remove);

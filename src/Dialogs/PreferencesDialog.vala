@@ -43,6 +43,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         main_stack.add_named (get_general_widget (), "general");
         main_stack.add_named (get_help_widget (), "help");
+        main_stack.add_named (get_quick_find_widget (), "quick_find");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
@@ -77,6 +78,84 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         add_action_widget (close_button, 0);
+    }
+
+    private Gtk.Widget get_quick_find_widget () {
+        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.QUICK_FIND_STRING));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("edit-find");
+        icon.pixel_size = 32;
+
+        var label = new Gtk.Label (_("Events from your personal and shared calendars can be shown alongside your task in he Today lists."));
+        label.get_style_context ().add_class ("h3");
+        label.max_width_chars = 41;
+        label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
+
+        var show_label = new Gtk.Label (_("Show Calendar Events"));
+        show_label.get_style_context ().add_class ("h3");
+
+        var show_switch = new Gtk.Switch ();
+        show_switch.get_style_context ().add_class ("active-switch");
+        show_switch.valign = Gtk.Align.CENTER;
+        show_switch.active = Application.settings.get_boolean ("show-calendar-events");
+
+        var show_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        show_box.margin_start = 12;
+        show_box.pack_start (show_label, false, false, 0);
+        show_box.pack_start (show_switch, false, false, 12);
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (show_box);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        populate.begin ();
+
+        back_button.clicked.connect (() => {
+            main_stack.visible_child_name = "general";
+        });
+
+        /*
+        show_switch.notify["active"].connect(() => {
+            calendar_list_revealer.reveal_child = show_switch.active;
+            Application.settings.set_boolean ("show-calendar-events", show_switch.active);
+        });
+        */
+
+        return main_frame;
     }
 
     private Gtk.Widget get_badge_count_widget () {
@@ -845,6 +924,24 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Gtk.Widget get_general_widget () {
         int pixel_size = 24;
 
+        // Quick Find
+        var quick_find_icon = new Gtk.Image ();
+        quick_find_icon.gicon = new ThemedIcon ("edit-find");
+        quick_find_icon.pixel_size = pixel_size;
+
+        var quick_find_label = new Gtk.Label (Application.utils.QUICK_FIND_STRING);
+        quick_find_label.get_style_context ().add_class ("h3");
+
+        var quick_find_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        quick_find_box.margin = 6;
+        quick_find_box.margin_end = 12;
+        quick_find_box.hexpand = true;
+        quick_find_box.pack_start (quick_find_icon, false, false, 0);
+        quick_find_box.pack_start (quick_find_label, false, false, 6);
+
+        var quick_find_eventbox = new Gtk.EventBox ();
+        quick_find_eventbox.add (quick_find_box);
+
         // Badge Count
         var badge_count_icon = new Gtk.Image ();
         badge_count_icon.gicon = new ThemedIcon ("preferences-system-notifications");
@@ -1006,6 +1103,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
+        main_grid.add (quick_find_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (badge_count_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (start_page_eventbox);
@@ -1025,11 +1124,18 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
-        //main_frame.valign = Gtk.Align.START;
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         main_frame.add (scrolled);
 
         // Events
+        quick_find_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "quick_find";
+            }
+
+            return false;
+        });
+
         badge_count_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 main_stack.visible_child_name = "badge_count";
