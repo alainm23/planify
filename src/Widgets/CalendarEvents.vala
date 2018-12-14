@@ -19,7 +19,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
             transition_type: Gtk.RevealerTransitionType.SLIDE_LEFT,
             transition_duration: 300,
             reveal_child: false,
-            margin: 6
+            margin_end: 3
         );
     }
 
