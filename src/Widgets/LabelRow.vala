@@ -16,7 +16,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = true;
-        get_style_context ().add_class ("item-row");
+        get_style_context ().add_class ("layout-row");
 
         var icon_label = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
         icon_label.valign = Gtk.Align.CENTER;

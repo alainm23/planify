@@ -142,15 +142,15 @@ public class Views.Today : Gtk.EventBox {
         var events_button = new Gtk.Button.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         events_button.can_focus = false;
         events_button.tooltip_text = _("Weather & Events");
-        events_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
         events_button.height_request = 32;
         events_button.width_request = 32;
         events_button.get_style_context ().add_class ("planner-events");
+        //events_button.get_style_context ().add_class ("planner-add-button");
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
-        add_task_button.get_style_context ().add_class ("planner-add-new-task");
+        //add_task_button.get_style_context ().add_class ("planner-add-button");
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
@@ -322,9 +322,6 @@ public class Views.Today : Gtk.EventBox {
 
             } else if (button_press == 1) {
                 if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                    box_revealer.reveal_child = true;
-                    events_widget.reveal_child = false;
-
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
 
@@ -335,9 +332,6 @@ public class Views.Today : Gtk.EventBox {
                 }
             } else {
                 if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
-                    box_revealer.reveal_child = true;
-                    events_widget.reveal_child = false;
-
                     foreach (Gtk.Widget element in tasks_list.get_children ()) {
                         var row = element as Widgets.TaskRow;
 
@@ -346,6 +340,11 @@ public class Views.Today : Gtk.EventBox {
                         }
                     }
                 }
+            }
+
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                events_widget.reveal_child = false;
+                box_revealer.reveal_child = true;
             }
 
             tasks_list.unselect_all ();

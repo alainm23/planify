@@ -46,7 +46,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_entry.text = Application.utils.first_letter_to_up (checklist_name);
         name_entry.placeholder_text = _("Checklist");
 
-
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
         remove_button.can_focus = false;
         remove_button.focus_on_click = false;

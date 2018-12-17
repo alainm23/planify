@@ -68,6 +68,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
             reveal_child = false;
             entry.text = "";
+            listbox.unselect_all ();
         });
 
         listbox.set_filter_func ((row) => {
@@ -80,10 +81,11 @@ public class Widgets.QuickFind : Gtk.Revealer {
             }
         });
 
-        Application.signals.on_signal_show_quick_search.connect (() => {
+        Application.signals.on_signal_show_quick_find.connect (() => {
             if (reveal_child) {
                 entry.text = "";
                 reveal_child = false;
+                listbox.unselect_all ();
             } else {
                 reveal_child = true;
                 entry.grab_focus ();
@@ -100,14 +102,27 @@ public class Widgets.QuickFind : Gtk.Revealer {
             listbox.invalidate_filter ();
         });
 
+
         entry.focus_out_event.connect (() => {
             if (entry.text == "") {
                 reveal_child = false;
+                listbox.unselect_all ();
             }
 
             return false;
         });
 
+        this.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                entry.text = "";
+                reveal_child = false;
+                listbox.unselect_all ();
+            }
+
+            return false;
+        });
+
+        /*
         entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 reveal_child = false;
@@ -115,6 +130,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
             return false;
         });
+        */
     }
 
     private void update_items () {

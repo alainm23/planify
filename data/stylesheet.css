@@ -1,7 +1,9 @@
-@define-color headerbar_color #ffe16b;
+@define-color color_header #ed5353;
+@define-color color_text #fff;
 
-@define-color colorPrimary @headerbar_color;
-@define-color textColorPrimary #1a1a1a;
+@define-color colorPrimary @color_header;
+@define-color textColorPrimary @color_text;
+
 
 .titlebar {
     padding: 1px 6px;
@@ -26,7 +28,7 @@
 }
 
 .text-hover {
-    color: #1a1a1a;
+    color: @color_text;
 }
 
 .note-view text {
@@ -44,16 +46,10 @@
     color: @bg_color;
 }
 
-.planner-add-new-task {
-    background-color: #ffe16b;
-    color: #1a1a1a;
-}
-
 .button-overlay-circular {
     border-radius: 50px;
     padding: 0px;
-    background-color: @fg_color;
-    color: @text_color;
+    color: @color_text;
 }
 
 .button-overlay-circular image {
@@ -62,6 +58,10 @@
 
 .button-overlay-circular.closed image {
     -gtk-icon-transform: rotate(-90deg);
+}
+
+.planner-actionbar {
+    background-color: @base_color;
 }
 
 .active-switch slider {
@@ -116,60 +116,70 @@
 
 .item-row:hover {
     border-radius: 3px;
-    background-color: #fff394;
-    color: #1a1a1a;
-}
-
-.item-row:hover > widget > box > revealer > button > image {
-    color: #1a1a1a;
+    background-color: @color_header;
+    color: @color_text;
 }
 
 .item-row:selected {
-    background-color: #fff394;
+    background-color: @color_header;
     text-shadow: none;
     -gtk-icon-shadow: none;
-    color: #1a1a1a;
+    color: @color_text;
 }
 
 .item-row:selected:focus {
-    background-color: #ffe16b;
-    color: #1a1a1a;
+    background-color: @color_header;
+    color: @color_text;
+}
+
+.layout-row {
+    color: @text_color;
+}
+
+.layout-row:hover {
+    background-color: @color_header;
+    color: @color_text;
+}
+
+.layout-row:hover box > revealer > box image {
+    background-color: @color_header;
+    color: @color_text;
+}
+
+.layout-row:selected {
+    background-color: @color_header;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+    color: @color_text;
+}
+
+.layout-row:selected:focus {
+    background-color: @color_header;
+    color: @color_text;
 }
 
 .find-row {
     border-radius: 3px;
 }
 
-/*
-.find-row:hover {
-    border-radius: 3px;
-    background-color: #fff394;
-    color: #1a1a1a;
-}
-
-.find-row:hover image {
-    color: #1a1a1a;
-}
-*/
-
 .find-row:selected {
-    background-color: #fff394;
+    background-color: @color_header;
     text-shadow: none;
     -gtk-icon-shadow: none;
-    color: #1a1a1a;
+    color: @color_text;
 }
 
 .find-row:selected image {
-    color: #1a1a1a;
+    color: @color_text;
 }
 
 .find-row:selected:focus {
-    background-color: #ffe16b;
-    color: #1a1a1a;
+    background-color: @color_header;
+    color: @color_text;
 }
 
 .find-row:selected:focus image {
-    color: #1a1a1a;
+    color: @color_text;
 }
 
 .planner-radio check {
@@ -177,11 +187,16 @@
 }
 
 .planner-button-no-focus {
-    background-color: @base_color;
+    background-color: @fg_color;
 }
 
 .planner-card-radius {
     border-radius: 6px;
+}
+
+.planner-add-button {
+    background-color: @color_header;
+    color: @color_text;
 }
 
 .menu-button > widget > box > image {
@@ -195,21 +210,13 @@
             to bottom,
             shade (
                 @base_color,
-                0.99
+                1
             ),
             shade (
                 @base_color,
                 0.97
             )
         );
-}
-
-.planner-infobar revealer box {
-    background-color: @base_color;
-}
-
-.planner-preferences-headerbar {
-    background-color: @base_color;
 }
 
 .planner-entry-bold {
@@ -223,7 +230,7 @@
     border-radius: 3px;
 }
 
-.duedate-item {
+.when-item {
     transition: all 200ms ease;
     background-color: alpha (@text_color, 0.15);
 }
@@ -240,7 +247,7 @@
 
 .calendar-no-selected:selected {
     background-color: transparent;
-    color: @text_color;
+    color: @color_text;
 }
 
 .planner-entry {
@@ -264,8 +271,9 @@
     color: #fafafa;
 }
 
+
 .task-hover {
-    background-color: #ffe16b;
+    background-color: @color_header;
     border-radius: 3px;
 }
 
@@ -402,7 +410,7 @@ background-color: @bg_color;
 
 
 .color-7 {
-  background-color: #1a1a1a333;
+  background-color: #1a1a1a;
   border-radius: 100px;
 }
 

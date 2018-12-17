@@ -87,12 +87,7 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         main_grid.add (datatime_label);
         main_grid.add (event_image);
         main_grid.add (box);
-        /*
-        main_grid.attach (event_image, 0, 0, 1, 1);
-        main_grid.attach (name_label, 1, 0, 1, 1);
-        main_grid.attach (datatime_label, 1, 1, 1, 1);
-        main_grid.attach (location_label, 1, 2, 1, 1);
-        */
+
 
         var event_box = new Gtk.EventBox ();
         event_box.add (main_grid);

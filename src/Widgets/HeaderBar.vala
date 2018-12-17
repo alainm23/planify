@@ -92,7 +92,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         pack_end (quick_find_button);
 
         quick_find_button.clicked.connect (() => {
-            Application.signals.on_signal_show_quick_search ();
+            Application.signals.on_signal_show_quick_find ();
         });
 
         // Signals

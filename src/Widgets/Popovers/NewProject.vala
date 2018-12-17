@@ -136,6 +136,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         color_hex_entry.max_length = 7;
 
         var random_button = new Gtk.Button.from_icon_name ("system-reboot-symbolic", Gtk.IconSize.MENU);
+        random_button.can_focus = false;
 
         var color_button  = new Gtk.ColorButton ();
         color_button.valign = Gtk.Align.START;

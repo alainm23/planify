@@ -214,6 +214,41 @@ public class Utils : GLib.Object {
         }
     }
 
+    public string get_theme (int key) {
+        var themes = new Gee.HashMap<int, string> ();
+
+        themes.set (1, "#ffe16b");
+        themes.set (2, "#3d4248");
+        themes.set (3, "#64baff");
+        themes.set (4, "#ed5353");
+        themes.set (5, "#9bdb4d");
+        themes.set (6, "#667885");
+
+        return themes.get (key);
+    }
+
+    public void apply_theme (string hex) {
+        string THEME_CLASS = """
+            @define-color color_header %s;
+            @define-color color_text %s;
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var colored_css = THEME_CLASS.printf (
+                hex,
+                convert_invert (hex)
+            );
+
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
+
     public void create_tutorial_project () {
         var tutorial = new Objects.Project ();
         tutorial.name = _("Meet Planner!!!");

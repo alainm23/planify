@@ -92,7 +92,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         main_grid.add (events_list_revealer);
 
         var main_overlay = new Gtk.Overlay ();
-        main_overlay.add_overlay (close_button);
+        //main_overlay.add_overlay (close_button);
         main_overlay.add (main_grid);
 
         add (main_overlay);

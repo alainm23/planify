@@ -25,6 +25,15 @@
         <value nick="Celsius" value="1" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.theme">
+        <value nick="Banana" value="1" />
+        <value nick="Black" value="2" />
+        <value nick="Blueberry" value="3" />
+        <value nick="Strawberry" value="4" />
+        <value nick="Lemon" value="5" />
+        <value nick="Slate" value="6" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">
         <key name="prefer-dark-style" type="b">
             <default>false</default>
@@ -51,7 +60,7 @@
         </key>
 
         <key name="location-automatic" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Location type</summary>
             <description>Location type used by the program (Automatic/Manual)</description>
         </key>
@@ -75,6 +84,12 @@
             <default>"Fahrenheit"</default>
             <summary>Temperature is available in Fahrenheit, Celsius and Kelvin units</summary>
             <description>Temperature is available in Fahrenheit, Celsius and Kelvin units</description>
+        </key>
+
+        <key name="theme" enum="com.github.alainm23.planner.theme">
+            <default>"Black"</default>
+            <summary>Theme</summary>
+            <description>Theme</description>
         </key>
 
         <key name="quick-save" enum="com.github.alainm23.planner.quick-save">
@@ -102,7 +117,7 @@
         </key>
 
         <key name="project-sidebar-width" type="i">
-            <default>312</default>
+            <default>280</default>
             <summary>Project Sidebar Width</summary>
             <description>Save the width of the sidebar in the Project List</description>
         </key>

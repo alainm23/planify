@@ -76,12 +76,12 @@ public class Application : Gtk.Application {
             }
         });
 
-        var quick_search_action = new SimpleAction ("quick_search", null);
-        add_action (quick_search_action);
-        set_accels_for_action ("app.quick_search", {"<Control>s"});
+        var quick_find_action = new SimpleAction ("quick_find", null);
+        add_action (quick_find_action);
+        set_accels_for_action ("app.quick_find", {"<Control>f"});
 
-        quick_search_action.activate.connect (() => {
-            signals.on_signal_show_quick_search ();
+        quick_find_action.activate.connect (() => {
+            signals.on_signal_show_quick_find ();
         });
 
         // Default Icon Theme
@@ -94,6 +94,7 @@ public class Application : Gtk.Application {
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // Window Theme
+        /*
         var theme_provider = new Gtk.CssProvider ();
         var colored_css = "";
 
@@ -112,6 +113,7 @@ public class Application : Gtk.Application {
         } catch (GLib.Error e) {
             debug ("Theme error");
         }
+        */
     }
     public static int main (string[] args) {
         Application app = Application.instance;

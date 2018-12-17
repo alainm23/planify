@@ -54,7 +54,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         calendar.expand = true;
         calendar.mark_day (new GLib.DateTime.now_local ().get_day_of_month ());
 
-        var reminder_icon = new Gtk.Image.from_icon_name ("preferences-system-notifications", Gtk.IconSize.MENU);
+        var reminder_icon = new Gtk.Image.from_icon_name ("planner-notification-symbolic", Gtk.IconSize.MENU);
         var reminder_label = new Gtk.Label ("Reminder");
 
         reminder_switch = new Gtk.Switch ();
@@ -215,7 +215,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         });
 
         today_eventbox.enter_notify_event.connect ((event) => {
-            today_eventbox.get_style_context ().add_class ("duedate-item");
+            today_eventbox.get_style_context ().add_class ("when-item");
             return false;
         });
 
@@ -224,12 +224,12 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 return false;
             }
 
-            today_eventbox.get_style_context ().remove_class ("duedate-item");
+            today_eventbox.get_style_context ().remove_class ("when-item");
             return false;
         });
 
         tomorrow_eventbox.enter_notify_event.connect ((event) => {
-            tomorrow_eventbox.get_style_context ().add_class ("duedate-item");
+            tomorrow_eventbox.get_style_context ().add_class ("when-item");
 
             return false;
         });
@@ -239,7 +239,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 return false;
             }
 
-            tomorrow_eventbox.get_style_context ().remove_class ("duedate-item");
+            tomorrow_eventbox.get_style_context ().remove_class ("when-item");
             return false;
         });
     }

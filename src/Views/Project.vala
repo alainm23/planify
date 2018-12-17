@@ -74,7 +74,7 @@ public class Views.Project : Gtk.EventBox {
         deadline_project_button.get_style_context ().add_class ("planner-when-preview");
         deadline_project_button.valign = Gtk.Align.CENTER;
 
-        deadline_project_label = new Gtk.Label (null);
+        deadline_project_label = new Gtk.Label (_("Deadline"));
         deadline_project_button.get_style_context ().add_class ("h4");
         deadline_project_button.add (deadline_project_label);
 
@@ -205,7 +205,7 @@ public class Views.Project : Gtk.EventBox {
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
-        add_task_button.get_style_context ().add_class ("planner-add-new-task");
+        //add_task_button.get_style_context ().add_class ("planner-add-button");
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");

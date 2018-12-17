@@ -46,7 +46,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
                 hide ();
             } else {
                 // To Project
-                var project = row as Widgets.ProjectRow;
+                var project = row as PRow;
                 on_selected_project (false, project.project);
 
                 hide ();
@@ -63,14 +63,11 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         all_projects = Application.database.get_all_projects ();
 
         foreach (var project in all_projects) {
-            var row = new Widgets.ProjectRow (project);
-            row.margin = 0;
-            row.menu_open = true; // To disable the setting button
-
+            var row = new PRow (project);
             projects_listbox.add (row);
         }
 
-        var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.LARGE_TOOLBAR);
+        var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.MENU);
         var inbox_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.INBOX_STRING));
         inbox_label.ellipsize = Pango.EllipsizeMode.END;
         inbox_label.valign = Gtk.Align.CENTER;
@@ -78,15 +75,14 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         inbox_label.use_markup = true;
 
         var grid = new Gtk.Grid ();
-        grid.column_spacing = 12;
-        grid.row_spacing = 3;
+        grid.column_spacing = 6;
         grid.margin = 6;
 
         grid.add (inbox_icon);
         grid.add (inbox_label);
 
         var inbox_row = new Gtk.ListBoxRow ();
-        inbox_row.get_style_context ().add_class ("item-row");
+        inbox_row.get_style_context ().add_class ("layout-row");
         inbox_row.add (grid);
 
         projects_listbox.insert (inbox_row, 0);
@@ -103,5 +99,38 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         projects_listbox.insert (separator_row, 1);
 
         projects_listbox.show_all ();
+    }
+}
+
+public class PRow : Gtk.ListBoxRow {
+    public Objects.Project project { get; construct; }
+
+    public PRow (Objects.Project _project) {
+        Object (
+            project: _project
+        );
+    }
+
+    construct {
+        get_style_context ().add_class ("layout-row");
+
+        var image = new Gtk.Image ();
+        image.gicon = new ThemedIcon ("mail-unread-symbolic");
+        image.get_style_context ().add_class ("proyect-%i".printf (project.id));
+        image.pixel_size = 16;
+
+        var name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
+        name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.halign = Gtk.Align.START;
+        name_label.use_markup = true;
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.margin = 6;
+        main_grid.column_spacing = 6;
+        main_grid.add (image);
+        main_grid.add (name_label);
+
+        add (main_grid);
     }
 }
