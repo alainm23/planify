@@ -73,6 +73,11 @@ executable(
     'src/Widgets/SourceItem.vala',
     'src/Widgets/QuickFind.vala',
 
+    'src/Widgets/Calendar/Calendar.vala',
+    'src/Widgets/Calendar/CalendarHeader.vala',
+    'src/Widgets/Calendar/CalendarView.vala',
+    'src/Widgets/Calendar/CalendarWeek.vala',
+
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
     'src/Widgets/Popovers/ItemMenu.vala',

@@ -49,7 +49,7 @@ public class AgendaEventRow : Gtk.ListBoxRow {
 
         //event_image = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
         event_image = new Gtk.Label (null);
-        event_image.width_request = 3;   
+        event_image.width_request = 3;
         Maya.Util.style_calendar_color (event_image, cal.dup_color (), true);
 
         cal.notify["color"].connect (() => {
@@ -75,14 +75,14 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         location_label.wrap = true;
         location_label.xalign = 0;
         location_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        
+
         var main_grid = new Gtk.Grid ();
         main_grid.column_spacing = 6;
         main_grid.margin = 6;
-                
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.pack_start (name_label, false, false, 0);  
-        box.pack_start (location_label, false, false, 0);        
+        box.pack_start (name_label, false, false, 0);
+        box.pack_start (location_label, false, false, 0);
 
         main_grid.add (datatime_label);
         main_grid.add (event_image);
@@ -131,9 +131,9 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         datatime_label.no_show_all = false;
         if (is_multiday) {
             if (is_allday) {
-                datatime_label.label = _(" %s \n %s").printf (start_date_string, end_date_string);
+                datatime_label.label = _("%s\n%s").printf (start_date_string, end_date_string);
             } else {
-                datatime_label.label = _(" %s, %s \n %s, %s").printf (start_date_string, start_time_string, end_date_string, end_time_string);
+                datatime_label.label = _("%s, %s\n%s, %s").printf (start_date_string, start_time_string, end_date_string, end_time_string);
             }
         } else {
             if (!isUpcoming) {
@@ -141,13 +141,13 @@ public class AgendaEventRow : Gtk.ListBoxRow {
                     datatime_label.hide ();
                     datatime_label.no_show_all = true;
                 } else {
-                    datatime_label.label = _(" %s \n %s ").printf (start_time_string, end_time_string);
+                    datatime_label.label = _("%s\n%s").printf (start_time_string, end_time_string);
                 }
             } else {
                 if (is_allday) {
-                    datatime_label.label = _(" %s").printf (start_date_string);
+                    datatime_label.label = _("%s").printf (start_date_string);
                 } else {
-                    datatime_label.label = _(" %s, %s \n %s").printf (start_date_string, start_time_string, end_time_string);
+                    datatime_label.label = _("%s, %s\n%s").printf (start_date_string, start_time_string, end_time_string);
                 }
             }
         }

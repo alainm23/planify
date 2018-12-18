@@ -4,6 +4,8 @@ public class MainWindow : Gtk.Window {
     public Views.Main main_view;
     public Unity.LauncherEntry launcher;
     public Widgets.QuickFind quick_find;
+    public Widgets.CalendarEvents events_widget;
+
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -22,11 +24,18 @@ public class MainWindow : Gtk.Window {
         main_view = new Views.Main (this);
         quick_find = new Widgets.QuickFind ();
 
+        events_widget = new Widgets.CalendarEvents ();
+        events_widget.halign = Gtk.Align.END;
+
         var overlay = new Gtk.Overlay ();
         overlay.add_overlay (quick_find);
+        overlay.add_overlay (events_widget);
         overlay.add (main_view);
 
-        add (overlay);
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add (overlay);
+
+        add (eventbox);
 
         launcher = Unity.LauncherEntry.get_for_desktop_file (GLib.Application.get_default ().application_id + ".desktop");
         check_badge_count ();
@@ -41,6 +50,17 @@ public class MainWindow : Gtk.Window {
             }
         });
 
+        /*
+        eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                events_widget.reveal_child = false;
+                quick_find.reveal_child = false;
+            }
+
+            return false;
+        });
+        */
+        
         Application.settings.changed.connect (key => {
             if (key == "badge-count") {
                 check_badge_count ();
@@ -49,6 +69,15 @@ public class MainWindow : Gtk.Window {
 
         Application.database.update_indicators.connect (() => {
             check_badge_count ();
+        });
+
+
+        Application.signals.on_signal_show_events.connect (() => {
+            if (events_widget.reveal_child == false) {
+                events_widget.reveal_child = true;
+            } else {
+                events_widget.reveal_child = false;
+            }
         });
 
         Application.database.update_indicators ();

@@ -1,5 +1,5 @@
-@define-color color_header #ed5353;
-@define-color color_text #fff;
+@define-color color_header #ffe16b;
+@define-color color_text #000;
 
 @define-color colorPrimary @color_header;
 @define-color textColorPrimary @color_text;
@@ -72,6 +72,13 @@
 .settings-button {
     border-radius: 4px;
     padding: 2px;
+}
+
+.planner-calendar-today {
+    background-color: @color_header;
+    color: @color_text;
+    border-radius: 50%;
+    padding: 3px;
 }
 
 .model-button:hover {

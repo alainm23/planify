@@ -17,12 +17,22 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         get_style_context ().add_class ("compact");
 
         var quick_find_button = new Gtk.Button ();
+        quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, "Quick Find");
         quick_find_button.border_width = 4;
 
         var quick_find_icon = new Gtk.Image ();
         quick_find_icon.gicon = new ThemedIcon ("edit-find-symbolic");
         quick_find_icon.pixel_size = 24;
         quick_find_button.image = quick_find_icon;
+
+        var calendar_events_button = new Gtk.Button ();
+        calendar_events_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, "Weather and Events");
+        calendar_events_button.border_width = 4;
+
+        var calendar_events_icon = new Gtk.Image ();
+        calendar_events_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
+        calendar_events_icon.pixel_size = 24;
+        calendar_events_button.image = calendar_events_icon;
 
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
@@ -89,12 +99,16 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         pack_end (app_menu);
         pack_end (notification_menu);
+        pack_end (calendar_events_button);
         pack_end (quick_find_button);
 
         quick_find_button.clicked.connect (() => {
             Application.signals.on_signal_show_quick_find ();
         });
 
+        calendar_events_button.clicked.connect (() => {
+            Application.signals.on_signal_show_events ();
+        });
         // Signals
         /*
         notification_menu.toggled.connect (() => {

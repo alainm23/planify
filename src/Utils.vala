@@ -155,6 +155,20 @@ public class Utils : GLib.Object {
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
     }
 
+    public bool is_current_month (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () == now.get_year ()) {
+            if (date.get_month () == now.get_month ()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public bool is_upcoming (GLib.DateTime date) {
         if (is_today (date)) {
             return false;
@@ -166,6 +180,44 @@ public class Utils : GLib.Object {
     public string first_letter_to_up (string text) {
         string l = text.substring (0, 1);
         return l.up () + text.substring (1);
+    }
+
+    public int get_days_of_month (int index) {
+        var months = new Gee.HashMap<int, int> ();
+
+        months.set (1, 31);
+        months.set (2, 0);
+        months.set (3, 31);
+        months.set (4, 30);
+        months.set (5, 31);
+        months.set (6, 30);
+        months.set (7, 31);
+        months.set (8, 31);
+        months.set (9, 30);
+        months.set (10, 31);
+        months.set (11, 30);
+        months.set (12, 31);
+
+        if (index == 2) {
+            var date = new GLib.DateTime.now_local ();
+            int year = date.get_year ();
+
+            if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                    if (year % 400 == 0) {
+                        return 29;
+                    } else {
+                        return 28;
+                    }
+                } else {
+                    return 28;
+                }
+            } else {
+                return 28;
+            }
+        } else {
+            return months.get (index);
+        }
     }
 
     public string get_weather_icon_name (string key) {
@@ -247,6 +299,10 @@ public class Utils : GLib.Object {
         } catch (GLib.Error e) {
             return;
         }
+    }
+
+    public GLib.DateTime strip_time (GLib.DateTime datetime) {
+        return datetime.add_full (0, 0, 0, -datetime.get_hour (), -datetime.get_minute (), -datetime.get_second ());
     }
 
     public void create_tutorial_project () {

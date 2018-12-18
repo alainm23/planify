@@ -139,32 +139,19 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        var events_button = new Gtk.Button.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        events_button.can_focus = false;
-        events_button.tooltip_text = _("Weather & Events");
-        events_button.height_request = 32;
-        events_button.width_request = 32;
-        events_button.get_style_context ().add_class ("planner-events");
-        //events_button.get_style_context ().add_class ("planner-add-button");
-
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
-        //add_task_button.get_style_context ().add_class ("planner-add-button");
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
-
-        var revealer_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-        revealer_box.pack_start (events_button, false, false, 0);
-        revealer_box.pack_start (add_task_button, false, false, 0);
 
         box_revealer = new Gtk.Revealer ();
         box_revealer.valign = Gtk.Align.END;
         box_revealer.halign = Gtk.Align.END;
         box_revealer.margin = 12;
         box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        box_revealer.add (revealer_box);
+        box_revealer.add (add_task_button);
         box_revealer.reveal_child = true;
 
         task_new_revealer = new Widgets.TaskNew (true);
@@ -257,14 +244,6 @@ public class Views.Today : Gtk.EventBox {
             } else {
                 action_revealer.reveal_child = true;
                 settings_button.get_style_context ().add_class ("closed");
-            }
-        });
-
-        events_button.clicked.connect (() => {
-            if (events_widget.reveal_child == false) {
-                events_widget.reveal_child = true;
-
-                box_revealer.reveal_child = false;
             }
         });
 

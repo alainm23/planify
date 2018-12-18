@@ -57,8 +57,60 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
         weather_widget = new Widgets.Weather ();
 
+        var weather_revealer = new Gtk.Revealer ();
+        weather_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        weather_revealer.add (weather_widget);
+        weather_revealer.reveal_child = false;
+
+        var calendar = new Widgets.Calendar.Calendar ();
+
+        var calendar_revealer = new Gtk.Revealer ();
+        calendar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        calendar_revealer.add (calendar);
+        calendar_revealer.reveal_child = true;
+
+        var go_calendar_button = new Gtk.Button ();
+        go_calendar_button.can_focus = false;
+        go_calendar_button.halign = Gtk.Align.END;
+        go_calendar_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var button_image = new Gtk.Image ();
+        button_image.gicon = new ThemedIcon ("office-calendar-symbolic");
+        button_image.pixel_size = 16;
+
+        var button_label = new Gtk.Label (_("Calendar"));
+
+        var go_calendar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        go_calendar_box.pack_start (button_image, false, false, 0);
+        go_calendar_box.pack_start (button_label, false, false, 0);
+
+        go_calendar_button.add (go_calendar_box);
+
+        go_calendar_button.clicked.connect (() => {
+            if (calendar_revealer.reveal_child) {
+                calendar_revealer.reveal_child = false;
+                weather_revealer.reveal_child = true;
+
+                button_image.icon_name = "office-calendar-symbolic";
+                button_label.label = _("Calendar");
+            } else {
+                calendar_revealer.reveal_child = true;
+                weather_revealer.reveal_child  = false;
+                button_image.icon_name = "applications-internet-symbolic";
+                button_label.label = _("Weather");
+            }
+        });
+
+        /*
+        calendar.day_selected.connect (() => {
+            var datetime = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
+
+            set_selected_date (datetime);
+        });
+        */
+
         var events_label = new Granite.HeaderLabel (_("Today's Events"));
-        events_label.margin_start = 12;
+        events_label.margin_start = 9;
 
         selected_date_events_list = new Gtk.ListBox ();
         selected_date_events_list.selection_mode = Gtk.SelectionMode.NONE;
@@ -79,7 +131,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         events_list_revealer.reveal_child = true;
 
         var main_grid = new Gtk.Grid ();
-        main_grid.row_spacing = 6;
+        main_grid.row_spacing = 3;
         main_grid.margin_start = 6;
         main_grid.width_request = 250;
         main_grid.get_style_context ().add_class ("popover");
@@ -87,7 +139,9 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (selected_data_grid);
-        main_grid.add (weather_widget);
+        main_grid.add (weather_revealer);
+        main_grid.add (calendar_revealer);
+        main_grid.add (go_calendar_button);
         main_grid.add (events_label);
         main_grid.add (events_list_revealer);
 

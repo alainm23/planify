@@ -84,6 +84,14 @@ public class Application : Gtk.Application {
             signals.on_signal_show_quick_find ();
         });
 
+        var calendar_events_action = new SimpleAction ("calendar_events", null);
+        add_action (calendar_events_action);
+        set_accels_for_action ("app.calendar_events", {"<Control>e"});
+
+        calendar_events_action.activate.connect (() => {
+            signals.on_signal_show_events ();
+        });
+
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");

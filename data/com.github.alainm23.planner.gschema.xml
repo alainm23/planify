@@ -87,7 +87,7 @@
         </key>
 
         <key name="theme" enum="com.github.alainm23.planner.theme">
-            <default>"Black"</default>
+            <default>"Banana"</default>
             <summary>Theme</summary>
             <description>Theme</description>
         </key>
