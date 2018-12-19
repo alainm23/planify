@@ -3,6 +3,8 @@ Task and project manager for elementary OS
 
 ![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-01.png)
 
+![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-02.png)
+
 ## Building and Installation	
 
 You'll need the following dependencies:	
