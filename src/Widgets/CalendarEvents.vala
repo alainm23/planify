@@ -31,6 +31,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         weekday_label.hexpand = true;
         weekday_label.halign = Gtk.Align.END;
         weekday_label.xalign = 0;
+        weekday_label.use_markup = true;
         weekday_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
 
         day_label = new Gtk.Label ("");
@@ -60,14 +61,14 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         var weather_revealer = new Gtk.Revealer ();
         weather_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         weather_revealer.add (weather_widget);
-        weather_revealer.reveal_child = false;
+        weather_revealer.reveal_child = true;
 
         var calendar = new Widgets.Calendar.Calendar ();
 
         var calendar_revealer = new Gtk.Revealer ();
         calendar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         calendar_revealer.add (calendar);
-        calendar_revealer.reveal_child = true;
+        calendar_revealer.reveal_child = false;
 
         var go_calendar_button = new Gtk.Button ();
         go_calendar_button.can_focus = false;
@@ -101,13 +102,10 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
             }
         });
 
-        /*
-        calendar.day_selected.connect (() => {
-            var datetime = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
 
-            set_selected_date (datetime);
+        calendar.selection_changed.connect ((date) => {
+            set_selected_date (date);
         });
-        */
 
         var events_label = new Granite.HeaderLabel (_("Today's Events"));
         events_label.margin_start = 9;
@@ -120,36 +118,46 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         events_grid.add (events_label);
         events_grid.add (selected_date_events_list);
 
-        var events_scrolled = new Gtk.ScrolledWindow (null, null);
-        events_scrolled.expand = true;
-        events_scrolled.add (events_grid);
-
         var events_list_revealer = new Gtk.Revealer ();
         events_list_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         events_list_revealer.margin_top = 6;
-        events_list_revealer.add (events_scrolled);
+        events_list_revealer.add (events_grid);
         events_list_revealer.reveal_child = true;
+
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.hexpand = true;
+        mode_button.margin = 6;
+        //mode_button.halign = Gtk.Align.CENTER;
+
+        mode_button.append_text (_("Events"));
+        mode_button.append_text (_("Notifications"));
+        mode_button.selected = 0;
 
         var main_grid = new Gtk.Grid ();
         main_grid.row_spacing = 3;
         main_grid.margin_start = 6;
-        main_grid.width_request = 250;
         main_grid.get_style_context ().add_class ("popover");
         main_grid.get_style_context ().add_class ("planner-popover");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (selected_data_grid);
+        main_grid.add (mode_button);
         main_grid.add (weather_revealer);
         main_grid.add (calendar_revealer);
         main_grid.add (go_calendar_button);
         main_grid.add (events_label);
         main_grid.add (events_list_revealer);
 
-        var main_overlay = new Gtk.Overlay ();
-        //main_overlay.add_overlay (close_button);
-        main_overlay.add (main_grid);
+        var scrolled_window = new Gtk.ScrolledWindow (null, null);
+        scrolled_window.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scrolled_window.expand = true;
+        scrolled_window.add (main_grid);
 
-        add (main_overlay);
+        //var main_overlay = new Gtk.Overlay ();
+        //main_overlay.add_overlay (close_button);
+        //main_overlay.add (scrolled);
+
+        add (scrolled_window);
 
         close_button.clicked.connect (() => {
             on_signal_close ();
@@ -276,7 +284,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         string formated_weekday = date.format ("%A");
         string new_value = formated_weekday.substring (formated_weekday.index_of_nth_char (1));
         new_value = formated_weekday.get_char (0).totitle ().to_string () + new_value;
-        weekday_label.label = new_value;
+        weekday_label.label = "<b>%s</b>".printf (new_value);
         day_label.label = date.format (Maya.Settings.DateFormat ());
 
         selected_date_events_list.invalidate_filter ();

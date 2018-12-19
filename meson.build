@@ -77,6 +77,7 @@ executable(
     'src/Widgets/Calendar/CalendarHeader.vala',
     'src/Widgets/Calendar/CalendarView.vala',
     'src/Widgets/Calendar/CalendarWeek.vala',
+    'src/Widgets/Calendar/CalendarDay.vala',
 
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',

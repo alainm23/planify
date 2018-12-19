@@ -77,7 +77,7 @@
 .planner-calendar-today {
     background-color: @color_header;
     color: @color_text;
-    border-radius: 50%;
+    border-radius: 6px;
     padding: 3px;
 }
 

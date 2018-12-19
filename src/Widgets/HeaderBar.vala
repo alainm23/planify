@@ -53,7 +53,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         night_mode_eventbox.get_style_context ().add_class ("menuitem");
         night_mode_eventbox.add (night_mode_box);
 
-        var notification_menu = new Gtk.ToggleButton ();
+        var notification_menu = new Gtk.Button ();
         notification_menu.border_width = 6;
         notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         notification_menu.tooltip_text = _("Notifications");
@@ -99,14 +99,14 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         pack_end (app_menu);
         pack_end (notification_menu);
-        pack_end (calendar_events_button);
+        //pack_end (calendar_events_button);
         pack_end (quick_find_button);
 
         quick_find_button.clicked.connect (() => {
             Application.signals.on_signal_show_quick_find ();
         });
 
-        calendar_events_button.clicked.connect (() => {
+        notification_menu.clicked.connect (() => {
             Application.signals.on_signal_show_events ();
         });
         // Signals
