@@ -104,5 +104,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         int max_days = Application.utils.get_days_of_month (current_date.get_month ());
         calendar_view.fill_grid_days (start_day, max_days, day, true);
         calendar_header.date = current_date;
+
+        selection_changed (new GLib.DateTime.now_local ());
     }
 }

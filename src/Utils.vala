@@ -183,22 +183,11 @@ public class Utils : GLib.Object {
     }
 
     public int get_days_of_month (int index) {
-        var months = new Gee.HashMap<int, int> ();
-
-        months.set (1, 31);
-        months.set (2, 0);
-        months.set (3, 31);
-        months.set (4, 30);
-        months.set (5, 31);
-        months.set (6, 30);
-        months.set (7, 31);
-        months.set (8, 31);
-        months.set (9, 30);
-        months.set (10, 31);
-        months.set (11, 30);
-        months.set (12, 31);
-
-        if (index == 2) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
+            return 31;
+        } else if ((index == 2) || (index == 4) || (index == 6) || (index == 9) || (index == 11)) {
+            return 30;
+        } else {
             var date = new GLib.DateTime.now_local ();
             int year = date.get_year ();
 
@@ -215,8 +204,6 @@ public class Utils : GLib.Object {
             } else {
                 return 28;
             }
-        } else {
-            return months.get (index);
         }
     }
 

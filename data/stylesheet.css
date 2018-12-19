@@ -75,6 +75,13 @@
 }
 
 .planner-calendar-today {
+    background-color: @fg_color;
+    color: @bg_color;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.planner-calendar-selected {
     background-color: @color_header;
     color: @color_text;
     border-radius: 6px;
@@ -87,7 +94,7 @@
 
 .revealer-button {
     padding: 0px 8px;
-    border-radius: 0;
+    border-radius: 0px;
     border: none;
     box-shadow: none;
     background: transparent;

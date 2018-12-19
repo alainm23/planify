@@ -30,8 +30,9 @@ public class AgendaEventRow : Gtk.ListBoxRow {
     public bool is_multiday { public get; private set; default=false; }
     public Gtk.Revealer revealer { public get; private set; }
 
-    private Gtk.Label event_image;
+    private Gtk.Label event_label;
     private Gtk.Label name_label;
+    private Gtk.Label source_label;
     private Gtk.Label datatime_label;
     private Gtk.Label location_label;
 
@@ -47,13 +48,13 @@ public class AgendaEventRow : Gtk.ListBoxRow {
 
         E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
 
-        //event_image = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
-        event_image = new Gtk.Label (null);
-        event_image.width_request = 3;
-        Maya.Util.style_calendar_color (event_image, cal.dup_color (), true);
+        //event_label = new Gtk.Image.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
+        event_label = new Gtk.Label (null);
+        event_label.width_request = 3;
+        Maya.Util.style_calendar_color (event_label, cal.dup_color (), true);
 
         cal.notify["color"].connect (() => {
-            Maya.Util.style_calendar_color (event_image, cal.dup_color (), true);
+            Maya.Util.style_calendar_color (event_label, cal.dup_color (), true);
         });
 
         name_label = new Gtk.Label ("");
@@ -63,7 +64,18 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         name_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
         name_label.xalign = 0;
 
-        datatime_label = new Gtk.Label ("");
+        source_label = new Gtk.Label (Maya.Util.get_source_location (source));
+        source_label.margin_bottom = 1;
+        source_label.wrap = true;
+        source_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
+        source_label.xalign = 0;
+
+        var source_revealer = new Gtk.Revealer ();
+        source_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        source_revealer.add (source_label);
+        source_revealer.reveal_child = false;
+
+        datatime_label = new Gtk.Label (null);
         datatime_label.use_markup = true;
         datatime_label.ellipsize = Pango.EllipsizeMode.END;
         datatime_label.xalign = 0;
@@ -74,7 +86,12 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         location_label.no_show_all = true;
         location_label.wrap = true;
         location_label.xalign = 0;
-        location_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        //location_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var location_revealer = new Gtk.Revealer ();
+        location_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        location_revealer.add (location_label);
+        location_revealer.reveal_child = true;
 
         var main_grid = new Gtk.Grid ();
         main_grid.column_spacing = 6;
@@ -82,14 +99,15 @@ public class AgendaEventRow : Gtk.ListBoxRow {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.pack_start (name_label, false, false, 0);
-        box.pack_start (location_label, false, false, 0);
+        box.pack_start (location_revealer, false, false, 0);
+        box.pack_start (source_revealer, false, false, 0);
 
         main_grid.add (datatime_label);
-        main_grid.add (event_image);
+        main_grid.add (event_label);
         main_grid.add (box);
 
-
         var event_box = new Gtk.EventBox ();
+        event_box.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         event_box.add (main_grid);
 
         revealer = new Gtk.Revealer ();
@@ -103,6 +121,24 @@ public class AgendaEventRow : Gtk.ListBoxRow {
 
         hide.connect (() => {
             revealer.set_reveal_child (false);
+        });
+
+        event_box.enter_notify_event.connect ((event) => {
+            location_revealer.reveal_child = false;
+            source_revealer.reveal_child = true;
+
+            return false;
+        });
+
+        event_box.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            location_revealer.reveal_child = true;
+            source_revealer.reveal_child = false;
+
+            return false;
         });
 
         // Fill in the information

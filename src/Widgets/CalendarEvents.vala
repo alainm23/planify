@@ -24,7 +24,6 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
     }
 
     construct {
-        set_selected_date ( new GLib.DateTime.now_local ());
         row_table = new HashTable<string, AgendaEventRow> (str_hash, str_equal);
 
         weekday_label = new Gtk.Label ("");
@@ -107,7 +106,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
             set_selected_date (date);
         });
 
-        var events_label = new Granite.HeaderLabel (_("Today's Events"));
+        var events_label = new Granite.HeaderLabel (_("Events"));
         events_label.margin_start = 9;
 
         selected_date_events_list = new Gtk.ListBox ();
@@ -136,8 +135,6 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         var main_grid = new Gtk.Grid ();
         main_grid.row_spacing = 3;
         main_grid.margin_start = 6;
-        main_grid.get_style_context ().add_class ("popover");
-        main_grid.get_style_context ().add_class ("planner-popover");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (selected_data_grid);
@@ -149,6 +146,8 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         main_grid.add (events_list_revealer);
 
         var scrolled_window = new Gtk.ScrolledWindow (null, null);
+        scrolled_window.get_style_context ().add_class ("popover");
+        scrolled_window.get_style_context ().add_class ("planner-popover");
         scrolled_window.hscrollbar_policy = Gtk.PolicyType.NEVER;
         scrolled_window.expand = true;
         scrolled_window.add (main_grid);
@@ -174,7 +173,8 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         calmodel.events_added.connect (on_events_added);
         calmodel.events_removed.connect (on_events_removed);
         calmodel.events_updated.connect (on_events_updated);
-        set_selected_date (Maya.Settings.SavedState.get_default ().get_selected ());
+
+        set_selected_date (new GLib.DateTime.now_local ());
         show_all ();
 
         selected_date_events_list.set_sort_func ((child1, child2) => {

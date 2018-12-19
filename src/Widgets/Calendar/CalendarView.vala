@@ -37,6 +37,12 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     public void fill_grid_days (int start_day, int max_day, int current_day, bool is_current_month) {
         var day_number = 1;
 
+        int _current_day = current_day;
+        if (is_current_month) {
+            var current_date = new GLib.DateTime.now_local ();
+            _current_day = current_date.get_day_of_month ();
+        }
+
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
             item.visible = true;
@@ -48,7 +54,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                 item.visible = false;
                 item.no_show_all = true;
             } else {
-                if (current_day != -1 && (i+1) == current_day + start_day ) {
+                if (_current_day != -1 && (i+1) == _current_day + start_day ) {
                     if (is_current_month) {
                         item.get_style_context ().add_class ("planner-calendar-today");
                     }
@@ -66,15 +72,15 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     private void clear_style () {
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
-            item.get_style_context ().remove_class ("planner-calendar-today");
+            item.get_style_context ().remove_class ("planner-calendar-selected");
         }
     }
     private void day_selected_style (int day) {
         day_selected (day);
-        
+
         for (int i = 0; i < 42; i++) {
             var day_item = days_arraylist [i];
-            day_item.get_style_context ().remove_class ("planner-calendar-today");
+            day_item.get_style_context ().remove_class ("planner-calendar-selected");
         }
     }
 }
