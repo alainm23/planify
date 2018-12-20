@@ -65,7 +65,6 @@ public class AgendaEventRow : Gtk.ListBoxRow {
         name_label.xalign = 0;
 
         source_label = new Gtk.Label (Maya.Util.get_source_location (source));
-        source_label.margin_bottom = 1;
         source_label.wrap = true;
         source_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
         source_label.xalign = 0;

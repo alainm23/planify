@@ -3,16 +3,26 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     private Widgets.Calendar.CalendarWeek calendar_week;
     private Widgets.Calendar.CalendarView calendar_view;
 
-    private int year;
-    private int month;
-    private int day;
-
     private int month_nav;
     private int year_nav;
+    private int day_nav;
 
     private GLib.DateTime current_date;
 
+    private GLib.DateTime _date;
+
+    public GLib.DateTime date {
+        set {
+
+        }
+        get {
+            _date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
+            return _date;
+        }
+    }
+
     public signal void selection_changed (GLib.DateTime date);
+    public signal void selection_double_changed (GLib.DateTime date);
     public Calendar () {
         orientation = Gtk.Orientation.VERTICAL;
         margin = 6;
@@ -79,24 +89,31 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
             calendar_header.date = date;
         });
 
-        calendar_view.day_selected.connect (day => {
-            int _year = year_nav;
-            int _month = month_nav;
-            int _day = day;
+        calendar_view.day_selected.connect ((day) => {
+            day_nav = day;
 
-            var date = new DateTime.local (_year, _month, _day, 0, 0, 0);
+            var date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
 
             selection_changed (date);
+        });
+
+        calendar_view.day_double_selected.connect ((day) => {
+            day_nav = day;
+
+            var date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
+
+            selection_double_changed (date);
         });
     }
 
     private void today () {
-        year = current_date.get_year ();
-        month = current_date.get_month ();
-        day = current_date.get_day_of_month ();
+        int year = current_date.get_year ();
+        int month = current_date.get_month ();
+        int day = current_date.get_day_of_month ();
 
         month_nav = month;
         year_nav = year;
+        day_nav = day;
 
         var firts_week = new DateTime.local (year, month, 1, 0, 0, 0);
         int start_day = firts_week.get_day_of_week () - 1;

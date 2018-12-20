@@ -14,7 +14,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     }
 
     construct {
-        get_style_context ().add_class ("compact");
+        get_style_context ().add_class ("default-decoration");
 
         var quick_find_button = new Gtk.Button ();
         quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, "Quick Find");

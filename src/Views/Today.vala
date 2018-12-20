@@ -34,6 +34,12 @@ public class Views.Today : Gtk.EventBox {
         today_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         today_label.use_markup = true;
 
+        var date_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.get_default_date_format_from_date (new GLib.DateTime.now_local ())));
+        date_label.valign = Gtk.Align.CENTER;
+        date_label.margin_top = 6;
+        date_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        date_label.use_markup = true;
+
         var show_hide_all_button = new Gtk.ToggleButton ();
         show_hide_all_button.valign = Gtk.Align.CENTER;
         show_hide_all_button.halign = Gtk.Align.CENTER;
@@ -119,6 +125,7 @@ public class Views.Today : Gtk.EventBox {
 
         top_box.pack_start (today_icon, false, false, 0);
         top_box.pack_start (today_label, false, false, 12);
+        top_box.pack_start (date_label, false, false, 0);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 

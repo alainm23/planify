@@ -60,7 +60,7 @@ public class MainWindow : Gtk.Window {
             return false;
         });
         */
-        
+
         Application.settings.changed.connect (key => {
             if (key == "badge-count") {
                 check_badge_count ();
@@ -81,6 +81,10 @@ public class MainWindow : Gtk.Window {
         });
 
         Application.database.update_indicators ();
+
+        var context = get_style_context ();
+        context.add_class ("palette");
+        context.add_class ("flat");
     }
 
     private void check_badge_count () {

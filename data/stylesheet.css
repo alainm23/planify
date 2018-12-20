@@ -75,10 +75,10 @@
 }
 
 .planner-calendar-today {
-    background-color: @fg_color;
-    color: @bg_color;
+    color: @colorAccent;
     border-radius: 6px;
     padding: 3px;
+    font-weight: bold;
 }
 
 .planner-calendar-selected {

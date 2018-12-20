@@ -87,7 +87,8 @@ executable(
     'src/Widgets/Popovers/MovePopover.vala',
     'src/Widgets/Popovers/NotificationsPopover.vala',
     'src/Widgets/Popovers/NotificationActionPopover.vala',
-
+    'src/Widgets/Popovers/DeadlinePopover.vala',
+    
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
     'src/Objects/Label.vala',

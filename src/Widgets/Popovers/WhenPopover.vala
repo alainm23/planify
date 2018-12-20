@@ -71,7 +71,6 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         reminder_timepicker.margin_start = 6;
         reminder_timepicker.margin_end = 6;
 
-
         reminder_timepicker.time_entry.activate.connect (() => {
             if (item_selected == 0) {
                 var duedate_now = new GLib.DateTime.now_local ();
@@ -141,8 +140,6 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 item_selected = 0;
 
                 tomorrow_radio.visible = false;
-                calendar.get_style_context ().remove_class ("calendar-selected");
-                calendar.get_style_context ().add_class ("calendar-no-selected");
             } else if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 var duedate_now = new GLib.DateTime.now_local ();
                 on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
@@ -159,8 +156,6 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 item_selected = 1;
 
                 today_radio.visible = false;
-                calendar.get_style_context ().remove_class ("calendar-selected");
-                calendar.get_style_context ().add_class ("calendar-no-selected");
             } else if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
                 on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
@@ -170,13 +165,13 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
             return false;
         });
 
-        calendar.day_selected.connect (() => {
-            calendar.get_style_context ().remove_class ("calendar-no-selected");
-            calendar.get_style_context ().add_class ("calendar-selected");
-
+        calendar.day_selected.connect ((date) => {
             today_radio.visible = false;
             tomorrow_radio.visible = false;
             item_selected = 2;
+
+            calendar.get_style_context ().remove_class ("calendar-no-selected");
+            calendar.get_style_context ().add_class ("calendar-selected");
         });
 
         calendar.day_selected_double_click.connect (() => {

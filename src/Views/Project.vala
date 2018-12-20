@@ -69,9 +69,14 @@ public class Views.Project : Gtk.EventBox {
         name_entry.placeholder_text = _("Name");
 
         deadline_project_button = new Gtk.ToggleButton ();
-        deadline_project_button.margin_top = 2;
+        deadline_project_button.can_focus = false;
+        deadline_project_button.halign = Gtk.Align.START;
+        deadline_project_button.margin_top = 3;
+        deadline_project_button.margin_bottom = 3;
+        deadline_project_button.margin_start = 16;
         deadline_project_button.get_style_context ().add_class ("no-padding");
         deadline_project_button.get_style_context ().add_class ("planner-when-preview");
+        deadline_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         deadline_project_button.valign = Gtk.Align.CENTER;
 
         deadline_project_label = new Gtk.Label (_("Deadline"));
@@ -79,23 +84,63 @@ public class Views.Project : Gtk.EventBox {
         deadline_project_button.add (deadline_project_label);
 
         if (project.deadline == "") {
+            /*
             deadline_project_button.visible = false;
             deadline_project_button.no_show_all = true;
+            */
         } else {
+            /*
             deadline_project_button.visible = true;
             deadline_project_button.no_show_all = false;
-
-            string date_format = Granite.DateTime.get_default_date_format (false, true, true);
+            */
             var deadline_datetime = new GLib.DateTime.from_iso8601 (project.deadline, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TODAY_STRING;
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
             } else if (Application.utils.is_tomorrow (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TOMORROW_STRING;
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
             } else {
-                deadline_project_label.label = deadline_datetime.format (date_format);
+                deadline_project_label.label = _("Deadline: %s".printf (deadline_datetime.format (Application.utils.get_default_date_format_from_date (deadline_datetime))));
             }
         }
+
+        var deadline_popover = new Widgets.Popovers.DeadlinePopover (deadline_project_button);
+
+        deadline_project_button.toggled.connect (() => {
+            if (deadline_project_button.active) {
+                deadline_popover.show_all ();
+            }
+        });
+
+        deadline_popover.closed.connect (() => {
+            deadline_project_button.active = false;
+        });
+
+        deadline_popover.selection_changed.connect ((date) => {
+            if (Application.utils.is_today (date)) {
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
+            } else if (Application.utils.is_tomorrow (date)) {
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
+            } else {
+                deadline_project_label.label = _("Deadline: %s".printf (date.format (Application.utils.get_default_date_format_from_date (date))));
+            }
+
+            project.deadline = date.to_string ();
+            update_project ();
+        });
+
+        deadline_popover.selection_double_changed.connect ((date) => {
+            if (Application.utils.is_today (date)) {
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
+            } else if (Application.utils.is_tomorrow (date)) {
+                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
+            } else {
+                deadline_project_label.label = _("Deadline: %s".printf (date.format (Application.utils.get_default_date_format_from_date (date))));
+            }
+
+            project.deadline = date.to_string ();
+            update_project ();
+        });
 
         var paste_button = new Gtk.Button.from_icon_name ("planner-paste-symbolic", Gtk.IconSize.MENU);
         paste_button.get_style_context ().add_class ("planner-paste-menu");
@@ -161,17 +206,15 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_top = 12;
 
         top_box.pack_start (color_button, false, false, 0);
-        top_box.pack_start (deadline_project_button, false, false, 6);
         top_box.pack_start (name_entry, true, true, 6);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 
         note_view = new Gtk.TextView ();
-        note_view.opacity = 0.7;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
         note_view.margin_start = 18;
         note_view.margin_top = 6;
-        note_view.margin_end = 32;
+        note_view.margin_end = 16;
 		note_view.buffer.text = project.note;
         note_view.get_style_context ().add_class ("note-view");
 
@@ -246,6 +289,7 @@ public class Views.Project : Gtk.EventBox {
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (top_box, false, false, 0);
+        box.pack_start (deadline_project_button, false, false, 0);
         box.pack_start (note_view, false, false, 0);
         box.pack_start (labels_flowbox_revealer, false, false, 0);
         box.pack_start (alert_view, true, true, 0);

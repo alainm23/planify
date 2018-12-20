@@ -2,6 +2,8 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
     public signal void event_removed (E.CalComponent event);
     public signal void event_modified (E.CalComponent event);
 
+    private Gtk.Stack main_stack;
+
     private Gtk.Label day_label;
     private DateTime selected_date;
     private Gtk.Label weekday_label;
@@ -24,8 +26,6 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
     }
 
     construct {
-        row_table = new HashTable<string, AgendaEventRow> (str_hash, str_equal);
-
         weekday_label = new Gtk.Label ("");
         weekday_label.hexpand = true;
         weekday_label.halign = Gtk.Align.END;
@@ -46,6 +46,49 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         selected_data_grid.orientation = Gtk.Orientation.VERTICAL;
         selected_data_grid.add (weekday_label);
         selected_data_grid.add (day_label);
+
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.hexpand = true;
+        mode_button.margin = 6;
+
+        mode_button.append_text (_("Events"));
+        mode_button.append_text (_("Notifications"));
+        mode_button.selected = 0;
+
+        main_stack = new Gtk.Stack ();
+        main_stack.expand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+
+        main_stack.add_named (get_calendar_event_widget (), "calendar_event");
+        main_stack.add_named (get_notifications_widget (), "notifications");
+
+        var content_grid = new Gtk.Grid ();
+        content_grid.orientation = Gtk.Orientation.VERTICAL;
+        content_grid.add (selected_data_grid);
+        content_grid.add (mode_button);
+        content_grid.add (main_stack);
+
+        var scrolled_window = new Gtk.ScrolledWindow (null, null);
+        scrolled_window.width_request = 275;
+        scrolled_window.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scrolled_window.get_style_context ().add_class ("popover");
+        scrolled_window.get_style_context ().add_class ("planner-popover");
+        scrolled_window.expand = true;
+        scrolled_window.add (content_grid);
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                main_stack.visible_child_name = "calendar_event";
+            } else if (mode_button.selected == 1){
+                main_stack.visible_child_name = "notifications";
+            }
+        });
+
+        add (scrolled_window);
+    }
+
+    private Gtk.Widget get_calendar_event_widget () {
+        row_table = new HashTable<string, AgendaEventRow> (str_hash, str_equal);
 
         close_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
@@ -69,35 +112,22 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         calendar_revealer.add (calendar);
         calendar_revealer.reveal_child = false;
 
-        var go_calendar_button = new Gtk.Button ();
+        var go_calendar_button = new Gtk.Button.with_label (_("Calendar"));
         go_calendar_button.can_focus = false;
         go_calendar_button.halign = Gtk.Align.END;
         go_calendar_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var button_image = new Gtk.Image ();
-        button_image.gicon = new ThemedIcon ("office-calendar-symbolic");
-        button_image.pixel_size = 16;
-
-        var button_label = new Gtk.Label (_("Calendar"));
-
-        var go_calendar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        go_calendar_box.pack_start (button_image, false, false, 0);
-        go_calendar_box.pack_start (button_label, false, false, 0);
-
-        go_calendar_button.add (go_calendar_box);
 
         go_calendar_button.clicked.connect (() => {
             if (calendar_revealer.reveal_child) {
                 calendar_revealer.reveal_child = false;
                 weather_revealer.reveal_child = true;
 
-                button_image.icon_name = "office-calendar-symbolic";
-                button_label.label = _("Calendar");
+                go_calendar_button.label = _("Calendar");
             } else {
                 calendar_revealer.reveal_child = true;
                 weather_revealer.reveal_child  = false;
-                button_image.icon_name = "applications-internet-symbolic";
-                button_label.label = _("Weather");
+
+                go_calendar_button.label = _("Weather");
             }
         });
 
@@ -123,40 +153,15 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         events_list_revealer.add (events_grid);
         events_list_revealer.reveal_child = true;
 
-        var mode_button = new Granite.Widgets.ModeButton ();
-        mode_button.hexpand = true;
-        mode_button.margin = 6;
-        //mode_button.halign = Gtk.Align.CENTER;
-
-        mode_button.append_text (_("Events"));
-        mode_button.append_text (_("Notifications"));
-        mode_button.selected = 0;
-
         var main_grid = new Gtk.Grid ();
-        main_grid.row_spacing = 3;
-        main_grid.margin_start = 6;
+        //main_grid.row_spacing = 3;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        main_grid.add (selected_data_grid);
-        main_grid.add (mode_button);
         main_grid.add (weather_revealer);
         main_grid.add (calendar_revealer);
         main_grid.add (go_calendar_button);
         main_grid.add (events_label);
         main_grid.add (events_list_revealer);
-
-        var scrolled_window = new Gtk.ScrolledWindow (null, null);
-        scrolled_window.get_style_context ().add_class ("popover");
-        scrolled_window.get_style_context ().add_class ("planner-popover");
-        scrolled_window.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        scrolled_window.expand = true;
-        scrolled_window.add (main_grid);
-
-        //var main_overlay = new Gtk.Overlay ();
-        //main_overlay.add_overlay (close_button);
-        //main_overlay.add (scrolled);
-
-        add (scrolled_window);
 
         close_button.clicked.connect (() => {
             on_signal_close ();
@@ -231,9 +236,20 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
             return false;
         });
+
+        return main_grid;
     }
 
-    void on_events_added (E.Source source, Gee.Collection<E.CalComponent> events) {
+    private Gtk.Widget get_notifications_widget () {
+        var main_grid = new Gtk.Grid ();
+        main_grid.valign = Gtk.Align.CENTER;
+        main_grid.halign = Gtk.Align.CENTER;
+        main_grid.expand = true;
+
+        return main_grid;
+    }
+
+    private void on_events_added (E.Source source, Gee.Collection<E.CalComponent> events) {
         foreach (var event in events) {
             unowned iCal.Component comp = event.get_icalcomponent ();
 
@@ -241,16 +257,18 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
                 var row = new AgendaEventRow (source, event, false);
                 row.modified.connect ((event) => (event_modified (event)));
                 row.removed.connect ((event) => (event_removed (event)));
+
                 row.show_all ();
+
                 row_table.set (comp.get_uid (), row);
                 selected_date_events_list.add (row);
             }
-
-            selected_date_events_list.invalidate_sort ();
         }
+
+        selected_date_events_list.invalidate_sort ();
     }
 
-    void on_events_updated (E.Source source, Gee.Collection<E.CalComponent> events) {
+    private void on_events_updated (E.Source source, Gee.Collection<E.CalComponent> events) {
         foreach (var event in events) {
             unowned iCal.Component comp = event.get_icalcomponent ();
 
@@ -261,7 +279,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         selected_date_events_list.invalidate_sort ();
     }
 
-    void on_events_removed (E.Source source, Gee.Collection<E.CalComponent> events) {
+    private void on_events_removed (E.Source source, Gee.Collection<E.CalComponent> events) {
         foreach (var event in events) {
             unowned iCal.Component comp = event.get_icalcomponent ();
 
@@ -281,8 +299,10 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
     public void set_selected_date (DateTime date) {
         selected_date = date;
+
         string formated_weekday = date.format ("%A");
         string new_value = formated_weekday.substring (formated_weekday.index_of_nth_char (1));
+
         new_value = formated_weekday.get_char (0).totitle ().to_string () + new_value;
         weekday_label.label = "<b>%s</b>".printf (new_value);
         day_label.label = date.format (Maya.Settings.DateFormat ());

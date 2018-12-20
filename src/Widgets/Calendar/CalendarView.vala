@@ -3,6 +3,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     private Gtk.Grid days_grid;
 
     public signal void day_selected (int day);
+    public signal void day_double_selected (int day);
     public CalendarView () {
         orientation = Gtk.Orientation.VERTICAL;
 
@@ -18,6 +19,9 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         for (int i = 0; i < 42; i++) {
             var day = new Widgets.Calendar.CalendarDay ();
             day.day_selected.connect (day_selected_style);
+            day.day_double_selected.connect ((day) => {
+                day_double_selected (day);
+            });
 
             days_grid.attach (day, col, row, 1, 1);
             col = col + 1;

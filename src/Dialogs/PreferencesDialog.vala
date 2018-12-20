@@ -33,7 +33,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.halign = Gtk.Align.CENTER;
 
         mode_button.append_text (_("General"));
-        mode_button.append_text (_("Theme"));
+        mode_button.append_text (_("Appearance"));
         mode_button.append_text (_("Help"));
         mode_button.selected = 0;
 
