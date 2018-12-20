@@ -1,6 +1,7 @@
 public class Widgets.Popovers.DeadlinePopover : Gtk.Popover {
     public signal void selection_changed (GLib.DateTime date);
     public signal void selection_double_changed (GLib.DateTime date);
+    public signal void clear ();
     public DeadlinePopover (Gtk.Widget relative) {
         Object (
             relative_to: relative,
@@ -10,13 +11,15 @@ public class Widgets.Popovers.DeadlinePopover : Gtk.Popover {
     }
 
     construct {
+        get_style_context ().add_class ("planner-popover");
+
         var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Deadline")));
         title_label.use_markup = true;
         title_label.hexpand = true;
         title_label.halign = Gtk.Align.CENTER;
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
 
-        var calendar = new Widgets.Calendar.Calendar ();
+        var calendar = new Widgets.Calendar.Calendar (true);
 
         var clear_button = new Gtk.Button.with_label (_("Clear"));
         clear_button.margin = 6;
@@ -39,6 +42,11 @@ public class Widgets.Popovers.DeadlinePopover : Gtk.Popover {
 
         calendar.selection_double_changed.connect ((date) => {
             selection_double_changed (date);
+            popdown ();
+        });
+
+        clear_button.clicked.connect (() => {
+            clear ();
             popdown ();
         });
     }

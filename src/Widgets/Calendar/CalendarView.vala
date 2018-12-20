@@ -38,7 +38,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         pack_end (days_grid);
     }
 
-    public void fill_grid_days (int start_day, int max_day, int current_day, bool is_current_month) {
+    public void fill_grid_days (int start_day, int max_day, int current_day, bool is_current_month, bool sensitive_past_days = false) {
         var day_number = 1;
 
         int _current_day = current_day;
@@ -49,6 +49,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
+            item.sensitive = true;
             item.visible = true;
             item.no_show_all = false;
 
@@ -58,6 +59,14 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                 item.visible = false;
                 item.no_show_all = true;
             } else {
+                if (day_number < _current_day) {
+                    if (sensitive_past_days) {
+                        if (is_current_month) {
+                            item.sensitive = false;
+                        }
+                    }
+                }
+
                 if (_current_day != -1 && (i+1) == _current_day + start_day ) {
                     if (is_current_month) {
                         item.get_style_context ().add_class ("planner-calendar-today");

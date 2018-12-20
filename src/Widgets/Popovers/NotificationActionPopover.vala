@@ -12,6 +12,8 @@ public class Widgets.Popovers.NotificationActionPopover : Gtk.Popover {
     }
 
     construct {
+        get_style_context ().add_class ("planner-popover");
+        
         image = new Gtk.Image ();
         image.valign = Gtk.Align.START;
 

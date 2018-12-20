@@ -25,14 +25,16 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         quick_find_icon.pixel_size = 24;
         quick_find_button.image = quick_find_icon;
 
-        var calendar_events_button = new Gtk.Button ();
-        calendar_events_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, "Weather and Events");
-        calendar_events_button.border_width = 4;
+        var notification_menu = new Gtk.Button ();
+        notification_menu.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, "Weather, Events and Notifications");
+        notification_menu.border_width = 6;
+        notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var calendar_events_icon = new Gtk.Image ();
-        calendar_events_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
-        calendar_events_icon.pixel_size = 24;
-        calendar_events_button.image = calendar_events_icon;
+        var notification_icon = new Gtk.Image ();
+        notification_icon.gicon = new ThemedIcon ("notification-symbolic");
+        notification_icon.pixel_size = 20;
+
+        notification_menu.add (notification_icon);
 
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
@@ -53,17 +55,6 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         night_mode_eventbox.get_style_context ().add_class ("menuitem");
         night_mode_eventbox.add (night_mode_box);
 
-        var notification_menu = new Gtk.Button ();
-        notification_menu.border_width = 6;
-        notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        notification_menu.tooltip_text = _("Notifications");
-
-        var notification_icon = new Gtk.Image ();
-        notification_icon.gicon = new ThemedIcon ("notification-symbolic");
-        notification_icon.pixel_size = 20;
-
-        notification_menu.add (notification_icon);
-
         var notifications_popover = new Widgets.Popovers.NotificationsPopover (notification_menu);
         var notification_action = new  Widgets.Popovers.NotificationActionPopover (notification_menu);
 
@@ -81,6 +72,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         menu_grid.show_all ();
 
         var menu_popover = new Gtk.Popover (null);
+        menu_popover.get_style_context ().add_class ("planner-popover");
         menu_popover.add (menu_grid);
 
         var app_menu = new Gtk.MenuButton ();
@@ -99,7 +91,6 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         pack_end (app_menu);
         pack_end (notification_menu);
-        //pack_end (calendar_events_button);
         pack_end (quick_find_button);
 
         quick_find_button.clicked.connect (() => {
@@ -164,7 +155,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         Application.settings.bind ("prefer-dark-style", mode_switch, "active", GLib.SettingsBindFlags.DEFAULT);
 
         night_mode_eventbox.enter_notify_event.connect ((event) => {
-            night_mode_eventbox.get_style_context ().add_class ("duedate-item");
+            night_mode_eventbox.get_style_context ().add_class ("when-item");
             return false;
         });
 
@@ -173,7 +164,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
                 return false;
             }
 
-            night_mode_eventbox.get_style_context ().remove_class ("duedate-item");
+            night_mode_eventbox.get_style_context ().remove_class ("when-item");
             return false;
         });
 
