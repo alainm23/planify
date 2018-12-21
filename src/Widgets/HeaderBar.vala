@@ -72,7 +72,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         menu_grid.show_all ();
 
         var menu_popover = new Gtk.Popover (null);
-        menu_popover.get_style_context ().add_class ("planner-popover");
+        //menu_popover.get_style_context ().add_class ("planner-popover");
         menu_popover.add (menu_grid);
 
         var app_menu = new Gtk.MenuButton ();

@@ -946,12 +946,14 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.checklist = task.checklist + row.get_check ();
         }
 
+
         if (Application.database.update_task (task) == Sqlite.DONE) {
+            Application.database.update_task_signal (task);
             on_signal_update (task);
+
             check_label_preview_icon ();
             check_checklist_progress ();
 
-            Application.database.update_task_signal (task);
             show_all ();
         }
     }

@@ -69,16 +69,29 @@ public class Views.Project : Gtk.EventBox {
         name_entry.placeholder_text = _("Name");
 
         deadline_project_button = new Gtk.ToggleButton ();
+        deadline_project_button.margin_top = 3;
+        deadline_project_button.margin_bottom = 3;
+        deadline_project_button.margin_start = 17;
         deadline_project_button.can_focus = false;
         deadline_project_button.halign = Gtk.Align.START;
-        deadline_project_button.get_style_context ().add_class ("no-padding");
+        //deadline_project_button.get_style_context ().add_class ("no-padding");
         deadline_project_button.get_style_context ().add_class ("planner-when-preview");
         deadline_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         deadline_project_button.valign = Gtk.Align.CENTER;
 
         deadline_project_label = new Gtk.Label (_("Deadline"));
+        deadline_project_label.margin_bottom = 1;
         deadline_project_button.get_style_context ().add_class ("h3");
-        deadline_project_button.add (deadline_project_label);
+
+        var deadline_project_icon = new Gtk.Image ();
+        deadline_project_icon.gicon = new ThemedIcon ("office-calendar-symbolic");
+        deadline_project_icon.pixel_size = 16;
+
+        var deadline_grid = new Gtk.Grid ();
+        deadline_grid.add (deadline_project_icon);
+        deadline_grid.add (deadline_project_label);
+
+        deadline_project_button.add (deadline_grid);
 
         var deadline_project_revealer = new Gtk.Revealer ();
         deadline_project_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -86,19 +99,19 @@ public class Views.Project : Gtk.EventBox {
         deadline_project_revealer.reveal_child = true;
 
         if (project.deadline == "") {
-            deadline_project_revealer.reveal_child = false;
+            //deadline_project_revealer.reveal_child = false;
 
         } else {
-            deadline_project_revealer.reveal_child = true;
+            //deadline_project_revealer.reveal_child = true;
 
             var deadline_datetime = new GLib.DateTime.from_iso8601 (project.deadline, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (deadline_datetime)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
+                deadline_project_label.label = Application.utils.TODAY_STRING;
             } else if (Application.utils.is_tomorrow (deadline_datetime)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
+                deadline_project_label.label = Application.utils.TOMORROW_STRING;
             } else {
-                deadline_project_label.label = _("Deadline: %s".printf (deadline_datetime.format (Application.utils.get_default_date_format_from_date (deadline_datetime))));
+                deadline_project_label.label = deadline_datetime.format (Application.utils.get_default_date_format_from_date (deadline_datetime));
             }
         }
 
@@ -118,11 +131,11 @@ public class Views.Project : Gtk.EventBox {
 
         deadline_popover.selection_changed.connect ((date) => {
             if (Application.utils.is_today (date)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
+                deadline_project_label.label = Application.utils.TODAY_STRING;
             } else if (Application.utils.is_tomorrow (date)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
+                deadline_project_label.label = Application.utils.TOMORROW_STRING;
             } else {
-                deadline_project_label.label = _("Deadline: %s".printf (date.format (Application.utils.get_default_date_format_from_date (date))));
+                deadline_project_label.label = date.format (Application.utils.get_default_date_format_from_date (date));
             }
 
             project.deadline = date.to_string ();
@@ -130,11 +143,11 @@ public class Views.Project : Gtk.EventBox {
 
         deadline_popover.selection_double_changed.connect ((date) => {
             if (Application.utils.is_today (date)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TODAY_STRING));
+                deadline_project_label.label = Application.utils.TODAY_STRING;
             } else if (Application.utils.is_tomorrow (date)) {
-                deadline_project_label.label = _("Deadline: %s".printf (Application.utils.TOMORROW_STRING));
+                deadline_project_label.label = Application.utils.TOMORROW_STRING;;
             } else {
-                deadline_project_label.label = _("Deadline: %s".printf (date.format (Application.utils.get_default_date_format_from_date (date))));
+                deadline_project_label.label = date.format (Application.utils.get_default_date_format_from_date (date));
             }
 
             project.deadline = date.to_string ();
@@ -209,13 +222,12 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_top = 12;
 
         top_box.pack_start (color_button, false, false, 0);
-        top_box.pack_start (deadline_project_revealer, false, false, 3);
         top_box.pack_start (name_entry, true, true, 0);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 
         note_view = new Gtk.TextView ();
-		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
+		//note_view.set_wrap_mode (Gtk.WrapMode.WORD);
         note_view.margin_start = 18;
         note_view.margin_top = 6;
         note_view.margin_end = 16;
@@ -234,7 +246,6 @@ public class Views.Project : Gtk.EventBox {
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
-        tasks_list.valign = Gtk.Align.START;
         tasks_list.hexpand = true;
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -256,7 +267,7 @@ public class Views.Project : Gtk.EventBox {
         task_new_revealer = new Widgets.TaskNew (false, project.id);
         task_new_revealer.valign = Gtk.Align.END;
 
-        show_all_tasks_button = new Gtk.Button.with_label (_("Show completed tasks"));
+        show_all_tasks_button = new Gtk.Button.with_label (_("Show completed"));
         show_all_tasks_button.can_focus = false;
         show_all_tasks_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         show_all_tasks_button.get_style_context ().add_class ("h4");
@@ -279,20 +290,21 @@ public class Views.Project : Gtk.EventBox {
         labels_flowbox_revealer.reveal_child = false;
 
         var t_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        t_box.expand = true;
+        t_box.hexpand = true;
         t_box.pack_start (top_box, false, false, 0);
+        t_box.pack_start (deadline_project_revealer, false, false, 0);
         t_box.pack_start (note_view, false, false, 0);
         t_box.pack_start (labels_flowbox_revealer, false, false, 0);
 
         var b_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         b_box.expand = true;
         b_box.pack_start (tasks_list, false, true, 0);
-        b_box.pack_start (show_all_tasks_button, false, true, 0);
+        //b_box.pack_start (show_all_tasks_button, false, true, 0);
 
         main_stack = new Gtk.Stack ();
-        main_stack.valign = Gtk.Align.START;
         main_stack.expand = true;
         main_stack.margin_start = 12;
+        main_stack.transition_duration = 350;
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
         main_stack.add_named (b_box, "main");
@@ -301,7 +313,6 @@ public class Views.Project : Gtk.EventBox {
         main_stack.visible_child_name = "main";
 
         box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.valign = Gtk.Align.START;
         box.expand = true;
         box.pack_start (t_box, false, true, 0);
         box.pack_start (main_stack, false, true, 0);
@@ -324,12 +335,27 @@ public class Views.Project : Gtk.EventBox {
 
         add (main_overlay);
         update_tasks_list ();
-        check_visible_alertview ();
+        if (Application.utils.is_listbox_empty (tasks_list)) {
+            Timeout.add (200, () => {
+                main_stack.visible_child_name = "alert";
+                box.valign = Gtk.Align.FILL;
+                return false;
+            });
+        } else {
+            Timeout.add (200, () => {
+                main_stack.visible_child_name = "main";
+                box.valign = Gtk.Align.START;
+                return false;
+            });
+        }
+
+        show_all ();
+        /*
         tasks_list.set_filter_func ((row) => {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
-
+        */
         tasks_list.set_sort_func ((row1, row2) => {
             var item1 = row1 as Widgets.TaskRow;
             if (item1.task.checked == 0) {
@@ -340,6 +366,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         // Signals
+        /*
         eventbox.enter_notify_event.connect ((event) => {
             deadline_project_revealer.reveal_child = true;
 
@@ -359,6 +386,7 @@ public class Views.Project : Gtk.EventBox {
 
             return false;
         });
+        */
 
         show_hide_all_button.toggled.connect (() => {
           if (show_hide_all_button.active) {
@@ -421,7 +449,7 @@ public class Views.Project : Gtk.EventBox {
         show_all_tasks_button.clicked.connect (() => {
 			if (show_all_tasks) {
                 show_all_tasks = false;
-                show_all_tasks_button.label = _("Hide completed tasks");
+                show_all_tasks_button.label = _("Hide completed");
 
                 tasks_list.set_filter_func ((row) => {
                     var item = row as Widgets.TaskRow;
@@ -429,7 +457,7 @@ public class Views.Project : Gtk.EventBox {
                 });
 			} else {
                 show_all_tasks = true;
-                show_all_tasks_button.label = _("Show completed tasks");
+                show_all_tasks_button.label = _("Show completed");
 
                 tasks_list.set_filter_func ((row) => {
                     var item = row as Widgets.TaskRow;
@@ -657,7 +685,7 @@ public class Views.Project : Gtk.EventBox {
             }
         }
 
-        tasks_list.invalidate_sort ();
+        //tasks_list.invalidate_sort ();
     }
 
     public void update_tasks_list () {
@@ -697,7 +725,7 @@ public class Views.Project : Gtk.EventBox {
 
         if (Application.utils.is_listbox_empty (tasks_list)) {
             main_stack.visible_child_name = "alert";
-            box.valign = Gtk.Align.FILL;
+            //box.valign = Gtk.Align.FILL;
         }
     }
 
@@ -721,17 +749,11 @@ public class Views.Project : Gtk.EventBox {
 
     public void check_visible_alertview () {
         if (Application.utils.is_listbox_empty (tasks_list)) {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "alert";
-                box.valign = Gtk.Align.FILL;
-                return false;
-            });
+            main_stack.visible_child_name = "alert";
+            //box.valign = Gtk.Align.FILL;
         } else {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "main";
-                box.valign = Gtk.Align.START;
-                return false;
-            });
+            main_stack.visible_child_name = "main";
+            //box.valign = Gtk.Align.START;
         }
 
         show_all ();

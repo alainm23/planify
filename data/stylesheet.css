@@ -49,7 +49,7 @@
 .button-overlay-circular {
     border-radius: 50px;
     padding: 0px;
-    color: @color_text;
+    color: @bg_color;
 }
 
 .button-overlay-circular image {

@@ -56,7 +56,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
         action_bar.get_style_context ().add_class ("planner-actionbar");
         action_bar.set_center_widget (add_project_button);
-        //action_bar.pack_end (settings_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;

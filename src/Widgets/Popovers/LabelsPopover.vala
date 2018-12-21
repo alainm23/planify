@@ -46,8 +46,8 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
     }
 
     construct {
-        get_style_context ().add_class ("planner-popover");
-        
+        //get_style_context ().add_class ("planner-popover");
+
         label = new Objects.Label ();
         width_request = 290;
         height_request = 300;

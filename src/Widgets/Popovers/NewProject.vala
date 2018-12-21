@@ -26,8 +26,8 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
     }
 
     construct {
-        get_style_context ().add_class ("planner-popover");
-        
+        //get_style_context ().add_class ("planner-popover");
+
         var title_label = new Gtk.Label ("<small>%s</small>".printf (_("New Project")));
         title_label.use_markup = true;
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -166,10 +166,11 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         deadline_box.pack_end (deadline_switch, false, false, 0);
 
         deadline_datepicker = new Granite.Widgets.DatePicker ();
+        var calendar = new Widgets.Calendar.Calendar (true);
 
         datepicker_revealer = new Gtk.Revealer ();
         datepicker_revealer.reveal_child = false;
-        datepicker_revealer.add (deadline_datepicker);
+        datepicker_revealer.add (calendar);
 
         add_button = new Gtk.Button.with_label (_("Create"));
         add_button.tooltip_text = _("Create a new project");
@@ -190,8 +191,8 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         main_grid.add (new Granite.HeaderLabel (_("Color")));
         main_grid.add (color_box);
         main_grid.add (color_hex_revealer);
-        main_grid.add (deadline_box);
-        main_grid.add (datepicker_revealer);
+        //main_grid.add (deadline_box);
+        //main_grid.add (datepicker_revealer);
         main_grid.add (add_button);
 
         add (main_grid);

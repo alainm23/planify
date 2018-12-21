@@ -3,26 +3,9 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
     public bool show_close = true;
     public const string COLOR_CSS = """
         .label-%i {
-            background-image:
-                linear-gradient(
-                    to bottom,
-                    shade (
-                    %s,
-                        1.3
-                    ),
-                    %s
-                );
-            border: 1px solid shade (%s, 0.9);
-            border-radius: 3px;
-            box-shadow:
-                inset 0 0 0 1px alpha (#fff, 0.05),
-                inset 0 1px 0 0 alpha (#fff, 0.25),
-                inset 0 -1px 0 0 alpha (#fff, 0.1),
-                0 1px 2px alpha (#000, 0.3);
+            background-color: %s;
             color: %s;
-            font-size: 11px;
-            font-weight: 700;
-            margin: 2px;
+            border-radius: 3px;
         }
     """;
     public LabelChild (Objects.Label _label) {
@@ -63,10 +46,8 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
 
         try {
             var colored_css = COLOR_CSS.printf (
-                label.id,
-                label.color,
-                label.color,
-                label.color,                                // Background Color
+                label.id,                                       // id
+                label.color,                                    // Background Color
                 Application.utils.convert_invert (label.color)  // Text Color
             );
             provider.load_from_data (colored_css, colored_css.length);
