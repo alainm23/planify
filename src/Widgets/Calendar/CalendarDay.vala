@@ -17,8 +17,8 @@ public class Widgets.Calendar.CalendarDay : Gtk.EventBox {
 
     construct {
         label = new Gtk.Label (null);
-        label.height_request = 24;
-        label.width_request = 24;
+        label.height_request = 16;
+        label.width_request = 16;
 
         var image = new Gtk.Image ();
         image.gicon = new ThemedIcon ("mail-unread-symbolic");

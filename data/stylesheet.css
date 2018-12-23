@@ -60,6 +60,18 @@
     -gtk-icon-transform: rotate(-90deg);
 }
 
+.planner-button-ani {
+    color: @fg_color;
+}
+
+.planner-button-ani image {
+    transition: all 240ms ease-in-out;
+}
+
+.planner-button-ani.closed image {
+    -gtk-icon-transform: rotate(-180deg);
+}
+
 .planner-actionbar {
     background-color: @base_color;
 }

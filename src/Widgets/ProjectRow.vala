@@ -50,6 +50,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_entry.placeholder_text = _("Project name");
 
         var menu_button = new Gtk.ToggleButton ();
+        menu_button.can_focus = false;
         menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
         menu_button.tooltip_text = _("Menu");
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);

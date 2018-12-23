@@ -62,7 +62,8 @@ public class Widgets.TimePicker : Gtk.EventBox {
         am_pm_modebutton.hexpand = true;
 
         var main_grid = new Gtk.Grid ();
-        main_grid.column_spacing = 3;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.row_spacing = 3;
 
         main_grid.add (time_entry);
         main_grid.add (am_pm_modebutton);

@@ -253,6 +253,17 @@ public class Utils : GLib.Object {
         }
     }
 
+    public string get_relative_default_date_format_from_date (GLib.DateTime date) {
+        if (Application.utils.is_today (date)) {
+            return Application.utils.TODAY_STRING;
+        } else if (Application.utils.is_tomorrow (date)) {
+            return Application.utils.TOMORROW_STRING;
+        } else {
+            return Application.utils.get_default_date_format_from_date (date);
+        }
+    }
+
+
     public string get_theme (int key) {
         var themes = new Gee.HashMap<int, string> ();
 

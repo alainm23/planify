@@ -1,12 +1,12 @@
 public class Widgets.Popovers.WhenPopover : Gtk.Popover {
     public Gtk.Button remove_button;
-    public Gtk.Button add_button;
     public Gtk.Switch reminder_switch;
     public Widgets.TimePicker reminder_timepicker;
     public signal void on_selected_date (GLib.DateTime duedate, bool has_reminder, GLib.DateTime reminder_datetime);
     public signal void on_selected_remove ();
 
     private int item_selected = 0;
+    private DateTime selected_date;
     public WhenPopover (Gtk.Widget relative) {
         Object (
             relative_to: relative,
@@ -50,11 +50,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         tomorrow_eventbox.get_style_context ().add_class ("menuitem");
         tomorrow_eventbox.add (tomorrow_box);
 
-        var calendar = new Gtk.Calendar ();
-        calendar.get_style_context ().add_class ("menuitem");
-        calendar.get_style_context ().add_class ("calendar-no-selected");
-        calendar.expand = true;
-        calendar.mark_day (new GLib.DateTime.now_local ().get_day_of_month ());
+        var calendar = new Widgets.Calendar.Calendar (true);
 
         var reminder_icon = new Gtk.Image.from_icon_name ("planner-notification-symbolic", Gtk.IconSize.MENU);
         var reminder_label = new Gtk.Label ("Reminder");
@@ -73,44 +69,14 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         reminder_timepicker.margin_start = 6;
         reminder_timepicker.margin_end = 6;
 
-        reminder_timepicker.time_entry.activate.connect (() => {
-            if (item_selected == 0) {
-                var duedate_now = new GLib.DateTime.now_local ();
-                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            } else if (item_selected == 1) {
-                var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
-                on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            } else {
-                var duedate = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
-                on_selected_date (duedate, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            }
-        });
-
         var timepicker_revealer = new Gtk.Revealer ();
         timepicker_revealer.margin_start = 3;
         timepicker_revealer.reveal_child = false;
         timepicker_revealer.add (reminder_timepicker);
 
         remove_button = new Gtk.Button.with_label (_("Clear"));
-        remove_button.no_show_all = true;
+        remove_button.margin = 6;
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-
-        add_button = new Gtk.Button.with_label (_("Add"));
-        add_button.no_show_all = false;
-        add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-
-        var action_grid = new Gtk.Grid ();
-        action_grid.column_spacing = 6;
-        action_grid.column_homogeneous = true;
-        action_grid.margin_start = 9;
-        action_grid.margin_end = 7;
-        action_grid.margin_top = 12;
-        action_grid.margin_bottom = 8;
-        action_grid.add (remove_button);
-        action_grid.add (add_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.expand = true;
@@ -123,16 +89,49 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         main_grid.add (calendar);
         main_grid.add (reminder_box);
         main_grid.add (timepicker_revealer);
-        main_grid.add (action_grid);
+        main_grid.add (remove_button);
 
         add (main_grid);
 
         reminder_switch.notify["active"].connect(() => {
             if (reminder_switch.active) {
                 timepicker_revealer.reveal_child = true;
+
+                if (item_selected == 0) {
+                    var duedate_now = new GLib.DateTime.now_local ();
+                    on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
+                } else if (item_selected == 1) {
+                    var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+                    on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+                } else {
+                    if (selected_date == null) {
+                        on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
+                    } else {
+                        on_selected_date (selected_date, reminder_switch.active, reminder_timepicker.time);
+                    }
+                }
             } else {
                 timepicker_revealer.reveal_child = false;
+                on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
             }
+        });
+
+        reminder_timepicker.time_entry.activate.connect (() => {
+            if (item_selected == 0) {
+                var duedate_now = new GLib.DateTime.now_local ();
+                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
+            } else if (item_selected == 1) {
+                var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+                on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+            } else {
+                if (selected_date == null) {
+                    on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
+                } else {
+                    on_selected_date (selected_date, reminder_switch.active, reminder_timepicker.time);
+                }
+            }
+
+            popdown ();
         });
 
         today_eventbox.event.connect ((event) => {
@@ -142,10 +141,9 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 item_selected = 0;
 
                 tomorrow_radio.visible = false;
-            } else if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+
                 var duedate_now = new GLib.DateTime.now_local ();
                 on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
             }
 
             return false;
@@ -158,51 +156,22 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
                 item_selected = 1;
 
                 today_radio.visible = false;
-            } else if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+
                 var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
                 on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
             }
 
             return false;
         });
 
-        calendar.day_selected.connect ((date) => {
+        calendar.selection_changed.connect ((date) => {
+            selected_date = date;
+
             today_radio.visible = false;
             tomorrow_radio.visible = false;
             item_selected = 2;
 
-            calendar.get_style_context ().remove_class ("calendar-no-selected");
-            calendar.get_style_context ().add_class ("calendar-selected");
-        });
-
-        calendar.day_selected_double_click.connect (() => {
-            var duedate_now = new GLib.DateTime.now_local ();
-            var duedate = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
-
-            if (duedate_now.compare (duedate) >= 1) {
-                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
-            } else {
-                on_selected_date (duedate, reminder_switch.active, reminder_timepicker.time);
-            }
-
-            popdown ();
-        });
-
-        add_button.clicked.connect (() => {
-            if (item_selected == 0) {
-                var duedate_now = new GLib.DateTime.now_local ();
-                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            } else if (item_selected == 1) {
-                var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
-                on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            } else {
-                var duedate = new GLib.DateTime.local (calendar.year, calendar.month + 1, calendar.day, 0, 0, 0);
-                on_selected_date (duedate, reminder_switch.active, reminder_timepicker.time);
-                popdown ();
-            }
+            on_selected_date (date, reminder_switch.active, reminder_timepicker.time);
         });
 
         remove_button.clicked.connect (() => {

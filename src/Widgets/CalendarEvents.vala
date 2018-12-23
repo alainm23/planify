@@ -2,13 +2,13 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
     public signal void event_removed (E.CalComponent event);
     public signal void event_modified (E.CalComponent event);
 
+    private Gtk.Revealer box_revealer;
     private Gtk.Stack main_stack;
 
     private Gtk.Label day_label;
     private DateTime selected_date;
     private Gtk.Label weekday_label;
 
-    private Gtk.Button close_button;
     private Widgets.Weather weather_widget;
 
     private Gtk.ListBox selected_date_events_list;
@@ -55,6 +55,15 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         mode_button.append_text (_("Notifications"));
         mode_button.selected = 0;
 
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.add (selected_data_grid);
+        box.add (mode_button);
+
+        box_revealer = new Gtk.Revealer ();
+        box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        box_revealer.add (box);
+        box_revealer.reveal_child = true;
+
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -64,8 +73,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
         var content_grid = new Gtk.Grid ();
         content_grid.orientation = Gtk.Orientation.VERTICAL;
-        content_grid.add (selected_data_grid);
-        content_grid.add (mode_button);
+        content_grid.add (box_revealer);
         content_grid.add (main_stack);
 
         var scrolled_window = new Gtk.ScrolledWindow (null, null);
@@ -90,14 +98,6 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
     private Gtk.Widget get_calendar_event_widget () {
         row_table = new HashTable<string, AgendaEventRow> (str_hash, str_equal);
 
-        close_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        close_button.get_style_context ().add_class ("no-padding");
-        close_button.height_request = 64;
-        close_button.can_focus = false;
-        close_button.valign = Gtk.Align.CENTER;
-        close_button.halign = Gtk.Align.START;
-
         weather_widget = new Widgets.Weather ();
 
         var weather_revealer = new Gtk.Revealer ();
@@ -112,16 +112,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         calendar_revealer.add (calendar);
         calendar_revealer.reveal_child = false;
 
-        var go_calendar_button = new Gtk.Button.with_label (_("Calendar"));
-        go_calendar_button.can_focus = false;
-        go_calendar_button.halign = Gtk.Align.END;
-        go_calendar_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        calendar.selection_changed.connect ((date) => {
-            set_selected_date (date);
-        });
-
-        var events_label = new Granite.HeaderLabel (_("Events"));
+        var events_label = new Granite.HeaderLabel (Application.utils.TODAY_STRING);
         events_label.margin_start = 9;
 
         selected_date_events_list = new Gtk.ListBox ();
@@ -138,45 +129,108 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         events_list_revealer.add (events_grid);
         events_list_revealer.reveal_child = true;
 
+        var show_calendar_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
+        show_calendar_button.can_focus = false;
+        show_calendar_button.focus_on_click = false;
+        show_calendar_button.valign = Gtk.Align.CENTER;
+        show_calendar_button.halign = Gtk.Align.CENTER;
+
+        var show_hide_calendar_button = new Gtk.Button.from_icon_name ("pan-up-symbolic", Gtk.IconSize.MENU);
+        show_hide_calendar_button.can_focus = false;
+        show_hide_calendar_button.margin_start = 3;
+        show_hide_calendar_button.focus_on_click = false;
+        show_hide_calendar_button.valign = Gtk.Align.CENTER;
+        show_hide_calendar_button.halign = Gtk.Align.CENTER;
+        show_hide_calendar_button.get_style_context ().add_class ("planner-button-ani");
+
         var calendar_button = new Gtk.Button.with_label (_("Calendar"));
         calendar_button.can_focus = false;
         calendar_button.valign = Gtk.Align.CENTER;
+        calendar_button.hexpand = true;
         calendar_button.halign = Gtk.Align.CENTER;
         calendar_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        calendar_button.get_style_context ().add_class ("no-padding");
+
+        var add_event_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        add_event_button.can_focus = false;
+        add_event_button.margin_end = 3;
+        add_event_button.valign = Gtk.Align.CENTER;
+        add_event_button.halign = Gtk.Align.CENTER;
+        add_event_button.tooltip_text = _("Add new project");
 
         var action_bar = new Gtk.ActionBar ();
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
         action_bar.get_style_context ().add_class ("planner-actionbar");
+        action_bar.pack_start (show_hide_calendar_button);
         action_bar.set_center_widget (calendar_button);
+        action_bar.pack_end (add_event_button);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
         main_box.pack_start (weather_revealer, false, false, 0);
-        //main_box.pack_start (calendar_revealer, false, false, 0);
-        //main_box.pack_start (go_calendar_button, false, false, 0);
         main_box.pack_start (events_label, false, false, 0);
         main_box.pack_start (events_list_revealer, false, false, 0);
-        main_box.pack_end (action_bar, false, false, 0);
         main_box.pack_end (calendar_revealer, false, false, 0);
+        main_box.pack_end (action_bar, false, false, 0);
 
-        close_button.clicked.connect (() => {
-            on_signal_close ();
+        calendar.selection_changed.connect ((date) => {
+            set_selected_date (date);
+
+            events_label.label = Application.utils.get_relative_default_date_format_from_date (date);
         });
 
         calendar_button.clicked.connect (() => {
             if (calendar_revealer.reveal_child) {
                 calendar_revealer.reveal_child = false;
-                weather_revealer.reveal_child = true;
 
-                go_calendar_button.label = _("Calendar");
+                weather_revealer.reveal_child = true;
+                box_revealer.reveal_child = true;
+
+                Timeout.add (300, () => {
+				    show_hide_calendar_button.get_style_context ().remove_class ("closed");
+				    return false;
+			    });
+
+                var now = new GLib.DateTime.now_local ();
+                set_selected_date (now);
+                events_label.label = Application.utils.get_relative_default_date_format_from_date (now);
             } else {
                 calendar_revealer.reveal_child = true;
-                weather_revealer.reveal_child  = false;
 
-                go_calendar_button.label = _("Weather");
+                weather_revealer.reveal_child  = false;
+                box_revealer.reveal_child = false;
+
+                Timeout.add (300, () => {
+				    show_hide_calendar_button.get_style_context ().add_class ("closed");
+				    return false;
+			    });
             }
         });
-        
+
+        show_hide_calendar_button.clicked.connect (() => {
+            if (calendar_revealer.reveal_child) {
+                calendar_revealer.reveal_child = false;
+
+                weather_revealer.reveal_child = true;
+                box_revealer.reveal_child = true;
+
+                Timeout.add (300, () => {
+				    show_hide_calendar_button.get_style_context ().remove_class ("closed");
+				    return false;
+			    });
+            } else {
+                calendar_revealer.reveal_child = true;
+
+                weather_revealer.reveal_child  = false;
+                box_revealer.reveal_child = false;
+
+                Timeout.add (300, () => {
+				    show_hide_calendar_button.get_style_context ().add_class ("closed");
+				    return false;
+			    });
+            }
+        });
+
         Application.settings.changed.connect ((key) => {
             if (key == "show-calendar-events") {
                 events_list_revealer.reveal_child = Application.settings.get_boolean ("show-calendar-events");

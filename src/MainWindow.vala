@@ -50,16 +50,15 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        /*
+
         eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+            if (event.type == Gdk.EventType.DOUBLE_BUTTON_PRESS) {
                 events_widget.reveal_child = false;
                 quick_find.reveal_child = false;
             }
 
             return false;
         });
-        */
 
         Application.settings.changed.connect (key => {
             if (key == "badge-count") {

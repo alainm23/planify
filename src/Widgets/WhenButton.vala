@@ -8,7 +8,7 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
     public GLib.DateTime reminder_datetime;
     public GLib.DateTime when_datetime;
 
-    private Gtk.Box reminder_box;
+    private Gtk.Revealer reminder_revealer;
     private Gtk.Label when_label;
     private Gtk.Label reminder_label;
 
@@ -30,17 +30,22 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         var reminder_icon = new Gtk.Image.from_icon_name ("notification-new-symbolic", Gtk.IconSize.MENU);
         reminder_label = new Gtk.Label ("");
 
-        reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        reminder_box.no_show_all = true;
+        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         reminder_box.pack_start (reminder_icon, false, false, 0);
         reminder_box.pack_start (reminder_label, false, false, 0);
+
+        reminder_revealer = new Gtk.Revealer ();
+        reminder_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        reminder_revealer.margin_start = 3;
+        reminder_revealer.reveal_child = false;
+        reminder_revealer.add (reminder_box);
 
         when_popover = new Widgets.Popovers.WhenPopover (this);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.pack_start (when_icon, false, false, 0);
         main_box.pack_start (when_label, false, false, 0);
-        main_box.pack_start (reminder_box, false, false, 0);
+        main_box.pack_start (reminder_revealer, false, false, 0);
 
         add (main_box);
 
@@ -69,16 +74,15 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
 
     public void clear () {
         when_label.label = when_text;
-        reminder_box.no_show_all = true;
-        reminder_box.visible = false;
+        reminder_revealer.reveal_child = false;
 
         has_when = false;
         has_reminder = false;
     }
 
     public void set_date (GLib.DateTime date, bool _has_reminder, GLib.DateTime _reminder_datetime) {
-        reminder_box.no_show_all = !_has_reminder;
-        reminder_box.visible = _has_reminder;
+        reminder_revealer.reveal_child = _has_reminder;
+
         when_popover.reminder_switch.active = _has_reminder;
         when_popover.reminder_timepicker.time = _reminder_datetime;
 

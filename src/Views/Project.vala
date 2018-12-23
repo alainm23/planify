@@ -251,7 +251,6 @@ public class Views.Project : Gtk.EventBox {
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
-        //add_task_button.get_style_context ().add_class ("planner-add-button");
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
@@ -304,6 +303,7 @@ public class Views.Project : Gtk.EventBox {
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.margin_start = 12;
+        main_stack.margin_bottom = 9;
         main_stack.transition_duration = 350;
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
