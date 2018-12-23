@@ -255,7 +255,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.set_center_widget (title_label);
 
         var icon = new Gtk.Image ();
-        icon.gicon = new ThemedIcon ("go-home");
+        icon.gicon = new ThemedIcon ("help-about");
         icon.pixel_size = 32;
 
         var label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
@@ -908,7 +908,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Start Page
         var start_page_icon = new Gtk.Image ();
-        start_page_icon.gicon = new ThemedIcon ("go-home");
+        start_page_icon.gicon = new ThemedIcon ("help-about");
         start_page_icon.pixel_size = pixel_size;
 
         var start_page_label = new Gtk.Label (Application.utils.START_PAGE_STRING);

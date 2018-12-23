@@ -40,7 +40,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
     public void fill_grid_days (int start_day, int max_day, int current_day,
                                 bool is_current_month, bool sensitive_past_days = false,
-                                GLib.DateTime month) {
+                                GLib.DateTime month = new GLib.DateTime.now_local ()) {
         var day_number = 1;
 
         int _current_day = current_day;

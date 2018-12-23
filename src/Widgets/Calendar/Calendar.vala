@@ -4,7 +4,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     private Widgets.Calendar.CalendarView calendar_view;
 
     private bool sensitive_past_days;
-    static bool has_scrolled = false;
 
     private int month_nav;
     private int year_nav;
@@ -67,9 +66,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
             selection_double_changed (date);
         });
-
-        events |= Gdk.EventMask.SCROLL_MASK;
-        events |= Gdk.EventMask.SMOOTH_SCROLL_MASK;
     }
 
     public void next_month () {
@@ -91,7 +87,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
                                       max_days,
                                       date.get_day_of_month (),
                                       Application.utils.is_current_month (date),
-                                      false,
+                                      sensitive_past_days,
                                       date);
 
         calendar_header.date = date;
@@ -120,43 +116,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
                                       date);
 
         calendar_header.date = date;
-    }
-
-    public override bool scroll_event (Gdk.EventScroll event) {
-        double delta_x;
-        double delta_y;
-        event.get_scroll_deltas (out delta_x, out delta_y);
-
-        double choice = delta_x;
-
-        if (((int)delta_x).abs () < ((int)delta_y).abs ()) {
-            choice = delta_y;
-        }
-
-        /* It's mouse scroll ! */
-        if (choice == 1 || choice == -1) {
-            //DateTime.Widgets.CalendarModel.get_default ().change_month ((int)choice);
-
-            return true;
-        }
-
-        if (has_scrolled == true) {
-            return true;
-        }
-
-        if (choice > 0.3) {
-            next_month ();
-
-            return true;
-        }
-
-        if (choice < -0.3) {
-            previous_month ();
-
-            return true;
-        }
-
-        return false;
     }
 
     private void today () {

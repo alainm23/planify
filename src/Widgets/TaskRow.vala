@@ -42,6 +42,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 	};
     */
     public signal void on_signal_update (Objects.Task task);
+    public signal void on_signal_remove (Objects.Task task);
+
     public TaskRow (Objects.Task _task) {
         Object (
             task: _task
@@ -327,6 +329,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var main_eventbox = new Gtk.EventBox ();
         main_eventbox.margin_start = 6;
+        main_eventbox.margin_end = 9;
         main_eventbox.margin_bottom = 3;
         main_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         main_eventbox.add (main_overlay);
@@ -438,12 +441,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (Application.database.remove_task (task) == Sqlite.DONE) {
+                    /*
                     var task_preview = "";
                     if (task.content.length > 15) {
                         task_preview = task.content.substring (0, 14) + " ...";
                     } else {
                         task_preview = task.content;
                     }
+                    */
+                    on_signal_remove (task);
 
                     Timeout.add (20, () => {
                         this.opacity = this.opacity - 0.1;

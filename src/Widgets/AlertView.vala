@@ -47,7 +47,8 @@ public class Widgets.AlertView : Gtk.Grid {
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-
+        expand = true;
+        
         title_label = new Gtk.Label (null);
         title_label.halign = Gtk.Align.CENTER;
         title_label.hexpand = true;

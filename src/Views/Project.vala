@@ -21,9 +21,6 @@ public class Views.Project : Gtk.EventBox {
 
     private Widgets.Popovers.LabelsPopover labels_popover;
 
-    private bool show_all_tasks = true;
-    private Gtk.Button show_all_tasks_button;
-
     private Gtk.Stack main_stack;
 
     public Project (Objects.Project _project, MainWindow parent) {
@@ -42,7 +39,6 @@ public class Views.Project : Gtk.EventBox {
             _("Tap + to add a task."),
             "planner-startup-symbolic"
         );
-        alert_view.margin_bottom = 64;
 
         var color_image = new Gtk.Image ();
         color_image.gicon = new ThemedIcon ("mail-unread-symbolic");
@@ -266,14 +262,6 @@ public class Views.Project : Gtk.EventBox {
         task_new_revealer = new Widgets.TaskNew (false, project.id);
         task_new_revealer.valign = Gtk.Align.END;
 
-        show_all_tasks_button = new Gtk.Button.with_label (_("Show completed"));
-        show_all_tasks_button.can_focus = false;
-        show_all_tasks_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        show_all_tasks_button.get_style_context ().add_class ("h4");
-        show_all_tasks_button.get_style_context ().add_class ("no-padding");
-        show_all_tasks_button.valign = Gtk.Align.START;
-        show_all_tasks_button.halign = Gtk.Align.START;
-
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         labels_flowbox.margin_start = 6;
@@ -298,7 +286,6 @@ public class Views.Project : Gtk.EventBox {
         var b_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         b_box.expand = true;
         b_box.pack_start (tasks_list, false, true, 0);
-        //b_box.pack_start (show_all_tasks_button, false, true, 0);
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -338,13 +325,11 @@ public class Views.Project : Gtk.EventBox {
         if (Application.utils.is_listbox_empty (tasks_list)) {
             Timeout.add (200, () => {
                 main_stack.visible_child_name = "alert";
-                box.valign = Gtk.Align.FILL;
                 return false;
             });
         } else {
             Timeout.add (200, () => {
                 main_stack.visible_child_name = "main";
-                box.valign = Gtk.Align.START;
                 return false;
             });
         }
@@ -445,28 +430,6 @@ public class Views.Project : Gtk.EventBox {
                 settings_button.get_style_context ().add_class ("closed");
             }
         });
-
-        show_all_tasks_button.clicked.connect (() => {
-			if (show_all_tasks) {
-                show_all_tasks = false;
-                show_all_tasks_button.label = _("Hide completed");
-
-                tasks_list.set_filter_func ((row) => {
-                    var item = row as Widgets.TaskRow;
-                    return true;
-                });
-			} else {
-                show_all_tasks = true;
-                show_all_tasks_button.label = _("Show completed");
-
-                tasks_list.set_filter_func ((row) => {
-                    var item = row as Widgets.TaskRow;
-                    return item.task.checked == 0;
-                });
-			}
-
-            check_visible_alertview ();
-		});
 
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
@@ -725,7 +688,6 @@ public class Views.Project : Gtk.EventBox {
 
         if (Application.utils.is_listbox_empty (tasks_list)) {
             main_stack.visible_child_name = "alert";
-            //box.valign = Gtk.Align.FILL;
         }
     }
 

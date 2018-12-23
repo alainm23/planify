@@ -57,7 +57,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.add (selected_data_grid);
-        box.add (mode_button);
+        //box.add (mode_button);
 
         box_revealer = new Gtk.Revealer ();
         box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -163,7 +163,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         action_bar.get_style_context ().add_class ("planner-actionbar");
         action_bar.pack_start (show_hide_calendar_button);
         action_bar.set_center_widget (calendar_button);
-        action_bar.pack_end (add_event_button);
+        //action_bar.pack_end (add_event_button);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
