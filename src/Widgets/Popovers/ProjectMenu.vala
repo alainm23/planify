@@ -18,6 +18,8 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
         var share_menu = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", _("Share project"));
 
         var separator_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator_1.margin_top = 3;
+        separator_1.margin_bottom = 3;
         separator_1.expand = true;
 
         var main_grid = new Gtk.Grid ();

@@ -9,8 +9,11 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
 
             add_line ("# %s".printf (project.name));
             add_line ("");
-            add_line ("%s".printf (project.note));
-            add_line ("");
+
+            if (project.note != "") {
+                add_line ("%s".printf (project.note));
+                add_line ("");
+            }
 
             foreach (var task in tasks) {
                 if (task.checked != 1) {
@@ -90,6 +93,40 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
             }
 
             show_all ();
+        }
+    }
+
+    public int task {
+        set {
+            var _task = Application.database.get_task (value);
+            source_view.buffer.text = "";
+
+            if (_task.when_date_utc == "") {
+                add_line ("# %s".printf (_task.content));
+            } else {
+                add_line ("# [%s] %s".printf (Application.utils.get_default_date_format (_task.when_date_utc), _task.content));
+            }
+
+            add_line ("");
+
+            if (_task.note != "") {
+                add_line ("%s".printf (_task.note));
+                add_line ("");
+            }
+
+            string[] checklist_array = _task.checklist.split (";");
+
+            foreach (string str in checklist_array) {
+                if (str != "") {
+                    string check_name = str.substring (1, -1);
+
+                    if (str.substring (0, 1) == "0") {
+                        add_line ("- [ ] %s".printf (check_name));
+                    } else {
+                        add_line ("- [x] %s".printf (check_name));
+                    }
+                }
+    	    }
         }
     }
 

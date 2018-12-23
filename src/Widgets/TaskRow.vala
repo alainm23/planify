@@ -263,33 +263,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         remove_button.valign = Gtk.Align.CENTER;
 
-        move_button.on_selected_project.connect ((is_inbox, project) => {
-            if (is_inbox) {
-                task.is_inbox = 1;
-                task.project_id = 0;
+        var menu_button = new Gtk.ToggleButton ();
+        menu_button.can_focus = false;
+        menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
+        menu_button.tooltip_text = _("Menu");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("settings-button");
+        menu_button.get_style_context ().add_class ("menu-button");
 
-                project_preview_label.label = Application.utils.INBOX_STRING;
-                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
-
-                hide_content ();
-            } else {
-                task.is_inbox = 0;
-                task.project_id = project.id;
-
-                project_preview_label.label = project.name;
-                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
-
-                hide_content ();
-            }
-
-            Application.notification.send_local_notification (
-                task.content,
-                _("It was moved to <b>%s</b>").printf (project_preview_label.label),
-                "document-export",
-                3,
-                false
-            );
-        });
+        var menu_popover = new Widgets.Popovers.TaskMenu (menu_button);
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 6;
@@ -299,6 +281,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         action_box.valign = Gtk.Align.CENTER;
         action_box.pack_start (when_button, false, false, 0);
         action_box.pack_start (labels, false, false, 0);
+        action_box.pack_end (menu_button, false, false, 0);
         action_box.pack_end (remove_button, false, false, 0);
         action_box.pack_end (move_button, false, false, 0);
 
@@ -339,6 +322,61 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         //build_drag_and_drop ();
 
         // Signals
+        menu_button.toggled.connect (() => {
+            if (menu_button.active) {
+                menu_popover.show_all ();
+            }
+        });
+
+        menu_popover.closed.connect (() => {
+            menu_button.active = false;
+        });
+
+        menu_popover.on_selected_menu.connect ((index) => {
+            if (index == 0) {
+
+            } else if (index == 1) {
+                if (Application.database.add_task (task) == Sqlite.DONE) {
+                    var _task = Application.database.get_last_task ();
+                    Application.signals.go_task_page (_task.id, _task.project_id);
+                }
+            } else {
+                // Share task
+                var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
+                share_dialog.task = task.id;
+                share_dialog.destroy.connect (Gtk.main_quit);
+                share_dialog.show_all ();
+            }
+        });
+
+        move_button.on_selected_project.connect ((is_inbox, project) => {
+            if (is_inbox) {
+                task.is_inbox = 1;
+                task.project_id = 0;
+
+                project_preview_label.label = Application.utils.INBOX_STRING;
+                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
+
+                hide_content ();
+            } else {
+                task.is_inbox = 0;
+                task.project_id = project.id;
+
+                project_preview_label.label = project.name;
+                project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
+
+                hide_content ();
+            }
+
+            Application.notification.send_local_notification (
+                task.content,
+                _("It was moved to <b>%s</b>").printf (project_preview_label.label),
+                "document-export",
+                3,
+                false
+            );
+        });
+
         name_entry.focus_in_event.connect (() => {
             name_entry.secondary_icon_name = "edit-clear-symbolic";
             return false;

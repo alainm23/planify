@@ -81,14 +81,15 @@ executable(
 
     'src/Widgets/Popovers/NewProject.vala',
     'src/Widgets/Popovers/ProjectMenu.vala',
-    'src/Widgets/Popovers/ItemMenu.vala',
+    'src/Widgets/Popovers/TaskMenu.vala',
     'src/Widgets/Popovers/WhenPopover.vala',
     'src/Widgets/Popovers/LabelsPopover.vala',
     'src/Widgets/Popovers/MovePopover.vala',
     'src/Widgets/Popovers/NotificationsPopover.vala',
     'src/Widgets/Popovers/NotificationActionPopover.vala',
     'src/Widgets/Popovers/DeadlinePopover.vala',
-    
+
+
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
     'src/Objects/Label.vala',

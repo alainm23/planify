@@ -218,7 +218,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_top = 12;
 
         top_box.pack_start (color_button, false, false, 0);
-        top_box.pack_start (name_entry, true, true, 0);
+        top_box.pack_start (name_entry, true, true, 6);
         top_box.pack_end (settings_button, false, false, 12);
         top_box.pack_end (action_revealer, false, false, 0);
 
@@ -271,7 +271,7 @@ public class Views.Project : Gtk.EventBox {
         var labels_flowbox_revealer = new Gtk.Revealer ();
         labels_flowbox_revealer.valign = Gtk.Align.START;
         labels_flowbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        labels_flowbox_revealer.margin_start = 12;
+        labels_flowbox_revealer.margin_start = 6;
         labels_flowbox_revealer.margin_top = 6;
         labels_flowbox_revealer.add (labels_flowbox);
         labels_flowbox_revealer.reveal_child = false;

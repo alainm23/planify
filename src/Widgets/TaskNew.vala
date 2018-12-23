@@ -336,6 +336,9 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 foreach (Gtk.Widget element in checklist.get_children ()) {
                     checklist.remove (element);
                 }
+
+                var _task = Application.database.get_last_task ();
+                Application.signals.go_task_page (_task.id, _task.project_id);
             }
         }
     }

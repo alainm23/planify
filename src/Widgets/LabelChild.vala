@@ -5,6 +5,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         .label-%i {
             background-color: %s;
             color: %s;
+            padding: 0px 6px 0px 6px;
             border-radius: 3px;
         }
     """;
@@ -32,6 +33,8 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         name_label.get_style_context ().add_class ("label-" + label.id.to_string ());
 
         var overlay = new Gtk.Overlay ();
+        overlay.valign = Gtk.Align.START;
+        //overlay.halign = Gtk.Align.START;
         overlay.add_overlay (remove_revealer);
         overlay.add (name_label);
 
