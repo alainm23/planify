@@ -72,7 +72,8 @@ executable(
     'src/Widgets/AgendaEventRow.vala',
     'src/Widgets/SourceItem.vala',
     'src/Widgets/QuickFind.vala',
-
+    'src/Widgets/NoteChild.vala',
+    
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
     'src/Widgets/Calendar/CalendarView.vala',

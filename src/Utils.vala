@@ -155,6 +155,17 @@ public class Utils : GLib.Object {
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
     }
 
+    public bool is_before_today (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ();
+
+        if (date_1.compare(date_2) == -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public bool is_current_month (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
 
@@ -170,7 +181,7 @@ public class Utils : GLib.Object {
     }
 
     public bool is_upcoming (GLib.DateTime date) {
-        if (is_today (date)) {
+        if (is_today (date) && is_before_today (date) == false) {
             return false;
         } else {
             return true;

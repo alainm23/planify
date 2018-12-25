@@ -526,7 +526,7 @@ public class Views.Today : Gtk.EventBox {
             var row = element as Widgets.TaskRow;
             var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Application.utils.is_today (when) == false) {
+            if (Application.utils.is_today (when) == false || Application.utils.is_before_today (when) == false) {
                 tasks_list.remove (element);
             }
         }

@@ -10,7 +10,11 @@ public class Views.Project : Gtk.EventBox {
     private Widgets.TaskNew task_new_revealer;
     private Gtk.ListBox tasks_list;
     private Gtk.Button add_task_button;
+
     private Gtk.Revealer add_task_revealer;
+    private Gtk.Revealer show_completed_revealer;
+    private Gtk.Revealer notes_revealer;
+
     private Gtk.FlowBox labels_flowbox;
 
     Gtk.ToggleButton show_hide_all_button;
@@ -245,6 +249,7 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.hexpand = true;
 
         add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        add_task_button.can_focus = false;
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
@@ -258,6 +263,39 @@ public class Views.Project : Gtk.EventBox {
         add_task_revealer.add (add_task_button);
         add_task_revealer.margin = 12;
         add_task_revealer.reveal_child = true;
+
+        var show_completed_button = new Gtk.ToggleButton ();
+        show_completed_button.can_focus = false;
+        show_completed_button.height_request = 32;
+        show_completed_button.width_request = 32;
+        show_completed_button.get_style_context ().add_class ("button-circular");
+        show_completed_button.tooltip_text = _("Show completed tasks");
+        show_completed_button.add (new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+
+        show_completed_revealer = new Gtk.Revealer ();
+        show_completed_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        show_completed_revealer.add (show_completed_button);
+        show_completed_revealer.reveal_child = true;
+
+        var notes_button = new Gtk.ToggleButton ();
+        notes_button.can_focus = false;
+        notes_button.height_request = 32;
+        notes_button.width_request = 32;
+        notes_button.get_style_context ().add_class ("button-circular");
+        notes_button.tooltip_text = _("Notes");
+        notes_button.add (new Gtk.Image.from_icon_name ("text-x-generic-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+
+        notes_revealer = new Gtk.Revealer ();
+        notes_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        notes_revealer.add (notes_button);
+        notes_revealer.reveal_child = true;
+
+        var stacks_buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        stacks_buttons_box.margin = 12;
+        stacks_buttons_box.valign = Gtk.Align.END;
+        stacks_buttons_box.halign = Gtk.Align.START;
+        stacks_buttons_box.pack_start (show_completed_revealer, false, false, 0);
+        //stacks_buttons_box.pack_start (notes_revealer, false, false, 12);
 
         task_new_revealer = new Widgets.TaskNew (false, project.id);
         task_new_revealer.valign = Gtk.Align.END;
@@ -287,6 +325,17 @@ public class Views.Project : Gtk.EventBox {
         b_box.expand = true;
         b_box.pack_start (tasks_list, false, true, 0);
 
+        var notes_flowbox = new Gtk.FlowBox ();
+        notes_flowbox.row_spacing = 12;
+        notes_flowbox.column_spacing = 12;
+        notes_flowbox.margin = 12;
+        notes_flowbox.selection_mode = Gtk.SelectionMode.NONE;
+        notes_flowbox.expand = true;
+
+        notes_flowbox.add (new Widgets.NoteChild ());
+        notes_flowbox.add (new Widgets.NoteChild ());
+        notes_flowbox.add (new Widgets.NoteChild ());
+
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.margin_start = 12;
@@ -296,6 +345,7 @@ public class Views.Project : Gtk.EventBox {
 
         main_stack.add_named (b_box, "main");
         main_stack.add_named (alert_view, "alert");
+        main_stack.add_named (notes_flowbox, "notes");
 
         main_stack.visible_child_name = "main";
 
@@ -318,10 +368,12 @@ public class Views.Project : Gtk.EventBox {
         var main_overlay = new Gtk.Overlay ();
         main_overlay.add_overlay (add_task_revealer);
         main_overlay.add_overlay (task_new_revealer);
+        main_overlay.add_overlay (stacks_buttons_box);
         main_overlay.add (eventbox);
 
         add (main_overlay);
         update_tasks_list ();
+
         if (Application.utils.is_listbox_empty (tasks_list)) {
             Timeout.add (200, () => {
                 main_stack.visible_child_name = "alert";
@@ -335,12 +387,12 @@ public class Views.Project : Gtk.EventBox {
         }
 
         show_all ();
-        /*
+
         tasks_list.set_filter_func ((row) => {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
         });
-        */
+
         tasks_list.set_sort_func ((row1, row2) => {
             var item1 = row1 as Widgets.TaskRow;
             if (item1.task.checked == 0) {
@@ -351,6 +403,27 @@ public class Views.Project : Gtk.EventBox {
         });
 
         // Signals
+        notes_button.toggled.connect (() => {
+            if (notes_button.active) {
+                main_stack.visible_child_name = "main";
+            } else {
+                main_stack.visible_child_name = "notes";
+            }
+        });
+
+        show_completed_button.toggled.connect (() => {
+            if (show_completed_button.active) {
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return true;
+                });
+            } else {
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
+                });
+            }
+        });
         /*
         eventbox.enter_notify_event.connect ((event) => {
             deadline_project_revealer.reveal_child = true;

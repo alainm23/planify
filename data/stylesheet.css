@@ -37,6 +37,7 @@
 
 .button-circular {
     border-radius: 100px;
+    background-color: @base_color;
 }
 
 .button-close {
@@ -338,6 +339,30 @@
     font-weight: 500;
     margin: 2px;
     padding: 2px 6px 2px 6px;
+}
+
+.badge {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+            #c6262e,
+                1.3
+            ),
+            #c6262e
+        );
+    border: 1px solid shade (#c6262e, 0.9);
+    border-radius: 50px;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 2px alpha (#000, 0.3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 2px;
+    padding: 0px 6px 0px 6px
 }
 
 .color-button:hover {

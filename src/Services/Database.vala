@@ -639,7 +639,7 @@ public class Services.Database : GLib.Object {
 
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
-            if (Application.utils.is_today (when)) {
+            if (Application.utils.is_today (when) || Application.utils.is_before_today (when)) {
                 all.add (task);
             }
         }
@@ -799,6 +799,25 @@ public class Services.Database : GLib.Object {
         return count;
     }
 
+    public int get_before_today_number () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0 AND when_date_utc != ''",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        int count = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
+
+            if (Application.utils.is_before_today (when) && Application.utils.is_today (when) == false && stmt.column_int (1) == 0) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public int get_upcoming_number () {
         Sqlite.Statement stmt;
 
@@ -810,7 +829,7 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step()) == Sqlite.ROW) {
             var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
 
-            if (Application.utils.is_today (when) == false) {
+            if (Application.utils.is_today (when) == false && Application.utils.is_before_today (when) == false) {
                 count++;
             }
         }

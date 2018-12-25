@@ -17,10 +17,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
         orientation = Gtk.Orientation.VERTICAL;
 
         inbox_item = new Widgets.ItemRow (Application.utils.INBOX_STRING, "planner-inbox");
-        inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
+        inbox_item.primary_text = Application.database.get_inbox_number ().to_string ();
 
         today_item = new Widgets.ItemRow (Application.utils.TODAY_STRING, "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
-        today_item.number_label.label = Application.database.get_today_number ().to_string ();
+        today_item.primary_text = Application.database.get_today_number ().to_string ();
 
         upcoming_item = new Widgets.ItemRow (Application.utils.UPCOMING_STRING, "planner-upcoming");
         upcoming_item.margin_bottom = 6;
@@ -112,9 +112,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
         });
 
         Application.database.update_indicators.connect (() => {
-            inbox_item.number_label.label = Application.database.get_inbox_number ().to_string ();
-            today_item.number_label.label = Application.database.get_today_number ().to_string ();
-            upcoming_item.number_label.label = Application.database.get_upcoming_number ().to_string ();
+            inbox_item.primary_text = Application.database.get_inbox_number ().to_string ();
+
+            today_item.primary_text = Application.database.get_today_number ().to_string ();
+            today_item.secondary_text = Application.database.get_before_today_number ().to_string ();
+
+            upcoming_item.primary_text = Application.database.get_upcoming_number ().to_string ();
 
             check_number_labels ();
         });
@@ -159,28 +162,28 @@ public class Widgets.ProjectsList : Gtk.Grid {
     }
 
     private void check_number_labels () {
-        if (int.parse (inbox_item.number_label.label) <= 0) {
-            inbox_item.number_label.visible = false;
-            inbox_item.number_label.no_show_all = true;
+        if (int.parse (inbox_item.primary_text) <= 0) {
+            inbox_item.revealer_primary_label = false;
         } else {
-            inbox_item.number_label.visible = true;
-            inbox_item.number_label.no_show_all = false;
+            inbox_item.revealer_primary_label = true;
         }
 
-        if (int.parse (today_item.number_label.label) <= 0) {
-            today_item.number_label.visible = false;
-            today_item.number_label.no_show_all = true;
+        if (int.parse (today_item.primary_text) <= 0) {
+            today_item.revealer_primary_label = false;
         } else {
-            today_item.number_label.visible = true;
-            today_item.number_label.no_show_all = false;
+            today_item.revealer_primary_label = true;
         }
 
-        if (int.parse (upcoming_item.number_label.label) <= 0) {
-            upcoming_item.number_label.visible = false;
-            upcoming_item.number_label.no_show_all = true;
+        if (int.parse (today_item.secondary_text) <= 0) {
+            today_item.revealer_secondary_label = false;
         } else {
-            upcoming_item.number_label.visible = true;
-            upcoming_item.number_label.no_show_all = false;
+            today_item.revealer_secondary_label = true;
+        }
+
+        if (int.parse (upcoming_item.primary_text) <= 0) {
+            upcoming_item.revealer_primary_label = false;
+        } else {
+            upcoming_item.revealer_primary_label = true;
         }
     }
 
