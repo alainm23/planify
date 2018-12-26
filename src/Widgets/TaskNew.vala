@@ -29,11 +29,10 @@ public class Widgets.TaskNew : Gtk.Revealer {
     construct {
         name_entry = new Gtk.Entry ();
         name_entry.margin_start = 12;
-        name_entry.margin_end = 12;
+        name_entry.margin_end = 6;
         name_entry.margin_top = 6;
         name_entry.hexpand = true;
         name_entry.placeholder_text = _("New task");
-        name_entry.input_hints = Gtk.InputHints.UPPERCASE_SENTENCES;
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);

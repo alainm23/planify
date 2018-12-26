@@ -81,17 +81,6 @@ public class Widgets.QuickFind : Gtk.Revealer {
             }
         });
 
-        Application.signals.on_signal_show_quick_find.connect (() => {
-            if (reveal_child) {
-                entry.text = "";
-                reveal_child = false;
-                listbox.unselect_all ();
-            } else {
-                reveal_child = true;
-                entry.grab_focus ();
-            }
-        });
-
         entry.search_changed.connect (() => {
             if (entry.text != "") {
                 revealer.reveal_child = true;
@@ -101,7 +90,6 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
             listbox.invalidate_filter ();
         });
-
 
         entry.focus_out_event.connect (() => {
             if (entry.text == "") {
@@ -122,15 +110,86 @@ public class Widgets.QuickFind : Gtk.Revealer {
             return false;
         });
 
-        /*
-        entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
+        Application.signals.on_signal_show_quick_find.connect (() => {
+            if (reveal_child) {
+                entry.text = "";
                 reveal_child = false;
+                listbox.unselect_all ();
+            } else {
+                reveal_child = true;
+                entry.grab_focus ();
             }
-
-            return false;
         });
-        */
+
+        Application.database.add_task_signal.connect (() => {
+            var task = Application.database.get_last_task ();
+
+            var row = new Item (task.content, "emblem-default-symbolic");
+            row.is_task = true;
+            row.task_id = task.id;
+            row.project_id = task.project_id;
+
+            listbox.add (row);
+
+            listbox.show_all ();
+        });
+
+        Application.database.on_signal_remove_task.connect ((task) => {
+            foreach (Gtk.Widget element in listbox.get_children ()) {
+                var row = element as Item;
+
+                if (row.is_task && row.task_id == task.id) {
+                    GLib.Timeout.add (250, () => {
+                        row.destroy ();
+                        return GLib.Source.REMOVE;
+                    });
+                }
+            }
+        });
+
+        Application.database.update_task_signal.connect ((task) => {
+            foreach (Gtk.Widget element in listbox.get_children ()) {
+                var row = element as Item;
+
+                if (row.is_task && row.task_id == task.id) {
+                    row.title = task.content;
+                }
+            }
+        });
+
+        Application.database.on_add_project_signal.connect (() => {
+            var project = Application.database.get_last_project ();
+            var row = new Item (project.name, "planner-startup-symbolic");
+            row.is_project = true;
+            row.project_id = project.id;
+
+            listbox.add (row);
+
+            listbox.show_all ();
+        });
+
+        Application.database.update_project_signal.connect ((project) => {
+            foreach (Gtk.Widget element in listbox.get_children ()) {
+                var row = element as Item;
+
+                if (row.is_project && row.project_id == project.id) {
+                    row.title = project.name;
+                }
+            }
+        });
+
+        Application.database.on_signal_remove_project.connect ((project) => {
+            foreach (Gtk.Widget element in listbox.get_children ()) {
+                var row = element as Item;
+
+                if (row.is_project && row.project_id == project.id) {
+                    GLib.Timeout.add (250, () => {
+                        row.destroy ();
+                        return GLib.Source.REMOVE;
+                    });
+                }
+            }
+        });
     }
 
     private void update_items () {

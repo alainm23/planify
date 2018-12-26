@@ -4,6 +4,7 @@ public class Services.Database : GLib.Object {
 
     public signal void update_project_signal (Objects.Project project);
     public signal void on_add_project_signal ();
+    public signal void on_signal_remove_project (Objects.Project project);
 
     public signal void add_task_signal ();
     public signal void on_signal_remove_task (Objects.Task task);

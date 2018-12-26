@@ -65,6 +65,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         tooltip_text = task.content;
 
         name_label = new Gtk.Label (task.content);
+        name_label.margin_start = 6;
         name_label.halign = Gtk.Align.START;
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
@@ -119,6 +120,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         check_checklist_progress ();
 
         when_preview_label = new Gtk.Label (null);
+        when_preview_label.margin_start = 6;
         when_preview_label.valign = Gtk.Align.CENTER;
         when_preview_label.use_markup = true;
         when_preview_label.get_style_context ().add_class ("planner-when-preview");
@@ -156,8 +158,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        previews_box.pack_start (when_preview_label, false, false, 6);
-        previews_box.pack_start (name_label, false, false, 3);
+        previews_box.pack_start (when_preview_label, false, false, 0);
+        previews_box.pack_start (name_label, false, false, 0);
         previews_box.pack_start (note_preview_icon, false, false, 3);
         previews_box.pack_start (label_preview_icon, false, false, 3);
         previews_box.pack_start (checklist_preview_box, false, false, 3);

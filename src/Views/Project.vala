@@ -248,7 +248,7 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.hexpand = true;
 
-        add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_task_button.can_focus = false;
         add_task_button.height_request = 32;
         add_task_button.width_request = 32;
@@ -269,8 +269,14 @@ public class Views.Project : Gtk.EventBox {
         show_completed_button.height_request = 32;
         show_completed_button.width_request = 32;
         show_completed_button.get_style_context ().add_class ("button-circular");
+        show_completed_button.get_style_context ().add_class ("no-padding");
         show_completed_button.tooltip_text = _("Show completed tasks");
-        show_completed_button.add (new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+
+        var show_completed_icon = new Gtk.Image ();
+        show_completed_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_icon.pixel_size = 16;
+
+        show_completed_button.add (show_completed_icon);
 
         show_completed_revealer = new Gtk.Revealer ();
         show_completed_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -413,11 +419,17 @@ public class Views.Project : Gtk.EventBox {
 
         show_completed_button.toggled.connect (() => {
             if (show_completed_button.active) {
+                show_completed_button.tooltip_text = _("Hide completed tasks");
+                show_completed_icon.icon_name = "list-remove";
+
                 tasks_list.set_filter_func ((row) => {
                     var item = row as Widgets.TaskRow;
                     return true;
                 });
             } else {
+                show_completed_button.tooltip_text = _("Show completed tasks");
+                show_completed_icon.icon_name = "emblem-default-symbolic";
+
                 tasks_list.set_filter_func ((row) => {
                     var item = row as Widgets.TaskRow;
                     return item.task.checked == 0;
@@ -831,11 +843,14 @@ public class Views.Project : Gtk.EventBox {
             task_new_revealer.reveal_child = false;
 
             add_task_revealer.reveal_child = true;
+            show_completed_revealer.reveal_child = true;
         } else {
             task_new_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             task_new_revealer.reveal_child = true;
 
             add_task_revealer.reveal_child = false;
+            show_completed_revealer.reveal_child = false;
+
             task_new_revealer.name_entry.grab_focus ();
         }
 

@@ -167,6 +167,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                     if (Application.database.remove_project (project.id) == Sqlite.DONE) {
+                        Application.database.on_signal_remove_project (project);
+
                         GLib.Timeout.add (250, () => {
                             destroy ();
                             return GLib.Source.REMOVE;
