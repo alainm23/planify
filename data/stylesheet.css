@@ -1,4 +1,5 @@
 @define-color color_header #ffe16b;
+@define-color color_selected #ffe16b;
 @define-color color_text #000;
 
 @define-color colorPrimary @color_header;
@@ -28,7 +29,7 @@
 }
 
 .text-hover {
-    color: @color_text;
+    color: @color_text
 }
 
 .note-view text {
@@ -143,19 +144,19 @@
 
 .item-row:hover {
     border-radius: 3px;
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
 .item-row:selected {
-    background-color: @color_header;
+    background-color: @color_selected;
     text-shadow: none;
     -gtk-icon-shadow: none;
     color: @color_text;
 }
 
 .item-row:selected:focus {
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
@@ -164,24 +165,24 @@
 }
 
 .layout-row:hover {
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
 .layout-row:hover box > revealer > box image {
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
 .layout-row:selected {
-    background-color: @color_header;
+    background-color: @color_selected;
     text-shadow: none;
     -gtk-icon-shadow: none;
     color: @color_text;
 }
 
 .layout-row:selected:focus {
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
@@ -190,7 +191,7 @@
 }
 
 .find-row:selected {
-    background-color: @color_header;
+    background-color: @color_selected;
     text-shadow: none;
     -gtk-icon-shadow: none;
     color: @color_text;
@@ -201,7 +202,7 @@
 }
 
 .find-row:selected:focus {
-    background-color: @color_header;
+    background-color: @color_selected;
     color: @color_text;
 }
 
@@ -226,8 +227,8 @@
     color: @color_text;
 }
 
-.menu-button > widget > box > image {
-    color: #333;
+.menu-button image {
+    color: @color_text;
 }
 
 .planner-radio-disable check {
@@ -300,7 +301,7 @@
 
 
 .task-hover {
-    background-color: @color_header;
+    background-color: @color_selected;
     border-radius: 3px;
 }
 

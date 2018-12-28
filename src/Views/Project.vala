@@ -420,7 +420,7 @@ public class Views.Project : Gtk.EventBox {
         show_completed_button.toggled.connect (() => {
             if (show_completed_button.active) {
                 show_completed_button.tooltip_text = _("Hide completed tasks");
-                show_completed_icon.icon_name = "list-remove";
+                show_completed_icon.icon_name = "list-remove-symbolic";
 
                 tasks_list.set_filter_func ((row) => {
                     var item = row as Widgets.TaskRow;

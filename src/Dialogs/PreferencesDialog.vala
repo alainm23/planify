@@ -93,6 +93,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         flowbox.add (new ThemeChild (4, "Strawberry", "planner-strawberry-theme"));
         flowbox.add (new ThemeChild (5, "Lemon", "planner-lemon-theme"));
         flowbox.add (new ThemeChild (6, "Slate", "planner-slate-theme"));
+        flowbox.add (new ThemeChild (7, "Pink", "planner-pink-theme"));
 
         flowbox.show_all ();
 
@@ -112,7 +113,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             var item = child as ThemeChild;
             Application.utils.apply_theme (Application.utils.get_theme (item.id));
 
-            //Application.settings.set_enum ("theme-value", item.id);
+            Application.settings.set_enum ("theme", item.id);
         });
 
         return main_frame;

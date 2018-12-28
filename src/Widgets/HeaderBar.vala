@@ -2,8 +2,9 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     public weak Gtk.Window window { get; construct; }
 
     public const string CSS = """
-        @define-color headerbar_color %s;
-        @define-color textColorPrimary %s;
+        @define-color color_header %s;
+        @define-color color_selected %s;
+        @define-color color_text %s;
     """;
 
     public HeaderBar (Gtk.Window parent) {
@@ -130,9 +131,17 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             var colored_css = "";
 
             if (mode_switch.active) {
-                colored_css = CSS.printf ("@base_color", "@text_color");
+                colored_css = CSS.printf (
+                    "@base_color",
+                    "@selected_bg_color",
+                    "@text_color"
+                );
             } else {
-                colored_css = CSS.printf ("#ffe16b", "#1a1a1a");
+                colored_css = CSS.printf (
+                    Application.utils.get_theme (Application.settings.get_enum ("theme")),
+                    Application.utils.get_theme (Application.settings.get_enum ("theme")),
+                    Application.utils.convert_invert ( Application.utils.get_theme (Application.settings.get_enum ("theme")))
+                );
             }
 
             try {

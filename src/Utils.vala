@@ -284,6 +284,7 @@ public class Utils : GLib.Object {
         themes.set (4, "#ed5353");
         themes.set (5, "#9bdb4d");
         themes.set (6, "#667885");
+        themes.set (7, "#FA0080");
 
         return themes.get (key);
     }
@@ -291,6 +292,7 @@ public class Utils : GLib.Object {
     public void apply_theme (string hex) {
         string THEME_CLASS = """
             @define-color color_header %s;
+            @define-color color_selected %s;
             @define-color color_text %s;
         """;
 
@@ -298,6 +300,7 @@ public class Utils : GLib.Object {
 
         try {
             var colored_css = THEME_CLASS.printf (
+                hex,
                 hex,
                 convert_invert (hex)
             );

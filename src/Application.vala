@@ -7,8 +7,9 @@ public class Application : Gtk.Application {
     public static Utils utils;
 
     public const string CSS = """
-        @define-color headerbar_color %s;
-        @define-color textColorPrimary %s;
+        @define-color color_header %s;
+        @define-color color_selected %s;
+        @define-color color_text %s;
     """;
     public Application () {
         Object (
@@ -102,16 +103,22 @@ public class Application : Gtk.Application {
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // Window Theme
-        /*
+
         var theme_provider = new Gtk.CssProvider ();
         var colored_css = "";
 
         if (settings.get_boolean ("prefer-dark-style")) {
-            colored_css = CSS.printf ("@base_color", "@text_color");
-            stdout.printf ("true");
+            colored_css = CSS.printf (
+                "@base_color",
+                "@selected_bg_color",
+                "@text_color"
+            );
         } else {
-            colored_css = CSS.printf ("#ffe16b", "#1a1a1a");
-            stdout.printf ("true");
+            colored_css = CSS.printf (
+                Application.utils.get_theme (Application.settings.get_enum ("theme")),
+                Application.utils.get_theme (Application.settings.get_enum ("theme")),
+                Application.utils.convert_invert ( Application.utils.get_theme (Application.settings.get_enum ("theme")))
+            );
         }
 
         try {
@@ -121,7 +128,6 @@ public class Application : Gtk.Application {
         } catch (GLib.Error e) {
             debug ("Theme error");
         }
-        */
     }
     public static int main (string[] args) {
         Application app = Application.instance;

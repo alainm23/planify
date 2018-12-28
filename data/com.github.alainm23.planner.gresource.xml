@@ -53,5 +53,6 @@
     <file alias="planner-lemon-theme.svg">resources/planner-lemon-theme.svg</file>
     <file alias="planner-slate-theme.svg">resources/planner-slate-theme.svg</file>
     <file alias="planner-strawberry-theme.svg">resources/planner-strawberry-theme.svg</file>
+    <file alias="planner-pink-theme.svg">resources/planner-pink-theme.svg</file>
   </gresource>
 </gresources>

@@ -32,6 +32,7 @@
         <value nick="Strawberry" value="4" />
         <value nick="Lemon" value="5" />
         <value nick="Slate" value="6" />
+        <value nick="Pink" value="7" />
     </enum>
 
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">
