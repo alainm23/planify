@@ -1,12 +1,12 @@
 [Desktop Entry]
 Name=Planner
 GenericName=Planner
-Comment=Don't worry about forgetting important things
-Categories=Development;Utility;Office;Education;
+Comment=Never worry about forgetting things again
+Categories=Development;Utility;Office;Education;ProjectManagement;
 Exec=com.github.alainm23.planner
 Icon=com.github.alainm23.planner
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=planner
-Keywords=development;task;project;todo;
+Keywords=development;task;tasks;project;todo;event;events;weather;calendar;
 X-GNOME-UsesNotifications=true

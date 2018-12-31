@@ -18,6 +18,8 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
+        get_style_context ().add_class ("rounded");
+
         headerbar = new Widgets.HeaderBar (this);
         set_titlebar (headerbar);
 
@@ -80,10 +82,6 @@ public class MainWindow : Gtk.Window {
         });
 
         Application.database.update_indicators ();
-
-        var context = get_style_context ();
-        context.add_class ("palette");
-        context.add_class ("flat");
     }
 
     private void check_badge_count () {

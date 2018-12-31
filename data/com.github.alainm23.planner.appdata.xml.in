@@ -5,9 +5,9 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Planner</name>
-  <summary>View and copy colors from the elementary brand palette</summary>
+  <summary>Never worry about forgetting things again</summary>
   <description>
-    <p>elementary uses a set of bright and friendly colors. Easily access the entire official color palette on your local device, see examples of usage, and copy any variation of each color to paste into your own projects.</p>
+    <p>Start the day in control</p>
     <p>Handy features:</p>
     <ul>
       <li>Clean and straightforward design</li>
@@ -20,109 +20,23 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="3.1.1" date="2018-11-14">
-      <description>
-        <p>Brand New Mini Mode!</p>
-        <p>Hit the new icon in the titlebar to collapse Palette down to a small docked always-on-top window, perfect for keeping it around as part of your workflow. All of the same functionality is available, just more out of the way.</p>
-        <p>Palette remembers where the full-size and mini windows were last open, so drag the mini window to whichever side of the display works best for you.</p>
-      </description>
-    </release>
-    <release version="2.4.0" date="2018-10-06">
-      <description>
-        <p>Developer Mode 👩‍💻</p>
-        <ul>
-          <li>Gtk.CSS color constants! Just flip the toggle.</li>
-          <li>Window position is remembered</li>
-          <li>Refreshed design with less repetition and larger color names</li>
-        </ul>
-      </description>
-    </release>
-    <release version="2.3.2" date="2018-09-30">
-      <description>
-        <p>Salam! Initial Azerbaijani translations thanks to manymous</p>
-      </description>
-    </release>
-    <release version="2.3.1" date="2018-09-09">
-      <description>
-        <p>Updated translations and under-the-hood cleaning</p>
-      </description>
-    </release>
-    <release version="2.3.0" date="2018-07-24">
-      <description>
-        <p>Add examples of uses to the bottom of each color card</p>
-      </description>
-    </release>
-    <release version="2.2.1" date="2018-07-17">
-      <description>
-        <p>Refreshed icon designed by Sam Hewitt and Micah Ilbery</p>
-      </description>
-    </release>
-    <release version="2.2.0" date="2018-06-30">
-      <description>
-        <p>Hello, Juno!</p>
-      </description>
-    </release>
-    <release version="2.1.0" date="2018-06-13">
-      <description>
-        <p>All About That Grape</p>
-        <ul>
-          <li>Updated Grape color to match official elementary palette</li>
-          <li>Updated icons to match new Grape color</li>
-          <li>Здравствуйте! Added Russian translations thanks to Camellan</li>
-          <li>Add translation instructions and update translation link in app data</li>
-        </ul>
-      </description>
-    </release>
-    <release version="2.0.5" date="2018-04-30">
-      <description>
-        <p>Hola! Added Catalan translations thanks to eudaldgr.</p>
-      </description>
-    </release>
-    <release version="2.0.4" date="2018-04-16">
-      <description>
-        <p>¡Hola! Added Spanish translations thanks to Alain (alainm23).</p>
-      </description>
-    </release>
-    <release version="2.0.3" date="2018-04-14">
-      <description>
-        <p>Bună ziua! Added Romanian translations thanks to Plugaru Tudor.</p>
-      </description>
-    </release>
-    <release version="2.0.2" date="2018-04-13">
-      <description>
-        <p>Bonjour! Added French translations thanks to ArthurS1.</p>
-      </description>
-    </release>
-    <release version="2.0.1" date="2018-04-10">
-      <description>
-        <p>Makeover</p>
-        <ul>
-          <li>Sexy new icons from Micah Ilbery</li>
-          <li>Refined palette variant popover styles</li>
-          <li>Code cleanup, including translatability</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.0.2" date="2018-04-09">
+    <release version="1.0" date="2018-12-31">
       <description>
         <p>Initial release</p>
       </description>
     </release>
   </releases>
-  <!--screenshots>
+  <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/cassidyjames/palette/master/data/screenshots/screenshot.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-01.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/cassidyjames/palette/master/data/screenshots/screenshot-strawberry-hex.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-02.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/cassidyjames/palette/master/data/screenshots/screenshot-grape-const.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-03.png</image>
     </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/cassidyjames/palette/master/data/screenshots/screenshot-mini.png</image>
-    </screenshot>
-  </screenshots-->
+  </screenshots>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
     <content_attribute id="violence-fantasy">none</content_attribute>
@@ -153,12 +67,11 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>Alain M.</developer_name>
-  <!--url type="homepage">https://cassidyjames.com</url-->
-  <!--url type="bugtracker">https://github.com/cassidyjames/palette/issues</url-->
-  <!--url type="translate">https://github.com/cassidyjames/palette/tree/master/po#readme</url-->
+  <url type="homepage">https://github.com/alainm23/planner</url>
+  <url type="bugtracker">https://github.com/alainm23/planner/issues</url>
   <custom>
-    <value key="x-appcenter-color-primary">@BANANA_300</value>
-    <value key="x-appcenter-color-primary-text">@BLACK_500</value>
-    <value key="x-appcenter-suggested-price">6</value>
+    <value key="x-appcenter-color-primary">#ffe16b</value>
+    <value key="x-appcenter-color-primary-text">#000</value>
+    <value key="x-appcenter-suggested-price">5</value>
   </custom>
 </component>
