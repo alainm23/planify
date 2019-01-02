@@ -15,6 +15,7 @@ You'll need the following dependencies:
 * libecal1.2-dev
 * libedataserver1.2-dev
 * libedataserverui1.2-dev
+* libgtksourceview-3.0-dev >= 3.24
 * libical-dev
 * libgee-0.8-dev
 * libjson-glib-dev
