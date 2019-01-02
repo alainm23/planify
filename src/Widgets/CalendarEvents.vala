@@ -112,7 +112,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         calendar_revealer.add (calendar);
         calendar_revealer.reveal_child = false;
 
-        var events_label = new Granite.HeaderLabel (Application.utils.TODAY_STRING);
+        var events_label = new Granite.HeaderLabel (_("Today"));
         events_label.margin_start = 9;
 
         selected_date_events_list = new Gtk.ListBox ();

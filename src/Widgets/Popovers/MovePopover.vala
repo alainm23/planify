@@ -13,7 +13,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
     construct {
         //get_style_context ().add_class ("planner-popover");
 
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (Application.utils.MOVE_STRING));
+        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Move")));
         title_label.use_markup = true;
         title_label.hexpand = true;
         title_label.halign = Gtk.Align.CENTER;
@@ -70,7 +70,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         }
 
         var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.MENU);
-        var inbox_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.INBOX_STRING));
+        var inbox_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         inbox_label.ellipsize = Pango.EllipsizeMode.END;
         inbox_label.valign = Gtk.Align.CENTER;
         inbox_label.halign = Gtk.Align.START;

@@ -255,7 +255,7 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
     }
 
     private Gtk.Widget get_all_labels_widget () {
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (Application.utils.LABELS_STRING));
+        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Labels")));
         title_label.halign = Gtk.Align.CENTER;
         title_label.hexpand = true;
         title_label.use_markup = true;

@@ -87,13 +87,13 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var flowbox = new Gtk.FlowBox ();
         flowbox.valign = Gtk.Align.START;
 
-        flowbox.add (new ThemeChild (1, "Banana", "planner-banana-theme"));
-        flowbox.add (new ThemeChild (2, "Black", "planner-black-theme"));
-        flowbox.add (new ThemeChild (3, "Blueberry", "planner-blueberry-theme"));
-        flowbox.add (new ThemeChild (4, "Strawberry", "planner-strawberry-theme"));
-        flowbox.add (new ThemeChild (5, "Lemon", "planner-lemon-theme"));
-        flowbox.add (new ThemeChild (6, "Slate", "planner-slate-theme"));
-        flowbox.add (new ThemeChild (7, "Pink", "planner-pink-theme"));
+        flowbox.add (new ThemeChild (1, _("Banana"), "planner-banana-theme"));
+        flowbox.add (new ThemeChild (2, _("Black"), "planner-black-theme"));
+        flowbox.add (new ThemeChild (3, _("Blueberry"), "planner-blueberry-theme"));
+        flowbox.add (new ThemeChild (4, _("Strawberry"), "planner-strawberry-theme"));
+        flowbox.add (new ThemeChild (5, _("Lemon"), "planner-lemon-theme"));
+        flowbox.add (new ThemeChild (6, _("Slate"), "planner-slate-theme"));
+        flowbox.add (new ThemeChild (7, _("Pink"), "planner-pink-theme"));
 
         flowbox.show_all ();
 
@@ -120,12 +120,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_badge_count_widget () {
-        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        var back_button = new Gtk.Button.with_label (_("Back"));
         back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.BADGE_COUNT_STRING));
+        var title_label = new Gtk.Label (_("Badge Count"));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -149,27 +149,27 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         description_box.pack_start (icon, false, false, 0);
         description_box.pack_start (label, true, true, 0);
 
-        var none_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.NONE_STRING);
+        var none_radio = new Gtk.RadioButton.with_label_from_widget (null, _("None"));
         none_radio.get_style_context ().add_class ("h3");
         none_radio.margin_start = 12;
         none_radio.margin_top = 6;
 
-        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.INBOX_STRING);
+        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Inbox"));
         inbox_radio.get_style_context ().add_class ("h3");
         inbox_radio.margin_start = 12;
         inbox_radio.margin_top = 3;
 
-        var today_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.TODAY_STRING);
+        var today_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Today"));
         today_radio.get_style_context ().add_class ("h3");
         today_radio.margin_start = 12;
         today_radio.margin_top = 3;
 
-        var today_string_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, "%s + %s".printf (Application.utils.TODAY_STRING, Application.utils.INBOX_STRING));
+        var today_string_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, "%s + %s".printf (_("Today"), _("Inbox")));
         today_string_radio.get_style_context ().add_class ("h3");
         today_string_radio.margin_start = 12;
         today_string_radio.margin_top = 3;
 
-        var notification_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.NOTIFICATIONS_STRING);
+        var notification_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Notifications"));
         notification_radio.get_style_context ().add_class ("h3");
         notification_radio.margin_start = 12;
         notification_radio.margin_top = 3;
@@ -241,12 +241,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_start_page_widget () {
-        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        var back_button = new Gtk.Button.with_label (_("Back"));
         back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.START_PAGE_STRING));
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Start Page")));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -270,17 +270,17 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         description_box.pack_start (icon, false, false, 0);
         description_box.pack_start (label, false, false, 6);
 
-        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.INBOX_STRING);
+        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (null, _("Inbox"));
         inbox_radio.get_style_context ().add_class ("h3");
         inbox_radio.margin_start = 12;
         inbox_radio.margin_top = 6;
 
-        var today_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.TODAY_STRING);
+        var today_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, _("Today"));
         today_radio.get_style_context ().add_class ("h3");
         today_radio.margin_start = 12;
         today_radio.margin_top = 3;
 
-        var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, Application.utils.UPCOMING_STRING);
+        var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, _("Upcoming"));
         upcoming_radio.get_style_context ().add_class ("h3");
         upcoming_radio.margin_start = 12;
         upcoming_radio.margin_top = 3;
@@ -338,12 +338,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_quick_save_widget () {
-        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        var back_button = new Gtk.Button.with_label (_("Back"));
         back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.QUICK_SAVE_STRING));
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Quick Save")));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -367,17 +367,17 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         description_box.pack_start (icon, false, false, 0);
         description_box.pack_start (label, false, false, 6);
 
-        var none_radio = new Gtk.RadioButton.with_label_from_widget (null, Application.utils.NONE_STRING);
+        var none_radio = new Gtk.RadioButton.with_label_from_widget (null, _("None"));
         none_radio.get_style_context ().add_class ("h3");
         none_radio.margin_start = 12;
         none_radio.margin_top = 6;
 
-        var double_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.DOUBLE_STRING);
+        var double_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Double Click"));
         double_radio.get_style_context ().add_class ("h3");
         double_radio.margin_start = 12;
         double_radio.margin_top = 3;
 
-        var triple_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, Application.utils.TRIPLE_STRING);
+        var triple_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Triple Click"));
         triple_radio.get_style_context ().add_class ("h3");
         triple_radio.margin_start = 12;
         triple_radio.margin_top = 3;
@@ -435,12 +435,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_weather_widget () {
-        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        var back_button = new Gtk.Button.with_label (_("Back"));
         back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.WEATHER_STRING));
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Weather")));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -572,12 +572,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_calendar_widget () {
-        var back_button = new Gtk.Button.with_label (Application.utils.BACK_STRING);
+        var back_button = new Gtk.Button.with_label (_("Back"));
         back_button.can_focus = false;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
-        var title_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.CALENDAR_STRING));
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Calendar Events")));
         title_label.use_markup = true;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -590,7 +590,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         icon.gicon = new ThemedIcon ("office-calendar");
         icon.pixel_size = 32;
 
-        var label = new Gtk.Label (_("Events from your personal and shared calendars can be shown alongside your task in he Today lists."));
+        var label = new Gtk.Label (_("Events from your personal and shared calendars can be displayed."));
         label.get_style_context ().add_class ("h3");
         label.max_width_chars = 41;
         label.wrap = true;
@@ -744,11 +744,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         int index = Application.settings.get_enum ("start-page");
 
         if (index == 0) {
-            start_page_preview_label.label = Application.utils.INBOX_STRING;
+            start_page_preview_label.label = _("Inbox");
         } else if (index == 1) {
-            start_page_preview_label.label = Application.utils.TODAY_STRING;
+            start_page_preview_label.label = _("Today");
         } else if (index == 2) {
-            start_page_preview_label.label = Application.utils.UPCOMING_STRING;
+            start_page_preview_label.label = _("Upcoming");
         }
     }
 
@@ -756,15 +756,15 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         int index = Application.settings.get_enum ("badge-count");
 
         if (index == 0) {
-            badge_count_preview_label.label = Application.utils.NONE_STRING;
+            badge_count_preview_label.label = _("None");
         } else if (index == 1) {
-            badge_count_preview_label.label = Application.utils.INBOX_STRING;
+            badge_count_preview_label.label = _("Inbox");
         } else if (index == 2) {
-            badge_count_preview_label.label = Application.utils.TODAY_STRING;
+            badge_count_preview_label.label = _("Today");
         } else if (index == 3) {
-            badge_count_preview_label.label = "%s + %s".printf (Application.utils.TODAY_STRING, Application.utils.INBOX_STRING);
+            badge_count_preview_label.label = "%s + %s".printf (_("Today"), _("Inbox"));
         } else if (index == 4) {
-            badge_count_preview_label.label = Application.utils.NOTIFICATIONS_STRING;
+            badge_count_preview_label.label = _("Notifications");
         }
     }
 
@@ -772,11 +772,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         int index = Application.settings.get_enum ("quick-save");
 
         if (index == 0) {
-            quick_save_preview_label.label = Application.utils.NONE_STRING;
+            quick_save_preview_label.label = _("None");
         } else if (index == 1) {
-            quick_save_preview_label.label = Application.utils.DOUBLE_STRING;
+            quick_save_preview_label.label = _("Double Click");
         } else if (index == 2) {
-            quick_save_preview_label.label = Application.utils.TRIPLE_STRING;
+            quick_save_preview_label.label = _("Triple Click");
         }
     }
 
@@ -823,7 +823,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tutorial_project_box.margin = 6;
         tutorial_project_box.hexpand = true;
-        tutorial_project_box.tooltip_text = _("Learn the app step by step with a \n short tutorial project.");
+        tutorial_project_box.tooltip_text = _("Learn the app step by step with a short tutorial project.");
         tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
         tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
         tutorial_project_box.pack_end (tutorial_project_button, false, false, 0);
@@ -852,8 +852,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        main_grid.add (tutorial_project_box);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        //main_grid.add (tutorial_project_box);
+        //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (bug_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -861,6 +861,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         main_frame.add (main_grid);
 
+        /*
         tutorial_project_button.clicked.connect (() => {
             tutorial_project_button.visible = false;
             loading_spinner.visible = true;
@@ -878,6 +879,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
             destroy ();
         });
+        */
 
         return main_frame;
     }
@@ -890,7 +892,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         badge_count_icon.gicon = new ThemedIcon ("preferences-system-notifications");
         badge_count_icon.pixel_size = pixel_size;
 
-        var badge_count_label = new Gtk.Label (Application.utils.BADGE_COUNT_STRING);
+        var badge_count_label = new Gtk.Label (_("Badge Count"));
         badge_count_label.get_style_context ().add_class ("h3");
 
         badge_count_preview_label = new Gtk.Label (null);
@@ -912,7 +914,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         start_page_icon.gicon = new ThemedIcon ("help-about");
         start_page_icon.pixel_size = pixel_size;
 
-        var start_page_label = new Gtk.Label (Application.utils.START_PAGE_STRING);
+        var start_page_label = new Gtk.Label (_("Start Page"));
         start_page_label.get_style_context ().add_class ("h3");
 
         start_page_preview_label = new Gtk.Label (null);
@@ -934,7 +936,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         quick_save_icon.gicon = new ThemedIcon ("input-mouse");
         quick_save_icon.pixel_size = pixel_size;
 
-        var quick_save_label = new Gtk.Label (Application.utils.QUICK_SAVE_STRING);
+        var quick_save_label = new Gtk.Label (_("Quick Save"));
         quick_save_label.get_style_context ().add_class ("h3");
 
         quick_save_preview_label = new Gtk.Label (null);
@@ -956,7 +958,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         weather_icon.gicon = new ThemedIcon ("applications-internet");
         weather_icon.pixel_size = pixel_size;
 
-        var weather_label = new Gtk.Label (Application.utils.WEATHER_STRING);
+        var weather_label = new Gtk.Label (_("Weather"));
         weather_label.get_style_context ().add_class ("h3");
 
         weather_preview_label = new Gtk.Label (null);
@@ -978,7 +980,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         calendar_icon.gicon = new ThemedIcon ("office-calendar");
         calendar_icon.pixel_size = pixel_size;
 
-        var calendar_label = new Gtk.Label (Application.utils.CALENDAR_STRING);
+        var calendar_label = new Gtk.Label (_("Calendar Events"));
         calendar_label.get_style_context ().add_class ("h3");
 
         calendar_preview_label = new Gtk.Label (null);

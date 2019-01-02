@@ -218,15 +218,15 @@ public class Widgets.QuickFind : Gtk.Revealer {
             listbox.add (row);
         }
 
-        var inbox_row = new Item (Application.utils.INBOX_STRING, "mail-mailbox-symbolic");
+        var inbox_row = new Item (_("Inbox"), "mail-mailbox-symbolic");
         inbox_row.is_inbox = true;
         listbox.add (inbox_row);
 
-        var today_row = new Item (Application.utils.TODAY_STRING, "help-about-symbolic");
+        var today_row = new Item (_("Today"), "help-about-symbolic");
         today_row.is_today = true;
         listbox.add (today_row);
 
-        var upcoming_row = new Item (Application.utils.UPCOMING_STRING, "x-office-calendar-symbolic");
+        var upcoming_row = new Item (_("Upcoming"), "x-office-calendar-symbolic");
         upcoming_row.is_upcoming = true;
         listbox.add (upcoming_row);
 

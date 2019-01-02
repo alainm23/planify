@@ -155,7 +155,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                     _("Are you sure you want to delete this project?"),
-                    _("It contains %i elements that are also deleted, this operation can be undone".printf (tasks_number)),
+                    _("It contains %i elements that are also deleted, this operation can't be undone".printf (tasks_number)),
                     "dialog-warning",
                 Gtk.ButtonsType.CANCEL);
 

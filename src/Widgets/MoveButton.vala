@@ -11,7 +11,7 @@ public class Widgets.MoveButton : Gtk.ToggleButton {
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var move_label = new Gtk.Label (Application.utils.MOVE_STRING);
+        var move_label = new Gtk.Label (_("Move"));
         var move_icon = new Gtk.Image.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         move_icon.yalign = 0.9f;
 

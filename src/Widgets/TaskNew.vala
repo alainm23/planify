@@ -295,9 +295,9 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 time = when_button.reminder_datetime.format (time_format);
 
                 if (Application.utils.is_today (when_button.when_datetime)) {
-                    date = Application.utils.TODAY_STRING.down ();
+                    date = _("Today").down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                    date = Application.utils.TOMORROW_STRING.down ();
+                    date = _("Tomorrow").down ();
                 } else {
                     string date_format = Granite.DateTime.get_default_date_format (false, true, false);
                     date = when_button.when_datetime.format (date_format);

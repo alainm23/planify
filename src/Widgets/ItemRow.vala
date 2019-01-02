@@ -53,7 +53,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.LARGE_TOOLBAR);
 
-        var title_name = new Gtk.Label ("<b>" + item_name + "</b>");
+        var title_name = new Gtk.Label (_("<b>%s</b>".printf (item_name)));
         title_name.use_markup = true;
 
         primary_label = new Gtk.Label (null);

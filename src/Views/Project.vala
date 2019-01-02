@@ -107,9 +107,9 @@ public class Views.Project : Gtk.EventBox {
             var deadline_datetime = new GLib.DateTime.from_iso8601 (project.deadline, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TODAY_STRING;
+                deadline_project_label.label = _("Today");
             } else if (Application.utils.is_tomorrow (deadline_datetime)) {
-                deadline_project_label.label = Application.utils.TOMORROW_STRING;
+                deadline_project_label.label = _("Tomorrow");
             } else {
                 deadline_project_label.label = deadline_datetime.format (Application.utils.get_default_date_format_from_date (deadline_datetime));
             }
@@ -131,9 +131,9 @@ public class Views.Project : Gtk.EventBox {
 
         deadline_popover.selection_changed.connect ((date) => {
             if (Application.utils.is_today (date)) {
-                deadline_project_label.label = Application.utils.TODAY_STRING;
+                deadline_project_label.label = _("Today");
             } else if (Application.utils.is_tomorrow (date)) {
-                deadline_project_label.label = Application.utils.TOMORROW_STRING;
+                deadline_project_label.label = _("Tomorrow");
             } else {
                 deadline_project_label.label = date.format (Application.utils.get_default_date_format_from_date (date));
             }
@@ -143,9 +143,9 @@ public class Views.Project : Gtk.EventBox {
 
         deadline_popover.selection_double_changed.connect ((date) => {
             if (Application.utils.is_today (date)) {
-                deadline_project_label.label = Application.utils.TODAY_STRING;
+                deadline_project_label.label = _("Today");
             } else if (Application.utils.is_tomorrow (date)) {
-                deadline_project_label.label = Application.utils.TOMORROW_STRING;;
+                deadline_project_label.label = _("Tomorrow");;
             } else {
                 deadline_project_label.label = date.format (Application.utils.get_default_date_format_from_date (date));
             }

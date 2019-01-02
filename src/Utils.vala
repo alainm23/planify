@@ -1,23 +1,4 @@
 public class Utils : GLib.Object {
-    public string INBOX_STRING = _("Inbox");
-    public string TODAY_STRING = _("Today");
-    public string UPCOMING_STRING = _("Upcoming");
-    public string TOMORROW_STRING = _("Tomorrow");
-    public string NONE_STRING = _("None");
-    public string NOTIFICATIONS_STRING = _("Notifications");
-    public string LABELS_STRING = _("Labels");
-    public string MOVE_STRING = _("Move");
-    public string TODO_MOVED_STRING = _("to-do moved out of the");
-    public string BACK_STRING = _("Back");
-    public string DOUBLE_STRING = _("Double Click");
-    public string TRIPLE_STRING = _("Triple Click");
-    public string BADGE_COUNT_STRING = _("Badge Count");
-    public string START_PAGE_STRING = _("Start Page");
-    public string QUICK_SAVE_STRING = _("Quick Save");
-    public string WEATHER_STRING = _("Weather");
-    public string CALENDAR_STRING = _("Calendar Events");
-    public string QUICK_FIND_STRING = _("Quick Find");
-
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;
         File tmp = File.new_for_path (path);
@@ -266,9 +247,9 @@ public class Utils : GLib.Object {
 
     public string get_relative_default_date_format_from_date (GLib.DateTime date) {
         if (Application.utils.is_today (date)) {
-            return Application.utils.TODAY_STRING;
+            return _("Today");
         } else if (Application.utils.is_tomorrow (date)) {
-            return Application.utils.TOMORROW_STRING;
+            return _("Tomorrow");
         } else {
             return Application.utils.get_default_date_format_from_date (date);
         }
@@ -317,10 +298,11 @@ public class Utils : GLib.Object {
         return datetime.add_full (0, 0, 0, -datetime.get_hour (), -datetime.get_minute (), -datetime.get_second ());
     }
 
+    /*
     public void create_tutorial_project () {
         var tutorial = new Objects.Project ();
-        tutorial.name = _("Meet Planner!!!");
-        tutorial.note = _("This project shows you everything you need to know use Planner. Don't hesitateto play arount in it - you can always create a new one in 'Preferences > Help'");
+        tutorial.name = _("Meet Planner !!!");
+        tutorial.note = _("This project shows you everything you need to know use Planner.\nDon't hesitateto play arount in it - you can always create a new one in 'Preferences > Help'");
         tutorial.color = "#f9c440";
 
         if (Application.database.add_project (tutorial) == Sqlite.DONE) {
@@ -357,4 +339,5 @@ public class Utils : GLib.Object {
             Application.database.add_task (task_5);
         }
     }
+    */
 }

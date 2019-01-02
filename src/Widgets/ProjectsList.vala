@@ -16,13 +16,13 @@ public class Widgets.ProjectsList : Gtk.Grid {
         get_style_context ().add_class ("view");
         orientation = Gtk.Orientation.VERTICAL;
 
-        inbox_item = new Widgets.ItemRow (Application.utils.INBOX_STRING, "planner-inbox");
+        inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
         inbox_item.primary_text = Application.database.get_inbox_number ().to_string ();
 
-        today_item = new Widgets.ItemRow (Application.utils.TODAY_STRING, "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
+        today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
         today_item.primary_text = Application.database.get_today_number ().to_string ();
 
-        upcoming_item = new Widgets.ItemRow (Application.utils.UPCOMING_STRING, "planner-upcoming");
+        upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming");
         upcoming_item.margin_bottom = 6;
 
         check_number_labels ();

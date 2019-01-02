@@ -151,7 +151,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         project_preview_box.pack_start (project_preview_icon, false, false, 3);
 
         if (task.is_inbox == 1) {
-            project_preview_label.label = Application.utils.INBOX_STRING;
+            project_preview_label.label = _("Inbox");
         } else {
             var project = Application.database.get_project (task.project_id);
             project_preview_label.label = project.name;
@@ -356,7 +356,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 task.is_inbox = 1;
                 task.project_id = 0;
 
-                project_preview_label.label = Application.utils.INBOX_STRING;
+                project_preview_label.label = _("Inbox");
                 project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
 
                 hide_content ();
@@ -750,9 +750,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             string date_format = Application.utils.get_default_date_format_from_date (when_datetime);
 
             if (Application.utils.is_today (when_datetime)) {
-                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
+                when_preview_label.label = "<small>%s</small>".printf (_("Today"));
             } else if (Application.utils.is_tomorrow (when_datetime)) {
-                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
+                when_preview_label.label = "<small>%s</small>".printf (_("Tomorrow"));
             } else {
                 when_preview_label.label = "<small>%s</small>".printf (when_datetime.format (date_format));
             }
@@ -864,7 +864,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_entry.text = _task.content;
 
         if (task.is_inbox == 1) {
-            project_preview_label.label = Application.utils.INBOX_STRING;
+            project_preview_label.label = _("Inbox");
         } else {
             var project = Application.database.get_project (task.project_id);
             project_preview_label.label = project.name;
@@ -917,9 +917,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.when_date_utc = when_button.when_datetime.to_string ();
 
             if (Application.utils.is_today (when_button.when_datetime)) {
-                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TODAY_STRING);
+                when_preview_label.label = "<small>%s</small>".printf (_("Today"));
             } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                when_preview_label.label = "<small>%s</small>".printf (Application.utils.TOMORROW_STRING);
+                when_preview_label.label = "<small>%s</small>".printf (_("Tomorrow"));
             } else {
                 string date_format = Application.utils.get_default_date_format_from_date (when_button.when_datetime);
                 when_preview_label.label = "<small>%s</small>".printf (when_button.when_datetime.format (date_format));
@@ -946,9 +946,9 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 time = when_button.reminder_datetime.format (time_format);
 
                 if (Application.utils.is_today (when_button.when_datetime)) {
-                    date = Application.utils.TODAY_STRING.down ();
+                    date = _("Today").down ();
                 } else if (Application.utils.is_tomorrow (when_button.when_datetime)) {
-                    date = Application.utils.TOMORROW_STRING.down ();
+                    date = _("Tomorrow").down ();
                 } else {
                     string date_format = Application.utils.get_default_date_format_from_date (when_button.when_datetime);
                     date = when_button.when_datetime.format (date_format);

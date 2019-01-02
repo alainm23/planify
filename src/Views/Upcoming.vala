@@ -26,7 +26,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         var upcoming_icon = new Gtk.Image.from_icon_name ("planner-upcoming", Gtk.IconSize.DND);
 
-        var upcoming_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.UPCOMING_STRING));
+        var upcoming_label = new Gtk.Label ("<b>%s</b>".printf (_("Upcoming")));
         upcoming_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         upcoming_label.use_markup = true;
 
@@ -460,14 +460,14 @@ public class Views.Upcoming : Gtk.EventBox {
 
                         if (_task.when_date_utc == "") {
                             if (_task.is_inbox == 1) {
-                                view = Application.utils.INBOX_STRING;
+                                view = _("Inbox");
                             } else {
                                 var project = new Objects.Project ();
                                 project = Application.database.get_project (_task.project_id);
                                 view = project.name;
                             }
                         } else if (Application.utils.is_today (_when)) {
-                            view = Application.utils.TODAY_STRING;
+                            view = _("Today");
                         }
 
                         Application.notification.send_local_notification (
@@ -533,14 +533,14 @@ public class Views.Upcoming : Gtk.EventBox {
 
                     if (_task.when_date_utc == "") {
                         if (_task.is_inbox == 1) {
-                            view = Application.utils.INBOX_STRING;
+                            view = _("Inbox");
                         } else {
                             var project = new Objects.Project ();
                             project = Application.database.get_project (_task.project_id);
                             view = project.name;
                         }
                     } else if (Application.utils.is_today (_when)) {
-                        view = Application.utils.TODAY_STRING;
+                        view = _("Today");
                     }
 
                     Application.notification.send_local_notification (

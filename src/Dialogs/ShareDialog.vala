@@ -33,7 +33,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         set {
             source_view.buffer.text = "";
 
-            add_line ("# %s".printf (Application.utils.INBOX_STRING));
+            add_line ("# %s".printf (_("Inbox")));
             add_line ("");
 
             var tasks = Application.database.get_all_inbox_tasks ();
@@ -56,7 +56,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         set {
             source_view.buffer.text = "";
 
-            add_line ("# %s".printf (Application.utils.TODAY_STRING));
+            add_line ("# %s".printf (_("Today")));
             add_line ("");
 
             var tasks = Application.database.get_all_today_tasks ();
@@ -75,7 +75,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         set {
             source_view.buffer.text = "";
 
-            add_line ("# %s".printf (Application.utils.UPCOMING_STRING));
+            add_line ("# %s".printf (_("Upcoming")));
             add_line ("");
 
             var tasks = Application.database.get_all_upcoming_tasks ();
@@ -189,7 +189,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
 
             Application.notification.send_local_notification (
                 _("Your project is ready to share"),
-                _("Copy to clipboard."),
+                _("Copy to clipboard"),
                 "edit-copy",
                 4,
                 false

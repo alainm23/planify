@@ -27,7 +27,7 @@ public class Views.Today : Gtk.EventBox {
 
         var today_icon = new Gtk.Image.from_icon_name ("planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), Gtk.IconSize.DND);
 
-        var today_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.TODAY_STRING));
+        var today_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         today_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         today_label.use_markup = true;
 
@@ -486,9 +486,9 @@ public class Views.Today : Gtk.EventBox {
                         string view = "";
 
                         if (Application.utils.is_upcoming (_when)) {
-                            view = Application.utils.UPCOMING_STRING;
+                            view = _("Upcoming");
                         } else if (_task.is_inbox == 1) {
-                            view = Application.utils.INBOX_STRING;
+                            view = _("Inbox");
                         } else {
                             var project = new Objects.Project ();
                             project = Application.database.get_project (_task.project_id);
@@ -550,7 +550,7 @@ public class Views.Today : Gtk.EventBox {
                     // Send quick notification
                     string view = "";
                     if (_task.is_inbox == 1) {
-                        view = Application.utils.INBOX_STRING;
+                        view = _("Inbox");
                     } else {
                         var project = new Objects.Project ();
                         project = Application.database.get_project (_task.project_id);

@@ -95,10 +95,10 @@ public class Widgets.WhenButton : Gtk.ToggleButton {
         has_when = true;
 
         if (Application.utils.is_today (date)) {
-            when_label.label = Application.utils.TODAY_STRING;
+            when_label.label = _("Today");
             has_when = true;
         } else if (Application.utils.is_tomorrow (date)) {
-            when_label.label = Application.utils.TOMORROW_STRING;
+            when_label.label = _("Tomorrow");
             has_when = true;
         } else {
             when_label.label = Application.utils.get_default_date_format_from_date (date);

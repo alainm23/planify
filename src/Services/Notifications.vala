@@ -44,7 +44,7 @@ public class Services.Notifications : GLib.Object {
                             var body = task.content;
 
                             if (task.is_inbox == 1) {
-                                summary = Application.utils.INBOX_STRING;
+                                summary = _("Inbox");
                             } else {
                                 summary = Application.database.get_project (task.project_id).name;
                             }

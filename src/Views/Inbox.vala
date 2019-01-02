@@ -20,13 +20,13 @@ public class Views.Inbox : Gtk.EventBox {
 
         alert_view = new Widgets.AlertView (
             _("All clear"),
-            _("Looks like everything's is organized in the right view. Tap + to add a task."),
+            _("Looks like everything's is organized. Tap + to add a task."),
             "mail-mailbox-symbolic"
         );
 
         var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.DND);
 
-        var inbox_label = new Gtk.Label ("<b>%s</b>".printf (Application.utils.INBOX_STRING));
+        var inbox_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         inbox_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         inbox_label.use_markup = true;
 
@@ -423,9 +423,9 @@ public class Views.Inbox : Gtk.EventBox {
                         string view = "";
 
                         if (Application.utils.is_today (_when)) {
-                            view = Application.utils.TODAY_STRING;
+                            view = _("Today");
                         } else if (Application.utils.is_upcoming (_when)) {
-                            view = Application.utils.UPCOMING_STRING;
+                            view = _("Upcoming");
                         }
 
                         Application.notification.send_local_notification (
@@ -498,9 +498,9 @@ public class Views.Inbox : Gtk.EventBox {
                         string view = "";
 
                         if (Application.utils.is_today (_when)) {
-                            view = Application.utils.TODAY_STRING;
+                            view = _("Today");
                         } else if (Application.utils.is_upcoming (_when)) {
-                            view = Application.utils.UPCOMING_STRING;
+                            view = _("Upcoming");
                         }
 
                         Application.notification.send_local_notification (
