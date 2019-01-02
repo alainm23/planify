@@ -1,0 +1,28 @@
+---
+
+language: node_js
+
+node_js:
+  - lts/*
+
+sudo: required
+
+services:
+  - docker
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-5-dev
+
+cache:
+  directories:
+    - /tmp/liftoff
+
+install:
+  - npm install @elementaryos/houston
+
+script:
+  - houston ci

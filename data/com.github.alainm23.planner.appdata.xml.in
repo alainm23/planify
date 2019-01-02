@@ -7,14 +7,14 @@
   <name>Planner</name>
   <summary>Never worry about forgetting things again</summary>
   <description>
-    <p>Start the day in control</p>
-    <p>Handy features:</p>
-    <ul>
-      <li>Clean and straightforward design</li>
-      <li>Click to copy any color to your clipboard</li>
-      <li>Supports both hex values and Gtk.CSS color constants</li>
-    </ul>
-    <p>Palette also sports a handy dock-like Mini Mode! Shrink the window down while keeping it always-on-top when you need to constantly reference colors, but don’t want it in your way. Mini Mode keeps all of the functionality with a more streamlined workflow.</p>
+    <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
+    <p>How Planner works</p>
+    <p>1. Collect your Ideas</p>
+    <p>The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
+    <p>2. Get Organized</p>
+    <p>Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
+    <p>3. Calendar and Events</p>
+    <p>See your calendar events and plan your time effectively. Planner will remind you on the right day</p>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>
@@ -72,6 +72,6 @@
   <custom>
     <value key="x-appcenter-color-primary">#ffe16b</value>
     <value key="x-appcenter-color-primary-text">#000</value>
-    <value key="x-appcenter-suggested-price">5</value>
+    <value key="x-appcenter-suggested-price">15</value>
   </custom>
 </component>
