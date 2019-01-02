@@ -6,7 +6,7 @@ Build-Depends: appstream,
                debhelper (>= 9),
                desktop-file-utils,
                libgtk-3-dev,
-               libunity-dev.
+               libunity-dev,
                libecal1.2-dev,
                libedataserver1.2-dev,
                libedataserverui1.2-dev,
