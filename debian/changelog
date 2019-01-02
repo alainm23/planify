@@ -1,4 +1,10 @@
-com.github.alainm23.planner (0.1ubuntu1) UNRELEASED; urgency=low
+com.github.lainsce.notejot (1.0.1) xenial; urgency=low
+
+  * Agregando traducciones al español.
+
+ -- Alain M. <alain@laptop>  Wed, 02 Jan 2019 12:45:52 -0500
+
+com.github.alainm23.planner (1.0) xenial; urgency=low
 
     * Initial Release.
 
