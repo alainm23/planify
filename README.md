@@ -41,6 +41,7 @@ You'll need the following dependencies:
 meson build && cd build
 meson configure -Dprefix=/usr
 sudo ninja install
+com.github.alainm23.planner
 ```
 
 ## Donations
