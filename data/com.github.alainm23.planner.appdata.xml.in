@@ -20,7 +20,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="1.0.1" date="2019-01-02">
+  <release version="1.0.2" date="2019-01-02">
      <description>
       <p>Agregando traducciones al español</p>
     </description>
