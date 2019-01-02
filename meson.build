@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '0.2.1')
+        version: '1.0')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -14,7 +14,6 @@ c_args = [
   '-include', 'config.h'
 ]
 
-#add_global_arguments('-DGETTEXT_PACKAGE="' + meson.project_name() + '"', language:'c')
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
@@ -73,7 +72,7 @@ executable(
     'src/Widgets/SourceItem.vala',
     'src/Widgets/QuickFind.vala',
     'src/Widgets/NoteChild.vala',
-    
+
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
     'src/Widgets/Calendar/CalendarView.vala',

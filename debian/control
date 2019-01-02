@@ -1,0 +1,29 @@
+Source: com.github.alainm23.planner
+Section: x11
+Priority: extra
+Maintainer: Alain M. <alain23@protonmail.com>
+Build-Depends: appstream,
+               debhelper (>= 9),
+               desktop-file-utils,
+               libgtk-3-dev,
+               libunity-dev.
+               libecal1.2-dev,
+               libedataserver1.2-dev,
+               libedataserverui1.2-dev,
+               libical-dev,
+               libgee-0.8-dev,
+               libjson-glib-dev,
+               libgeoclue-2-dev,
+               libsqlite3-dev,
+               libsoup2.4-dev,
+               libgranite-dev (>=0.5),
+               libnotify-dev,
+               meson,
+               valac >= 0.40.3
+Standards-Version: 3.9.3
+
+Package: com.github.alainm23.planner
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Hey young world
+ This is a Hello World written in Vala using Meson build system.
