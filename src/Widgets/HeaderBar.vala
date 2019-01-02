@@ -18,7 +18,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         get_style_context ().add_class ("default-decoration");
 
         var quick_find_button = new Gtk.Button ();
-        quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, "Quick Find");
+        quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
         quick_find_button.border_width = 4;
 
         var quick_find_icon = new Gtk.Image ();
@@ -27,7 +27,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         quick_find_button.image = quick_find_icon;
 
         var notification_menu = new Gtk.Button ();
-        notification_menu.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, "Weather, Events and Notifications");
+        notification_menu.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, _("Weather and Events"));
         notification_menu.border_width = 6;
         notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 

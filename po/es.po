@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-02 12:23-0500\n"
-"PO-Revision-Date: 2019-01-02 12:20-0500\n"
+"POT-Creation-Date: 2019-01-02 12:31-0500\n"
+"PO-Revision-Date: 2019-01-02 12:39-0500\n"
 "Last-Translator: Alain M. <alain23@protonmail.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -437,6 +437,14 @@ msgstr "Etiquetas"
 msgid "Move"
 msgstr "Mover"
 
+#: src/Widgets/HeaderBar.vala:21
+msgid "Quick Find"
+msgstr "Búsqueda rápida"
+
+#: src/Widgets/HeaderBar.vala:30
+msgid "Weather and Events"
+msgstr "Clima y Calendario de Eventos"
+
 #: src/Widgets/HeaderBar.vala:46
 msgid "Night Mode"
 msgstr "Modo Noche"
@@ -809,9 +817,6 @@ msgstr "Alain M."
 #, fuzzy
 #~ msgid "task moved out of the"
 #~ msgstr "task moved out of the"
-
-#~ msgid "Quick Find"
-#~ msgstr "Búsqueda rápida"
 
 #~ msgid "Meet Planner!!!"
 #~ msgstr "Conoce al planificador !!!"

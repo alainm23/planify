@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-02 12:23-0500\n"
+"POT-Creation-Date: 2019-01-02 12:31-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -429,6 +429,14 @@ msgstr ""
 #. get_style_context ().add_class ("planner-popover");
 #: src/Widgets/MoveButton.vala:14 src/Widgets/Popovers/MovePopover.vala:16
 msgid "Move"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:21
+msgid "Quick Find"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:30
+msgid "Weather and Events"
 msgstr ""
 
 #: src/Widgets/HeaderBar.vala:46
