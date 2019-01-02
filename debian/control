@@ -20,7 +20,7 @@ Build-Depends: appstream,
                libgranite-dev (>=0.5),
                libnotify-dev,
                meson,
-               valac >= 0.40.3
+               valac (>= 0.40.3)
 Standards-Version: 3.9.3
 
 Package: com.github.alainm23.planner
