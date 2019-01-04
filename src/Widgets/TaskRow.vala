@@ -281,15 +281,16 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var labels = new Widgets.LabelButton ();
 
         var move_button = new Widgets.MoveButton ();
+        move_button.tooltip_text = _("Move task");
 
         remove_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
+        remove_button.tooltip_text = _("Delete task");
         remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         remove_button.valign = Gtk.Align.CENTER;
 
         var menu_button = new Gtk.ToggleButton ();
         menu_button.can_focus = false;
         menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
-        menu_button.tooltip_text = _("Menu");
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         menu_button.get_style_context ().add_class ("settings-button");
         menu_button.get_style_context ().add_class ("menu-button");
