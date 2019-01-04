@@ -15,20 +15,36 @@
     <p>Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
     <p>3. Calendar and Events</p>
     <p>See your calendar events and plan your time effectively. Planner will remind you on the right day</p>
+    <p>4. Be even more organized</p>
+    <p>Add a deadline to your tasks, create labels, use checklists</p>
+    <p>5. Share your progresse</p>
+    <p>Share all the progress of your project or some special task, all this in Markdown</p>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="1.0.2" date="2019-01-02">
-     <description>
-      <p>Agregando traducciones al español</p>
-    </description>
+    <release version="1.0.5" date="2019-01-02">
+      <description>
+          <p>Improved stability and some bug fixes</p>
+          <ul>
+              <li>Fixing critical bug with creating tasks from the clipboard #19</li>
+              <li>Adding new tooltips</li>
+          </ul>
+      </description>
+    </release>
+    <release version="1.0.2" date="2019-01-02">
+        <description>
+            <p>Hola Planner !!!</p>
+            <ul>
+                <li>Adding Spanish translations</li>
+            </ul>
+        </description>
     </release>
     <release version="1.0" date="2019-01-01">
-      <description>
-        <p>Initial release</p>
-      </description>
+        <description>
+            <p>Initial release</p>
+        </description>
     </release>
   </releases>
   <screenshots>
@@ -40,6 +56,9 @@
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-03.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-04.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">

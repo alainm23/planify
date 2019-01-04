@@ -34,6 +34,11 @@
 
 .note-view text {
     background-color: @base_color;
+    font-size: 14px;
+}
+
+.note-view {
+    font-size: 14px;
 }
 
 .button-circular {

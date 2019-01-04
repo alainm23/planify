@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alain23@protonmail.com>
+*/
+
 public class Widgets.CheckRow : Gtk.ListBoxRow {
     public Gtk.CheckButton checked_button;
     public Gtk.Entry name_entry;
@@ -29,6 +50,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         tooltip_text = checklist_name;
 
         checked_button = new Gtk.CheckButton ();
+        checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
         checked_button.active = checked;
@@ -47,7 +69,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         name_entry.placeholder_text = _("Checklist");
 
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
-        remove_button.can_focus = false;  
+        remove_button.can_focus = false;
         remove_button.focus_on_click = false;
         remove_button.valign = Gtk.Align.CENTER;
         remove_button.halign = Gtk.Align.CENTER;

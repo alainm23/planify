@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alain23@protonmail.com>
+*/
+
 public class Views.Project : Gtk.EventBox {
     public weak MainWindow parent_window { get; construct; }
     public Objects.Project project { get; construct; }
@@ -523,9 +544,10 @@ public class Views.Project : Gtk.EventBox {
             settings_button.get_style_context ().remove_class ("closed");
             action_revealer.reveal_child = false;
 
-            string text = clipboard.wait_for_text ();
+            string text = "";
+            text = clipboard.wait_for_text ();
 
-            if (text == "") {
+            if (text == "" || text == null) {
                 // Notificacion Here ...
                 Application.notification.send_local_notification (
                     _("Empty clipboard"),

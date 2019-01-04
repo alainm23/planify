@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alain23@protonmail.com>
+*/
+
 public class Widgets.TaskNew : Gtk.Revealer {
     private Gtk.FlowBox labels_flowbox;
     public Gtk.Entry name_entry;
@@ -19,8 +40,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
         Object (
             is_inbox: _is_inbox,
             project_id: _project_id,
-            margin_start: 27,
-            margin_end: 30,
+            margin_start: 18,
+            margin_end: 9,
             reveal_child: false,
             transition_type: Gtk.RevealerTransitionType.SLIDE_DOWN
         );
