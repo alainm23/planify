@@ -217,7 +217,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         grid.add (inbox_radio);
         grid.add (today_radio);
         grid.add (today_string_radio);
-        grid.add (notification_radio);
+        //grid.add (notification_radio);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.expand = true;

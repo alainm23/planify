@@ -95,7 +95,6 @@ public class Views.Project : Gtk.EventBox {
         deadline_project_button.margin_start = 17;
         deadline_project_button.can_focus = false;
         deadline_project_button.halign = Gtk.Align.START;
-        //deadline_project_button.get_style_context ().add_class ("no-padding");
         deadline_project_button.get_style_context ().add_class ("planner-when-preview");
         deadline_project_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         deadline_project_button.valign = Gtk.Align.CENTER;
@@ -269,9 +268,9 @@ public class Views.Project : Gtk.EventBox {
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.hexpand = true;
 
-        add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        add_task_button.can_focus = false;
+        add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         add_task_button.height_request = 32;
+        add_task_button.margin = 12;
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
@@ -282,15 +281,14 @@ public class Views.Project : Gtk.EventBox {
         add_task_revealer.halign = Gtk.Align.END;
         add_task_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         add_task_revealer.add (add_task_button);
-        add_task_revealer.margin = 12;
         add_task_revealer.reveal_child = true;
 
         var show_completed_button = new Gtk.ToggleButton ();
         show_completed_button.can_focus = false;
-        show_completed_button.height_request = 32;
-        show_completed_button.width_request = 32;
+        show_completed_button.valign = Gtk.Align.CENTER;
+        show_completed_button.halign = Gtk.Align.CENTER;
+        show_completed_button.width_request = 36;
         show_completed_button.get_style_context ().add_class ("button-circular");
-        show_completed_button.get_style_context ().add_class ("no-padding");
         show_completed_button.tooltip_text = _("Show completed tasks");
 
         var show_completed_icon = new Gtk.Image ();
@@ -306,9 +304,12 @@ public class Views.Project : Gtk.EventBox {
 
         var notes_button = new Gtk.ToggleButton ();
         notes_button.can_focus = false;
-        notes_button.height_request = 32;
-        notes_button.width_request = 32;
+        notes_button.valign = Gtk.Align.CENTER;
+        notes_button.halign = Gtk.Align.CENTER;
+        notes_button.height_request = 24;
+        notes_button.width_request = 24;
         notes_button.get_style_context ().add_class ("button-circular");
+        notes_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         notes_button.tooltip_text = _("Notes");
         notes_button.add (new Gtk.Image.from_icon_name ("text-x-generic-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
@@ -318,9 +319,9 @@ public class Views.Project : Gtk.EventBox {
         notes_revealer.reveal_child = true;
 
         var stacks_buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        stacks_buttons_box.margin = 12;
         stacks_buttons_box.valign = Gtk.Align.END;
         stacks_buttons_box.halign = Gtk.Align.START;
+        stacks_buttons_box.margin = 6;
         stacks_buttons_box.pack_start (show_completed_revealer, false, false, 0);
         //stacks_buttons_box.pack_start (notes_revealer, false, false, 12);
 
@@ -355,13 +356,9 @@ public class Views.Project : Gtk.EventBox {
         var notes_flowbox = new Gtk.FlowBox ();
         notes_flowbox.row_spacing = 12;
         notes_flowbox.column_spacing = 12;
-        notes_flowbox.margin = 12;
+        notes_flowbox.margin = 6;
         notes_flowbox.selection_mode = Gtk.SelectionMode.NONE;
         notes_flowbox.expand = true;
-
-        notes_flowbox.add (new Widgets.NoteChild ());
-        notes_flowbox.add (new Widgets.NoteChild ());
-        notes_flowbox.add (new Widgets.NoteChild ());
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;

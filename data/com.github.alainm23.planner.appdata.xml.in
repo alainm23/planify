@@ -12,19 +12,19 @@
     <p>1. Collect your Ideas</p>
     <p>The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
     <p>2. Get Organized</p>
-    <p>Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
+    <p>Create a project for each of your goqnals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
     <p>3. Calendar and Events</p>
-    <p>See your calendar events and plan your time effectively. Planner will remind you on the right day</p>
+    <p>See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
     <p>4. Be even more organized</p>
-    <p>Add a deadline to your tasks, create labels, use checklists</p>
-    <p>5. Share your progresse</p>
+    <p>Add a deadline to your tasks, create labels, use checklists.</p>
+    <p>5. Share your progress</p>
     <p>Share all the progress of your project or some special task, all this in Markdown</p>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="1.0.5" date="2019-01-02">
+    <release version="1.0.4" date="2019-01-04">
       <description>
           <p>Improved stability and some bug fixes</p>
           <ul>

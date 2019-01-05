@@ -135,7 +135,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         bottom_box.pack_end (submit_task_button, false, false, 0);
 
         var main_grid = new Gtk.Grid ();
-        main_grid.hexpand = true;
+        main_grid.expand = true;
         main_grid.margin_top = 3;
         main_grid.margin_end = 5;
         main_grid.margin_start = 5;
@@ -151,6 +151,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         main_grid.add (bottom_box);
 
         var main_overlay = new Gtk.Overlay ();
+        main_overlay.expand = true;
         main_overlay.add_overlay (close_button);
         main_overlay.add (main_grid);
 

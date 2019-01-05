@@ -20,6 +20,7 @@
 */
 
 public class Widgets.NoteChild : Gtk.FlowBoxChild {
+    private Gtk.Entry title_entry;
     private Gtk.SourceView source_view;
 
     public NoteChild () {
@@ -33,15 +34,47 @@ public class Widgets.NoteChild : Gtk.FlowBoxChild {
     construct {
         can_focus = false;
 
+        title_entry = new Gtk.Entry ();
+        title_entry.margin_start = 6;
+        title_entry.margin_top = 6;
+        title_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        title_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        title_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        title_entry.get_style_context ().add_class ("planner-entry");
+        title_entry.get_style_context ().add_class ("no-padding");
+        title_entry.get_style_context ().add_class ("planner-entry-bold");
+        title_entry.placeholder_text = _("Title");
+
         source_view = new Gtk.SourceView ();
+        source_view.can_focus = true;
         source_view.margin = 6;
         source_view.expand = true;
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
-        main_grid.expand = true;
-        main_grid.add (source_view);
+        var preferences_button = new Gtk.ToggleButton ();
+        preferences_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
+        preferences_button.tooltip_text = _("Preferences");
+        preferences_button.valign = Gtk.Align.CENTER;
+        preferences_button.halign = Gtk.Align.CENTER;
+        preferences_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        preferences_button.get_style_context ().add_class ("settings-button");
 
-        add (main_grid);
+        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        action_box.margin_end = 6;
+        action_box.margin_bottom = 6;
+        action_box.pack_end (preferences_button, false, false, 0);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.height_request = 200;
+        main_box.width_request = 200;
+        main_box.valign = Gtk.Align.START;
+        main_box.halign = Gtk.Align.START;
+        main_box.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+        main_box.get_style_context ().add_class ("planner-card-radius");
+
+        main_box.pack_start (title_entry, false, false, 0);
+        main_box.pack_start (source_view, true, true, 0);
+        main_box.pack_end (action_box, false, false, 0);
+
+        add (main_box);
     }
 }

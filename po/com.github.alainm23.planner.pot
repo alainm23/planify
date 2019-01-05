@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-04 15:47-0500\n"
+"POT-Creation-Date: 2019-01-05 11:01-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgstr ""
 
 #: src/Utils.vala:270 src/Views/Inbox.vala:448 src/Views/Inbox.vala:523
 #: src/Views/Today.vala:51 src/Views/Upcoming.vala:494
-#: src/Views/Upcoming.vala:567 src/Views/Project.vala:131
-#: src/Views/Project.vala:155 src/Views/Project.vala:167
+#: src/Views/Upcoming.vala:567 src/Views/Project.vala:130
+#: src/Views/Project.vala:154 src/Views/Project.vala:166
 #: src/Dialogs/PreferencesDialog.vala:183
 #: src/Dialogs/PreferencesDialog.vala:188
 #: src/Dialogs/PreferencesDialog.vala:299
@@ -35,16 +35,16 @@ msgstr ""
 #: src/Dialogs/PreferencesDialog.vala:786 src/Dialogs/ShareDialog.vala:80
 #: src/Widgets/WhenButton.vala:119 src/Widgets/ProjectsList.vala:43
 #: src/Widgets/TaskRow.vala:775 src/Widgets/TaskRow.vala:942
-#: src/Widgets/TaskRow.vala:971 src/Widgets/TaskNew.vala:319
+#: src/Widgets/TaskRow.vala:971 src/Widgets/TaskNew.vala:320
 #: src/Widgets/CalendarEvents.vala:136 src/Widgets/QuickFind.vala:246
 #: src/Widgets/Popovers/WhenPopover.vala:52
 msgid "Today"
 msgstr ""
 
-#: src/Utils.vala:272 src/Views/Project.vala:133 src/Views/Project.vala:157
-#: src/Views/Project.vala:169 src/Widgets/WhenButton.vala:122
+#: src/Utils.vala:272 src/Views/Project.vala:132 src/Views/Project.vala:156
+#: src/Views/Project.vala:168 src/Widgets/WhenButton.vala:122
 #: src/Widgets/TaskRow.vala:777 src/Widgets/TaskRow.vala:944
-#: src/Widgets/TaskRow.vala:973 src/Widgets/TaskNew.vala:321
+#: src/Widgets/TaskRow.vala:973 src/Widgets/TaskNew.vala:322
 #: src/Widgets/Popovers/WhenPopover.vala:66
 msgid "Tomorrow"
 msgstr ""
@@ -91,57 +91,57 @@ msgstr ""
 
 #: src/Views/Inbox.vala:58 src/Views/Inbox.vala:73 src/Views/Today.vala:65
 #: src/Views/Today.vala:255 src/Views/Upcoming.vala:58
-#: src/Views/Upcoming.vala:73 src/Views/Project.vala:214
-#: src/Views/Project.vala:492
+#: src/Views/Upcoming.vala:73 src/Views/Project.vala:213
+#: src/Views/Project.vala:489
 msgid "Open all tasks"
 msgstr ""
 
 #: src/Views/Inbox.vala:65 src/Views/Today.vala:247 src/Views/Upcoming.vala:65
-#: src/Views/Project.vala:484
+#: src/Views/Project.vala:481
 msgid "Close all tasks"
 msgstr ""
 
 #: src/Views/Inbox.vala:85 src/Views/Today.vala:72 src/Views/Upcoming.vala:85
-#: src/Views/Project.vala:184
+#: src/Views/Project.vala:183
 msgid "Paste"
 msgstr ""
 
 #: src/Views/Inbox.vala:91 src/Views/Today.vala:78 src/Views/Upcoming.vala:91
-#: src/Views/Project.vala:190
+#: src/Views/Project.vala:189
 msgid "Filter by Label"
 msgstr ""
 
 #: src/Views/Inbox.vala:100 src/Views/Today.vala:87 src/Views/Upcoming.vala:100
-#: src/Views/Project.vala:199 src/Dialogs/ShareDialog.vala:165
+#: src/Views/Project.vala:198 src/Dialogs/ShareDialog.vala:165
 #: src/Widgets/Popovers/ProjectMenu.vala:39
 #: src/Widgets/Popovers/TaskMenu.vala:36
 msgid "Share"
 msgstr ""
 
 #: src/Views/Inbox.vala:151 src/Views/Today.vala:140
-#: src/Views/Upcoming.vala:153 src/Views/Project.vala:278
+#: src/Views/Upcoming.vala:153 src/Views/Project.vala:277
 msgid "Add new task"
 msgstr ""
 
 #. Notificacion Here ...
 #: src/Views/Inbox.vala:258 src/Views/Today.vala:298
-#: src/Views/Upcoming.vala:280 src/Views/Project.vala:553
+#: src/Views/Upcoming.vala:280 src/Views/Project.vala:550
 msgid "Empty clipboard"
 msgstr ""
 
 #: src/Views/Inbox.vala:259 src/Views/Today.vala:299
-#: src/Views/Upcoming.vala:281 src/Views/Project.vala:554
+#: src/Views/Upcoming.vala:281 src/Views/Project.vala:551
 msgid "Try copying some text and try again"
 msgstr ""
 
 #. Notificacion Here ...
 #: src/Views/Inbox.vala:270 src/Views/Today.vala:312
-#: src/Views/Upcoming.vala:295 src/Views/Project.vala:565
+#: src/Views/Upcoming.vala:295 src/Views/Project.vala:562
 msgid "His task was created from the clipboard"
 msgstr ""
 
 #: src/Views/Inbox.vala:271 src/Views/Today.vala:313
-#: src/Views/Upcoming.vala:296 src/Views/Project.vala:566
+#: src/Views/Upcoming.vala:296 src/Views/Project.vala:563
 msgid "Tap to undo"
 msgstr ""
 
@@ -183,8 +183,7 @@ msgstr ""
 msgid "Tap + to add a task."
 msgstr ""
 
-#. add_project_button.get_style_context ().add_class ("planner-add-button");
-#: src/Views/Project.vala:79 src/Widgets/ProjectsList.vala:64
+#: src/Views/Project.vala:79 src/Widgets/ProjectsList.vala:63
 #: src/Widgets/CalendarEvents.vala:180
 msgid "Add new project"
 msgstr ""
@@ -195,34 +194,35 @@ msgid "Name"
 msgstr ""
 
 #. get_style_context ().add_class ("planner-popover");
-#: src/Views/Project.vala:103 src/Views/Project.vala:178
+#: src/Views/Project.vala:102 src/Views/Project.vala:177
 #: src/Widgets/Popovers/NewProject.vala:178
 #: src/Widgets/Popovers/DeadlinePopover.vala:37
 msgid "Deadline"
 msgstr ""
 
-#: src/Views/Project.vala:258 src/Widgets/TaskRow.vala:209
+#: src/Views/Project.vala:257 src/Widgets/TaskRow.vala:209
 #: src/Widgets/TaskNew.vala:78
 msgid "Note"
 msgstr ""
 
-#: src/Views/Project.vala:294 src/Views/Project.vala:451
+#: src/Views/Project.vala:292 src/Views/Project.vala:448
 msgid "Show completed tasks"
 msgstr ""
 
-#: src/Views/Project.vala:312
+#: src/Views/Project.vala:313
 msgid "Notes"
 msgstr ""
 
-#: src/Views/Project.vala:443
+#: src/Views/Project.vala:440
 msgid "Hide completed tasks"
 msgstr ""
 
-#: src/Views/Project.vala:520
+#: src/Views/Project.vala:517
 msgid "Select Your Favorite Color"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:49 src/Widgets/HeaderBar.vala:84
+#: src/Widgets/NoteChild.vala:55
 msgid "Preferences"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 msgid "All tasks"
 msgstr ""
 
-#: src/Widgets/ProjectsList.vala:69
+#: src/Widgets/ProjectsList.vala:68
 msgid "Settings"
 msgstr ""
 
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Delete Task"
 msgstr ""
 
-#: src/Widgets/TaskRow.vala:981 src/Widgets/TaskNew.vala:329
+#: src/Widgets/TaskRow.vala:981 src/Widgets/TaskNew.vala:330
 #, c-format
 msgid "You'll be notified %s at %s"
 msgstr ""
@@ -599,6 +599,10 @@ msgstr ""
 
 #: src/Widgets/QuickFind.vala:98
 msgid "all"
+msgstr ""
+
+#: src/Widgets/NoteChild.vala:46
+msgid "Title"
 msgstr ""
 
 #: src/Widgets/Calendar/CalendarHeader.vala:33
@@ -768,7 +772,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
 msgid ""
-"Create a project for each of your goals, then add the steps to reach them. "
+"Create a project for each of your goqnals, then add the steps to reach them. "
 "Review these regularly to stay on top of things."
 msgstr ""
 
@@ -779,7 +783,7 @@ msgstr ""
 #: data/com.github.alainm23.planner.appdata.xml.in:17
 msgid ""
 "See your calendar events and plan your time effectively. Planner will remind "
-"you on the right day"
+"you on the right day."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
@@ -787,11 +791,11 @@ msgid "4. Be even more organized"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:19
-msgid "Add a deadline to your tasks, create labels, use checklists"
+msgid "Add a deadline to your tasks, create labels, use checklists."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
-msgid "5. Share your progresse"
+msgid "5. Share your progress"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
