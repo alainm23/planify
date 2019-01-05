@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-05 11:01-0500\n"
+"POT-Creation-Date: 2019-01-05 11:49-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: src/Services/Weather.vala:197
 #, c-format
-msgid "%i"
+msgid "%i°"
 msgstr ""
 
 #: src/Services/Calendar/Utils.vala:591
@@ -342,11 +342,11 @@ msgid "Temperature"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:495
-msgid "F"
+msgid "°F"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:496
-msgid "C"
+msgid "°C"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:499
