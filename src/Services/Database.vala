@@ -893,6 +893,36 @@ public class Services.Database : GLib.Object {
         return count;
     }
 
+    public int get_all_tasks_number () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM TASKS",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        int count = 0;
+        count = stmt.column_int (0);
+
+        return count;
+    }
+
+    public int get_completed_number () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM TASKS WHERE checked = 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        int count = 0;
+        count = stmt.column_int (0);
+
+        return count;
+    }
+
     public int add_label (Objects.Label label) {
         Sqlite.Statement stmt;
 

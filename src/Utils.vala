@@ -191,10 +191,10 @@ public class Utils : GLib.Object {
     }
 
     public bool is_upcoming (GLib.DateTime date) {
-        if (is_today (date) && is_before_today (date) == false) {
-            return false;
-        } else {
+        if (is_today (date) == false && is_before_today (date) == false) {
             return true;
+        } else {
+            return false;
         }
     }
 

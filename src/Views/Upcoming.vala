@@ -537,10 +537,6 @@ public class Views.Upcoming : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            tasks_list.remove (element);
-        }
-
         var all_tasks = new Gee.ArrayList<Objects.Task?> ();
         all_tasks = Application.database.get_all_upcoming_tasks ();
 

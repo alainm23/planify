@@ -656,7 +656,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         calendar_list_revealer.reveal_child = true;
 
         src_map = new GLib.HashTable<string, Widgets.SourceItem?>(str_hash, str_equal);
-        
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (description_box);
@@ -935,6 +935,24 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var badge_count_eventbox = new Gtk.EventBox ();
         badge_count_eventbox.add (badge_count_box);
 
+        // Show Items
+        var items_icon = new Gtk.Image ();
+        items_icon.gicon = new ThemedIcon ("bookmark-new");
+        items_icon.pixel_size = pixel_size;
+
+        var items_label = new Gtk.Label (_("Items"));
+        items_label.get_style_context ().add_class ("h3");
+
+        var items_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        items_box.margin = 6;
+        items_box.margin_end = 12;
+        items_box.hexpand = true;
+        items_box.pack_start (items_icon, false, false, 0);
+        items_box.pack_start (items_label, false, false, 6);
+
+        var items_eventbox = new Gtk.EventBox ();
+        items_eventbox.add (items_box);
+
         // Start Page
         var start_page_icon = new Gtk.Image ();
         start_page_icon.gicon = new ThemedIcon ("user-home");
@@ -1084,6 +1102,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (weather_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (calendar_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (items_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (run_background_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));

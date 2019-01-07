@@ -366,6 +366,23 @@ public class Views.CompletedTasks : Gtk.EventBox {
             if (Application.utils.is_task_repeted (tasks_list, task.id) == false) {
                 add_new_task (task);
             }
+
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+
+                if (row.task.id == task.id) {
+                    if (row.task.checked == 0) {
+                        if (row is Gtk.Widget) {
+                            GLib.Timeout.add (250, () => {
+                                row.destroy ();
+                                return GLib.Source.REMOVE;
+                            });
+                        }
+                    } else {
+                        row.set_update_task (task);
+                    }
+                }
+            }
         });
 
         Application.database.add_task_signal.connect (() => {
@@ -396,6 +413,15 @@ public class Views.CompletedTasks : Gtk.EventBox {
             tasks_list.add (row);
 
             row.on_signal_update.connect ((_task) => {
+                if (_task.checked == 0) {
+                    if (row is Gtk.Widget) {
+                        GLib.Timeout.add (250, () => {
+                            row.destroy ();
+                            return GLib.Source.REMOVE;
+                        });
+                    }
+                }
+
                 tasks_list.unselect_all ();
             });
 
@@ -437,6 +463,15 @@ public class Views.CompletedTasks : Gtk.EventBox {
             tasks_list.add (row);
 
             row.on_signal_update.connect ((_task) => {
+                if (_task.checked == 0) {
+                    if (row is Gtk.Widget) {
+                        GLib.Timeout.add (250, () => {
+                            row.destroy ();
+                            return GLib.Source.REMOVE;
+                        });
+                    }
+                }
+                
                 tasks_list.unselect_all ();
             });
         }

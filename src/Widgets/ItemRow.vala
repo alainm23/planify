@@ -33,6 +33,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     public bool reveal_child {
         set {
+            if (value) {
+                margin_left = 6;
+                margin_top = 6;
+                margin_right = 6;
+            } else {
+                margin = 0;
+            }
+
             main_revealer.reveal_child = value;
         }
         get {

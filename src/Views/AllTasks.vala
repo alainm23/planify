@@ -237,7 +237,7 @@ public class Views.AllTasks : Gtk.EventBox {
         add_task_button.clicked.connect (() => {
             task_on_revealer ();
         });
-        
+
         this.event.connect ((event) => {
             var button_press = Application.settings.get_enum ("quick-save");
 
@@ -365,6 +365,14 @@ public class Views.AllTasks : Gtk.EventBox {
         Application.database.update_task_signal.connect ((task) => {
             if (Application.utils.is_task_repeted (tasks_list, task.id) == false) {
                 add_new_task (task);
+            }
+
+            foreach (Gtk.Widget element in tasks_list.get_children ()) {
+                var row = element as Widgets.TaskRow;
+
+                if (row.task.id == task.id) {
+                    row.set_update_task (task);
+                }
             }
         });
 

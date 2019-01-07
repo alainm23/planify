@@ -48,12 +48,11 @@ public class Widgets.ProjectsList : Gtk.Grid {
         upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming");
 
         all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks");
-        all_tasks_item.margin = 0;
+        all_tasks_item.primary_text = Application.database.get_all_tasks_number ().to_string ();
         all_tasks_item.reveal_child = false;
 
         completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
-        completed_item.margin = 0;
-        completed_item.reveal_child = false;
+        completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
 
         check_number_labels ();
 
@@ -116,14 +115,16 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         // Events
         eventbox.enter_notify_event.connect ((event) => {
+            /*
             all_tasks_item.reveal_child = true;
             completed_item.reveal_child = true;
 
-            all_tasks_item.margin_left = all_tasks_item.margin_top = all_tasks_item.margin_right = 6;
-            completed_item.margin_left = completed_item.margin_top = completed_item.margin_right = completed_item.margin_bottom = 6;
+            all_tasks_item.margin_start = all_tasks_item.margin_top = all_tasks_item.margin_end = 6;
+            completed_item.margin_start = completed_item.margin_top = completed_item.margin_end = completed_item.margin_bottom = 6;
 
             all_tasks_item.selectable = true;
             completed_item.selectable = true;
+            */
             return false;
         });
 
@@ -131,18 +132,16 @@ public class Widgets.ProjectsList : Gtk.Grid {
             if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
             }
-
+            /*
             all_tasks_item.reveal_child = false;
             completed_item.reveal_child = false;
 
-            Timeout.add (200, () => {
-                all_tasks_item.margin = 0;
-                completed_item.margin = 0;
+            all_tasks_item.margin = 0;
+            completed_item.margin = 0;
 
-                all_tasks_item.selectable = false;
-                completed_item.selectable = false;
-                return false;
-            });
+            all_tasks_item.selectable = false;
+            completed_item.selectable = false;
+            */
             return false;
         });
 
@@ -186,6 +185,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
             today_item.secondary_text = Application.database.get_before_today_number ().to_string ();
 
             upcoming_item.primary_text = Application.database.get_upcoming_number ().to_string ();
+
+            all_tasks_item.primary_text = Application.database.get_all_tasks_number ().to_string ();
+
+            completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
 
             check_number_labels ();
         });
@@ -257,6 +260,18 @@ public class Widgets.ProjectsList : Gtk.Grid {
         } else {
             upcoming_item.revealer_primary_label = true;
         }
+
+        if (int.parse (all_tasks_item.primary_text) <= 0) {
+            all_tasks_item.revealer_primary_label = false;
+        } else {
+            all_tasks_item.revealer_primary_label = true;
+        }
+
+        if (int.parse (completed_item.primary_text) <= 0) {
+            completed_item.revealer_primary_label = false;
+        } else {
+            completed_item.revealer_primary_label = true;
+        }
     }
 
     public void update_project_list () {
@@ -279,7 +294,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         listbox.insert (completed_item, 4);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 6;
+        separator.margin_top = 12;
         separator.margin_bottom = 6;
 
         var separator_row = new Gtk.ListBoxRow ();
