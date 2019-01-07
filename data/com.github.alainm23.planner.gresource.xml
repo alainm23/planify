@@ -46,6 +46,7 @@
     <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
     <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
     <file alias="planner-when.svg">resources/planner-when.svg</file>
+    <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
 
     <file alias="planner-banana-theme.svg">resources/planner-banana-theme.svg</file>
     <file alias="planner-black-theme.svg">resources/planner-black-theme.svg</file>

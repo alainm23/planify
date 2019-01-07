@@ -29,6 +29,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer secondary_revealer;
     private Gtk.Revealer primary_revealer;
 
+    private Gtk.Revealer main_revealer;
+
+    public bool reveal_child {
+        set {
+            main_revealer.reveal_child = value;
+        }
+        get {
+            return main_revealer.reveal_child;
+        }
+    }
+
     public string primary_text {
         set {
             primary_label.label = value;
@@ -107,6 +118,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_box.pack_end (primary_revealer, false, false, 0);
         main_box.pack_end (secondary_revealer, false, false, 6);
 
-        add (main_box);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        main_revealer.add (main_box);
+        main_revealer.reveal_child = true;
+
+        add (main_revealer);
     }
 }

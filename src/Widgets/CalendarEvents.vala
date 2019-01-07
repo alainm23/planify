@@ -158,13 +158,14 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
 
         var show_hide_calendar_button = new Gtk.Button.from_icon_name ("pan-up-symbolic", Gtk.IconSize.MENU);
         show_hide_calendar_button.can_focus = false;
-        show_hide_calendar_button.margin_start = 3;
+        show_hide_calendar_button.margin = 3;
         show_hide_calendar_button.focus_on_click = false;
         show_hide_calendar_button.valign = Gtk.Align.CENTER;
         show_hide_calendar_button.halign = Gtk.Align.CENTER;
         show_hide_calendar_button.get_style_context ().add_class ("planner-button-ani");
 
         var calendar_button = new Gtk.Button.with_label (_("Calendar"));
+        calendar_button.margin = 3;
         calendar_button.can_focus = false;
         calendar_button.valign = Gtk.Align.CENTER;
         calendar_button.hexpand = true;

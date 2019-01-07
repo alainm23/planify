@@ -28,7 +28,8 @@ public class Views.Main : Gtk.Paned {
     private Views.Inbox inbox_view;
     private Views.Today today_view;
     private Views.Upcoming upcoming_view;
-
+    private Views.AllTasks all_tasks_view;
+    private Views.CompletedTasks completed_tasks_view;
     public Main (MainWindow parent) {
         Object (
             parent_window: parent,
@@ -45,7 +46,8 @@ public class Views.Main : Gtk.Paned {
         inbox_view = new Views.Inbox ();
         today_view = new Views.Today ();
         upcoming_view = new Views.Upcoming ();
-
+        all_tasks_view = new Views.AllTasks ();
+        completed_tasks_view = new Views.CompletedTasks ();
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -54,6 +56,8 @@ public class Views.Main : Gtk.Paned {
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (upcoming_view, "upcoming_view");
+        stack.add_named (all_tasks_view, "all_tasks_view");
+        stack.add_named (completed_tasks_view, "completed_tasks_view");
 
         update_views ();
 
@@ -80,14 +84,14 @@ public class Views.Main : Gtk.Paned {
             if (type == "item") {
                 if (index == 0) {
                     stack.visible_child_name = "inbox_view";
-
-                    //inbox_view.apply_remove ();
                 } else if (index == 1) {
                     stack.visible_child_name = "today_view";
-
-                    //today_view.apply_remove ();
-                } else {
+                } else if (index == 2) {
                     stack.visible_child_name = "upcoming_view";
+                } else if (index == 3) {
+                    stack.visible_child_name = "all_tasks_view";
+                } else {
+                    stack.visible_child_name = "completed_tasks_view";
                 }
             } else {
                 stack.visible_child_name = "project_view-" + index.to_string ();
@@ -117,6 +121,10 @@ public class Views.Main : Gtk.Paned {
                 stack.visible_child_name = "today_view";
             } else if (index == 2) {
                 stack.visible_child_name = "upcoming_view";
+            } else if (index == 3) {
+                stack.visible_child_name = "all_tasks_view";
+            } else if (index == 4) {
+                stack.visible_child_name = "completed_tasks_view";
             }
         });
 

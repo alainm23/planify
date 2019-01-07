@@ -38,6 +38,15 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     construct {
         get_style_context ().add_class ("default-decoration");
 
+        var add_task_button = new Gtk.Button ();
+        add_task_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
+        add_task_button.border_width = 4;
+
+        var add_task_icon = new Gtk.Image ();
+        add_task_icon.gicon = new ThemedIcon ("list-add-symbolic");
+        add_task_icon.pixel_size = 24;
+        add_task_button.image = add_task_icon;
+
         var quick_find_button = new Gtk.Button ();
         quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
         quick_find_button.border_width = 4;
@@ -111,6 +120,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         notification_menu.add (notification_icon);
 
+        //pack_start (add_task_button);
         pack_end (app_menu);
         pack_end (notification_menu);
         pack_end (quick_find_button);

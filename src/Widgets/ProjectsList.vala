@@ -24,6 +24,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Widgets.ItemRow inbox_item;
     private Widgets.ItemRow today_item;
     private Widgets.ItemRow upcoming_item;
+    private Widgets.ItemRow all_tasks_item;
+    private Widgets.ItemRow completed_item;
 
     public signal void on_selected_item (string type, int index);
     public ProjectsList () {
@@ -44,7 +46,14 @@ public class Widgets.ProjectsList : Gtk.Grid {
         today_item.primary_text = Application.database.get_today_number ().to_string ();
 
         upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming");
-        upcoming_item.margin_bottom = 6;
+
+        all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks");
+        all_tasks_item.margin = 0;
+        all_tasks_item.reveal_child = false;
+
+        completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
+        completed_item.margin = 0;
+        completed_item.reveal_child = false;
 
         check_number_labels ();
 
@@ -87,7 +96,11 @@ public class Widgets.ProjectsList : Gtk.Grid {
         var scrolled_window = new Gtk.ScrolledWindow (null, null);
         scrolled_window.add (main_grid);
 
-        add (scrolled_window);
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        eventbox.add (scrolled_window);
+
+        add (eventbox);
         add (action_bar);
 
         add_project_button.grab_focus ();
@@ -102,6 +115,37 @@ public class Widgets.ProjectsList : Gtk.Grid {
         }
 
         // Events
+        eventbox.enter_notify_event.connect ((event) => {
+            all_tasks_item.reveal_child = true;
+            completed_item.reveal_child = true;
+
+            all_tasks_item.margin_left = all_tasks_item.margin_top = all_tasks_item.margin_right = 6;
+            completed_item.margin_left = completed_item.margin_top = completed_item.margin_right = completed_item.margin_bottom = 6;
+
+            all_tasks_item.selectable = true;
+            completed_item.selectable = true;
+            return false;
+        });
+
+        eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            all_tasks_item.reveal_child = false;
+            completed_item.reveal_child = false;
+
+            Timeout.add (200, () => {
+                all_tasks_item.margin = 0;
+                completed_item.margin = 0;
+
+                all_tasks_item.selectable = false;
+                completed_item.selectable = false;
+                return false;
+            });
+            return false;
+        });
+
         var add_popover = new Widgets.Popovers.NewProject (add_project_button);
 
         add_project_button.toggled.connect (() => {
@@ -123,8 +167,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
 
         listbox.row_activated.connect ((row) => {
-            if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2) {
+            if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2 || row.get_index () == 3 || row.get_index () == 4) {
                 on_selected_item ("item", row.get_index ());
+
+                if (row.get_index () == 3 || row.get_index () == 4) {
+                    listbox.unselect_all ();
+                }
             } else {
                 var project = row as Widgets.ProjectRow;
                 on_selected_item ("project", project.project.id);
@@ -149,12 +197,16 @@ public class Widgets.ProjectsList : Gtk.Grid {
                 listbox.select_row (today_item);
             } else if (index == 2) {
                 listbox.select_row (upcoming_item);
+            } else if (index == 3) {
+                //listbox.select_row (all_tasks_item);
+            } else if (index == 4) {
+                //listbox.select_row (completed_item);
             }
         });
 
         Application.signals.go_project_page.connect ((project_id) => {
             listbox.set_filter_func ((row) => {
-                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3) {
+                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3 && row.get_index () != 4 && row.get_index () != 5) {
                     var project = row as Widgets.ProjectRow;
 
                     if (project.project.id == project_id) {
@@ -168,7 +220,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         Application.signals.go_task_page.connect ((task_id, project_id) => {
             listbox.set_filter_func ((row) => {
-                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3) {
+                if (row.get_index () != 0 && row.get_index () != 1 && row.get_index () != 2 && row.get_index () != 3 && row.get_index () != 4 && row.get_index () != 5) {
                     var project = row as Widgets.ProjectRow;
 
                     if (project.project.id == project_id) {
@@ -223,6 +275,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
         listbox.insert (inbox_item, 0);
         listbox.insert (today_item, 1);
         listbox.insert (upcoming_item, 2);
+        listbox.insert (all_tasks_item, 3);
+        listbox.insert (completed_item, 4);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_top = 6;
@@ -233,7 +287,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         separator_row.activatable = false;
         separator_row.add (separator);
 
-        listbox.insert (separator_row, 3);
+        listbox.insert (separator_row, 5);
 
         listbox.show_all ();
     }

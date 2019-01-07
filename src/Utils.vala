@@ -135,6 +135,15 @@ public class Utils : GLib.Object {
         }
     }
 
+    public bool is_listbox_all_empty (Gtk.ListBox listbox) {
+        int l = 0;
+        foreach (Gtk.Widget element in listbox.get_children ()) {
+            l = l + 1;
+        }
+
+        return (l <= 0);
+    }
+
     public bool is_task_repeted (Gtk.ListBox listbox, int id) {
         foreach (Gtk.Widget element in listbox.get_children ()) {
             var item = element as Widgets.TaskRow;

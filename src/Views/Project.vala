@@ -65,10 +65,10 @@ public class Views.Project : Gtk.EventBox {
             "planner-startup-symbolic"
         );
 
-        var color_image = new Gtk.Image ();
-        color_image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        color_image.get_style_context ().add_class ("proyect-%i".printf (project.id));
-        color_image.pixel_size = 24;
+        var label_color = new Gtk.Grid ();
+		label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
+		label_color.set_size_request (16, 16);
+		label_color.margin = 6;
 
         var color_button = new Gtk.Button ();
         color_button.valign = Gtk.Align.CENTER;
@@ -77,7 +77,7 @@ public class Views.Project : Gtk.EventBox {
         color_button.get_style_context ().add_class ("button-circular");
         color_button.get_style_context ().add_class ("no-padding");
         color_button.tooltip_text = _("Add new project");
-        color_button.add (color_image);
+        color_button.add (label_color);
 
         name_entry = new Gtk.Entry ();
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

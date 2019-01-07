@@ -160,10 +160,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         check_reminder_preview_icon ();
 
-        var project_preview_icon = new Gtk.Image ();
-        project_preview_icon.gicon = new ThemedIcon ("mail-unread-symbolic");
-        project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
-        project_preview_icon.pixel_size = 14;
+        var project_preview_icon = new Gtk.Grid ();
+		project_preview_icon.get_style_context ().add_class ("proyect-%i".printf (task.project_id));
+		project_preview_icon.set_size_request (12, 12);
+		project_preview_icon.margin = 6;
 
         project_preview_label = new Gtk.Label (null);
 

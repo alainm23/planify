@@ -81,6 +81,10 @@ public class Widgets.QuickFind : Gtk.Revealer {
                 Application.signals.go_action_page (1);
             } else if (item.is_upcoming) {
                 Application.signals.go_action_page (2);
+            } else if (item.is_all_tasks) {
+                Application.signals.go_action_page (3);
+            } else if (item.is_completed) {
+                Application.signals.go_action_page (4);
             } else if (item.is_project) {
                 Application.signals.go_project_page (item.project_id);
             } else if (item.is_task) {
@@ -239,6 +243,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
             listbox.add (row);
         }
 
+        // Items
         var inbox_row = new Item (_("Inbox"), "mail-mailbox-symbolic");
         inbox_row.is_inbox = true;
         listbox.add (inbox_row);
@@ -250,6 +255,14 @@ public class Widgets.QuickFind : Gtk.Revealer {
         var upcoming_row = new Item (_("Upcoming"), "x-office-calendar-symbolic");
         upcoming_row.is_upcoming = true;
         listbox.add (upcoming_row);
+
+        var all_tasks_row = new Item (_("All Tasks"), "user-bookmarks-symbolic");
+        all_tasks_row.is_all_tasks = true;
+        listbox.add (all_tasks_row);
+
+        var completed_tasks_row = new Item (_("Completed Tasks"), "emblem-default-symbolic");
+        completed_tasks_row.is_completed = true;
+        listbox.add (completed_tasks_row);
 
         listbox.show_all ();
     }
@@ -292,6 +305,8 @@ public class Item : Gtk.ListBoxRow {
     public bool is_upcoming;
     public bool is_project;
     public bool is_task;
+    public bool is_all_tasks;
+    public bool is_completed;
 
     public int project_id;
     public int task_id;
@@ -307,6 +322,8 @@ public class Item : Gtk.ListBoxRow {
         is_upcoming = false;
         is_project = false;
         is_task = false;
+        is_all_tasks = false;
+        is_completed = false;
 
         project_id = 0;
         task_id = 0;

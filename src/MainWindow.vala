@@ -73,7 +73,6 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-
         eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.DOUBLE_BUTTON_PRESS) {
                 events_widget.reveal_child = false;
@@ -92,7 +91,6 @@ public class MainWindow : Gtk.Window {
         Application.database.update_indicators.connect (() => {
             check_badge_count ();
         });
-
 
         Application.signals.on_signal_show_events.connect (() => {
             if (events_widget.reveal_child == false) {

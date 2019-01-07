@@ -35,7 +35,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     */
     public const string COLOR_CSS = """
         .proyect-%i {
-            color: %s;
+            background-color: %s;
+            border-radius: 50px;
+            box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
         }
     """;
 
@@ -52,10 +54,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         can_focus = true;
         get_style_context ().add_class ("item-row");
 
-        var label_color = new Gtk.Image ();
-        label_color.gicon = new ThemedIcon ("mail-unread-symbolic");
-        label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
-        label_color.pixel_size = 24;
+        var label_color = new Gtk.Grid ();
+		label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
+		label_color.set_size_request (16, 16);
+		label_color.margin = 6;
 
         name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -89,7 +91,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         number_label.valign = Gtk.Align.CENTER;
 
         main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-        main_box.margin = 6;
+        main_box.margin = 3;
 
         main_box.pack_start (label_color, false, false, 0);
         main_box.pack_start (name_label, false, true, 0);
@@ -127,7 +129,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             menu_revealer.reveal_child = false;
         });
 
-        menu_popover.on_selected_menu.connect((index) => {
+        menu_popover.on_selected_menu.connect ((index) => {
             if (index == 0) {
                 int tasks_number = Application.database.get_project_no_completed_tasks_number (project.id);
 
@@ -160,7 +162,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 name_label.visible = false;
                 name_entry.visible = true;
 
-                Timeout.add_seconds (200, () => {
+                Timeout.add (200, () => {
 				    name_entry.grab_focus ();
 				    return false;
 			    });

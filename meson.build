@@ -47,6 +47,8 @@ executable(
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
+    'src/Views/AllTasks.vala',
+    'src/Views/CompletedTasks.vala',
 
     'src/Dialogs/PreferencesDialog.vala',
     'src/Dialogs/ShareDialog.vala',

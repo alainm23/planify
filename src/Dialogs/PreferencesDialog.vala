@@ -156,15 +156,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         top_box.set_center_widget (title_label);
 
         var icon = new Gtk.Image ();
-        icon.gicon = new ThemedIcon ("preferences-system-notifications");
+        icon.gicon = new ThemedIcon ("planner-badge-count");
         icon.pixel_size = 32;
 
         var label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
         label.get_style_context ().add_class ("h3");
-        label.max_width_chars = 41;
         label.wrap = true;
 
-        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         description_box.margin = 10;
         description_box.hexpand = true;
         description_box.pack_start (icon, false, false, 0);
@@ -282,7 +281,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var label = new Gtk.Label (_("Choose that page should be first initial when Planner is open."));
         label.get_style_context ().add_class ("h3");
-        label.max_width_chars = 41;
         label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -379,7 +377,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var label = new Gtk.Label (_("Choose how many clicks to close and save all open tasks."));
         label.get_style_context ().add_class ("h3");
-        label.max_width_chars = 41;
         label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -476,7 +473,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var label = new Gtk.Label (_("Get the weather forecast in a simple and beautiful widget."));
         label.get_style_context ().add_class ("h3");
-        label.max_width_chars = 41;
         label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -613,16 +609,16 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var label = new Gtk.Label (_("Events from your personal and shared calendars can be displayed."));
         label.get_style_context ().add_class ("h3");
-        label.max_width_chars = 41;
         label.wrap = true;
 
         var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         description_box.margin = 10;
         description_box.hexpand = true;
         description_box.pack_start (icon, false, false, 0);
-        description_box.pack_start (label, false, false, 6);
+        description_box.pack_start (label, false, false, 0);
 
-        var show_label = new Gtk.Label (_("Show Calendar Events"));
+        var show_label = new Gtk.Label (_("Enabled"));
+        show_label.margin_bottom = 1;
         show_label.get_style_context ().add_class ("h3");
 
         var show_switch = new Gtk.Switch ();
@@ -660,7 +656,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         calendar_list_revealer.reveal_child = true;
 
         src_map = new GLib.HashTable<string, Widgets.SourceItem?>(str_hash, str_equal);
-
+        
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (description_box);
@@ -685,6 +681,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         back_button.clicked.connect (() => {
             main_stack.visible_child_name = "general";
+            check_calendar_preview ();
         });
 
         show_switch.notify["active"].connect(() => {
@@ -820,6 +817,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         weather_preview_label.label = "%s / %s".printf (location, unit);
     }
 
+    private void check_calendar_preview () {
+        if (Application.settings.get_boolean ("show-calendar-events")) {
+            calendar_preview_label.label = _("Enabled");
+        } else {
+            calendar_preview_label.label = _("Disabled");
+        }
+    }
+
     private Gtk.Widget get_help_widget () {
         int pixel_size = 24;
 
@@ -910,7 +915,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Badge Count
         var badge_count_icon = new Gtk.Image ();
-        badge_count_icon.gicon = new ThemedIcon ("preferences-system-notifications");
+        badge_count_icon.gicon = new ThemedIcon ("planner-badge-count");
         badge_count_icon.pixel_size = pixel_size;
 
         var badge_count_label = new Gtk.Label (_("Badge Count"));
@@ -932,7 +937,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Start Page
         var start_page_icon = new Gtk.Image ();
-        start_page_icon.gicon = new ThemedIcon ("help-about");
+        start_page_icon.gicon = new ThemedIcon ("user-home");
         start_page_icon.pixel_size = pixel_size;
 
         var start_page_label = new Gtk.Label (_("Start Page"));
@@ -1005,6 +1010,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         calendar_label.get_style_context ().add_class ("h3");
 
         calendar_preview_label = new Gtk.Label (null);
+        check_calendar_preview ();
 
         var calendar_list = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         calendar_list.margin = 6;
@@ -1254,6 +1260,7 @@ public class ThemeChild : Gtk.FlowBoxChild {
         image.valign = Gtk.Align.START;
 
         var grid = new Gtk.Grid ();
+        grid.margin = 3;
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.halign = Gtk.Align.CENTER;
         grid.valign = Gtk.Align.CENTER;

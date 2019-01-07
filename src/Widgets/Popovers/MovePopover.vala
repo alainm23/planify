@@ -91,6 +91,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         }
 
         var inbox_icon = new Gtk.Image.from_icon_name ("planner-inbox", Gtk.IconSize.MENU);
+
         var inbox_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         inbox_label.ellipsize = Pango.EllipsizeMode.END;
         inbox_label.valign = Gtk.Align.CENTER;
@@ -100,6 +101,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
         grid.margin = 6;
+        grid.margin_start = 12;
 
         grid.add (inbox_icon);
         grid.add (inbox_label);
@@ -137,10 +139,10 @@ public class PRow : Gtk.ListBoxRow {
     construct {
         get_style_context ().add_class ("layout-row");
 
-        var image = new Gtk.Image ();
-        image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        image.get_style_context ().add_class ("proyect-%i".printf (project.id));
-        image.pixel_size = 16;
+        var label_color = new Gtk.Grid ();
+		label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
+		label_color.set_size_request (16, 16);
+		label_color.margin = 6;
 
         var name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -151,7 +153,7 @@ public class PRow : Gtk.ListBoxRow {
         var main_grid = new Gtk.Grid ();
         main_grid.margin = 6;
         main_grid.column_spacing = 6;
-        main_grid.add (image);
+        main_grid.add (label_color);
         main_grid.add (name_label);
 
         add (main_grid);
