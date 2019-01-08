@@ -85,7 +85,6 @@ public class Application : Gtk.Application {
         main_window.set_allocation (rect);
         main_window.show_all ();
 
-
         // Actions
         var quit_action = new SimpleAction ("quit", null);
 

@@ -21,10 +21,7 @@
 
 public class Views.AllTasks : Gtk.EventBox {
     public MainWindow window { get; construct; }
-    private Widgets.TaskNew task_new_revealer;
     private Gtk.ListBox tasks_list;
-    private Gtk.Button add_task_button;
-    private Gtk.Revealer add_task_revealer;
     private Gtk.FlowBox labels_flowbox;
     private Widgets.AlertView alert_view;
     private Widgets.Popovers.LabelsPopover labels_popover;
@@ -103,23 +100,12 @@ public class Views.AllTasks : Gtk.EventBox {
         });
 
         var action_grid = new Gtk.Grid ();
+        action_grid.valign = Gtk.Align.CENTER;
         action_grid.column_spacing = 12;
 
         action_grid.add (labels_button);
         action_grid.add (share_button);
         action_grid.add (show_hide_all_button);
-
-        var action_revealer = new Gtk.Revealer ();
-        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        action_revealer.add (action_grid);
-
-        var settings_button = new Gtk.ToggleButton ();
-		settings_button.active = true;
-        settings_button.valign = Gtk.Align.START;
-		settings_button.get_style_context ().add_class ("show-settings-button");
-        settings_button.get_style_context ().add_class ("button-circular");
-        settings_button.get_style_context ().remove_class ("button");
-		settings_button.add (new Gtk.Image.from_icon_name ("pan-start-symbolic", Gtk.IconSize.MENU));
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
@@ -128,31 +114,12 @@ public class Views.AllTasks : Gtk.EventBox {
 
         top_box.pack_start (all_tasks_icon, false, false, 0);
         top_box.pack_start (all_tasks_label, false, false, 12);
-        top_box.pack_end (settings_button, false, false, 12);
-        top_box.pack_end (action_revealer, false, false, 0);
+        top_box.pack_end (action_grid, false, false, 12);
 
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
         tasks_list.selection_mode = Gtk.SelectionMode.SINGLE;
         tasks_list.hexpand = true;
-
-        add_task_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        add_task_button.height_request = 32;
-        add_task_button.width_request = 32;
-        add_task_button.get_style_context ().add_class ("button-circular");
-        add_task_button.get_style_context ().add_class ("no-padding");
-        add_task_button.tooltip_text = _("Add new task");
-
-        add_task_revealer = new Gtk.Revealer ();
-        add_task_revealer.valign = Gtk.Align.END;
-        add_task_revealer.halign = Gtk.Align.END;
-        add_task_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        add_task_revealer.add (add_task_button);
-        add_task_revealer.margin = 12;
-        add_task_revealer.reveal_child = true;
-
-        task_new_revealer = new Widgets.TaskNew (true);
-        task_new_revealer.valign = Gtk.Align.END;
 
         labels_flowbox = new Gtk.FlowBox ();
         labels_flowbox.selection_mode = Gtk.SelectionMode.NONE;
@@ -200,8 +167,6 @@ public class Views.AllTasks : Gtk.EventBox {
         main_box.pack_start (scrolled, true, true, 0);
 
         var main_overlay = new Gtk.Overlay ();
-        //main_overlay.add_overlay (add_task_revealer);
-        //main_overlay.add_overlay (task_new_revealer);
         main_overlay.add (main_box);
 
         add (main_overlay);
@@ -234,10 +199,6 @@ public class Views.AllTasks : Gtk.EventBox {
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
-        add_task_button.clicked.connect (() => {
-            task_on_revealer ();
-        });
-
         this.event.connect ((event) => {
             var button_press = Application.settings.get_enum ("quick-save");
 
@@ -267,20 +228,6 @@ public class Views.AllTasks : Gtk.EventBox {
 
             tasks_list.unselect_all ();
             return false;
-        });
-
-        settings_button.toggled.connect (() => {
-            if (action_revealer.reveal_child) {
-                settings_button.get_style_context ().remove_class ("closed");
-                action_revealer.reveal_child = false;
-            } else {
-                action_revealer.reveal_child = true;
-                settings_button.get_style_context ().add_class ("closed");
-            }
-        });
-
-        task_new_revealer.on_signal_close.connect (() => {
-            task_on_revealer ();
         });
 
         labels_button.clicked.connect (() => {
@@ -452,22 +399,5 @@ public class Views.AllTasks : Gtk.EventBox {
         if (Application.utils.is_listbox_empty (tasks_list)) {
             main_stack.visible_child_name = "alert";
         }
-    }
-
-    private void task_on_revealer () {
-        if (task_new_revealer.reveal_child) {
-            task_new_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-            task_new_revealer.reveal_child = false;
-
-            add_task_revealer.reveal_child = true;
-        } else {
-            task_new_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-            task_new_revealer.reveal_child = true;
-
-            add_task_revealer.reveal_child = false;
-            task_new_revealer.name_entry.grab_focus ();
-        }
-
-        tasks_list.unselect_all ();
     }
 }

@@ -33,6 +33,8 @@ public class Services.Database : GLib.Object {
 
     public signal void update_indicators ();
 
+    public signal void adden_new_repository (Objects.Repository repository);
+
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.cache/com.github.alainm23.planner/database.db";
@@ -96,7 +98,55 @@ public class Services.Database : GLib.Object {
             "color          VARCHAR)", null, null);
         debug ("Table TASKS created");
 
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS REPOSITORY (" +
+            "id            INTEGER," +
+            "visible       INTEGER," +
+            "name          VARCHAR)", null, null);
+        debug ("Table REPOSITORY created");
+
         return rc;
+    }
+
+    public int add_repository (Objects.Repository repository) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO REPOSITORY (id, visible, name)" +
+            "VALUES (?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, repository.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, repository.visible);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, repository.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            adden_new_repository (repository);
+        }
+
+        return res;
+    }
+
+    public bool repository_exists (int64 id) {
+        bool exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORY WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            exists = stmt.column_int (0) > 0;
+        }
+
+        return exists;
     }
 
     public int add_project (Objects.Project project) {
@@ -696,7 +746,9 @@ public class Services.Database : GLib.Object {
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (when) || Application.utils.is_before_today (when)) {
-                all.add (task);
+                if (task.checked == 0) {
+                    all.add (task);
+                }
             }
         }
 

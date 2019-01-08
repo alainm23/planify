@@ -53,6 +53,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
         completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
+        completed_item.reveal_child = false;
 
         check_number_labels ();
 
