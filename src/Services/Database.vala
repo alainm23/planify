@@ -34,7 +34,7 @@ public class Services.Database : GLib.Object {
     public signal void update_indicators ();
 
     public signal void adden_new_repository (Objects.Repository repository);
-
+    public signal void adden_new_user (Objects.User user);
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.cache/com.github.alainm23.planner/database.db";
@@ -98,29 +98,122 @@ public class Services.Database : GLib.Object {
             "color          VARCHAR)", null, null);
         debug ("Table TASKS created");
 
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS REPOSITORY (" +
-            "id            INTEGER," +
-            "visible       INTEGER," +
-            "name          VARCHAR)", null, null);
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS USERS (" +
+            "id         INTEGER," +
+            "name       VARCHAR," +
+            "login      VARCHAR," +
+            "avatar_url VARCHAR)", null, null);
+        debug ("Table GITHUB_USER created");
+        
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS REPOSITORIES (" +
+            "id         INTEGER," +
+            "name       VARCHAR," +
+            "sensitive  INTEGER," +
+            "issues     VARCHAR," +
+            "user_id    INTEGER)", null, null);
         debug ("Table REPOSITORY created");
 
         return rc;
     }
 
+    public int add_user (Objects.User user) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO USERS (id, name, login, avatar_url)" +
+            "VALUES (?, ?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, user.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, user.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, user.login);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, user.avatar_url);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            adden_new_user (user);
+        }
+
+        return res;
+    }
+
+    public bool user_exists () {
+        bool file_exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM USERS", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            file_exists = stmt.column_int (0) > 0;
+        }
+
+        return file_exists;
+    }
+
+    public Objects.User get_user () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM USERS ORDER BY id ASC LIMIT 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        var user = new Objects.User ();
+
+        user.id = stmt.column_int64 (0);
+        user.name = stmt.column_text (1);
+        user.login = stmt.column_text (2);
+        user.avatar_url = stmt.column_text (3);
+
+        return user;
+    }
+
+    public bool repository_exists (int64 id) {
+        bool exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            exists = stmt.column_int (0) > 0;
+        }
+
+        return exists;
+    }
+
     public int add_repository (Objects.Repository repository) {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("INSERT INTO REPOSITORY (id, visible, name)" +
-            "VALUES (?, ?, ?)", -1, out stmt);
+        int res = db.prepare_v2 ("INSERT INTO REPOSITORIES (id, name, sensitive, issues, user_id)" +
+            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, repository.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (2, repository.visible);
+        res = stmt.bind_text (2, repository.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (3, repository.name);
+        res = stmt.bind_int (3, repository.sensitive);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, repository.issues);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, repository.user_id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -132,21 +225,49 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
-    public bool repository_exists (int64 id) {
-        bool exists = false;
+    public int update_repository (Objects.Repository repository) {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORY WHERE id = ?", -1, out stmt);
+        int res = db.prepare_v2 ("UPDATE REPOSITORIES SET sensitive = ? WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int (1, repository.sensitive);
         assert (res == Sqlite.OK);
 
-        if (stmt.step () == Sqlite.ROW) {
-            exists = stmt.column_int (0) > 0;
+        res = stmt.bind_int64 (2, repository.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            
         }
 
-        return exists;
+        return res;
+    }
+
+    public Gee.ArrayList<Objects.Repository?> get_all_repos () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM REPOSITORIES",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Repository?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var repo = new Objects.Repository ();
+
+            repo.id = stmt.column_int (0);
+            repo.name = stmt.column_text (1);
+            repo.sensitive = stmt.column_int (2);
+            repo.issues = stmt.column_text (3);
+            repo.user_id = stmt.column_int (4);
+
+            all.add (repo);
+        }
+
+        return all;
     }
 
     public int add_project (Objects.Project project) {

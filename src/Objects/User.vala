@@ -19,22 +19,19 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Objects.Repository {
+public class Objects.User {
     public int64 id;
     public string name;
-    public int sensitive;
-    public string issues;
-    public int64 user_id;
+    public string login;
+    public string avatar_url;
 
-    public Repository (int64 id = 0,
-                       string name = "",
-                       int sensitive = 0,
-                       string issues = "",
-                       int64 user_id = 0) {
+    public User (int64 id = 0,
+                  string name = "",
+                  string login = "",
+                  string avatar_url = "") {
         this.id = id;
         this.name = name;
-        this.sensitive = sensitive;
-        this.issues = issues;
-        this.user_id = user_id;
+        this.login = login;
+        this.avatar_url = avatar_url;
     }
 }

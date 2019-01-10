@@ -33,12 +33,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Gtk.Label weather_preview_label;
     private Gtk.Label calendar_preview_label;
 
-    private Gtk.Entry username_entry;
-    private Gtk.Revealer error_revealer;
+    private Granite.Widgets.Avatar profile_image;
+    private Gtk.Label username_label;
 
     public signal void on_close ();
 
-    private string uri = "https://api.github.com";
     public PreferencesDialog (Gtk.Window parent) {
         Object (
             window: parent,
@@ -52,7 +51,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        set_size_request (640, 494);
+        set_size_request (660, 568);
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -72,7 +71,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         main_stack.add_named (get_general_widget (), "general");
         main_stack.add_named (get_themes_widget (), "themes");
-        main_stack.add_named (get_issues_widget (), "issues");
+        main_stack.add_named (get_github_login_widget (), "github_login");
+        main_stack.add_named (get_github_widget (), "issues");
         main_stack.add_named (get_help_widget (), "help");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
@@ -80,7 +80,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_weather_widget (), "weather");
         main_stack.add_named (get_calendar_widget (), "calendar");
         main_stack.add_named (get_items_widget (), "items");
-        main_stack.add_named (get_repository_widget (), "repos");
 
         main_stack.visible_child_name = "general";
 
@@ -107,16 +106,37 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             } else if (mode_button.selected == 1){
                 main_stack.visible_child_name = "themes";
             } else if (mode_button.selected == 2) {
-                main_stack.visible_child_name = "issues";
+                if (Application.database.user_exists ()) {
+                    main_stack.visible_child_name = "issues";
+                } else {
+                    main_stack.visible_child_name = "github_login";
+                }
             } else {
                 main_stack.visible_child_name = "help";
+            }
+        });
+
+        Application.github.completed_user.connect ((user) => {
+            var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+            var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
+            var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+            
+            try {
+                var pixbuf = new Gdk.Pixbuf.from_file_at_size (image_path, 48, 48);
+
+                profile_image.pixbuf = pixbuf;
+                username_label.label = "%s (%s)".printf (user.name, user.login);
+
+                main_stack.visible_child_name = "issues";
+            } catch (Error e) {
+                stderr.printf ("Failed to connect to Github service.\n");
             }
         });
 
         add_action_widget (close_button, 0);
     }
 
-    private Gtk.Widget get_issues_widget () {
+    private Gtk.Widget get_github_login_widget () {
         var github_image = new Gtk.Image.from_icon_name ("planner-github", Gtk.IconSize.DIALOG);
 
         var title_label = new Gtk.Label (_("Github"));
@@ -130,7 +150,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-		username_entry = new Gtk.Entry ();
+		var username_entry = new Gtk.Entry ();
         username_entry.margin_top = 24;
         username_entry.halign = Gtk.Align.CENTER;
 		username_entry.placeholder_text = _("Username");
@@ -142,7 +162,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         error_label.margin_top = 6;
         error_label.get_style_context ().add_class ("error");
 
-        error_revealer = new Gtk.Revealer ();
+        var error_revealer = new Gtk.Revealer ();
         error_revealer.add (error_label);
         error_revealer.reveal_child = false;
 
@@ -188,108 +208,107 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_frame.add (main_grid);
 
         connect_button.clicked.connect (() => {
-            check_github_user (username_entry.text);
+            Application.github.check_username (username_entry.text);
         });
 
         username_entry.activate.connect (() => {
-            check_github_user (username_entry.text);
+            Application.github.check_username (username_entry.text);
+        });
+
+        Application.github.user_is_valid.connect ((valid) => {
+            if (valid) {
+                // ALmacenar la informacion de usuario
+            } else {
+                username_entry.secondary_icon_name = "dialog-error-symbolic";
+                error_revealer.reveal_child = true;
+            }
         });
 
         return main_frame;
     }
+    
+    private Gtk.Widget get_github_widget () {
+        var user = Application.database.get_user ();
 
-    private void check_github_user (string username) {
-        new Thread<void*> ("scan_local_files", () => {
-            var uri_user = "%s/users/%s".printf (uri, username_entry.text);
+        var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+        var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
+        var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
 
-            var session = new Soup.Session ();
-            var message = new Soup.Message ("GET", uri_user);
-            message.request_headers.append ("User-Agent", "planner");
-            session.send_message (message);
+        profile_image = new Granite.Widgets.Avatar.from_file (image_path, 48);
+        
+        var github_icon = new Gtk.Image ();
+        github_icon.valign = Gtk.Align.END;
+        github_icon.halign = Gtk.Align.END;
+        github_icon.gicon = new ThemedIcon ("planner-github");
+        github_icon.pixel_size = 24;
 
-            var response = (string) message.response_body.flatten ().data;
+        var profile_overlay = new Gtk.Overlay ();
+        profile_overlay.add_overlay (github_icon);
+        profile_overlay.add (profile_image);
 
-            if ("Not Found" in response) {
-                username_entry.secondary_icon_name = "dialog-error-symbolic";
-                error_revealer.reveal_child = true;
-            } else {
-                try {
-                    main_stack.visible_child_name = "repos";
+        username_label = new Gtk.Label ("%s (%s)".printf (user.name, user.login));
+        username_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        username_label.halign = Gtk.Align.START;
+        username_label.valign = Gtk.Align.END;
 
-                    username_entry.secondary_icon_name = null;
-                    error_revealer.reveal_child = false;
+        var subtitle_label = new Gtk.Label (_("Check which repositories you want to work with"));
+        subtitle_label.halign = Gtk.Align.START;
+        subtitle_label.valign = Gtk.Align.START;
+		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-                    var parser = new Json.Parser ();
-                    parser.load_from_data (response, -1);
-
-                    var root = parser.get_root ().get_object ();
-                    get_repos (username);
-                } catch (Error e) {
-                    stderr.printf ("Failed to connect to Github service.\n");
-                }
-            }
-
-            return null;
-        });
-    }
-
-    private void get_repos (string username) {
-        new Thread<void*> ("scan_local_files", () => {
-            var uri_repos = "%s/users/%s/repos".printf (uri, username);
-
-            var session = new Soup.Session ();
-            var message = new Soup.Message ("GET", uri_repos);
-            message.request_headers.append ("User-Agent", "planner");
-            session.send_message (message);
-
-            try {
-                var parser = new Json.Parser ();
-                parser.load_from_data ((string) message.response_body.flatten ().data, -1);
-
-                var root = parser.get_root ().get_array ();
-
-
-                foreach (var item in root.get_elements ()) {
-                    var item_details = item.get_object ();
-
-                    if (item_details.get_boolean_member ("fork") == false) {
-                        if (Application.database.repository_exists (item_details.get_int_member ("id")) == false) {
-                            var repo = new Objects.Repository ();
-                            repo.id = item_details.get_int_member ("id");
-                            repo.name = item_details.get_string_member ("name");
-
-                            Application.database.add_repository (repo);
-                        }
-                    }
-                }
-
-
-            } catch (Error e) {
-                stderr.printf ("Failed to connect to Github service.\n");
-            }
-
-            return null;
-        });
-    }
-
-    private Gtk.Widget get_repository_widget () {
-        var title_label = new Gtk.Label ("Elige que reposirorios deberia Planner observar");
-        title_label.use_markup = true;
-        title_label.max_width_chars = 32;
-        title_label.valign = Gtk.Align.CENTER;
-        title_label.wrap = true;
-        title_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-		title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        var title_grid = new Gtk.Grid ();
+        title_grid.margin = 6;
+        title_grid.column_spacing = 6;
+        title_grid.halign = Gtk.Align.START;
+        title_grid.valign = Gtk.Align.START;
+        title_grid.attach (profile_overlay, 0, 0, 1, 2);
+        title_grid.attach (username_label, 1, 0, 1, 1);
+        title_grid.attach (subtitle_label, 1, 1, 1, 1);
 
         var listbox = new Gtk.ListBox  ();
+        listbox.margin_top = 6;
+        listbox.margin_start = 6;
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
 
+        var reset_button = new Gtk.Button.with_label (_("Delete account"));
+        reset_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+        var update_button = new Gtk.Button.with_label (_("Update repositories"));
+        update_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.column_homogeneous = true;
+        action_grid.column_spacing = 6;
+        action_grid.halign = Gtk.Align.CENTER;
+        action_grid.margin = 6;
+        action_grid.margin_bottom = 12;
+        action_grid.add (update_button);
+        action_grid.add (reset_button);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (title_grid);
+        main_grid.add (username_label);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (listbox);
+        main_grid.add (action_grid);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
+
         Application.database.adden_new_repository.connect ((repo) => {
             try {
                 Idle.add (() => {
-                    var item = new RepositoryRow (repo);
+                    var item = new Widgets.RepositoryRow (repo);
                     listbox.add (item);
 
                     listbox.show_all ();
@@ -300,21 +319,27 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             }
         });
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.halign = Gtk.Align.CENTER;
-        main_grid.valign = Gtk.Align.CENTER;
+        // Update listbox
+        var all_repos = new Gee.ArrayList<Objects.Repository?> ();
+        all_repos= Application.database.get_all_repos ();
 
-        main_grid.add (title_label);
-        main_grid.add (listbox);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.expand = true;
-        scrolled.add (main_grid);
+        foreach (var repo in all_repos) {
+            var row = new Widgets.RepositoryRow (repo);
+            listbox.add (row);
+        }
         
-        var main_frame = new Gtk.Frame (null);
-        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        listbox.show_all ();
+
+        update_button.clicked.connect (() => {
+            if (Application.database.user_exists ()) {
+                var _user = Application.database.get_user ();
+                Application.github.get_repos (_user.login, _user.id);
+            }
+        });
+
+        reset_button.clicked.connect (() => {
+
+        });
 
         return main_frame;
     }
@@ -1599,30 +1624,5 @@ public class ThemeChild : Gtk.FlowBoxChild {
         grid.add (name_label);
 
         add (grid);
-    }
-}
-
-public class RepositoryRow : Gtk.ListBoxRow {
-    public Objects.Repository repository { get; construct; }
-
-    public RepositoryRow (Objects.Repository _objec) {
-        Object (
-            repository: _objec
-        );
-    }
-
-    construct {
-        var checked_button = new Gtk.CheckButton.with_label (repository.name);
-        checked_button.can_focus = false;
-        checked_button.valign = Gtk.Align.CENTER;
-        checked_button.halign = Gtk.Align.CENTER;
-
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.margin = 6;
-        main_box.expand = true;
-
-        main_box.pack_start (checked_button, false, false, 0);
-
-        add (main_box);
     }
 }

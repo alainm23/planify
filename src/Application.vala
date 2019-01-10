@@ -25,6 +25,7 @@ public class Application : Gtk.Application {
     public static Services.Database database;
     public static Services.Notifications notification;
     public static Services.Signals signals;
+    public static Services.Github github;
     public static Utils utils;
 
     public const string CSS = """
@@ -43,12 +44,14 @@ public class Application : Gtk.Application {
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner");
+        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner/profile");
 
         settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
 
         notification = new Services.Notifications ();
         signals = new Services.Signals ();
+        github = new Services.Github ();
     }
 
     public static Application _instance = null;

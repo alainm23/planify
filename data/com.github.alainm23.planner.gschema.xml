@@ -54,20 +54,6 @@
             <description></description>
         </key>
 
-        <key name="github-issues" type="b">
-            <default>false</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="github-username" type="s">
-          <default>"alainm23"</default>
-          <summary>Github Username</summary>
-          <description>
-            Github Username
-          </description>
-        </key>
-
         <key name="show-calendar-events" type="b">
             <default>false</default>
             <summary></summary>
