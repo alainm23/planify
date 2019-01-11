@@ -417,8 +417,7 @@ public class Views.Upcoming : Gtk.EventBox {
             }
         });
 
-        Application.database.add_task_signal.connect (() => {
-            var task = Application.database.get_last_task ();
+        Application.database.add_task_signal.connect ((task) => {
             add_new_task (task);
         });
 

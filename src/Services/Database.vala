@@ -27,7 +27,7 @@ public class Services.Database : GLib.Object {
     public signal void on_add_project_signal ();
     public signal void on_signal_remove_project (Objects.Project project);
 
-    public signal void add_task_signal ();
+    public signal void add_task_signal (Objects.Task task);
     public signal void on_signal_remove_task (Objects.Task task);
     public signal void update_task_signal (Objects.Task task);
 
@@ -300,6 +300,31 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public int remove_all_users () {
+        Sqlite.Statement stmt;
+        
+        int res = db.prepare_v2 ("DELETE FROM USERS;",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        return res;
+    }
+
+    public int remove_all_repos () {
+        Sqlite.Statement stmt;
+        
+        int res = db.prepare_v2 ("DELETE FROM REPOSITORIES;",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+        
+        return res;
+    }
+
+
     public int add_project (Objects.Project project) {
         Sqlite.Statement stmt;
 
@@ -373,7 +398,7 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
-    public int remove_project (int id) {
+    public int remove_project (int id) {   
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("DELETE FROM PROJECTS WHERE id = ?", -1, out stmt);
@@ -385,13 +410,15 @@ public class Services.Database : GLib.Object {
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            // Remove all tasks project
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_tasks_by_project (id);
+            stmt.reset ();
 
-            foreach (var task in all_tasks) {
-                remove_task (task);
-            }
+            res = db.prepare_v2 ("DELETE FROM TASKS WHERE project_id = ?", -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (1, id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
         }
 
         return res;
@@ -575,12 +602,26 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
-        if (res == Sqlite.DONE) {
-            add_task_signal ();
-            update_indicators ();
-        }
+        stmt.reset ();
 
-        return res;
+        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE content = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, task.content);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () == Sqlite.ROW) {
+            task.id = stmt.column_int (0);
+
+            // Add track to list
+            add_task_signal (task);
+            update_indicators ();
+
+            return Sqlite.DONE;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return Sqlite.ERROR;
+        }
     }
 
     public Objects.Task get_last_task () {

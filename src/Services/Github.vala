@@ -280,4 +280,12 @@ public class Services.Github : GLib.Object {
             return null;
         });
     }
+
+    public bool delete_account () {
+        if (Application.database.remove_all_users () == Sqlite.DONE && Application.database.remove_all_repos () == Sqlite.DONE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -184,7 +184,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		connect_button.margin_top = 12;
 		connect_button.width_request = 250;
 		connect_button.halign = Gtk.Align.CENTER;
-		connect_button.sensitive = false;
+        connect_button.sensitive = false;
+        
+        var forgot_button = new Gtk.LinkButton.with_label ("https://github.com/password_reset", _("Forgot password…"));
+        forgot_button.margin_top = 12;
 
         var signup_button = new Gtk.LinkButton.with_label ("https://github.com/join", _("Don't have an account? Sign Up"));
         signup_button.margin_top = 6;
@@ -214,6 +217,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (entrys_grid);
         main_grid.add (error_revealer);
         main_grid.add (connect_button);
+        main_grid.add (forgot_button);
         main_grid.add (signup_button);
 
         var main_frame = new Gtk.Frame (null);
@@ -373,7 +377,25 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         reset_button.clicked.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Are you sure you want to delete his Github account?"),
+                "",
+                "dialog-warning",
+            Gtk.ButtonsType.CANCEL);
 
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                if (Application.github.delete_account ()) {
+                    main_stack.visible_child_name = "github_login";
+                }
+            }
+
+            message_dialog.destroy ();
         });
 
         return main_frame;

@@ -135,6 +135,17 @@ public class Views.Main : Gtk.Paned {
         Application.signals.go_task_page.connect ((task_id, project_id) => {
             stack.visible_child_name = "project_view-%i".printf (project_id);
         });
+
+        Application.database.on_signal_remove_project.connect ((project) => {
+            string project_name = "project_view-%i".printf (project.id);
+            var project_view = stack.get_child_by_name (project_name);
+
+            if (stack.visible_child_name == project_name) {
+                stack.visible_child_name = "today_view";
+            }
+
+            project_view.destroy ();
+        });
     }
 
     public void update_views () {
