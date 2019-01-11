@@ -102,6 +102,7 @@ public class Services.Database : GLib.Object {
             "id         INTEGER," +
             "name       VARCHAR," +
             "login      VARCHAR," +
+            "token      VARCHAR," +
             "avatar_url VARCHAR)", null, null);
         debug ("Table GITHUB_USER created");
         
@@ -119,8 +120,8 @@ public class Services.Database : GLib.Object {
     public int add_user (Objects.User user) {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("INSERT INTO USERS (id, name, login, avatar_url)" +
-            "VALUES (?, ?, ?, ?)", -1, out stmt);
+        int res = db.prepare_v2 ("INSERT INTO USERS (id, name, login, token, avatar_url)" +
+            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, user.id);
@@ -132,7 +133,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (3, user.login);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (4, user.avatar_url);
+        res = stmt.bind_text (4, user.token);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, user.avatar_url);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -158,6 +162,20 @@ public class Services.Database : GLib.Object {
         return file_exists;
     }
 
+    public bool repo_exists () {
+        bool file_exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            file_exists = stmt.column_int (0) > 0;
+        }
+
+        return file_exists;
+    }
+
     public Objects.User get_user () {
         Sqlite.Statement stmt;
 
@@ -172,7 +190,8 @@ public class Services.Database : GLib.Object {
         user.id = stmt.column_int64 (0);
         user.name = stmt.column_text (1);
         user.login = stmt.column_text (2);
-        user.avatar_url = stmt.column_text (3);
+        user.token = stmt.column_text (3);
+        user.avatar_url = stmt.column_text (4);
 
         return user;
     }
@@ -228,13 +247,24 @@ public class Services.Database : GLib.Object {
     public int update_repository (Objects.Repository repository) {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("UPDATE REPOSITORIES SET sensitive = ? WHERE id = ?", -1, out stmt);
+        int res = db.prepare_v2 ("UPDATE REPOSITORIES SET name = ?, " +
+            "sensitive = ?, issues = ?, user_id = ? " +
+            "WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, repository.sensitive);
+        res = stmt.bind_text (1, repository.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, repository.id);
+        res = stmt.bind_int (2, repository.sensitive);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, repository.issues);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, repository.user_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, repository.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();

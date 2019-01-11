@@ -51,7 +51,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        set_size_request (660, 568);
+        set_size_request (660, 569);
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -156,6 +156,19 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		username_entry.placeholder_text = _("Username");
 		username_entry.width_request = 250;
 
+        var password_entry = new Gtk.Entry ();
+		password_entry.width_request = 250;
+		password_entry.placeholder_text = _("Password");
+		password_entry.visibility = false;
+		password_entry.input_purpose = Gtk.InputPurpose.PASSWORD;
+
+        var entrys_grid = new Gtk.Grid ();
+		entrys_grid.orientation = Gtk.Orientation.VERTICAL;
+		entrys_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+		entrys_grid.halign = Gtk.Align.CENTER;
+		entrys_grid.add (username_entry);
+		entrys_grid.add (password_entry);
+
         var error_label = new Gtk.Label (_("Enter a correct Username"));
         error_label.halign = Gtk.Align.END;
         error_label.margin_end = 48;
@@ -198,7 +211,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (title_grid);
-        main_grid.add (username_entry);
+        main_grid.add (entrys_grid);
         main_grid.add (error_revealer);
         main_grid.add (connect_button);
         main_grid.add (signup_button);
@@ -208,17 +221,39 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_frame.add (main_grid);
 
         connect_button.clicked.connect (() => {
-            Application.github.check_username (username_entry.text);
+            Application.github.get_token (username_entry.text, password_entry.text);
         });
 
         username_entry.activate.connect (() => {
-            Application.github.check_username (username_entry.text);
+            if (username_entry.text != "" && password_entry.text != "") {
+                Application.github.get_token (username_entry.text, password_entry.text);
+            }
+        });
+
+        password_entry.activate.connect (() => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                Application.github.get_token (username_entry.text, password_entry.text);
+            }
+        });
+
+        username_entry.changed.connect ( () => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                connect_button.sensitive = true;
+            } else {
+                connect_button.sensitive = false;
+            }
+        });
+
+        password_entry.changed.connect ( () => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                connect_button.sensitive = true;
+            } else {
+                connect_button.sensitive = false;
+            }
         });
 
         Application.github.user_is_valid.connect ((valid) => {
-            if (valid) {
-                // ALmacenar la informacion de usuario
-            } else {
+            if (valid == false) {
                 username_entry.secondary_icon_name = "dialog-error-symbolic";
                 error_revealer.reveal_child = true;
             }
@@ -321,7 +356,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Update listbox
         var all_repos = new Gee.ArrayList<Objects.Repository?> ();
-        all_repos= Application.database.get_all_repos ();
+        all_repos = Application.database.get_all_repos ();
 
         foreach (var repo in all_repos) {
             var row = new Widgets.RepositoryRow (repo);
@@ -333,7 +368,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         update_button.clicked.connect (() => {
             if (Application.database.user_exists ()) {
                 var _user = Application.database.get_user ();
-                Application.github.get_repos (_user.login, _user.id);
+                Application.github.get_repos (_user.login, _user.token, _user.id);
             }
         });
 

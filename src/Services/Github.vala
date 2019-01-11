@@ -29,98 +29,226 @@ public class Services.Github : GLib.Object {
     public Github () {
         session = new Soup.Session ();
         session.ssl_strict = false;
+
+        init_check ();
     }
 
-    public void check_username (string username) {
-        var uri_user = "%s/users/%s".printf (GITHUB_URI, username);
+    public void init_check () {
+        Timeout.add_seconds (1 * 60 * 10, () => {
+            if (Application.database.user_exists () && Application.database.repo_exists ()) {
+                var user = Application.database.get_user ();
 
-        var message = new Soup.Message ("GET", uri_user);
+                var all_repos = new Gee.ArrayList<Objects.Repository?> ();
+                all_repos = Application.database.get_all_repos ();
+
+                foreach (var repo in all_repos) {
+                    if (repo.sensitive == 1) {
+                        get_issues (user.login, user.token, repo);
+                    }
+                }
+            }
+
+            return true;
+        });
+    }
+
+    public void get_issues (string username, string token, Objects.Repository repo) {
+        var uri_issues = "%s/repos/%s/%s/issues".printf (GITHUB_URI, username, repo.name);
+        
+        var message = new Soup.Message ("GET", uri_issues);
         message.request_headers.append ("User-Agent", "Planner");
+        message.request_headers.append ("Authorization", "token " + token);
+
+        session.send_message (message);
+
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+
+            var root = parser.get_root ().get_array ();
+
+            foreach (var item in root.get_elements ()) {
+                var item_details = item.get_object ();
+                
+                var id = item_details.get_int_member ("id");
+
+                if (!issue_exists (repo.issues, id)) {
+                    // Add id to repo
+                    repo.issues = repo.issues + id.to_string () + ";";
+
+                    // Creando la tarea
+                    var task = new Objects.Task ();
+                    task.content = item_details.get_string_member ("title");
+                    task.is_inbox = 1;
+                    task.note = item_details.get_string_member ("body");
+
+                    // Agregando tarea a la base de datos
+                    Application.database.add_task (task);
+
+                    // Enviando notificacion
+                    Application.notification.send_notification ("Github", task.content);
+
+                    // ACtualizando repo
+                    Application.database.update_repository (repo);
+                }
+            }
+        } catch (Error e) {
+            stderr.printf ("Failed to connect to Github service.\n");
+        }
+
+    }
+
+    public bool issue_exists (string issues, int64 id) {
+        var _issues = issues.split (";");
+
+        foreach (unowned string _id in _issues) {
+            if (_id == id.to_string ()) {
+                return true;
+            }
+        }
+
+        return false;
+    } 
+
+    public void get_token (string username, string password) {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        builder.set_member_name ("client_id");
+        builder.add_string_value ("c0fc83d4d56d7b6e006f");
+        builder.set_member_name ("client_secret");
+        builder.add_string_value ("cbd427556f7533d48483362592be1df4086a5015");
+        builder.set_member_name ("scopes");
+        builder.begin_array ();
+        builder.add_string_value ("user");
+        builder.add_string_value ("repo");
+        builder.end_array ();
+        builder.set_member_name ("note");
+        builder.add_string_value ("planner");
+        builder.set_member_name ("note_url");
+        builder.add_string_value ("https://github.com/alainm23/planner");
+        builder.end_object ();
+
+        var generator = new Json.Generator ();
+        var root = builder.get_root ();
+        generator.set_root (root);
+        string str = generator.to_data (null);
+        
+        var uri = "https://api.github.com/authorizations";
+        
+        var message = new Soup.Message ("POST", uri);
+        var buffer = Soup.MemoryUse.COPY;
+        message.request_headers.append ("User-Agent", "planner");
+        message.set_request("application/json; charset=utf-8", buffer, str.data);
+        string encoded = Base64.encode ((username + ":" + password).data);
+        message.request_headers.append ("Authorization", "Basic " + encoded);
         session.send_message (message);
 
         var response = (string) message.response_body.flatten ().data;
 
-        if ("Not Found" in response) {
+        if ("Bad credentials" in response) {
             user_is_valid (false);
         } else {
-            user_is_valid (true);
-
             try {
                 var parser = new Json.Parser ();
                 parser.load_from_data (response, -1);
 
-                get_username_data (parser);
+                var root_oa = parser.get_root ().get_object ();
+                var token = root_oa.get_string_member ("token");
+                
+                if (token != "") {
+                    get_username_data (username, token);
+                }
             } catch (Error e) {
-                stderr.printf ("Failed to connect to Github service.\n");
+                debug (e.message);
             }
         }
     }
 
-    public void get_username_data (Json.Parser parser) {
-        var nodo = parser.get_root ().get_object ();
+    public void get_username_data (string username, string token) {
+        var uri_user = "%s/users/%s".printf (GITHUB_URI, username);
 
-        var user = new Objects.User ();
-        user.id = nodo.get_int_member ("id");
+        var message = new Soup.Message ("GET", uri_user);
+        message.request_headers.append ("User-Agent", "Planner");
+        message.request_headers.append ("Authorization", "token " + token);
+        
+        session.send_message (message);
+        
+        var response = (string) message.response_body.flatten ().data;
 
-        if (nodo.get_string_member ("name") == "" || nodo.get_string_member ("name") == null) {
-            user.name = "";
-        } else {
-            user.name = nodo.get_string_member ("name");
-        }
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_data (response, -1);
 
-        if (nodo.get_string_member ("login") == "" || nodo.get_string_member ("login") == null) {
-            user.login = "";
-        } else {
-            user.login = nodo.get_string_member ("login");
-        }
+            var nodo = parser.get_root ().get_object ();
 
-        if (nodo.get_string_member ("avatar_url") == "" || nodo.get_string_member ("avatar_url") == null) {
-            user.avatar_url = "";
-        } else {
-            user.avatar_url = nodo.get_string_member ("avatar_url");
-        }
+            var user = new Objects.User ();
+            user.id = nodo.get_int_member ("id");
+            user.token = token;
 
-        if (Application.database.add_user (user) == Sqlite.DONE) {
-            // Create file
-            var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
-            var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
-            var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+            if (nodo.get_string_member ("name") == null) {
+                user.name = "";
+            } else {
+                user.name = nodo.get_string_member ("name");
+            }
+        
+            if (nodo.get_string_member ("login") == null) {
+                user.login = "";
+            } else {
+                user.login = nodo.get_string_member ("login");
+            }
+        
+            if (nodo.get_string_member ("avatar_url") == null) {
+                user.avatar_url = "";
+            } else {
+                user.avatar_url = nodo.get_string_member ("avatar_url");
+            }
 
-            // Create avatar image file 
-            var file_path = File.new_for_path (image_path);
-            var file_from_uri = File.new_for_uri (user.avatar_url);
-
-
-            MainLoop loop = new MainLoop ();
-            
-            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
-		    // Report copy-status:
-		        print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n",
-			        current_num_bytes, total_num_bytes);
-	        }, (obj, res) => {
-		        try {
-                    if (file_from_uri.copy_async.end (res)) {
-                        completed_user (user);
-
-                        get_repos (user.login, user.id);
+            if (Application.database.add_user (user) == Sqlite.DONE) {
+                // Create file
+                var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+                var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
+                var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+        
+                // Create avatar image file 
+                var file_path = File.new_for_path (image_path);
+                var file_from_uri = File.new_for_uri (user.avatar_url);
+        
+        
+                MainLoop loop = new MainLoop ();
+                    
+                file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                    // Report copy-status:
+                    print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n",
+                        current_num_bytes, total_num_bytes);
+                }, (obj, res) => {
+                    try {
+                        if (file_from_uri.copy_async.end (res)) {
+                            completed_user (user);
+        
+                            get_repos (user.login, user.token, user.id);
+                        }
+                    } catch (Error e) {
+                        print ("Error: %s\n", e.message);
                     }
-		        } catch (Error e) {
-			        print ("Error: %s\n", e.message);
-	    	    }
-
-		        loop.quit ();
-	        });
-
-	        loop.run ();
+        
+                    loop.quit ();
+                });
+        
+                loop.run ();
+            }
+        } catch (Error e) {
+            stderr.printf ("Failed to connect to Github service.\n");
         }
     }
 
-    public void get_repos (string username, int64 user_id) {
+    public void get_repos (string username, string token, int64 user_id) {
         new Thread<void*> ("scan_local_files", () => {
             var uri_repos = "%s/users/%s/repos".printf (GITHUB_URI, username);
 
             var message = new Soup.Message ("GET", uri_repos);
             message.request_headers.append ("User-Agent", "planner");
+            message.request_headers.append ("Authorization", "token " + token);
+
             session.send_message (message);
 
             try {

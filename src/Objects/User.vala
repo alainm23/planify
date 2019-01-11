@@ -23,15 +23,18 @@ public class Objects.User {
     public int64 id;
     public string name;
     public string login;
+    public string token;
     public string avatar_url;
 
     public User (int64 id = 0,
                   string name = "",
                   string login = "",
+                  string token = "",
                   string avatar_url = "") {
         this.id = id;
         this.name = name;
         this.login = login;
+        this.token = token;
         this.avatar_url = avatar_url;
     }
 }
