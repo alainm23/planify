@@ -38,7 +38,7 @@ public class Views.AllTasks : Gtk.EventBox {
 
         alert_view = new Widgets.AlertView (
             _("All clear"),
-            _("Looks like everything's is organized. Tap + to add a task."),
+            _("Find all your tasks here."),
             "mail-mailbox-symbolic"
         );
 

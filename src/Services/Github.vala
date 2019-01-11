@@ -26,30 +26,41 @@ public class Services.Github : GLib.Object {
 
     public signal void user_is_valid (bool valid);
     public signal void completed_user (Objects.User user);
+
     public Github () {
         session = new Soup.Session ();
         session.ssl_strict = false;
 
-        init_check ();
+        Timeout.add_seconds (1 * 30, () => {
+            check_issues ();
+
+            return false;
+        });
+
+        init_server ();
     }
 
-    public void init_check () {
+    private void init_server () {
         Timeout.add_seconds (1 * 60 * 10, () => {
-            if (Application.database.user_exists () && Application.database.repo_exists ()) {
-                var user = Application.database.get_user ();
-
-                var all_repos = new Gee.ArrayList<Objects.Repository?> ();
-                all_repos = Application.database.get_all_repos ();
-
-                foreach (var repo in all_repos) {
-                    if (repo.sensitive == 1) {
-                        get_issues (user.login, user.token, repo);
-                    }
-                }
-            }
+            check_issues ();
 
             return true;
         });
+    }
+
+    public void check_issues () {
+        if (Application.database.user_exists () && Application.database.repo_exists ()) {
+            var user = Application.database.get_user ();
+
+            var all_repos = new Gee.ArrayList<Objects.Repository?> ();
+            all_repos = Application.database.get_all_repos ();
+
+            foreach (var repo in all_repos) {
+                if (repo.sensitive == 1) {
+                    get_issues (user.login, user.token, repo);
+                }
+            }
+        }
     }
 
     public void get_issues (string username, string token, Objects.Repository repo) {
@@ -76,7 +87,7 @@ public class Services.Github : GLib.Object {
                     // Add id to repo
                     repo.issues = repo.issues + id.to_string () + ";";
 
-                    // Creando la tarea
+                    // New Task
                     var task = new Objects.Task ();
                     task.content = item_details.get_string_member ("title");
                     task.is_inbox = 1;
@@ -85,10 +96,10 @@ public class Services.Github : GLib.Object {
                     // Agregando tarea a la base de datos
                     Application.database.add_task (task);
 
-                    // Enviando notificacion
-                    Application.notification.send_notification ("Github", task.content);
+                    // Send Noty
+                    Application.notification.send_notification ("Github Issues - %s".printf (repo.name), task.content, "planner-github");
 
-                    // ACtualizando repo
+                    // Update repo
                     Application.database.update_repository (repo);
                 }
             }
@@ -204,10 +215,8 @@ public class Services.Github : GLib.Object {
             }
 
             if (Application.database.add_user (user) == Sqlite.DONE) {
-                // Create file
-                var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
-                var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
-                var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+                // Create file  
+                var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
         
                 // Create avatar image file 
                 var file_path = File.new_for_path (image_path);
@@ -282,6 +291,18 @@ public class Services.Github : GLib.Object {
     }
 
     public bool delete_account () {
+        var user = Application.database.get_user ();
+        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
+        var file_path = File.new_for_path (image_path);
+        
+        if (file_path.query_exists ()) {
+            try {
+                file_path.delete ();
+            } catch (Error e) {
+                print ("Error: %s\n", e.message);
+            }
+        }
+
         if (Application.database.remove_all_users () == Sqlite.DONE && Application.database.remove_all_repos () == Sqlite.DONE) {
             return true;
         } else {

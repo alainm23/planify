@@ -34,9 +34,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     public bool reveal_child {
         set {
             if (value) {
-                margin_left = 6;
+                margin_start = 6;
                 margin_top = 6;
-                margin_right = 6;
+                margin_end = 6;
             } else {
                 margin = 0;
             }

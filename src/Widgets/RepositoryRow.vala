@@ -30,33 +30,65 @@ public class Widgets.RepositoryRow : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("task");
+        selectable = false;
 
-        var checked_button = new Gtk.CheckButton.with_label (repository.name);
-        checked_button.can_focus = false;
-        checked_button.get_style_context ().add_class ("h3");
+        var repo_icon = new Gtk.Image ();
+        repo_icon.gicon = new ThemedIcon ("planner-repository-symbolic");
+        repo_icon.pixel_size = 16;
+
+        var name_label = new Gtk.Label (repository.name);
+        name_label.margin_bottom = 1;
+        name_label.get_style_context ().add_class ("h3");
+
+        var sensitive_switch = new Gtk.Switch ();
+        sensitive_switch.margin_end = 6;
+        sensitive_switch.get_style_context ().add_class ("active-switch");
+        sensitive_switch.valign = Gtk.Align.CENTER;
 
         if (repository.sensitive == 0) {
-            checked_button.active = false;
+            sensitive_switch.active = false;
         } else {
-            checked_button.active = true;
+            sensitive_switch.active = true;
         }
 
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.margin = 3;
-        main_box.expand = true;
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin = 6;
+        box.expand = true;
 
-        main_box.pack_start (checked_button, false, false, 0);
+        box.pack_start (repo_icon, false, false, 0);
+        box.pack_start (name_label, false, false, 6);
+        box.pack_end (sensitive_switch, false, false, 0);
 
-        add (main_box);
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        checked_button.toggled.connect (() => {
-			if (checked_button.active) {
+        main_grid.add (box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add (main_grid);
+
+        add (eventbox);
+
+        sensitive_switch.notify["active"].connect(() => {
+            if (sensitive_switch.active) {
                 repository.sensitive = 1;
-			} else {
+            } else {
                 repository.sensitive = 0;
             }
-            
+
             Application.database.update_repository (repository);
-		});
+        });
+
+        eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (sensitive_switch.active) {
+                    sensitive_switch.active = false;
+                } else {
+                    sensitive_switch.active = true;
+                }
+            }
+            return false;
+        });
     }
 }

@@ -2,11 +2,11 @@
 Name=Planner
 GenericName=Planner
 Comment=Never worry about forgetting things again
-Categories=Development;Utility;Office;Education;ProjectManagement;
+Categories=Development;Utility;Office;Education;ProjectManagement;Network;Calendar;
 Exec=com.github.alainm23.planner
 Icon=com.github.alainm23.planner
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=planner
-Keywords=development;task;tasks;project;todo;event;events;weather;calendar;
+Keywords=development;task;tasks;project;todo;event;events;weather;calendar;github,issue;issues;
 X-GNOME-UsesNotifications=true

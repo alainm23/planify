@@ -83,6 +83,12 @@
     background-color: @base_color;
 }
 
+.planner-button-issues {
+    color: #ffffff;
+    background: linear-gradient(#009F51, #008041);
+    border: 1px solid darker(#008F43);
+}
+
 .active-switch slider {
     min-height: 16px;
     min-width: 16px;

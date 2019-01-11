@@ -226,7 +226,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.column_spacing = 12;
 
         action_grid.add (labels_button);
-        action_grid.add (search_button);
+        //action_grid.add (search_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
         action_grid.add (show_hide_all_button);

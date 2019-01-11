@@ -279,9 +279,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         github_icon.valign = Gtk.Align.END;
         github_icon.halign = Gtk.Align.END;
         github_icon.gicon = new ThemedIcon ("planner-github");
-        github_icon.pixel_size = 24;
+        github_icon.pixel_size = 20;
 
         var profile_overlay = new Gtk.Overlay ();
+        profile_overlay.margin_start = 6;
+        profile_overlay.margin_top = 6;
+        profile_overlay.margin_bottom = 6;
         profile_overlay.add_overlay (github_icon);
         profile_overlay.add (profile_image);
 
@@ -297,52 +300,50 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
         var title_grid = new Gtk.Grid ();
-        title_grid.margin = 6;
+        title_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
         title_grid.column_spacing = 6;
-        title_grid.halign = Gtk.Align.START;
-        title_grid.valign = Gtk.Align.START;
         title_grid.attach (profile_overlay, 0, 0, 1, 2);
         title_grid.attach (username_label, 1, 0, 1, 1);
         title_grid.attach (subtitle_label, 1, 1, 1, 1);
 
         var listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 6;
-        listbox.margin_start = 6;
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
 
-        var reset_button = new Gtk.Button.with_label (_("Delete account"));
-        reset_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (listbox);
 
-        var update_button = new Gtk.Button.with_label (_("Update repositories"));
-        update_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        var update_issues_button = new Gtk.Button.with_label (_("Update issues"));
+        update_issues_button.get_style_context ().add_class ("planner-button-issues");
+
+        var update_repos_button = new Gtk.Button.with_label (_("Update repositories"));
+        update_repos_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var reset_account_button = new Gtk.Button.with_label (_("Delete account"));
+        reset_account_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.halign = Gtk.Align.CENTER;
         action_grid.margin = 6;
-        action_grid.margin_bottom = 12;
-        action_grid.add (update_button);
-        action_grid.add (reset_button);
+        action_grid.add (update_issues_button);
+        action_grid.add (update_repos_button);
+        action_grid.add (reset_account_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (title_grid);
-        main_grid.add (username_label);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (listbox);
+        main_grid.add (scrolled);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (action_grid);
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.expand = true;
-        scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (scrolled);
+        main_frame.add (main_grid);
 
         Application.database.adden_new_repository.connect ((repo) => {
             try {
@@ -354,7 +355,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
                     return false;
                 });
             } catch (Error err) {
-                warning ("%s\n", err.message);
+                stderr.printf ("Error");
             }
         });
 
@@ -369,16 +370,16 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         
         listbox.show_all ();
 
-        update_button.clicked.connect (() => {
+        update_repos_button.clicked.connect (() => {
             if (Application.database.user_exists ()) {
                 var _user = Application.database.get_user ();
                 Application.github.get_repos (_user.login, _user.token, _user.id);
             }
         });
 
-        reset_button.clicked.connect (() => {
+        reset_account_button.clicked.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure you want to delete his Github account?"),
+                _("Are you sure you want to delete your Github account?"),
                 "",
                 "dialog-warning",
             Gtk.ButtonsType.CANCEL);
@@ -391,11 +392,19 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (Application.github.delete_account ()) {
+                    foreach (Gtk.Widget element in listbox.get_children ()) {
+                        listbox.remove (element);
+                    }
+                    
                     main_stack.visible_child_name = "github_login";
                 }
             }
 
             message_dialog.destroy ();
+        });
+
+        update_issues_button.clicked.connect (() => {
+            Application.github.check_issues ();
         });
 
         return main_frame;
@@ -1420,8 +1429,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (calendar_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (items_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        //main_grid.add (items_eventbox);
+       //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (run_background_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (launch_eventbox);

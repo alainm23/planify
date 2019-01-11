@@ -5,6 +5,7 @@ src/Services/Database.vala
 src/Services/Notifications.vala
 src/Services/Weather.vala
 src/Services/Signals.vala
+src/Services/Github.vala
 src/Services/Calendar/CalendarModel.vala
 src/Services/Calendar/Utils.vala
 src/Services/Calendar/GesturesUtils.vala
@@ -40,6 +41,7 @@ src/Widgets/AgendaEventRow.vala
 src/Widgets/SourceItem.vala
 src/Widgets/QuickFind.vala
 src/Widgets/NoteChild.vala
+src/Widgets/RepositoryRow.vala
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarHeader.vala
 src/Widgets/Calendar/CalendarView.vala
@@ -57,6 +59,7 @@ src/Widgets/Popovers/DeadlinePopover.vala
 src/Objects/Project.vala
 src/Objects/Task.vala
 src/Objects/Label.vala
-src/Objects/Notification.vala
+src/Objects/User.vala
+src/Objects/Repository.vala
 data/com.github.alainm23.planner.desktop.in
 data/com.github.alainm23.planner.appdata.xml.in

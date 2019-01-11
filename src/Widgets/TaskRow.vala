@@ -465,7 +465,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         name_eventbox.enter_notify_event.connect ((event) => {
             var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND2);
-            var window = Application.instance.main_window.get_root_window ();
+            var window = Gdk.Screen.get_default ().get_root_window ();
+            
 
             window.cursor = select_cursor;
             return false;
@@ -477,7 +478,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
 
             var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.ARROW);
-            var window = Application.instance.main_window.get_root_window ();
+            var window = Gdk.Screen.get_default ().get_root_window ();
 
             window.cursor = select_cursor;
 
