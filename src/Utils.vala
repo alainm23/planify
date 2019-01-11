@@ -20,6 +20,13 @@
 */
 
 public class Utils : GLib.Object {
+    public string CACHE_FOLDER;
+    public string PROFILE_FOLDER;
+    public Utils () {
+        CACHE_FOLDER = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+        PROFILE_FOLDER = GLib.Path.build_filename (CACHE_FOLDER, "profile");
+    }
+
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;
         File tmp = File.new_for_path (path);

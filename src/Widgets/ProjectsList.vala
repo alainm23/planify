@@ -53,6 +53,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
         completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
+        completed_item.reveal_child = false;
 
         check_number_labels ();
 
@@ -114,37 +115,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         }
 
         // Events
-        eventbox.enter_notify_event.connect ((event) => {
-            /*
-            all_tasks_item.reveal_child = true;
-            completed_item.reveal_child = true;
-
-            all_tasks_item.margin_start = all_tasks_item.margin_top = all_tasks_item.margin_end = 6;
-            completed_item.margin_start = completed_item.margin_top = completed_item.margin_end = completed_item.margin_bottom = 6;
-
-            all_tasks_item.selectable = true;
-            completed_item.selectable = true;
-            */
-            return false;
-        });
-
-        eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-            /*
-            all_tasks_item.reveal_child = false;
-            completed_item.reveal_child = false;
-
-            all_tasks_item.margin = 0;
-            completed_item.margin = 0;
-
-            all_tasks_item.selectable = false;
-            completed_item.selectable = false;
-            */
-            return false;
-        });
-
         var add_popover = new Widgets.Popovers.NewProject (add_project_button);
 
         add_project_button.toggled.connect (() => {
@@ -168,10 +138,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         listbox.row_activated.connect ((row) => {
             if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2 || row.get_index () == 3 || row.get_index () == 4) {
                 on_selected_item ("item", row.get_index ());
-
-                if (row.get_index () == 3 || row.get_index () == 4) {
-                    listbox.unselect_all ();
-                }
             } else {
                 var project = row as Widgets.ProjectRow;
                 on_selected_item ("project", project.project.id);

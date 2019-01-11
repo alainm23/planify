@@ -16,6 +16,11 @@ install_data(
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
 
+install_data(
+    join_paths('icons', '48', 'planner-github' + '.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '48' + 'x' + '48' + '@2', 'apps')
+)
+
 i18n.merge_file(
   input: meson.project_name() + '.desktop.in',
   output: meson.project_name() + '.desktop',

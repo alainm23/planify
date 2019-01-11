@@ -18,12 +18,37 @@
     <p>4. Be even more organized</p>
     <p>Add a deadline to your tasks, create labels, use checklists.</p>
     <p>5. Share your progress</p>
-    <p>Share all the progress of your project or some special task, all this in Markdown</p>
+    <p>Share all the progress of your project or some special task, all this in Markdown.</p>
+    <p>6. Support for Github Issues</p>
+    <p>Conecte su cuenta y comience a recibir notificaciones de cada nuevo problema en los repositorios que seleccionó.</p>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="1.1" date="2019-01-11">
+      <description>
+          <p>New feature: Support for Github Issues</p>
+          <ul>
+              <li>Connect with your Github account</li>
+              <li>Receive all your issue as tasks in Inbox</li>
+              <li>Planner will notify you if any new issue was posted</li>
+          </ul>
+          <p>Translations:</p>
+          <ul>
+              <li>Portugués Brasileño 🇧🇷 (Marciel Sousa)</li>
+              <li>Romanian (Prongs Dark)</li>
+          </ul>
+          <p>Bugs and Improvements:</p>
+          <ul>
+              <li>Performance improvement</li>
+              <li>Design improvements</li>
+              <li>Fix #22</li>
+              <li>Fix #21</li>
+              <li>Fix #11</li>
+          </ul>
+      </description>
+    </release>
     <release version="1.0.4" date="2019-01-04">
       <description>
           <p>Improved stability and some bug fixes</p>

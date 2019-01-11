@@ -66,6 +66,36 @@
             <description>Location type used by the program (Automatic/Manual)</description>
         </key>
 
+        <key name="show-inbox" type="b">
+            <default>true</default>
+            <summary>Show Inbox item</summary>
+            <description>Show Inbox item</description>
+        </key>
+
+        <key name="show-today" type="b">
+            <default>true</default>
+            <summary>Show Today item</summary>
+            <description>Show Today item</description>
+        </key>
+
+        <key name="show-upcoming" type="b">
+            <default>true</default>
+            <summary>Show Upcoming item</summary>
+            <description>Show Upcoming item</description>
+        </key>
+
+        <key name="show-all-tasks" type="b">
+            <default>false</default>
+            <summary>Show All Tasks item</summary>
+            <description>Show All Tasks item</description>
+        </key>
+
+        <key name="show-completed-tasks" type="b">
+            <default>false</default>
+            <summary>Show Completed Tasks item</summary>
+            <description>Show Completed Tasks item</description>
+        </key>
+
         <key name="location-manual-value" type="s">
           <default>"Seattle, US"</default>
           <summary>Manual location stored value</summary>

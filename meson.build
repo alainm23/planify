@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '1.0.2')
+        version: '1.1')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -34,6 +34,7 @@ executable(
     'src/Services/Notifications.vala',
     'src/Services/Weather.vala',
     'src/Services/Signals.vala',
+    'src/Services/Github.vala',
     'src/Services/Calendar/CalendarModel.vala',
     'src/Services/Calendar/Utils.vala',
     'src/Services/Calendar/GesturesUtils.vala',
@@ -74,6 +75,7 @@ executable(
     'src/Widgets/SourceItem.vala',
     'src/Widgets/QuickFind.vala',
     'src/Widgets/NoteChild.vala',
+    'src/Widgets/RepositoryRow.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -95,7 +97,8 @@ executable(
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',
     'src/Objects/Label.vala',
-    'src/Objects/Notification.vala',
+    'src/Objects/Repository.vala',
+    'src/Objects/User.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('glib-2.0'),

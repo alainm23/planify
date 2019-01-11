@@ -33,7 +33,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Gtk.Label weather_preview_label;
     private Gtk.Label calendar_preview_label;
 
+    private Granite.Widgets.Avatar profile_image;
+    private Gtk.Label username_label;
+
     public signal void on_close ();
+
     public PreferencesDialog (Gtk.Window parent) {
         Object (
             window: parent,
@@ -47,7 +51,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        set_size_request (640, 494);
+        set_size_request (660, 569);
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -55,7 +59,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         mode_button.append_text (_("General"));
         mode_button.append_text (_("Appearance"));
+        mode_button.append_text (_("Issues"));
         mode_button.append_text (_("Help"));
+
         mode_button.selected = 0;
 
         main_stack = new Gtk.Stack ();
@@ -65,12 +71,15 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         main_stack.add_named (get_general_widget (), "general");
         main_stack.add_named (get_themes_widget (), "themes");
+        main_stack.add_named (get_github_login_widget (), "github_login");
+        main_stack.add_named (get_github_widget (), "issues");
         main_stack.add_named (get_help_widget (), "help");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
         main_stack.add_named (get_weather_widget (), "weather");
         main_stack.add_named (get_calendar_widget (), "calendar");
+        main_stack.add_named (get_items_widget (), "items");
 
         main_stack.visible_child_name = "general";
 
@@ -96,12 +105,309 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
                 main_stack.visible_child_name = "general";
             } else if (mode_button.selected == 1){
                 main_stack.visible_child_name = "themes";
+            } else if (mode_button.selected == 2) {
+                if (Application.database.user_exists ()) {
+                    main_stack.visible_child_name = "issues";
+                } else {
+                    main_stack.visible_child_name = "github_login";
+                }
             } else {
                 main_stack.visible_child_name = "help";
             }
         });
 
+        Application.github.completed_user.connect ((user) => {
+            var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+            var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
+            var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+            
+            try {
+                var pixbuf = new Gdk.Pixbuf.from_file_at_size (image_path, 48, 48);
+
+                profile_image.pixbuf = pixbuf;
+                username_label.label = "%s (%s)".printf (user.name, user.login);
+
+                main_stack.visible_child_name = "issues";
+            } catch (Error e) {
+                stderr.printf ("Failed to connect to Github service.\n");
+            }
+        });
+
         add_action_widget (close_button, 0);
+    }
+
+    private Gtk.Widget get_github_login_widget () {
+        var github_image = new Gtk.Image.from_icon_name ("planner-github", Gtk.IconSize.DIALOG);
+
+        var title_label = new Gtk.Label (_("Github"));
+        title_label.halign = Gtk.Align.START;
+        title_label.valign = Gtk.Align.END;
+        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+		var subtitle_label = new Gtk.Label (_("Connect your account to work with issues"));
+        subtitle_label.halign = Gtk.Align.START;
+        subtitle_label.valign = Gtk.Align.START;
+		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+		var username_entry = new Gtk.Entry ();
+        username_entry.margin_top = 24;
+        username_entry.halign = Gtk.Align.CENTER;
+		username_entry.placeholder_text = _("Username");
+		username_entry.width_request = 250;
+
+        var password_entry = new Gtk.Entry ();
+		password_entry.width_request = 250;
+		password_entry.placeholder_text = _("Password");
+		password_entry.visibility = false;
+		password_entry.input_purpose = Gtk.InputPurpose.PASSWORD;
+
+        var entrys_grid = new Gtk.Grid ();
+		entrys_grid.orientation = Gtk.Orientation.VERTICAL;
+		entrys_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+		entrys_grid.halign = Gtk.Align.CENTER;
+		entrys_grid.add (username_entry);
+		entrys_grid.add (password_entry);
+
+        var error_label = new Gtk.Label (_("Enter a correct Username"));
+        error_label.halign = Gtk.Align.END;
+        error_label.margin_end = 48;
+        error_label.margin_top = 6;
+        error_label.get_style_context ().add_class ("error");
+
+        var error_revealer = new Gtk.Revealer ();
+        error_revealer.add (error_label);
+        error_revealer.reveal_child = false;
+
+		var connect_button = new Gtk.Button.with_label (_("Connect"));
+ 		connect_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+		connect_button.margin_top = 12;
+		connect_button.width_request = 250;
+		connect_button.halign = Gtk.Align.CENTER;
+        connect_button.sensitive = false;
+        
+        var forgot_button = new Gtk.LinkButton.with_label ("https://github.com/password_reset", _("Forgot password…"));
+        forgot_button.margin_top = 12;
+
+        var signup_button = new Gtk.LinkButton.with_label ("https://github.com/join", _("Don't have an account? Sign Up"));
+        signup_button.margin_top = 6;
+
+		username_entry.changed.connect ( () => {
+			if (username_entry.text != "") {
+				connect_button.sensitive = true;
+			} else {
+				connect_button.sensitive = false;
+			}
+		});
+
+        var title_grid = new Gtk.Grid ();
+        title_grid.column_spacing = 12;
+        title_grid.halign = Gtk.Align.CENTER;
+        title_grid.valign = Gtk.Align.CENTER;
+        title_grid.attach (github_image, 0, 0, 1, 2);
+        title_grid.attach (title_label, 1, 0, 1, 1);
+        title_grid.attach (subtitle_label, 1, 1, 1, 1);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.halign = Gtk.Align.CENTER;
+        main_grid.valign = Gtk.Align.CENTER;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (title_grid);
+        main_grid.add (entrys_grid);
+        main_grid.add (error_revealer);
+        main_grid.add (connect_button);
+        main_grid.add (forgot_button);
+        main_grid.add (signup_button);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        connect_button.clicked.connect (() => {
+            Application.github.get_token (username_entry.text, password_entry.text);
+        });
+
+        username_entry.activate.connect (() => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                Application.github.get_token (username_entry.text, password_entry.text);
+            }
+        });
+
+        password_entry.activate.connect (() => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                Application.github.get_token (username_entry.text, password_entry.text);
+            }
+        });
+
+        username_entry.changed.connect ( () => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                connect_button.sensitive = true;
+            } else {
+                connect_button.sensitive = false;
+            }
+        });
+
+        password_entry.changed.connect ( () => {
+            if (username_entry.text != "" && password_entry.text != "") {
+                connect_button.sensitive = true;
+            } else {
+                connect_button.sensitive = false;
+            }
+        });
+
+        Application.github.user_is_valid.connect ((valid) => {
+            if (valid == false) {
+                username_entry.secondary_icon_name = "dialog-error-symbolic";
+                error_revealer.reveal_child = true;
+            }
+        });
+
+        return main_frame;
+    }
+    
+    private Gtk.Widget get_github_widget () {
+        var user = Application.database.get_user ();
+
+        var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+        var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
+        var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+
+        profile_image = new Granite.Widgets.Avatar.from_file (image_path, 48);
+        
+        var github_icon = new Gtk.Image ();
+        github_icon.valign = Gtk.Align.END;
+        github_icon.halign = Gtk.Align.END;
+        github_icon.gicon = new ThemedIcon ("planner-github");
+        github_icon.pixel_size = 20;
+
+        var profile_overlay = new Gtk.Overlay ();
+        profile_overlay.margin_start = 6;
+        profile_overlay.margin_top = 6;
+        profile_overlay.margin_bottom = 6;
+        profile_overlay.add_overlay (github_icon);
+        profile_overlay.add (profile_image);
+
+        username_label = new Gtk.Label ("%s (%s)".printf (user.name, user.login));
+        username_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        username_label.halign = Gtk.Align.START;
+        username_label.valign = Gtk.Align.END;
+
+        var subtitle_label = new Gtk.Label (_("Check which repositories you want to work with"));
+        subtitle_label.halign = Gtk.Align.START;
+        subtitle_label.valign = Gtk.Align.START;
+		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        var title_grid = new Gtk.Grid ();
+        title_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
+        title_grid.column_spacing = 6;
+        title_grid.attach (profile_overlay, 0, 0, 1, 2);
+        title_grid.attach (username_label, 1, 0, 1, 1);
+        title_grid.attach (subtitle_label, 1, 1, 1, 1);
+
+        var listbox = new Gtk.ListBox  ();
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.expand = true;
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (listbox);
+
+        var update_issues_button = new Gtk.Button.with_label (_("Update issues"));
+        update_issues_button.get_style_context ().add_class ("planner-button-issues");
+
+        var update_repos_button = new Gtk.Button.with_label (_("Update repositories"));
+        update_repos_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var reset_account_button = new Gtk.Button.with_label (_("Delete account"));
+        reset_account_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.column_homogeneous = true;
+        action_grid.column_spacing = 6;
+        action_grid.margin = 6;
+        action_grid.add (update_issues_button);
+        action_grid.add (update_repos_button);
+        action_grid.add (reset_account_button);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (title_grid);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (action_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        Application.database.adden_new_repository.connect ((repo) => {
+            try {
+                Idle.add (() => {
+                    var item = new Widgets.RepositoryRow (repo);
+                    listbox.add (item);
+
+                    listbox.show_all ();
+                    return false;
+                });
+            } catch (Error err) {
+                stderr.printf ("Error");
+            }
+        });
+
+        // Update listbox
+        var all_repos = new Gee.ArrayList<Objects.Repository?> ();
+        all_repos = Application.database.get_all_repos ();
+
+        foreach (var repo in all_repos) {
+            var row = new Widgets.RepositoryRow (repo);
+            listbox.add (row);
+        }
+        
+        listbox.show_all ();
+
+        update_repos_button.clicked.connect (() => {
+            if (Application.database.user_exists ()) {
+                var _user = Application.database.get_user ();
+                Application.github.get_repos (_user.login, _user.token, _user.id);
+            }
+        });
+
+        reset_account_button.clicked.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Are you sure you want to delete your Github account?"),
+                "",
+                "dialog-warning",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                if (Application.github.delete_account ()) {
+                    foreach (Gtk.Widget element in listbox.get_children ()) {
+                        listbox.remove (element);
+                    }
+                    
+                    main_stack.visible_child_name = "github_login";
+                }
+            }
+
+            message_dialog.destroy ();
+        });
+
+        update_issues_button.clicked.connect (() => {
+            Application.github.check_issues ();
+        });
+
+        return main_frame;
     }
 
     private Gtk.Widget get_themes_widget () {
@@ -351,6 +657,92 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         upcoming_radio.toggled.connect (() => {
             Application.settings.set_enum ("start-page", 2);
+        });
+
+        return main_frame;
+    }
+
+    private Gtk.Widget get_items_widget () {
+        var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Items")));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("bookmark-new");
+        icon.pixel_size = 32;
+
+        var label = new Gtk.Label (_("Choose which items should be displayed in the left side panel."));
+        label.get_style_context ().add_class ("h3");
+        label.wrap = true;
+
+        var description_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        description_box.margin = 10;
+        description_box.hexpand = true;
+        description_box.pack_start (icon, false, false, 0);
+        description_box.pack_start (label, false, false, 6);
+
+        var inbox_check = new Gtk.CheckButton.with_label (_("Inbox"));
+        inbox_check.get_style_context ().add_class ("h3");
+        inbox_check.margin_start = 12;
+        inbox_check.margin_top = 6;
+
+        var today_check = new Gtk.CheckButton.with_label (_("Today"));
+        today_check.get_style_context ().add_class ("h3");
+        today_check.margin_start = 12;
+        today_check.margin_top = 3;
+
+        var upcoming_check = new Gtk.CheckButton.with_label (_("Upcoming"));
+        upcoming_check.get_style_context ().add_class ("h3");
+        upcoming_check.margin_start = 12;
+        upcoming_check.margin_top = 3;
+
+        var all_tasks_check = new Gtk.CheckButton.with_label (_("All Tasks"));
+        all_tasks_check.get_style_context ().add_class ("h3");
+        all_tasks_check.margin_start = 12;
+        all_tasks_check.margin_top = 3;
+
+        var completed_check = new Gtk.CheckButton.with_label (_("Completed Tasks"));
+        completed_check.get_style_context ().add_class ("h3");
+        completed_check.margin_start = 12;
+        completed_check.margin_top = 3;
+        completed_check.margin_bottom = 6;
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (description_box);
+        grid.add (inbox_check);
+        grid.add (today_check);
+        grid.add (upcoming_check);
+        grid.add (all_tasks_check);
+        grid.add (completed_check);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        back_button.clicked.connect (() => {
+            check_start_page_preview ();
+            main_stack.visible_child_name = "general";
         });
 
         return main_frame;
@@ -690,72 +1082,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         return main_frame;
-    }
-
-    public async void populate () {
-        try {
-            var registry = yield new E.SourceRegistry (null);
-            //registry.source_disabled.connect (source_disabled);
-            registry.source_enabled.connect (add_source_to_view);
-            registry.source_added.connect (add_source_to_view);
-
-            // Add sources
-            registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
-                add_source_to_view (source);
-            });
-        } catch (GLib.Error error) {
-            critical (error.message);
-        }
-    }
-
-    private void header_update_func (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
-        var row_location = ((Widgets.SourceItem)row).location;
-        if (before != null) {
-            var before_row_location = ((Widgets.SourceItem)before).location;
-            if (before_row_location == row_location) {
-                row.set_header (null);
-                return;
-            }
-        }
-
-        var header = new Widgets.SourceItemHeader (row_location);
-        row.set_header (header);
-        header.show_all ();
-    }
-
-    private void add_source_to_view (E.Source source) {
-        if (source.enabled == false)
-            return;
-
-        if (source.dup_uid () in src_map)
-            return;
-
-        var source_item = new Widgets.SourceItem (source);
-        //source_item.edit_request.connect (edit_source);
-
-        calendar_list.add (source_item);
-
-        int minimum_height;
-        int natural_height;
-        calendar_list.show_all ();
-        calendar_list.get_preferred_height (out minimum_height, out natural_height);
-        if (natural_height > 200) {
-            calendar_scroll.set_size_request (-1, 200);
-        } else {
-            calendar_scroll.set_size_request (-1, natural_height);
-        }
-
-        source_item.destroy.connect (() => {
-            calendar_list.show_all ();
-            calendar_list.get_preferred_height (out minimum_height, out natural_height);
-            if (natural_height > 200) {
-                calendar_scroll.set_size_request (-1, 200);
-            } else {
-                calendar_scroll.set_size_request (-1, natural_height);
-            }
-        });
-
-        src_map.set (source.dup_uid (), source_item);
     }
 
     private void check_start_page_preview () {
@@ -1103,8 +1429,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (calendar_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (items_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        //main_grid.add (items_eventbox);
+       //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (run_background_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (launch_eventbox);
@@ -1153,6 +1479,14 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         calendar_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 main_stack.visible_child_name = "calendar";
+            }
+
+            return false;
+        });
+
+        items_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "items";
             }
 
             return false;
@@ -1226,6 +1560,72 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         } catch (Error e) {
             warning ("Error enabling autostart: %s", e.message);
         }
+    }
+
+    public async void populate () {
+        try {
+            var registry = yield new E.SourceRegistry (null);
+            //registry.source_disabled.connect (source_disabled);
+            registry.source_enabled.connect (add_source_to_view);
+            registry.source_added.connect (add_source_to_view);
+
+            // Add sources
+            registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
+                add_source_to_view (source);
+            });
+        } catch (GLib.Error error) {
+            critical (error.message);
+        }
+    }
+
+    private void header_update_func (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
+        var row_location = ((Widgets.SourceItem)row).location;
+        if (before != null) {
+            var before_row_location = ((Widgets.SourceItem)before).location;
+            if (before_row_location == row_location) {
+                row.set_header (null);
+                return;
+            }
+        }
+
+        var header = new Widgets.SourceItemHeader (row_location);
+        row.set_header (header);
+        header.show_all ();
+    }
+
+    private void add_source_to_view (E.Source source) {
+        if (source.enabled == false)
+            return;
+
+        if (source.dup_uid () in src_map)
+            return;
+
+        var source_item = new Widgets.SourceItem (source);
+        //source_item.edit_request.connect (edit_source);
+
+        calendar_list.add (source_item);
+
+        int minimum_height;
+        int natural_height;
+        calendar_list.show_all ();
+        calendar_list.get_preferred_height (out minimum_height, out natural_height);
+        if (natural_height > 200) {
+            calendar_scroll.set_size_request (-1, 200);
+        } else {
+            calendar_scroll.set_size_request (-1, natural_height);
+        }
+
+        source_item.destroy.connect (() => {
+            calendar_list.show_all ();
+            calendar_list.get_preferred_height (out minimum_height, out natural_height);
+            if (natural_height > 200) {
+                calendar_scroll.set_size_request (-1, 200);
+            } else {
+                calendar_scroll.set_size_request (-1, natural_height);
+            }
+        });
+
+        src_map.set (source.dup_uid (), source_item);
     }
 }
 

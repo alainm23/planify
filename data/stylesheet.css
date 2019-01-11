@@ -83,6 +83,12 @@
     background-color: @base_color;
 }
 
+.planner-button-issues {
+    color: #ffffff;
+    background: linear-gradient(#009F51, #008041);
+    border: 1px solid darker(#008F43);
+}
+
 .active-switch slider {
     min-height: 16px;
     min-width: 16px;
@@ -396,10 +402,10 @@
 }
 
 .planner-label-menu {
-    color: #4A31CB;
-    background-color: #E9ECFC;
+    color: #D8394B;
+    background-color: #FFE8EA;
     border-radius: 6px;
-    border: 0.5px solid #4A31CB;
+    border: 0.5px solid #D8394B;
     padding: 3px;
 }
 
@@ -408,6 +414,14 @@
     background-color: #FCEDFF;
     border-radius: 6px;
     border: 0.5px solid #CA55E2;
+    padding: 3px;
+}
+
+.planner-search-menu {
+    color: #4A31CB;
+    background-color: #EAEFFC;
+    border-radius: 6px;
+    border: 0.5px solid #4A31CB;
     padding: 3px;
 }
 

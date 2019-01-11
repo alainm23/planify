@@ -37,10 +37,9 @@ public class Services.Notifications : GLib.Object {
         start_notification ();
     }
 
-    public void send_notification (string summary, string body) {
-        var notification = new Notify.Notification (summary, body, "com.github.alainm23.planner");
-        notification.set_hint_string ("desktop-entry", "com.github.alainm23.planner");
-        notification.set_urgency (Notify.Urgency.LOW);
+    public void send_notification (string summary, string body, string icon) {
+        var notification = new Notify.Notification (summary, body, icon);
+        notification.set_urgency (Notify.Urgency.NORMAL);
 
         try {
             notification.show ();
@@ -71,7 +70,6 @@ public class Services.Notifications : GLib.Object {
                             }
 
                             notification = new Notify.Notification (summary, body, "com.github.alainm23.planner");
-                            notification.set_hint_string ("desktop-entry", "com.github.alainm23.planner");
                             notification.set_urgency (Notify.Urgency.CRITICAL);
 
                             try {

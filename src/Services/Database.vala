@@ -27,12 +27,14 @@ public class Services.Database : GLib.Object {
     public signal void on_add_project_signal ();
     public signal void on_signal_remove_project (Objects.Project project);
 
-    public signal void add_task_signal ();
+    public signal void add_task_signal (Objects.Task task);
     public signal void on_signal_remove_task (Objects.Task task);
     public signal void update_task_signal (Objects.Task task);
 
     public signal void update_indicators ();
 
+    public signal void adden_new_repository (Objects.Repository repository);
+    public signal void adden_new_user (Objects.User user);
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.cache/com.github.alainm23.planner/database.db";
@@ -96,8 +98,232 @@ public class Services.Database : GLib.Object {
             "color          VARCHAR)", null, null);
         debug ("Table TASKS created");
 
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS USERS (" +
+            "id         INTEGER," +
+            "name       VARCHAR," +
+            "login      VARCHAR," +
+            "token      VARCHAR," +
+            "avatar_url VARCHAR)", null, null);
+        debug ("Table GITHUB_USER created");
+        
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS REPOSITORIES (" +
+            "id         INTEGER," +
+            "name       VARCHAR," +
+            "sensitive  INTEGER," +
+            "issues     VARCHAR," +
+            "user_id    INTEGER)", null, null);
+        debug ("Table REPOSITORY created");
+
         return rc;
     }
+
+    public int add_user (Objects.User user) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO USERS (id, name, login, token, avatar_url)" +
+            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, user.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, user.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, user.login);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, user.token);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, user.avatar_url);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            adden_new_user (user);
+        }
+
+        return res;
+    }
+
+    public bool user_exists () {
+        bool file_exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM USERS", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            file_exists = stmt.column_int (0) > 0;
+        }
+
+        return file_exists;
+    }
+
+    public bool repo_exists () {
+        bool file_exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            file_exists = stmt.column_int (0) > 0;
+        }
+
+        return file_exists;
+    }
+
+    public Objects.User get_user () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM USERS ORDER BY id ASC LIMIT 1",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+
+        var user = new Objects.User ();
+
+        user.id = stmt.column_int64 (0);
+        user.name = stmt.column_text (1);
+        user.login = stmt.column_text (2);
+        user.token = stmt.column_text (3);
+        user.avatar_url = stmt.column_text (4);
+
+        return user;
+    }
+
+    public bool repository_exists (int64 id) {
+        bool exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            exists = stmt.column_int (0) > 0;
+        }
+
+        return exists;
+    }
+
+    public int add_repository (Objects.Repository repository) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO REPOSITORIES (id, name, sensitive, issues, user_id)" +
+            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, repository.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, repository.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, repository.sensitive);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, repository.issues);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, repository.user_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            adden_new_repository (repository);
+        }
+
+        return res;
+    }
+
+    public int update_repository (Objects.Repository repository) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("UPDATE REPOSITORIES SET name = ?, " +
+            "sensitive = ?, issues = ?, user_id = ? " +
+            "WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, repository.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, repository.sensitive);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, repository.issues);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, repository.user_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, repository.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            
+        }
+
+        return res;
+    }
+
+    public Gee.ArrayList<Objects.Repository?> get_all_repos () {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT * FROM REPOSITORIES",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Repository?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var repo = new Objects.Repository ();
+
+            repo.id = stmt.column_int (0);
+            repo.name = stmt.column_text (1);
+            repo.sensitive = stmt.column_int (2);
+            repo.issues = stmt.column_text (3);
+            repo.user_id = stmt.column_int (4);
+
+            all.add (repo);
+        }
+
+        return all;
+    }
+
+    public int remove_all_users () {
+        Sqlite.Statement stmt;
+        
+        int res = db.prepare_v2 ("DELETE FROM USERS;",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        return res;
+    }
+
+    public int remove_all_repos () {
+        Sqlite.Statement stmt;
+        
+        int res = db.prepare_v2 ("DELETE FROM REPOSITORIES;",
+            -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+        
+        return res;
+    }
+
 
     public int add_project (Objects.Project project) {
         Sqlite.Statement stmt;
@@ -172,7 +398,7 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
-    public int remove_project (int id) {
+    public int remove_project (int id) {   
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("DELETE FROM PROJECTS WHERE id = ?", -1, out stmt);
@@ -184,13 +410,15 @@ public class Services.Database : GLib.Object {
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            // Remove all tasks project
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_tasks_by_project (id);
+            stmt.reset ();
 
-            foreach (var task in all_tasks) {
-                remove_task (task);
-            }
+            res = db.prepare_v2 ("DELETE FROM TASKS WHERE project_id = ?", -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (1, id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
         }
 
         return res;
@@ -374,12 +602,26 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
-        if (res == Sqlite.DONE) {
-            add_task_signal ();
-            update_indicators ();
-        }
+        stmt.reset ();
 
-        return res;
+        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE content = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, task.content);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () == Sqlite.ROW) {
+            task.id = stmt.column_int (0);
+
+            // Add track to list
+            add_task_signal (task);
+            update_indicators ();
+
+            return Sqlite.DONE;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return Sqlite.ERROR;
+        }
     }
 
     public Objects.Task get_last_task () {
@@ -696,7 +938,9 @@ public class Services.Database : GLib.Object {
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (when) || Application.utils.is_before_today (when)) {
-                all.add (task);
+                if (task.checked == 0) {
+                    all.add (task);
+                }
             }
         }
 

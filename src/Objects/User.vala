@@ -19,25 +19,22 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Objects.Notification {
-    public int id;
-    public int task_id;
-    public string summary;
-    public string body;
-    public string primary_icon;
-    public string secondary_icon;
+public class Objects.User {
+    public int64 id;
+    public string name;
+    public string login;
+    public string token;
+    public string avatar_url;
 
-    public Notification (int id = 0,
-                         int task_id = 0,
-                         string summary = "",
-                         string body = "",
-                         string primary_icon = "",
-                         string secondary_icon = "") {
+    public User (int64 id = 0,
+                  string name = "",
+                  string login = "",
+                  string token = "",
+                  string avatar_url = "") {
         this.id = id;
-        this.task_id = task_id;
-        this.summary = summary;
-        this.body = body;
-        this.primary_icon = primary_icon;
-        this.secondary_icon = secondary_icon;
+        this.name = name;
+        this.login = login;
+        this.token = token;
+        this.avatar_url = avatar_url;
     }
 }

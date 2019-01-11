@@ -22,7 +22,7 @@ cache:
     - /tmp/liftoff
 
 install:
-  - npm install @elementaryos/houston
+  - npm i -g @elementaryos/houston
 
 script:
   - houston ci

@@ -260,7 +260,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
         all_tasks_row.is_all_tasks = true;
         listbox.add (all_tasks_row);
 
-        var completed_tasks_row = new Item (_("Completed Tasks"), "emblem-default-symbolic");
+        var completed_tasks_row = new Item (_("Completed Tasks"), "process-completed-symbolic");
         completed_tasks_row.is_completed = true;
         listbox.add (completed_tasks_row);
 

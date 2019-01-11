@@ -193,6 +193,12 @@ public class Views.Project : Gtk.EventBox {
         labels_popover = new Widgets.Popovers.LabelsPopover (labels_button);
         labels_popover.position = Gtk.PositionType.BOTTOM;
 
+        var search_button = new Gtk.Button.from_icon_name ("system-search-symbolic", Gtk.IconSize.MENU);
+        search_button.get_style_context ().add_class ("planner-search-menu");
+        search_button.tooltip_text = _("Search");
+        search_button.valign = Gtk.Align.CENTER;
+        search_button.halign = Gtk.Align.CENTER;
+
         var share_button = new Gtk.Button.from_icon_name ("planner-share-symbolic", Gtk.IconSize.MENU);
         share_button.get_style_context ().add_class ("planner-share-menu");
         share_button.tooltip_text = _("Share");
@@ -216,24 +222,14 @@ public class Views.Project : Gtk.EventBox {
         show_hide_all_button.add (show_hide_image);
 
         var action_grid = new Gtk.Grid ();
+        action_grid.valign = Gtk.Align.CENTER;
         action_grid.column_spacing = 12;
 
         action_grid.add (labels_button);
+        //action_grid.add (search_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
         action_grid.add (show_hide_all_button);
-
-        var action_revealer = new Gtk.Revealer ();
-        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        action_revealer.add (action_grid);
-
-        var settings_button = new Gtk.ToggleButton ();
-		settings_button.active = true;
-        settings_button.valign = Gtk.Align.START;
-		settings_button.get_style_context ().add_class ("show-settings-button");
-        settings_button.get_style_context ().add_class ("button-circular");
-        settings_button.get_style_context ().remove_class ("button");
-		settings_button.add (new Gtk.Image.from_icon_name ("pan-start-symbolic", Gtk.IconSize.MENU));
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.valign = Gtk.Align.START;
@@ -243,8 +239,7 @@ public class Views.Project : Gtk.EventBox {
 
         top_box.pack_start (color_button, false, false, 0);
         top_box.pack_start (name_entry, true, true, 6);
-        top_box.pack_end (settings_button, false, false, 12);
-        top_box.pack_end (action_revealer, false, false, 0);
+        top_box.pack_end (action_grid, false, false, 12);
 
         note_view = new Gtk.TextView ();
 		//note_view.set_wrap_mode (Gtk.WrapMode.WORD);
@@ -524,23 +519,10 @@ public class Views.Project : Gtk.EventBox {
     		color_dialog.close ();
         });
 
-        settings_button.toggled.connect (() => {
-            if (action_revealer.reveal_child) {
-                settings_button.get_style_context ().remove_class ("closed");
-                action_revealer.reveal_child = false;
-            } else {
-                action_revealer.reveal_child = true;
-                settings_button.get_style_context ().add_class ("closed");
-            }
-        });
-
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
         paste_button.clicked.connect (() => {
-            settings_button.get_style_context ().remove_class ("closed");
-            action_revealer.reveal_child = false;
-
             string text = "";
             text = clipboard.wait_for_text ();
 
@@ -727,8 +709,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.add_task_signal.connect (() => {
-            var task = Application.database.get_last_task ();
+        Application.database.add_task_signal.connect ((task) => {
             add_new_task (task);
         });
 
@@ -756,10 +737,6 @@ public class Views.Project : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            tasks_list.remove (element);
-        }
-
         var all_tasks = new Gee.ArrayList<Objects.Task?> ();
         all_tasks = Application.database.get_all_tasks_by_project (project.id);
 

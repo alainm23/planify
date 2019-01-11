@@ -96,23 +96,12 @@ public class Views.Today : Gtk.EventBox {
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_spacing = 12;
+        action_grid.valign = Gtk.Align.CENTER;
 
         action_grid.add (labels_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
         action_grid.add (show_hide_all_button);
-
-        var action_revealer = new Gtk.Revealer ();
-        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        action_revealer.add (action_grid);
-
-        var settings_button = new Gtk.ToggleButton ();
-		settings_button.active = true;
-        settings_button.valign = Gtk.Align.START;
-		settings_button.get_style_context ().add_class ("show-settings-button");
-        settings_button.get_style_context ().add_class ("button-circular");
-        settings_button.get_style_context ().remove_class ("button");
-		settings_button.add (new Gtk.Image.from_icon_name ("pan-start-symbolic", Gtk.IconSize.MENU));
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
@@ -122,8 +111,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (today_icon, false, false, 0);
         top_box.pack_start (today_label, false, false, 12);
         top_box.pack_start (date_label, false, false, 0);
-        top_box.pack_end (settings_button, false, false, 12);
-        top_box.pack_end (action_revealer, false, false, 0);
+        top_box.pack_end (action_grid, false, false, 12);
 
         tasks_list = new Gtk.ListBox  ();
         tasks_list.activate_on_single_click = true;
@@ -261,16 +249,6 @@ public class Views.Today : Gtk.EventBox {
           }
         });
 
-        settings_button.toggled.connect (() => {
-            if (action_revealer.reveal_child) {
-                settings_button.get_style_context ().remove_class ("closed");
-                action_revealer.reveal_child = false;
-            } else {
-                action_revealer.reveal_child = true;
-                settings_button.get_style_context ().add_class ("closed");
-            }
-        });
-
         events_widget.on_signal_close.connect (() => {
             events_widget.reveal_child = false;
             box_revealer.reveal_child = true;
@@ -285,9 +263,6 @@ public class Views.Today : Gtk.EventBox {
         });
 
         paste_button.clicked.connect (() => {
-            settings_button.get_style_context ().remove_class ("closed");
-            action_revealer.reveal_child = false;
-
             string text = "";
             text = clipboard.wait_for_text ();
 
@@ -459,8 +434,7 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        Application.database.add_task_signal.connect (() => {
-            var task = Application.database.get_last_task ();
+        Application.database.add_task_signal.connect ((task) => {
             add_new_task (task);
         });
 
@@ -493,8 +467,7 @@ public class Views.Today : Gtk.EventBox {
     private void add_new_task (Objects.Task task) {
         if (task.when_date_utc != "") {
             var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (when)) {
+            if (Application.utils.is_today (when) || Application.utils.is_before_today (when)) {
                 var row = new Widgets.TaskRow (task);
 
                 tasks_list.add (row);
@@ -540,19 +513,6 @@ public class Views.Today : Gtk.EventBox {
 
             check_visible_alertview ();
         }
-    }
-
-    public void apply_remove () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            var row = element as Widgets.TaskRow;
-            var when = new GLib.DateTime.from_iso8601 (row.task.when_date_utc, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (when) == false || Application.utils.is_before_today (when) == false) {
-                tasks_list.remove (element);
-            }
-        }
-
-        tasks_list.invalidate_sort ();
     }
 
     public void update_tasks_list () {

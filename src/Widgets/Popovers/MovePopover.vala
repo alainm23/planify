@@ -101,7 +101,7 @@ public class Widgets.Popovers.MovePopover : Gtk.Popover {
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
         grid.margin = 6;
-        grid.margin_start = 12;
+        grid.margin_start = 6;
 
         grid.add (inbox_icon);
         grid.add (inbox_label);
@@ -151,7 +151,6 @@ public class PRow : Gtk.ListBoxRow {
         name_label.use_markup = true;
 
         var main_grid = new Gtk.Grid ();
-        main_grid.margin = 6;
         main_grid.column_spacing = 6;
         main_grid.add (label_color);
         main_grid.add (name_label);

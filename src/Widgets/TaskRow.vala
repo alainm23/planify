@@ -464,12 +464,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         name_eventbox.enter_notify_event.connect ((event) => {
-            /*
-            name_label.get_style_context ().add_class ("text-hover");
-            previews_box.get_style_context ().add_class ("text-hover");
-            get_style_context ().add_class ("task-hover");
-            */
+            var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND2);
+            var window = Gdk.Screen.get_default ().get_root_window ();
+            
 
+            window.cursor = select_cursor;
             return false;
         });
 
@@ -477,11 +476,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
             }
-            /*
-            name_label.get_style_context ().remove_class ("text-hover");
-            previews_box.get_style_context ().remove_class ("text-hover");
-            get_style_context ().remove_class ("task-hover");
-            */
+
+            var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.ARROW);
+            var window = Gdk.Screen.get_default ().get_root_window ();
+
+            window.cursor = select_cursor;
+
             return false;
         });
 
