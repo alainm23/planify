@@ -29,8 +29,6 @@ public class Widgets.Popovers.NotificationsPopover : Gtk.Popover {
     }
 
     construct {
-        //get_style_context ().add_class ("planner-popover");
-
         var main_grid = new Gtk.Grid ();
         main_grid.expand = true;
         main_grid.orientation = Gtk.Orientation.VERTICAL;

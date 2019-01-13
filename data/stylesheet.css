@@ -46,6 +46,11 @@
     background-color: @base_color;
 }
 
+.circular {
+    border-radius: 100px;
+    padding: 6px
+}
+
 .button-close {
     border-radius: 50px;
     padding: 0px;
@@ -85,8 +90,8 @@
 
 .planner-button-issues {
     color: #ffffff;
-    background: linear-gradient(#009F51, #008041);
-    border: 1px solid darker(#008F43);
+    background: linear-gradient(#009f51, #008041);
+    border: 1px solid darker(#008f43);
 }
 
 .active-switch slider {

@@ -60,7 +60,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.append_text (_("General"));
         mode_button.append_text (_("Appearance"));
         mode_button.append_text (_("Issues"));
-        mode_button.append_text (_("Help"));
+        mode_button.append_text (_("About"));
 
         mode_button.selected = 0;
 
@@ -73,7 +73,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_themes_widget (), "themes");
         main_stack.add_named (get_github_login_widget (), "github_login");
         main_stack.add_named (get_github_widget (), "issues");
-        main_stack.add_named (get_help_widget (), "help");
+        main_stack.add_named (get_about_widget (), "about");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
@@ -112,7 +112,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
                     main_stack.visible_child_name = "github_login";
                 }
             } else {
-                main_stack.visible_child_name = "help";
+                main_stack.visible_child_name = "about";
             }
         });
 
@@ -1151,62 +1151,102 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         }
     }
 
-    private Gtk.Widget get_help_widget () {
-        int pixel_size = 24;
+    private Gtk.Widget get_about_widget () {
+        var planner_icon = new Gtk.Image ();
+        planner_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
+        planner_icon.pixel_size = 64;
+        planner_icon.margin_top = 12;
+        planner_icon.halign = Gtk.Align.CENTER;
+        planner_icon.hexpand = true;
 
-        var tutorial_project_icon = new Gtk.Image ();
-        tutorial_project_icon.gicon = new ThemedIcon ("help-about");
-        tutorial_project_icon.pixel_size = pixel_size;
+        var planner_label = new Gtk.Label ("Planner 1.1.1");
+        planner_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+        planner_label.halign = Gtk.Align.CENTER;
+        planner_label.hexpand = true;
 
-        var tutorial_project_label = new Gtk.Label (_("Create Tutorial Project"));
-        tutorial_project_label.get_style_context ().add_class ("h3");
+        var planner_developer = new Gtk.Label ("Alain M.");
+        planner_developer.halign = Gtk.Align.CENTER;
+        planner_developer.hexpand = true;
+		planner_developer.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+		planner_developer.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        var tutorial_project_button = new Gtk.Button.with_label (_("Create"));
-        tutorial_project_button.margin_end = 6;
-        tutorial_project_button.can_focus = false;
-        //tutorial_project_button.get_style_context ().add_class ("flat");
-        tutorial_project_button.get_style_context ().add_class ("no-padding");
+        var home_button = new Gtk.Button.from_icon_name ("go-home-symbolic", Gtk.IconSize.MENU);
+        home_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        home_button.width_request = 32;
+        home_button.height_request = 32;
+        home_button.can_focus = false;
+        home_button.get_style_context ().add_class ("button-circular");
 
-        var loading_spinner = new Gtk.Spinner ();
-        loading_spinner.active = true;
-        loading_spinner.visible = false;
-        loading_spinner.no_show_all = true;
+        home_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://github.com/alainm23/planner", 1000);
+            } catch (Error e) {
+                stderr.printf ("Error open the uri\n");
+            } 
+        });
 
-        var tutorial_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        tutorial_project_box.margin = 6;
-        tutorial_project_box.hexpand = true;
-        tutorial_project_box.tooltip_text = _("Learn the app step by step with a short tutorial project.");
-        tutorial_project_box.pack_start (tutorial_project_icon, false, false, 0);
-        tutorial_project_box.pack_start (tutorial_project_label, false, false, 6);
-        tutorial_project_box.pack_end (tutorial_project_button, false, false, 0);
-        tutorial_project_box.pack_end (loading_spinner, false, false, 0);
+        var issues_button = new Gtk.Button.from_icon_name ("bug-symbolic", Gtk.IconSize.MENU);
+        issues_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        issues_button.width_request = 32;
+        issues_button.height_request = 32;
+        issues_button.can_focus = false;
+        issues_button.get_style_context ().add_class ("button-circular");
 
-        var bug_icon = new Gtk.Image ();
-        bug_icon.gicon = new ThemedIcon ("bug");
-        bug_icon.pixel_size = pixel_size;
+        issues_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://github.com/alainm23/planner/issues", 1000);
+            } catch (Error e) {
+                stderr.printf ("Error open the uri\n");
+            } 
+        });
 
-        var bug_label = new Gtk.Label (_("Report a issue"));
-        bug_label.get_style_context ().add_class ("h3");
+        var translate_button = new Gtk.Button.from_icon_name ("preferences-desktop-locale-symbolic", Gtk.IconSize.MENU);
+        translate_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        translate_button.width_request = 32;
+        translate_button.height_request = 32;
+        translate_button.can_focus = false;
+        translate_button.get_style_context ().add_class ("button-circular");
 
-        var bug_button = new Gtk.LinkButton.with_label ("https://github.com/alainm23/planner/issues", _("Go Github"));
-        bug_button.can_focus = false;
-        bug_button.get_style_context ().add_class ("no-padding");
-        bug_button.get_style_context ().remove_class ("flat");
-        bug_button.get_style_context ().remove_class ("link");
+        issues_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://github.com/alainm23/planner/tree/master/po#readme", 1000);
+            } catch (Error e) {
+                stderr.printf ("Error open the uri\n");
+            }
+        });
 
-        var bug_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        bug_box.margin = 6;
-        bug_box.hexpand = true;
-        bug_box.pack_start (bug_icon, false, false, 0);
-        bug_box.pack_start (bug_label, false, false, 6);
-        bug_box.pack_end (bug_button, false, false, 6);
+        var donation_button = new Gtk.Button.from_icon_name ("face-heart", Gtk.IconSize.MENU);
+        donation_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        donation_button.width_request = 32;
+        donation_button.height_request = 32;
+        donation_button.can_focus = false;
+        donation_button.get_style_context ().add_class ("button-circular");
+
+        donation_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://www.paypal.me/alainm23", 1000);
+            } catch (Error e) {
+                stderr.printf ("Error open the uri\n");
+            }
+        });
+
+        var grid = new Gtk.Grid ();
+        grid.margin_bottom = 12;
+        grid.margin_top = 12;
+        grid.halign = Gtk.Align.CENTER;
+        grid.column_spacing = 12;
+        grid.add (home_button);
+        grid.add (issues_button);
+        grid.add (translate_button);
+        grid.add (donation_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        //main_grid.add (tutorial_project_box);
-        //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (bug_box);
+        main_grid.add (planner_icon);
+        main_grid.add (planner_label);
+        main_grid.add (planner_developer);
+        main_grid.add (grid);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_frame = new Gtk.Frame (null);

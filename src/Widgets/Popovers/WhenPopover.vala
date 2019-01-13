@@ -20,6 +20,8 @@
 */
 
 public class Widgets.Popovers.WhenPopover : Gtk.Popover {
+    private Gtk.Stack main_stack;
+
     public Gtk.Button remove_button;
     public Gtk.Switch reminder_switch;
     public Widgets.TimePicker reminder_timepicker;
@@ -37,12 +39,57 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
     }
 
     construct {
-        //get_style_context ().add_class ("planner-popover");
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.hexpand = true;
+        mode_button.margin = 6;
+        mode_button.valign = Gtk.Align.CENTER;
 
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("When")));
-        title_label.use_markup = true;
-        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
+        mode_button.append_icon ("office-calendar-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("notification-symbolic", Gtk.IconSize.MENU);
 
+        mode_button.selected = 0;
+
+        main_stack = new Gtk.Stack ();
+        main_stack.expand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+
+        main_stack.add_named (get_when_widget (), "when");
+        main_stack.add_named (get_reminder_widget (), "reminder");
+
+        remove_button = new Gtk.Button.with_label (_("Clear"));
+        remove_button.margin = 6;
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.width_request = 250;
+
+        main_grid.add (mode_button);
+        main_grid.add (main_stack);
+        main_grid.add (remove_button);
+
+        add (main_grid);
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                main_stack.visible_child_name = "when";
+            } else {
+                main_stack.visible_child_name = "reminder";
+            }
+        });
+
+        remove_button.clicked.connect (() => {
+            remove_button.visible = false;
+            reminder_switch.active = false;
+
+            on_selected_remove ();
+
+            popdown ();
+        });
+    }
+
+    private Gtk.Widget get_when_widget () {
         var today_radio = new Gtk.RadioButton.with_label_from_widget (null, "");
         today_radio.no_show_all = true;
 
@@ -72,7 +119,89 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         tomorrow_eventbox.add (tomorrow_box);
 
         var calendar = new Widgets.Calendar.Calendar (true);
+        calendar.hexpand = true;
 
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (today_eventbox);
+        main_grid.add (tomorrow_eventbox);
+        main_grid.add (calendar);
+
+        today_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                today_radio.visible = true;
+                today_radio.active = true;
+                item_selected = 0;
+
+                tomorrow_radio.visible = false;
+
+                var duedate_now = new GLib.DateTime.now_local ();
+                on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
+            }
+
+            return false;
+        });
+
+        tomorrow_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                tomorrow_radio.visible = true;
+                tomorrow_radio.active = true;
+                item_selected = 1;
+
+                today_radio.visible = false;
+
+                var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+                on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+            }
+
+            return false;
+        });
+
+        calendar.selection_changed.connect ((date) => {
+            selected_date = date;
+
+            today_radio.visible = false;
+            tomorrow_radio.visible = false;
+            item_selected = 2;
+
+            on_selected_date (date, reminder_switch.active, reminder_timepicker.time);
+        });
+
+        today_eventbox.enter_notify_event.connect ((event) => {
+            today_eventbox.get_style_context ().add_class ("when-item");
+            return false;
+        });
+
+        today_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            today_eventbox.get_style_context ().remove_class ("when-item");
+            return false;
+        });
+
+        tomorrow_eventbox.enter_notify_event.connect ((event) => {
+            tomorrow_eventbox.get_style_context ().add_class ("when-item");
+
+            return false;
+        });
+
+        tomorrow_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            tomorrow_eventbox.get_style_context ().remove_class ("when-item");
+            return false;
+        });
+
+        return main_grid;
+    }
+
+    private Gtk.Widget get_reminder_widget () {
         var reminder_icon = new Gtk.Image.from_icon_name ("planner-notification-symbolic", Gtk.IconSize.MENU);
         var reminder_label = new Gtk.Label ("Reminder");
 
@@ -81,6 +210,7 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         reminder_switch.valign = Gtk.Align.CENTER;
 
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        reminder_box.margin_end = 3;
         reminder_box.get_style_context ().add_class ("menuitem");
         reminder_box.pack_start (reminder_icon, false, false, 0);
         reminder_box.pack_start (reminder_label, false, false, 6);
@@ -95,24 +225,35 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
         timepicker_revealer.reveal_child = false;
         timepicker_revealer.add (reminder_timepicker);
 
-        remove_button = new Gtk.Button.with_label (_("Clear"));
-        remove_button.margin = 6;
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-
         var main_grid = new Gtk.Grid ();
         main_grid.expand = true;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.width_request = 250;
 
-        main_grid.add (title_label);
-        main_grid.add (today_eventbox);
-        main_grid.add (tomorrow_eventbox);
-        main_grid.add (calendar);
         main_grid.add (reminder_box);
         main_grid.add (timepicker_revealer);
-        main_grid.add (remove_button);
 
-        add (main_grid);
+        reminder_switch.notify["active"].connect(() => {
+            if (reminder_switch.active) {
+                timepicker_revealer.reveal_child = true;
+
+                if (item_selected == 0) {
+                    var duedate_now = new GLib.DateTime.now_local ();
+                    on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
+                } else if (item_selected == 1) {
+                    var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
+                    on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+                } else {
+                    if (selected_date == null) {
+                        on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
+                    } else {
+                        on_selected_date (selected_date, reminder_switch.active, reminder_timepicker.time);
+                    }
+                }
+            } else {
+                timepicker_revealer.reveal_child = false;
+                on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
+            }
+        });
 
         reminder_switch.notify["active"].connect(() => {
             if (reminder_switch.active) {
@@ -155,79 +296,22 @@ public class Widgets.Popovers.WhenPopover : Gtk.Popover {
             popdown ();
         });
 
-        today_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                today_radio.visible = true;
-                today_radio.active = true;
-                item_selected = 0;
-
-                tomorrow_radio.visible = false;
-
+        reminder_timepicker.time_entry.changed.connect (() => {
+            if (item_selected == 0) {
                 var duedate_now = new GLib.DateTime.now_local ();
                 on_selected_date (duedate_now, reminder_switch.active, reminder_timepicker.time);
-            }
-
-            return false;
-        });
-
-        tomorrow_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                tomorrow_radio.visible = true;
-                tomorrow_radio.active = true;
-                item_selected = 1;
-
-                today_radio.visible = false;
-
+            } else if (item_selected == 1) {
                 var duedate_tomorrow = new GLib.DateTime.now_local ().add_days (1);
                 on_selected_date (duedate_tomorrow, reminder_switch.active, reminder_timepicker.time);
+            } else {
+                if (selected_date == null) {
+                    on_selected_date (new GLib.DateTime.now_local (), reminder_switch.active, reminder_timepicker.time);
+                } else {
+                    on_selected_date (selected_date, reminder_switch.active, reminder_timepicker.time);
+                }
             }
-
-            return false;
         });
 
-        calendar.selection_changed.connect ((date) => {
-            selected_date = date;
-
-            today_radio.visible = false;
-            tomorrow_radio.visible = false;
-            item_selected = 2;
-
-            on_selected_date (date, reminder_switch.active, reminder_timepicker.time);
-        });
-
-        remove_button.clicked.connect (() => {
-            popdown ();
-            remove_button.visible = false;
-            on_selected_remove ();
-        });
-
-        today_eventbox.enter_notify_event.connect ((event) => {
-            today_eventbox.get_style_context ().add_class ("when-item");
-            return false;
-        });
-
-        today_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            today_eventbox.get_style_context ().remove_class ("when-item");
-            return false;
-        });
-
-        tomorrow_eventbox.enter_notify_event.connect ((event) => {
-            tomorrow_eventbox.get_style_context ().add_class ("when-item");
-
-            return false;
-        });
-
-        tomorrow_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            tomorrow_eventbox.get_style_context ().remove_class ("when-item");
-            return false;
-        });
+        return main_grid;
     }
 }
