@@ -50,5 +50,5 @@ com.github.alainm23.planner
 ## Donations
 Stripe is not yet available in my country, If you like Planner and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alainm23)
 
-Made with 💗 in Perú
+Made with ❤ in Perú
 
