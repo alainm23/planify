@@ -1,0 +1,15 @@
+diff --git a/src/Application.vala b/src/Application.vala
+index 5c7071b..dfb86e1 100644
+--- a/src/Application.vala
++++ b/src/Application.vala
+@@ -81,6 +81,10 @@ public class Application : Gtk.Application {
+         var window_y = (int32) window_position.get_child_value (1);
+ 
+         main_window = new MainWindow (this);
++
++        Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
++        Gtk.Settings.get_default().set_property("gtk-theme-name", "elementary");
++
+         if (window_x != -1 ||  window_y != -1) {
+             main_window.move (window_x, window_y);
+         }
