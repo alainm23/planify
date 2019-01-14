@@ -31,8 +31,6 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
     }
 
     construct {
-        //get_style_context ().add_class ("planner-popover");
-
         var finalize_menu = new Widgets.ModelButton (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
         var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", _("Change project name"));
         var remove_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic", _("Delete project"));

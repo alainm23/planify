@@ -47,8 +47,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
     }
 
     construct {
-        //get_style_context ().add_class ("planner-popover");
-
         var title_label = new Gtk.Label ("<small>%s</small>".printf (_("New Project")));
         title_label.use_markup = true;
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);

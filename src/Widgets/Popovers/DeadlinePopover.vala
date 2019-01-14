@@ -32,8 +32,6 @@ public class Widgets.Popovers.DeadlinePopover : Gtk.Popover {
     }
 
     construct {
-        //get_style_context ().add_class ("planner-popover");
-
         var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Deadline")));
         title_label.use_markup = true;
         title_label.hexpand = true;

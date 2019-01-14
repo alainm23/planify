@@ -1,0 +1,38 @@
+{
+    "developers" : [
+        {
+            "name": "Alain M. (alainm23)",
+            "avatar": "https://avatars0.githubusercontent.com/u/33765137?v=4",
+            "profile_url": "https://github.com/alainm23"
+        }
+    ],
+    "designers" : [
+        {
+            "name": "Alain M. (alainm23)",
+            "avatar": "https://avatars0.githubusercontent.com/u/33765137?v=4",
+            "profile_url": "https://github.com/alainm23"
+        },
+        {
+            "name": "Alessandro (Alecaddd)",
+            "avatar": "https://avatars1.githubusercontent.com/u/2527103?v=4",
+            "profile_url": "https://github.com/Alecaddd"
+        }
+    ],
+    "translators" : [
+        {
+            "name": "Alain M.",
+            "avatar": "",
+            "profile_url": ""
+        },
+        {
+            "name": "Marciel Sousa",
+            "avatar": "",
+            "profile_url": ""
+        },
+        {
+            "name": "Prongs Dark",
+            "avatar": "",
+            "profile_url": ""
+        }
+    ]
+}

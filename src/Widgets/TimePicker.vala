@@ -21,6 +21,9 @@
 
 public class Widgets.TimePicker : Gtk.EventBox {
     public signal void time_changed ();
+    
+    private Gtk.SpinButton hours_spinbutton;
+    private Gtk.SpinButton minutes_spinbutton;
 
     private GLib.DateTime _time = null;
 
@@ -62,7 +65,7 @@ public class Widgets.TimePicker : Gtk.EventBox {
         time_entry.max_length = 8;
 
         am_pm_modebutton = new Granite.Widgets.ModeButton ();
-        am_pm_modebutton.orientation = Gtk.Orientation.HORIZONTAL;
+        am_pm_modebutton.orientation = Gtk.Orientation.VERTICAL;
         am_pm_modebutton.append_text (_("AM"));
         am_pm_modebutton.append_text (_("PM"));
         am_pm_modebutton.mode_changed.connect (mode => {
@@ -80,16 +83,51 @@ public class Widgets.TimePicker : Gtk.EventBox {
 
             update_text (true);
         });
+
         am_pm_modebutton.hexpand = true;
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.row_spacing = 3;
+        /// TRANSLATORS: separates hours from minutes.
+        var separation_label = new Gtk.Label (_(":"));
 
-        main_grid.add (time_entry);
-        main_grid.add (am_pm_modebutton);
+        hours_spinbutton = new Gtk.SpinButton.with_range (1, 12, 1);
+        hours_spinbutton.orientation = Gtk.Orientation.VERTICAL;
+        hours_spinbutton.wrap = true;
+        hours_spinbutton.value_changed.connect (() => update_time (true));
+
+        minutes_spinbutton = new Gtk.SpinButton.with_range (0, 59, 1);
+        minutes_spinbutton.orientation = Gtk.Orientation.VERTICAL;
+        minutes_spinbutton.wrap = true;
+        minutes_spinbutton.value_changed.connect (() => update_time (false));
+
+        minutes_spinbutton.output.connect (() => {
+            var val = minutes_spinbutton.get_value ();
+            if (val < 10) {
+                minutes_spinbutton.set_text ("0" + val.to_string ());
+                return true;
+            }
+
+            return false;
+        });
+
+        var grid = new Gtk.Grid ();
+        grid.column_spacing = 6;
+        grid.row_spacing = 6;
+        grid.attach (hours_spinbutton,   0, 0, 1, 1);
+        grid.attach (separation_label,   1, 0, 1, 1);
+        grid.attach (minutes_spinbutton, 2, 0, 1, 1);
+        grid.attach (am_pm_modebutton,   3, 0, 1, 1);
+        grid.margin = 6;
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.margin_top = 12;
+        main_grid.halign = Gtk.Align.CENTER;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (grid);
+        //main_grid.add (time_entry);
 
         add (main_grid);
+        update_text ();
 
         time_entry.focus_out_event.connect (() => {
             is_unfocused ();
@@ -97,8 +135,6 @@ public class Widgets.TimePicker : Gtk.EventBox {
         });
 
         time_entry.activate.connect (is_unfocused);
-
-        update_text ();
     }
 
     private void update_text (bool no_signal = false) {
@@ -114,6 +150,34 @@ public class Widgets.TimePicker : Gtk.EventBox {
     private void is_unfocused () {
         old_string = time_entry.text;
         parse_time (time_entry.text.dup ());
+    }
+
+    private void update_time (bool is_hour) {
+        if (changing_time == true) {
+            return;
+        }
+
+        if (is_hour == true) {
+            var new_hour = hours_spinbutton.get_value_as_int () - time.get_hour ();
+
+            if (hours_spinbutton.get_value_as_int () == 12 && am_pm_modebutton.selected == 0) {
+                _time = _time.add_hours (-_time.get_hour ());
+            } else if (hours_spinbutton.get_value_as_int () < 12 && am_pm_modebutton.selected == 0) {
+                _time = _time.add_hours (new_hour);
+            } else if (hours_spinbutton.get_value_as_int () == 12 && am_pm_modebutton.selected == 1) {
+                _time = _time.add_hours (-_time.get_hour () + 12);
+            } else if (hours_spinbutton.get_value_as_int () < 12 && am_pm_modebutton.selected == 1) {
+                _time = _time.add_hours (new_hour + 12);
+
+                if (time.get_hour () <= 12) {
+                    _time = _time.add_hours (12);
+                }
+            }
+        } else {
+            _time = time.add_minutes (minutes_spinbutton.get_value_as_int () - time.get_minute ());
+        }
+
+        update_text ();
     }
 
     private void parse_time (string timestr) {
