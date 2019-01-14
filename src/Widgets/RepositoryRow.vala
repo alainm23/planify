@@ -59,11 +59,14 @@ public class Widgets.RepositoryRow : Gtk.ListBoxRow {
         box.pack_start (name_label, false, false, 6);
         box.pack_end (sensitive_switch, false, false, 0);
 
+        var s = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s.margin_start = 30;
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (box);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s);
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add (main_grid);

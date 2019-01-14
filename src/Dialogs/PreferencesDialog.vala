@@ -51,7 +51,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        set_size_request (660, 569);
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -80,6 +79,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_weather_widget (), "weather");
         main_stack.add_named (get_calendar_widget (), "calendar");
         main_stack.add_named (get_items_widget (), "items");
+        main_stack.add_named (get_credist_widget (), "credits");
 
         main_stack.visible_child_name = "general";
 
@@ -306,7 +306,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         title_grid.attach (username_label, 1, 0, 1, 1);
         title_grid.attach (subtitle_label, 1, 1, 1, 1);
 
-        var listbox = new Gtk.ListBox  ();
+        var listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
@@ -1151,6 +1151,78 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         }
     }
 
+    private Gtk.Widget get_credist_widget () {
+        var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.can_focus = false;
+        back_button.margin = 6;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Credits")));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var listbox = new Gtk.ListBox ();
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.expand = true;
+
+        var row_1 = new PerfilRow ("Alain M.", "https://avatars0.githubusercontent.com/u/33765137?v=4", "");
+        var row_2 = new PerfilRow ("Alessandro (Alecaddd)", "https://avatars1.githubusercontent.com/u/2527103?v=4", "");
+
+        listbox.add (row_1);
+        listbox.add (row_2);
+        
+        listbox.show_all ();
+        /*
+        var parser = new Json.Parser ();
+        parser.load_from_file ("/com/github/alainm23/planner/credits.json");
+
+        var root = parser.get_root ().get_object ();
+
+        var developers = root.get_array_member ("developers");
+        var designers = root.get_array_member ("designers");
+        var translators = root.get_array_member ("translators");
+
+        foreach (var _item in designers.get_elements ()) {
+            var item = _item.get_object ();
+
+            var name = item.get_string_member ("name");
+            var avatar = item.get_string_member ("avatar");
+            var profile_url = item.get_string_member ("profile_url");
+
+            var row = new PerfilRow (name, avatar, profile_url);
+
+            listbox.add (row);
+            listbox.show_all ();
+        }
+        */
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (listbox);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.add (scrolled);
+
+        back_button.clicked.connect (() => {
+            main_stack.visible_child_name = "about";
+        });
+    
+        return main_frame;
+    }
+
     private Gtk.Widget get_about_widget () {
         var planner_icon = new Gtk.Image ();
         planner_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
@@ -1165,80 +1237,133 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         planner_label.hexpand = true;
 
         var planner_developer = new Gtk.Label ("Alain M.");
+        planner_developer.margin_bottom = 12;
         planner_developer.halign = Gtk.Align.CENTER;
         planner_developer.hexpand = true;
 		planner_developer.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 		planner_developer.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        var home_button = new Gtk.Button.from_icon_name ("go-home-symbolic", Gtk.IconSize.MENU);
-        home_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        home_button.width_request = 32;
-        home_button.height_request = 32;
-        home_button.can_focus = false;
-        home_button.get_style_context ().add_class ("button-circular");
+        // Home Button
+        var home_icon = new Gtk.Image ();
+        home_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
+        home_icon.pixel_size = 24;
+        
+        var home_label = new Gtk.Label (_("Home Page"));
+        home_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        home_button.clicked.connect (() => {
-            try {
-                Gtk.show_uri (null, "https://github.com/alainm23/planner", 1000);
-            } catch (Error e) {
-                stderr.printf ("Error open the uri\n");
-            } 
-        });
+        var home_end = new Gtk.Image ();
+        home_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        home_end.pixel_size = 16;
 
-        var issues_button = new Gtk.Button.from_icon_name ("bug-symbolic", Gtk.IconSize.MENU);
-        issues_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        issues_button.width_request = 32;
-        issues_button.height_request = 32;
-        issues_button.can_focus = false;
-        issues_button.get_style_context ().add_class ("button-circular");
+        var home_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        home_box.margin = 6;
+        home_box.pack_start (home_icon, false, false, 0);
+        home_box.pack_start (home_label, false, false, 6);
+        home_box.pack_end (home_end, false, false, 0);
 
-        issues_button.clicked.connect (() => {
-            try {
-                Gtk.show_uri (null, "https://github.com/alainm23/planner/issues", 1000);
-            } catch (Error e) {
-                stderr.printf ("Error open the uri\n");
-            } 
-        });
+        var home_eventbox = new Gtk.EventBox ();
+        home_eventbox.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        home_eventbox.add (home_box);
 
-        var translate_button = new Gtk.Button.from_icon_name ("preferences-desktop-locale-symbolic", Gtk.IconSize.MENU);
-        translate_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        translate_button.width_request = 32;
-        translate_button.height_request = 32;
-        translate_button.can_focus = false;
-        translate_button.get_style_context ().add_class ("button-circular");
+        // Issue Menu
+        var issue_icon = new Gtk.Image ();
+        issue_icon.gicon = new ThemedIcon ("bug");
+        issue_icon.pixel_size = 24;
+        
+        var issue_label = new Gtk.Label (_("Report a Issue"));
+        issue_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-        issues_button.clicked.connect (() => {
-            try {
-                Gtk.show_uri (null, "https://github.com/alainm23/planner/tree/master/po#readme", 1000);
-            } catch (Error e) {
-                stderr.printf ("Error open the uri\n");
-            }
-        });
+        var issue_end = new Gtk.Image ();
+        issue_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        issue_end.pixel_size = 16;
 
-        var donation_button = new Gtk.Button.from_icon_name ("face-heart", Gtk.IconSize.MENU);
-        donation_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        donation_button.width_request = 32;
-        donation_button.height_request = 32;
-        donation_button.can_focus = false;
-        donation_button.get_style_context ().add_class ("button-circular");
+        var issue_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        issue_box.margin = 6;
+        issue_box.pack_start (issue_icon, false, false, 0);
+        issue_box.pack_start (issue_label, false, false, 6);
+        issue_box.pack_end (issue_end, false, false, 0);
 
-        donation_button.clicked.connect (() => {
-            try {
-                Gtk.show_uri (null, "https://www.paypal.me/alainm23", 1000);
-            } catch (Error e) {
-                stderr.printf ("Error open the uri\n");
-            }
-        });
+        var issue_eventbox = new Gtk.EventBox ();
+        issue_eventbox.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        issue_eventbox.add (issue_box);
 
-        var grid = new Gtk.Grid ();
-        grid.margin_bottom = 12;
-        grid.margin_top = 12;
-        grid.halign = Gtk.Align.CENTER;
-        grid.column_spacing = 12;
-        grid.add (home_button);
-        grid.add (issues_button);
-        grid.add (translate_button);
-        grid.add (donation_button);
+        // Translate Menu
+        var tr_icon = new Gtk.Image ();
+        tr_icon.gicon = new ThemedIcon ("preferences-desktop-locale");
+        tr_icon.pixel_size = 24;
+        
+        var tr_label = new Gtk.Label (_("Translations"));
+        tr_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        var tr_end = new Gtk.Image ();
+        tr_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        tr_end.pixel_size = 16;
+
+        var tr_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        tr_box.margin = 6;
+        tr_box.pack_start (tr_icon, false, false, 0);
+        tr_box.pack_start (tr_label, false, false, 6);
+        tr_box.pack_end (tr_end, false, false, 0);
+
+        var tr_eventbox = new Gtk.EventBox ();
+        tr_eventbox.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        tr_eventbox.add (tr_box);
+
+        // Translate Menu
+        var donation_icon = new Gtk.Image ();
+        donation_icon.gicon = new ThemedIcon ("emblem-favorite");
+        donation_icon.pixel_size = 24;
+        
+        var donation_label = new Gtk.Label (_("Support"));
+        donation_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        var donation_end = new Gtk.Image ();
+        donation_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        donation_end.pixel_size = 16;
+
+        var donation_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        donation_box.margin = 6;
+        donation_box.pack_start (donation_icon, false, false, 0);
+        donation_box.pack_start (donation_label, false, false, 6);
+        donation_box.pack_end (donation_end, false, false, 0);
+
+        var donation_eventbox = new Gtk.EventBox ();
+        donation_eventbox.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        donation_eventbox.add (donation_box);
+
+        // Credits Menu
+        var credits_icon = new Gtk.Image ();
+        credits_icon.gicon = new ThemedIcon ("help-about");
+        credits_icon.pixel_size = 24;
+        
+        var credits_label = new Gtk.Label (_("Credits"));
+        credits_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        var credits_end = new Gtk.Image ();
+        credits_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        credits_end.pixel_size = 16;
+
+        var credits_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        credits_box.margin = 6;
+        credits_box.pack_start (credits_icon, false, false, 0);
+        credits_box.pack_start (credits_label, false, false, 6);
+        credits_box.pack_end (credits_end, false, false, 0);
+
+        var credits_eventbox = new Gtk.EventBox ();
+        credits_eventbox.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        credits_eventbox.add (credits_box);
+
+        var s_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_1.margin_start = 36;
+
+        var s_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_2.margin_start = 36;
+
+        var s_3 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_3.margin_start = 36;
+
+        var s_4 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_4.margin_start = 36;
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -1246,32 +1371,79 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (planner_icon);
         main_grid.add (planner_label);
         main_grid.add (planner_developer);
-        main_grid.add (grid);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (home_eventbox);
+        main_grid.add (s_1);
+        main_grid.add (issue_eventbox);
+        main_grid.add (s_2);
+        main_grid.add (tr_eventbox);
+        main_grid.add (s_3);
+        main_grid.add (donation_eventbox);
+        main_grid.add (s_4);
+        //main_grid.add (credits_eventbox);
+        //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
-        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (main_grid);
+        main_frame.add (scrolled);
 
-        /*
-        tutorial_project_button.clicked.connect (() => {
-            tutorial_project_button.visible = false;
-            loading_spinner.visible = true;
-            loading_spinner.no_show_all = false;
+        home_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                try {
+                    Gtk.show_uri (null, "https://github.com/alainm23/planner", 1000);
+                } catch (Error e) {
+                    stderr.printf ("Error open the uri\n");
+                } 
+            }
 
-            Application.utils.create_tutorial_project ();
-
-            Application.notification.send_local_notification (
-                _("Tutorial Project Created"),
-                _("A tutorial project has been created."),
-                "help-about",
-                4,
-                false
-            );
-
-            destroy ();
+            return false;
         });
-        */
+
+        issue_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                try {
+                    Gtk.show_uri (null, "https://github.com/alainm23/planner/issues", 1000);
+                } catch (Error e) {
+                    stderr.printf ("Error open the uri\n");
+                } 
+            }
+
+            return false;
+        });
+
+        tr_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                try {
+                    Gtk.show_uri (null, "https://github.com/alainm23/planner/tree/master/po#readme", 1000);
+                } catch (Error e) {
+                    stderr.printf ("Error open the uri\n");
+                }
+            }
+
+            return false;
+        });
+
+        donation_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                try {
+                    Gtk.show_uri (null, "https://www.paypal.me/alainm23", 1000);
+                } catch (Error e) {
+                    stderr.printf ("Error open the uri\n");
+                }
+            }
+
+            return false;
+        });
+
+        credits_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "credits";
+            }
+
+            return false;
+        });
 
         return main_frame;
     }
@@ -1456,23 +1628,44 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var launch_eventbox = new Gtk.EventBox ();
         launch_eventbox.add (launch_box);
 
+        var s_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_1.margin_start = 36;
+
+        var s_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_2.margin_start = 36;
+
+        var s_3 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_3.margin_start = 36;
+
+        var s_4 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_4.margin_start = 36;
+
+        var s_5 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_5.margin_start = 36;
+
+        var s_6 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_6.margin_start = 36;
+
+        var s_7 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_7.margin_start = 36;
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (badge_count_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_1);
         main_grid.add (start_page_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_2);
         main_grid.add (quick_save_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_3);
         main_grid.add (weather_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_4);
         main_grid.add (calendar_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_5);
         //main_grid.add (items_eventbox);
-       //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+       //main_grid.add (s_6);
         main_grid.add (run_background_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_7);
         main_grid.add (launch_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -1730,5 +1923,51 @@ public class ThemeChild : Gtk.FlowBoxChild {
         grid.add (name_label);
 
         add (grid);
+    }
+}
+
+public class PerfilRow : Gtk.ListBoxRow {
+    public string name {
+        set {
+            name_label.label = value;
+        }
+    }
+
+    public string avatar {
+        set {
+            image.set_from_file_async.begin (File.new_for_uri (value), 32, 32, false);
+        }
+    }
+
+    public string url { get; construct; }
+
+    private Gtk.Label name_label;
+    private Granite.AsyncImage image;
+    private Granite.Widgets.Avatar avatar_image;
+
+    public PerfilRow (string name, string avatar, string url) {
+        Object (
+            name: name,
+            avatar: avatar,
+            url: url
+        );
+    }
+
+    construct {
+        image = new Granite.AsyncImage (true, true);
+        //avatar_image = new Granite.Widgets.Avatar.from_pixbuf (image.pixbuf);
+        //
+        var grid = new Gtk.Grid ();
+        grid.add (image);
+
+        name_label = new Gtk.Label (null);
+        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin = 6;
+        box.pack_start (grid, false, false, 0);
+        box.pack_start (name_label, false, false, 6);
+
+        add (box);
     }
 }
