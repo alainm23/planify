@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.gnome.evolution.dataserver.Sources5
+Exec=/app/libexec/evolution-source-registry
+SystemdService=evolution-source-registry.service

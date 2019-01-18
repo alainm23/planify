@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Bjørn Lindeijer <bjorn@lindeijer.nl>
+ Copyright (C) 2004 Bjørn Lindeijer <bjorn@lindeijer.nl>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="lua" name="Lua" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-lua</property>
+    <property name="globs">*.lua</property>
+    <property name="line-comment-start">--</property>
+    <property name="block-comment-start">--[[</property>
+    <property name="block-comment-end">]]</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="escape" name="Escaped Character" map-to="def:special-char"/>
+    <style id="reserved" name="Reserved Identifier" map-to="def:keyword"/>
+    <style id="label" name="Label" map-to="def:keyword"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="nil-value" name="Nil Constant" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+  </styles>
+
+  <definitions>
+    <context id="lua-escape" style-ref="escape">
+      <match>\\(\d{1,3}|a|b|f|n|r|t|u{[0-9a-fA-F]+?}|v|x[0-9a-fA-F]{2}|z|\\|"|'|\[|\])</match>
+    </context>
+
+    <context id="label" style-ref="label">
+      <match>\:\:[A-Za-z_][A-Za-z0-9_]*\:\:</match>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>["']</start>
+      <end>\%{0@start}</end>
+      <include>
+        <context ref="lua-escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multi-line-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>\[(=*)\[</start>
+      <end>]\%{1@start}]</end>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>--\[(=*)\[</start>
+      <end>]\%{1@start}]</end>
+      <include>
+	<context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+	<context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>break</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>end</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>local</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>repeat</keyword>
+      <keyword>return</keyword>
+      <keyword>then</keyword>
+      <keyword>until</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <keyword>assert</keyword>
+      <keyword>bit32\.arshift</keyword>
+      <keyword>bit32\.band</keyword>
+      <keyword>bit32\.bnot</keyword>
+      <keyword>bit32\.bor</keyword>
+      <keyword>bit32\.btest</keyword>
+      <keyword>bit32\.bxor</keyword>
+      <keyword>bit32\.extract</keyword>
+      <keyword>bit32\.lrotate</keyword>
+      <keyword>bit32\.lshift</keyword>
+      <keyword>bit32\.replace</keyword>
+      <keyword>bit32\.rrotate</keyword>
+      <keyword>bit32\.rshift</keyword>
+      <keyword>collectgarbage</keyword>
+      <keyword>coroutine\.create</keyword>
+      <keyword>coroutine\.resume</keyword>
+      <keyword>coroutine\.running</keyword>
+      <keyword>coroutine\.status</keyword>
+      <keyword>coroutine\.wrap</keyword>
+      <keyword>coroutine\.yield</keyword>
+      <keyword>debug\.debug</keyword>
+      <keyword>debug\.gethook</keyword>
+      <keyword>debug\.getinfo</keyword>
+      <keyword>debug\.getlocal</keyword>
+      <keyword>debug\.getmetatable</keyword>
+      <keyword>debug\.getregistry</keyword>
+      <keyword>debug\.getupvalue</keyword>
+      <keyword>debug\.getuservalue</keyword>
+      <keyword>debug\.sethook</keyword>
+      <keyword>debug\.setlocal</keyword>
+      <keyword>debug\.setmetatable</keyword>
+      <keyword>debug\.setupvalue</keyword>
+      <keyword>debug\.setuservalue</keyword>
+      <keyword>debug\.traceback</keyword>
+      <keyword>debug\.upvalueid</keyword>
+      <keyword>debug\.upvaluejoin</keyword>
+      <keyword>dofile</keyword>
+      <keyword>error</keyword>
+      <keyword>getmetatable</keyword>
+      <keyword>io\.close</keyword>
+      <keyword>io\.flush</keyword>
+      <keyword>io\.input</keyword>
+      <keyword>io\.lines</keyword>
+      <keyword>io\.open</keyword>
+      <keyword>io\.output</keyword>
+      <keyword>io\.popen</keyword>
+      <keyword>io\.read</keyword>
+      <keyword>io\.tmpfile</keyword>
+      <keyword>io\.type</keyword>
+      <keyword>io\.write</keyword>
+      <keyword>ipairs</keyword>
+      <keyword>load</keyword>
+      <keyword>loadfile</keyword>
+      <keyword>loadstring</keyword>
+      <keyword>math\.abs</keyword>
+      <keyword>math\.acos</keyword>
+      <keyword>math\.asin</keyword>
+      <keyword>math\.atan</keyword>
+      <keyword>math\.atan2</keyword>
+      <keyword>math\.ceil</keyword>
+      <keyword>math\.cos</keyword>
+      <keyword>math\.cosh</keyword>
+      <keyword>math\.deg</keyword>
+      <keyword>math\.exp</keyword>
+      <keyword>math\.floor</keyword>
+      <keyword>math\.fmod</keyword>
+      <keyword>math\.frexp</keyword>
+      <keyword>math\.ldexp</keyword>
+      <keyword>math\.log</keyword>
+      <keyword>math\.log10</keyword>
+      <keyword>math\.max</keyword>
+      <keyword>math\.min</keyword>
+      <keyword>math\.modf</keyword>
+      <keyword>math\.pow</keyword>
+      <keyword>math\.rad</keyword>
+      <keyword>math\.random</keyword>
+      <keyword>math\.randomseed</keyword>
+      <keyword>math\.sin</keyword>
+      <keyword>math\.sinh</keyword>
+      <keyword>math\.sqrt</keyword>
+      <keyword>math\.tan</keyword>
+      <keyword>math\.tanh</keyword>
+      <keyword>module</keyword>
+      <keyword>next</keyword>
+      <keyword>os\.clock</keyword>
+      <keyword>os\.date</keyword>
+      <keyword>os\.difftime</keyword>
+      <keyword>os\.execute</keyword>
+      <keyword>os\.exit</keyword>
+      <keyword>os\.getenv</keyword>
+      <keyword>os\.remove</keyword>
+      <keyword>os\.rename</keyword>
+      <keyword>os\.setlocale</keyword>
+      <keyword>os\.time</keyword>
+      <keyword>os\.tmpname</keyword>
+      <keyword>package\.loadlib</keyword>
+      <keyword>package\.searchpath</keyword>
+      <keyword>package\.seeall</keyword>
+      <keyword>pairs</keyword>
+      <keyword>pcall</keyword>
+      <keyword>print</keyword>
+      <keyword>rawequal</keyword>
+      <keyword>rawget</keyword>
+      <keyword>rawlen</keyword>
+      <keyword>rawset</keyword>
+      <keyword>require</keyword>
+      <keyword>select</keyword>
+      <keyword>setmetatable</keyword>
+      <keyword>string\.byte</keyword>
+      <keyword>string\.char</keyword>
+      <keyword>string\.dump</keyword>
+      <keyword>string\.find</keyword>
+      <keyword>string\.format</keyword>
+      <keyword>string\.gmatch</keyword>
+      <keyword>string\.gsub</keyword>
+      <keyword>string\.len</keyword>
+      <keyword>string\.lower</keyword>
+      <keyword>string\.match</keyword>
+      <keyword>string\.rep</keyword>
+      <keyword>string\.reverse</keyword>
+      <keyword>string\.sub</keyword>
+      <keyword>string\.upper</keyword>
+      <keyword>table\.concat</keyword>
+      <keyword>table\.insert</keyword>
+      <keyword>table\.maxn</keyword>
+      <keyword>table\.pack</keyword>
+      <keyword>table\.remove</keyword>
+      <keyword>table\.sort</keyword>
+      <keyword>table\.unpack</keyword>
+      <keyword>tonumber</keyword>
+      <keyword>tostring</keyword>
+      <keyword>type</keyword>
+      <keyword>unpack</keyword>
+      <keyword>xpcall</keyword>
+
+      <!-- Lua <= 5.1 -->
+      <keyword>getfenv</keyword>
+      <keyword>gcinfo</keyword>
+      <keyword>loadlib</keyword>
+      <keyword>setfenv</keyword>
+
+      <!-- table mode -->
+      <keyword>__mode</keyword>
+
+      <!-- metamethods -->
+      <keyword>__index</keyword>
+      <keyword>__newindex</keyword>
+      <keyword>__mode</keyword>
+      <keyword>__call</keyword>
+      <keyword>__metatable</keyword>
+      <keyword>__tostring</keyword>
+      <keyword>__len</keyword>
+      <keyword>__gc</keyword>
+      <keyword>__unm</keyword>
+      <keyword>__add</keyword>
+      <keyword>__sub</keyword>
+      <keyword>__mul</keyword>
+      <keyword>__div</keyword>
+      <keyword>__mod</keyword>
+      <keyword>__pow</keyword>
+      <keyword>__concat</keyword>
+      <keyword>__eq</keyword>
+      <keyword>__lt</keyword>
+      <keyword>__le</keyword>
+    </context>
+
+    <context id="lua-reserved" style-ref="reserved">
+      <keyword>_[A-Z][A-Za-z0-9_]*</keyword>
+    </context>
+
+    <context id="nil-value" style-ref="nil-value">
+       <keyword>nil</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+       <keyword>false</keyword>
+       <keyword>true</keyword>
+    </context>
+
+    <context id="lua" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="multi-line-string"/>
+        <context ref="label"/>
+        <context ref="string"/>
+        <context ref="block-comment"/>
+        <context ref="line-comment"/>
+        <context ref="keywords"/>
+        <context ref="functions"/>
+        <context ref="lua-reserved"/>
+        <context ref="nil-value"/>
+        <context ref="boolean"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

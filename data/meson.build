@@ -12,13 +12,18 @@ foreach i : icon_sizes
 endforeach
 
 install_data(
-    meson.project_name() + '.gschema.xml',
-    install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
+    join_paths('icons', '48', 'planner-github' + '.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '48' + 'x' + '48' + '@2', 'apps')
 )
 
 install_data(
-    join_paths('icons', '48', 'planner-github' + '.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '48' + 'x' + '48' + '@2', 'apps')
+    join_paths('credits.json'),
+    install_dir: join_paths(get_option('datadir'), 'com.github.alainm23.planner')
+)
+
+install_data(
+    meson.project_name() + '.gschema.xml',
+    install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
 
 i18n.merge_file(

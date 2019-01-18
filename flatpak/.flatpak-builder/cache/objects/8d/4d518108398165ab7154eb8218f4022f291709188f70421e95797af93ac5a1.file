@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Liviu Dumea <liviu.dumea.ro@gmail.com>
+ Copyright (C) 2015, 2018 by Liviu Dumea <liviu.dumea.ro@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+
+<language id="toml" name="TOML" version="2.0" _section="Other">
+  <metadata>
+    <property name="globs">*.toml;*.tml;*.lock</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="floating-point" name="Floating Point" map-to="def:floating-point"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="variable" name="Variable" map-to="def:type"/>
+    <style id="non-standard-key" name="Data Type" map-to="def:type"/>
+    <style id="boolean-value" name="Boolean value" map-to="def:boolean"/>
+    <style id="datetime-value" name="Datetime value" map-to="def:constant"/>
+    <style id="error" name="Error" map-to="def:error"/>
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>#</start>
+      <end>$</end>
+    </context>
+
+    <context id="table-entry">
+      <include>
+        <context ref="array-table"/>
+        <context ref="table"/>
+        <context ref="line-comment" />
+      </include>
+    </context>
+
+    <context id="table" style-ref="keyword">
+      <start>^\s*\[</start>
+      <end>\]</end>
+    </context>
+
+    <context id="array-table" style-ref="keyword">
+      <start>^\s*\[\[</start>
+      <end>\]\]</end>
+    </context>
+
+    <context id="variable" style-ref="variable">
+      <match>[a-zA-Z0-9_.-]*</match>
+    </context>
+
+    <context id="datetime-value" style-ref="datetime-value">
+      <match>(\d{4})(-)?(\d\d)(-)?(\d\d)(T)?(\d\d)(:)?(\d\d)(:)?(\d\d)(.\d+)?(Z|([+-])(\d\d)(:)?(\d\d))</match>
+    </context>
+
+    <context id="datetime-not-strict-value" style-ref="datetime-value">
+      <match>((\d{4})(-)?(\d\d)(-)?(\d\d)(T|\s)?)?(\d\d)(:)?(\d\d)(:)?(\d\d)(.\d+)?(Z|([+-])(\d\d)(:)?(\d\d))?</match>
+    </context>
+
+    <context id="boolean-value" style-ref="boolean-value">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="integer" style-ref="decimal">
+      <match>[+\-]?(?:[1-9][0-9_]*|0)(?![.eE])</match>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match>[+\-]?(?:[1-9][0-9_]*|0)(?:\.[0-9_]+)?(?:[eE][+\-]?[0-9_]+)?</match>
+    </context>
+
+    <context id="catch-all" style-ref="error" extend-parent="false">
+      <match>\S</match>
+    </context>
+
+    <define-regex id="hex_digit" extended="true">
+      [0-9a-fA-F]
+    </define-regex>
+
+    <define-regex id="common_escape" extended="true">
+      '|"|
+      \\|n|r|t|0|
+      x\%{hex_digit}{2}
+    </define-regex>
+
+    <define-regex id="unicode_escape" extended="true">
+      u{\%{hex_digit}{1,6}}
+    </define-regex>
+
+    <context id="hex-number" style-ref="decimal">
+        <match>0[xX][0-9a-fA-F][_0-9a-fA-F]*</match>
+    </context>
+
+    <context id="octal-number" style-ref="decimal">
+        <match>0o[0-7][_0-7]*</match>
+    </context>
+
+    <context id="binary-number" style-ref="decimal">
+        <match>0[bB][01][_01]*</match>
+    </context>
+
+    <context id="infinity-number" style-ref="floating-point">
+        <match>[+-]?inf</match>
+    </context>
+
+    <context id="not-a-number" style-ref="floating-point">
+        <match>[+-]?nan</match>
+    </context>
+
+    <context id="string_escape" style-ref="def:special-char">
+      <match>\\\%{common_escape}|\\\%{unicode_escape}</match>
+    </context>
+
+    <context id="basic-string" style-ref="string" class="string" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="string_escape"/>
+      </include>
+    </context>
+
+    <context id="multiline-basic-string" style-ref="string"  class="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="string_escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="literal-string" style-ref="string">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+    <context id="multiline-literal-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="array">
+      <start>\[</start>
+      <end>\]</end>
+      <include>
+        <context>
+          <start></start>
+          <end>,|\s*(?=\&#93;)</end>
+            <include>
+            <context ref="value"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+   <context id="name" style-ref="variable">
+      <match>("[a-zA-Z0-9_.-]*")|[a-zA-Z0-9_.-]*</match>
+    </context>
+
+    <context id="inline-table">
+      <start>\s*\{|\{</start>
+      <end>\}</end>
+      <include>
+        <context ref="name" style-ref="variable"/>
+        <context>
+          <start>=</start>
+          <end>,|\s*(?=})</end>
+          <include>
+            <context ref="value"/>
+          </include>
+        </context>
+        <context ref="catch-all"/>
+      </include>
+    </context>
+
+    <context id="pair-value">
+      <start>=</start>
+      <end>$</end>
+      <include>
+        <context ref="value"/>
+      </include>
+    </context>
+
+    <context id="key">
+      <include>
+        <context ref="variable"/>
+        <context ref="basic-string" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="assign-error-line" style-ref="error">
+      <match>^\s*=([^#]*(?=#)|.*$)</match>
+    </context>
+
+    <context id="empty-key-error" style-ref="error">
+      <match>^[^=]*=\s*#.*$</match>
+    </context>
+
+    <context id="text-after-table-error" style-ref="error">
+      <match>^\s*\[[^\]\[]*\]s*[^#]+$</match>
+    </context>
+
+    <context id="text-after-array-error" style-ref="error">
+      <match>^\s*\[\[[^\]]*\]\]s*[^#]+$</match>
+    </context>
+
+    <!--
+    []     # INVALID
+    [a.]   # INVALID
+    [a..b] # INVALID
+    [.b]   # INVALID
+    [.]    # INVALID
+    -->
+    <context id="invalid-table-error" style-ref="error">
+      <match>^\s*\[(\.?|[^.]+\.{2,}[^.]+|\.+[^.]+|[^.]+\.+|\.+[^.]+\.+)\]\s*(#.*)?$</match>
+    </context>
+
+    <context id="invalid-array-error" style-ref="error">
+      <match>^\s*\[\[(\.*|[^.]+\.{2,}[^.]+|\.+[^.]+|[^.]+\.+|\.+[^.]+\.+)\]\]s*(#.*)?$</match>
+    </context>
+
+    <context id="value">
+      <include>
+        <context ref="array"/>
+        <context ref="inline-table"/>
+        <context ref="boolean-value"/>
+        <context ref="datetime-value"/>
+        <context ref="datetime-not-strict-value"/>
+        <context ref="multiline-basic-string"/>
+        <context ref="basic-string"/>
+        <context ref="multiline-literal-string"/>
+        <context ref="literal-string"/>
+        <context ref="hex-number"/>
+        <context ref="octal-number"/>
+        <context ref="binary-number"/>
+        <context ref="infinity-number"/>
+        <context ref="not-a-number"/>
+        <context ref="integer"/>
+        <context ref="float"/>
+        <context ref="line-comment"/>
+        <context ref="catch-all"/>
+     </include>
+    </context>
+
+    <context id="toml" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="assign-error-line" />
+        <context ref="empty-key-error" />
+        <context ref="invalid-table-error" />
+        <context ref="invalid-array-error" />
+        <context ref="text-after-table-error" />
+        <context ref="text-after-array-error" />
+        <context ref="key"/>
+        <context ref="pair-value"/>
+        <context ref="table-entry"/>
+        <context ref="catch-all"/>
+      </include>
+    </context>
+  </definitions>
+</language>

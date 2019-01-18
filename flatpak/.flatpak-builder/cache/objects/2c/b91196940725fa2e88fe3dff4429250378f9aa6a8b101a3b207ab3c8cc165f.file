@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Martin Szulecki <compiz@sukimashita.com>
+ Copyright (C) 2006 Martin Szulecki <compiz@sukimashita.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!--
+	D Language specification
+
+	Reference:
+		http://dlang.org/type.html
+-->
+<language id="d" name="D" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-dsrc</property>
+    <property name="globs">*.d</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="special-token" name="Special Token" map-to="def:preprocessor"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean" map-to="def:boolean"/>
+    <style id="floating-point" name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="binary" name="Binary number" map-to="def:base-n-integer"/>
+    <style id="octal" name="Octal number" map-to="def:base-n-integer"/>
+    <style id="hexadecimal" name="Hexadecimal number" map-to="def:base-n-integer"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="nesting-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\+</start>
+      <end>\+/</end>
+      <include>
+        <context ref="nesting-comment"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="backtick-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>`</start>
+      <end>`</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>abstract</keyword>
+      <keyword>align</keyword>
+      <keyword>asm</keyword>
+      <keyword>assert</keyword>
+      <keyword>body</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>cast</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>debug</keyword>
+      <keyword>default</keyword>
+      <keyword>delegate</keyword>
+      <keyword>delete</keyword>
+      <keyword>deprecated</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>final</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>function</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>in</keyword>
+      <keyword>inout</keyword>
+      <keyword>is</keyword>
+      <keyword>mixin</keyword>
+      <keyword>new</keyword>
+      <keyword>out</keyword>
+      <keyword>override</keyword>
+      <keyword>pragma</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>ref</keyword>
+      <keyword>return</keyword>
+      <keyword>scope</keyword>
+      <keyword>super</keyword>
+      <keyword>switch</keyword>
+      <keyword>synchronized</keyword>
+      <keyword>this</keyword>
+      <keyword>throw</keyword>
+      <keyword>try</keyword>
+      <keyword>typeid</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unittest</keyword>
+      <keyword>version</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+
+      <!-- added in D2 -->
+      <keyword>lazy</keyword>
+      <keyword>pure</keyword>
+      <keyword>nothrow</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>alias</keyword>
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>cdouble</keyword>
+      <keyword>cent</keyword>
+      <keyword>cfloat</keyword>
+      <keyword>char</keyword>
+      <keyword>class</keyword>
+      <keyword>creal</keyword>
+      <keyword>dchar</keyword>
+      <keyword>double</keyword>
+      <keyword>enum</keyword>
+      <keyword>export</keyword>
+      <keyword>float</keyword>
+      <keyword>idouble</keyword>
+      <keyword>ifloat</keyword>
+      <keyword>int</keyword>
+      <keyword>interface</keyword>
+      <keyword>invariant</keyword>
+      <keyword>ireal</keyword>
+      <keyword>long</keyword>
+      <keyword>module</keyword>
+      <keyword>package</keyword>
+      <keyword>ptrdiff_t</keyword>
+      <keyword>real</keyword>
+      <keyword>short</keyword>
+      <keyword>size_t</keyword>
+      <keyword>struct</keyword>
+      <keyword>template</keyword>
+      <keyword>typedef</keyword>
+      <keyword>ubyte</keyword>
+      <keyword>ucent</keyword>
+      <keyword>uint</keyword>
+      <keyword>ulong</keyword>
+      <keyword>union</keyword>
+      <keyword>ushort</keyword>
+      <keyword>void</keyword>
+      <keyword>wchar</keyword>
+
+      <!-- split these ones? -->
+      <keyword>auto</keyword>
+      <keyword>const</keyword>
+      <keyword>extern</keyword>
+      <keyword>static</keyword>
+      <keyword>volatile</keyword>
+
+      <!-- added in D2 -->
+      <keyword>__gshared</keyword>
+      <keyword>__traits</keyword>
+      <keyword>__vector</keyword>
+      <keyword>__parameters</keyword>
+      <keyword>shared</keyword>
+      <keyword>string</keyword>
+      <keyword>dstring</keyword>
+      <keyword>wstring</keyword>
+      <keyword>immutable</keyword>
+    </context>
+
+    <context id="special-tokens" style-ref="special-token">
+      <keyword>#line</keyword>
+      <keyword>__DATE__</keyword>
+      <keyword>__FILE__</keyword>
+      <keyword>__FUNCTION__</keyword>
+      <keyword>__LINE__</keyword>
+      <keyword>__MODULE__</keyword>
+      <keyword>__PRETTY_FUNCTION__</keyword>
+      <keyword>__TIME__</keyword>
+      <keyword>__TIMESTAMP__</keyword>
+      <keyword>__VENDOR__</keyword>
+      <keyword>__VERSION__</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ([0-9_]+[Ee][-]?[0-9_]+|([0-9_]*\.[0-9_]+|[0-9_]+\.)([Ee][-]?[0-9_]+)?)[fFLi]?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ([1-9][0-9_]*|0)([Uu]([Ll]|LL|ll)?|([Ll]|LL|ll)[Uu]?)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="binary" style-ref="binary">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[bB][01_]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="octal" style-ref="octal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[0-7_]+([Uu]([Ll]|LL|ll)?|([Ll]|LL|ll)[Uu]?)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][0-9a-fA-F_]+([Uu]([Ll]|LL|ll)?|([Ll]|LL|ll)[Uu]?)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="d" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="nesting-comment"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="backtick-quoted-string"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="special-tokens"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="binary"/>
+        <context ref="octal"/>
+        <context ref="decimal"/>
+        <context ref="hexadecimal"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

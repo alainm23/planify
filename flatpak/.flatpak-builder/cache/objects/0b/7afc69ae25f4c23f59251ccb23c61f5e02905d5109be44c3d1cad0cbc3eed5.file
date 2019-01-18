@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Antonio Ognio <gnrfan@gnrfan.org>
+ Copyright (C) 2005 Antonio Ognio <gnrfan@gnrfan.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+<language id="ini" name=".ini" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-ini-file;application/x-ini-file;text/x-systemd-unit;text/x-dbus-service</property>
+    <property name="globs">*.ini</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="floating-point" name="Floating Point" map-to="def:floating-point"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="variable" name="Variable" map-to="def:type"/>
+    <style id="non-standard-key" name="Data Type" map-to="def:type"/>
+    <style id="boolean-value" name="Boolean value" map-to="def:boolean"/>
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>;|#</start>
+    </context>
+    <context id="group" style-ref="keyword">
+      <start>^\[</start>
+      <end>\]$</end>
+    </context>
+    <context id="non-standard-key" style-ref="non-standard-key">
+      <match>^_?X\-[a-zA-Z\-]+</match>
+    </context>
+    <context id="language" style-ref="decimal">
+      <match>\[[a-zA-Z_]+\]</match>
+    </context>
+    <context id="variable" style-ref="variable">
+      <match>^[a-zA-Z_][a-zA-Z0-9_.-]*</match>
+    </context>
+    <context id="boolean-value" style-ref="boolean-value">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+      <keyword>on</keyword>
+      <keyword>off</keyword>
+      <keyword>yes</keyword>
+      <keyword>no</keyword>
+    </context>
+    <context id="single-quoted-string" style-ref="string">
+      <start>'</start>
+      <end>'</end>
+    </context>
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+    <context id="integer" style-ref="decimal">
+      <match>\b[0-9]+\b</match>
+    </context>
+    <context id="decimal-number" style-ref="floating-point">
+      <match>(\b[0-9]+(\.[0-9]+)?|\.[0-9]+)([Ee][\+-]?[0-9]+)?\b</match>
+    </context>
+    <context id="ini" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="group"/>
+        <context ref="non-standard-key"/>
+        <context ref="language"/>
+        <context ref="variable"/>
+        <context ref="boolean-value"/>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="decimal-number"/>
+        <context ref="integer"/>
+      </include>
+    </context>
+  </definitions>
+</language>

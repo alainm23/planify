@@ -1,0 +1,724 @@
+/*
+* Copyright (c) 2016 elementary LLC. (http://launchpad.net/egtk)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA.
+*
+* Authored by: Daniel Foré <daniel@elementary.io>
+*/
+
+/*********
+* Avatar *
+*********/
+
+.avatar {
+    border: 1px solid alpha (#000, 0.35);
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.45),
+        inset 0 -1px 0 0 alpha (#fff, 0.15),
+        0 1px 3px alpha (#000, 0.12),
+        0 1px 2px alpha (#000, 0.24);
+}
+
+/**************
+* Back Button *
+**************/
+
+.back-button,
+.titlebar .back-button {
+    border-image: -gtk-scaled(url("assets/button-back.svg"), url("assets/button-back@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+    padding: 2px 0;
+}
+
+.titlebar .back-button {
+    color: @textColorPrimary;
+    text-shadow: 0 1px @textColorPrimaryShadow;
+    -gtk-icon-shadow: 0 1px @textColorPrimaryShadow;
+}
+
+.back-button:focus,
+.titlebar .back-button:focus {
+    border-image: -gtk-scaled(url("assets/button-back-focus.svg"), url("assets/button-back-focus@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-rtl.svg"), url("assets/button-back-rtl@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+}
+
+.back-button:focus:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-focus-rtl.svg"), url("assets/button-back-focus-rtl@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+}
+
+.back-button:backdrop {
+    border-image: -gtk-scaled(url("assets/button-back-backdrop.svg"), url("assets/button-back-backdrop@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:backdrop:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-backdrop-rtl.svg"), url("assets/button-back-rtl@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+    box-shadow: none;
+}
+
+.back-button:active,
+.back-button:hover:active,
+.back-button:focus:active {
+    border-image: -gtk-scaled(url("assets/button-back-active.svg"), url("assets/button-back-active@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:active:dir(rtl),
+.back-button:hover:active:dir(rtl),
+.back-button:focus:active:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-active-rtl.svg"), url("assets/button-back-active-rtl@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+    box-shadow: none;
+}
+
+/********
+* Cards *
+********/
+
+.deck {
+    background-color: shade (@bg_color, 0.92);
+}
+
+.card {
+    background-color: @base_color;
+    border: none;
+    border-color: transparent;
+    box-shadow:
+        0 0 0 1px alpha (#000, 0.05),
+        0 3px 3px alpha (#000, 0.22);
+    transition: all 150ms ease-in-out;
+}
+
+.card:checked {
+    border: 3px solid @selected_bg_color;
+    border-radius: 3px;
+}
+
+.card.collapsed {
+    background-color: @bg_color;
+    box-shadow:
+        0 0 0 1px alpha (#000, 0.05),
+        0 1px 2px alpha (#000, 0.22);
+}
+
+/********
+* Cards *
+********/
+
+.checkerboard,
+.checkerboard-layout {
+    background-color: shade (@bg_color, 0.95);
+    background-image:
+        linear-gradient(
+            45deg,
+            alpha (
+                #000,
+                0.1
+            ) 25%,
+            transparent 25%,
+            transparent 75%,
+            alpha (
+                #000,
+                0.1
+            ) 75%,
+            alpha (
+                #000,
+                0.1
+            )
+        ),
+        linear-gradient(
+            45deg,
+            alpha (
+                #000,
+                0.1
+            ) 25%,
+            transparent 25%,
+            transparent 75%,
+            alpha (
+                #000,
+                0.1
+            ) 75%,
+            alpha (
+                #000,
+                0.1
+            )
+        );
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+}
+
+/**************
+* Mode Switch *
+**************/
+
+.mode-switch slider {
+    min-height: 16px;
+    min-width: 16px;
+}
+
+.mode-switch:checked,
+.mode-switch:checked:backdrop {
+    background-color: alpha (#000, 0.1);
+    background-image: none;
+    border-color: alpha (#000, 0.25);
+}
+
+/*************
+ * Seek bars *
+ ************/
+
+.seek-bar scale slider {
+    background: transparent;
+    border: transparent;
+    box-shadow: none;
+}
+
+/**************
+* Source List *
+**************/
+
+.sidebar .badge,
+.source-list.badge,
+.source-list.badge:hover,
+.source-list.badge:selected,
+.source-list.badge:selected:focus,
+.source-list.badge:hover:selected {
+    background-image: none;
+    background-color: alpha (#000, 0.4);
+    color: @titlebar_color;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 0 6px;
+    margin: 0 3px;
+    text-shadow: 0 1px alpha (#000, 0.1);
+    border-width: 0;
+    -gtk-icon-shadow: 0 1px alpha (#000, 0.1);
+}
+
+.sidebar .badge:selected,
+.source-list.badge:selected,
+.source-list.badge:hover:selected {
+    color: @titlebar_color;
+}
+
+.sidebar .badge:selected:backdrop,
+.source-list.badge:selected:backdrop,
+.source-list.badge:selected:hover:backdrop {
+    background-image: none;
+    background-color: alpha (#000, 0.2);
+    color: shade (@titlebar_color, 0.95);
+    text-shadow: 0 1px alpha (#000, 0.1);
+    -gtk-icon-shadow: 0 1px alpha (#000, 0.1);
+}
+
+.source-list.level-bar,
+.source-list.level-bar:selected,
+.source-list.level-bar:selected:focus {
+    background-color: @base_color;
+    border: 1px solid alpha (#000, 0.15);
+    box-shadow: 0 1px 0 alpha (#fff, 0.25);
+    border-radius: 2px;
+}
+
+.source-list.fill-block,
+.source-list.fill-block:hover,
+.source-list.fill-block:selected,
+.source-list.fill-block:selected:focus {
+    background-image: none;
+    background-color: mix (@colorAccent, @base_color, 0.25);
+}
+
+.source-list.level-bar.fill-block {
+    border: none;
+}
+
+/**************
+* Storage Bar *
+**************/
+
+.storage-bar .trough {
+    box-shadow: 0 2px 3px -1px alpha (#000, 0.15);
+    border: none;
+    background-image: none;
+}
+
+.storage-bar .fill-block {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @SILVER_300,
+            @SILVER_500
+        );
+    border: 1px solid alpha (#000, 0.35);
+    border-left-width: 0;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.45),
+        inset 0 -1px 0 0 alpha (#fff, 0.15);
+    transition: all 200ms ease-in-out;
+    padding: 8px 6px;
+}
+
+.storage-bar .fill-block:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left-width: 1px;
+}
+
+.storage-bar .fill-block:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.storage-bar .fill-block.empty-block,
+.storage-bar .fill-block.unused {
+    background-image:
+        linear-gradient(
+            to bottom,
+            mix(@SILVER_100, @SILVER_300, 0.5),
+            @SILVER_300
+        );
+    border-color: alpha (#000, 0.25);
+}
+
+.storage-bar .fill-block.legend {
+    padding: 7px;
+    border-radius: 50%;
+}
+
+/* Types of files */
+
+.storage-bar .fill-block.app {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @GRAPE_500,
+            @GRAPE_700
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.15),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: alpha (@GRAPE_900, 0.8);
+}
+
+.storage-bar .fill-block.audio {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @ORANGE_300,
+            @ORANGE_500
+        );
+    border-color: alpha (@ORANGE_700, 0.8);
+}
+
+.storage-bar .fill-block.files {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @BLUEBERRY_300,
+            @BLUEBERRY_500
+        );
+    border-color: alpha (@BLUEBERRY_700, 0.8);
+}
+
+.storage-bar .fill-block.photo {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @BANANA_300,
+            @BANANA_500
+        );
+    border-color: alpha (@BANANA_700, 0.8);
+}
+
+.storage-bar .fill-block.video {
+    background-image:
+        linear-gradient(
+            to bottom,
+            @STRAWBERRY_300,
+            @STRAWBERRY_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: alpha (@STRAWBERRY_700, 0.8);
+}
+
+/* Partition types, i.e. for the installer */
+
+.storage-bar .fill-block.swap {
+    background-color: @STRAWBERRY_700;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @STRAWBERRY_700,
+                1.3
+            ),
+            @STRAWBERRY_700
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@STRAWBERRY_700, 0.9);
+}
+
+.storage-bar .fill-block.ext4 {
+    background-color: @LIME_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @LIME_500,
+                1.3
+            ),
+            @LIME_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@LIME_500, 0.9);
+}
+
+.storage-bar .fill-block.ext3 {
+    background-color: @LIME_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @LIME_500,
+                1.3
+            ),
+            @LIME_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@LIME_500, 0.9);
+}
+
+.storage-bar .fill-block.ext2 {
+    background-color: @LIME_900;
+}
+
+.storage-bar .fill-block.fat16,
+.storage-bar .fill-block.fat32 {
+    background-color: @BANANA_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @BANANA_500,
+                1.3
+            ),
+            @BANANA_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@BANANA_500, 0.9);
+}
+
+.storage-bar .fill-block.btrfs {
+    background-color: @BLUEBERRY_700;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @BLUEBERRY_700,
+                1.3
+            ),
+            @BLUEBERRY_700
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@BLUEBERRY_700, 0.9);
+}
+
+.storage-bar .fill-block.xfs {
+    background-color: @GRAPE_900;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @GRAPE_900,
+                1.3
+            ),
+            @GRAPE_900
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@GRAPE_900, 0.9);
+}
+
+.storage-bar .fill-block.ntfs {
+    background-color: @ORANGE_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @ORANGE_500,
+                1.3
+            ),
+            @ORANGE_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@ORANGE_500, 0.9);
+}
+
+.storage-bar .fill-block.luks {
+    background-color: @GRAPE_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @GRAPE_500,
+                1.3
+            ),
+            @GRAPE_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@GRAPE_500, 0.9);
+}
+
+.storage-bar .fill-block.lvm {
+    background-color: @GRAPE_700;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @GRAPE_700,
+                1.3
+            ),
+            @GRAPE_700
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@GRAPE_700, 0.9);
+}
+
+.storage-bar .fill-block.none {
+    background-color: @BLUEBERRY_500;
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @BLUEBERRY_500,
+                1.3
+            ),
+            @BLUEBERRY_500
+        );
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.15);
+    border-color: shade (@BLUEBERRY_500, 0.9);
+}
+
+/***********
+ * Welcome *
+ **********/
+
+.welcome {
+    font-size: 10pt;
+    text-shadow: none;
+}
+
+.welcome .dim-label {
+    color: @placeholder_text_color;
+}
+
+.welcome .h1,
+.welcome .h3 {
+    color: alpha(@text_color, 0.8);
+}
+
+/*************
+* Round Apps *
+*************/
+
+window.rounded,
+window.rounded actionbar {
+    border-radius: 0 0 4px 4px;
+}
+
+window.rounded decoration {
+    border-radius: 3px;
+}
+
+/**************
+* Text Styles *
+**************/
+
+.accent,
+.titlebar.flat .accent image,
+.titlebar.flat .accent label {
+    color: @colorAccent;
+}
+
+.h1 {
+    font-size: 24pt;
+}
+
+.h2 {
+    font-weight: 300;
+    font-size: 18pt;
+}
+
+.h3 {
+    font-size: 11pt;
+}
+
+.h4,
+.category-label {
+    color: alpha (@text_color, 0.7);
+    font-weight: bold;
+    text-shadow: 0 1px @text_shadow_color;
+}
+
+.h4 {
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
+list .h4 {
+    padding-left: 6px;
+}
+
+/***************
+* Fancy Scales *
+***************/
+
+scale.temperature trough {
+    background-image:
+        linear-gradient(
+            to right,
+            @BLUEBERRY_500,
+            @SILVER_100,
+            @ORANGE_500
+        );
+}
+
+scale.temperature:dir(rtl) trough {
+    background-image:
+        linear-gradient(
+            to left,
+            @BLUEBERRY_500,
+            @SILVER_100,
+            @ORANGE_500
+        );
+}
+
+scale.warmth trough {
+    background-image:
+        linear-gradient(
+            to right,
+            mix (
+                @bg_color,
+                @ORANGE_100,
+                0.5
+            ),
+            @ORANGE_500
+        );
+}
+
+scale.warmth:dir(rtl) trough {
+    background-image:
+        linear-gradient(
+            to left,
+            mix (
+                @bg_color,
+                @ORANGE_100,
+                0.5
+            ),
+            @ORANGE_500
+        );
+}
+
+scale trough:disabled {
+    background-image: none;
+}
+
+/****************
+* Fake Terminal *
+****************/
+
+.terminal,
+.terminal text {
+    background-color: #252e32;
+    color: #94a3a5;
+    font-family: monospace;
+}
+
+label.terminal {
+    padding: 12px;
+}
+
+.terminal selection {
+    background-color: #93a1a1;
+    color: #252e32;
+}

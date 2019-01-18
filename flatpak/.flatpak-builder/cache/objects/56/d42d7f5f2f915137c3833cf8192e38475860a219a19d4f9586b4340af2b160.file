@@ -1,0 +1,6 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g color='#bebebe' transform='translate(-1233 315)'>
+        
+        <path d='M1236.5-313c-.83 0-1.5.669-1.5 1.5v9c0 .831.67 1.5 1.5 1.5h9c.831 0 1.5-.669 1.5-1.5v-9c0-.831-.669-1.5-1.5-1.5h-2.5zm.5 1h8c.554 0 1 .446 1 1v6h-3c0 1.108-.892 2-2 2s-2-.892-2-2h-3v-6c0-.554.446-1 1-1z' fill='#666' overflow='visible' style='marker:none'/>
+    </g>
+</svg>

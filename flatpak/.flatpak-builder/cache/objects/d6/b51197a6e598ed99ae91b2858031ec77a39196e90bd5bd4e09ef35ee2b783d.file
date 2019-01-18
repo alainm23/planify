@@ -1,0 +1,596 @@
+#
+# dotty_draw: drawing functions and data structures
+#
+dotty.protogt.drawgraph = function (gt, views) {
+    local gid, eid, nid, graph;
+
+    graph = gt.graph;
+    gt.drawsgraph (gt, views, graph);
+    for (gid in graph.graphs)
+        gt.drawsgraph (gt, views, graph.graphs[gid]);
+    for (eid in graph.edges)
+        gt.drawedge (gt, views, graph.edges[eid]);
+    for (nid in graph.nodes)
+        gt.drawnode (gt, views, graph.nodes[nid]);
+};
+dotty.protogt.redrawgraph = function (gt, views) {
+    local vid;
+
+    for (vid in views)
+        clear (views[vid].canvas);
+    gt.drawgraph (gt, views);
+};
+dotty.protogt.setviewsize = function (views, r) {
+    local vid, vt, w2v, scale, attr;
+
+    for (vid in views) {
+        vt = views[vid];
+        vt.wrect = copy (r);
+        if (r[1].x == 0 | r[1].y == 0) {
+            attr = getwidgetattr (vt.scroll, [0 = 'size';]);
+            vt.wrect[1] = copy (attr.size);
+        }
+        if (vt.type == 'birdseye') {
+            attr = getwidgetattr (vt.scroll, [0 = 'size';]);
+            scale.x = (vt.wrect[1].x - vt.wrect[0].x) / attr.size.x;
+            scale.y = (vt.wrect[1].y - vt.wrect[0].y) / attr.size.y;
+            if (scale.x > 1 & scale.x > scale.y)
+                vt.w2v = scale.x;
+            else if (scale.y > 1)
+                vt.w2v = scale.y;
+            else
+                vt.w2v = 1;
+        }
+        w2v = vt.w2v;
+        vt.vsize = [
+            'x' = toint ((vt.wrect[1].x - vt.wrect[0].x) / w2v);
+            'y' = toint ((vt.wrect[1].y - vt.wrect[0].y) / w2v);
+        ];
+        setwidgetattr (vt.canvas, [
+            'window' = vt.wrect;
+            'viewport' = vt.vsize;
+        ]);
+        attr = getwidgetattr (vt.canvas, [0 = 'viewport';]);
+        vt.vsize = copy (attr.viewport);
+    }
+};
+dotty.protogt.setviewscale = function (views, factor) {
+    local vid, vt, w2v, attr;
+
+    for (vid in views) {
+        vt = views[vid];
+        if ((w2v = vt.w2v * factor) < 0.01) {
+            dotty.message (0, 'cannot zoom any closer');
+            return;
+        }
+        vt.w2v = w2v;
+        vt.vsize = [
+            'x' = (vt.wrect[1].x - vt.wrect[0].x) / w2v;
+            'y' = (vt.wrect[1].y - vt.wrect[0].y) / w2v;
+        ];
+        setwidgetattr (vt.canvas, ['viewport' = vt.vsize;]);
+        attr = getwidgetattr (vt.canvas, [0 = 'viewport';]);
+        vt.vsize = copy (attr.viewport);
+    }
+};
+dotty.protogt.setviewcenter = function (views, center) {
+    local vid, vt, pos;
+
+    for (vid in views) {
+        vt = views[vid];
+        pos = [
+            'x' = center.x * vt.vsize.x / (vt.wrect[1].x - vt.wrect[0].x);
+            'y' = (
+                (vt.wrect[1].y - center.y) * vt.vsize.y /
+                (vt.wrect[1].y - vt.wrect[0].y)
+            );
+        ];
+        setwidgetattr (vt.scroll, ['childcenter' = pos;]);
+    }
+};
+#
+# draw graph components
+#
+dotty.protogt.drawsgraph = function (gt, views, sgraph) {
+    sgraph.draw = 1;
+    if (~sgraph.draws)
+        return;
+    gt.execalldraw (gt, views, null, sgraph.draws, [
+        'fontname' = sgraph.fontname;
+        'fontsize' = sgraph.fontsize;
+        'fontcolor' = sgraph.fontcolor;
+        'drawcolor' = sgraph.drawcolor;
+        'fillcolor' = sgraph.fillcolor;
+    ]);
+};
+dotty.protogt.undrawsgraph = function (gt, views, sgraph) {
+    sgraph.drawn = 0;
+    if (~sgraph.draws)
+        return;
+    gt.execalldraw (gt, views, null, sgraph.draws, [
+        'fontname' = sgraph.fontname;
+        'fontsize' = sgraph.fontsize;
+        'fontcolor' = sgraph.fontcolor;
+        'drawcolor' = 0;
+        'fillcolor' = 0;
+    ]);
+};
+dotty.protogt.drawnode = function (gt, views, node) {
+    local vid;
+
+    node.drawn = 1;
+    if (~node.draws)
+        return;
+    gt.execalldraw (gt, views, node, node.draws, [
+        'fontname' = node.fontname;
+        'fontsize' = node.fontsize;
+        'fontcolor' = node.fontcolor;
+        'drawcolor' = node.drawcolor;
+        'fillcolor' = node.fillcolor;
+    ]);
+    for (vid in views)
+        setpick (views[vid].canvas, node, node.rect);
+};
+dotty.protogt.undrawnode = function (gt, views, node) {
+    local vid;
+
+    if (~node.drawn)
+        return;
+    node.drawn = 0;
+    if (~node.pos)
+        return;
+    gt.execalldraw (gt, views, node, node.draws, [
+        'nooverride' = 1;
+        'fontname' = node.fontname;
+        'fontsize' = node.fontsize;
+        'fontcolor' = 0;
+        'drawcolor' = 0;
+        'fillcolor' = 0;
+    ]);
+    for (vid in views)
+        clearpick (views[vid].canvas, node);
+};
+dotty.protogt.movenode = function (gt, node, pos) {
+    local dp, eid, edge;
+
+    dp.x = pos.x - node.pos.x;
+    dp.y = pos.y - node.pos.y;
+    gt.undrawnode (gt, gt.views, node);
+    node.pos.x = pos.x;
+    node.pos.y = pos.y;
+    gt.movenodedraw (node.draws, dp);
+    for (eid in node.edges) {
+        edge = node.edges[eid];
+        gt.undrawedge (gt, gt.views, edge);
+        gt.moveedgedraw (edge.draws, edge.tail.pos, edge.head.pos);
+        gt.drawedge (gt, gt.views, edge);
+    }
+    gt.drawnode (gt, gt.views, node);
+};
+dotty.protogt.drawedge = function (gt, views, edge) {
+    local vid, canvas;
+
+    edge.drawn = 1;
+    if (~edge.draws)
+        return;
+    gt.execalldraw (gt, views, edge, edge.draws, [
+        'fontname' = edge.fontname;
+        'fontsize' = edge.fontsize;
+        'fontcolor' = edge.fontcolor;
+        'drawcolor' = edge.drawcolor;
+        'fillcolor' = edge.fillcolor;
+    ]);
+    for (vid in views) {
+        canvas = views[vid].canvas;
+        if (gt.edgehandles == 0 | ~edge.draws.ep)
+            continue;
+        arc (canvas, edge, edge.draws.ep, ['x' = 5; 'y' = 5;], ['color' = 1;]);
+    }
+};
+dotty.protogt.undrawedge = function (gt, views, edge) {
+    local vid, canvas;
+
+    if (~edge.drawn)
+        return;
+    edge.drawn = 0;
+    if (~edge.draws)
+        return;
+    gt.execalldraw (gt, views, edge, edge.draws, [
+        'nooverride' = 1;
+        'fontname' = edge.fontname;
+        'fontsize' = edge.fontsize;
+        'fontcolor' = 0;
+        'drawcolor' = 0;
+        'fillcolor' = 0;
+    ]);
+    for (vid in views) {
+        canvas = views[vid].canvas;
+        if (gt.edgehandles == 0 | ~edge.draws.ep)
+            continue;
+        arc (canvas, edge, edge.draws.ep, ['x' = 5; 'y' = 5;], ['color' = 0;]);
+        clearpick (canvas, edge);
+    }
+};
+#
+# draw directives
+#
+dotty.protogt.execalldraw = function (gt, views, obj, draws, gc) {
+    local vid, vt, did, draw, i, func;
+
+    for (vid in views) {
+        vt = views[vid];
+        for (did in draws) {
+            if (did == 'ep')
+                continue;
+            draw = draws[did];
+            for (i = 0; draw[i]; i = i + 1)
+                if ((func = gt.drawfunc[draw[i].type]))
+                    func (gt, vt.canvas, obj, draw[i], gc);
+        }
+    }
+};
+dotty.protogt.drawfunc.E = function (gt, canvas, obj, data, gc) {
+    arc (canvas, obj, data.c, data.s, [
+        'color' = gc.fillcolor; 'style' = gc.style; 'width' = gc.width;
+        'fill' = 'on';
+    ]);
+    arc (canvas, obj, data.c, data.s, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.e = function (gt, canvas, obj, data, gc) {
+    arc (canvas, obj, data.c, data.s, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.P = function (gt, canvas, obj, data, gc) {
+    polygon (canvas, obj, data.ps, [
+        'color' = gc.fillcolor; 'style' = gc.style; 'width' = gc.width;
+        'fill' = 'on';
+    ]);
+    polygon (canvas, obj, data.ps, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.p = function (gt, canvas, obj, data, gc) {
+    polygon (canvas, obj, data.ps, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.L = function (gt, canvas, obj, data, gc) {
+    polygon (canvas, obj, data.ps, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.b = function (gt, canvas, obj, data, gc) {
+    splinegon (canvas, obj, data.ps, [
+        'color' = gc.fillcolor; 'style' = gc.style; 'width' = gc.width;
+        'fill' = 'on';
+    ]);
+};
+dotty.protogt.drawfunc.B = function (gt, canvas, obj, data, gc) {
+    splinegon (canvas, obj, data.ps, [
+        'color' = gc.drawcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.T = function (gt, canvas, obj, data, gc) {
+    text (canvas, obj, data.p, data.s, gc.fontname, gc.fontsize, data.j, [
+        'color' = gc.fontcolor; 'style' = gc.style; 'width' = gc.width;
+    ]);
+};
+dotty.protogt.drawfunc.C = function (gt, canvas, obj, data, gc) {
+    if (gc.nooverride ~= 1)
+        gc.fillcolor = data.fillcolor;
+};
+dotty.protogt.drawfunc.c = function (gt, canvas, obj, data, gc) {
+    if (gc.nooverride ~= 1) {
+        gc.drawcolor = data.drawcolor;
+        gc.fontcolor = data.drawcolor;
+    }
+};
+dotty.protogt.drawfunc.F = function (gt, canvas, obj, data, gc) {
+    gc.fontname = data.fn;
+    gc.fontsize = data.fs;
+};
+dotty.protogt.drawfunc.S = function (gt, canvas, obj, data, gc) {
+    gc.style = data.style;
+    gc.width = data.width;
+};
+dotty.protogt.movenodedraw = function (draws, dp) {
+    local did, draw, i, j;
+
+    for (did in draws) {
+        if (did == 'ep')
+            continue;
+        draw = draws[did];
+        for (i = 0; draw[i]; i = i + 1) {
+            if (draw[i].type == 'E' | draw[i].type == 'e') {
+                draw[i].c.x = draw[i].c.x + dp.x;
+                draw[i].c.y = draw[i].c.y + dp.y;
+            } else if (draw[i].type == 'P' | draw[i].type == 'p') {
+                for (j = 1; draw[i].ps[j]; j = j + 1) {
+                    draw[i].ps[j].x = draw[i].ps[j].x + dp.x;
+                    draw[i].ps[j].y = draw[i].ps[j].y + dp.y;
+                }
+            } else if (draw[i].type == 'L' | draw[i].type == 'B') {
+                for (j = 0; draw[i].ps[j]; j = j + 1) {
+                    draw[i].ps[j].x = draw[i].ps[j].x + dp.x;
+                    draw[i].ps[j].y = draw[i].ps[j].y + dp.y;
+                }
+            } else if (draw[i].type == 'T') {
+                draw[i].p.x = draw[i].p.x + dp.x;
+                draw[i].p.y = draw[i].p.y + dp.y;
+            }
+        }
+    }
+};
+dotty.protogt.moveedgedraw = function (draws, tp, hp) {
+    local draws2, did;
+
+    for (did in draws)
+        draws2[did] = draws[did];
+    for (did in draws2)
+        remove (did, draws);
+    draws[0] = [
+        0 = [
+            'type' = 'L';
+            'n' = 2;
+            'ps' = [
+                0 = copy (tp);
+                1 = copy (hp);
+            ];
+        ];
+        'ep' = ['x' = (tp.x + hp.x) / 2; 'y' = (tp.y + hp.y) / 2;];
+    ];
+};
+dotty.protogt.simplenodedraw = function (node, c, s) {
+    local draws;
+
+    if (node.attr.shape == 'ellipse')
+        draws[0] = [
+            0 = [
+                'type' = 'e';
+                'c' = copy (c);
+                's' = ['x' = s.x / 2; 'y' = s.y / 2;];
+            ];
+        ];
+    else
+        draws[0] = [
+            0 = [
+                'type' = 'p';
+                'n' = 5;
+                'ps' = [
+                    0 = ['x' = c.x - s.x / 2; 'y' = c.y - s.y / 2;];
+                    1 = ['x' = c.x + s.x / 2; 'y' = c.y - s.y / 2;];
+                    2 = ['x' = c.x + s.x / 2; 'y' = c.y + s.y / 2;];
+                    3 = ['x' = c.x - s.x / 2; 'y' = c.y + s.y / 2;];
+                    4 = ['x' = c.x - s.x / 2; 'y' = c.y - s.y / 2;];
+                ];
+            ];
+        ];
+    return draws;
+};
+dotty.protogt.simpleedgedraw = function (edge, tp, hp) {
+    local draws;
+
+    draws[0] = [
+        0 = [
+            'type' = 'L';
+            'n' = 2;
+            'ps' = [
+                0 = copy (tp);
+                1 = copy (hp);
+            ];
+        ];
+        'ep' = ['x' = (tp.x + hp.x) / 2; 'y' = (tp.y + hp.y) / 2;];
+    ];
+    return draws;
+};
+#
+# utilities
+#
+dotty.protogt.getcolor = function (views, name) {
+    local vid, vt, color, t;
+
+    for (vid in views) {
+        vt = views[vid];
+        if (~(color >= 0)) {
+            if (~(vt.colors[name] >= 0))
+                color = (vt.colors[name] = vt.colorn);
+            else {
+                color = vt.colors[name];
+                break;
+            }
+        } else if (~(vt.colors[name] >= 0))
+            vt.colors[name] = color;
+        else if (vt.colors[name] ~= color)
+            dotty.message (0, concat ('inconsistent color ids for ', name));
+        if (setwidgetattr (vt.canvas, ['color' = [color = name;];]) ~= 1) {
+            t = split (name, ' ');
+            if (tablesize (t) ~= 3 |
+                    setwidgetattr (vt.canvas, ['color' = [color = [
+                        'h' = ston (t[0]); 's' = ston (t[1]); 'v' = ston (t[2]);
+                    ];];]) ~= 1) {
+                dotty.message (0, concat ('unknown color ', name, ' using #1'));
+                return 1;
+            }
+        }
+        vt.colorn = color + 1;
+    }
+    return color;
+};
+dotty.protogt.setbgcolor = function (views, name) {
+    local vid, vt, t;
+
+    for (vid in views) {
+        vt = views[vid];
+        if (setwidgetattr (vt.canvas, ['color' = [0 = name;];]) ~= 1) {
+            t = split (name, ' ');
+            if (tablesize (t) ~= 3 |
+                    setwidgetattr (vt.canvas, ['color' = [0 = [
+                        'h' = ston (t[0]); 's' = ston (t[1]); 'v' = ston (t[2]);
+                    ];];]) ~= 1) {
+                dotty.message (0, concat ('unknown bgcolor ', name));
+                return;
+            }
+        }
+        vt.colors['_bgcolor_'] = name;
+    }
+};
+dotty.protogt.unpacksgraphattr = function (gt, sgraph) {
+    local attr;
+
+    attr = sgraph.graphattr;
+    if (dotty.fontmap[attr.fontname])
+        sgraph[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+    else
+        sgraph[dotty.keys.fname] = attr.fontname;
+    sgraph[dotty.keys.fsize] = ston (attr.fontsize);
+    sgraph[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+    if (attr.color)
+        sgraph[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+    else
+        sgraph[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+    if (attr.style == 'filled') {
+        if (attr.fillcolor)
+            sgraph[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.fillcolor);
+        else if (attr.color)
+            sgraph[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            sgraph[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+    }
+};
+dotty.protogt.unpacknodeattr = function (gt, node) {
+    local attr;
+
+    attr = node.attr;
+    if (dotty.fontmap[attr.fontname])
+        node[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+    else
+        node[dotty.keys.fname] = attr.fontname;
+    node[dotty.keys.fsize] = ston (attr.fontsize);
+    node[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+    if (attr.color)
+        node[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+    else
+        node[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+    if (attr.style == 'filled') {
+        if (attr.fillcolor)
+            node[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.fillcolor);
+        else if (attr.color)
+            node[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            node[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+    }
+};
+dotty.protogt.unpackedgeattr = function (gt, edge) {
+    local attr;
+
+    attr = edge.attr;
+    if (dotty.fontmap[attr.fontname])
+        edge[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+    else
+        edge[dotty.keys.fname] = attr.fontname;
+    edge[dotty.keys.fsize] = ston (attr.fontsize);
+    edge[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+    if (attr.color)
+        edge[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+    else
+        edge[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+    if (attr.style == 'filled') {
+        if (attr.fillcolor)
+            edge[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.fillcolor);
+        else if (attr.color)
+            edge[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            edge[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+    }
+};
+dotty.protogt.unpackattr = function (gt) {
+    local gid, sgraph, nid, node, eid, edge, graph, attr;
+
+    graph = gt.graph;
+    attr = graph.graphattr;
+    if (dotty.fontmap[attr.fontname])
+        graph[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+    else
+        graph[dotty.keys.fname] = attr.fontname;
+    graph[dotty.keys.fsize] = ston (attr.fontsize);
+    graph[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+    if (attr.color)
+        graph[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+    else
+        graph[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+    if (attr.style == 'filled') {
+        if (attr.fillcolor)
+            graph[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.fillcolor);
+        else if (attr.color)
+            graph[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            graph[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+    }
+    if (attr.bgcolor & attr.bgcolor ~= '')
+        gt.setbgcolor (gt.views, attr.bgcolor);
+    for (gid in graph.graphdict) {
+        sgraph = graph.graphs[graph.graphdict[gid]];
+        attr = sgraph.graphattr;
+        if (dotty.fontmap[attr.fontname])
+            sgraph[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+        else
+            sgraph[dotty.keys.fname] = attr.fontname;
+        sgraph[dotty.keys.fsize] = ston (attr.fontsize);
+        sgraph[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+        if (attr.color)
+            sgraph[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            sgraph[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+        if (attr.style == 'filled') {
+            if (attr.fillcolor)
+                sgraph[dotty.keys.bcolor] = gt.getcolor (
+                    gt.views, attr.fillcolor
+                );
+            else if (attr.color)
+                sgraph[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+            else
+                sgraph[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+        }
+    }
+    for (nid in graph.nodedict) {
+        node = graph.nodes[graph.nodedict[nid]];
+        attr = node.attr;
+        if (dotty.fontmap[attr.fontname])
+            node[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+        else
+            node[dotty.keys.fname] = attr.fontname;
+        node[dotty.keys.fsize] = ston (attr.fontsize);
+        node[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+        if (attr.color)
+            node[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            node[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+        if (attr.style == 'filled') {
+            if (attr.fillcolor)
+                node[dotty.keys.bcolor] = gt.getcolor (
+                    gt.views, attr.fillcolor
+                );
+            else if (attr.color)
+                node[dotty.keys.bcolor] = gt.getcolor (gt.views, attr.color);
+            else
+                node[dotty.keys.bcolor] = gt.getcolor (gt.views, 'lightgrey');
+        }
+    }
+    for (eid in graph.edges) {
+        edge = graph.edges[eid];
+        attr = edge.attr;
+        if (dotty.fontmap[attr.fontname])
+            edge[dotty.keys.fname] = dotty.fontmap[attr.fontname];
+        else
+            edge[dotty.keys.fname] = attr.fontname;
+        edge[dotty.keys.fsize] = ston (attr.fontsize);
+        edge[dotty.keys.fcolor] = gt.getcolor (gt.views, attr.fontcolor);
+        if (attr.color)
+            edge[dotty.keys.dcolor] = gt.getcolor (gt.views, attr.color);
+        else
+            edge[dotty.keys.dcolor] = gt.getcolor (gt.views, 'black');
+    }
+};

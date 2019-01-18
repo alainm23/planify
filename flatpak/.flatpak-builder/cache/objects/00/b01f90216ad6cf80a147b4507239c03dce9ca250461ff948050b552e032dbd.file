@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Alexander Kuleshov <kuleshovmail@gmail.com>
+ Copyright (C) 2009-2010 Alexander Kuleshov <kuleshovmail@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="fsharp" name="F#" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-fsharp</property>
+    <property name="globs">*.fs;</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">(*</property>
+    <property name="block-comment-end">*)</property>
+  </metadata>
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="base-n-integer" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="floating-point" name="Floating Point number" map-to="def:floating-point"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="meta-keyword" name="Type, module or object keyword" map-to="def:keyword"/>
+    <style id="fun-keyword" name="Builtin-function keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="label" name="Labeled argument" map-to="def:type"/>
+    <style id="poly-variant" name="Polymorphic Variant" map-to="def:type"/>
+    <style id="variant" name="Variant Constructor" map-to="def:type"/>
+    <style id="type-var" name="Type Variable" map-to="def:type"/>
+    <style id="module" name="Module Path" map-to="def:type"/>
+    <style id="escape" name="Escaped Character" map-to="def:special-char"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="cap-ident">\b[A-Z][A-Za-z0-9_']*</define-regex>
+    <define-regex id="low-ident">\b[a-z][A-Za-z0-9_']*</define-regex>
+    <define-regex id="char-esc">\\((\\|"|'|n|t|b|r)|[0-9]{3}|x[0-9a-fA-F]{2})</define-regex>
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+    <define-regex id="symbolchar">[!#$%&amp;*+./&gt;=&lt;?@:\\^|~-]</define-regex>
+
+    <context id="escape-seq" style-ref="escape">
+      <match>\%{char-esc}</match>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+        <include>
+          <context ref="def:in-line-comment"/>
+        </include>
+    </context>
+
+    <context id="multiline-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>\(\*</start>
+      <end>\*\)</end>
+        <include>
+          <context ref="string"/>
+          <context ref="def:in-comment:*"/>
+        </include>
+    </context>
+
+    <context id="if0-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>\%{preproc-start}if\b\s*0\b</start>
+      <end>\%{preproc-start}(endif|else|elif)\b</end>
+      <include>
+        <context id="if-in-if0">
+          <start>\%{preproc-start}if(n?def)?\b</start>
+          <end>\%{preproc-start}endif\b</end>
+          <include>
+            <context ref="if-in-if0"/>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+        \%{preproc-start}
+        (if(n?def)?|else|endif|light|region|endregion)\b
+      </start>
+      <include>
+        <context ref="def:line-continue" ignore-style="true"/>
+        <context ref="string" ignore-style="true"/>
+        <context ref="line-comment"/>
+        <context ref="multiline-comment"/>
+      </include>
+    </context>
+
+    <context id="hex-number" style-ref="base-n-integer">
+      <match>[-]?0[xX][0-9A-Fa-f][0-9A-Fa-f_]*[lL]?</match>
+    </context>
+
+    <context id="octal-number" style-ref="base-n-integer">
+      <match>[-]?0[oO][0-7][0-7_]*[lL]?</match>
+    </context>
+
+    <context id="binary-number" style-ref="base-n-integer">
+      <match>[-]?0[bB][01][01_]*[lL]?</match>
+    </context>
+
+    <context id="label" style-ref="label">
+      <match>[~?]\%{low-ident}</match>
+    </context>
+
+    <context id="if-false-comment" style-ref="comment">
+      <start>\%{preproc-start}if\s*false\b</start>
+      <end>\%{preproc-start}(endif|else|elif)\b</end>
+        <include>
+          <context id="if-in-if-false">
+            <start>\%{preproc-start}if(n?def)?\b</start>
+            <end>\%{preproc-start}endif\b</end>
+              <include>
+                <context ref="if-in-if-false"/>
+                <context ref="def:in-comment"/>
+              </include>
+          </context>
+          <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="poly-variant" style-ref="poly-variant">
+      <match>`\%{cap-ident}</match>
+    </context>
+
+    <context id="modpath" style-ref="module">
+      <match>\%{cap-ident}(\.\%{cap-ident})*(?=\.)</match>
+    </context>
+
+    <context id="variant" style-ref="variant">
+      <match>\%{cap-ident}</match>
+    </context>
+
+    <context id="string" style-ref="string">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escape-seq"/>
+      </include>
+    </context>
+
+    <context id="character-constant" style-ref="string">
+      <match>('\%{char-esc}')|('[^\\']')</match>
+    </context>
+
+    <context id="type-var" style-ref="type-var">
+      <match>'\%{low-ident}</match>
+    </context>
+
+    <context id="arraylit">
+      <start>\[\|</start>
+      <end>\|\]</end>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="boolean-constant" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="keysymbol" style-ref="keyword">
+      <prefix>(?&lt;!\%{symbolchar})</prefix>
+      <suffix>(?!\%{symbolchar})</suffix>
+        <keyword>\.\.</keyword>
+        <keyword>::</keyword>
+        <keyword>=</keyword>
+        <keyword>@</keyword>
+        <keyword>~</keyword>
+        <keyword>-></keyword>
+        <keyword>|</keyword>
+        <keyword>:?</keyword>
+        <keyword>:?></keyword>
+        <keyword>^</keyword>
+        <keyword>&lt;-</keyword>
+        <keyword>&amp;&amp;</keyword>
+        <keyword>&amp;</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>abstract</keyword>
+      <keyword>and</keyword>
+      <keyword>as</keyword>
+      <keyword>assert</keyword>
+      <keyword>asr</keyword>
+      <keyword>begin</keyword>
+      <keyword>class</keyword>
+      <keyword>default</keyword>
+      <keyword>delegate</keyword>
+      <keyword>do</keyword>
+      <keyword>done</keyword>
+      <keyword>downcast</keyword>
+      <keyword>downto</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>enum</keyword>
+      <keyword>exception</keyword>
+      <keyword>false</keyword>
+      <keyword>finaly</keyword>
+      <keyword>for</keyword>
+      <keyword>fun</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>iherit</keyword>
+      <keyword>interface</keyword>
+      <keyword>land</keyword>
+      <keyword>lazy</keyword>
+      <keyword>let</keyword>
+      <keyword>lor</keyword>
+      <keyword>lsl</keyword>
+      <keyword>lsr</keyword>
+      <keyword>lxor</keyword>
+      <keyword>match</keyword>
+      <keyword>member</keyword>
+      <keyword>mod</keyword>
+      <keyword>module</keyword>
+      <keyword>mutable</keyword>
+      <keyword>namespace</keyword>
+      <keyword>new</keyword>
+      <keyword>null</keyword>
+      <keyword>of</keyword>
+      <keyword>open</keyword>
+      <keyword>or</keyword>
+      <keyword>override</keyword>
+      <keyword>sig</keyword>
+      <keyword>static</keyword>
+      <keyword>struct</keyword>
+      <keyword>then</keyword>
+      <keyword>to</keyword>
+      <keyword>true</keyword>
+      <keyword>try</keyword>
+      <keyword>type</keyword>
+      <keyword>val</keyword>
+      <keyword>when</keyword>
+      <keyword>inline</keyword>
+      <keyword>upcast</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>async</keyword>
+      <keyword>atomic</keyword>
+      <keyword>break</keyword>
+      <keyword>checked</keyword>
+      <keyword>component</keyword>
+      <keyword>const</keyword>
+      <keyword>constructor</keyword>
+      <keyword>continue</keyword>
+      <keyword>eager</keyword>
+      <keyword>event</keyword>
+      <keyword>external</keyword>
+      <keyword>fixed</keyword>
+      <keyword>functor</keyword>
+      <keyword>include</keyword>
+      <keyword>method</keyword>
+      <keyword>mixin</keyword>
+      <keyword>process</keyword>
+      <keyword>property</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>pure</keyword>
+      <keyword>readonly</keyword>
+      <keyword>return</keyword>
+      <keyword>sealed</keyword>
+      <keyword>switch</keyword>
+      <keyword>virtual</keyword>
+      <keyword>void</keyword>
+      <keyword>volatile</keyword>
+      <keyword>yield</keyword>
+      <keyword>where</keyword>
+    </context>
+
+    <!-- main context -->
+    <context id="fsharp" class="no-spell-check">
+      <include>
+        <context ref="keywords"/>
+        <context ref="keysymbol"/>
+        <context ref="boolean-constant"/>
+        <context ref="arraylit"/>
+        <context ref="character-constant"/>
+        <context ref="string"/>
+        <context ref="variant"/>
+        <context ref="modpath"/>
+        <context ref="poly-variant"/>
+        <context ref="label"/>
+        <context ref="binary-number"/>
+        <context ref="octal-number"/>
+        <context ref="hex-number"/>
+        <context ref="line-comment"/>
+        <context ref="multiline-comment"/>
+        <context ref="type-var"/>
+        <context ref="if-false-comment"/>
+        <context ref="preprocessor"/>
+        <context ref="if0-comment"/>
+        <context ref="decimal"/>
+      </include>
+    </context>
+    <!-- main context -->
+  </definitions>
+</language>

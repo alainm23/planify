@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Jason Monroe Martin <agrellum@centurylink.net>
+ Copyright (C) 2012 Jason Monroe Martin <agrellum@centurylink.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="netrexx" name="NetRexx" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-netrexx</property>
+    <property name="globs">*.nrx</property>
+    <property name="continuation">-</property>
+    <property name="line-comment-start">--</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char" />
+    <style id="string" name="String" map-to="def:string" />
+    <style id="char" name="Character" map-to="def:character" />
+    <style id="line-comment" name="Comment" map-to="def:comment" />
+    <style id="externals" name="Externals" map-to="def:preprocessor" />
+    <style id="options" name="Options" map-to="def:function" />
+    <style id="primitive-types" name="Data Types" map-to="def:type" />
+    <style id="special" name="Special" map-to="def:special-constant" />
+    <style id="visibility" name="Visibility" map-to="def:identifier" />
+    <style id="modifiers" name="Modifiers" map-to="def:type" />
+    <style id="keywords" name="Keywords" map-to="def:keyword" />
+    <style id="sub-keywords" name="Sub Keywords" map-to="def:shebang" />
+    <style id="builtin-function" name="Builtin Function" map-to="def:builtin" />
+    <style id="numeric" name="Number" map-to="def:number" />
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-character" extended="true">
+      \\( #
+      leading backslash
+      [\\\"\'nrbtf] | # escaped character
+      [0-9]{1,3} | #
+      latin encoded char
+      u[0-9]{1,4} # unicode char
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>["']</start>
+      <end>\%{0@start}</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="char" style-ref="char">
+      <match>'(\%{escaped-character}|.)'</match>
+    </context>
+
+    <context id="line-comment" style-ref="line-comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+        <include>
+          <context ref="def:in-comment" />
+        </include>
+    </context>
+
+    <context id="externals" style-ref="externals">
+      <keyword>package</keyword>
+      <keyword>import</keyword>
+      <keyword>options</keyword>
+    </context>
+
+    <context id="options" style-ref="options">
+      <keyword>binary</keyword>
+      <keyword>nobinary</keyword>
+      <keyword>comments</keyword>
+      <keyword>nocomments</keyword>
+      <keyword>compact</keyword>
+      <keyword>nocompact</keyword>
+      <keyword>crossref</keyword>
+      <keyword>nocrossref</keyword>
+      <keyword>decimal</keyword>
+      <keyword>nodecimal</keyword>
+      <keyword>diag</keyword>
+      <keyword>nodiag</keyword>
+      <keyword>explicit</keyword>
+      <keyword>noexplicit</keyword>
+      <keyword>format</keyword>
+      <keyword>noformat</keyword>
+      <keyword>java</keyword>
+      <keyword>nojava</keyword>
+      <keyword>logo</keyword>
+      <keyword>nologo</keyword>
+      <keyword>replace</keyword>
+      <keyword>noreplace</keyword>
+      <keyword>sourcedir</keyword>
+      <keyword>nosourcedir</keyword>
+      <keyword>strictargs</keyword>
+      <keyword>nostrictargs</keyword>
+      <keyword>strictassign</keyword>
+      <keyword>nostrictassign</keyword>
+      <keyword>strictcase</keyword>
+      <keyword>nostrictcase</keyword>
+      <keyword>strictimport</keyword>
+      <keyword>nostrictimport</keyword>
+      <keyword>strictprops</keyword>
+      <keyword>nostrictprops</keyword>
+      <keyword>strictsignal</keyword>
+      <keyword>nostrictsignal</keyword>
+      <keyword>symbols</keyword>
+      <keyword>nosymbols</keyword>
+      <keyword>notrace</keyword>
+      <keyword>trace1</keyword>
+      <keyword>trace2</keyword>
+      <keyword>verbose</keyword>
+      <keyword>verbose0</keyword>
+      <keyword>verbose1</keyword>
+      <keyword>verbose2</keyword>
+      <keyword>verbose3</keyword>
+      <keyword>verbose4</keyword>
+      <keyword>verbose5</keyword>
+      <keyword>utf8</keyword>
+      <keyword>noutf8</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="primitive-types">
+      <keyword>boolean</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>double</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>short</keyword>
+    </context>
+
+    <context id="special" style-ref="special">
+      <keyword>ask</keyword>
+      <keyword>class</keyword>
+      <keyword>digits</keyword>
+      <keyword>form</keyword>
+      <keyword>length</keyword>
+      <keyword>null</keyword>
+      <keyword>source</keyword>
+      <keyword>sourceline</keyword>
+      <keyword>super</keyword>
+      <keyword>this</keyword>
+      <keyword>trace</keyword>
+      <keyword>version</keyword>
+    </context>
+
+    <context id="visibility" style-ref="visibility">
+      <keyword>inheritable</keyword>
+      <keyword>private</keyword>
+      <keyword>public</keyword>
+      <keyword>shared</keyword>
+    </context>
+
+    <context id="modifiers" style-ref="modifiers">
+      <keyword>abstract</keyword>
+      <keyword>adapter</keyword>
+      <keyword>constant</keyword>
+      <keyword>final</keyword>
+      <keyword>interface</keyword>
+      <keyword>native</keyword>
+      <keyword>static</keyword>
+      <keyword>transient</keyword>
+      <keyword>volatile</keyword>
+      <keyword>protect</keyword>
+      <keyword>binary</keyword>
+      <keyword>deprecated</keyword>
+      <keyword>returns</keyword>
+      <keyword>signals</keyword>
+      <keyword>extends</keyword>
+      <keyword>uses</keyword>
+      <keyword>implements</keyword>
+      <keyword>unused</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keywords">
+      <keyword>catch</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>exit</keyword>
+      <keyword>finally</keyword>
+      <keyword>if</keyword>
+      <keyword>iterate</keyword>
+      <keyword>leave</keyword>
+      <keyword>loop</keyword>
+      <keyword>method</keyword>
+      <keyword>nop</keyword>
+      <keyword>numeric</keyword>
+      <keyword>otherwise</keyword>
+      <keyword>parse</keyword>
+      <keyword>properties</keyword>
+      <keyword>return</keyword>
+      <keyword>say</keyword>
+      <keyword>select</keyword>
+      <keyword>signal</keyword>
+      <keyword>then</keyword>
+      <keyword>when</keyword>
+    </context>
+
+    <context id="sub-keywords" style-ref="sub-keywords">
+      <keyword>all</keyword>
+      <keyword>by</keyword>
+      <keyword>case</keyword>
+      <keyword>engineering</keyword>
+      <keyword>for</keyword>
+      <keyword>forever</keyword>
+      <keyword>label</keyword>
+      <keyword>methods</keyword>
+      <keyword>off</keyword>
+      <keyword>over</keyword>
+      <keyword>results</keyword>
+      <keyword>scientific</keyword>
+      <keyword>to</keyword>
+      <keyword>until</keyword>
+      <keyword>var</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="builtin-function" style-ref="builtin-function">
+      <keyword>abbrev</keyword>
+      <keyword>abs</keyword>
+      <keyword>b2x</keyword>
+      <keyword>center</keyword>
+      <keyword>centre</keyword>
+      <keyword>changestr</keyword>
+      <keyword>compare</keyword>
+      <keyword>copies</keyword>
+      <keyword>copyindexed</keyword>
+      <keyword>countstr</keyword>
+      <keyword>c2d</keyword>
+      <keyword>c2x</keyword>
+      <keyword>datatype</keyword>
+      <keyword>delstr</keyword>
+      <keyword>delword</keyword>
+      <keyword>d2c</keyword>
+      <keyword>d2x</keyword>
+      <keyword>exists</keyword>
+      <keyword>format</keyword>
+      <keyword>insert</keyword>
+      <keyword>lastpos</keyword>
+      <keyword>left</keyword>
+      <keyword>lower</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>overlay</keyword>
+      <keyword>pos</keyword>
+      <keyword>right</keyword>
+      <keyword>sequence</keyword>
+      <keyword>sign</keyword>
+      <keyword>space</keyword>
+      <keyword>strip</keyword>
+      <keyword>substr</keyword>
+      <keyword>subword</keyword>
+      <keyword>translate</keyword>
+      <keyword>trunc</keyword>
+      <keyword>upper</keyword>
+      <keyword>verify</keyword>
+      <keyword>word</keyword>
+      <keyword>wordindex</keyword>
+      <keyword>wordlength</keyword>
+      <keyword>wordpos</keyword>
+      <keyword>words</keyword>
+      <keyword>x2b</keyword>
+      <keyword>x2c</keyword>
+      <keyword>x2d</keyword>
+    </context>
+
+    <context id="numeric" style-ref="numeric">
+      <match extended="true">
+        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
+         \b(([0-9]+[Ee][-]?[0-9]+|
+            ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+            [0-9]+[FfDd]))
+      </match>
+    </context>
+
+    <context id="netrexx" class="no-spell-check">
+      <include>
+        <context ref="string" />
+        <context ref="char" />
+        <context ref="line-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="externals" />
+        <context ref="options" />
+        <context ref="primitive-types" />
+        <context ref="special" />
+        <context ref="visibility" />
+        <context ref="modifiers" />
+        <context ref="keywords" />
+        <context ref="sub-keywords" />
+        <context ref="builtin-function" />
+        <context ref="numeric" />
+      </include>
+    </context>
+
+  </definitions>
+</language>

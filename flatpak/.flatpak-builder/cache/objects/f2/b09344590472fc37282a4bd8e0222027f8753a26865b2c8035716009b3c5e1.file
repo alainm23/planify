@@ -1,0 +1,360 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-value.h"
+#include "libical-glib-private.h"
+#include "i-cal-derived-parameter.h"
+#include "i-cal-derived-value.h"
+
+G_DEFINE_TYPE (ICalValue, i_cal_value, I_CAL_TYPE_OBJECT)
+
+static void i_cal_value_class_init (ICalValueClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalValue));
+}
+
+static void i_cal_value_init (G_GNUC_UNUSED ICalValue *self)
+{
+}
+
+/**
+ * i_cal_value_new_full: (skip)
+ * @native: The native libical object.
+ * @owner: The parent.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalValue *
+i_cal_value_new_full (icalvalue *native, 
+                      GObject *owner)
+{
+    ICalValue *object;
+    if (native == NULL)
+        return NULL;
+    object = g_object_new (I_CAL_VALUE_TYPE, NULL);
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) native,
+                            (GDestroyNotify) icalvalue_free,
+                            FALSE,
+                            owner);
+
+    return object;
+}
+/**
+ * i_cal_value_new:
+ * @kind: A #ICalValueKind
+ *
+ * Create a new #ICalValue with specific kind.
+ *
+ * Returns: (transfer full): The newly created #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new (ICalValueKind kind)
+{
+	return i_cal_value_new_full (icalvalue_new ((icalvalue_kind) (kind)), NULL);
+}
+
+/**
+ * i_cal_value_new_clone:
+ * @value: The #ICalValue to be cloned.
+ *
+ * Deeply clone a #ICalValue.
+ *
+ * Returns: (transfer full): The newly created #ICalValue with the same property as @value.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_clone (const ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_clone ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))), NULL);
+}
+
+/**
+ * i_cal_value_new_from_string:
+ * @kind: A #ICalValueKind
+ * @str: A string.
+ *
+ * Create a new #ICalValue based on the #ICalValueKind and a string.
+ *
+ * Returns: (transfer full): The newly created #ICalValue based on the @kind and @str.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_from_string (ICalValueKind kind, 
+                             const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_from_string ((icalvalue_kind) (kind), str), NULL);
+}
+
+/**
+ * i_cal_value_free: (skip)
+ * @value: The #ICalValue to be freed.
+ *
+ * Free a #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_free (ICalValue *value)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_free ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_is_valid:
+ * @value: The #ICalValue to be checked.
+ *
+ * Check if #ICalValue is valid.
+ *
+ * Returns: 1 if valid, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_is_valid (const ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_is_valid ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_as_ical_string_r:
+ * @value: A #ICalValue.
+ *
+ * Convert the #ICalValue to a string.
+ *
+ * Returns: (transfer full): The string representation.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_value_as_ical_string_r (const ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_as_ical_string_r ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_isa:
+ * @value: A #ICalValue.
+ *
+ * Get the kind of #ICalValue.
+ *
+ * Returns: The kind of @value.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValueKind
+i_cal_value_isa (const ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_NO_VALUE);
+	g_return_val_if_fail (value != NULL, I_CAL_NO_VALUE);
+
+	return (ICalValueKind) (icalvalue_isa ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_isa_value:
+ * @value: A #ICalValue
+ *
+ * Check whether the native part of #ICalValue is an icalvalue
+ *
+ * Returns: 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_isa_value (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_isa_value ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_compare:
+ * @a: A #ICalValue.
+ * @b: A #ICalValue.
+ *
+ * Compare two #ICalValue.
+ *
+ * Returns: The compare result.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterXliccomparetype
+i_cal_value_compare (const ICalValue *a, 
+                     const ICalValue *b)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (a), I_CAL_XLICCOMPARETYPE_NONE);
+	g_return_val_if_fail (a != NULL, I_CAL_XLICCOMPARETYPE_NONE);
+	g_return_val_if_fail (I_CAL_IS_VALUE (b), I_CAL_XLICCOMPARETYPE_NONE);
+	g_return_val_if_fail (b != NULL, I_CAL_XLICCOMPARETYPE_NONE);
+
+	return (ICalParameterXliccomparetype) (icalvalue_compare ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (a)), (icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (b))));
+}
+
+/**
+ * i_cal_value_string_to_kind:
+ * @str: A string.
+ *
+ * Convert a string to #ICalValueKind.
+ *
+ * Returns: A #ICalValueKind.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValueKind
+i_cal_value_string_to_kind (const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, I_CAL_NO_VALUE);
+
+	return (ICalValueKind) (icalvalue_string_to_kind (str));
+}
+
+/**
+ * i_cal_value_kind_to_string:
+ * @kind: A #ICalValueKind.
+ *
+ * Convert the #ICalValueKind to a string.
+ *
+ * Returns: The string representation of #ICalValueKind.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_kind_to_string (const ICalValueKind kind)
+{
+	return icalvalue_kind_to_string ((icalvalue_kind) (kind));
+}
+
+/**
+ * i_cal_value_kind_is_valid:
+ * @kind: The #ICalValueKind to be checked.
+ *
+ * Check whether the #ICalValueKind is valid.
+ *
+ * Returns: 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_kind_is_valid (const ICalValueKind kind)
+{
+	return icalvalue_kind_is_valid ((icalvalue_kind) (kind));
+}
+
+/**
+ * i_cal_value_encode_ical_string:
+ * @szText: A string.
+ *
+ * Encode a character string in ical format, escape certain characters, etc.
+ *
+ * Returns: (allow-none) (transfer full): The encoded string. NULL if fail.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_value_encode_ical_string (const gchar *szText)
+{
+	gchar *szEncText;
+	gchar *buffer;
+	gint result;
+
+	g_return_val_if_fail (szText != NULL, 0);
+
+	szEncText = g_new (gchar, 2 * strlen (szText) + 1);
+	result = icalvalue_encode_ical_string (szText, szEncText, 2*strlen (szText)-1);
+	if (result == 0) {
+		g_free (szEncText);
+		return NULL;
+	} else {
+		buffer = g_strdup (szEncText);
+		g_free (szEncText);
+		return buffer;
+	}
+}
+
+/**
+ * i_cal_value_decode_ical_string:
+ * @szText: A string.
+ *
+ * Extract the original character string encoded by the above function
+ *
+ * Returns: (allow-none) (transfer full): The decoded string. NULL if fail.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_value_decode_ical_string (const gchar *szText)
+{
+	gchar *szDecText;
+	gchar *buffer;
+	gint result;
+	g_return_val_if_fail (szText != NULL, 0);
+	szDecText = g_new (gchar, strlen (szText));
+
+	result = icalvalue_decode_ical_string (szText, szDecText, strlen (szText)-1);
+	if (result == 0) {
+		g_free (szDecText);
+		return NULL;
+	} else {
+		buffer = g_strdup (szDecText);
+		g_free (szDecText);
+		return buffer;
+	}
+}

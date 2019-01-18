@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+ Copyright (C) 2011 Sapphire Becker <guess@logicplace.com>
+
+ gtksourceview is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ gtksourceview is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<start>
+    <element name="language">
+        <choice>
+            <attribute name="name"/>
+            <attribute name="_name"/>
+        </choice>
+
+        <attribute name="id">
+            <data type="string">
+                <param name="pattern">[a-zA-Z0-9_\-]+</param>
+            </data>
+        </attribute>
+
+        <attribute name="version"/>
+
+        <optional>
+            <choice>
+                <attribute name="section"/>
+                <attribute name="_section"/>
+            </choice>
+        </optional>
+
+        <optional>
+            <attribute name="hidden">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+
+        <optional>
+            <attribute name="translation-domain"/>
+        </optional>
+
+        <optional>
+            <oneOrMore>
+                <element name="author">
+                    <text/>
+                </element>
+            </oneOrMore>        
+        </optional>
+    
+        <optional>
+            <ref name="metadata"/>
+        </optional>
+
+        <optional>
+            <ref name="styles" />
+        </optional>
+
+        <optional>
+            <element name="default-regex-options">
+                <ref name="regex-options"/>
+            </element>
+        </optional>
+
+        <optional>
+            <element name="keyword-char-class">
+                <text/>
+            </element>
+        </optional>
+
+        <ref name="definitions" />
+    </element>
+</start>
+
+
+
+<define name="id-type">
+    <data type="string">
+        <param name="pattern">([a-zA-Z0-9_\-]+:)?[a-zA-Z0-9_\-]+</param>
+    </data>
+</define>
+
+<define name="ref-type">
+    <data type="string">
+        <param name="pattern">([a-zA-Z0-9_\-]+:)?[a-zA-Z0-9_\-]+(:\*)?</param>
+    </data>
+</define>
+
+<define name="boolean-value">
+    <choice>
+        <value>true</value>
+        <value>false</value>
+    </choice>
+</define>
+
+<define name="regex-options">
+    <optional>
+        <attribute name="extended">
+            <ref name="boolean-value"/>
+        </attribute>
+    </optional>
+    <optional>
+        <attribute name="case-sensitive">
+            <ref name="boolean-value"/>
+        </attribute>
+    </optional>
+    <optional>
+        <attribute name="dupnames">
+            <ref name="boolean-value"/>
+        </attribute>
+    </optional>
+</define>
+
+
+<define name="property">
+    <element name="property">
+        <attribute name="name">
+<!--          <data type="string">-->
+<!--              <param name="pattern">[a-zA-Z0-9_\-]+</param>-->
+<!--          </data>-->
+        </attribute>
+        <text/>
+<!--        <optional>
+            <attribute name="mimetypes"/>
+        </optional>-->
+    </element>
+</define>
+
+<define name="metadata">
+    <element name="metadata">
+        <zeroOrMore>
+            <ref name="property"/>
+        </zeroOrMore>
+    </element>
+</define>
+
+<define name="styles">
+    <element name="styles">
+        <oneOrMore>
+            <element name="style">
+                <attribute name="id">
+                    <data type="string">
+                        <param name="pattern">[a-zA-Z0-9_\-]+</param>
+                    </data>
+                </attribute>
+                <choice>
+                    <attribute name="name"/>
+                    <attribute name="_name"/>
+                </choice>
+                <optional>
+                    <attribute name="map-to">
+                        <ref name="id-type"/>
+                    </attribute>
+                </optional>
+            </element>
+        </oneOrMore>
+    </element>
+</define>
+
+<define name="definitions">
+    <element name="definitions">
+        <interleave>
+            <oneOrMore>
+                <choice>
+                    <ref name="context-to-be-included"/>
+                    <ref name="context-container"/>
+                    <ref name="context-simple"/>
+                    <ref name="context-reference"/>
+                    <ref name="context-placeholder"/>
+                </choice>
+            </oneOrMore>
+            <zeroOrMore>
+                <ref name="define-regex"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="replace-context"/>
+            </zeroOrMore>
+        </interleave>
+    </element>
+</define>
+
+
+<define name="context-simple">
+    <element name="context">
+        <optional>
+            <attribute name="id">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="style-ref">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="extend-parent">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="end-parent">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="first-line-only">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="once-only">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="class"/>
+        </optional>
+        <optional>
+            <attribute name="class-disabled"/>
+        </optional>
+        <choice>
+            <element name="match">
+                <ref name="regex-options"/>
+                <text/>
+            </element>
+
+            <group>
+                <optional>
+                    <element name="prefix"><text/></element>
+                </optional>
+                <optional>
+                    <element name="suffix"><text/></element>
+                </optional>
+                <oneOrMore>
+                    <element name="keyword"><text/></element>
+                </oneOrMore>
+            </group>
+        </choice>
+
+        <optional>
+            <element name="include">
+                <oneOrMore>
+                    <ref name="context-subpattern-simple"/>
+                </oneOrMore>
+            </element>
+        </optional>
+    </element>
+</define>
+
+<define name="context-container">
+    <element name="context">
+        <optional>
+            <attribute name="id">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="style-ref">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="style-inside">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="extend-parent">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="end-parent">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="end-at-line-end">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="first-line-only">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="once-only">
+                <ref name="boolean-value"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="class"/>
+        </optional>
+        <optional>
+            <attribute name="class-disabled"/>
+        </optional>
+
+        <element name="start">
+            <ref name="regex-options"/>
+            <text/>
+        </element>
+        <optional>
+            <element name="end">
+                <ref name="regex-options"/>
+                <text/>
+            </element>
+        </optional>
+
+        <optional>
+            <element name="include">
+                <interleave>
+                    <oneOrMore>
+                        <choice>
+                            <ref name="context-container"/>
+                            <ref name="context-simple"/>
+                            <ref name="context-to-be-included"/>
+                            <ref name="context-subpattern-container"/>
+                            <ref name="context-reference"/>
+                            <ref name="context-placeholder"/>
+                        </choice>
+                    </oneOrMore>
+                    <zeroOrMore>
+                        <ref name="define-regex"/>
+                    </zeroOrMore>
+                </interleave>
+            </element>
+        </optional>
+    </element>
+</define>
+
+<define name="context-to-be-included">
+    <element name="context">
+        <attribute name="id">
+            <ref name="id-type"/>
+        </attribute>
+        <optional>
+            <attribute name="class"/>
+        </optional>
+        <optional>
+            <attribute name="class-disabled"/>
+        </optional>
+
+        <element name="include">
+            <interleave>
+                <oneOrMore>
+                    <choice>
+                        <ref name="context-container"/>
+                        <ref name="context-simple"/>
+                        <ref name="context-to-be-included"/>
+                        <ref name="context-reference"/>
+                        <ref name="context-placeholder"/>
+                    </choice>
+                </oneOrMore>
+                <zeroOrMore>
+                    <ref name="define-regex"/>
+                </zeroOrMore>
+            </interleave>
+        </element>
+    </element>
+</define>
+
+<define name="context-subpattern-simple">
+    <element name="context">
+        <optional>
+            <attribute name="id">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="style-ref">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="class"/>
+        </optional>
+        <optional>
+            <attribute name="class-disabled"/>
+        </optional>
+
+        <attribute name="sub-pattern"/>
+    </element>
+</define>
+
+<define name="context-subpattern-container">
+    <element name="context">
+        <optional>
+            <attribute name="id">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="style-ref">
+                <ref name="id-type"/>
+            </attribute>
+        </optional>
+        <optional>
+            <attribute name="class"/>
+        </optional>
+        <optional>
+            <attribute name="class-disabled"/>
+        </optional>
+
+        <attribute name="sub-pattern"/>
+
+        <attribute name="where">
+            <choice>
+                <value>start</value>
+                <value>end</value>
+            </choice>
+        </attribute>
+    </element>
+</define>
+
+<define name="context-reference">
+    <element name="context">
+        <attribute name="ref">
+            <ref name="ref-type"/>
+        </attribute>
+        <optional>
+            <choice>
+                <attribute name="style-ref">
+                    <ref name="id-type"/>
+                </attribute>
+                <attribute name="ignore-style">
+                    <ref name="boolean-value"/>
+                </attribute>
+                <attribute name="original">
+                    <ref name="boolean-value"/>
+                </attribute>
+            </choice>
+        </optional>
+    </element>
+</define>
+
+<define name="context-placeholder">
+    <element name="context">
+        <attribute name="id">
+            <ref name="id-type"/>
+        </attribute>
+    </element>
+</define>
+
+<define name="define-regex">
+    <element name="define-regex">
+        <attribute name="id">
+            <ref name="id-type"/>
+        </attribute>
+        <ref name="regex-options"/>
+        <text/>
+    </element>
+</define>
+
+<define name="replace-context">
+    <element name="replace">
+        <attribute name="id">
+            <ref name="ref-type"/>
+        </attribute>
+        <attribute name="ref">
+            <ref name="ref-type"/>
+        </attribute>
+    </element>
+</define>
+
+</grammar>

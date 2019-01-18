@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Travis A. Snoozy
+ Copyright (C) 2004 Travis A. Snoozy
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!-- converted to new lang file format with convert.py -->
+<language id="texinfo" name="Texinfo" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">text/x-texinfo</property>
+    <property name="globs">*.texi;*.texinfo</property>
+    <property name="line-comment-start">@c </property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+    <style id="others"            name="Others"/>
+    <style id="string"            name="String"            map-to="def:string"/>
+    <style id="keyword"           name="Keyword"           map-to="def:keyword"/>
+    <style id="macros"            name="Macros"            map-to="def:keyword"/>
+    <style id="file-attributes"   name="File Attributes"   map-to="def:keyword"/>
+    <style id="generated-content" name="Generated Content" map-to="def:keyword"/>
+    <style id="include"           name="Include"           map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment">
+      <start>@c(omment)? </start>
+      <include>
+        <context sub-pattern="0" where="start" class="no-spell-check"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment">
+      <start>^@ignore\s*$</start>
+      <end>^@end ignore\s*$</end>
+      <include>
+        <context sub-pattern="0" where="start" class="no-spell-check"/>
+        <context sub-pattern="0" where="end" class="no-spell-check"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="escaped-characters" style-ref="escaped-character">
+      <match>@(@|{|})</match>
+    </context>
+
+    <context id="macro-parameters" style-ref="string" class="no-spell-check">
+      <start>\{[^}]</start>
+      <end>\}</end>
+    </context>
+
+    <context id="macros-b" style-ref="macros" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\b</suffix>
+      <keyword>alias</keyword>
+      <keyword>clear</keyword>
+      <keyword>defcodeindex</keyword>
+      <keyword>defindex</keyword>
+      <keyword>definfoenclose</keyword>
+      <keyword>ifclear</keyword>
+      <keyword>ifset</keyword>
+      <keyword>macro</keyword>
+      <keyword>set</keyword>
+      <keyword>syncodeindex</keyword>
+      <keyword>synindex</keyword>
+    </context>
+
+    <context id="macros-dollar" style-ref="macros" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\s*$</suffix>
+      <keyword>bye</keyword>
+      <keyword>(end )?docbook</keyword>
+      <keyword>(end )?html</keyword>
+      <keyword>end ifclear</keyword>
+      <keyword>(end )?if(not)?docbook</keyword>
+      <keyword>(end )?if(not)?html</keyword>
+      <keyword>(end )?if(not)?info</keyword>
+      <keyword>(end )?if(not)?plaintext</keyword>
+      <keyword>(end )?if(not)?tex</keyword>
+      <keyword>(end )?if(not)?xml</keyword>
+      <keyword>end ifset</keyword>
+      <keyword>lowersections</keyword>
+      <keyword>end macro</keyword>
+      <keyword>raisesections</keyword>
+      <keyword>(end )?tex</keyword>
+      <keyword>(end )?xml</keyword>
+    </context>
+
+    <context id="macros">
+      <include>
+        <context ref="macros-b"/>
+        <context ref="macros-dollar"/>
+      </include>
+    </context>
+
+    <context id="indexing" style-ref="keyword" class="no-spell-check">
+      <prefix>^@</prefix>
+      <keyword>cindex</keyword>
+      <keyword>findex</keyword>
+      <keyword>kindex</keyword>
+      <keyword>pindex</keyword>
+      <keyword>tindex</keyword>
+      <keyword>vindex</keyword>
+    </context>
+
+    <context id="file-attributes-b" style-ref="file-attributes" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\b</suffix>
+      <keyword>dircategory</keyword>
+      <keyword>documentencoding</keyword>
+      <keyword>documentlanguage</keyword>
+      <keyword>evenfooting</keyword>
+      <keyword>evenheading</keyword>
+      <keyword>everyfooting</keyword>
+      <keyword>everyheading</keyword>
+      <keyword>footnotestyle</keyword>
+      <keyword>headings</keyword>
+      <keyword>kbdinputstyle</keyword>
+      <keyword>oddfooting</keyword>
+      <keyword>oddheading</keyword>
+      <keyword>pagesizes</keyword>
+      <keyword>paragraphindent</keyword>
+      <keyword>setchapternewpage</keyword>
+      <keyword>setfilename</keyword>
+      <keyword>settitle</keyword>
+      <keyword>titlefont</keyword>
+    </context>
+
+    <context id="file-attributes-dollar" style-ref="file-attributes" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\s*$</suffix>
+      <keyword>afivepaper</keyword>
+      <keyword>afourlatex</keyword>
+      <keyword>afourpaper</keyword>
+      <keyword>afourwide</keyword>
+      <keyword>(end )?direntry</keyword>
+      <keyword>(end )?documentdescription</keyword>
+      <keyword>finalout</keyword>
+      <keyword>novalidate</keyword>
+      <keyword>setcontentsaftertitlepage</keyword>
+      <keyword>setshortcontentsaftertitlepage</keyword>
+      <keyword>smallbook</keyword>
+    </context>
+
+    <context id="file-attributes">
+      <include>
+        <context ref="file-attributes-b"/>
+        <context ref="file-attributes-dollar"/>
+      </include>
+    </context>
+
+    <context id="generated-content" style-ref="generated-content" class="no-spell-check">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>^@contents\s*$</keyword>
+      <keyword>^@insertcopying\s*$</keyword>
+      <keyword>^@listoffloats\s*$</keyword>
+      <keyword>^@printindex\s*$</keyword>
+      <keyword>^@shortcontents\s*$</keyword>
+      <keyword>^@shorttitlepage\s*$</keyword>
+      <keyword>^@summarycontents\s*$</keyword>
+      <keyword>@thischapter\b</keyword>
+      <keyword>@thischaptername\b</keyword>
+      <keyword>@thisfile\b</keyword>
+      <keyword>@thispage\b</keyword>
+      <keyword>@thistitle\b</keyword>
+      <keyword>@today\b</keyword>
+      <keyword>@value\b</keyword>
+      <keyword>@verb\b</keyword>
+      <keyword>^@(end )?verbatim\s*$</keyword>
+      <keyword>^@verbatiminclude\b</keyword>
+    </context>
+
+    <context id="include" style-ref="include" class="no-spell-check">
+      <prefix></prefix>
+      <keyword>^\\input</keyword>
+      <keyword>^@include</keyword>
+      <keyword>@image</keyword>
+    </context>
+
+    <context id="markup-inline" style-ref="keyword" class="no-spell-check">
+      <prefix>@</prefix>
+      <keyword>acronym</keyword>
+      <keyword>anchor</keyword>
+      <keyword>caption</keyword>
+      <keyword>cite</keyword>
+      <keyword>code</keyword>
+      <keyword>command</keyword>
+      <keyword>dfn</keyword>
+      <keyword>dmn</keyword>
+      <keyword>email</keyword>
+      <keyword>emph</keyword>
+      <keyword>env</keyword>
+      <keyword>file</keyword>
+      <keyword>footnote</keyword>
+      <keyword>indicateurl</keyword>
+      <keyword>inforef</keyword>
+      <keyword>kbd</keyword>
+      <keyword>key</keyword>
+      <keyword>math</keyword>
+      <keyword>option</keyword>
+      <keyword>pxref</keyword>
+      <keyword>ref</keyword>
+      <keyword>samp</keyword>
+      <keyword>strong</keyword>
+      <keyword>uref</keyword>
+      <keyword>url</keyword>
+      <keyword>var</keyword>
+      <keyword>xref</keyword>
+    </context>
+
+    <context id="markup-block-b" style-ref="keyword" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\b</suffix>
+      <keyword>author</keyword>
+      <keyword>defcv(x)?</keyword>
+      <keyword>deff(u)?n(x)?</keyword>
+      <keyword>defivar(x)?</keyword>
+      <keyword>defmac(x)?</keyword>
+      <keyword>defmethod(x)?</keyword>
+      <keyword>defop(x)?</keyword>
+      <keyword>defopt(x)?</keyword>
+      <keyword>defspec(x)?</keyword>
+      <keyword>deftp(x)?</keyword>
+      <keyword>deftypecv(x)?</keyword>
+      <keyword>deftypef(u)?n(x)?</keyword>
+      <keyword>deftypeivar(x)?</keyword>
+      <keyword>deftypemethod(x)?</keyword>
+      <keyword>deftypeop(x)?</keyword>
+      <keyword>deftypevar(x)?</keyword>
+      <keyword>deftypevr(x)?</keyword>
+      <keyword>defv(a)?r(x)?</keyword>
+      <keyword>enumerate</keyword>
+      <keyword>ftable</keyword>
+      <keyword>itemize</keyword>
+      <keyword>multitable</keyword>
+      <keyword>subtitle</keyword>
+      <keyword>tab</keyword>
+      <keyword>table</keyword>
+      <keyword>title</keyword>
+      <keyword>vtable</keyword>
+    </context>
+
+    <context id="markup-block-dollar" style-ref="keyword" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix>\s*$</suffix>
+      <keyword>(end )?copying</keyword>
+      <keyword>end defcv</keyword>
+      <keyword>end def(u)?n</keyword>
+      <keyword>end defivar</keyword>
+      <keyword>end defmac</keyword>
+      <keyword>end defmethod</keyword>
+      <keyword>end defop</keyword>
+      <keyword>end defopt</keyword>
+      <keyword>end defspec</keyword>
+      <keyword>end deftp</keyword>
+      <keyword>end deftypecv</keyword>
+      <keyword>end deftypef(u)?n</keyword>
+      <keyword>end deftypevar</keyword>
+      <keyword>end deftypemethod</keyword>
+      <keyword>end deftypeop</keyword>
+      <keyword>end deftypevar</keyword>
+      <keyword>end deftypevr</keyword>
+      <keyword>end defv(a)?r</keyword>
+      <keyword>(end )?display</keyword>
+      <keyword>end enumerate</keyword>
+      <keyword>(end )?example</keyword>
+      <keyword>(end )?exampleindent</keyword>
+      <keyword>(end )?format</keyword>
+      <keyword>end ftable</keyword>
+      <keyword>item</keyword>
+      <keyword>end itemize</keyword>
+      <keyword>itemx</keyword>
+      <keyword>(end )?lisp</keyword>
+      <keyword>end multitable</keyword>
+      <keyword>(end )?quotation</keyword>
+      <keyword>(end )?smalldisplay</keyword>
+      <keyword>(end )?smallexample</keyword>
+      <keyword>(end )?smallformat</keyword>
+      <keyword>(end )?smalllisp</keyword>
+      <keyword>end table</keyword>
+      <keyword>end vtable</keyword>
+    </context>
+
+    <context id="markup-block">
+      <include>
+        <context ref="markup-block-b"/>
+        <context ref="markup-block-dollar"/>
+      </include>
+    </context>
+
+    <context id="sectioning" style-ref="keyword" class="no-spell-check">
+      <prefix>^@</prefix>
+      <suffix></suffix>
+      <keyword>appendix\b</keyword>
+      <keyword>appendixsec(tion)?\b</keyword>
+      <keyword>appendixsub(sub)?sec\b</keyword>
+      <keyword>centerchap\b</keyword>
+      <keyword>chapter\b</keyword>
+      <keyword>chapheading\b</keyword>
+      <keyword>(end )?detailmenu\s*$</keyword>
+      <keyword>(end )?group\s*$</keyword>
+      <keyword>heading\b</keyword>
+      <keyword>majorheading\b</keyword>
+      <keyword>(end )?menu\s*$</keyword>
+      <keyword>node\b</keyword>
+      <keyword>section\b</keyword>
+      <keyword>sub(sub)?heading\b</keyword>
+      <keyword>sub(sub)?section\b</keyword>
+      <keyword>(end )?titlepage\s*$</keyword>
+      <keyword>top\b</keyword>
+      <keyword>unnumbered\b</keyword>
+      <keyword>unnumberedsec\b</keyword>
+      <keyword>unnumberedsub(sub)?sec\b</keyword>
+    </context>
+
+    <context id="formatting" style-ref="keyword" class="no-spell-check">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>@(( )|$)</keyword>
+      <keyword>@\*</keyword>
+      <keyword>@\-</keyword>
+      <keyword>@/</keyword>
+      <keyword>@\:</keyword>
+      <keyword>^@asis\s*$</keyword>
+      <keyword>@b</keyword>
+      <keyword>^@(end )?cartouche\s*$</keyword>
+      <keyword>^@center\b</keyword>
+      <keyword>^@exdent\b</keyword>
+      <keyword>^@(end )?float\s*$</keyword>
+      <keyword>^@(end )?flushleft\s*$</keyword>
+      <keyword>^@(end )?flushright\s*$</keyword>
+      <keyword>@hyphenation\b</keyword>
+      <keyword>@i\b</keyword>
+      <keyword>^@need\b</keyword>
+      <keyword>^@noindent\s*$</keyword>
+      <keyword>^@page\s*$</keyword>
+      <keyword>@r\b</keyword>
+      <keyword>^@refill\s*$</keyword>
+      <keyword>@sc\b</keyword>
+      <keyword>^@sp\b</keyword>
+      <keyword>@t\b</keyword>
+      <keyword>@tie\b</keyword>
+      <keyword>^@vskip\b</keyword>
+      <keyword>@w\b</keyword>
+    </context>
+
+    <context id="characters" style-ref="keyword" class="no-spell-check">
+      <prefix>@</prefix>
+      <suffix></suffix>
+      <keyword>!</keyword>
+      <keyword>"</keyword>
+      <keyword>'</keyword>
+      <keyword>\.</keyword>
+      <keyword>\=</keyword>
+      <keyword>\?</keyword>
+      <keyword>@</keyword>
+      <keyword>\\</keyword>
+      <keyword>\^</keyword>
+      <keyword>`</keyword>
+      <keyword>\{</keyword>
+      <keyword>\}</keyword>
+      <keyword>~</keyword>
+      <keyword>AA\{\}</keyword>
+      <keyword>aa\{\}</keyword>
+      <keyword>AE\{\}</keyword>
+      <keyword>ae\{\}</keyword>
+      <keyword>bullet\{\}</keyword>
+      <keyword>comma\{\}</keyword>
+      <keyword>copyright\{\}</keyword>
+      <keyword>dotaccent\b</keyword>
+      <keyword>dots\{\}</keyword>
+      <keyword>enddots\{\}</keyword>
+      <keyword>equiv\{\}</keyword>
+      <keyword>error\{\}</keyword>
+      <keyword>exclamdown\{\}</keyword>
+      <keyword>expansion\{\}</keyword>
+      <keyword>H\b</keyword>
+      <keyword>L\{\}</keyword>
+      <keyword>l\{\}</keyword>
+      <keyword>LaTeX\{\}</keyword>
+      <keyword>minus\{\}</keyword>
+      <keyword>O\{\}</keyword>
+      <keyword>o\{\}</keyword>
+      <keyword>OE\{\}</keyword>
+      <keyword>oe\{\}</keyword>
+      <keyword>point\{\}</keyword>
+      <keyword>pounds\{\}</keyword>
+      <keyword>print\{\}</keyword>
+      <keyword>questiondown\{\}</keyword>
+      <keyword>registeredsymbol\{\}</keyword>
+      <keyword>result\{\}</keyword>
+      <keyword>ringaccent\{\}</keyword>
+      <keyword>ss\{\}</keyword>
+      <keyword>TeX\{\}</keyword>
+      <keyword>tieaccent\b</keyword>
+      <keyword>u\b</keyword>
+      <keyword>ubaraccent\b</keyword>
+      <keyword>udotaccent\b</keyword>
+      <keyword>v\b</keyword>
+    </context>
+
+    <context id="keyword" style-ref="others" class="no-spell-check">
+      <match>((^[\\])|([@]))(end )?[a-zA-Z]+(\{\})?</match>
+    </context>
+
+    <context id="texinfo">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="escaped-characters"/>
+        <context ref="macro-parameters"/>
+        <context ref="macros"/>
+        <context ref="indexing"/>
+        <context ref="file-attributes"/>
+        <context ref="generated-content"/>
+        <context ref="include"/>
+        <context ref="markup-inline"/>
+        <context ref="markup-block"/>
+        <context ref="sectioning"/>
+        <context ref="formatting"/>
+        <context ref="characters"/>
+        <context ref="keyword"/>
+      </include>
+    </context>
+  </definitions>
+</language>

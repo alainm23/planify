@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: John Luke <jluke@cfl.rr.com>
+ Copyright (C) 2003 John Luke <jluke@cfl.rr.com>
+ Copyright (C) 2004 Jeroen Zwartepoorte <jeroen@xs4all.nl>
+ Copyright (C) 2004 Alessio Frusciante <algol@firenze.linux.it>
+ Copyright (C) 2005 Brion Vibber <brion@pobox.com>
+ Copyright (C) 2011 Marco Trevisan <mail@3v1n0.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="vala" name="Vala" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-vala</property>
+    <property name="globs">*.vala;*.vapi</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+    <style id="directive" name="Directives" map-to="def:preprocessor"/>
+    <style id="attributes" name="Vala Attributes" map-to="def:function"/>
+    <style id="string-template" name="Vala String template" map-to="def:function"/>
+    <style id="regex" name="Regular Expression" map-to="def:string"/>
+    <style id="escape" name="Escaped Character" map-to="def:special-char"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+    <define-regex id="identifier">[_a-zA-Z][_a-zA-Z0-9]*</define-regex>
+    <define-regex id="type_name">[_a-zA-Z][_a-zA-Z0-9.]*</define-regex>
+
+    <!--regex-->
+    <define-regex id="regex-opts">[gim]*</define-regex>
+
+    <!--contexts NOT used in the main context-->
+    <context id="escape" style-ref="escape">
+      <match>\\((0-7){3}|(x[a-fA-F0-9]{2})|(c\S)|([CM]-\S)|(M-C-\S)|.)</match>
+    </context>
+
+    <context id="regex-bracketed" style-ref="escape" style-inside="true">
+      <start>(?&lt;!\\)[[]</start>
+      <end>(?&lt;!\\)]</end>
+    </context>
+
+    <!--contexts used in the main context-->
+    <context id="regex-simple" style-ref="regex">
+      <start extended="true">
+        ((?&lt;=([(]|\s))|^)
+        \/
+        (?=
+          ([^/\\]*(\\.))*
+          [^/]*
+          \/
+          \%{regex-opts}
+          \s*
+          ([),;.\/\]:}]|$)
+        )</start>
+      <end>\/\%{regex-opts}</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="regex-bracketed"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="multiline-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+	<context id="multiline-double-quoted-string" class="string" style-ref="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="c:printf"/>
+        <context ref="c:escaped-character"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="c:printf"/>
+        <context ref="c:escaped-character"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-string-templates" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>@"</start>
+      <end>"</end>
+      <include>
+        <context ref="c:printf"/>
+        <context ref="c:escaped-character"/>
+        <context ref="def:line-continue"/>
+        <context id="string-templates" style-ref="string-template">
+            <match>\$\%{identifier}</match>
+        </context>
+        <context id="string-templates-brackets" style-ref="string-template">
+          <start>\$\(</start>
+          <end>\)</end>
+          <include>
+            <context id="in-string-templates-brackets">
+              <include>
+                <context>
+                  <start>\(</start>
+                  <end>\)</end>
+                  <include>
+                    <context ref="in-string-templates-brackets"/>
+                  </include>
+                </context>
+              </include>
+            </context>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="if0-comment" style-ref="comment">
+        <start>\%{preproc-start}if\b\s*(0|false|\!true|\!1)\b</start>
+        <end>(\%{preproc-start}endif)|(\%{preproc-start}(else|elif).*)\b</end>
+        <include>
+            <context sub-pattern="2" where="end" style-ref="directive"/>
+            <context id="if-in-if0">
+                <start>\%{preproc-start}if\b</start>
+                <end>\%{preproc-start}endif\b</end>
+                <include>
+                    <context ref="if-in-if0"/>
+                    <context ref="def:in-comment"/>
+                </include>
+            </context>
+            <context ref="def:in-comment"/>
+        </include>
+    </context>
+
+    <context id="directive" style-ref="directive" end-at-line-end="true">
+        <start extended="true">
+                \%{preproc-start}
+                (if|else|elif|endif)
+                \b
+        </start>
+        <include>
+            <context ref="boolean"/>
+        </include>
+    </context>
+
+    <context id="at-identifier">
+        <match>@\%{identifier}</match>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>class</keyword>
+      <keyword>delegate</keyword>
+      <keyword>enum</keyword>
+      <keyword>errordomain</keyword>
+      <keyword>interface</keyword>
+      <keyword>namespace</keyword>
+      <keyword>signal</keyword>
+      <keyword>struct</keyword>
+      <keyword>using</keyword>
+      <!-- modifiers -->
+      <keyword>abstract</keyword>
+      <keyword>async</keyword>
+      <keyword>const</keyword>
+      <keyword>dynamic</keyword>
+      <keyword>extern</keyword>
+      <keyword>inline</keyword>
+      <keyword>internal</keyword>
+      <keyword>out</keyword>
+      <keyword>override</keyword>
+      <keyword>owned</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>ref</keyword>
+      <keyword>static</keyword>
+      <keyword>unowned</keyword>
+      <keyword>virtual</keyword>
+      <keyword>volatile</keyword>
+      <keyword>weak</keyword>
+      <!-- others -->
+      <keyword>as</keyword>
+      <keyword>base</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>construct</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>delete</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>ensures</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>get</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>is</keyword>
+      <keyword>lock</keyword>
+      <keyword>new</keyword>
+      <keyword>params</keyword>
+      <keyword>requires</keyword>
+      <keyword>return</keyword>
+      <keyword>set</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>switch</keyword>
+      <keyword>this</keyword>
+      <keyword>throw</keyword>
+      <keyword>throws</keyword>
+      <keyword>try</keyword>
+      <keyword>typeof</keyword>
+      <keyword>value</keyword>
+      <keyword>var</keyword>
+      <keyword>while</keyword>
+      <keyword>yield</keyword>
+      <keyword>yields</keyword>
+    </context>
+
+    <context id="primitives" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>char</keyword>
+      <keyword>double</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>int8</keyword>
+      <keyword>int16</keyword>
+      <keyword>int32</keyword>
+      <keyword>int64</keyword>
+      <keyword>long</keyword>
+      <keyword>short</keyword>
+      <keyword>size_t</keyword>
+      <keyword>ssize_t</keyword>
+      <keyword>string</keyword>
+      <keyword>uchar</keyword>
+      <keyword>uint</keyword>
+      <keyword>uint8</keyword>
+      <keyword>uint16</keyword>
+      <keyword>uint32</keyword>
+      <keyword>uint64</keyword>
+      <keyword>ulong</keyword>
+      <keyword>unichar</keyword>
+      <keyword>unichar2</keyword>
+      <keyword>ushort</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <define-regex id="attributes-names" extended="true">
+      Assert|
+      CCode|
+      SimpleType|
+      BooleanType|
+      IntegerType|
+      FloatingType|
+      Signal|
+      Deprecated|
+      Description|
+      Experimental|
+      Version|
+      DBus|
+      Compact|
+      ConcreteAccessor|
+      DestroysInstance|
+      Diagnostics|
+      ErrorBase|
+      Flags|
+      FormatArg|
+      GenericAccessors|
+      GIR|
+      GtkCallback|
+      GtkChild|
+      GtkTemplate|
+      HasEmitter|
+      Immutable|
+      ModuleInit|
+      NoAccessorMethod|
+      NoArrayLength|
+      NoReturn|
+      NoThrow|
+      NoWrapper|
+      PointerType|
+      Print|
+      PrintfFormat|
+      ReturnsModifiedPointer|
+      ScanfFormat|
+      ThreadLocal
+    </define-regex>
+
+    <context id="attributes" style-ref="attributes">
+        <start>\[\s*(\%{attributes-names})</start>
+        <end>\]</end>
+        <include>
+            <context sub-pattern="1" where="start" style-ref="type"/>
+            <context ref="boolean"/>
+            <context ref="multiline-string"/>
+            <context ref="c:float"/>
+            <context ref="c:decimal"/>
+        </include>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <define-regex id="type-prefixes" extended="true">
+      class|
+      delegate|
+      enum|
+      errordomain|
+      interface|
+      namespace|
+      struct
+    </define-regex>
+
+	<context id="type-declaration">
+        <start>(\%{type-prefixes})\s+(\%{type_name})(\s*&lt;[^&gt;]&gt;)?\s*(\s*:\s*(\%{type_name}))?</start>
+        <end>\s</end>
+        <include>
+            <context sub-pattern="1" where="start" style-ref="keyword"/>
+            <context sub-pattern="2" where="start" style-ref="type"/>
+            <context sub-pattern="5" where="start" style-ref="type"/>
+            <context ref="vala"/>
+        </include>
+    </context>
+
+<!-- Function support, disabled by default.
+    <context id="function">
+        <start>(\%{identifier})\s*\(</start>
+        <end>\)</end>
+        <include>
+            <context sub-pattern="1" where="start" style-ref="def:function"/>
+            <context ref="vala"/>
+        </include>
+    </context>
+-->
+
+    <context id="vala" class="no-spell-check">
+      <include>
+        <context ref="gtk-doc:inline-docs-section"/>
+        <context ref="line-comment"/>
+        <context ref="multiline-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="multiline-string-templates"/>
+        <context ref="multiline-double-quoted-string"/>
+        <context ref="multiline-string"/>
+        <context ref="at-identifier"/>
+        <context ref="type-declaration"/>
+        <context ref="keywords"/>
+        <context ref="primitives"/>
+        <context ref="attributes"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="c:char"/>
+        <context ref="c:decimal"/>
+        <context ref="c:hexadecimal"/>
+        <context ref="c:float"/>
+        <context ref="c:octal"/>
+        <context ref="if0-comment"/>
+        <context ref="directive"/>
+        <context ref="regex-simple"/>
+        <!-- <context ref="function"/> -->
+      </include>
+    </context>
+  </definitions>
+</language>

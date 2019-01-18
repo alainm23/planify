@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalTimetype: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalTimeSpan.html" title="ICalTimeSpan">
+<link rel="next" href="libical-glib-ICalTimezone.html" title="ICalTimezone">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalTimetype.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalTimeSpan.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalTimezone.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalTimetype"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalTimetype.top_of_page"></a>ICalTimetype</span></h2>
+<p>ICalTimetype</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimetype.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="returnvalue">ICalTimetype</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-new" title="i_cal_timetype_new ()">i_cal_timetype_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-year" title="i_cal_timetype_get_year ()">i_cal_timetype_get_year</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-year" title="i_cal_timetype_set_year ()">i_cal_timetype_set_year</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-month" title="i_cal_timetype_get_month ()">i_cal_timetype_get_month</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-month" title="i_cal_timetype_set_month ()">i_cal_timetype_set_month</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-day" title="i_cal_timetype_get_day ()">i_cal_timetype_get_day</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-day" title="i_cal_timetype_set_day ()">i_cal_timetype_set_day</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-hour" title="i_cal_timetype_get_hour ()">i_cal_timetype_get_hour</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-hour" title="i_cal_timetype_set_hour ()">i_cal_timetype_set_hour</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-minute" title="i_cal_timetype_get_minute ()">i_cal_timetype_get_minute</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-minute" title="i_cal_timetype_set_minute ()">i_cal_timetype_set_minute</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-second" title="i_cal_timetype_get_second ()">i_cal_timetype_get_second</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-second" title="i_cal_timetype_set_second ()">i_cal_timetype_set_second</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-is-utc" title="i_cal_timetype_is_utc ()">i_cal_timetype_is_utc</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-is-date" title="i_cal_timetype_is_date ()">i_cal_timetype_is_date</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-is-date" title="i_cal_timetype_set_is_date ()">i_cal_timetype_set_is_date</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-is-daylight" title="i_cal_timetype_is_daylight ()">i_cal_timetype_is_daylight</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-set-is-daylight" title="i_cal_timetype_set_is_daylight ()">i_cal_timetype_set_is_daylight</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimetype.html#i-cal-timetype-get-zone" title="i_cal_timetype_get_zone ()">i_cal_timetype_get_zone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimetype.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimetype.html#I-CAL-TIMETYPE-TYPE:CAPS" title="I_CAL_TIMETYPE_TYPE">I_CAL_TIMETYPE_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype">ICalTimetype</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetypeClass" title="struct ICalTimetypeClass">ICalTimetypeClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimetype.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimetype.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-timetype-new"></a><h3>i_cal_timetype_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="returnvalue">ICalTimetype</span></a> *
+i_cal_timetype_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a new <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-new.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>. It is the epoch time (1970-01-01 00:00:00 UTC). </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-year"></a><h3>i_cal_timetype_get_year ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_year (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the year of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-year.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-year.returns"></a><h4>Returns</h4>
+<p> The year.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-year"></a><h3>i_cal_timetype_set_year ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_year (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                         <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> year</code></em>);</pre>
+<p>Set the year of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-year.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>year</p></td>
+<td class="parameter_description"><p>The year.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-month"></a><h3>i_cal_timetype_get_month ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_month (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the month of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-month.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-month.returns"></a><h4>Returns</h4>
+<p> The month.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-month"></a><h3>i_cal_timetype_set_month ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_month (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                          <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> month</code></em>);</pre>
+<p>Set the month of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-month.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>month</p></td>
+<td class="parameter_description"><p>The month.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-day"></a><h3>i_cal_timetype_get_day ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_day (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the day of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-day.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-day.returns"></a><h4>Returns</h4>
+<p> The day.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-day"></a><h3>i_cal_timetype_set_day ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_day (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                        <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> day</code></em>);</pre>
+<p>Set the day of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-day.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>day</p></td>
+<td class="parameter_description"><p>The day.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-hour"></a><h3>i_cal_timetype_get_hour ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_hour (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the hour of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-hour.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-hour.returns"></a><h4>Returns</h4>
+<p> The hour.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-hour"></a><h3>i_cal_timetype_set_hour ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_hour (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                         <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> hour</code></em>);</pre>
+<p>Set the hour of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-hour.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hour</p></td>
+<td class="parameter_description"><p>The hour.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-minute"></a><h3>i_cal_timetype_get_minute ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_minute (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the minute of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-minute.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-minute.returns"></a><h4>Returns</h4>
+<p> The minute.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-minute"></a><h3>i_cal_timetype_set_minute ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_minute (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                           <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> minute</code></em>);</pre>
+<p>Set the minute of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-minute.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minute</p></td>
+<td class="parameter_description"><p>The minute.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-second"></a><h3>i_cal_timetype_get_second ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_get_second (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the second of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-second.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-second.returns"></a><h4>Returns</h4>
+<p> The second.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-second"></a><h3>i_cal_timetype_set_second ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_second (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                           <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> second</code></em>);</pre>
+<p>Set the second of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-second.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>second</p></td>
+<td class="parameter_description"><p>The second.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-is-utc"></a><h3>i_cal_timetype_is_utc ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_is_utc (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get if the <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> is in UTC.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-is-utc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-is-utc.returns"></a><h4>Returns</h4>
+<p> If the time is in UTC.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-is-date"></a><h3>i_cal_timetype_is_date ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_is_date (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the is_date of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-is-date.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-is-date.returns"></a><h4>Returns</h4>
+<p> The is_date.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-is-date"></a><h3>i_cal_timetype_set_is_date ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_is_date (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                            <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> is_date</code></em>);</pre>
+<p>Set the is_date of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-is-date.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_date</p></td>
+<td class="parameter_description"><p>The is_date.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-is-daylight"></a><h3>i_cal_timetype_is_daylight ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timetype_is_daylight (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the is_daylight of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-is-daylight.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-is-daylight.returns"></a><h4>Returns</h4>
+<p> The is_daylight.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-set-is-daylight"></a><h3>i_cal_timetype_set_is_daylight ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timetype_set_is_daylight (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>,
+                                <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> is_daylight</code></em>);</pre>
+<p>Set the is_daylight of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-set-is-daylight.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_daylight</p></td>
+<td class="parameter_description"><p>The is_daylight.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timetype-get-zone"></a><h3>i_cal_timetype_get_zone ()</h3>
+<pre class="programlisting">const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timetype_get_zone (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *timetype</code></em>);</pre>
+<p>Get the is_daylight of <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-timetype-get-zone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timetype</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timetype-get-zone.returns"></a><h4>Returns</h4>
+<p> The timezone.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimetype.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-TIMETYPE-TYPE:CAPS"></a><h3>I_CAL_TIMETYPE_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_TIMETYPE_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalTimetype"></a><h3>ICalTimetype</h3>
+<pre class="programlisting">typedef struct {
+} ICalTimetype;
+</pre>
+<p>This is the ICalTimetype instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalTimetypeClass"></a><h3>struct ICalTimetypeClass</h3>
+<pre class="programlisting">struct ICalTimetypeClass {
+};
+</pre>
+<p>This is the ICalTimetype class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -35,6 +35,8 @@ executable(
     'src/Services/Weather.vala',
     'src/Services/Signals.vala',
     'src/Services/Github.vala',
+    'src/Services/Share.vala',
+    
     'src/Services/Calendar/CalendarModel.vala',
     'src/Services/Calendar/Utils.vala',
     'src/Services/Calendar/GesturesUtils.vala',
@@ -92,7 +94,8 @@ executable(
     'src/Widgets/Popovers/NotificationsPopover.vala',
     'src/Widgets/Popovers/NotificationActionPopover.vala',
     'src/Widgets/Popovers/DeadlinePopover.vala',
-
+    'src/Widgets/Popovers/SearchPopover.vala',
+    'src/Widgets/Popovers/ProjectListMenu.vala',
 
     'src/Objects/Project.vala',
     'src/Objects/Task.vala',

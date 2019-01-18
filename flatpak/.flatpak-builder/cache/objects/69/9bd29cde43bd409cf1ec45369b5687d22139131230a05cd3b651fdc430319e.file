@@ -1,0 +1,10 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g color='#bebebe' transform='translate(-873 -77)'>
+        
+        <rect fill='#666' height='2' opacity='.35' overflow='visible' rx='.375' ry='.375' style='marker:none' transform='scale(-1 1)' width='4' x='-883' y='88'/>
+        <rect fill='#666' height='2' opacity='.35' overflow='visible' rx='.375' ry='.375' style='marker:none' transform='scale(-1 1)' width='4' x='-883' y='77'/>
+        <rect fill='#666' height='2' opacity='.35' overflow='visible' rx='.375' ry='.375' style='marker:none' transform='scale(-1 1)' width='4' x='-883' y='91'/>
+        <rect fill='#666' height='2' opacity='.35' overflow='visible' rx='.375' ry='.375' style='marker:none' transform='scale(-1 1)' width='4' x='-883' y='80'/>
+        <rect fill='#666' height='2' overflow='visible' style='marker:none' transform='scale(-1 1)' width='12' x='-887' y='84'/>
+    </g>
+</svg>

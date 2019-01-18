@@ -1,0 +1,31 @@
+/*
+ * The transitive 6-net, also known as Heawood's graph,
+ * can be used to test the "stability points" of the layout
+ * algorithm.
+
+ * The "ideal" layout occurs when len="2.5". The layout
+ * loses the regularity when smaller values are used.
+ */
+graph "Heawood" {
+	node [
+		fontname = "Arial"
+		label = "\N"
+		shape = "circle"
+		width = "0.50000"
+		height = "0.500000"
+		color = "black"
+	]
+	edge [
+		color = "black"
+	]
+	/* The outer wheel */
+	"0" -- "1" -- "2" -- "3" -- "4" -- "5" -- "6" -- "7" -- "8" -- "9" -- "10" -- "11" -- "12" -- "13" -- "0";
+	/* The internal edges. The len = makes them internal */
+	"0" -- "5" [len = 2.5];
+	"2" -- "7" [len = 2.5];
+	"4" -- "9" [len = 2.5];
+	"6" -- "11" [len = 2.5];
+	"8" -- "13" [len = 2.5];
+	"10" -- "1" [len = 2.5];
+	"12" -- "3" [len = 2.5];
+}

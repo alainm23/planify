@@ -1,0 +1,24 @@
+digraph G {
+  graph [label="下駄配列の派生図"]
+
+  getas [label = "下駄配列"];
+  new_getas  [label = "新下駄配列"];
+  getas_in_fine_weather [label = "日和下駄配列"];
+  black_lacquered_getas [label = "黒塗り下駄配列"];
+  black_lacquered_getas_made_of_paulownia [label = "黒塗り桐下駄配列"];
+  lacquered_getas [label = "塗り下駄配列"];
+  new_JIS_getas [label = "新JIS下駄配列"];
+
+  getas -> {
+    getas_in_fine_weather
+    lacquered_getas
+    new_JIS_getas new_getas
+    lacquered_getas
+  };
+
+  lacquered_getas -> black_lacquered_getas;
+  black_lacquered_getas -> black_lacquered_getas_made_of_paulownia;
+  black_lacquered_getas_made_of_paulownia -> black_lacquered_getas;
+
+  black_lacquered_getas -> getas_in_fine_weather [style = dotted];
+}

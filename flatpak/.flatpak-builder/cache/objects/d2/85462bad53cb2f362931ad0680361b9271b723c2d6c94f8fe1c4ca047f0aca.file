@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Carnë Draug
+ Copyright (C) 2011 Carnë Draug <carandraug+dev@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="imagej" name="ImageJ" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="globs">*.ijm</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="builtin"           name="Builtin"             map-to="def:builtin"/>
+    <style id="boolean"           name="Boolean"             map-to="def:boolean"/>
+    <style id="command"           name="Commands"            map-to="def:function"/>
+    <style id="storage-type"      name="Storage Type"        map-to="def:type"/>
+    <style id="escape"            name="Escaped Character"   map-to="def:special-char"/>
+    <style id="keyword"           name="Keyword"             map-to="def:keyword"/>
+    <style id="operator"          name="Operator"            map-to="def:operator"/>
+    <style id="string"            name="String"              map-to="def:string"/>
+  </styles>
+
+  <definitions>
+
+    <!--There is no printf and no line continue, hence the reason not to use the
+        string rules in the defaults
+    -->
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="c:escaped-character"/>
+        <context ref="command"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="c:escaped-character"/>
+        <context ref="command"/>
+      </include>
+    </context>
+
+    <context id="operator" style-ref="operator">
+      <match extended="true">
+        \+{1,2}?(?!\+)  |   # arithmetic operators
+        \-{1,2}?(?!\-)  |   # already counting
+        \*(?!\*)        |   # with auto increment,
+        \/(?!\/)        |   #
+        \%(?!\%)        |   # remainder
+        \^(?!\^)        |   # and exp
+        &lt;=? | &gt;=? | != | == | &lt;&gt; |            # comparison operators
+        &amp;{1,2}?(?!&amp;) | \|{1,2}?(?!\|) | ! | ~ |   # boolean operators
+        = |                                               # assignment operator
+      </match>
+    </context>
+
+    <context id="storage-type" style-ref="storage-type">
+      <keyword>var</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <!--
+        TODO Think about keyboard shortcuts, just one character, between square
+        brackets, at the end of the macro name string. Can be two characters for
+        fX and nX for f keys and numeric pad
+    -->
+    <context id="keyword" style-ref="keyword">
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>macro</keyword>
+      <keyword>return</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <!--
+        TODO Get prefix to allow spaces. run(\s)*\((\s)*" doesn't work because
+        look-behind operator doesn't support variable length
+    -->
+    <context id="command" style-ref="command">
+      <prefix>(?&lt;=run\(("|'))</prefix>
+      <suffix>(?="|')</suffix>
+
+      <keyword>16-bit</keyword>
+      <keyword>3-3-2 RGB</keyword>
+      <keyword>32-bit</keyword>
+      <keyword>3D Project\.\.\.</keyword>
+      <keyword>8-bit</keyword>
+      <keyword>8-bit Color</keyword>
+      <keyword>AND\.\.\.</keyword>
+      <keyword>AVI\.\.\.</keyword>
+      <keyword>AVI\.\.\. </keyword>
+      <keyword>About ImageJ\.\.\.</keyword>
+      <keyword>About This Submenu\.\.\.</keyword>
+      <keyword>Abs</keyword>
+      <keyword>Add Image\.\.\.</keyword>
+      <keyword>Add Noise</keyword>
+      <keyword>Add Selection\.\.\.</keyword>
+      <keyword>Add Slice</keyword>
+      <keyword>Add Specified Noise\.\.\.</keyword>
+      <keyword>Add to Manager </keyword>
+      <keyword>Add\.\.\.</keyword>
+      <keyword>Analyze Line Graph</keyword>
+      <keyword>Analyze Particles\.\.\.</keyword>
+      <keyword>Animation Options\.\.\.</keyword>
+      <keyword>Appearance\.\.\.</keyword>
+      <keyword>Apply LUT</keyword>
+      <keyword>Arrow Tool\.\.\.</keyword>
+      <keyword>AuPbSn 40 \(56K\)</keyword>
+      <keyword>BMP\.\.\.</keyword>
+      <keyword>Bandpass Filter\.\.\.</keyword>
+      <keyword>Bat Cochlea Renderings \(449K\)</keyword>
+      <keyword>Bat Cochlea Volume \(19K\)</keyword>
+      <keyword>Benchmark</keyword>
+      <keyword>Blobs \(25K\)</keyword>
+      <keyword>Blue</keyword>
+      <keyword>Boats \(356K\)</keyword>
+      <keyword>Bridge \(174K\)</keyword>
+      <keyword>Brightness/Contrast\.\.\.</keyword>
+      <keyword>CT \(420K, 16-bit DICOM\)</keyword>
+      <keyword>Calibrate\.\.\.</keyword>
+      <keyword>Calibration Bar\.\.\.</keyword>
+      <keyword>Canvas Size\.\.\.</keyword>
+      <keyword>Capture Image</keyword>
+      <keyword>Capture Screen </keyword>
+      <keyword>Cardio \(768K, RGB DICOM\)</keyword>
+      <keyword>Cascade</keyword>
+      <keyword>Cell Colony \(31K\)</keyword>
+      <keyword>Channels Tool\.\.\.</keyword>
+      <keyword>Channels Tool\.\.\. </keyword>
+      <keyword>Clear</keyword>
+      <keyword>Clear Outside</keyword>
+      <keyword>Clear Results</keyword>
+      <keyword>Close</keyword>
+      <keyword>Close All</keyword>
+      <keyword>Close-</keyword>
+      <keyword>Clown \(14K\)</keyword>
+      <keyword>Color Balance\.\.\.</keyword>
+      <keyword>Color Picker\.\.\.</keyword>
+      <keyword>Color Threshold\.\.\.</keyword>
+      <keyword>Colors\.\.\.</keyword>
+      <keyword>Combine\.\.\.</keyword>
+      <keyword>Compile and Run\.\.\.</keyword>
+      <keyword>Compiler\.\.\.</keyword>
+      <keyword>Concatenate\.\.\.</keyword>
+      <keyword>Confocal Series \(2\.2MB\)</keyword>
+      <keyword>Control Panel\.\.\.</keyword>
+      <keyword>Conversions\.\.\.</keyword>
+      <keyword>Convert to Mask</keyword>
+      <keyword>Convert\.\.\.</keyword>
+      <keyword>Convex Hull</keyword>
+      <keyword>Convolve\.\.\.</keyword>
+      <keyword>Copy</keyword>
+      <keyword>Copy to System</keyword>
+      <keyword>Create Mask</keyword>
+      <keyword>Create Selection</keyword>
+      <keyword>Create Shortcut\.\.\. </keyword>
+      <keyword>Crop</keyword>
+      <keyword>Curve Fitting\.\.\.</keyword>
+      <keyword>Custom Filter\.\.\.</keyword>
+      <keyword>Cut</keyword>
+      <keyword>Cyan</keyword>
+      <keyword>DICOM\.\.\.</keyword>
+      <keyword>Delete Slice</keyword>
+      <keyword>Despeckle</keyword>
+      <keyword>Dev\. Resources\.\.\.</keyword>
+      <keyword>Dilate</keyword>
+      <keyword>Distance Map</keyword>
+      <keyword>Distribution\.\.\.</keyword>
+      <keyword>Divide\.\.\.</keyword>
+      <keyword>Documentation\.\.\.</keyword>
+      <keyword>Dot Blot \(7K\)</keyword>
+      <keyword>Draw</keyword>
+      <keyword>Duplicate\.\.\.</keyword>
+      <keyword>East</keyword>
+      <keyword>Edit LUT\.\.\.</keyword>
+      <keyword>Edit\.\.\.</keyword>
+      <keyword>Embryos \(42K\)</keyword>
+      <keyword>Enhance Contrast</keyword>
+      <keyword>Enlarge\.\.\.</keyword>
+      <keyword>Erode</keyword>
+      <keyword>Exp</keyword>
+      <keyword>FD Math\.\.\.</keyword>
+      <keyword>FFT</keyword>
+      <keyword>FFT Options\.\.\.</keyword>
+      <keyword>FITS\.\.\.</keyword>
+      <keyword>Fill</keyword>
+      <keyword>Fill Holes</keyword>
+      <keyword>Find Commands\.\.\. </keyword>
+      <keyword>Find Edges</keyword>
+      <keyword>Find Maxima\.\.\.</keyword>
+      <keyword>Fire</keyword>
+      <keyword>Fit Ellipse</keyword>
+      <keyword>Fit Spline</keyword>
+      <keyword>Flatten</keyword>
+      <keyword>Flip Horizontally</keyword>
+      <keyword>Flip Vertically</keyword>
+      <keyword>Flip Z</keyword>
+      <keyword>Flood Fill Tool Options\.\.\.</keyword>
+      <keyword>Fluorescent Cells \(400K\)</keyword>
+      <keyword>Fly Brain \(1MB\)</keyword>
+      <keyword>Fonts\.\.\.</keyword>
+      <keyword>Fractal Box Count\.\.\.</keyword>
+      <keyword>From ROI Manager</keyword>
+      <keyword>Gamma\.\.\.</keyword>
+      <keyword>Gaussian Blur\.\.\.</keyword>
+      <keyword>Gel \(105K\)</keyword>
+      <keyword>Gel Analyzer Options\.\.\.</keyword>
+      <keyword>Gif\.\.\.</keyword>
+      <keyword>Grays</keyword>
+      <keyword>Green</keyword>
+      <keyword>HSB Stack</keyword>
+      <keyword>HeLa Cells \(1\.3M, 48-bit RGB\)</keyword>
+      <keyword>Hide Overlay</keyword>
+      <keyword>Histogram</keyword>
+      <keyword>Hyperstack to Stack</keyword>
+      <keyword>Hyperstack\.\.\.</keyword>
+      <keyword>Ice</keyword>
+      <keyword>Image Calculator\.\.\.</keyword>
+      <keyword>Image Sequence\.\.\.</keyword>
+      <keyword>Image Sequence\.\.\. </keyword>
+      <keyword>Image\.\.\.</keyword>
+      <keyword>ImageJ News\.\.\.</keyword>
+      <keyword>ImageJ Properties\.\.\.</keyword>
+      <keyword>ImageJ Website\.\.\.</keyword>
+      <keyword>Images to Stack</keyword>
+      <keyword>In</keyword>
+      <keyword>Input/Output\.\.\.</keyword>
+      <keyword>Insert\.\.\.</keyword>
+      <keyword>Install Plugin\.\.\.</keyword>
+      <keyword>Install\.\.\.</keyword>
+      <keyword>Installation\.\.\.</keyword>
+      <keyword>Internal Clipboard</keyword>
+      <keyword>Inverse FFT</keyword>
+      <keyword>Invert</keyword>
+      <keyword>Invert LUT</keyword>
+      <keyword>JavaScript</keyword>
+      <keyword>Jpeg\.\.\.</keyword>
+      <keyword>LUT\.\.\.</keyword>
+      <keyword>LUT\.\.\. </keyword>
+      <keyword>Label</keyword>
+      <keyword>Label Peaks</keyword>
+      <keyword>Label\.\.\.</keyword>
+      <keyword>Leaf \(36K\)</keyword>
+      <keyword>Lena \(68K\)</keyword>
+      <keyword>Line Graph \(21K\)</keyword>
+      <keyword>Line Width\.\.\.</keyword>
+      <keyword>Line Width\.\.\. </keyword>
+      <keyword>List Archives\.\.\.</keyword>
+      <keyword>List Shortcuts\.\.\.</keyword>
+      <keyword>Log</keyword>
+      <keyword>M51 Galaxy \(177K, 16-bits\)</keyword>
+      <keyword>MRI Stack \(528K\)</keyword>
+      <keyword>Macro</keyword>
+      <keyword>Macro Functions\.\.\.</keyword>
+      <keyword>Macro\.\.\.</keyword>
+      <keyword>Macro\.\.\. </keyword>
+      <keyword>Macros\.\.\.</keyword>
+      <keyword>Magenta</keyword>
+      <keyword>Make Band\.\.\.</keyword>
+      <keyword>Make Binary</keyword>
+      <keyword>Make Composite</keyword>
+      <keyword>Make Inverse</keyword>
+      <keyword>Make Montage\.\.\.</keyword>
+      <keyword>Max\.\.\.</keyword>
+      <keyword>Maximum\.\.\.</keyword>
+      <keyword>Mean\.\.\.</keyword>
+      <keyword>Measure</keyword>
+      <keyword>Measure\.\.\.</keyword>
+      <keyword>Median\.\.\.</keyword>
+      <keyword>Memory &amp; Threads\.\.\.</keyword>
+      <keyword>Merge Channels\.\.\.</keyword>
+      <keyword>Min\.\.\.</keyword>
+      <keyword>Minimum\.\.\.</keyword>
+      <keyword>Misc\.\.\.</keyword>
+      <keyword>Mitosis \(26MB, 5D stack\)</keyword>
+      <keyword>Monitor Memory\.\.\.</keyword>
+      <keyword>Montage to Stack\.\.\.</keyword>
+      <keyword>Multiply\.\.\.</keyword>
+      <keyword>NaN Background</keyword>
+      <keyword>Neuron \(1\.6M, 5 channels\)</keyword>
+      <keyword>New Hyperstack\.\.\.</keyword>
+      <keyword>Next Slice \[&gt;\]</keyword>
+      <keyword>Nile Bend \(1\.9M\)</keyword>
+      <keyword>North</keyword>
+      <keyword>Northeast</keyword>
+      <keyword>Northwest</keyword>
+      <keyword>OR\.\.\.</keyword>
+      <keyword>Open</keyword>
+      <keyword>Open Next</keyword>
+      <keyword>Open\.\.\.</keyword>
+      <keyword>Options\.\.\.</keyword>
+      <keyword>Organ of Corti \(2\.8M, 4D stack\)</keyword>
+      <keyword>Original Scale</keyword>
+      <keyword>Orthogonal Views</keyword>
+      <keyword>Out</keyword>
+      <keyword>Outline</keyword>
+      <keyword>PGM\.\.\.</keyword>
+      <keyword>PNG\.\.\.</keyword>
+      <keyword>Page Setup\.\.\.</keyword>
+      <keyword>Paintbrush Tool Options\.\.\.</keyword>
+      <keyword>Particles \(75K\)</keyword>
+      <keyword>Paste</keyword>
+      <keyword>Paste Control\.\.\.</keyword>
+      <keyword>Pencil Tool Options\.\.\.</keyword>
+      <keyword>Plot Lanes</keyword>
+      <keyword>Plot Profile</keyword>
+      <keyword>Plot Z-axis Profile</keyword>
+      <keyword>Plugin</keyword>
+      <keyword>Plugin Filter</keyword>
+      <keyword>Plugin Frame</keyword>
+      <keyword>Plugins\.\.\.</keyword>
+      <keyword>Point Tool\.\.\.</keyword>
+      <keyword>Previous Slice \[&lt;\]</keyword>
+      <keyword>Print\.\.\.</keyword>
+      <keyword>Profile Plot Options\.\.\.</keyword>
+      <keyword>Properties\.\.\.</keyword>
+      <keyword>Properties\.\.\. </keyword>
+      <keyword>Proxy Settings\.\.\.</keyword>
+      <keyword>Put Behind \[tab]</keyword>
+      <keyword>Quit</keyword>
+      <keyword>RGB Color</keyword>
+      <keyword>RGB Stack</keyword>
+      <keyword>ROI Manager\.\.\.</keyword>
+      <keyword>Raw Data\.\.\.</keyword>
+      <keyword>Raw\.\.\.</keyword>
+      <keyword>Re-plot Lanes</keyword>
+      <keyword>Reciprocal</keyword>
+      <keyword>Record\.\.\.</keyword>
+      <keyword>Red</keyword>
+      <keyword>Red/Green</keyword>
+      <keyword>Redisplay Power Spectrum</keyword>
+      <keyword>Reduce Dimensionality\.\.\.</keyword>
+      <keyword>Reduce\.\.\.</keyword>
+      <keyword>Refresh Menus</keyword>
+      <keyword>Remove Outliers\.\.\.</keyword>
+      <keyword>Remove Overlay</keyword>
+      <keyword>Remove\.\.\.</keyword>
+      <keyword>Rename\.\.\.</keyword>
+      <keyword>Repeat Command</keyword>
+      <keyword>Reset</keyword>
+      <keyword>Reset\.\.\.</keyword>
+      <keyword>Reslice \[/\]\.\.\.</keyword>
+      <keyword>Restore Selection</keyword>
+      <keyword>Results\.\.\.</keyword>
+      <keyword>Results\.\.\. </keyword>
+      <keyword>Reverse</keyword>
+      <keyword>Revert</keyword>
+      <keyword>Rotate 90 Degrees Left</keyword>
+      <keyword>Rotate 90 Degrees Right</keyword>
+      <keyword>Rotate\.\.\.</keyword>
+      <keyword>Rotate\.\.\. </keyword>
+      <keyword>Run\.\.\.</keyword>
+      <keyword>Salt and Pepper</keyword>
+      <keyword>Save</keyword>
+      <keyword>Save XY Coordinates\.\.\.</keyword>
+      <keyword>Scale Bar\.\.\.</keyword>
+      <keyword>Scale\.\.\.</keyword>
+      <keyword>Search Website\.\.\.</keyword>
+      <keyword>Search\.\.\.</keyword>
+      <keyword>Select All</keyword>
+      <keyword>Select First Lane</keyword>
+      <keyword>Select Next Lane</keyword>
+      <keyword>Select None</keyword>
+      <keyword>Selection\.\.\.</keyword>
+      <keyword>Set Measurements\.\.\.</keyword>
+      <keyword>Set Scale\.\.\.</keyword>
+      <keyword>Set Slice\.\.\.</keyword>
+      <keyword>Set\.\.\.</keyword>
+      <keyword>Set\.\.\. </keyword>
+      <keyword>Shadows Demo</keyword>
+      <keyword>Sharpen</keyword>
+      <keyword>Show All</keyword>
+      <keyword>Show Circular Masks\.\.\.</keyword>
+      <keyword>Show Info\.\.\.</keyword>
+      <keyword>Show LUT</keyword>
+      <keyword>Show Overlay</keyword>
+      <keyword>Size\.\.\.</keyword>
+      <keyword>Skeletonize</keyword>
+      <keyword>Smooth</keyword>
+      <keyword>South</keyword>
+      <keyword>Southeast</keyword>
+      <keyword>Southwest</keyword>
+      <keyword>Specify\.\.\.</keyword>
+      <keyword>Spectrum</keyword>
+      <keyword>Split Channels</keyword>
+      <keyword>Square</keyword>
+      <keyword>Square Root</keyword>
+      <keyword>Stack From List\.\.\.</keyword>
+      <keyword>Stack to Hyperstack\.\.\.</keyword>
+      <keyword>Stack to Images</keyword>
+      <keyword>Stack to RGB</keyword>
+      <keyword>Start Animation \[\\\]</keyword>
+      <keyword>Startup Macros\.\.\.</keyword>
+      <keyword>Stop Animation</keyword>
+      <keyword>Straighten\.\.\.</keyword>
+      <keyword>Subtract Background\.\.\.</keyword>
+      <keyword>Subtract\.\.\.</keyword>
+      <keyword>Summarize</keyword>
+      <keyword>Surface Plot\.\.\.</keyword>
+      <keyword>Swap Quadrants</keyword>
+      <keyword>System Clipboard</keyword>
+      <keyword>T1 Head \(2\.4M, 16-bits\)</keyword>
+      <keyword>T1 Head Renderings \(736K\)</keyword>
+      <keyword>TEM Filter \(112K\)</keyword>
+      <keyword>TIFF Virtual Stack\.\.\.</keyword>
+      <keyword>Table\.\.\.</keyword>
+      <keyword>Text File\.\.\. </keyword>
+      <keyword>Text Image\.\.\.</keyword>
+      <keyword>Text Image\.\.\. </keyword>
+      <keyword>Text Window</keyword>
+      <keyword>Text Window\.\.\.</keyword>
+      <keyword>Text\.\.\.</keyword>
+      <keyword>Threads\.\.\.</keyword>
+      <keyword>Threshold\.\.\.</keyword>
+      <keyword>Tiff\.\.\.</keyword>
+      <keyword>Tile</keyword>
+      <keyword>To ROI Manager</keyword>
+      <keyword>To Selection</keyword>
+      <keyword>Translate\.\.\.</keyword>
+      <keyword>Tree Rings \(48K\)</keyword>
+      <keyword>URL\.\.\.</keyword>
+      <keyword>Ultimate Points</keyword>
+      <keyword>Undo</keyword>
+      <keyword>Unsharp Mask\.\.\.</keyword>
+      <keyword>Update ImageJ\.\.\.</keyword>
+      <keyword>Variance\.\.\.</keyword>
+      <keyword>View 100%</keyword>
+      <keyword>Virtual Stack\.\.\.</keyword>
+      <keyword>Voronoi</keyword>
+      <keyword>Wand Tool\.\.\.</keyword>
+      <keyword>Watershed</keyword>
+      <keyword>West</keyword>
+      <keyword>Window/Level\.\.\.</keyword>
+      <keyword>XOR\.\.\.</keyword>
+      <keyword>XY Coordinates\.\.\.</keyword>
+      <keyword>Yellow</keyword>
+      <keyword>Z Project\.\.\.</keyword>
+      <keyword>ZIP\.\.\.</keyword>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+      <keyword>Array\.copy</keyword>
+      <keyword>Array\.fill</keyword>
+      <keyword>Array\.getStatistics</keyword>
+      <keyword>Array\.invert</keyword>
+      <keyword>Array\.sort</keyword>
+      <keyword>Array\.trim</keyword>
+      <keyword>Dialog\.addCheckbox</keyword>
+      <keyword>Dialog\.addCheckboxGroup</keyword>
+      <keyword>Dialog\.addChoice</keyword>
+      <keyword>Dialog\.addHelp</keyword>
+      <keyword>Dialog\.addMessage</keyword>
+      <keyword>Dialog\.addNumber</keyword>
+      <keyword>Dialog\.addString</keyword>
+      <keyword>Dialog\.create</keyword>
+      <keyword>Dialog\.getCheckbox</keyword>
+      <keyword>Dialog\.getChoice</keyword>
+      <keyword>Dialog\.getNumber</keyword>
+      <keyword>Dialog\.getString</keyword>
+      <keyword>Dialog\.show</keyword>
+      <keyword>Ext\.(?=[a-zA-Z0-9])</keyword>
+      <keyword>File\.append</keyword>
+      <keyword>File\.close</keyword>
+      <keyword>File\.dateLastModified</keyword>
+      <keyword>File\.delete</keyword>
+      <keyword>File\.directory</keyword>
+      <keyword>File\.exists</keyword>
+      <keyword>File\.getName</keyword>
+      <keyword>File\.getParent</keyword>
+      <keyword>File\.isDirectory</keyword>
+      <keyword>File\.lastModified</keyword>
+      <keyword>File\.length</keyword>
+      <keyword>File\.makeDirectory</keyword>
+      <keyword>File\.name</keyword>
+      <keyword>File\.nameWithoutExtension</keyword>
+      <keyword>File\.open</keyword>
+      <keyword>File\.openAsRawString</keyword>
+      <keyword>File\.openAsString</keyword>
+      <keyword>File\.openDialog</keyword>
+      <keyword>File\.openUrlAsString</keyword>
+      <keyword>File\.rename</keyword>
+      <keyword>File\.saveString</keyword>
+      <keyword>File\.separator</keyword>
+      <keyword>Fit\.doFit</keyword>
+      <keyword>Fit\.f</keyword>
+      <keyword>Fit\.getEquation</keyword>
+      <keyword>Fit\.logResults</keyword>
+      <keyword>Fit\.nEquations</keyword>
+      <keyword>Fit\.nParams</keyword>
+      <keyword>Fit\.p</keyword>
+      <keyword>Fit\.plot</keyword>
+      <keyword>Fit\.rSquared</keyword>
+      <keyword>Fit\.showDialog</keyword>
+      <keyword>IJ\.currentMemory</keyword>
+      <keyword>IJ\.deleteRows</keyword>
+      <keyword>IJ\.freeMemory</keyword>
+      <keyword>IJ\.getToolName</keyword>
+      <keyword>IJ\.maxMemory</keyword>
+      <keyword>IJ\.redirectErrorMessages</keyword>
+      <keyword>List\.clear</keyword>
+      <keyword>List\.get</keyword>
+      <keyword>List\.getList</keyword>
+      <keyword>List\.getValue</keyword>
+      <keyword>List\.set</keyword>
+      <keyword>List\.setCommands</keyword>
+      <keyword>List\.setList</keyword>
+      <keyword>List\.size</keyword>
+      <keyword>Overlay\.add</keyword>
+      <keyword>Overlay\.drawEllipse</keyword>
+      <keyword>Overlay\.drawLine</keyword>
+      <keyword>Overlay\.drawRect</keyword>
+      <keyword>Overlay\.drawString</keyword>
+      <keyword>Overlay\.hide</keyword>
+      <keyword>Overlay\.lineTo</keyword>
+      <keyword>Overlay\.moveTo</keyword>
+      <keyword>Overlay\.remove</keyword>
+      <keyword>Overlay\.removeSelection</keyword>
+      <keyword>Overlay\.show</keyword>
+      <keyword>Overlay\.size</keyword>
+      <keyword>PI</keyword>
+      <keyword>Plot\.add</keyword>
+      <keyword>Plot\.addText</keyword>
+      <keyword>Plot\.create</keyword>
+      <keyword>Plot\.drawLine</keyword>
+      <keyword>Plot\.getValues</keyword>
+      <keyword>Plot\.setColor</keyword>
+      <keyword>Plot\.setJustification</keyword>
+      <keyword>Plot\.setLimits</keyword>
+      <keyword>Plot\.setLineWidth</keyword>
+      <keyword>Plot\.show</keyword>
+      <keyword>Plot\.update</keyword>
+      <keyword>Stack\.getActiveChannels</keyword>
+      <keyword>Stack\.getDimensions</keyword>
+      <keyword>Stack\.getDisplayMode</keyword>
+      <keyword>Stack\.getFrameRate</keyword>
+      <keyword>Stack\.getPosition</keyword>
+      <keyword>Stack\.getStatistics</keyword>
+      <keyword>Stack\.isHyperstack</keyword>
+      <keyword>Stack\.setActiveChannels</keyword>
+      <keyword>Stack\.setChannel</keyword>
+      <keyword>Stack\.setDimensions</keyword>
+      <keyword>Stack\.setDisplayMode</keyword>
+      <keyword>Stack\.setFrame</keyword>
+      <keyword>Stack\.setFrameRate</keyword>
+      <keyword>Stack\.setPosition</keyword>
+      <keyword>Stack\.setSlice</keyword>
+      <keyword>Stack\.setTUnit</keyword>
+      <keyword>Stack\.setZUnit</keyword>
+      <keyword>Stack\.swap</keyword>
+      <keyword>String\.append</keyword>
+      <keyword>String\.buffer</keyword>
+      <keyword>String\.copy</keyword>
+      <keyword>String\.copyResults</keyword>
+      <keyword>String\.paste</keyword>
+      <keyword>String\.resetBuffer</keyword>
+      <keyword>abs</keyword>
+      <keyword>acos</keyword>
+      <keyword>asin</keyword>
+      <keyword>atan</keyword>
+      <keyword>atan2</keyword>
+      <keyword>autoUpdate</keyword>
+      <keyword>beep</keyword>
+      <keyword>bitDepth</keyword>
+      <keyword>calibrate</keyword>
+      <keyword>call</keyword>
+      <keyword>changeValues</keyword>
+      <keyword>charCodeAt</keyword>
+      <keyword>close</keyword>
+      <keyword>cos</keyword>
+      <keyword>d2s</keyword>
+      <keyword>doCommand</keyword>
+      <keyword>doWand</keyword>
+      <keyword>drawLine</keyword>
+      <keyword>drawOval</keyword>
+      <keyword>drawRect</keyword>
+      <keyword>drawString</keyword>
+      <keyword>dump</keyword>
+      <keyword>endsWith</keyword>
+      <keyword>eval</keyword>
+      <keyword>exec</keyword>
+      <keyword>exit</keyword>
+      <keyword>exp</keyword>
+      <keyword>fill</keyword>
+      <keyword>fillOval</keyword>
+      <keyword>fillRect</keyword>
+      <keyword>floodFill</keyword>
+      <keyword>floor</keyword>
+      <keyword>fromCharCode</keyword>
+      <keyword>getArgument</keyword>
+      <keyword>getBoolean</keyword>
+      <keyword>getBoundingRect</keyword>
+      <keyword>getCursorLoc</keyword>
+      <keyword>getDateAndTime</keyword>
+      <keyword>getDimensions</keyword>
+      <keyword>getDirectory</keyword>
+      <keyword>getFileList</keyword>
+      <keyword>getHeight</keyword>
+      <keyword>getHistogram</keyword>
+      <keyword>getImageID</keyword>
+      <keyword>getImageInfo</keyword>
+      <keyword>getInfo</keyword>
+      <keyword>getLine</keyword>
+      <keyword>getList</keyword>
+      <keyword>getLocationAndSize</keyword>
+      <keyword>getLut</keyword>
+      <keyword>getMetadata</keyword>
+      <keyword>getMinAndMax</keyword>
+      <keyword>getNumber</keyword>
+      <keyword>getPixel</keyword>
+      <keyword>getPixelSize</keyword>
+      <keyword>getProfile</keyword>
+      <keyword>getRawStatistics</keyword>
+      <keyword>getResult</keyword>
+      <keyword>getResultLabel</keyword>
+      <keyword>getSelectionBounds</keyword>
+      <keyword>getSelectionCoordinates</keyword>
+      <keyword>getSliceNumber</keyword>
+      <keyword>getStatistics</keyword>
+      <keyword>getString</keyword>
+      <keyword>getStringWidth</keyword>
+      <keyword>getThreshold</keyword>
+      <keyword>getTime</keyword>
+      <keyword>getTitle</keyword>
+      <keyword>getValue</keyword>
+      <keyword>getVersion</keyword>
+      <keyword>getVoxelSize</keyword>
+      <keyword>getWidth</keyword>
+      <keyword>getZoom</keyword>
+      <keyword>imageCalculator</keyword>
+      <keyword>indexOf</keyword>
+      <keyword>is</keyword>
+      <keyword>isActive</keyword>
+      <keyword>isKeyDown</keyword>
+      <keyword>isNaN</keyword>
+      <keyword>isOpen</keyword>
+      <keyword>lastIndexOf</keyword>
+      <keyword>lengthOf</keyword>
+      <keyword>lineTo</keyword>
+      <keyword>log</keyword>
+      <keyword>makeLine</keyword>
+      <keyword>makeOval</keyword>
+      <keyword>makePoint</keyword>
+      <keyword>makePolygon</keyword>
+      <keyword>makeRectangle</keyword>
+      <keyword>makeSelection</keyword>
+      <keyword>makeText</keyword>
+      <keyword>matches</keyword>
+      <keyword>maxOf</keyword>
+      <keyword>minOf</keyword>
+      <keyword>moveTo</keyword>
+      <keyword>nImages</keyword>
+      <keyword>nResults</keyword>
+      <keyword>nSlices</keyword>
+      <keyword>newArray</keyword>
+      <keyword>newImage</keyword>
+      <keyword>newMenu</keyword>
+      <keyword>open</keyword>
+      <keyword>parseFloat</keyword>
+      <keyword>parseInt</keyword>
+      <keyword>pow</keyword>
+      <keyword>print</keyword>
+      <keyword>random</keyword>
+      <keyword>rename</keyword>
+      <keyword>replace</keyword>
+      <keyword>requires</keyword>
+      <keyword>reset</keyword>
+      <keyword>resetMinAndMax</keyword>
+      <keyword>resetThreshold</keyword>
+      <keyword>restorePreviousTool</keyword>
+      <keyword>restoreSettings</keyword>
+      <keyword>roiManager</keyword>
+      <keyword>round</keyword>
+      <keyword>run</keyword>
+      <keyword>runMacro</keyword>
+      <keyword>save</keyword>
+      <keyword>saveAs</keyword>
+      <keyword>saveSettings</keyword>
+      <keyword>screenHeight</keyword>
+      <keyword>screenWidth</keyword>
+      <keyword>selectImage</keyword>
+      <keyword>selectWindow</keyword>
+      <keyword>selectionContains</keyword>
+      <keyword>selectionName</keyword>
+      <keyword>selectionType</keyword>
+      <keyword>setAutoThreshold</keyword>
+      <keyword>setBackgroundColor</keyword>
+      <keyword>setBatchMode</keyword>
+      <keyword>setColor</keyword>
+      <keyword>setFont</keyword>
+      <keyword>setForegroundColor</keyword>
+      <keyword>setJustification</keyword>
+      <keyword>setKeyDown</keyword>
+      <keyword>setLineWidth</keyword>
+      <keyword>setLocation</keyword>
+      <keyword>setLut</keyword>
+      <keyword>setMetadata</keyword>
+      <keyword>setMinAndMax</keyword>
+      <keyword>setOption</keyword>
+      <keyword>setPasteMode</keyword>
+      <keyword>setPixel</keyword>
+      <keyword>setRGBWeights</keyword>
+      <keyword>setResult</keyword>
+      <keyword>setSelectionLocation</keyword>
+      <keyword>setSelectionName</keyword>
+      <keyword>setSlice</keyword>
+      <keyword>setThreshold</keyword>
+      <keyword>setTool</keyword>
+      <keyword>setVoxelSize</keyword>
+      <keyword>setZCoordinate</keyword>
+      <keyword>setupUndo</keyword>
+      <keyword>showMessage</keyword>
+      <keyword>showMessageWithCancel</keyword>
+      <keyword>showProgress</keyword>
+      <keyword>showStatus</keyword>
+      <keyword>sin</keyword>
+      <keyword>snapshot</keyword>
+      <keyword>split</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>startsWith</keyword>
+      <keyword>substring</keyword>
+      <keyword>tan</keyword>
+      <keyword>toBinary</keyword>
+      <keyword>toHex</keyword>
+      <keyword>toLowerCase</keyword>
+      <keyword>toString</keyword>
+      <keyword>toUpperCase</keyword>
+      <keyword>toolID</keyword>
+      <keyword>updateDisplay</keyword>
+      <keyword>updateResults</keyword>
+      <keyword>wait</keyword>
+      <keyword>waitForUser</keyword>
+    </context>
+
+    <context id="imagej" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="operator"/>
+        <context ref="storage-type"/>
+        <context ref="boolean"/>
+        <context ref="keyword"/>
+        <context ref="command"/>
+        <context ref="builtin"/>
+        <context ref="def:float"/>
+        <context ref="def:decimal"/>
+        <context ref="def:octal"/>
+        <context ref="def:hexadecimal"/>
+      </include>
+    </context>
+  </definitions>
+</language>

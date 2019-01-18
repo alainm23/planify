@@ -1,0 +1,226 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-array.h"
+#include "libical-glib-private.h"
+
+G_DEFINE_TYPE (ICalArray, i_cal_array, I_CAL_TYPE_OBJECT)
+
+static void i_cal_array_class_init (ICalArrayClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalArray));
+}
+
+static void i_cal_array_init (G_GNUC_UNUSED ICalArray *self)
+{
+}
+
+/**
+ * i_cal_array_new_full: (skip)
+ * @native: The native libical object.
+ * @owner: The parent.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalArray *
+i_cal_array_new_full (icalarray *native, 
+                      GObject *owner)
+{
+    ICalArray *object;
+    if (native == NULL)
+        return NULL;
+    object = g_object_new (I_CAL_ARRAY_TYPE, NULL);
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) native,
+                            (GDestroyNotify) icalarray_free,
+                            FALSE,
+                            owner);
+
+    return object;
+}
+/**
+ * i_cal_array_size:
+ * @array: The #ICalArray
+ *
+ * Get the size of the array.
+ *
+ * Returns: The size of current array.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_array_size (ICalArray *array)
+{
+	icalarray *native;
+	gint ret;
+	g_return_val_if_fail (array != NULL && I_CAL_IS_ARRAY (array), -1);
+	native = i_cal_object_get_native ((ICalObject *)array);
+	ret = native->num_elements;
+	native = NULL;
+	return ret;
+}
+
+/**
+ * i_cal_array_new:
+ * @element_size: The size of the element of the array
+ * @increment_size: The incremental size when the array is full
+ *
+ * Create a #ICalArray with the element size to be @element_size and increment size to be @increment_size
+ *
+ * Returns: (transfer full): The newly create #ICalArray with the properties set by @element_size and @increment_size
+ *
+ * Since: 1.0
+ *
+ **/
+ICalArray *
+i_cal_array_new (gint element_size, 
+                 gint increment_size)
+{
+	return i_cal_array_new_full (icalarray_new (element_size, increment_size), NULL);
+}
+
+/**
+ * i_cal_array_copy:
+ * @array: (in): The #ICalArray to be cloned.
+ *
+ * Create a deep copy of #ICalArray with the same properties as the @array
+ *
+ * Returns: (transfer full): The newly cloned #ICalArray with the same value as the @array
+ *
+ * Since: 1.0
+ *
+ **/
+ICalArray *
+i_cal_array_copy (ICalArray *array)
+{
+	g_return_val_if_fail (I_CAL_IS_ARRAY (array), NULL);
+	g_return_val_if_fail (array != NULL, NULL);
+
+	return i_cal_array_new_full (icalarray_copy ((icalarray *)i_cal_object_get_native (I_CAL_OBJECT (array))), NULL);
+}
+
+/**
+ * i_cal_array_free: (skip)
+ * @array: The #ICalArray to be freed.
+ *
+ * Free the #ICalArray
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_array_free (ICalArray *array)
+{
+	g_return_if_fail (I_CAL_IS_ARRAY (array));
+	g_return_if_fail (array != NULL);
+
+	icalarray_free ((icalarray *)i_cal_object_get_native (I_CAL_OBJECT (array)));
+}
+
+/**
+ * i_cal_array_append:
+ * @array: The #ICalArray to be appended.
+ * @element: The element to be appended to the #ICalArray. The reason why to use GOjbect * instead of gpointer is that the variable of type gpointer can only be assigned with none, integer or capsule type. The support for other types would be added in the future.
+ *
+ * Append @element to the end of the array
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_array_append (ICalArray *array, 
+                    GObject *element)
+{
+	g_return_if_fail (I_CAL_IS_ARRAY (array));
+	g_return_if_fail (array != NULL);
+	g_return_if_fail (element != NULL);
+
+	icalarray_append ((icalarray *)i_cal_object_get_native (I_CAL_OBJECT (array)), element);
+}
+
+/**
+ * i_cal_array_remove_element_at:
+ * @array: The #ICalArray to be modified.
+ * @position: The position in which the element will be removed from the array
+ *
+ * Remove the element at the @position from the array
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_array_remove_element_at (ICalArray *array, 
+                               gint position)
+{
+	g_return_if_fail (I_CAL_IS_ARRAY (array));
+	g_return_if_fail (array != NULL);
+
+	icalarray_remove_element_at ((icalarray *)i_cal_object_get_native (I_CAL_OBJECT (array)), position);
+}
+
+/**
+ * i_cal_array_element_at:
+ * @array: The #ICalArray to be queried.
+ * @position: The position the target element is located
+ *
+ * Get the element located in the @position in the @array. NULL if position if out of bound
+ *
+ * Returns: (transfer none) (allow-none): The element located at the @position in the @array
+ *
+ * Since: 1.0
+ *
+ **/
+GObject *
+i_cal_array_element_at (ICalArray *array, 
+                        gint position)
+{
+	g_return_val_if_fail (I_CAL_IS_ARRAY (array), NULL);
+	g_return_val_if_fail (array != NULL, NULL);
+
+	return icalarray_element_at ((icalarray *)i_cal_object_get_native (I_CAL_OBJECT (array)), position);
+}
+
+/**
+ * i_cal_array_sort: (skip)
+ * @array: The #ICalArray to be sorted.
+ *  @compare: (scope call): The comapre function.
+ *
+ * Does not work right now. Sort the @array using the sort function @compare
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_array_sort (ICalArray *array, 
+                  gint (*compare) (const void *, const void *))
+{
+	g_return_if_fail (I_CAL_IS_ARRAY (array));
+	g_return_if_fail (array != NULL);
+	g_return_if_fail (compare != NULL);
+
+	icalarray_sort ((icalarray *)i_cal_object_get_native ((ICalObject *)array), compare);
+}

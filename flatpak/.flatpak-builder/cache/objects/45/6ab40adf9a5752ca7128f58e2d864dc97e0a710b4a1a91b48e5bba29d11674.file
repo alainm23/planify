@@ -1,0 +1,144 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if !defined (__LIBICAL_GLIB_H_INSIDE__) && !defined (LIBICAL_GLIB_COMPILATION)
+#error "Only <libical-glib/libical-glib.h> can be included directly."
+#endif
+
+#ifndef I_CAL_TIMETYPE_H
+#define I_CAL_TIMETYPE_H
+
+#include <libical-glib/i-cal-forward-declarations.h>
+#include <libical-glib/i-cal-object.h>
+
+G_BEGIN_DECLS
+
+#define I_CAL_TIMETYPE_TYPE \
+    (i_cal_timetype_get_type ())
+
+#define I_CAL_TIMETYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST \
+    ((obj), I_CAL_TIMETYPE_TYPE, ICalTimetype))
+
+#define I_CAL_TIMETYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST \
+    ((klass), I_CAL_TIMETYPE_TYPE, ICalTimetypeClass))
+
+#define I_CAL_IS_TIMETYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE \
+    ((obj), I_CAL_TIMETYPE_TYPE))
+
+#define I_CAL_IS_TIMETYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE \
+    ((klass), I_CAL_TIMETYPE_TYPE))
+
+/**
+ * ICalTimetype:
+ *
+ * This is the ICalTimetype instance.
+ */
+
+/**
+ * ICalTimetypeClass:
+ *
+ * This is the ICalTimetype class.
+ */
+typedef struct _ICalTimetypeClass ICalTimetypeClass;
+
+struct _ICalTimetype {
+    /*< private >*/
+    ICalObject parent;
+};
+
+struct _ICalTimetypeClass {
+    /*< private >*/
+    ICalObjectClass parent;
+};
+
+LIBICAL_ICAL_EXPORT
+GType 		i_cal_timetype_get_type		(void);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_timetype_new		(void);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_year		(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_year		(ICalTimetype *timetype,
+						 gint year);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_month	(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_month	(ICalTimetype *timetype,
+						 gint month);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_day		(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_day		(ICalTimetype *timetype,
+						 gint day);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_hour		(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_hour		(ICalTimetype *timetype,
+						 gint hour);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_minute	(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_minute	(ICalTimetype *timetype,
+						 gint minute);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_get_second	(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_second	(ICalTimetype *timetype,
+						 gint second);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_is_utc		(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_is_date		(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_is_date	(ICalTimetype *timetype,
+						 gint is_date);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_timetype_is_daylight	(ICalTimetype *timetype);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_timetype_set_is_daylight	(ICalTimetype *timetype,
+						 gint is_daylight);
+
+LIBICAL_ICAL_EXPORT
+const ICalTimezone *
+		i_cal_timetype_get_zone		(ICalTimetype *timetype);
+
+G_END_DECLS
+
+#endif /* I_CAL_TIMETYPE_H */

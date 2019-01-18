@@ -1,0 +1,17 @@
+digraph G {
+	xyz [label = "hello\nworld",color="slateblue",fontsize=24,fontname="Palatino-Italic",style=filled,fontcolor="hotpink"];
+	node [style=filled];
+	red [color=red];
+	green [color=green];
+	blue [color=blue,fontcolor=black];
+	cyan [color=cyan];
+	magenta [color=magenta];
+	yellow [color=yellow];
+	orange [color=orange];
+	red -> green;
+	red -> blue;
+	blue -> cyan;
+	blue -> magenta;
+	green -> yellow;
+	green -> orange;
+}

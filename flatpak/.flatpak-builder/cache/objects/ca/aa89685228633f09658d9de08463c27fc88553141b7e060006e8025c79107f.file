@@ -1,0 +1,599 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DeeSharedModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch02.html" title="Models">
+<link rel="prev" href="DeeSerializableModel.html" title="DeeSerializableModel">
+<link rel="next" href="DeeTransaction.html" title="DeeTransaction">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="DeeSerializableModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="DeeTransaction.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#DeeSharedModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#DeeSharedModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#DeeSharedModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#DeeSharedModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#DeeSharedModel.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#DeeSharedModel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="DeeSharedModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="DeeSharedModel.top_of_page"></a>DeeSharedModel</span></h2>
+<p>DeeSharedModel — A <span class="type">DeeModel</span> that can synchronize with other
+   <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> objects across D-Bus.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="DeeSharedModel.synopsis"></a><h2>Synopsis</h2>
+<a name="DeeSharedModelAccessMode"></a><pre class="synopsis">
+#include &lt;dee.h&gt;
+
+#define             <a class="link" href="DeeSharedModel.html#DEE-SHARED-MODEL-DBUS-IFACE:CAPS" title="DEE_SHARED_MODEL_DBUS_IFACE">DEE_SHARED_MODEL_DBUS_IFACE</a>
+struct              <a class="link" href="DeeSharedModel.html#DeeSharedModel-struct" title="struct DeeSharedModel">DeeSharedModel</a>;
+enum                <a class="link" href="DeeSharedModel.html#DeeSharedModelAccessMode-enum" title="enum DeeSharedModelAccessMode">DeeSharedModelAccessMode</a>;
+struct              <a class="link" href="DeeSharedModel.html#DeeSharedModelClass" title="struct DeeSharedModelClass">DeeSharedModelClass</a>;
+enum                <a class="link" href="DeeSharedModel.html#DeeSharedModelError" title="enum DeeSharedModelError">DeeSharedModelError</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="DeeSharedModel.html#dee-shared-model-flush-revision-queue" title="dee_shared_model_flush_revision_queue ()">dee_shared_model_flush_revision_queue</a>
+                                                        (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);
+<a class="link" href="DeePeer.html" title="DeePeer"><span class="returnvalue">DeePeer</span></a> *           <a class="link" href="DeeSharedModel.html#dee-shared-model-get-peer" title="dee_shared_model_get_peer ()">dee_shared_model_get_peer</a>           (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="DeeSharedModel.html#dee-shared-model-get-swarm-name" title="dee_shared_model_get_swarm_name ()">dee_shared_model_get_swarm_name</a>     (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="DeeSharedModel.html#dee-shared-model-is-leader" title="dee_shared_model_is_leader ()">dee_shared_model_is_leader</a>          (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="DeeSharedModel.html#dee-shared-model-is-synchronized" title="dee_shared_model_is_synchronized ()">dee_shared_model_is_synchronized</a>    (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);
+<span class="returnvalue">DeeModel</span> *          <a class="link" href="DeeSharedModel.html#dee-shared-model-new" title="dee_shared_model_new ()">dee_shared_model_new</a>                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<span class="returnvalue">DeeModel</span> *          <a class="link" href="DeeSharedModel.html#dee-shared-model-new-for-peer" title="dee_shared_model_new_for_peer ()">dee_shared_model_new_for_peer</a>       (<em class="parameter"><code><a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> *peer</code></em>);
+<span class="returnvalue">DeeModel</span> *          <a class="link" href="DeeSharedModel.html#dee-shared-model-new-with-back-end" title="dee_shared_model_new_with_back_end ()">dee_shared_model_new_with_back_end</a>  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeModel</span> *back_end</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="DeeSerializableModel.html" title="DeeSerializableModel">DeeSerializableModel</a>
+         +----<a class="link" href="DeeProxyModel.html" title="DeeProxyModel">DeeProxyModel</a>
+               +----DeeSharedModel
+</pre>
+<pre class="synopsis">
+  GEnum
+   +----DeeSharedModelAccessMode
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+DeeSharedModel implements
+ DeeModel and  DeeSerializable.</p>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel--access-mode" title='The "access-mode" property'>access-mode</a>"              <a class="link" href="DeeSharedModel.html#DeeSharedModelAccessMode"><span class="type">DeeSharedModelAccessMode</span></a>  : Read / Write / Construct Only
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel--flush-mode" title='The "flush-mode" property'>flush-mode</a>"               <a href="/usr/share/gtk-doc/html/dee-1.0/DeeSharedModel.html#DeeSharedModelFlushMode"><span class="type">DeeSharedModelFlushMode</span></a>  : Read / Write
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel--peer" title='The "peer" property'>peer</a>"                     <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a>*              : Read / Write / Construct Only
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel--synchronized" title='The "synchronized" property'>synchronized</a>"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel-begin-transaction" title='The "begin-transaction" signal'>begin-transaction</a>"                              : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+  "<a class="link" href="DeeSharedModel.html#DeeSharedModel-end-transaction" title='The "end-transaction" signal'>end-transaction</a>"                                : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> is created with a name (usually namespaced and unique to
+your program(s)) which is used to locate other <a href="DeeSharedModel.html"><span class="type">DeeSharedModels</span></a> created
+with the same name through D-Bus, and will keep synchronized  with them.
+</p>
+<p>
+This allows to you build MVC programs with a sane model API, but have the
+controller (or multiple views) in a separate process.
+</p>
+<p>
+Before you modify the contents of the shared model it is important that
+you wait for the model to synchronize with its peers. The normal way to do
+this is to wait for the "notify::synchronized" signal.
+</p>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DEE-SHARED-MODEL-DBUS-IFACE:CAPS"></a><h3>DEE_SHARED_MODEL_DBUS_IFACE</h3>
+<pre class="programlisting">#define DEE_SHARED_MODEL_DBUS_IFACE "com.canonical.Dee.Model"
+</pre>
+<p>
+String constant defining the name of the DBus Model interface.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModel-struct"></a><h3>struct DeeSharedModel</h3>
+<pre class="programlisting">struct DeeSharedModel;</pre>
+<p>
+All fields in the DeeSharedModel structure are private and should never be
+accessed directly
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModelAccessMode-enum"></a><h3>enum DeeSharedModelAccessMode</h3>
+<pre class="programlisting">typedef enum {
+  DEE_SHARED_MODEL_ACCESS_MODE_WORLD_WRITABLE,
+  DEE_SHARED_MODEL_ACCESS_MODE_LEADER_WRITABLE
+} DeeSharedModelAccessMode;
+</pre>
+<p>
+Enumeration defining behavior of the model with regards to writes from
+other peers in the swarm.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="DEE-SHARED-MODEL-ACCESS-MODE-WORLD-WRITABLE:CAPS"></a><span class="term"><code class="literal">DEE_SHARED_MODEL_ACCESS_MODE_WORLD_WRITABLE</code></span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><a name="DEE-SHARED-MODEL-ACCESS-MODE-LEADER-WRITABLE:CAPS"></a><span class="term"><code class="literal">DEE_SHARED_MODEL_ACCESS_MODE_LEADER_WRITABLE</code></span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModelClass"></a><h3>struct DeeSharedModelClass</h3>
+<pre class="programlisting">struct DeeSharedModelClass {
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModelError"></a><h3>enum DeeSharedModelError</h3>
+<pre class="programlisting">typedef enum {
+  DEE_SHARED_MODEL_ERROR_LEADER_INVALIDATED
+} DeeSharedModelError;
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><a name="DEE-SHARED-MODEL-ERROR-LEADER-INVALIDATED:CAPS"></a><span class="term"><code class="literal">DEE_SHARED_MODEL_ERROR_LEADER_INVALIDATED</code></span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-flush-revision-queue"></a><h3>dee_shared_model_flush_revision_queue ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               dee_shared_model_flush_revision_queue
+                                                        (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);</pre>
+<p>
+Expert: All changes to <em class="parameter"><code>self</code></em> that has not yet been propagated to the peer
+models are send. If you also want to block the mainloop until
+all the underlying transport streams have been flushed use
+<a href="/usr/share/gtk-doc/html/dee-1.0/DeeSharedModel.html#dee-shared-model-flush-revision-queue-sync"><code class="function">dee_shared_model_flush_revision_queue_sync()</code></a>.
+</p>
+<p>
+Normally <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> collects changes to <em class="parameter"><code>self</code></em> into batches and sends
+them automatically to all peers. You can use this call to provide fine
+grained control of exactly when changes to <em class="parameter"><code>self</code></em> are synchronized to its
+peers. This may for example be useful to improve the interactivity of your
+application if you have a model-process which intermix small and light
+changes with big and expensive changes. Using this call you can make sure
+the model-process dispatches small changes more aggresively to the
+view-process, while holding on to the expensive changes a bit longer.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The shared model to flush the revision queue on</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The number of revisions flushed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-get-peer"></a><h3>dee_shared_model_get_peer ()</h3>
+<pre class="programlisting"><a class="link" href="DeePeer.html" title="DeePeer"><span class="returnvalue">DeePeer</span></a> *           dee_shared_model_get_peer           (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);</pre>
+<p>
+Convenience function for accessing the <a class="link" href="DeeSharedModel.html#DeeSharedModel--peer" title='The "peer" property'><span class="type">"peer"</span></a> property
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The model to get the <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> used to interact with the peer models. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-get-swarm-name"></a><h3>dee_shared_model_get_swarm_name ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       dee_shared_model_get_swarm_name     (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);</pre>
+<p>
+Convenience function for accessing the <a class="link" href="DeePeer.html#DeePeer--swarm-name" title='The "swarm-name" property'><span class="type">"swarm-name"</span></a> property of the
+<a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> defined in the <a class="link" href="DeeSharedModel.html#DeeSharedModel--peer" title='The "peer" property'><span class="type">"peer"</span></a> property.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The model to get the name for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The name of the swarm this model synchrnonizes with</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-is-leader"></a><h3>dee_shared_model_is_leader ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            dee_shared_model_is_leader          (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);</pre>
+<p>
+Check if the model is the swarm leader. This is a convenience function for
+accessing the <a class="link" href="DeeSharedModel.html#DeeSharedModel--peer" title='The "peer" property'><span class="type">"peer"</span></a> property and checking if it's the swarm
+leader.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The model to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The value of <a class="link" href="DeePeer.html#dee-peer-is-swarm-leader" title="dee_peer_is_swarm_leader ()"><code class="function">dee_peer_is_swarm_leader()</code></a> for the <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> used by
+this shared model</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-is-synchronized"></a><h3>dee_shared_model_is_synchronized ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            dee_shared_model_is_synchronized    (<em class="parameter"><code><a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *self</code></em>);</pre>
+<p>
+Check if the model is synchronized with its peers. Before modifying a
+shared model in any way (except <a class="link" href="dee-1.0-DeeModel.html#dee-model-set-schema" title="dee_model_set_schema ()"><code class="function">dee_model_set_schema()</code></a>) you should wait for
+it to become synchronized. This is normally done by waiting for the
+"notify::synchronized" signal.
+</p>
+<p>
+This method is purely a convenience function for accessing the
+<a class="link" href="DeeSharedModel.html#DeeSharedModel--synchronized" title='The "synchronized" property'><span class="type">"synchronized"</span></a> property.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The model to inspect</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The value of the :synchronized property</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-new"></a><h3>dee_shared_model_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeModel</span> *          dee_shared_model_new                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>
+Create a new empty shared model without any column schema associated.
+The column schema will be set in one of two ways: firstly you may set it
+manually with <a class="link" href="dee-1.0-DeeModel.html#dee-model-set-schema" title="dee_model_set_schema ()"><code class="function">dee_model_set_schema()</code></a> or secondly it will be set once
+the first rows are exchanged with a peer model.
+</p>
+<p>
+A <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> with a schema manually set has to be created before
+creating more <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> with the same <em class="parameter"><code>name</code></em>.
+</p>
+<p>
+A shared model created with this constructor will store row data in a
+suitably picked memory backed model.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A well known name to publish this model under. Models sharing this name
+will synchronize with each other</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> DeeSharedModel]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-new-for-peer"></a><h3>dee_shared_model_new_for_peer ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeModel</span> *          dee_shared_model_new_for_peer       (<em class="parameter"><code><a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> *peer</code></em>);</pre>
+<p>
+Create a new empty shared model without any column schema associated.
+The column schema will be set in one of two ways: firstly you may set it
+manually with <a class="link" href="dee-1.0-DeeModel.html#dee-model-set-schema" title="dee_model_set_schema ()"><code class="function">dee_model_set_schema()</code></a> or secondly it will be set once
+the first rows are exchanged with a peer model.
+</p>
+<p>
+A <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> with a schema manually set has to be created before
+creating more <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> with the same <em class="parameter"><code>name</code></em>.
+</p>
+<p>
+A shared model created with this constructor will store row data in a
+suitably picked memory backed model.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>peer</code></em> :</span></p></td>
+<td>A <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> instance. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> DeeSharedModel]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-shared-model-new-with-back-end"></a><h3>dee_shared_model_new_with_back_end ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeModel</span> *          dee_shared_model_new_with_back_end  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeModel</span> *back_end</code></em>);</pre>
+<p>
+Create a new shared model storing all data in <em class="parameter"><code>back_end</code></em>.
+</p>
+<p>
+The model will start synchronizing with peer models as soon as possible and
+the <a class="link" href="DeeSharedModel.html#DeeSharedModel--synchronized" title='The "synchronized" property'><span class="type">"synchronized"</span></a> property will be set once finished.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>A well known name to publish this model under.
+Models sharing this name will synchronize with each other. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>back_end</code></em> :</span></p></td>
+<td>The <span class="type">DeeModel</span> that will actually store
+the model data. Ownership of the ref to <em class="parameter"><code>back_end</code></em> is transfered to
+the shared model. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> DeeSharedModel]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="DeeSharedModel--access-mode"></a><h3>The <code class="literal">"access-mode"</code> property</h3>
+<pre class="programlisting">  "access-mode"              <a class="link" href="DeeSharedModel.html#DeeSharedModelAccessMode"><span class="type">DeeSharedModelAccessMode</span></a>  : Read / Write / Construct Only</pre>
+<p>
+Enumeration defining behavior of this model when trying to write to it.
+</p>
+<p>
+Setting this to <a class="link" href="DeeSharedModel.html#DEE-SHARED-MODEL-ACCESS-MODE-LEADER-WRITABLE:CAPS"><span class="type">DEE_SHARED_MODEL_ACCESS_MODE_LEADER_WRITABLE</span></a> is useful
+when one process is considered an "owner" of a model and all the other
+peers are supposed to only synchronize it for reading.
+</p>
+<p>
+See also DeePeer:swarm-owner property to ensure ownership of a swarm.
+</p>
+<p>Default value: DEE_SHARED_MODEL_ACCESS_MODE_WORLD_WRITABLE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModel--flush-mode"></a><h3>The <code class="literal">"flush-mode"</code> property</h3>
+<pre class="programlisting">  "flush-mode"               <a href="/usr/share/gtk-doc/html/dee-1.0/DeeSharedModel.html#DeeSharedModelFlushMode"><span class="type">DeeSharedModelFlushMode</span></a>  : Read / Write</pre>
+<p>
+Enumeration defining the flushing behavior.
+</p>
+<p>
+Setting this to <a href="/usr/share/gtk-doc/html/dee-1.0/DeeSharedModel.html#DEE-SHARED-MODEL-FLUSH-MODE-MANUAL:CAPS"><span class="type">DEE_SHARED_MODEL_FLUSH_MODE_MANUAL</span></a> will disable
+
+automatic flushing that usually happens when the application's main event
+loop is idle. Automatic flushing should be primarily disabled when
+
+a shared model is used from multiple threads, or when not using <a href="http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a>.
+When disabled, <a class="link" href="DeeSharedModel.html#dee-shared-model-flush-revision-queue" title="dee_shared_model_flush_revision_queue ()"><code class="function">dee_shared_model_flush_revision_queue()</code></a> needs to be called
+explicitely.
+</p>
+<p>Default value: DEE_SHARED_MODEL_FLUSH_MODE_AUTOMATIC</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModel--peer"></a><h3>The <code class="literal">"peer"</code> property</h3>
+<pre class="programlisting">  "peer"                     <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a>*              : Read / Write / Construct Only</pre>
+<p>
+The <a class="link" href="DeePeer.html" title="DeePeer"><span class="type">DeePeer</span></a> that this model uses to connect to the swarm
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModel--synchronized"></a><h3>The <code class="literal">"synchronized"</code> property</h3>
+<pre class="programlisting">  "synchronized"             <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read</pre>
+<p>
+Boolean property defining whether or not the model has synchronized with
+its peers (if any) yet.
+</p>
+<p>
+You should not modify a <a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> that is not synchronized. Before
+modifying the model in any way (except calling <a class="link" href="dee-1.0-DeeModel.html#dee-model-set-schema" title="dee_model_set_schema ()"><code class="function">dee_model_set_schema()</code></a>)
+you should wait for it to become synchronized.
+</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="DeeSharedModel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="DeeSharedModel-begin-transaction"></a><h3>The <code class="literal">"begin-transaction"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *model,
+                                                        <span class="type">guint64</span>         begin_seqnum,
+                                                        <span class="type">guint64</span>         end_seqnum,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted right before a remote transaction will be committed to the model.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>The shared model the signal is emitted on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>begin_seqnum</code></em> :</span></p></td>
+<td>The seqnum the model has now</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end_seqnum</code></em> :</span></p></td>
+<td>The seqnum the model will have after the transaction is applied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeSharedModel-end-transaction"></a><h3>The <code class="literal">"end-transaction"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="DeeSharedModel.html" title="DeeSharedModel"><span class="type">DeeSharedModel</span></a> *model,
+                                                        <span class="type">guint64</span>         begin_seqnum,
+                                                        <span class="type">guint64</span>         end_seqnum,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>        user_data)         : <a href="http://library.gnome.org/devel/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS"><code class="literal">Run Last</code></a></pre>
+<p>
+Emitted right after a remote transaction has been committed to the model.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>The shared model the signal is emitted on</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>begin_seqnum</code></em> :</span></p></td>
+<td>The seqnum the model had before the transaction was applied</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end_seqnum</code></em> :</span></p></td>
+<td>The seqnum the model has now</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

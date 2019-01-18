@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Philip Withnall
+ Copyright (C) 2012 Philip Withnall
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="bluespec" name="Bluespec SystemVerilog" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.bsv</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="system-task" name="System Task" map-to="def:keyword"/>
+    <style id="annotation" name="Annotation" map-to="def:function"/>
+    <style id="attribute" name="Attribute" map-to="def:type"/>
+    <style id="import-bvi" name="Import BVI" map-to="def:keyword"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Type" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+    <context id="system-task" style-ref="system-task">
+      <prefix>\$</prefix>
+      <keyword>display</keyword>
+      <keyword>dumpoff</keyword>
+      <keyword>dumpon</keyword>
+      <keyword>dumpvars</keyword>
+      <keyword>fclose</keyword>
+      <keyword>fdisplay</keyword>
+      <keyword>fflush</keyword>
+      <keyword>fgetc</keyword>
+      <keyword>finish</keyword>
+      <keyword>fopen</keyword>
+      <keyword>fwrite</keyword>
+      <keyword>stime</keyword>
+      <keyword>stop</keyword>
+      <keyword>test\$plusargs</keyword>
+      <keyword>time</keyword>
+      <keyword>ungetc</keyword>
+      <keyword>write</keyword>
+    </context>
+
+    <define-regex id="attributes-names" extended="true">
+      always_enabled|
+      always_ready|
+      CLK|
+      descending_urgency|
+      doc|
+      enable|
+      fire_when_enabled|
+      no_implicit_conditions|
+      noinline|
+      port|
+      preempts|
+      prefix|
+      ready|
+      result|
+      RST_N|
+      synthesize
+    </define-regex>
+
+    <context id="annotation" style-ref="annotation">
+      <start>\(\*\s*(\%{attributes-names})</start>
+      <end>\*\)</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="attribute"/>
+        <context ref="verilog:string"/>
+      </include>
+    </context>
+
+    <context id="import-bvi" style-ref="import-bvi">
+      <keyword>ancestor</keyword>
+      <keyword>clocked_by</keyword>
+      <keyword>default_clock</keyword>
+      <keyword>default_reset</keyword>
+      <keyword>enable</keyword>
+      <keyword>input_clock</keyword>
+      <keyword>input_reset</keyword>
+      <keyword>method</keyword>
+      <keyword>no_reset</keyword>
+      <keyword>output_clock</keyword>
+      <keyword>output_reset</keyword>
+      <keyword>parameter</keyword>
+      <keyword>path</keyword>
+      <keyword>port</keyword>
+      <keyword>ready</keyword>
+      <keyword>reset_by</keyword>
+      <keyword>same_family</keyword>
+      <keyword>schedule</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>action</keyword>
+      <keyword>clocked_by</keyword>
+      <keyword>deriving</keyword>
+      <keyword>endaction</keyword>
+      <keyword>endfunction</keyword>
+      <keyword>endinterface</keyword>
+      <keyword>endmethod</keyword>
+      <keyword>endmodule</keyword>
+      <keyword>endpackage</keyword>
+      <keyword>endrule</keyword>
+      <keyword>endrules</keyword>
+      <keyword>enum</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>interface</keyword>
+      <keyword>let</keyword>
+      <keyword>match</keyword>
+      <keyword>method</keyword>
+      <keyword>module</keyword>
+      <keyword>numeric</keyword>
+      <keyword>package</keyword>
+      <keyword>provisos</keyword>
+      <keyword>reset_by</keyword>
+      <keyword>rule</keyword>
+      <keyword>rules</keyword>
+      <keyword>struct</keyword>
+      <keyword>tagged</keyword>
+      <keyword>type</keyword>
+      <keyword>typedef</keyword>
+      <keyword>union</keyword>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>Action</keyword>
+      <keyword>ActionValue</keyword>
+      <keyword>Bit</keyword>
+      <keyword>Bool</keyword>
+      <keyword>int</keyword>
+      <keyword>Int</keyword>
+      <keyword>Integer</keyword>
+      <keyword>Maybe</keyword>
+      <keyword>Nat</keyword>
+      <keyword>Rules</keyword>
+      <keyword>String</keyword>
+      <keyword>Tuple[2-7]</keyword>
+      <keyword>UInt</keyword>
+    </context>
+
+    <context id="standard-interface" style-ref="type">
+      <keyword>Client</keyword>
+      <keyword>ClientServer</keyword>
+      <keyword>Connectable</keyword>
+      <keyword>FIFO</keyword>
+      <keyword>FIFOF</keyword>
+      <keyword>Get</keyword>
+      <keyword>GetPut</keyword>
+      <keyword>PulseWire</keyword>
+      <keyword>Put</keyword>
+      <keyword>Reg</keyword>
+      <keyword>Server</keyword>
+      <keyword>Wire</keyword>
+    </context>
+
+    <context id="bluespec" class="no-spell-check">
+      <include>
+        <context ref="system-task"/>
+        <context ref="annotation"/>
+        <context ref="import-bvi"/>
+        <context ref="keyword"/>
+        <context ref="type"/>
+        <context ref="standard-interface"/>
+        <!-- Bluespec includes Verilog as a subset -->
+        <context ref="verilog:verilog"/>
+      </include>
+    </context>
+  </definitions>
+</language>

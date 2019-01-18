@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g color='#bebebe' transform='translate(-1093 315)'>
+        <path d='M1101-303.03a.498.498 0 0 1-.375-.158l-2.5-3a.428.428 0 0 1-.09-.248c-.014-.266.188-.556.465-.564h1.5v-3.5c0-.262.238-.5.5-.5h1a.492.492 0 0 1 .094 0c.23.044.41.267.406.5v3.5h1.5c.37.011.606.524.375.813l-2.5 3a.497.497 0 0 1-.375.158z' fill='#666' overflow='visible' style='marker:none'/>
+        
+        <path d='M1101-315a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z' fill='#666' overflow='visible' style='marker:none'/>
+    </g>
+</svg>

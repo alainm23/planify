@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2007 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="erlang" name="Erlang" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-erlang</property>
+    <property name="globs">*.erl;*.hrl</property>
+    <property name="line-comment-start">%</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="atom" name="Atom" map-to="def:type"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="character" name="Character" map-to="def:character"/>
+    <style id="floating-point" name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="base-n-integer" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="builtin" name="Builtin" map-to="def:builtin"/>
+    <style id="compiler-directive" name="Compiler Directive" map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>%</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>after</keyword>
+      <keyword>begin</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>cond</keyword>
+      <keyword>end</keyword>
+      <keyword>fun</keyword>
+      <keyword>if</keyword>
+      <keyword>let</keyword>
+      <keyword>of</keyword>
+      <keyword>query</keyword>
+      <keyword>receive</keyword>
+      <keyword>when</keyword>
+    </context>
+
+    <context id="operators" style-ref="operator">
+      <keyword>and</keyword>
+      <keyword>band</keyword>
+      <keyword>bnot</keyword>
+      <keyword>bor</keyword>
+      <keyword>bsl</keyword>
+      <keyword>bsr</keyword>
+      <keyword>bxor</keyword>
+      <keyword>div</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>rem</keyword>
+      <keyword>xor</keyword>
+    </context>
+
+    <context id="atom" style-ref="atom">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+      </include>
+    </context>
+
+    <context id="character" style-ref="character" class="character" class-disabled="no-spell-check">
+      <match>\$(?:(\\.)|.)</match>
+      <include>
+        <context sub-pattern="1" style-ref="def:special-char"/>
+      </include>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+\.[0-9]+([Ee][+-]?[0-9]+)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="base-n-number" style-ref="base-n-integer">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [1-9]([0-9])?#[0-9a-fA-F]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal-number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="builtins" style-ref="builtin">
+      <keyword>abs</keyword>
+      <keyword>alive</keyword>
+      <keyword>apply</keyword>
+      <keyword>atom_to_list</keyword>
+      <keyword>atom</keyword>
+      <keyword>binary_to_list</keyword>
+      <keyword>binary_to_ter</keyword>
+      <keyword>binary</keyword>
+      <keyword>check_process_code</keyword>
+      <keyword>concat_binary</keyword>
+      <keyword>constant</keyword>
+      <keyword>date</keyword>
+      <keyword>delete_module</keyword>
+      <keyword>disconnect_node</keyword>
+      <keyword>element</keyword>
+      <keyword>erase</keyword>
+      <keyword>exit</keyword>
+      <keyword>float</keyword>
+      <keyword>float_to_list</keyword>
+      <keyword>function</keyword>
+      <keyword>get_cookie</keyword>
+      <keyword>get_keys</keyword>
+      <keyword>get</keyword>
+      <keyword>group_leader</keyword>
+      <keyword>halt</keyword>
+      <keyword>hash</keyword>
+      <keyword>hd</keyword>
+      <keyword>integer_to_list</keyword>
+      <keyword>integer</keyword>
+      <keyword>is_alive</keyword>
+      <keyword>length</keyword>
+      <keyword>link</keyword>
+      <keyword>list_to_atom</keyword>
+      <keyword>list_to_binary</keyword>
+      <keyword>list_to_float</keyword>
+      <keyword>list_to_integer</keyword>
+      <keyword>list_to_pid</keyword>
+      <keyword>list_to_tuple</keyword>
+      <keyword>list</keyword>
+      <keyword>load_module</keyword>
+      <keyword>make_ref</keyword>
+      <keyword>math</keyword>
+      <keyword>module_loaded</keyword>
+      <keyword>monitor_node</keyword>
+      <keyword>node</keyword>
+      <keyword>nodes</keyword>
+      <keyword>now</keyword>
+      <keyword>number</keyword>
+      <keyword>open_port</keyword>
+      <keyword>pid_to_list</keyword>
+      <keyword>pid</keyword>
+      <keyword>ports</keyword>
+      <keyword>port_close</keyword>
+      <keyword>port_info</keyword>
+      <keyword>preloaded</keyword>
+      <keyword>processes</keyword>
+      <keyword>process_flag</keyword>
+      <keyword>process_info</keyword>
+      <keyword>process</keyword>
+      <keyword>purge_module</keyword>
+      <keyword>put</keyword>
+      <keyword>record</keyword>
+      <keyword>reference</keyword>
+      <keyword>registered</keyword>
+      <keyword>register</keyword>
+      <keyword>round</keyword>
+      <keyword>self</keyword>
+      <keyword>setelement</keyword>
+      <keyword>set_cookie</keyword>
+      <keyword>set_node</keyword>
+      <keyword>size</keyword>
+      <keyword>spawn_link</keyword>
+      <keyword>spawn</keyword>
+      <keyword>split_binary</keyword>
+      <keyword>statistics</keyword>
+      <keyword>term_to_binary</keyword>
+      <keyword>throw</keyword>
+      <keyword>time</keyword>
+      <keyword>tl</keyword>
+      <keyword>trunc</keyword>
+      <keyword>tuple_to_list</keyword>
+      <keyword>unlink</keyword>
+      <keyword>unregister</keyword>
+      <keyword>whereis</keyword>
+    </context>
+
+    <context id="compiler-directives" style-ref="compiler-directive">
+      <prefix>-</prefix>
+      <keyword>author</keyword>
+      <keyword>behaviour</keyword>
+      <keyword>compile</keyword>
+      <keyword>copyright</keyword>
+      <keyword>define</keyword>
+      <keyword>doc</keyword>
+      <keyword>else</keyword>
+      <keyword>endif</keyword>
+      <keyword>error</keyword>
+      <keyword>export</keyword>
+      <keyword>file</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>ifndef</keyword>
+      <keyword>import</keyword>
+      <keyword>include_lib</keyword>
+      <keyword>include</keyword>
+      <keyword>module</keyword>
+      <keyword>on_load</keyword>
+      <keyword>record</keyword>
+      <keyword>undef</keyword>
+      <keyword>vsn</keyword>
+      <keyword>warning</keyword>
+    </context>
+
+    <context id="erlang" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="keywords"/>
+        <context ref="operators"/>
+        <context ref="atom"/>
+        <context ref="string"/>
+        <context ref="character"/>
+        <context ref="float"/>
+        <context ref="base-n-number"/>
+        <context ref="decimal-number"/>
+        <context ref="builtins"/>
+        <context ref="compiler-directives"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

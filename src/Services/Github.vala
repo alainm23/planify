@@ -94,10 +94,10 @@ public class Services.Github : GLib.Object {
                     task.note = item_details.get_string_member ("body");
 
                     // Agregando tarea a la base de datos
-                    Application.database.add_task (task);
+                    task.id = Application.database.add_task_return_id (task);
 
                     // Send Noty
-                    Application.notification.send_notification ("Github Issues - %s".printf (repo.name), task.content, "planner-github");
+                    Application.notification.send_task_notification ("Github Issues - %s".printf (repo.name), task);
 
                     // Update repo
                     Application.database.update_repository (repo);

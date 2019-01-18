@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Jacob Ilsø Christensen, Paolo Borelli
+ Copyright (C) 2005 Jacob Ilsø Christensen <jacobilsoe@gmail.com>
+ Copyright (C) 2005 Paolo Borelli <pborelli@katamail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="changelog" name="ChangeLog" version="2.0" _section="Other">
+
+  <metadata>
+    <property name="mimetypes">text/x-changelog</property>
+    <property name="globs">ChangeLog*</property>
+  </metadata>
+
+  <styles>
+    <style id="date" name="Date" map-to="def:number"/>
+    <style id="name" name="Name" map-to="def:statement"/>
+    <style id="email" name="E-mail address" map-to="def:identifier"/>
+    <style id="file" name="File" map-to="def:comment"/>
+    <style id="bullet" name="Bullet" map-to="def:type"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="release" name="Release" map-to="def:statement"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="identifier">[A-Za-z_][A-Za-z0-9_]*</define-regex>
+    <define-regex id="weekday">Mon|Tue|Wed|Thu|Fri|Sat|Sun</define-regex>
+    <define-regex id="month">Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec</define-regex>
+
+    <define-regex id="date" extended="true">
+      \%{weekday}\s+\%{month}\s+\d{1,2}\s+(\d{1,2}:\d{1,2}:\d{1,2}\s+)?([aApP][mM]\s+)?(\w{3}\s+)?\d{4} |   # Wed Jun 27 13:27:21 2007
+      \d{4}-\d{2}-\d{2}                                                       # 2007-06-28
+    </define-regex>
+
+    <context id="changelog">
+      <include>
+
+        <context id="date-and-stuff" class="no-spell-check">
+          <!-- FIXME: how to match date here? The date and name line is
+            something like (DATE) (NAME) <EMAIL>, where DATE and NAME may
+            be quite arbitrary. -->
+          <match extended="true">
+            ^(?P&lt;date&gt;\%{date})\s+
+            (?P&lt;name&gt;.*)\s*
+            (?P&lt;email&gt;\&lt;[^\&lt;]+\&gt;)\s*$
+          </match>
+          <include>
+            <context sub-pattern="date" style-ref="date"/>
+            <context sub-pattern="name" style-ref="name"/>
+            <context sub-pattern="email" style-ref="email"/>
+          </include>
+        </context>
+
+        <context id="release" style-ref="release" class="no-spell-check">
+          <match>^\s*\=.*\=\s*$</match>
+        </context>
+
+        <context id="file" style-ref="file" class="no-spell-check">
+          <start>^\s+(\*)</start>
+          <!-- end at blank lines if there's no colon -->
+          <end>\:|^(?!\S)</end>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="bullet"/>
+          </include>
+        </context>
+
+        <context id="function" style-ref="function" class="no-spell-check">
+          <match>\(\s*\%{identifier}\s*\)</match>
+        </context>
+
+      </include>
+    </context>
+  </definitions>
+
+</language>

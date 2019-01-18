@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Hasan Karahan <hasan.karahan81@gmail.com>, updated by Remi Meier
+ Copyright (C) 2008 Hasan Karahan <hasan.karahan81@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="eiffel" name="Eiffel" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">text/x-eiffel</property>
+    <property name="globs">*.e;*.eif</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="debug" name="Debug" map-to="def:preprocessor"/>
+    <style id="assertion" name="Assertion" map-to="def:preprocessor"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="design-by-contract" name="Design by Contract" map-to="def:keyword"/>
+    <style id="exception-handling" name="Exception Handling" map-to="def:keyword"/>
+    <style id="predefined-variable" name="Predefined Variable" map-to="def:builtin"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+    <style id="void" name="Void Value" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean Value" map-to="def:boolean"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="hexadecimal" name="Hexadecimal number" map-to="def:base-n-integer"/>
+  </styles>
+
+  <default-regex-options case-sensitive="true"/>
+
+  <definitions>
+
+    <context id="single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+
+    <context id="multi-line-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"\[</start>
+      <end>\]"</end>
+
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+       <include>
+         <context id="escaped-character" style-ref="escaped-character">
+           <match extended="true">
+           (\%\"|\%N|\%\%)
+           </match>
+         </context>
+       </include>
+    </context>
+
+
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="debug" style-ref="debug">
+      <start>(^|\s)debug(\s|$)</start>
+      <end>(^|\s)end(\s|$)</end>
+    </context>
+
+    <context id="assertion" style-ref="assertion">
+      <start>(^|\s)check(\s|$)</start>
+      <end>(^|\s)end(\s|$)</end>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+
+      <!-- class declaration -->
+      <keyword>indexing</keyword>
+      <keyword>deferred</keyword>
+      <keyword>expanded</keyword>
+      <keyword>class</keyword>
+      <keyword>obsolete</keyword>
+      <keyword>inherit</keyword>
+      <keyword>insert</keyword>
+
+      <!-- parent list -->
+      <keyword>rename</keyword>
+      <keyword>as</keyword>
+      <keyword>export</keyword>
+      <keyword>all</keyword>
+      <keyword>undefine</keyword>
+      <keyword>redefine</keyword>
+      <keyword>select</keyword>
+      <keyword>end</keyword>
+      <keyword>(create|creation)</keyword>
+      <keyword>feature</keyword>
+
+      <!-- feature declaration -->
+      <keyword>frozen</keyword>
+      <keyword>prefix</keyword>
+      <keyword>infix</keyword>
+      <keyword>is</keyword>
+
+      <!-- routine -->
+      <keyword>obsolete</keyword>
+      <keyword>require\s*(else)?</keyword>
+      <keyword>local</keyword>
+
+      <!-- routine body -->
+      <keyword>deferred</keyword>
+      <keyword>do</keyword>
+      <keyword>once</keyword>
+      <keyword>external</keyword>
+      <keyword>alias</keyword>
+      <keyword>ensure\s*(then)?</keyword>
+      <keyword>rescue</keyword>
+      <keyword>end</keyword>
+      <keyword>unique</keyword>
+      <keyword>invariant</keyword>
+      <keyword>end</keyword>
+
+      <!-- binary -->
+      <keyword>and\s*(then)?</keyword>
+      <keyword>or\s*(else)?</keyword>
+      <keyword>xor</keyword>
+      <keyword>implies</keyword>
+
+      <!-- unary -->
+      <keyword>not</keyword>
+
+      <!-- instruction -->
+      <keyword>retry</keyword>
+      <keyword>if</keyword>
+      <keyword>then</keyword>
+      <keyword>elseif</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>inspect</keyword>
+      <keyword>when</keyword>
+      <keyword>end</keyword>
+
+      <!-- loop -->
+      <keyword>from</keyword>
+      <keyword>invariant</keyword>
+      <keyword>variant</keyword>
+      <keyword>until</keyword>
+      <keyword>loop</keyword>
+      <keyword>do</keyword>
+      <keyword>end</keyword>
+
+      <!-- expression -->
+      <keyword>strip</keyword>
+      <keyword>old</keyword>
+
+      <!-- type -->
+      <keyword>separate</keyword>
+      <keyword>expanded</keyword>
+      <keyword>like</keyword>
+    </context>
+
+    <context id="predefined-variables" style-ref="predefined-variable">
+      <keyword>Current</keyword>
+      <keyword>Precursor</keyword>
+      <keyword>Result</keyword>
+    </context>
+
+    <context id="void-value" style-ref="void">
+      <keyword>Void</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>False</keyword>
+      <keyword>True</keyword>
+    </context>
+
+    <context id="class-types" style-ref="type">
+      <match extended="true">
+      [A-Z_][A-Z0-9_]+
+      </match>
+    </context>
+
+
+    <context id="number" style-ref="decimal">
+      <match extended="true">
+      (?&lt;![\w\.])
+      (([0-9]+)|([0-9]+\.[0-9]+([Ee][-]?[0-9]+)?))
+      (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+      (?&lt;![\w\.])
+      \$[0-9a-fA-F]*
+      (?![\w\.])
+      </match>
+    </context>
+
+    <context id="eiffel" class="no-spell-check">
+      <include>
+        <context ref="single-quoted-string"/>
+        <context ref="multi-line-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="line-comment"/>
+        <context ref="debug"/>
+        <context ref="assertion"/>
+        <context ref="keywords"/>
+        <context ref="predefined-variables"/>
+        <context ref="class-types"/>
+        <context ref="void-value"/>
+        <context ref="boolean"/>
+        <context ref="number"/>
+        <context ref="hexadecimal"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2003-2007 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="verilog" name="Verilog" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-verilog-src</property>
+    <property name="globs">*.v</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="printf" name="printf Conversion" map-to="def:special-char"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="compiler-directive" name="Compiler Directive" map-to="def:preprocessor"/>
+    <style id="ieee-system-task" name="IEEE System Task" map-to="def:keyword"/>
+    <style id="lrm-additional-system-task" name="LRM Additional System Task" map-to="def:keyword"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="gate" name="Gate" map-to="def:keyword"/>
+    <style id="type" name="Type" map-to="def:type"/>
+    <style id="base-n-integer" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="real-number" name="Real number" map-to="def:floating-point"/>
+    <style id="integer-number" name="Integer Number" map-to="def:number"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="printf" style-ref="printf" extend-parent="false">
+      <match extended="true">
+        \%\%|\%
+        0?                      # truncation
+        (?:[1-9][0-9]*|\*)?     # width
+        (?:\.\-?(?:[0-9]+|\*))? # precision
+        [bBoOdDhHeEfFtTsSmMlL]  # format specifier
+      </match>
+    </context>
+
+    <define-regex id="escaped-character" extended="true">
+      \\(                   # leading backslash
+      [\\\"\'nt]            # escaped character
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="printf"/>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="compiler-directive" style-ref="compiler-directive">
+      <prefix>`</prefix>
+      <keyword>celldefine</keyword>
+      <keyword>default_nettype</keyword>
+      <keyword>define</keyword>
+      <keyword>else</keyword>
+      <keyword>elsif</keyword>
+      <keyword>endcelldefine</keyword>
+      <keyword>endif</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>ifndef</keyword>
+      <keyword>include</keyword>
+      <keyword>line</keyword>
+      <keyword>nounconnected_drive</keyword>
+      <keyword>resetall</keyword>
+      <keyword>timescale</keyword>
+      <keyword>unconnected_drive</keyword>
+      <keyword>undef</keyword>
+    </context>
+
+    <!-- System tasks as mandated by: IEEE Standard for Verilog Hardware Description Language (IEEE-1364-2005). -->
+    <context id="ieee-system-task" style-ref="ieee-system-task">
+      <prefix>\$</prefix>
+      <keyword>acos</keyword>
+      <keyword>acosh</keyword>
+      <keyword>asin</keyword>
+      <keyword>asinh</keyword>
+      <keyword>atan</keyword>
+      <keyword>atan2</keyword>
+      <keyword>atanh</keyword>
+      <keyword>async\$and\$array</keyword>
+      <keyword>async\$and\$plane</keyword>
+      <keyword>async\$nand\$array</keyword>
+      <keyword>async\$nand\$plane</keyword>
+      <keyword>async\$or\$array</keyword>
+      <keyword>async\$or\$plane</keyword>
+      <keyword>async\$nor\$array</keyword>
+      <keyword>async\$nor\$plane</keyword>
+      <keyword>bitstoreal</keyword>
+      <keyword>ceil</keyword>
+      <keyword>cos</keyword>
+      <keyword>cosh</keyword>
+      <keyword>clog2</keyword>
+      <keyword>display</keyword>
+      <keyword>displayb</keyword>
+      <keyword>displayh</keyword>
+      <keyword>displayo</keyword>
+      <keyword>dist_chi_square</keyword>
+      <keyword>dist_erlang</keyword>
+      <keyword>dist_exponential</keyword>
+      <keyword>dist_normal</keyword>
+      <keyword>dist_poisson</keyword>
+      <keyword>dist_t</keyword>
+      <keyword>dist_uniform</keyword>
+      <keyword>dummpall</keyword>
+      <keyword>dumpfile</keyword>
+      <keyword>dumpflush</keyword>
+      <keyword>dumplimit</keyword>
+      <keyword>dumpoff</keyword>
+      <keyword>dumpon</keyword>
+      <keyword>dumpvars</keyword>
+      <keyword>exp</keyword>
+      <keyword>fclose</keyword>
+      <keyword>fdisplay</keyword>
+      <keyword>fdisplayb</keyword>
+      <keyword>fdisplayh</keyword>
+      <keyword>fdisplayo</keyword>
+      <keyword>feof</keyword>
+      <keyword>ferror</keyword>
+      <keyword>fflush</keyword>
+      <keyword>fgetc</keyword>
+      <keyword>fgets</keyword>
+      <keyword>finish</keyword>
+      <keyword>floor</keyword>
+      <keyword>fmonitor</keyword>
+      <keyword>fmonitorb</keyword>
+      <keyword>fmonitorh</keyword>
+      <keyword>fmonitoro</keyword>
+      <keyword>fopen</keyword>
+      <keyword>fread</keyword>
+      <keyword>fscanf</keyword>
+      <keyword>fseek</keyword>
+      <keyword>fstrobe</keyword>
+      <keyword>fstrobeb</keyword>
+      <keyword>fstrobeh</keyword>
+      <keyword>fstrobeo</keyword>
+      <keyword>ftell</keyword>
+      <keyword>fwrite</keyword>
+      <keyword>fwriteb</keyword>
+      <keyword>fwriteh</keyword>
+      <keyword>fwriteo</keyword>
+      <keyword>hold</keyword>
+      <keyword>hypot</keyword>
+      <keyword>itor</keyword>
+      <keyword>ln</keyword>
+      <keyword>log10</keyword>
+      <keyword>monitor</keyword>
+      <keyword>monitorb</keyword>
+      <keyword>monitorh</keyword>
+      <keyword>monitoro</keyword>
+      <keyword>monitoroff</keyword>
+      <keyword>monitoron</keyword>
+      <keyword>nochange</keyword>
+      <keyword>period</keyword>
+      <keyword>pow</keyword>
+      <keyword>printtimescale</keyword>
+      <keyword>q_add</keyword>
+      <keyword>q_exam</keyword>
+      <keyword>q_full</keyword>
+      <keyword>q_initialize</keyword>
+      <keyword>q_remove</keyword>
+      <keyword>random</keyword>
+      <keyword>readmemb</keyword>
+      <keyword>readmemh</keyword>
+      <keyword>realtime</keyword>
+      <keyword>realtobits</keyword>
+      <keyword>recovery</keyword>
+      <keyword>rewind</keyword>
+      <keyword>rtoi</keyword>
+      <keyword>sdf_annotate</keyword>
+      <keyword>setup</keyword>
+      <keyword>setuphold</keyword>
+      <keyword>sformat</keyword>
+      <keyword>signed</keyword>
+      <keyword>sin</keyword>
+      <keyword>sinh</keyword>
+      <keyword>skew</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>sscanf</keyword>
+      <keyword>stime</keyword>
+      <keyword>stop</keyword>
+      <keyword>strobe</keyword>
+      <keyword>strobeb</keyword>
+      <keyword>strobeh</keyword>
+      <keyword>strobeo</keyword>
+      <keyword>swrite</keyword>
+      <keyword>swriteb</keyword>
+      <keyword>swriteh</keyword>
+      <keyword>swriteo</keyword>
+      <keyword>sync\$and\$array</keyword>
+      <keyword>sync\$and\$plane</keyword>
+      <keyword>sync\$nand\$array</keyword>
+      <keyword>sync\$nand\$plane</keyword>
+      <keyword>sync\$or\$array</keyword>
+      <keyword>sync\$or\$plane</keyword>
+      <keyword>sync\$nor\$array</keyword>
+      <keyword>sync\$nor\$plane</keyword>
+      <keyword>tan</keyword>
+      <keyword>tanh</keyword>
+      <keyword>test\$plusargs</keyword>
+      <keyword>time</keyword>
+      <keyword>timeformat</keyword>
+      <keyword>ungetc</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>value\$plusargs</keyword>
+      <keyword>width</keyword>
+      <keyword>write</keyword>
+      <keyword>writeb</keyword>
+      <keyword>writeh</keyword>
+      <keyword>writeo</keyword>
+    </context>
+
+    <!-- Common non-standard system functions as listed in the Doulos Verilog Golden Reference Guide. -->
+    <context id="lrm-additional-system-task" style-ref="lrm-additional-system-task">
+      <prefix>\$</prefix>
+      <keyword>countdrivers</keyword>
+      <keyword>getpattern</keyword>
+      <keyword>incsave</keyword>
+      <keyword>key</keyword>
+      <keyword>list</keyword>
+      <keyword>log</keyword>
+      <keyword>nokey</keyword>
+      <keyword>nolog</keyword>
+      <keyword>reset</keyword>
+      <keyword>reset_count</keyword>
+      <keyword>reset_value</keyword>
+      <keyword>restart</keyword>
+      <keyword>save</keyword>
+      <keyword>scale</keyword>
+      <keyword>scope</keyword>
+      <keyword>showscopes</keyword>
+      <keyword>showvars</keyword>
+      <keyword>sreadmemb</keyword>
+      <keyword>sreadmemh</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>always</keyword>
+      <keyword>assign</keyword>
+      <keyword>attribute</keyword>
+      <keyword>begin</keyword>
+      <keyword>case</keyword>
+      <keyword>casex</keyword>
+      <keyword>casez</keyword>
+      <keyword>deassign</keyword>
+      <keyword>default</keyword>
+      <keyword>defparam</keyword>
+      <keyword>disable</keyword>
+      <keyword>edge</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>endattribute</keyword>
+      <keyword>endcase</keyword>
+      <keyword>endfunction</keyword>
+      <keyword>endgenerate</keyword>
+      <keyword>endmodule</keyword>
+      <keyword>endprimitive</keyword>
+      <keyword>endspecify</keyword>
+      <keyword>endtable</keyword>
+      <keyword>endtask</keyword>
+      <keyword>for</keyword>
+      <keyword>force</keyword>
+      <keyword>forever</keyword>
+      <keyword>fork</keyword>
+      <keyword>function</keyword>
+      <keyword>generate</keyword>
+      <keyword>highz0</keyword>
+      <keyword>highz1</keyword>
+      <keyword>if</keyword>
+      <keyword>ifnone</keyword>
+      <keyword>initial</keyword>
+      <keyword>join</keyword>
+      <keyword>large</keyword>
+      <keyword>macromodule</keyword>
+      <keyword>medium</keyword>
+      <keyword>module</keyword>
+      <keyword>negedge</keyword>
+      <keyword>posedge</keyword>
+      <keyword>primitive</keyword>
+      <keyword>pull0</keyword>
+      <keyword>pull1</keyword>
+      <keyword>release</keyword>
+      <keyword>repeat</keyword>
+      <keyword>signed</keyword>
+      <keyword>small</keyword>
+      <keyword>specify</keyword>
+      <keyword>specparam</keyword>
+      <keyword>strength</keyword>
+      <keyword>strong0</keyword>
+      <keyword>strong1</keyword>
+      <keyword>table</keyword>
+      <keyword>task</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>wait</keyword>
+      <keyword>weak0</keyword>
+      <keyword>weak1</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="gates" style-ref="gate">
+      <keyword>and</keyword>
+      <keyword>buf</keyword>
+      <keyword>bufif0</keyword>
+      <keyword>bufif1</keyword>
+      <keyword>cmos</keyword>
+      <keyword>nand</keyword>
+      <keyword>nmos</keyword>
+      <keyword>nor</keyword>
+      <keyword>not</keyword>
+      <keyword>notif0</keyword>
+      <keyword>notif1</keyword>
+      <keyword>or</keyword>
+      <keyword>pmos</keyword>
+      <keyword>pullup</keyword>
+      <keyword>pulldown</keyword>
+      <keyword>rcmos</keyword>
+      <keyword>rnmos</keyword>
+      <keyword>rpmos</keyword>
+      <keyword>rtran</keyword>
+      <keyword>rtranif0</keyword>
+      <keyword>rtranif1</keyword>
+      <keyword>tran</keyword>
+      <keyword>tranif0</keyword>
+      <keyword>tranif1</keyword>
+      <keyword>xnor</keyword>
+      <keyword>xor</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>event</keyword>
+      <keyword>genvar</keyword>
+      <keyword>inout</keyword>
+      <keyword>input</keyword>
+      <keyword>integer</keyword>
+      <keyword>output</keyword>
+      <keyword>parameter</keyword>
+      <keyword>real</keyword>
+      <keyword>reg</keyword>
+      <keyword>realtime</keyword>
+      <keyword>scalared</keyword>
+      <keyword>supply0</keyword>
+      <keyword>supply1</keyword>
+      <keyword>time</keyword>
+      <keyword>tri</keyword>
+      <keyword>tri0</keyword>
+      <keyword>tri1</keyword>
+      <keyword>triand</keyword>
+      <keyword>trior</keyword>
+      <keyword>trireg</keyword>
+      <keyword>vectored</keyword>
+      <keyword>wand</keyword>
+      <keyword>wire</keyword>
+      <keyword>wor</keyword>
+    </context>
+
+    <context id="binary-number" style-ref="base-n-integer">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [1-9][0-9]*'[bB][0-1_xXzZ?]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="octal-number" style-ref="base-n-integer">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [1-9][0-9]*'[oO][0-7_xXzZ?]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal-number" style-ref="base-n-integer">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [1-9][0-9]*'[dD][0-9_xXzZ?]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal-number" style-ref="base-n-integer">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [1-9][0-9]*'[hH][0-9a-fA-F_xXzZ?]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <define-regex id="exponent">[Ee][+-]?[0-9][0-9_]*</define-regex>
+    <context id="real-number" style-ref="real-number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\.[0-9][0-9_]*\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="integer-number" style-ref="integer-number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*(E[+]?[0-9][0-9_]*)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="verilog" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="string"/>
+        <context ref="compiler-directive"/>
+        <context ref="ieee-system-task"/>
+        <context ref="lrm-additional-system-task"/>
+        <context ref="keywords"/>
+        <context ref="gates"/>
+        <context ref="types"/>
+        <context ref="binary-number"/>
+        <context ref="octal-number"/>
+        <context ref="decimal-number"/>
+        <context ref="hexadecimal-number"/>
+        <context ref="real-number"/>
+        <context ref="integer-number"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

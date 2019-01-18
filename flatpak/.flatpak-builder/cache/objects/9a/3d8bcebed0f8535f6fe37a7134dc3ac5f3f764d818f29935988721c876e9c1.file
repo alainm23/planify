@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Paulo Moura <pmoura@logtalk.org>
+ Copyright (c) 2007-2018 Paulo Moura <pmoura@logtalk.org>
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+
+-->
+<language id="logtalk" name="Logtalk" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">text/x-logtalk</property>
+    <property name="globs">*.lgt</property>
+    <property name="line-comment-start">%</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="entity" name="Data type" map-to="def:type"/>
+    <style id="directive" name="Preprocessor directive" map-to="def:preprocessor"/>
+    <style id="number" name="Number" map-to="def:decimal"/>
+    <style id="built-in" name="Keyword" map-to="def:keyword"/>
+    <style id="variable" name="Variable" map-to="def:identifier"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-character" extended="true">
+      \\([\\abfnrtv"\']|(x[a-fA-F0-9]+|[0-7]+)\\)
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="quoted-atom" style-ref="string" end-at-line-end="true">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>%</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="entity-directives" style-ref="entity">
+      <prefix>^\s*:-\s</prefix>
+      <keyword>(object)(?=[(])</keyword>
+      <keyword>(protocol)(?=[(])</keyword>
+      <keyword>(category)(?=[(])</keyword>
+      <keyword>(end_(object|protocol|category))(?=[.])</keyword>
+    </context>
+
+    <context id="entity-relations" style-ref="entity">
+      <keyword>(complements)(?=[(])</keyword>
+      <keyword>(extends)(?=[(])</keyword>
+      <keyword>(i(mp(orts|lements)|nstantiates))(?=[(])</keyword>
+      <keyword>(specializes)(?=[(])</keyword>
+    </context>
+
+    <context id="conditional-compilation-directives" style-ref="directive">
+      <prefix>^\s*:-\s</prefix>
+      <keyword>(e(lse|ndif))(?=[.])</keyword>
+      <keyword>((el)?if)(?=[(])</keyword>
+    </context>
+
+    <context id="source-file-directives" style-ref="directive">
+      <prefix>^\s*:-\s</prefix>
+      <keyword>(en(coding|sure_loaded))(?=[(])</keyword>
+      <keyword>(set_(logtalk|prolog)_flag)(?=[(])</keyword>
+    </context>
+
+    <context id="predicate-directives" style-ref="directive">
+      <prefix>^\s*:-\s</prefix>
+      <!-- Scope directives -->
+      <keyword>(p(ublic|r(otected|ivate)))(?=[(])</keyword>
+      <!-- Multi-threading directives -->
+      <keyword>(synchronized)(?=[(])</keyword>
+      <keyword>(synchronized)(?=[.])</keyword>
+      <keyword>(threaded)(?=[.])</keyword>
+      <!-- Other directives -->
+      <keyword>(alias)(?=[(])</keyword>
+      <keyword>((re)?export)(?=[(])</keyword>
+      <keyword>(in(clude|itialization|fo))(?=[(])</keyword>
+      <keyword>(mod(e|ule))(?=[(])</keyword>
+      <keyword>(built_in)(?=[.])</keyword>
+      <keyword>(dynamic)(?=[(])</keyword>
+      <keyword>(dynamic)(?=[.])</keyword>
+      <keyword>(discontiguous)(?=[(])</keyword>
+      <keyword>(m(eta_(non_terminal|predicate)|ultifile))(?=[(])</keyword>
+      <keyword>(op)(?=[(])</keyword>
+      <keyword>(c(alls|oinductive))(?=[(])</keyword>
+      <keyword>(use(s|_module))(?=[(])</keyword>
+    </context>
+
+    <context id="built-in-methods" style-ref="built-in">
+      <!-- Method execution context -->
+      <keyword>(context)(?=[(])</keyword>
+      <keyword>(parameter)(?=[(])</keyword>
+      <keyword>(se(lf|nder))(?=[(])</keyword>
+      <keyword>(this)(?=[(])</keyword>
+      <!-- Reflection -->
+      <keyword>(current_predicate)(?=[(])</keyword>
+      <keyword>(predicate_property)(?=[(])</keyword>
+      <!-- Database -->
+      <keyword>(a(bolish|ssert(a|z)))(?=[(])</keyword>
+      <keyword>(clause)(?=[(])</keyword>
+      <keyword>(retract(all)?)(?=[(])</keyword>
+      <!-- All solutions -->
+      <keyword>((bag|set)of)(?=[(])</keyword>
+      <keyword>(f(ind|or)all)(?=[(])</keyword>
+      <!-- Event handlers -->
+      <keyword>(before)(?=[(])</keyword>
+      <keyword>(after)(?=[(])</keyword>
+      <!-- Message forwarding handler -->
+      <keyword>(forward)(?=[(])</keyword>
+      <!-- DCGs -->
+      <keyword>(expand_(goal|term))(?=[(])</keyword>
+      <keyword>((goal|term)_expansion)(?=[(])</keyword>
+      <keyword>(phrase)(?=[(])</keyword>
+    </context>
+
+    <context id="built-in-predicates" style-ref="built-in">
+      <!-- Entity -->
+      <keyword>((abolish|c(reate|urrent))_(object|protocol|category))(?=[(])</keyword>
+      <keyword>((object|protocol|category)_property)(?=[(])</keyword>
+      <!-- Entity relations -->
+      <keyword>(co(mplements_object|nforms_to_protocol))(?=[(])</keyword>
+      <keyword>(extends_(object|protocol|category))(?=[(])</keyword>
+      <keyword>(imp(lements_protocol|orts_category))(?=[(])</keyword>
+      <keyword>((instantiat|specializ)es_class)(?=[(])</keyword>
+      <!-- Events -->
+      <keyword>(current_event)(?=[(])</keyword>
+      <keyword>((abolish|define)_events)(?=[(])</keyword>
+      <!-- Flags -->
+      <keyword>((set|create|current)_logtalk_flag)(?=[(])</keyword>
+      <!-- Compiling, loading, and library paths -->
+      <keyword>(logtalk_(compile|l(ibrary_path|oad|oad_context)|make(_target_action)?))(?=[(])</keyword>
+      <keyword>logtalk_make</keyword>
+      <!-- Multi-threading predicates -->
+      <keyword>(threaded(_(call|once|ignore|exit|peek|wait|notify))?)(?=[(])</keyword>
+      <!-- Engine predicates -->
+      <keyword>(threaded_engine(_(create|destroy|self|next|next_reified|yield|post|fetch))?)(?=[(])</keyword>
+      <!-- All solutions -->
+      <keyword>(forall)(?=[(])</keyword>
+    </context>
+
+    <context id="other-built-in-predicates" style-ref="built-in">
+      <!-- Term unification -->
+      <keyword>(subsumes_term)(?=[(])</keyword>
+      <keyword>(unify_with_occurs_check)(?=[(])</keyword>
+      <!-- Term testing -->
+      <keyword>(atom(ic)?)(?=[(])</keyword>
+      <keyword>(integer)(?=[(])</keyword>
+      <keyword>(float)(?=[(])</keyword>
+      <keyword>(c(allable|ompound))(?=[(])</keyword>
+      <keyword>((non)?var)(?=[(])</keyword>
+      <keyword>(number)(?=[(])</keyword>
+      <keyword>(ground)(?=[(])</keyword>
+      <keyword>(acyclic_term)(?=[(])</keyword>
+      <!-- Term creation and decomposition -->
+      <keyword>(functor)(?=[(])</keyword>
+      <keyword>(arg)(?=[(])</keyword>
+      <keyword>(copy_term)(?=[(])</keyword>
+      <keyword>(numbervars)(?=[(])</keyword>
+      <keyword>(term_variables)(?=[(])</keyword>
+      <!-- Arithemtic evaluation -->
+      <keyword>is</keyword>
+      <!-- Evaluable functors -->
+      <keyword>e</keyword>
+      <keyword>pi</keyword>
+      <keyword>(div)(?=[(])</keyword>
+      <keyword>(rem)(?=[(])</keyword>
+      <keyword>div</keyword>
+      <keyword>rem</keyword>
+      <keyword>(m(ax|in|od))(?=[(])</keyword>
+      <keyword>mod</keyword>
+      <keyword>(abs)(?=[(])</keyword>
+      <keyword>(sign)(?=[(])</keyword>
+      <keyword>(float(_(integer|fractional)_part)?)(?=[(])</keyword>
+      <keyword>(floor)(?=[(])</keyword>
+      <keyword>(truncate)(?=[(])</keyword>
+      <keyword>(round)(?=[(])</keyword>
+      <keyword>(ceiling)(?=[(])</keyword>
+      <!-- Other arithemtic functors -->
+      <keyword>(sin)(?=[(])</keyword>
+      <keyword>(cos)(?=[(])</keyword>
+      <keyword>(tan)(?=[(])</keyword>
+      <keyword>(a(cos|sin|tan|tan2))(?=[(])</keyword>
+      <keyword>(exp)(?=[(])</keyword>
+      <keyword>(log)(?=[(])</keyword>
+      <keyword>(sqrt)(?=[(])</keyword>
+      <keyword>(xor)(?=[(])</keyword>
+      <!-- Stream selection and control -->
+      <keyword>((current|set)_(in|out)put)(?=[(])</keyword>
+      <keyword>(open)(?=[(])</keyword>
+      <keyword>(close)(?=[(])</keyword>
+      <keyword>(flush_output)(?=[(])</keyword>
+      <keyword>flush_output</keyword>
+      <keyword>(stream_property)(?=[(])</keyword>
+      <keyword>(at_end_of_stream)(?=[(])</keyword>
+      <keyword>at_end_of_stream</keyword>
+      <keyword>(set_stream_position)(?=[(])</keyword>
+      <!-- Character input/output -->
+      <keyword>((get|p(eek|ut))_c(har|ode))(?=[(])</keyword>
+      <keyword>(nl)(?=[(])</keyword>
+      <keyword>nl</keyword>
+      <!-- Byte input/output -->
+      <keyword>((get|peek|put)_byte)(?=[(])</keyword>
+      <!-- Term input/output -->
+      <keyword>(read(_term)?)(?=[(])</keyword>
+      <keyword>(write(q|_(canonical|term))?)(?=[(])</keyword>
+      <keyword>((current_)?op)(?=[(])</keyword>
+      <keyword>((current_)?char_conversion)(?=[(])</keyword>
+      <!-- Logic and control -->
+      <keyword>(ca(ll|tch)|ignore|once|throw)(?=[(])</keyword>
+      <keyword>(true|fa(il|lse)|repeat|(instantiation|system)_error)(?![-!(^~])</keyword>
+      <keyword>((type|domain|existence|permission|representation|evaluation|resource|syntax)_error)(?=[(])</keyword>
+      <!-- Atomic term processing -->
+      <keyword>(atom_(length|c(hars|o(ncat|des))))(?=[(])</keyword>
+      <keyword>(sub_atom)(?=[(])</keyword>
+      <keyword>(char_code)(?=[(])</keyword>
+      <keyword>(number_c(hars|odes))(?=[(])</keyword>
+      <!-- Implementation defined hooks functions -->
+      <keyword>((set|current)_prolog_flag)(?=[(])</keyword>
+      <keyword>(halt)(?=[(])</keyword>
+      <keyword>halt</keyword>
+      <!-- Sorting -->
+      <keyword>((key)?sort)(?=[(])</keyword>
+    </context>
+
+    <context id="built-in-operators" style-ref="built-in">
+      <prefix></prefix>
+      <suffix></suffix>
+      <!-- Term unification -->
+      <keyword>=</keyword>
+      <keyword>\\=</keyword>
+      <!-- Term comparison -->
+      <keyword>(compare)(?=[(])</keyword>
+      <keyword>==</keyword>
+      <keyword>\\==</keyword>
+      <keyword>@&lt;</keyword>
+      <keyword>@=&lt;</keyword>
+      <keyword>@&gt;=</keyword>
+      <keyword>@&gt;</keyword>
+      <!-- Term creation and decomposition -->
+      <keyword>=\.\.</keyword>
+      <!-- Arithemtic comparison -->
+      <keyword>=:=</keyword>
+      <keyword>=\\=</keyword>
+      <keyword>&lt;</keyword>
+      <keyword>=&lt;</keyword>
+      <keyword>&gt;</keyword>
+      <keyword>&gt;=</keyword>
+      <!-- Evaluable functors -->
+      <keyword>\+(?![,a-z])</keyword>
+      <keyword>(?&lt;!:)(-)(?![,a-z])</keyword>
+      <keyword>\*</keyword>
+      <keyword>//</keyword>
+      <keyword>/</keyword>
+      <!-- Other arithemtic functors -->
+      <keyword>\*\*</keyword>
+      <!-- Bitwise functors -->
+      <keyword>&gt;&gt;</keyword>
+      <keyword>&lt;&lt;</keyword>
+      <keyword>/\\</keyword>
+      <keyword>\\/</keyword>
+      <keyword>\\</keyword>
+      <!-- Logic and control -->
+      <keyword>(\\\+|!)</keyword>
+      <!-- Existential quantifier -->
+      <keyword>\^</keyword>
+      <!-- Predicate aliases -->
+      <keyword>as</keyword>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match extended="true">
+        \b(0'[\\].|0'.|0b[0-1]+|0o[0-7]+|0x[0-9a-fA-F]+|\d+(\.\d+)?([eE]([-+])?\d+)?)
+      </match>
+    </context>
+
+    <context id="variable" style-ref="variable">
+      <match extended="true">
+        \b[A-Z_][a-zA-Z0-9_]*
+      </match>
+    </context>
+
+    <context id="message-sending-operators" style-ref="built-in">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>::</keyword>
+      <keyword>\^\^</keyword>
+    </context>
+
+    <context id="category-predicate-direct-call" style-ref="built-in">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>:</keyword>
+    </context>
+
+    <context id="external-call-operator" style-ref="built-in">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>\{</keyword>
+      <keyword>\}</keyword>
+    </context>
+<!--
+    <context id="mode-operators" style-ref="built-in">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>\+</keyword>
+      <keyword>-</keyword>
+      <keyword>\?</keyword>
+      <keyword>@</keyword>
+    </context>
+-->
+    <context id="logtalk">
+      <include>
+        <context ref="string"/>
+        <context ref="quoted-atom"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="entity-directives"/>
+        <context ref="entity-relations"/>
+        <context ref="conditional-compilation-directives"/>
+        <context ref="source-file-directives"/>
+        <context ref="predicate-directives"/>
+        <context ref="built-in-methods"/>
+        <context ref="built-in-predicates"/>
+        <context ref="other-built-in-predicates"/>
+        <context ref="built-in-operators"/>
+        <context ref="number"/>
+        <context ref="variable"/>
+        <context ref="message-sending-operators"/>
+        <context ref="category-predicate-direct-call"/>
+        <context ref="external-call-operator"/>
+<!--
+        <context ref="mode-operators"/>
+-->
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Philip Withnall <philip@tecnocode.co.uk>
+ Copyright (C) 2016 Philip Withnall <philip@tecnocode.co.uk>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!--
+References:
+	https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_form
+	https://tools.ietf.org/html/rfc5234
+	https://tools.ietf.org/html/rfc7405
+-->
+<language id="abnf" name="ABNF" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.abnf</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"     name="Comment"            map-to="def:comment"/>
+    <style id="rulename"    name="Rule Name"          map-to="def:type"/>
+    <style id="binary"      name="Binary number"      map-to="def:base-n-integer"/>
+    <style id="decimal"     name="Decimal number"     map-to="def:decimal"/>
+    <style id="hexadecimal" name="Hexadecimal number" map-to="def:base-n-integer"/>
+    <style id="string"      name="String"             map-to="def:string"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="rulename">([a-zA-Z][a-zA-Z0-9-]*|&lt;[a-zA-Z][a-zA-Z0-9-]*&gt;)</define-regex>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>;</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="rulename">
+      <match>(\%{rulename})</match>
+      <include>
+        <context sub-pattern="1" style-ref="rulename"/>
+      </include>
+    </context>
+
+    <context id="terminal-binary" style-ref="binary">
+      <match>%b[0-1]+(\-[0-1]+|(\.[0-1]+)*)</match>
+    </context>
+
+    <context id="terminal-decimal" style-ref="decimal">
+      <match>%d[0-9]+(\-[0-9]+|(\.[0-9]+)*)</match>
+    </context>
+
+    <context id="terminal-hexadecimal" style-ref="hexadecimal">
+      <match>%x[0-9a-fA-F]+(\-[0-9a-fA-F]+|(\.[0-9a-fA-F]+)*)</match>
+    </context>
+
+    <context id="terminal-string" style-ref="string">
+      <match>"[ !#$%&amp;'\(\)\*\+,\-\./0-9:;&lt;=&gt;\?@A-Z\[\\\]\^_`a-z\{\|\}~]*"</match>
+    </context>
+
+    <context id="terminal">
+      <include>
+        <context ref="terminal-binary"/>
+        <context ref="terminal-decimal"/>
+        <context ref="terminal-hexadecimal"/>
+        <context ref="terminal-string"/>
+      </include>
+    </context>
+
+    <context id="element">
+      <include>
+        <context ref="rulename"/>
+        <context ref="terminal"/>
+      </include>
+    </context>
+
+    <context id="abnf">
+      <include>
+        <context ref="line-comment"/>
+        <context id="rule">
+          <start>^\s*(\%{rulename})\s*=/?</start>
+          <end>^(?!\s)</end>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="rulename"/>
+            <context ref="element"/>
+            <context ref="line-comment"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

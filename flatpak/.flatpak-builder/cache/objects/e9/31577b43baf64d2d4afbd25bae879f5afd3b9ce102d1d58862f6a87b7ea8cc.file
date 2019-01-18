@@ -1,0 +1,1549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsMetadata: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsContentRating.html" title="AsContentRating">
+<link rel="next" href="appstream-AsPool.html" title="AsPool">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsMetadata.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsContentRating.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsPool.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsMetadata"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsMetadata.top_of_page"></a>AsMetadata</span></h2>
+<p>AsMetadata — Parser for AppStream metadata</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-format-kind-to-string" title="as_format_kind_to_string ()">as_format_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="returnvalue">AsFormatKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-format-kind-from-string" title="as_format_kind_from_string ()">as_format_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-format-version-to-string" title="as_format_version_to_string ()">as_format_version_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="returnvalue">AsFormatVersion</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-format-version-from-string" title="as_format_version_from_string ()">as_format_version_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="returnvalue">AsMetadata</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-new" title="as_metadata_new ()">as_metadata_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GQuark</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-error-quark" title="as_metadata_error_quark ()">as_metadata_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse-file" title="as_metadata_parse_file ()">as_metadata_parse_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse" title="as_metadata_parse ()">as_metadata_parse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse-desktop-data" title="as_metadata_parse_desktop_data ()">as_metadata_parse_desktop_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="returnvalue">AsComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-component" title="as_metadata_get_component ()">as_metadata_get_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-components" title="as_metadata_get_components ()">as_metadata_get_components</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-clear-components" title="as_metadata_clear_components ()">as_metadata_clear_components</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-add-component" title="as_metadata_add_component ()">as_metadata_add_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-component-to-metainfo" title="as_metadata_component_to_metainfo ()">as_metadata_component_to_metainfo</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-save-metainfo" title="as_metadata_save_metainfo ()">as_metadata_save_metainfo</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-components-to-collection" title="as_metadata_components_to_collection ()">as_metadata_components_to_collection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-save-collection" title="as_metadata_save_collection ()">as_metadata_save_collection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="returnvalue">AsFormatVersion</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-format-version" title="as_metadata_get_format_version ()">as_metadata_get_format_version</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-format-version" title="as_metadata_set_format_version ()">as_metadata_set_format_version</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle"><span class="returnvalue">AsFormatStyle</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-format-style" title="as_metadata_get_format_style ()">as_metadata_get_format_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-format-style" title="as_metadata_set_format_style ()">as_metadata_set_format_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-locale" title="as_metadata_set_locale ()">as_metadata_set_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-locale" title="as_metadata_get_locale ()">as_metadata_get_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-origin" title="as_metadata_get_origin ()">as_metadata_get_origin</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-origin" title="as_metadata_set_origin ()">as_metadata_set_origin</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-update-existing" title="as_metadata_get_update_existing ()">as_metadata_get_update_existing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-update-existing" title="as_metadata_set_update_existing ()">as_metadata_set_update_existing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-write-header" title="as_metadata_get_write_header ()">as_metadata_get_write_header</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-write-header" title="as_metadata_set_write_header ()">as_metadata_set_write_header</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-architecture" title="as_metadata_get_architecture ()">as_metadata_get_architecture</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-architecture" title="as_metadata_set_architecture ()">as_metadata_set_architecture</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags"><span class="returnvalue">AsParseFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-parse-flags" title="as_metadata_get_parse_flags ()">as_metadata_get_parse_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-parse-flags" title="as_metadata_set_parse_flags ()">as_metadata_set_parse_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AS-TYPE-METADATA:CAPS" title="AS_TYPE_METADATA">AS_TYPE_METADATA</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsMetadataClass" title="struct AsMetadataClass">AsMetadataClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle">AsFormatStyle</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind">AsFormatKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion">AsFormatVersion</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AS-CURRENT-FORMAT-VERSION:CAPS" title="AS_CURRENT_FORMAT_VERSION">AS_CURRENT_FORMAT_VERSION</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags">AsParseFlags</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsMetadataError" title="enum AsMetadataError">AsMetadataError</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AS-METADATA-ERROR:CAPS" title="AS_METADATA_ERROR">AS_METADATA_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata">AsMetadata</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.description"></a><h2>Description</h2>
+<p>This object parses AppStream metadata, including AppStream
+upstream metadata, which is defined by upstream projects.
+It returns an <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> of the data.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a>, <span class="type">AsDatabase</span></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-format-kind-to-string"></a><h3>as_format_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_format_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-format-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-format-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-format-kind-from-string"></a><h3>as_format_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="returnvalue">AsFormatKind</span></a>
+as_format_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *kind_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-format-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-format-kind-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> or <a class="link" href="appstream-AsMetadata.html#AS-FORMAT-KIND-UNKNOWN:CAPS"><code class="literal">AS_FORMAT_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-format-version-to-string"></a><h3>as_format_version_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_format_version_to_string (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="type">AsFormatVersion</span></a> version</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-format-version-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>version</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-format-version-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>version</code></em>
+</p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-format-version-from-string"></a><h3>as_format_version_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="returnvalue">AsFormatVersion</span></a>
+as_format_version_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *version_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-format-version-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>version_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-format-version-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="type">AsFormatVersion</span></a>. For unknown, the highest version
+number is assumed.</p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-new"></a><h3>as_metadata_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="returnvalue">AsMetadata</span></a> *
+as_metadata_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>.</p>
+<div class="refsect3">
+<a name="as-metadata-new.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-error-quark"></a><h3>as_metadata_error_quark ()</h3>
+<pre class="programlisting"><span class="returnvalue">GQuark</span>
+as_metadata_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-error-quark.returns"></a><h4>Returns</h4>
+<p> An error quark.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-parse-file"></a><h3>as_metadata_parse_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_parse_file (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                        <em class="parameter"><code><span class="type">GFile</span> *file</code></em>,
+                        <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                        <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Parses an AppStream upstream metadata file.</p>
+<div class="refsect3">
+<a name="as-metadata-parse-file.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>A valid <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>file</p></td>
+<td class="parameter_description"><p><span class="type">GFile</span> for the upstream metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>The format the data is in, or <a class="link" href="appstream-AsMetadata.html#AS-FORMAT-KIND-UNKNOWN:CAPS"><code class="literal">AS_FORMAT_KIND_UNKNOWN</code></a> if not known.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A <span class="type">GError</span> or <code class="literal">NULL</code>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-parse"></a><h3>as_metadata_parse ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_parse (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                   <em class="parameter"><code>const <span class="type">gchar</span> *data</code></em>,
+                   <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                   <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Parses AppStream metadata.</p>
+<div class="refsect3">
+<a name="as-metadata-parse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>Metadata describing one or more software components.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>The format of the data (XML or YAML).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A <span class="type">GError</span> or <code class="literal">NULL</code>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-parse-desktop-data"></a><h3>as_metadata_parse_desktop_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_parse_desktop_data (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *data</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *cid</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Parses XDG Desktop Entry metadata and adds it to the pool.</p>
+<div class="refsect3">
+<a name="as-metadata-parse-desktop-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>Metadata describing one or more software components.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cid</p></td>
+<td class="parameter_description"><p>The component-id the new <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> should have.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A <span class="type">GError</span> or <code class="literal">NULL</code>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-component"></a><h3>as_metadata_get_component ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="returnvalue">AsComponent</span></a> *
+as_metadata_get_component (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<p>Gets the <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> which has been parsed from the XML.
+If the AppStream XML contained multiple components, return the first
+component that has been parsed.</p>
+<div class="refsect3">
+<a name="as-metadata-get-component.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-component.returns"></a><h4>Returns</h4>
+<p>An <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-components"></a><h3>as_metadata_get_components ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_metadata_get_components (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-components.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-components.returns"></a><h4>Returns</h4>
+<p>A <span class="type">GPtrArray</span> of all parsed components. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> AsComponent]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-clear-components"></a><h3>as_metadata_clear_components ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_clear_components (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-add-component"></a><h3>as_metadata_add_component ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_add_component (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                           <em class="parameter"><code><a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> *cpt</code></em>);</pre>
+<p>Add an <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> to the list of components.
+This can be used to add multiple components in order to
+produce a distro-XML AppStream metadata file.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-component-to-metainfo"></a><h3>as_metadata_component_to_metainfo ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+as_metadata_component_to_metainfo (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                                   <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                                   <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Convert an <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> to metainfo data.
+This will always be XML, YAML is no valid format for metainfo files.</p>
+<p>The amount of localization included in the metadata depends on how the <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a>
+was initially loaded and whether it contains data for all locale.</p>
+<p>The first <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> added to the internal list will be transformed.
+In case no component is present, <code class="literal">NULL</code> is returned.</p>
+<div class="refsect3">
+<a name="as-metadata-component-to-metainfo.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>The format to use (XML or YAML)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A <span class="type">GError</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-component-to-metainfo.returns"></a><h4>Returns</h4>
+<p>A string containing the XML metadata. Free with <code class="function">g_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-save-metainfo"></a><h3>as_metadata_save_metainfo ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_save_metainfo (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                           <em class="parameter"><code>const <span class="type">gchar</span> *fname</code></em>,
+                           <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                           <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Serialize <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> instance to XML and save it to file.
+An existing file at the same location will be overridden.</p>
+<div class="refsect3">
+<a name="as-metadata-save-metainfo.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>fname</p></td>
+<td class="parameter_description"><p>The filename for the new metadata file.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>The format to save this file in. Only XML is supported at time.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-components-to-collection"></a><h3>as_metadata_components_to_collection ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+as_metadata_components_to_collection (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                                      <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                                      <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Serialize all <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> instances into AppStream
+collection metadata.
+<code class="literal">NULL</code> is returned if there is nothing to serialize.</p>
+<div class="refsect3">
+<a name="as-metadata-components-to-collection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>The format to serialize the data to (XML or YAML).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A <span class="type">GError</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-components-to-collection.returns"></a><h4>Returns</h4>
+<p>A string containing the YAML or XML data. Free with <code class="function">g_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-save-collection"></a><h3>as_metadata_save_collection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_save_collection (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *fname</code></em>,
+                             <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind"><span class="type">AsFormatKind</span></a> format</code></em>,
+                             <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-format-version"></a><h3>as_metadata_get_format_version ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="returnvalue">AsFormatVersion</span></a>
+as_metadata_get_format_version (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-format-version.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-format-version.returns"></a><h4>Returns</h4>
+<p> The AppStream metadata format version.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-format-version"></a><h3>as_metadata_set_format_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_format_version (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                                <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="type">AsFormatVersion</span></a> version</code></em>);</pre>
+<p>Set the current AppStream format version that we should generate data for
+or be able to read.</p>
+<div class="refsect3">
+<a name="as-metadata-set-format-version.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>version</p></td>
+<td class="parameter_description"><p>the AppStream metadata format version as <a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion"><span class="type">AsFormatVersion</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-format-style"></a><h3>as_metadata_get_format_style ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle"><span class="returnvalue">AsFormatStyle</span></a>
+as_metadata_get_format_style (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<p>Get the metadata parsing mode.</p>
+<div class="refsect3">
+<a name="as-metadata-get-format-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-format-style"></a><h3>as_metadata_set_format_style ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_format_style (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                              <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle"><span class="type">AsFormatStyle</span></a> mode</code></em>);</pre>
+<p>Sets the current metadata parsing mode.</p>
+<div class="refsect3">
+<a name="as-metadata-set-format-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle"><span class="type">AsFormatStyle</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-locale"></a><h3>as_metadata_set_locale ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_locale (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *locale</code></em>);</pre>
+<p>Sets the locale which should be read when processing metadata.
+All other locales are ignored, which increases parsing speed and
+reduces memory usage.
+If you set the locale to "ALL", all locales will be read.</p>
+<div class="refsect3">
+<a name="as-metadata-set-locale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>locale</p></td>
+<td class="parameter_description"><p>the locale.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-locale"></a><h3>as_metadata_get_locale ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_metadata_get_locale (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<p>Gets the current active locale for parsing metadata,
+or "ALL" if all locales are read.</p>
+<div class="refsect3">
+<a name="as-metadata-get-locale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-locale.returns"></a><h4>Returns</h4>
+<p> Locale used for metadata parsing.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-origin"></a><h3>as_metadata_get_origin ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_metadata_get_origin (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-origin.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-origin.returns"></a><h4>Returns</h4>
+<p> The origin of AppStream distro metadata</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-origin"></a><h3>as_metadata_set_origin ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_origin (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *origin</code></em>);</pre>
+<p>Set the origin of AppStream distro metadata</p>
+<div class="refsect3">
+<a name="as-metadata-set-origin.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>origin</p></td>
+<td class="parameter_description"><p>the origin of AppStream distro metadata.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-update-existing"></a><h3>as_metadata_get_update_existing ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_metadata_get_update_existing (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-update-existing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-update-existing.returns"></a><h4>Returns</h4>
+<p> Whether existing components should be updates with the parsed data,
+instead of creating new ones.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-update-existing"></a><h3>as_metadata_set_update_existing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_update_existing (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> update</code></em>);</pre>
+<p>If set to <code class="literal">TRUE</code>, the parser will not create new components but
+instead update existing components in the pool with new metadata.</p>
+<p>NOTE: Right now, this feature is only implemented for metainfo XML parsing!</p>
+<div class="refsect3">
+<a name="as-metadata-set-update-existing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>update</p></td>
+<td class="parameter_description"><p>A boolean value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-write-header"></a><h3>as_metadata_get_write_header ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_metadata_get_write_header (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-write-header.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-write-header.returns"></a><h4>Returns</h4>
+<p> Whether we will write a header/root node in collection metadata.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-write-header"></a><h3>as_metadata_set_write_header ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_write_header (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                              <em class="parameter"><code><span class="type">gboolean</span> wheader</code></em>);</pre>
+<p>If set to <code class="literal">TRUE</code>, tehe metadata writer will omit writing a DEP-11
+header document when in YAML mode, and will not write a root components node
+when writing XML data.
+Please keep in mind that this will create an invalid DEP-11 YAML AppStream
+collection metadata file, and an invalid XML file.
+This parameter should only be changed e.g. by the appstream-generator tool.</p>
+<p>NOTE: Right now, this feature is only implemented for YAML!</p>
+<div class="refsect3">
+<a name="as-metadata-set-write-header.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>wheader</p></td>
+<td class="parameter_description"><p>A boolean value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-architecture"></a><h3>as_metadata_get_architecture ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_metadata_get_architecture (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<div class="refsect3">
+<a name="as-metadata-get-architecture.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-metadata-get-architecture.returns"></a><h4>Returns</h4>
+<p> The architecture of AppStream distro metadata</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-architecture"></a><h3>as_metadata_set_architecture ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_architecture (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *arch</code></em>);</pre>
+<p>Set the architecture the components in this metadata belong to.</p>
+<div class="refsect3">
+<a name="as-metadata-set-architecture.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arch</p></td>
+<td class="parameter_description"><p>an architecture string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-get-parse-flags"></a><h3>as_metadata_get_parse_flags ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags"><span class="returnvalue">AsParseFlags</span></a>
+as_metadata_get_parse_flags (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>);</pre>
+<p>Get the metadata parse flags.</p>
+<div class="refsect3">
+<a name="as-metadata-get-parse-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-metadata-set-parse-flags"></a><h3>as_metadata_set_parse_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_metadata_set_parse_flags (<em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> *metad</code></em>,
+                             <em class="parameter"><code><a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags"><span class="type">AsParseFlags</span></a> flags</code></em>);</pre>
+<p>Sets the current metadata parse flags.</p>
+<div class="refsect3">
+<a name="as-metadata-set-parse-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>metad</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata"><span class="type">AsMetadata</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags"><span class="type">AsParseFlags</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsMetadata.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-METADATA:CAPS"></a><h3>AS_TYPE_METADATA</h3>
+<pre class="programlisting">#define AS_TYPE_METADATA (as_metadata_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsMetadataClass"></a><h3>struct AsMetadataClass</h3>
+<pre class="programlisting">struct AsMetadataClass {
+	GObjectClass		parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsFormatStyle"></a><h3>enum AsFormatStyle</h3>
+<p>There are a few differences between AppStream's metainfo files (shipped by upstream projects)
+and the collection metadata (shipped by distributors).
+The data source kind indicates which style we should process.
+Usually you do not want to set this explicitly.</p>
+<div class="refsect3">
+<a name="AsFormatStyle.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-STYLE-UNKNOWN:CAPS"></a>AS_FORMAT_STYLE_UNKNOWN</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-STYLE-METAINFO:CAPS"></a>AS_FORMAT_STYLE_METAINFO</p></td>
+<td class="enum_member_description">
+<p>Parse AppStream upstream metadata (metainfo files)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-STYLE-COLLECTION:CAPS"></a>AS_FORMAT_STYLE_COLLECTION</p></td>
+<td class="enum_member_description">
+<p>Parse AppStream metadata collections (shipped by software distributors)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsFormatKind"></a><h3>enum AsFormatKind</h3>
+<p>Format of the AppStream metadata.</p>
+<div class="refsect3">
+<a name="AsFormatKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-KIND-UNKNOWN:CAPS"></a>AS_FORMAT_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Unknown metadata format.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-KIND-XML:CAPS"></a>AS_FORMAT_KIND_XML</p></td>
+<td class="enum_member_description">
+<p>AppStream XML metadata.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-KIND-YAML:CAPS"></a>AS_FORMAT_KIND_YAML</p></td>
+<td class="enum_member_description">
+<p>AppStream YAML (DEP-11) metadata.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-KIND-DESKTOP-ENTRY:CAPS"></a>AS_FORMAT_KIND_DESKTOP_ENTRY</p></td>
+<td class="enum_member_description">
+<p>XDG Desktop Entry data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsFormatVersion"></a><h3>enum AsFormatVersion</h3>
+<p>Format version / API level of the AppStream metadata.</p>
+<div class="refsect3">
+<a name="AsFormatVersion.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-6:CAPS"></a>AS_FORMAT_VERSION_V0_6</p></td>
+<td class="enum_member_description">
+<p>0.6</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-7:CAPS"></a>AS_FORMAT_VERSION_V0_7</p></td>
+<td class="enum_member_description">
+<p>0.7</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-8:CAPS"></a>AS_FORMAT_VERSION_V0_8</p></td>
+<td class="enum_member_description">
+<p>0.8</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-9:CAPS"></a>AS_FORMAT_VERSION_V0_9</p></td>
+<td class="enum_member_description">
+<p>0.9</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-10:CAPS"></a>AS_FORMAT_VERSION_V0_10</p></td>
+<td class="enum_member_description">
+<p>0.10</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-11:CAPS"></a>AS_FORMAT_VERSION_V0_11</p></td>
+<td class="enum_member_description">
+<p>0.11</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-FORMAT-VERSION-V0-12:CAPS"></a>AS_FORMAT_VERSION_V0_12</p></td>
+<td class="enum_member_description">
+<p>0.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AS-CURRENT-FORMAT-VERSION:CAPS"></a><h3>AS_CURRENT_FORMAT_VERSION</h3>
+<pre class="programlisting">#define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_V0_12
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsParseFlags"></a><h3>enum AsParseFlags</h3>
+<p>Influence certain aspects of how AppStream metadata is parsed.</p>
+<div class="refsect3">
+<a name="AsParseFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PARSE-FLAG-NONE:CAPS"></a>AS_PARSE_FLAG_NONE</p></td>
+<td class="enum_member_description">
+<p>No flags.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PARSE-FLAG-IGNORE-MEDIABASEURL:CAPS"></a>AS_PARSE_FLAG_IGNORE_MEDIABASEURL</p></td>
+<td class="enum_member_description">
+<p>Do not process the media_baseurl document property.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsMetadataError"></a><h3>enum AsMetadataError</h3>
+<p>A metadata processing error.</p>
+<div class="refsect3">
+<a name="AsMetadataError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-METADATA-ERROR-FAILED:CAPS"></a>AS_METADATA_ERROR_FAILED</p></td>
+<td class="enum_member_description">
+<p>Generic failure.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-METADATA-ERROR-PARSE:CAPS"></a>AS_METADATA_ERROR_PARSE</p></td>
+<td class="enum_member_description">
+<p>Unable to parse the metadata file.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-METADATA-ERROR-FORMAT-UNEXPECTED:CAPS"></a>AS_METADATA_ERROR_FORMAT_UNEXPECTED</p></td>
+<td class="enum_member_description">
+<p>Expected collection metadata but got metainfo metadata, or vice versa.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-METADATA-ERROR-NO-COMPONENT:CAPS"></a>AS_METADATA_ERROR_NO_COMPONENT</p></td>
+<td class="enum_member_description">
+<p>We expected a component in the pool, but couldn't find one.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-METADATA-ERROR-VALUE-MISSING:CAPS"></a>AS_METADATA_ERROR_VALUE_MISSING</p></td>
+<td class="enum_member_description">
+<p>A essential value is missing in the source document.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AS-METADATA-ERROR:CAPS"></a><h3>AS_METADATA_ERROR</h3>
+<pre class="programlisting">#define AS_METADATA_ERROR as_metadata_error_quark ()
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsMetadata"></a><h3>AsMetadata</h3>
+<pre class="programlisting">typedef struct _AsMetadata AsMetadata;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

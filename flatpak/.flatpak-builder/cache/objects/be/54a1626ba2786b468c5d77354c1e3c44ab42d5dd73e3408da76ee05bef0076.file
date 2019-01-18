@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Jsoftware, Ric Sherlock
+ Copyright (C) 2011 Ric Sherlock <tikkanz@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="j" name="J" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.ijs</property>
+    <property name="line-comment-start">NB\.</property>
+  </metadata>
+
+  <styles>
+    <style id="adverb" name="Adverb" map-to="def:identifier" />
+    <style id="comment" name="Comment" map-to="def:comment" />
+    <style id="conjunction" name="Conjunction" map-to="def:identifier" />
+    <style id="control" name="Control" map-to="def:keyword" />
+    <style id="error" name="Error" map-to="def:error" />
+    <style id="exparg" name="Explicit Argument" map-to="def:special-char" />
+    <style id="global" name="Global" map-to="def:type" />
+    <style id="labtext" name="Lab Text" map-to="def:preprocessor" />
+    <style id="local" name="Local" map-to="def:type" />
+    <style id="noun" name="Noun" map-to="def:special-constant" />
+    <style id="noundef" name="Explicit Noun Definition" map-to="def:string" />
+    <style id="number" name="Number" map-to="def:decimal" />
+    <style id="parens" name="Parens" map-to="def:statement" />
+    <style id="primitive" name="Primitive" map-to="def:identifier" />
+    <style id="string" name="String" map-to="def:string" />
+    <style id="verb"  name="Verb" map-to="def:identifier" />
+  </styles>
+
+  <definitions>
+    <!-- Problems/shortcomings
+    * How to target parens inside expdef
+    * Matched vs unmatched parens coloring but how to do () and not {} and []
+    -->
+
+    <!-- NB. (Comments) -->
+    <context id="comment" style-ref="comment" end-at-line-end="true">
+      <start>\%[NB\.</start>
+    </context>
+
+    <!-- 'abcde' (Strings) -->
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>L?'</start><end>'</end>
+    </context>
+
+    <!-- Unbalanced single quotes -->
+    <context id="error" style-ref="error">
+      <match>'[^']*?$</match>
+    </context>
+
+    <!-- 2.34 (Numbers) -->
+    <context id="number" style-ref="number">
+      <match extended="true">\%[[_0-9][_0-9\.a-zA-Z]*\%]</match>
+    </context>
+
+    <!-- Nouns -->
+    <context id="noun" style-ref="noun">
+      <match extended="true">
+        \%[(_\.|a\.|a:)(?![\.\:])
+      </match>
+    </context>
+
+    <!-- Verbs -->
+    <context id="verb" style-ref="verb">
+      <match extended="true">
+        ((_?[0-9]:)|
+        (\%[p\.\.)|
+        (\%[[AcCeEiIjLopr]\.)|
+        (\%[[ipqsux]:)|
+        ({::)|
+        ([&lt;&gt;\+\*\-\%\^\$\~\|\,\#\{\}&quot;\?]\.)|
+        ([&lt;&gt;\_\+\*\-\%\$\~\|\,\;\#\/\\\[\{\}&quot;]:)|
+        ([&lt;&gt;\=\+\*\-\%\^\$\|\,\;\#\!\[\]\{\?]))
+        (?![\.\:])
+      </match>
+    </context>
+
+    <!-- Adverbs -->
+    <context id="adverb" style-ref="adverb">
+      <match extended="true">
+        (([\/\\]\.)|
+        (\%[[bfMt]\.)|
+        (\%[t:)|
+        ([\~\/\\\}]))
+        (?![\.\:])
+      </match>
+    </context>
+
+    <!-- Conjunctions -->
+    <context id="conjunction" style-ref="conjunction">
+      <match extended="true">
+        ((\%[[dDHT]\.)|
+        (\%[[DLS]:)|
+        (&amp;\.:)|
+        ([\;\!\@&amp;]\.)|
+        ([\^\!\`\@&amp;]:)|
+        ([\"\`\@&amp;])|
+        (\s[\.\:][\.\:])|
+        (\s[\.\:]))
+        (?![\.\:])
+      </match>
+    </context>
+
+    <!-- () (Parentheses) -->
+    <context id="parens" style-ref="parens">
+      <match>[\(\)]</match>
+    </context>
+
+    <!-- Explicit arguments -->
+    <context id="exparg" style-ref="exparg">
+      <match extended="true">\%[[nmuvxy](?![\w\.\:])</match>
+    </context>
+
+    <define-regex id="valid-name">[a-zA-Z][a-zA-Z0-9_]*</define-regex>
+    <define-regex id="close-expdef">^\s*\)\s*$</define-regex>
+
+    <!-- if. do. end. (Control words) -->
+    <context id="control" style-ref="control">
+      <prefix>\%[</prefix>
+      <suffix>(?![\.\:])</suffix>
+      <keyword>assert\.</keyword>
+      <keyword>break\.</keyword>
+      <keyword>continue\.</keyword>
+      <keyword>return\.</keyword>
+      <keyword>do\.</keyword>
+      <keyword>if\.</keyword>
+      <keyword>else\.</keyword>
+      <keyword>elseif\.</keyword>
+      <keyword>end\.</keyword>
+      <keyword>for\.</keyword>
+      <keyword>select\.</keyword>
+      <keyword>case\.</keyword>
+      <keyword>fcase\.</keyword>
+      <keyword>throw\.</keyword>
+      <keyword>try\.</keyword>
+      <keyword>catch\.</keyword>
+      <keyword>catchd\.</keyword>
+      <keyword>catcht\.</keyword>
+      <keyword>while\.</keyword>
+      <keyword>whilst\.</keyword>
+      <keyword>for_\%{valid-name}?\.</keyword>
+      <keyword>goto_\%{valid-name}?\.</keyword>
+      <keyword>label_\%{valid-name}?\.</keyword>
+    </context>
+
+    <!-- Explicit definition -->
+    <context id="expdef" style-inside="true">
+      <start>\%[(([1-4]|13)\s+:\s*0)|((adverb|conjunction|verb|monad|dyad)\s+define)\%]</start>
+      <end>\%{close-expdef}</end>
+      <include>
+        <context ref="comment"/>
+        <context ref="error"/>
+        <context ref="exparg"/>
+        <context ref="global"/>
+        <context ref="local"/>
+        <context ref="noun"/>
+        <context ref="verb"/>
+        <context ref="adverb"/>
+        <context ref="conjunction"/>
+        <context ref="string"/>
+        <context ref="number"/>
+        <context ref="control"/>
+      </include>
+    </context>
+
+    <!-- Explicit noun definition -->
+    <context id="noundef" style-ref="noundef" style-inside="true">
+      <start>\%[(0\s+:\s*0|noun\s+define)\%].*$</start>
+      <end>\%{close-expdef}</end>
+    </context>
+
+    <!-- Lab text definition -->
+    <context id="labtext" style-ref="labtext">
+      <start>^\s*[\x{2500}|-]{2,}</start>
+      <end>\%{close-expdef}</end>
+    </context>
+
+    <!-- Note (Multiline comment) -->
+    <context id="notes" style-ref="comment" style-inside="true">
+      <start>^\s*\%[Note\%](?!\s*\=[:.])\s*['\d].*$</start>
+      <end>\%{close-expdef}</end>
+    </context>
+
+    <!-- Note (to end-of-line comment) -->
+    <context id="note" style-ref="comment" end-at-line-end="true">
+      <start>\%[Note\%](?!\s*\=[:.])\s*['\d].*$</start>
+    </context>
+
+    <!-- =: (Global assignment) -->
+    <context id="global" style-ref="global">
+      <match>=:</match>
+    </context>
+
+    <!-- =. (Local assignment) -->
+    <context id="local" style-ref="local">
+      <match>=\.</match>
+    </context>
+
+    <context id="j">
+      <include>
+        <context ref="comment"/>
+        <context ref="error"/>
+        <context ref="string"/>
+        <context ref="global"/>
+        <context ref="local"/>
+        <context ref="noun"/>
+        <context ref="verb"/>
+        <context ref="adverb"/>
+        <context ref="conjunction"/>
+        <context ref="expdef"/>
+        <context ref="noundef"/>
+        <context ref="labtext"/>
+        <context ref="notes"/>
+        <context ref="note"/>
+        <context ref="parens"/>
+        <context ref="number"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

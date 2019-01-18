@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Authors: Oscar Torrent Artero, Joseba García Etxebarria
+ Copyright (C) 2009 Oscar Torrent Artero <q2dg@yahoo.es>
+ Copyright (C) 2010 Joseba García Etxebarria <joseba.gar@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="bennugd" name="BennuGD" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.prg</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"               map-to="def:comment"/>
+    <style id="preprocessor"      name="Preprocessor"          map-to="def:preprocessor"/>
+    <style id="identifier"        name="Identifier"            map-to="def:identifier"/>
+    <style id="operator"          name="Operator"              map-to="def:operator"/>
+    <style id="keywords"          name="Keyword"               map-to="def:keyword"/>
+    <style id="types"             name="Data Type"             map-to="def:type"/>
+    <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal"           name="Decimal number"        map-to="def:decimal"/>
+    <style id="hexadecimal"       name="Hexadecimal number"    map-to="def:base-n-integer"/>
+    <style id="boolean"           name="Boolean value"         map-to="def:boolean"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false" />
+  <definitions>
+
+    <!--regexs-->
+    <define-regex id="symbolchar">[-!+\\|=:&amp;&gt;&lt;]</define-regex>
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+
+    <!--Preprocessor -->
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+        \%{preproc-start}
+        (define|if(n?def)?|else|elsif|endif)
+        \b
+      </start>
+      <include>
+        <context ref="def:line-continue" ignore-style="true"/>
+        <context ref="c:string" ignore-style="true"/>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+      </include>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ([0-9]+[Ee][+-]?[0-9]+ |
+        ([0-9]*\.[0-9]+ | [0-9]+\.[0-9]*)([Ee][+-]?[0-9]+)?)
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal-number" style-ref="decimal">
+      <match extended="true">
+         (?&lt;![\w\.])
+         [+-]?([1-9][0-9]*|0)
+         (?![\w\.])
+       </match>
+    </context>
+
+    <context id="hexadecimal-number" style-ref="hexadecimal">
+      <match extended="true">
+         (?&lt;![\w\.])
+         [+-]?0x[0-9a-fA-F]+
+         (?![\w\.])
+      </match>
+    </context>
+
+    <!--Keywords -->
+    <context id="keywords" style-ref="keywords">
+      <keyword>begin</keyword>
+      <keyword>break</keyword>
+      <keyword>call</keyword>
+      <keyword>case</keyword>
+      <keyword>clone</keyword>
+      <keyword>const</keyword>
+      <keyword>continue</keyword>
+      <keyword>debug</keyword>
+      <keyword>declare</keyword>
+      <keyword>default</keyword>
+      <keyword>dup</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>elsif</keyword>
+      <keyword>end</keyword>
+      <keyword>error</keyword>
+      <keyword>exit</keyword>
+      <keyword>for</keyword>
+      <keyword>frame</keyword>
+      <keyword>from</keyword>
+      <keyword>function</keyword>
+      <keyword>global</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>include</keyword>
+      <keyword>jmp</keyword>
+      <keyword>local</keyword>
+      <keyword>loop</keyword>
+      <keyword>mod</keyword>
+      <keyword>mouse</keyword>
+      <keyword>next</keyword>
+      <keyword>offset</keyword>
+      <keyword>on</keyword>
+      <keyword>onerror</keyword>
+      <keyword>onexit</keyword>
+      <keyword>private</keyword>
+      <keyword>process</keyword>
+      <keyword>program</keyword>
+      <keyword>public</keyword>
+      <keyword>repeat</keyword>
+      <keyword>resume</keyword>
+      <keyword>return</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>step</keyword>
+      <keyword>switch</keyword>
+      <keyword>to</keyword>
+      <keyword>until</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="globals" style-ref="keywords">
+      <keyword>argc</keyword>
+      <keyword>argv</keyword>
+      <keyword>os_id</keyword>
+    </context>
+
+    <context id="locals" style-ref="keywords">
+      <keyword>bigbro</keyword>
+      <keyword>father</keyword>
+      <keyword>frame_percent</keyword>
+      <keyword>id</keyword>
+      <keyword>process_type</keyword>
+      <keyword>reserved</keyword>
+      <keyword>reserved.frame_percent</keyword>
+      <keyword>reserved.process_type</keyword>
+      <keyword>reserved.saved_priority</keyword>
+      <keyword>reserved.saved_status</keyword>
+      <keyword>reserved.status</keyword>
+      <keyword>saved_priority</keyword>
+      <keyword>saved_status</keyword>
+      <keyword>smallbro</keyword>
+      <keyword>status</keyword>
+      <keyword>son</keyword>
+    </context>
+
+    <context id="operators" style-ref="operator" extend-parent="false">
+      <prefix>(?&lt;!\%{symbolchar})</prefix>
+      <suffix>(?!\%{symbolchar})</suffix>
+      <keyword>==</keyword>
+      <keyword>!=</keyword>
+      <keyword>!</keyword>
+      <keyword>&lt;</keyword>
+      <keyword>&gt;</keyword>
+      <keyword>&lt;=</keyword>
+      <keyword>&gt;=</keyword>
+      <keyword>&amp;&amp;</keyword>
+      <keyword>&amp;</keyword>
+      <keyword>=</keyword>
+      <keyword>||</keyword>
+      <keyword>|</keyword>
+      <keyword>^^</keyword>
+      <keyword>^</keyword>
+    </context>
+
+    <context id="types" style-ref="types">
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>dword</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>pointer</keyword>
+      <keyword>short</keyword>
+      <keyword>signed</keyword>
+      <keyword>string</keyword>
+      <keyword>struct</keyword>
+      <keyword>type</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>word</keyword>
+    </context>
+
+    <context id="commonmacros" style-ref="preprocessor">
+      <keyword>COMPILER_VERSION</keyword>
+      <keyword>__DATE__</keyword>
+      <keyword>__FILE__</keyword>
+      <keyword>__LINE__</keyword>
+      <keyword>max_byte</keyword>
+      <keyword>max_dword</keyword>
+      <keyword>max_int</keyword>
+      <keyword>max_sbyte</keyword>
+      <keyword>max_short</keyword>
+      <keyword>max_word</keyword>
+      <keyword>min_byte</keyword>
+      <keyword>min_dword</keyword>
+      <keyword>min_int</keyword>
+      <keyword>min_sbyte</keyword>
+      <keyword>min_short</keyword>
+      <keyword>min_word</keyword>
+      <keyword>null</keyword>
+      <keyword>os_beos</keyword>
+      <keyword>os_bsd</keyword>
+      <keyword>os_dc</keyword>
+      <keyword>os_gp32</keyword>
+      <keyword>os_linux</keyword>
+      <keyword>os_macos</keyword>
+      <keyword>os_win32</keyword>
+      <keyword>status_dead</keyword>
+      <keyword>status_frozen</keyword>
+      <keyword>status_killed</keyword>
+      <keyword>status_running</keyword>
+      <keyword>status_sleeping</keyword>
+      <keyword>status_waiting</keyword>
+      <keyword>__TIME__ </keyword>
+      <keyword>__VERSION__</keyword>
+    </context>
+
+    <context id="bennugd" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="preprocessor"/>
+        <context ref="c:string"/>
+        <context ref="c:char"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal-number"/>
+        <context ref="hexadecimal-number"/>
+        <context ref="keywords"/>
+        <context ref="globals"/>
+        <context ref="locals"/>
+        <context ref="operators"/>
+        <context ref="types"/>
+        <context ref="commonmacros"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

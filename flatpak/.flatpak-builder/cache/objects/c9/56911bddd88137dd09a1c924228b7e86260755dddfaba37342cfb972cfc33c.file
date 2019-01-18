@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: John Luke <jluke@cfl.rr.com>
+ Copyright (C) 2004 John Luke <jluke@cfl.rr.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="vbnet" name="VB.NET" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-vbnet;text/x-vb</property>
+    <property name="globs">*.vb</property>
+    <property name="line-comment-start">'</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="special-constant" name="Special constant" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>'</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="old-style-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>^rem</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+        ^\s*#\s*
+        (define|undef|if(n?def)?|else|elif|end if|line|error|region|end region)
+        \b
+      </start>
+      <include>
+        <context ref="line-comment"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>addhandler</keyword>
+      <keyword>addressof</keyword>
+      <keyword>alias</keyword>
+      <keyword>and</keyword>
+      <keyword>andalso</keyword>
+      <keyword>ansi</keyword>
+      <keyword>as</keyword>
+      <keyword>assembly</keyword>
+      <keyword>async</keyword>
+      <keyword>auto</keyword>
+      <keyword>await</keyword>
+      <keyword>binary</keyword>
+      <keyword>byref</keyword>
+      <keyword>byval</keyword>
+      <keyword>call</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>cbool</keyword>
+      <keyword>cbyte</keyword>
+      <keyword>cchar</keyword>
+      <keyword>cdate</keyword>
+      <keyword>cdec</keyword>
+      <keyword>cdbl</keyword>
+      <keyword>cint</keyword>
+      <keyword>class</keyword>
+      <keyword>clng</keyword>
+      <keyword>cobj</keyword>
+      <keyword>compare</keyword>
+      <keyword>const</keyword>
+      <keyword>cshort</keyword>
+      <keyword>csng</keyword>
+      <keyword>cstr</keyword>
+      <keyword>ctype</keyword>
+      <keyword>declare</keyword>
+      <keyword>default</keyword>
+      <keyword>delegate</keyword>
+      <keyword>dim</keyword>
+      <keyword>do</keyword>
+      <keyword>each</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>end</keyword>
+      <keyword>enum</keyword>
+      <keyword>erase</keyword>
+      <keyword>error</keyword>
+      <keyword>event</keyword>
+      <keyword>exit</keyword>
+      <keyword>explicit</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>friend</keyword>
+      <keyword>function</keyword>
+      <keyword>get</keyword>
+      <keyword>goto</keyword>
+      <keyword>handles</keyword>
+      <keyword>if</keyword>
+      <keyword>implements</keyword>
+      <keyword>imports</keyword>
+      <keyword>in</keyword>
+      <keyword>inherits</keyword>
+      <keyword>integer</keyword>
+      <keyword>interface</keyword>
+      <keyword>is</keyword>
+      <keyword>let</keyword>
+      <keyword>lib</keyword>
+      <keyword>like</keyword>
+      <keyword>loop</keyword>
+      <keyword>me</keyword>
+      <keyword>mod</keyword>
+      <keyword>module</keyword>
+      <keyword>mustinherit</keyword>
+      <keyword>mustoverride</keyword>
+      <keyword>mybase</keyword>
+      <keyword>myclass</keyword>
+      <keyword>nameof</keyword>
+      <keyword>namespace</keyword>
+      <keyword>new</keyword>
+      <keyword>next</keyword>
+      <keyword>not</keyword>
+      <keyword>notinheritable</keyword>
+      <keyword>notoverridable</keyword>
+      <keyword>off</keyword>
+      <keyword>on</keyword>
+      <keyword>option</keyword>
+      <keyword>optional</keyword>
+      <keyword>or</keyword>
+      <keyword>orelse</keyword>
+      <keyword>overloads</keyword>
+      <keyword>overridable</keyword>
+      <keyword>overrides</keyword>
+      <keyword>param_array</keyword>
+      <keyword>preserve</keyword>
+      <keyword>private</keyword>
+      <keyword>property</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>raiseevent</keyword>
+      <keyword>readonly</keyword>
+      <keyword>redim</keyword>
+      <keyword>rem</keyword>
+      <keyword>removehandler</keyword>
+      <keyword>resume</keyword>
+      <keyword>return</keyword>
+      <keyword>select</keyword>
+      <keyword>set</keyword>
+      <keyword>shadows</keyword>
+      <keyword>shared</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>static</keyword>
+      <keyword>step</keyword>
+      <keyword>stop</keyword>
+      <keyword>strict</keyword>
+      <keyword>structure</keyword>
+      <keyword>sub</keyword>
+      <keyword>synclock</keyword>
+      <keyword>text</keyword>
+      <keyword>then</keyword>
+      <keyword>throw</keyword>
+      <keyword>to</keyword>
+      <keyword>try</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unicode</keyword>
+      <keyword>until</keyword>
+      <keyword>variant</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>withevents</keyword>
+      <keyword>writeonly</keyword>
+      <keyword>xor</keyword>
+      <keyword>yield</keyword> <!--MonoBASIC extension-->
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>boolean</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>date</keyword>
+      <keyword>decimal</keyword>
+      <keyword>double</keyword>
+      <keyword>long</keyword>
+      <keyword>object</keyword>
+      <keyword>short</keyword>
+      <keyword>single</keyword>
+      <keyword>string</keyword>
+    </context>
+
+    <context id="special-constants" style-ref="special-constant">
+      <keyword>nothing</keyword>
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="vbnet" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="old-style-comment"/>
+        <context ref="string"/>
+        <context ref="preprocessor"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="special-constants"/>
+        <context ref="boolean"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

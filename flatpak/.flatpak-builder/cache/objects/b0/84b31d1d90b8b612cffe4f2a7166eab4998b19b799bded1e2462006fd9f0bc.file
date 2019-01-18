@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Markus Johnsson
+ Copyright (C) 2008 Markus Johnsson <markus.johnsson.84@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="mxml" name="MXML" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.mxml</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="element-name" name="Element name" map-to="xml:element-name"/>
+    <style id="cdata-delim" name="CDATA delimiter" map-to="xml:cdata-delim"/>
+  </styles>
+
+  <definitions>
+    <context id="actionscript">
+      <start>&lt;(fx:Script|mx:Script)&gt;</start>
+      <end>&lt;/\%{1@start}&gt;</end>
+
+      <include>
+        <context sub-pattern="0" where="start" style-ref="element-name"/>
+        <context sub-pattern="0" where="end" style-ref="element-name"/>
+        <context ref="xml:element-name"/>
+        <context id="actionscript-code" extend-parent="false">
+          <start>&lt;!\[CDATA\[</start>
+          <end>\]\]&gt;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="cdata-delim"/>
+            <context sub-pattern="0" where="end" style-ref="cdata-delim"/>
+            <context ref="actionscript:actionscript"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="mxml">
+      <include>
+        <context ref="actionscript"/>
+        <context ref="xml:xml"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

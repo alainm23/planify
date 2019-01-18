@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Duncan Coutts
+ Copyright (C) 2007 Duncan Coutts <duncan@haskell.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="haskell-literate" name="Literate Haskell" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-literate-haskell</property>
+    <property name="globs">*.lhs</property>
+  </metadata>
+
+  <definitions>
+    <context id="haskell-literate">
+      <include>
+
+        <context ref="def:shebang"/>
+        <context ref="c:if0-comment"/>
+        <context ref="c:include"/>
+        <context ref="c:preprocessor"/>
+        <context ref="def:in-comment"/>
+
+        <context id="line-code" end-at-line-end="true">
+          <start>^&gt;</start>
+          <include>
+            <context ref="haskell:body"/>
+          </include>
+        </context>
+
+        <context id="block-code">
+          <start>^\\begin\{code\}</start>
+          <end>^\\end\{code\}</end>
+          <include>
+            <context ref="haskell:body" />
+          </include>
+        </context>
+
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Konstantin Ryabitsev <icon@fedoraproject.org>
+ Copyright (C) 2007 Konstantin Ryabitsev <icon@fedoraproject.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!-- Translators: do not translate "spec", it's the file extension. -->
+<language id="rpmspec" _name="RPM spec" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-rpm-spec</property>
+    <property name="globs">*.spec</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="define" name="Define" map-to="def:preprocessor"/>
+    <style id="header" name="Header" map-to="def:keyword"/>
+    <style id="section" name="Section" map-to="def:type"/>
+    <style id="spec-macro" name="Spec Macro" map-to="def:preprocessor"/>
+    <style id="directory-macro" name="Directory Macro" map-to="def:identifier"/>
+    <style id="command-macro" name="Command Macro" map-to="def:identifier"/>
+    <style id="conditional-macro" name="Conditional Macro" map-to="def:preprocessor"/>
+    <style id="other-macro" name="Other Macro" map-to="def:identifier"/>
+    <style id="flow-conditional" name="Flow Conditional" map-to="def:preprocessor"/>
+    <style id="rpm-var" name="RPM Variable" map-to="def:identifier"/>
+    <style id="switch" name="Switch" map-to="def:operator"/>
+    <style id="changelog-date" name="Date" map-to="changelog:date"/>
+    <style id="changelog-email" name="Email" map-to="changelog:email"/>
+  </styles>
+
+  <definitions>
+
+    <context id="define" style-ref="define" end-at-line-end="true">
+      <start>%(?:define|global)</start>
+      <include>
+        <context ref="def:line-continue" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="conditional-define" style-ref="define" end-at-line-end="true">
+      <start>%\{\!\?.*%(?:define|global)</start>
+      <end>\}</end>
+      <include>
+        <context ref="def:line-continue" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="header" style-ref="header">
+      <prefix>^</prefix>
+      <suffix>:</suffix>
+      <keyword>Auto[A-Za-z]+</keyword>
+      <keyword>[A-Za-z]+Arch</keyword>
+      <keyword>[A-Za-z]+Req</keyword>
+      <keyword>Build[A-Za-z]+</keyword>
+      <keyword>Conflicts</keyword>
+      <keyword>Enhances</keyword>
+      <keyword>Epoch</keyword>
+      <keyword>Group</keyword>
+      <keyword>Icon</keyword>
+      <keyword>License</keyword>
+      <keyword>Name</keyword>
+      <keyword>Obsoletes</keyword>
+      <keyword>Packager</keyword>
+      <keyword>Patch[0-9]*</keyword>
+      <keyword>Provides</keyword>
+      <keyword>Recommends</keyword>
+      <keyword>Release</keyword>
+      <keyword>Requires\(?[a-z]*\)?</keyword>
+      <keyword>Source[0-9]*</keyword>
+      <keyword>Suggests</keyword>
+      <keyword>Summary</keyword>
+      <keyword>Supplements</keyword>
+      <keyword>Url</keyword>
+      <keyword>URL</keyword>
+      <keyword>Vendor</keyword>
+      <keyword>Version</keyword>
+    </context>
+
+    <context id="section" style-ref="section">
+      <prefix>^%</prefix>
+      <keyword>global</keyword>
+      <keyword>description</keyword>
+      <keyword>package</keyword>
+      <keyword>prep</keyword>
+      <keyword>build</keyword>
+      <keyword>install</keyword>
+      <keyword>clean</keyword>
+      <keyword>check</keyword>
+      <keyword>pre[a-z]*</keyword>
+      <keyword>post[a-z]*</keyword>
+      <keyword>trigger[a-z]*</keyword>
+      <keyword>files</keyword>
+      <!-- the "changelog" section is handled as a special
+           case below.
+           TODO: In the future it would be nice to do the
+           same for other sections to enforce that some of the
+           things are highlighted only when in the correct
+           section.
+      -->
+    </context>
+
+    <context id="spec-macro" style-ref="spec-macro">
+      <prefix>%</prefix>
+      <keyword>defattr</keyword>
+      <keyword>docdir</keyword>
+      <keyword>doc</keyword>
+      <keyword>license</keyword>
+      <keyword>setup</keyword>
+      <keyword>autosetup</keyword>
+      <keyword>config</keyword>
+      <keyword>configure</keyword>
+      <keyword>make</keyword>
+      <keyword>makeinstall</keyword>
+      <keyword>make_install</keyword>
+      <keyword>make_build</keyword>
+      <keyword>dir</keyword>
+      <keyword>ghost</keyword>
+      <keyword>patch[0-9]+</keyword>
+      <keyword>find_lang</keyword>
+      <keyword>exclude</keyword>
+    </context>
+
+    <context id="directory-macro" style-ref="directory-macro">
+        <match>%\{?_([a-z_]+dir|[a-z_]+path|prefix)\}?</match>
+    </context>
+
+    <context id="command-macro" style-ref="command-macro">
+        <match>%\{?__[a-z_]+\}?</match>
+    </context>
+
+    <context id="conditional-macro" style-ref="conditional-macro">
+        <match>%\{\?[A-Za-z0-9_]+\}</match>
+    </context>
+
+    <context id="other-macro" style-ref="other-macro">
+        <match>%\{?[a-zA-Z][a-zA-Z0-9_]+\}?</match>
+    </context>
+
+    <context id="flow" style-ref="flow-conditional">
+      <prefix>%</prefix>
+      <keyword>ifarch</keyword>
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+      <keyword>elif</keyword>
+      <keyword>endif</keyword>
+    </context>
+
+    <context id="rpm-var" style-ref="rpm-var">
+        <match>\$\{?RPM_[A-Z0-9_]+\}?</match>
+    </context>
+
+    <!-- TODO: this is one of the context which would be nice
+         to restrict to the proper sections -->
+    <context id="command-switch" style-ref="switch">
+        <match>\s(-\w+|--\w[a-zA-Z_-]+)</match>
+    </context>
+
+    <define-regex id="weekday">Mon|Tue|Wed|Thu|Fri|Sat|Sun</define-regex>
+    <define-regex id="month">Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec</define-regex>
+    <define-regex id="date" extended="true">
+      \%{weekday}\s+\%{month}\s+\d{1,2}\s+(\d{1,2}:\d{1,2}:\d{1,2}\s+)?\d{4} |   # Wed Jun 27 13:27:21 2007
+      \d{4}-\d{2}-\d{2}                                                          # 2007-06-28
+    </define-regex>
+
+    <context id="changelog-section">
+      <start>%changelog</start>
+      <end>^(?=%)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="section"/>
+        <context id="date" style-ref="changelog-date">
+          <match>\%{date}</match>
+        </context>
+        <context id="email" style-ref="changelog-email">
+          <match>&lt;[A-Za-z0-9._+-]+@[A-Za-z0-9._+-]+\.[A-Za-z0-9]{2,4}&gt;</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="rpmspec">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="define"/>
+        <context ref="header"/>
+        <context ref="section"/>
+        <context ref="spec-macro"/>
+        <context ref="directory-macro"/>
+        <context ref="command-macro"/>
+        <context ref="conditional-macro"/>
+        <context ref="flow"/>
+        <context ref="rpm-var"/>
+        <context ref="command-switch"/>
+        <context ref="changelog-section"/>
+        <context ref="other-macro"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

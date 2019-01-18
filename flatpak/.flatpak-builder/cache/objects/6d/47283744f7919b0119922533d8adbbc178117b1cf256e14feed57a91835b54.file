@@ -1,0 +1,134 @@
+#ifndef LIBICAL_GLIB_PRIVATE_H
+#define LIBICAL_GLIB_PRIVATE_H
+
+#include "libical-glib.h"
+
+/* Private methods for ICalArray */
+
+ICalArray *	i_cal_array_new_full		(icalarray *native,
+						 GObject *owner);
+
+/* Private methods for ICalAttach */
+
+ICalAttach *	i_cal_attach_new_full		(icalattach *native,
+						 GObject *owner);
+
+/* Private methods for ICalCompIter */
+
+ICalCompIter *	i_cal_comp_iter_new_full	(struct icalcompiter native);
+
+struct icalcompiter 
+		i_cal_comp_iter_new_default	(void);
+
+/* Private methods for ICalComponent */
+
+ICalComponent *	i_cal_component_new_full	(icalcomponent *native,
+						 GObject *owner);
+
+/* Private methods for ICalDatetimeperiodType */
+
+ICalDatetimeperiodType *
+		i_cal_datetimeperiod_type_new_full
+						(struct icaldatetimeperiodtype native);
+
+struct icaldatetimeperiodtype 
+		i_cal_datetimeperiod_type_new_default
+						(void);
+
+/* Private methods for ICalDurationType */
+
+ICalDurationType *
+		i_cal_duration_type_new_full	(struct icaldurationtype native);
+
+/* Private methods for ICalGeoType */
+
+ICalGeoType *	i_cal_geo_type_new_full		(struct icalgeotype native);
+
+/* Private methods for ICalParameter */
+
+ICalParameter *	i_cal_parameter_new_full	(icalparameter *native,
+						 GObject *owner);
+
+/* Private methods for ICalParser */
+
+ICalParser *	i_cal_parser_new_full		(icalparser *native,
+						 GObject *owner);
+
+/* Private methods for ICalPeriodType */
+
+ICalPeriodType *
+		i_cal_period_type_new_full	(struct icalperiodtype native);
+
+/* Private methods for ICalProperty */
+
+ICalProperty *	i_cal_property_new_full		(icalproperty *native,
+						 GObject *owner);
+
+/* Private methods for ICalRecurIterator */
+
+ICalRecurIterator *
+		i_cal_recur_iterator_new_full	(icalrecur_iterator *native,
+						 GObject *owner);
+
+/* Private methods for ICalRecurrenceType */
+
+ICalRecurrenceType *
+		i_cal_recurrence_type_new_full	(struct icalrecurrencetype native);
+
+struct icalrecurrencetype 
+		i_cal_recurrence_type_new	(void);
+
+/* Private methods for ICalReqstatType */
+
+ICalReqstatType *
+		i_cal_reqstat_type_new_full	(struct icalreqstattype native);
+
+struct icalreqstattype 
+		i_cal_reqstat_type_new_default	(void);
+
+/* Private methods for ICalTimeSpan */
+
+ICalTimeSpan *	i_cal_time_span_new_full	(struct icaltime_span native);
+
+/* Private methods for ICalTimetype */
+
+ICalTimetype *	i_cal_timetype_new_full		(struct icaltimetype native);
+
+struct icaltimetype 
+		i_cal_timetype_new_default	(void);
+
+/* Private methods for ICalTimezonePhase */
+
+ICalTimezonePhase *
+		i_cal_timezone_phase_new_full	(struct icaltimezonephase native);
+
+struct icaltimezonephase 
+		i_cal_timezone_phase_new_default
+						(void);
+
+/* Private methods for ICalTimezone */
+
+ICalTimezone *	i_cal_timezone_new_full		(icaltimezone *native,
+						 GObject *owner,
+						 gboolean is_global_memory);
+
+void		i_cal_timezone_destroy		(icaltimezone *zone);
+
+/* Private methods for ICalTimezonetype */
+
+ICalTimezonetype *
+		i_cal_timezonetype_new_full	(struct icaltimezonetype native);
+
+struct icaltimezonetype 
+		i_cal_timezonetype_new_default	(void);
+
+/* Private methods for ICalTriggerType */
+
+ICalTriggerType *
+		i_cal_trigger_type_new_full	(struct icaltriggertype native);
+
+/* Private methods for ICalValue */
+
+ICalValue *	i_cal_value_new_full		(icalvalue *native,
+						 GObject *owner);
+#endif

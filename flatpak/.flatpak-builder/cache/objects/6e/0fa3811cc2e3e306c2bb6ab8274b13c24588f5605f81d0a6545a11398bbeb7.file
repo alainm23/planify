@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Andrew Johnson <acjgenius@earthlink.net>
+ Copyright (C) 2004 Andrew Johnson <acjgenius@earthlink.net>
+ Copyright (C) 2005 Thierry Moisan <thierry.moisan@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="pascal" name="Pascal" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-pascal</property>
+    <property name="globs">*.p;*.pas</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>[uUrR]?'</start>
+      <end>'</end>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment-1" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>\(\*</start>
+      <end>\*\)</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment-2" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="preprocessor-defines" style-ref="preprocessor" end-at-line-end="true">
+      <start>\{\$</start>
+      <end>\}</end>
+    </context>
+
+    <context id="general-format" style-ref="keyword">
+      <keyword>Program</keyword>
+      <keyword>Library</keyword>
+      <keyword>Unit</keyword>
+      <keyword>Uses</keyword>
+      <keyword>Interface</keyword>
+      <keyword>Implementation</keyword>
+      <keyword>Initialization</keyword>
+      <keyword>Finalization</keyword>
+      <keyword>Begin</keyword>
+      <keyword>End</keyword>
+      <keyword>Var</keyword>
+      <keyword>Const</keyword>
+    </context>
+
+    <context id="functions-and-function-modifiers" style-ref="keyword">
+      <keyword>Function</keyword>
+      <keyword>Procedure</keyword>
+      <keyword>Overload</keyword>
+      <keyword>cdecl</keyword>
+    </context>
+
+    <context id="boolean-bitwise-operators" style-ref="keyword">
+      <keyword>if</keyword>
+      <keyword>then</keyword>
+      <keyword>else</keyword>
+      <keyword>is</keyword>
+      <keyword>and</keyword>
+      <keyword>and_then</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>or_else</keyword>
+      <keyword>xor</keyword>
+      <keyword>shr</keyword>
+      <keyword>shl</keyword>
+      <keyword>otherwise</keyword>
+    </context>
+
+    <context id="math-operators" style-ref="keyword">
+      <keyword>div</keyword>
+      <keyword>mod</keyword>
+    </context>
+
+    <context id="loop-flow-and-exceptions-keywords" style-ref="keyword">
+      <keyword>while</keyword>
+      <keyword>do</keyword>
+      <keyword>for</keyword>
+      <keyword>to</keyword>
+      <keyword>case</keyword>
+      <keyword>of</keyword>
+      <keyword>repeat</keyword>
+      <keyword>until</keyword>
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>try</keyword>
+      <keyword>except</keyword>
+      <keyword>finally</keyword>
+      <keyword>raise</keyword>
+      <keyword>downto</keyword>
+      <keyword>in</keyword>
+    </context>
+
+    <context id="type-class-and-object-keywords" style-ref="keyword">
+      <keyword>Type</keyword>
+      <keyword>Packed</keyword>
+      <keyword>Array</keyword>
+      <keyword>Record</keyword>
+      <keyword>Object</keyword>
+      <keyword>Class</keyword>
+      <keyword>Interface</keyword>
+      <keyword>Public</keyword>
+      <keyword>Private</keyword>
+      <keyword>Protected</keyword>
+      <keyword>Constructor</keyword>
+      <keyword>Destructor</keyword>
+      <keyword>Virtual</keyword>
+      <keyword>Abstract</keyword>
+      <keyword>Override</keyword>
+      <keyword>Property</keyword>
+      <keyword>ReadLn</keyword>
+      <keyword>Read</keyword>
+      <keyword>WriteLn</keyword>
+      <keyword>Write</keyword>
+      <keyword>default</keyword>
+      <keyword>With</keyword>
+      <keyword>As</keyword>
+      <keyword>self</keyword>
+      <keyword>Inherited</keyword>
+      <keyword>Forward</keyword>
+      <keyword>Implements</keyword>
+      <keyword>varargs</keyword>
+      <keyword>far</keyword>
+      <keyword>near</keyword>
+      <keyword>absolute</keyword>
+      <keyword>all</keyword>
+      <keyword>asm</keyword>
+      <keyword>attribute</keyword>
+      <keyword>bindable</keyword>
+      <keyword>export</keyword>
+      <keyword>exports</keyword>
+      <keyword>external</keyword>
+      <keyword>file</keyword>
+      <keyword>goto</keyword>
+      <keyword>import</keyword>
+      <keyword>interrupt</keyword>
+      <keyword>published</keyword>
+      <keyword>qualified</keyword>
+      <keyword>resident</keyword>
+      <keyword>restricted</keyword>
+      <keyword>segment</keyword>
+      <keyword>set</keyword>
+      <keyword>value</keyword>
+    </context>
+
+    <context id="builtin-types" style-ref="type">
+      <keyword>Char</keyword>
+      <keyword>String</keyword>
+      <keyword>Integer</keyword>
+      <keyword>Real</keyword>
+      <keyword>Boolean</keyword>
+      <keyword>Pointer</keyword>
+      <keyword>Byte</keyword>
+      <keyword>LongInt</keyword>
+    </context>
+
+    <context id="builtin-functions" style-ref="keyword">
+      <keyword>chr</keyword>
+      <keyword>ord</keyword>
+      <keyword>succ</keyword>
+      <keyword>pred</keyword>
+      <keyword>abs</keyword>
+      <keyword>round</keyword>
+      <keyword>trunc</keyword>
+      <keyword>sqr</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>arctan</keyword>
+      <keyword>cos</keyword>
+      <keyword>sin</keyword>
+      <keyword>exp</keyword>
+      <keyword>ln</keyword>
+      <keyword>odd</keyword>
+      <keyword>eof</keyword>
+      <keyword>eoln</keyword>
+      <keyword>pow</keyword>
+    </context>
+
+    <context id="builtin-values" style-ref="keyword">
+      <keyword>nil</keyword>
+      <keyword>False</keyword>
+      <keyword>True</keyword>
+    </context>
+
+    <context id="number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        (([0-9]+)|([0-9]+\.[0-9]+([Ee][-]?[0-9]+)?))
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hex-number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        \$[0-9a-fA-F]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="pascal" class="no-spell-check">
+      <include>
+        <context ref="string"/>
+        <context ref="line-comment"/>
+        <context ref="preprocessor-defines"/>
+        <context ref="block-comment-1"/>
+        <context ref="block-comment-2"/>
+        <context ref="general-format"/>
+        <context ref="functions-and-function-modifiers"/>
+        <context ref="boolean-bitwise-operators"/>
+        <context ref="math-operators"/>
+        <context ref="loop-flow-and-exceptions-keywords"/>
+        <context ref="type-class-and-object-keywords"/>
+        <context ref="builtin-types"/>
+        <context ref="builtin-functions"/>
+        <context ref="builtin-values"/>
+        <context ref="number"/>
+        <context ref="hex-number"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

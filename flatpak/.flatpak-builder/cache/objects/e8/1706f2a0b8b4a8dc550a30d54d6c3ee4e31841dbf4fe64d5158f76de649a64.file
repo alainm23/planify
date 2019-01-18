@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.2"
+   width="24"
+   height="24"
+   id="svg2">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient6801-52">
+      <stop
+         id="stop6803-43"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop6805-5"
+         style="stop-color:#ffffff;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="223.51138"
+       y1="1199.033"
+       x2="223.51138"
+       y2="1181.2115"
+       id="linearGradient5978"
+       xlink:href="#linearGradient6801-52"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       id="linearGradient4011-0-8-22">
+      <stop
+         id="stop4013-2-3-3"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop4015-7-1-6"
+         style="stop-color:#ffffff;stop-opacity:0.23529412"
+         offset="0.507761" />
+      <stop
+         id="stop4017-13-5-7"
+         style="stop-color:#ffffff;stop-opacity:0.15686275"
+         offset="0.83456558" />
+      <stop
+         id="stop4019-92-5-5"
+         style="stop-color:#ffffff;stop-opacity:0.39215687"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="71.204407"
+       y1="6.2375584"
+       x2="71.204407"
+       y2="44.340794"
+       id="linearGradient6118"
+       xlink:href="#linearGradient4011-0-8-22"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5135135,0,0,0.5135135,115.16476,-1.0212803)" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     d="M 12,1.4999997 C 6.20646,1.4999997 1.5,6.20646 1.5,12 1.5,17.79354 6.20646,22.5 12,22.5 17.79354,22.5 22.50001,17.79354 22.5,12 22.5,6.20646 17.79354,1.4999997 12,1.4999997 z"
+     id="path2555-7-8-5-0-7"
+     style="opacity:0.98999999;color:#000000;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99999982;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  <path
+     d="M 12,1.4999997 C 6.20646,1.4999997 1.5,6.20646 1.5,12 1.5,17.79354 6.20646,22.5 12,22.5 17.79354,22.5 22.50001,17.79354 22.5,12 22.5,6.20646 17.79354,1.4999997 12,1.4999997 z"
+     id="path2555-7-8-5-3"
+     style="opacity:0.3;color:#000000;fill:none;stroke:#434343;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  <path
+     d="M 21.5,11.99966 C 21.5,17.24654 17.24639,21.5 12.00012,21.5 6.75337,21.5 2.5,17.24649 2.5,11.99966 2.5,6.75303 6.75337,2.4999997 12.00012,2.4999997 17.24639,2.4999997 21.5,6.75303 21.5,11.99966 l 0,0 z"
+     id="path8655-6-0-9-6"
+     style="opacity:0.5;color:#000000;fill:none;stroke:url(#linearGradient6118);stroke-width:0.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  <path
+     d="m 15.98656,7.62453 2.01342,1.81209 -6.76511,8.93959 -5.23489,-4.51006 1.73154,-2.29531 3.0604,2.65772 5.19464,-6.60403 z"
+     id="path2922-6-6-0-9-4-6"
+     style="opacity:0.2;color:#bebebe;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  <path
+     d="m 15.98656,6.62417 2.01342,1.81209 -6.76511,8.93959 -5.23489,-4.51006 1.73154,-2.29531 3.0604,2.65772 5.19464,-6.60403 z"
+     id="path2922-6-6-0-9-2"
+     style="color:#bebebe;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+</svg>

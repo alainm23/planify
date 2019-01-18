@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Vincent Hindriksen <vincent@streamcomputing.eu>
+ Copyright (C) 2011 Vincent Hindriksen
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="opencl" name="OpenCL" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.cl</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="data-type" name="Data Type" map-to="def:type"/>
+    <style id="global-function" name="Global Function" map-to="def:function"/>
+    <style id="device-function" name="Device Function" map-to="def:function"/>
+    <style id="device-cast" name="Device Cast" map-to="def:function"/>
+    <style id="opencl-const" name="OpenCL Constant" map-to="def:special-constant"/>
+    <style id="global-var" name="Global Variable" map-to="def:identifier"/>
+  </styles>
+
+  <definitions>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>__global</keyword>
+      <keyword>global</keyword>
+      <keyword>__local</keyword>
+      <keyword>local</keyword>
+      <keyword>__constant</keyword>
+      <keyword>constant</keyword>
+      <keyword>__private</keyword>
+      <keyword>private</keyword>
+      <keyword>__kernel</keyword>
+      <keyword>kernel</keyword>
+      <keyword>__attribute__</keyword>
+      <keyword>__read_only</keyword>
+      <keyword>read_only</keyword>
+      <keyword>__write_only</keyword>
+      <keyword>write_only</keyword>
+      <keyword>complex</keyword>
+      <keyword>imaginary</keyword>
+    </context>
+
+    <context id="data-types" style-ref="data-type">
+      <keyword>bool</keyword>
+      <keyword>bool2</keyword>
+      <keyword>bool3</keyword>
+      <keyword>bool4</keyword>
+      <keyword>bool8</keyword>
+      <keyword>bool16</keyword>
+      <keyword>uchar</keyword>
+      <keyword>uchar2</keyword>
+      <keyword>uchar3</keyword>
+      <keyword>uchar4</keyword>
+      <keyword>uchar8</keyword>
+      <keyword>uchar16</keyword>
+      <keyword>ushort</keyword>
+      <keyword>ushort2</keyword>
+      <keyword>ushort3</keyword>
+      <keyword>ushort4</keyword>
+      <keyword>ushort8</keyword>
+      <keyword>ushort16</keyword>
+      <keyword>int</keyword>
+      <keyword>int2</keyword>
+      <keyword>int3</keyword>
+      <keyword>int4</keyword>
+      <keyword>int8</keyword>
+      <keyword>int16</keyword>
+      <keyword>uint</keyword>
+      <keyword>uint2</keyword>
+      <keyword>uint3</keyword>
+      <keyword>uint4</keyword>
+      <keyword>uint8</keyword>
+      <keyword>uint16</keyword>
+      <keyword>ulong</keyword>
+      <keyword>ulong2</keyword>
+      <keyword>ulong3</keyword>
+      <keyword>ulong4</keyword>
+      <keyword>ulong8</keyword>
+      <keyword>ulong16</keyword>
+      <keyword>half</keyword>
+      <keyword>half2</keyword>
+      <keyword>half3</keyword>
+      <keyword>half4</keyword>
+      <keyword>half8</keyword>
+      <keyword>half16</keyword>
+      <keyword>quad</keyword>
+      <keyword>quad2</keyword>
+      <keyword>quad3</keyword>
+      <keyword>quad4</keyword>
+      <keyword>quad8</keyword>
+      <keyword>quad16</keyword>
+      <keyword>char</keyword>
+      <keyword>char2</keyword>
+      <keyword>char3</keyword>
+      <keyword>char4</keyword>
+      <keyword>char8</keyword>
+      <keyword>char16</keyword>
+      <keyword>short</keyword>
+      <keyword>short2</keyword>
+      <keyword>short3</keyword>
+      <keyword>short4</keyword>
+      <keyword>short8</keyword>
+      <keyword>short16</keyword>
+      <keyword>long</keyword>
+      <keyword>long2</keyword>
+      <keyword>long3</keyword>
+      <keyword>long4</keyword>
+      <keyword>long8</keyword>
+      <keyword>long16</keyword>
+      <keyword>float</keyword>
+      <keyword>float2</keyword>
+      <keyword>float3</keyword>
+      <keyword>float4</keyword>
+      <keyword>float8</keyword>
+      <keyword>float16</keyword>
+      <keyword>double</keyword>
+      <keyword>double2</keyword>
+      <keyword>double3</keyword>
+      <keyword>double4</keyword>
+      <keyword>double8</keyword>
+      <keyword>double16</keyword>
+
+      <keyword>cl_image_format</keyword>
+      <keyword>_cl_platform_id</keyword>
+      <keyword>_cl_device_id</keyword>
+      <keyword>_cl_context</keyword>
+      <keyword>_cl_command_queue</keyword>
+      <keyword>_cl_mem</keyword>
+      <keyword>_cl_program</keyword>
+      <keyword>_cl_kernel</keyword>
+      <keyword>_cl_event</keyword>
+      <keyword>_cl_sampler</keyword>
+    </context>
+
+    <context id="global-functions" style-ref="global-function">
+      <keyword>get_work_dim</keyword>
+      <keyword>get_global_size</keyword>
+      <keyword>get_global_id</keyword>
+      <keyword>get_local_size</keyword>
+      <keyword>get_local_id</keyword>
+      <keyword>get_num_groups</keyword>
+      <keyword>get_group_id</keyword>
+      <keyword>get_global_offset</keyword>
+    </context>
+
+    <context id="device-functions" style-ref="device-function">
+      <keyword>cos</keyword>
+      <keyword>cosh</keyword>
+      <keyword>cospi</keyword>
+      <keyword>acos</keyword>
+      <keyword>acosh</keyword>
+      <keyword>acospi</keyword>
+      <keyword>sin</keyword>
+      <keyword>sincos</keyword>
+      <keyword>sinh</keyword>
+      <keyword>sinpi</keyword>
+      <keyword>asin</keyword>
+      <keyword>asinh</keyword>
+      <keyword>asinpi</keyword>
+      <keyword>tan</keyword>
+      <keyword>tanh</keyword>
+      <keyword>tanpi</keyword>
+      <keyword>atan</keyword>
+      <keyword>atan2</keyword>
+      <keyword>atanh</keyword>
+      <keyword>atanpi</keyword>
+      <keyword>atan2pi</keyword>
+      <keyword>cbrt</keyword>
+      <keyword>ceil</keyword>
+      <keyword>copysign</keyword>
+      <keyword>erfc</keyword>
+      <keyword>erf</keyword>
+      <keyword>exp</keyword>
+      <keyword>exp2</keyword>
+      <keyword>exp10</keyword>
+      <keyword>expm1</keyword>
+      <keyword>fabs</keyword>
+      <keyword>fdim</keyword>
+      <keyword>floor</keyword>
+      <keyword>fma</keyword>
+      <keyword>fmax</keyword>
+      <keyword>fmin</keyword>
+      <keyword>fract</keyword>
+      <keyword>frexp</keyword>
+      <keyword>hypot</keyword>
+      <keyword>ilogb</keyword>
+      <keyword>ldexp</keyword>
+      <keyword>ldexp</keyword>
+      <keyword>lgamma</keyword>
+      <keyword>lgamma_r</keyword>
+      <keyword>log</keyword>
+      <keyword>log2</keyword>
+      <keyword>log10</keyword>
+      <keyword>log1p</keyword>
+      <keyword>logb</keyword>
+      <keyword>mad</keyword>
+      <keyword>modf</keyword>
+      <keyword>nan</keyword>
+      <keyword>nextafter</keyword>
+      <keyword>pow</keyword>
+      <keyword>pown</keyword>
+      <keyword>powr</keyword>
+      <keyword>remainder</keyword>
+      <keyword>remquo</keyword>
+      <keyword>rint</keyword>
+      <keyword>rootn</keyword>
+      <keyword>round</keyword>
+      <keyword>rsqrt</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>tgamma</keyword>
+      <keyword>trunc</keyword>
+      <keyword>half_cos</keyword>
+      <keyword>half_divide</keyword>
+      <keyword>half_exp</keyword>
+      <keyword>half_exp2</keyword>
+      <keyword>half_exp10</keyword>
+      <keyword>half_log</keyword>
+      <keyword>half_log2</keyword>
+      <keyword>half_log10</keyword>
+      <keyword>half_powr</keyword>
+      <keyword>half_recip</keyword>
+      <keyword>half_rsqrt</keyword>
+      <keyword>half_sin</keyword>
+      <keyword>half_sqrt</keyword>
+      <keyword>half_tan</keyword>
+      <keyword>native_cos</keyword>
+      <keyword>native_divide</keyword>
+      <keyword>native_exp</keyword>
+      <keyword>native_exp2</keyword>
+      <keyword>native_exp10</keyword>
+      <keyword>native_log</keyword>
+      <keyword>native_log2</keyword>
+      <keyword>native_log10</keyword>
+      <keyword>native_powr</keyword>
+      <keyword>native_recip</keyword>
+      <keyword>native_rsqrt</keyword>
+      <keyword>native_sin</keyword>
+      <keyword>native_sqrt</keyword>
+      <keyword>native_tan</keyword>
+      <keyword>abs</keyword>
+      <keyword>abs_diff</keyword>
+      <keyword>add_sat</keyword>
+      <keyword>hadd</keyword>
+      <keyword>rhadd</keyword>
+      <keyword>clz</keyword>
+      <keyword>mad_hi</keyword>
+      <keyword>mad_sat</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>mul_hi</keyword>
+      <keyword>rotate</keyword>
+      <keyword>sub_sat</keyword>
+      <keyword>upsample</keyword>
+      <keyword>mad24</keyword>
+      <keyword>mul24</keyword>
+      <keyword>clamp</keyword>
+      <keyword>degrees</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>mix</keyword>
+      <keyword>radians</keyword>
+      <keyword>step</keyword>
+      <keyword>smoothstep</keyword>
+      <keyword>sign</keyword>
+      <keyword>cross</keyword>
+      <keyword>dot</keyword>
+      <keyword>distance</keyword>
+      <keyword>length</keyword>
+      <keyword>normalize</keyword>
+      <keyword>fast_distance</keyword>
+      <keyword>fast_length</keyword>
+      <keyword>fast_normalize</keyword>
+      <keyword>vec_step</keyword>
+      <keyword>shuffle</keyword>
+      <keyword>shuffle2</keyword>
+      <keyword>isequal</keyword>
+      <keyword>isnotequal</keyword>
+      <keyword>isgreater</keyword>
+      <keyword>isgreaterequal</keyword>
+      <keyword>isless</keyword>
+      <keyword>islessequal</keyword>
+      <keyword>islessgreater</keyword>
+      <keyword>isfinite</keyword>
+      <keyword>isinf</keyword>
+      <keyword>isnan</keyword>
+      <keyword>isnormal</keyword>
+      <keyword>isordered</keyword>
+      <keyword>isunordered</keyword>
+      <keyword>signbit</keyword>
+      <keyword>any</keyword>
+      <keyword>all</keyword>
+      <keyword>bitselect</keyword>
+      <keyword>select</keyword>
+      <keyword>vload_half</keyword>
+      <keyword>vstore_half</keyword>
+
+      <keyword>vload2</keyword>
+      <keyword>vload3</keyword>
+      <keyword>vload4</keyword>
+      <keyword>vload8</keyword>
+      <keyword>vload16</keyword>
+      <keyword>vload_half2</keyword>
+      <keyword>vload_half3</keyword>
+      <keyword>vload_half4</keyword>
+      <keyword>vload_half8</keyword>
+      <keyword>vload_half16</keyword>
+      <keyword>vloada_half2</keyword>
+      <keyword>vloada_half3</keyword>
+      <keyword>vloada_half4</keyword>
+      <keyword>vloada_half8</keyword>
+      <keyword>vloada_half16</keyword>
+      <keyword>vloada_half2_rte</keyword>
+      <keyword>vloada_half3_rte</keyword>
+      <keyword>vloada_half4_rte</keyword>
+      <keyword>vloada_half8_rte</keyword>
+      <keyword>vloada_half16_rte</keyword>
+      <keyword>vloada_half2_rtz</keyword>
+      <keyword>vloada_half3_rtz</keyword>
+      <keyword>vloada_half4_rtz</keyword>
+      <keyword>vloada_half8_rtz</keyword>
+      <keyword>vloada_half16_rtz</keyword>
+      <keyword>vloada_half2_rtp</keyword>
+      <keyword>vloada_half3_rtp</keyword>
+      <keyword>vloada_half4_rtp</keyword>
+      <keyword>vloada_half8_rtp</keyword>
+      <keyword>vloada_half16_rtp</keyword>
+
+      <keyword>vstore_rte</keyword>
+      <keyword>vstore_rtz</keyword>
+      <keyword>vstore_rtp</keyword>
+      <keyword>vstore_rtn</keyword>
+      <keyword>vstore2</keyword>
+      <keyword>vstore3</keyword>
+      <keyword>vstore4</keyword>
+      <keyword>vstore8</keyword>
+      <keyword>vstore16</keyword>
+      <keyword>vstore_half2</keyword>
+      <keyword>vstore_half3</keyword>
+      <keyword>vstore_half4</keyword>
+      <keyword>vstore_half8</keyword>
+      <keyword>vstore_half16</keyword>
+      <keyword>vstore_half_rte</keyword>
+      <keyword>vstore_half_rtz</keyword>
+      <keyword>vstore_half_rtp</keyword>
+      <keyword>vstore_half_rtn</keyword>
+      <keyword>vstore_half2_rte</keyword>
+      <keyword>vstore_half3_rte</keyword>
+      <keyword>vstore_half4_rte</keyword>
+      <keyword>vstore_half8_rte</keyword>
+      <keyword>vstore_half16_rte</keyword>
+      <keyword>vstore_half2_rtz</keyword>
+      <keyword>vstore_half3_rtz</keyword>
+      <keyword>vstore_half4_rtz</keyword>
+      <keyword>vstore_half8_rtz</keyword>
+      <keyword>vstore_half16_rtz</keyword>
+      <keyword>vstore_half2_rtp</keyword>
+      <keyword>vstore_half3_rtp</keyword>
+      <keyword>vstore_half4_rtp</keyword>
+      <keyword>vstore_half8_rtp</keyword>
+      <keyword>vstore_half16_rtp</keyword>
+      <keyword>vstore_half2_rtn</keyword>
+      <keyword>vstore_half3_rtn</keyword>
+      <keyword>vstore_half4_rtn</keyword>
+      <keyword>vstore_half8_rtn</keyword>
+      <keyword>vstore_half16_rtn</keyword>
+
+      <keyword>vstorea_half2</keyword>
+      <keyword>vstorea_half3</keyword>
+      <keyword>vstorea_half4</keyword>
+      <keyword>vstorea_half8</keyword>
+      <keyword>vstorea_half16</keyword>
+      <keyword>vstorea_half_rte</keyword>
+      <keyword>vstorea_half_rtz</keyword>
+      <keyword>vstorea_half_rtp</keyword>
+      <keyword>vstorea_half_rtn</keyword>
+      <keyword>vstorea_half2_rte</keyword>
+      <keyword>vstorea_half3_rte</keyword>
+      <keyword>vstorea_half4_rte</keyword>
+      <keyword>vstorea_half8_rte</keyword>
+      <keyword>vstorea_half16_rte</keyword>
+      <keyword>vstorea_half2_rtz</keyword>
+      <keyword>vstorea_half3_rtz</keyword>
+      <keyword>vstorea_half4_rtz</keyword>
+      <keyword>vstorea_half8_rtz</keyword>
+      <keyword>vstorea_half16_rtz</keyword>
+      <keyword>vstorea_half2_rtp</keyword>
+      <keyword>vstorea_half3_rtp</keyword>
+      <keyword>vstorea_half4_rtp</keyword>
+      <keyword>vstorea_half8_rtp</keyword>
+      <keyword>vstorea_half16_rtp</keyword>
+      <keyword>vstorea_half2_rtn</keyword>
+      <keyword>vstorea_half3_rtn</keyword>
+      <keyword>vstorea_half4_rtn</keyword>
+      <keyword>vstorea_half8_rtn</keyword>
+      <keyword>vstorea_half16_rtn</keyword>
+
+      <keyword>read_imagef</keyword>
+      <keyword>read_imagei</keyword>
+      <keyword>read_imageui</keyword>
+      <keyword>read_imageh</keyword>
+      <keyword>write_imagef</keyword>
+      <keyword>write_imagei</keyword>
+      <keyword>write_imageui</keyword>
+      <keyword>write_imageh</keyword>
+      <keyword>get_image_width</keyword>
+      <keyword>get_image_height</keyword>
+      <keyword>get_image_depth</keyword>
+      <keyword>get_image_channel_data_type</keyword>
+      <keyword>get_image_channel_order</keyword>
+      <keyword>get_image_dim</keyword>
+
+      <keyword>barrier</keyword>
+      <keyword>mem_fence</keyword>
+      <keyword>read_mem_fence</keyword>
+      <keyword>write_mem_fence</keyword>
+      <keyword>async</keyword>
+      <keyword>copies</keyword>
+      <keyword>from</keyword>
+      <keyword>global</keyword>
+      <keyword>to</keyword>
+      <keyword>local</keyword>
+      <keyword>mem</keyword>
+      <keyword>to</keyword>
+      <keyword>and</keyword>
+      <keyword>fro</keyword>
+      <keyword>and</keyword>
+      <keyword>prefetch</keyword>
+      <keyword>async_work_group_copy</keyword>
+      <keyword>async_work_group_strided_copy</keyword>
+      <keyword>wait_group_events</keyword>
+      <keyword>prefetch</keyword>
+
+      <keyword>atom_add</keyword>
+      <keyword>atom_sub</keyword>
+      <keyword>atom_xchg</keyword>
+      <keyword>atom_inc</keyword>
+      <keyword>atom_dec</keyword>
+      <keyword>atom_cmpxchg</keyword>
+      <keyword>atom_min</keyword>
+      <keyword>atom_max</keyword>
+      <keyword>atom_and</keyword>
+      <keyword>atom_or</keyword>
+      <keyword>atom_xor</keyword>
+
+      <keyword>vec_type_hint</keyword>
+      <keyword>work_group_size_hint</keyword>
+      <keyword>reqd_work_group_size</keyword>
+      <keyword>aligned</keyword>
+      <keyword>packed</keyword>
+      <keyword>endian</keyword>
+
+    </context>
+
+    <context id="device-casts" style-ref="device-cast">
+      <match>(as_|convert_)(uchar|char|ushort|short|uitn|int|ulong|long|float|double)((2|3|4|8|16)((_sat)(_rte|_rtz|_rtp|_rtn)?)?)?</match>
+    </context>
+
+    <context id="opencl-constants" style-ref="opencl-const">
+      <keyword>MAXFLOAT</keyword>
+      <keyword>HUGE_VALF</keyword>
+      <keyword>INFINITY</keyword>
+      <keyword>NAN</keyword>
+      <keyword>FLT_DIG</keyword>
+      <keyword>FLT_MANT_DIG</keyword>
+      <keyword>FLT_MAX_10_EXP</keyword>
+      <keyword>FLT_MAX_EXP</keyword>
+      <keyword>FLT_MIN_10_EXP</keyword>
+      <keyword>FLT_MIN_EXP</keyword>
+      <keyword>FLT_RADIX</keyword>
+      <keyword>FLT_MAX</keyword>
+      <keyword>FLT_MIN</keyword>
+      <keyword>FLT_EPSILON</keyword>
+      <keyword>CHAR_BIT</keyword>
+      <keyword>CHAR_MAX</keyword>
+      <keyword>CHAR_MIN</keyword>
+      <keyword>INT_MIN</keyword>
+      <keyword>INT_MAX</keyword>
+      <keyword>LONG_MAX</keyword>
+      <keyword>LONG_MIN</keyword>
+      <keyword>SCHAR_MAX</keyword>
+      <keyword>SCHAR_MIN</keyword>
+      <keyword>SHRT_MAX</keyword>
+      <keyword>SHRT_MIN</keyword>
+      <keyword>UCHAR_MAX</keyword>
+      <keyword>UCHAR_MIN</keyword>
+      <keyword>UINT_MAX</keyword>
+      <keyword>ULONG_MAX</keyword>
+      <keyword>DBL_DIG</keyword>
+      <keyword>DBL_MANT_DIG</keyword>
+      <keyword>DBL_MAX_10_EXP</keyword>
+      <keyword>DBL_MIN_10_EXP</keyword>
+      <keyword>DBL_MIN_EXP</keyword>
+      <keyword>DBL_MAX</keyword>
+      <keyword>DBL_MIN</keyword>
+      <keyword>DBL_EPSILON</keyword>
+      <keyword>M_E</keyword>
+      <keyword>M_LOG2E</keyword>
+      <keyword>M_LOG10E</keyword>
+      <keyword>M_LN2</keyword>
+      <keyword>M_LN10</keyword>
+      <keyword>M_PI</keyword>
+      <keyword>M_PI2</keyword>
+      <keyword>M_PI4</keyword>
+      <keyword>M_1_PI</keyword>
+      <keyword>M_2_PI</keyword>
+      <keyword>M_2_SQRTPI</keyword>
+      <keyword>M_SQRT2</keyword>
+      <keyword>M_SQRT1_2</keyword>
+      <keyword>CLK_NORMALIZED_COORDS_TRUE</keyword>
+      <keyword>CLK_NORMALIZED_COORDS_FALSE</keyword>
+      <keyword>CLK_ADDRESS_REPEAT</keyword>
+      <keyword>CLK_ADDRESS_CLAMP_TO_EDGE</keyword>
+      <keyword>CLK_ADDRESS_CLAMP</keyword>
+      <keyword>CL_INTENSITY</keyword>
+      <keyword>CL_RA</keyword>
+      <keyword>CL_ARGB</keyword>
+      <keyword>CL_BGRA</keyword>
+      <keyword>CL_RGBA</keyword>
+      <keyword>CL_R</keyword>
+      <keyword>CL_RG</keyword>
+      <keyword>CL_RGB</keyword>
+      <keyword>CL_RGx</keyword>
+      <keyword>CL_RGBx</keyword>
+      <keyword>CL_Rx</keyword>
+      <keyword>CL_A</keyword>
+      <keyword>CL_LUMINANCE</keyword>
+      <keyword>CL_SNORM_INT8</keyword>
+      <keyword>CL_SNORM_INT16</keyword>
+      <keyword>CL_UNORM_INT8</keyword>
+      <keyword>CL_UNORM_INT16</keyword>
+      <keyword>CL_UNORM_SHORT_565</keyword>
+      <keyword>CL_UNORM_SHORT_555</keyword>
+      <keyword>CL_UNORM_INT_101010</keyword>
+      <keyword>CL_SIGNED_INT8</keyword>
+      <keyword>CL_SIGNED_INT16</keyword>
+      <keyword>CL_SIGNED_INT32</keyword>
+      <keyword>CL_UNSIGNED_INT8</keyword>
+      <keyword>CL_UNSIGNED_INT16</keyword>
+      <keyword>CL_UNSIGNED_INT32</keyword>
+      <keyword>CL_HALF_FLOAT</keyword>
+      <keyword>CL_FLOAT</keyword>
+      <keyword>CLK_ADDRESS_NONE</keyword>
+      <keyword>CLK_FILTER_NEAREST</keyword>
+      <keyword>CLK_FILTER_LINEAR</keyword>
+      <keyword>CLK_GLOBAL_MEM_FENCE</keyword>
+      <keyword>CLK_LOCAL_MEM_FENCE</keyword>
+    </context>
+
+    <context id="opencl">
+      <include>
+        <context ref="c:char"/>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="c:escaped-character"/>
+        <context ref="c:hexadecimal"/>
+        <context ref="c:if0-comment"/>
+        <context ref="c:include"/>
+        <context ref="c:keywords"/>
+        <context ref="c:octal"/>
+        <context ref="c:preprocessor"/>
+        <context ref="c:storage-class"/>
+        <context ref="c:string"/>
+        <context ref="c:types" />
+        <context ref="def:decimal"/>
+        <context ref="def:float"/>
+
+        <context ref="keywords"/>
+        <context ref="data-types"/>
+        <context ref="global-functions"/>
+        <context ref="device-functions"/>
+        <context ref="device-casts"/>
+        <context ref="opencl-constants"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

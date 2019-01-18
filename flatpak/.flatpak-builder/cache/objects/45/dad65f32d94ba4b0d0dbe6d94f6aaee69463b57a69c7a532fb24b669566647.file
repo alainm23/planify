@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<xsd:simpleType name="layout">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="circo" />
+			<xsd:enumeration value="dot" />
+			<xsd:enumeration value="fdp" />
+			<xsd:enumeration value="neato" />
+			<xsd:enumeration value="twopi" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="format">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="bmp" />
+			<xsd:enumeration value="canon" />
+			<xsd:enumeration value="dot" />
+			<xsd:enumeration value="xdot" />
+			<xsd:enumeration value="cmap" />
+			<xsd:enumeration value="dia" />
+			<xsd:enumeration value="fig" />
+			<xsd:enumeration value="gd" />
+			<xsd:enumeration value="gd2" />
+			<xsd:enumeration value="gif" />
+			<xsd:enumeration value="gtk" />
+			<xsd:enumeration value="hpgl" />
+			<xsd:enumeration value="ico" />
+			<xsd:enumeration value="imap" />
+			<xsd:enumeration value="cmapx" />
+			<xsd:enumeration value="imap_np" />
+			<xsd:enumeration value="cmpax_np" />
+			<xsd:enumeration value="ismap" />
+			<xsd:enumeration value="jpg" />
+			<xsd:enumeration value="jpeg" />
+			<xsd:enumeration value="jpe" />
+			<xsd:enumeration value="mif" />
+			<xsd:enumeration value="mp" />
+		</xsd:restriction>
+	</xsd:simpleType>
+		
+</xsd:schema>

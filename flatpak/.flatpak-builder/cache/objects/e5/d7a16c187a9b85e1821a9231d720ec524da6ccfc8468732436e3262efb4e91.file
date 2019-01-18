@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Annotation Glossary: libdbusmenu-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="up" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="prev" href="api-index-deprecated.html" title="Deprecated API Index">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"><span id="nav_glossary"><a class="shortcut" href="#glsA">A</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsC">C</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsE">E</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsI">I</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsS">S</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsT">T</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#glsU">U</a></span></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="api-index-deprecated.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><img src="right-insensitive.png" width="16" height="16" border="0"></td>
+</tr></table>
+<div class="glossary">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="annotation-glossary"></a>Annotation Glossary</h1></div></div></div>
+<a name="glsA"></a><h3 class="title">A</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-allow-none"></a>allow-none</span></dt>
+<dd class="glossdef"><p>NULL is OK, both for passing and for returning.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-array"></a>array</span></dt>
+<dd class="glossdef"><p>Parameter points to an array of items.</p></dd>
+<a name="glsC"></a><h3 class="title">C</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-closure"></a>closure</span></dt>
+<dd class="glossdef"><p>This parameter is a 'user_data', for callbacks; many bindings can pass NULL here.</p></dd>
+<a name="glsE"></a><h3 class="title">E</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-element-type"></a>element-type</span></dt>
+<dd class="glossdef"><p>Generics and defining elements of containers and arrays.</p></dd>
+<a name="glsI"></a><h3 class="title">I</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-in"></a>in</span></dt>
+<dd class="glossdef"><p>Parameter for input. Default is <acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>.</p></dd>
+<a name="glsS"></a><h3 class="title">S</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-scope%20notified"></a>scope notified</span></dt>
+<dd class="glossdef"><p>The callback is valid until the GDestroyNotify argument is called.</p></dd>
+<a name="glsT"></a><h3 class="title">T</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-transfer%20container"></a>transfer container</span></dt>
+<dd class="glossdef"><p>Free data container after the code is done.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-transfer%20full"></a>transfer full</span></dt>
+<dd class="glossdef"><p>Free data after the code is done.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-transfer%20none"></a>transfer none</span></dt>
+<dd class="glossdef"><p>Don't free data after the code is done.</p></dd>
+<a name="glsU"></a><h3 class="title">U</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-Unstable"></a>Unstable</span></dt>
+<dd class="glossdef"><p>Unstable interfaces are experimental or transitional. They are typically used to
+give outside developers early access to new or rapidly changing technology, or
+to provide an interim solution to a problem where a more general solution is
+anticipated. No claims are made about either source or binary compatibility from
+one minor release to the next.
+
+The Unstable interface level is a warning that these interfaces are  subject to
+change without warning and should not be used in unbundled products.
+
+Given such caveats, customer impact need not be a factor when considering
+incompatible changes to an Unstable interface in a major or minor release.
+Nonetheless, when such changes are introduced, the changes should still be
+mentioned in the release notes for the affected release.
+</p></dd>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

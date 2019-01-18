@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>API Index: libdbusmenu-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="up" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="prev" href="object-tree.html" title="Object Hierarchy">
+<link rel="next" href="api-index-deprecated.html" title="Deprecated API Index">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"><span id="nav_index"><a class="shortcut" href="#idxC">C</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxM">M</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxS">S</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxT">T</a></span></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="object-tree.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="api-index-deprecated.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="index">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="api-index-full"></a>API Index</h1></div></div></div>
+<a name="idx"></a><a name="idxC"></a><h3 class="title">C</h3>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient">DbusmenuClient</a>, struct in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClientTypeHandler" title="DbusmenuClientTypeHandler ()">DbusmenuClientTypeHandler</a>, user_function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-add-type-handler" title="dbusmenu_client_add_type_handler ()">dbusmenu_client_add_type_handler</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-add-type-handler-full" title="dbusmenu_client_add_type_handler_full ()">dbusmenu_client_add_type_handler_full</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-icon-paths" title="dbusmenu_client_get_icon_paths ()">dbusmenu_client_get_icon_paths</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-root" title="dbusmenu_client_get_root ()">dbusmenu_client_get_root</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-status" title="dbusmenu_client_get_status ()">dbusmenu_client_get_status</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-text-direction" title="dbusmenu_client_get_text_direction ()">dbusmenu_client_get_text_direction</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-new" title="dbusmenu_client_new ()">dbusmenu_client_new</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-DBUS-NAME:CAPS" title="DBUSMENU_CLIENT_PROP_DBUS_NAME">DBUSMENU_CLIENT_PROP_DBUS_NAME</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-DBUS-OBJECT:CAPS" title="DBUSMENU_CLIENT_PROP_DBUS_OBJECT">DBUSMENU_CLIENT_PROP_DBUS_OBJECT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-GROUP-EVENTS:CAPS" title="DBUSMENU_CLIENT_PROP_GROUP_EVENTS">DBUSMENU_CLIENT_PROP_GROUP_EVENTS</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-STATUS:CAPS" title="DBUSMENU_CLIENT_PROP_STATUS">DBUSMENU_CLIENT_PROP_STATUS</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-TEXT-DIRECTION:CAPS" title="DBUSMENU_CLIENT_PROP_TEXT_DIRECTION">DBUSMENU_CLIENT_PROP_TEXT_DIRECTION</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-EVENT-RESULT:CAPS" title="DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT">DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ICON-THEME-DIRS-CHANGED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED">DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ITEM-ACTIVATE:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE">DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-LAYOUT-UPDATED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED">DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-NEW-MENUITEM:CAPS" title="DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM">DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ROOT-CHANGED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED">DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-DEFAULT:CAPS" title="DBUSMENU_CLIENT_TYPES_DEFAULT">DBUSMENU_CLIENT_TYPES_DEFAULT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-IMAGE:CAPS" title="DBUSMENU_CLIENT_TYPES_IMAGE">DBUSMENU_CLIENT_TYPES_IMAGE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-SEPARATOR:CAPS" title="DBUSMENU_CLIENT_TYPES_SEPARATOR">DBUSMENU_CLIENT_TYPES_SEPARATOR</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">DbusmenuClient</a>
+</dt>
+<dd></dd>
+<a name="idxM"></a><h3 class="title">M</h3>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem">DbusmenuMenuitem</a>, struct in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitemClass" title="struct DbusmenuMenuitemClass">DbusmenuMenuitemClass</a>, struct in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html#DbusmenuMenuitemProxy" title="struct DbusmenuMenuitemProxy">DbusmenuMenuitemProxy</a>, struct in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html" title="DbusmenuMenuitemProxy">DbusmenuMenuitemProxy</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-about-to-show-cb" title="dbusmenu_menuitem_about_to_show_cb ()">dbusmenu_menuitem_about_to_show_cb</a>, user_function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-buildvariant-slot-t" title="dbusmenu_menuitem_buildvariant_slot_t ()">dbusmenu_menuitem_buildvariant_slot_t</a>, user_function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-add-position" title="dbusmenu_menuitem_child_add_position ()">dbusmenu_menuitem_child_add_position</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-append" title="dbusmenu_menuitem_child_append ()">dbusmenu_menuitem_child_append</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-delete" title="dbusmenu_menuitem_child_delete ()">dbusmenu_menuitem_child_delete</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-CHILD-DISPLAY-SUBMENU:CAPS" title="DBUSMENU_MENUITEM_CHILD_DISPLAY_SUBMENU">DBUSMENU_MENUITEM_CHILD_DISPLAY_SUBMENU</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-find" title="dbusmenu_menuitem_child_find ()">dbusmenu_menuitem_child_find</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-prepend" title="dbusmenu_menuitem_child_prepend ()">dbusmenu_menuitem_child_prepend</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-child-reorder" title="dbusmenu_menuitem_child_reorder ()">dbusmenu_menuitem_child_reorder</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-DISPOSITION-ALERT:CAPS" title="DBUSMENU_MENUITEM_DISPOSITION_ALERT">DBUSMENU_MENUITEM_DISPOSITION_ALERT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-DISPOSITION-INFORMATIVE:CAPS" title="DBUSMENU_MENUITEM_DISPOSITION_INFORMATIVE">DBUSMENU_MENUITEM_DISPOSITION_INFORMATIVE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-DISPOSITION-NORMAL:CAPS" title="DBUSMENU_MENUITEM_DISPOSITION_NORMAL">DBUSMENU_MENUITEM_DISPOSITION_NORMAL</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-DISPOSITION-WARNING:CAPS" title="DBUSMENU_MENUITEM_DISPOSITION_WARNING">DBUSMENU_MENUITEM_DISPOSITION_WARNING</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-EVENT-ACTIVATED:CAPS" title="DBUSMENU_MENUITEM_EVENT_ACTIVATED">DBUSMENU_MENUITEM_EVENT_ACTIVATED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-EVENT-CLOSED:CAPS" title="DBUSMENU_MENUITEM_EVENT_CLOSED">DBUSMENU_MENUITEM_EVENT_CLOSED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-EVENT-OPENED:CAPS" title="DBUSMENU_MENUITEM_EVENT_OPENED">DBUSMENU_MENUITEM_EVENT_OPENED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-find-id" title="dbusmenu_menuitem_find_id ()">dbusmenu_menuitem_find_id</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-foreach" title="dbusmenu_menuitem_foreach ()">dbusmenu_menuitem_foreach</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-children" title="dbusmenu_menuitem_get_children ()">dbusmenu_menuitem_get_children</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-id" title="dbusmenu_menuitem_get_id ()">dbusmenu_menuitem_get_id</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-parent" title="dbusmenu_menuitem_get_parent ()">dbusmenu_menuitem_get_parent</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-position" title="dbusmenu_menuitem_get_position ()">dbusmenu_menuitem_get_position</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-position-realized" title="dbusmenu_menuitem_get_position_realized ()">dbusmenu_menuitem_get_position_realized</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-get-root" title="dbusmenu_menuitem_get_root ()">dbusmenu_menuitem_get_root</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-handle-event" title="dbusmenu_menuitem_handle_event ()">dbusmenu_menuitem_handle_event</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-ICON-NAME-BLANK:CAPS" title="DBUSMENU_MENUITEM_ICON_NAME_BLANK">DBUSMENU_MENUITEM_ICON_NAME_BLANK</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-new" title="dbusmenu_menuitem_new ()">dbusmenu_menuitem_new</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-new-with-id" title="dbusmenu_menuitem_new_with_id ()">dbusmenu_menuitem_new_with_id</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-properties-copy" title="dbusmenu_menuitem_properties_copy ()">dbusmenu_menuitem_properties_copy</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-properties-list" title="dbusmenu_menuitem_properties_list ()">dbusmenu_menuitem_properties_list</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-exist" title="dbusmenu_menuitem_property_exist ()">dbusmenu_menuitem_property_exist</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-get" title="dbusmenu_menuitem_property_get ()">dbusmenu_menuitem_property_get</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-get-bool" title="dbusmenu_menuitem_property_get_bool ()">dbusmenu_menuitem_property_get_bool</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-get-byte-array" title="dbusmenu_menuitem_property_get_byte_array ()">dbusmenu_menuitem_property_get_byte_array</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-get-int" title="dbusmenu_menuitem_property_get_int ()">dbusmenu_menuitem_property_get_int</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-get-variant" title="dbusmenu_menuitem_property_get_variant ()">dbusmenu_menuitem_property_get_variant</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-remove" title="dbusmenu_menuitem_property_remove ()">dbusmenu_menuitem_property_remove</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-set" title="dbusmenu_menuitem_property_set ()">dbusmenu_menuitem_property_set</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-set-bool" title="dbusmenu_menuitem_property_set_bool ()">dbusmenu_menuitem_property_set_bool</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-set-byte-array" title="dbusmenu_menuitem_property_set_byte_array ()">dbusmenu_menuitem_property_set_byte_array</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-set-int" title="dbusmenu_menuitem_property_set_int ()">dbusmenu_menuitem_property_set_int</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-property-set-variant" title="dbusmenu_menuitem_property_set_variant ()">dbusmenu_menuitem_property_set_variant</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-ACCESSIBLE-DESC:CAPS" title="DBUSMENU_MENUITEM_PROP_ACCESSIBLE_DESC">DBUSMENU_MENUITEM_PROP_ACCESSIBLE_DESC</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-CHILD-DISPLAY:CAPS" title="DBUSMENU_MENUITEM_PROP_CHILD_DISPLAY">DBUSMENU_MENUITEM_PROP_CHILD_DISPLAY</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-DISPOSITION:CAPS" title="DBUSMENU_MENUITEM_PROP_DISPOSITION">DBUSMENU_MENUITEM_PROP_DISPOSITION</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-ENABLED:CAPS" title="DBUSMENU_MENUITEM_PROP_ENABLED">DBUSMENU_MENUITEM_PROP_ENABLED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-ICON-DATA:CAPS" title="DBUSMENU_MENUITEM_PROP_ICON_DATA">DBUSMENU_MENUITEM_PROP_ICON_DATA</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-ICON-NAME:CAPS" title="DBUSMENU_MENUITEM_PROP_ICON_NAME">DBUSMENU_MENUITEM_PROP_ICON_NAME</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-LABEL:CAPS" title="DBUSMENU_MENUITEM_PROP_LABEL">DBUSMENU_MENUITEM_PROP_LABEL</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-SHORTCUT:CAPS" title="DBUSMENU_MENUITEM_PROP_SHORTCUT">DBUSMENU_MENUITEM_PROP_SHORTCUT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-TOGGLE-STATE:CAPS" title="DBUSMENU_MENUITEM_PROP_TOGGLE_STATE">DBUSMENU_MENUITEM_PROP_TOGGLE_STATE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-TOGGLE-TYPE:CAPS" title="DBUSMENU_MENUITEM_PROP_TOGGLE_TYPE">DBUSMENU_MENUITEM_PROP_TOGGLE_TYPE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-TYPE:CAPS" title="DBUSMENU_MENUITEM_PROP_TYPE">DBUSMENU_MENUITEM_PROP_TYPE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-PROP-VISIBLE:CAPS" title="DBUSMENU_MENUITEM_PROP_VISIBLE">DBUSMENU_MENUITEM_PROP_VISIBLE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html#dbusmenu-menuitem-proxy-get-wrapped" title="dbusmenu_menuitem_proxy_get_wrapped ()">dbusmenu_menuitem_proxy_get_wrapped</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html" title="DbusmenuMenuitemProxy">DbusmenuMenuitemProxy</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html#dbusmenu-menuitem-proxy-new" title="dbusmenu_menuitem_proxy_new ()">dbusmenu_menuitem_proxy_new</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html" title="DbusmenuMenuitemProxy">DbusmenuMenuitemProxy</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-send-about-to-show" title="dbusmenu_menuitem_send_about_to_show ()">dbusmenu_menuitem_send_about_to_show</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-set-parent" title="dbusmenu_menuitem_set_parent ()">dbusmenu_menuitem_set_parent</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-set-root" title="dbusmenu_menuitem_set_root ()">dbusmenu_menuitem_set_root</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SHORTCUT-ALT:CAPS" title="DBUSMENU_MENUITEM_SHORTCUT_ALT">DBUSMENU_MENUITEM_SHORTCUT_ALT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SHORTCUT-CONTROL:CAPS" title="DBUSMENU_MENUITEM_SHORTCUT_CONTROL">DBUSMENU_MENUITEM_SHORTCUT_CONTROL</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SHORTCUT-SHIFT:CAPS" title="DBUSMENU_MENUITEM_SHORTCUT_SHIFT">DBUSMENU_MENUITEM_SHORTCUT_SHIFT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SHORTCUT-SUPER:CAPS" title="DBUSMENU_MENUITEM_SHORTCUT_SUPER">DBUSMENU_MENUITEM_SHORTCUT_SUPER</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-show-to-user" title="dbusmenu_menuitem_show_to_user ()">dbusmenu_menuitem_show_to_user</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-ABOUT-TO-SHOW:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_ABOUT_TO_SHOW">DBUSMENU_MENUITEM_SIGNAL_ABOUT_TO_SHOW</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-CHILD-ADDED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_CHILD_ADDED">DBUSMENU_MENUITEM_SIGNAL_CHILD_ADDED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-CHILD-MOVED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_CHILD_MOVED">DBUSMENU_MENUITEM_SIGNAL_CHILD_MOVED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-CHILD-REMOVED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_CHILD_REMOVED">DBUSMENU_MENUITEM_SIGNAL_CHILD_REMOVED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-EVENT:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_EVENT">DBUSMENU_MENUITEM_SIGNAL_EVENT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-ITEM-ACTIVATED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_ITEM_ACTIVATED">DBUSMENU_MENUITEM_SIGNAL_ITEM_ACTIVATED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-PROPERTY-CHANGED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_PROPERTY_CHANGED">DBUSMENU_MENUITEM_SIGNAL_PROPERTY_CHANGED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-REALIZED:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_REALIZED">DBUSMENU_MENUITEM_SIGNAL_REALIZED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-REALIZED-ID:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_REALIZED_ID">DBUSMENU_MENUITEM_SIGNAL_REALIZED_ID</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-SIGNAL-SHOW-TO-USER:CAPS" title="DBUSMENU_MENUITEM_SIGNAL_SHOW_TO_USER">DBUSMENU_MENUITEM_SIGNAL_SHOW_TO_USER</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-take-children" title="dbusmenu_menuitem_take_children ()">dbusmenu_menuitem_take_children</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-TOGGLE-CHECK:CAPS" title="DBUSMENU_MENUITEM_TOGGLE_CHECK">DBUSMENU_MENUITEM_TOGGLE_CHECK</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-TOGGLE-RADIO:CAPS" title="DBUSMENU_MENUITEM_TOGGLE_RADIO">DBUSMENU_MENUITEM_TOGGLE_RADIO</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-TOGGLE-STATE-CHECKED:CAPS" title="DBUSMENU_MENUITEM_TOGGLE_STATE_CHECKED">DBUSMENU_MENUITEM_TOGGLE_STATE_CHECKED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-TOGGLE-STATE-UNCHECKED:CAPS" title="DBUSMENU_MENUITEM_TOGGLE_STATE_UNCHECKED">DBUSMENU_MENUITEM_TOGGLE_STATE_UNCHECKED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DBUSMENU-MENUITEM-TOGGLE-STATE-UNKNOWN:CAPS" title="DBUSMENU_MENUITEM_TOGGLE_STATE_UNKNOWN">DBUSMENU_MENUITEM_TOGGLE_STATE_UNKNOWN</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#dbusmenu-menuitem-unparent" title="dbusmenu_menuitem_unparent ()">dbusmenu_menuitem_unparent</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">DbusmenuMenuitem</a>
+</dt>
+<dd></dd>
+<a name="idxS"></a><h3 class="title">S</h3>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer">DbusmenuServer</a>, struct in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-get-status" title="dbusmenu_server_get_status ()">dbusmenu_server_get_status</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-get-text-direction" title="dbusmenu_server_get_text_direction ()">dbusmenu_server_get_text_direction</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-new" title="dbusmenu_server_new ()">dbusmenu_server_new</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-DBUS-OBJECT:CAPS" title="DBUSMENU_SERVER_PROP_DBUS_OBJECT">DBUSMENU_SERVER_PROP_DBUS_OBJECT</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-ROOT-NODE:CAPS" title="DBUSMENU_SERVER_PROP_ROOT_NODE">DBUSMENU_SERVER_PROP_ROOT_NODE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-STATUS:CAPS" title="DBUSMENU_SERVER_PROP_STATUS">DBUSMENU_SERVER_PROP_STATUS</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-TEXT-DIRECTION:CAPS" title="DBUSMENU_SERVER_PROP_TEXT_DIRECTION">DBUSMENU_SERVER_PROP_TEXT_DIRECTION</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-VERSION:CAPS" title="DBUSMENU_SERVER_PROP_VERSION">DBUSMENU_SERVER_PROP_VERSION</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-root" title="dbusmenu_server_set_root ()">dbusmenu_server_set_root</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-status" title="dbusmenu_server_set_status ()">dbusmenu_server_set_status</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-text-direction" title="dbusmenu_server_set_text_direction ()">dbusmenu_server_set_text_direction</a>, function in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ID-PROP-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE">DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ID-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_ID_UPDATE">DBUSMENU_SERVER_SIGNAL_ID_UPDATE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ITEM-ACTIVATION:CAPS" title="DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION">DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE">DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATED:CAPS" title="DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED">DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED</a>, macro in <a class="link" href="libdbusmenu-glib-DbusmenuServer.html" title="DbusmenuServer">DbusmenuServer</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus">DbusmenuStatus</a>, enum in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-nick" title="dbusmenu_status_get_nick ()">dbusmenu_status_get_nick</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-type" title="dbusmenu_status_get_type ()">dbusmenu_status_get_type</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-value-from-nick" title="dbusmenu_status_get_value_from_nick ()">dbusmenu_status_get_value_from_nick</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<a name="idxT"></a><h3 class="title">T</h3>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection">DbusmenuTextDirection</a>, enum in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-nick" title="dbusmenu_text_direction_get_nick ()">dbusmenu_text_direction_get_nick</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-type" title="dbusmenu_text_direction_get_type ()">dbusmenu_text_direction_get_type</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-value-from-nick" title="dbusmenu_text_direction_get_value_from_nick ()">dbusmenu_text_direction_get_value_from_nick</a>, function in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TYPE-STATUS:CAPS" title="DBUSMENU_TYPE_STATUS">DBUSMENU_TYPE_STATUS</a>, macro in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TYPE-TEXT-DIRECTION:CAPS" title="DBUSMENU_TYPE_TEXT_DIRECTION">DBUSMENU_TYPE_TEXT_DIRECTION</a>, macro in <a class="link" href="libdbusmenu-glib-Types.html" title="Types">Types</a>
+</dt>
+<dd></dd>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

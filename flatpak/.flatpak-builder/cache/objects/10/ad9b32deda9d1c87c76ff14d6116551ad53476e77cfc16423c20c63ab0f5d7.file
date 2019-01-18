@@ -1,0 +1,15 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+bindir=${exec_prefix}/bin
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+vapidir=${datarootdir}/vala/vapi
+
+Name: Folks dummy support library
+Description: Dummy support library for the Folks meta-contacts library
+Version: 0.11.5.20190115
+Requires: folks glib-2.0 gobject-2.0 gee-0.8
+Libs: -L${libdir} -lfolks-dummy
+Cflags: -I${includedir}

@@ -1,0 +1,193 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-reqstat-type.h"
+#include "libical-glib-private.h"
+#include "i-cal-enums.h"
+
+G_DEFINE_TYPE (ICalReqstatType, i_cal_reqstat_type, I_CAL_TYPE_OBJECT)
+
+static void i_cal_reqstat_type_class_init (ICalReqstatTypeClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalReqstatType));
+}
+
+static void i_cal_reqstat_type_init (G_GNUC_UNUSED ICalReqstatType *self)
+{
+}
+
+/**
+ * i_cal_reqstat_type_new_full: (skip)
+ * @native: The native libical object.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalReqstatType *
+i_cal_reqstat_type_new_full (struct icalreqstattype native)
+{
+    ICalReqstatType *object;
+    struct icalreqstattype *clone;
+    object = g_object_new (I_CAL_REQSTAT_TYPE_TYPE, NULL);
+    clone = g_new (struct icalreqstattype, 1);
+    *clone = native;
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) clone,
+                            (GDestroyNotify) g_free,
+                            FALSE,
+                            NULL);
+
+    return object;
+}
+/**
+ * i_cal_reqstat_type_from_string:
+ * @str: A string.
+ *
+ * Create a #ICalReqstatType from string.
+ *
+ * Returns: (transfer full): The newly created #ICalReqstatType.
+ *
+ * Since: 
+ *
+ **/
+ICalReqstatType *
+i_cal_reqstat_type_from_string (const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, NULL);
+
+	return i_cal_reqstat_type_new_full (icalreqstattype_from_string (str));
+}
+
+/**
+ * i_cal_reqstat_type_as_string_r:
+ * @stat: A #ICalReqstatType.
+ *
+ * Convert #ICalReqstatType to a string representation.
+ *
+ * Returns: (transfer full): A string.
+ *
+ * Since: 
+ *
+ **/
+gchar *
+i_cal_reqstat_type_as_string_r (ICalReqstatType *stat)
+{
+	g_return_val_if_fail (I_CAL_IS_REQSTAT_TYPE (stat), NULL);
+	g_return_val_if_fail (stat != NULL, NULL);
+
+	return icalreqstattype_as_string_r (* (struct icalreqstattype *)i_cal_object_get_native (I_CAL_OBJECT (stat)));
+}
+
+/**
+ * i_cal_reqstat_type_new_default:
+ *
+ * Create a new default #ICalReqstatType
+ *
+ * Returns: (transfer full): The newly created #ICalReqstatType
+ *
+ * Since: 1.0
+ *
+ **/
+struct icalreqstattype
+i_cal_reqstat_type_new_default (void)
+{
+        struct icalreqstattype reqstattype;
+        reqstattype.code = ICAL_UNKNOWN_STATUS;
+        reqstattype.desc = NULL;
+        reqstattype.debug = NULL;
+        return reqstattype;
+}
+
+/**
+ * i_cal_reqstat_type_get_code:
+ * @reqstat: The #ICalReqstatType.
+ *
+ * Get the code of #ICalReqstatType.
+ *
+ * Returns: The code of @reqstat.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRequestStatus
+i_cal_reqstat_type_get_code (ICalReqstatType *reqstat)
+{
+        g_return_val_if_fail (reqstat != NULL && I_CAL_IS_REQSTAT_TYPE (reqstat), I_CAL_UNKNOWN_STATUS);
+        return (ICalRequestStatus) (((struct icalreqstattype *)i_cal_object_get_native ((ICalObject *)reqstat))->code);
+}
+
+/**
+ * i_cal_reqstat_type_set_code:
+ * @reqstat: The #ICalReqstatType.
+ * @code: The code of @reqstat.
+ *
+ * Set the code of #ICalReqstatType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_reqstat_type_set_code (ICalReqstatType *reqstat, 
+                             ICalRequestStatus code)
+{
+        g_return_if_fail (reqstat != NULL && I_CAL_IS_REQSTAT_TYPE (reqstat));
+        ((struct icalreqstattype *)i_cal_object_get_native ((ICalObject *)reqstat))->code = (icalrequeststatus) (code);
+}
+
+/**
+ * i_cal_reqstat_type_get_desc:
+ * @reqstat: The #ICalReqstatType.
+ *
+ * Get the desc of #ICalReqstatType.
+ *
+ * Returns: (transfer none): The desc of @reqstat.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_reqstat_type_get_desc (ICalReqstatType *reqstat)
+{
+        g_return_val_if_fail (reqstat != NULL && I_CAL_IS_REQSTAT_TYPE (reqstat), NULL);
+        return ((struct icalreqstattype *)i_cal_object_get_native ((ICalObject *)reqstat))->desc;
+}
+
+/**
+ * i_cal_reqstat_type_get_debug:
+ * @reqstat: The #ICalReqstatType.
+ *
+ * Get the debug of #ICalReqstatType.
+ *
+ * Returns: (transfer none): The debug of @reqstat.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_reqstat_type_get_debug (ICalReqstatType *reqstat)
+{
+        g_return_val_if_fail (reqstat != NULL && I_CAL_IS_REQSTAT_TYPE (reqstat), NULL);
+        return ((struct icalreqstattype *)i_cal_object_get_native ((ICalObject *)reqstat))->debug;
+}

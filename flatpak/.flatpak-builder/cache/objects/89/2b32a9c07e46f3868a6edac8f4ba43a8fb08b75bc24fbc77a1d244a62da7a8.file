@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Randy Abernethy <ra@apache.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="thrift" name="Thrift" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.thrift</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"     name="Comment"      map-to="def:comment"/>
+    <style id="type"        name="Data Type"    map-to="def:type"/>
+    <style id="keyword"     name="Keyword"      map-to="def:keyword"/>
+    <style id="string"      name="String"       map-to="def:string"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="ordinal" extended="true">
+      (?&lt;![\w\.]) ([1-9][0-9]*:) (?![\w\.])
+    </define-regex>
+
+    <context id="ordinal" style-ref="def:identifier">
+      <match>\%{ordinal}</match>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="hash-line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>#</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quote-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>const</keyword>
+      <keyword>cpp_include</keyword>
+      <keyword>extends</keyword>
+      <keyword>false</keyword>
+      <keyword>include</keyword>
+      <keyword>namespace</keyword>
+      <keyword>oneway</keyword>
+      <keyword>optional</keyword>
+      <keyword>required</keyword>
+      <keyword>throws</keyword>
+      <keyword>true</keyword>
+      <keyword>typedef</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>binary</keyword>
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>double</keyword>
+      <keyword>enum</keyword>
+      <keyword>exception</keyword>
+      <keyword>i16</keyword>
+      <keyword>i32</keyword>
+      <keyword>i64</keyword>
+      <keyword>list</keyword>
+      <keyword>map</keyword>
+      <keyword>service</keyword>
+      <keyword>set</keyword>
+      <keyword>string</keyword>
+      <keyword>struct</keyword>
+      <keyword>union</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="reserved" style-ref="def:error">
+      <keyword>async</keyword>
+      <keyword>cocoa_prefix</keyword>
+      <keyword>cpp_namespace</keyword>
+      <keyword>csharp_namespace</keyword>
+      <keyword>delphi_namespace</keyword>
+      <keyword>java_package</keyword>
+      <keyword>perl_package</keyword>
+      <keyword>php_namespace</keyword>
+      <keyword>py_module</keyword>
+      <keyword>ruby_namespace</keyword>
+      <keyword>senum</keyword>
+      <keyword>smalltalk_category</keyword>
+      <keyword>slist</keyword>
+      <keyword>smalltalk_prefix</keyword>
+      <keyword>xsd_all</keyword>
+      <keyword>xsd_attrs</keyword>
+      <keyword>xsd_namespace</keyword>
+      <keyword>xsd_nillable</keyword>
+      <keyword>xsd_optional</keyword>
+      <keyword>BEGIN</keyword>
+      <keyword>END</keyword>
+      <keyword>__CLASS__</keyword>
+      <keyword>__DIR__</keyword>
+      <keyword>__FILE__</keyword>
+      <keyword>__FUNCTION__</keyword>
+      <keyword>__LINE__</keyword>
+      <keyword>__METHOD__</keyword>
+      <keyword>__NAMESPACE__</keyword>
+      <keyword>abstract</keyword>
+      <keyword>alias</keyword>
+      <keyword>and</keyword>
+      <keyword>args</keyword>
+      <keyword>as</keyword>
+      <keyword>assert</keyword>
+      <keyword>begin</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>class</keyword>
+      <keyword>clone</keyword>
+      <keyword>continue</keyword>
+      <keyword>declare</keyword>
+      <keyword>def</keyword>
+      <keyword>default</keyword>
+      <keyword>del</keyword>
+      <keyword>delete</keyword>
+      <keyword>do</keyword>
+      <keyword>dynamic</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>elsif</keyword>
+      <keyword>end</keyword>
+      <keyword>enddeclare</keyword>
+      <keyword>endfor</keyword>
+      <keyword>endforeach</keyword>
+      <keyword>endif</keyword>
+      <keyword>endswitch</keyword>
+      <keyword>endwhile</keyword>
+      <keyword>ensure</keyword>
+      <keyword>except</keyword>
+      <keyword>exec</keyword>
+      <keyword>finally</keyword>
+      <keyword>float</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>function</keyword>
+      <keyword>global</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>implements</keyword>
+      <keyword>import</keyword>
+      <keyword>in</keyword>
+      <keyword>inline</keyword>
+      <keyword>instanceof</keyword>
+      <keyword>interface</keyword>
+      <keyword>is</keyword>
+      <keyword>lambda</keyword>
+      <keyword>module</keyword>
+      <keyword>native</keyword>
+      <keyword>new</keyword>
+      <keyword>next</keyword>
+      <keyword>nil</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>pass</keyword>
+      <keyword>public</keyword>
+      <keyword>print</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>raise</keyword>
+      <keyword>redo</keyword>
+      <keyword>rescue</keyword>
+      <keyword>retry</keyword>
+      <keyword>register</keyword>
+      <keyword>return</keyword>
+      <keyword>self</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>static</keyword>
+      <keyword>super</keyword>
+      <keyword>switch</keyword>
+      <keyword>synchronized</keyword>
+      <keyword>then</keyword>
+      <keyword>this</keyword>
+      <keyword>throw</keyword>
+      <keyword>transient</keyword>
+      <keyword>try</keyword>
+      <keyword>undef</keyword>
+      <keyword>union</keyword>
+      <keyword>unless</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>until</keyword>
+      <keyword>use</keyword>
+      <keyword>var</keyword>
+      <keyword>virtual</keyword>
+      <keyword>volatile</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>xor</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="thrift" class="no-spell-check">
+      <include>
+        <context ref="block-comment"/>
+        <context ref="line-comment"/>
+        <context ref="hash-line-comment"/>
+        <context ref="string"/>
+        <context ref="single-quote-string"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="ordinal"/>
+        <context ref="reserved"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

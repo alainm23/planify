@@ -9,18 +9,21 @@
   <description>
     <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
     <p>How Planner works</p>
-    <p>1. Collect your Ideas</p>
-    <p>The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
-    <p>2. Get Organized</p>
-    <p>Create a project for each of your goqnals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
-    <p>3. Calendar and Events</p>
-    <p>See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
-    <p>4. Be even more organized</p>
-    <p>Add a deadline to your tasks, create labels, use checklists.</p>
-    <p>5. Share your progress</p>
-    <p>Share all the progress of your project or some special task, all this in Markdown.</p>
-    <p>6. Support for Github Issues</p>
-    <p>Conecte su cuenta y comience a recibir notificaciones de cada nuevo problema en los repositorios que seleccionó.</p>
+    <p>1. Collect your Ideas - The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
+    <p>2. Get Organized - Create a project for each of your goqnals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
+    <p>3. Calendar and Events - See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
+    <p>4. Be even more organized - Add a deadline to your tasks, create labels, use checklists.</p>
+    <p>5. Share your progress - Share all the progress of your project or some special task, all this in Markdown.</p>
+    <p>6. Support for Github Issues - Connect your account and start receiving notifications of every new issue in your repositories</p>
+    <p>Other features</p>
+    <ul>
+      <li>Reminders notifications</li>
+      <li>Import and export your projects</li>
+      <li>Different themes to choose</li>
+      <li>Weather forecast</li>
+      <li>Quick Find</li>
+      <li>Night mode</li>
+    </ul>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>

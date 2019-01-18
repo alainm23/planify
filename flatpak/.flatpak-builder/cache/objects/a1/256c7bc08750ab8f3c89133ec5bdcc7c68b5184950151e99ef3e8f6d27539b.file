@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Alexander Eichner <aeichner@freitagsrunde.org>
+ Copyright (C) 2007 Alexander Eichner <aeichner@freitagsrunde.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="opal" name="Opal" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.sign;*.impl</property>
+    <property name="line-comment-start">-- </property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="module-handler" name="Module Handler" map-to="def:preprocessor"/>
+    <style id="comment"        name="Comment"        map-to="def:comment"/>
+    <style id="common-defines" name="Common Defines" map-to="def:special-constant"/>
+    <style id="error"          name="Error"          map-to="def:error"/>
+    <style id="string"         name="String"         map-to="def:string"/>
+    <style id="keyword"        name="Keyword"        map-to="def:keyword"/>
+    <style id="boolean"        name="Boolean value"  map-to="def:boolean"/>
+    <style id="decimal"        name="Decimal number" map-to="def:decimal"/>
+    <style id="type"           name="Data Type"      map-to="def:type"/>
+    <style id="keysymbol"      name="Keysymbol"      map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+
+    <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>-- </start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>(?&lt;![\w\.])([1-9][0-9]*|0)[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="comment-multiline" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="module-handler" style-ref="module-handler">
+      <keyword>IMPORT</keyword>
+      <keyword>COMPLETELY</keyword>
+      <keyword>ONLY</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>ALL</keyword>
+      <keyword>AND</keyword>
+      <keyword>ANDIF</keyword>
+      <keyword>ANY</keyword>
+      <keyword>AS</keyword>
+      <keyword>ASSERT</keyword>
+      <keyword>AXM</keyword>
+      <keyword>DATA</keyword>
+      <keyword>DEF</keyword>
+      <keyword>DERIVE</keyword>
+      <keyword>DFD</keyword>
+      <keyword>DESCRIMINATORS</keyword>
+      <keyword>ELSE</keyword>
+      <keyword>EX</keyword>
+      <keyword>EXTERNAL</keyword>
+      <keyword>FI</keyword>
+      <keyword>FIX</keyword>
+      <keyword>FUN</keyword>
+      <keyword>IF</keyword>
+      <keyword>IMPLEMENTATION</keyword>
+      <keyword>IMPLIES</keyword>
+      <keyword>IN</keyword>
+      <keyword>INHERIT</keyword>
+      <keyword>INJECTIONS</keyword>
+      <keyword>INTERFACE</keyword>
+      <keyword>INTERNAL</keyword>
+      <keyword>LAW</keyword>
+      <keyword>LAZY</keyword>
+      <keyword>LEFTASSOC</keyword>
+      <keyword>LET</keyword>
+      <keyword>MODULE</keyword>
+      <keyword>NOT</keyword>
+      <keyword>NOR</keyword>
+      <keyword>OR</keyword>
+      <keyword>ORIF</keyword>
+      <keyword>OTHERWISE</keyword>
+      <keyword>POST</keyword>
+      <keyword>PRE</keyword>
+      <keyword>PRED</keyword>
+      <keyword>PRIORITY</keyword>
+      <keyword>PROPERTIES</keyword>
+      <keyword>REALIZES</keyword>
+      <keyword>REQUIRE</keyword>
+      <keyword>RIGHTASSOC</keyword>
+      <keyword>SELECTORS</keyword>
+      <keyword>SIGNATURE</keyword>
+      <keyword>SORT</keyword>
+      <keyword>SPC</keyword>
+      <keyword>SPEC</keyword>
+      <keyword>SPECIFICATION</keyword>
+      <keyword>STRUCTURE</keyword>
+      <keyword>THE</keyword>
+      <keyword>THEN</keyword>
+      <keyword>THEORY</keyword>
+      <keyword>THM</keyword>
+      <keyword>TYPE</keyword>
+      <keyword>UNIQ</keyword>
+      <keyword>WHERE</keyword>
+    </context>
+
+    <context id="keysymbol" style-ref="keyword">
+      <keyword>::</keyword>
+      <keyword>==</keyword>
+      <keyword>-&gt;</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>aEntry</keyword>
+      <keyword>agent</keyword>
+      <keyword>align</keyword>
+      <keyword>anchor</keyword>
+      <keyword>ans</keyword>
+      <keyword>arg</keyword>
+      <keyword>arg1</keyword>
+      <keyword>arg2</keyword>
+      <keyword>array</keyword>
+      <keyword>arrowWhere</keyword>
+      <keyword>bag</keyword>
+      <keyword>bitmap</keyword>
+      <keyword>bool</keyword>
+      <keyword>bstree</keyword>
+      <keyword>byte</keyword>
+      <keyword>callback</keyword>
+      <keyword>canvasEditor</keyword>
+      <keyword>capStyle</keyword>
+      <keyword>channel</keyword>
+      <keyword>char</keyword>
+      <keyword>childstat</keyword>
+      <keyword>codom</keyword>
+      <keyword>codomFrom</keyword>
+      <keyword>codomTo</keyword>
+      <keyword>color</keyword>
+      <keyword>colorModel</keyword>
+      <keyword>com</keyword>
+      <keyword>composeOp</keyword>
+      <keyword>config</keyword>
+      <keyword>configCom</keyword>
+      <keyword>cursor</keyword>
+      <keyword>dArray</keyword>
+      <keyword>data</keyword>
+      <keyword>data1</keyword>
+      <keyword>data11</keyword>
+      <keyword>data2</keyword>
+      <keyword>data21</keyword>
+      <keyword>data3</keyword>
+      <keyword>data31</keyword>
+      <keyword>data4</keyword>
+      <keyword>data41</keyword>
+      <keyword>dataFrom</keyword>
+      <keyword>dataTo</keyword>
+      <keyword>defaultPrio</keyword>
+      <keyword>denotation</keyword>
+      <keyword>device</keyword>
+      <keyword>dist</keyword>
+      <keyword>distOut</keyword>
+      <keyword>dom</keyword>
+      <keyword>domFrom</keyword>
+      <keyword>domTo</keyword>
+      <keyword>drawing</keyword>
+      <keyword>dyn</keyword>
+      <keyword>emitter</keyword>
+      <keyword>env</keyword>
+      <keyword>event</keyword>
+      <keyword>eventInfo</keyword>
+      <keyword>file</keyword>
+      <keyword>filemode</keyword>
+      <keyword>filestat</keyword>
+      <keyword>filetype</keyword>
+      <keyword>first</keyword>
+      <keyword>first1</keyword>
+      <keyword>first2</keyword>
+      <keyword>first3</keyword>
+      <keyword>fission</keyword>
+      <keyword>fmt</keyword>
+      <keyword>font</keyword>
+      <keyword>from</keyword>
+      <keyword>from1</keyword>
+      <keyword>from2</keyword>
+      <keyword>funct</keyword>
+      <keyword>group</keyword>
+      <keyword>groupid</keyword>
+      <keyword>heap</keyword>
+      <keyword>iconfig</keyword>
+      <keyword>image</keyword>
+      <keyword>in</keyword>
+      <keyword>inData</keyword>
+      <keyword>index</keyword>
+      <keyword>inode</keyword>
+      <keyword>input</keyword>
+      <keyword>int</keyword>
+      <keyword>inter</keyword>
+      <keyword>interdom</keyword>
+      <keyword>interpreter</keyword>
+      <keyword>iseq</keyword>
+      <keyword>items</keyword>
+      <keyword>joinStyle</keyword>
+      <keyword>justifyHow</keyword>
+      <keyword>long</keyword>
+      <keyword>manager</keyword>
+      <keyword>managerRequest</keyword>
+      <keyword>map</keyword>
+      <keyword>mapEntry</keyword>
+      <keyword>mark</keyword>
+      <keyword>mid</keyword>
+      <keyword>modifier</keyword>
+      <keyword>nat</keyword>
+      <keyword>natMap</keyword>
+      <keyword>OBJECT</keyword>
+      <keyword>option</keyword>
+      <keyword>orient</keyword>
+      <keyword>out</keyword>
+      <keyword>outData</keyword>
+      <keyword>output</keyword>
+      <keyword>packOp</keyword>
+      <keyword>pair</keyword>
+      <keyword>parser</keyword>
+      <keyword>permission</keyword>
+      <keyword>point</keyword>
+      <keyword>positionRequest</keyword>
+      <keyword>process</keyword>
+      <keyword>procstat</keyword>
+      <keyword>quad</keyword>
+      <keyword>range</keyword>
+      <keyword>real</keyword>
+      <keyword>regulator</keyword>
+      <keyword>rel</keyword>
+      <keyword>relief</keyword>
+      <keyword>res</keyword>
+      <keyword>res1</keyword>
+      <keyword>res2</keyword>
+      <keyword>result</keyword>
+      <keyword>role</keyword>
+      <keyword>sap</keyword>
+      <keyword>script</keyword>
+      <keyword>scroller</keyword>
+      <keyword>scrollView</keyword>
+      <keyword>scrollWindow</keyword>
+      <keyword>searchOpt</keyword>
+      <keyword>second</keyword>
+      <keyword>seekMode</keyword>
+      <keyword>selector</keyword>
+      <keyword>semaphor</keyword>
+      <keyword>seq</keyword>
+      <keyword>seqEntry</keyword>
+      <keyword>set</keyword>
+      <keyword>setEntry</keyword>
+      <keyword>short</keyword>
+      <keyword>sigaction</keyword>
+      <keyword>sighandler</keyword>
+      <keyword>sigmask</keyword>
+      <keyword>signal</keyword>
+      <keyword>size</keyword>
+      <keyword>sizeRequest</keyword>
+      <keyword>some</keyword>
+      <keyword>sreal</keyword>
+      <keyword>state</keyword>
+      <keyword>stateId</keyword>
+      <keyword>stateRequest</keyword>
+      <keyword>string</keyword>
+      <keyword>subrel</keyword>
+      <keyword>tag</keyword>
+      <keyword>textEditor</keyword>
+      <keyword>time</keyword>
+      <keyword>to</keyword>
+      <keyword>tree</keyword>
+      <keyword>triple</keyword>
+      <keyword>union</keyword>
+      <keyword>user</keyword>
+      <keyword>userid</keyword>
+      <keyword>version</keyword>
+      <keyword>view</keyword>
+      <keyword>void</keyword>
+      <keyword>wconfig</keyword>
+      <keyword>wconfigCom</keyword>
+      <keyword>wday</keyword>
+      <keyword>widget</keyword>
+      <keyword>window</keyword>
+      <keyword>wrapStyle</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="opal" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="decimal"/>
+        <context ref="comment-multiline"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="string"/>
+        <context ref="module-handler"/>
+        <context ref="keywords"/>
+        <context ref="keysymbol"/>
+        <context ref="types"/>
+        <context ref="boolean"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

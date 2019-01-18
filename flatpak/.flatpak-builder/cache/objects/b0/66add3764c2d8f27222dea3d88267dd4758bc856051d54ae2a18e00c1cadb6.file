@@ -1,0 +1,15 @@
+prefix=/app
+libdir=/app/lib
+includedir=/app/include
+datarootdir=/app/share
+datadir=/app/share
+
+privincludedir=/app/include/evolution-data-server
+
+Name: libebook
+Description: Client library for evolution address books
+Version: 3.31.3
+Requires: libedataserver-1.2 libebook-contacts-1.2 libedata-book-1.2
+Requires.private: camel-1.2
+Libs: -L${libdir} -lebook-1.2
+Cflags: -I${privincludedir}

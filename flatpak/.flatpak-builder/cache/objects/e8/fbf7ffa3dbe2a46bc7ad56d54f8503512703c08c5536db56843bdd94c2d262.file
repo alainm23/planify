@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2003 Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2006 Jeff Walden <jwalden@mit.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="java" name="Java" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-java</property>
+    <property name="globs">*.java</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"                   map-to="def:comment"/>
+    <style id="escaped-character" name="Escaped Character"         map-to="def:special-char"/>
+    <style id="string"            name="String"                    map-to="def:string"/>
+    <style id="char"              name="Character"                 map-to="def:character"/>
+    <style id="external"          name="External"                  map-to="def:preprocessor"/>
+    <style id="declaration"       name="Declaration"               map-to="def:type"/>
+    <style id="storage-class"     name="Storage Class"             map-to="def:type"/>
+    <style id="scope-declaration" name="Scope Declaration"         map-to="def:type"/>
+    <style id="keyword"           name="Keyword"                   map-to="def:keyword"/>
+    <style id="null-value"        name="Null Value"                map-to="def:special-constant"/>
+    <style id="boolean"           name="Boolean value"             map-to="def:boolean"/>
+    <style id="number"            name="Number"                    map-to="def:decimal"/>
+    <style id="reserved"          name="Future Reserved Keywords"  map-to="def:reserved"/>
+    <style id="type"              name="Data Type"                 map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-character" extended="true">
+      \\(               # leading backslash
+      [\\\"\'nrbtf] |   # escaped character
+      [0-9]{1,3}    |   # latin encoded char
+      u[0-9]{1,4}       # unicode char
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+      </include>
+    </context>
+
+   <context id="char" style-ref="char">
+     <match>'(\%{escaped-character}|.)'</match>
+   </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>package</keyword>
+    </context>
+
+    <context id="declarations" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>enum</keyword>
+      <keyword>extends</keyword>
+      <keyword>implements</keyword>
+      <keyword>instanceof</keyword>
+      <keyword>interface</keyword>
+      <keyword>native</keyword>
+      <keyword>throws</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="type">
+      <keyword>boolean</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>double</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>short</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>abstract</keyword>
+      <keyword>final</keyword>
+      <keyword>static</keyword>
+      <keyword>strictfp</keyword>
+      <keyword>synchronized</keyword>
+      <keyword>transient</keyword>
+      <keyword>volatile</keyword>
+    </context>
+
+    <context id="scope-declarations" style-ref="scope-declaration">
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+    </context>
+
+    <context id="flow" style-ref="keyword">
+      <keyword>assert</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>return</keyword>
+      <keyword>throw</keyword>
+      <keyword>switch</keyword>
+      <keyword>try</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="memory" style-ref="keyword">
+      <keyword>new</keyword>
+      <keyword>super</keyword>
+      <keyword>this</keyword>
+    </context>
+
+    <context id="future-reserved-words" style-ref="reserved">
+      <keyword>const</keyword>
+      <keyword>goto</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
+         \b(([0-9]+[Ee][-]?[0-9]+|
+            ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+            [0-9]+[FfDd]))
+      </match>
+    </context>
+
+    <context id="java" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment" style-ref="comment"/>
+        <context ref="def:c-like-comment-multiline" style-ref="comment"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="string"/>
+        <context ref="char"/>
+        <context ref="externals"/>
+        <context ref="declarations"/>
+        <context ref="primitive-types"/>
+        <context ref="storage-class"/>
+        <context ref="scope-declarations"/>
+        <context ref="flow"/>
+        <context ref="memory"/>
+        <context ref="future-reserved-words"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="numeric"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

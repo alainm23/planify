@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Jesse van den Kieboom <jessevdk@gnome.org>
+ Copyright (C) 2010 Jesse van den Kieboom <jessevdk@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="cg" _name="CG Shader Language" version="2.0" _section="Source">
+    <metadata>
+      <property name="globs">*.cg</property>
+      <property name="line-comment-start">//</property>
+      <property name="block-comment-start">/*</property>
+      <property name="block-comment-end">*/</property>
+    </metadata>
+
+    <styles>
+        <style id="comment"           name="Comment"             map-to="def:comment"/>
+        <style id="error"             name="Error"               map-to="def:error"/>
+        <style id="preprocessor"      name="Preprocessor"        map-to="def:preprocessor"/>
+        <style id="bindings"          name="Bindings"            map-to="def:special-constant"/>
+        <style id="included-file"     name="Included File"       map-to="def:string"/>
+        <style id="keyword"           name="Keyword"             map-to="def:keyword"/>
+        <style id="type"              name="Data Type"           map-to="def:type"/>
+        <style id="storage-class"     name="Storage Class"       map-to="def:builtin"/>
+        <style id="escaped-character" name="Escaped Character"   map-to="def:special-char"/>
+        <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
+        <style id="decimal"           name="Decimal number"      map-to="def:decimal"/>
+        <style id="octal"             name="Octal number"        map-to="def:base-n-integer"/>
+        <style id="hexadecimal"       name="Hexadecimal number"  map-to="def:base-n-integer"/>
+        <style id="boolean"           name="Boolean value"       map-to="def:boolean"/>
+        <style id="swizzle"           name="Swizzle operator"    map-to="def:operator"/>
+        <style id="function"          name="Function"            map-to="def:function"/>
+        <style id="builtin"           name="Builtin"             map-to="def:preprocessor"/>
+    </styles>
+
+    <definitions>
+        <!-- http://en.wikipedia.org/wiki/C_syntax#Strings -->
+        <define-regex id="escaped-character" extended="true">
+            \\(                   # leading backslash
+            [\\\"\'nrtfav\?e] |   # escaped character
+            [0-7]{1,3} |          # one, two, or three octal digits
+            x[0-9A-Fa-f]{0,2}     # 'x' followed by zero, one, or two hex digits
+            )
+        </define-regex>
+
+        <context id="cg" class="no-spell-check">
+            <include>
+                <!-- Comments -->
+                <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+                    <start>//</start>
+                    <include>
+                      <context ref="def:in-line-comment"/>
+                    </include>
+                </context>
+
+                <context id="comment-multiline" style-ref="comment" class="comment" class-disabled="no-spell-check">
+                    <start>/\*</start>
+                    <end>\*/</end>
+                    <include>
+                        <context ref="def:in-comment"/>
+                    </include>
+                </context>
+
+                <context id="close-comment-outside-comment" style-ref="error">
+                    <match>\*/(?!\*)</match>
+                </context>
+
+                <!-- Preprocessor -->
+                <define-regex id="preproc-start">^\s*#\s*</define-regex>
+
+                <context id="include" style-ref="preprocessor">
+                    <match extended="true">
+                            \%{preproc-start}
+                            (include|import)\s*
+                            (".*?"|&lt;.*&gt;)
+                    </match>
+                    <include>
+                        <context id="included-file" sub-pattern="2" style-ref="included-file"/>
+                    </include>
+                </context>
+
+                <!-- http://www.lysator.liu.se/c/ANSI-C-grammar-l.html -->
+                <context id="float" style-ref="floating-point">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        ((\.[0-9]+ | [0-9]+\.[0-9]*) ([Ee][+-]?[0-9]*)? |
+                         ([0-9]+[Ee][+-]?[0-9]*))
+                        [fFlL]?
+                        (?![\w\.])
+                    </match>
+                </context>
+
+                <context id="hexadecimal" style-ref="hexadecimal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        0[xX][a-fA-F0-9]+[uUlL]*
+                        (?![\w\.])
+                    </match>
+                </context>
+
+                <context id="octal" style-ref="octal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        0[0-7]+[uUlL]*
+                        (?![\w\.])
+                    </match>
+                </context>
+
+                <context id="decimal" style-ref="decimal">
+                    <match extended="true">
+                        (?&lt;![\w\.])
+                        [0-9]+[uUlL]*
+                        (?![\w\.])
+                    </match>
+                </context>
+
+                <!-- Keywords -->
+                <context id="keywords" style-ref="keyword">
+                    <keyword>break</keyword>
+                    <keyword>case</keyword>
+                    <keyword>continue</keyword>
+                    <keyword>default</keyword>
+                    <keyword>else</keyword>
+                    <keyword>for</keyword>
+                    <keyword>if</keyword>
+                    <keyword>return</keyword>
+                    <keyword>struct</keyword>
+                    <keyword>switch</keyword>
+                    <keyword>while</keyword>
+                </context>
+
+                <context id="types" style-ref="type">
+                    <keyword>bool</keyword>
+                    <keyword>float</keyword>
+                    <keyword>float2</keyword>
+                    <keyword>float3</keyword>
+                    <keyword>float4</keyword>
+                    <keyword>float2x2</keyword>
+                    <keyword>float3x3</keyword>
+                    <keyword>float4x4</keyword>
+                    <keyword>int</keyword>
+                    <keyword>half</keyword>
+                    <keyword>fixed</keyword>
+                    <keyword>void</keyword>
+                    <keyword>sampler1D</keyword>
+                    <keyword>sampler2D</keyword>
+                    <keyword>sampler3D</keyword>
+                    <keyword>samplerRECT</keyword>
+                    <keyword>samplerCUBE</keyword>
+                </context>
+
+                <context id="storage-class" style-ref="storage-class">
+                    <keyword>uniform</keyword>
+                    <keyword>out</keyword>
+                    <keyword>inout</keyword>
+                    <keyword>in</keyword>
+                    <keyword>varying</keyword>
+                </context>
+
+                <context id="bindings" style-ref="bindings">
+                    <keyword>POSITION</keyword>
+                    <keyword>NORMAL</keyword>
+                </context>
+
+                <context id="color-bindings" style-ref="bindings">
+                    <match extended="true">COLOR[0-3]?</match>
+                </context>
+
+                <context id="texunit-bindings" style-ref="bindings">
+                    <match extended="true">TEXUNIT([0-9]|1[0-5])?</match>
+                </context>
+
+                <context id="texcoord-bindings" style-ref="bindings">
+                    <match extended="true">TEXCOORD[0-7]?</match>
+                </context>
+
+                <context id="swizzle">
+                    <match extended="true">\.([xyzw]+|[rgba]+)</match>
+                    <include>
+                        <context id="swizzle-operator" sub-pattern="1" style-ref="swizzle"/>
+                    </include>
+                </context>
+
+                <!-- C99 booleans -->
+                <context id="boolean" style-ref="boolean">
+                    <keyword>true</keyword>
+                    <keyword>false</keyword>
+                </context>
+
+                <context id="builtin">
+                    <match extended="true">
+                        (mul|lit|lerp|saturate|abs|cos|acos|sin|asin|tan|atan|all|any|ceil|clamp|
+                        cosh|cross|degress|determinant|dot|exp|exp2|floor|fmod|frac|frexp|isfinite|
+                        isinf|isnan|ldexp|log|log2|log10|max|min|modf|noise|pow|radians|round|
+                        rsqrt|sign|sincos|sinh|smoothstep|step|sqrt|tanh|transpose|distance|
+                        faceforward|length|normalize|reflect|refract|tex1D|tex2D|tex3D|
+                        tex1Dproj|tex2Dproj|tex3Dproj|texRECT|texRECTproj|texCUBE|texCUBEproj|
+                        ddx|ddy|debug)\s*\(
+                    </match>
+                    <include>
+                        <context id="builtin-name" sub-pattern="1" style-ref="builtin"/>
+                    </include>
+                </context>
+
+                <context id="function">
+                    <match extended="true">
+                        ([a-zA-Z_][a-zA-Z_0-9]*)\s*\(
+                    </match>
+                    <include>
+                        <context id="function-name" sub-pattern="1" style-ref="function"/>
+                    </include>
+                </context>
+            </include>
+        </context>
+    </definitions>
+</language>

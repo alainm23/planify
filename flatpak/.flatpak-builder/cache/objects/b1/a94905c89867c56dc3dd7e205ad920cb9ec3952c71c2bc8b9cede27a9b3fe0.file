@@ -1,0 +1,47 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-mime.h"
+#include "libical-glib-private.h"
+#include "i-cal-component.h"
+
+/**
+ * i_cal_mime_parse:
+ *  @func: The parsing function.
+ * @data: The source to be parsed.
+ *
+ * Parse from the data to #ICalComponent.
+ *
+ * Returns: (transfer full): The #ICalComponent parsed from @data
+ *
+ * Since: 1.0
+ *
+ **/
+ICalComponent *
+i_cal_mime_parse (gchar *(*func)(gchar *,size_t,void *), 
+                  void *data)
+{
+	g_return_val_if_fail (func != NULL, NULL);
+	g_return_val_if_fail (data != NULL, NULL);
+
+	return i_cal_component_new_full (icalmime_parse(func, data), NULL) ;
+}

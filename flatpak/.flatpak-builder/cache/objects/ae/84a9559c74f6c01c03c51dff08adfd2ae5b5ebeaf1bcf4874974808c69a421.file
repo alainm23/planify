@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Jeffery To <jeffery.to@gmail.com>
+ Copyright (C) 2018 Jeffery To <jeffery.to@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="scss" name="SCSS" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-scss</property>
+    <property name="globs">*.scss</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+
+    <!-- interpolations -->
+    <style id="interpolation"               name="Interpolation"               map-to="def:preprocessor"/>
+
+    <!-- variables -->
+    <style id="variable"                    name="Variable"                    map-to="def:identifier"/>
+
+    <!-- operators -->
+    <style id="operator-symbol"             name="Operator Symbol"             map-to="css:symbol"/>
+    <style id="logical-operator"            name="Logical Operator"            map-to="def:preprocessor"/>
+
+    <!-- Sass data types -->
+    <style id="boolean"                     name="Boolean Value"               map-to="def:boolean"/>
+    <style id="null"                        name="Null Value"                  map-to="def:special-constant"/>
+    <style id="list-delimiter"              name="List Delimiter"              map-to="css:delimiter"/>
+    <style id="group-delimiter"             name="Group Delimiter"             map-to="css:delimiter"/>
+
+    <!-- Sass selectors -->
+    <style id="placeholder-selector"        name="Placeholder Selector"        map-to="def:identifier"/>
+    <style id="selector-fragment"           name="Selector Fragment"/>
+
+    <!-- Sass at-rules -->
+    <style id="mixin-name"                  name="Mixin Name"                  map-to="def:keyword"/>
+
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <keyword-char-class>[a-z0-9_-]</keyword-char-class>
+
+  <definitions>
+
+    <!-- global -->
+
+    <context id="sass-c-like-comment-multiline" style-ref="def:comment" class-disabled="no-spell-check" class="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="interpolation"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="scss-comment">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="sass-c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+      </include>
+    </context>
+
+    <replace id="css:comment" ref="scss-comment"/>
+
+
+    <!-- interpolations -->
+
+    <context id="interpolation">
+      <start>#\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="interpolation"/>
+        <context sub-pattern="0" where="end" style-ref="interpolation"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+      </include>
+    </context>
+
+
+    <!-- variables -->
+
+    <context id="variable" style-ref="variable">
+      <match>\$\%{css:identifier-regex}</match>
+    </context>
+
+
+    <!-- operators -->
+
+    <!-- leave out the division operator (/)
+         as we cannot reliably distinguish between a literal slash and
+         a division operation -->
+    <context id="arithmetic-operator" style-ref="operator-symbol">
+      <match extended="true">
+        (
+          [+*%] |
+          (?&lt;! \%{css:single-identifier-char-regex} )
+          -
+          (?! \%{css:single-identifier-char-regex} )
+        )
+      </match>
+    </context>
+
+    <context id="string-operator" style-ref="operator-symbol">
+      <match>\+</match>
+    </context>
+
+    <context id="comparison-operator" style-ref="operator-symbol">
+      <match>(&lt;=?|&gt;=?|[=!]=)</match>
+    </context>
+
+    <context id="logical-operator" style-ref="logical-operator">
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+
+    <!-- Sass data types -->
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="null" style-ref="null">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="parent-selector-list" style-ref="css:combinator">
+      <match>&amp;</match>
+    </context>
+
+    <context id="bracketed-list">
+      <start>\[</start>
+      <end>\]</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="list-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="list-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+      </include>
+    </context>
+
+    <!-- not sure why one would use a string group but it appears to be syntactically valid -->
+    <context id="string-group">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:string-value"/>
+      </include>
+    </context>
+
+    <context id="data-group">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:data-value"/>
+      </include>
+    </context>
+
+    <!--
+    this could be a list, a map, or an order of operations grouping
+    not sure how to differentiate between these
+    -->
+    <context id="any-group">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="css:colon"/> <!-- for maps -->
+      </include>
+    </context>
+
+
+    <!-- data types -->
+
+    <context id="scss-string-content">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:string-content" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:string-content" ref="scss-string-content"/>
+
+
+    <!-- functions -->
+
+    <context id="variable-arguments" style-ref="operator-symbol">
+      <match>\.\.\.</match>
+    </context>
+
+    <context id="scss-url">
+      <start>url\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:function"/>
+        <context sub-pattern="0" where="end" style-ref="css:function"/>
+        <!-- only accept multi-line comments because // is part of urls -->
+        <context ref="sass-c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="css:string-value"/>
+      </include>
+    </context>
+
+    <context id="scss-function-content">
+      <include>
+        <context ref="css:function-content" original="true"/>
+        <context ref="variable-arguments"/>
+        <context ref="css:colon"/> <!-- for named arguments -->
+      </include>
+    </context>
+
+    <replace id="css:url" ref="scss-url"/>
+    <replace id="css:function-content" ref="scss-function-content"/>
+
+
+    <!-- data values -->
+
+    <context id="scss-name-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="interpolation"/> <!-- outputs unquoted strings -->
+        <context ref="variable"/>
+        <context ref="css:name-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-string-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="string-group"/>
+        <context ref="variable"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="string-operator"/>
+      </include>
+    </context>
+
+    <context id="scss-data-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="data-group"/>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:color-value"/>
+        <context ref="css:number-value"/>
+        <context ref="css:unicode-range"/>
+        <context ref="arithmetic-operator"/>
+      </include>
+    </context>
+
+    <replace id="css:name-value" ref="scss-name-value"/>
+    <replace id="css:string-value" ref="scss-string-value"/>
+    <replace id="css:data-value" ref="scss-data-value"/>
+
+
+    <!-- any assignable value -->
+
+    <context id="scss-any-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="any-group"/>
+        <context ref="parent-selector-list"/>
+        <context ref="bracketed-list"/>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="boolean"/>
+        <context ref="null"/>
+        <context ref="css:property-value-keyword"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:color-value"/>
+        <context ref="css:number-value"/>
+        <context ref="css:unicode-range"/>
+        <context ref="logical-operator"/>
+        <context ref="comparison-operator"/>
+        <context ref="arithmetic-operator"/>
+        <context ref="css:slash"/>
+        <context ref="css:comma"/>
+      </include>
+    </context>
+
+    <replace id="css:any-value" ref="scss-any-value"/>
+
+
+    <!-- Sass modifiers -->
+
+    <context id="variable-assignment-modifiers" style-ref="css:modifier">
+      <keyword>default</keyword>
+      <keyword>global</keyword>
+    </context>
+
+    <context id="at-extend-modifiers" style-ref="css:modifier">
+      <keyword>optional</keyword>
+    </context>
+
+
+    <!-- modifiers -->
+
+    <context id="scss-modifier-content">
+      <include>
+        <context ref="variable-assignment-modifiers"/>
+        <context ref="at-extend-modifiers"/>
+        <context ref="css:modifier-content" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:modifier-content" ref="scss-modifier-content"/>
+
+
+    <!-- style properties -->
+
+    <context id="scss-property-name">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:property-name" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:property-name" ref="scss-property-name"/>
+
+
+    <!-- style block -->
+
+    <context id="nested-properties" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="css:block-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:declaration"/>
+      </include>
+    </context>
+
+    <context id="scss-declaration-property">
+      <include>
+        <context ref="variable"/> <!-- variable assignment -->
+        <context ref="css:declaration-property" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-declaration-value-content">
+      <include>
+        <context ref="nested-properties"/>
+        <context ref="css:declaration-value-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-declaration-value">
+      <start extended="true">
+        (?(DEFINE)
+          (?&lt;interpolation&gt;  # recursive subpattern to find matching brackets
+            \#\{
+              (?:
+                (?>
+                  (?:
+                    [^#{}]+ |
+                    (?! \#\{ | \} ) .
+                  )+
+                ) |
+                (?&amp;interpolation)
+              )*
+            \}
+          )
+        )
+        :
+        (?:
+          (?!                                       # not the start of a
+            \%{css:single-identifier-char-regex} |  #   pseudo-class
+            [:\\] |                                 #   pseudo-element, escape
+            \#\{                                    #   interpolation
+          ) |                                       # or
+          (?=                                       # ends like a normal declaration
+            (?&gt;
+              (?:
+                [^;}{#]+ |
+                (?&amp;interpolation)+ |
+                \#+
+              )*
+            )
+            \%{css:declaration-value-end}           #   with a semicolon or at the end of a block
+          )
+        )
+      </start>
+      <end>\%{css:declaration-value-end}</end> <!-- nested-properties has end-parent="true" -->
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:declaration-value-content"/>
+      </include>
+    </context>
+
+    <context id="scss-style-block-content">
+      <include>
+        <context ref="css:style-block-content" original="true"/>
+        <context ref="css:at-rule"/>
+        <context ref="css:selector"/>
+        <context ref="css:style-block"/>
+      </include>
+    </context>
+
+    <replace id="css:declaration-property" ref="scss-declaration-property"/>
+    <replace id="css:declaration-value-content" ref="scss-declaration-value-content"/>
+    <replace id="css:declaration-value" ref="scss-declaration-value"/>
+    <replace id="css:style-block-content" ref="scss-style-block-content"/>
+
+
+    <!-- media queries -->
+
+    <context id="scss-media-type-value">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:media-type-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-media-feature-test-name">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="css:media-feature-test-name" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-media-feature-test-value-content">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="css:media-feature-test-value-content" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:media-type-value" ref="scss-media-type-value"/>
+    <replace id="css:media-feature-test-name" ref="scss-media-feature-test-name"/>
+    <replace id="css:media-feature-test-value-content" ref="scss-media-feature-test-value-content"/>
+
+
+    <!-- Sass at-rules -->
+
+    <!--
+    @extend <selector> <optional modifier>?;
+    -->
+
+    <context id="at-extend">
+      <start>@extend\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:selector"/>
+        <context ref="css:modifier"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @at-root (<selector>|<query>)? <css-block>
+    -->
+
+    <context id="at-at-root-query-type" style-ref="css:property-name">
+      <keyword>without</keyword>
+      <keyword>with</keyword>
+    </context>
+
+    <context id="at-at-root-query-directive" style-ref="css:keyword">
+      <keyword>all</keyword>
+      <keyword>media</keyword>
+      <keyword>rule</keyword>
+      <keyword>supports</keyword>
+    </context>
+
+    <context id="at-at-root-query-value">
+      <start>:</start>
+      <end>\%{css:test-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="at-at-root-query-directive"/>
+      </include>
+    </context>
+
+    <context id="at-at-root-query">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:test-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="css:test-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="at-at-root-query-type"/>
+        <context ref="at-at-root-query-value"/>
+      </include>
+    </context>
+
+    <context id="at-at-root">
+      <start>@at-root\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:selector"/>
+        <context ref="at-at-root-query"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @debug <any-value>;
+    @warn <any-value>;
+    @error <any-value>;
+    -->
+
+    <context id="at-debug-warn-error">
+      <start>@(debug|warn|error)\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @if <any-value> <css-block>
+    @else if <any-value> <css-block>
+    @else <css-block>
+    -->
+
+    <context id="at-if-else-if">
+      <start>@(if|else\s+if)\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <context id="at-else">
+      <start>@else\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @for <variable> from <any-value> (through|to) <any-value> <css-block>
+    -->
+
+    <context id="at-for-keyword" style-ref="css:at-rule-operator">
+      <keyword>from</keyword>
+      <keyword>through</keyword>
+      <keyword>to</keyword>
+    </context>
+
+    <context id="at-for">
+      <start>@for\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="at-for-keyword"/>
+        <context ref="variable"/>
+        <context ref="css:any-value"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @each <variable> in <list> <css-block>
+    -->
+
+    <context id="at-each-keyword" style-ref="css:at-rule-operator">
+      <keyword>in</keyword>
+    </context>
+
+    <context id="at-each">
+      <start>@each\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="at-each-keyword"/>
+        <context ref="variable"/>
+        <context ref="css:any-value"/>
+        <context ref="css:comma"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @while <expression> <css-block>
+    -->
+
+    <context id="at-while">
+      <start>@while\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @mixin <mixin name> <mixin-parameters>? <css-block>
+    -->
+
+    <context id="mixin-parameters">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="mixin-name"/>
+        <context sub-pattern="0" where="end" style-ref="mixin-name"/>
+        <context ref="css:comment"/>
+        <context ref="css:function-content"/>
+      </include>
+    </context>
+
+    <context id="at-mixin">
+      <start>@mixin\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:name" style-ref="mixin-name"/>
+        <context ref="mixin-parameters"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @include <mixin name> <mixin-parameters>? (;|<css-block>)
+    -->
+
+    <context id="at-include">
+      <start>@include\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:name" style-ref="mixin-name"/>
+        <context ref="mixin-parameters"/>
+        <context ref="css:at-rule-delimiter"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @content;
+    -->
+
+    <context id="at-content">
+      <start>@content\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @function <function name> <function-parameters> <css-block>
+    -->
+
+    <context id="function-parameters">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:function"/>
+        <context sub-pattern="0" where="end" style-ref="css:function"/>
+        <context ref="css:comment"/>
+        <context ref="css:function-content"/>
+      </include>
+    </context>
+
+    <context id="at-function">
+      <start>@function\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <!-- we define it this way because there can be whitespace
+             between the function name and the parentheses -->
+        <context ref="css:name" style-ref="css:function"/>
+        <context ref="function-parameters"/>
+        <context ref="css:at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @return <any-value>;
+    -->
+
+    <context id="at-return">
+      <start>@return\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+
+    <!-- at-rules -->
+
+    <context id="scss-font-feature-value-declaration-value-content">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="variable"/>
+        <context ref="css:font-feature-value-declaration-value-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-keyframe-selector-value">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:keyframe-selector-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-namespace-value">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:namespace-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-at-rule">
+      <include>
+
+        <context ref="at-extend"/>
+        <context ref="at-at-root"/>
+
+        <context ref="at-debug-warn-error"/>
+
+        <context ref="at-if-else-if"/>
+        <context ref="at-else"/>
+
+        <context ref="at-for"/>
+        <context ref="at-each"/>
+        <context ref="at-while"/>
+
+        <context ref="at-mixin"/>
+        <context ref="at-include"/>
+        <context ref="at-content"/>
+
+        <context ref="at-function"/>
+        <context ref="at-return"/>
+
+        <context ref="css:at-rule" original="true"/>
+
+      </include>
+    </context>
+
+    <replace id="css:at-rule-style-block-content" ref="scss-style-block-content"/>
+    <replace id="css:at-rule-css-block-content" ref="scss-style-block-content"/>
+    <replace id="css:font-feature-value-declaration-value-content" ref="scss-font-feature-value-declaration-value-content"/>
+    <replace id="css:keyframe-selector-value" ref="scss-keyframe-selector-value"/>
+    <replace id="css:namespace-value" ref="scss-namespace-value"/>
+    <replace id="css:at-rule" ref="scss-at-rule"/>
+
+
+    <!-- Sass selectors -->
+
+    <context id="parent-combinator">
+      <match>(&amp;)(\%{css:identifier-chars-regex}?)</match>
+      <include>
+        <context sub-pattern="1"  style-ref="css:combinator"/>
+        <context sub-pattern="2"  style-ref="selector-fragment"/>
+      </include>
+    </context>
+
+    <context id="placeholder-selector" style-ref="placeholder-selector">
+      <match>%\%{css:identifier-regex}</match>
+    </context>
+
+    <context id="interpolation-fragment" style-ref="selector-fragment">
+      <match>(?&lt;=\})\%{css:identifier-chars-regex}</match>
+    </context>
+
+
+    <!-- selectors -->
+
+    <context id="scss-simple-selector">
+      <include>
+        <context ref="interpolation"/> <!-- include in simple selector to be included in :not() -->
+        <context ref="interpolation-fragment"/>
+        <context ref="css:simple-selector" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-combinator">
+      <include>
+        <context ref="parent-combinator"/>
+        <context ref="css:combinator" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-nth-pseudo-class-argument-content">
+      <include>
+        <context ref="interpolation"/>
+        <context ref="css:nth-pseudo-class-argument-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="scss-selector">
+      <include>
+        <context ref="placeholder-selector"/>
+        <context ref="css:selector" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:simple-selector" ref="scss-simple-selector"/>
+    <replace id="css:combinator" ref="scss-combinator"/>
+    <replace id="css:nth-pseudo-class-argument-content" ref="scss-nth-pseudo-class-argument-content"/>
+    <replace id="css:selector" ref="scss-selector"/>
+
+
+    <!-- top level declarations -->
+
+    <context id="top-level-declaration-property">
+      <include>
+        <context ref="variable"/>
+      </include>
+    </context>
+
+    <context id="top-level-declaration">
+      <include>
+        <context ref="top-level-declaration-property"/>
+        <context ref="css:declaration-value"/>
+        <context ref="css:modifier"/>
+        <context ref="css:semicolon"/>
+      </include>
+    </context>
+
+
+    <!-- main context -->
+
+    <context id="scss" class="no-spell-check">
+      <include>
+        <context ref="top-level-declaration"/>
+        <context ref="css:css"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-273 211)'>
+        
+        <path color='#bebebe' d='M280.565-209.299a4.229 4.229 0 0 0-2.598 2.373s-1.915 4.62-3.686 4.559c-.019.004-.033.02-.052.025a.721.721 0 0 0-.217.1c-.027.017-.054.03-.078.05a.736.736 0 0 0-.207.276.75.75 0 0 0 .406.98l9.701 4.018a.747.747 0 0 0 .979-.406.738.738 0 0 0 .049-.342c-.002-.032-.014-.059-.02-.09a.725.725 0 0 0-.082-.224c-.01-.017-.009-.039-.02-.055-.753-.703-.419-2.546-.01-3.977A5 5 0 0 1 280-207a5 5 0 0 1 .565-2.299zm-1.903 11.32a2 2 0 0 0 1.213 2.127 2 2 0 0 0 2.362-.646z' fill='#666' overflow='visible' style='isolation:auto;mix-blend-mode:normal;marker:none'/>
+        <path class='error' color='#bebebe' d='M289-207a4 4 0 0 1-8 0 4 4 0 1 1 8 0z' fill='#d33636' overflow='visible' style='isolation:auto;mix-blend-mode:normal;marker:none'/>
+    </g>
+</svg>

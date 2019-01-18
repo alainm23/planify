@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsProvided: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsIcon.html" title="AsIcon">
+<link rel="next" href="appstream-AsBundle.html" title="AsBundle">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsProvided.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsIcon.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsBundle.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsProvided"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsProvided.top_of_page"></a>AsProvided</span></h2>
+<p>AsProvided — Description of the provided-items in components</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsProvided.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-to-string" title="as_provided_kind_to_string ()">as_provided_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="returnvalue">AsProvidedKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-from-string" title="as_provided_kind_from_string ()">as_provided_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-to-l10n-string" title="as_provided_kind_to_l10n_string ()">as_provided_kind_to_l10n_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="returnvalue">AsProvided</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-new" title="as_provided_new ()">as_provided_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="returnvalue">AsProvidedKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-get-kind" title="as_provided_get_kind ()">as_provided_get_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-set-kind" title="as_provided_set_kind ()">as_provided_set_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-get-items" title="as_provided_get_items ()">as_provided_get_items</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-add-item" title="as_provided_add_item ()">as_provided_add_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsProvided.html#as-provided-has-item" title="as_provided_has_item ()">as_provided_has_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsProvided.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsProvided.html#AS-TYPE-PROVIDED:CAPS" title="AS_TYPE_PROVIDED">AS_TYPE_PROVIDED</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsProvided.html#AsProvidedClass" title="struct AsProvidedClass">AsProvidedClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind">AsProvidedKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided">AsProvided</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsProvided.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsProvided.description"></a><h2>Description</h2>
+<p>Components can provide various items, like libraries, Python-modules,
+firmware, binaries, etc.
+Functions to work with these items are provided here.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsProvided.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-provided-kind-to-string"></a><h3>as_provided_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_provided_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to a text representation.</p>
+<div class="refsect3">
+<a name="as-provided-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-kind-from-string"></a><h3>as_provided_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="returnvalue">AsProvidedKind</span></a>
+as_provided_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *kind_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-provided-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-kind-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a> or <a class="link" href="appstream-AsProvided.html#AS-PROVIDED-KIND-UNKNOWN:CAPS"><code class="literal">AS_PROVIDED_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-kind-to-l10n-string"></a><h3>as_provided_kind_to_l10n_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_provided_kind_to_l10n_string (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to a localized text representation,
+using the plural forms (e.g. "Libraries" instead of "Library").</p>
+<p>This can be useful when displaying provided items in GUI dialogs.</p>
+<div class="refsect3">
+<a name="as-provided-kind-to-l10n-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-kind-to-l10n-string.returns"></a><h4>Returns</h4>
+<p> Pluralized, l10n string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-new"></a><h3>as_provided_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="returnvalue">AsProvided</span></a> *
+as_provided_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a>.</p>
+<div class="refsect3">
+<a name="as-provided-new.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-get-kind"></a><h3>as_provided_get_kind ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="returnvalue">AsProvidedKind</span></a>
+as_provided_get_kind (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> *prov</code></em>);</pre>
+<p>The kind of items this <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> object stores.</p>
+<div class="refsect3">
+<a name="as-provided-get-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prov</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-get-kind.returns"></a><h4>Returns</h4>
+<p> an enum of type <a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-set-kind"></a><h3>as_provided_set_kind ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_provided_set_kind (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> *prov</code></em>,
+                      <em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a> kind</code></em>);</pre>
+<p>Set the kind of items this <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> object stores.</p>
+<div class="refsect3">
+<a name="as-provided-set-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prov</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind"><span class="type">AsProvidedKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-get-items"></a><h3>as_provided_get_items ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_provided_get_items (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> *prov</code></em>);</pre>
+<p>Get an array of provided data.</p>
+<div class="refsect3">
+<a name="as-provided-get-items.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prov</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-get-items.returns"></a><h4>Returns</h4>
+<p>An string list of provided items. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-add-item"></a><h3>as_provided_add_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_provided_add_item (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> *prov</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *item</code></em>);</pre>
+<p>Add a new provided item.</p>
+<div class="refsect3">
+<a name="as-provided-add-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prov</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-provided-has-item"></a><h3>as_provided_has_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_provided_has_item (<em class="parameter"><code><a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> *prov</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *item</code></em>);</pre>
+<p>Check if the current <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> contains an item
+of the given name.</p>
+<div class="refsect3">
+<a name="as-provided-has-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prov</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided"><span class="type">AsProvided</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>the name of a provided item, e.g. "audio/x-vorbis" (in case the provided kind is a mimetype)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-provided-has-item.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if found.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsProvided.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-PROVIDED:CAPS"></a><h3>AS_TYPE_PROVIDED</h3>
+<pre class="programlisting">#define AS_TYPE_PROVIDED (as_provided_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsProvidedClass"></a><h3>struct AsProvidedClass</h3>
+<pre class="programlisting">struct AsProvidedClass {
+	GObjectClass		parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsProvidedKind"></a><h3>enum AsProvidedKind</h3>
+<p>Type of the public interface components can provide.</p>
+<div class="refsect3">
+<a name="AsProvidedKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-UNKNOWN:CAPS"></a>AS_PROVIDED_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Unknown kind</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-LIBRARY:CAPS"></a>AS_PROVIDED_KIND_LIBRARY</p></td>
+<td class="enum_member_description">
+<p>A shared library</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-BINARY:CAPS"></a>AS_PROVIDED_KIND_BINARY</p></td>
+<td class="enum_member_description">
+<p>A binary installed into a directory in PATH</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-MIMETYPE:CAPS"></a>AS_PROVIDED_KIND_MIMETYPE</p></td>
+<td class="enum_member_description">
+<p>Provides a handler for a mimetype</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-FONT:CAPS"></a>AS_PROVIDED_KIND_FONT</p></td>
+<td class="enum_member_description">
+<p>A font</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-MODALIAS:CAPS"></a>AS_PROVIDED_KIND_MODALIAS</p></td>
+<td class="enum_member_description">
+<p>A modalias</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-PYTHON-2:CAPS"></a>AS_PROVIDED_KIND_PYTHON_2</p></td>
+<td class="enum_member_description">
+<p>A Python2 module</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-PYTHON:CAPS"></a>AS_PROVIDED_KIND_PYTHON</p></td>
+<td class="enum_member_description">
+<p>A Python3 module</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-DBUS-SYSTEM:CAPS"></a>AS_PROVIDED_KIND_DBUS_SYSTEM</p></td>
+<td class="enum_member_description">
+<p>A DBus service name on the system bus.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-DBUS-USER:CAPS"></a>AS_PROVIDED_KIND_DBUS_USER</p></td>
+<td class="enum_member_description">
+<p>A DBus service name on the user/session bus.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-FIRMWARE-RUNTIME:CAPS"></a>AS_PROVIDED_KIND_FIRMWARE_RUNTIME</p></td>
+<td class="enum_member_description">
+<p>Firmware flashed at runtime.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-FIRMWARE-FLASHED:CAPS"></a>AS_PROVIDED_KIND_FIRMWARE_FLASHED</p></td>
+<td class="enum_member_description">
+<p>Firmware flashed permanently to the device.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-PROVIDED-KIND-ID:CAPS"></a>AS_PROVIDED_KIND_ID</p></td>
+<td class="enum_member_description">
+<p>An AppStream component</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsProvided"></a><h3>AsProvided</h3>
+<pre class="programlisting">typedef struct _AsProvided AsProvided;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg2"
+   height="48"
+   width="48"
+   version="1.1">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     class="error"
+     style="color:#bebebe;display:inline;overflow:visible;visibility:visible;fill:#d33636;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;enable-background:accumulate"
+     id="path2386-8-8-6"
+     d="m 31.99894,30.195018 3.16228,-3.195 1.875,1.875 -3.2482,3.1091 3.2482,3.1409 -1.875,1.875 -3.14098,-3.2481 -3.10902,3.2481 -1.875,-1.875 3.23224,-3.125 -3.23224,-3.125 1.875,-1.875 3.08772,3.195 z" />
+  <path
+     style="opacity:0.4;color:#000000;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+     id="path4112-19-69-3-0-8-8"
+     d="m 24.00003,11.843768 c -5.70684,0 -10.93664,2.19085 -15.0000006,5.84375 l 2.5937506,2.90625 c 3.62344,-3.1769 7.4334,-4.75 12.40625,-4.75 4.97285,0 8.67179,1.4789 12.46875,4.8125 l 2.53125,-2.96875 c -4.06336,-3.6529 -9.29316,-5.84375 -15,-5.84375 z m 0,8 c -3.69578,0 -6.99713,1.46945 -9.71875,3.71875 l 2.625,2.8125 c 1.81274,-1.2984 4.65977,-2.53125 7,-2.53125 1.695038,0 3.651414,0.64542 5.3125,1.5 a 1.6916577,1.6916577 0 0 1 0.03125,0 1.6916577,1.6916577 0 0 1 0.875,0.46875 l 0.0625,0.0625 c 0.318642,0.19507 0.631807,0.39125 0.90625,0.59375 l 2.71875,-2.9375 c -2.72161,-2.2493 -6.11672,-3.6875 -9.8125,-3.6875 z m 0,8 c -1.76757,0 -3.52961,0.92335 -4.25,1.71875 l 4.25,4.59375 2.875,-3.0625 -1.03125,-1 a 1.6916577,1.6916577 0 0 1 -0.28125,-2.03125 c -0.503805,-0.13872 -1.033445,-0.21875 -1.5625,-0.21875 z" />
+</svg>

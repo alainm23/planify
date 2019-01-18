@@ -1,0 +1,9 @@
+glib-2.0
+gio-2.0
+gee-0.8
+gtk+-3.0
+granite
+libecal-1.2
+libedataserver-1.2
+libical
+gmodule-2.0

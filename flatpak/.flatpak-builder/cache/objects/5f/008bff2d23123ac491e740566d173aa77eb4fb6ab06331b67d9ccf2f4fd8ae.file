@@ -1,0 +1,23 @@
+digraph G {
+	nodesep=.05;
+	rankdir=LR;
+	node [shape=record,width=.1,height=.1];
+
+	node0 [label = "<f0> |<f1> |<f2> |<f3> |<f4> |<f5> |<f6> | ",height=2.0];
+	node [width = 1.5];
+	node1 [label = "{<n> n14 | 719 |<p> }"];
+	node2 [label = "{<n> a1  | 805 |<p> }"];
+	node3 [label = "{<n> i9  | 718 |<p> }"];
+	node4 [label = "{<n> e5  | 989 |<p> }"];
+	node5 [label = "{<n> t20 | 959 |<p> }"] ;
+	node6 [label = "{<n> o15 | 794 |<p> }"] ;
+	node7 [label = "{<n> s19 | 659 |<p> }"] ;
+
+	node0:f0 -> node1:n;
+	node0:f1 -> node2:n;
+	node0:f2 -> node3:n;
+	node0:f5 -> node4:n;
+	node0:f6 -> node5:n;
+	node2:p -> node6:n;
+	node4:p -> node7:n;
+}

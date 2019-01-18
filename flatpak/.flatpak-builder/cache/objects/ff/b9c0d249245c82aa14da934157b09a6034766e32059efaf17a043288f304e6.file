@@ -1,0 +1,27 @@
+# Introduction
+
+dbusmenu-bench measures the time it takes to call various DBusMenu methods and
+print the results on stdout. A test dbusmenu application must be started before
+running dbusmenu-bench.
+
+A GLib test application is included in this archive. libdbusmenu-qt provides an
+equivalent Qt test application. They both can load the same menu hierarchy from
+a JSON file.
+
+# Using it
+
+1. Start dbusmenu-testapp:
+
+    dbusmenu-testapp /usr/share/libdbusmenu/json/test-gtk-label.json
+
+2. Run dbusmenu-bench
+
+    dbusmenu-bench --count 1000
+
+1000 is the number of times each DBusMenu method is called. Calling them 1000
+times helps getting meaningful average values.
+
+3. Stop dbusmenu-testapp
+
+For debugging purpose, you can also run dbusmenu-bench with the "--dump"
+parameter, which will dump the output of the called methods.

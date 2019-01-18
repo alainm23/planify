@@ -1,0 +1,8 @@
+cogl-1.0
+clutter-1.0
+gdk-pixbuf-2.0
+gstreamer-1.0
+gstreamer-audio-1.0
+gstreamer-base-1.0
+gstreamer-pbutils-1.0
+gstreamer-video-1.0

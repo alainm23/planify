@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Marcello Pogliani
+ Copyright (C) 2013 Marcello Pogliani <marcello.pogliani@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="lex" name="Lex" _section="Source" version="2.0">
+  <metadata>
+    <property name="globs">*.l;*.lex;*.flex</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="token" name="Token" map-to="def:keyword" />
+    <style id="keyword" name="Keyword" map-to="def:keyword" />
+    <style id="regexp" name="Pattern" map-to="def:identifier" />
+    <style id="expression" name="Expression" map-to="def:type" />
+  </styles>
+
+  <definitions>
+
+    <define-regex id="identifier">[a-zA-Z_.][a-zA-Z0-9_.]*</define-regex>
+    <define-regex id="start-cond">&lt;\%{identifier}(,\%{identifier})*&gt;</define-regex>
+
+    <!-- blocks for embedded C code -->
+    <context id="inline-c">
+      <start>^%{</start>
+      <end>^%}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context ref="c:c"/>
+      </include>
+    </context>
+
+    <context id="top-block">
+      <start>^%top{</start>
+      <end>^}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context ref="c:c"/>
+      </include>
+    </context>
+
+    <context id="c-with-brackets">
+      <include>
+        <context>
+          <start>{</start>
+          <end>}</end>
+          <include>
+            <context ref="c-with-brackets"/>
+          </include>
+        </context>
+        <context ref="c:c"/>
+      </include>
+    </context>
+
+    <context id="indented-lines-c-code">
+      <start>^(?=[ \t])</start>
+      <end>$</end>
+      <include>
+        <context ref="c:c" />
+      </include>
+    </context>
+
+    <!-- (1) definition section (before the first %%) -->
+    <context id="definitions">
+      <include>
+        <context ref="inline-c"/> <!-- %{ ... %} -->
+        <context ref="top-block"/> <!-- %top -->
+        <context ref="indented-lines-c-code" /> <!-- indented lines are copied verbatim to output, hence they're pure C code -->
+        <context ref="option-or-scope"/>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="definition"/>
+      </include>
+    </context>
+
+    <context id="definition" style-ref="expression">
+      <start>^\%{identifier}</start>
+      <end>$</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="token"/>
+      </include>
+    </context>
+
+    <context id="option-or-scope" style-ref="keyword">
+      <prefix>^%</prefix>
+      <keyword>option</keyword>
+      <keyword>s</keyword>
+      <keyword>x</keyword>
+      <keyword>pointer</keyword>
+      <keyword>array</keyword>
+    </context>
+
+    <!-- (2) rule section (after the first %%) -->
+    <context id="rule-section">
+      <start>^%%</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="token"/>
+        <context ref="rule"/>
+        <context ref="indented-lines-c-code"/>
+        <context ref="inline-c"/>
+        <context ref="user-code"/>
+      </include>
+    </context>
+
+    <context id="rule">
+      <start>^(?=[^% \t])</start>
+      <end>$</end>
+      <include>
+        <context id="pattern" style-ref="expression">
+          <start>^</start>
+          <end>[ \t]</end>
+          <include>
+            <context ref="round-brackets" />
+            <context ref="square-brackets" />
+            <context>
+              <start>"</start>
+              <end>"</end>
+              <include>
+                <context ref="escaped-char" />
+              </include>
+            </context>
+            <context ref="start-condition" /> <!-- <SOMETHING>pattern -->
+            <context ref="start-condition-block" /> <!-- <SOMETHING>{ block } -->
+            <context ref="escaped-char" />
+          </include>
+        </context>
+        <context ref="c-with-brackets"/>
+      </include>
+    </context>
+
+    <context id="start-condition" style-ref="keyword">
+      <match>^\%{start-cond}(?=[^{])</match>
+    </context>
+
+    <context id="start-condition-block">
+      <start>(^\%{start-cond}){</start>
+      <end>}</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="keyword"/>
+        <context ref="c-with-brackets" />
+      </include>
+    </context>
+
+    <context id="escaped-char">
+      <match>\\.</match>
+    </context>
+
+    <context id="square-brackets">
+      <start>\[</start>
+      <end>\]</end>
+      <include>
+        <context ref="escaped-char" />
+        <context ref="square-brackets" />
+      </include>
+    </context>
+
+    <context id="round-brackets">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context ref="escaped-char" />
+        <context ref="round-brackets" />
+      </include>
+    </context>
+
+    <!-- (3) user code section, this is pure C -->
+    <context id="user-code">
+      <start>^%%</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="token"/>
+        <context ref="c:c"/>
+      </include>
+    </context>
+
+    <!-- Main context -->
+    <context id="lex" class="no-spell-check">
+      <include>
+        <context ref="definitions"/>
+        <context ref="rule-section"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>geocode-mock-backend: geocode-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="geocode-glib Reference Manual">
+<link rel="up" href="ch01.html" title="Geocode-glib">
+<link rel="prev" href="GeocodeLocation.html" title="GeocodeLocation">
+<link rel="next" href="GeocodeNominatim.html" title="GeocodeNominatim">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#geocode-glib-geocode-mock-backend.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#geocode-glib-geocode-mock-backend.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#geocode-glib-geocode-mock-backend.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GeocodeLocation.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GeocodeNominatim.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="geocode-glib-geocode-mock-backend"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="geocode-glib-geocode-mock-backend.top_of_page"></a>geocode-mock-backend</span></h2>
+<p>geocode-mock-backend — Geocode mock backend implementation</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="returnvalue">GeocodeMockBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-new" title="geocode_mock_backend_new ()">geocode_mock_backend_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-add-forward-result" title="geocode_mock_backend_add_forward_result ()">geocode_mock_backend_add_forward_result</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-add-reverse-result" title="geocode_mock_backend_add_reverse_result ()">geocode_mock_backend_add_reverse_result</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-clear" title="geocode_mock_backend_clear ()">geocode_mock_backend_clear</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-get-query-log" title="geocode_mock_backend_get_query_log ()">geocode_mock_backend_get_query_log</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GeocodeMockBackend"></a><div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="geocode-glib-geocode-mock-backend.html#GEOCODE-TYPE-MOCK-BACKEND:CAPS" title="GEOCODE_TYPE_MOCK_BACKEND">GEOCODE_TYPE_MOCK_BACKEND</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackendQuery" title="GeocodeMockBackendQuery">GeocodeMockBackendQuery</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend-struct" title="GeocodeMockBackend">GeocodeMockBackend</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GeocodeMockBackend
+</pre>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GeocodeMockBackend implements
+ <a class="link" href="GeocodeBackend.html" title="GeocodeBackend">GeocodeBackend</a>.</p>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;geocode-glib/geocode-glib.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.description"></a><h2>Description</h2>
+<p><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> is intended to be used in unit tests for applications
+which use geocode-glib — it allows them to set the geocode results they
+expect their application to query, and check afterwards that the queries
+were performed. It works offline, which allows application unit tests to be
+run on integration and build machines which are not online. It is not
+expected that <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> will be used in production code.</p>
+<p>To use it, create the backend instance, add the query results to it which
+you want to be returned to your application’s queries, then use it as the
+<a class="link" href="GeocodeBackend.html" title="GeocodeBackend"><span class="type">GeocodeBackend</span></a> for <a class="link" href="GeocodeForward.html#geocode-forward-set-backend" title="geocode_forward_set_backend ()"><code class="function">geocode_forward_set_backend()</code></a> or
+<a class="link" href="GeocodeReverse.html#geocode-reverse-set-backend" title="geocode_reverse_set_backend ()"><code class="function">geocode_reverse_set_backend()</code></a>. After a test has been run, the set of queries
+which the code under test actually made on the backend can be checked using
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-get-query-log" title="geocode_mock_backend_get_query_log ()"><code class="function">geocode_mock_backend_get_query_log()</code></a>. The backend can be reset using
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-clear" title="geocode_mock_backend_clear ()"><code class="function">geocode_mock_backend_clear()</code></a> and new queries added for the next test.</p>
+<div class="informalexample"><pre class="programlisting">
+static void
+place_list_free (GList *l)
+{
+  g_list_free_full (l, g_object_unref);
+}
+
+typedef GList PlaceList;
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (PlaceList, place_list_free)
+
+g_autoptr (GeocodeForward) forward = NULL;
+g_autoptr (GeocodeMockBackend) backend = NULL;
+g_autoptr (GHashTable) params = NULL;
+GValue location = G_VALUE_INIT;
+g_autoptr (PlaceList) results = NULL;
+g_autoptr (PlaceList) expected_results = NULL;
+g_autoptr (GError) error = NULL;
+g_autoptr (GeocodePlace) expected_place = NULL;
+g_autoptr (GeocodeLocation) expected_location = NULL;
+GPtrArray *query_log;  /&lt;!-- --&gt;* (element-type GeocodeMockBackendQuery) *&lt;!-- --&gt;/
+
+backend = geocode_mock_backend_new ();
+
+/&lt;!-- --&gt;* Build the set of parameters the mock backend expects to receive from
+ * the #GeocodeForward instance. *&lt;!-- --&gt;/
+params = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, NULL);
+
+g_value_init (&amp;location, G_TYPE_STRING);
+g_value_set_static_string (&amp;location, "Bullpot Farm");
+g_hash_table_insert (params, (gpointer) "location", &amp;location);
+
+/&lt;!-- --&gt;* Build the set of results the mock backend should return. *&lt;!-- --&gt;/
+expected_location = geocode_location_new_with_description (
+    54.22759825, -2.51857179181113, 5.0,
+    "Bullpot Farm, Fell Road, South Lakeland, Cumbria, "
+    "North West England, England, United Kingdom");
+expected_place = geocode_place_new_with_location (
+    "Bullpot Farm", GEOCODE_PLACE_TYPE_BUILDING, expected_location);
+expected_results = g_list_prepend (expected_results,
+                                   g_steal_pointer (&amp;expected_place));
+
+geocode_mock_backend_add_forward_result (backend, params,
+                                         expected_results, NULL);
+
+/&lt;!-- --&gt;* Do the search. This would typically call the application code
+ * under test, rather than geocode-glib directly. *&lt;!-- --&gt;/
+forward = geocode_forward_new_for_string ("Bullpot Farm");
+geocode_forward_set_backend (forward, GEOCODE_BACKEND (backend));
+results = geocode_forward_search (forward, &amp;error);
+
+g_assert_no_error (error);
+assert_place_list_equal (results, expected_results);
+
+/&lt;!-- --&gt;* Check the application made the expected query. *&lt;!-- --&gt;/
+query_log = geocode_mock_backend_get_query_log (backend);
+g_assert_cmpuint (query_log-&gt;len, ==, 1);
+</pre></div>
+<p></p>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="geocode-mock-backend-new"></a><h3>geocode_mock_backend_new ()</h3>
+<pre class="programlisting"><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="returnvalue">GeocodeMockBackend</span></a> *
+geocode_mock_backend_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new mock backend implementation with no initial forward or reverse
+query results (so it will return an empty result set for all queries).</p>
+<div class="refsect3">
+<a name="geocode-mock-backend-new.returns"></a><h4>Returns</h4>
+<p>a new <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-mock-backend-add-forward-result"></a><h3>geocode_mock_backend_add_forward_result ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+geocode_mock_backend_add_forward_result
+                               (<em class="parameter"><code><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GHashTable</span> *params</code></em>,
+                                <em class="parameter"><code><span class="type">GList</span> *results</code></em>,
+                                <em class="parameter"><code>const <span class="type">GError</span> *error</code></em>);</pre>
+<p>Add a query and corresponding result (or error) to the mock backend, meaning
+that if it receives a forward search for <em class="parameter"><code>params</code></em>
+ through
+<a class="link" href="GeocodeBackend.html#geocode-backend-forward-search" title="geocode_backend_forward_search ()"><code class="function">geocode_backend_forward_search()</code></a> (or its asynchronous variants), the mock
+backend will return the given <em class="parameter"><code>results</code></em>
+ or <em class="parameter"><code>error</code></em>
+ to the caller.</p>
+<p>If a set of <em class="parameter"><code>params</code></em>
+ is added to the backend multiple times, the most
+recently provided <em class="parameter"><code>results</code></em>
+ and <em class="parameter"><code>error</code></em>
+ will be used.</p>
+<p>Exactly one of <em class="parameter"><code>results</code></em>
+ and <em class="parameter"><code>error</code></em>
+ must be set. Empty result sets are
+represented as a <a class="link" href="geocode-glib-geocode-error.html#GEOCODE-ERROR-NO-MATCHES:CAPS"><code class="literal">GEOCODE_ERROR_NO_MATCHES</code></a> error.</p>
+<div class="refsect3">
+<a name="geocode-mock-backend-add-forward-result.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>params</p></td>
+<td class="parameter_description"><p>query parameters to
+respond to, in the same format as accepted by <a class="link" href="GeocodeForward.html#geocode-forward-search" title="geocode_forward_search ()"><code class="function">geocode_forward_search()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GValue]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>results</p></td>
+<td class="parameter_description"><p>result set
+to return for the query, or <code class="literal">NULL</code> if <em class="parameter"><code>error</code></em>
+is non-<code class="literal">NULL</code>; result sets
+must be in the same format as returned by <a class="link" href="GeocodeForward.html#geocode-forward-search" title="geocode_forward_search ()"><code class="function">geocode_forward_search()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GeocodePlace]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>error to return for the query, or <code class="literal">NULL</code> if <em class="parameter"><code>results</code></em>
+should be returned instead; errors must match those returned by
+<a class="link" href="GeocodeForward.html#geocode-forward-search" title="geocode_forward_search ()"><code class="function">geocode_forward_search()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-mock-backend-add-reverse-result"></a><h3>geocode_mock_backend_add_reverse_result ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+geocode_mock_backend_add_reverse_result
+                               (<em class="parameter"><code><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GHashTable</span> *params</code></em>,
+                                <em class="parameter"><code><span class="type">GList</span> *results</code></em>,
+                                <em class="parameter"><code>const <span class="type">GError</span> *error</code></em>);</pre>
+<p>Add a query and corresponding result (or error) to the mock backend, meaning
+that if it receives a reverse search for <em class="parameter"><code>params</code></em>
+ through
+<a class="link" href="GeocodeBackend.html#geocode-backend-reverse-resolve" title="geocode_backend_reverse_resolve ()"><code class="function">geocode_backend_reverse_resolve()</code></a> (or its asynchronous variants), the mock
+backend will return the given <em class="parameter"><code>results</code></em>
+ or <em class="parameter"><code>error</code></em>
+ to the caller.</p>
+<p>If a set of <em class="parameter"><code>params</code></em>
+ is added to the backend multiple times, the most
+recently provided <em class="parameter"><code>results</code></em>
+ and <em class="parameter"><code>error</code></em>
+ will be used.</p>
+<p>Exactly one of <em class="parameter"><code>results</code></em>
+ and <em class="parameter"><code>error</code></em>
+ must be set. Empty result sets are
+represented as a <a class="link" href="geocode-glib-geocode-error.html#GEOCODE-ERROR-NOT-SUPPORTED:CAPS"><code class="literal">GEOCODE_ERROR_NOT_SUPPORTED</code></a> error.</p>
+<div class="refsect3">
+<a name="geocode-mock-backend-add-reverse-result.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>params</p></td>
+<td class="parameter_description"><p>query parameters to
+respond to, in the same format as accepted by <a class="link" href="GeocodeReverse.html#geocode-reverse-resolve" title="geocode_reverse_resolve ()"><code class="function">geocode_reverse_resolve()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 GValue]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>results</p></td>
+<td class="parameter_description"><p>result set
+to return for the query, or <code class="literal">NULL</code> if <em class="parameter"><code>error</code></em>
+is non-<code class="literal">NULL</code>; result sets
+must be in the same format as returned by <a class="link" href="GeocodeReverse.html#geocode-reverse-resolve" title="geocode_reverse_resolve ()"><code class="function">geocode_reverse_resolve()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GeocodePlace]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>error to return for the query, or <code class="literal">NULL</code> if <em class="parameter"><code>results</code></em>
+should be returned instead; errors must match those returned by
+<a class="link" href="GeocodeReverse.html#geocode-reverse-resolve" title="geocode_reverse_resolve ()"><code class="function">geocode_reverse_resolve()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-mock-backend-clear"></a><h3>geocode_mock_backend_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+geocode_mock_backend_clear (<em class="parameter"><code><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> *self</code></em>);</pre>
+<p>Clear the set of stored results in the mock backend which have been added
+using <a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-add-forward-result" title="geocode_mock_backend_add_forward_result ()"><code class="function">geocode_mock_backend_add_forward_result()</code></a> and
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-add-reverse-result" title="geocode_mock_backend_add_reverse_result ()"><code class="function">geocode_mock_backend_add_reverse_result()</code></a>. Additionally, clear the query log
+so far (see <a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-get-query-log" title="geocode_mock_backend_get_query_log ()"><code class="function">geocode_mock_backend_get_query_log()</code></a>).</p>
+<p>This effectively resets the mock backend to its initial state.</p>
+<div class="refsect3">
+<a name="geocode-mock-backend-clear.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-mock-backend-get-query-log"></a><h3>geocode_mock_backend_get_query_log ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+geocode_mock_backend_get_query_log (<em class="parameter"><code><a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> *self</code></em>);</pre>
+<p>Get the details of the forward and reverse queries which have been requested
+of the mock backend since the most recent call to
+<a class="link" href="geocode-glib-geocode-mock-backend.html#geocode-mock-backend-clear" title="geocode_mock_backend_clear ()"><code class="function">geocode_mock_backend_clear()</code></a>. The query details are provided as
+<a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackendQuery" title="GeocodeMockBackendQuery"><span class="type">GeocodeMockBackendQuery</span></a> structures, which map the query parameters to
+either the result set or the error which <a class="link" href="GeocodeBackend.html#geocode-backend-forward-search" title="geocode_backend_forward_search ()"><code class="function">geocode_backend_forward_search()</code></a>
+or <a class="link" href="GeocodeBackend.html#geocode-backend-reverse-resolve" title="geocode_backend_reverse_resolve ()"><code class="function">geocode_backend_reverse_resolve()</code></a> (or their asynchronous variants)
+returned to the caller.</p>
+<p>The results are provided in the order in which calls were made to
+<a class="link" href="GeocodeBackend.html#geocode-backend-forward-search" title="geocode_backend_forward_search ()"><code class="function">geocode_backend_forward_search()</code></a> and <a class="link" href="GeocodeBackend.html#geocode-backend-reverse-resolve" title="geocode_backend_reverse_resolve ()"><code class="function">geocode_backend_reverse_resolve()</code></a>.
+Results for forward and reverse queries may be interleaved.</p>
+<div class="refsect3">
+<a name="geocode-mock-backend-get-query-log.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-mock-backend-get-query-log.returns"></a><h4>Returns</h4>
+<p>potentially
+empty sequence of forward and reverse query details. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GeocodeMockBackendQuery]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-mock-backend.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GEOCODE-TYPE-MOCK-BACKEND:CAPS"></a><h3>GEOCODE_TYPE_MOCK_BACKEND</h3>
+<pre class="programlisting">#define GEOCODE_TYPE_MOCK_BACKEND (geocode_mock_backend_get_type ())
+</pre>
+<p>See <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a>.</p>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeMockBackendQuery"></a><h3>GeocodeMockBackendQuery</h3>
+<pre class="programlisting">typedef struct {
+	/* Request */
+	GHashTable *params;
+	gboolean is_forward;
+
+	/* Response */
+	GList *results;
+	GError *error;
+} GeocodeMockBackendQuery;
+</pre>
+<p>The details of a forward or reverse query which was performed on a
+<a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> by application code. This includes the input (<em class="parameter"><code>params</code></em>
+,
+<em class="parameter"><code>is_forward</code></em>
+), and the output which was returned (<em class="parameter"><code>results</code></em>
+ or <em class="parameter"><code>error</code></em>
+).</p>
+<p>Empty result sets are represented by the <a class="link" href="geocode-glib-geocode-error.html#GEOCODE-ERROR-NO-MATCHES:CAPS"><code class="literal">GEOCODE_ERROR_NO_MATCHES</code></a> error
+(for forward queries) or the <a class="link" href="geocode-glib-geocode-error.html#GEOCODE-ERROR-NOT-SUPPORTED:CAPS"><code class="literal">GEOCODE_ERROR_NOT_SUPPORTED</code></a> error (for reverse
+queries), rather than an empty <em class="parameter"><code>results</code></em>
+ list.</p>
+<div class="refsect3">
+<a name="GeocodeMockBackendQuery.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GHashTable</span> *<em class="structfield"><code><a name="GeocodeMockBackendQuery.params"></a>params</code></em>;</p></td>
+<td class="struct_member_description"><p>query parameters, in the format accepted by <a class="link" href="GeocodeForward.html#geocode-forward-search" title="geocode_forward_search ()"><code class="function">geocode_forward_search()</code></a>
+(if <em class="parameter"><code>is_forward</code></em>
+is <code class="literal">TRUE</code>) or <a class="link" href="GeocodeReverse.html#geocode-reverse-resolve" title="geocode_reverse_resolve ()"><code class="function">geocode_reverse_resolve()</code></a> (otherwise)</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gboolean</span> <em class="structfield"><code><a name="GeocodeMockBackendQuery.is-forward"></a>is_forward</code></em>;</p></td>
+<td class="struct_member_description"><p><code class="literal">TRUE</code> if this represents a call to <a class="link" href="GeocodeForward.html#geocode-forward-search" title="geocode_forward_search ()"><code class="function">geocode_forward_search()</code></a>;
+<code class="literal">FALSE</code> if it represents a call to <a class="link" href="GeocodeReverse.html#geocode-reverse-resolve" title="geocode_reverse_resolve ()"><code class="function">geocode_reverse_resolve()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">GList</span> *<em class="structfield"><code><a name="GeocodeMockBackendQuery.results"></a>results</code></em>;</p></td>
+<td class="struct_member_description"><p>results returned by the
+query, or <code class="literal">NULL</code> if an error was returned. </p></td>
+<td class="struct_member_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GeocodePlace]</span></td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">GError</span> *<em class="structfield"><code><a name="GeocodeMockBackendQuery.error"></a>error</code></em>;</p></td>
+<td class="struct_member_description"><p>error returned by the query, or <code class="literal">NULL</code> if a result set
+was returned. </p></td>
+<td class="struct_member_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeMockBackend-struct"></a><h3>GeocodeMockBackend</h3>
+<pre class="programlisting">typedef struct _GeocodeMockBackend GeocodeMockBackend;</pre>
+<p>All the fields in the <a class="link" href="geocode-glib-geocode-mock-backend.html#GeocodeMockBackend"><span class="type">GeocodeMockBackend</span></a> structure are private and should
+never be accessed directly.</p>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

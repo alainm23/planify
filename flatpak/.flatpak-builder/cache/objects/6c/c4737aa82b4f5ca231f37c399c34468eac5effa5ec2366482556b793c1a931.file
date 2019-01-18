@@ -1,0 +1,2411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Scott Martin <scott@coffeeblack.org>
+ Copyright (C) 2004 Scott Martin <scott@coffeeblack.org>
+ Copyright (C) 2010 Patryk Zawadzki <patrys@pld-linux.org>
+ Copyright (C) 2016 Tobias Schönberg <tobias47n9e@gmail.com>
+ Copyright (C) 2018 Jeffery To <jeffery.to@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="css" name="CSS" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/css</property>
+    <property name="globs">*.css;*.CSSL</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+
+    <!-- global -->
+    <style id="error"                       name="Error"                       map-to="def:error"/>
+    <style id="vendor-specific"             name="Vendor Specific"             map-to="def:warning"/>
+    <style id="keyword"                     name="Keyword"                     map-to="def:constant"/>
+    <style id="namespace"                   name="Namespace"                   map-to="def:keyword"/>
+    <style id="symbol"                      name="Symbol"/>
+    <style id="delimiter"                   name="Delimiter"/>
+    <style id="block-delimiter"             name="Block Delimiter"             map-to="css:delimiter"/>
+    <style id="test-delimiter"              name="Test Delimiter"              map-to="css:delimiter"/>
+
+    <!-- data types -->
+    <style id="name"                        name="Name"/>
+    <style id="escape"                      name="Escape Sequence"             map-to="def:special-char"/>
+    <style id="string"                      name="String"                      map-to="def:string"/>
+    <style id="color"                       name="Color"                       map-to="def:base-n-integer"/>
+    <style id="number"                      name="Number"                      map-to="def:number"/>
+    <style id="integer"                     name="Integer"                     map-to="def:decimal"/>
+    <style id="dimension"                   name="Dimension"                   map-to="def:floating-point"/>
+    <style id="expression"                  name="Expression"                  map-to="def:complex"/>
+    <style id="unicode-range"               name="Unicode Range"/>
+
+    <!-- functions -->
+    <style id="function"                    name="Function"                    map-to="def:function"/>
+
+    <!-- style properties -->
+    <style id="property-name"               name="Property Name"               map-to="def:keyword"/>
+
+    <!-- modifiers -->
+    <style id="modifier"                    name="Modifier"                    map-to="def:keyword"/>
+
+    <!-- at-rules -->
+    <style id="at-rule"                     name="At-rule"                     map-to="def:preprocessor"/>
+    <style id="at-rule-operator"            name="At-rule Operator"            map-to="css:at-rule"/>
+    <style id="at-rule-inner-selector"      name="At-rule Inner Selector"      map-to="def:identifier"/>
+
+    <!-- media queries -->
+    <style id="media-query-operator"        name="Media Query Operator"        map-to="css:at-rule-operator"/>
+    <style id="media-type"                  name="Media Type"                  map-to="css:property-name"/>
+    <style id="media-feature"               name="Media Feature"               map-to="css:property-name"/>
+    <style id="media-feature-value"         name="Media Feature Value"         map-to="css:keyword"/>
+
+    <!-- selectors -->
+    <style id="selector-symbol"             name="Selector Symbol"             map-to="css:symbol"/>
+    <style id="namespace-qualifier"         name="Namespace Qualifier"         map-to="css:selector-symbol"/>
+    <style id="id-selector"                 name="ID Selector"                 map-to="def:statement"/>
+    <style id="class-selector"              name="Class Selector"              map-to="def:identifier"/>
+    <style id="type-selector"               name="Type Selector"               map-to="def:type"/>
+    <style id="universal-selector"          name="Universal Selector"          map-to="css:selector-symbol"/>
+    <style id="attribute-selector"          name="Attribute Selector"          map-to="css:selector-symbol"/>
+    <style id="attribute-selector-operator" name="Attribute Selector Operator" map-to="css:selector-symbol"/>
+    <style id="attribute-selector-name"     name="Attribute Selector Name"     map-to="def:type"/>
+    <style id="combinator"                  name="Combinator"                  map-to="css:selector-symbol"/>
+    <style id="pseudo-element"              name="Pseudo-element"              map-to="def:function"/>
+    <style id="pseudo-class"                name="Pseudo-class"                map-to="def:function"/>
+
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <keyword-char-class>[a-z0-9_-]</keyword-char-class>
+
+  <definitions>
+
+    <!-- global -->
+
+    <!-- https://drafts.csswg.org/css-syntax/#escaping -->
+    <define-regex id="escape-regex" extended="true">
+      (?:
+        \\                   # backslash
+        (?:
+          [^\n\r\f0-9a-f] |  # not newline or hex digit; or
+          [0-9a-f]{1,6} \s?  # 1-6 hex digits, trailing whitespace (not necessary in some cases)
+        )
+      )
+    </define-regex>
+
+    <!-- https://drafts.csswg.org/css-syntax/#non-ascii-code-point -->
+    <define-regex id="non-ascii-regex">[\x{80}-\x{10ffff}]</define-regex>
+
+    <!--
+    a combination of name-start code point and escape
+    https://drafts.csswg.org/css-syntax/#name-start-code-point
+    https://www.w3.org/TR/selectors-3/#lex
+    -->
+    <define-regex id="identifier-start-char-regex" extended="true">
+      (?:
+        [a-z_] |
+        \%{non-ascii-regex} |
+        \%{escape-regex}
+      )
+    </define-regex>
+
+    <!--
+    a combination of name code point and escape
+    https://drafts.csswg.org/css-syntax/#name-code-point
+    https://www.w3.org/TR/selectors-3/#lex
+    -->
+    <define-regex id="identifier-chars-regex" extended="true">
+      (?&gt;
+        (?:
+          [a-z0-9_-]+ |
+          \%{non-ascii-regex}+ |
+          \%{escape-regex}+
+        )+
+      )
+    </define-regex>
+
+    <!-- for lookbehinds (and lookaheads) -->
+    <define-regex id="single-identifier-char-regex" extended="true">
+      (?:
+        [a-z0-9_-] |
+        \%{non-ascii-regex}
+      )
+    </define-regex>
+
+    <!-- https://drafts.csswg.org/css-syntax/#ident-token-diagram -->
+    <define-regex id="identifier-regex" extended="true">
+      (?:
+        (?:
+          -- |
+          -? \%{identifier-start-char-regex}
+        )
+        \%{identifier-chars-regex}?
+      )
+    </define-regex>
+
+    <!--
+    https://www.w3.org/TR/CSS21/syndata.html#vendor-keywords
+    https://en.wikipedia.org/wiki/CSS_hack#List_of_prefixes
+    -->
+    <define-regex id="vendor-specific-prefix-regex" extended="true">
+      (?:
+        (?:
+          [_-] \%{identifier-start-char-regex}+ |
+          mso |
+          prince
+        )
+        -
+      )
+    </define-regex>
+
+    <define-regex id="vendor-specific-identifier-regex" extended="true">
+      (?:
+        (?&lt;! \%{single-identifier-char-regex} )
+        \%{vendor-specific-prefix-regex} \%{identifier-chars-regex}
+      )
+    </define-regex>
+
+    <define-regex id="declaration-value-end">(?=[!;}])</define-regex>
+
+    <define-regex id="test-value-end">(?=\))</define-regex>
+
+    <context id="comment">
+      <include>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+      </include>
+    </context>
+
+    <context id="slash" style-ref="symbol">
+      <match>/</match>
+    </context>
+
+    <context id="comma" style-ref="delimiter">
+      <match>,</match>
+    </context>
+
+    <context id="colon" style-ref="delimiter">
+      <match>:</match>
+    </context>
+
+    <context id="semicolon" style-ref="delimiter">
+      <match>;</match>
+    </context>
+
+
+    <!-- data types -->
+
+    <!-- custom identifier -->
+    <context id="name" style-ref="name">
+      <match>\%{identifier-regex}</match>
+    </context>
+
+    <context id="vendor-specific-name" style-ref="vendor-specific">
+      <match>\%{vendor-specific-identifier-regex}</match>
+    </context>
+
+    <context id="escape" style-ref="escape">
+      <match>\%{escape-regex}</match>
+    </context>
+
+    <context id="string-content">
+      <include>
+        <context ref="escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="string-content"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="string-content"/>
+      </include>
+    </context>
+
+    <context id="string">
+      <include>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+      </include>
+    </context>
+
+    <context id="hexadecimal-color" style-ref="color">
+      <match>#([a-f0-9]{8}|[a-f0-9]{6}|[a-f0-9]{4}|[a-f0-9]{3})\%]</match>
+    </context>
+
+    <context id="css3-named-color" style-ref="color">
+      <keyword>aliceblue</keyword>
+      <keyword>antiquewhite</keyword>
+      <keyword>aquamarine</keyword>
+      <keyword>azure</keyword>
+      <keyword>beige</keyword>
+      <keyword>bisque</keyword>
+      <keyword>blanchedalmond</keyword>
+      <keyword>blueviolet</keyword>
+      <keyword>brown</keyword>
+      <keyword>burlywood</keyword>
+      <keyword>cadetblue</keyword>
+      <keyword>chartreuse</keyword>
+      <keyword>chocolate</keyword>
+      <keyword>coral</keyword>
+      <keyword>cornflowerblue</keyword>
+      <keyword>cornsilk</keyword>
+      <keyword>crimson</keyword>
+      <keyword>cyan</keyword>
+      <keyword>darkblue</keyword>
+      <keyword>darkcyan</keyword>
+      <keyword>darkgoldenrod</keyword>
+      <keyword>darkgray</keyword>
+      <keyword>darkgreen</keyword>
+      <keyword>darkgrey</keyword>
+      <keyword>darkkhaki</keyword>
+      <keyword>darkmagenta</keyword>
+      <keyword>darkolivegreen</keyword>
+      <keyword>darkorange</keyword>
+      <keyword>darkorchid</keyword>
+      <keyword>darkred</keyword>
+      <keyword>darksalmon</keyword>
+      <keyword>darkseagreen</keyword>
+      <keyword>darkslateblue</keyword>
+      <keyword>darkslategray</keyword>
+      <keyword>darkslategrey</keyword>
+      <keyword>darkturquoise</keyword>
+      <keyword>darkviolet</keyword>
+      <keyword>deeppink</keyword>
+      <keyword>deepskyblue</keyword>
+      <keyword>dimgray</keyword>
+      <keyword>dimgrey</keyword>
+      <keyword>dodgerblue</keyword>
+      <keyword>firebrick</keyword>
+      <keyword>floralwhite</keyword>
+      <keyword>forestgreen</keyword>
+      <keyword>gainsboro</keyword>
+      <keyword>ghostwhite</keyword>
+      <keyword>goldenrod</keyword>
+      <keyword>gold</keyword>
+      <keyword>greenyellow</keyword>
+      <keyword>grey</keyword>
+      <keyword>honeydew</keyword>
+      <keyword>hotpink</keyword>
+      <keyword>indianred</keyword>
+      <keyword>indigo</keyword>
+      <keyword>ivory</keyword>
+      <keyword>khaki</keyword>
+      <keyword>lavenderblush</keyword>
+      <keyword>lavender</keyword>
+      <keyword>lawngreen</keyword>
+      <keyword>lemonchiffon</keyword>
+      <keyword>lightblue</keyword>
+      <keyword>lightcoral</keyword>
+      <keyword>lightcyan</keyword>
+      <keyword>lightgoldenrodyellow</keyword>
+      <keyword>lightgray</keyword>
+      <keyword>lightgreen</keyword>
+      <keyword>lightgrey</keyword>
+      <keyword>lightpink</keyword>
+      <keyword>lightsalmon</keyword>
+      <keyword>lightseagreen</keyword>
+      <keyword>lightskyblue</keyword>
+      <keyword>lightslategray</keyword>
+      <keyword>lightslategrey</keyword>
+      <keyword>lightsteelblue</keyword>
+      <keyword>lightyellow</keyword>
+      <keyword>limegreen</keyword>
+      <keyword>linen</keyword>
+      <keyword>magenta</keyword>
+      <keyword>mediumaquamarine</keyword>
+      <keyword>mediumblue</keyword>
+      <keyword>mediumorchid</keyword>
+      <keyword>mediumpurple</keyword>
+      <keyword>mediumseagreen</keyword>
+      <keyword>mediumslateblue</keyword>
+      <keyword>mediumspringgreen</keyword>
+      <keyword>mediumturquoise</keyword>
+      <keyword>mediumvioletred</keyword>
+      <keyword>midnightblue</keyword>
+      <keyword>mintcream</keyword>
+      <keyword>mistyrose</keyword>
+      <keyword>moccasin</keyword>
+      <keyword>navajowhite</keyword>
+      <keyword>oldlace</keyword>
+      <keyword>olivedrab</keyword>
+      <keyword>orangered</keyword>
+      <keyword>orchid</keyword>
+      <keyword>palegoldenrod</keyword>
+      <keyword>palegreen</keyword>
+      <keyword>paleturquoise</keyword>
+      <keyword>palevioletred</keyword>
+      <keyword>papayawhip</keyword>
+      <keyword>peachpuff</keyword>
+      <keyword>peru</keyword>
+      <keyword>pink</keyword>
+      <keyword>plum</keyword>
+      <keyword>powderblue</keyword>
+      <keyword>rebeccapurple</keyword>
+      <keyword>rosybrown</keyword>
+      <keyword>royalblue</keyword>
+      <keyword>saddlebrown</keyword>
+      <keyword>salmon</keyword>
+      <keyword>sandybrown</keyword>
+      <keyword>seagreen</keyword>
+      <keyword>seashell</keyword>
+      <keyword>sienna</keyword>
+      <keyword>skyblue</keyword>
+      <keyword>slateblue</keyword>
+      <keyword>slategray</keyword>
+      <keyword>slategrey</keyword>
+      <keyword>snow</keyword>
+      <keyword>springgreen</keyword>
+      <keyword>steelblue</keyword>
+      <keyword>tan</keyword>
+      <keyword>thistle</keyword>
+      <keyword>tomato</keyword>
+      <keyword>turquoise</keyword>
+      <keyword>violet</keyword>
+      <keyword>wheat</keyword>
+      <keyword>whitesmoke</keyword>
+      <keyword>yellowgreen</keyword>
+    </context>
+
+    <context id="named-color" style-ref="color">
+      <keyword>aqua</keyword>
+      <keyword>black</keyword>
+      <keyword>blue</keyword>
+      <keyword>fuchsia</keyword>
+      <keyword>gray</keyword>
+      <keyword>green</keyword>
+      <keyword>lime</keyword>
+      <keyword>maroon</keyword>
+      <keyword>navy</keyword>
+      <keyword>olive</keyword>
+      <keyword>orange</keyword>
+      <keyword>purple</keyword>
+      <keyword>red</keyword>
+      <keyword>silver</keyword>
+      <keyword>teal</keyword>
+      <keyword>white</keyword>
+      <keyword>yellow</keyword>
+    </context>
+
+    <define-regex id="number-magnitude-regex" extended="true">
+      (?: (?> \d* \. \d+ | \d+ ) (?: e [+-]? \d+ )? )
+    </define-regex>
+
+    <define-regex id="number-regex" extended="true">
+      (?: [+-]? \%{number-magnitude-regex} )
+    </define-regex>
+
+    <define-regex id="positive-number-regex" extended="true">
+      (?: \+? \%{number-magnitude-regex} )
+    </define-regex>
+
+    <define-regex id="integer-magnitude-regex" extended="true">
+      (?> \d+ )
+    </define-regex>
+
+    <define-regex id="integer-regex" extended="true">
+      (?: [+-]? \%{integer-magnitude-regex} )
+    </define-regex>
+
+    <define-regex id="positive-integer-regex" extended="true">
+      (?: \+? \%{integer-magnitude-regex} )
+    </define-regex>
+
+    <define-regex id="non-number-char-regex" extended="true">
+      (?:
+        \%{single-identifier-char-regex} |
+        \.
+      )
+    </define-regex>
+
+    <context id="dimension" style-ref="dimension">
+      <prefix>(?&lt;!\%{non-number-char-regex})\%{number-regex}</prefix>
+      <keyword>ch</keyword>
+      <keyword>cm</keyword>
+      <keyword>deg</keyword>
+      <keyword>em</keyword>
+      <keyword>ex</keyword>
+      <keyword>fr</keyword>
+      <keyword>ft</keyword>
+      <keyword>grad</keyword>
+      <keyword>hz</keyword>
+      <keyword>in</keyword>
+      <keyword>khz</keyword>
+      <keyword>mm</keyword>
+      <keyword>ms</keyword>
+      <keyword>pc</keyword>
+      <keyword>pt</keyword>
+      <keyword>px</keyword>
+      <keyword>rad</keyword>
+      <keyword>rem</keyword>
+      <keyword>s</keyword>
+      <keyword>turn</keyword>
+      <keyword>vh</keyword>
+      <keyword>vmax</keyword>
+      <keyword>vmin</keyword>
+      <keyword>vw</keyword>
+    </context>
+
+    <context id="percentage" style-ref="dimension">
+      <match extended="true">
+        (?&lt;! \%{non-number-char-regex} )
+        \%{number-regex}%
+      </match>
+    </context>
+
+    <context id="resolution" style-ref="dimension">
+      <prefix>(?&lt;!\%{non-number-char-regex})\%{positive-number-regex}</prefix>
+      <keyword>dpcm</keyword>
+      <keyword>dpi</keyword>
+      <keyword>dppx</keyword>
+    </context>
+
+    <context id="ratio" style-ref="expression">
+      <match extended="true">
+        (?&lt;! \%{non-number-char-regex} )
+        \%{positive-integer-regex} \s* / \s* \%{positive-integer-regex}
+        (?! \%{non-number-char-regex} )
+      </match>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match extended="true">
+        (?&lt;! \%{non-number-char-regex} )
+        \%{number-regex}
+        (?! \%{non-number-char-regex} )
+      </match>
+    </context>
+
+    <context id="positive-integer" style-ref="integer">
+      <match extended="true">
+        (?&lt;! \%{non-number-char-regex} )
+        \%{positive-integer-regex}
+        (?! \%{non-number-char-regex} )
+      </match>
+    </context>
+
+    <context id="unicode-range" style-ref="unicode-range">
+      <match extended="true">
+        \%[ u \+ (?> [a-f0-9?]{1,6} ) (?> - [a-f0-9]{1,6} )?
+        (?! \%{single-identifier-char-regex} )
+      </match>
+    </context>
+
+
+    <!-- functions -->
+
+    <context id="css3-function-arguments" style-ref="keyword">
+      <keyword>at</keyword>
+      <keyword>auto-fill</keyword>
+      <keyword>auto-fit</keyword>
+      <keyword>auto</keyword>
+      <keyword>bottom</keyword>
+      <keyword>center</keyword>
+      <keyword>circle</keyword>
+      <keyword>closest-corner</keyword>
+      <keyword>closest-side</keyword>
+      <keyword>ellipse</keyword>
+      <keyword>end</keyword>
+      <keyword>farthest-corner</keyword>
+      <keyword>farthest-side</keyword>
+      <keyword>left</keyword>
+      <keyword>max-content</keyword>
+      <keyword>min-content</keyword>
+      <keyword>right</keyword>
+      <keyword>start</keyword>
+      <keyword>top</keyword>
+      <keyword>to</keyword>
+    </context>
+
+    <context id="url">
+      <start>url\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="function"/>
+        <context sub-pattern="0" where="end" style-ref="function"/>
+        <context ref="comment"/>
+        <context ref="string-value"/>
+      </include>
+    </context>
+
+    <context id="function-content">
+      <include>
+        <context ref="css3-function-arguments"/>
+        <context ref="any-value"/>
+      </include>
+    </context>
+
+    <context id="vendor-specific-function">
+      <start>\%{vendor-specific-identifier-regex}\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="vendor-specific"/>
+        <context sub-pattern="0" where="end" style-ref="vendor-specific"/>
+        <context ref="comment"/>
+        <context ref="function-content"/>
+      </include>
+    </context>
+
+    <context id="function">
+      <start>\%{identifier-regex}\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="function"/>
+        <context sub-pattern="0" where="end" style-ref="function"/>
+        <context ref="comment"/>
+        <context ref="function-content"/>
+      </include>
+    </context>
+
+    <context id="function-call">
+      <include>
+        <context ref="vendor-specific-function"/>
+        <context ref="url"/>
+        <context ref="function"/>
+      </include>
+    </context>
+
+
+    <!-- data values (interface between types and users) -->
+
+    <context id="name-value">
+      <include>
+        <context ref="name"/>
+      </include>
+    </context>
+
+    <context id="string-value">
+      <include>
+        <context ref="string"/>
+      </include>
+    </context>
+
+    <context id="color-value">
+      <include>
+        <context ref="hexadecimal-color"/>
+        <context ref="css3-named-color"/>
+        <context ref="named-color"/>
+      </include>
+    </context>
+
+    <!-- resolution and ratio are used in media queries only -->
+    <context id="number-value">
+      <include>
+        <context ref="dimension"/>
+        <context ref="percentage"/>
+        <context ref="resolution"/>
+        <context ref="ratio"/>
+        <context ref="number"/>
+      </include>
+    </context>
+
+    <context id="unicode-range-value">
+      <include>
+        <context ref="unicode-range"/>
+      </include>
+    </context>
+
+    <!-- unicode-range is used for the unicode-range (@font-face) property only -->
+    <context id="data-value">
+      <include>
+        <context ref="string-value"/>
+        <context ref="color-value"/>
+        <context ref="number-value"/>
+        <context ref="unicode-range"/>
+      </include>
+    </context>
+
+
+    <!-- style properties -->
+
+    <context id="svg-property-names" style-ref="property-name">
+      <keyword>clip-path</keyword>
+      <keyword>clip-rule</keyword>
+      <keyword>color-interpolatation-filters</keyword>
+      <keyword>color-interpolatation</keyword>
+      <keyword>dominant-baseline</keyword>
+      <keyword>fill-rule</keyword>
+      <keyword>fill-opacity</keyword>
+      <keyword>fill</keyword>
+      <keyword>flood-color</keyword>
+      <keyword>flood-opacity</keyword>
+      <keyword>lighting-color</keyword>
+      <keyword>marker-end</keyword>
+      <keyword>marker-mid</keyword>
+      <keyword>marker-start</keyword>
+      <keyword>shape-rendering</keyword>
+      <keyword>stop-color</keyword>
+      <keyword>stop-opacity</keyword>
+      <keyword>stroke-dasharray</keyword>
+      <keyword>stroke-dashoffset</keyword>
+      <keyword>stroke-linecap</keyword>
+      <keyword>stroke-linejoin</keyword>
+      <keyword>stroke-miterlimit</keyword>
+      <keyword>stroke-opacity</keyword>
+      <keyword>stroke-width</keyword>
+      <keyword>stroke</keyword>
+      <keyword>text-anchor</keyword>
+      <keyword>text-rendering</keyword>
+    </context>
+
+    <context id="css3-property-names" style-ref="property-name">
+      <keyword>align-content</keyword>
+      <keyword>align-items</keyword>
+      <keyword>align-self</keyword>
+      <keyword>animation-delay</keyword>
+      <keyword>animation-direction</keyword>
+      <keyword>animation-duration</keyword>
+      <keyword>animation-fill-mode</keyword>
+      <keyword>animation-iteration-count</keyword>
+      <keyword>animation-name</keyword>
+      <keyword>animation-play-state</keyword>
+      <keyword>animation-timing-function</keyword>
+      <keyword>animation</keyword>
+      <keyword>appearance</keyword>
+      <keyword>backface-visibility</keyword>
+      <keyword>background-blend-mode</keyword>
+      <keyword>background-clip</keyword>
+      <keyword>background-origin</keyword>
+      <keyword>background-size</keyword>
+      <keyword>bleed</keyword>
+      <keyword>border-image-outset</keyword>
+      <keyword>border-image-repeat</keyword>
+      <keyword>border-image-slice</keyword>
+      <keyword>border-image-source</keyword>
+      <keyword>border-image-width</keyword>
+      <keyword>border-image</keyword>
+      <keyword>box-decoration-break</keyword>
+      <keyword>box-sizing</keyword>
+      <keyword>break-after</keyword>
+      <keyword>break-before</keyword>
+      <keyword>break-inside</keyword>
+      <keyword>column-count</keyword>
+      <keyword>column-fill</keyword>
+      <keyword>column-gap</keyword>
+      <keyword>column-rule-color</keyword>
+      <keyword>column-rule-style</keyword>
+      <keyword>column-rule-width</keyword>
+      <keyword>column-rule</keyword>
+      <keyword>column-span</keyword>
+      <keyword>column-width</keyword>
+      <keyword>columns</keyword>
+      <keyword>filter</keyword>
+      <keyword>flex-basis</keyword>
+      <keyword>flex-direction</keyword>
+      <keyword>flex-flow</keyword>
+      <keyword>flex-grow</keyword>
+      <keyword>flex-shrink</keyword>
+      <keyword>flex-wrap</keyword>
+      <keyword>flex</keyword>
+      <keyword>font-feature-settings</keyword>
+      <keyword>font-kerning</keyword>
+      <keyword>font-language-override</keyword>
+      <keyword>font-stretch</keyword>
+      <keyword>font-synthesis</keyword>
+      <keyword>font-variant-alternates</keyword>
+      <keyword>font-variant-caps</keyword>
+      <keyword>font-variant-east-asian</keyword>
+      <keyword>font-variant-ligatures</keyword>
+      <keyword>font-variant-numeric</keyword>
+      <keyword>font-variant-position</keyword>
+      <keyword>grid-area</keyword>
+      <keyword>grid-gap</keyword>
+      <keyword>grid-auto-columns</keyword>
+      <keyword>grid-auto-flow</keyword>
+      <keyword>grid-auto-rows</keyword>
+      <keyword>grid-column-end</keyword>
+      <keyword>grid-column-gap</keyword>
+      <keyword>grid-column-start</keyword>
+      <keyword>grid-column</keyword>
+      <keyword>grid-row-end</keyword>
+      <keyword>grid-row-gap</keyword>
+      <keyword>grid-row-start</keyword>
+      <keyword>grid-row</keyword>
+      <keyword>grid-template-areas</keyword>
+      <keyword>grid-template-columns</keyword>
+      <keyword>grid-template-rows</keyword>
+      <keyword>grid-template</keyword>
+      <keyword>grid</keyword>
+      <keyword>hanging-punctuation</keyword>
+      <keyword>hyphens</keyword>
+      <keyword>image-orientation</keyword>
+      <keyword>image-rendering</keyword>
+      <keyword>image-resolution</keyword>
+      <keyword>ime-mode</keyword>
+      <keyword>isolation</keyword>
+      <keyword>justify-content</keyword>
+      <keyword>justify-self</keyword>
+      <keyword>line-break</keyword>
+      <keyword>mask-type</keyword>
+      <keyword>mask</keyword>
+      <keyword>mix-blend-mode</keyword>
+      <keyword>nav-down</keyword>
+      <keyword>nav-index</keyword>
+      <keyword>nav-left</keyword>
+      <keyword>nav-right</keyword>
+      <keyword>nav-up</keyword>
+      <keyword>object-fit</keyword>
+      <keyword>object-position</keyword>
+      <keyword>opacity</keyword>
+      <keyword>order</keyword>
+      <keyword>outline-offset</keyword>
+      <keyword>overflow-wrap</keyword>
+      <keyword>overflow-x</keyword>
+      <keyword>overflow-y</keyword>
+      <keyword>perspective-origin</keyword>
+      <keyword>perspective</keyword>
+      <keyword>pointer-events</keyword>
+      <keyword>resize</keyword>
+      <keyword>src</keyword>
+      <keyword>tab-size</keyword>
+      <keyword>text-align-last</keyword>
+      <keyword>text-combine-upright</keyword>
+      <keyword>text-decoration-color</keyword>
+      <keyword>text-decoration-line</keyword>
+      <keyword>text-decoration-style</keyword>
+      <keyword>text-justify</keyword>
+      <keyword>text-orientation</keyword>
+      <keyword>text-overflow</keyword>
+      <keyword>text-underline-position</keyword>
+      <keyword>transform-origin</keyword>
+      <keyword>transform-style</keyword>
+      <keyword>transform</keyword>
+      <keyword>transition-delay</keyword>
+      <keyword>transition-duration</keyword>
+      <keyword>transition-property</keyword>
+      <keyword>transition-timing-function</keyword>
+      <keyword>transition</keyword>
+      <keyword>unicode-range</keyword>
+      <keyword>will-change</keyword>
+      <keyword>word-break</keyword>
+      <keyword>word-wrap</keyword>
+      <keyword>writing-mode</keyword>
+    </context>
+
+    <context id="property-names" style-ref="property-name">
+      <keyword>azimuth</keyword>
+      <keyword>background-attachment</keyword>
+      <keyword>background-color</keyword>
+      <keyword>background-image</keyword>
+      <keyword>background-position</keyword>
+      <keyword>background-repeat</keyword>
+      <keyword>background</keyword>
+      <keyword>border-bottom-color</keyword>
+      <keyword>border-bottom-left-radius</keyword>
+      <keyword>border-bottom-right-radius</keyword>
+      <keyword>border-bottom-style</keyword>
+      <keyword>border-bottom-width</keyword>
+      <keyword>border-bottom</keyword>
+      <keyword>border-collapse</keyword>
+      <keyword>border-color</keyword>
+      <keyword>border-left-color</keyword>
+      <keyword>border-left-style</keyword>
+      <keyword>border-left-width</keyword>
+      <keyword>border-left</keyword>
+      <keyword>border-radius</keyword>
+      <keyword>border-right-color</keyword>
+      <keyword>border-right-style</keyword>
+      <keyword>border-right-width</keyword>
+      <keyword>border-right</keyword>
+      <keyword>border-spacing</keyword>
+      <keyword>border-style</keyword>
+      <keyword>border-top-color</keyword>
+      <keyword>border-top-left-radius</keyword>
+      <keyword>border-top-right-radius</keyword>
+      <keyword>border-top-style</keyword>
+      <keyword>border-top-width</keyword>
+      <keyword>border-top</keyword>
+      <keyword>border-width</keyword>
+      <keyword>border</keyword>
+      <keyword>bottom</keyword>
+      <keyword>box-shadow</keyword>
+      <keyword>caption-side</keyword>
+      <keyword>clear</keyword>
+      <keyword>clip</keyword>
+      <keyword>color</keyword>
+      <keyword>content</keyword>
+      <keyword>counter-increment</keyword>
+      <keyword>counter-reset</keyword>
+      <keyword>cue-after</keyword>
+      <keyword>cue-before</keyword>
+      <keyword>cue</keyword>
+      <keyword>cursor</keyword>
+      <keyword>direction</keyword>
+      <keyword>display</keyword>
+      <keyword>elevation</keyword>
+      <keyword>empty-cells</keyword>
+      <keyword>float</keyword>
+      <keyword>font-family</keyword>
+      <keyword>font-size-adjust</keyword>
+      <keyword>font-size</keyword>
+      <keyword>font-style</keyword>
+      <keyword>font-variant</keyword>
+      <keyword>font-weight</keyword>
+      <keyword>font</keyword>
+      <keyword>height</keyword>
+      <keyword>left</keyword>
+      <keyword>letter-spacing</keyword>
+      <keyword>line-height</keyword>
+      <keyword>list-style-image</keyword>
+      <keyword>list-style-position</keyword>
+      <keyword>list-style-type</keyword>
+      <keyword>list-style</keyword>
+      <keyword>margin-bottom</keyword>
+      <keyword>margin-left</keyword>
+      <keyword>margin-right</keyword>
+      <keyword>margin-top</keyword>
+      <keyword>margin</keyword>
+      <keyword>marker-offset</keyword>
+      <keyword>marks</keyword>
+      <keyword>max-height</keyword>
+      <keyword>max-width</keyword>
+      <keyword>min-height</keyword>
+      <keyword>min-width</keyword>
+      <keyword>orphans</keyword>
+      <keyword>outline-color</keyword>
+      <keyword>outline-style</keyword>
+      <keyword>outline-width</keyword>
+      <keyword>outline</keyword>
+      <keyword>overflow</keyword>
+      <keyword>padding-bottom</keyword>
+      <keyword>padding-left</keyword>
+      <keyword>padding-right</keyword>
+      <keyword>padding-top</keyword>
+      <keyword>padding</keyword>
+      <keyword>page-break-after</keyword>
+      <keyword>page-break-before</keyword>
+      <keyword>page-break-inside</keyword>
+      <keyword>page</keyword>
+      <keyword>pause-after</keyword>
+      <keyword>pause-before</keyword>
+      <keyword>pause</keyword>
+      <keyword>pitch-range</keyword>
+      <keyword>pitch</keyword>
+      <keyword>play-during</keyword>
+      <keyword>position</keyword>
+      <keyword>quotes</keyword>
+      <keyword>richness</keyword>
+      <keyword>right</keyword>
+      <keyword>size</keyword>
+      <keyword>speak-header</keyword>
+      <keyword>speak-numeral</keyword>
+      <keyword>speak-punctuation</keyword>
+      <keyword>speak</keyword>
+      <keyword>speech-rate</keyword>
+      <keyword>stress</keyword>
+      <keyword>table-layout</keyword>
+      <keyword>text-align</keyword>
+      <keyword>text-decoration</keyword>
+      <keyword>text-indent</keyword>
+      <keyword>text-shadow</keyword>
+      <keyword>text-transform</keyword>
+      <keyword>top</keyword>
+      <keyword>unicode-bidi</keyword>
+      <keyword>vertical-align</keyword>
+      <keyword>visibility</keyword>
+      <keyword>voice-family</keyword>
+      <keyword>volume</keyword>
+      <keyword>white-space</keyword>
+      <keyword>widows</keyword>
+      <keyword>width</keyword>
+      <keyword>word-spacing</keyword>
+      <keyword>z-index</keyword>
+    </context>
+
+    <context id="animatable-properties" style-ref="keyword">
+      <keyword>background-color</keyword>
+      <keyword>background-position</keyword>
+      <keyword>background-size</keyword>
+      <keyword>background</keyword>
+      <keyword>border-bottom-color</keyword>
+      <keyword>border-bottom-left-radius</keyword>
+      <keyword>border-bottom-right-radius</keyword>
+      <keyword>border-bottom-width</keyword>
+      <keyword>border-bottom</keyword>
+      <keyword>border-color</keyword>
+      <keyword>border-left-color</keyword>
+      <keyword>border-left-width</keyword>
+      <keyword>border-left</keyword>
+      <keyword>border-radius</keyword>
+      <keyword>border-right-color</keyword>
+      <keyword>border-right-width</keyword>
+      <keyword>border-right</keyword>
+      <keyword>border-top-color</keyword>
+      <keyword>border-top-left-radius</keyword>
+      <keyword>border-top-right-radius</keyword>
+      <keyword>border-top-width</keyword>
+      <keyword>border-top</keyword>
+      <keyword>border-width</keyword>
+      <keyword>border</keyword>
+      <keyword>bottom</keyword>
+      <keyword>box-shadow</keyword>
+      <keyword>clip-path</keyword>
+      <keyword>clip</keyword>
+      <keyword>color</keyword>
+      <keyword>column-count</keyword>
+      <keyword>column-gap</keyword>
+      <keyword>column-rule-color</keyword>
+      <keyword>column-rule-width</keyword>
+      <keyword>column-rule</keyword>
+      <keyword>column-width</keyword>
+      <keyword>columns</keyword>
+      <keyword>filter</keyword>
+      <keyword>flex-basis</keyword>
+      <keyword>flex-grow</keyword>
+      <keyword>flex-shrink</keyword>
+      <keyword>flex</keyword>
+      <keyword>font-size-adjust</keyword>
+      <keyword>font-size</keyword>
+      <keyword>font-stretch</keyword>
+      <keyword>font-weight</keyword>
+      <keyword>font</keyword>
+      <keyword>grid-column-gap</keyword>
+      <keyword>grid-gap</keyword>
+      <keyword>grid-row-gap</keyword>
+      <keyword>height</keyword>
+      <keyword>left</keyword>
+      <keyword>letter-spacing</keyword>
+      <keyword>line-height</keyword>
+      <keyword>margin-bottom</keyword>
+      <keyword>margin-left</keyword>
+      <keyword>margin-right</keyword>
+      <keyword>margin-top</keyword>
+      <keyword>margin</keyword>
+      <keyword>mask</keyword>
+      <keyword>max-height</keyword>
+      <keyword>max-width</keyword>
+      <keyword>min-height</keyword>
+      <keyword>min-width</keyword>
+      <keyword>object-position</keyword>
+      <keyword>opacity</keyword>
+      <keyword>order</keyword>
+      <keyword>outline-color</keyword>
+      <keyword>outline-offset</keyword>
+      <keyword>outline-width</keyword>
+      <keyword>outline</keyword>
+      <keyword>padding-bottom</keyword>
+      <keyword>padding-left</keyword>
+      <keyword>padding-right</keyword>
+      <keyword>padding-top</keyword>
+      <keyword>padding</keyword>
+      <keyword>perspective-origin</keyword>
+      <keyword>perspective</keyword>
+      <keyword>right</keyword>
+      <keyword>tab-size</keyword>
+      <keyword>text-decoration-color</keyword>
+      <keyword>text-decoration</keyword>
+      <keyword>text-indent</keyword>
+      <keyword>text-shadow</keyword>
+      <keyword>top</keyword>
+      <keyword>transform-origin</keyword>
+      <keyword>transform</keyword>
+      <keyword>vertical-align</keyword>
+      <keyword>visibility</keyword>
+      <keyword>width</keyword>
+      <keyword>word-spacing</keyword>
+      <keyword>z-index</keyword>
+    </context>
+
+    <context id="svg-property-values" style-ref="keyword">
+      <keyword>alphabetic</keyword>
+      <keyword>bevel</keyword>
+      <keyword>butt</keyword>
+      <keyword>central</keyword>
+      <keyword>crispedges</keyword>
+      <keyword>evenodd</keyword>
+      <keyword>geometricprecision</keyword>
+      <keyword>hanging</keyword>
+      <keyword>ideographic</keyword>
+      <keyword>lr-tb</keyword>
+      <keyword>lr</keyword>
+      <keyword>mathematical</keyword>
+      <keyword>miter</keyword>
+      <keyword>no-change</keyword>
+      <keyword>nonzero</keyword>
+      <keyword>optimizelegibility</keyword>
+      <keyword>optimizespeed</keyword>
+      <keyword>painted</keyword>
+      <keyword>reset-size</keyword>
+      <keyword>rl-tb</keyword>
+      <keyword>rl</keyword>
+      <keyword>stroke</keyword>
+      <keyword>tb-rl</keyword>
+      <keyword>tb</keyword>
+      <keyword>text-after-edge</keyword>
+      <keyword>text-before-edge</keyword>
+      <keyword>use-script</keyword>
+      <keyword>visiblefill</keyword>
+      <keyword>visiblepainted</keyword>
+      <keyword>visiblestroke</keyword>
+    </context>
+
+    <context id="east-asian-variant-values" style-ref="keyword">
+      <keyword>jis04</keyword>
+      <keyword>jis78</keyword>
+      <keyword>jis83</keyword>
+      <keyword>jis90</keyword>
+      <keyword>simplified</keyword>
+      <keyword>traditional</keyword>
+    </context>
+
+    <context id="page-sizes" style-ref="keyword">
+      <keyword>A3</keyword>
+      <keyword>A4</keyword>
+      <keyword>A5</keyword>
+      <keyword>B4</keyword>
+      <keyword>B5</keyword>
+      <keyword>JIS-B4</keyword>
+      <keyword>JIS-B5</keyword>
+      <keyword>ledger</keyword>
+      <keyword>legal</keyword>
+      <keyword>letter</keyword>
+    </context>
+
+    <context id="css3-property-values" style-ref="keyword">
+      <keyword>active</keyword>
+      <keyword>add</keyword>
+      <keyword>allow-end</keyword>
+      <keyword>all-petite-caps</keyword>
+      <keyword>all-small-caps</keyword>
+      <keyword>all-scroll</keyword> <!-- css2, but needed for regex -->
+      <keyword>all</keyword>
+      <keyword>alpha</keyword>
+      <keyword>alternate-reverse</keyword>
+      <keyword>alternate</keyword>
+      <keyword>avoid-page</keyword>
+      <keyword>auto-flow</keyword>
+      <keyword>backwards</keyword>
+      <keyword>balance</keyword>
+      <keyword>border-box</keyword>
+      <keyword>break-all</keyword>
+      <keyword>break-word</keyword>
+      <keyword>clip</keyword>
+      <keyword>clone</keyword>
+      <keyword>color-burn</keyword>
+      <keyword>color-dodge</keyword>
+      <keyword>color</keyword>
+      <keyword>column-reverse</keyword>
+      <keyword>column</keyword>
+      <keyword>common-ligatures</keyword>
+      <keyword>contain</keyword>
+      <keyword>content-box</keyword>
+      <keyword>contents</keyword>
+      <keyword>contextual</keyword>
+      <keyword>cover</keyword>
+      <keyword>crisp-edges</keyword>
+      <keyword>currentcolor</keyword>
+      <keyword>darken</keyword>
+      <keyword>dense</keyword>
+      <keyword>diagonal-fractions</keyword>
+      <keyword>difference</keyword>
+      <keyword>disabled</keyword>
+      <keyword>discretionary-ligatures</keyword>
+      <keyword>distribute</keyword>
+      <keyword>ease-in-out</keyword>
+      <keyword>ease-in</keyword>
+      <keyword>ease-out</keyword>
+      <keyword>ease</keyword>
+      <keyword>ellipsis</keyword>
+      <keyword>end</keyword>
+      <keyword>exclude</keyword>
+      <keyword>exclusion</keyword>
+      <keyword>fill-box</keyword>
+      <keyword>fill</keyword>
+      <keyword>first</keyword>
+      <keyword>flat</keyword>
+      <keyword>flex-end</keyword>
+      <keyword>flex-start</keyword>
+      <keyword>flex</keyword>
+      <keyword>flip</keyword>
+      <keyword>force-end</keyword>
+      <keyword>forwards</keyword>
+      <keyword>from-image</keyword>
+      <keyword>full-width</keyword>
+      <keyword>grid</keyword>
+      <keyword>hard-light</keyword>
+      <keyword>historical-forms</keyword>
+      <keyword>historical-ligatures</keyword>
+      <keyword>horizontal-tb</keyword>
+      <keyword>horizontal</keyword>
+      <keyword>hue</keyword>
+      <keyword>inactive</keyword>
+      <keyword>infinite</keyword>
+      <keyword>initial</keyword>
+      <keyword>inline-flex</keyword>
+      <keyword>inline-grid</keyword>
+      <keyword>inter-cluster</keyword>
+      <keyword>inter-ideograph</keyword>
+      <keyword>inter-word</keyword>
+      <keyword>intersect</keyword>
+      <keyword>isolate</keyword>
+      <keyword>kashida</keyword>
+      <keyword>keep-all</keyword>
+      <keyword>last</keyword>
+      <keyword>left-side</keyword> <!-- css2, but needed for regex -->
+      <keyword>left</keyword>
+      <keyword>lighten</keyword>
+      <keyword>linear</keyword>
+      <keyword>lining-nums</keyword>
+      <keyword>local</keyword>
+      <keyword>loose</keyword>
+      <keyword>luminance</keyword>
+      <keyword>luminosity</keyword>
+      <keyword>manual</keyword>
+      <keyword>mixed</keyword>
+      <keyword>multiply</keyword>
+      <keyword>no-clip</keyword>
+      <keyword>no-common-ligatures</keyword>
+      <keyword>no-contextual</keyword>
+      <keyword>no-discretionary-ligatures</keyword>
+      <keyword>no-historical-ligatures</keyword>
+      <keyword>oldstyle-nums</keyword>
+      <keyword>ordinal</keyword>
+      <keyword>overlay</keyword>
+      <keyword>padding-box</keyword>
+      <keyword>page</keyword>
+      <keyword>paused</keyword>
+      <keyword>petite-caps</keyword>
+      <keyword>pixelated</keyword>
+      <keyword>preserve-3d</keyword>
+      <keyword>proportional-nums</keyword>
+      <keyword>proportional-width</keyword>
+      <keyword>reverse</keyword>
+      <keyword>round</keyword>
+      <keyword>row-reverse</keyword>
+      <keyword>row</keyword>
+      <keyword>ruby</keyword>
+      <keyword>running</keyword>
+      <keyword>saturation</keyword>
+      <keyword>scale-down</keyword>
+      <keyword>screen</keyword>
+      <keyword>scroll-position</keyword>
+      <keyword>sideways-left</keyword>
+      <keyword>sideways-right</keyword>
+      <keyword>sideways</keyword>
+      <keyword>slashed-zero</keyword>
+      <keyword>slice</keyword>
+      <keyword>soft-light</keyword>
+      <keyword>space-around</keyword>
+      <keyword>space-between</keyword>
+      <keyword>space-evenly</keyword>
+      <keyword>space</keyword>
+      <keyword>stacked-fractions</keyword>
+      <keyword>start</keyword>
+      <keyword>step-end</keyword>
+      <keyword>step-start</keyword>
+      <keyword>stretch</keyword>
+      <keyword>strict</keyword>
+      <keyword>stroke-box</keyword>
+      <keyword>style</keyword>
+      <keyword>stylistic</keyword>
+      <keyword>subtract</keyword>
+      <keyword>tabular-nums</keyword>
+      <keyword>titling-caps</keyword>
+      <keyword>trim</keyword>
+      <keyword>under</keyword>
+      <keyword>unicase</keyword>
+      <keyword>unset</keyword>
+      <keyword>upright</keyword>
+      <keyword>use-glyph-orientation</keyword>
+      <keyword>vertical-lr</keyword>
+      <keyword>vertical-rl</keyword>
+      <keyword>vertical</keyword>
+      <keyword>view-box</keyword>
+      <keyword>wavy</keyword>
+      <keyword>weight</keyword>
+      <keyword>wrap-reverse</keyword>
+      <keyword>wrap</keyword>
+    </context>
+
+    <context id="property-values" style-ref="keyword">
+      <keyword>above</keyword>
+      <keyword>absolute</keyword>
+      <keyword>alias</keyword>
+      <keyword>all-scroll</keyword>
+      <keyword>always</keyword>
+      <keyword>armenian</keyword>
+      <keyword>auto</keyword>
+      <keyword>avoid</keyword>
+      <keyword>baseline</keyword>
+      <keyword>behind</keyword>
+      <keyword>below</keyword>
+      <keyword>bidi-override</keyword>
+      <keyword>blink</keyword>
+      <keyword>block</keyword>
+      <keyword>bolder</keyword>
+      <keyword>bold</keyword>
+      <keyword>both</keyword>
+      <keyword>bottom</keyword>
+      <keyword>capitalize</keyword>
+      <keyword>caption</keyword>
+      <keyword>cell</keyword>
+      <keyword>center-left</keyword>
+      <keyword>center-right</keyword>
+      <keyword>center</keyword>
+      <keyword>circle</keyword>
+      <keyword>cjk-ideographic</keyword>
+      <keyword>close-quote</keyword>
+      <keyword>code</keyword>
+      <keyword>collapse</keyword>
+      <keyword>col-resize</keyword>
+      <keyword>compact</keyword>
+      <keyword>condensed</keyword>
+      <keyword>continuous</keyword>
+      <keyword>context-menu</keyword>
+      <keyword>copy</keyword>
+      <keyword>crop</keyword>
+      <keyword>crosshair</keyword>
+      <keyword>cross</keyword>
+      <keyword>cue-after</keyword>
+      <keyword>cue-before</keyword>
+      <keyword>cursive</keyword>
+      <keyword>dashed</keyword>
+      <keyword>decimal</keyword>
+      <keyword>decimal-leading-zero</keyword>
+      <keyword>default</keyword>
+      <keyword>digits</keyword>
+      <keyword>disc</keyword>
+      <keyword>dotted</keyword>
+      <keyword>double</keyword>
+      <keyword>embed</keyword>
+      <keyword>e-resize</keyword>
+      <keyword>ew-resize</keyword>
+      <keyword>expanded</keyword>
+      <keyword>extra-condensed</keyword>
+      <keyword>extra-expanded</keyword>
+      <keyword>fantasy</keyword>
+      <keyword>far-left</keyword>
+      <keyword>far-right</keyword>
+      <keyword>faster</keyword>
+      <keyword>fast</keyword>
+      <keyword>fixed</keyword>
+      <keyword>flow-root</keyword>
+      <keyword>georgian</keyword>
+      <keyword>grabbing</keyword>
+      <keyword>grab</keyword>
+      <keyword>groove</keyword>
+      <keyword>hebrew</keyword>
+      <keyword>help</keyword>
+      <keyword>hidden</keyword>
+      <keyword>hide</keyword>
+      <keyword>higher</keyword>
+      <keyword>high</keyword>
+      <keyword>hiragana-iroha</keyword>
+      <keyword>hiragana</keyword>
+      <keyword>icon</keyword>
+      <keyword>inherit</keyword>
+      <keyword>inline-block</keyword>
+      <keyword>inline-table</keyword>
+      <keyword>inline</keyword>
+      <keyword>inset</keyword>
+      <keyword>inside</keyword>
+      <keyword>invert</keyword>
+      <keyword>italic</keyword>
+      <keyword>justify</keyword>
+      <keyword>katakana-iroha</keyword>
+      <keyword>katakana</keyword>
+      <keyword>landscape</keyword>
+      <keyword>large</keyword>
+      <keyword>larger</keyword>
+      <keyword>left-side</keyword>
+      <keyword>leftwards</keyword>
+      <keyword>level</keyword>
+      <keyword>lighter</keyword>
+      <keyword>line-through</keyword>
+      <keyword>list-item</keyword>
+      <keyword>loud</keyword>
+      <keyword>lower-alpha</keyword>
+      <keyword>lowercase</keyword>
+      <keyword>lower-greek</keyword>
+      <keyword>lower-latin</keyword>
+      <keyword>lower-roman</keyword>
+      <keyword>lower</keyword>
+      <keyword>low</keyword>
+      <keyword>ltr</keyword>
+      <keyword>marker</keyword>
+      <keyword>medium</keyword>
+      <keyword>menu</keyword>
+      <keyword>message-box</keyword>
+      <keyword>middle</keyword>
+      <keyword>mix</keyword>
+      <keyword>monospace</keyword>
+      <keyword>move</keyword>
+      <keyword>narrower</keyword>
+      <keyword>ne-resize</keyword>
+      <keyword>nesw-resize</keyword>
+      <keyword>no-close-quote</keyword>
+      <keyword>no-drop</keyword>
+      <keyword>no-open-quote</keyword>
+      <keyword>no-repeat</keyword>
+      <keyword>none</keyword>
+      <keyword>normal</keyword>
+      <keyword>not-allowed</keyword>
+      <keyword>nowrap</keyword>
+      <keyword>ns-resize</keyword>
+      <keyword>nw-resize</keyword>
+      <keyword>nwse-resize</keyword>
+      <keyword>n-resize</keyword>
+      <keyword>oblique</keyword>
+      <keyword>once</keyword>
+      <keyword>open-quote</keyword>
+      <keyword>outset</keyword>
+      <keyword>outside</keyword>
+      <keyword>overline</keyword>
+      <keyword>pointer</keyword>
+      <keyword>portrait</keyword>
+      <keyword>pre-line</keyword>
+      <keyword>pre-wrap</keyword>
+      <keyword>pre</keyword>
+      <keyword>progress</keyword>
+      <keyword>relative</keyword>
+      <keyword>repeat-x</keyword>
+      <keyword>repeat-y</keyword>
+      <keyword>repeat</keyword>
+      <keyword>ridge</keyword>
+      <keyword>right-side</keyword>
+      <keyword>right</keyword>
+      <keyword>rightwards</keyword>
+      <keyword>row-resize</keyword>
+      <keyword>rtl</keyword>
+      <keyword>run-in</keyword>
+      <keyword>sans-serif</keyword>
+      <keyword>scroll</keyword>
+      <keyword>semi-condensed</keyword>
+      <keyword>semi-expanded</keyword>
+      <keyword>separate</keyword>
+      <keyword>se-resize</keyword>
+      <keyword>serif</keyword>
+      <keyword>show</keyword>
+      <keyword>silent</keyword>
+      <keyword>slower</keyword>
+      <keyword>slow</keyword>
+      <keyword>small-caps</keyword>
+      <keyword>smaller</keyword>
+      <keyword>small-caption</keyword>
+      <keyword>small</keyword>
+      <keyword>soft</keyword>
+      <keyword>solid</keyword>
+      <keyword>spell-out</keyword>
+      <keyword>square</keyword>
+      <keyword>se-resize</keyword>
+      <keyword>sw-resize</keyword>
+      <keyword>s-resize</keyword>
+      <keyword>static</keyword>
+      <keyword>status-bar</keyword>
+      <keyword>sub</keyword>
+      <keyword>super</keyword>
+      <keyword>sw-resize</keyword>
+      <keyword>table-caption</keyword>
+      <keyword>table-cell</keyword>
+      <keyword>table-column-group</keyword>
+      <keyword>table-column</keyword>
+      <keyword>table-footer-group</keyword>
+      <keyword>table-header-group</keyword>
+      <keyword>table-row-group</keyword>
+      <keyword>table-row</keyword>
+      <keyword>table</keyword>
+      <keyword>text-bottom</keyword>
+      <keyword>text</keyword>
+      <keyword>text-top</keyword>
+      <keyword>thick</keyword>
+      <keyword>thin</keyword>
+      <keyword>top</keyword>
+      <keyword>transparent</keyword>
+      <keyword>ultra-condensed</keyword>
+      <keyword>ultra-expanded</keyword>
+      <keyword>underline</keyword>
+      <keyword>upper-alpha</keyword>
+      <keyword>uppercase</keyword>
+      <keyword>upper-latin</keyword>
+      <keyword>upper-roman</keyword>
+      <keyword>vertical-text</keyword>
+      <keyword>visible</keyword>
+      <keyword>wait</keyword>
+      <keyword>wider</keyword>
+      <keyword>w-resize</keyword>
+      <keyword>x-fast</keyword>
+      <keyword>x-high</keyword>
+      <keyword>x-large</keyword>
+      <keyword>x-loud</keyword>
+      <keyword>x-low</keyword>
+      <keyword>x-slow</keyword>
+      <keyword>x-small</keyword>
+      <keyword>x-soft</keyword>
+      <keyword>xx-large</keyword>
+      <keyword>xx-small</keyword>
+      <keyword>zoom-in</keyword>
+      <keyword>zoom-out</keyword>
+    </context>
+
+    <context id="property-name">
+      <include>
+        <context ref="vendor-specific-name"/>
+        <context ref="svg-property-names"/>
+        <context ref="css3-property-names"/>
+        <context ref="property-names"/>
+      </include>
+    </context>
+
+    <context id="property-value-keyword">
+      <include>
+        <context ref="vendor-specific-name"/>
+        <context ref="animatable-properties"/>
+        <context ref="svg-property-values"/>
+        <context ref="east-asian-variant-values"/>
+        <context ref="page-sizes"/>
+        <context ref="css3-property-values"/>
+        <context ref="property-values"/>
+      </include>
+    </context>
+
+
+    <!-- any assignable value -->
+
+    <context id="any-value">
+      <include>
+        <context ref="function-call"/>
+        <context ref="property-value-keyword"/>
+        <context ref="data-value"/>
+        <context ref="slash"/>
+        <context ref="comma"/> <!-- for lists -->
+      </include>
+    </context>
+
+
+    <!-- modifiers -->
+
+    <context id="modifiers" end-parent="true" style-ref="modifier">
+      <keyword>important</keyword>
+    </context>
+
+    <context id="modifier-content">
+      <include>
+        <context ref="modifiers"/>
+      </include>
+    </context>
+
+    <context id="modifier">
+      <start>!</start>
+      <end>\%{declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="modifier"/>
+        <context ref="comment"/>
+        <context ref="modifier-content"/>
+      </include>
+    </context>
+
+
+    <!-- style block -->
+
+    <context id="declaration-property">
+      <include>
+        <context ref="property-name"/>
+      </include>
+    </context>
+
+    <context id="declaration-value-content">
+      <include>
+        <context ref="any-value"/>
+      </include>
+    </context>
+
+    <context id="declaration-value">
+      <start>:</start>
+      <end>\%{declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="delimiter"/>
+        <context ref="comment"/>
+        <context ref="declaration-value-content"/>
+      </include>
+    </context>
+
+    <context id="declaration">
+      <include>
+        <context ref="declaration-property"/>
+        <context ref="declaration-value"/>
+        <context ref="modifier"/>
+        <context ref="semicolon"/>
+      </include>
+    </context>
+
+    <context id="style-block-content">
+      <include>
+        <context ref="declaration"/>
+      </include>
+    </context>
+
+    <context id="style-block">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="style-block-content"/>
+      </include>
+    </context>
+
+
+    <!-- media queries -->
+
+    <context id="media-query-operators" style-ref="media-query-operator">
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>only</keyword>
+    </context>
+
+    <context id="media-types" style-ref="media-type">
+      <keyword>all</keyword>
+      <keyword>print</keyword>
+      <keyword>screen</keyword>
+      <keyword>speech</keyword>
+    </context>
+
+    <context id="css3-media-features" style-ref="media-feature">
+      <keyword>any-hover</keyword>
+      <keyword>any-pointer</keyword>
+      <keyword>aspect-ratio</keyword>
+      <keyword>color-gamut</keyword>
+      <keyword>color-index</keyword>
+      <keyword>color</keyword>
+      <keyword>display-mode</keyword>
+      <keyword>grid</keyword>
+      <keyword>height</keyword>
+      <keyword>hover</keyword>
+      <keyword>max-aspect-ratio</keyword>
+      <keyword>max-color-index</keyword>
+      <keyword>max-color</keyword>
+      <keyword>max-height</keyword>
+      <keyword>max-monochrome</keyword>
+      <keyword>max-resolution</keyword>
+      <keyword>max-width</keyword>
+      <keyword>min-aspect-ratio</keyword>
+      <keyword>min-color-index</keyword>
+      <keyword>min-color</keyword>
+      <keyword>min-height</keyword>
+      <keyword>min-monochrome</keyword>
+      <keyword>min-resolution</keyword>
+      <keyword>min-width</keyword>
+      <keyword>monochrome</keyword>
+      <keyword>orientation</keyword>
+      <keyword>overflow-block</keyword>
+      <keyword>overflow-inline</keyword>
+      <keyword>pointer</keyword>
+      <keyword>resolution</keyword>
+      <keyword>scan</keyword>
+      <keyword>update</keyword>
+      <keyword>width</keyword>
+    </context>
+
+    <context id="css3-media-feature-values" style-ref="media-feature-value">
+      <keyword>browser</keyword>
+      <keyword>coarse</keyword>
+      <keyword>fast</keyword>
+      <keyword>fine</keyword>
+      <keyword>fullscreen</keyword>
+      <keyword>hover</keyword>
+      <keyword>interlace</keyword>
+      <keyword>landscape</keyword>
+      <keyword>minimal-ui</keyword>
+      <keyword>none</keyword>
+      <keyword>optional-paged</keyword>
+      <keyword>p3</keyword>
+      <keyword>paged</keyword>
+      <keyword>portrait</keyword>
+      <keyword>progressive</keyword>
+      <keyword>rec2020</keyword>
+      <keyword>scroll</keyword>
+      <keyword>slow</keyword>
+      <keyword>srgb</keyword>
+      <keyword>standalone</keyword>
+    </context>
+
+    <context id="media-type-value">
+      <include>
+        <context ref="media-types"/>
+      </include>
+    </context>
+
+    <context id="media-feature-test-name">
+      <include>
+        <context ref="css3-media-features"/>
+      </include>
+    </context>
+
+    <context id="media-feature-test-value-content">
+      <include>
+        <context ref="css3-media-feature-values"/>
+        <context ref="data-value"/>
+      </include>
+    </context>
+
+    <context id="media-feature-test-value">
+      <start>:</start>
+      <end>\%{test-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="delimiter"/>
+        <context ref="comment"/>
+        <context ref="media-feature-test-value-content"/>
+      </include>
+    </context>
+
+    <context id="media-feature-test-content">
+      <include>
+        <context ref="media-queries"/>
+        <context ref="media-feature-test-name"/>
+        <context ref="media-feature-test-value"/>
+      </include>
+    </context>
+
+    <context id="media-feature-test">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="test-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="test-delimiter"/>
+        <context ref="comment"/>
+        <context ref="media-feature-test-content"/>
+      </include>
+    </context>
+
+    <context id="media-queries">
+      <include>
+        <context ref="media-query-operators"/>
+        <context ref="media-type-value"/>
+        <context ref="media-feature-test"/>
+        <context ref="comma"/>
+      </include>
+    </context>
+
+
+    <!-- at-rules -->
+
+    <context id="at-rule-style-block-content">
+      <include>
+        <context ref="declaration"/>
+      </include>
+    </context>
+
+    <context id="at-rule-style-block" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="at-rule-style-block-content"/>
+      </include>
+    </context>
+
+    <context id="at-rule-css-block-content">
+      <include>
+        <context ref="at-rule"/>
+        <context ref="selector"/>
+        <context ref="style-block"/>
+      </include>
+    </context>
+
+    <context id="at-rule-css-block" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="at-rule-css-block-content"/>
+      </include>
+    </context>
+
+    <!--
+    if this was a simple context (<match>), then in a case like this:
+    @supports {
+        @import url();
+        @media screen {}
+    }
+    the @media rule would not be highlighted correctly
+    (seems like a bug?)
+    -->
+    <context id="at-rule-delimiter" end-parent="true" style-ref="delimiter">
+      <start>(?=;)</start>
+      <end>;</end>
+    </context>
+
+    <context id="vendor-specific-at-rule">
+      <start>@\%{vendor-specific-identifier-regex}</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="vendor-specific"/>
+        <context ref="at-rule-css-block"/>
+        <context ref="at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @charset "encoding";
+    -->
+
+    <context id="at-charset" first-line-only="true">
+      <start case-sensitive="true">^@charset(?= "[^"]*";)</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="def:string"/>
+        <context ref="at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <context id="at-charset-error" style-ref="error">
+      <start>@charset\%]</start>
+      <include>
+        <context ref="at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @font-face <style-block>
+    -->
+
+    <context id="at-font-face">
+      <start>@font-face\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="at-rule-style-block"/>
+      </include>
+    </context>
+
+    <!--
+    @font-feature-values <font name|"font name"> {
+        @<font-feature-type> {
+            <custom-name>: <positive-integer>+;
+        }
+    }
+    -->
+
+    <context id="font-feature-types" style-ref="at-rule-inner-selector">
+      <prefix>@</prefix>
+      <keyword>annotation</keyword>
+      <keyword>character-variant</keyword>
+      <keyword>ornaments</keyword>
+      <keyword>styleset</keyword>
+      <keyword>stylistic</keyword>
+      <keyword>swash</keyword>
+    </context>
+
+    <context id="font-feature-type-value">
+      <include>
+        <context ref="font-feature-types"/>
+      </include>
+    </context>
+
+    <context id="font-feature-value-declaration-name">
+      <include>
+        <context ref="name-value"/>
+      </include>
+    </context>
+
+    <context id="font-feature-value-declaration-value-content">
+      <include>
+        <context ref="positive-integer"/>
+      </include>
+    </context>
+
+    <context id="font-feature-value-declaration-value">
+      <start>:</start>
+      <end>\%{declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="delimiter"/>
+        <context ref="comment"/>
+        <context ref="font-feature-value-declaration-value-content"/>
+      </include>
+    </context>
+
+    <context id="at-font-feature-values-feature-value-block">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="font-feature-value-declaration-name"/>
+        <context ref="font-feature-value-declaration-value"/>
+        <context ref="semicolon"/>
+      </include>
+    </context>
+
+    <context id="at-font-feature-values-block" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="font-feature-type-value"/>
+        <context ref="at-font-feature-values-feature-value-block"/>
+      </include>
+    </context>
+
+    <context id="at-font-feature-values">
+      <start>@font-feature-values\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="string-value"/>
+        <context ref="name-value"/>
+        <context ref="at-font-feature-values-block"/>
+      </include>
+    </context>
+
+    <!--
+    @import <url(...)|"url"> <media-queries>?;
+    -->
+
+    <context id="at-import">
+      <start>@import\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="url"/>
+        <context ref="media-queries"/>
+        <context ref="string-value"/>
+        <context ref="at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @keyframes <custom name|"custom name"> {
+        <from|to|%> <style-block>
+    }
+    -->
+
+    <context id="keyframe-selector" style-ref="at-rule-inner-selector">
+      <keyword>from</keyword>
+      <keyword>to</keyword>
+    </context>
+
+    <context id="keyframe-selector-value">
+      <include>
+        <context ref="percentage" style-ref="at-rule-inner-selector"/>
+        <context ref="keyframe-selector"/>
+      </include>
+    </context>
+
+    <context id="at-keyframes-block" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="keyframe-selector-value"/>
+        <context ref="style-block"/>
+      </include>
+    </context>
+
+    <context id="vendor-specific-at-keyframes">
+      <start>@\%{vendor-specific-prefix-regex}keyframes\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="vendor-specific"/>
+        <context ref="comment"/>
+        <context ref="string-value"/>
+        <context ref="name-value"/>
+        <context ref="at-keyframes-block"/>
+      </include>
+    </context>
+
+    <context id="at-keyframes">
+      <start>@keyframes\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="string-value"/>
+        <context ref="name-value"/>
+        <context ref="at-keyframes-block"/>
+      </include>
+    </context>
+
+    <!--
+    @media <media-queries> <css-block>
+    -->
+
+    <context id="at-media">
+      <start>@media\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="media-queries"/>
+        <context ref="at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!--
+    @namespace <namespace>? <url(...)|"url">;
+    -->
+
+    <context id="namespace-value">
+      <include>
+        <context ref="name" style-ref="namespace"/>
+      </include>
+    </context>
+
+    <context id="at-namespace">
+      <start>@namespace\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="url"/>
+        <context ref="string-value"/>
+        <context ref="namespace-value"/>
+        <context ref="at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <!--
+    @page <custom name>?<pseudo-page>* (, <custom name>?<pseudo-page>*)* {
+        <declaration>*
+        (@<page-margin-box-type> <style-block>)*
+    }
+    -->
+
+    <context id="pseudo-pages" style-ref="pseudo-class">
+      <prefix>:</prefix>
+      <keyword>blank</keyword>
+      <keyword>first</keyword>
+      <keyword>left</keyword>
+      <keyword>right</keyword>
+    </context>
+
+    <context id="page-margin-box-types" style-ref="at-rule-inner-selector">
+      <prefix>@</prefix>
+      <keyword>bottom-center</keyword>
+      <keyword>bottom-left-corner</keyword>
+      <keyword>bottom-left</keyword>
+      <keyword>bottom-right-corner</keyword>
+      <keyword>bottom-right</keyword>
+      <keyword>left-bottom</keyword>
+      <keyword>left-middle</keyword>
+      <keyword>left-top</keyword>
+      <keyword>right-bottom</keyword>
+      <keyword>right-middle</keyword>
+      <keyword>right-top</keyword>
+      <keyword>top-center</keyword>
+      <keyword>top-left-corner</keyword>
+      <keyword>top-left</keyword>
+      <keyword>top-right-corner</keyword>
+      <keyword>top-right</keyword>
+    </context>
+
+    <context id="at-page-block" end-parent="true">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="block-delimiter"/>
+        <context ref="comment"/>
+        <context ref="declaration"/>
+        <context ref="page-margin-box-types"/>
+        <context ref="style-block"/>
+      </include>
+    </context>
+
+    <context id="at-page">
+      <start>@page\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="pseudo-pages"/>
+        <context ref="name-value"/>
+        <context ref="comma"/>
+        <context ref="at-page-block"/>
+      </include>
+    </context>
+
+    <!--
+    @supports <test> <css-block>
+    -->
+
+    <context id="at-supports-operators" style-ref="at-rule-operator">
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+    <define-regex id="at-supports-declaration-value-end" extended="true">
+      (?:
+        \%{test-value-end} |
+        (?= ! )
+      )
+    </define-regex>
+
+    <context id="at-supports-declaration-value">
+      <start>:</start>
+      <end>\%{at-supports-declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="delimiter"/>
+        <context ref="comment"/>
+        <context ref="declaration-value-content"/>
+      </include>
+    </context>
+
+    <context id="at-supports-modifier">
+      <start>!</start>
+      <end>\%{at-supports-declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="modifier"/>
+        <context ref="comment"/>
+        <context ref="modifier-content"/>
+      </include>
+    </context>
+
+    <context id="at-supports-test">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="test-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="test-delimiter"/>
+        <context ref="comment"/>
+        <context ref="at-supports-test"/>
+        <context ref="at-supports-operators"/>
+        <context ref="declaration-property"/>
+        <context ref="at-supports-declaration-value"/>
+        <context ref="at-supports-modifier"/> <!-- allowed here but has no effect -->
+      </include>
+    </context>
+
+    <context id="at-supports">
+      <start>@supports\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="at-rule"/>
+        <context ref="comment"/>
+        <context ref="at-supports-test"/>
+        <context ref="at-supports-operators"/>
+        <context ref="at-rule-css-block"/>
+      </include>
+    </context>
+
+    <!-- all at-rules -->
+
+    <context id="at-rule">
+      <include>
+        <context ref="vendor-specific-at-keyframes"/>
+        <context ref="vendor-specific-at-rule"/>
+        <context ref="at-charset"/>
+        <context ref="at-charset-error"/>
+        <context ref="at-font-face"/>
+        <context ref="at-font-feature-values"/>
+        <context ref="at-import"/>
+        <context ref="at-keyframes"/>
+        <context ref="at-media"/>
+        <context ref="at-namespace"/>
+        <context ref="at-page"/>
+        <context ref="at-supports"/>
+      </include>
+    </context>
+
+
+    <!-- selectors -->
+
+    <!-- namespace qualifier -->
+
+    <context id="namespace-qualifier">
+      <match>(\%{identifier-regex}|\*)?(\|)</match>
+      <include>
+        <context sub-pattern="1" style-ref="namespace"/>
+        <context sub-pattern="2" style-ref="namespace-qualifier"/>
+      </include>
+    </context>
+
+    <!-- simple selectors -->
+
+    <context id="id-selector" style-ref="id-selector">
+      <match>#\%{identifier-regex}</match>
+    </context>
+
+    <context id="class-selector" style-ref="class-selector">
+      <match>\.\%{identifier-regex}</match>
+    </context>
+
+    <context id="type-selector" style-ref="type-selector">
+      <match>\%{identifier-regex}</match>
+    </context>
+
+    <context id="universal-selector" style-ref="universal-selector">
+      <match>\*</match>
+    </context>
+
+    <context id="attribute-selector-attribute-name">
+      <match>(?&lt;=\[)\s*(\%{identifier-regex})</match>
+      <include>
+        <context sub-pattern="1" style-ref="attribute-selector-name"/>
+      </include>
+    </context>
+
+    <context id="attribute-selector-operator" style-ref="attribute-selector-operator">
+      <match>[~|^$*]?=</match>
+    </context>
+
+    <context id="attribute-selector-content">
+      <include>
+        <context ref="string-value"/>
+        <context ref="attribute-selector-attribute-name"/>
+        <context ref="attribute-selector-operator"/>
+      </include>
+    </context>
+
+    <context id="attribute-selector">
+      <start>\[</start>
+      <end>\]</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="attribute-selector"/>
+        <context sub-pattern="0" where="end" style-ref="attribute-selector"/>
+        <context ref="comment"/>
+        <context ref="attribute-selector-content"/>
+      </include>
+    </context>
+
+    <context id="simple-selector">
+      <include>
+        <context ref="id-selector"/>
+        <context ref="class-selector"/>
+        <context ref="type-selector"/>
+        <context ref="universal-selector"/>
+        <context ref="attribute-selector"/>
+      </include>
+    </context>
+
+    <!-- combinators -->
+
+    <!-- technically, this should include the space character (descendant combinator) -->
+    <context id="combinator" style-ref="combinator">
+      <match>[&gt;+~]</match>
+    </context>
+
+    <!-- pseudo-elements -->
+
+    <context id="vendor-specific-pseudo-element" style-ref="vendor-specific">
+      <match>::\%{vendor-specific-identifier-regex}</match>
+    </context>
+
+    <context id="single-colon-pseudo-elements" style-ref="pseudo-element">
+      <prefix>::?</prefix>
+      <keyword>after</keyword>
+      <keyword>before</keyword>
+      <keyword>first-letter</keyword>
+      <keyword>first-line</keyword>
+    </context>
+
+    <context id="pseudo-elements" style-ref="pseudo-element">
+      <prefix>::</prefix>
+      <keyword>placeholder</keyword>
+      <keyword>selection</keyword>
+    </context>
+
+    <context id="pseudo-element">
+      <include>
+        <context ref="vendor-specific-pseudo-element"/>
+        <context ref="single-colon-pseudo-elements"/>
+        <context ref="pseudo-elements"/>
+      </include>
+    </context>
+
+    <!-- pseudo-classes -->
+
+    <context id="vendor-specific-pseudo-class" style-ref="vendor-specific">
+      <match>:\%{vendor-specific-identifier-regex}</match>
+    </context>
+
+    <context id="pseudo-classes" style-ref="pseudo-class">
+      <prefix>:</prefix>
+      <keyword>active</keyword>
+      <keyword>checked</keyword>
+      <keyword>default</keyword>
+      <keyword>disabled</keyword>
+      <keyword>empty</keyword>
+      <keyword>enabled</keyword>
+      <keyword>first-child</keyword>
+      <keyword>first-of-type</keyword>
+      <keyword>focus</keyword>
+      <keyword>hover</keyword>
+      <keyword>in-range</keyword>
+      <keyword>indeterminate</keyword>
+      <keyword>invalid</keyword>
+      <keyword>lang</keyword>
+      <keyword>last-child</keyword>
+      <keyword>last-of-type</keyword>
+      <keyword>link</keyword>
+      <keyword>not</keyword>
+      <keyword>nth-child</keyword>
+      <keyword>nth-last-child</keyword>
+      <keyword>nth-last-of-type</keyword>
+      <keyword>nth-of-type</keyword>
+      <keyword>only-child</keyword>
+      <keyword>only-of-type</keyword>
+      <keyword>optional</keyword>
+      <keyword>out-of-range</keyword>
+      <keyword>read-only</keyword>
+      <keyword>read-write</keyword>
+      <keyword>required</keyword>
+      <keyword>root</keyword>
+      <keyword>target</keyword>
+      <keyword>valid</keyword>
+      <keyword>visited</keyword>
+    </context>
+
+    <context id="pseudo-class">
+      <include>
+        <context ref="vendor-specific-pseudo-class"/>
+        <context ref="pseudo-classes"/>
+      </include>
+    </context>
+
+    <!-- pseudo-class arguments -->
+
+    <context id="lang-pseudo-class-argument-content">
+      <include>
+        <context ref="name-value"/>
+      </include>
+    </context>
+
+    <context id="lang-pseudo-class-argument">
+      <start>(?&lt;=:lang)\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="pseudo-class"/>
+        <context sub-pattern="0" where="end" style-ref="pseudo-class"/>
+        <context ref="comment"/>
+        <context ref="lang-pseudo-class-argument-content"/>
+      </include>
+    </context>
+
+    <context id="not-pseudo-class-nested-not-error" style-ref="error">
+      <start>:not\(</start>
+      <end>\)</end>
+      <include>
+        <context ref="pseudo-class-argument"/>
+      </include>
+    </context>
+
+    <context id="not-pseudo-class-nested-pseudo-element-error">
+      <include>
+        <context ref="vendor-specific-pseudo-element" style-ref="error"/>
+        <context ref="single-colon-pseudo-elements" style-ref="error"/>
+        <context ref="pseudo-elements" style-ref="error"/>
+      </include>
+    </context>
+
+    <context id="not-pseudo-class-argument">
+      <start>(?&lt;=:not)\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="pseudo-class"/>
+        <context sub-pattern="0" where="end" style-ref="pseudo-class"/>
+        <context ref="comment"/>
+        <context ref="not-pseudo-class-nested-not-error"/>
+        <context ref="not-pseudo-class-nested-pseudo-element-error"/>
+        <context ref="simple-selector"/>
+        <context ref="combinator"/>
+        <context ref="pseudo-class"/>
+        <context ref="pseudo-class-argument"/>
+        <context ref="comma"/>
+      </include>
+    </context>
+
+    <context id="nth-pseudo-class-argument-keywords" once-only="true" style-ref="keyword">
+      <keyword>even</keyword>
+      <keyword>odd</keyword>
+    </context>
+
+    <context id="nth-pseudo-class-argument-expression" once-only="true" style-ref="expression">
+      <match extended="true">
+        (
+          \%{integer-regex}? n ( \s* [+-] \s* \%{integer-magnitude-regex} )? |
+          \%{integer-regex}
+        )
+      </match>
+    </context>
+
+    <context id="nth-pseudo-class-argument-content">
+      <include>
+        <context ref="nth-pseudo-class-argument-keywords"/>
+        <context ref="nth-pseudo-class-argument-expression"/>
+      </include>
+    </context>
+
+    <context id="nth-pseudo-class-argument">
+      <start extended="true">
+        (?&lt;=
+          :nth-child |
+          :nth-last-child |
+          :nth-of-type |
+          :nth-last-of-type
+        )
+        \(
+      </start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="pseudo-class"/>
+        <context sub-pattern="0" where="end" style-ref="pseudo-class"/>
+        <context ref="comment"/>
+        <context ref="nth-pseudo-class-argument-content"/>
+      </include>
+    </context>
+
+    <context id="pseudo-class-argument">
+      <include>
+        <context ref="lang-pseudo-class-argument"/>
+        <context ref="not-pseudo-class-argument"/>
+        <context ref="nth-pseudo-class-argument"/>
+      </include>
+    </context>
+
+    <!-- all selectors -->
+
+    <context id="selector">
+      <include>
+        <context ref="namespace-qualifier"/>
+        <context ref="simple-selector"/>
+        <context ref="combinator"/>
+        <context ref="pseudo-element"/>
+        <context ref="pseudo-class"/>
+        <context ref="pseudo-class-argument"/>
+        <context ref="comma"/>
+      </include>
+    </context>
+
+
+    <!-- main context -->
+
+    <context id="css" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="at-rule"/>
+        <context ref="selector"/>
+        <context ref="style-block"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

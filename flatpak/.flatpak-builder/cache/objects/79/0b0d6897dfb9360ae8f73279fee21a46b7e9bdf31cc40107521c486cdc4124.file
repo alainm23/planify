@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>libical-glib Reference Manual: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="next" href="ch01.html" title="API Reference">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book">
+<div class="titlepage">
+<div>
+<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">libical-glib Reference Manual</p></th></tr></table></div>
+<div><p class="releaseinfo">
+      for libical-glib 3.0.4.
+    </p></div>
+</div>
+<hr>
+</div>
+<div class="toc"><dl class="toc">
+<dt><span class="chapter"><a href="ch01.html">API Reference</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalArray.html">ICalArray</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalAttach.html">ICalAttach</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalCompIter.html">ICalCompIter</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalComponent.html">ICalComponent</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalDatetimeperiodType.html">ICalDatetimeperiodType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-derived-parameter.html">i-cal-derived-parameter</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-derived-property.html">i-cal-derived-property</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-derived-value.html">i-cal-derived-value</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalDurationType.html">ICalDurationType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-enums.html">i-cal-enums</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-error.html">i-cal-error</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalGeoType.html">ICalGeoType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-langbind.html">i-cal-langbind</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-memory.html">i-cal-memory</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-mime.html">i-cal-mime</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalObject.html">ICalObject</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalParameter.html">ICalParameter</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalParser.html">ICalParser</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalPeriodType.html">ICalPeriodType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalProperty.html">ICalProperty</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-recur.html">i-cal-recur</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalRecurIterator.html">ICalRecurIterator</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalRecurrenceType.html">ICalRecurrenceType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalReqstatType.html">ICalReqstatType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-restriction.html">i-cal-restriction</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-time.html">i-cal-time</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTimeSpan.html">ICalTimeSpan</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTimetype.html">ICalTimetype</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTimezone.html">ICalTimezone</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTimezonePhase.html">ICalTimezonePhase</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTimezonetype.html">ICalTimezonetype</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalTriggerType.html">ICalTriggerType</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-i-cal-unknowntokenhandling.html">i-cal-unknowntokenhandling</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="libical-glib-ICalValue.html">ICalValue</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="index"><a href="api-index-full.html">API Index</a></span></dt>
+<dt><span class="index"><a href="api-index-3-0.html">Index of new symbols in 3.0</a></span></dt>
+<dt><span class="index"><a href="api-index-2-0.html">Index of new symbols in 2.0</a></span></dt>
+<dt><span class="index"><a href="api-index-1-0.html">Index of new symbols in 1.0</a></span></dt>
+<dt><span class="glossary"><a href="annotation-glossary.html">Annotation Glossary</a></span></dt>
+</dl></div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

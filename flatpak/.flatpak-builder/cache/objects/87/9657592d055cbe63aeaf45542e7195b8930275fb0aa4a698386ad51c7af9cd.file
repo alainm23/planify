@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Mephisto Networks
+ Copyright (C) 2011-2012 Mephisto Networks http://mephistonet.nl/
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="puppet" name="Puppet" version="2.0" _section="Other">
+  <metadata>
+    <property name="globs">*.pp</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="resources"               name="Resources"           map-to="def:keyword"/>
+    <style id="parameters"              name="Parameters"          map-to="def:statement"/>
+    <style id="metaparameters"          name="Metaparameters"      map-to="def:statement"/>
+    <style id="functions"               name="Functions"           map-to="def:type"/>
+    <style id="values"                  name="Values"              map-to="def:type"/>
+    <style id="variables"               name="Variables"           map-to="def:identifier"/>
+    <style id="class-names"             name="Class names"         map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+
+    <context id="keywords" style-ref="def:keyword">
+      <keyword>class</keyword>
+      <keyword>define</keyword>
+      <keyword>inherits</keyword>
+      <keyword>import</keyword>
+      <keyword>node</keyword>
+    </context>
+
+    <context id="keywords-inline" style-ref="def:keyword">
+      <keyword>case</keyword>
+      <keyword>class</keyword>
+      <keyword>default</keyword>
+      <keyword>define</keyword>
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+    </context>
+
+    <context id="resources" style-ref="def:keyword">
+      <keyword>augeas</keyword>
+      <keyword>computer</keyword>
+      <keyword>cron</keyword>
+      <keyword>exec</keyword>
+      <keyword>file</keyword>
+      <keyword>filebucket</keyword>
+      <keyword>group</keyword>
+      <keyword>host</keyword>
+      <keyword>interface</keyword>
+      <keyword>k5login</keyword>
+      <keyword>macauthorization</keyword>
+      <keyword>mailalias</keyword>
+      <keyword>maillist</keyword>
+      <keyword>mcx</keyword>
+      <keyword>mount</keyword>
+      <keyword>nagios_command</keyword>
+      <keyword>nagios_contact</keyword>
+      <keyword>nagios_contactgroup</keyword>
+      <keyword>nagios_host</keyword>
+      <keyword>nagios_hostdependency</keyword>
+      <keyword>nagios_hostescalation</keyword>
+      <keyword>nagios_hostextinfo</keyword>
+      <keyword>nagios_hostgroup</keyword>
+      <keyword>nagios_service</keyword>
+      <keyword>nagios_servicedependency</keyword>
+      <keyword>nagios_serviceescalation</keyword>
+      <keyword>nagios_serviceextinfo</keyword>
+      <keyword>nagios_servicegroup</keyword>
+      <keyword>nagios_timeperiod</keyword>
+      <keyword>notify</keyword>
+      <keyword>package</keyword>
+      <keyword>resources</keyword>
+      <keyword>router</keyword>
+      <keyword>schedule</keyword>
+      <keyword>scheduled_task</keyword>
+      <keyword>selboolean</keyword>
+      <keyword>selmodule</keyword>
+      <keyword>service</keyword>
+      <keyword>ssh_authorized_key</keyword>
+      <keyword>sshkey</keyword>
+      <keyword>stage</keyword>
+      <keyword>tidy</keyword>
+      <keyword>user</keyword>
+      <keyword>vlan</keyword>
+      <keyword>yumrepo</keyword>
+      <keyword>zfs</keyword>
+      <keyword>zone</keyword>
+      <keyword>zpool</keyword>
+    </context>
+
+    <context id="objects" style-ref="def:type">
+      <keyword>Augeas</keyword>
+      <keyword>Class</keyword>
+      <keyword>Computer</keyword>
+      <keyword>Cron</keyword>
+      <keyword>Exec</keyword>
+      <keyword>File</keyword>
+      <keyword>Filebucket</keyword>
+      <keyword>Group</keyword>
+      <keyword>Host</keyword>
+      <keyword>Interface</keyword>
+      <keyword>K5login</keyword>
+      <keyword>Macauthorization</keyword>
+      <keyword>Mailalias</keyword>
+      <keyword>Maillist</keyword>
+      <keyword>Mcx</keyword>
+      <keyword>Mount</keyword>
+      <keyword>Nagios_Command</keyword>
+      <keyword>Nagios_Contact</keyword>
+      <keyword>Nagios_Contactgroup</keyword>
+      <keyword>Nagios_Host</keyword>
+      <keyword>Nagios_Hostdependency</keyword>
+      <keyword>Nagios_Hostescalation</keyword>
+      <keyword>Nagios_Hostextinfo</keyword>
+      <keyword>Nagios_Hostgroup</keyword>
+      <keyword>Nagios_Service</keyword>
+      <keyword>Nagios_Servicedependency</keyword>
+      <keyword>Nagios_Serviceescalation</keyword>
+      <keyword>Nagios_Serviceextinfo</keyword>
+      <keyword>Nagios_Servicegroup</keyword>
+      <keyword>Nagios_Timeperiod</keyword>
+      <keyword>Notify</keyword>
+      <keyword>Package</keyword>
+      <keyword>Resources</keyword>
+      <keyword>Router</keyword>
+      <keyword>Schedule</keyword>
+      <keyword>Scheduled_Task</keyword>
+      <keyword>Selboolean</keyword>
+      <keyword>Selmodule</keyword>
+      <keyword>Service</keyword>
+      <keyword>Ssh_Authorized_Key</keyword>
+      <keyword>Sshkey</keyword>
+      <keyword>Tidy</keyword>
+      <keyword>User</keyword>
+      <keyword>Vlan</keyword>
+      <keyword>Yumrepo</keyword>
+      <keyword>Zfs</keyword>
+      <keyword>Zone</keyword>
+      <keyword>Zpool</keyword>
+    </context>
+
+    <context id="parameters" style-ref="def:statement">
+      <keyword>aclinherit</keyword>
+      <keyword>aclmode</keyword>
+      <keyword>action_url</keyword>
+      <keyword>active_checks_enabled</keyword>
+      <keyword>address</keyword>
+      <keyword>address1</keyword>
+      <keyword>address2</keyword>
+      <keyword>address3</keyword>
+      <keyword>address4</keyword>
+      <keyword>address5</keyword>
+      <keyword>address6</keyword>
+      <keyword>admin</keyword>
+      <keyword>adminfile</keyword>
+      <keyword>age</keyword>
+      <keyword>alias</keyword>
+      <keyword>allowcdrom</keyword>
+      <keyword>allowdupe</keyword>
+      <keyword>allowed_trunk_vlans</keyword>
+      <keyword>allow_root</keyword>
+      <keyword>arguments</keyword>
+      <keyword>atboot</keyword>
+      <keyword>atime</keyword>
+      <keyword>attribute_membership</keyword>
+      <keyword>attributes</keyword>
+      <keyword>authenticate_user</keyword>
+      <keyword>auths</keyword>
+      <keyword>auth_class</keyword>
+      <keyword>auth_type</keyword>
+      <keyword>auth_membership</keyword>
+      <keyword>autoboot</keyword>
+      <keyword>backup</keyword>
+      <keyword>baseurl</keyword>
+      <keyword>binary</keyword>
+      <keyword>blockdevice</keyword>
+      <keyword>canmount</keyword>
+      <keyword>can_submit_commands</keyword>
+      <keyword>category</keyword>
+      <keyword>changes</keyword>
+      <keyword>checksum</keyword>
+      <keyword>check_command</keyword>
+      <keyword>check_freshness</keyword>
+      <keyword>check_interval</keyword>
+      <keyword>check_period</keyword>
+      <keyword>clone</keyword>
+      <keyword>command</keyword>
+      <keyword>command_line</keyword>
+      <keyword>command_name</keyword>
+      <keyword>comment</keyword>
+      <keyword>compression</keyword>
+      <keyword>configfiles</keyword>
+      <keyword>contactgroups</keyword>
+      <keyword>contactgroup_members</keyword>
+      <keyword>contactgroup_name</keyword>
+      <keyword>contacts</keyword>
+      <keyword>contact_groups</keyword>
+      <keyword>contact_name</keyword>
+      <keyword>content</keyword>
+      <keyword>context</keyword>
+      <keyword>control</keyword>
+      <keyword>copies</keyword>
+      <keyword>cost</keyword>
+      <keyword>creates</keyword>
+      <keyword>create_args</keyword>
+      <keyword>ctime</keyword>
+      <keyword>cwd</keyword>
+      <keyword>dataset</keyword>
+      <keyword>dependency_period</keyword>
+      <keyword>dependent_hostgroup_name</keyword>
+      <keyword>dependent_host_name</keyword>
+      <keyword>dependent_service_description</keyword>
+      <keyword>descr</keyword>
+      <keyword>description</keyword>
+      <keyword>device</keyword>
+      <keyword>devices</keyword>
+      <keyword>device_url</keyword>
+      <keyword>disk</keyword>
+      <keyword>display_name</keyword>
+      <keyword>ds_name</keyword>
+      <keyword>ds_type</keyword>
+      <keyword>dump</keyword>
+      <keyword>duplex</keyword>
+      <keyword>email</keyword>
+      <keyword>en_address</keyword>
+      <keyword>enable</keyword>
+      <keyword>enabled</keyword>
+      <keyword>enablegroups</keyword>
+      <keyword>encapsulation</keyword>
+      <keyword>ensure</keyword>
+      <keyword>escalation_options</keyword>
+      <keyword>escalation_period</keyword>
+      <keyword>event_handler</keyword>
+      <keyword>event_handler_enabled</keyword>
+      <keyword>environment</keyword>
+      <keyword>etherchannel</keyword>
+      <keyword>exclude</keyword>
+      <keyword>exec</keyword>
+      <keyword>execution_failure_criteria</keyword>
+      <keyword>expiry</keyword>
+      <keyword>failovermethod</keyword>
+      <keyword>failure_prediction_enabled</keyword>
+      <keyword>first_notification</keyword>
+      <keyword>first_notification_delay</keyword>
+      <keyword>flap_detection_enabled</keyword>
+      <keyword>flap_detection_options</keyword>
+      <keyword>flavor</keyword>
+      <keyword>force</keyword>
+      <keyword>freshness_threshold</keyword>
+      <keyword>friday</keyword>
+      <keyword>fstype</keyword>
+      <keyword>gid</keyword>
+      <keyword>gpgcheck</keyword>
+      <keyword>gpgkey</keyword>
+      <keyword>group</keyword>
+      <keyword>groups</keyword>
+      <keyword>hasrestart</keyword>
+      <keyword>hasstatus</keyword>
+      <keyword>high_flap_threshold</keyword>
+      <keyword>home</keyword>
+      <keyword>hostgroups</keyword>
+      <keyword>hostgroup_members</keyword>
+      <keyword>hostgroup_name</keyword>
+      <keyword>host_aliases</keyword>
+      <keyword>host_name</keyword>
+      <keyword>host_notifications_enabled</keyword>
+      <keyword>host_notification_commands</keyword>
+      <keyword>host_notification_options</keyword>
+      <keyword>host_notification_period</keyword>
+      <keyword>hour</keyword>
+      <keyword>http_caching</keyword>
+      <keyword>ia_load_module</keyword>
+      <keyword>icon_image</keyword>
+      <keyword>icon_image_alt</keyword>
+      <keyword>id</keyword>
+      <keyword>ignore</keyword>
+      <keyword>incl</keyword>
+      <keyword>include</keyword>
+      <keyword>includepkgs</keyword>
+      <keyword>inherit</keyword>
+      <keyword>inherits_parent</keyword>
+      <keyword>initial_state</keyword>
+      <keyword>install_args</keyword>
+      <keyword>install_options</keyword>
+      <keyword>instance</keyword>
+      <keyword>ip</keyword>
+      <keyword>ipaddress</keyword>
+      <keyword>iptype</keyword>
+      <keyword>ip_address</keyword>
+      <keyword>is_volatile</keyword>
+      <keyword>keepalive</keyword>
+      <keyword>key</keyword>
+      <keyword>key_membership</keyword>
+      <keyword>keys</keyword>
+      <keyword>k_of_n</keyword>
+      <keyword>last_notification</keyword>
+      <keyword>lens</keyword>
+      <keyword>links</keyword>
+      <keyword>load_path</keyword>
+      <keyword>log</keyword>
+      <keyword>logbias</keyword>
+      <keyword>logoutput</keyword>
+      <keyword>low_flap_threshold</keyword>
+      <keyword>mailserver</keyword>
+      <keyword>managehome</keyword>
+      <keyword>manifest</keyword>
+      <keyword>matches</keyword>
+      <keyword>max_check_attempts</keyword>
+      <keyword>mechanisms</keyword>
+      <keyword>members</keyword>
+      <keyword>membership</keyword>
+      <keyword>message</keyword>
+      <keyword>metadata_expire</keyword>
+      <keyword>minute</keyword>
+      <keyword>mirror</keyword>
+      <keyword>mirrorlist</keyword>
+      <keyword>mode</keyword>
+      <keyword>monday</keyword>
+      <keyword>month</keyword>
+      <keyword>monthday</keyword>
+      <keyword>mountpoint</keyword>
+      <keyword>mtime</keyword>
+      <keyword>name</keyword>
+      <keyword>native_vlan</keyword>
+      <keyword>nbmand</keyword>
+      <keyword>normal_check_interval</keyword>
+      <keyword>notes</keyword>
+      <keyword>notes_url</keyword>
+      <keyword>notifications_enabled</keyword>
+      <keyword>notification_failure_criteria</keyword>
+      <keyword>notification_interval</keyword>
+      <keyword>notification_options</keyword>
+      <keyword>notification_period</keyword>
+      <keyword>obsess_over_host</keyword>
+      <keyword>obsess_over_service</keyword>
+      <keyword>onlyif</keyword>
+      <keyword>options</keyword>
+      <keyword>owner</keyword>
+      <keyword>pager</keyword>
+      <keyword>parallelize_check</keyword>
+      <keyword>parents</keyword>
+      <keyword>pass</keyword>
+      <keyword>passive_checks_enabled</keyword>
+      <keyword>password</keyword>
+      <keyword>password_max_age</keyword>
+      <keyword>password_min_age</keyword>
+      <keyword>path</keyword>
+      <keyword>pattern</keyword>
+      <keyword>period</keyword>
+      <keyword>periodmatch</keyword>
+      <keyword>persistent</keyword>
+      <keyword>platform</keyword>
+      <keyword>pool</keyword>
+      <keyword>port</keyword>
+      <keyword>primarycache</keyword>
+      <keyword>principals</keyword>
+      <keyword>priority</keyword>
+      <keyword>process_perf_data</keyword>
+      <keyword>profiles</keyword>
+      <keyword>profile_membership</keyword>
+      <keyword>project</keyword>
+      <keyword>protect</keyword>
+      <keyword>proxy</keyword>
+      <keyword>proxy_password</keyword>
+      <keyword>proxy_username</keyword>
+      <keyword>provider</keyword>
+      <keyword>purge</keyword>
+      <keyword>quota</keyword>
+      <keyword>raid_parity</keyword>
+      <keyword>raidz</keyword>
+      <keyword>range</keyword>
+      <keyword>readonly</keyword>
+      <keyword>realhostname</keyword>
+      <keyword>realname</keyword>
+      <keyword>recipient</keyword>
+      <keyword>recordsize</keyword>
+      <keyword>recurse</keyword>
+      <keyword>recurselimit</keyword>
+      <keyword>refquota</keyword>
+      <keyword>refreservation</keyword>
+      <keyword>refresh</keyword>
+      <keyword>refreshonly</keyword>
+      <keyword>register</keyword>
+      <keyword>remounts</keyword>
+      <keyword>repeat</keyword>
+      <keyword>replace</keyword>
+      <keyword>responsefile</keyword>
+      <keyword>reservation</keyword>
+      <keyword>restart</keyword>
+      <keyword>retain_nonstatus_information</keyword>
+      <keyword>retain_status_information</keyword>
+      <keyword>retry_check_interval</keyword>
+      <keyword>retry_interval</keyword>
+      <keyword>returns</keyword>
+      <keyword>rmdirs</keyword>
+      <keyword>roles</keyword>
+      <keyword>role_membership</keyword>
+      <keyword>root</keyword>
+      <keyword>rule</keyword>
+      <keyword>saturday</keyword>
+      <keyword>secondarycache</keyword>
+      <keyword>selinux_ignore_defaults</keyword>
+      <keyword>selmoduledir</keyword>
+      <keyword>selmodulepath</keyword>
+      <keyword>selrange</keyword>
+      <keyword>selrole</keyword>
+      <keyword>seltype</keyword>
+      <keyword>seluser</keyword>
+      <keyword>server</keyword>
+      <keyword>servicegroups</keyword>
+      <keyword>servicegroup_name</keyword>
+      <keyword>service_description</keyword>
+      <keyword>service_notifications_enabled</keyword>
+      <keyword>service_notification_commands</keyword>
+      <keyword>service_notification_options</keyword>
+      <keyword>service_notification_period</keyword>
+      <keyword>setuid</keyword>
+      <keyword>shared</keyword>
+      <keyword>shareiscsi</keyword>
+      <keyword>sharenfs</keyword>
+      <keyword>shares</keyword>
+      <keyword>sharesmb</keyword>
+      <keyword>shell</keyword>
+      <keyword>size</keyword>
+      <keyword>session_owner</keyword>
+      <keyword>snapdir</keyword>
+      <keyword>source</keyword>
+      <keyword>sourceselect</keyword>
+      <keyword>spare</keyword>
+      <keyword>speed</keyword>
+      <keyword>stalking_options</keyword>
+      <keyword>start</keyword>
+      <keyword>status</keyword>
+      <keyword>statusmap_image</keyword>
+      <keyword>stop</keyword>
+      <keyword>sysidcfg</keyword>
+      <keyword>system</keyword>
+      <keyword>special</keyword>
+      <keyword>sunday</keyword>
+      <keyword>syncversion</keyword>
+      <keyword>target</keyword>
+      <keyword>thursday</keyword>
+      <keyword>timeout</keyword>
+      <keyword>timeperiod_name</keyword>
+      <keyword>tries</keyword>
+      <keyword>trigger</keyword>
+      <keyword>try_sleep</keyword>
+      <keyword>tuesday</keyword>
+      <keyword>type</keyword>
+      <keyword>type_check</keyword>
+      <keyword>uid</keyword>
+      <keyword>unless</keyword>
+      <keyword>unless_system_user</keyword>
+      <keyword>url</keyword>
+      <keyword>use</keyword>
+      <keyword>user</keyword>
+      <keyword>value</keyword>
+      <keyword>vendor</keyword>
+      <keyword>version</keyword>
+      <keyword>volsize</keyword>
+      <keyword>vrml_image</keyword>
+      <keyword>vscan</keyword>
+      <keyword>webserver</keyword>
+      <keyword>wednesday</keyword>
+      <keyword>weekday</keyword>
+      <keyword>withpath</keyword>
+      <keyword>working_dir</keyword>
+      <keyword>xattr</keyword>
+      <keyword>zoned</keyword>
+      <keyword>_naginator_name</keyword>
+    </context>
+
+    <context id="metaparameters" style-ref="def:statement">
+      <keyword>alias</keyword>
+      <keyword>audit</keyword>
+      <keyword>before</keyword>
+      <keyword>check</keyword>
+      <keyword>loglevel</keyword>
+      <keyword>noop</keyword>
+      <keyword>notify</keyword>
+      <keyword>require</keyword>
+      <keyword>schedule</keyword>
+      <keyword>stage</keyword>
+      <keyword>subscribe</keyword>
+      <keyword>tag</keyword>
+    </context>
+
+    <context id="functions" style-ref="def:type">
+      <keyword>alert</keyword>
+      <keyword>create_resources</keyword>
+      <keyword>crit</keyword>
+      <keyword>debug</keyword>
+      <keyword>defined</keyword>
+      <keyword>emerg</keyword>
+      <keyword>err</keyword>
+      <keyword>extlookup</keyword>
+      <keyword>fail</keyword>
+      <keyword>file</keyword>
+      <keyword>fqdn_rand</keyword>
+      <keyword>generate</keyword>
+      <keyword>include</keyword>
+      <keyword>info</keyword>
+      <keyword>inline_template</keyword>
+      <keyword>md5</keyword>
+      <keyword>notice</keyword>
+      <keyword>realize</keyword>
+      <keyword>regsubst</keyword>
+      <keyword>require</keyword>
+      <keyword>search</keyword>
+      <keyword>sha1</keyword>
+      <keyword>shellquote</keyword>
+      <keyword>split</keyword>
+      <keyword>sprintf</keyword>
+      <keyword>tag</keyword>
+      <keyword>tagged</keyword>
+      <keyword>template</keyword>
+      <keyword>versioncmp</keyword>
+      <keyword>warning</keyword>
+    </context>
+
+    <context id="values" style-ref="def:type">
+      <keyword>absent</keyword>
+      <keyword>access</keyword>
+      <keyword>all</keyword>
+      <keyword>allow</keyword>
+      <keyword>auto</keyword>
+      <keyword>current</keyword>
+      <keyword>daily</keyword>
+      <keyword>deny</keyword>
+      <keyword>directory</keyword>
+      <keyword>discard</keyword>
+      <keyword>distance</keyword>
+      <keyword>dot1q</keyword>
+      <keyword>evaluate-mechanisms</keyword>
+      <keyword>exclusive</keyword>
+      <keyword>false</keyword>
+      <keyword>file</keyword>
+      <keyword>first</keyword>
+      <keyword>fletcher2</keyword>
+      <keyword>fletcher4</keyword>
+      <keyword>full</keyword>
+      <keyword>follow</keyword>
+      <keyword>groupmask</keyword>
+      <keyword>gzip</keyword>
+      <keyword>gzip-1</keyword>
+      <keyword>gzip-2</keyword>
+      <keyword>gzip-3</keyword>
+      <keyword>gzip-4</keyword>
+      <keyword>gzip-5</keyword>
+      <keyword>gzip-6</keyword>
+      <keyword>gzip-7</keyword>
+      <keyword>gzip-8</keyword>
+      <keyword>gzip-9</keyword>
+      <keyword>half</keyword>
+      <keyword>held</keyword>
+      <keyword>hidden</keyword>
+      <keyword>hourly</keyword>
+      <keyword>inclusive</keyword>
+      <keyword>inf</keyword>
+      <keyword>installed</keyword>
+      <keyword>isl</keyword>
+      <keyword>keep</keyword>
+      <keyword>latest</keyword>
+      <keyword>latency</keyword>
+      <keyword>legacy</keyword>
+      <keyword>link</keyword>
+      <keyword>lzjb</keyword>
+      <keyword>manage</keyword>
+      <keyword>manual</keyword>
+      <keyword>metadata</keyword>
+      <keyword>minimum</keyword>
+      <keyword>monthly</keyword>
+      <keyword>mounted</keyword>
+      <keyword>never</keyword>
+      <keyword>no</keyword>
+      <keyword>noallow</keyword>
+      <keyword>noauto</keyword>
+      <keyword>none</keyword>
+      <keyword>notlink</keyword>
+      <keyword>no_shutdown</keyword>
+      <keyword>number</keyword>
+      <keyword>off</keyword>
+      <keyword>on</keyword>
+      <keyword>once</keyword>
+      <keyword>on_failure</keyword>
+      <keyword>packages</keyword>
+      <keyword>passthrough</keyword>
+      <keyword>passthrough-x</keyword>
+      <keyword>present</keyword>
+      <keyword>priority</keyword>
+      <keyword>purged</keyword>
+      <keyword>remote</keyword>
+      <keyword>restricted</keyword>
+      <keyword>right</keyword>
+      <keyword>role</keyword>
+      <keyword>roundrobin</keyword>
+      <keyword>running</keyword>
+      <keyword>shared</keyword>
+      <keyword>sha256</keyword>
+      <keyword>shutdown</keyword>
+      <keyword>ssh-dss</keyword>
+      <keyword>ssh-rsa</keyword>
+      <keyword>stopped</keyword>
+      <keyword>throughput</keyword>
+      <keyword>true</keyword>
+      <keyword>trunk</keyword>
+      <keyword>unmounted</keyword>
+      <keyword>visible</keyword>
+      <keyword>weekly</keyword>
+      <keyword>yes</keyword>
+      <keyword>zle</keyword>
+    </context>
+
+    <context id="variables" style-ref="def:identifier">
+      <match>\$[a-z0-9_]*(::[a-z0-9_]*)*</match>
+    </context>
+
+    <context id="variables-with-brackets" style-ref="def:identifier">
+      <match>\$\{[a-z_][a-z0-9_]*\}</match>
+    </context>
+
+    <context id="global-variables" style-ref="def:identifier">
+      <match>\$::[a-z_][a-z0-9_]*</match>
+    </context>
+
+    <context id="class-names" style-ref="def:preprocessor">
+      <match>[^$][a-z0-9_]*(::[a-z0-9_]*)+</match>
+    </context>
+
+    <context id="syntax" style-ref="def:special-constant">
+      <match>(=&gt;|&lt;-|-&gt;)</match>
+    </context>
+
+    <context id="blocks">
+      <start>{</start>
+      <end>}</end>
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:escape"/>
+        <context ref="def:string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="variables"/>
+        <context ref="variables-with-brackets"/>
+        <context ref="global-variables"/>
+        <context ref="class-names"/>
+        <context ref="keywords-inline"/>
+        <context ref="resources"/>
+        <context ref="objects"/>
+        <context ref="metaparameters"/>
+        <context ref="functions"/>
+        <context ref="values"/>
+        <context ref="parameters"/>
+        <context ref="syntax"/>
+        <context ref="blocks"/>
+      </include>
+    </context>
+
+    <context id="puppet" class="no-spell-check">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:escape"/>
+        <context ref="def:string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="variables"/>
+        <context ref="variables-with-brackets"/>
+        <context ref="global-variables"/>
+        <context ref="class-names"/>
+        <context ref="keywords"/>
+        <context ref="resources"/>
+        <context ref="objects"/>
+        <context ref="syntax"/>
+        <context ref="blocks"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

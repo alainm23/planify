@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Duncan Coutts, Anders Carlsson
+ Copyright (C) 2004, 2007 Duncan Coutts <duncan@haskell.org>
+ Copyright (C) 2004 Anders Carlsson <andersca@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="haskell" name="Haskell" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-haskell</property>
+    <property name="globs">*.hs</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="comment"      name="Comment"      map-to="def:comment"/>
+    <style id="variable"     name="Variable"                         />
+    <style id="symbol"       name="Symbol"                           />
+    <style id="keyword"      name="Keyword"      map-to="def:keyword"/>
+    <style id="type"         name="Data Type"    map-to="def:type"/>
+    <style id="string"       name="String"       map-to="def:string"/>
+    <style id="character"    name="Character"    map-to="def:character"/>
+    <style id="char-escape"  name="Escaped Character" map-to="def:special-char"/>
+    <style id="float"        name="Float"        map-to="def:floating-point"/>
+    <style id="decimal"      name="Decimal"      map-to="def:decimal"/>
+    <style id="octal"        name="Octal"        map-to="def:base-n-integer"/>
+    <style id="hexadecimal"  name="Hex"          map-to="def:base-n-integer"/>
+  </styles>
+
+  <definitions>
+    <!-- Spec: http://haskell.org/onlinereport/lexemes.html -->
+  
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>(?&lt;!\p{S})--+(?!\p{S})</start>
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="haddock:line-paragraph"/>
+        <context ref="haddock:directive"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>\{-</start>
+      <end>-\}</end>
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="haddock:block-paragraph"/>
+        <context ref="haddock:directive"/>
+        <context ref="block-comment"/>
+      </include>
+    </context>
+
+    <context id="pragma" style-ref="preprocessor">
+      <start>\{-#</start>
+      <end>#-\}</end>
+    </context>
+
+    <context id="infix-keyword" style-ref="keyword">
+      <prefix>(?&lt;!\p{S})</prefix>
+      <suffix>(?!\p{S})</suffix>
+      <keyword>\.\.</keyword>
+      <keyword>::</keyword>
+      <keyword>=</keyword>
+      <keyword>\|</keyword>
+      <keyword>\</keyword>
+      <keyword>-&gt;</keyword>
+      <keyword>&lt;-</keyword>
+      <keyword>-&lt;</keyword>
+      <keyword>@</keyword>
+      <keyword>~</keyword>
+      <keyword>=&gt;</keyword>
+    </context>
+
+    <context id="prefix-keyword" style-ref="keyword">
+      <keyword>case</keyword>
+      <keyword>class</keyword>
+      <keyword>data</keyword>
+      <keyword>default</keyword>
+      <keyword>deriving</keyword>
+      <keyword>do</keyword>
+      <keyword>mdo</keyword>
+      <keyword>else</keyword>
+      <keyword>forall</keyword>
+      <keyword>foreign</keyword>
+      <keyword>hiding</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>in</keyword>
+      <keyword>infix</keyword>
+      <keyword>infixl</keyword>
+      <keyword>infixr</keyword>
+      <keyword>instance</keyword>
+      <keyword>let</keyword>
+      <keyword>module</keyword>
+      <keyword>newtype</keyword>
+      <keyword>of</keyword>
+      <keyword>proc</keyword>
+      <keyword>qualified</keyword>
+      <keyword>then</keyword>
+      <keyword>where</keyword>
+      <keyword>type</keyword>
+    </context>
+
+    <context id="label" style-ref="string">
+      <match>(?&lt;!\P{Z})#[\p{Ll}_][\p{N}\p{L}_']*</match>
+    </context>
+
+    <define-regex id="qualified">(?&lt;![\w.])(?:\p{Lu}[\p{N}\p{L}_'#]*\.)*</define-regex>
+
+    <context id="infix-constructor" style-ref="type">
+      <match>'?\%{qualified}(?&lt;!\p{S}):\p{S}+</match>
+    </context>
+
+    <!-- Must not extend parent context, or we end up matching
+         "\end{code}" as part of the Haskell context, but when in
+         literate haskell mode it should be terminating a code block. -->
+    <context id="infix-variable" style-ref="variable" extend-parent="false">
+      <match>\%{qualified}\p{S}+</match>
+    </context>
+
+    <context id="prefix-constructor" style-ref="type">
+      <match>(?:'(?=\p{Lu}[^']))?\%{qualified}\p{Lu}[\p{N}\p{L}_'#]*</match>
+    </context>
+
+    <context id="prefix-variable" style-ref="variable">
+      <match>\%{qualified}[\p{Ll}_][\p{N}\p{L}_'#]*</match>
+    </context>
+
+    <define-regex id="escaped-character" extended="true">
+        \\(                   # leading backslash
+        [abfnrtv\\"\'&amp;] | # escaped character
+         [0-9]+ |             # decimal digits
+        o[0-7]+ |             # 'o' followed by octal digits
+        x[0-9A-Fa-f]+ |       # 'x' followed by hex digits
+        \^[A-Z@\[\\\]^_] |    # control character codes
+        NUL | SOH | STX | ETX | EOT | ENQ | ACK |
+        BEL | BS | HT | LF | VT | FF | CR | SO |
+        SI | DLE | DC1 | DC2 | DC3 | DC4 | NAK |
+        SYN | ETB | CAN | EM | SUB | ESC | FS | GS |
+        RS | US | SP | DEL    # control char names
+        )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:line-continue"/>
+        <context style-ref="char-escape">
+          <match>\%{escaped-character}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="char" style-ref="character" end-at-line-end="true">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context style-ref="char-escape" once-only="true">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context once-only="true" extend-parent="false">
+          <match>.</match>
+        </context>
+        <context style-ref="def:error" extend-parent="false">
+          <match>.</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="float" style-ref="float">
+      <match extended="true">
+          [0-9]+ \. [0-9]+ ([eE][+-]?[0-9]+)?
+        | [0-9]+            [eE][+-]?[0-9]+
+      </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match>0[xX][0-9a-fA-F]+</match>
+    </context>
+
+    <context id="octal" style-ref="octal">
+      <match>0[oO][0-7]+</match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>[0-9]+</match>
+    </context>
+
+    <context id="body">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="pragma"/>
+        <context ref="block-comment"/>
+        <context ref="infix-keyword"/>
+        <context ref="prefix-keyword"/>
+        <context ref="label"/>
+        <context ref="infix-constructor"/>
+        <context ref="infix-variable"/>
+        <context ref="prefix-variable"/>
+        <context ref="prefix-constructor"/>
+        <context ref="string"/>
+        <context ref="char"/>
+        <context ref="float"/>
+        <context ref="hexadecimal"/>
+        <context ref="octal"/>
+        <context ref="decimal"/>
+      </include>
+    </context>
+
+    <context id="haskell" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="c:if0-comment"/>
+        <context ref="c:include"/>
+        <context ref="c:preprocessor"/>
+        <context ref="body"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

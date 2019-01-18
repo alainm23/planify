@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GeocodeBoundingBox: geocode-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="geocode-glib Reference Manual">
+<link rel="up" href="ch01.html" title="Geocode-glib">
+<link rel="prev" href="GeocodeReverse.html" title="GeocodeReverse">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GeocodeBoundingBox.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GeocodeBoundingBox.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GeocodeBoundingBox.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GeocodeReverse.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GeocodeBoundingBox"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GeocodeBoundingBox.top_of_page"></a>GeocodeBoundingBox</span></h2>
+<p>GeocodeBoundingBox — Geocode BoundingBox object</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="returnvalue">GeocodeBoundingBox</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-new" title="geocode_bounding_box_new ()">geocode_bounding_box_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-equal" title="geocode_bounding_box_equal ()">geocode_bounding_box_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-get-top" title="geocode_bounding_box_get_top ()">geocode_bounding_box_get_top</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-get-bottom" title="geocode_bounding_box_get_bottom ()">geocode_bounding_box_get_bottom</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-get-left" title="geocode_bounding_box_get_left ()">geocode_bounding_box_get_left</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeBoundingBox.html#geocode-bounding-box-get-right" title="geocode_bounding_box_get_right ()">geocode_bounding_box_get_right</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBox--bottom" title="The “bottom” property">bottom</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBox--left" title="The “left” property">left</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBox--right" title="The “right” property">right</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBox--top" title="The “top” property">top</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBox-struct" title="struct GeocodeBoundingBox">GeocodeBoundingBox</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBoxClass" title="struct GeocodeBoundingBoxClass">GeocodeBoundingBoxClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GeocodeBoundingBox
+</pre>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;geocode-glib/geocode-bounding-box.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> represents a geographical area on earth, bounded
+by top, bottom, left and right coordinates.</p>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="geocode-bounding-box-new"></a><h3>geocode_bounding_box_new ()</h3>
+<pre class="programlisting"><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="returnvalue">GeocodeBoundingBox</span></a> *
+geocode_bounding_box_new (<em class="parameter"><code><span class="type">gdouble</span> top</code></em>,
+                          <em class="parameter"><code><span class="type">gdouble</span> bottom</code></em>,
+                          <em class="parameter"><code><span class="type">gdouble</span> left</code></em>,
+                          <em class="parameter"><code><span class="type">gdouble</span> right</code></em>);</pre>
+<p>Creates a new <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> object.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>top</p></td>
+<td class="parameter_description"><p>The left coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>bottom</p></td>
+<td class="parameter_description"><p>The bottom coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>left</p></td>
+<td class="parameter_description"><p>The left coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>right</p></td>
+<td class="parameter_description"><p>The right coordinate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> object. Use <code class="function">g_object_unref()</code> when done.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-bounding-box-equal"></a><h3>geocode_bounding_box_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+geocode_bounding_box_equal (<em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *a</code></em>,
+                            <em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *b</code></em>);</pre>
+<p>Compare two <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> instances for equality. This compares all
+fields and only returns <code class="literal">TRUE</code> if the instances are exactly equal.</p>
+<p>Both instances must be non-<code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-equal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a bounding box</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>another bounding box</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-equal.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the instances are equal, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-bounding-box-get-top"></a><h3>geocode_bounding_box_get_top ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_bounding_box_get_top (<em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *bbox</code></em>);</pre>
+<p>Gets the top coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-top.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bbox</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-top.returns"></a><h4>Returns</h4>
+<p> the top coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-bounding-box-get-bottom"></a><h3>geocode_bounding_box_get_bottom ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_bounding_box_get_bottom (<em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *bbox</code></em>);</pre>
+<p>Gets the bottom coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-bottom.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bbox</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-bottom.returns"></a><h4>Returns</h4>
+<p> the bottom coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-bounding-box-get-left"></a><h3>geocode_bounding_box_get_left ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_bounding_box_get_left (<em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *bbox</code></em>);</pre>
+<p>Gets the left coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-left.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bbox</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-left.returns"></a><h4>Returns</h4>
+<p> the left coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-bounding-box-get-right"></a><h3>geocode_bounding_box_get_right ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_bounding_box_get_right (<em class="parameter"><code><a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a> *bbox</code></em>);</pre>
+<p>Gets the right coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-right.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bbox</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeBoundingBox.html" title="GeocodeBoundingBox"><span class="type">GeocodeBoundingBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-bounding-box-get-right.returns"></a><h4>Returns</h4>
+<p> the right coordinate of <em class="parameter"><code>bbox</code></em>
+.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GeocodeBoundingBox-struct"></a><h3>struct GeocodeBoundingBox</h3>
+<pre class="programlisting">struct GeocodeBoundingBox;</pre>
+<p>All the fields in the <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> structure are private and should
+never be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeBoundingBoxClass"></a><h3>struct GeocodeBoundingBoxClass</h3>
+<pre class="programlisting">struct GeocodeBoundingBoxClass {
+};
+</pre>
+<p>All the fields in the <a class="link" href="GeocodeBoundingBox.html#GeocodeBoundingBoxClass" title="struct GeocodeBoundingBoxClass"><span class="type">GeocodeBoundingBoxClass</span></a> structure are private and
+should never be accessed directly.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GeocodeBoundingBox.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GeocodeBoundingBox--bottom"></a><h3>The <code class="literal">“bottom”</code> property</h3>
+<pre class="programlisting">  “bottom”                   <span class="type">gdouble</span></pre>
+<p>Bottom coordinate.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [-90,90]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeBoundingBox--left"></a><h3>The <code class="literal">“left”</code> property</h3>
+<pre class="programlisting">  “left”                     <span class="type">gdouble</span></pre>
+<p>Left coordinate.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [-180,180]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeBoundingBox--right"></a><h3>The <code class="literal">“right”</code> property</h3>
+<pre class="programlisting">  “right”                    <span class="type">gdouble</span></pre>
+<p>Right coordinate.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [-180,180]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeBoundingBox--top"></a><h3>The <code class="literal">“top”</code> property</h3>
+<pre class="programlisting">  “top”                      <span class="type">gdouble</span></pre>
+<p>Top coordinate.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [-90,90]</p>
+<p>Default value: 0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

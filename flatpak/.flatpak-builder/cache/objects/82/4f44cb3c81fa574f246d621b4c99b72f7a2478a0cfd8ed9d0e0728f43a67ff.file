@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+
+ gtksourceview is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ gtksourceview is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<!--
+  This file describes the XML format used for syntax highlight
+  descriptions for the GtkSourceView 1.x library.
+  
+  .lang files are XML files which describe how to highlight syntax;
+  this RNG is used for validation purposes.
+  
+  .lang files should be located in $PREFIX/gtksourceview-1.0/language-specs/, 
+  or in ~./gnome2/gtksourceview-1.0/language-specs/
+  
+  To check if a .lang file is valid, run
+  
+  $ xmllint FILENAME - -relaxng language.rng
+  
+  If you create a new .lang file or modify an existing one, please note
+  that it will be (re)loaded by the application only after it is
+  restarted.
+-->
+<!--
+  Boolean type
+  
+  Attributes that are of type boolean allow the following values:
+  
+  - 'true', 'TRUE' and '1' 	all meaning true
+  - 'false', FALSE' and '0' 	all meaning false
+  
+  It is encouraged to use 'TRUE' and 'FALSE' instead of the alternatives.
+-->
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" 
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="boolean">
+    <choice>
+      <value>true</value>
+      <value>false</value>
+      <value>TRUE</value>
+      <value>FALSE</value>
+      <value>0</value>
+      <value>1</value>
+    </choice>
+  </define>
+  <!--
+    Attributes required by all element representing a syntax or pattern tag.
+    
+    - name		the name of the tag (it can appear in the UI)
+    
+    - style		the style used to highlight the tag. Recognized values
+    		are (from gtksourcestylescheme.h):
+    
+    		- Base-N Integer	used for values with a base
+    					other than 10
+    		- Character		used for single characters
+    		- Comment		used for comments
+    		- Data Type		used for data types
+    		- Function		used for function names
+    		- Decimal		used for decimal values
+    		- Floating Point	used for floating point values
+    		- Keyword		used for keywords
+    		- Preprocessor		used for preprocessor instructions
+    		- String		used for strings
+    		- Specials		used for 'special' things
+    		- Others (DEPRECATED, replaced by "Data Type")
+    		- Others 2		used for 'other' things
+    		- Others 3		used for 'other' things
+    
+    The "name" attribute can be prefixed with "_" to be marked for
+    translation.
+  -->
+  <define name="tagattrs">
+    <choice>
+      <attribute name="_name">
+        <data type="string"/>
+      </attribute>
+      <attribute name="name">
+        <data type="string"/>
+      </attribute>
+    </choice>
+    <attribute name="style">
+      <data type="string"/>
+    </attribute>
+  </define>
+  <!--
+    The root of the definition file is the element "language".
+    
+    Required attributes:
+    
+    - name		the name of the language (it can appear in menus and
+    		dialog boxes)
+    
+    - section	the category the language belongs to (e.g. "Sources",
+    		"Scripts", etc.)
+    
+    - version	version of the .lang file format (1.0)
+    
+    - mimetypes	a list of mime-types that identifies the types of file
+    		that must be highlighted using the .lang file
+    
+    Optional attributes:
+    
+    - translation-domain
+    		the translation domain used by the file
+    
+    The "name" and "section" attributes can be prefixed with
+    "_" to be marked for translation.
+  -->
+  <define name="language">
+    <element name="language">
+      <ref name="attlist.language"/>
+      <optional>
+        <ref name="escape-char"/>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <ref name="line-comment"/>
+          <ref name="block-comment"/>
+          <ref name="string"/>
+          <ref name="syntax-item"/>
+          <ref name="pattern-item"/>
+          <ref name="keyword-list"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  
+  <define name="attlist.language" combine="interleave">
+    <choice>
+      <attribute name="_name">
+        <data type="string"/>
+      </attribute>
+      <attribute name="name">
+        <data type="string"/>
+      </attribute>
+    </choice>
+    <choice>
+      <attribute name="_section">
+        <data type="string"/>
+      </attribute>
+      <attribute name="section">
+        <data type="string"/>
+      </attribute>
+    </choice>
+    <attribute name="version">
+      <data type="string">
+        <param name="pattern">1\.0</param>
+      </data>
+    </attribute>
+    <attribute name="mimetypes"/>
+    <optional>
+      <attribute name="translation-domain"/>
+    </optional>
+  </define>
+  <!-- Which character is used in escape sequences. -->
+  <define name="escape-char">
+    <element name="escape-char">
+      <ref name="attlist.escape-char"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.escape-char" combine="interleave">
+    <empty/>
+  </define>
+  <!--
+    The line-comment" element represents single line comments.
+    The "start-regex" subelement defines the regex matching the start of
+    the comment.
+  -->
+  <define name="line-comment">
+    <element name="line-comment">
+      <ref name="attlist.line-comment"/>
+      <ref name="start-regex"/>
+    </element>
+  </define>
+  <define name="attlist.line-comment" combine="interleave">
+    <ref name="tagattrs"/>
+  </define>
+  <!--
+    The "block-comment" element represents multiple lines comments.
+    The "start-regex" subelement defines the regex matching the beginning of
+    the comment.
+    The "end-regex" subelement defines the regex matching the end of
+    the comment.
+  -->
+  <define name="block-comment">
+    <element name="block-comment">
+      <ref name="attlist.block-comment"/>
+      <ref name="start-regex"/>
+      <ref name="end-regex"/>
+    </element>
+  </define>
+  <define name="attlist.block-comment" combine="interleave">
+    <ref name="tagattrs"/>
+  </define>
+  <!--
+    The "string" element represents string.
+    The "start-regex" subelement defines the regex matching the beginning of
+    the string.
+    The "end-regex" subelement defines the regex matching the end of
+    the string.
+    
+    Optional attributes:
+    
+    - end-at-line-end	whether the string end at the end of line
+  -->
+  <define name="string">
+    <element name="string">
+      <ref name="attlist.string"/>
+      <ref name="start-regex"/>
+      <ref name="end-regex"/>
+    </element>
+  </define>
+  <define name="attlist.string" combine="interleave">
+    <ref name="tagattrs"/>
+    <optional>
+      <attribute name="end-at-line-end" a:defaultValue="TRUE">
+        <ref name="boolean"/>
+      </attribute>
+    </optional>
+  </define>
+  <!--
+    The "syntax-item" element represents a generic region of the document.
+    The "start-regex" subelement defines the regex matching the beginning of
+    the region.
+    The "end-regex" subelement defines the regex matching the end of
+    the region.
+  -->
+  <define name="syntax-item">
+    <element name="syntax-item">
+      <ref name="attlist.syntax-item"/>
+      <ref name="start-regex"/>
+      <ref name="end-regex"/>
+    </element>
+  </define>
+  <define name="attlist.syntax-item" combine="interleave">
+    <ref name="tagattrs"/>
+  </define>
+  <!--
+    The "pattern-item" element represents a generic token.
+    The "regex" subelement defines the regex matching the token.
+  -->
+  <define name="pattern-item">
+    <element name="pattern-item">
+      <ref name="attlist.pattern-item"/>
+      <ref name="regex"/>
+    </element>
+  </define>
+  <define name="attlist.pattern-item" combine="interleave">
+    <ref name="tagattrs"/>
+  </define>
+  <!--
+    The "keyword-list" element represents a list of keywords, it can have
+    one or more "keyword" subelements each one representing a keyword.
+    A "keyword" subelement defines the regex matching a keyword of the
+    language.
+    
+    Optional attributes:
+    
+    - case-sensitive	whether the keywords are case sensitive
+    
+    - match-empty-string-at-beginning:
+    			whether the empty string (\b) should be matched
+    			at the beginning of the keywords
+    
+    - match-empty-string-at-end
+    			whether the empty string (\b) should be matched
+    			at the end of the keywords
+    
+    - beginning-regex	if all keywords start with a regex, you can
+    			specify	it here to avoid doing it for
+    			every single keyword
+    
+    - end-regex		if all keywords end with a regex, you can
+    			specify	it here to avoid doing it for
+    			every single keyword
+  -->
+  <define name="keyword-list">
+    <element name="keyword-list">
+      <ref name="attlist.keyword-list"/>
+      <oneOrMore>
+        <ref name="keyword"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="attlist.keyword-list" combine="interleave">
+    <ref name="tagattrs"/>
+    <optional>
+      <attribute name="case-sensitive" a:defaultValue="TRUE">
+        <ref name="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="match-empty-string-at-beginning" a:defaultValue="FALSE">
+        <ref name="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="match-empty-string-at-end" a:defaultValue="FALSE">
+        <ref name="boolean"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beginning-regex"/>
+    </optional>
+    <optional>
+      <attribute name="end-regex"/>
+    </optional>
+  </define>
+  <!-- Elements used inside other elements -->
+  <define name="keyword">
+    <element name="keyword">
+      <ref name="attlist.keyword"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.keyword" combine="interleave">
+    <empty/>
+  </define>
+  <define name="regex">
+    <element name="regex">
+      <ref name="attlist.regex"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.regex" combine="interleave">
+    <empty/>
+  </define>
+  <define name="start-regex">
+    <element name="start-regex">
+      <ref name="attlist.start-regex"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.start-regex" combine="interleave">
+    <empty/>
+  </define>
+  <define name="end-regex">
+    <element name="end-regex">
+      <ref name="attlist.end-regex"/>
+      <text/>
+    </element>
+  </define>
+  <define name="attlist.end-regex" combine="interleave">
+    <empty/>
+  </define>
+  
+  <start>
+    <choice>
+      <ref name="language"/>
+    </choice>
+  </start>
+</grammar>

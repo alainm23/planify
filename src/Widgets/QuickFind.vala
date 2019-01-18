@@ -182,8 +182,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
             }
         });
 
-        Application.database.on_add_project_signal.connect (() => {
-            var project = Application.database.get_last_project ();
+        Application.database.on_add_project_signal.connect ((project) => {
             var row = new Item (project.name, "planner-startup-symbolic");
             row.is_project = true;
             row.project_id = project.id;

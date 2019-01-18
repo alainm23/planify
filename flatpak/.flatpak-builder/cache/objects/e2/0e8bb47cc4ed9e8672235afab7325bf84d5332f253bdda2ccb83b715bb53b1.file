@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Lawrence Hudson
+ Copyright (C) 2010, 2014 Lawrence Hudson <quicklizard@googlemail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="sweave" name="Sweave" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.rnw;*.Rnw;*.snw;*.Snw</property>
+    <property name="line-comment-start">%</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"            name="Comment"    map-to="latex:comment"/>
+    <style id="command"            name="Command"    map-to="latex:command"/>
+    <style id="verbatim"           name="Verbatim"   map-to="latex:verbatim"/>
+  </styles>
+
+  <definitions>
+    <context id="inline-R" class="no-spell-check">
+      <match>(\\Sexpr)\{([^\}]*)\}</match>
+      <include>
+        <context sub-pattern="1" style-ref="command"/>
+        <context sub-pattern="2" style-ref="verbatim"/>
+      </include>
+    </context>
+
+    <context id="R-block" class="no-spell-check">
+      <start>^\s*&lt;&lt;.*&gt;&gt;=</start>
+      <end>@</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="command"/>
+        <context sub-pattern="0" where="end" style-ref="command"/>
+        <context ref="r:r"/>
+        <context id="R-slot" class="no-spell-check">
+          <match>[[:alnum:]]@[[:alnum:]]</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="sweave">
+      <include>
+        <context ref="inline-R"/>
+        <context ref="R-block"/>
+        <context ref="latex:latex"/>
+      </include>
+    </context>
+  </definitions>
+</language>

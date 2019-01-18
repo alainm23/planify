@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-633 23)'>
+        <path color='#bebebe' d='M635-23c-.545 0-1 .455-1 1v2c0 .545.455 1 1 1v10c0 1 1 1 1 1h10s1 0 1-1v-10c.546 0 1-.455 1-1v-2c0-.545-.454-1-1-1zm0 1h12v2h-12zm1 3h10v9.5c0 .5-.5.5-.5.5h-9s-.5 0-.5-.5z' fill='#666' overflow='visible' style='marker:none'/>
+        <path color='#000' d='M640.406-18a.517.517 0 0 0-.406.5v2.5h-1.5c-.369.011-.606.524-.375.813l2.5 3a.522.522 0 0 0 .75 0l2.5-3c.231-.289-.006-.802-.375-.813H642v-2.5a.52.52 0 0 0-.5-.5h-1a.506.506 0 0 0-.094 0z' fill='#666' font-family='Sans' font-weight='400' overflow='visible' style='line-height:normal;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;marker:none'/>
+        
+    </g>
+</svg>

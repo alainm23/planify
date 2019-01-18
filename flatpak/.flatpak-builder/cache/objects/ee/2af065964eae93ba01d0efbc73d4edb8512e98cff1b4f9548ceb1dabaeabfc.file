@@ -1,0 +1,141 @@
+<html>
+<head>
+<title>Graphviz Wish List</title>
+</head>
+<body bgcolor=#f0f0f0>
+
+<center>
+<h1>Graphviz Wish List</h1>
+</center>
+<P>
+The 4 categories give a rough time as to when a task should be done, 
+and reflect an assessment of the task's ease multiplied by its importance. 
+Thus, orthogonal layouts are extremely important but not easy,
+so they fall into category 2. The following denote owners:<br>
+AB=<A HREF=mailto:arif@research.att.com>Arif Bilgin</A><br>
+DFWC=<A HREF=mailto:dfwc@research.att.com>Don Caldwell</A><br>
+DP=<A HREF=mailto:dperry@research.att.com>Dwight Perry</A><br>
+ERG=<A HREF=mailto:erg@graphviz.org>Emden Gansner</A><br>
+JCE=<A HREF=mailto:ellson@graphviz.org>John Ellson</A><br>
+SCN=<A HREF=mailto:north@graphviz.org>Stephen North</A><br>
+YH=<A HREF=mailto:yifanhu@graphviz.org>Yifan Hu</A><br>
+
+<hr align=left width=66>
+<H2>Category 0</H2>
+<pre>
+ALL - Revise the buglist; fix bugs
+SCN - Update dot/neatoguide
+</pre>
+<hr align=left width=66>
+<H2>Category 1</H2>
+<pre>
+JCE - Extend attribute set for line styles
+JCE - Allow arrowheads in the middle of edges
+JCE - Support single, uniform font descriptors &#224; ala pango
+?   - Move generic node adjustment and spline routing out of neato
+AB  - smyrna
+	1 QT
+	2 Widget library. Plugins. Printing.
+	3 Full dotty replacement incl. history, checkpoints, scripting, undo.
+	4 General editor
+YH/ERG - Clusters in sfdp
+YH/ERG - Fixed nodes in sfdp
+ERG - Finish orthogonal edges (edge labels in dot; ports)
+ERG - Add stack frames/local variables to gvpr
+ERG - GvMap integrated tool
+? - Finish handling of loops using arbitrary ports
+</pre>
+<hr align=left width=66>
+<H2>Category 2</H2>
+<pre>
+SCN/AB - New dot core:
+   - new mincross + clusters (partial prototype)
+   - symmetrize layouts
+  - Ulrik's improvements with network simplex
+JCE - Shapes
+	- SVG grammar or other grammar to specify node and arrow shapes
+	- user-defined nodes in all code generators
+YH/ERG - additional graph packing strategies
+? - Filters for Chaco formats.
+? - Library for bundled edges (Given two sets of nodes, with positions, 
+forming a bipartite graph, return splines to bundle the edges together)
+? - better spacing of edges along the side of a node, especially
+exposed port sides. Perhaps extend compass points to S, N, E, W to
+mean anywhere along that side.
+ERG - Tabular layout in rows and columns in dot (swim lanes)
+      Crossing minimization with some nodes in columns
+? - Enable arbitrary depth clusters in neato using IPSEP
+? - Allow mixed edge types within the same graph
+? - Off-load more to pango, such as linebreaks, right-to-left characters, etc.
+? - Allow text at an angle
+
+</pre>
+<hr align=left width=66>
+<H2>Category 3</H2>
+<pre>
+Generic label placement modifying graph layout.
+Support for compound graphs.
+Allow varied layouts within clusters - recursion
+Spline router improvement (Gordon's improvements, alpha adjustments, fewer
+  inflection points)
+Fast incremental hierarchical layout
+Edge routing with just two vnodes per edge (after Kaufmann)
+Graph language improvements
+  local name spaces
+  subclassing
+Shapes - new parallelogram shape where angle is fixed for varying text
+True orthogonal layouts.
+Support rank=min/max within the context of a cluster
+</pre>
+<H2>General R&D problems</H2>
+<pre>
+Dot with aspect ratio allowing clusters
+Dot with aspect ratio < 1
+Incremental layouts
+Dot with orthogonal, coalesced edges (e.g., <A HREF=http://upload.wikimedia.org/wikipedia/commons/7/74/Uml_diagram.svg>this</A>)
+Generalizing the above, support for hyperedges
+Constraint-based layouts
+Display of large-graphs (hair ball problem)
+ - relaxing constraining edges 
+ - edge bundles
+ - other
+Venn diagrams 
+Integration of geographic info - maps
+Aspect ratio in dot with clusters
+Dot with fixed width
+Adjust graph to allow no edge-node overlap with line segment edges
+</pre>
+<H2>Done</H2>
+<pre>
+SCN/ERG - Move dot to cgraph
+SCN/ERG - new rank assignment
+JCE - Extend attribute set for line thickness
+ERG - New text labels with font elements &lt;FONT&gt;
+ERG - Allow edges as line segments and polylines
+ERG - New multiedge code
+YH/ERG - New overlap adjustment strategies
+YH - Faster fdp (sfdp)
+ERG - Variable port depending on layout
+ERG - Better aspect ratio in dot
+ERG - New orthogonal routing code
+JCE - use floats not ints where appropriate
+YH - Filters for Matrix Market
+ERG - New text labels with font elements &lt;B&gt;, &lt;I&gt;, &lt;TT&gt;, etc. (support via fontconfig or egregious hacks)
+AB  - smyrna
+	1 Design incl. 3D navigation, multiple graphs and viewports. Avoid modes.
+	2 Stable GUI. 3D mouse.
+DFWC - Lightweight edge labels in dot
+DFWC - Lightweight node labels in dot, just placed outside nodes.
+DFWC - Generic label placement without modifying graph layout.
+YH/ERG - Treemaps
+DP/ERG   - Clusters/HTML tables with rounded edges
+ERG - Filters for GraphML
+</pre>
+<H2>Retired</H2>
+<pre>
+JCE - Revise GV_FILE_PATH to work as directory list; remove loose ends
+ERG - eliminate the nonlinear adjustment
+ - use convex hull or alpha shapes
+</pre>
+</body>
+</html>

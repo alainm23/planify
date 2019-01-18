@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Søren Hauberg, Muthiah Annamalai, Carnë Draug
+ Copyright (C) 2006 Søren Hauberg <soren@hauberg.org>
+ Copyright (C) 2006 Muthiah Annamalai <gnumuthu@users.sf.net>
+ Copyright (C) 2010-2015 Carnë Draug <carandraug+dev@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="matlab" name="Matlab" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="mimetypes">text/x-matlab</property>
+    <property name="globs">*.m</property>
+    <property name="line-comment-start">%</property>
+    <property name="block-comment-start">%{</property>
+    <property name="block-comment-end">%}</property>
+  </metadata>
+
+  <!--
+    Note: Matlab language is a subset of the Octave language. When making
+    modification to this file check if they apply to both languages.
+  -->
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="builtin" name="Builtin" map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+
+    <context id="block-comment" style-ref="comment" class="comment"
+             class-disabled="no-spell-check">
+      <start>^\s*%{\s*$</start>
+      <end>^\s*%}\s*$</end>
+      <include>
+        <context ref="block-comment"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true"
+             class="comment" class-disabled="no-spell-check">
+      <start>%</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <!-- FIXME: Matlab probably has much more builtin functions
+     this is just the list that was already in the lang file before
+     being split from octave.lang -->
+    <context id="builtin" style-ref="builtin">
+      <keyword>abs</keyword>
+      <keyword>acos</keyword>
+      <keyword>asin</keyword>
+      <keyword>atan2</keyword>
+      <keyword>atan</keyword>
+      <keyword>ceil</keyword>
+      <keyword>conv</keyword>
+      <keyword>cosh</keyword>
+      <keyword>cos</keyword>
+      <keyword>cumprod</keyword>
+      <keyword>dims</keyword>
+      <keyword>error</keyword>
+      <keyword>fclose</keyword>
+      <keyword>floor</keyword>
+      <keyword>fopen</keyword>
+      <keyword>fprintf</keyword>
+      <keyword>fread</keyword>
+      <keyword>fsolve</keyword>
+      <keyword>imag</keyword>
+      <keyword>isempty</keyword>
+      <keyword>isinf</keyword>
+      <keyword>islogical</keyword>
+      <keyword>ismatrix</keyword>
+      <keyword>isnan</keyword>
+      <keyword>isna</keyword>
+      <keyword>isnumeric</keyword>
+      <keyword>isscalar</keyword>
+      <keyword>isstr</keyword>
+      <keyword>isvector</keyword>
+      <keyword>length</keyword>
+      <keyword>linspace</keyword>
+      <keyword>log10</keyword>
+      <keyword>log2</keyword>
+      <keyword>log</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>printf</keyword>
+      <keyword>prod</keyword>
+      <keyword>real</keyword>
+      <keyword>rem</keyword>
+      <keyword>repmat</keyword>
+      <keyword>reshape</keyword>
+      <keyword>round</keyword>
+      <keyword>setstr</keyword>
+      <keyword>sinh</keyword>
+      <keyword>sin</keyword>
+      <keyword>size</keyword>
+      <keyword>sort</keyword>
+      <keyword>sprintf</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>strcat</keyword>
+      <keyword>strcmp</keyword>
+      <keyword>sum</keyword>
+      <keyword>system</keyword>
+      <keyword>tanh</keyword>
+      <keyword>tan</keyword>
+      <keyword>unlink</keyword>
+      <keyword>warning</keyword>
+    </context>
+
+    <context id="matlab" class="no-spell-check">
+      <include>
+        <context ref="block-comment"/>
+        <context ref="line-comment"/>
+        <context ref="octave:single-quoted-string"/>
+        <context ref="octave:operator"/>
+        <context ref="octave:data-type"/>
+        <context ref="octave:function-handle"/>
+        <context ref="octave:storage-type"/>
+        <context ref="octave:boolean"/>
+        <context ref="def:decimal"/>
+        <context ref="def:float"/>
+        <context ref="octave:reserved-constant"/>
+        <context ref="octave:octave-matlab-keyword"/>
+        <context ref="builtin"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

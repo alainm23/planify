@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ gtksourceview is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ gtksourceview is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<start>
+  <element name="style-scheme">
+    <attribute name="id">
+      <data type="string">
+        <param name="pattern">([a-zA-Z0-9_]|-)+</param>
+      </data>
+    </attribute>
+
+    <choice>
+      <attribute name="name"/>
+      <attribute name="_name"/>
+    </choice>
+
+    <optional>
+      <attribute name="parent-scheme"/>
+    </optional>
+
+    <attribute name="version">
+      <value>1.0</value>
+    </attribute>
+
+    <optional>
+      <oneOrMore>
+        <element name="author">
+          <text/>
+        </element>
+      </oneOrMore>        
+    </optional>
+
+    <optional>
+      <choice>
+        <element name="description">
+          <text/>
+        </element>
+        <element name="_description">
+          <text/>
+        </element>
+      </choice>
+    </optional>
+
+    <optional>
+      <oneOrMore>
+          <element name="color">
+              <attribute name="name">
+                <data type="string">
+                  <param name="pattern">([a-zA-Z0-9_]|-)+</param>
+                </data>
+              </attribute>
+              <attribute name="value">
+                <data type="string">
+                  <param name="pattern">#.*</param>
+                </data>
+              </attribute>
+          </element>
+      </oneOrMore>
+    </optional>
+
+    <optional>
+      <oneOrMore>
+          <element name="style">
+              <attribute name="name"/>
+
+              <optional>
+                <choice>
+                  <attribute name="use-style"/>
+                  <ref name="style-elements"/>
+                </choice>
+              </optional>
+          </element>
+      </oneOrMore>
+    </optional>
+  </element>
+</start>
+
+<define name="boolean-value">
+  <choice>
+    <value>true</value>
+    <value>false</value>
+  </choice>
+</define>
+
+<define name="style-elements">
+  <optional>
+    <attribute name="foreground"/>
+  </optional>
+  <optional>
+    <attribute name="background"/>
+  </optional>
+  <optional>
+    <attribute name="line-background"/>
+  </optional>
+  <optional>
+    <attribute name="bold">
+      <ref name="boolean-value"/>
+    </attribute>
+  </optional>
+  <optional>
+    <attribute name="italic">
+      <ref name="boolean-value"/>
+    </attribute>
+  </optional>
+  <optional>
+    <attribute name="underline"/>
+  </optional>
+  <optional>
+    <attribute name="strikethrough">
+      <ref name="boolean-value"/>
+    </attribute>
+  </optional>
+  <optional>
+    <attribute name="scale"/>
+  </optional>
+</define>
+
+</grammar>

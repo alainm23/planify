@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="16"
+   height="16"
+   id="svg3830">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3832">
+    <linearGradient
+       x1="48.415493"
+       y1="5.2203784"
+       x2="48.415493"
+       y2="11.135881"
+       id="linearGradient2904-4"
+       xlink:href="#linearGradient3587-6-5-3"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-44.347697,-2.1358812)" />
+    <linearGradient
+       id="linearGradient3587-6-5-3">
+      <stop
+         id="stop3589-9-2-3"
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3591-7-4-3"
+         style="stop-color:#363636;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="51.669731"
+       y1="13.135881"
+       x2="51.669731"
+       y2="16.135881"
+       id="linearGradient2904-2"
+       xlink:href="#linearGradient3587-6-5-2"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-44.347697,-2.1358812)" />
+    <linearGradient
+       id="linearGradient3587-6-5-2">
+      <stop
+         id="stop3589-9-2-4"
+         style="stop-color:#000000;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3591-7-4-7"
+         style="stop-color:#363636;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1">
+    <path
+       d="M 7.9375,3 2,10 14,10 7.9375,3 z M 2,12 l 0,3 12,0 0,-3 -12,0 z"
+       id="rect4595-8"
+       style="opacity:0.6;color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       width="12"
+       height="3"
+       rx="0"
+       ry="0"
+       x="2"
+       y="11"
+       id="rect4595"
+       style="opacity:0.7;color:#000000;fill:url(#linearGradient2904-2);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <path
+       d="M 2,9 14,9 7.9234049,2 2,9 z"
+       id="path5566"
+       style="opacity:0.7;color:#000000;fill:url(#linearGradient2904-4);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+  </g>
+</svg>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2006-2007 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="scheme" name="Scheme" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-scheme</property>
+    <property name="globs">*.scm</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="boolean" name="Boolean" map-to="def:boolean"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="function" name="Function" map-to="def:function"/>
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>;</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+      </include>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <prefix>(?&lt;![\w\d_-])</prefix>
+      <suffix>(?![\w\d_-])</suffix>
+      <keyword>and</keyword>
+      <keyword>begin</keyword>
+      <keyword>case</keyword>
+      <keyword>cond-expand</keyword>
+      <keyword>cond</keyword>
+      <keyword>define-accessor</keyword>
+      <keyword>define-class</keyword>
+      <keyword>defined\?</keyword>
+      <keyword>define-generic</keyword>
+      <keyword>define</keyword>
+      <keyword>define\*</keyword>
+      <keyword>define-macro</keyword>
+      <keyword>define-method</keyword>
+      <keyword>define-module</keyword>
+      <keyword>define-private</keyword>
+      <keyword>define-public</keyword>
+      <keyword>define\*-public</keyword>
+      <keyword>define-reader-ctor</keyword>
+      <keyword>define-syntax</keyword>
+      <keyword>define-syntax-macro</keyword>
+      <keyword>defmacro</keyword>
+      <keyword>defmacro\*</keyword>
+      <keyword>defmacro\*-public</keyword>
+      <keyword>delay</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>fluid-let</keyword>
+      <keyword>if</keyword>
+      <keyword>lambda</keyword>
+      <keyword>let</keyword>
+      <keyword>let\*</keyword>
+      <keyword>letrec</keyword>
+      <keyword>letrec-syntax</keyword>
+      <keyword>let-syntax</keyword>
+      <keyword>or</keyword>
+      <keyword>quasiquote</keyword>
+      <keyword>quote</keyword>
+      <keyword>set\!</keyword>
+      <keyword>syntax-rules</keyword>
+      <keyword>unquote</keyword>
+    </context>
+
+    <context id="function" style-ref="function">
+      <prefix>(?&lt;![\w\d_-])</prefix>
+      <suffix>(?![\w\d_-])</suffix>
+      <keyword>abs</keyword>
+      <keyword>acos</keyword>
+      <keyword>angle</keyword>
+      <keyword>append</keyword>
+      <keyword>apply</keyword>
+      <keyword>asin</keyword>
+      <keyword>assoc</keyword>
+      <keyword>assq</keyword>
+      <keyword>assv</keyword>
+      <keyword>atan</keyword>
+      <keyword>boolean\?</keyword>
+      <keyword>caaar</keyword>
+      <keyword>caadr</keyword>
+      <keyword>caar</keyword>
+      <keyword>cadar</keyword>
+      <keyword>caddr</keyword>
+      <keyword>cadr</keyword>
+      <keyword>call/cc</keyword>
+      <keyword>call-with-current-continuation</keyword>
+      <keyword>call-with-input-file</keyword>
+      <keyword>call-with-output-file</keyword>
+      <keyword>call-with-values</keyword>
+      <keyword>car</keyword>
+      <keyword>catch</keyword>
+      <keyword>cdaar</keyword>
+      <keyword>cdadr</keyword>
+      <keyword>cdar</keyword>
+      <keyword>cddar</keyword>
+      <keyword>cdddr</keyword>
+      <keyword>cddr</keyword>
+      <keyword>cdr</keyword>
+      <keyword>ceiling</keyword>
+      <keyword>char-alphabetic\?</keyword>
+      <keyword>char-ci&gt;=\?</keyword>
+      <keyword>char-ci&gt;\?</keyword>
+      <keyword>char-ci\=\?</keyword>
+      <keyword>char-ci&lt;=\?</keyword>
+      <keyword>char-ci&lt;\?</keyword>
+      <keyword>char-downcase</keyword>
+      <keyword>char-&gt;integer</keyword>
+      <keyword>char&gt;=\?</keyword>
+      <keyword>char&gt;\?</keyword>
+      <keyword>char=\?</keyword>
+      <keyword>char\?</keyword>
+      <keyword>char-lower-case\?</keyword>
+      <keyword>char&lt;=\?</keyword>
+      <keyword>char&lt;\?</keyword>
+      <keyword>char-numeric\?</keyword>
+      <keyword>char-ready\?</keyword>
+      <keyword>char-upcase</keyword>
+      <keyword>char-upper-case\?</keyword>
+      <keyword>char-whitespace\?</keyword>
+      <keyword>close-input-port</keyword>
+      <keyword>close-output-port</keyword>
+      <keyword>complex\?</keyword>
+      <keyword>cons</keyword>
+      <keyword>cos</keyword>
+      <keyword>current-input-port</keyword>
+      <keyword>current-output-port</keyword>
+      <keyword>delete-file</keyword>
+      <keyword>display</keyword>
+      <keyword>dynamic-wind</keyword>
+      <keyword>eof-object\?</keyword>
+      <keyword>eq\?</keyword>
+      <keyword>equal\?</keyword>
+      <keyword>eqv\?</keyword>
+      <keyword>eval</keyword>
+      <keyword>even\?</keyword>
+      <keyword>exact-&gt;inexact</keyword>
+      <keyword>exact\?</keyword>
+      <keyword>exit</keyword>
+      <keyword>exp</keyword>
+      <keyword>expt</keyword>
+      <keyword>file-exists\?</keyword>
+      <keyword>file-or-directory-modify-seconds</keyword>
+      <keyword>floor</keyword>
+      <keyword>force</keyword>
+      <keyword>for-each</keyword>
+      <keyword>gcd</keyword>
+      <keyword>gensym</keyword>
+      <keyword>getenv</keyword>
+      <keyword>get-output-string</keyword>
+      <keyword>imag-part</keyword>
+      <keyword>inexact\?</keyword>
+      <keyword>input-port\?</keyword>
+      <keyword>integer-&gt;char</keyword>
+      <keyword>integer\?</keyword>
+      <keyword>lcm</keyword>
+      <keyword>length</keyword>
+      <keyword>list-&gt;string</keyword>
+      <keyword>list-&gt;vector</keyword>
+      <keyword>list</keyword>
+      <keyword>list\?</keyword>
+      <keyword>list-ref</keyword>
+      <keyword>list-tail</keyword>
+      <keyword>load</keyword>
+      <keyword>log</keyword>
+      <keyword>magnitude</keyword>
+      <keyword>make-polar</keyword>
+      <keyword>make-rectangular</keyword>
+      <keyword>make-string</keyword>
+      <keyword>make-vector</keyword>
+      <keyword>map</keyword>
+      <keyword>max</keyword>
+      <keyword>member</keyword>
+      <keyword>memq</keyword>
+      <keyword>memv</keyword>
+      <keyword>min</keyword>
+      <keyword>modulo</keyword>
+      <keyword>negative\?</keyword>
+      <keyword>newline</keyword>
+      <keyword>nil</keyword>
+      <keyword>not</keyword>
+      <keyword>null\?</keyword>
+      <keyword>number-&gt;string</keyword>
+      <keyword>number\?</keyword>
+      <keyword>odd\?</keyword>
+      <keyword>open-input-file</keyword>
+      <keyword>open-input-string</keyword>
+      <keyword>open-output-file</keyword>
+      <keyword>open-output-string</keyword>
+      <keyword>output-port\?</keyword>
+      <keyword>pair\?</keyword>
+      <keyword>peek-char</keyword>
+      <keyword>port\?</keyword>
+      <keyword>positive\?</keyword>
+      <keyword>procedure\?</keyword>
+      <keyword>quotient</keyword>
+      <keyword>rational\?</keyword>
+      <keyword>read-char</keyword>
+      <keyword>read</keyword>
+      <keyword>read-line</keyword>
+      <keyword>real\?</keyword>
+      <keyword>real-part</keyword>
+      <keyword>remainder</keyword>
+      <keyword>reverse</keyword>
+      <keyword>reverse\!</keyword>
+      <keyword>round\</keyword>
+      <keyword>set-car\!</keyword>
+      <keyword>set-cdr\!</keyword>
+      <keyword>sin</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>string-append</keyword>
+      <keyword>string-ci&gt;=\?</keyword>
+      <keyword>string-ci&gt;\?</keyword>
+      <keyword>string-ci=\?</keyword>
+      <keyword>string-ci&lt;=\?</keyword>
+      <keyword>string-ci&lt;\?</keyword>
+      <keyword>string-copy</keyword>
+      <keyword>string-fill\!</keyword>
+      <keyword>string&gt;=\?</keyword>
+      <keyword>string&gt;\?</keyword>
+      <keyword>string-&gt;list</keyword>
+      <keyword>string-&gt;number</keyword>
+      <keyword>string-&gt;symbol</keyword>
+      <keyword>string</keyword>
+      <keyword>string=\?</keyword>
+      <keyword>string\?</keyword>
+      <keyword>string-length</keyword>
+      <keyword>string&lt;=\?</keyword>
+      <keyword>string&lt;\?</keyword>
+      <keyword>string-ref</keyword>
+      <keyword>string-set\!</keyword>
+      <keyword>substring</keyword>
+      <keyword>symbol-&gt;string</keyword>
+      <keyword>symbol\?</keyword>
+      <keyword>system</keyword>
+      <keyword>tan</keyword>
+      <keyword>truncate</keyword>
+      <keyword>values</keyword>
+      <keyword>vector-fill\!</keyword>
+      <keyword>vector-&gt;list</keyword>
+      <keyword>vector</keyword>
+      <keyword>vector\?</keyword>
+      <keyword>vector-length</keyword>
+      <keyword>vector-ref</keyword>
+      <keyword>vector-set\!</keyword>
+      <keyword>with-input-from-file</keyword>
+      <keyword>with-output-to-file</keyword>
+      <keyword>write-char</keyword>
+      <keyword>write</keyword>
+      <keyword>zero\?</keyword>
+    </context>
+
+    <context id="boolean-value" style-ref="boolean">
+      <match>#[ft]</match>
+    </context>
+
+    <context id="scheme" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="string"/>
+        <context ref="keyword"/>
+        <context ref="function"/>
+        <context ref="boolean-value"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

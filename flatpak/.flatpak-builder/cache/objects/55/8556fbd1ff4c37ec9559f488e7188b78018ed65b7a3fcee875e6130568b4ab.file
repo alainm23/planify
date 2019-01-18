@@ -1,0 +1,15 @@
+prefix=/app
+libdir=/app/lib
+includedir=/app/include
+
+privlibdir=/app/lib/evolution-data-server
+privincludedir=/app/include/evolution-data-server
+
+camel_providerdir=/app/lib/evolution-data-server/camel-providers
+
+Name: camel
+Description: the Evolution MIME message handling library
+Version: 3.31.3
+Requires: gio-2.0 sqlite3 nss nspr
+Libs: -L${libdir} -lcamel-1.2 
+Cflags: -I${privincludedir} 

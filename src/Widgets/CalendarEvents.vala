@@ -239,7 +239,11 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
                 Timeout.add (300, () => {
 				    show_hide_calendar_button.get_style_context ().remove_class ("closed");
 				    return false;
-			    });
+                });
+                
+                var now = new GLib.DateTime.now_local ();
+                set_selected_date (now);
+                events_label.label = Application.utils.get_relative_default_date_format_from_date (now);
             } else {
                 calendar_revealer.reveal_child = true;
 

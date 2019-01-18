@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paweł W. Olszta <pawel.olszta@nemerle.org>
+ Copyright (C) 2004 Paweł W. Olszta <pawel.olszta@nemerle.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="nemerle" name="Nemerle" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-nemerle</property>
+    <property name="globs">*.n</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="character" name="Character" map-to="def:character"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="floating-point" name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="binary" name="Binary number" map-to="def:base-n-integer"/>
+    <style id="octal" name="Octal number" map-to="def:base-n-integer"/>
+    <style id="hexadecimal" name="Hexadecimal number" map-to="def:base-n-integer"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+
+    <context id="if-false-comment" style-ref="comment">
+      <start>\%{preproc-start}if\s*false\b</start>
+      <end>\%{preproc-start}(endif|else|elif)\b</end>
+      <include>
+        <context id="if-in-if-false">
+          <start>\%{preproc-start}if(n?def)?\b</start>
+          <end>\%{preproc-start}endif\b</end>
+          <include>
+            <context ref="if-in-if-false"/>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+        \%{preproc-start}
+        (define|undef|if(n?def)?|else|elif|endif|line|error|warning|region|endregion)
+        \b
+      </start>
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+      </include>
+    </context>
+
+    <context id="character" style-ref="character">
+      <match>'(\\)?.'</match>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>_</keyword>
+      <keyword>abstract</keyword>
+      <keyword>and</keyword>
+      <keyword>array</keyword>
+      <keyword>as</keyword>
+      <keyword>base</keyword>
+      <keyword>catch</keyword>
+      <keyword>class</keyword>
+      <keyword>def</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>extends</keyword>
+      <keyword>extern</keyword>
+      <keyword>finally</keyword>
+      <keyword>foreach</keyword>
+      <keyword>for</keyword>
+      <keyword>fun</keyword>
+      <keyword>if</keyword>
+      <keyword>implements</keyword>
+      <keyword>in</keyword>
+      <keyword>interface</keyword>
+      <keyword>internal</keyword>
+      <keyword>lock</keyword>
+      <keyword>macro</keyword>
+      <keyword>match</keyword>
+      <keyword>module</keyword>
+      <keyword>mutable</keyword>
+      <keyword>namespace</keyword>
+      <keyword>new</keyword>
+      <keyword>out</keyword>
+      <keyword>override</keyword>
+      <keyword>params</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>ref</keyword>
+      <keyword>repeat</keyword>
+      <keyword>sealed</keyword>
+      <keyword>static</keyword>
+      <keyword>struct</keyword>
+      <keyword>syntax</keyword>
+      <keyword>this</keyword>
+      <keyword>throw</keyword>
+      <keyword>try</keyword>
+      <keyword>type</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unless</keyword>
+      <keyword>until</keyword>
+      <keyword>using</keyword>
+      <keyword>variant</keyword>
+      <keyword>virtual</keyword>
+      <keyword>when</keyword>
+      <keyword>where</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>decimal</keyword>
+      <keyword>double</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>list</keyword>
+      <keyword>long</keyword>
+      <keyword>object</keyword>
+      <keyword>sbyte</keyword>
+      <keyword>short</keyword>
+      <keyword>string</keyword>
+      <keyword>uint</keyword>
+      <keyword>ulong</keyword>
+      <keyword>ushort</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]*\.[0-9]+([eE][-+]?[0-9]+)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+[Uu]?([Ll]|[Ss]|[Bb])?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="binary" style-ref="binary">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[bB][01]+[Uu]?([Ll]|[Ss]|[Bb])?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="octal" style-ref="octal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[oO][0-7]+[Uu]?([Ll]|[Ss]|[Bb])?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][0-9a-fA-F]+[Uu]?([Ll]|[Ss]|[Bb])?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="nemerle" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="if-false-comment"/>
+        <context ref="preprocessor"/>
+        <context ref="character"/>
+        <context ref="string"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="binary"/>
+        <context ref="octal"/>
+        <context ref="hexadecimal"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

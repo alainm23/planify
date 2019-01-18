@@ -1,0 +1,22 @@
+{
+ "unity-lens-applications": ["applications-applications.scope", "commands.scope", "applications-scopes.scope"],
+ "unity-lens-files": ["files-local.scope"],
+ "unity-lens-music": ["music-banshee.scope", "music-rhythmbox.scope"],
+ "unity-lens-photos": ["photos-shotwell.scope", "photos-facebook.scope", "photos-flickr.scope", "photos-picasa.scope"],
+ "unity-lens-video": ["video-local.scope"],
+ "unity-scope-gdrive": ["files-gdrive.scope"],
+ "unity-scope-video-remote": ["video-remote.scope"],
+ "unity-scope-calculator": ["info-calculator.scope"],
+ "unity-scope-chromiumbookmarks": ["web-chromiumbookmarks.scope"],
+ "unity-scope-colourlovers": ["graphics-colourlovers.scope"],
+ "unity-scope-devhelp": ["code-devhelp.scope"],
+ "unity-scope-firefoxbookmarks": ["web-firefoxbookmarks.scope"],
+ "unity-scope-home": ["home.scope", "applications.scope", "books.scope", "boxes.scope", "calendar.scope", "code.scope", "files.scope", "graphics.scope", "help.scope", "info.scope", "more_suggestions.scope", "music.scope", "news.scope", "notes.scope", "photos.scope", "recipes.scope", "reference.scope", "searchin.scope", "video.scope", "weather.scope", "web.scope"],
+ "unity-scope-manpages": ["code-manpages.scope"],
+ "unity-scope-openclipart": ["graphics-openclipart.scope"],
+ "unity-scope-texdoc": ["help-texdoc.scope"],
+ "unity-scope-tomboy": ["notes-tomboy.scope"],
+ "unity-scope-virtualbox": ["boxes-virtualbox.scope"],
+ "unity-scope-yelp": ["help-yelp.scope"],
+ "unity-scope-zotero": ["reference-zotero.scope"]
+}

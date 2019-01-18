@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+<include name="GObject" version="2.0"/>
+<include name="Gio" version="2.0"/>
+<include name="GLib" version="2.0"/>
+<package name="unity-extras"/>
+<c:include name="unity.h"/>
+<c:include name="unity-extras.h"/>
+<c:include name="unity-trace.h"/>
+<namespace name="UnityExtras" version="7.0" c:prefix="UnityExtras" shared-library="libunity-extras.so.9">
+	<class name="PreviewPlayer" c:type="UnityExtrasPreviewPlayer" glib:type-name="UnityExtrasPreviewPlayer" glib:get-type="unity_extras_preview_player_get_type" glib:type-struct="PreviewPlayerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="PreviewPlayerPrivate" c:type="UnityExtrasPreviewPlayerPrivate*"/>
+		</field>
+		<method name="play" c:identifier="unity_extras_preview_player_play">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="uri" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="2" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="play_finish" c:identifier="unity_extras_preview_player_play_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="pause" c:identifier="unity_extras_preview_player_pause">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="1" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="pause_finish" c:identifier="unity_extras_preview_player_pause_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="pause_resume" c:identifier="unity_extras_preview_player_pause_resume">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="1" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="pause_resume_finish" c:identifier="unity_extras_preview_player_pause_resume_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="resume" c:identifier="unity_extras_preview_player_resume">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="1" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="resume_finish" c:identifier="unity_extras_preview_player_resume_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="stop" c:identifier="unity_extras_preview_player_stop">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="1" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="stop_finish" c:identifier="unity_extras_preview_player_stop_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="close" c:identifier="unity_extras_preview_player_close">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="1" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="close_finish" c:identifier="unity_extras_preview_player_close_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="video_properties" c:identifier="unity_extras_preview_player_video_properties">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="uri" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="2" scope="async">
+					<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+				</parameter>
+				<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="video_properties_finish" c:identifier="unity_extras_preview_player_video_properties_finish" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="GLib.HashTable" c:type="GHashTable*">
+					<type name="utf8" c:type="gchar*"/>
+					<type name="GLib.Variant" c:type="GVariant*"/>
+				</type>
+			</return-value>
+			<parameters>
+				<parameter name="_res_" transfer-ownership="none">
+					<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<constructor name="new" c:identifier="unity_extras_preview_player_new">
+			<return-value transfer-ownership="full">
+				<type name="UnityExtras.PreviewPlayer" c:type="UnityExtrasPreviewPlayer*"/>
+			</return-value>
+		</constructor>
+		<glib:signal name="progress">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="uri" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="state" transfer-ownership="none">
+					<type name="Unity.MusicPreviewTrackState" c:type="UnityMusicPreviewTrackState"/>
+				</parameter>
+				<parameter name="progress" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</glib:signal>
+	</class>
+	<record name="PreviewPlayerClass" c:type="UnityExtrasPreviewPlayerClass" glib:is-gtype-struct-for="PreviewPlayer">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="PreviewPlayerPrivate" c:type="UnityExtrasPreviewPlayerPrivate" disguised="1"/>
+	<callback name="CreateScopeCallback" c:type="UnityExtrasCreateScopeCallback">
+		<return-value transfer-ownership="full">
+			<type name="none"/>
+		</return-value>
+	</callback>
+	<function name="show_in_folder" c:identifier="unity_extras_show_in_folder">
+		<return-value transfer-ownership="none">
+			<type name="none"/>
+		</return-value>
+		<parameters>
+			<parameter name="uri" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+			<parameter name="_callback_" transfer-ownership="none" allow-none="1" closure="2" scope="async">
+				<type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+			</parameter>
+			<parameter name="_callback__target" transfer-ownership="none" allow-none="1">
+				<type name="gpointer" c:type="void*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="show_in_folder_finish" c:identifier="unity_extras_show_in_folder_finish" throws="1">
+		<return-value transfer-ownership="full">
+			<type name="none"/>
+		</return-value>
+		<parameters>
+			<parameter name="_res_" transfer-ownership="none">
+				<type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="dbus_name_has_owner" c:identifier="unity_extras_dbus_name_has_owner" throws="1">
+		<return-value transfer-ownership="full">
+			<type name="gboolean" c:type="gboolean"/>
+		</return-value>
+		<parameters>
+			<parameter name="name" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="dbus_own_name" c:identifier="unity_extras_dbus_own_name" throws="1">
+		<return-value transfer-ownership="full" allow-none="1">
+			<type name="Gio.Application" c:type="GApplication*"/>
+		</return-value>
+		<parameters>
+			<parameter name="name" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+			<parameter name="scope_creation_cb" transfer-ownership="none" scope="call" closure="2" scope="call">
+				<type name="UnityExtras.CreateScopeCallback" c:type="UnityExtrasCreateScopeCallback"/>
+			</parameter>
+			<parameter name="scope_creation_cb_target" transfer-ownership="none" allow-none="1">
+				<type name="gpointer" c:type="void*"/>
+			</parameter>
+		</parameters>
+	</function>
+</namespace>
+</repository>

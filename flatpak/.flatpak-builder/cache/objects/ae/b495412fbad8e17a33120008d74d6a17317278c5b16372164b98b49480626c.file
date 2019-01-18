@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Jeffery To <jeffery.to@gmail.com>
+ Copyright (C) 2018 Jeffery To <jeffery.to@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="less" name="Less" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/less;text/x-less</property>
+    <property name="globs">*.less</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+
+    <!-- variables -->
+    <style id="variable"                    name="Variable"                    map-to="def:identifier"/>
+    <style id="built-in-variable"           name="Built-in Variable"           map-to="def:builtin"/>
+
+    <!-- operators -->
+    <style id="operator-symbol"             name="Operator Symbol"             map-to="css:symbol"/>
+
+    <!-- Less data types -->
+    <style id="boolean"                     name="Boolean Value"               map-to="def:boolean"/>
+    <style id="group-delimiter"             name="Group Delimiter"             map-to="css:delimiter"/>
+
+    <!-- mixins -->
+    <style id="mixin-parameters-delimiter"  name="Mixin Parameters Delimiter"  map-to="css:delimiter"/>
+
+    <!-- guards -->
+    <style id="guard-operator"              name="Guard Operator"              map-to="css:at-rule-operator"/>
+
+    <!-- Less selectors -->
+    <style id="selector-fragment"           name="Selector Fragment"/>
+
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <keyword-char-class>[a-z0-9_-]</keyword-char-class>
+
+  <definitions>
+
+    <!-- global -->
+
+    <define-regex id="statement-end" extended="true">
+      (?: ; | (?= \} ) )
+    </define-regex>
+
+    <context id="less-comment">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="css:comment" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:comment" ref="less-comment"/>
+
+
+    <!-- variables -->
+
+    <define-regex id="variable-regex" extended="true">
+      (?: @ \%{css:identifier-regex} )
+    </define-regex>
+
+    <context id="variable" style-ref="variable">
+      <match>\%{variable-regex}</match>
+    </context>
+
+    <context id="variable-interpolation" style-ref="variable">
+      <start>@\{</start>
+      <end>\}</end>
+      <include>
+        <!-- nested interpolations are not documented but appear to work
+             (functions as variable reference / indirection) -->
+        <context ref="variable-interpolation-value"/>
+      </include>
+    </context>
+
+    <context id="variable-reference" style-ref="variable">
+      <match>@@\%{css:identifier-regex}</match>
+    </context>
+
+    <context id="property-variable" style-ref="variable">
+      <match>\$\%{css:identifier-regex}</match>
+    </context>
+
+    <context id="arguments-variable" style-ref="built-in-variable">
+      <match>@arguments\%]</match>
+    </context>
+
+    <context id="arguments-variable-interpolation" style-ref="built-in-variable">
+      <match>@\{arguments\}</match>
+    </context>
+
+    <context id="variable-value">
+      <include>
+        <context ref="arguments-variable"/>
+        <context ref="variable"/>
+        <context ref="variable-reference"/>
+        <context ref="property-variable"/>
+      </include>
+    </context>
+
+    <context id="variable-interpolation-value">
+      <include>
+        <context ref="arguments-variable-interpolation"/>
+        <context ref="variable-interpolation"/>
+      </include>
+    </context>
+
+
+    <!-- operators -->
+
+    <!-- it appears the slash is treated as division everywhere except
+         in a font property declaration and in an aspect ratio media query test,
+         not sure how to detect these cases
+         also not sure what are Less' rules regarding hyphen vs subtraction -->
+    <context id="arithmetic-operator" style-ref="operator-symbol">
+      <match extended="true">
+        (
+          [+*/] |
+          (?&lt;! \%{css:single-identifier-char-regex} )
+          -
+          (?! \%{css:single-identifier-char-regex} )
+        )
+      </match>
+    </context>
+
+
+    <!-- Less data types -->
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+    </context>
+
+    <context id="double-quoted-escape-string" style-ref="css:string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>~"</start>
+      <end>"</end>
+      <include>
+        <context ref="css:string-content"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-escape-string" style-ref="css:string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>~'</start>
+      <end>'</end>
+      <include>
+        <context ref="css:string-content"/>
+      </include>
+    </context>
+
+    <context id="escape-string">
+      <include>
+        <context ref="double-quoted-escape-string"/>
+        <context ref="single-quoted-escape-string"/>
+      </include>
+    </context>
+
+    <context id="detached-ruleset">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:block-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="css:block-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:style-block-content"/>
+      </include>
+    </context>
+
+    <context id="detached-ruleset-call-close-paren" style-ref="variable">
+      <match>\)</match>
+    </context>
+
+    <context id="detached-ruleset-call">
+      <start>\%{variable-regex}\(</start>
+      <end>\%{statement-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="variable"/>
+        <context sub-pattern="0" where="end" style-ref="css:delimiter"/>
+        <!-- no comments allowed -->
+        <context ref="detached-ruleset-call-close-paren"/>
+      </include>
+    </context>
+
+    <context id="data-group">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:data-value"/>
+      </include>
+    </context>
+
+    <context id="any-group">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+      </include>
+    </context>
+
+
+    <!-- data types -->
+
+    <context id="less-string-content">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:string-content" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:string-content" ref="less-string-content"/>
+
+
+    <!-- Less functions -->
+
+    <!-- since % isn't a valid identifier -->
+    <context id="format">
+      <start>%\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:function"/>
+        <context sub-pattern="0" where="end" style-ref="css:function"/>
+        <context ref="css:comment"/>
+        <context ref="css:function-content"/>
+      </include>
+    </context>
+
+
+    <!-- functions -->
+
+    <context id="less-url">
+      <start>url\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:function"/>
+        <context sub-pattern="0" where="end" style-ref="css:function"/>
+        <!-- only accept multi-line comments because // is part of urls -->
+        <context ref="css:comment" original="true"/>
+        <context ref="css:string-value"/>
+      </include>
+    </context>
+
+    <context id="less-function-content">
+      <include>
+        <context ref="css:function-content" original="true"/>
+        <context ref="css:semicolon"/> <!-- allowed as argument separator -->
+      </include>
+    </context>
+
+    <context id="less-function-call">
+      <include>
+        <context ref="format"/>
+        <context ref="css:function-call" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:url" ref="less-url"/>
+    <replace id="css:function-content" ref="less-function-content"/>
+    <replace id="css:function-call" ref="less-function-call"/>
+
+
+    <!-- data values -->
+
+    <context id="less-name-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="variable-value"/>
+        <context ref="escape-string"/> <!-- outputs unquoted strings -->
+        <context ref="css:name-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-string-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="variable-value"/>
+        <context ref="css:string-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-data-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="data-group"/>
+        <context ref="variable-value"/>
+        <context ref="escape-string"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:color-value"/>
+        <context ref="css:number-value"/>
+        <context ref="css:unicode-range"/>
+        <context ref="arithmetic-operator"/>
+      </include>
+    </context>
+
+    <replace id="css:name-value" ref="less-name-value"/>
+    <replace id="css:string-value" ref="less-string-value"/>
+    <replace id="css:data-value" ref="less-data-value"/>
+
+
+    <!-- any assignable value -->
+
+    <context id="less-any-value">
+      <include>
+        <context ref="css:function-call"/>
+        <context ref="any-group"/>
+        <context ref="variable-value"/>
+        <context ref="escape-string"/>
+        <context ref="boolean"/>
+        <context ref="detached-ruleset"/>
+        <context ref="css:property-value-keyword"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:color-value"/>
+        <context ref="css:number-value"/>
+        <context ref="css:unicode-range"/>
+        <context ref="arithmetic-operator"/>
+        <context ref="css:slash"/>
+        <context ref="css:comma"/>
+      </include>
+    </context>
+
+    <replace id="css:any-value" ref="less-any-value"/>
+
+
+    <!-- style properties -->
+
+    <context id="less-property-name">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:property-name" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:property-name" ref="less-property-name"/>
+
+
+    <!-- style block -->
+
+    <context id="less-declaration-property">
+      <include>
+        <context ref="variable"/> <!-- variable assignment -->
+        <context ref="css:declaration-property" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-declaration-value">
+      <start extended="true">
+        (?(DEFINE)
+          (?&lt;interpolation&gt;  # recursive subpattern to find matching brackets
+            @\{
+              (?:
+                (?>
+                  (?:
+                    [^@{}]+ |
+                    (?! @\{ | \} ) .
+                  )+
+                ) |
+                (?&amp;interpolation)
+              )*
+            \}
+          )
+        )
+        (
+          \+_?: |  # property merge
+          :
+          (?:
+            (?!                                       # not the start of a
+              \%{css:single-identifier-char-regex} |  #   pseudo-class
+              [:\\] |                                 #   pseudo-element, escape
+              @\{                                     #   variable interpolation
+            ) |                                       # or
+            (?=                                       # ends like a normal declaration
+              (?&gt;
+                (?:
+                  [^;}{@]+ |
+                  (?&amp;interpolation)+ |
+                  \@+
+                )*
+              )
+              \%{css:declaration-value-end}           #   with a semicolon or at the end of a block
+            )
+          )
+        )
+      </start>
+      <end>\%{css:declaration-value-end}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:declaration-value-content"/>
+      </include>
+    </context>
+
+    <context id="less-style-block-content">
+      <include>
+        <context ref="css:at-rule"/> <!-- because Less variables look like at-rules -->
+        <context ref="detached-ruleset-call"/>
+        <context ref="standalone-plugin-function-call"/>
+        <context ref="inside-ruleset-extend"/>
+        <context ref="css:style-block-content" original="true"/>
+        <context ref="css:selector"/>
+        <context ref="css:style-block"/>
+      </include>
+    </context>
+
+    <replace id="css:declaration-property" ref="less-declaration-property"/>
+    <replace id="css:declaration-value" ref="less-declaration-value"/>
+    <replace id="css:style-block-content" ref="less-style-block-content"/>
+
+
+    <!-- media queries -->
+
+    <!-- include variable-value at this level because a variable can
+         contain the whole media feature test,
+         e.g. ~'(orientation: landscape)'
+         allowing variable-value here means variables are also allowed
+         for media type and media feature test name/value -->
+    <context id="less-media-queries">
+      <include>
+        <context ref="variable-value"/>
+        <context ref="css:media-queries" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:media-queries" ref="less-media-queries"/>
+
+
+    <!-- Less at-rules -->
+
+    <!--
+    @plugin <options>? <url(...)|"url">;
+    -->
+
+    <context id="at-plugin-options">
+      <start>(?&lt;=@plugin)\s*(\()</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <!-- options are passed to the plugin directly, not parsed by Less -->
+      </include>
+    </context>
+
+    <context id="at-plugin">
+      <start>@plugin\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="at-plugin-options"/>
+        <context ref="css:url"/>
+        <!-- appears to follow the same rules as @import regarding variables -->
+        <context ref="escape-string"/>
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <context id="standalone-plugin-function-call">
+      <start>(?=\%{css:identifier-regex}\()</start>
+      <end>\%{statement-end}</end>
+      <include>
+        <context sub-pattern="0" where="end" style-ref="css:delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:function-call"/>
+      </include>
+    </context>
+
+
+    <!-- at-rules -->
+
+    <context id="less-font-feature-type-value">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:font-feature-type-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-font-feature-value-declaration-name">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:font-feature-value-declaration-name" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-font-feature-value-declaration-value-content">
+      <include>
+        <context ref="variable-value"/>
+        <context ref="css:font-feature-value-declaration-value-content" original="true"/>
+      </include>
+    </context>
+
+    <!--
+    @import <option (, option)*>? <url(...)|"url"> <media-queries>?;
+    -->
+
+    <context id="less-at-import-options-keyword" style-ref="css:keyword">
+      <keyword>css</keyword>
+      <keyword>inline</keyword>
+      <keyword>less</keyword>
+      <keyword>multiple</keyword>
+      <keyword>once</keyword>
+      <keyword>optional</keyword>
+      <keyword>reference</keyword>
+    </context>
+
+    <context id="less-at-import-options">
+      <start>(?&lt;=@import)\s*(\()</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="group-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="group-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="less-at-import-options-keyword"/>
+        <context ref="css:comma"/>
+      </include>
+    </context>
+
+    <context id="less-at-import">
+      <start>@import\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:at-rule"/>
+        <context ref="css:comment"/>
+        <context ref="less-at-import-options"/>
+        <context ref="css:url"/>
+        <context ref="css:media-queries"/>
+        <!--
+        it appears only variable interpolation (in strings) is allowed
+        https://github.com/SomMeri/less4j/wiki/Less-Language-Import#syntax
+        but variables are allowed in media queries :-P
+        -->
+        <context ref="css:string-value" original="true"/>
+        <context ref="css:at-rule-delimiter"/>
+      </include>
+    </context>
+
+    <context id="less-keyframe-selector-value">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:keyframe-selector-value" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-at-rule">
+      <include>
+        <context ref="at-plugin"/>
+        <context ref="css:at-rule" original="true"/>
+      </include>
+    </context>
+
+    <replace id="css:at-rule-style-block-content" ref="less-style-block-content"/>
+    <replace id="css:at-rule-css-block-content" ref="less-style-block-content"/>
+    <replace id="css:font-feature-type-value" ref="less-font-feature-type-value"/>
+    <replace id="css:font-feature-value-declaration-name" ref="less-font-feature-value-declaration-name"/>
+    <replace id="css:font-feature-value-declaration-value-content" ref="less-font-feature-value-declaration-value-content"/>
+    <replace id="css:at-import" ref="less-at-import"/>
+    <replace id="css:keyframe-selector-value" ref="less-keyframe-selector-value"/>
+    <replace id="css:at-rule" ref="less-at-rule"/>
+
+
+    <!-- mixins -->
+
+    <context id="variable-arguments" style-ref="operator-symbol">
+      <match>\.\.\.</match>
+    </context>
+
+    <context id="mixin-parameters">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="mixin-parameters-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="mixin-parameters-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="variable-arguments"/>
+        <context ref="css:colon"/> <!-- named parameters / default values -->
+        <context ref="css:semicolon"/>
+      </include>
+    </context>
+
+
+    <!-- guards -->
+
+    <context id="guard-logical-operator" style-ref="guard-operator">
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+    <context id="guard-comparison-operator" style-ref="operator-symbol">
+      <match>(&gt;=?|=&lt;?|&lt;)</match>
+    </context>
+
+    <context id="guard-test">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:test-delimiter"/>
+        <context sub-pattern="0" where="end" style-ref="css:test-delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:any-value"/>
+        <context ref="guard-comparison-operator"/>
+      </include>
+    </context>
+
+    <context id="guard">
+      <start>\%[when\%]</start>
+      <end>(?=\{)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="guard-operator"/>
+        <context ref="css:comment"/>
+        <context ref="guard-test"/>
+        <context ref="guard-logical-operator"/>
+        <context ref="css:comma"/>
+      </include>
+    </context>
+
+
+    <!-- Less selectors -->
+
+    <context id="parent-combinator">
+      <match>(&amp;)(\%{css:identifier-chars-regex}?)</match>
+      <include>
+        <context sub-pattern="1" style-ref="css:combinator"/>
+        <context sub-pattern="2" style-ref="selector-fragment"/>
+      </include>
+    </context>
+
+    <context id="variable-interpolation-fragment" style-ref="selector-fragment">
+      <match>(?&lt;=\})\%{css:identifier-chars-regex}</match>
+    </context>
+
+    <context id="less-pseudo-classes" style-ref="css:pseudo-class">
+      <prefix>:</prefix>
+      <keyword>extend</keyword>
+    </context>
+
+    <context id="extend-pseudo-class-argument-keyword" style-ref="css:keyword">
+      <keyword>all</keyword>
+    </context>
+
+    <context id="extend-pseudo-class-argument">
+      <start>(?&lt;=:extend)\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="css:pseudo-class"/>
+        <context sub-pattern="0" where="end" style-ref="css:pseudo-class"/>
+        <context ref="css:comment"/>
+        <context ref="extend-pseudo-class-argument-keyword"/>
+        <context ref="css:selector"/>
+      </include>
+    </context>
+
+    <context id="inside-ruleset-extend">
+      <start>(?=&amp;:extend\()</start>
+      <end>\%{statement-end}</end>
+      <include>
+        <context sub-pattern="0" where="end" style-ref="css:delimiter"/>
+        <context ref="css:comment"/>
+        <context ref="css:selector"/>
+      </include>
+    </context>
+
+
+    <!-- selectors -->
+
+    <context id="less-attribute-selector-content">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:attribute-selector-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-simple-selector">
+      <include>
+        <context ref="variable-interpolation-value"/> <!-- include in simple selector to be included in :not() -->
+        <context ref="variable-interpolation-fragment"/>
+        <context ref="css:simple-selector" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-combinator">
+      <include>
+        <context ref="parent-combinator"/>
+        <context ref="css:combinator" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-pseudo-class">
+      <include>
+        <context ref="less-pseudo-classes"/>
+        <context ref="css:pseudo-class" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-lang-pseudo-class-argument-content">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:lang-pseudo-class-argument-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-nth-pseudo-class-argument-content">
+      <include>
+        <context ref="variable-interpolation-value"/>
+        <context ref="css:nth-pseudo-class-argument-content" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-pseudo-class-argument">
+      <include>
+        <context ref="extend-pseudo-class-argument"/>
+        <context ref="css:pseudo-class-argument" original="true"/>
+      </include>
+    </context>
+
+    <context id="less-selector">
+      <include>
+        <context ref="guard"/>
+        <context ref="css:modifier"/>
+        <context ref="css:selector" original="true"/>
+        <context ref="mixin-parameters"/> <!-- can interfere with pseudo-class arguments -->
+        <context ref="css:semicolon"/> <!-- after mixin calls -->
+      </include>
+    </context>
+
+    <replace id="css:attribute-selector-content" ref="less-attribute-selector-content"/>
+    <replace id="css:simple-selector" ref="less-simple-selector"/>
+    <replace id="css:combinator" ref="less-combinator"/>
+    <replace id="css:pseudo-class" ref="less-pseudo-class"/>
+    <replace id="css:lang-pseudo-class-argument-content" ref="less-lang-pseudo-class-argument-content"/>
+    <replace id="css:nth-pseudo-class-argument-content" ref="less-nth-pseudo-class-argument-content"/>
+    <replace id="css:pseudo-class-argument" ref="less-pseudo-class-argument"/>
+    <replace id="css:selector" ref="less-selector"/>
+
+
+    <!-- top level declarations -->
+
+    <context id="top-level-declaration-property">
+      <include>
+        <context ref="variable"/>
+      </include>
+    </context>
+
+    <context id="top-level-declaration">
+      <include>
+        <context ref="top-level-declaration-property"/>
+        <context ref="css:declaration-value"/>
+        <context ref="css:modifier"/>
+        <context ref="css:semicolon"/>
+      </include>
+    </context>
+
+
+    <!-- main context -->
+
+    <context id="less" class="no-spell-check">
+      <include>
+        <context ref="css:comment"/>
+        <context ref="css:at-rule"/> <!-- because Less variables look like at-rules -->
+        <context ref="detached-ruleset-call"/>
+        <context ref="standalone-plugin-function-call"/>
+        <context ref="top-level-declaration"/>
+        <context ref="css:selector"/>
+        <context ref="css:style-block"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

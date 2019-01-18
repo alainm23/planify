@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ OCL (Object Constraint Language) GtkSourceview language definition
+ based on GtkSourceview C language definition.
+
+ Author: Mario Carrión <mario@monouml.org>
+ Copyright (C) 2007 - Mario Carrión, <mario@monouml.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!--
+ To get more information about OCL see:
+ http://www.omg.org/technology/documents/formal/ocl.htm
+-->
+
+<language id="ocl" name="OCL" version="2.0" _section="Other">
+    <metadata>
+        <property name="mimetypes">text/x-ocl</property>
+        <property name="globs">*.ocl</property>
+        <property name="line-comment-start">--</property>
+    </metadata>
+
+    <styles>
+        <style id="comment" name="Comment" map-to="def:comment"/>
+        <style id="string" name="String" map-to="def:string"/>
+        <style id="keyword" name="Keyword" map-to="def:keyword"/>
+        <style id="operators" name="Type Operators" map-to="def:keyword"/>
+        <style id="type" name="Data Type" map-to="def:type"/>
+        <style id="operation" name="Operation operator" map-to="def:keyword"/>
+    </styles>
+
+    <definitions>
+        <context id="ocl" class="no-spell-check">
+            <include>
+                <!-- Comments -->
+                <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+                     <start>--</start>
+                     <include>
+                         <context ref="def:in-line-comment"/>
+                     </include>
+                </context>
+
+                <!-- Strings -->
+                <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+                    <start>"</start>
+                    <end>"</end>
+                </context>
+
+                <context ref="def:decimal"/>
+                <context ref="def:float"/>
+
+                <!-- Keywords -->
+                <context id="keywords" style-ref="keyword">
+                    <!--
+                    UML OCL2 Specification Page 29 and some other
+                    that aren't "defined" as keywords
+                    -->
+                    <keyword>and</keyword>
+                    <keyword>attr</keyword>
+                    <keyword>body</keyword>
+                    <keyword>context</keyword>
+                    <keyword>derive</keyword>
+                    <keyword>def</keyword>
+                    <keyword>endpackage</keyword>
+                    <keyword>false</keyword>
+                    <keyword>in</keyword>
+                    <keyword>init</keyword>
+                    <keyword>inv</keyword>
+                    <keyword>let</keyword>
+                    <keyword>oper</keyword>
+                    <keyword>package</keyword>
+                    <keyword>post</keyword>
+                    <keyword>pre</keyword>
+                    <keyword>self</keyword>
+                    <keyword>true</keyword>
+                </context>
+
+                <!-- Operators used on all types -->
+                <context id="operators" style-ref="operators">
+                    <keyword>abs</keyword>
+                    <keyword>and</keyword>
+                    <keyword>concat</keyword>
+                    <keyword>if</keyword>
+                    <keyword>implies</keyword>
+                    <keyword>else</keyword>
+                    <keyword>endif</keyword>
+                    <keyword>floor</keyword>
+                    <keyword>then</keyword>
+                    <keyword>or</keyword>
+                    <keyword>not</keyword>
+                    <keyword>size</keyword>
+                    <keyword>substring</keyword>
+                    <keyword>xor</keyword>
+                </context>
+
+                <!-- Operations allowed on Collections -->
+                <context id="operators-operations" style-ref="operation">
+                    <keyword>select</keyword>
+                    <keyword>exists</keyword>
+                    <keyword>forAll</keyword>
+                    <keyword>notEmpty</keyword>
+                    <keyword>reject</keyword>
+                </context>
+
+                <!-- Default data types -->
+                <context id="types" style-ref="type">
+                    <keyword>Boolean</keyword>
+                    <keyword>boolean</keyword>
+                    <keyword>Integer</keyword>
+                    <keyword>int</keyword>
+                    <keyword>Real</keyword>
+                    <keyword>real</keyword>
+                    <keyword>String</keyword>
+                    <keyword>string</keyword>
+                </context>
+
+            </include>
+        </context>
+    </definitions>
+</language>
+
+

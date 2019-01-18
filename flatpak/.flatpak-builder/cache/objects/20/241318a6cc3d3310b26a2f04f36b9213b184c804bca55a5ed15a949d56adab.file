@@ -1,0 +1,2662 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-derived-parameter.h"
+#include "libical-glib-private.h"
+#include "i-cal-parameter.h"
+
+/**
+ * i_cal_parameter_new_actionparam:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the action type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_actionparam (ICalParameterAction v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_actionparam ((icalparameter_action) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_actionparam:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterAction
+i_cal_parameter_get_actionparam (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_ACTIONPARAM_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_ACTIONPARAM_NONE);
+
+	return (ICalParameterAction) (icalparameter_get_actionparam ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_actionparam:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_actionparam (ICalParameter *value, 
+                                 ICalParameterAction v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_actionparam ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_action) (v));
+}
+
+/**
+ * i_cal_parameter_new_altrep:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_altrep (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_altrep (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_altrep:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_altrep (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_altrep ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_altrep:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_altrep (ICalParameter *value, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_altrep ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_charset:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_charset (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_charset (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_charset:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_charset (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_charset ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_charset:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_charset (ICalParameter *value, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_charset ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_cn:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_cn (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_cn (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_cn:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_cn (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_cn ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_cn:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_cn (ICalParameter *value, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_cn ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_cutype:
+ * @v: The type of #ICalParameter to be created
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_cutype (ICalParameterCutype v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_cutype ((icalparameter_cutype) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_cutype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterCutype
+i_cal_parameter_get_cutype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_CUTYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_CUTYPE_NONE);
+
+	return (ICalParameterCutype) (icalparameter_get_cutype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_cutype:
+ * @value: The #ICalParameter to be set
+ * @v: The @ICalParameterCutype used to set @value.
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_cutype (ICalParameter *value, 
+                            ICalParameterCutype v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_cutype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_cutype) (v));
+}
+
+/**
+ * i_cal_parameter_new_delegatedfrom:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_delegatedfrom (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_delegatedfrom (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_delegatedfrom:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_delegatedfrom (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_delegatedfrom ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_delegatedfrom:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_delegatedfrom (ICalParameter *value, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_delegatedfrom ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_delegatedto:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_delegatedto (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_delegatedto (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_delegatedto:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_delegatedto (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_delegatedto ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_delegatedto:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_delegatedto (ICalParameter *value, 
+                                 const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_delegatedto ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_dir:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_dir (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_dir (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_dir:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_dir (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_dir ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_dir:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_dir (ICalParameter *value, 
+                         const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_dir ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_enable:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the enable type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_enable (ICalParameterEnable v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_enable ((icalparameter_enable) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_enable:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterEnable
+i_cal_parameter_get_enable (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_ENABLE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_ENABLE_NONE);
+
+	return (ICalParameterEnable) (icalparameter_get_enable ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_enable:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_enable (ICalParameter *value, 
+                            ICalParameterEnable v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_enable ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_enable) (v));
+}
+
+/**
+ * i_cal_parameter_new_encoding:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the encoding type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_encoding (ICalParameterEncoding v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_encoding ((icalparameter_encoding) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_encoding:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterEncoding
+i_cal_parameter_get_encoding (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_ENCODING_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_ENCODING_NONE);
+
+	return (ICalParameterEncoding) (icalparameter_get_encoding ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_encoding:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_encoding (ICalParameter *value, 
+                              ICalParameterEncoding v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_encoding ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_encoding) (v));
+}
+
+/**
+ * i_cal_parameter_new_fbtype:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the fbtype type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_fbtype (ICalParameterFbtype v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_fbtype ((icalparameter_fbtype) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_fbtype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterFbtype
+i_cal_parameter_get_fbtype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_FBTYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_FBTYPE_NONE);
+
+	return (ICalParameterFbtype) (icalparameter_get_fbtype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_fbtype:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_fbtype (ICalParameter *value, 
+                            ICalParameterFbtype v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_fbtype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_fbtype) (v));
+}
+
+/**
+ * i_cal_parameter_new_filename:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_filename (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_filename (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_filename:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_filename (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_filename ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_filename:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_filename (ICalParameter *value, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_filename ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_fmttype:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_fmttype (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_fmttype (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_fmttype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_fmttype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_fmttype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_fmttype:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_fmttype (ICalParameter *value, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_fmttype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_iana:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_iana (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_iana (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_iana:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_iana (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_iana ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_iana:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_iana (ICalParameter *value, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_iana ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_id:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_id (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_id (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_id:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_id (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_id ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_id:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_id (ICalParameter *value, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_id ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_language:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_language (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_language (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_language:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_language (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_language ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_language:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_language (ICalParameter *value, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_language ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_latency:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_latency (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_latency (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_latency:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_latency (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_latency ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_latency:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_latency (ICalParameter *value, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_latency ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_local:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the local type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_local (ICalParameterLocal v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_local ((icalparameter_local) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_local:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterLocal
+i_cal_parameter_get_local (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_LOCAL_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_LOCAL_NONE);
+
+	return (ICalParameterLocal) (icalparameter_get_local ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_local:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_local (ICalParameter *value, 
+                           ICalParameterLocal v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_local ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_local) (v));
+}
+
+/**
+ * i_cal_parameter_new_localize:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_localize (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_localize (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_localize:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_localize (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_localize ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_localize:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_localize (ICalParameter *value, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_localize ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_managedid:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_managedid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_managedid (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_managedid:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_managedid (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_managedid ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_managedid:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_managedid (ICalParameter *value, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_managedid ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_member:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_member (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_member (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_member:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_member (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_member ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_member:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_member (ICalParameter *value, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_member ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_modified:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_modified (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_modified (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_modified:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_modified (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_modified ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_modified:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_modified (ICalParameter *value, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_modified ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_options:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_options (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_options (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_options:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_options (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_options ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_options:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_options (ICalParameter *value, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_options ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_partstat:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the partstat type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_partstat (ICalParameterPartstat v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_partstat ((icalparameter_partstat) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_partstat:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterPartstat
+i_cal_parameter_get_partstat (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_PARTSTAT_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_PARTSTAT_NONE);
+
+	return (ICalParameterPartstat) (icalparameter_get_partstat ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_partstat:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_partstat (ICalParameter *value, 
+                              ICalParameterPartstat v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_partstat ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_partstat) (v));
+}
+
+/**
+ * i_cal_parameter_new_publiccomment:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_publiccomment (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_publiccomment (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_publiccomment:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_publiccomment (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_publiccomment ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_publiccomment:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_publiccomment (ICalParameter *value, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_publiccomment ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_range:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the range type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_range (ICalParameterRange v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_range ((icalparameter_range) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_range:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterRange
+i_cal_parameter_get_range (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_RANGE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_RANGE_NONE);
+
+	return (ICalParameterRange) (icalparameter_get_range ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_range:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_range (ICalParameter *value, 
+                           ICalParameterRange v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_range ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_range) (v));
+}
+
+/**
+ * i_cal_parameter_new_reason:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_reason (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_reason (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_reason:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_reason (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_reason ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_reason:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_reason (ICalParameter *value, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_reason ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_related:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the related type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_related (ICalParameterRelated v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_related ((icalparameter_related) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_related:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterRelated
+i_cal_parameter_get_related (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_RELATED_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_RELATED_NONE);
+
+	return (ICalParameterRelated) (icalparameter_get_related ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_related:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_related (ICalParameter *value, 
+                             ICalParameterRelated v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_related ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_related) (v));
+}
+
+/**
+ * i_cal_parameter_new_reltype:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the reltype type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_reltype (ICalParameterReltype v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_reltype ((icalparameter_reltype) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_reltype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterReltype
+i_cal_parameter_get_reltype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_RELTYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_RELTYPE_NONE);
+
+	return (ICalParameterReltype) (icalparameter_get_reltype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_reltype:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_reltype (ICalParameter *value, 
+                             ICalParameterReltype v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_reltype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_reltype) (v));
+}
+
+/**
+ * i_cal_parameter_new_required:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the required type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_required (ICalParameterRequired v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_required ((icalparameter_required) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_required:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameterRequired
+i_cal_parameter_get_required (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_REQUIRED_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_REQUIRED_NONE);
+
+	return (ICalParameterRequired) (icalparameter_get_required ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_required:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_required (ICalParameter *value, 
+                              ICalParameterRequired v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_required ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_required) (v));
+}
+
+/**
+ * i_cal_parameter_new_response:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the response type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_response (gint v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_response (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_response:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_parameter_get_response (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalparameter_get_response ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_response:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_response (ICalParameter *value, 
+                              gint v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_response ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_role:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the role type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_role (ICalParameterRole v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_role ((icalparameter_role) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_role:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterRole
+i_cal_parameter_get_role (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_ROLE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_ROLE_NONE);
+
+	return (ICalParameterRole) (icalparameter_get_role ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_role:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_role (ICalParameter *value, 
+                          ICalParameterRole v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_role ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_role) (v));
+}
+
+/**
+ * i_cal_parameter_new_rsvp:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the rsvp type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_rsvp (ICalParameterRsvp v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_rsvp ((icalparameter_rsvp) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_rsvp:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterRsvp
+i_cal_parameter_get_rsvp (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_RSVP_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_RSVP_NONE);
+
+	return (ICalParameterRsvp) (icalparameter_get_rsvp ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_rsvp:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_rsvp (ICalParameter *value, 
+                          ICalParameterRsvp v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_rsvp ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_rsvp) (v));
+}
+
+/**
+ * i_cal_parameter_new_scheduleagent:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the scheduleagent type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_scheduleagent (ICalParameterScheduleagent v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_scheduleagent ((icalparameter_scheduleagent) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_scheduleagent:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterScheduleagent
+i_cal_parameter_get_scheduleagent (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_SCHEDULEAGENT_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_SCHEDULEAGENT_NONE);
+
+	return (ICalParameterScheduleagent) (icalparameter_get_scheduleagent ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_scheduleagent:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_scheduleagent (ICalParameter *value, 
+                                   ICalParameterScheduleagent v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_scheduleagent ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_scheduleagent) (v));
+}
+
+/**
+ * i_cal_parameter_new_scheduleforcesend:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the scheduleforcesend type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_scheduleforcesend (ICalParameterScheduleforcesend v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_scheduleforcesend ((icalparameter_scheduleforcesend) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_scheduleforcesend:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterScheduleforcesend
+i_cal_parameter_get_scheduleforcesend (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_SCHEDULEFORCESEND_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_SCHEDULEFORCESEND_NONE);
+
+	return (ICalParameterScheduleforcesend) (icalparameter_get_scheduleforcesend ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_scheduleforcesend:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_scheduleforcesend (ICalParameter *value, 
+                                       ICalParameterScheduleforcesend v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_scheduleforcesend ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_scheduleforcesend) (v));
+}
+
+/**
+ * i_cal_parameter_new_schedulestatus:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_schedulestatus (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_schedulestatus (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_schedulestatus:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_schedulestatus (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_schedulestatus ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_schedulestatus:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_schedulestatus (ICalParameter *value, 
+                                    const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_schedulestatus ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_sentby:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_sentby (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_sentby (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_sentby:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_sentby (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_sentby ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_sentby:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_sentby (ICalParameter *value, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_sentby ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_size:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_size (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_size (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_size:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_size (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_size ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_size:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_size (ICalParameter *value, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_size ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_stayinformed:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the stayinformed type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_stayinformed (ICalParameterStayinformed v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_stayinformed ((icalparameter_stayinformed) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_stayinformed:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 2.0
+ *
+ **/
+ICalParameterStayinformed
+i_cal_parameter_get_stayinformed (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_STAYINFORMED_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_STAYINFORMED_NONE);
+
+	return (ICalParameterStayinformed) (icalparameter_get_stayinformed ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_stayinformed:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_parameter_set_stayinformed (ICalParameter *value, 
+                                  ICalParameterStayinformed v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_stayinformed ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_stayinformed) (v));
+}
+
+/**
+ * i_cal_parameter_new_substate:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the substate type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_substate (ICalParameterSubstate v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_substate ((icalparameter_substate) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_substate:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterSubstate
+i_cal_parameter_get_substate (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_SUBSTATE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_SUBSTATE_NONE);
+
+	return (ICalParameterSubstate) (icalparameter_get_substate ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_substate:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_substate (ICalParameter *value, 
+                              ICalParameterSubstate v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_substate ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_substate) (v));
+}
+
+/**
+ * i_cal_parameter_new_tzid:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_tzid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_tzid (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_tzid:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_tzid (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_tzid ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_tzid:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_tzid (ICalParameter *value, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_tzid ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_value:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the value type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_value (ICalParameterValue v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_value ((icalparameter_value) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_value:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterValue
+i_cal_parameter_get_value (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_VALUE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_VALUE_NONE);
+
+	return (ICalParameterValue) (icalparameter_get_value ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_value:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_value (ICalParameter *value, 
+                           ICalParameterValue v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_value ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_value) (v));
+}
+
+/**
+ * i_cal_parameter_new_x:
+ * @v: The string used to create the new #ICalParameter
+ *
+ * 
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_x (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_x (v), NULL);
+}
+
+/**
+ * i_cal_parameter_get_x:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_x (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalparameter_get_x ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_parameter_set_x:
+ * @value: The #ICalParameter to be set
+ * @v: The string used to set into the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_x (ICalParameter *value, 
+                       const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_x ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_parameter_new_xliccomparetype:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the xliccomparetype type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_xliccomparetype (ICalParameterXliccomparetype v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_xliccomparetype ((icalparameter_xliccomparetype) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_xliccomparetype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterXliccomparetype
+i_cal_parameter_get_xliccomparetype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_XLICCOMPARETYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_XLICCOMPARETYPE_NONE);
+
+	return (ICalParameterXliccomparetype) (icalparameter_get_xliccomparetype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_xliccomparetype:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_xliccomparetype (ICalParameter *value, 
+                                     ICalParameterXliccomparetype v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_xliccomparetype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_xliccomparetype) (v));
+}
+
+/**
+ * i_cal_parameter_new_xlicerrortype:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the xlicerrortype type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_xlicerrortype (ICalParameterXlicerrortype v)
+{
+	return i_cal_parameter_new_full (icalparameter_new_xlicerrortype ((icalparameter_xlicerrortype) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_get_xlicerrortype:
+ * @value: The #ICalParameter to be queried
+ *
+ * 
+ *
+ * Returns: The type of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterXlicerrortype
+i_cal_parameter_get_xlicerrortype (const ICalParameter *value)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (value), I_CAL_XLICERRORTYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_XLICERRORTYPE_NONE);
+
+	return (ICalParameterXlicerrortype) (icalparameter_get_xlicerrortype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_parameter_set_xlicerrortype:
+ * @value: The #ICalParameter to be set
+ * @v: The type of #ICalParameter to be set in the @value
+ *
+ * 
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_xlicerrortype (ICalParameter *value, 
+                                   ICalParameterXlicerrortype v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (value));
+	g_return_if_fail (value != NULL);
+
+	icalparameter_set_xlicerrortype ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalparameter_xlicerrortype) (v));
+}

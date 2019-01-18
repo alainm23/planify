@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Søren Hauberg <hauberg@gmail.com>
+ Copyright (C) 2009 Søren Hauberg <hauberg@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="bibtex" name="BibTeX" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">text/x-bibtex</property>
+    <property name="globs">*.bib</property>
+    <property name="line-comment-start">%</property>
+  </metadata>
+
+  <styles>
+    <style id="entry-type" name="Entries" map-to="def:keyword"/>
+    <style id="field"      name="Field"   map-to="def:identifier"/>
+    <style id="string"     name="String"  map-to="def:string"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="entry-type" style-ref="entry-type" class="no-spell-check">
+      <prefix>@</prefix>
+
+      <keyword>article</keyword>
+      <keyword>book</keyword>
+      <keyword>booklet</keyword>
+      <keyword>conference</keyword>
+      <keyword>inbook</keyword>
+      <keyword>incollection</keyword>
+      <keyword>inproceedings</keyword>
+      <keyword>lambda</keyword>
+      <keyword>manual</keyword>
+      <keyword>mastersthesis</keyword>
+      <keyword>misc</keyword>
+      <keyword>online</keyword>
+      <keyword>phdthesis</keyword>
+      <keyword>proceedings</keyword>
+      <keyword>report</keyword>
+      <keyword>techreport</keyword>
+      <keyword>unpublished</keyword>
+    </context>
+
+    <context id="field" style-ref="field" class="no-spell-check">
+      <keyword>address</keyword>
+      <keyword>author</keyword>
+      <keyword>booktitle</keyword>
+      <keyword>chapter</keyword>
+      <keyword>crossref</keyword>
+      <keyword>doi</keyword>
+      <keyword>edition</keyword>
+      <keyword>editor</keyword>
+      <keyword>eprint</keyword>
+      <keyword>eprinttype</keyword>
+      <keyword>howpublished</keyword>
+      <keyword>institution</keyword>
+      <keyword>isbn</keyword>
+      <keyword>issn</keyword>
+      <keyword>journal</keyword>
+      <keyword>key</keyword>
+      <keyword>keywords</keyword>
+      <keyword>language</keyword>
+      <keyword>location</keyword>
+      <keyword>month</keyword>
+      <keyword>note</keyword>
+      <keyword>number</keyword>
+      <keyword>numpages</keyword>
+      <keyword>organization</keyword>
+      <keyword>pages</keyword>
+      <keyword>publisher</keyword>
+      <keyword>school</keyword>
+      <keyword>series</keyword>
+      <keyword>subtitle</keyword>
+      <keyword>title</keyword>
+      <keyword>type</keyword>
+      <keyword>url</keyword>
+      <keyword>urldate</keyword>
+      <keyword>volume</keyword>
+      <keyword>year</keyword>
+    </context>
+
+    <context id="string" class-disabled="no-spell-check">
+      <match extended="true">
+        =\s*(\{.*?\})|(".*?")
+      </match>
+
+      <include>
+        <context sub-pattern="1" style-ref="string" class="string"/>
+        <context sub-pattern="2" style-ref="string" class="string"/>
+      </include>
+    </context>
+
+    <context id="bibtex">
+      <include>
+        <context ref="latex:latex"/>
+        <context ref="entry-type"/>
+        <context ref="field"/>
+        <context ref="string"/>
+      </include>
+    </context>
+  </definitions>
+</language>

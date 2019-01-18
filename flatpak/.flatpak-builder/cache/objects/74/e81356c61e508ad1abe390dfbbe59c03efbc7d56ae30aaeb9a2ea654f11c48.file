@@ -1,0 +1,424 @@
+[
+	{"id": 1, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 30, "type": "standard",
+		 "label": "value30"},
+	 	{"id": 31, "type": "standard",
+		 "label": "value31"},
+	 	{"id": 32, "type": "standard",
+		 "label": "value32"},
+	 	{"id": 33, "type": "standard",
+		 "label": "value33"},
+	 	{"id": 34, "type": "standard",
+		 "label": "value34"},
+	 	{"id": 35, "type": "standard",
+		 "label": "value35"},
+	 	{"id": 36, "type": "standard",
+		 "label": "value36"},
+	 	{"id": 37, "type": "standard",
+		 "label": "value37"},
+	 	{"id": 38, "type": "standard",
+		 "label": "value38"},
+	 	{"id": 39, "type": "standard",
+		 "label": "value39"}
+	 ]
+	},
+	{"id": 2, "type": "standard",
+	 "label": "value2",
+	 "submenu": [
+	 	{"id": 20, "type": "standard",
+		 "label": "value20"},
+	 	{"id": 21, "type": "separator",
+		 "label": "value21"},
+	 	{"id": 22, "type": "standard",
+		 "label": "value22"},
+	 	{"id": 23, "type": "separator",
+		 "label": "value23"},
+	 	{"id": 24, "type": "standard",
+		 "label": "value24"},
+	 	{"id": 25, "type": "separator",
+		 "label": "value25"},
+	 	{"id": 26, "type": "standard",
+		 "label": "value26"},
+	 	{"id": 27, "type": "separator",
+		 "label": "value27"},
+	 	{"id": 28, "type": "standard",
+		 "label": "value28"},
+	 	{"id": 29, "type": "standard", "visible": false,
+		 "label": "value29"}
+	 ]
+	},
+	{"id": 4, "type": "standard",
+	 "label": "value4",
+	 "submenu": [
+	 	{"id": 40,
+		 "type": "standard",
+		 "enabled": true,
+		 "label": "value40"},
+	 	{"id": 41,
+		 "type": "standard",
+		 "enabled": false,
+		 "label": "value41"},
+	 	{"id": 42,
+		 "type": "standard",
+		 "enabled": true,
+		 "label": "value42"},
+	 	{"id": 43,
+		 "type": "standard",
+		 "enabled": false,
+		 "label": "value43"},
+	 	{"id": 44,
+		 "type": "standard",
+		 "enabled": true,
+		 "label": "value44"},
+	 	{"id": 45,
+		 "type": "standard",
+		 "enabled": false,
+		 "label": "value45"},
+	 	{"id": 46,
+		 "type": "standard",
+		 "enabled": true,
+		 "label": "value46"},
+	 	{"id": 47,
+		 "type": "standard",
+		 "enabled": false,
+		 "label": "value47"},
+	 	{"id": 48,
+		 "type": "standard",
+		 "enabled": true,
+		 "label": "value48"},
+	 	{"id": 49,
+		 "type": "standard",
+		 "visible": false,
+		 "enabled": false,
+		 "label": "value49 - hidden"}
+	 ]
+	},
+	{"id": 3, "type": "standard",
+	 "label": "a super long label that is really of unreasonable length but we should make sure it makes it across the bus",
+	 "not.a.value": "A useless value",
+	 "submenu": [
+	 	{"id": 10, "type": "standard",
+		 "label": "value10"},
+	 	{"id": 11, "type": "standard",
+		 "label": "value11"},
+	 	{"id": 12, "type": "standard",
+		 "label": "value12"},
+	 	{"id": 13, "type": "standard",
+		 "label": "value13"},
+	 	{"id": 14, "type": "standard",
+		 "label": "value14"},
+	 	{"id": 15, "type": "standard",
+		 "label": "value15"},
+	 	{"id": 16, "type": "standard",
+		 "label": "value16"},
+	 	{"id": 17, "type": "standard",
+		 "label": "value17"},
+	 	{"id": 18, "type": "standard",
+		 "label": "value18"},
+	 	{"id": 19, "type": "standard",
+		 "label": "value19"}
+	 ]
+	},
+	{"id": 4, "type": "standard",
+	 "label": "value2",
+	 "submenu": [
+	 	{"id": 5, "type": "standard",
+		 "label": "value5",
+		 "submenu": [
+			{"id": 10, "type": "standard",
+			 "label": "value10"},
+			{"id": 11, "type": "standard",
+			 "label": "value11"},
+			{"id": 12, "type": "standard",
+			 "label": "value12"},
+			{"id": 13, "type": "standard",
+			 "label": "value13"},
+			{"id": 14, "type": "standard",
+			 "label": "value14"},
+			{"id": 15, "type": "standard",
+			 "label": "value15"},
+			{"id": 16, "type": "standard",
+			 "label": "value16"},
+			{"id": 17, "type": "standard",
+			 "label": "value17"},
+			{"id": 18, "type": "standard",
+			 "label": "value18"},
+			{"id": 19, "type": "standard",
+			 "label": "value19"}
+		 ]
+		},
+	 	{"id": 6, "type": "standard",
+		 "label": "value6",
+		 "submenu": [
+			{"id": 20, "type": "standard",
+			 "label": "value20"},
+			{"id": 21, "type": "standard",
+			 "label": "value21"},
+			{"id": 22, "type": "standard",
+			 "label": "value22"},
+			{"id": 23, "type": "standard",
+			 "label": "value23"},
+			{"id": 24, "type": "standard",
+			 "label": "value24"},
+			{"id": 25, "type": "standard",
+			 "label": "value25"},
+			{"id": 26, "type": "standard",
+			 "label": "value26"},
+			{"id": 27, "type": "standard",
+			 "label": "value27"},
+			{"id": 28, "type": "standard",
+			 "label": "value28"},
+			{"id": 29, "type": "standard",
+			 "label": "value29"}
+		 ]
+		},
+	 	{"id": 7, "type": "standard",
+		 "label": "value7",
+		 "submenu": [
+			{"id": 30, "type": "standard",
+			 "label": "value30"},
+			{"id": 31, "type": "standard",
+			 "label": "value31"},
+			{"id": 32, "type": "standard",
+			 "label": "value32"},
+			{"id": 33, "type": "standard",
+			 "label": "value33"},
+			{"id": 34, "type": "standard",
+			 "label": "value34"},
+			{"id": 35, "type": "standard",
+			 "label": "value35"},
+			{"id": 36, "type": "standard",
+			 "label": "value36"},
+			{"id": 37, "type": "standard",
+			 "label": "value37"},
+			{"id": 38, "type": "standard",
+			 "label": "value38"},
+			{"id": 39, "type": "standard",
+			 "label": "value39"}
+		 ]
+		}
+	 ]
+	},
+	{"id": 8, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 80,
+		 "type": "standard",
+		 "icon-name": "face-angel",
+		 "label": "angel"},
+	 	{"id": 81,
+		 "type": "standard",
+		 "icon-name": "face-angry",
+		 "label": "angry"},
+	 	{"id": 82,
+		 "type": "standard",
+		 "icon-name": "face-cool",
+		 "label": "cool"},
+	 	{"id": 83,
+		 "type":"standard",
+		 "icon-name": "face-devilish",
+		 "label": "devilish"},
+	 	{"id": 84,
+		 "type": "standard",
+		 "icon-name": "face-embarrassed",
+		 "label": "embarrassed"},
+	 	{"id": 85,
+		 "type": "standard",
+		 "icon-name": "face-kiss",
+		 "label": "kiss"},
+	 	{"id": 86,
+		 "type": "standard",
+		 "icon-name": "face-laugh",
+		 "label": "laugh"},
+	 	{"id": 87,
+		 "type": "standard",
+		 "icon-name": "face-monkey",
+		 "label": "monkey"},
+	 	{"id": 88,
+		 "type": "standard",
+		 "icon-name": "face-sad",
+		 "label": "sad"},
+	 	{"id": 89,
+		 "type": "standard",
+		 "icon-name": "blank-icon",
+		 "label": "blank"}
+	 ]
+	},
+	{"id": 9, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 90,
+		 "type": "standard",
+		 "icon-data":
+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACPUlEQVR4nGJgoBAAAAAA///Ch1gW
+BzK0LQ5iaGNgYGDBpQgAAAD//8KpeY4/Q9+DCV7/H/S4/p8byDABlyEAAAAA///CqnluAMOEx5O8
+/3/f0/P/+47m/4967P7PC2GYysDAwIquGAAAAP//YkLXPC+AodfNyStfRMuegenvdwamP98ZhJWM
+GJzNzLIWhGMaAgAAAP//YkLT3Odq75InomrBwPT7CwPDr68M//98Y2D+951BREadwdFAL3VxJMNM
+ZEMAAAAA//9ihPs5gKHPzdo2V0TNkoGZ4T/D//9/GRj+/WJg+PeT4f/vHwwMf78z/P31jeHN89sM
++6/dXpS4lCGFgYHhNwAAAP//ghkguDqC4Z0CNwMDLwsDgxAHAwOfdQrD/1+fGP5/e83w/9tbhq/P
+LjG8+8PA8PkPA8PDbwwMIXMYhBkYGN4BAAAA//80zDEOQDAAAMBLZ2MnITEafEziK2YfM/QBLDoX
+g4jJPeD+IGJAgypNlrbuvNfBcxLYb/rZiIINK/IHAAD//zTRoRHAIBAAsMAU3X8iZCUSy5W7R0EN
+rJDcmoEXFU8sVq/ko5SIDQoaJj74AQAA//+CGfADKoEIGZhmZiQ+RM0D5FgAAAAA//9Cj0aEKNRm
+uGZmrCoZAAAAAP//wm4AskZkg7AAAAAAAP//wpo8n/6A2siEoJ/+wG4AAAAA///CZq4EAwODAZRG
+Bi8YEIEIBwAAAAD//8JmAAcDA4MAlEYGPxgYGD5AaTgAAAAA//8DAD6xjTP5Y+A7AAAAAElFTkSu
+QmCC",
+		 "label": "up"},
+	 	{"id": 91,
+		 "type": "standard",
+		 "icon-data":
+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4nGJgoBAAAAAA//9ixCLG
+sSWS4bs0B1QWip/+YGDwWcLAycDA8ANZMQAAAP//YsFigIA0JwODdvIsBob/fxgY/vxk+P/7OwPD
+6ioGBgYGAQYGhhfIigEAAAD//8JmAAcDEwMDw5/vDAz/fjP8//uLgeHvDwYGJqgcGgAAAAD//8Jm
+AAMDIwPD/99fGBj+/WVg+PeLgeHvTwYGZqwqGQAAAAD//8JuADMDA8PPLwwMDH8Z/v//AzGACbsB
+AAAAAP//wmoAJwsDw/8/XxgY/v9l+P/rM8P/ry8ZONmwGwAAAAD//4LFAsfqaIbvCtwMDLxsDAxC
+7AwMPMqWDP+/Pmf4//01w//fXxm+/2NgePebgeHLHwaGR98ZGIKmQ2IEAAAA//80zisSQFAAAMAd
+wczzKRSvCIqrO4XqGoIkGTOv+SV7gv1j1XqY2jiI/agoSve2eM7VeyUyQk5X0gT2ZEYNHwAAAP//
+gnnhb+lWhuk//90TD1dncBThYGBgYWGA+JsRQv9lYGB4/5uBYcdDhotZSxhaGRgY/jEwMDAAAAAA
+//+CueALAwPDnZrtDK3r7jIcefuHgeEvI5JmRgaG938YGHY9YriatYShkoGB4TYDA8MnBgYGBgAA
+AAD//4IZ8JuBgeE1AwPDjfLNDE2b7jGcfPsLYutfRgaGD78ZGPY+ZrievpChjIGB4SoDA8NLqB4G
+AAAAAP//QkesDAwMMgwMDG6TwxnO3q5i+H+nhuH/nESGawwMDF4MDAzyDAwMKPEBAAAA///CZYgs
+AwODR18kw4UJ0QyX8WkGAAAA///ClpkYoAolGBgYFKBqHjAwMDxnYGD4ha4QAAAA///CZQDMEG4o
++ys2zQwMDAwAAAAA//8DAAF5nhyE7tENAAAAAElFTkSuQmCC",
+		 "label": "down"},
+	 	{"id": 92,
+		 "type": "standard",
+		 "icon-name": "up",
+		 "icon-data":
+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4nGJgoBAAAAAA//9ixCLG
+sSWS4bs0B1QWip/+YGDwWcLAycDA8ANZMQAAAP//YsFigIA0JwODdvIsBob/fxgY/vxk+P/7OwPD
+6ioGBgYGAQYGhhfIigEAAAD//8JmAAcDEwMDw5/vDAz/fjP8//uLgeHvDwYGJqgcGgAAAAD//8Jm
+AAMDIwPD/99fGBj+/WVg+PeLgeHvTwYGZqwqGQAAAAD//8JuADMDA8PPLwwMDH8Z/v//AzGACbsB
+AAAAAP//wmoAJwsDw/8/XxgY/v9l+P/rM8P/ry8ZONmwGwAAAAD//4LFAsfqaIbvCtwMDLxsDAxC
+7AwMPMqWDP+/Pmf4//01w//fXxm+/2NgePebgeHLHwaGR98ZGIKmQ2IEAAAA//80zisSQFAAAMAd
+wczzKRSvCIqrO4XqGoIkGTOv+SV7gv1j1XqY2jiI/agoSve2eM7VeyUyQk5X0gT2ZEYNHwAAAP//
+gnnhb+lWhuk//90TD1dncBThYGBgYWGA+JsRQv9lYGB4/5uBYcdDhotZSxhaGRgY/jEwMDAAAAAA
+//+CueALAwPDnZrtDK3r7jIcefuHgeEvI5JmRgaG938YGHY9YriatYShkoGB4TYDA8MnBgYGBgAA
+AAD//4IZ8JuBgeE1AwPDjfLNDE2b7jGcfPsLYutfRgaGD78ZGPY+ZrievpChjIGB4SoDA8NLqB4G
+AAAAAP//QkesDAwMMgwMDG6TwxnO3q5i+H+nhuH/nESGawwMDF4MDAzyDAwMKPEBAAAA///CZYgs
+AwODR18kw4UJ0QyX8WkGAAAA///ClpkYoAolGBgYFKBqHjAwMDxnYGD4ha4QAAAA///CZQDMEG4o
++ys2zQwMDAwAAAAA//8DAAF5nhyE7tENAAAAAElFTkSuQmCC",
+		 "label": "up"},
+	 	{"id": 93,
+		 "type": "standard",
+		 "icon-name": "down",
+		 "icon-data":
+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACPUlEQVR4nGJgoBAAAAAA///Ch1gW
+BzK0LQ5iaGNgYGDBpQgAAAD//8KpeY4/Q9+DCV7/H/S4/p8byDABlyEAAAAA///CqnluAMOEx5O8
+/3/f0/P/+47m/4967P7PC2GYysDAwIquGAAAAP//YkLXPC+AodfNyStfRMuegenvdwamP98ZhJWM
+GJzNzLIWhGMaAgAAAP//YkLT3Odq75InomrBwPT7CwPDr68M//98Y2D+951BREadwdFAL3VxJMNM
+ZEMAAAAA//9ihPs5gKHPzdo2V0TNkoGZ4T/D//9/GRj+/WJg+PeT4f/vHwwMf78z/P31jeHN89sM
++6/dXpS4lCGFgYHhNwAAAP//ghkguDqC4Z0CNwMDLwsDgxAHAwOfdQrD/1+fGP5/e83w/9tbhq/P
+LjG8+8PA8PkPA8PDbwwMIXMYhBkYGN4BAAAA//80zDEOQDAAAMBLZ2MnITEafEziK2YfM/QBLDoX
+g4jJPeD+IGJAgypNlrbuvNfBcxLYb/rZiIINK/IHAAD//zTRoRHAIBAAsMAU3X8iZCUSy5W7R0EN
+rJDcmoEXFU8sVq/ko5SIDQoaJj74AQAA//+CGfADKoEIGZhmZiQ+RM0D5FgAAAAA//9Cj0aEKNRm
+uGZmrCoZAAAAAP//wm4AskZkg7AAAAAAAP//wpo8n/6A2siEoJ/+wG4AAAAA///CZq4EAwODAZRG
+Bi8YEIEIBwAAAAD//8JmAAcDA4MAlEYGPxgYGD5AaTgAAAAA//8DAD6xjTP5Y+A7AAAAAElFTkSu
+QmCC",
+		 "label": "down"}
+	 ]
+	},
+	{"id": 1, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 30,
+		 "label": "No check (empty)",
+		 "toggle-type": "none"
+		 },
+	 	{"id": 31,
+		 "label": "No check (checked)",
+		 "toggle-type": "none",
+		 "toggle-state": 1
+		 },
+	 	{"id": 32,
+		 "label": "No check (????)",
+		 "toggle-type": "none",
+		 "toggle-state": -1
+		 },
+	 	{"id": 33,
+		 "label": "Check (empty)",
+		 "toggle-type": "checkmark",
+		 "toggle-state": 0
+		 },
+	 	{"id": 34,
+		 "label": "Check (checked)",
+		 "toggle-type": "checkmark",
+		 "toggle-state": 1
+		 },
+	 	{"id": 35,
+		 "label": "Check (?????)",
+		 "toggle-type": "checkmark",
+		 "toggle-state": -1
+		 },
+	 	{"id": 36,
+		 "label": "Radio (empty)",
+		 "toggle-type": "radio",
+		 "toggle-state": 0
+		 },
+	 	{"id": 37,
+		 "label": "Radio (checked)",
+		 "toggle-type": "radio",
+		 "toggle-state": 1
+		 },
+	 	{"id": 38,
+		 "label": "Radio (?????)",
+		 "toggle-type": "radio",
+		 "toggle-state": -1
+		 }
+	 ]
+	},
+	{"id": 1, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 60,
+		 "label": "Disposition Normal",
+		 "disposition": "normal"
+		 },
+	 	{"id": 61,
+		 "label": "Disposition Info",
+		 "disposition": "informational"
+		 },
+	 	{"id": 62,
+		 "label": "Disposition Warning",
+		 "disposition": "warning"
+		 },
+	 	{"id": 63,
+		 "label": "Disposition Alert",
+		 "disposition": "alert"
+		 }
+	 ]
+	},
+	{"id": 1, "type": "standard",
+	 "label": "value1",
+	 "submenu": [
+	 	{"id": 70,
+		 "label": "_Mnemonic"
+		 },
+	 	{"id": 71,
+		 "label": "M_nemonic"
+		 },
+	 	{"id": 72,
+		 "label": "Mn_emonic"
+		 },
+	 	{"id": 73,
+		 "label": "Mne_monic"
+		 },
+	 	{"id": 74,
+		 "label": "Mnem_onic"
+		 },
+	 	{"id": 75,
+		 "label": "Mnemo_nic"
+		 },
+	 	{"id": 76,
+		 "label": "Mnemon_ic"
+		 },
+	 	{"id": 77,
+		 "label": "Mnemoni_c"
+		 },
+	 	{"id": 78,
+		 "label": "__Underline__"
+		 }
+	 ]
+	}
+]

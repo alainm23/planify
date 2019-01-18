@@ -1,0 +1,18 @@
+prefix=/app
+libdir=/app/lib
+includedir=/app/include
+datarootdir=/app/share
+datadir=/app/share
+
+privlibdir=/app/lib/evolution-data-server
+privincludedir=/app/include/evolution-data-server
+
+credentialmoduledir=/app/lib/evolution-data-server/credential-modules
+
+Name: libedataserver
+Description: Utility library for Evolution Data Server
+Version: 3.31.3
+Requires: gio-2.0 gmodule-2.0 libsecret-1 libxml-2.0 libsoup-2.4
+Requires.private: camel-1.2
+Libs: -L${libdir} -ledataserver-1.2
+Cflags: -I${privincludedir}

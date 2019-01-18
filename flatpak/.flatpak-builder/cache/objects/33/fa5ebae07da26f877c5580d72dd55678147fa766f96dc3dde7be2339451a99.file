@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   width="16"
+   height="16"
+   id="svg8472">
+  <defs
+     id="defs8474">
+    <linearGradient
+       id="linearGradient7653">
+      <stop
+         id="stop7655"
+         style="stop-color:#babdb6;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop7657"
+         style="stop-color:#eeeeec;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7669">
+      <stop
+         id="stop7671"
+         style="stop-color:#555753;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop7673"
+         style="stop-color:#555753;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="337.47427"
+       y1="430.89902"
+       x2="337.2131"
+       y2="426.41998"
+       id="linearGradient10142"
+       xlink:href="#linearGradient7653"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0152681,0,0,0.7238442,-342.63008,-306.27468)" />
+    <linearGradient
+       x1="337.30206"
+       y1="431.7355"
+       x2="337.04034"
+       y2="428.74005"
+       id="linearGradient10145"
+       xlink:href="#linearGradient7669"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0131795,0,0,0.7238442,-341.92828,-306.2747)" />
+    <linearGradient
+       x1="337.47427"
+       y1="430.89902"
+       x2="337.2131"
+       y2="426.41998"
+       id="linearGradient6912"
+       xlink:href="#linearGradient7653"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0152681,0,0,-0.7238442,-342.63008,322.27468)" />
+  </defs>
+  <metadata
+     id="metadata8477">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Node Cusp</dc:title>
+        <dc:date>2006-05-01</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Lapo Calamandrei</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>node</rdf:li>
+            <rdf:li>vertex</rdf:li>
+            <rdf:li>cusp</rdf:li>
+            <rdf:li>corner</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       d="M 16.48393,0.5 7.49196,9.99999 -1.50001,0.5"
+       id="path7765"
+       style="fill:none;stroke:url(#linearGradient10145);stroke-width:2.99999976;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="M 16.521,0.50004 7.51049,10.00002 -1.50001,0.50004"
+       id="path7767"
+       style="fill:none;stroke:url(#linearGradient10142);stroke-width:1.20000005;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="M 7.49997,6.5037 10.49629,9.50002 7.50002,12.49629 4.5037,9.49997 7.49997,6.5037 z"
+       id="path7769"
+       style="fill:#d3d7cf;fill-opacity:1;stroke:#888a85;stroke-width:1.39999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       d="M 7.49997,7.90629 9.09375,9.50007 7.4999,11.09392 5.90611,9.50014 7.49997,7.90629 z"
+       id="path7771"
+       style="fill:none;stroke:#ffffff;stroke-width:1.29999995;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+  </g>
+</svg>

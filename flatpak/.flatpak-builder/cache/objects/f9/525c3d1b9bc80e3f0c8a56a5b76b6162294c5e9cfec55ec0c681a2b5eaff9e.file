@@ -1,0 +1,11 @@
+<svg height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(-633 -105)" fill="#666">
+        <rect color="#bebebe" height="4" overflow="visible" style="marker:none" width="3" x="639" y="107"/>
+        <rect color="#bebebe" height="5" overflow="visible" style="marker:none" width="3" x="635" y="106"/>
+        <rect color="#bebebe" height="4" overflow="visible" style="marker:none" transform="scale(1 -1)" width="3" x="639" y="-118"/>
+        <rect color="#bebebe" height="5" overflow="visible" style="marker:none" transform="scale(1 -1)" width="3" x="635" y="-119"/>
+        <rect color="#bebebe" height="3" overflow="visible" style="marker:none" width="3" x="643" y="108"/>
+        <rect color="#bebebe" height="3" overflow="visible" style="marker:none" transform="scale(1 -1)" width="3" x="643" y="-117"/>
+        <path color="#000" d="M634 113h1v-1h-1zm2 0h1v-1h-1zm2 0h1v-1h-1zm2 0h1v-1h-1zm2 0h1v-1h-1zm2 0h1v-1h-1zm2 0h1v-1h-1z" fill-rule="evenodd" font-family="sans-serif" font-weight="400" overflow="visible" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal" white-space="normal"/>
+    </g>
+</svg>

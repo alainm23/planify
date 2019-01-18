@@ -1,0 +1,164 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if !defined (__LIBICAL_GLIB_H_INSIDE__) && !defined (LIBICAL_GLIB_COMPILATION)
+#error "Only <libical-glib/libical-glib.h> can be included directly."
+#endif
+
+#ifndef I_CAL_TIME_H
+#define I_CAL_TIME_H
+
+#include <libical-glib/i-cal-forward-declarations.h>
+#include <libical-glib/i-cal-object.h>
+
+G_BEGIN_DECLS
+
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_null_time		(void);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_null_date		(void);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_current_time_with_zone
+						(ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_today		(void);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_from_timet_with_zone	(const time_t v,
+						 gint is_date,
+						 ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_from_string		(const gchar *str);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_from_day_of_year	(const gint day,
+						 const gint year);
+
+LIBICAL_ICAL_EXPORT
+time_t 		i_cal_time_as_timet		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+time_t 		i_cal_time_as_timet_with_zone	(ICalTimetype *tt,
+						 ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+gchar *		i_cal_time_as_ical_string_r	(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+const ICalTimezone *
+		i_cal_time_get_timezone		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_set_timezone		(ICalTimetype *tt,
+						 ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+const gchar *	i_cal_time_get_tzid		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_day_of_year		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_day_of_week		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_start_doy_week	(ICalTimetype *tt,
+						 gint fdow);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_week_number		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_is_null_time		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_is_valid_time	(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_is_date		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_is_utc		(ICalTimetype *tt);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_compare		(ICalTimetype *a,
+						 ICalTimetype *b);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_compare_date_only	(ICalTimetype *a,
+						 ICalTimetype *b);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_compare_date_only_tz	(ICalTimetype *a,
+						 ICalTimetype *b,
+						 ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_time_adjust		(ICalTimetype *tt,
+						 const gint days,
+						 const gint hours,
+						 const gint minutes,
+						 const gint seconds);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_normalize		(ICalTimetype *t);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_convert_to_zone	(ICalTimetype *t,
+						 ICalTimezone *zone);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_days_in_month	(const gint month,
+						 const gint year);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_days_is_leap_year	(const gint year);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_days_in_year		(const gint year);
+
+LIBICAL_ICAL_EXPORT
+ICalTimeSpan *	i_cal_time_span_new		(ICalTimetype *dtstart,
+						 ICalTimetype *dtend,
+						 gint is_busy);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_span_overlaps	(ICalTimeSpan *s1,
+						 ICalTimeSpan *s2);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_time_span_contains	(ICalTimeSpan *s,
+						 ICalTimeSpan *container);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_time_add			(ICalTimetype *t,
+						 ICalDurationType *d);
+
+LIBICAL_ICAL_EXPORT
+ICalDurationType *
+		i_cal_time_subtract		(ICalTimetype *t1,
+						 ICalTimetype *t2);
+
+G_END_DECLS
+
+#endif /* I_CAL_TIME_H */

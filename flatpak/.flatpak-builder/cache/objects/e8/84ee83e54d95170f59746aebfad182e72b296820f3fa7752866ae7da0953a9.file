@@ -1,0 +1,61 @@
+# Makefile for Vala API Generator (vapigen)
+# Written by Evan Nemerson
+#
+# The author disclaims copyright to this source code.  In place of
+# a legal notice, here is a blessing:
+#
+#    May you do good and not evil.
+#    May you find forgiveness for yourself and forgive others.
+#    May you share freely, never taking more than you give.
+#
+# See http://live.gnome.org/Vala/UpstreamGuide for detailed documentation
+#
+# Variables:
+#
+#   VAPIGEN_FILES
+#
+#     VAPIs to create
+#
+#   *_DEPS / VAPIGEN_DEPS
+#
+#       The dependencies. Generally the pkg-config names.
+#
+#   *_METADATADIRS / VAPIGEN_METADATADIRS
+#
+#       Directory containing the metadata.
+#
+#   *_VAPIDIRS / VAPIGEN_VAPIDIRS
+#
+#       Additional location(s) to search for VAPI dependencies.
+#
+#   *_GIRDIRS / VAPIGEN_GIRDIRS
+#
+#       Additional location(s) to search for GIR dependencies.
+#
+#   *_FILES
+#
+#       The files which should be used to generate the VAPI.
+
+_vapigen_silent_prefix = $(_vapigen_silent_prefix_$(V))
+_vapigen_silent_prefix_ = $(_vapigen_silent_prefix_$(AM_DEFAULT_VERBOSITY))
+_vapigen_silent_prefix_0 = @echo " VAPIGEN $(1)";
+_vapigen_silent_opts = $(_vapigen_silent_opts_$(V))
+_vapigen_silent_opts_ = $(_vapigen_silent_opts_$(AM_DEFAULT_VERBOSITY))
+_vapigen_silent_opts_0 = --quiet
+
+$(if $(VAPIGEN),,$(error You must define VAPIGEN))
+
+_vapi_name = $(subst /,_,$(subst -,_,$(subst .,_,$(1))))
+
+define vapigen
+$(1): $$($(_vapi_name)_GIR)
+	$(_vapigen_silent_prefix) $(VAPIGEN) $(_vapigen_silent_opts) \
+	  --library $(1:.vapi=) \
+	  $(foreach _vapi_metadatadir_name,$(if $($(_vapi_name)_METADATADIRS),$($(_vapi_name)_METADATADIRS),$(VAPIGEN_METADATADIRS)),--metadatadir $(_vapi_metadatadir_name)) \
+	  $(foreach _vapi_dir_name,$(if $($(_vapi_name)_VAPIDIRS),$($(_vapi_name)_VAPIDIRS),$(VAPIGEN_VAPIDIRS)),--vapidir $(_vapi_dir_name)) \
+	  $(foreach _gir_dir_name,$(if $($(_vapi_name)_GIRDIRS),$($(_vapi_name)_GIRDIRS),$(VAPIGEN_GIRDIRS)),--girdir $(_gir_dir_name)) \
+	  $(foreach _vapi_dep_name,$(if $($(_vapi_name)_DEPS),$($(_vapi_name)_DEPS),$(VAPIGEN_DEPS)),--pkg $(_vapi_dep_name)) \
+	  $$($(_vapi_name)_FILES)
+endef
+
+$(foreach vapi,$(VAPIGEN_VAPIS),$(eval $(call vapigen,$(vapi))))

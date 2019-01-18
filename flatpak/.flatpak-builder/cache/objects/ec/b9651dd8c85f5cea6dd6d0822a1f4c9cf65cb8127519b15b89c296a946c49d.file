@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>i-cal-recur: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalProperty.html" title="ICalProperty">
+<link rel="next" href="libical-glib-ICalRecurIterator.html" title="ICalRecurIterator">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-i-cal-recur.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalProperty.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalRecurIterator.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-i-cal-recur"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-i-cal-recur.top_of_page"></a>i-cal-recur</span></h2>
+<p>i-cal-recur</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-i-cal-recur.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="GArray"><span class="returnvalue">GArray</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-expand-recurrence" title="i_cal_recur_expand_recurrence ()">i_cal_recur_expand_recurrence</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeWeekday" title="enum ICalRecurrenceTypeWeekday"><span class="returnvalue">ICalRecurrenceTypeWeekday</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-string-to-weekday" title="i_cal_recur_string_to_weekday ()">i_cal_recur_string_to_weekday</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-weekday-to-string" title="i_cal_recur_weekday_to_string ()">i_cal_recur_weekday_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeFrequency" title="enum ICalRecurrenceTypeFrequency"><span class="returnvalue">ICalRecurrenceTypeFrequency</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-string-to-freq" title="i_cal_recur_string_to_freq ()">i_cal_recur_string_to_freq</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-freq-to-string" title="i_cal_recur_freq_to_string ()">i_cal_recur_freq_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeSkip" title="enum ICalRecurrenceTypeSkip"><span class="returnvalue">ICalRecurrenceTypeSkip</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-string-to-skip" title="i_cal_recur_string_to_skip ()">i_cal_recur_string_to_skip</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-i-cal-recur.html#i-cal-recur-skip-to-string" title="i_cal_recur_skip_to_string ()">i_cal_recur_skip_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-i-cal-recur.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-i-cal-recur.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-recur-expand-recurrence"></a><h3>i_cal_recur_expand_recurrence ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="GArray"><span class="returnvalue">GArray</span></GTKDOCLINK> *
+i_cal_recur_expand_recurrence (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *rule</code></em>,
+                               <em class="parameter"><code><GTKDOCLINK HREF="time-t"><span class="type">time_t</span></GTKDOCLINK> start</code></em>,
+                               <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> count</code></em>);</pre>
+<p>Fill an array with the 'count' number of occurrences generated by the rrule. Note that the times are
+returned in UTC, but the times are calculated in local time. YOu will have to convert the results back
+into local time before using them.</p>
+<div class="refsect3">
+<a name="i-cal-recur-expand-recurrence.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>rule</p></td>
+<td class="parameter_description"><p>The rule of the recurrence.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>the start seconds past the POSIX epoch.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>The number of elements to be filled up in the <em class="parameter"><code>array</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-expand-recurrence.returns"></a><h4>Returns</h4>
+<p>If successful, return the array. NULL if failed. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> long][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-string-to-weekday"></a><h3>i_cal_recur_string_to_weekday ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeWeekday" title="enum ICalRecurrenceTypeWeekday"><span class="returnvalue">ICalRecurrenceTypeWeekday</span></a>
+i_cal_recur_string_to_weekday (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert a string representation to an enum representation for the weekday.</p>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-weekday.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string representation of the weekday.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-weekday.returns"></a><h4>Returns</h4>
+<p> The enum representation of the weekday.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-weekday-to-string"></a><h3>i_cal_recur_weekday_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_recur_weekday_to_string (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeWeekday" title="enum ICalRecurrenceTypeWeekday"><span class="type">ICalRecurrenceTypeWeekday</span></a> kind</code></em>);</pre>
+<p>Convert a enum representation to a string representation for the weekday.</p>
+<div class="refsect3">
+<a name="i-cal-recur-weekday-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The freqeuncy enum</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-weekday-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of weekday</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-string-to-freq"></a><h3>i_cal_recur_string_to_freq ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeFrequency" title="enum ICalRecurrenceTypeFrequency"><span class="returnvalue">ICalRecurrenceTypeFrequency</span></a>
+i_cal_recur_string_to_freq (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert a string representation to an enum representation for the frequency.</p>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-freq.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string representation of the frequency.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-freq.returns"></a><h4>Returns</h4>
+<p> The enum representation of the frequency.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-freq-to-string"></a><h3>i_cal_recur_freq_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_recur_freq_to_string (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeFrequency" title="enum ICalRecurrenceTypeFrequency"><span class="type">ICalRecurrenceTypeFrequency</span></a> kind</code></em>);</pre>
+<p>Convert a enum representation to a string representation for the frequency.</p>
+<div class="refsect3">
+<a name="i-cal-recur-freq-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The freqeuncy enum</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-freq-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of frequency</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-string-to-skip"></a><h3>i_cal_recur_string_to_skip ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeSkip" title="enum ICalRecurrenceTypeSkip"><span class="returnvalue">ICalRecurrenceTypeSkip</span></a>
+i_cal_recur_string_to_skip (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert a string representation to an enum representation for the skip.</p>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-skip.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string representation of the skip.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-string-to-skip.returns"></a><h4>Returns</h4>
+<p> The enum representation of the skip.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-skip-to-string"></a><h3>i_cal_recur_skip_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_recur_skip_to_string (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceTypeSkip" title="enum ICalRecurrenceTypeSkip"><span class="type">ICalRecurrenceTypeSkip</span></a> kind</code></em>);</pre>
+<p>Convert a enum representation to a string representation for the skip.</p>
+<div class="refsect3">
+<a name="i-cal-recur-skip-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The freqeuncy enum</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-skip-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of skip</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-i-cal-recur.other_details"></a><h2>Types and Values</h2>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

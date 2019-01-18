@@ -1,0 +1,795 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-recurrence-type.h"
+#include "libical-glib-private.h"
+#include "i-cal-array.h"
+#include "i-cal-timetype.h"
+
+G_DEFINE_TYPE (ICalRecurrenceType, i_cal_recurrence_type, I_CAL_TYPE_OBJECT)
+
+static void i_cal_recurrence_type_class_init (ICalRecurrenceTypeClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalRecurrenceType));
+}
+
+static void i_cal_recurrence_type_init (G_GNUC_UNUSED ICalRecurrenceType *self)
+{
+}
+
+/**
+ * i_cal_recurrence_type_new_full: (skip)
+ * @native: The native libical object.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalRecurrenceType *
+i_cal_recurrence_type_new_full (struct icalrecurrencetype native)
+{
+    ICalRecurrenceType *object;
+    struct icalrecurrencetype *clone;
+    object = g_object_new (I_CAL_RECURRENCE_TYPE_TYPE, NULL);
+    clone = g_new (struct icalrecurrencetype, 1);
+    *clone = native;
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) clone,
+                            (GDestroyNotify) g_free,
+                            FALSE,
+                            NULL);
+
+    return object;
+}
+/**
+ * i_cal_recurrence_type_rscale_is_supported:
+ *
+ * Check whether rscale is supported.
+ *
+ * Returns: Whether rscale is supported
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_recurrence_type_rscale_is_supported (void)
+{
+	return icalrecurrencetype_rscale_is_supported ();
+}
+
+/**
+ * i_cal_recurrence_type_rscale_supported_calendars:
+ *
+ * Get an array of calendars supporting rscale (currently always return NULL).
+ *
+ * Returns: (transfer full): Array of calendars. Currently always NULL.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalArray *
+i_cal_recurrence_type_rscale_supported_calendars (void)
+{
+	return i_cal_array_new_full (icalrecurrencetype_rscale_supported_calendars (), NULL);
+}
+
+/**
+ * i_cal_recurrence_type_new: (skip)
+ *
+ * Returns: The default value.
+ *
+ * Since: 1.0
+ *
+ **/
+struct icalrecurrencetype
+i_cal_recurrence_type_new (void)
+{
+	struct icalrecurrencetype ret;
+	icalrecurrencetype_clear (&ret);
+	return ret;
+}
+
+/**
+ * i_cal_recurrence_type_clear:
+ * @r: The #ICalRecurrenceType to be reset.
+ *
+ * Reset an #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_clear (ICalRecurrenceType *r)
+{
+	g_return_if_fail (I_CAL_IS_RECURRENCE_TYPE (r));
+	g_return_if_fail (r != NULL);
+
+	icalrecurrencetype_clear ((struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (r)));
+}
+
+/**
+ * i_cal_recurrence_type_day_day_of_week:
+ * @day: The encoded day which represents the day of the week and Nth day of the week.
+ *
+ * Decode a day to a weekday in a week.
+ *
+ * Returns: The decoded weekday with Monday to be 1.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceTypeWeekday
+i_cal_recurrence_type_day_day_of_week (gshort day)
+{
+	return (ICalRecurrenceTypeWeekday) (icalrecurrencetype_day_day_of_week (day));
+}
+
+/**
+ * i_cal_recurrence_type_day_position:
+ * @day: The encoded day which represents the day of the week and Nth day of the week.
+ *
+ * Decode a day to a position of the weekday.
+ *
+ * Returns: The decoded day of the week. 0 == any of day of week. 1 == first, 2 = second, -2 == second to last, etc
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_recurrence_type_day_position (gshort day)
+{
+	return icalrecurrencetype_day_position (day);
+}
+
+/**
+ * i_cal_recurrence_type_month_is_leap:
+ * @month: The month to be decoded.
+ *
+ * Decode a month and check whether it is a leap month.
+ *
+ * Returns: Whether this month is a leap month.
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_recurrence_type_month_is_leap (gshort month)
+{
+	return icalrecurrencetype_month_is_leap (month);
+}
+
+/**
+ * i_cal_recurrence_type_month_month:
+ * @month: The month to be decoded.
+ *
+ * Decode a month and check whether it is NOT a leap month.
+ *
+ * Returns: Whether this month is NOT a leap month.
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_recurrence_type_month_month (gshort month)
+{
+	return icalrecurrencetype_month_month (month);
+}
+
+/**
+ * i_cal_recurrence_type_from_string:
+ * @str: The string representation of the #ICalRecurrenceType
+ *
+ * Convert a string to a #ICalRecurrenceType.
+ *
+ * Returns: (transfer full): The #ICalRecurrenceType converted from @str.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceType *
+i_cal_recurrence_type_from_string (const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, NULL);
+
+	return i_cal_recurrence_type_new_full (icalrecurrencetype_from_string (str));
+}
+
+/**
+ * i_cal_recurrence_type_as_string_r:
+ * @recur: The #ICalRecurrenceType to be converted.
+ *
+ * Convert a #ICalRecurrenceType to a string.
+ *
+ * Returns: (transfer full): The string representation of @recur.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_recurrence_type_as_string_r (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (I_CAL_IS_RECURRENCE_TYPE (recur), NULL);
+	g_return_val_if_fail (recur != NULL, NULL);
+
+	return icalrecurrencetype_as_string_r ((struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (recur)));
+}
+
+/**
+ * i_cal_recurrence_type_get_until:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the until from #ICalRecurrenceType.
+ *
+ * Returns: (transfer full): The until of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_recurrence_type_get_until (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), NULL);
+	return i_cal_timetype_new_full (((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->until);
+}
+
+/**
+ * i_cal_recurrence_type_set_until:
+ * @recur: The #ICalRecurrenceType.
+ * @until: The until of #ICalRecurrenceType.
+ *
+ * Set the until from #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_until (ICalRecurrenceType *recur, 
+                                 ICalTimetype *until)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (until != NULL && I_CAL_IS_TIMETYPE (until));
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->until = *(icaltimetype *)i_cal_object_get_native ((ICalObject *)until);
+}
+
+/**
+ * i_cal_recurrence_type_get_freq:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the freq from #ICalRecurrenceType.
+ *
+ * Returns: The freq of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceTypeFrequency
+i_cal_recurrence_type_get_freq (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), I_CAL_NO_RECURRENCE);
+	return (ICalRecurrenceTypeFrequency) (((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->freq);
+}
+
+/**
+ * i_cal_recurrence_type_set_freq:
+ * @recur: The #ICalRecurrenceType.
+ * @freq: The freq of #ICalRecurrenceType.
+ *
+ * Set the freq from #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_freq (ICalRecurrenceType *recur, 
+                                ICalRecurrenceTypeFrequency freq)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	((struct icalrecurrencetype *) i_cal_object_get_native ((ICalObject *)recur))->freq = (icalrecurrencetype_frequency) freq;
+}
+
+/**
+ * i_cal_recurrence_type_get_count:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the count from #ICalRecurrenceType.
+ *
+ * Returns: The count of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_recurrence_type_get_count (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	return ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->count;
+}
+
+/**
+ * i_cal_recurrence_type_set_count:
+ * @recur: The #ICalRecurrenceType.
+ * @count: The count of #ICalRecurrenceType.
+ *
+ * Set the count from #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_count (ICalRecurrenceType *recur, 
+                                 gint count)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->count = count;
+}
+
+/**
+ * i_cal_recurrence_type_get_interval:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the interval from #ICalRecurrenceType.
+ *
+ * Returns: The interval of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+gshort
+i_cal_recurrence_type_get_interval (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	return ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->interval;
+}
+
+/**
+ * i_cal_recurrence_type_set_interval:
+ * @recur: The #ICalRecurrenceType.
+ * @interval: The interval of #ICalRecurrenceType.
+ *
+ * Set the interval from #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_interval (ICalRecurrenceType *recur, 
+                                    gshort interval)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->interval = interval;
+}
+
+/**
+ * i_cal_recurrence_type_get_week_start:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the week_start from #ICalRecurrenceType.
+ *
+ * Returns: The week_start of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceTypeWeekday
+i_cal_recurrence_type_get_week_start (ICalRecurrenceType *recur)
+{
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), I_CAL_NO_WEEKDAY);
+	return (ICalRecurrenceTypeWeekday) (((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->week_start);
+}
+
+/**
+ * i_cal_recurrence_type_set_week_start:
+ * @recur: The #ICalRecurrenceType.
+ * @week_start: The week_start of #ICalRecurrenceType.
+ *
+ * Set the week_start from #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_week_start (ICalRecurrenceType *recur, 
+                                      ICalRecurrenceTypeWeekday week_start)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->week_start = (icalrecurrencetype_weekday) week_start;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_second:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_second array from #ICalRecurrenceType. The array size if ICAL_BY_SECOND_SIZE.
+ *
+ * Returns: (transfer full) (element-type short): The by_second of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_second (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, TRUE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_second, ICAL_BY_SECOND_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_second:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_second of #ICalRecurrenceType.
+ * @value: The value to be set into by_second of #ICalRecurrenceType.
+ *
+ * Set the by_second array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_SECOND_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_second (ICalRecurrenceType *recur, 
+                                     guint index, 
+                                     gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_SECOND_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_second[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_minute:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_minute array from #ICalRecurrenceType. The array size if ICAL_BY_MINUTE_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_minute of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_minute (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_minute, ICAL_BY_MINUTE_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_minute:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_minute of #ICalRecurrenceType.
+ * @value: The value to be set into by_minute of #ICalRecurrenceType.
+ *
+ * Set the by_minute array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_MINUTE_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_minute (ICalRecurrenceType *recur, 
+                                     guint index, 
+                                     gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_MINUTE_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_minute[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_hour:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_hour array from #ICalRecurrenceType. The array size if ICAL_BY_HOUR_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_hour of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_hour (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_hour, ICAL_BY_HOUR_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_hour:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_hour of #ICalRecurrenceType.
+ * @value: The value to be set into by_hour of #ICalRecurrenceType.
+ *
+ * Set the by_hour array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_HOUR_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_hour (ICalRecurrenceType *recur, 
+                                   guint index, 
+                                   gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_HOUR_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_hour[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_day:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_day array from #ICalRecurrenceType. The array size if ICAL_BY_DAY_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_day of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_day (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_day, ICAL_BY_DAY_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_day:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_day of #ICalRecurrenceType.
+ * @value: The value to be set into by_day of #ICalRecurrenceType.
+ *
+ * Set the by_day array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_DAY_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_day (ICalRecurrenceType *recur, 
+                                  guint index, 
+                                  gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_DAY_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_day[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_month_day:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_month_day array from #ICalRecurrenceType. The array size if ICAL_BY_MONTHDAY_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_month_day of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_month_day (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_month_day, ICAL_BY_MONTHDAY_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_month_day:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_month_day of #ICalRecurrenceType.
+ * @value: The value to be set into by_month_day of #ICalRecurrenceType.
+ *
+ * Set the by_month_day array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_MONTHDAY_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_month_day (ICalRecurrenceType *recur, 
+                                        guint index, 
+                                        gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_MONTHDAY_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_month_day[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_year_day:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_year_day array from #ICalRecurrenceType. The array size if ICAL_BY_YEARDAY_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_year_day of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_year_day (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_year_day, ICAL_BY_YEARDAY_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_year_day:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_year_day of #ICalRecurrenceType.
+ * @value: The value to be set into by_year_day of #ICalRecurrenceType.
+ *
+ * Set the by_year_day array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_YEARDAY_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_year_day (ICalRecurrenceType *recur, 
+                                       guint index, 
+                                       gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_YEARDAY_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_year_day[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_week_no:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_week_no array from #ICalRecurrenceType. The array size if ICAL_BY_WEEKNO_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_week_no of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_week_no (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_week_no, ICAL_BY_WEEKNO_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_week_no:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_week_no of #ICalRecurrenceType.
+ * @value: The value to be set into by_week_no of #ICalRecurrenceType.
+ *
+ * Set the by_week_no array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_WEEKNO_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_week_no (ICalRecurrenceType *recur, 
+                                      guint index, 
+                                      gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_WEEKNO_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_week_no[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_month:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_month array from #ICalRecurrenceType. The array size if ICAL_BY_MONTH_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_month of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_month (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_month, ICAL_BY_MONTH_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_month:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_month of #ICalRecurrenceType.
+ * @value: The value to be set into by_month of #ICalRecurrenceType.
+ *
+ * Set the by_month array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_MONTH_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_month (ICalRecurrenceType *recur, 
+                                    guint index, 
+                                    gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_MONTH_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_month[index] = value;
+}
+
+/**
+ * i_cal_recurrence_type_get_by_set_pos:
+ * @recur: The #ICalRecurrenceType.
+ *
+ * Get the by_set_pos array from #ICalRecurrenceType. The array size if ICAL_BY_SETPOS_SIZE.
+ *
+ * Returns: (transfer full) (element-type gshort): The by_set_pos of #ICalRecurrenceType.
+ *
+ * Since: 1.0
+ *
+ **/
+GArray *
+i_cal_recurrence_type_get_by_set_pos (ICalRecurrenceType *recur)
+{
+	GArray *array;
+	g_return_val_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur), 0);
+	array = g_array_new (FALSE, FALSE, sizeof (gshort));
+	g_array_append_vals (array, ((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_set_pos, ICAL_BY_SETPOS_SIZE);
+	return array;
+}
+
+/**
+ * i_cal_recurrence_type_set_by_set_pos:
+ * @recur: The #ICalRecurrenceType.
+ * @index: The index in by_set_pos of #ICalRecurrenceType.
+ * @value: The value to be set into by_set_pos of #ICalRecurrenceType.
+ *
+ * Set the by_set_pos array from #ICalRecurrenceType at the given index. The array size if ICAL_BY_SETPOS_SIZE.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recurrence_type_set_by_set_pos (ICalRecurrenceType *recur, 
+                                      guint index, 
+                                      gshort value)
+{
+	g_return_if_fail (recur != NULL && I_CAL_IS_RECURRENCE_TYPE (recur));
+	g_return_if_fail (index < ICAL_BY_SETPOS_SIZE);
+	((struct icalrecurrencetype *)i_cal_object_get_native ((ICalObject *)recur))->by_set_pos[index] = value;
+}

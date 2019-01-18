@@ -1,0 +1,8 @@
+digraph G {
+	subgraph cluster_c0 {a0 -> a1 -> a2 -> a3;}
+	subgraph cluster_c1 {b0 -> b1 -> b2 -> b3;}
+	x -> a0;
+	x -> b0;
+	a1 -> b3;
+	b3 -> a1;
+}

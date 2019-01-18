@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2003 Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2004 Benoît Dejean <TaZForEver@free.fr>
+ Copyright (C) 2006 Steve Frécinaux <nud@apinc.org>
+ Copyright (C) 2012 Stefano Palazzo <stefano-palazzo@ubuntu.com>
+ Copyright (C) 2014 Patryk Zawadzki <patrys@pld-linux.org>
+ Copyright (C) 2014 Sébastien Wilmet <swilmet@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="python" name="Python" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-python;application/x-python</property>
+    <property name="globs">*.py</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="module-handler"    name="Module Handler"        map-to="def:preprocessor"/>
+    <style id="keyword"           name="Keyword"               map-to="def:keyword"/>
+    <style id="multiline-string"  name="Multiline string"      map-to="def:string"/>
+    <style id="string"            name="String"                map-to="def:string"/>
+    <style id="escaped-char"      name="Escaped Character"     map-to="def:special-char"/>
+    <style id="format"            name="Format"                map-to="def:character"/>
+    <style id="string-conversion" name="String Conversion"/>
+    <style id="special-variable"  name="Special Variable"      map-to="def:identifier"/>
+    <style id="boolean"           name="Boolean"               map-to="def:boolean"/>
+    <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal"           name="Decimal number"        map-to="def:decimal"/>
+    <style id="base-n-integer"    name="Base-N number"         map-to="def:base-n-integer"/>
+    <style id="complex"           name="Complex number"        map-to="def:complex"/>
+    <style id="builtin-constant"  name="Builtin Constant"      map-to="def:special-constant"/>
+    <style id="builtin-object"    name="Builtin Object"        map-to="def:type"/>
+    <style id="builtin-function"  name="Builtin Function"      map-to="def:builtin"/>
+    <style id="function-name"     name="Function Name"         map-to="def:function"/>
+    <style id="class-name"        name="Class Name"            map-to="def:function"/>
+    <style id="decorator"         name="Decorator"             map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="identifier">[_a-zA-Z][_a-zA-Z0-9]*</define-regex>
+    <define-regex id="number">[1-9][0-9]*</define-regex>
+
+    <define-regex id="identifier-path" extended="true">
+      (\%{identifier}\.)*\%{identifier}
+    </define-regex>
+    <define-regex id="relative-path" extended="true">
+      (\.*\%{identifier-path}|\.+)
+    </define-regex>
+
+    <!-- http://docs.python.org/lib/typesseq-strings.html -->
+    <context id="format" style-ref="format" extend-parent="false">
+      <match extended="true">
+        %                       # leading % sign
+        \(\%{identifier}\)?     # mapping key
+        [#0\-\ \+]*             # conversion flags
+        (\-?\%{number}|\*)?     # minimum field width
+        (\.(\-?\%{number}|\*))? # precision
+        (hlL)?                  # lentgh modifier
+        [diouxXeEfFgGcrs%]      # conversion type
+      </match>
+    </context>
+
+    <!-- http://docs.python.org/ref/strings.html -->
+    <context id="escaped-char" style-ref="escaped-char" extend-parent="true">
+      <match extended="true">
+        \\(                 # leading backslash
+        [\\'"abfnrtv]     | # single escaped char
+        N\{[0-9A-Z\ -]+\} | # named unicode character
+        u[0-9A-Fa-f]{4}   | # xxxx - character with 16-bit hex value xxxx
+        U[0-9A-Fa-f]{8}   | # xxxxxxxx - character with 32-bit hex value xxxxxxxx
+        x[0-9A-Fa-f]{1,2} | # \xhh - character with hex value hh
+        [0-7]{1,3}          # \ooo - character with octal value ooo
+        )
+      </match>
+    </context>
+
+    <define-regex id="string-prefix">(u|U)?</define-regex>
+    <define-regex id="raw-string-prefix">(r|ur|R|UR|Ur|uR)</define-regex>
+
+    <context id="multiline-double-quoted-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char"/>
+      </include>
+    </context>
+
+    <context id="multiline-single-quoted-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}"</start>
+      <end>"</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}'</start>
+      <end>'</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-double-quoted-raw-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="multiline-single-quoted-raw-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-raw-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}"</start>
+      <end>"</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char" ignore-style="true"/>
+        <context ref="def:line-continue" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-raw-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}'</start>
+      <end>'</end>
+      <include>
+        <context ref="format"/>
+        <context ref="escaped-char" ignore-style="true"/>
+        <context ref="def:line-continue" ignore-style="true"/>
+      </include>
+    </context>
+
+    <context id="string-conversion" style-ref="string-conversion" end-at-line-end="true">
+      <start>`</start>
+      <end>`</end>
+      <include>
+        <context ref="python"/>
+      </include>
+    </context>
+
+    <context id="special-variables" style-ref="special-variable">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>self</keyword>
+      <keyword>__name__</keyword>
+      <keyword>__debug__</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>False</keyword>
+      <keyword>True</keyword>
+    </context>
+
+    <define-regex id="float" extended="true">
+      ( (\d+)?\.\d+ | \d+\. ) |
+      ( (\d+|(\d+)?\.\d+|\d+\.)[eE][+-]?\d+ )
+    </define-regex>
+
+    <context id="complex" style-ref="complex">
+      <match>(?&lt;![\w\.])(\%{float}|\d+)[jJ]\b</match>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match>(?&lt;![\w\.])\%{float}(?![\w\.])</match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>(?&lt;![\w\.])([1-9][0-9]*|0)[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="octal" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[0-7]+[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="hex" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[xX][0-9A-Fa-f]+[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="module-handler-from">
+      <match extended="true">
+        (from)
+        \s+
+        (\%{relative-path})
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="module-handler"/>
+        <context sub-pattern="2" style-ref="class-name"/>
+      </include>
+    </context>
+
+    <context id="module-handler" style-ref="module-handler">
+      <keyword>import</keyword>
+      <keyword>from</keyword>
+      <keyword>as</keyword>
+    </context>
+
+    <!-- 'def' is also present in the 'keyword' context, but has a lower
+         priority, so 'def' is highlighted even if the function name doesn't match. -->
+    <context id="function-definition">
+      <match extended="true">
+        (def)
+        \s+
+        (\%{identifier})
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="keyword"/>
+        <context sub-pattern="2" style-ref="function-name"/>
+      </include>
+    </context>
+
+    <!-- 'class' is also present in the 'keyword' context, but has a lower
+         priority, so 'class' is highlighted even if the class name doesn't match. -->
+    <context id="class-definition">
+      <match extended="true">
+        (class)
+        \s+
+        (\%{identifier})
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="keyword"/>
+        <context sub-pattern="2" style-ref="class-name"/>
+      </include>
+    </context>
+
+    <context id="decorator" style-ref="decorator">
+      <match>@\%{identifier-path}</match>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>assert</keyword>
+      <keyword>break</keyword>
+      <keyword>class</keyword>
+      <keyword>continue</keyword>
+      <keyword>def</keyword>
+      <keyword>del</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>except</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>global</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>is</keyword>
+      <keyword>lambda</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>pass</keyword>
+      <keyword>raise</keyword>
+      <keyword>return</keyword>
+      <keyword>try</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="2x-only-keywords" style-ref="keyword">
+      <keyword>exec</keyword>
+      <keyword>print</keyword>
+    </context>
+
+    <context id="builtin-constants" style-ref="builtin-constant">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>Ellipsis</keyword>
+      <keyword>None</keyword>
+      <keyword>NotImplemented</keyword>
+    </context>
+
+    <context id="builtin-objects" style-ref="builtin-object">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>ArithmeticError</keyword>
+      <keyword>AssertionError</keyword>
+      <keyword>AttributeError</keyword>
+      <keyword>EnvironmentError</keyword>
+      <keyword>EOFError</keyword>
+      <keyword>Exception</keyword>
+      <keyword>FloatingPointError</keyword>
+      <keyword>ImportError</keyword>
+      <keyword>IndentationError</keyword>
+      <keyword>IndexError</keyword>
+      <keyword>IOError</keyword>
+      <keyword>KeyboardInterrupt</keyword>
+      <keyword>KeyError</keyword>
+      <keyword>LookupError</keyword>
+      <keyword>MemoryError</keyword>
+      <keyword>NameError</keyword>
+      <keyword>NotImplementedError</keyword>
+      <keyword>OSError</keyword>
+      <keyword>OverflowError</keyword>
+      <keyword>ReferenceError</keyword>
+      <keyword>RuntimeError</keyword>
+      <keyword>StandardError</keyword>
+      <keyword>StopIteration</keyword>
+      <keyword>SyntaxError</keyword>
+      <keyword>SystemError</keyword>
+      <keyword>SystemExit</keyword>
+      <keyword>TabError</keyword>
+      <keyword>TypeError</keyword>
+      <keyword>UnboundLocalError</keyword>
+      <keyword>UnicodeDecodeError</keyword>
+      <keyword>UnicodeEncodeError</keyword>
+      <keyword>UnicodeError</keyword>
+      <keyword>UnicodeTranslateError</keyword>
+      <keyword>ValueError</keyword>
+      <keyword>WindowsError</keyword>
+      <keyword>ZeroDivisionError</keyword>
+      <keyword>Warning</keyword>
+      <keyword>UserWarning</keyword>
+      <keyword>DeprecationWarning</keyword>
+      <keyword>PendingDeprecationWarning</keyword>
+      <keyword>SyntaxWarning</keyword>
+      <keyword>OverflowWarning</keyword>
+      <keyword>RuntimeWarning</keyword>
+      <keyword>FutureWarning</keyword>
+    </context>
+
+    <context id="builtin-functions" style-ref="builtin-function">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>__import__</keyword>
+      <keyword>abs</keyword>
+      <keyword>all</keyword>
+      <keyword>any</keyword>
+      <keyword>bin</keyword>
+      <keyword>bool</keyword>
+      <keyword>callable</keyword>
+      <keyword>chr</keyword>
+      <keyword>classmethod</keyword>
+      <keyword>compile</keyword>
+      <keyword>complex</keyword>
+      <keyword>delattr</keyword>
+      <keyword>dict</keyword>
+      <keyword>dir</keyword>
+      <keyword>divmod</keyword>
+      <keyword>enumerate</keyword>
+      <keyword>eval</keyword>
+      <keyword>filter</keyword>
+      <keyword>float</keyword>
+      <keyword>format</keyword>
+      <keyword>frozenset</keyword>
+      <keyword>getattr</keyword>
+      <keyword>globals</keyword>
+      <keyword>hasattr</keyword>
+      <keyword>hash</keyword>
+      <keyword>hex</keyword>
+      <keyword>id</keyword>
+      <keyword>input</keyword>
+      <keyword>int</keyword>
+      <keyword>isinstance</keyword>
+      <keyword>issubclass</keyword>
+      <keyword>iter</keyword>
+      <keyword>len</keyword>
+      <keyword>list</keyword>
+      <keyword>locals</keyword>
+      <keyword>map</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>object</keyword>
+      <keyword>oct</keyword>
+      <keyword>open</keyword>
+      <keyword>ord</keyword>
+      <keyword>pow</keyword>
+      <keyword>property</keyword>
+      <keyword>range</keyword>
+      <keyword>repr</keyword>
+      <keyword>reversed</keyword>
+      <keyword>round</keyword>
+      <keyword>setattr</keyword>
+      <keyword>set</keyword>
+      <keyword>slice</keyword>
+      <keyword>sorted</keyword>
+      <keyword>staticmethod</keyword>
+      <keyword>str</keyword>
+      <keyword>sum</keyword>
+      <keyword>super</keyword>
+      <keyword>tuple</keyword>
+      <keyword>type</keyword>
+      <keyword>vars</keyword>
+      <keyword>zip</keyword>
+    </context>
+
+    <context id="2x-only-builtin-functions" style-ref="builtin-function">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>apply</keyword>
+      <keyword>basestring</keyword>
+      <keyword>buffer</keyword>
+      <keyword>cmp</keyword>
+      <keyword>coerce</keyword>
+      <keyword>execfile</keyword>
+      <keyword>file</keyword>
+      <keyword>intern</keyword>
+      <keyword>long</keyword>
+      <keyword>raw_input</keyword>
+      <keyword>reduce</keyword>
+      <keyword>reload</keyword>
+      <keyword>unichr</keyword>
+      <keyword>unicode</keyword>
+      <keyword>xrange</keyword>
+    </context>
+
+    <context id="python" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="multiline-double-quoted-string"/>
+        <context ref="multiline-single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="multiline-double-quoted-raw-string"/>
+        <context ref="multiline-single-quoted-raw-string"/>
+        <context ref="double-quoted-raw-string"/>
+        <context ref="single-quoted-raw-string"/>
+        <context ref="string-conversion"/>
+        <context ref="special-variables"/>
+        <context ref="boolean"/>
+        <context ref="complex"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+        <context ref="hex"/>
+        <context ref="module-handler-from"/>
+        <context ref="module-handler"/>
+        <context ref="function-definition"/>
+        <context ref="class-definition"/>
+        <context ref="decorator"/>
+        <context ref="keywords"/>
+        <context ref="2x-only-keywords"/>
+        <context ref="builtin-constants"/>
+        <context ref="builtin-objects"/>
+        <context ref="builtin-functions"/>
+        <context ref="2x-only-builtin-functions"/>
+      </include>
+    </context>
+  </definitions>
+</language>

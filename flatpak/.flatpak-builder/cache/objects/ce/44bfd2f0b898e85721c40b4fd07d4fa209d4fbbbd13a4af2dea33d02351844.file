@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2008 Emmanuel Vaïsse <evaisse@gmail.com>
+ Copyright (C) 2010 Patryk Zawadzki <patrys@pld-linux.org
+ Copyright (C) 2015 Tobias Schönberg <tobias47n9e@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<language id="dtl" _name="Django Template" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.dtl</property>
+    <property name="line-comment-start">**</property>
+    <property name="block-comment-start">**</property>
+    <property name="block-comment-end">**</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"         name="Comment" map-to="def:comment"/>
+    <style id="error"           name="Error" map-to="def:error"/>
+    <style id="escape"          name="Escaped Character" map-to="def:special-char"/>
+    <style id="string"          name="String" map-to="def:string"/>
+    <style id="keyword"         name="Keyword" map-to="def:keyword"/>
+    <style id="filters"         name="Null Value" map-to="def:function"/>
+    <style id="boolean"         name="Boolean value" map-to="def:boolean"/>
+    <style id="floating-point"  name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal"         name="Decimal number" map-to="def:decimal"/>
+    <style id="octal"           name="Octal number" map-to="def:base-n-integer"/>
+    <style id="hexadecimal"     name="Hexadecimal number" map-to="def:base-n-integer"/>
+  </styles>
+
+  <definitions>
+
+    <context id="comment" style-ref="comment">
+        <start>&lt;!--</start>
+        <end>--\s*&gt;</end>
+        <include>
+            <context ref="def:in-comment"/>
+        </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context style-ref="def:special-char">
+          <match>\\['\\]</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <prefix>\s</prefix>
+      <suffix>\b</suffix>
+        <keyword>and</keyword>
+        <keyword>as</keyword>
+        <keyword>autoescape</keyword>
+        <keyword>block</keyword>
+        <keyword>blocktrans</keyword>
+        <keyword>closeblock</keyword>
+        <keyword>closebrace</keyword>
+        <keyword>closecomment</keyword>
+        <keyword>closevariable</keyword>
+        <keyword>comment</keyword>
+        <keyword>csrf_token</keyword>
+        <keyword>cycle</keyword>
+        <keyword>debug</keyword>
+        <keyword>elif</keyword>
+        <keyword>else</keyword>
+        <keyword>empty</keyword>
+        <keyword>endautoescape</keyword>
+        <keyword>endblock</keyword>
+        <keyword>endblocktrans</keyword>
+        <keyword>endcomment</keyword>
+        <keyword>endfilter</keyword>
+        <keyword>endfor</keyword>
+        <keyword>endif</keyword>
+        <keyword>endifchanged</keyword>
+        <keyword>endifequal</keyword>
+        <keyword>endifnotequal</keyword>
+        <keyword>endspaceless</keyword>
+        <keyword>endverbatim</keyword>
+        <keyword>endwith</keyword>
+        <keyword>extends</keyword>
+        <keyword>filter</keyword>
+        <keyword>firstof</keyword>
+        <keyword>for</keyword>
+        <keyword>from</keyword>
+        <keyword>get_media_prefix</keyword>
+        <keyword>get_static_prefix</keyword>
+        <keyword>if</keyword>
+        <keyword>ifchanged</keyword>
+        <keyword>ifequal</keyword>
+        <keyword>ifnotequal</keyword>
+        <keyword>in</keyword>
+        <keyword>include</keyword>
+        <keyword>load</keyword>
+        <keyword>lorem</keyword>
+        <keyword>not</keyword>
+        <keyword>now</keyword>
+        <keyword>on</keyword>
+        <keyword>off</keyword>
+        <keyword>openblock</keyword>
+        <keyword>openbrace</keyword>
+        <keyword>opencomment</keyword>
+        <keyword>openvariable</keyword>
+        <keyword>or</keyword>
+        <keyword>regroup</keyword>
+        <keyword>spaceless</keyword>
+        <keyword>ssi</keyword>
+        <keyword>static</keyword>
+        <keyword>staticfiles</keyword>
+        <keyword>templatetag</keyword>
+        <keyword>trans</keyword>
+        <keyword>url</keyword>
+        <keyword>verbatim</keyword>
+        <keyword>widthratio</keyword>
+        <keyword>with</keyword>
+    </context>
+
+    <context id="filters" style-ref="filters">
+      <prefix>\|</prefix>
+        <keyword>add</keyword>
+        <keyword>addslashes</keyword>
+        <keyword>apnumber</keyword>
+        <keyword>capfirst</keyword>
+        <keyword>center</keyword>
+        <keyword>cut</keyword>
+        <keyword>date</keyword>
+        <keyword>default</keyword>
+        <keyword>default_if_none</keyword>
+        <keyword>dictsort</keyword>
+        <keyword>dictsortreversed</keyword>
+        <keyword>divisibleby</keyword>
+        <keyword>escape</keyword>
+        <keyword>escapejs</keyword>
+        <keyword>filesizeformat</keyword>
+        <keyword>first</keyword>
+        <keyword>fix_ampersands</keyword>
+        <keyword>floatformat</keyword>
+        <keyword>force_escape</keyword>
+        <keyword>get_digit</keyword>
+        <keyword>intcomma</keyword>
+        <keyword>intword</keyword>
+        <keyword>iriencode</keyword>
+        <keyword>join</keyword>
+        <keyword>last</keyword>
+        <keyword>length</keyword>
+        <keyword>length_is</keyword>
+        <keyword>linebreaks</keyword>
+        <keyword>linebreaksbr</keyword>
+        <keyword>linenumbers</keyword>
+        <keyword>ljust</keyword>
+        <keyword>lower</keyword>
+        <keyword>make_list</keyword>
+        <keyword>markdown</keyword>
+        <keyword>naturalday</keyword>
+        <keyword>ordinal</keyword>
+        <keyword>phone2numeric</keyword>
+        <keyword>pluralize</keyword>
+        <keyword>pprint</keyword>
+        <keyword>random</keyword>
+        <keyword>removetags</keyword>
+        <keyword>restructuredtext</keyword>
+        <keyword>rjust</keyword>
+        <keyword>safe</keyword>
+        <keyword>safeseq</keyword>
+        <keyword>slice</keyword>
+        <keyword>slugify</keyword>
+        <keyword>stringformat</keyword>
+        <keyword>striptags</keyword>
+        <keyword>textile</keyword>
+        <keyword>time</keyword>
+        <keyword>timesince</keyword>
+        <keyword>timeuntil</keyword>
+        <keyword>title</keyword>
+        <keyword>truncatechars</keyword>
+        <keyword>truncatechars_html</keyword>
+        <keyword>truncatewords</keyword>
+        <keyword>truncatewords_html</keyword>
+        <keyword>unordered_list</keyword>
+        <keyword>upper</keyword>
+        <keyword>urlencode</keyword>
+        <keyword>urlize</keyword>
+        <keyword>urlizetrunc</keyword>
+        <keyword>wordcount</keyword>
+        <keyword>wordwrap</keyword>
+        <keyword>yesno</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <prefix>\b</prefix>
+      <suffix>\b</suffix>
+        <keyword>False</keyword>
+        <keyword>True</keyword>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ([0-9]+[Ee][+-]?[0-9]+ |
+         ([0-9]*\.[0-9]+ | [0-9]+\.[0-9]*)([Ee][+-]?[0-9]+)?)
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal-number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [+-]?([1-9][0-9]*|0)
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="octal-number" style-ref="octal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [+-]?0[0-7]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal-number" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [+-]?0x[0-9a-fA-F]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="dtl-block" end-at-line-end="true">
+      <start>&#123;(&#123;|&#37;)(/?)</start>
+      <end>(&#125;|&#37;)&#125;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="boolean"/>
+        <context sub-pattern="0" where="end" style-ref="boolean"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="keywords"/>
+        <context ref="filters"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal-number"/>
+        <context ref="octal-number"/>
+        <context ref="hexadecimal-number"/>
+      </include>
+    </context>
+
+    <context id="dtl-comment-block" style-ref="comment" end-at-line-end="true">
+      <start>&#123;(&#35;)(/?)</start>
+      <end>(&#35;)&#125;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="comment"/>
+      </include>
+    </context>
+
+    <replace id="html:embedded-lang-hook" ref="dtl-block"/>
+
+    <context id="dtl">
+      <include>
+        <context ref="dtl-comment-block"/>
+        <context ref="dtl-block"/>
+        <context ref="html:html"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

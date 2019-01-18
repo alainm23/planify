@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>API Index: libdbusmenu-gtk Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-gtk Reference Manual">
+<link rel="up" href="index.html" title="libdbusmenu-gtk Reference Manual">
+<link rel="prev" href="object-tree.html" title="Object Hierarchy">
+<link rel="next" href="api-index-deprecated.html" title="Deprecated API Index">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"><span id="nav_index"><a class="shortcut" href="#idxG">G</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxM">M</a></span></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="object-tree.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="api-index-deprecated.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="index">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="api-index-full"></a>API Index</h1></div></div></div>
+<a name="idx"></a><a name="idxG"></a><h3 class="title">G</h3>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#DbusmenuGtkClient" title="struct DbusmenuGtkClient">DbusmenuGtkClient</a>, struct in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#DbusmenuGtkClientClass" title="struct DbusmenuGtkClientClass">DbusmenuGtkClientClass</a>, struct in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-get-accel-group" title="dbusmenu_gtkclient_get_accel_group ()">dbusmenu_gtkclient_get_accel_group</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-menuitem-get" title="dbusmenu_gtkclient_menuitem_get ()">dbusmenu_gtkclient_menuitem_get</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-menuitem-get-submenu" title="dbusmenu_gtkclient_menuitem_get_submenu ()">dbusmenu_gtkclient_menuitem_get_submenu</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-new" title="dbusmenu_gtkclient_new ()">dbusmenu_gtkclient_new</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-newitem-base" title="dbusmenu_gtkclient_newitem_base ()">dbusmenu_gtkclient_newitem_base</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-set-accel-group" title="dbusmenu_gtkclient_set_accel_group ()">dbusmenu_gtkclient_set_accel_group</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html#DBUSMENU-GTKCLIENT-SIGNAL-ROOT-CHANGED:CAPS" title="DBUSMENU_GTKCLIENT_SIGNAL_ROOT_CHANGED">DBUSMENU_GTKCLIENT_SIGNAL_ROOT_CHANGED</a>, macro in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkClient.html" title="DbusmenuGtkClient">DbusmenuGtkClient</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html#DbusmenuGtkMenuClass" title="struct DbusmenuGtkMenuClass">DbusmenuGtkMenuClass</a>, struct in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html" title="DbusmenuGtkMenu">DbusmenuGtkMenu</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html#dbusmenu-gtkmenu-get-client" title="dbusmenu_gtkmenu_get_client ()">dbusmenu_gtkmenu_get_client</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html" title="DbusmenuGtkMenu">DbusmenuGtkMenu</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html#dbusmenu-gtkmenu-new" title="dbusmenu_gtkmenu_new ()">dbusmenu_gtkmenu_new</a>, function in <a class="link" href="libdbusmenu-gtk-DbusmenuGtkMenu.html" title="DbusmenuGtkMenu">DbusmenuGtkMenu</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-parser.html#dbusmenu-gtk-parse-get-cached-item" title="dbusmenu_gtk_parse_get_cached_item ()">dbusmenu_gtk_parse_get_cached_item</a>, function in <a class="link" href="libdbusmenu-gtk-parser.html" title="parser">parser</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-parser.html#dbusmenu-gtk-parse-menu-structure" title="dbusmenu_gtk_parse_menu_structure ()">dbusmenu_gtk_parse_menu_structure</a>, function in <a class="link" href="libdbusmenu-gtk-parser.html" title="parser">parser</a>
+</dt>
+<dd></dd>
+<a name="idxM"></a><h3 class="title">M</h3>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-get-image" title="dbusmenu_menuitem_property_get_image ()">dbusmenu_menuitem_property_get_image</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-get-shortcut" title="dbusmenu_menuitem_property_get_shortcut ()">dbusmenu_menuitem_property_get_shortcut</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-image" title="dbusmenu_menuitem_property_set_image ()">dbusmenu_menuitem_property_set_image</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut" title="dbusmenu_menuitem_property_set_shortcut ()">dbusmenu_menuitem_property_set_shortcut</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut-menuitem" title="dbusmenu_menuitem_property_set_shortcut_menuitem ()">dbusmenu_menuitem_property_set_shortcut_menuitem</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut-string" title="dbusmenu_menuitem_property_set_shortcut_string ()">dbusmenu_menuitem_property_set_shortcut_string</a>, function in <a class="link" href="libdbusmenu-gtk-menuitem.html" title="menuitem">menuitem</a>
+</dt>
+<dd></dd>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

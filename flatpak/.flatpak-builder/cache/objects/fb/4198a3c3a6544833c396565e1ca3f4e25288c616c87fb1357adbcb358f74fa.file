@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2009, 2011, 2012 - Jean-Philippe Fleury <contact@jpfleury.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="mediawiki" name="MediaWiki" version="2.0" _section="Markup">
+  <metadata>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="strong-emphasis" name="Strong Emphasis"   map-to="def:statement"/>
+    <style id="light-emphasis"  name="Light Emphasis"    map-to="def:doc-comment-element"/>
+    <style id="signature"       name="Signature"         map-to="def:statement"/>
+    <style id="url"             name="URL"               map-to="def:underlined"/>
+    <style id="link"            name="Link"              map-to="def:comment"/>
+    <style id="link-symbol"     name="Symbol on a Link"  map-to="def:shebang"/>
+    <style id="line"            name="Line"              map-to="def:type"/>
+    <style id="list"            name="List"              map-to="def:statement"/>
+    <style id="magic-word"      name="Magic Word"        map-to="def:statement"/>
+    <style id="table-symbol"    name="Symbol of a Table" map-to="def:statement"/>
+    <style id="preformatted"    name="Preformatted"      map-to="def:identifier"/>
+    <style id="redirect"        name="Redirect"          map-to="def:statement"/>
+    <style id="title"           name="Title"             map-to="def:type"/>
+    <style id="template"        name="Template"          map-to="def:statement"/>
+  </styles>
+
+  <definitions>
+    <!-- See <http://www.mediawiki.org/wiki/Manual:$wgUrlProtocols>. -->
+    <define-regex id="regex-url">(http://|https://|ftp://|irc://|gopher://|telnet://|nntp://|worldwind://|mailto:|news:)[^\s]+</define-regex>
+
+    <define-regex id="regex-internal-link">\[\[\s*[^\[\]\s][^\[\]]*?((\|)[^\[\]\|]*)?\]\]</define-regex>
+
+    <context id="double-emphasis" style-ref="strong-emphasis">
+      <match>'''''.+?'''''</match>
+    </context>
+
+    <context id="strong-emphasis" style-ref="strong-emphasis">
+      <match>'''.+?'''</match>
+    </context>
+
+    <context id="light-emphasis" style-ref="light-emphasis">
+      <match>''.+?''</match>
+    </context>
+
+    <!-- See <http://www.mediawiki.org/wiki/Help:Signatures/fr>. -->
+    <context id="signature" style-ref="signature">
+      <match>~{3,5}</match>
+    </context>
+
+    <context id="url" style-ref="url">
+      <match>(\%{regex-url})</match>
+      <include>
+        <context sub-pattern="1" style-ref="link"/>
+      </include>
+    </context>
+
+    <context id="internal-link" style-ref="link">
+      <match>\%{regex-internal-link}</match>
+      <include>
+        <context sub-pattern="2" style-ref="link-symbol"/>
+      </include>
+    </context>
+
+    <context id="external-link" style-ref="link">
+      <match extended="true">
+        (?&lt;!\[)
+        \[
+        \s*
+        (\%{regex-url})
+        [^\[\]]*
+        \]
+        (?!\])
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="url"/>
+      </include>
+    </context>
+
+    <context id="line" style-ref="line">
+      <match>^-{4,}</match>
+    </context>
+
+    <context id="list">
+      <match>^((\*|#(?!REDIRECT))+)\s*[^\*#\s]+</match>
+      <include>
+        <context sub-pattern="1" style-ref="list"/>
+      </include>
+    </context>
+
+    <context id="glossary-term">
+      <match extended="true">
+        ^(;)
+        \s*
+        [^;:\s]+?
+        [^:]*
+        (:?)
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="list"/>
+        <context sub-pattern="2" style-ref="list"/>
+      </include>
+    </context>
+
+    <context id="glossary-definition">
+      <match extended="true">
+        ^(:)
+        \s*
+        [^;:\s]+
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="list"/>
+      </include>
+    </context>
+
+    <!-- Magic words. See <http://www.mediawiki.org/wiki/Help:Magic_words>. -->
+
+    <context id="magic-word-1" style-ref="magic-word">
+      <prefix>__</prefix>
+      <suffix>__</suffix>
+
+      <!-- Behavior switches. -->
+      <keyword>NOTOC</keyword>
+      <keyword>FORCETOC</keyword>
+      <keyword>TOC</keyword>
+      <keyword>NOEDITSECTION</keyword>
+      <keyword>NEWSECTIONLINK</keyword>
+      <keyword>NONEWSECTIONLINK</keyword>
+      <keyword>NOGALLERY</keyword>
+      <keyword>HIDDENCAT</keyword>
+      <keyword>NOCONTENTCONVERT</keyword>
+      <keyword>NOCC</keyword>
+      <keyword>NOTITLECONVERT</keyword>
+      <keyword>NOTC</keyword>
+      <keyword>START</keyword>
+      <keyword>END</keyword>
+      <keyword>INDEX</keyword>
+      <keyword>NOINDEX</keyword>
+      <keyword>STATICREDIRECT</keyword>
+    </context>
+
+    <context id="magic-word-2" style-ref="magic-word">
+      <prefix>{{</prefix>
+      <suffix>}}</suffix>
+
+      <!-- Date and time. -->
+      <keyword>CURRENTYEAR</keyword>
+      <keyword>CURRENTMONTH</keyword>
+      <keyword>CURRENTMONTHNAME</keyword>
+      <keyword>CURRENTMONTHNAMEGEN</keyword>
+      <keyword>CURRENTMONTHABBREV</keyword>
+      <keyword>CURRENTDAY</keyword>
+      <keyword>CURRENTDAY2</keyword>
+      <keyword>CURRENTDOW</keyword>
+      <keyword>CURRENTDAYNAME</keyword>
+      <keyword>CURRENTTIME</keyword>
+      <keyword>CURRENTHOUR</keyword>
+      <keyword>CURRENTWEEK</keyword>
+      <keyword>CURRENTTIMESTAMP</keyword>
+      <keyword>LOCALYEAR</keyword>
+      <keyword>LOCALMONTH</keyword>
+      <keyword>LOCALMONTHNAME</keyword>
+      <keyword>LOCALMONTHNAMEGEN</keyword>
+      <keyword>LOCALMONTHABBREV</keyword>
+      <keyword>LOCALDAY</keyword>
+      <keyword>LOCALDAY2</keyword>
+      <keyword>LOCALDOW</keyword>
+      <keyword>LOCALDAYNAME</keyword>
+      <keyword>LOCALTIME</keyword>
+      <keyword>LOCALHOUR</keyword>
+      <keyword>LOCALWEEK</keyword>
+      <keyword>LOCALTIMESTAMP</keyword>
+
+      <!-- Technical metadata. -->
+      <keyword>SITENAME</keyword>
+      <keyword>SERVER</keyword>
+      <keyword>SERVERNAME</keyword>
+      <keyword>DIRMARK</keyword>
+      <keyword>DIRECTIONMARK</keyword>
+      <keyword>SCRIPTPATH</keyword>
+      <keyword>STYLEPATH</keyword>
+      <keyword>CURRENTVERSION</keyword>
+      <keyword>CONTENTLANGUAGE</keyword>
+      <keyword>CONTENTLANG</keyword>
+      <keyword>REVISIONID</keyword>
+      <keyword>REVISIONDAY</keyword>
+      <keyword>REVISIONDAY2</keyword>
+      <keyword>REVISIONMONTH</keyword>
+      <keyword>REVISIONMONTH1</keyword>
+      <keyword>REVISIONYEAR</keyword>
+      <keyword>REVISIONTIMESTAMP</keyword>
+      <keyword>REVISIONUSER</keyword>
+
+      <!-- Statistics. -->
+      <keyword>NUMBEROFPAGES</keyword>
+      <keyword>NUMBEROFARTICLES</keyword>
+      <keyword>NUMBEROFFILES</keyword>
+      <keyword>NUMBEROFEDITS</keyword>
+      <keyword>NUMBEROFVIEWS</keyword>
+      <keyword>NUMBEROFUSERS</keyword>
+      <keyword>NUMBEROFADMINS</keyword>
+      <keyword>NUMBEROFACTIVEUSERS</keyword>
+
+      <!-- Page names. -->
+      <keyword>FULLPAGENAME</keyword>
+      <keyword>PAGENAME</keyword>
+      <keyword>BASEPAGENAME</keyword>
+      <keyword>SUBPAGENAME</keyword>
+      <keyword>SUBJECTPAGENAME</keyword>
+      <keyword>TALKPAGENAME</keyword>
+      <keyword>FULLPAGENAMEE</keyword>
+      <keyword>PAGENAMEE</keyword>
+      <keyword>BASEPAGENAMEE</keyword>
+      <keyword>SUBPAGENAMEE</keyword>
+      <keyword>SUBJECTPAGENAMEE</keyword>
+      <keyword>TALKPAGENAMEE</keyword>
+
+      <!-- Namespaces. -->
+      <keyword>NAMESPACE</keyword>
+      <keyword>SUBJECTSPACE</keyword>
+      <keyword>ARTICLESPACE</keyword>
+      <keyword>TALKSPACE</keyword>
+      <keyword>NAMESPACEE</keyword>
+      <keyword>SUBJECTSPACEE</keyword>
+      <keyword>TALKSPACEE</keyword>
+    </context>
+
+    <context id="table">
+      <start>^\s*({\|)</start>
+      <end>^\s*(\|})</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="table-symbol"/>
+        <context sub-pattern="1" where="end" style-ref="table-symbol"/>
+        <context ref="double-emphasis"/>
+        <context ref="strong-emphasis"/>
+        <context ref="light-emphasis"/>
+        <context ref="signature"/>
+        <context ref="url"/>
+        <context ref="internal-link"/>
+        <context ref="external-link"/>
+        <context ref="magic-word-1"/>
+        <context ref="magic-word-2"/>
+        <context ref="html:html"/>
+        <context id="table-symbol" extend-parent="false" style-ref="table-symbol">
+          <match extended="true">
+            ^\s*(\|\+ | \|-+ | !) | \| | !{2,}
+          </match>
+        </context>
+      </include>
+    </context>
+
+    <context id="preformatted" style-ref="preformatted">
+      <match>^ +[^ ]+.*$</match>
+    </context>
+
+    <context id="redirect">
+      <match>^(#REDIRECT)\s*(\%{regex-internal-link})</match>
+      <include>
+        <context sub-pattern="1" style-ref="redirect"/>
+        <context sub-pattern="2" style-ref="link"/>
+        <context sub-pattern="4" style-ref="link-symbol"/>
+      </include>
+    </context>
+
+    <context id="title" style-ref="title">
+      <match>^=.+=\s*$</match>
+    </context>
+
+    <context id="template">
+      <match>({{)\s*[^{}\s]+[^{}]*(}})</match>
+      <include>
+        <context sub-pattern="1" style-ref="template"/>
+        <context sub-pattern="2" style-ref="template"/>
+      </include>
+    </context>
+
+    <context id="mediawiki-syntax">
+      <include>
+        <context ref="double-emphasis"/>
+        <context ref="strong-emphasis"/>
+        <context ref="light-emphasis"/>
+        <context ref="signature"/>
+        <context ref="url"/>
+        <context ref="internal-link"/>
+        <context ref="external-link"/>
+        <context ref="line"/>
+        <context ref="list"/>
+        <context ref="glossary-term"/>
+        <context ref="glossary-definition"/>
+        <context ref="magic-word-1"/>
+        <context ref="magic-word-2"/>
+        <context ref="table"/>
+        <context ref="preformatted"/>
+        <context ref="redirect"/>
+        <context ref="title"/>
+        <context ref="template"/>
+      </include>
+    </context>
+
+    <replace id="html:embedded-lang-hook" ref="mediawiki-syntax"/>
+
+    <context id="mediawiki">
+      <include>
+        <context ref="mediawiki-syntax"/>
+        <context ref="html:html"/>
+      </include>
+    </context>
+  </definitions>
+</language>

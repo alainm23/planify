@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsTranslation: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsLaunchable.html" title="AsLaunchable">
+<link rel="next" href="appstream-AsSuggested.html" title="AsSuggested">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsTranslation.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsLaunchable.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsSuggested.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsTranslation"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsTranslation.top_of_page"></a>AsTranslation</span></h2>
+<p>AsTranslation — Description of translation domains for an upstream component.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-kind-to-string" title="as_translation_kind_to_string ()">as_translation_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="returnvalue">AsTranslationKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-kind-from-string" title="as_translation_kind_from_string ()">as_translation_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="returnvalue">AsTranslation</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-new" title="as_translation_new ()">as_translation_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="returnvalue">AsTranslationKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-get-kind" title="as_translation_get_kind ()">as_translation_get_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-set-kind" title="as_translation_set_kind ()">as_translation_set_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-get-id" title="as_translation_get_id ()">as_translation_get_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsTranslation.html#as-translation-set-id" title="as_translation_set_id ()">as_translation_set_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsTranslation.html#AS-TYPE-TRANSLATION:CAPS" title="AS_TYPE_TRANSLATION">AS_TYPE_TRANSLATION</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsTranslation.html#AsTranslationClass" title="struct AsTranslationClass">AsTranslationClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind">AsTranslationKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation">AsTranslation</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.description"></a><h2>Description</h2>
+<p>Describes the translation domain and translation system used by the upstream component.
+See <a class="ulink" href="https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-translation" target="_top">the specification</a> for
+more information on the corresponding XML tag.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-translation-kind-to-string"></a><h3>as_translation_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_translation_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to a text representation.</p>
+<div class="refsect3">
+<a name="as-translation-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-translation-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-kind-from-string"></a><h3>as_translation_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="returnvalue">AsTranslationKind</span></a>
+as_translation_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *kind_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-translation-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-translation-kind-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a> or <a class="link" href="appstream-AsTranslation.html#AS-TRANSLATION-KIND-UNKNOWN:CAPS"><code class="literal">AS_TRANSLATION_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-new"></a><h3>as_translation_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="returnvalue">AsTranslation</span></a> *
+as_translation_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a>.</p>
+<div class="refsect3">
+<a name="as-translation-new.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-get-kind"></a><h3>as_translation_get_kind ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="returnvalue">AsTranslationKind</span></a>
+as_translation_get_kind (<em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> *tr</code></em>);</pre>
+<p>The translation system type.</p>
+<div class="refsect3">
+<a name="as-translation-get-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>tr</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-translation-get-kind.returns"></a><h4>Returns</h4>
+<p> an enum of type <a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-set-kind"></a><h3>as_translation_set_kind ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_translation_set_kind (<em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> *tr</code></em>,
+                         <em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a> kind</code></em>);</pre>
+<p>Set the translation system type.</p>
+<div class="refsect3">
+<a name="as-translation-set-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tr</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind"><span class="type">AsTranslationKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-get-id"></a><h3>as_translation_get_id ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_translation_get_id (<em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> *tr</code></em>);</pre>
+<p>The ID (e.g. Gettext translation domain) of this translation.</p>
+<div class="refsect3">
+<a name="as-translation-get-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>tr</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-translation-set-id"></a><h3>as_translation_set_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_translation_set_id (<em class="parameter"><code><a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> *tr</code></em>,
+                       <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>Set the ID (e.g. Gettext domain) of this translation.</p>
+<div class="refsect3">
+<a name="as-translation-set-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tr</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation"><span class="type">AsTranslation</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>The ID of this translation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsTranslation.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-TRANSLATION:CAPS"></a><h3>AS_TYPE_TRANSLATION</h3>
+<pre class="programlisting">#define AS_TYPE_TRANSLATION (as_translation_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsTranslationClass"></a><h3>struct AsTranslationClass</h3>
+<pre class="programlisting">struct AsTranslationClass {
+	GObjectClass		parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsTranslationKind"></a><h3>enum AsTranslationKind</h3>
+<p>The translation type.</p>
+<div class="refsect3">
+<a name="AsTranslationKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-TRANSLATION-KIND-UNKNOWN:CAPS"></a>AS_TRANSLATION_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Type invalid or not known</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-TRANSLATION-KIND-GETTEXT:CAPS"></a>AS_TRANSLATION_KIND_GETTEXT</p></td>
+<td class="enum_member_description">
+<p>Gettext translation domain</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-TRANSLATION-KIND-QT:CAPS"></a>AS_TRANSLATION_KIND_QT</p></td>
+<td class="enum_member_description">
+<p>Qt translation domain</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsTranslation"></a><h3>AsTranslation</h3>
+<pre class="programlisting">typedef struct _AsTranslation AsTranslation;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

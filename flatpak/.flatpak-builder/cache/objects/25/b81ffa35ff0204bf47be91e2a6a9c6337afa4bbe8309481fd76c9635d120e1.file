@@ -1,0 +1,18 @@
+prefix=/app
+libdir=/app/lib
+libexecdir=/app/libexec
+includedir=/app/include
+datarootdir=/app/share
+datadir=/app/share
+
+privlibdir=/app/lib/evolution-data-server
+privincludedir=/app/include/evolution-data-server
+
+backenddir=/app/lib/evolution-data-server/addressbook-backends
+
+Name: libedatabook
+Description: Backend library for evolution address books
+Version: 3.31.3
+Requires: libebackend-1.2 libebook-contacts-1.2
+Libs: -L${libdir} -ledata-book-1.2
+Cflags: -I${privincludedir}

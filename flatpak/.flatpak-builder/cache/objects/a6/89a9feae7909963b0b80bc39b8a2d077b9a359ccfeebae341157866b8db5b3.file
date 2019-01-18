@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2018 Tobias Schönberg <tobias47n9e@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<language id="tera" _name="Tera Template" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.tera</property>
+    <property name="line-comment-start">**</property>
+    <property name="block-comment-start">**</property>
+    <property name="block-comment-end">**</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"         name="Comment" map-to="def:comment"/>
+    <style id="error"           name="Error" map-to="def:error"/>
+    <style id="escape"          name="Escaped Character" map-to="def:special-char"/>
+    <style id="string"          name="String" map-to="def:string"/>
+    <style id="keyword"         name="Keyword" map-to="def:keyword"/>
+    <style id="filters"         name="Null Value" map-to="def:function"/>
+    <style id="boolean"         name="Boolean value" map-to="def:boolean"/>
+    <style id="floating-point"  name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal"         name="Decimal number" map-to="def:decimal"/>
+    <style id="octal"           name="Octal number" map-to="def:base-n-integer"/>
+    <style id="hexadecimal"     name="Hexadecimal number" map-to="def:base-n-integer"/>
+  </styles>
+
+  <definitions>
+    <context id="keywords" style-ref="keyword">
+      <prefix>\s</prefix>
+      <suffix>\b</suffix>
+        <keyword>and</keyword>
+        <keyword>as</keyword>
+        <keyword>block</keyword>
+        <keyword>elif</keyword>
+        <keyword>else</keyword>
+        <keyword>endblock</keyword>
+        <keyword>endfor</keyword>
+        <keyword>endif</keyword>
+        <keyword>endmacro</keyword>
+        <keyword>endraw</keyword>
+        <keyword>extends</keyword>
+        <keyword>for</keyword>
+        <keyword>if</keyword>
+        <keyword>import</keyword>
+        <keyword>include</keyword>
+        <keyword>in</keyword>
+        <keyword>is</keyword>
+        <keyword>macro</keyword>
+        <keyword>not</keyword>
+        <keyword>or</keyword>
+        <keyword>raw</keyword>
+        <keyword>set_global</keyword>
+        <keyword>set</keyword>
+    </context>
+
+    <context id="filters" style-ref="filters">
+      <prefix>\|</prefix>
+        <keyword>addslashes</keyword>
+        <keyword>capitalize</keyword>
+        <keyword>date</keyword>
+        <keyword>default</keyword>
+        <keyword>escape</keyword>
+        <keyword>filesizeformat</keyword>
+        <keyword>first</keyword>
+        <keyword>get</keyword>
+        <keyword>join</keyword>
+        <keyword>json_encode</keyword>
+        <keyword>last</keyword>
+        <keyword>length</keyword>
+        <keyword>lower</keyword>
+        <keyword>pluralize</keyword>
+        <keyword>replace</keyword>
+        <keyword>reverse</keyword>
+        <keyword>round</keyword>
+        <keyword>safe</keyword>
+        <keyword>slice</keyword>
+        <keyword>slugify</keyword>
+        <keyword>sort</keyword>
+        <keyword>split</keyword>
+        <keyword>striptags</keyword>
+        <keyword>title</keyword>
+        <keyword>trim</keyword>
+        <keyword>truncate</keyword>
+        <keyword>urlencode</keyword>
+        <keyword>wordcount</keyword>
+    </context>
+
+    <context id="tera-block" end-at-line-end="true">
+      <start>&#123;(&#123;|&#37;)(/?)</start>
+      <end>(&#125;|&#37;)&#125;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="boolean"/>
+        <context sub-pattern="0" where="end" style-ref="boolean"/>
+        <context ref="dtl:double-quoted-string"/>
+        <context ref="dtl:single-quoted-string"/>
+        <context ref="keywords"/>
+        <context ref="filters"/>
+        <context ref="dtl:boolean"/>
+        <context ref="dtl:float"/>
+        <context ref="dtl:decimal-number"/>
+        <context ref="rust:scope"/>
+      </include>
+    </context>
+
+    <context id="tera-comment-block" style-ref="comment" end-at-line-end="true">
+      <start>&#123;(&#35;)(/?)</start>
+      <end>(&#35;)&#125;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="comment"/>
+        <context sub-pattern="0" where="end" style-ref="comment"/>
+      </include>
+    </context>
+
+    <replace id="html:embedded-lang-hook" ref="tera-block"/>
+
+    <context id="tera">
+      <include>
+        <context ref="tera-comment-block"/>
+        <context ref="tera-block"/>
+        <context ref="html:html"/>
+      </include>
+    </context>
+  </definitions>
+</language>

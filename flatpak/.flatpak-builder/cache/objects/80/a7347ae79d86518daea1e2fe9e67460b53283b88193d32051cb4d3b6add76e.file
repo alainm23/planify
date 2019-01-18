@@ -1,0 +1,6 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-313 -125)'>
+        
+        <path color='#000' d='M323 126v1h1c.584 0 .738.217.865.473.128.255.135.527.135.527v10s-.007.272-.135.527c-.127.256-.281.473-.865.473h-1v1h1c.727 0 1.19-.353 1.5-.738.31.385.773.738 1.5.738h1v-1h-1c-.583 0-.737-.217-.865-.473A1.404 1.404 0 0 1 326 138v-10s.007-.272.135-.527c.128-.256.282-.473.865-.473h1v-1h-1c-.727 0-1.19.353-1.5.738-.31-.385-.773-.738-1.5-.738zm-5.562 2l-3.563 9.281H313V138h2.813v-.719h-1.094l.844-2.187h4.187l.844 2.187H319.5V138h3.625v-.719h-1L318.563 128zm.218 1.625l1.844 4.75h-3.656z' fill='#666' fill-rule='evenodd' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal' white-space='normal'/>
+    </g>
+</svg>

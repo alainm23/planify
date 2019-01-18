@@ -1,0 +1,195 @@
+load ('def.lefty');
+definit ();
+#
+# initialize window data
+#
+canvas = defcanvas;
+wrect = [0 = ['x' = -5; 'y' = 0;]; 1 = ['x' = 410; 'y' = 500;];];
+setwidgetattr (canvas, ['window' = wrect;]);
+#
+# data structures
+#
+nodearray = [];
+nodenum = 0;
+dist = ['x' = 40; 'y' = 40;];
+defsize = ['x' = 10; 'y' = 10;];
+fontname = 'fixed';
+fontsize = 18;
+tree = null;
+
+# drawing functions
+#
+boxnode = function (node) {
+    local center;
+    box (canvas, node, node.rect, ['color' = 0; 'fill' = 'on';]);
+    box (canvas, node, node.rect);
+    center = [
+        'x' = (node.rect[0].x + node.rect[1].x) / 2;
+        'y' = (node.rect[0].y + node.rect[1].y) / 2;
+    ];
+    if (node.name)
+        text (canvas, node, center, node.name, fontname, fontsize, 'cc');
+};
+circlenode = function (node) {
+    local center, radius;
+    center = [
+        'x' = (node.rect[0].x + node.rect[1].x) / 2;
+        'y' = (node.rect[0].y + node.rect[1].y) / 2;
+    ];
+    radius = [
+        'x' = center.x - node.rect[0].x;
+        'y' = center.y - node.rect[0].y;
+    ];
+    arc (canvas, node, center, radius, ['color' = 0; 'fill' = 'on';]);
+    arc (canvas, node, center, radius);
+    if (node.name)
+        text (canvas, node, center, node.name, fontname, fontsize, 'cc');
+};
+drawnode = boxnode;
+drawedge = function (node1, node2) {
+    line (canvas, null,
+            [
+                'x' = (node1.rect[1].x + node1.rect[0].x) / 2;
+                'y' = node1.rect[0].y;
+            ], [
+                'x' = (node2.rect[1].x + node2.rect[0].x) / 2;
+                'y' = node2.rect[1].y;
+            ]);
+};
+drawtree = function (node) {
+    local i;
+    for (i in nodearray)
+        drawnode (nodearray[i]);
+    drawtreerec (node);
+};
+drawtreerec = function (node) {
+    local i, n;
+    if ((n = tablesize (node.ch)) > 0) {
+        for (i = 0; i < n; i = i + 1) {
+            drawedge (node, node.ch[i]);
+            drawtreerec (node.ch[i]);
+        }
+    }
+};
+redraw = function (c) {
+    if (tree)
+        drawtree (tree);
+};
+
+# layout functions
+#
+complayout = function () {
+    leafx = 0;
+    leafrank = 0;
+    dolayout (tree, wrect[1].y - 10);
+    remove ('leafx');
+    remove ('leafrank');
+};
+dolayout = function (node, pary) {
+    local r, n, i, size, lchp, rchp;
+    size = nodesize (node);
+    if (node.chn > 0) {
+        for (i = 0; i < node.chn; i = i + 1)
+            dolayout (node.ch[i], pary - size.y - dist.y);
+        node.rank = (node.ch[0].rank + node.ch[node.chn - 1].rank) / 2;
+        lchp = node.ch[0].rect;
+        rchp = node.ch[node.chn - 1].rect;
+        r[0].x = lchp[0].x + ((rchp[1].x - lchp[0].x) - size.x) / 2;
+        r[0].y = pary - size.y;
+        r[1].x = r[0].x + size.x;
+        r[1].y = pary;
+        node.rect = r;
+    } else {
+        node.rank = leafrank;
+        r[0].x = leafx;
+        r[0].y = pary - size.y;
+        r[1].x = r[0].x + size.x;
+        r[1].y = pary;
+        leafrank = leafrank + 1;
+        leafx = r[1].x + dist.x;
+        node.rect = r;
+    }
+};
+
+# editing functions
+#
+inode = function (point, name) {
+    local i, nnum, size;
+    nnum = nodenum;
+    if (~name)
+        name = ask ('give name of node:');
+    nodearray[nnum].ch = [];
+    nodearray[nnum].chn = 0;
+    nodearray[nnum].name = name;
+    size = nodesize (nodearray[nnum]);
+    nodearray[nnum].rect[0] = point;
+    nodearray[nnum].rect[1] = ['x' = point.x + size.x; 'y' = point.y + size.y;];
+    nodenum = nodenum + 1;
+    if (~tree) {
+        tree = nodearray[nnum];
+        tree.depth = 0;
+        complayout ();
+        drawtree (tree);
+    } else
+        drawtree (nodearray[nnum]);
+    return nodearray[nnum];
+};
+iedge = function (node1, node2) {
+    node1.ch[node1.chn] = node2;
+    node1.chn = node1.chn + 1;
+    node2.depth = node1.depth + 1;
+    complayout ();
+    clear (canvas);
+    drawtree (tree);
+};
+fix = function (node, op, np) {
+    if (node.depth ~= 0)
+        dist.y = dist.y + (op.y - np.y) / node.depth;
+    if (node.rank ~= 0)
+        dist.x = dist.x + (np.x - op.x) / node.rank;
+    complayout ();
+    clear (canvas);
+    drawtree (tree);
+};
+nodesize = function (node) {
+    local siz;
+    if (~(siz = textsize (canvas, node.name, fontname, fontsize)))
+        siz = defsize;
+    else {
+        siz.x = siz.x + 8;
+        siz.y = siz.y + 8;
+    }
+    return siz;
+};
+changenode = function (nodestyle) {
+    drawnode = nodestyle;
+    clear (canvas);
+    drawtree (tree);
+};
+
+# user interface functions
+#
+leftdown = function (data) {
+    if (~data.obj)
+        inode (data.pos, null);
+};
+leftup = function (data) {
+    if (data.pobj)
+        fix (data.pobj, data.ppos, data.pos);
+};
+middleup = function (data) {
+    if (data.pobj & data.obj)
+        iedge (data.pobj, data.obj);
+};
+dops = function () {
+    local s;
+
+    s = ['x' = 8 * 300; 'y' = 10.5 * 300;];
+    fontname = 'Times-Roman';
+    canvas = createwidget (-1, ['type' = 'ps'; 'size' = s;]);
+    setwidgetattr (canvas, ['window' = wrect;]);
+    drawtree (tree);
+    destroywidget (canvas);
+    canvas=defcanvas;
+    fontname = 'fixed';
+};

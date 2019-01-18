@@ -1,0 +1,769 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-time.h"
+#include "libical-glib-private.h"
+#include "i-cal-time-span.h"
+#include "i-cal-timetype.h"
+#include "i-cal-timezone.h"
+#include "i-cal-duration-type.h"
+
+/**
+ * i_cal_time_null_time:
+ *
+ * Create a default time which is an epoch time
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_null_time (void)
+{
+	return i_cal_timetype_new_full (icaltime_null_time ());
+}
+
+/**
+ * i_cal_time_null_date:
+ *
+ * Create a null date, which indicates no time has been set
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_null_date (void)
+{
+	return i_cal_timetype_new_full (icaltime_null_date ());
+}
+
+/**
+ * i_cal_time_current_time_with_zone:
+ * @zone: (in) (transfer none): The timezone used to create a #ICalTimetype according to the current time
+ *
+ * Create a #ICalTimetype according to the timezone and current time
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_current_time_with_zone (ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), NULL);
+	g_return_val_if_fail (zone != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_current_time_with_zone ((icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone))));
+}
+
+/**
+ * i_cal_time_today:
+ *
+ * Create a #ICalTimetype representing today
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_today (void)
+{
+	return i_cal_timetype_new_full (icaltime_today ());
+}
+
+/**
+ * i_cal_time_from_timet_with_zone:
+ * @v: The seconds past since epoch time
+ * @is_date: Whether it is a date type, 1 if yes, 0 if not.
+ * @zone: (in) (transfer none): The timezone
+ *
+ * Convert seconds past UNIX epoch to a timetype, using timezones.
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_from_timet_with_zone (const time_t v, 
+                                 gint is_date, 
+                                 ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), NULL);
+	g_return_val_if_fail (zone != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_from_timet_with_zone (v, is_date, (icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone))));
+}
+
+/**
+ * i_cal_time_from_string:
+ * @str: The ISO format string
+ *
+ * create a time from an ISO format string
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_from_string (const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_from_string (str));
+}
+
+/**
+ * i_cal_time_from_day_of_year:
+ * @day: The day of a year
+ * @year: The year
+ *
+ * Create a new time, given a day of year and a year.
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_from_day_of_year (const gint day, 
+                             const gint year)
+{
+	return i_cal_timetype_new_full (icaltime_from_day_of_year (day, year));
+}
+
+/**
+ * i_cal_time_as_timet:
+ * @tt: The #ICalTimetype to be converted
+ *
+ * Return the time as seconds past the UNIX epoch
+ *
+ * Returns: the time as seconds past the UNIX epoch
+ *
+ * Since: 1.0
+ *
+ **/
+time_t
+i_cal_time_as_timet (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_as_timet (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_as_timet_with_zone:
+ * @tt: The #ICalTimetype to be converted
+ * @zone: (in) (transfer none): The timezone
+ *
+ * Return the time as seconds past the UNIX epoch, using timezones.
+ *
+ * Returns: the time as seconds past the UNIX epoch
+ *
+ * Since: 1.0
+ *
+ **/
+time_t
+i_cal_time_as_timet_with_zone (ICalTimetype *tt, 
+                               ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), 0);
+	g_return_val_if_fail (zone != NULL, 0);
+
+	return icaltime_as_timet_with_zone (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)), (icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone)));
+}
+
+/**
+ * i_cal_time_as_ical_string_r:
+ * @tt: The #ICalTimetype to be converted
+ *
+ * Return a string represention of the time, in RFC2445 format.
+ *
+ * Returns: (transfer full): The string representation
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_time_as_ical_string_r (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), NULL);
+	g_return_val_if_fail (tt != NULL, NULL);
+
+	return icaltime_as_ical_string_r (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_get_timezone:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ *
+ * Return the timezone
+ *
+ * Returns: (transfer full): The timezone information
+ *
+ * Since: 1.0
+ *
+ **/
+const ICalTimezone *
+i_cal_time_get_timezone (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), NULL);
+	g_return_val_if_fail (tt != NULL, NULL);
+
+	return i_cal_timezone_new_full ((void *)icaltime_get_timezone (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt))), (GObject *)tt, TRUE);
+}
+
+/**
+ * i_cal_time_set_timezone:
+ * @tt: The #ICalTimetype to be queried
+ * @zone: (transfer full): The timezone
+ *
+ * Set the timezone
+ *
+ * Returns: (transfer full): The #ICalTimetype after being set
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_set_timezone (ICalTimetype *tt, 
+                         ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), NULL);
+	g_return_val_if_fail (tt != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), NULL);
+	g_return_val_if_fail (zone != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_set_timezone ((struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)), (icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone))));
+}
+
+/**
+ * i_cal_time_get_tzid:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ *
+ * Return the tzid, or NULL for a floating time
+ *
+ * Returns: (allow-none) (transfer none): The tzid of #ICalTimetype, or NULL if floating type
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_time_get_tzid (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), NULL);
+	g_return_val_if_fail (tt != NULL, NULL);
+
+	return icaltime_get_tzid (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_day_of_year:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ *
+ * Return the day of the year of the given time
+ *
+ * Returns: the day of the year of the given time
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_day_of_year (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_day_of_year (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_day_of_week:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ *
+ * Return the day of the week of the given time. Sunday is 1
+ *
+ * Returns: the day of the week of the given time. Sunday is 1.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_day_of_week (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_day_of_week (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_start_doy_week:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ * @fdow: The first day of the week
+ *
+ * Return the day of the year for the first day of the week that the given time is within.
+ *
+ * Returns: the day of the year for the Sunday of the week that the given time is within.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_start_doy_week (ICalTimetype *tt, 
+                           gint fdow)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_start_doy_week (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)), fdow);
+}
+
+/**
+ * i_cal_time_week_number:
+ * @tt: (in) (transfer none): The #ICalTimetype to be queried
+ *
+ * Return the week number for the week the given time is within.
+ *
+ * Returns: the week number for the week the given time is within.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_week_number (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_week_number (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_is_null_time:
+ * @tt: (in) (transfer none): The #ICalTimetype to be checked
+ *
+ * Return true of the time is null.
+ *
+ * Returns: Whether @tt is null_time. 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_is_null_time (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_is_null_time (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_is_valid_time:
+ * @tt: (in) (transfer none): The #ICalTimetype to be checked
+ *
+ * Return true of the time is null.
+ *
+ * Returns: Whether @tt is null_time. 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_is_valid_time (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_is_valid_time (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_is_date:
+ * @tt: (in) (transfer none): The #ICalTimetype to be checked
+ *
+ * Returns true if time is of DATE type, false if DATE-TIME.
+ *
+ * Returns: true if time is of DATE type, false if DATE-TIME.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_is_date (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_is_date (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_is_utc:
+ * @tt: (in) (transfer none): The #ICalTimetype to be checked
+ *
+ * Returns true if time is relative to UTC zone.
+ *
+ * Returns: true if time is relative to UTC zone.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_is_utc (ICalTimetype *tt)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (tt), 0);
+	g_return_val_if_fail (tt != NULL, 0);
+
+	return icaltime_is_utc (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)));
+}
+
+/**
+ * i_cal_time_compare:
+ * @a: (in) (transfer none): The #ICalTimetype to be compared
+ * @b: (in) (transfer none): The #ICalTimetype to be compared
+ *
+ * Return -1, 0, or 1 to indicate that a less than b, a==b or a larger than b.
+ *
+ * Returns: -1, 0, or 1 to indicate that a less than b, a==b or a larger than b.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_compare (ICalTimetype *a, 
+                    ICalTimetype *b)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (a), 0);
+	g_return_val_if_fail (a != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (b), 0);
+	g_return_val_if_fail (b != NULL, 0);
+
+	return icaltime_compare (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (a)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (b)));
+}
+
+/**
+ * i_cal_time_compare_date_only:
+ * @a: (in) (transfer none): The #ICalTimetype to be compared
+ * @b: (in) (transfer none): The #ICalTimetype to be compared
+ *
+ * like icaltime_compare, but only use the date parts.
+ *
+ * Returns: -1, 0, or 1 to indicate that a less than b, a==b or a larger than b.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_compare_date_only (ICalTimetype *a, 
+                              ICalTimetype *b)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (a), 0);
+	g_return_val_if_fail (a != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (b), 0);
+	g_return_val_if_fail (b != NULL, 0);
+
+	return icaltime_compare_date_only (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (a)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (b)));
+}
+
+/**
+ * i_cal_time_compare_date_only_tz:
+ * @a: (in) (transfer none): The #ICalTimetype to be compared
+ * @b: (in) (transfer none): The #ICalTimetype to be compared
+ * @zone: (transfer full): The target timezone
+ *
+ * like icaltime_compare_tz, but only use the date parts.
+ *
+ * Returns: -1, 0, or 1 to indicate that a less than b, a==b or a larger than b.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_compare_date_only_tz (ICalTimetype *a, 
+                                 ICalTimetype *b, 
+                                 ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (a), 0);
+	g_return_val_if_fail (a != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (b), 0);
+	g_return_val_if_fail (b != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), 0);
+	g_return_val_if_fail (zone != NULL, 0);
+
+	return icaltime_compare_date_only_tz (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (a)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (b)), (icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone)));
+}
+
+/**
+ * i_cal_time_adjust:
+ * @tt: The #ICalTimetype to be set
+ * @days: difference of days adjusted
+ * @hours: difference of hours adjusted
+ * @minutes: difference of minutes adjusted
+ * @seconds: difference of seconds adjusted
+ *
+ * like icaltime_compare_tz, but only use the date parts.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_time_adjust (ICalTimetype *tt, 
+                   const gint days, 
+                   const gint hours, 
+                   const gint minutes, 
+                   const gint seconds)
+{
+	g_return_if_fail (I_CAL_IS_TIMETYPE (tt));
+	g_return_if_fail (tt != NULL);
+
+	icaltime_adjust ((struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (tt)), days, hours, minutes, seconds);
+}
+
+/**
+ * i_cal_time_normalize:
+ * @t: (in) (transfer none): The #ICalTimetype to be normalized
+ *
+ * Normalize the icaltime, so that all fields are within the normal range.
+ *
+ * Returns: (transfer full): The #ICalTimetype normalized
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_normalize (ICalTimetype *t)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (t), NULL);
+	g_return_val_if_fail (t != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_normalize (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (t))));
+}
+
+/**
+ * i_cal_time_convert_to_zone:
+ * @t: (in) (transfer none): The #ICalTimetype to be normalized
+ * @zone: (transfer full): The target timezone
+ *
+ * Convert tt, of timezone tzid, into a utc time. Does nothing if the time is already UTC.
+ *
+ * Returns: (transfer full): The converted #ICalTimetype
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_convert_to_zone (ICalTimetype *t, 
+                            ICalTimezone *zone)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (t), NULL);
+	g_return_val_if_fail (t != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_TIMEZONE (zone), NULL);
+	g_return_val_if_fail (zone != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_convert_to_zone (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (t)), (icaltimezone *)i_cal_object_get_native (I_CAL_OBJECT (zone))));
+}
+
+/**
+ * i_cal_time_days_in_month:
+ * @month: The target month
+ * @year: The target year
+ *
+ * Get the number of days in the target month in the target year.
+ *
+ * Returns: The number of days in the target month in the target year.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_days_in_month (const gint month, 
+                          const gint year)
+{
+	return icaltime_days_in_month (month, year);
+}
+
+/**
+ * i_cal_time_days_is_leap_year:
+ * @year: The target year
+ *
+ * Check whether a year is a leap year.
+ *
+ * Returns: 1 if @year is leap year, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_days_is_leap_year (const gint year)
+{
+	return icaltime_is_leap_year (year);
+}
+
+/**
+ * i_cal_time_days_in_year:
+ * @year: The target year
+ *
+ * Return the number of days in this year.
+ *
+ * Returns: Days in this year.
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_time_days_in_year (const gint year)
+{
+	return icaltime_days_in_year (year);
+}
+
+/**
+ * i_cal_time_span_new:
+ * @dtstart: The start of #ICalTimeSpan
+ * @dtend: The end of #ICalTimeSpan
+ * @is_busy: Whether this span is busy
+ *
+ * Create a new #ICalTimeSpan.
+ *
+ * Returns: (transfer full): The newly create #ICalTimeSpan
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimeSpan *
+i_cal_time_span_new (ICalTimetype *dtstart, 
+                     ICalTimetype *dtend, 
+                     gint is_busy)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (dtstart), NULL);
+	g_return_val_if_fail (dtstart != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (dtend), NULL);
+	g_return_val_if_fail (dtend != NULL, NULL);
+
+	return i_cal_time_span_new_full (icaltime_span_new (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (dtstart)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (dtend)), is_busy));
+}
+
+/**
+ * i_cal_time_span_overlaps:
+ * @s1: The first #ICalTimeSpan
+ * @s2: The second #ICalTimeSpan
+ *
+ * Check whether two spans overlap.
+ *
+ * Returns: Whether these two span are overlapped.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_span_overlaps (ICalTimeSpan *s1, 
+                          ICalTimeSpan *s2)
+{
+	g_return_val_if_fail (I_CAL_IS_TIME_SPAN (s1), 0);
+	g_return_val_if_fail (s1 != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIME_SPAN (s2), 0);
+	g_return_val_if_fail (s2 != NULL, 0);
+
+	return icaltime_span_overlaps ((struct icaltime_span *)i_cal_object_get_native (I_CAL_OBJECT (s1)), (struct icaltime_span *)i_cal_object_get_native (I_CAL_OBJECT (s2)));
+}
+
+/**
+ * i_cal_time_span_contains:
+ * @s: The test #ICalTimeSpan
+ * @container: The target container of #ICalTimeSpan
+ *
+ * Check whether one #ICalTimeSpan is contained in another #ICalTimeSpan.
+ *
+ * Returns: Whether one #ICalTimeSpan is contained in another #ICalTimeSpan.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_time_span_contains (ICalTimeSpan *s, 
+                          ICalTimeSpan *container)
+{
+	g_return_val_if_fail (I_CAL_IS_TIME_SPAN (s), 0);
+	g_return_val_if_fail (s != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIME_SPAN (container), 0);
+	g_return_val_if_fail (container != NULL, 0);
+
+	return icaltime_span_contains ((struct icaltime_span *)i_cal_object_get_native (I_CAL_OBJECT (s)), (struct icaltime_span *)i_cal_object_get_native (I_CAL_OBJECT (container)));
+}
+
+/**
+ * i_cal_time_add:
+ * @t: A #ICalTimetype to be operated on.
+ * @d: A #ICalDuarationType as the difference.
+ *
+ * Add a time duration on the time.
+ *
+ * Returns: (transfer full): The #ICalTimetype results. The native object is the same. But since it is a bare object, so it won't cause segmentation.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalTimetype *
+i_cal_time_add (ICalTimetype *t, 
+                ICalDurationType *d)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (t), NULL);
+	g_return_val_if_fail (t != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_DURATION_TYPE (d), NULL);
+	g_return_val_if_fail (d != NULL, NULL);
+
+	return i_cal_timetype_new_full (icaltime_add (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (t)), * (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (d))));
+}
+
+/**
+ * i_cal_time_subtract:
+ * @t1: The subtracted #ICalTimetype.
+ * @t2: The subtracting #ICalTimetype.
+ *
+ * Get the duration between two time.
+ *
+ * Returns: (transfer full): The #ICalDuarationType between two #ICalTimetype.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalDurationType *
+i_cal_time_subtract (ICalTimetype *t1, 
+                     ICalTimetype *t2)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (t1), NULL);
+	g_return_val_if_fail (t1 != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (t2), NULL);
+	g_return_val_if_fail (t2 != NULL, NULL);
+
+	return i_cal_duration_type_new_full (icaltime_subtract (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (t1)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (t2))));
+}

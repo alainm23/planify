@@ -1,0 +1,87 @@
+/* Copyright 2011-2018 elementary, Inc. (https://elementary.io)
+*
+* This file is part of the elementary GTK theme.
+*
+* The elementary GTK theme is free software: you can redistribute it
+* and/or modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* The elementary GTK theme is distributed in the hope that it will be
+* useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along
+* with the elementary GTK theme. If not, see http://www.gnu.org/licenses/.
+*/
+
+/* Strawberry */
+@define-color STRAWBERRY_100 #ff8c82;
+@define-color STRAWBERRY_300 #ed5353;
+@define-color STRAWBERRY_500 #c6262e;
+@define-color STRAWBERRY_700 #a10705;
+@define-color STRAWBERRY_900 #7a0000;
+
+/* Orange */
+@define-color ORANGE_100 #ffc27d;
+@define-color ORANGE_300 #ffa154;
+@define-color ORANGE_500 #f37329;
+@define-color ORANGE_700 #cc3b02;
+@define-color ORANGE_900 #a62100;
+
+/* Banana */
+@define-color BANANA_100 #fff394;
+@define-color BANANA_300 #ffe16b;
+@define-color BANANA_500 #f9c440;
+@define-color BANANA_700 #d48e15;
+@define-color BANANA_900 #ad5f00;
+
+/* Lime */
+@define-color LIME_100 #d1ff82;
+@define-color LIME_300 #9bdb4d;
+@define-color LIME_500 #68b723;
+@define-color LIME_700 #3a9104;
+@define-color LIME_900 #206b00;
+
+/* Blueberry */
+@define-color BLUEBERRY_100 #8cd5ff;
+@define-color BLUEBERRY_300 #64baff;
+@define-color BLUEBERRY_500 #3689e6;
+@define-color BLUEBERRY_700 #0d52bf;
+@define-color BLUEBERRY_900 #002e99;
+
+/* Grape */
+@define-color GRAPE_100 #e4c6fa;
+@define-color GRAPE_300 #cd9ef7;
+@define-color GRAPE_500 #a56de2;
+@define-color GRAPE_700 #7239b3;
+@define-color GRAPE_900 #452981;
+
+/* Cocoa */
+@define-color COCOA_100 #a3907c;
+@define-color COCOA_300 #8a715e;
+@define-color COCOA_500 #715344;
+@define-color COCOA_700 #57392d;
+@define-color COCOA_900 #3d211b;
+
+/* Silver */
+@define-color SILVER_100 #fafafa;
+@define-color SILVER_300 #d4d4d4;
+@define-color SILVER_500 #abacae;
+@define-color SILVER_700 #7e8087;
+@define-color SILVER_900 #555761;
+
+/* Slate */
+@define-color SLATE_100 #95a3ab;
+@define-color SLATE_300 #667885;
+@define-color SLATE_500 #485a6c;
+@define-color SLATE_700 #273445;
+@define-color SLATE_900 #0e141f;
+
+/* Black */
+@define-color BLACK_100 #666;
+@define-color BLACK_300 #4d4d4d;
+@define-color BLACK_500 #333;
+@define-color BLACK_700 #1a1a1a;
+@define-color BLACK_900 #000;

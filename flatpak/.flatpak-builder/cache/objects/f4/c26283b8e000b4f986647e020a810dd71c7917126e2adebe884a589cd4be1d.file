@@ -1,0 +1,22 @@
+digraph G {
+	subgraph cluster_0 {
+		label = "hello world";
+		a -> b;
+		a -> c;
+		color = hotpink;
+	}
+
+	subgraph cluster_1 {
+		label = "MSDOT";
+		style= "dashed";
+		color=purple;
+		x -> y;
+		x -> z;
+		y -> z;
+		y -> q;
+	}
+
+	top -> a;
+	top -> y;
+	y -> b;
+}

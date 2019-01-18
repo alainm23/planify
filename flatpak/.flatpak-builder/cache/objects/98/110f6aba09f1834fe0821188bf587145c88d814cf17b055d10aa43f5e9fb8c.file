@@ -1,0 +1,30 @@
+digraph G {
+	size="6,6";
+	node [shape=circle,fontsize=8];
+	rankdir=LR;
+	st9 -> st9 [label="11/1"];
+	st9 -> st10 [label="10/1"];
+	st8 -> st8 [label="10/1"];
+	st8 -> st0 [label="00/-"];
+	st7 -> st8 [label="10/1"];
+	st7 -> st7 [label="00/1"];
+	st6 -> st6 [label="01/1"];
+	st6 -> st0 [label="00/-"];
+	st5 -> st6 [label="01/1"];
+	st5 -> st5 [label="11/1"];
+	st4 -> st4 [label="01/1"];
+	st4 -> st0 [label="00/-"];
+	st3 -> st4 [label="01/1"];
+	st3 -> st3 [label="00/1"];
+	st2 -> st9 [label="11/1"];
+	st2 -> st7 [label="00/1"];
+	st2 -> st2 [label="01/1"];
+	st10 -> st10 [label="10/1"];
+	st10 -> st0 [label="00/-"];
+	st1 -> st5 [label="11/1"];
+	st1 -> st3 [label="00/1"];
+	st1 -> st1 [label="10/1"];
+	st0 -> st2 [label="01/-"];
+	st0 -> st1 [label="10/-"];
+	st0 -> st0 [label="00/0"];
+}

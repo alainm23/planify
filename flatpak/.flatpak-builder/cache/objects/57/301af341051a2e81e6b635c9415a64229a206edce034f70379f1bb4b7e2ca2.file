@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalRecurIterator: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-i-cal-recur.html" title="i-cal-recur">
+<link rel="next" href="libical-glib-ICalRecurrenceType.html" title="ICalRecurrenceType">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalRecurIterator.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-i-cal-recur.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalRecurrenceType.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalRecurIterator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalRecurIterator.top_of_page"></a>ICalRecurIterator</span></h2>
+<p>ICalRecurIterator</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalRecurIterator.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="returnvalue">ICalRecurIterator</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalRecurIterator.html#i-cal-recur-iterator-new" title="i_cal_recur_iterator_new ()">i_cal_recur_iterator_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="returnvalue">ICalTimetype</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalRecurIterator.html#i-cal-recur-iterator-next" title="i_cal_recur_iterator_next ()">i_cal_recur_iterator_next</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalRecurIterator.html#i-cal-recur-iterator-set-start" title="i_cal_recur_iterator_set_start ()">i_cal_recur_iterator_set_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalRecurIterator.html#i-cal-recur-iterator-free" title="i_cal_recur_iterator_free ()">i_cal_recur_iterator_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalRecurIterator.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalRecurIterator.html#I-CAL-RECUR-ITERATOR-TYPE:CAPS" title="I_CAL_RECUR_ITERATOR_TYPE">I_CAL_RECUR_ITERATOR_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator">ICalRecurIterator</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIteratorClass" title="struct ICalRecurIteratorClass">ICalRecurIteratorClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalRecurIterator.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalRecurIterator.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-recur-iterator-new"></a><h3>i_cal_recur_iterator_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="returnvalue">ICalRecurIterator</span></a> *
+i_cal_recur_iterator_new (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurrenceType.html#ICalRecurrenceType" title="ICalRecurrenceType"><span class="type">ICalRecurrenceType</span></a> *rule</code></em>,
+                          <em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *dtstart</code></em>);</pre>
+<p>Create an <a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>rule</p></td>
+<td class="parameter_description"><p>The rule applied on the <a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dtstart</p></td>
+<td class="parameter_description"><p>The start time of the recurrence.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-new.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-iterator-next"></a><h3>i_cal_recur_iterator_next ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="returnvalue">ICalTimetype</span></a> *
+i_cal_recur_iterator_next (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a> *iterator</code></em>);</pre>
+<p>Get the next occurrence from an iterator.</p>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-next.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>iterator</p></td>
+<td class="parameter_description"><p>The iterator.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-next.returns"></a><h4>Returns</h4>
+<p>The next occurrence according to this recurrence rule. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-iterator-set-start"></a><h3>i_cal_recur_iterator_set_start ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_recur_iterator_set_start (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a> *iterator</code></em>,
+                                <em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *start</code></em>);</pre>
+<p>Set the date-time at which the iterator will start, where 'start' is a value between DTSTART and UNTIL.
+Note:
+CAN NOT be used with RRULEs that contain COUNT.</p>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-set-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>iterator</p></td>
+<td class="parameter_description"><p>The iterator.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>The date-time to move the iterator to.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-set-start.returns"></a><h4>Returns</h4>
+<p> 1 if succeeded, 0 if failed, like when the recurrence type is unsupported.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-recur-iterator-free"></a><h3>i_cal_recur_iterator_free ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_recur_iterator_free (<em class="parameter"><code><a class="link" href="libical-glib-ICalRecurIterator.html#ICalRecurIterator" title="ICalRecurIterator"><span class="type">ICalRecurIterator</span></a> *iterator</code></em>);</pre>
+<p>Free an iterator.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-recur-iterator-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>iterator</p></td>
+<td class="parameter_description"><p>The iterator to be freed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalRecurIterator.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-RECUR-ITERATOR-TYPE:CAPS"></a><h3>I_CAL_RECUR_ITERATOR_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_RECUR_ITERATOR_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalRecurIterator"></a><h3>ICalRecurIterator</h3>
+<pre class="programlisting">typedef struct {
+} ICalRecurIterator;
+</pre>
+<p>This is the ICalRecurIterator instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalRecurIteratorClass"></a><h3>struct ICalRecurIteratorClass</h3>
+<pre class="programlisting">struct ICalRecurIteratorClass {
+};
+</pre>
+<p>This is the ICalRecurIterator class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

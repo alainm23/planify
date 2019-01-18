@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model Readers</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch03.html" title="Indexes">
+<link rel="prev" href="DeeIndex.html" title="DeeIndex">
+<link rel="next" href="dee-1.0-DeeResultSet.html" title="DeeResultSet">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="DeeIndex.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="dee-1.0-DeeResultSet.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#dee-1.0-Model-Readers.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#dee-1.0-Model-Readers.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="dee-1.0-Model-Readers"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="dee-1.0-Model-Readers.top_of_page"></a>Model Readers</span></h2>
+<p>Model Readers — Extracting strings from <span class="type">DeeModel</span>s</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="dee-1.0-Model-Readers.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;dee.h&gt;
+
+                    <a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter">DeeFilter</a>;
+                    <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader">DeeModelReader</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (<a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()">*DeeModelReaderFunc</a>)               (<em class="parameter"><code><span class="type">DeeModel</span> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-destroy" title="dee_model_reader_destroy ()">dee_model_reader_destroy</a>            (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *reader</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-new" title="dee_model_reader_new ()">dee_model_reader_new</a>                (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()"><span class="type">DeeModelReaderFunc</span></a> reader_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-new-for-int32-column" title="dee_model_reader_new_for_int32_column ()">dee_model_reader_new_for_int32_column</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-new-for-string-column" title="dee_model_reader_new_for_string_column ()">dee_model_reader_new_for_string_column</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-new-for-uint32-column" title="dee_model_reader_new_for_uint32_column ()">dee_model_reader_new_for_uint32_column</a>
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="dee-1.0-Model-Readers.html#dee-model-reader-read" title="dee_model_reader_read ()">dee_model_reader_read</a>               (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeModel</span> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-Model-Readers.description"></a><h2>Description</h2>
+<p>
+The purpose of a <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> is to extract string from a <span class="type">DeeModel</span>.
+These strings are usually passed through a <a class="link" href="DeeAnalyzer.html" title="DeeAnalyzer"><span class="type">DeeAnalyzer</span></a> on into a <a class="link" href="DeeIndex.html" title="DeeIndex"><span class="type">DeeIndex</span></a>.
+</p>
+<p>
+Most readers will extract a value of a given type from a given column,
+but it must be noted that this is not a requirement. The strings may be
+built from several columns.
+</p>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-Model-Readers.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DeeFilter"></a><h3>DeeFilter</h3>
+<pre class="programlisting">typedef struct {
+  DeeFilterMapFunc   map_func;
+  DeeFilterMapNotify map_notify;
+  GDestroyNotify     destroy;
+  gpointer           userdata;
+} DeeFilter;
+</pre>
+<p>
+Structure encapsulating the mapping logic used to construct a <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeModelReader"></a><h3>DeeModelReader</h3>
+<pre class="programlisting">typedef struct {
+  DeeModelReaderFunc reader_func;
+  gpointer           userdata;
+  GDestroyNotify     destroy;
+} DeeModelReader;
+</pre>
+<p>
+Structure encapsulating the information needed to read strings from a
+model. Used for example by <a class="link" href="DeeIndex.html" title="DeeIndex"><span class="type">DeeIndex</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()"><span class="type">DeeModelReaderFunc</span></a> <em class="structfield"><code><a name="DeeModelReader.reader-func"></a>reader_func</code></em>;</span></p></td>
+<td>The <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()"><span class="type">DeeModelReaderFunc</span></a> used to extract
+string from a model. <span class="annotation">[<acronym title="The callback is valid until the GDestroyNotify argument is called."><span class="acronym">scope notified</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="DeeModelReader.userdata"></a>userdata</code></em>;</span></p></td>
+<td>user data to pass to <em class="parameter"><code>reader_func</code></em>. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> <em class="structfield"><code><a name="DeeModelReader.destroy"></a>destroy</code></em>;</span></p></td>
+<td>Called when the reader is destroyed</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeModelReaderFunc"></a><h3>DeeModelReaderFunc ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             (*DeeModelReaderFunc)               (<em class="parameter"><code><span class="type">DeeModel</span> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>);</pre>
+<p>
+Extracts a string from a row in a model.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>The model being indexed</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>The row to extract terms for</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>userdata</code></em> :</span></p></td>
+<td>The data set when registering the reader. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated string with the row data to be indexed.
+Free with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-destroy"></a><h3>dee_model_reader_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_model_reader_destroy            (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *reader</code></em>);</pre>
+<p>
+Release resources associated with <em class="parameter"><code>reader</code></em>, but does not free the
+<a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> structure itself.
+</p>
+<p>
+This will call the <code class="function">destroy()</code> function registered with the reader
+if it is set.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>reader</code></em> :</span></p></td>
+<td>The reader to destroy</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-new"></a><h3>dee_model_reader_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_model_reader_new                (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()"><span class="type">DeeModelReaderFunc</span></a> reader_func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> userdata</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);</pre>
+<p>
+Create a new <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> with the given parameters. This call will zero
+the <em class="parameter"><code>out_reader</code></em> struct.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reader_func</code></em> :</span></p></td>
+<td>The <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReaderFunc" title="DeeModelReaderFunc ()"><span class="type">DeeModelReaderFunc</span></a> to use for the reader. <span class="annotation">[<acronym title="The callback is valid until the GDestroyNotify argument is called."><span class="acronym">scope notified</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>userdata</code></em> :</span></p></td>
+<td>The user data to pass to <em class="parameter"><code>reader_func</code></em>. <span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>][<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>destroy</code></em> :</span></p></td>
+<td>The <a href="http://library.gnome.org/devel/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> to call on
+<em class="parameter"><code>userdata</code></em> when disposing of the reader. <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_reader</code></em> :</span></p></td>
+<td>A pointer to an uninitialized <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> struct. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-new-for-int32-column"></a><h3>dee_model_reader_new_for_int32_column ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_model_reader_new_for_int32_column
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);</pre>
+<p>
+A <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> reading a <code class="literal">gint32</code> from a <span class="type">DeeModel</span> at a given column
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>column</code></em> :</span></p></td>
+<td>The column index to read a <code class="literal">gint32</code> from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_reader</code></em> :</span></p></td>
+<td>A pointer to a <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> instance which will have
+all fields initialized appropriately. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-new-for-string-column"></a><h3>dee_model_reader_new_for_string_column ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_model_reader_new_for_string_column
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);</pre>
+<p>
+A <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> reading a string from a <span class="type">DeeModel</span> at a given column
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>column</code></em> :</span></p></td>
+<td>The column index to read a string from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_reader</code></em> :</span></p></td>
+<td>A pointer to a <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> instance which will have
+all fields initialized appropriately. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-new-for-uint32-column"></a><h3>dee_model_reader_new_for_uint32_column ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_model_reader_new_for_uint32_column
+                                                        (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> column</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *out_reader</code></em>);</pre>
+<p>
+A <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> reading a <code class="literal">guint32</code> from a <span class="type">DeeModel</span> at a given column
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>column</code></em> :</span></p></td>
+<td>The column index to read a <code class="literal">guint32</code> from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out_reader</code></em> :</span></p></td>
+<td>A pointer to a <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> instance which will have
+all fields initialized appropriately. <span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-model-reader-read"></a><h3>dee_model_reader_read ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             dee_model_reader_read               (<em class="parameter"><code><a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeModel</span> *model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);</pre>
+<p>
+Read data from a row in a <span class="type">DeeModel</span> and extract a string representation from
+it.
+</p>
+<p>
+Note that generally a <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> need not be confined to reading from
+one specific column, although in practice most are.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <a class="link" href="dee-1.0-Model-Readers.html#DeeModelReader" title="DeeModelReader"><span class="type">DeeModelReader</span></a> used to read <em class="parameter"><code>model</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>model</code></em> :</span></p></td>
+<td>The <span class="type">DeeModel</span> to read a string from</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>The row to read a string from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated string. Free with <a href="http://library.gnome.org/devel/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

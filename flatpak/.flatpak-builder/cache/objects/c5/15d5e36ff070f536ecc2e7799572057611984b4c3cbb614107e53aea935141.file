@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  This file is part of GtkSourceView
+
+  Syntax highlighting for Pig Latin 0.15
+
+  Author: Eyal Allweil <eallweil@paypal.com>
+  Copyright (C) 2014-2015 Eyal Allweil <eallweil@paypal.com>
+
+  GtkSourceView is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  GtkSourceView is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="pig" name="Pig" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.pig</property>
+    <property name="line-comment-start">--</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="datatype" name="Data Type" map-to="def:type" />
+    <style id="reserved-words" name="Reserved Words" map-to="def:keyword" />
+    <style id="builtin-functions" name="Built In Functions" map-to="def:function" />
+    <style id="boolean" name="Boolean values" map-to="def:boolean" />
+    <style id="null" name="Null" map-to="def:special-constant" />
+    <style id="comment" name="Comment" map-to="def:comment" />
+  </styles>
+
+  <default-regex-options case-sensitive="true" />
+
+  <definitions>
+
+    <context id="datatype" style-ref="datatype">
+      <prefix>(?i)</prefix>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>float</keyword>
+      <keyword>double</keyword>
+      <keyword>boolean</keyword>
+      <keyword>datetime</keyword>
+      <keyword>chararray</keyword>
+      <keyword>bytearray</keyword>
+      <keyword>biginteger</keyword>
+      <keyword>bigdecimal</keyword>
+    </context>
+
+    <context id="boolean-literal" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <!-- Treat as literal despite it being a reserved word -->
+    <context id="null" style-ref="null">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="line-comment" style-ref="comment"
+      end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment" />
+      </include>
+    </context>
+
+    <!-- These are case-insensitive -->
+    <context id="reserved-words" style-ref="reserved-words">
+      <prefix>(?i)</prefix>
+      <keyword>and</keyword>
+      <keyword>any</keyword>
+      <keyword>all</keyword>
+      <keyword>arrange</keyword>
+      <keyword>assert</keyword>
+      <keyword>asc</keyword>
+      <keyword>as</keyword>
+      <keyword>bag</keyword>
+      <keyword>by</keyword>
+      <keyword>cache</keyword>
+      <keyword>case</keyword>
+      <keyword>cat</keyword>
+      <keyword>cd</keyword>
+      <keyword>cogroup</keyword>
+      <keyword>copyfromlocal</keyword>
+      <keyword>copytolocal</keyword>
+      <keyword>cp</keyword>
+      <keyword>cross</keyword>
+      <keyword>cube</keyword>
+      <keyword>%declare</keyword>
+      <keyword>%default</keyword>
+      <keyword>define</keyword>
+      <keyword>describe</keyword>
+      <keyword>desc</keyword>
+      <keyword>dense</keyword>
+      <keyword>diff</keyword>
+      <keyword>distinct</keyword>
+      <keyword>dump</keyword>
+      <keyword>du</keyword>
+      <keyword>eval</keyword>
+      <keyword>exec</keyword>
+      <keyword>explain</keyword>
+      <keyword>filter</keyword>
+      <keyword>flatten</keyword>
+      <keyword>foreach</keyword>
+      <keyword>full</keyword>
+      <keyword>generate</keyword>
+      <keyword>group</keyword>
+      <keyword>help</keyword>
+      <keyword>if</keyword>
+      <keyword>illustrate</keyword>
+      <keyword>import</keyword>
+      <keyword>inner</keyword>
+      <keyword>input</keyword>
+      <keyword>into</keyword>
+      <keyword>is</keyword>
+      <keyword>join</keyword>
+      <keyword>kill</keyword>
+      <keyword>left</keyword>
+      <keyword>limit</keyword>
+      <keyword>load</keyword>
+      <keyword>ls</keyword>
+      <keyword>map</keyword>
+      <keyword>matches</keyword>
+      <keyword>mkdir</keyword>
+      <keyword>mv</keyword>
+      <keyword>not</keyword>
+      <keyword>onschema</keyword>
+      <keyword>order</keyword>
+      <keyword>or</keyword>
+      <keyword>outer</keyword>
+      <keyword>output</keyword>
+      <keyword>parallel</keyword>
+      <keyword>pig</keyword>
+      <keyword>pwd</keyword>
+      <keyword>quit</keyword>
+      <keyword>rank</keyword>
+      <keyword>register</keyword>
+      <keyword>returns</keyword>
+      <keyword>right</keyword>
+      <keyword>rmf</keyword>
+      <keyword>rm</keyword>
+      <keyword>rollup</keyword>
+      <keyword>run</keyword>
+      <keyword>sample</keyword>
+      <keyword>set</keyword>
+      <keyword>ship</keyword>
+      <keyword>split</keyword>
+      <keyword>stderr</keyword>
+      <keyword>stdin</keyword>
+      <keyword>stdout</keyword>
+      <keyword>store</keyword>
+      <keyword>stream</keyword>
+      <keyword>through</keyword>
+      <keyword>tuple</keyword>
+      <keyword>union</keyword>
+      <keyword>using</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="builtin-functions" style-ref="builtin-functions">
+      <keyword>ABS</keyword>
+      <keyword>ACOS</keyword>
+      <keyword>AccumuloStorage</keyword>
+      <keyword>AddDuration</keyword>
+      <keyword>ASIN</keyword>
+      <keyword>ATAN</keyword>
+      <keyword>AVG</keyword>
+      <keyword>AvroStorage</keyword>
+      <keyword>BagToString</keyword>
+      <keyword>BinStorage</keyword>
+      <keyword>CBRT</keyword>
+      <keyword>CEIL</keyword>
+      <keyword>CONCAT</keyword>
+      <keyword>COSH</keyword>
+      <keyword>COS</keyword>
+      <keyword>COUNT_STAR</keyword>
+      <keyword>COUNT</keyword>
+      <keyword>CurrentTime</keyword>
+      <keyword>DaysBetween</keyword>
+      <keyword>DIFF</keyword>
+      <keyword>ENDSWITH</keyword>
+      <keyword>EqualsIgnoreCase</keyword>
+      <keyword>EXP</keyword>
+      <keyword>FLOOR</keyword>
+      <keyword>GetDay</keyword>
+      <keyword>GetHour</keyword>
+      <keyword>GetMilliSecond</keyword>
+      <keyword>GetMinute</keyword>
+      <keyword>GetMonth</keyword>
+      <keyword>GetSecond</keyword>
+      <keyword>GetWeek</keyword>
+      <keyword>GetWeekYear</keyword>
+      <keyword>GetYear</keyword>
+      <keyword>HBaseStorage</keyword>
+      <keyword>HiveUDAF</keyword>
+      <keyword>HiveUDF</keyword>
+      <keyword>HiveUDTF</keyword>
+      <keyword>HoursBetween</keyword>
+      <keyword>INDEXOF</keyword>
+      <keyword>IsEmpty</keyword>
+      <keyword>JsonLoader</keyword>
+      <keyword>JsonStorage</keyword>
+      <keyword>LAST_INDEX_OF</keyword>
+      <keyword>LCFIRST</keyword>
+      <keyword>LOG10</keyword>
+      <keyword>LOG</keyword>
+      <keyword>LOWER</keyword>
+      <keyword>LTRIM</keyword>
+      <keyword>MAX</keyword>
+      <keyword>MilliSecondsBetween</keyword>
+      <keyword>MIN</keyword>
+      <keyword>MinutesBetween</keyword>
+      <keyword>MonthsBetween</keyword>
+      <keyword>OrcStorage</keyword>
+      <keyword>PigDump</keyword>
+      <keyword>PigStorage</keyword>
+      <keyword>PluckTuple</keyword>
+      <keyword>RANDOM</keyword>
+      <keyword>REGEX_EXTRACT_ALL</keyword>
+      <keyword>REGEX_EXTRACT</keyword>
+      <keyword>REPLACE</keyword>
+      <keyword>ROUND_TO</keyword>
+      <keyword>ROUND</keyword>
+      <keyword>RTRIM</keyword>
+      <keyword>SecondsBetween</keyword>
+      <keyword>SINH</keyword>
+      <keyword>SIN</keyword>
+      <keyword>SIZE</keyword>
+      <keyword>SPRINTF</keyword>
+      <keyword>SQRT</keyword>
+      <keyword>STARTSWITH</keyword>
+      <keyword>STRSPLITTOBAG</keyword>
+      <keyword>STRSPLIT</keyword>
+      <keyword>SUBSTRING</keyword>
+      <keyword>SubtractDuration</keyword>
+      <keyword>SUBTRACT</keyword>
+      <keyword>SUM</keyword>
+      <keyword>TANH</keyword>
+      <keyword>TAN</keyword>
+      <keyword>Terms</keyword>
+      <keyword>TextLoader</keyword>
+      <keyword>TOBAG</keyword>
+      <keyword>ToDate</keyword>
+      <keyword>TOKENIZE</keyword>
+      <keyword>TOMAP</keyword>
+      <keyword>ToMilliSeconds</keyword>
+      <keyword>TOP</keyword>
+      <keyword>ToString</keyword>
+      <keyword>TOTUPLE</keyword>
+      <keyword>ToUnixTime</keyword>
+      <keyword>TRIM</keyword>
+      <keyword>TrevniStrorage</keyword>
+      <keyword>UCFIRST</keyword>
+      <keyword>UniqueID</keyword>
+      <keyword>UPPER</keyword>
+      <keyword>Usage</keyword>
+      <keyword>WeeksBetween</keyword>
+      <keyword>YearsBetween</keyword>
+    </context>
+
+    <context id="pig" class="no-spell-check">
+      <include>
+        <context ref="def:decimal" />
+        <context ref="def:float" />
+        <context ref="def:string" />
+        <context ref="def:single-quoted-string" />
+        <context ref="def:c-like-close-comment-outside-comment" />
+        <context ref="def:c-like-comment-multiline" />
+
+        <context ref="datatype" />
+        <context ref="line-comment" />
+        <context ref="reserved-words" />
+        <context ref="builtin-functions" />
+        <context ref="boolean-literal" />
+        <context ref="null" />
+      </include>
+    </context>
+
+  </definitions>
+</language>

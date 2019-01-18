@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2008 Yevgen Muntyan
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="nsis" name="NSIS" version="2.0" _section="Other">
+  <metadata>
+    <property name="globs">*.nsi;*.nsh</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="variable" name="Variable" map-to="makefile:variable"/>
+  </styles>
+
+  <definitions>
+
+    <context id="operator" style-ref="operator">
+      <prefix>!</prefix>
+      <keyword>define</keyword>
+      <keyword>include</keyword>
+      <keyword>insertmacro</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>endif</keyword>
+    </context>
+
+    <define-regex id="identifier">[\w_][\w\d_]*</define-regex>
+
+    <context id="variable" style-ref="variable">
+      <match>\$(\%{identifier}|\{\%{identifier}\}|\(\^\%{identifier}\))</match>
+    </context>
+
+    <context id="variable-assignment">
+      <match>^\s*(!define)\s+(\%{identifier})</match>
+      <include>
+        <context sub-pattern="1" style-ref="operator"/>
+        <context sub-pattern="2" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+	<context ref="variable"/>
+      </include>
+    </context>
+
+    <context id="comment" style-ref="comment" end-at-line-end="true">
+      <start>;</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="nsis" class="no-spell-check">
+      <include>
+        <context ref="operator"/>
+        <context ref="variable"/>
+        <context ref="variable-assignment"/>
+        <context ref="comment"/>
+        <context ref="string"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

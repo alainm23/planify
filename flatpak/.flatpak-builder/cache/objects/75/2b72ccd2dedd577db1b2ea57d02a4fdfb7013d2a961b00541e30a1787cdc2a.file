@@ -1,0 +1,119 @@
+{
+  "id" : "io.elementary.BaseApp",
+  "branch" : "juno",
+  "runtime" : "org.freedesktop.Platform",
+  "runtime-version" : "18.08",
+  "runtime-commit" : "89f04c10a9f5b21ee9ba15c0aa6399206a6e937e17826bb492855a0869e99c85",
+  "sdk" : "org.freedesktop.Sdk",
+  "sdk-commit" : "4b4f74b2d25caa9498a9466e32d0d99a8d890b669622836c09732f85ef7fce63",
+  "modules" : [
+    {
+      "name" : "graphviz",
+      "sources" : [
+        {
+          "url" : "https://graphviz.gitlab.io/pub/graphviz/stable/SOURCES/graphviz.tar.gz",
+          "sha256" : "ca5218fade0204d59947126c38439f432853543b0818d9d728c589dfe7f3a421",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "vala",
+      "config-opts" : [
+        "--enable-vapigen",
+        "--enable-unversioned"
+      ],
+      "sources" : [
+        {
+          "url" : "https://download.gnome.org/sources/vala/0.40/vala-0.40.11.tar.xz",
+          "sha256" : "1fc591258b63cbb0721c784d8a0abedbb178f4205132a7ee3141f32667301576",
+          "type" : "archive"
+        }
+      ],
+      "cleanup-platform" : [
+        "*"
+      ]
+    },
+    {
+      "name" : "libgee",
+      "make-install-args" : [
+        "girdir=/app/share/gir-1.0",
+        "typelibdir=/app/lib/girepository-1.0"
+      ],
+      "sources" : [
+        {
+          "url" : "https://download.gnome.org/sources/libgee/0.20/libgee-0.20.0.tar.xz",
+          "sha256" : "21308ba3ed77646dda2e724c0e8d5a2f8d101fb05e078975a532d7887223c2bb",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "granite",
+      "buildsystem" : "cmake-ninja",
+      "config-opts" : [
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+        "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+        "-DINTROSPECTION_GIRDIR=/app/share/gir-1.0",
+        "-DINTROSPECTION_TYPELIBDIR=/app/lib/girepository-1.0"
+      ],
+      "sources" : [
+        {
+          "url" : "https://github.com/elementary/granite/archive/5.2.2.tar.gz",
+          "sha256" : "a2bfb717570b2b7ffef8715fae0dcabe7e3de21f6cb9392f1184a57ae6436f6c",
+          "type" : "archive"
+        },
+        {
+          "url" : "https://raw.githubusercontent.com/elementary/wingpanel-indicator-datetime/master/data/io.elementary.desktop.wingpanel.datetime.gschema.xml",
+          "sha256" : "6acce2a4d46a452249c13206ddc1923d23b04cb07b3433ade0f04e2995a78a82",
+          "type" : "file"
+        }
+      ],
+      "cleanup" : [
+        "/bin",
+        "/share/applications"
+      ],
+      "post-install" : [
+        "install -D io.elementary.desktop.wingpanel.datetime.gschema.xml /app/share/glib-2.0/schemas/io.elementary.desktop.wingpanel.datetime.gschema.xml",
+        "glib-compile-schemas /app/share/glib-2.0/schemas/"
+      ]
+    },
+    {
+      "name" : "elementary-theme",
+      "buildsystem" : "meson",
+      "sources" : [
+        {
+          "url" : "https://github.com/elementary/stylesheet/archive/5.2.1.tar.gz",
+          "sha256" : "b6104a5380a77ea1634706afb749b6ea482e98af970d134fe00a7b0fcb841934",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "elementary-icons",
+      "buildsystem" : "meson",
+      "config-opts" : [
+        "-Dpalettes=false"
+      ],
+      "sources" : [
+        {
+          "url" : "https://github.com/elementary/icons/archive/5.0.2.tar.gz",
+          "sha256" : "1749545bd45f79493e0546201b1a7b6199f0d679bb8c85fae6a4f57c57977ad0",
+          "type" : "archive"
+        }
+      ]
+    }
+  ],
+  "cleanup" : [
+    "/cache",
+    "/man",
+    "/share/aclocal",
+    "/share/devhelp",
+    "/share/gtk-doc",
+    "/share/man",
+    "/lib/systemd",
+    "*.la",
+    "*.a"
+  ],
+  "separate-locales" : false
+}

@@ -100,9 +100,7 @@ public class Views.Main : Gtk.Paned {
             }
         });
 
-        Application.database.on_add_project_signal.connect (() => {
-            var project = Application.database.get_last_project ();
-
+        Application.database.on_add_project_signal.connect ((project) => {
             var project_view = new Views.Project (project, parent_window);
             stack.add_named (project_view, "project_view-%i".printf (project.id));
 
@@ -130,10 +128,16 @@ public class Views.Main : Gtk.Paned {
 
         Application.signals.go_project_page.connect ((project_id) => {
             stack.visible_child_name = "project_view-%i".printf (project_id);
-        });
+        });   
 
         Application.signals.go_task_page.connect ((task_id, project_id) => {
-            stack.visible_child_name = "project_view-%i".printf (project_id);
+            var task = Application.database.get_task (task_id);
+
+            if (task.is_inbox == 1) {
+                stack.visible_child_name = "inbox_view";
+            } else {
+                stack.visible_child_name = "project_view-%i".printf (project_id);
+            }
         });
 
         Application.database.on_signal_remove_project.connect ((project) => {
@@ -145,6 +149,16 @@ public class Views.Main : Gtk.Paned {
             }
 
             project_view.destroy ();
+        });
+
+        Application.signals.check_project_import.connect ((id) => {
+            string project_name = "project_view-%i".printf (id);
+            var project_view = stack.get_child_by_name (project_name) as Views.Project;
+
+            Timeout.add (200, () => {
+                project_view.check_visible_alertview ();
+                return false;
+            });
         });
     }
 

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Maggi <paolo.maggi@polito.it>
+ Copyright (C) 2003 Paolo Maggi <paolo.maggi@polito.it>
+ Copyright (C) 2006 Luca Cavalli <lcavalli@cvs.gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="desktop" name=".desktop" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">application/x-gnome-app-info;application/x-desktop</property>
+    <property name="globs">*.desktop;*.kdelnk</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="group" name="Group" map-to="def:keyword"/>
+    <style id="key" name="Key" map-to="def:type"/>
+    <style id="language" name="Translation" map-to="def:decimal"/>
+    <style id="number" name="Number" map-to="def:floating-point"/>
+    <style id="boolean" name="Boolean" map-to="def:floating-point"/>
+    <style id="exec-parameter" name="Exec parameter" map-to="def:floating-point"/>
+    <style id="encoding" name="Encoding" map-to="def:floating-point"/>
+    <style id="category-main" name="Main Category" map-to="def:reserved"/>
+    <style id="category-additional" name="Additional Category" map-to="def:identifier"/>
+    <style id="category-reserved" name="Reserved Category" map-to="def:note"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="language">\[[a-zA-Z_]+@?[a-zA-Z_]*\]</define-regex>
+    <define-regex id="key-suffix">(?=(\%{language})?\s*=\s*)</define-regex>
+
+    <context id="group" style-ref="group">
+      <start>^\[</start>
+      <end>\]$</end>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="exec-parameter" style-ref="exec-parameter">
+      <match>%[fFuUdDnNimckv%]</match>
+    </context>
+
+    <context id="encoding" style-ref="encoding">
+      <keyword>UTF\-8</keyword>
+      <keyword>Legacy\-Mixed</keyword>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match>(.\b[0-9]+([Ll]?|[Ff]?)\b)|(b[0-9]*\.\W)</match>
+    </context>
+
+    <context id="standard-key" style-ref="key">
+      <prefix>^_?</prefix>
+      <suffix>\%{key-suffix}</suffix>
+      <keyword>Actions</keyword>
+      <keyword>BinaryPattern</keyword>
+      <keyword>Categories</keyword>
+      <keyword>Comment</keyword>
+      <keyword>DBusActivatable</keyword>
+      <keyword>DefaultApp</keyword>
+      <keyword>Dev</keyword>
+      <keyword>Encoding</keyword>
+      <keyword>Exec</keyword>
+      <keyword>Extensions</keyword>
+      <keyword>FilePattern</keyword>
+      <keyword>FSType</keyword>
+      <keyword>GenericName</keyword>
+      <keyword>Hidden</keyword>
+      <keyword>Icon</keyword>
+      <keyword>Implements</keyword>
+      <keyword>Keywords</keyword>
+      <keyword>MapNotify</keyword>
+      <keyword>MimeType</keyword>
+      <keyword>MiniIcon</keyword>
+      <keyword>MountPoint</keyword>
+      <keyword>Name</keyword>
+      <keyword>NoDisplay</keyword>
+      <keyword>NotShowIn</keyword>
+      <keyword>OnlyShowIn</keyword>
+      <keyword>Path</keyword>
+      <keyword>Patterns</keyword>
+      <keyword>Protocols</keyword>
+      <keyword>ReadOnly</keyword>
+      <keyword>SortOrder</keyword>
+      <keyword>StartupNotify</keyword>
+      <keyword>StartupWMClass</keyword>
+      <keyword>SwallowExec</keyword>
+      <keyword>SwallowTitle</keyword>
+      <keyword>Terminal</keyword>
+      <keyword>TerminalOptions</keyword>
+      <keyword>TryExec</keyword>
+      <keyword>Type</keyword>
+      <keyword>UnmountIcon</keyword>
+      <keyword>URL</keyword>
+      <keyword>Version</keyword>
+    </context>
+
+    <context id="non-standard-key" style-ref="key">
+      <match>^_?X\-[a-zA-Z\-]+\%{key-suffix}</match>
+    </context>
+
+    <context id="key-categories" end-at-line-end="true">
+      <start>^(_?Categories)\%{key-suffix}</start>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="key"/>
+        <context style-ref="category-main">
+          <keyword>AudioVideo</keyword>
+          <keyword>Audio</keyword>
+          <keyword>Video</keyword>
+          <keyword>Shell</keyword>
+          <keyword>Development</keyword>
+          <keyword>Education</keyword>
+          <keyword>Game</keyword>
+          <keyword>Graphics</keyword>
+          <keyword>Network</keyword>
+          <keyword>Office</keyword>
+          <keyword>Settings</keyword>
+          <keyword>System</keyword>
+          <keyword>Utility</keyword>
+        </context>
+        <context style-ref="category-additional">
+          <keyword>2DGraphics</keyword>
+          <keyword>3DGraphics</keyword>
+          <keyword>Accessibility</keyword>
+          <keyword>ActionGame</keyword>
+          <keyword>AdventureGame</keyword>
+          <keyword>Amusement</keyword>
+          <keyword>ArcadeGame</keyword>
+          <keyword>Archiving</keyword>
+          <keyword>ArtificialIntelligence</keyword>
+          <keyword>Art</keyword>
+          <keyword>Astronomy</keyword>
+          <keyword>AudioVideoEditing</keyword>
+          <keyword>Biology</keyword>
+          <keyword>BlocksGame</keyword>
+          <keyword>BoardGame</keyword>
+          <keyword>Building</keyword>
+          <keyword>Calculator</keyword>
+          <keyword>Calendar</keyword>
+          <keyword>CardGame</keyword>
+          <keyword>Chart</keyword>
+          <keyword>Chat</keyword>
+          <keyword>Chemistry</keyword>
+          <keyword>Clock</keyword>
+          <keyword>Compression</keyword>
+          <keyword>ComputerScience</keyword>
+          <keyword>ConsoleOnly</keyword>
+          <keyword>Construction</keyword>
+          <keyword>ContactManagement</keyword>
+          <keyword>Core</keyword>
+          <keyword>Database</keyword>
+          <keyword>DataVisualization</keyword>
+          <keyword>Debugger</keyword>
+          <keyword>DesktopSettings</keyword>
+          <keyword>Dialup</keyword>
+          <keyword>Dictionary</keyword>
+          <keyword>DiscBurning</keyword>
+          <keyword>Documentation</keyword>
+          <keyword>Economy</keyword>
+          <keyword>Electricity</keyword>
+          <keyword>Electronics</keyword>
+          <keyword>Email</keyword>
+          <keyword>Emulator</keyword>
+          <keyword>Engineering</keyword>
+          <keyword>FileManager</keyword>
+          <keyword>Filesystem</keyword>
+          <keyword>FileTools</keyword>
+          <keyword>FileTransfer</keyword>
+          <keyword>Finance</keyword>
+          <keyword>FlowChart</keyword>
+          <keyword>Geography</keyword>
+          <keyword>Geology</keyword>
+          <keyword>Geoscience</keyword>
+          <keyword>GNOME</keyword>
+          <keyword>GTK</keyword>
+          <keyword>GUIDesigner</keyword>
+          <keyword>HamRadio</keyword>
+          <keyword>HardwareSettings</keyword>
+          <keyword>History</keyword>
+          <keyword>IDE</keyword>
+          <keyword>ImageProcessing</keyword>
+          <keyword>InstantMessaging</keyword>
+          <keyword>IRCClient</keyword>
+          <keyword>Java</keyword>
+          <keyword>KDE</keyword>
+          <keyword>KidsGame</keyword>
+          <keyword>Languages</keyword>
+          <keyword>Literature</keyword>
+          <keyword>LogicGame</keyword>
+          <keyword>Math</keyword>
+          <keyword>MedicalSoftware</keyword>
+          <keyword>Midi</keyword>
+          <keyword>Mixer</keyword>
+          <keyword>Monitor</keyword>
+          <keyword>Motif</keyword>
+          <keyword>Music</keyword>
+          <keyword>News</keyword>
+          <keyword>NumericalAnalysis</keyword>
+          <keyword>OCR</keyword>
+          <keyword>P2P</keyword>
+          <keyword>PackageManager</keyword>
+          <keyword>ParallelComputing</keyword>
+          <keyword>PDA</keyword>
+          <keyword>Photography</keyword>
+          <keyword>Physics</keyword>
+          <keyword>Player</keyword>
+          <keyword>Presentation</keyword>
+          <keyword>Printing</keyword>
+          <keyword>Profiling</keyword>
+          <keyword>ProjectManagement</keyword>
+          <keyword>Publishing</keyword>
+          <keyword>Qt</keyword>
+          <keyword>RasterGraphics</keyword>
+          <keyword>Recorder</keyword>
+          <keyword>RemoteAccess</keyword>
+          <keyword>RevisionControl</keyword>
+          <keyword>Robotics</keyword>
+          <keyword>RolePlaying</keyword>
+          <keyword>Scanning</keyword>
+          <keyword>Science</keyword>
+          <keyword>Security</keyword>
+          <keyword>Sequencer</keyword>
+          <keyword>Simulation</keyword>
+          <keyword>SportsGame</keyword>
+          <keyword>Sports</keyword>
+          <keyword>Spreadsheet</keyword>
+          <keyword>StrategyGame</keyword>
+          <keyword>Telephony</keyword>
+          <keyword>TelephonyTools</keyword>
+          <keyword>TerminalEmulator</keyword>
+          <keyword>TextEditor</keyword>
+          <keyword>TextTools</keyword>
+          <keyword>Translation</keyword>
+          <keyword>Tuner</keyword>
+          <keyword>TV</keyword>
+          <keyword>VectorGraphics</keyword>
+          <keyword>VideoConference</keyword>
+          <keyword>Viewer</keyword>
+          <keyword>WebBrowser</keyword>
+          <keyword>WebDevelopment</keyword>
+          <keyword>WordProcessor</keyword>
+        </context>
+        <context style-ref="category-reserved">
+          <keyword>Screensaver</keyword>
+          <keyword>TrayIcon</keyword>
+          <keyword>Applet</keyword>
+          <keyword>Shell</keyword>
+        </context>
+      </include>
+    </context>
+
+    <context id="key">
+      <include>
+        <context ref="key-categories"/>
+        <context ref="standard-key"/>
+        <context ref="non-standard-key"/>
+      </include>
+    </context>
+
+    <context id="desktop">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="group"/>
+        <context ref="key"/>
+        <context id="lang-and-value" end-at-line-end="true">
+          <start>(\%{language})?\s*=\s*</start>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="language"/>
+            <context ref="boolean"/>
+            <context ref="exec-parameter"/>
+            <context ref="encoding"/>
+            <context ref="number"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

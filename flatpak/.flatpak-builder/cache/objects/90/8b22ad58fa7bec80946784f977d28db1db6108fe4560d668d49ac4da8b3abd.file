@@ -1,0 +1,225 @@
+{
+  "id" : "com.github.alainm23.planner",
+  "runtime" : "org.gnome.Platform",
+  "runtime-version" : "3.30",
+  "runtime-commit" : "8b00f798a42621bbfd804a0d9639df97e1977a6b642a664785a7e12a27a7348c",
+  "sdk" : "org.gnome.Sdk",
+  "sdk-commit" : "659079025ce26de6fb2bb5e7cb95d0d6017ebdae8d98395d420bee1d4a5814ea",
+  "base" : "io.elementary.BaseApp",
+  "base-version" : "juno",
+  "base-commit" : "2b5e5d29cff8c2df0e1df1d3d3a20c870100155ba3179de1ea9e286046969c7d",
+  "command" : "com.github.alainm23.planner",
+  "modules" : [
+    {
+      "name" : "libdee",
+      "sources" : [
+        {
+          "url" : "https://launchpad.net/dee/1.0/1.2.7/+download/dee-1.2.7.tar.gz",
+          "md5" : "b92f27f0a99cac24c2128880601bb7d7",
+          "type" : "archive"
+        }
+      ],
+      "build-options" : {
+        "cflags" : "-Wno-error=misleading-indentation"
+      }
+    },
+    {
+      "name" : "libdbusmenu",
+      "config-opts" : [
+        "--enable-gtk",
+        "--disable-dumper"
+      ],
+      "make-install-args" : [
+        "typelibdir=/app/lib/girepository-1.0"
+      ],
+      "sources" : [
+        {
+          "url" : "https://launchpad.net/libdbusmenu/16.04/16.04.0/+download/libdbusmenu-16.04.0.tar.gz",
+          "md5" : "3c05d53053b3ea69384b5f93d7a4c7c4",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "libunity",
+      "sources" : [
+        {
+          "url" : "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libunity/7.1.4+16.04.20180209.1-0ubuntu1/libunity_7.1.4+16.04.20180209.1.orig.tar.gz",
+          "sha256" : "d4013500c0a972ecea5ba26e3567ee5d4c3eae481281badbbbe3cbaeab5f389b",
+          "type" : "archive"
+        }
+      ]
+    },
+    {
+      "name" : "gtksourceview",
+      "sources" : [
+        {
+          "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git",
+          "commit" : "6c09ffab7f3aa66023ac7fe021150ffbdcc4d759",
+          "type" : "git"
+        }
+      ],
+      "build-options" : {
+        "cflags" : "-Wno-error=cast-function-type -Wno-error=deprecated-declarations -Wno-error=null-dereference -Wno-error=incompatible-pointer-types"
+      }
+    },
+    {
+      "name" : "libical",
+      "buildsystem" : "cmake",
+      "sources" : [
+        {
+          "url" : "https://github.com/libical/libical.git",
+          "commit" : "2772e5150ce1b4d0330df329cbcbdf7cb08277e1",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "evolution-data-server",
+      "buildsystem" : "cmake",
+      "config-opts" : [
+        "-DENABLE_GTK=ON",
+        "-DENABLE_INTROSPECTION=ON",
+        "-DENABLE_VALA_BINDINGS=ON",
+        "-DENABLE_GOA=OFF",
+        "-DENABLE_OAUTH2=OFF",
+        "-DENABLE_WEATHER=OFF",
+        "-DENABLE_GOOGLE=OFF",
+        "-DENABLE_EXAMPLES=OFF",
+        "-DENABLE_INSTALLED_TESTS=OFF",
+        "-DENABLE_GTK_DOC=OFF",
+        "-DWITH_PRIVATE_DOCS=OFF",
+        "-DWITH_OPENLDAP=OFF",
+        "-DWITH_LIBDB=OFF"
+      ],
+      "sources" : [
+        {
+          "url" : "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
+          "commit" : "550f44363b0aadf30014aed36bd62631c8b80cb9",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "libyaml",
+      "sources" : [
+        {
+          "url" : "https://github.com/yaml/libyaml.git",
+          "commit" : "f6e09f829b606ca0d0adf774236fa8cdd5e2a7d1",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "appstream",
+      "buildsystem" : "meson",
+      "config-opts" : [
+        "-Dstemming=false"
+      ],
+      "sources" : [
+        {
+          "url" : "https://github.com/ximion/appstream.git",
+          "commit" : "c1e9851761f3d1dea9fc41267c15542c0942ad9a",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "libchamplain",
+      "sources" : [
+        {
+          "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git",
+          "commit" : "16bc2ab4c57075065bdacd4e25da2a3fe65f33e1",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "telepathy-glib",
+      "config-opts" : [
+        "--enable-vala-bindings"
+      ],
+      "sources" : [
+        {
+          "url" : "https://github.com/TelepathyIM/telepathy-glib.git",
+          "commit" : "3ba1fd72ce1f34c0c58a7be574b96c7be8e63f4a",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "folks",
+      "config-opts" : [
+        "--enable-vala",
+        "--enable-inspect-tool",
+        "--disable-tracker-backend",
+        "--disable-eds-backend",
+        "--disable-ofono-backend",
+        "--disable-bluez-backend",
+        "--disable-zeitgeist",
+        "--disable-libsocialweb-backend",
+        "--disable-modular-tests",
+        "--disable-installed-tests"
+      ],
+      "sources" : [
+        {
+          "url" : "https://gitlab.gnome.org/GNOME/folks.git",
+          "commit" : "c8c3b4c9fee83248d55f899bbdf5e27ce1151241",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "geocode-glib",
+      "buildsystem" : "meson",
+      "builddir" : true,
+      "sources" : [
+        {
+          "url" : "https://gitlab.gnome.org/GNOME/geocode-glib.git",
+          "commit" : "d7dc8a67219405cb3558f2198a5f671d4ff9b7c2",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "io.elementary.calendar",
+      "buildsystem" : "meson",
+      "sources" : [
+        {
+          "url" : "https://github.com/elementary/calendar.git",
+          "commit" : "376e35119d734d64cfba17812eacd8d1cb37dbc5",
+          "type" : "git"
+        }
+      ]
+    },
+    {
+      "name" : "planner",
+      "buildsystem" : "meson",
+      "sources" : [
+        {
+          "url" : "https://github.com/alainm23/planner.git",
+          "commit" : "dee1f108154f63de4a23da236212e1b7926f4713",
+          "type" : "git"
+        },
+        {
+          "path" : "elementary-theme.patch",
+          "type" : "patch"
+        }
+      ]
+    }
+  ],
+  "finish-args" : [
+    "--share=ipc",
+    "--share=network",
+    "--socket=x11",
+    "--socket=wayland",
+    "--talk-name=org.gtk.vfs.*",
+    "--talk-name=org.evolution.dataserver.*",
+    "--talk-name=ca.desrt.dconf",
+    "--system-talk-name=org.freedesktop.GeoClue2",
+    "--filesystem=home",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+  ]
+}

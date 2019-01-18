@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Types: libdbusmenu-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API">
+<link rel="prev" href="libdbusmenu-glib-DbusmenuClient.html" title="DbusmenuClient">
+<link rel="next" href="object-tree.html" title="Object Hierarchy">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libdbusmenu-glib-Types.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libdbusmenu-glib-DbusmenuClient.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="object-tree.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libdbusmenu-glib-Types"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libdbusmenu-glib-Types.top_of_page"></a>Types</span></h2>
+<p>Types — Types that are used by both client and
+		server.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.stability-level"></a><h2>Stability Level</h2>
+<acronym title="Unstable interfaces are experimental or transitional. They are typically used to
+give outside developers early access to new or rapidly changing technology, or
+to provide an interim solution to a problem where a more general solution is
+anticipated. No claims are made about either source or binary compatibility from
+one minor release to the next.
+
+The Unstable interface level is a warning that these interfaces are  subject to
+change without warning and should not be used in unbundled products.
+
+Given such caveats, customer impact need not be a factor when considering
+incompatible changes to an Unstable interface in a major or minor release.
+Nonetheless, when such changes are introduced, the changes should still be
+mentioned in the release notes for the affected release.
+"><span class="acronym">Unstable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TYPE-STATUS:CAPS" title="DBUSMENU_TYPE_STATUS">DBUSMENU_TYPE_STATUS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TYPE-TEXT-DIRECTION:CAPS" title="DBUSMENU_TYPE_TEXT_DIRECTION">DBUSMENU_TYPE_TEXT_DIRECTION</a></td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-nick" title="dbusmenu_status_get_nick ()">dbusmenu_status_get_nick</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-type" title="dbusmenu_status_get_type ()">dbusmenu_status_get_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-status-get-value-from-nick" title="dbusmenu_status_get_value_from_nick ()">dbusmenu_status_get_value_from_nick</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-nick" title="dbusmenu_text_direction_get_nick ()">dbusmenu_text_direction_get_nick</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-type" title="dbusmenu_text_direction_get_type ()">dbusmenu_text_direction_get_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-Types.html#dbusmenu-text-direction-get-value-from-nick" title="dbusmenu_text_direction_get_value_from_nick ()">dbusmenu_text_direction_get_value_from_nick</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus">DbusmenuStatus</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection">DbusmenuTextDirection</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libdbusmenu-glib/types.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.description"></a><h2>Description</h2>
+<p>Enums that are used to describe states of the server across the
+	bus.  They are sent over dbus using their nicks but then turned
+	back into enums by the client.</p>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="DBUSMENU-TYPE-STATUS:CAPS"></a><h3>DBUSMENU_TYPE_STATUS</h3>
+<pre class="programlisting">#define DBUSMENU_TYPE_STATUS (dbusmenu_status_get_type())
+</pre>
+<p>Gets the <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> value for the type associated with the
+	<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="type">DbusmenuStatus</span></a> enumerated type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-TYPE-TEXT-DIRECTION:CAPS"></a><h3>DBUSMENU_TYPE_TEXT_DIRECTION</h3>
+<pre class="programlisting">#define DBUSMENU_TYPE_TEXT_DIRECTION (dbusmenu_text_direction_get_type())
+</pre>
+<p>Gets the <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> value for the type associated with the
+	<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="type">DbusmenuTextDirection</span></a> enumerated type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-status-get-nick"></a><h3>dbusmenu_status_get_nick ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+dbusmenu_status_get_nick (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="type">DbusmenuStatus</span></a> value</code></em>);</pre>
+<p>Looks up in the enum table for the nick of <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The value of DbusmenuStatus to get the nick of</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.6.8.4.6"></a><h4>Returns</h4>
+<p> The nick for the given value or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> on error</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-status-get-type"></a><h3>dbusmenu_status_get_type ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+dbusmenu_status_get_type (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Builds a GLib type for the <a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="type">DbusmenuStatus</span></a> enumeration.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.5.5"></a><h4>Returns</h4>
+<p> A unique <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> for the <a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="type">DbusmenuStatus</span></a> enum.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-status-get-value-from-nick"></a><h3>dbusmenu_status_get_value_from_nick ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+dbusmenu_status_get_value_from_nick (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *nick</code></em>);</pre>
+<p>Looks up in the enum table for the value of <em class="parameter"><code>nick</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>nick</p></td>
+<td class="parameter_description"><p>The enum nick to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.6.8.6.6"></a><h4>Returns</h4>
+<p> The value for the given <em class="parameter"><code>nick</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-text-direction-get-nick"></a><h3>dbusmenu_text_direction_get_nick ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+dbusmenu_text_direction_get_nick (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="type">DbusmenuTextDirection</span></a> value</code></em>);</pre>
+<p>Looks up in the enum table for the nick of <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The value of DbusmenuTextDirection to get the nick of</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.6.8.7.6"></a><h4>Returns</h4>
+<p> The nick for the given value or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> on error</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-text-direction-get-type"></a><h3>dbusmenu_text_direction_get_type ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+dbusmenu_text_direction_get_type (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Builds a GLib type for the <a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="type">DbusmenuTextDirection</span></a> enumeration.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.8.5"></a><h4>Returns</h4>
+<p> A unique <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> for the <a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="type">DbusmenuTextDirection</span></a> enum.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-text-direction-get-value-from-nick"></a><h3>dbusmenu_text_direction_get_value_from_nick ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+dbusmenu_text_direction_get_value_from_nick
+                               (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *nick</code></em>);</pre>
+<p>Looks up in the enum table for the value of <em class="parameter"><code>nick</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.6.8.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>nick</p></td>
+<td class="parameter_description"><p>The enum nick to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.6.8.9.6"></a><h4>Returns</h4>
+<p> The value for the given <em class="parameter"><code>nick</code></em>
+</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-Types.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="DbusmenuStatus"></a><h3>enum DbusmenuStatus</h3>
+<p>Tracks how the menus should be presented to the user.</p>
+<div class="refsect3">
+<a name="id-1.2.6.9.2.4"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="DBUSMENU-STATUS-NORMAL:CAPS"></a>DBUSMENU_STATUS_NORMAL</p></td>
+<td class="enum_member_description">
+<p>Everything is normal</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="DBUSMENU-STATUS-NOTICE:CAPS"></a>DBUSMENU_STATUS_NOTICE</p></td>
+<td class="enum_member_description">
+<p>The menus should be shown at a higher priority</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DbusmenuTextDirection"></a><h3>enum DbusmenuTextDirection</h3>
+<p>The direction of text that the strings that this server
+	will be sending strings as.</p>
+<div class="refsect3">
+<a name="id-1.2.6.9.3.4"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="DBUSMENU-TEXT-DIRECTION-NONE:CAPS"></a>DBUSMENU_TEXT_DIRECTION_NONE</p></td>
+<td class="enum_member_description">
+<p>Unspecified text direction</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="DBUSMENU-TEXT-DIRECTION-LTR:CAPS"></a>DBUSMENU_TEXT_DIRECTION_LTR</p></td>
+<td class="enum_member_description">
+<p>Left-to-right text direction</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="DBUSMENU-TEXT-DIRECTION-RTL:CAPS"></a>DBUSMENU_TEXT_DIRECTION_RTL</p></td>
+<td class="enum_member_description">
+<p>Right-to-left text direction</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

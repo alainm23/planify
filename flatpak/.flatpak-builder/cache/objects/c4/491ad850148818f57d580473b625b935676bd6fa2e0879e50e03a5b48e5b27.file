@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="16"
+   height="16"
+   id="svg7435">
+  <defs
+     id="defs7437" />
+  <metadata
+     id="metadata7440">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <rect
+       width="10"
+       height="10.000001"
+       x="0.5"
+       y="5.5"
+       id="rect8333"
+       style="fill:#729fcf;fill-opacity:1;stroke:#204a87;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       width="8"
+       height="8.000001"
+       x="1.5"
+       y="6.5"
+       id="rect8337"
+       style="opacity:0.3;fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="m 1.4415841,5.0754948 a 6.8475246,6.8250003 0 1 1 -13.6950491,0 6.8475246,6.8250003 0 1 1 13.6950491,0 z"
+       transform="matrix(0.80321,0,0,0.805861,14.34211,1.909855)"
+       id="path8335"
+       style="fill:#729fcf;fill-opacity:1;stroke:#204a87;stroke-width:1.24295509;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="m 14.821287,5.7737622 a 3.7165842,3.468812 0 1 1 -7.4331683,0 3.7165842,3.468812 0 1 1 7.4331683,0 z"
+       transform="matrix(1.210789,0,0,1.297274,-3.445453,-1.490154)"
+       id="path8339"
+       style="opacity:0.3;fill:none;stroke:#ffffff;stroke-width:0.79790294;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+  </g>
+</svg>

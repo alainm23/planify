@@ -1,0 +1,11 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libical-glib
+Description: A GObject interface of the libical library
+Version: 3.0.4
+Requires: glib-2.0, gobject-2.0, libical
+Cflags: -I{includedir}
+Libs: -L${libdir} -lical-glib

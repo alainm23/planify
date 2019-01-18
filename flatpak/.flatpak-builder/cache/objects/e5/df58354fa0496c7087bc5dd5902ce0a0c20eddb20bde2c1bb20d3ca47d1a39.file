@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2006-2007 GtkSourceView team
+ Author: Michael Monreal <michael.monreal@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<style-scheme id="tango" _name="Tango" version="1.0">
+  <author>Michael Monreal</author>
+  <_description>Color scheme using Tango color palette</_description>
+
+  <!-- Tango Palette -->
+  <color name="butter1"                     value="#fce94f"/>
+  <color name="butter2"                     value="#edd400"/>
+  <color name="butter3"                     value="#c4a000"/>
+  <color name="chameleon1"                  value="#8ae234"/>
+  <color name="chameleon2"                  value="#73d216"/>
+  <color name="chameleon3"                  value="#4e9a06"/>
+  <color name="orange1"                     value="#fcaf3e"/>
+  <color name="orange2"                     value="#f57900"/>
+  <color name="orange3"                     value="#ce5c00"/>
+  <color name="skyblue1"                    value="#729fcf"/>
+  <color name="skyblue2"                    value="#3465a4"/>
+  <color name="skyblue3"                    value="#204a87"/>
+  <color name="plum1"                       value="#ad7fa8"/>
+  <color name="plum2"                       value="#75507b"/>
+  <color name="plum3"                       value="#5c3566"/>
+  <color name="chocolate1"                  value="#e9b96e"/>
+  <color name="chocolate2"                  value="#c17d11"/>
+  <color name="chocolate3"                  value="#8f5902"/>
+  <color name="scarletred1"                 value="#ef2929"/>
+  <color name="scarletred2"                 value="#cc0000"/>
+  <color name="scarletred3"                 value="#a40000"/>
+  <color name="aluminium1"                  value="#eeeeec"/>
+  <color name="aluminium2"                  value="#d3d7cf"/>
+  <color name="aluminium3"                  value="#babdb6"/>
+  <color name="aluminium4"                  value="#888a85"/>
+  <color name="aluminium5"                  value="#555753"/>
+  <color name="aluminium6"                  value="#2e3436"/>
+
+  <!-- Global Settings -->
+  <style name="current-line"                background="aluminium1"/>
+  <style name="current-line-number"         background="aluminium1"/>
+  <style name="draw-spaces"                 foreground="aluminium3"/>
+  <style name="background-pattern"          background="#f3f3f3"/>
+
+  <!-- Bracket Matching -->
+  <style name="bracket-match"               foreground="aluminium1" background="aluminium3"/>
+  <style name="bracket-mismatch"            foreground="aluminium1" background="scarletred3"/>
+
+  <!-- Right Margin -->
+  <style name="right-margin"                foreground="aluminium6" background="aluminium6"/>
+
+  <!-- Search Matching -->
+  <style name="search-match"                background="butter1"/>
+
+  <!-- Comments -->
+  <style name="def:comment"                 foreground="skyblue3"/>
+  <style name="def:shebang"                 foreground="skyblue3" bold="true"/>
+  <style name="def:doc-comment-element"     italic="true"/>
+
+  <!-- Constants -->
+  <style name="def:constant"                foreground="plum1"/>
+  <style name="def:special-char"            foreground="plum3"/>
+
+  <!-- Identifiers -->
+  <style name="def:identifier"              foreground="skyblue2"/>
+
+  <!-- Statements -->
+  <style name="def:statement"               foreground="scarletred3" bold="true"/>
+
+  <!-- Types -->
+  <style name="def:type"                    foreground="chameleon3" bold="true"/>
+
+  <!-- Others -->
+  <style name="def:preprocessor"            foreground="chocolate3"/>
+  <style name="def:error"                   background="scarletred2" bold="true"/>
+  <style name="def:warning"                 background="plum1"/>
+  <style name="def:note"                    background="orange1" bold="true"/>
+  <style name="def:underlined"              italic="true" underline="single"/>
+
+  <!-- Heading styles, uncomment to enable -->
+  <!--
+  <style name="def:heading0"                scale="5.0"/>
+  <style name="def:heading1"                scale="2.5"/>
+  <style name="def:heading2"                scale="2.0"/>
+  <style name="def:heading3"                scale="1.7"/>
+  <style name="def:heading4"                scale="1.5"/>
+  <style name="def:heading5"                scale="1.3"/>
+  <style name="def:heading6"                scale="1.2"/>
+  -->
+
+  <!-- Language specific -->
+  <style name="diff:added-line"             foreground="chameleon3"/>
+  <style name="diff:removed-line"           foreground="plum3"/>
+  <style name="diff:changed-line"           use-style="def:preprocessor"/>
+  <style name="diff:diff-file"              use-style="def:type"/>
+  <style name="diff:location"               use-style="def:statement"/>
+  <style name="diff:special-case"           use-style="def:constant"/>
+
+  <style name="xml:tags"                    foreground="chameleon3"/>
+  <style name="xml:namespace"               bold="true"/>
+
+  <style name="js:object"                   foreground="chameleon3" bold="true"/>
+  <style name="js:constructors"             foreground="chameleon3"/>
+
+  <style name="latex:display-math"          foreground="plum3"/>
+  <style name="latex:command"               foreground="chameleon3" bold="true"/>
+  <style name="latex:include"               use-style="def:preprocessor"/>
+  <style name="latex:special-char"          use-style="def:constant"/>
+
+  <style name="sh:variable"                 foreground="plum3"/>
+  <style name="sh:variable-definition"      foreground="chameleon3"/>
+
+</style-scheme>

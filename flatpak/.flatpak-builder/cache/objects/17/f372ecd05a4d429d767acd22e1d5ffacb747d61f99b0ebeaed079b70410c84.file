@@ -1,0 +1,1023 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsRelease: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsRelation.html" title="AsRelation">
+<link rel="next" href="appstream-AsChecksum.html" title="AsChecksum">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsRelease.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsRelation.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsChecksum.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsRelease"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsRelease.top_of_page"></a>AsRelease</span></h2>
+<p>AsRelease — Object representing a single upstream release</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsRelease.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-kind-to-string" title="as_release_kind_to_string ()">as_release_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="returnvalue">AsReleaseKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-kind-from-string" title="as_release_kind_from_string ()">as_release_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-size-kind-to-string" title="as_size_kind_to_string ()">as_size_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="returnvalue">AsSizeKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-size-kind-from-string" title="as_size_kind_from_string ()">as_size_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="returnvalue">AsRelease</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-new" title="as_release_new ()">as_release_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="returnvalue">AsReleaseKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-kind" title="as_release_get_kind ()">as_release_get_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-kind" title="as_release_set_kind ()">as_release_set_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-active-locale" title="as_release_get_active_locale ()">as_release_get_active_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-active-locale" title="as_release_set_active_locale ()">as_release_set_active_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-version" title="as_release_get_version ()">as_release_get_version</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-version" title="as_release_set_version ()">as_release_set_version</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-vercmp" title="as_release_vercmp ()">as_release_vercmp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-timestamp" title="as_release_get_timestamp ()">as_release_get_timestamp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-timestamp" title="as_release_set_timestamp ()">as_release_set_timestamp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-description" title="as_release_get_description ()">as_release_get_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-description" title="as_release_set_description ()">as_release_set_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-locations" title="as_release_get_locations ()">as_release_get_locations</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-add-location" title="as_release_add_location ()">as_release_add_location</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-checksums" title="as_release_get_checksums ()">as_release_get_checksums</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="returnvalue">AsChecksum</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-checksum" title="as_release_get_checksum ()">as_release_get_checksum</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-add-checksum" title="as_release_add_checksum ()">as_release_add_checksum</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind"><span class="returnvalue">AsUrgencyKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-urgency" title="as_release_get_urgency ()">as_release_get_urgency</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-urgency" title="as_release_set_urgency ()">as_release_set_urgency</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-get-size" title="as_release_get_size ()">as_release_get_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsRelease.html#as-release-set-size" title="as_release_set_size ()">as_release_set_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsRelease.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsRelease.html#AS-TYPE-RELEASE:CAPS" title="AS_TYPE_RELEASE">AS_TYPE_RELEASE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsRelease.html#AsReleaseClass" title="struct AsReleaseClass">AsReleaseClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind">AsReleaseKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind">AsSizeKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease">AsRelease</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsRelease.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsRelease.description"></a><h2>Description</h2>
+<p>This object represents a single upstream release, typically a minor update.
+Releases can contain a localized description of paragraph and list elements
+and also have a version number and timestamp.</p>
+<p>Releases can be automatically generated by parsing upstream ChangeLogs or
+.spec files, or can be populated using MetaInfo files.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsRelease.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-release-kind-to-string"></a><h3>as_release_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_release_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="type">AsReleaseKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-release-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="type">AsReleaseKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+<p class="since">Since: 0.12.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-kind-from-string"></a><h3>as_release_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="returnvalue">AsReleaseKind</span></a>
+as_release_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *kind_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-release-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-kind-from-string.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="type">AsReleaseKind</span></a> or <a class="link" href="appstream-AsRelease.html#AS-RELEASE-KIND-UNKNOWN:CAPS"><code class="literal">AS_RELEASE_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+<p class="since">Since: 0.12.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-size-kind-to-string"></a><h3>as_size_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_size_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a> size_kind</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-size-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>size_kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-size-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>size_kind</code></em>
+</p>
+</div>
+<p class="since">Since: 0.8.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-size-kind-from-string"></a><h3>as_size_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="returnvalue">AsSizeKind</span></a>
+as_size_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *size_kind</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-size-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>size_kind</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-size-kind-from-string.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a> or <a class="link" href="appstream-AsRelease.html#AS-SIZE-KIND-UNKNOWN:CAPS"><code class="literal">AS_SIZE_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+<p class="since">Since: 0.8.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-new"></a><h3>as_release_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="returnvalue">AsRelease</span></a> *
+as_release_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a>.</p>
+<div class="refsect3">
+<a name="as-release-new.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-kind"></a><h3>as_release_get_kind ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="returnvalue">AsReleaseKind</span></a>
+as_release_get_kind (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the type of the release.
+(development or stable release)</p>
+<div class="refsect3">
+<a name="as-release-get-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.12.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-kind"></a><h3>as_release_set_kind ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_kind (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                     <em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="type">AsReleaseKind</span></a> kind</code></em>);</pre>
+<p>Sets the release kind to distinguish between end-user ready
+stable releases and development prereleases..</p>
+<div class="refsect3">
+<a name="as-release-set-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind"><span class="type">AsReleaseKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.12.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-active-locale"></a><h3>as_release_get_active_locale ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_release_get_active_locale (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Get the current active locale, which
+is used to get localized messages.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-active-locale"></a><h3>as_release_set_active_locale ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_active_locale (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *locale</code></em>);</pre>
+<p>Set the current active locale, which
+is used to get localized messages.
+If the <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> linking this <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> was fetched
+from a localized database, usually only
+one locale is available.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-version"></a><h3>as_release_get_version ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_release_get_version (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the release version.</p>
+<div class="refsect3">
+<a name="as-release-get-version.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-get-version.returns"></a><h4>Returns</h4>
+<p>string, or <code class="literal">NULL</code> for not set or invalid. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-version"></a><h3>as_release_set_version ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_version (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *version</code></em>);</pre>
+<p>Sets the release version.</p>
+<div class="refsect3">
+<a name="as-release-set-version.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>version</p></td>
+<td class="parameter_description"><p>the version string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-vercmp"></a><h3>as_release_vercmp ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+as_release_vercmp (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *rel1</code></em>,
+                   <em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *rel2</code></em>);</pre>
+<p>Compare the version numbers of two releases.</p>
+<div class="refsect3">
+<a name="as-release-vercmp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>rel1</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rel2</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-vercmp.returns"></a><h4>Returns</h4>
+<p> 1 if <em class="parameter"><code>rel1</code></em>
+version is higher than <em class="parameter"><code>rel2</code></em>
+, 0 if versions are equal, -1 if <em class="parameter"><code>rel1</code></em>
+version is higher than <em class="parameter"><code>rel2</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-timestamp"></a><h3>as_release_get_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>
+as_release_get_timestamp (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the release timestamp.</p>
+<div class="refsect3">
+<a name="as-release-get-timestamp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-get-timestamp.returns"></a><h4>Returns</h4>
+<p> timestamp, or 0 for unset</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-timestamp"></a><h3>as_release_set_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_timestamp (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                          <em class="parameter"><code><span class="type">guint64</span> timestamp</code></em>);</pre>
+<p>Sets the release timestamp.</p>
+<div class="refsect3">
+<a name="as-release-set-timestamp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>timestamp</p></td>
+<td class="parameter_description"><p>the timestamp value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-description"></a><h3>as_release_get_description ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_release_get_description (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the release description markup for a given locale.</p>
+<div class="refsect3">
+<a name="as-release-get-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-get-description.returns"></a><h4>Returns</h4>
+<p>markup, or <code class="literal">NULL</code> for not set or invalid. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-description"></a><h3>as_release_set_description ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_description (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *description</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *locale</code></em>);</pre>
+<p>Sets the description release markup.</p>
+<div class="refsect3">
+<a name="as-release-set-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>description</p></td>
+<td class="parameter_description"><p>the description markup.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-locations"></a><h3>as_release_get_locations ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_release_get_locations (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the release locations, typically URLs.</p>
+<div class="refsect3">
+<a name="as-release-get-locations.returns"></a><h4>Returns</h4>
+<p>list of locations. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since: 0.8.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-add-location"></a><h3>as_release_add_location ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_add_location (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *location</code></em>);</pre>
+<p>Adds a release location.</p>
+<div class="refsect3">
+<a name="as-release-add-location.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>location</p></td>
+<td class="parameter_description"><p>An URL of the download location</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.8.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-checksums"></a><h3>as_release_get_checksums ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_release_get_checksums (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Get a list of all checksums we have for this release.</p>
+<div class="refsect3">
+<a name="as-release-get-checksums.returns"></a><h4>Returns</h4>
+<p>an array of <a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="type">AsChecksum</span></a> objects. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> AsChecksum]</span></p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-checksum"></a><h3>as_release_get_checksum ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="returnvalue">AsChecksum</span></a> *
+as_release_get_checksum (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                         <em class="parameter"><code><a class="link" href="appstream-AsChecksum.html#AsChecksumKind" title="enum AsChecksumKind"><span class="type">AsChecksumKind</span></a> kind</code></em>);</pre>
+<p>Gets the release checksum</p>
+<div class="refsect3">
+<a name="as-release-get-checksum.returns"></a><h4>Returns</h4>
+<p>an <a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="type">AsChecksum</span></a>, or <code class="literal">NULL</code> for not set or invalid. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 0.8.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-add-checksum"></a><h3>as_release_add_checksum ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_add_checksum (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                         <em class="parameter"><code><a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="type">AsChecksum</span></a> *cs</code></em>);</pre>
+<p>Add a checksum for the file associated with this release.</p>
+<div class="refsect3">
+<a name="as-release-add-checksum.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cs</p></td>
+<td class="parameter_description"><p>The <a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum"><span class="type">AsChecksum</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.8.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-urgency"></a><h3>as_release_get_urgency ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind"><span class="returnvalue">AsUrgencyKind</span></a>
+as_release_get_urgency (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>);</pre>
+<p>Gets the urgency of the release
+(showing how important it is to update to a more recent release)</p>
+<div class="refsect3">
+<a name="as-release-get-urgency.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-get-urgency.returns"></a><h4>Returns</h4>
+<p> <a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind"><span class="type">AsUrgencyKind</span></a>, or <a class="link" href="appstream-as-enums.html#AS-URGENCY-KIND-UNKNOWN:CAPS"><code class="literal">AS_URGENCY_KIND_UNKNOWN</code></a> for not set</p>
+</div>
+<p class="since">Since: 0.6.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-urgency"></a><h3>as_release_set_urgency ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_urgency (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                        <em class="parameter"><code><a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind"><span class="type">AsUrgencyKind</span></a> urgency</code></em>);</pre>
+<p>Sets the release urgency.</p>
+<div class="refsect3">
+<a name="as-release-set-urgency.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>urgency</p></td>
+<td class="parameter_description"><p>the urgency of this release/update (as <a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind"><span class="type">AsUrgencyKind</span></a>)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.6.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-get-size"></a><h3>as_release_get_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>
+as_release_get_size (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                     <em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a> kind</code></em>);</pre>
+<p>Gets the release size.</p>
+<div class="refsect3">
+<a name="as-release-get-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-release-get-size.returns"></a><h4>Returns</h4>
+<p> The size of the given kind of this release.</p>
+</div>
+<p class="since">Since: 0.8.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-release-set-size"></a><h3>as_release_set_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_release_set_size (<em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> *release</code></em>,
+                     <em class="parameter"><code><span class="type">guint64</span> size</code></em>,
+                     <em class="parameter"><code><a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a> kind</code></em>);</pre>
+<p>Sets the release size for the given kind.</p>
+<div class="refsect3">
+<a name="as-release-set-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>release</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease"><span class="type">AsRelease</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>a size in bytes, or 0 for unknown</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind"><span class="type">AsSizeKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.8.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsRelease.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-RELEASE:CAPS"></a><h3>AS_TYPE_RELEASE</h3>
+<pre class="programlisting">#define AS_TYPE_RELEASE (as_release_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsReleaseClass"></a><h3>struct AsReleaseClass</h3>
+<pre class="programlisting">struct AsReleaseClass {
+	GObjectClass		parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsReleaseKind"></a><h3>enum AsReleaseKind</h3>
+<p>The release size kind.</p>
+<div class="refsect3">
+<a name="AsReleaseKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-RELEASE-KIND-UNKNOWN:CAPS"></a>AS_RELEASE_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Unknown release type</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-RELEASE-KIND-STABLE:CAPS"></a>AS_RELEASE_KIND_STABLE</p></td>
+<td class="enum_member_description">
+<p>A stable release for end-users</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-RELEASE-KIND-DEVELOPMENT:CAPS"></a>AS_RELEASE_KIND_DEVELOPMENT</p></td>
+<td class="enum_member_description">
+<p>A development release or pre-release for testing</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.12.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsSizeKind"></a><h3>enum AsSizeKind</h3>
+<p>The release size kind.</p>
+<div class="refsect3">
+<a name="AsSizeKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SIZE-KIND-UNKNOWN:CAPS"></a>AS_SIZE_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Unknown size</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SIZE-KIND-DOWNLOAD:CAPS"></a>AS_SIZE_KIND_DOWNLOAD</p></td>
+<td class="enum_member_description">
+<p>Size of download of component</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SIZE-KIND-INSTALLED:CAPS"></a>AS_SIZE_KIND_INSTALLED</p></td>
+<td class="enum_member_description">
+<p>Size of installed component</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.8.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsRelease"></a><h3>AsRelease</h3>
+<pre class="programlisting">typedef struct _AsRelease AsRelease;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

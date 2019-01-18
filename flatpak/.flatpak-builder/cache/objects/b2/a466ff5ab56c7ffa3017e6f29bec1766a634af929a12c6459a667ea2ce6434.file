@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ex:set ts=2 et:
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2006, 2007 Steve Frécinaux <code@istique.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+TODO: extended regex support
+FIXME: =pod should require an empty line before/after, as written in perlpod
+
+-->
+<language id="perl" name="Perl" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-perl;application/x-perl</property>
+    <property name="globs">*.pl;*.pm;*.al;*.perl;*.t</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"            map-to="def:comment"/>
+    <style id="line-directive"    name="Line Directive"     map-to="def:preprocessor"/>
+    <style id="include-statement" name="Include Statement"  map-to="def:preprocessor"/>
+    <style id="string"            name="String"             map-to="def:string"/>
+    <style id="keyword"           name="Keyword"            map-to="def:keyword"/>
+    <style id="builtin"           name="Builtin Function"   map-to="def:builtin"/>
+    <style id="here-doc"          name="Heredoc"            map-to="def:string" />
+    <style id="here-doc-bound"    name="Heredoc Bound"      map-to="def:string"/>
+    <style id="system-command"    name="System Command"     map-to="def:string"/>
+    <style id="operator"          name="Operator"           map-to="def:keyword"/>
+    <style id="variable"          name="Variable"           map-to="def:type"/>
+    <style id="file-descriptor"   name="File Descriptor"    map-to="def:special-constant"/>
+    <style id="control"           name="Control"            map-to="def:preprocessor"/>
+    <style id="regex"             name="Regular Expression" map-to="def:string"/>
+    <style id="error"             name="Error"              map-to="def:error"/>
+    <style id="pod"               name="POD"                map-to="def:comment"/>
+    <style id="pod-escape"        name="POD Escape"         map-to="def:special-char"/>
+    <style id="pod-keyword"       name="POD keyword"        map-to="def:keyword"/>
+    <style id="pod-heading"       name="POD heading"        map-to="def:doc-comment-element"/>
+  </styles>
+
+  <definitions>
+    <context id="perl" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="line-directive"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="pod"/>
+        <context ref="data"/>
+
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="system-command"/>
+        <context ref="word-list"/>
+        <context ref="regular-expression"/>
+        <context ref="match"/>
+        <context ref="substitution"/>
+        <context ref="transliteration"/>
+
+        <context ref="match-slashslash"/>
+
+        <context ref="here-doc-no-ve"/>
+        <context ref="here-doc"/>
+
+        <context ref="sub"/>
+        <context ref="variable"/>
+        <context ref="include-statement"/>
+        <context ref="operator"/>
+        <context ref="keyword"/>
+        <context ref="control"/>
+        <context ref="file-descriptor"/>
+        <context ref="builtin"/>
+      </include>
+    </context>
+
+    <!-- in case we have an obviously wrong piece of code to highlight.
+         We put it last so it can highlight everything not handled yet. -->
+    <context id="error" style-ref="error" extend-parent="false">
+      <match>\S</match>
+    </context>
+
+    <define-regex id="operator" extended="true">
+      \-[rwxoRWXOezsfdlpSbctugkTBMAC](?=\s) |
+      \-&gt; |
+      \+\+ | \-\- |
+      \*\* |
+      \! | \~ | \\ | \+ | \- |
+      [!=]\~ |
+      \* | / | % |
+      &lt;&lt; | &gt;&gt; |
+      &lt; | &gt; | [&lt;&gt;=!]= | &lt;=&gt; |
+      &amp; | \| | \^ |
+      &amp;&amp; |
+      \.\.\.? |
+      \? | : |
+      = | \*\*= | \+= | \*= | &amp;= | &lt;&lt;= | &amp;&amp;= | \-= | /= |
+      \|= | &gt;&gt;= | \|\|= | \.= | %= | \^= | \bx= |
+      =&gt; |
+      \b(x|lt|gt|le|ge|eq|ne|cmp|not|and|or|xor)\b
+    </define-regex>
+
+    <context id="operator" style-ref="operator"><!-- see `man perlop` -->
+      <match>\%{operator}</match>
+    </context>
+
+    <!-- #### VARIABLES ################################################### -->
+
+    <!-- $ is not defined in this regexp because it would conflict with
+         \%{plain-variable}. $ is the current module. -->
+    <define-regex id="special-variable" extended="true">
+      \$\^[ADEFHILMOPSTWX]? |                                 # ($^A, ...)
+      \$[\\\&quot;\[\]'&amp;`+*.,;=%~?@$&gt;&lt;\(|/!-] |     # ($|, $', ...)
+      \$:[^:] |            # avoid confusion with $::foo (equiv. to $main::foo)
+      \$(0|[1-9][0-9]*) |  # numbered variables (regex matches)
+      @[+-] |              # special array variables
+      %[!+-] | %\^H        # special hash variables
+    </define-regex>
+
+    <define-regex id="plain-variable" extended="true">
+      ([$@%]|\$\#)\$*[a-zA-Z_][a-zA-Z0-9_]*
+    </define-regex>
+
+    <context id="plain-variable">
+      <include>
+        <context style-ref="variable">
+          <start>[$@%]{</start>
+          <end>}</end>
+        </context>
+        <context style-ref="variable">
+          <match>\%{plain-variable}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="special-variable" style-ref="variable">
+      <match>\%{special-variable}</match>
+    </context>
+
+    <context id="variable">
+      <include>
+        <context ref="plain-variable"/>
+        <context ref="special-variable"/>
+      </include>
+    </context>
+
+    <!-- #### PATTERNS / STRINGS / REGEX ################################## -->
+    <!-- see `man perlop` -->
+
+    <!-- available delimiters for m// or s///-style patterns (probably not
+         complete yet).                                                     -->
+    <define-regex id="pattern-delimiter" extended="true">
+      [&amp;+|!/@#\^\-=:;,.?*\\%`"']
+    </define-regex>
+
+    <!-- this assertion is shared by all the regex contexts to avoid wrong
+         highlighing of function calls, etc.
+         \b can't be used because of $var, @var, &func, %func.              -->
+    <!-- FIXME I added { and ( to the list to fix #507075 and #535703. Someone
+         please look at it, it seems wrong. It probably should be a positive
+         look-behind. -->
+    <define-regex id="pattern-before" extended="true">
+      (?&lt;![a-zA-Z0-9@%{(])
+    </define-regex>
+
+    <context id="in-pattern">
+      <include>
+        <context ref="def:escape"/>
+        <context ref="plain-variable"/>
+        <context extend-parent="false">
+          <start>(?=\$)</start>
+          <include>
+            <!-- some variables are not recognized in patterns -->
+            <context><match>\$(?=[|)])</match></context>
+            <context ref="special-variable"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+
+    <!-- The following context definitions are there to handle nesting of
+         brackets in bracket-delimited regexes.                             -->
+
+    <context id="in-pattern-curly-no-ve">
+      <include>
+        <context>
+          <start>{</start><end>}</end>
+          <include><context ref="in-pattern-curly-no-ve"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="in-pattern-curly">
+      <include>
+        <context>
+          <start>{</start><end>}</end>
+          <include><context ref="in-pattern-curly"/></include>
+        </context>
+        <context ref="in-pattern"/>
+      </include>
+    </context>
+
+    <context id="in-pattern-square-no-ve">
+      <include>
+        <context>
+          <start>\[</start><end>\]</end>
+          <include><context ref="in-pattern-square-no-ve"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="in-pattern-square">
+      <include>
+        <context>
+          <start>\[</start><end>\]</end>
+          <include><context ref="in-pattern-square"/></include>
+        </context>
+        <context ref="in-pattern"/>
+      </include>
+    </context>
+
+    <context id="in-pattern-round-no-ve">
+      <include>
+        <context>
+          <start>\(</start><end>}</end>
+          <include><context ref="in-pattern-round-no-ve"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="in-pattern-round">
+      <include>
+        <context>
+          <start>\(</start><end>\)</end>
+          <include><context ref="in-pattern-round"/></include>
+        </context>
+        <context ref="in-pattern"/>
+      </include>
+    </context>
+
+    <context id="in-pattern-angle-no-ve">
+      <include>
+        <context>
+          <start>&lt;</start><end>&gt;</end>
+          <include><context ref="in-pattern-angle-no-ve"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="in-pattern-angle">
+      <include>
+        <context>
+          <start>&lt;</start><end>&gt;</end>
+          <include><context ref="in-pattern-angle"/></include>
+        </context>
+        <context ref="in-pattern"/>
+      </include>
+    </context>
+
+    <!-- One level higher: the following contexts define single and double
+         patterns in general, in ve and no-ve version.                      -->
+
+    <define-regex id="end-of-pattern" extended="true">
+      (?&lt;=
+          [}\]\)&gt;]|
+          \%{pattern-delimiter}
+      )
+    </define-regex>
+
+    <context id="simple-pattern" once-only="true">
+      <start/>
+      <include>
+        <context ref="asserted-comment"/>
+        <context end-parent="true">
+          <start>{</start><end>}</end>
+          <include><context ref="in-pattern-curly"/></include>
+        </context>
+        <context end-parent="true">
+          <start>\[</start><end>\]</end>
+          <include><context ref="in-pattern-square"/></include>
+        </context>
+        <context end-parent="true">
+          <start>\(</start><end>\)</end>
+          <include><context ref="in-pattern-round"/></include>
+        </context>
+        <context end-parent="true">
+          <start>&lt;</start><end>&gt;</end>
+          <include><context ref="in-pattern-angle"/></include>
+        </context>
+        <context end-parent="true">
+          <!-- '' doesn't usually have var expansion. -->
+          <start>'</start><end>'</end>
+          <include>
+            <context style-ref="def:special-char">
+              <match>\\\\|\\'</match>
+            </context>
+          </include>
+        </context>
+        <context end-parent="true">
+          <start>(?P&lt;RD&gt;\%{pattern-delimiter})</start>
+          <end>\%{RD@start}</end>
+          <include><context ref="in-pattern"/></include>
+        </context>
+        <context ref="asserted-comment"/>
+        <context ref="error"/>
+      </include>
+    </context>
+
+    <context id="simple-pattern-no-ve" once-only="true">
+      <start/>
+      <include>
+        <context end-parent="true">
+          <start>{</start><end>}</end>
+          <include><context ref="in-pattern-curly-no-ve"/></include>
+        </context>
+        <context end-parent="true">
+          <start>\[</start><end>\]</end>
+          <include><context ref="in-pattern-square-no-ve"/></include>
+        </context>
+        <context end-parent="true">
+          <start>\(</start><end>\)</end>
+          <include><context ref="in-pattern-round-no-ve"/></include>
+        </context>
+        <context end-parent="true">
+          <start>&lt;</start><end>&gt;</end>
+          <include><context ref="in-pattern-angle-no-ve"/></include>
+        </context>
+        <context end-parent="true">
+          <start>(?P&lt;RD&gt;\%{pattern-delimiter})</start>
+          <end>\%{RD@start}</end>
+        </context>
+        <context ref="asserted-comment"/>
+        <context ref="error"/>
+      </include>
+    </context>
+
+    <context id="double-pattern" once-only="true">
+      <start/>
+      <include>
+        <context end-parent="true">
+          <start>'</start>
+          <end>'</end>
+          <include>
+            <context once-only="true">
+              <start>(?&lt;=(?P&lt;RD&gt;.))</start>
+              <end>\%{RD@start}</end>
+            </context>
+          </include>
+        </context>
+        <context end-parent="true">
+          <start>(?P&lt;RD&gt;\%{pattern-delimiter})</start>
+          <end>\%{RD@start}</end>
+          <include>
+            <context once-only="true">
+              <start>(?&lt;=(?P&lt;RD&gt;.))</start>
+              <end>\%{RD@start}</end>
+              <include><context ref="in-pattern"/></include>
+            </context>
+            <context ref="in-pattern"/>
+          </include>
+        </context>
+        <context end-parent="true">
+          <start/>
+          <include>
+            <context ref="simple-pattern"/>
+            <!-- quick hack to include the same pattern twice: we surround it
+                 with a house-keeping context -->
+            <context once-only="true" end-parent="true">
+              <start>\%{end-of-pattern}</start>
+              <end>\%{end-of-pattern}</end>
+              <include><context ref="simple-pattern"/></include>
+            </context>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="double-pattern-no-ve" once-only="true">
+      <start/>
+      <include>
+        <context end-parent="true">
+          <start>(?P&lt;RD&gt;\%{pattern-delimiter})</start>
+          <end>\%{RD@start}</end>
+          <include>
+            <context once-only="true">
+              <start>(?&lt;=(?P&lt;RD&gt;.))</start>
+              <end>\%{RD@start}</end>
+            </context>
+          </include>
+        </context>
+        <context end-parent="true">
+          <start/>
+          <include>
+            <context ref="simple-pattern-no-ve"/>
+            <context once-only="true" end-parent="true">
+              <start>\%{end-of-pattern}</start>
+              <end>\%{end-of-pattern}</end>
+              <include><context ref="simple-pattern-no-ve"/></include>
+            </context>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" class="string" class-disabled="no-spell-check">
+      <include>
+        <context style-ref="string">
+          <start>'</start><end>'</end>
+          <include>
+            <context style-ref="def:special-char">
+              <match>\\\\|\\'</match>
+            </context>
+          </include>
+        </context>
+        <context style-ref="string">
+          <start>\%{pattern-before}q\b</start>
+          <end>\%{end-of-pattern}</end>
+          <include><context ref="simple-pattern-no-ve"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" class="string" class-disabled="no-spell-check">
+      <include>
+        <context style-ref="string">
+          <start>"</start><end>"</end>
+          <include><context ref="in-pattern"/></include>
+        </context>
+        <context style-ref="string">
+          <start>\%{pattern-before}qq\b</start>
+          <end>\%{end-of-pattern}</end>
+          <include>
+            <context ref="asserted-comment"/>
+            <!-- qq'' *has* var expansion, so we can't just use
+                 <context ref="single-pattern"/>.                           -->
+            <context end-parent="true">
+              <start>{</start><end>}</end>
+              <include><context ref="in-pattern-curly"/></include>
+            </context>
+            <context end-parent="true">
+              <start>\[</start><end>\]</end>
+              <include><context ref="in-pattern-square"/></include>
+            </context>
+            <context end-parent="true">
+              <start>\(</start><end>\)</end>
+              <include><context ref="in-pattern-round"/></include>
+            </context>
+            <context end-parent="true">
+              <start>&lt;</start><end>&gt;</end>
+              <include><context ref="in-pattern-angle"/></include>
+            </context>
+            <context end-parent="true">
+              <start>(?P&lt;RD&gt;\%{pattern-delimiter})</start>
+              <end>\%{RD@start}</end>
+              <include><context ref="in-pattern"/></include>
+            </context>
+            <context ref="error"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="word-list" style-ref="string">
+      <start>\%{pattern-before}qw\b</start>
+      <end>\%{end-of-pattern}</end>
+      <include><context ref="simple-pattern-no-ve"/></include>
+    </context>
+
+    <context id="regular-expression" style-ref="regex">
+      <start>\%{pattern-before}qr\b</start>
+      <end>\%{end-of-pattern}[imosx]*</end>
+      <include><context ref="simple-pattern"/></include>
+    </context>
+
+    <context id="system-command">
+      <include>
+        <context style-ref="system-command">
+          <start>`</start><end>`</end>
+          <include><context ref="in-pattern"/></include>
+        </context>
+        <context style-ref="system-command">
+          <start>\%{pattern-before}qx\b</start>
+          <end>\%{end-of-pattern}</end>
+          <include><context ref="simple-pattern"/></include>
+        </context>
+      </include>
+    </context>
+
+    <context id="match" style-ref="regex">
+      <start>\%{pattern-before}m\b</start>
+      <end>\%{end-of-pattern}[cgimosx]*</end>
+      <include><context ref="simple-pattern"/></include>
+    </context>
+
+    <context id="substitution" style-ref="regex">
+      <start>\%{pattern-before}s\b</start>
+      <end>\%{end-of-pattern}[ecgimosx]*</end>
+      <include><context ref="double-pattern"/></include>
+    </context>
+
+    <context id="transliteration" style-ref="regex">
+      <start>\%{pattern-before}(tr|y)\b</start>
+      <end>\%{end-of-pattern}[cds]*</end>
+      <include><context ref="double-pattern-no-ve"/></include>
+    </context>
+
+    <!-- hacks, mostly taken from vim's perl.vim. As they say:
+         “Below some hacks to recognise the // variant. This is virtually
+          impossible to catch in all cases as the / is used in so many other
+          ways, but these should be the most obvious ones.” -->
+    <context id="match-slashslash">
+      <include>
+        <context style-inside="true" style-ref="regex">
+          <start>(^|[^$@%&amp;])(split|while|if)\s+(/)</start>
+          <end>/[cgimosx]*</end>
+          <include>
+            <context sub-pattern="2" where="start" style-ref="builtin"/>
+            <context sub-pattern="3" where="start" style-ref="regex"/>
+            <context sub-pattern="0" where="end" style-ref="regex"/>
+            <context ref="in-pattern"/>
+          </include>
+        </context>
+        <context style-inside="true" style-ref="regex">
+          <start>(^|(?&lt;=[\(\{]))\s*(/)</start>
+          <end>/[cgimosx]*</end>
+          <include>
+            <context sub-pattern="2" where="start" style-ref="regex"/>
+            <context sub-pattern="0" where="end" style-ref="regex"/>
+            <context ref="in-pattern"/>
+          </include>
+        </context>
+        <context style-inside="true" style-ref="regex">
+          <start>([!=]\~)\s*(/)</start>
+          <end>/[cgimosx]*</end>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="operator"/>
+            <context sub-pattern="2" where="start" style-ref="regex"/>
+            <context sub-pattern="0" where="end" style-ref="regex"/>
+            <context ref="in-pattern"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <!-- #### HEREDOC STRINGS ############################################# -->
+    <!--
+          There may not be a space between the << and the identifier, unless the
+          identifier is explicitly quoted (hence the \s* when using quotes.
+
+          This also means that usage of null identifier <<"" is only valid
+          when using quotes (hence \%{here-doc-bound-char}* when using quotes
+          and \%{here-doc-bound-char}+ when not).
+    -->
+
+    <define-regex id="here-doc-bound-char">[^\s'"=;)&lt;&gt;]</define-regex>
+
+    <context id="here-doc-no-ve">
+      <start extended="true" dupnames="true">
+        &lt;&lt;
+        (
+          \s*\'(?P&lt;HDB&gt;\%{here-doc-bound-char}*)\'|  # 'EOF'
+             \\(?P&lt;HDB&gt;\%{here-doc-bound-char}+)     # \EOF
+        )
+      </start>
+      <end>^\%{HDB@start}$</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="here-doc-bound"/>
+        <context sub-pattern="0" where="end" style-ref="here-doc-bound"/>
+        <context once-only="true" end-at-line-end="true">
+          <start/><include><context ref="perl"/></include>
+        </context>
+        <context style-ref="here-doc" extend-parent="false"><start/></context>
+      </include>
+    </context>
+
+    <context id="here-doc">
+      <start extended="true" dupnames="true">
+        &lt;&lt;
+        (
+          \s*\"(?P&lt;HDB&gt;\%{here-doc-bound-char}*)\"|   # "EOF"
+               (?P&lt;HDB&gt;\%{here-doc-bound-char}+)      # EOF
+        )
+      </start>
+      <end>^\%{HDB@start}$</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="here-doc-bound"/>
+        <context sub-pattern="0" where="end" style-ref="here-doc-bound"/>
+        <context once-only="true" end-at-line-end="true">
+          <start/><include><context ref="perl"/></include>
+        </context>
+        <context style-ref="here-doc" extend-parent="false">
+          <start/>
+          <include>
+            <context ref="def:escape"/>
+            <context ref="variable"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <!-- #### KEYWORDS / BUILTINS / ETC ################################### -->
+
+    <define-regex id="function">[a-zA-Z_][a-zA-Z0-9_]*</define-regex>
+
+    <!-- in sub context, everything is a function -->
+    <context id="sub">
+      <match>(sub)\s+\%{function}\b</match>
+      <include><context sub-pattern="1" style-ref="keyword"/></include>
+    </context>
+
+    <context id="file-descriptor" style-ref="file-descriptor">
+      <keyword>STDIN</keyword>
+      <keyword>STDOUT</keyword>
+      <keyword>STDERR</keyword>
+    </context>
+
+    <context id="control" style-ref="control">
+      <keyword>BEGIN</keyword>
+      <keyword>END</keyword>
+      <keyword>CHECK</keyword>
+      <keyword>INIT</keyword>
+    </context>
+
+    <context id="include-statement">
+      <include>
+        <context style-ref="include-statement">
+          <keyword>require</keyword>
+        </context>
+        <context>
+          <!-- 'use' and 'no' can be used with special flags, so we try to
+               highlight them as well. -->
+          <start>(use|no)\s</start>
+          <end>;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="include-statement"/>
+            <context once-only="true" style-ref="include-statement">
+              <keyword>attributes</keyword>
+              <keyword>autodie</keyword>
+              <keyword>autouse</keyword>
+              <keyword>base</keyword>
+              <keyword>bigint</keyword>
+              <keyword>bignum</keyword>
+              <keyword>bigrat</keyword>
+              <keyword>blib</keyword>
+              <keyword>bytes</keyword>
+              <keyword>charnames</keyword>
+              <keyword>constant</keyword>
+              <keyword>diagnostics</keyword>
+              <keyword>encoding</keyword>
+              <keyword>feature</keyword>
+              <keyword>fields</keyword>
+              <keyword>fileset</keyword>
+              <keyword>if</keyword>
+              <keyword>integer</keyword>
+              <keyword>less</keyword>
+              <keyword>lib</keyword>
+              <keyword>locale</keyword>
+              <keyword>mro</keyword>
+              <keyword>open</keyword>
+              <keyword>ops</keyword>
+              <keyword>overload</keyword>
+              <keyword>overloading</keyword>
+              <keyword>parent</keyword>
+              <keyword>re</keyword>
+              <keyword>sigtrap</keyword>
+              <keyword>sort</keyword>
+              <keyword>strict</keyword>
+              <keyword>subs</keyword>
+              <keyword>threads</keyword>
+              <keyword>threads::shared</keyword>
+              <keyword>utf8</keyword>
+              <keyword>vars</keyword>
+              <keyword>vmish</keyword>
+              <keyword>warnings</keyword>
+              <keyword>warnings::register</keyword>
+            </context>
+            <context ref="perl"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>do</keyword>
+      <keyword>default</keyword>
+      <keyword>each</keyword>
+      <keyword>else</keyword>
+      <keyword>elsif</keyword>
+      <keyword>foreach</keyword>
+      <keyword>for</keyword>
+      <keyword>given</keyword>
+      <keyword>if</keyword>
+      <keyword>last</keyword>
+      <keyword>local</keyword>
+      <keyword>my</keyword>
+      <keyword>next</keyword>
+      <keyword>our</keyword>
+      <keyword>package</keyword>
+      <keyword>return</keyword>
+      <keyword>sub</keyword>
+      <keyword>state</keyword>
+      <keyword>unless</keyword>
+      <keyword>until</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>__FILE__</keyword>
+      <keyword>__LINE__</keyword>
+      <keyword>__PACKAGE__</keyword>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+      <!-- see `man perlfunc` -->
+      <keyword>abs</keyword>
+      <keyword>accept</keyword>
+      <keyword>alarm</keyword>
+      <keyword>atan2</keyword>
+      <keyword>bind</keyword>
+      <keyword>binmode</keyword>
+      <keyword>bless</keyword>
+      <keyword>caller</keyword>
+      <keyword>chdir</keyword>
+      <keyword>chmod</keyword>
+      <keyword>chomp</keyword>
+      <keyword>chop</keyword>
+      <keyword>chown</keyword>
+      <keyword>chr</keyword>
+      <keyword>chroot</keyword>
+      <keyword>closedir</keyword>
+      <keyword>close</keyword>
+      <keyword>connect</keyword>
+      <keyword>cos</keyword>
+      <keyword>crypt</keyword>
+      <keyword>dbmclose</keyword>
+      <keyword>dbmopen</keyword>
+      <keyword>defined</keyword>
+      <keyword>delete</keyword>
+      <keyword>die</keyword>
+      <keyword>dump</keyword>
+      <keyword>each</keyword>
+      <keyword>endgrent</keyword>
+      <keyword>endhostent</keyword>
+      <keyword>endnetent</keyword>
+      <keyword>endprotoent</keyword>
+      <keyword>endpwent</keyword>
+      <keyword>endservent</keyword>
+      <keyword>eof</keyword>
+      <keyword>eval</keyword>
+      <keyword>exec</keyword>
+      <keyword>exists</keyword>
+      <keyword>exit</keyword>
+      <keyword>exp</keyword>
+      <keyword>fcntl</keyword>
+      <keyword>fileno</keyword>
+      <keyword>flock</keyword>
+      <keyword>fork</keyword>
+      <keyword>format</keyword>
+      <keyword>formline</keyword>
+      <keyword>getc</keyword>
+      <keyword>getgrent</keyword>
+      <keyword>getgrgid</keyword>
+      <keyword>getgrnam</keyword>
+      <keyword>gethostbyaddr</keyword>
+      <keyword>gethostbyname</keyword>
+      <keyword>gethostent</keyword>
+      <keyword>getlogin</keyword>
+      <keyword>getnetbyaddr</keyword>
+      <keyword>getnetbyname</keyword>
+      <keyword>getnetent</keyword>
+      <keyword>getpeername</keyword>
+      <keyword>getpgrp</keyword>
+      <keyword>getppid</keyword>
+      <keyword>getpriority</keyword>
+      <keyword>getprotobyname</keyword>
+      <keyword>getprotobynumber</keyword>
+      <keyword>getprotoent</keyword>
+      <keyword>getpwent</keyword>
+      <keyword>getpwnam</keyword>
+      <keyword>getpwuid</keyword>
+      <keyword>getservbyname</keyword>
+      <keyword>getservbyport</keyword>
+      <keyword>getservent</keyword>
+      <keyword>getsockname</keyword>
+      <keyword>getsockopt</keyword>
+      <keyword>glob</keyword>
+      <keyword>gmtime</keyword>
+      <keyword>goto</keyword>
+      <keyword>grep</keyword>
+      <keyword>hex</keyword>
+      <keyword>import</keyword>
+      <keyword>index</keyword>
+      <keyword>int</keyword>
+      <keyword>ioctl</keyword>
+      <keyword>join</keyword>
+      <keyword>keys</keyword>
+      <keyword>kill</keyword>
+      <keyword>lcfirst</keyword>
+      <keyword>lc</keyword>
+      <keyword>length</keyword>
+      <keyword>link</keyword>
+      <keyword>listen</keyword>
+      <keyword>localtime</keyword>
+      <keyword>log</keyword>
+      <keyword>lstat</keyword>
+      <keyword>map</keyword>
+      <keyword>mkdir</keyword>
+      <keyword>msgctl</keyword>
+      <keyword>msgget</keyword>
+      <keyword>msgrcv</keyword>
+      <keyword>msgsnd</keyword>
+      <keyword>new</keyword>
+      <keyword>oct</keyword>
+      <keyword>opendir</keyword>
+      <keyword>open</keyword>
+      <keyword>ord</keyword>
+      <keyword>pack</keyword>
+      <keyword>pipe</keyword>
+      <keyword>pop</keyword>
+      <keyword>pos</keyword>
+      <keyword>printf</keyword>
+      <keyword>print</keyword>
+      <keyword>prototype</keyword>
+      <keyword>push</keyword>
+      <keyword>quotemeta</keyword>
+      <keyword>rand</keyword>
+      <keyword>readdir</keyword>
+      <keyword>read</keyword>
+      <keyword>readlink</keyword>
+      <keyword>recv</keyword>
+      <keyword>redo</keyword>
+      <keyword>ref</keyword>
+      <keyword>rename</keyword>
+      <keyword>reset</keyword>
+      <keyword>reverse</keyword>
+      <keyword>rewinddir</keyword>
+      <keyword>rindex</keyword>
+      <keyword>rmdir</keyword>
+      <keyword>say</keyword>
+      <keyword>scalar</keyword>
+      <keyword>seekdir</keyword>
+      <keyword>seek</keyword>
+      <keyword>select</keyword>
+      <keyword>semctl</keyword>
+      <keyword>semget</keyword>
+      <keyword>semop</keyword>
+      <keyword>send</keyword>
+      <keyword>setgrent</keyword>
+      <keyword>sethostent</keyword>
+      <keyword>setnetent</keyword>
+      <keyword>setpgrp</keyword>
+      <keyword>setpriority</keyword>
+      <keyword>setprotoent</keyword>
+      <keyword>setpwent</keyword>
+      <keyword>setservent</keyword>
+      <keyword>setsockopt</keyword>
+      <keyword>shift</keyword>
+      <keyword>shmctl</keyword>
+      <keyword>shmget</keyword>
+      <keyword>shmread</keyword>
+      <keyword>shmwrite</keyword>
+      <keyword>shutdown</keyword>
+      <keyword>sin</keyword>
+      <keyword>sleep</keyword>
+      <keyword>socket</keyword>
+      <keyword>socketpair</keyword>
+      <keyword>sort</keyword>
+      <keyword>splice</keyword>
+      <keyword>split</keyword>
+      <keyword>sprintf</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>srand</keyword>
+      <keyword>stat</keyword>
+      <keyword>study</keyword>
+      <keyword>substr</keyword>
+      <keyword>symlink</keyword>
+      <keyword>syscall</keyword>
+      <keyword>sysread</keyword>
+      <keyword>sysseek</keyword>
+      <keyword>system</keyword>
+      <keyword>syswrite</keyword>
+      <keyword>telldir</keyword>
+      <keyword>tell</keyword>
+      <keyword>tied</keyword>
+      <keyword>tie</keyword>
+      <keyword>time</keyword>
+      <keyword>times</keyword>
+      <keyword>truncate</keyword>
+      <keyword>ucfirst</keyword>
+      <keyword>uc</keyword>
+      <keyword>umask</keyword>
+      <keyword>undef</keyword>
+      <keyword>unlink</keyword>
+      <keyword>unpack</keyword>
+      <keyword>unshift</keyword>
+      <keyword>untie</keyword>
+      <keyword>utime</keyword>
+      <keyword>values</keyword>
+      <keyword>vec</keyword>
+      <keyword>wait</keyword>
+      <keyword>waitpid</keyword>
+      <keyword>wantarray</keyword>
+      <keyword>warn</keyword>
+      <keyword>write</keyword>
+    </context>
+
+    <!-- #### COMMENTS / POD / DATA ####################################### -->
+
+    <!-- usual comments for perl are def:shell-style-comment -->
+    <!-- comment that must have a whitespace before (used in s{}{}, because
+         perl bugs if there is no space between '}' and '#') -->
+    <context id="asserted-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>(?&lt;![^\s])#</start>
+      <include><context ref="def:in-comment"/></include>
+    </context>
+
+    <context id="line-directive" style-ref="line-directive">
+      <!-- see `man perlsyn` line 676 -->
+      <match extended="true">
+        ^\# \s*
+        (line \s+ (\d+)) \s*
+        (?:(\s"([^"]+)"|[^"]+))? \s*
+        $
+      </match>
+      <include>
+        <context sub-pattern="3" style-ref="string"/>
+      </include>
+    </context>
+
+    <context id="in-pod">
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="pod-escape"/>
+      </include>
+    </context>
+
+    <context id="pod-escape">
+      <include>
+        <context>
+          <start>[IBCLEFSXZ]&lt;(?!&lt;)</start><end>(?&lt;!&gt;)&gt;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <!-- doubled angle brackets ("<<" and ">>") may be used if and only if
+             there is whitespace right after the opening delimiter and
+             whitespace right before the closing delimiter! (`man perlpod`) -->
+        <context>
+          <start>[IBCLEFSXZ]&lt;{2}\s</start><end>\s&gt;{2}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <context>
+          <start>[IBCLEFSXZ]&lt;{3}\s</start><end>\s&gt;{3}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <context>
+          <start>[IBCLEFSXZ]&lt;{4}\s</start><end>\s&gt;{4}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <context>
+          <start>[IBCLEFSXZ]&lt;{5}\s</start><end>\s&gt;{5}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <context>
+          <start>[IBCLEFSXZ]&lt;{6}\s</start><end>\s&gt;{6}</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="pod-escape"/>
+            <context sub-pattern="0" where="end" style-ref="pod-escape"/>
+            <context ref="in-pod"/>
+          </include>
+        </context>
+        <!-- one should be insane to put there more than 6 brackets -->
+      </include>
+    </context>
+
+    <context id="pod-heading" end-at-line-end="true" style-inside="true" style-ref="pod-heading">
+      <start>^=(head[1-4])</start>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="pod-keyword"/>
+        <context ref="in-pod"/>
+      </include>
+    </context>
+
+    <context id="pod" style-ref="pod" class-disabled="no-spell-check">
+      <start>^(?=(=[a-z]))</start>
+      <end>^=(cut)$</end>
+      <include>
+        <context sub-pattern="1" where="end" style-ref="pod-keyword"/>
+        <context ref="pod-heading"/>
+        <context>
+          <match>^=(pod|encoding|over|item|back)</match>
+          <include><context sub-pattern="1" style-ref="pod-keyword"/></include>
+        </context>
+        <context>
+          <start>^=(begin)\s+(.*)$</start>
+          <end>^=(end)\s+\%{1@start}$</end>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="pod-keyword"/>
+            <context sub-pattern="1" where="end" style-ref="pod-keyword"/>
+            <context ref="pod"/>
+          </include>
+        </context>
+        <context ref="in-pod"/>
+      </include>
+    </context>
+
+    <context id="data" style-ref="comment">
+      <start>__(DATA|END)__</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+      </include>
+    </context>
+  </definitions>
+</language>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!-- Copyright (C) 2006-2007 - Yevgen Muntyan <muntyan@tamu.edu> -->
+<language id="gtk-doc" name="gtk-doc" version="2.0" _section="Markup" hidden="true">
+    <styles>
+        <style id="inline-docs-section" name="Inline Documentation Section" map-to="def:doc-comment"/>
+        <style id="function-name" name="Function Name" map-to="def:doc-comment-element"/>
+        <style id="signal-name" name="Signal Name" map-to="def:doc-comment-element"/>
+        <style id="property-name" name="Property Name" map-to="def:doc-comment-element"/>
+        <style id="parameter" name="Parameter" map-to="def:doc-comment-element"/>
+        <style id="constant" name="Constant" map-to="def:doc-comment-element"/>
+        <style id="type" name="Type" map-to="def:doc-comment-element"/>
+        <style id="function" name="Function" map-to="def:doc-comment-element"/>
+        <style id="return" name="Return" map-to="def:doc-comment-element"/>
+        <style id="since" name="Since" map-to="def:doc-comment-element"/>
+        <style id="deprecated" name="Deprecated" map-to="def:doc-comment-element"/>
+    </styles>
+
+    <definitions>
+      <context id="skip-asterisk">
+        <match>^\s*\*(?!/)\s*</match>
+      </context>
+
+      <context id="inline-docs-body">
+        <include>
+          <context ref="skip-asterisk"/>
+          <context ref="def:in-comment"/>
+          <context style-ref="parameter">
+            <match>\@[\w_]+</match>
+          </context>
+          <context style-ref="constant">
+            <match>%[\w_]+</match>
+          </context>
+          <context style-ref="type">
+            <match>\#[\w_]+</match>
+          </context>
+          <context style-ref="function">
+            <match>[\w_]+\(\s*\)</match>
+          </context>
+          <context style-ref="return">
+            <match>(Returns|Return value)\:</match>
+          </context>
+          <context style-ref="since">
+            <match>Since\:</match>
+          </context>
+          <context style-ref="deprecated">
+            <match>Deprecated\:</match>
+          </context>
+        </include>
+      </context>
+
+      <context id="inline-docs-section" style-ref="inline-docs-section" class="comment" class-disabled="no-spell-check">
+        <start>/\*\*(?!\S)</start>
+        <end>\*/</end>
+        <include>
+          <context ref="skip-asterisk"/>
+          <context extend-parent="false">
+            <start>(([\w_]+\:\:[\w_-]+)|([\w_]+\:[\w_-]+)|([\w_]+))\:\s*$</start>
+            <include>
+              <context sub-pattern="2" where="start" style-ref="function-name"/>
+              <context sub-pattern="3" where="start" style-ref="signal-name"/>
+              <context sub-pattern="4" where="start" style-ref="property-name"/>
+              <context ref="inline-docs-body"/>
+            </include>
+          </context>
+          <context ref="inline-docs-body"/>
+        </include>
+      </context>
+    </definitions>
+</language>

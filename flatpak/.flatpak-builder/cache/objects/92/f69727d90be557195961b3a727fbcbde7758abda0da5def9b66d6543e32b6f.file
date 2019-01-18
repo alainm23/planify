@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsSuggested: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsTranslation.html" title="AsTranslation">
+<link rel="next" href="appstream-AsRelation.html" title="AsRelation">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsSuggested.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsTranslation.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsRelation.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsSuggested"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsSuggested.top_of_page"></a>AsSuggested</span></h2>
+<p>AsSuggested — Suggestions for other software suggested by a component.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="returnvalue">AsSuggestedKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-kind-from-string" title="as_suggested_kind_from_string ()">as_suggested_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-kind-to-string" title="as_suggested_kind_to_string ()">as_suggested_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="returnvalue">AsSuggested</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-new" title="as_suggested_new ()">as_suggested_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="returnvalue">AsSuggestedKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-get-kind" title="as_suggested_get_kind ()">as_suggested_get_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-set-kind" title="as_suggested_set_kind ()">as_suggested_set_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-get-ids" title="as_suggested_get_ids ()">as_suggested_get_ids</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-add-id" title="as_suggested_add_id ()">as_suggested_add_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsSuggested.html#as-suggested-is-valid" title="as_suggested_is_valid ()">as_suggested_is_valid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsSuggested.html#AS-TYPE-SUGGESTED:CAPS" title="AS_TYPE_SUGGESTED">AS_TYPE_SUGGESTED</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsSuggested.html#AsSuggestedClass" title="struct AsSuggestedClass">AsSuggestedClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind">AsSuggestedKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested">AsSuggested</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.description"></a><h2>Description</h2>
+<p>This class provides a list of other component-ids suggested by a software component, as well
+as an origin of the suggestion (manually suggested by the upstream project, or
+automatically determined by heuristics).</p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-suggested-kind-from-string"></a><h3>as_suggested_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="returnvalue">AsSuggestedKind</span></a>
+as_suggested_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *kind_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-suggested-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-suggested-kind-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="type">AsSuggestedKind</span></a> or <a class="link" href="appstream-AsSuggested.html#AS-SUGGESTED-KIND-UNKNOWN:CAPS"><code class="literal">AS_SUGGESTED_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-kind-to-string"></a><h3>as_suggested_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_suggested_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="type">AsSuggestedKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-suggested-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><code class="literal">AsSuggestedKind</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-suggested-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-new"></a><h3>as_suggested_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="returnvalue">AsSuggested</span></a> *
+as_suggested_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a>.</p>
+<div class="refsect3">
+<a name="as-suggested-new.returns"></a><h4>Returns</h4>
+<p>a new <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-get-kind"></a><h3>as_suggested_get_kind ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="returnvalue">AsSuggestedKind</span></a>
+as_suggested_get_kind (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> *suggested</code></em>);</pre>
+<p>Gets the suggested kind.</p>
+<div class="refsect3">
+<a name="as-suggested-get-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>suggested</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-suggested-get-kind.returns"></a><h4>Returns</h4>
+<p> the <span class="type">AssuggestedKind</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-set-kind"></a><h3>as_suggested_set_kind ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_suggested_set_kind (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> *suggested</code></em>,
+                       <em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="type">AsSuggestedKind</span></a> kind</code></em>);</pre>
+<p>Sets the suggested kind.</p>
+<div class="refsect3">
+<a name="as-suggested-set-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>suggested</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind"><span class="type">AsSuggestedKind</span></a>, e.g. <a class="link" href="appstream-AsSuggested.html#AS-SUGGESTED-KIND-HEURISTIC:CAPS"><code class="literal">AS_SUGGESTED_KIND_HEURISTIC</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-get-ids"></a><h3>as_suggested_get_ids ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_suggested_get_ids (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> *suggested</code></em>);</pre>
+<p>Get a list of components id that generated the suggestion</p>
+<div class="refsect3">
+<a name="as-suggested-get-ids.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>suggested</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-suggested-get-ids.returns"></a><h4>Returns</h4>
+<p>an array of components id. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-add-id"></a><h3>as_suggested_add_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_suggested_add_id (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> *suggested</code></em>,
+                     <em class="parameter"><code>const <span class="type">gchar</span> *cid</code></em>);</pre>
+<p>Add a component id to this suggested object.</p>
+<div class="refsect3">
+<a name="as-suggested-add-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>suggested</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cid</p></td>
+<td class="parameter_description"><p>The component id to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-suggested-is-valid"></a><h3>as_suggested_is_valid ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_suggested_is_valid (<em class="parameter"><code><a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> *suggested</code></em>);</pre>
+<p>Check if the essential properties of this suggestion are
+populated with useful data.</p>
+<div class="refsect3">
+<a name="as-suggested-is-valid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>suggested</p></td>
+<td class="parameter_description"><p>a <a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested"><span class="type">AsSuggested</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-suggested-is-valid.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if we have useful data.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsSuggested.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-SUGGESTED:CAPS"></a><h3>AS_TYPE_SUGGESTED</h3>
+<pre class="programlisting">#define AS_TYPE_SUGGESTED (as_suggested_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsSuggestedClass"></a><h3>struct AsSuggestedClass</h3>
+<pre class="programlisting">struct AsSuggestedClass {
+	GObjectClass		parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsSuggestedKind"></a><h3>enum AsSuggestedKind</h3>
+<p>The suggested type.</p>
+<div class="refsect3">
+<a name="AsSuggestedKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SUGGESTED-KIND-UNKNOWN:CAPS"></a>AS_SUGGESTED_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Unknown suggested kind</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SUGGESTED-KIND-UPSTREAM:CAPS"></a>AS_SUGGESTED_KIND_UPSTREAM</p></td>
+<td class="enum_member_description">
+<p>Suggestions provided by the upstream project.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-SUGGESTED-KIND-HEURISTIC:CAPS"></a>AS_SUGGESTED_KIND_HEURISTIC</p></td>
+<td class="enum_member_description">
+<p>Suggestions provided by automatic heuristics.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsSuggested"></a><h3>AsSuggested</h3>
+<pre class="programlisting">typedef struct _AsSuggested AsSuggested;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

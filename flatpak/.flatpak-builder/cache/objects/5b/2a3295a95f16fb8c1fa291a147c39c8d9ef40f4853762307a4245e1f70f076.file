@@ -1,0 +1,1228 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!--
+    This is a generated document.  Do not edit.
+-->
+<HTML VERSION="2.0">
+<HEAD>
+<TITLE>Node Shapes</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<A NAME="top"></A>
+<H1 align=CENTER>Node Shapes</H1>
+<HR>
+There are three main types of shapes :
+<A HREF=shapes.html#polygon>polygon-based</A>,
+<A HREF=shapes.html#record>record-based</A> and
+<A HREF=shapes.html#epsf>user-defined</A>.
+The record-based shape has largely been superseded and greatly generalized
+by <A HREF=shapes.html#html>HTML-like labels</A>. 
+That is, instead of using <TT>shape=record</TT>, one might
+consider using <TT>shape=none</TT>, <TT>margin=0</TT> and an HTML-like label.
+<P>
+The geometry and style of all node shapes are affected by
+the node attributes 
+<A HREF=attrs.html#d:fixedsize><TT>fixedsize</TT></A>, 
+<A HREF=attrs.html#d:fontname><TT>fontname</TT></A>, 
+<A HREF=attrs.html#d:fontsize><TT>fontsize</TT></A>, 
+<A HREF=attrs.html#d:height><TT>height</TT></A>,
+<A HREF=attrs.html#d:label><TT>label</TT></A>, 
+<A HREF=#d:style><TT>style</TT></A> and
+<A HREF=attrs.html#d:width><TT>width</TT></A>.
+
+<H2><A NAME=polygon>Polygon-based Nodes</A></H2>
+The possible polygon-based shapes are displayed below.
+<TABLE ALIGN=CENTER>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=box.gif>
+    <TD><IMG SRC=polygon.gif>
+    <TD><IMG SRC=ellipse.gif>
+    <TD><IMG SRC=oval.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:box>box</A>
+    <TD><A NAME=d:polygon>polygon</A>
+    <TD><A NAME=d:ellipse>ellipse</A>
+    <TD><A NAME=d:oval>oval</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=circle.gif>
+    <TD><IMG SRC=point.gif>
+    <TD><IMG SRC=egg.gif>
+    <TD><IMG SRC=triangle.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:circle>circle</A>
+    <TD><A NAME=d:point>point</A>
+    <TD><A NAME=d:egg>egg</A>
+    <TD><A NAME=d:triangle>triangle</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=plaintext.gif>
+    <TD><IMG SRC=plain.gif>
+    <TD><IMG SRC=diamond.gif>
+    <TD><IMG SRC=trapezium.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:plaintext>plaintext</A>
+    <TD><A NAME=d:plain>plain</A>
+    <TD><A NAME=d:diamond>diamond</A>
+    <TD><A NAME=d:trapezium>trapezium</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=parallelogram.gif>
+    <TD><IMG SRC=house.gif>
+    <TD><IMG SRC=pentagon.gif>
+    <TD><IMG SRC=hexagon.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:parallelogram>parallelogram</A>
+    <TD><A NAME=d:house>house</A>
+    <TD><A NAME=d:pentagon>pentagon</A>
+    <TD><A NAME=d:hexagon>hexagon</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=septagon.gif>
+    <TD><IMG SRC=octagon.gif>
+    <TD><IMG SRC=doublecircle.gif>
+    <TD><IMG SRC=doubleoctagon.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:septagon>septagon</A>
+    <TD><A NAME=d:octagon>octagon</A>
+    <TD><A NAME=d:doublecircle>doublecircle</A>
+    <TD><A NAME=d:doubleoctagon>doubleoctagon</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=tripleoctagon.gif>
+    <TD><IMG SRC=invtriangle.gif>
+    <TD><IMG SRC=invtrapezium.gif>
+    <TD><IMG SRC=invhouse.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:tripleoctagon>tripleoctagon</A>
+    <TD><A NAME=d:invtriangle>invtriangle</A>
+    <TD><A NAME=d:invtrapezium>invtrapezium</A>
+    <TD><A NAME=d:invhouse>invhouse</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=Mdiamond.gif>
+    <TD><IMG SRC=Msquare.gif>
+    <TD><IMG SRC=Mcircle.gif>
+    <TD><IMG SRC=rect.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:Mdiamond>Mdiamond</A>
+    <TD><A NAME=d:Msquare>Msquare</A>
+    <TD><A NAME=d:Mcircle>Mcircle</A>
+    <TD><A NAME=d:rect>rect</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=rectangle.gif>
+    <TD><IMG SRC=square.gif>
+    <TD><IMG SRC=star.gif>
+    <TD><IMG SRC=none.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:rectangle>rectangle</A>
+    <TD><A NAME=d:square>square</A>
+    <TD><A NAME=d:star>star</A>
+    <TD><A NAME=d:none>none</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=underline.gif>
+    <TD><IMG SRC=cylinder.gif>
+    <TD><IMG SRC=note.gif>
+    <TD><IMG SRC=tab.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:underline>underline</A>
+    <TD><A NAME=d:cylinder>cylinder</A>
+    <TD><A NAME=d:note>note</A>
+    <TD><A NAME=d:tab>tab</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=folder.gif>
+    <TD><IMG SRC=box3d.gif>
+    <TD><IMG SRC=component.gif>
+    <TD><IMG SRC=promoter.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:folder>folder</A>
+    <TD><A NAME=d:box3d>box3d</A>
+    <TD><A NAME=d:component>component</A>
+    <TD><A NAME=d:promoter>promoter</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=cds.gif>
+    <TD><IMG SRC=terminator.gif>
+    <TD><IMG SRC=utr.gif>
+    <TD><IMG SRC=primersite.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:cds>cds</A>
+    <TD><A NAME=d:terminator>terminator</A>
+    <TD><A NAME=d:utr>utr</A>
+    <TD><A NAME=d:primersite>primersite</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=restrictionsite.gif>
+    <TD><IMG SRC=fivepoverhang.gif>
+    <TD><IMG SRC=threepoverhang.gif>
+    <TD><IMG SRC=noverhang.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:restrictionsite>restrictionsite</A>
+    <TD><A NAME=d:fivepoverhang>fivepoverhang</A>
+    <TD><A NAME=d:threepoverhang>threepoverhang</A>
+    <TD><A NAME=d:noverhang>noverhang</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=assembly.gif>
+    <TD><IMG SRC=signature.gif>
+    <TD><IMG SRC=insulator.gif>
+    <TD><IMG SRC=ribosite.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:assembly>assembly</A>
+    <TD><A NAME=d:signature>signature</A>
+    <TD><A NAME=d:insulator>insulator</A>
+    <TD><A NAME=d:ribosite>ribosite</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=rnastab.gif>
+    <TD><IMG SRC=proteasesite.gif>
+    <TD><IMG SRC=proteinstab.gif>
+    <TD><IMG SRC=rpromoter.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:rnastab>rnastab</A>
+    <TD><A NAME=d:proteasesite>proteasesite</A>
+    <TD><A NAME=d:proteinstab>proteinstab</A>
+    <TD><A NAME=d:rpromoter>rpromoter</A>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC=rarrow.gif>
+    <TD><IMG SRC=larrow.gif>
+    <TD><IMG SRC=lpromoter.gif>
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><A NAME=d:rarrow>rarrow</A>
+    <TD><A NAME=d:larrow>larrow</A>
+    <TD><A NAME=d:lpromoter>lpromoter</A>
+  </TR>
+</TABLE>
+As the figures suggest, the shapes <TT>rect</TT> and <TT>rectangle</TT> are synonyms for <TT>box</TT>, and <TT>none</TT> is a synonym for <TT>plaintext</TT>.
+The shape <TT>plain</TT> is similar to these two, except that it also enforces 
+<TT>width=0 height=0 margin=0</TT>, which guarantees that the actual size of the node is entirely determined by the label.
+This is useful, for example, when using <A HREF=shapes.html#html>HTML-like labels</A>.
+Also, unlike the rest, we have shown these three, as well as <TT>underline</TT>,
+without <TT>style=filled</TT>
+to indicate the normal use. If fill were turned on, the label text would
+appear in a filled rectangle.
+<P>
+The geometries of polygon-based shapes are also affected
+by the node attributes 
+<A HREF=attrs.html#d:regular><TT>regular</TT></A>, 
+<A HREF=attrs.html#d:peripheries><TT>peripheries</TT></A> and
+<A HREF=attrs.html#d:orientation><TT>orientation</TT></A>.
+If <TT>shape="polygon"</TT>, the attributes
+<A HREF=attrs.html#d:sides><TT>sides</TT></A>, 
+<A HREF=attrs.html#d:skew><TT>skew</TT></A> and
+<A HREF=attrs.html#d:distortion><TT>distortion</TT></A> are also used.
+If unset, they default to 4, 0.0 and 0.0, respectively.
+The point shape is special in that it is
+only affected by the <A HREF=attrs.html#d:peripheries><TT>peripheries</TT></A>, 
+<A HREF=attrs.html#d:width><TT>width</TT></A> and
+<A HREF=attrs.html#d:height><TT>height</TT></A> attributes.
+<P>
+Normally, the size of a node is determined by smallest width and height
+needed to contain its label and image, if any, with a margin specified by
+the <A HREF=attrs.html#d:margin><TT>margin</TT></A> attribute. The width
+and height must also be at least as large as the sizes specified by the
+<A HREF=attrs.html#d:width><TT>width</TT></A> and
+<A HREF=attrs.html#d:height><TT>height</TT></A> attributes, which specify
+the minimum values for these parameters. 
+See the <A HREF=attrs.html#d:fixedsize><TT>fixedsize</TT></A> attribute
+for ways of restricting the node size.
+In particular, if <tt>fixedsize=shape</tt>, the node's shape will be fixed
+by the <A HREF=attrs.html#d:width><TT>width</TT></A> and
+<A HREF=attrs.html#d:height><TT>height</TT></A> attributes, and the shape
+is used for edge termination, but both the shape and label sizes are used
+preventing node overlap. For example, the following graph
+<XMP>
+digraph G {
+  { 
+    node [margin=0 fontcolor=blue fontsize=32 width=0.5 shape=circle style=filled]
+    b [fillcolor=yellow fixedsize=true label="a very long label"]
+    d [fixedsize=shape label="an even longer label"]
+  }
+  a -> {c d}
+  b -> {c d}
+}
+</XMP>
+yields the figure<BR>
+<IMG SRC=fixed.gif>
+<P>
+Note that the label of the yellow node, with <tt>fixedsize=true</tt>, overlaps
+the other node, where there is sufficient space for the gray node with
+<tt>fixedsize=shape</tt>.
+<P>
+The shapes: <TT>note</TT>, <TT>tab</TT>, <TT>folder</TT>,
+<TT>box3d</TT> and <TT>component</TT> were provided by Pander.
+The synthetic biology shapes:
+<TT>promoter</TT>,
+<TT>cds</TT>,
+<TT>terminator</TT>,
+<TT>utr</TT>,
+<TT>primersite</TT>,
+<TT>restrictionsite</TT>,
+<TT>fivepoverhang</TT>,
+<TT>threepoverhang</TT>,
+<TT>noverhang</TT>,
+<TT>assembly</TT>,
+<TT>signature</TT>,
+<TT>insulator</TT>,
+<TT>ribosite</TT>,
+<TT>rnastab</TT>,
+<TT>proteasesite</TT>,
+<TT>proteinstab</TT>,
+<TT>rpromoter</TT>,
+<TT>rarrow</TT>,
+<TT>larrow</TT> and
+<TT>lpromoter</TT>
+were contributed by Jenny Cheng.
+
+<H2><A NAME=record>Record-based Nodes</A></H2>
+<B>NOTE:</B> Please see the note about record-based nodes at the
+<A HREF=#top>top</A> of this page. Also note that there are problems using 
+non-trivial edges (edges with ports or labels) between adjacent
+nodes on the same rank if one or both nodes has a record shape.
+<P>
+These are specified by shape values of "record" and "Mrecord".
+The structure of a record-based node is determined by 
+its <A HREF=attrs.html#d:label><TT>label</TT></A>,
+which has the following schema:
+  <TABLE>
+  <TR><TD ALIGN=right><I>rlabel</I><TD>=<TD><I>field</I> ( '|' <I>field</I> )*</TR>
+  <TR><TD ALIGN=right>where <I>field</I><TD>=<TD>fieldId</I> or '{' <I>rlabel</I> '}'</TR>
+  <TR><TD ALIGN=right>and <I>fieldId</I><TD>=<TD> [ '<' <I>string</I> '>'] [ <I>string</I> ]</TR>
+  </TABLE>
+Braces, vertical bars and angle brackets must be escaped with
+a backslash character if you wish them to appear as a literal character.
+Spaces are interpreted as separators between tokens,
+so they must be escaped if you want spaces in the text.
+<P>
+The first string in <I>fieldId</I> assigns a portname to the field and can 
+be combined with the node name to indicate where to attach an edge
+to the node. (See <A HREF=attrs.html#k:portPos>portPos</A>.)
+The second string is used as the text for the field; it supports the usual
+<A HREF=attrs.html#k:escString>escape sequences</A> &#92;n, &#92;l and &#92;r.
+<P>
+Visually, a record is a box, with fields represented by alternating
+rows of horizontal or vertical subboxes. The Mrecord shape is identical
+to a record shape, except that the outermost box has rounded corners.
+Flipping between horizontal and vertical layouts is done by nesting
+fields in braces "{...}". The top-level orientation in a record is
+horizontal. Thus, a record with label "A | B | C | D" will have 4 fields 
+oriented left to right, while "{A | B | C | D}" will have them 
+from top to bottom and "A | { B | C } | D" will have "B" over "C", with
+"A" to the left and "D" to the right of "B" and "C".
+<P> 
+The initial orientation of a record node depends on the
+<A HREF="attrs.html#d:rankdir">rankdir</A> attribute. If this attribute
+is <TT>TB</TT> (the default) or <TT>BT</TT>, corresponding to vertical
+layouts, the top-level fields in a record are displayed horizontally.
+If, however, this attribute is <TT>LR</TT> or <TT>RL</TT>, 
+corresponding to horizontal layouts, the top-level fields are 
+displayed vertically.
+<P>
+As an example of a record node, the dot input
+<XMP>
+digraph structs {
+    node [shape=record];
+    struct1 [label="<f0> left|<f1> mid&#92; dle|<f2> right"];
+    struct2 [label="<f0> one|<f1> two"];
+    struct3 [label="hello&#92;nworld |{ b |{c|<here> d|e}| f}| g | h"];
+    struct1:f1 -> struct2:f0;
+    struct1:f2 -> struct3:here;
+}
+</XMP>
+
+yields the figure<BR>
+<IMG SRC=record.gif>
+<P>
+If we add the line
+<XMP>
+    rankdir=LR
+</XMP>
+we get the layout<BR>
+<IMG SRC=record2.gif>
+<P>
+If we change node <TT>struct1</TT> to have shape <TT>Mrecord</TT>,
+it then looks like:<BR>
+<IMG SRC=mrecord.gif>
+
+<H2><A NAME="d:style">Styles for Nodes</A></H2>
+The <A HREF=attrs.html#d:style><TT>style</TT></A>
+attribute can be used to modify the appearance of a node.
+At present, there are 8 style values recognized:
+<TT>filled</TT>, <TT>invisible</TT>, <TT>diagonals</TT>, <TT>rounded</TT>.
+<TT>dashed</TT>, <TT>dotted</TT>, <TT>solid</TT> and <TT>bold</TT>.
+As usual, the value of the <A HREF=attrs.html#d:style><TT>style</TT></A>
+attribute can be a comma-separated list of any of these. If the
+style contains conflicts (e.g, <TT>style="dotted, solid"</TT>), the last
+attribute wins.
+<DL>
+<DT><A NAME=d:filled></A><TT>filled</TT>
+  <DD>This value indicates that the node's interior should be filled.
+The color used is the node's <TT>fillcolor</TT> or, if that's not defined, its
+<TT>color</TT>. For unfilled nodes, the interior of the node is transparent to
+whatever color is the current graph or cluster background color.
+Note that <TT>point</TT> shapes are always filled.
+<P>
+Thus, the code
+<XMP>
+digraph G {
+  rankdir=LR
+  node [shape=box, color=blue]
+  node1 [style=filled] 
+  node2 [style=filled, fillcolor=red] 
+  node0 -> node1 -> node2
+}
+</XMP>
+yields the figure<BR>
+<IMG SRC=fill.gif>
+
+<DT><A NAME=d:invisible></A><TT>invisible</TT>
+  <DD>Setting this style causes the node not to be displayed at all.
+Note that the node is still used in laying out the graph.
+
+<DT><A NAME=d:diagonals></A><TT>diagonals</TT>
+  <DD>The diagonals style causes small chords to be drawn near the vertices
+of the node's polygon or, in case of circles and ellipses, two chords near
+the top and the bottom of the shape. The special node shapes
+<A HREF=#d:Msquare><TT>Msquare</TT></A>,
+<A HREF=#d:Mcircle><TT>Mcircle</TT></A>, and
+<A HREF=#d:Mdiamond><TT>Mdiamond</TT></A>
+are simply an ordinary square, circle and
+diamond with the diagonals style set.
+
+<DT><A NAME=d:rounded></A><TT>rounded</TT>
+  <DD>The rounded style causes the polygonal corners to be smoothed.
+Note that this style also applies to record-based nodes. Indeed,
+the <TT>Mrecord</TT> shape is simply shorthand for setting this style.
+Also, prior to 26 April 2005, the rounded and filled styles were 
+mutually exclusive.
+<P>
+As an example of rounding, dot uses the graph
+<XMP>
+digraph R {
+  rankdir=LR
+  node [style=rounded]
+  node1 [shape=box]
+  node2 [fillcolor=yellow, style="rounded,filled", shape=diamond]
+  node3 [shape=record, label="{ a | b | c }"]
+
+  node1 -> node2 -> node3
+}
+</XMP>
+to produce the figure<BR>
+<IMG SRC=round.gif>
+<DT><A NAME=d:dashed></A><TT>dashed</TT>
+  <DD>This style causes the node's border to be drawn as a dashed line.
+<DT><A NAME=d:dotted></A><TT>dotted</TT>
+  <DD>This style causes the node's border to be drawn as a dotted line.
+<DT><A NAME=d:solid></A><TT>solid</TT>
+  <DD>This style causes the node's border to be drawn as a solid line,
+which is the default.
+<DT><A NAME=d:bold></A><TT>bold</TT>
+  <DD>This style causes the node's border to be drawn as a bold line.
+See also <A HREF=attrs.html#d:penwidth>penwidth</A>.
+
+</DL>
+
+<P>
+Additional styles may be available with a specific code generator.
+<H2><A NAME=html>HTML-Like Labels</A></H2>
+
+<B>NOTE:</B><EM>This feature is only available on versions of Graphviz
+that are newer than mid-November 2003. In particular, it is not part
+of release 1.10.</EM>
+<P>
+<B>NOTE:</B><EM>The font markups for bold, italic, underlining, subscript and 
+superscript </EM>(<TT>&lt;B&gt;</TT>, <TT>&lt;I&gt;</TT>, <TT>&lt;U&gt;</TT>, <TT>&lt;SUB&gt</TT> and <TT>&lt;SUP&gt;</TT>) 
+<EM>are only available in versions after 14 October 2011, and 
+the markup for strike-through (<TT>&lt;S&gt;</TT>) requires versions later than 15 September 2013.
+In addition, all of these markups are
+currently only available via the cairo and svg renderers.
+The horizontal and vertical rules </EM>(<TT>&lt;HR&gt;</TT> and <TT>&lt;VR&gt;</TT>)
+<EM>are only available in versions later than 8 July 2011.  </EM>
+<P>
+<B>NOTE:</B><EM>For releases later than 9 September 2014, one can use </EM><TT>shape=plain</TT> <EM>so that the size
+of the node is totally determined by the label. Otherwise, the node's margin, width and height values may cause the
+node to be larger, so that edges are clipped away from the label. In effect, </EM><TT>shape=plain</TT> <EM>is shorthand
+for </EM> <TT>shape=none width=0 height=0 margin=0</TT>.
+<P>
+If the value of a label attribute
+(<A HREF=attrs.html#d:label><TT>label</TT></A> for nodes, edges, clusters, and
+graphs, and the
+<A HREF=attrs.html#d:headlabel><TT>headlabel</TT></A> and
+<A HREF=attrs.html#d:taillabel><TT>taillabel</TT></A>
+attributes of an edge) is given as an
+<A HREF=lang.html#html>HTML string</A>, 
+that is, delimited by <TT>&lt;...&gt;</TT>
+rather than <TT>&quot;...&quot;</TT>,
+the label is interpreted as
+an HTML description. At their simplest, such labels
+can describe multiple lines of variously aligned text as provided by ordinary 
+<A HREF=attrs.html#k:escString>string labels</A>. More generally, the
+label can specify a table similar to those provided by HTML,
+with different graphical attributes at each level.
+<P>
+As <A HREF=lang.html#html>HTML strings</A> are processed like HTML input, any use of
+the &quot;, &amp;, &lt;, and &gt; characters in literal text or in attribute values
+need to be replaced by the corresponding escape sequence. For example, if you want to
+use  &amp; in an <TT>href</TT> value, this should be represented as  &amp;amp;.
+<P>
+<B>NOTE:</B> The features and syntax supported by these labels are
+modeled on HTML. However, there are many aspects that are relevant
+to Graphviz labels that are not in HTML and, conversely, HTML allows
+various constructs which are meaningless in Graphviz. We will generally
+refer to these labels as "HTML labels" rather than the cumbersome
+"HTML-like labels" but the reader is warned that these are not really
+HTML. The grammar below describes precisely what Graphviz will accept.
+<P>
+Although HTML labels are not, strictly speaking, a shape, they can be
+viewed as a generalization of the record shapes described above. 
+In particular, if a node has set its 
+<A HREF=attrs.html#k:shape><TT>shape</TT></A>
+attribute to <TT>none</TT> or <TT>plaintext</TT>, the HTML label will be the node's
+shape. On the other hand, if the node has any other shape (except 
+<TT>point</TT>), the HTML label will be embedded within the node the
+same way an ordinary label would be.
+<P>
+The following is an abstract grammar for HTML labels.
+Terminals, corresponding to elements, are shown in bold font,
+and nonterminals in italics.
+Square brackets [ and ] enclose optional items.
+Vertical bars | separate alternatives.
+Note that, as in HTML, element and attribute names are case-insensitive.
+(cf. sections 3.2.1 and 3.2.2 of the 
+<A HREF="http://www.w3.org/TR/html401">HTML 4.01 specification</A>).
+<TABLE>
+<TR>
+  <TD ALIGN=RIGHT><I>label</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>text</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>table</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>text</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>textitem</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>text</I> <I>textitem</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>textitem</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>string</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;BR/&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;FONT&gt;</B> <I>text</I> <B>&lt;/FONT&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;I&gt;</B> <I>text</I> <B>&lt;/I&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;B&gt;</B> <I>text</I> <B>&lt;/B&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;U&gt;</B> <I>text</I> <B>&lt;/U&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;O&gt;</B> <I>text</I> <B>&lt;/O&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;SUB&gt;</B> <I>text</I> <B>&lt;/SUB&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;SUP&gt;</B> <I>text</I> <B>&lt;/SUP&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;S&gt;</B> <I>text</I> <B>&lt;/S&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>table</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <B>&lt;FONT&gt;</B> ] <B>&lt;TABLE&gt;</B> <I>rows</I> <B>&lt;/TABLE&gt;</B> [ <B>&lt;/FONT&gt;</B> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>rows</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>row</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>rows</I> <I>row</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>rows</I> <B>&lt;HR/&gt;</B> <I>row</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>row</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>&lt;TR&gt;</B> <I>cells</I> <B>&lt;/TR&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>cells</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>cell</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>cells</I> <I>cell</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>cells</I> <B>&lt;VR/&gt;</B> <I>cell</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>cell</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>&lt;TD&gt;</B> <I>label</I> <B>&lt;/TD&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;TD&gt;</B> <B>&lt;IMG/&gt;</B> <B>&lt;/TD&gt;</B></TD>
+</TR>
+</TABLE>
+<P>
+Above, a <I>string</I> is any collection of printable characters, including
+all spaces. Note that outside of the body of a &lt;TD&gt; element, 
+whitespace characters are ignored; within a &lt;TD&gt; element, spaces
+are preserved but all other white space characters are discarded.
+HTML comments are allowed within an HTML string. They can occur anywhere
+provided that, if they contain part of an HTML element, they must contain
+the entire element.
+<P>
+As is obvious from the above description, the interpretation of white space
+characters is one place where HTML-like labels is very different from 
+standard HTML. In HTML, any sequence of white space characters is 
+collapsed to a single space, If the user does not want this to happen, the
+input must use non-breaking spaces "&amp;nbsp;". This makes sense in
+HTML, where text layout depends dynamically on the space available. In
+Graphviz, the layout is statically determined by the input, so it is
+reasonable to treat ordinary space characters as non-breaking. In addition,
+ignoring tabs and newlines allows the input text to be formatted for
+easier reading. 
+<P>
+Each of the HTML elements has a set of optional attributes.
+Attribute values must appear in double quotes.
+<P>
+  &lt;!-- Table element --&gt;
+<PRE>
+&lt;TABLE
+  ALIGN="CENTER|LEFT|RIGHT"
+  BGCOLOR="<I>color</I>"
+  BORDER="<I>value</I>"
+  CELLBORDER="<I>value</I>"
+  CELLPADDING="<I>value</I>"
+  CELLSPACING="<I>value</I>"
+  COLOR="<I>color</I>"
+  COLUMNS="<I>value</I>"
+  FIXEDSIZE="FALSE|TRUE"
+  GRADIENTANGLE="<I>value</I>"
+  HEIGHT="<I>value</I>"
+  HREF="<I>value</I>"
+  ID="<I>value</I>"
+  PORT="<I>portName</I>"
+  ROWS="<I>value</I>"
+  SIDES="<I>value</I>"
+  STYLE="<I>value</I>"
+  TARGET="<I>value</I>"
+  TITLE="<I>value</I>"
+  TOOLTIP="<I>value</I>"
+  VALIGN="MIDDLE|BOTTOM|TOP"
+  WIDTH="<I>value</I>"
+&gt;
+</PRE>
+<P>
+  &lt;!-- Table row --&gt;
+<PRE>&lt;TR
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Table cell --&gt;
+<PRE>&lt;TD
+  ALIGN="CENTER|LEFT|RIGHT|TEXT"
+  BALIGN="CENTER|LEFT|RIGHT"
+  BGCOLOR="<I>color</I>"
+  BORDER="<I>value</I>"
+  CELLPADDING="<I>value</I>"
+  CELLSPACING="<I>value</I>"
+  COLOR="<I>color</I>"
+  COLSPAN="<I>value</I>"
+  FIXEDSIZE="FALSE|TRUE"
+  GRADIENTANGLE="<I>value</I>"
+  HEIGHT="<I>value</I>"
+  HREF="<I>value</I>"
+  ID="<I>value</I>"
+  PORT="<I>portName</I>"
+  ROWSPAN="<I>value</I>"
+  SIDES="<I>value</I>"
+  STYLE="<I>value</I>"
+  TARGET="<I>value</I>"
+  TITLE="<I>value</I>"
+  TOOLTIP="<I>value</I>"
+  VALIGN="MIDDLE|BOTTOM|TOP"
+  WIDTH="<I>value</I>"
+&gt;
+</PRE>
+
+<P>
+  &lt;!-- Font specification --&gt;
+<PRE>&lt;FONT
+  COLOR="<I>color</I>"
+  FACE="<I>fontname</I>"
+  POINT-SIZE="<I>value</I>"
+&gt;
+</PRE>
+
+<P>
+  &lt;!-- Line break --&gt;
+<PRE>&lt;BR
+  ALIGN="CENTER|LEFT|RIGHT"
+/&gt;
+</PRE>
+
+<P>
+  &lt;!-- Image inclusion --&gt;
+<PRE>&lt;IMG
+  SCALE="FALSE|TRUE|WIDTH|HEIGHT|BOTH"
+  SRC="<I>value</I>"
+/&gt;
+</PRE>
+<P>
+  &lt;!-- Italic style --&gt;
+<PRE>&lt;I
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Bold style --&gt;
+<PRE>&lt;B
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Underline text --&gt;
+<PRE>&lt;U
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Overline text --&gt;
+<PRE>&lt;O
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Subscript text --&gt;
+<PRE>&lt;SUB
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Superscript text --&gt;
+<PRE>&lt;SUP
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Strike-through text --&gt;
+<PRE>&lt;S
+  &lt;!-- No attributes --&gt;
+&gt;
+</PRE>
+<P>
+  &lt;!-- Horizontal rule --&gt;
+<PRE>&lt;HR
+  &lt;!-- No attributes --&gt;
+/&gt;
+</PRE>
+<P>
+  &lt;!-- Vertical rule --&gt;
+<PRE>&lt;VR
+  &lt;!-- No attributes --&gt;
+/&gt;
+</PRE>
+
+<P>
+<B><I><FONT SIZE=-1>ALIGN</FONT> </I></B>
+<BLOCKQUOTE>
+specifies horizontal placement. When an object is allocated
+more space than required, this value determines where the extra space
+is placed left and right of the object.
+<P>
+<ul>
+<LI>CENTER aligns the object in the center. (Default) </LI>
+<LI>LEFT aligns the object on the left.</LI>
+<LI>RIGHT aligns the object on the right.  </LI>
+<LI>(<T>&lt;TD&gt;</T> only) TEXT aligns lines of text using the full
+cell width. The alignment of a line is determined by its (possibly
+implicit) associated <T>&lt;BR&gt;</T> element.</LI> 
+</ul>
+<P>
+The contents of a cell are normally aligned as a block. In particular,
+lines of text are first aligned as a text block based on the width of
+the widest line and the corresponding <T>&lt;BR&gt;</T> elements. Then,
+the entire text block is aligned within a cell. If, however, the
+cell's <B><I>ALIGN</I></B> value is <T>"TEXT"</T>, and the cell contains
+lines of text, then the lines are justified using the entire available
+width of the cell. If the cell does not contain text, then the contained
+image or table is centered.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>BALIGN</FONT> </I></B>
+<BLOCKQUOTE>
+specifies the default alignment of <T>&lt;BR&gt;</T> elements contained
+in the cell. That is, if a <T>&lt;BR&gt;</T> element has no
+explicit <B><I>ALIGN</I></B> attribute, the attribute value is specified
+by the value of <B><I>BALIGN</I></B>.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>BGCOLOR="color"</FONT></I></B>
+<BLOCKQUOTE>
+sets the color of the background. This color can be 
+overridden by a <B><I>BGCOLOR</I></B> attribute in descendents.
+The value can be a single color or two colors separated by a colon, the
+latter indicating a gradient fill.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>BORDER="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the width of the border around the object in points.
+A value of zero indicates no border. The default is 1.
+The maximum value is 255.
+If set in a table, and <B><I>CELLBORDER</I></B> is not set,
+this value is also used for all cells in the table.
+It can be overridden by a <B><I>BORDER</I></B> tag in  a cell.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>CELLBORDER="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the width of the border for all cells in a table.
+It can be overridden by a <B><I>BORDER</I></B> tag in  a cell.
+The maximum value is 255.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>CELLPADDING="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the space, in points, between a cell's border and its content.
+The default is 2.
+The maximum value is 255.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>CELLSPACING="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the space, in points, between cells in a table and between
+a cell and the table's border.  The default is 2.
+The maximum value is 127.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>COLOR="color"</FONT></I></B>
+<BLOCKQUOTE>
+sets the color of the font within the scope of
+&lt;FONT&gt;...&lt;/FONT&gt;, or the border color
+of the table or cell within the scope of
+&lt;TABLE&gt;...&lt;/TABLE&gt;,
+or &lt;TD&gt;...&lt;/TD&gt;.
+This color can be 
+overridden by a <B><I>COLOR</I></B> attribute in descendents.
+By default, the font color is determined by the
+<A HREF="attrs.html#d:fontcolor">fontcolor</A> attribute of
+the corresponding node, edge or graph, and the border color
+is determined by the
+<A HREF="attrs.html#d:color">color</A> attribute of
+the corresponding node, edge or graph.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>COLSPAN="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the number of columns spanned by the cell. The default is 1.
+The maximum value is 65535.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>COLUMNS="value"</FONT></I></B>
+<BLOCKQUOTE>
+provides general formatting information concerning the columns.
+At present, the only legal value is "*", which causes a vertical rule to
+appear between every cell in every row.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>FACE="fontname"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the font to use within the scope of
+&lt;FONT&gt;...&lt;/FONT&gt;.
+This can be 
+overridden by a <B><I>FACE</I></B> attribute in descendents.
+By default, the font name is determined by the
+<A HREF="attrs.html#d:fontname">fontname</A> attribute of the corresponding
+node, edge or graph.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>FIXEDSIZE</FONT> </I></B>
+<BLOCKQUOTE>
+specifies whether the values given by the <B><I>WIDTH</I></B> 
+and <B><I>HEIGHT</I></B> attributes are enforced.
+<P>
+<ul>
+<LI>FALSE allows the object to grow so that all its contents will fit. (Default) </LI>
+<LI>TRUE fixes the object size to its given <B><I>WIDTH</I></B> 
+and <B><I>HEIGHT</I></B>.
+Both of these attributes must be supplied.</LI>
+</ul>
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>GRADIENTANGLE="value"</FONT></I></B>
+<BLOCKQUOTE>
+gives the angle used in a gradient fill if the 
+<B><I>BGCOLOR</I></B> is a color list. For the default linear gradient,
+this specifies 
+the angle of a line through the center along which the colors transform.
+Thus, an angle of 0 will cause a left-to-right progression.
+For radial gradients (see <B><I>STYLE</I></B>), the angle specifies the position
+of the center of the coloring. An angle of 0 places the center at the center of the
+table or cell; an non-zero angle places the fill center along that angle near the
+boundary.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>HEIGHT="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the mininum height, in points, of the object. The height
+includes the contents, any spacing and the border. Unless
+<B><I>FIXEDSIZE</I></B> is true, the height will be expanded to allow
+the contents to fit.
+The maximum value is 65535.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>HREF="value"</FONT></I></B>
+<BLOCKQUOTE>
+attaches a URL to the object.
+Note that the <TT>"value"</TT> is treated as an
+<A HREF=attrs.html#k:escString>escString</A> similarly to the
+<A HREF=attrs.html#d:URL>URL</A> attribute.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>ID="value"</FONT></I></B>
+<BLOCKQUOTE>
+allows the user to specify a unique ID for a table or cell. See
+the <A HREF=attrs.html#d:id>id</A> attribute for more information.
+Note that the <TT>"value"</TT> is treated as an
+<A HREF=attrs.html#k:escString>escString</A> similarly to the
+<A HREF=attrs.html#d:id>id</A> attribute.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>POINT-SIZE="value"</FONT></I></B>
+<BLOCKQUOTE>
+sets the size of the font, in points, used within the scope of
+&lt;FONT&gt;...&lt;/FONT&gt;.
+This can be 
+overridden by a <B><I>POINT-SIZE</I></B> attribute in descendents.
+By default, the font size is determined by the
+<A HREF="attrs.html#d:fontsize">fontsize</A> attribute of the corresponding
+node, edge or graph.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>PORT="value"</FONT></I></B>
+<BLOCKQUOTE>
+attaches a portname to the object.
+(See <A HREF=attrs.html#k:portPos>portPos</A>.)
+This can be used to modify the head
+or tail of an edge, so that the end attaches directly to the object.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>ROWS="value"</FONT></I></B>
+<BLOCKQUOTE>
+provides general formatting information concerning the rows.
+At present, the only legal value is "*", which causes a horizontal rule to
+appear between every row.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>ROWSPAN="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the number of rows spanned by the cell. The default is 1.
+The maximum value is 65535.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>SCALE</FONT></I></B>
+<BLOCKQUOTE>
+specifies how an image will use any extra space available in its cell.
+Allowed values are
+<ul>
+<LI>FALSE : keep image its natural size. (Default) </LI>
+<LI>TRUE : scale image uniformly to fit.</LI>
+<LI>WIDTH : expand image width to fill  </LI>
+<LI>HEIGHT : expand image height to fill  </LI>
+<LI>BOTH : expand both image width height to fill  </LI>
+</ul>
+If this attribute is undefined, 
+the image inherits the <A HREF="attrs.html#d:imagescale">imagescale</A> 
+attribute of the graph object being drawn.
+As with the <A HREF="attrs.html#d:imagescale">imagescale</A>
+attribute, if the cell has a fixed size and the image is too large,
+any offending dimension will be shrunk to fit the space, the
+scaling being uniform in width and height if <I>SCALE=<TT>"true"</TT></I>.
+Note that the containing cell's <B><I>ALIGN</I></B> 
+and <B><I>VALIGN</I></B> attributes override
+an image's <B><I>SCALE</I></B> attribute.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>SIDES="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies which sides of a border in a cell or table should be drawn, if
+a border is drawn. By default, all sides are drawn. The <TT>"value"</TT>
+string can contain any collection of the (case-insensitive) 
+characters <TT>'L'</TT>, <TT>'T'</TT>, <TT>'R'</TT>, or <TT>'B'</TT>,
+corresponding to the left, top, right and, bottom sides of the border,
+respectively. For example, <TT>SIDES="LB"</TT> would indicate only the
+left and bottom segments of the  border should be drawn.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>SRC="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the image file to be displayed in the cell.
+Note that if the software is used as a web server, file system access
+to images is more restricted. See <A HREF="command.html#d:GV_FILE_PATH">GV_FILE_PATH</A>
+and <A HREF="command.html#d:SERVER_NAME">SERVER_NAME</A>.
+</BLOCKQUOTE>
+
+<P>
+<B><I><FONT SIZE=-1>STYLE</FONT> </I></B>
+<BLOCKQUOTE>
+specifies style characteristics of the table or cell. Style characteristics are
+given as a comma or space separated list of style attributes. At present, the only
+legal attributes are "ROUNDED" and "RADIAL" for tables, and "RADIAL" for cells.
+If "ROUNDED" is specified, the table will have rounded corners.
+This probably works best if the outmost cells have no borders, or their CELLSPACING
+is sufficiently large.
+If it is desirable to have borders around the cells, use <I><B>HR</B></I>
+and <I><B>VR</B></I> elements, or the <I><B>COLUMNS</B></I> and <I><B>ROWS</B></I> attributes of <I><B>TABLE</B></I>.
+<P>
+The "RADIAL" attribute indicates a radial gradient fill. See the <B><I>BGCOLOR</I></B> and
+<B><I>GRADIENTANGLE</I></B> attributes.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>TARGET="value"</FONT></I></B>
+<BLOCKQUOTE>
+determines which window of the browser is used for the URL if the object 
+has one. 
+See <A HREF="http://www.w3.org/TR/html401/present/frames.html#adef-target">W3C documentation</A>.
+Note that the <TT>"value"</TT> is treated as an
+<A HREF=attrs.html#k:escString>escString</A> similarly to the
+<A HREF=attrs.html#d:target>target</A> attribute.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>TITLE="value"</FONT></I></B>
+<BLOCKQUOTE>
+sets the tooltip annotation attached to the element. 
+This is used only if the element has a HREF attribute.
+Note that the <TT>"value"</TT> is treated as an
+<A HREF=attrs.html#k:escString>escString</A> similarly to the
+<A HREF=attrs.html#d:tooltip>tooltip</A> attribute.
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>TOOLTIP="value"</FONT></I></B>
+<BLOCKQUOTE>
+is an alias for <B><I><FONT SIZE=-1>TITLE</FONT></I></B>.
+</BLOCKQUOTE>
+
+<P>
+<B><I><FONT SIZE=-1>VALIGN</FONT> </I></B>
+<BLOCKQUOTE>
+specifies vertical placement. When an object is allocated
+more space than required, this value determines where the extra space
+is placed above and below the object.
+<P>
+<ul>
+<LI>MIDDLE aligns the object in the center. (Default) </LI>
+<LI>BOTTOM aligns the object on the bottom.</LI>
+<LI>TOP aligns the object on the top.  </LI>
+</ul>
+</BLOCKQUOTE>
+
+<B><I><FONT SIZE=-1>WIDTH="value"</FONT></I></B>
+<BLOCKQUOTE>
+specifies the mininum width, in points, of the object. The width
+includes the contents, any spacing and the border. Unless
+<B><I>FIXEDSIZE</I></B> is true, the width will be expanded to allow
+the contents to fit.
+The maximum value is 65535.
+</BLOCKQUOTE>
+
+<P>
+There is some inheritance among the attributes. If a table specifies
+a <I><B>CELLPADDING</B></I>, <I><B>CELLBORDER</B></I> or <I><B>BORDER</B></I> 
+value, this value is used by the table's
+cells unless overridden. If a cell or table specifies a <I><B>BGCOLOR</B></I>,
+this will be the background color for all of its descendents.
+Of course, if a background or fill color is specified for the
+graph object owning the label, this will be the original
+background for the label.
+The object's fontname, fontcolor and fontsize attributes
+are the default for drawing text. These can be overridden by using
+<I><B>FONT</B></I> to set new values. The new font values will hold
+until overridden by an enclosed <I><B>FONT</B></I> element.
+Finally, the pencolor or color of the graph object will be used as
+the border color.
+<P>
+If you want horizontal or vertical rules used uniformly within a table, consider
+using the <I><B>COLUMNS</B></I> or <I><B>ROWS</B></I> attributes 
+rather than using many
+<I><B>HR</B></I> and <I><B>VR</B></I> elements.
+<P>
+Because of certain limitations in handling tables in a device-independent
+manner, when <I><B>BORDER</B></I> is 1 and both table and cell borders
+are on and <I><B>CELLSPACING</B></I> is less than 2, anomalies can arise
+in the output, such as gaps between sides of borders which should be
+abutting or even collinear. The user can usual get around this by increasing
+the border size or the spacing, or turning off the table border.
+<P>
+As an example of HTML labels, the dot input 
+<XMP>
+digraph structs {
+    node [shape=plaintext]
+    struct1 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+  <TR><TD>left</TD><TD PORT="f1">mid dle</TD><TD PORT="f2">right</TD></TR>
+</TABLE>>];
+    struct2 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+  <TR><TD PORT="f0">one</TD><TD>two</TD></TR>
+</TABLE>>];
+    struct3 [label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+  <TR>
+    <TD ROWSPAN="3">hello<BR/>world</TD>
+    <TD COLSPAN="3">b</TD>
+    <TD ROWSPAN="3">g</TD>
+    <TD ROWSPAN="3">h</TD>
+  </TR>
+  <TR>
+    <TD>c</TD><TD PORT="here">d</TD><TD>e</TD>
+  </TR>
+  <TR>
+    <TD COLSPAN="3">f</TD>
+  </TR>
+</TABLE>>];
+    struct1:f1 -> struct2:f0;
+    struct1:f2 -> struct3:here;
+}
+</XMP>
+produces the HTML analogue of the record example above<BR>
+<IMG SRC=html1.gif>
+<P>
+As usual, an HTML specification is more verbose. On the other hand,
+HTML labels are much more general, as the following example shows:
+<P>
+<IMG SRC=html2.gif>
+<P>
+The source for this graph can be found <A HREF=html2.gv>here</A>.
+<P>
+Here is an example using &lt;FONT&gt; elements 
+<P>
+<IMG SRC=html3.gif>
+<P>
+with the <A HREF=html3.gv>input graph</A>.
+<P>
+Here is an example using an &lt;IMG&gt; element 
+<P>
+<IMG SRC=html4.gif>
+<P>
+with the <A HREF=html4.gv>input graph</A>.
+<P>
+The <tt>sides</tt> attribute (version 2.37 and later) allows one to combine cells to form 
+various non-convex shapes. For example, a <tt>tee-shaped</tt> node
+<P>
+<IMG SRC=tee.gif>
+<P>
+can be produced using
+<XMP>
+  tee [shape=none margin=0 label=
+    <<table border="0" cellspacing="0" cellborder="1">
+     <tr>
+      <td width="9" height="9" fixedsize="true" style="invis"></td>
+      <td width="9" height="9" fixedsize="true" sides="ltr"></td>
+      <td width="9" height="9" fixedsize="true" style="invis"></td>
+     </tr>
+     <tr>
+      <td width="9" height="9" fixedsize="true" sides="tlb"></td>
+      <td width="9" height="9" fixedsize="true" sides="b"></td>
+      <td width="9" height="9" fixedsize="true" sides="brt"></td>
+     </tr>
+    </table>>]
+</XMP>
+<H2><A NAME=epsf>User-defined Nodes</A></H2>
+
+There is a third type of node shape which is specified by the user.
+Typically, these shapes rely on the details of a concrete graphics
+format. At present, shapes can be described using PostScript, via a
+file or add-on library, for use in PostScript output, or shapes can
+be specified by a bitmap-image file for use with SVG or bitmap (jpeg,
+gif, etc.) output. More information can be found on the page 
+<A HREF="http://www.graphviz.org/wiki/how-create-custom-shapes">
+How to create custom shapes</A>.
+
+<H2><A NAME=sdlshapes>SDL Shapes for PostScript</A></H2>
+One example of user-defined node shapes is provided by Mark Rison of CSR.
+These are the <A  HREF=http://www.sdl-forum.org/SDL/index.htm>SDL</A> shapes.
+These are available as PostScript functions whose use is described in
+<A HREF="http://www.graphviz.org/Documentation/html/shapehowto.html#psprocs"> External PostScript procedures</A>.
+The necessary PostScript library file and sample use can be found in the
+<tt>contrib/sdlshapes</tt> directory in the release. Please note the
+COPYRIGHT AND PERMISSION NOTICE contained in the library file <tt>sdl.ps</tt>.
+<P>
+The table below
+gives the shape names and the corresponding node shapes.
+<P>
+<CENTER>
+<IMG SRC=sdlshapes.jpg>
+</CENTER>
+</BODY>
+</HTML>

@@ -1,0 +1,20 @@
+digraph structs {
+    node [shape=plaintext];
+
+    struct1 [label=<<TABLE>
+	<TR>
+	    <TD>line 1</TD>
+	    <TD BGCOLOR="blue"><FONT COLOR="white">line2</FONT></TD>
+	    <TD BGCOLOR="gray"><FONT POINT-SIZE="24.0">line3</FONT></TD>
+	    <TD BGCOLOR="yellow"><FONT POINT-SIZE="24.0" FACE="ambrosia">line4</FONT></TD>
+	    <TD>
+	      <TABLE CELLPADDING="0" BORDER="0" CELLSPACING="0">
+          <TR>
+            <TD><FONT COLOR="green">Mixed</FONT></TD>
+            <TD><FONT COLOR="red">fonts</FONT></TD>
+          </TR>
+	      </TABLE>
+        </TD>
+	</TR>
+    </TABLE>>];
+}

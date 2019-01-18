@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<book xmlns="http://www.devhelp.net/book" title="libdbusmenu-gtk Reference Manual" link="index.html" author="" name="libdbusmenu-gtk" version="2" language="c">
+  <chapters>
+    <sub name="API" link="ch01.html">
+      <sub name="DbusmenuGtkMenu" link="libdbusmenu-gtk-DbusmenuGtkMenu.html"/>
+      <sub name="menuitem" link="libdbusmenu-gtk-menuitem.html"/>
+      <sub name="DbusmenuGtkClient" link="libdbusmenu-gtk-DbusmenuGtkClient.html"/>
+      <sub name="parser" link="libdbusmenu-gtk-parser.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Deprecated API Index" link="api-index-deprecated.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+  </chapters>
+  <functions>
+    <keyword type="function" name="dbusmenu_gtkmenu_new ()" link="libdbusmenu-gtk-DbusmenuGtkMenu.html#dbusmenu-gtkmenu-new"/>
+    <keyword type="function" name="dbusmenu_gtkmenu_get_client ()" link="libdbusmenu-gtk-DbusmenuGtkMenu.html#dbusmenu-gtkmenu-get-client"/>
+    <keyword type="struct" name="struct DbusmenuGtkMenuClass" link="libdbusmenu-gtk-DbusmenuGtkMenu.html#DbusmenuGtkMenuClass"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_set_image ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-image"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_get_image ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-get-image"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_set_shortcut ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_set_shortcut_string ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut-string"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_set_shortcut_menuitem ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-set-shortcut-menuitem"/>
+    <keyword type="function" name="dbusmenu_menuitem_property_get_shortcut ()" link="libdbusmenu-gtk-menuitem.html#dbusmenu-menuitem-property-get-shortcut"/>
+    <keyword type="function" name="dbusmenu_gtkclient_new ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-new"/>
+    <keyword type="function" name="dbusmenu_gtkclient_menuitem_get ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-menuitem-get"/>
+    <keyword type="function" name="dbusmenu_gtkclient_menuitem_get_submenu ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-menuitem-get-submenu"/>
+    <keyword type="function" name="dbusmenu_gtkclient_set_accel_group ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-set-accel-group"/>
+    <keyword type="function" name="dbusmenu_gtkclient_get_accel_group ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-get-accel-group"/>
+    <keyword type="function" name="dbusmenu_gtkclient_newitem_base ()" link="libdbusmenu-gtk-DbusmenuGtkClient.html#dbusmenu-gtkclient-newitem-base"/>
+    <keyword type="macro" name="DBUSMENU_GTKCLIENT_SIGNAL_ROOT_CHANGED" link="libdbusmenu-gtk-DbusmenuGtkClient.html#DBUSMENU-GTKCLIENT-SIGNAL-ROOT-CHANGED:CAPS"/>
+    <keyword type="struct" name="struct DbusmenuGtkClient" link="libdbusmenu-gtk-DbusmenuGtkClient.html#DbusmenuGtkClient"/>
+    <keyword type="struct" name="struct DbusmenuGtkClientClass" link="libdbusmenu-gtk-DbusmenuGtkClient.html#DbusmenuGtkClientClass"/>
+    <keyword type="function" name="dbusmenu_gtk_parse_menu_structure ()" link="libdbusmenu-gtk-parser.html#dbusmenu-gtk-parse-menu-structure"/>
+    <keyword type="function" name="dbusmenu_gtk_parse_get_cached_item ()" link="libdbusmenu-gtk-parser.html#dbusmenu-gtk-parse-get-cached-item"/>
+  </functions>
+</book>

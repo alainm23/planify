@@ -1,0 +1,6 @@
+<svg height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#666">
+        <path color="#bebebe" d="M12 10V7H4v3zm2 4v-3H4v3zm-4-8V3H4v3z" overflow="visible" style="marker:none"/>
+        <path color="#000" d="M3 15v-1H2v1zm0-2v-1H2v1zm0-2v-1H2v1zm0-2V8H2v1zm0-2V6H2v1zm0-2V4H2v1zm0-2V2H2v1z" fill-rule="evenodd" font-family="sans-serif" font-weight="400" overflow="visible" style="line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal" white-space="normal"/>
+    </g>
+</svg>

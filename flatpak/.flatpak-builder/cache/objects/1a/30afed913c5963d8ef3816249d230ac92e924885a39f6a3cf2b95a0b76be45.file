@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@math.tamu.edu>
+ Copyright (C) 2007 Yevgen Muntyan <muntyan@math.tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="objc" name="Objective-C" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-objcsrc</property>
+    <property name="globs">*.m</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="keyword" name="Keyword" map-to="c:keyword"/>
+    <style id="type" name="Data Type" map-to="c:type"/>
+    <style id="common-defines" name="Common Defines" map-to="c:common-defines"/>
+    <style id="string" name="String" map-to="c:string"/>
+  </styles>
+
+  <definitions>
+    <!-- ObjC-specific stuff (i.e. stuff which is not C) -->
+    <context id="objc-header">
+      <include>
+        <context id="keywords" style-ref="keyword">
+          <prefix>\@</prefix>
+          <keyword>interface</keyword>
+          <keyword>protocol</keyword>
+          <keyword>implementation</keyword>
+          <keyword>end</keyword>
+          <keyword>class</keyword>
+          <keyword>selector</keyword>
+          <keyword>encode</keyword>
+          <keyword>defs</keyword>
+          <keyword>synchronized</keyword>
+          <keyword>private</keyword>
+          <keyword>protected</keyword>
+          <keyword>public</keyword>
+          <keyword>try</keyword>
+          <keyword>throw</keyword>
+          <keyword>catch</keyword>
+          <keyword>finally</keyword>
+        </context>
+
+        <context id="types" style-ref="type">
+          <keyword>BOOL</keyword>
+        </context>
+
+        <context id="objc-string-literal" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>\@"</start>
+          <end>"</end>
+          <include>
+            <context ref="c:string:*"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <!-- ObjC-specific stuff (i.e. stuff which is not C), which isn't
+         good to highlight in C headers -->
+    <context id="objc-source">
+      <include>
+        <context id="objc-keywords" style-ref="keyword">
+          <keyword>self</keyword>
+          <keyword>super</keyword>
+        </context>
+
+        <context id="objc-types" style-ref="type">
+          <keyword>apply_t</keyword>
+          <keyword>Class</keyword>
+          <keyword>id</keyword>
+          <keyword>IMP</keyword>
+          <keyword>MetaClass</keyword>
+          <keyword>Object</keyword>
+          <keyword>Protocol</keyword>
+          <keyword>retval_t</keyword>
+          <keyword>SEL</keyword>
+          <keyword>STR</keyword>
+          <keyword>TypedStream</keyword>
+        </context>
+
+        <context id="objc-common-defines" style-ref="common-defines">
+          <keyword>METHOD_NULL</keyword>
+          <keyword>nil</keyword>
+          <keyword>Nil</keyword>
+          <keyword>NO</keyword>
+          <keyword>YES</keyword>
+        </context>
+      </include>
+    </context>
+
+    <!-- actual language definition: ObjC-specific stuff plus everything from C -->
+    <context id="objc" class="no-spell-check">
+      <include>
+        <context ref="objc-source"/>
+        <context ref="objc-header"/>
+        <context ref="c:c"/>
+      </include>
+    </context>
+  </definitions>
+</language>

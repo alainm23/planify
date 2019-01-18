@@ -1,0 +1,13 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+datarootdir=${prefix}/share
+datadir=${datarootdir}
+
+Name: libgee
+Description: The GObject collection library
+Version: 0.20.0
+Requires: glib-2.0 gobject-2.0
+Libs: -L${libdir} -lgee-0.8
+Cflags: -I${includedir}/gee-0.8

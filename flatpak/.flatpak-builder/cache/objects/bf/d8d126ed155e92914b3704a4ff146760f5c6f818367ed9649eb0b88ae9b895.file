@@ -1,0 +1,9 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-413 291)'>
+        
+        <path color='#bebebe' d='M418-290c-1.108 0-2 .892-2 2v6c0 1.108.892 2 2 2s2-.892 2-2v-6c0-1.108-.892-2-2-2zm-5 5v1h1v2a3.981 3.981 0 0 0 3 3.861V-276h-1v1h4v-1h-1v-2.139a3.981 3.981 0 0 0 3-3.861v-2h1v-1h-2v3c0 1.662-1.338 3-3 3s-3-1.338-3-3v-3z' fill='#666' overflow='visible' style='isolation:auto;mix-blend-mode:normal;marker:none'/>
+        <ellipse color='#000' cx='426' cy='-278' fill='#666' overflow='visible' rx='2' ry='2' style='marker:none'/>
+        <ellipse color='#000' cx='426' cy='-283' fill='#666' overflow='visible' rx='2' ry='2' style='marker:none'/>
+        <ellipse color='#000' cx='426' cy='-288' fill='#666' overflow='visible' rx='2' ry='2' style='marker:none'/>
+    </g>
+</svg>

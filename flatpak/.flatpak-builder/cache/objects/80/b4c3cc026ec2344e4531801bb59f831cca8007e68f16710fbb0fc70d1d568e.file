@@ -1,0 +1,2124 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-derived-value.h"
+#include "libical-glib-private.h"
+#include "i-cal-duration-type.h"
+#include "i-cal-datetimeperiod-type.h"
+#include "i-cal-recurrence-type.h"
+#include "i-cal-period-type.h"
+#include "i-cal-timetype.h"
+#include "i-cal-geo-type.h"
+#include "i-cal-trigger-type.h"
+#include "i-cal-value.h"
+#include "i-cal-reqstat-type.h"
+#include "i-cal-attach.h"
+
+/**
+ * i_cal_value_set_x:
+ * @value: The #ICalValue.
+ * @v: The x value.
+ *
+ * Set the x in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_x (ICalValue *value, 
+                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_x ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_x:
+ * @v: The x value
+ *
+ * Create a new #ICalValue with the type x.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_x (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_x (v), NULL);
+}
+
+/**
+ * i_cal_value_get_x:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the x of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The x within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_x (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_x ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_recur:
+ * @value: The #ICalValue.
+ * @v: The recur value.
+ *
+ * Set the recur in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_recur (ICalValue *value, 
+                       ICalRecurrenceType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_RECURRENCE_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_recur ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_recur:
+ * @v: The recur value
+ *
+ * Create a new #ICalValue with the type recur.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_recur (ICalRecurrenceType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_RECURRENCE_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_recur (* (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_recur:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the recur of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The recur within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceType *
+i_cal_value_get_recur (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_recurrence_type_new_full (icalvalue_get_recur ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_trigger:
+ * @value: The #ICalValue.
+ * @v: The trigger value.
+ *
+ * Set the trigger in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_trigger (ICalValue *value, 
+                         ICalTriggerType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_TRIGGER_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_trigger ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaltriggertype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_trigger:
+ * @v: The trigger value
+ *
+ * Create a new #ICalValue with the type trigger.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_trigger (ICalTriggerType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TRIGGER_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_trigger (* (struct icaltriggertype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_trigger:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the trigger of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The trigger within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTriggerType *
+i_cal_value_get_trigger (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_trigger_type_new_full (icalvalue_get_trigger ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_datetime:
+ * @value: The #ICalValue.
+ * @v: The datetime value.
+ *
+ * Set the datetime in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_datetime (ICalValue *value, 
+                          ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_datetime ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_datetime:
+ * @v: The datetime value
+ *
+ * Create a new #ICalValue with the type datetime.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_datetime (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_datetime (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_datetime:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the datetime of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The datetime within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_value_get_datetime (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalvalue_get_datetime ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_datetimedate:
+ * @value: The #ICalValue.
+ * @v: The datetimedate (DATE-TIME or DATE) value.
+ *
+ * Set the datetimedate (DATE-TIME or DATE) in the #ICalValue.
+ *
+ * Since: 3.0
+ *
+ **/
+void
+i_cal_value_set_datetimedate (ICalValue *value, 
+                              ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_datetimedate ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_datetimedate:
+ * @v: The DATE-TIME or DATE value
+ *
+ * Create a new #ICalValue with the type datetimedate (DATE-TIME or DATE).
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 3.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_datetimedate (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_datetimedate (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_datetimedate:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the datetimedate (DATE-TIME or DATE) of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The datetimedate within #ICalValue
+ *
+ * Since: 3.0
+ *
+ **/
+ICalTimetype *
+i_cal_value_get_datetimedate (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalvalue_get_datetimedate ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_datetimeperiod:
+ * @value: The #ICalValue.
+ * @v: The datetimeperiod value.
+ *
+ * Set the datetimeperiod in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_datetimeperiod (ICalValue *value, 
+                                ICalDatetimeperiodType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_DATETIMEPERIOD_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_datetimeperiod ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaldatetimeperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_datetimeperiod:
+ * @v: The datetimeperiod value
+ *
+ * Create a new #ICalValue with the type datetimeperiod.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_datetimeperiod (ICalDatetimeperiodType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_DATETIMEPERIOD_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_datetimeperiod (* (struct icaldatetimeperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_datetimeperiod:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the datetimeperiod of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The datetimeperiod within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDatetimeperiodType *
+i_cal_value_get_datetimeperiod (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_datetimeperiod_type_new_full (icalvalue_get_datetimeperiod ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_geo:
+ * @value: The #ICalValue.
+ * @v: The geo value.
+ *
+ * Set the geo in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_geo (ICalValue *value, 
+                     ICalGeoType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_GEO_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_geo ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icalgeotype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_geo:
+ * @v: The geo value
+ *
+ * Create a new #ICalValue with the type geo.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_geo (ICalGeoType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_GEO_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_geo (* (struct icalgeotype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_geo:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the geo of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The geo within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalGeoType *
+i_cal_value_get_geo (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_geo_type_new_full (icalvalue_get_geo ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_attach:
+ * @value: The #ICalValue.
+ * @v: The attach value.
+ *
+ * Set the attach in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_attach (ICalValue *value, 
+                        ICalAttach *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_ATTACH (v));
+	g_return_if_fail (v != NULL);
+
+	i_cal_object_set_owner ((ICalObject *)v, (GObject *)value);
+	icalvalue_set_attach ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalattach *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_attach:
+ * @v: The attach value
+ *
+ * Create a new #ICalValue with the type attach.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_attach (ICalAttach *v)
+{
+	g_return_val_if_fail (I_CAL_IS_ATTACH (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_attach ((icalattach *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_attach:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the attach of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The attach within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalAttach *
+i_cal_value_get_attach (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_attach_new_full (icalvalue_get_attach ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))), (GObject *)value);
+}
+
+/**
+ * i_cal_value_reset_kind:
+ * @value: The #ICalValue's kind to be reset.
+ *
+ * Reset the kind of #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_reset_kind (ICalValue *value)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_reset_kind ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_xlicclass:
+ * @value: The #ICalValue.
+ * @v: The xlicclass value.
+ *
+ * Set the xlicclass in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_xlicclass (ICalValue *value, 
+                           ICalPropertyXlicclass v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_xlicclass ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_xlicclass) (v));
+}
+
+/**
+ * i_cal_value_new_xlicclass:
+ * @v: The xlicclass value
+ *
+ * Create a new #ICalValue with the type xlicclass.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_xlicclass (ICalPropertyXlicclass v)
+{
+	return i_cal_value_new_full (icalvalue_new_xlicclass ((icalproperty_xlicclass) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_xlicclass:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the xlicclass of #ICalValue.
+ *
+ * Returns: The xlicclass within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyXlicclass
+i_cal_value_get_xlicclass (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_XLICCLASS_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_XLICCLASS_NONE);
+
+	return (ICalPropertyXlicclass) (icalvalue_get_xlicclass ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_boolean:
+ * @value: The #ICalValue.
+ * @v: The boolean value.
+ *
+ * Set the boolean in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_boolean (ICalValue *value, 
+                         gint v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_boolean ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_boolean:
+ * @v: The boolean value
+ *
+ * Create a new #ICalValue with the type boolean.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_boolean (gint v)
+{
+	return i_cal_value_new_full (icalvalue_new_boolean (v), NULL);
+}
+
+/**
+ * i_cal_value_get_boolean:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the boolean of #ICalValue.
+ *
+ * Returns: The boolean within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_get_boolean (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_get_boolean ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_busytype:
+ * @value: The #ICalValue.
+ * @v: The busytype value.
+ *
+ * Set the busytype in the #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_value_set_busytype (ICalValue *value, 
+                          ICalPropertyBusytype v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_busytype ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_busytype) (v));
+}
+
+/**
+ * i_cal_value_new_busytype:
+ * @v: The busytype value
+ *
+ * Create a new #ICalValue with the type busytype.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_busytype (ICalPropertyBusytype v)
+{
+	return i_cal_value_new_full (icalvalue_new_busytype ((icalproperty_busytype) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_busytype:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the busytype of #ICalValue.
+ *
+ * Returns: The busytype within #ICalValue
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyBusytype
+i_cal_value_get_busytype (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_BUSYTYPE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_BUSYTYPE_NONE);
+
+	return (ICalPropertyBusytype) (icalvalue_get_busytype ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_pollcompletion:
+ * @value: The #ICalValue.
+ * @v: The pollcompletion value.
+ *
+ * Set the pollcompletion in the #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_value_set_pollcompletion (ICalValue *value, 
+                                ICalPropertyPollcompletion v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_pollcompletion ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_pollcompletion) (v));
+}
+
+/**
+ * i_cal_value_new_pollcompletion:
+ * @v: The pollcompletion value
+ *
+ * Create a new #ICalValue with the type pollcompletion.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_pollcompletion (ICalPropertyPollcompletion v)
+{
+	return i_cal_value_new_full (icalvalue_new_pollcompletion ((icalproperty_pollcompletion) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_pollcompletion:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the pollcompletion of #ICalValue.
+ *
+ * Returns: The pollcompletion within #ICalValue
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyPollcompletion
+i_cal_value_get_pollcompletion (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_POLLCOMPLETION_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_POLLCOMPLETION_NONE);
+
+	return (ICalPropertyPollcompletion) (icalvalue_get_pollcompletion ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_taskmode:
+ * @value: The #ICalValue.
+ * @v: The taskmode value.
+ *
+ * Set the taskmode in the #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_value_set_taskmode (ICalValue *value, 
+                          ICalPropertyTaskmode v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_taskmode ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_taskmode) (v));
+}
+
+/**
+ * i_cal_value_new_taskmode:
+ * @v: The taskmode value
+ *
+ * Create a new #ICalValue with the type taskmode.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_taskmode (ICalPropertyTaskmode v)
+{
+	return i_cal_value_new_full (icalvalue_new_taskmode ((icalproperty_taskmode) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_taskmode:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the taskmode of #ICalValue.
+ *
+ * Returns: The taskmode within #ICalValue
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyTaskmode
+i_cal_value_get_taskmode (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_TASKMODE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_TASKMODE_NONE);
+
+	return (ICalPropertyTaskmode) (icalvalue_get_taskmode ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_pollmode:
+ * @value: The #ICalValue.
+ * @v: The pollmode value.
+ *
+ * Set the pollmode in the #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_value_set_pollmode (ICalValue *value, 
+                          ICalPropertyPollmode v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_pollmode ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_pollmode) (v));
+}
+
+/**
+ * i_cal_value_new_pollmode:
+ * @v: The pollmode value
+ *
+ * Create a new #ICalValue with the type pollmode.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_pollmode (ICalPropertyPollmode v)
+{
+	return i_cal_value_new_full (icalvalue_new_pollmode ((icalproperty_pollmode) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_pollmode:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the pollmode of #ICalValue.
+ *
+ * Returns: The pollmode within #ICalValue
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyPollmode
+i_cal_value_get_pollmode (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_POLLMODE_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_POLLMODE_NONE);
+
+	return (ICalPropertyPollmode) (icalvalue_get_pollmode ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_utcoffset:
+ * @value: The #ICalValue.
+ * @v: The utcoffset value.
+ *
+ * Set the utcoffset in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_utcoffset (ICalValue *value, 
+                           gint v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_utcoffset ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_utcoffset:
+ * @v: The utcoffset value
+ *
+ * Create a new #ICalValue with the type utcoffset.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_utcoffset (gint v)
+{
+	return i_cal_value_new_full (icalvalue_new_utcoffset (v), NULL);
+}
+
+/**
+ * i_cal_value_get_utcoffset:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the utcoffset of #ICalValue.
+ *
+ * Returns: The utcoffset within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_get_utcoffset (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_get_utcoffset ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_method:
+ * @value: The #ICalValue.
+ * @v: The method value.
+ *
+ * Set the method in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_method (ICalValue *value, 
+                        ICalPropertyMethod v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_method ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_method) (v));
+}
+
+/**
+ * i_cal_value_new_method:
+ * @v: The method value
+ *
+ * Create a new #ICalValue with the type method.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_method (ICalPropertyMethod v)
+{
+	return i_cal_value_new_full (icalvalue_new_method ((icalproperty_method) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_method:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the method of #ICalValue.
+ *
+ * Returns: The method within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyMethod
+i_cal_value_get_method (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_METHOD_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_METHOD_NONE);
+
+	return (ICalPropertyMethod) (icalvalue_get_method ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_caladdress:
+ * @value: The #ICalValue.
+ * @v: The caladdress value.
+ *
+ * Set the caladdress in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_caladdress (ICalValue *value, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_caladdress ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_caladdress:
+ * @v: The caladdress value
+ *
+ * Create a new #ICalValue with the type caladdress.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_caladdress (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_caladdress (v), NULL);
+}
+
+/**
+ * i_cal_value_get_caladdress:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the caladdress of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The caladdress within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_caladdress (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_caladdress ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_period:
+ * @value: The #ICalValue.
+ * @v: The period value.
+ *
+ * Set the period in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_period (ICalValue *value, 
+                        ICalPeriodType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_PERIOD_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_period ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_period:
+ * @v: The period value
+ *
+ * Create a new #ICalValue with the type period.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_period (ICalPeriodType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_period (* (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_period:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the period of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The period within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPeriodType *
+i_cal_value_get_period (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_period_type_new_full (icalvalue_get_period ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_status:
+ * @value: The #ICalValue.
+ * @v: The status value.
+ *
+ * Set the status in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_status (ICalValue *value, 
+                        ICalPropertyStatus v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_status ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_status) (v));
+}
+
+/**
+ * i_cal_value_new_status:
+ * @v: The status value
+ *
+ * Create a new #ICalValue with the type status.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_status (ICalPropertyStatus v)
+{
+	return i_cal_value_new_full (icalvalue_new_status ((icalproperty_status) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_status:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the status of #ICalValue.
+ *
+ * Returns: The status within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyStatus
+i_cal_value_get_status (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_STATUS_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_STATUS_NONE);
+
+	return (ICalPropertyStatus) (icalvalue_get_status ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_binary:
+ * @value: The #ICalValue.
+ * @v: The binary value.
+ *
+ * Set the binary in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_binary (ICalValue *value, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_binary ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_binary:
+ * @v: The binary value
+ *
+ * Create a new #ICalValue with the type binary.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_binary (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_binary (v), NULL);
+}
+
+/**
+ * i_cal_value_get_binary:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the binary of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The binary within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_binary (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_binary ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_text:
+ * @value: The #ICalValue.
+ * @v: The text value.
+ *
+ * Set the text in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_text (ICalValue *value, 
+                      const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_text ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_text:
+ * @v: The text value
+ *
+ * Create a new #ICalValue with the type text.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_text (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_text (v), NULL);
+}
+
+/**
+ * i_cal_value_get_text:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the text of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The text within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_text (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_text ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_duration:
+ * @value: The #ICalValue.
+ * @v: The duration value.
+ *
+ * Set the duration in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_duration (ICalValue *value, 
+                          ICalDurationType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_DURATION_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_duration ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_duration:
+ * @v: The duration value
+ *
+ * Create a new #ICalValue with the type duration.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_duration (ICalDurationType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_DURATION_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_duration (* (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_duration:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the duration of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The duration within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDurationType *
+i_cal_value_get_duration (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_duration_type_new_full (icalvalue_get_duration ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_integer:
+ * @value: The #ICalValue.
+ * @v: The integer value.
+ *
+ * Set the integer in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_integer (ICalValue *value, 
+                         gint v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_integer ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_integer:
+ * @v: The integer value
+ *
+ * Create a new #ICalValue with the type integer.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_integer (gint v)
+{
+	return i_cal_value_new_full (icalvalue_new_integer (v), NULL);
+}
+
+/**
+ * i_cal_value_get_integer:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the integer of #ICalValue.
+ *
+ * Returns: The integer within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_value_get_integer (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_get_integer ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_uri:
+ * @value: The #ICalValue.
+ * @v: The uri value.
+ *
+ * Set the uri in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_uri (ICalValue *value, 
+                     const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_uri ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_uri:
+ * @v: The uri value
+ *
+ * Create a new #ICalValue with the type uri.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_uri (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_uri (v), NULL);
+}
+
+/**
+ * i_cal_value_get_uri:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the uri of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The uri within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_uri (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_uri ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_class:
+ * @value: The #ICalValue.
+ * @v: The class value.
+ *
+ * Set the class in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_class (ICalValue *value, 
+                       ICalProperty_Class v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_class ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_class) (v));
+}
+
+/**
+ * i_cal_value_new_class:
+ * @v: The class value
+ *
+ * Create a new #ICalValue with the type class.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_class (ICalProperty_Class v)
+{
+	return i_cal_value_new_full (icalvalue_new_class ((icalproperty_class) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_class:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the class of #ICalValue.
+ *
+ * Returns: The class within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty_Class
+i_cal_value_get_class (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_CLASS_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_CLASS_NONE);
+
+	return (ICalProperty_Class) (icalvalue_get_class ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_float:
+ * @value: The #ICalValue.
+ * @v: The float value.
+ *
+ * Set the float in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_float (ICalValue *value, 
+                       gdouble v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_float ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_float:
+ * @v: The float value
+ *
+ * Create a new #ICalValue with the type float.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_float (gdouble v)
+{
+	return i_cal_value_new_full (icalvalue_new_float (v), NULL);
+}
+
+/**
+ * i_cal_value_get_float:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the float of #ICalValue.
+ *
+ * Returns: The float within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+gdouble
+i_cal_value_get_float (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), 0);
+	g_return_val_if_fail (value != NULL, 0);
+
+	return icalvalue_get_float ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_query:
+ * @value: The #ICalValue.
+ * @v: The query value.
+ *
+ * Set the query in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_query (ICalValue *value, 
+                       const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_query ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_query:
+ * @v: The query value
+ *
+ * Create a new #ICalValue with the type query.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_query (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_query (v), NULL);
+}
+
+/**
+ * i_cal_value_get_query:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the query of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The query within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_query (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_query ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_string:
+ * @value: The #ICalValue.
+ * @v: The string value.
+ *
+ * Set the string in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_string (ICalValue *value, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_string ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), v);
+}
+
+/**
+ * i_cal_value_new_string:
+ * @v: The string value
+ *
+ * Create a new #ICalValue with the type string.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_string (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_string (v), NULL);
+}
+
+/**
+ * i_cal_value_get_string:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the string of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer none): The string within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_value_get_string (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return icalvalue_get_string ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)));
+}
+
+/**
+ * i_cal_value_set_transp:
+ * @value: The #ICalValue.
+ * @v: The transp value.
+ *
+ * Set the transp in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_transp (ICalValue *value, 
+                        ICalPropertyTransp v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_transp ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_transp) (v));
+}
+
+/**
+ * i_cal_value_new_transp:
+ * @v: The transp value
+ *
+ * Create a new #ICalValue with the type transp.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_transp (ICalPropertyTransp v)
+{
+	return i_cal_value_new_full (icalvalue_new_transp ((icalproperty_transp) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_transp:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the transp of #ICalValue.
+ *
+ * Returns: The transp within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyTransp
+i_cal_value_get_transp (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_TRANSP_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_TRANSP_NONE);
+
+	return (ICalPropertyTransp) (icalvalue_get_transp ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_requeststatus:
+ * @value: The #ICalValue.
+ * @v: The requeststatus value.
+ *
+ * Set the requeststatus in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_requeststatus (ICalValue *value, 
+                               ICalReqstatType *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_REQSTAT_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_requeststatus ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icalreqstattype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_requeststatus:
+ * @v: The requeststatus value
+ *
+ * Create a new #ICalValue with the type requeststatus.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_requeststatus (ICalReqstatType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_REQSTAT_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_requeststatus (* (struct icalreqstattype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_requeststatus:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the requeststatus of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The requeststatus within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalReqstatType *
+i_cal_value_get_requeststatus (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_reqstat_type_new_full (icalvalue_get_requeststatus ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_date:
+ * @value: The #ICalValue.
+ * @v: The date value.
+ *
+ * Set the date in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_date (ICalValue *value, 
+                      ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalvalue_set_date ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_value_new_date:
+ * @v: The date value
+ *
+ * Create a new #ICalValue with the type date.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_date (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_value_new_full (icalvalue_new_date (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_value_get_date:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the date of #ICalValue.
+ *
+ * Returns: (allow-none) (transfer full): The date within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_value_get_date (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), NULL);
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalvalue_get_date ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_action:
+ * @value: The #ICalValue.
+ * @v: The action value.
+ *
+ * Set the action in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_action (ICalValue *value, 
+                        ICalPropertyAction v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_action ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_action) (v));
+}
+
+/**
+ * i_cal_value_new_action:
+ * @v: The action value
+ *
+ * Create a new #ICalValue with the type action.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_action (ICalPropertyAction v)
+{
+	return i_cal_value_new_full (icalvalue_new_action ((icalproperty_action) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_action:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the action of #ICalValue.
+ *
+ * Returns: The action within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyAction
+i_cal_value_get_action (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_ACTION_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_ACTION_NONE);
+
+	return (ICalPropertyAction) (icalvalue_get_action ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_cmd:
+ * @value: The #ICalValue.
+ * @v: The cmd value.
+ *
+ * Set the cmd in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_cmd (ICalValue *value, 
+                     ICalPropertyCmd v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_cmd ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_cmd) (v));
+}
+
+/**
+ * i_cal_value_new_cmd:
+ * @v: The cmd value
+ *
+ * Create a new #ICalValue with the type cmd.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_cmd (ICalPropertyCmd v)
+{
+	return i_cal_value_new_full (icalvalue_new_cmd ((icalproperty_cmd) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_cmd:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the cmd of #ICalValue.
+ *
+ * Returns: The cmd within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyCmd
+i_cal_value_get_cmd (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_CMD_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_CMD_NONE);
+
+	return (ICalPropertyCmd) (icalvalue_get_cmd ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_querylevel:
+ * @value: The #ICalValue.
+ * @v: The querylevel value.
+ *
+ * Set the querylevel in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_querylevel (ICalValue *value, 
+                            ICalPropertyQuerylevel v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_querylevel ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_querylevel) (v));
+}
+
+/**
+ * i_cal_value_new_querylevel:
+ * @v: The querylevel value
+ *
+ * Create a new #ICalValue with the type querylevel.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_querylevel (ICalPropertyQuerylevel v)
+{
+	return i_cal_value_new_full (icalvalue_new_querylevel ((icalproperty_querylevel) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_querylevel:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the querylevel of #ICalValue.
+ *
+ * Returns: The querylevel within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyQuerylevel
+i_cal_value_get_querylevel (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_QUERYLEVEL_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_QUERYLEVEL_NONE);
+
+	return (ICalPropertyQuerylevel) (icalvalue_get_querylevel ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}
+
+/**
+ * i_cal_value_set_carlevel:
+ * @value: The #ICalValue.
+ * @v: The carlevel value.
+ *
+ * Set the carlevel in the #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_value_set_carlevel (ICalValue *value, 
+                          ICalPropertyCarlevel v)
+{
+	g_return_if_fail (I_CAL_IS_VALUE (value));
+	g_return_if_fail (value != NULL);
+
+	icalvalue_set_carlevel ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value)), (icalproperty_carlevel) (v));
+}
+
+/**
+ * i_cal_value_new_carlevel:
+ * @v: The carlevel value
+ *
+ * Create a new #ICalValue with the type carlevel.
+ *
+ * Returns: (transfer full): The newly create #ICalValue.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalValue *
+i_cal_value_new_carlevel (ICalPropertyCarlevel v)
+{
+	return i_cal_value_new_full (icalvalue_new_carlevel ((icalproperty_carlevel) (v)), NULL);
+}
+
+/**
+ * i_cal_value_get_carlevel:
+ * @value: The #ICalValue to be queried.
+ *
+ * Get the carlevel of #ICalValue.
+ *
+ * Returns: The carlevel within #ICalValue
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyCarlevel
+i_cal_value_get_carlevel (ICalValue *value)
+{
+	g_return_val_if_fail (I_CAL_IS_VALUE (value), I_CAL_CARLEVEL_NONE);
+	g_return_val_if_fail (value != NULL, I_CAL_CARLEVEL_NONE);
+
+	return (ICalPropertyCarlevel) (icalvalue_get_carlevel ((icalvalue *)i_cal_object_get_native (I_CAL_OBJECT (value))));
+}

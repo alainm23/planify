@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (C) 2010 Philip Withnall <philip@tecnocode.co.uk>
+
+  GtkSourceView is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  GtkSourceView is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+<language id="gdb-log" _name="GDB Log" version="2.0" _section="Other">
+  <metadata>
+    <property name="globs">*.gdb</property>
+  </metadata>
+
+  <styles>
+    <style id="thread-action" name="Thread Action" map-to="def:comment"/>
+    <style id="thread-header" name="Thread Header" map-to="def:statement"/>
+    <style id="frame-number" name="Frame Number" map-to="def:keyword"/>
+    <style id="address" name="Address" map-to="def:number"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="filename" name="Filename" map-to="def:statement"/>
+    <style id="optimized-out" name="Optimized Out" map-to="def:special-constant"/>
+    <style id="incomplete-sequence" name="Incomplete Sequence" map-to="def:special-constant"/>
+    <style id="prompt" name="Prompt" map-to="def:comment"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="identifier">[A-Za-z_][A-Za-z0-9_]*(?:@@[A-Za-z0-9_\.]+)?</define-regex>
+    <define-regex id="filename">.+?</define-regex>
+
+    <!-- Either a decimal number (single to multi-digit, signed or unsigned) or a standard hexadecimal number -->
+    <define-regex id="thread-number">(?:-?[1-9][0-9]*|\%{def:hexadecimal})</define-regex>
+
+    <!-- Allow reuse of the frame regexes so we can use them in frame and crash-frame -->
+    <define-regex id="frame-start">((?P&lt;address&gt;\%{def:hexadecimal})\s+in\s+)?(?:(?P&lt;function&gt;\*?\%{identifier})|(?P&lt;badfunction&gt;\?\?))\s+\(</define-regex>
+    <define-regex id="frame-end">(?:(?:at|from)\s+(?P&lt;filename&gt;\%{filename})(?P&lt;linenumber&gt;\:[0-9]+)?|\))$</define-regex>
+
+    <context id="optimized-out" style-ref="optimized-out">
+      <keyword>value optimized out</keyword>
+    </context>
+
+    <context id="incomplete-sequence" style-ref="incomplete-sequence">
+      <keyword>incomplete sequence</keyword>
+    </context>
+
+    <context id="prompt" style-ref="prompt" end-at-line-end="true">
+      <start>\(gdb\)|---|Kill|Using|Program|Starting|No symbol</start>
+      <end>---$</end>
+    </context>
+
+    <context id="thread-action" style-ref="thread-action">
+      <!--[New Thread 0xb73ffb70 (LWP 26323)]
+          [Thread 0xb73ffb70 (LWP 26323) exited]
+          [Switching to Thread 0xb7fe6b70 (LWP 26322)]
+          [New LWP    1        ]-->
+      <match>^\[(?:New |Switching to )?(?:Thread|LWP)\s+(\%{thread-number})?.*\]$</match>
+      <include>
+        <context sub-pattern="1" style-ref="address"/>
+      </include>
+    </context>
+
+    <context id="thread-header" style-ref="thread-header">
+      <!--Thread 4 (Thread 0xb7fe6b70 (LWP 26322)):
+          Thread 10 (LWP    40        ):-->
+      <match>^Thread \d+ \((?:Thread|LWP)\s+(\%{thread-number}).*\):$</match>
+      <include>
+        <context sub-pattern="1" style-ref="address"/>
+      </include>
+    </context>
+
+    <context id="signal-handler-frame">
+      <!--#3  <signal handler called>-->
+      <match>^#(\d+)\s+&lt;(signal handler called)&gt;$</match>
+      <include>
+        <context sub-pattern="1" style-ref="frame-number"/>
+        <context sub-pattern="2" style-ref="def:special-constant"/>
+      </include>
+    </context>
+
+    <context id="crash-frame" end-at-line-end="false" once-only="true">
+      <!--This occurs once only, at the top of the file:
+          0x00110402 in __kernel_vsyscall ()-->
+      <start>^\%{frame-start}</start>
+      <end>\%{frame-end}</end>
+      <include>
+        <context where="start" sub-pattern="address" style-ref="address"/>
+        <context where="start" sub-pattern="function" style-ref="function"/>
+        <context where="start" sub-pattern="badfunction" style-ref="def:error"/>
+        <context where="end" sub-pattern="filename" style-ref="filename"/>
+        <context where="end" sub-pattern="linenumber" style-ref="def:number"/>
+        <context ref="optimized-out"/>
+        <context ref="incomplete-sequence"/>
+        <context ref="prompt"/>
+      </include>
+    </context>
+
+    <context id="frame" end-at-line-end="false">
+      <!--#0  0x0054d422 in __kernel_vsyscall ()
+          #1  0x005002d2 in pthread_cond_timedwait@@GLIBC_2.3.2 ()
+              at ../nptl/sysdeps/unix/sysv/linux/i386/i486/pthread_cond_timedwait.S:179
+          #2  0x0043e9f4 in __pthread_cond_timedwait (cond=0xb6401678, mutex=0x88e5e58,
+              abstime=0xb63ff1e8) at forward.c:152
+          #-1 0xfc59f649 in __lwp_park () from /lib/libc.so.1-->
+      <start>^#(?P&lt;framenumber&gt;-?\d+)\s+\%{frame-start}</start>
+      <end>\%{frame-end}</end>
+      <include>
+        <context where="start" sub-pattern="framenumber" style-ref="frame-number"/>
+        <context where="start" sub-pattern="address" style-ref="address"/>
+        <context where="start" sub-pattern="function" style-ref="function"/>
+        <context where="start" sub-pattern="badfunction" style-ref="def:error"/>
+        <context where="end" sub-pattern="filename" style-ref="filename"/>
+        <context where="end" sub-pattern="linenumber" style-ref="def:number"/>
+        <context ref="optimized-out"/>
+        <context ref="incomplete-sequence"/>
+        <context ref="prompt"/>
+      </include>
+    </context>
+
+    <!-- Necessary because some frames put their filename on the next line, after their closing bracket, and since we want to match
+         frames which have no filename (i.e. just a closing bracket) as well as normal frames, we have to deal with this odd case. -->
+    <context id="frame-ending">
+      <!--    at ../nptl/sysdeps/unix/sysv/linux/i386/i486/pthread_cond_timedwait.S:179-->
+      <match>^\s+(?:at|from)\s+(?P&lt;filename&gt;\%{filename})(?P&lt;linenumber&gt;\:[0-9]+)?$</match>
+      <include>
+        <context sub-pattern="filename" style-ref="filename"/>
+        <context sub-pattern="linenumber" style-ref="def:number"/>
+      </include>
+    </context>
+
+    <context id="gdb-log">
+      <include>
+        <context ref="prompt"/>
+        <context ref="thread-action"/>
+        <context ref="thread-header"/>
+        <context ref="signal-handler-frame"/>
+        <context ref="crash-frame"/>
+        <context ref="frame"/>
+        <context ref="frame-ending"/>
+      </include>
+    </context>
+  </definitions>
+</language>

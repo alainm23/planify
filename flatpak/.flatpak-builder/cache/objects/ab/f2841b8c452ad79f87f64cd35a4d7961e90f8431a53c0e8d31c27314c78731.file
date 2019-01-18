@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Joachim Noreiko <jnoreiko@yahoo.com>
+ Copyright (C) 2006, 2007 Joachim Noreiko <jnoreiko@yahoo.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="docbook" name="DocBook" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">application/docbook+xml</property>
+    <property name="globs">*.docbook</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="header-elements" name="Header Elements" map-to="def:keyword"/>
+    <style id="formatting-elements" name="Formatting Elements" map-to="def:keyword"/>
+    <style id="gui-elements" name="GUI Elements" map-to="def:keyword"/>
+    <style id="structural-elements" name="Structural Elements" map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+
+    <context id="header-elements" once-only="true" style-ref="header-elements">
+      <suffix>\b(?!\s*=)</suffix>
+      <keyword>abstract</keyword>
+      <keyword>articleinfo</keyword>
+      <keyword>article</keyword>
+      <keyword>bookinfo</keyword>
+      <keyword>authorgroup</keyword>
+      <keyword>author</keyword>
+      <keyword>affiliation</keyword>
+      <keyword>copyright</keyword>
+      <keyword>date</keyword>
+      <keyword>email</keyword>
+      <keyword>firstname</keyword>
+      <keyword>orgname</keyword>
+      <keyword>publishername</keyword>
+      <keyword>publisher</keyword>
+      <keyword>pubdate</keyword>
+      <keyword>pubsnumber</keyword>
+      <keyword>releaseinfo</keyword>
+      <keyword>surname</keyword>
+      <keyword>revdescription</keyword>
+      <keyword>revhistory</keyword>
+      <keyword>revision</keyword>
+      <keyword>revnumber</keyword>
+    </context>
+
+    <context id="formatting-elements" once-only="true" style-ref="formatting-elements">
+      <suffix>\b(?!\s*=)</suffix>
+      <keyword>caution</keyword>
+      <keyword>command</keyword>
+      <keyword>computeroutput</keyword>
+      <keyword>filename</keyword>
+      <keyword>firstterm</keyword>
+      <keyword>link</keyword>
+      <keyword>note</keyword>
+      <keyword>option</keyword>
+      <keyword>para</keyword>
+      <keyword>remark</keyword>
+      <keyword>replaceable</keyword>
+      <keyword>tip</keyword>
+      <keyword>ulink</keyword>
+      <keyword>variablelist</keyword>
+      <keyword>varlistentry</keyword>
+      <keyword>warning</keyword>
+      <keyword>xref</keyword>
+    </context>
+
+    <context id="gui-elements" once-only="true" style-ref="gui-elements">
+      <suffix>\b(?!\s*=)</suffix>
+      <keyword>accel</keyword>
+      <keyword>application</keyword>
+      <keyword>guibutton</keyword>
+      <keyword>guiicon</keyword>
+      <keyword>guilabel</keyword>
+      <keyword>guimenuitem</keyword>
+      <keyword>guimenu</keyword>
+      <keyword>guisubmenu</keyword>
+      <keyword>interface</keyword>
+      <keyword>keycap</keyword>
+      <keyword>keycombo</keyword>
+      <keyword>keysym</keyword>
+      <keyword>menuchoice</keyword>
+    </context>
+
+    <context id="structural-elements" once-only="true" style-ref="structural-elements">
+      <suffix>\b(?!\s*=)</suffix>
+      <keyword>appendix</keyword>
+      <keyword>book</keyword>
+      <keyword>chapter</keyword>
+      <keyword>anchor</keyword>
+      <keyword>citetitle</keyword>
+      <keyword>colspec</keyword>
+      <keyword>emphasis</keyword>
+      <keyword>entry</keyword>
+      <keyword>figure</keyword>
+      <keyword>glossary</keyword>
+      <keyword>glossdef</keyword>
+      <keyword>glossentry</keyword>
+      <keyword>glossterm</keyword>
+      <keyword>sect1</keyword>
+      <keyword>sect2</keyword>
+      <keyword>sect3</keyword>
+      <keyword>sect4</keyword>
+      <keyword>section</keyword>
+
+      <keyword>highlights</keyword>
+      <keyword>holder</keyword>
+      <keyword>imagedata</keyword>
+      <keyword>imageobject</keyword>
+      <keyword>indexterm</keyword>
+      <keyword>informaltable</keyword>
+      <keyword>inlinemediaobject</keyword>
+      <keyword>itemizedlist</keyword>
+      <keyword>literal</keyword>
+      <keyword>legalnotice</keyword>
+      <keyword>listitem</keyword>
+      <keyword>mediaobject</keyword>
+      <keyword>orderedlist</keyword>
+      <keyword>phrase</keyword>
+      <keyword>primary</keyword>
+      <keyword>programlisting</keyword>
+
+      <keyword>row</keyword>
+      <keyword>screen</keyword>
+      <keyword>screenshot</keyword>
+      <keyword>secondary</keyword>
+      <keyword>see</keyword>
+      <keyword>shortcut</keyword>
+
+      <keyword>table</keyword>
+      <keyword>tbody</keyword>
+      <keyword>term</keyword>
+      <keyword>tertiary</keyword>
+      <keyword>textobject</keyword>
+      <keyword>tgroup</keyword>
+      <keyword>thead</keyword>
+      <keyword>titleabbrev</keyword>
+      <keyword>title</keyword>
+      <keyword>uri</keyword>
+      <keyword>userinput</keyword>
+      <keyword>year</keyword>
+
+      <keyword>ackno</keyword>
+      <keyword>acronym</keyword>
+      <keyword>action</keyword>
+      <keyword>address</keyword>
+      <keyword>answer</keyword>
+      <keyword>appendixinfo</keyword>
+      <keyword>areaset</keyword>
+      <keyword>areaspec</keyword>
+      <keyword>area</keyword>
+      <keyword>arg</keyword>
+      <keyword>artpagenums</keyword>
+      <keyword>attribution</keyword>
+      <keyword>audiodata</keyword>
+      <keyword>audioobject</keyword>
+      <keyword>authorblurb</keyword>
+      <keyword>authorinitials</keyword>
+      <keyword>beginpage</keyword>
+      <keyword>bibliocoverage</keyword>
+      <keyword>bibliodiv</keyword>
+      <keyword>biblioentry</keyword>
+      <keyword>bibliography</keyword>
+      <keyword>bibliographyinfo</keyword>
+      <keyword>biblioid</keyword>
+      <keyword>bibliomisc</keyword>
+      <keyword>bibliomixed</keyword>
+      <keyword>bibliomset</keyword>
+      <keyword>bibliorelation</keyword>
+      <keyword>biblioset</keyword>
+      <keyword>bibliosource</keyword>
+      <keyword>blockinfo</keyword>
+      <keyword>blockquote</keyword>
+      <keyword>bridgehead</keyword>
+      <keyword>calloutlist</keyword>
+      <keyword>callout</keyword>
+      <keyword>caption</keyword>
+      <keyword>chapterinfo</keyword>
+      <keyword>citation</keyword>
+      <keyword>citebiblioid</keyword>
+      <keyword>citerefentry</keyword>
+      <keyword>city</keyword>
+      <keyword>classname</keyword>
+      <keyword>classsynopsis</keyword>
+      <keyword>classsynopsisinfo</keyword>
+      <keyword>cmdsynopsis</keyword>
+      <keyword>code</keyword>
+      <keyword>colgroup</keyword>
+      <keyword>collabname</keyword>
+      <keyword>collab</keyword>
+      <keyword>colophon</keyword>
+      <keyword>confdates</keyword>
+      <keyword>confgroup</keyword>
+      <keyword>confnum</keyword>
+      <keyword>confsponsor</keyword>
+      <keyword>conftitle</keyword>
+      <keyword>constant</keyword>
+      <keyword>constraintdef</keyword>
+      <keyword>constraint</keyword>
+      <keyword>constructorsynopsis</keyword>
+      <keyword>contractnum</keyword>
+      <keyword>contractsponsor</keyword>
+      <keyword>contrib</keyword>
+      <keyword>coref</keyword>
+      <keyword>corpauthor</keyword>
+      <keyword>corpcredit</keyword>
+      <keyword>corpname</keyword>
+      <keyword>country</keyword>
+      <keyword>database</keyword>
+      <keyword>dedication</keyword>
+      <keyword>destructorsynopsis</keyword>
+      <keyword>edition</keyword>
+      <keyword>editor</keyword>
+      <keyword>entrytbl</keyword>
+      <keyword>envar</keyword>
+      <keyword>epigraph</keyword>
+      <keyword>equation</keyword>
+      <keyword>errorcode</keyword>
+      <keyword>errorname</keyword>
+      <keyword>errortext</keyword>
+      <keyword>errortype</keyword>
+      <keyword>example</keyword>
+      <keyword>exceptionname</keyword>
+      <keyword>fax</keyword>
+      <keyword>fieldsynopsis</keyword>
+      <keyword>footnoteref</keyword>
+      <keyword>footnote</keyword>
+      <keyword>foreignphrase</keyword>
+      <keyword>formalpara</keyword>
+      <keyword>funcdef</keyword>
+      <keyword>funcparams</keyword>
+      <keyword>funcprototype</keyword>
+      <keyword>funcsynopsis</keyword>
+      <keyword>funcsynopsisinfo</keyword>
+      <keyword>function</keyword>
+      <keyword>glossaryinfo</keyword>
+      <keyword>glossdiv</keyword>
+      <keyword>glosslist</keyword>
+      <keyword>glosssee</keyword>
+      <keyword>glossseealso</keyword>
+      <keyword>graphicco</keyword>
+      <keyword>graphic</keyword>
+      <keyword>hardware</keyword>
+      <keyword>honorific</keyword>
+      <keyword>imageobjectco</keyword>
+      <keyword>important</keyword>
+      <keyword>indexdiv</keyword>
+      <keyword>indexentry</keyword>
+      <keyword>indexinfo</keyword>
+      <keyword>informalequation</keyword>
+      <keyword>informalexample</keyword>
+      <keyword>informalfigure</keyword>
+      <keyword>initializer</keyword>
+      <keyword>inlineequation</keyword>
+      <keyword>inlinegraphic</keyword>
+      <keyword>interfacename</keyword>
+      <keyword>invpartnumber</keyword>
+      <keyword>isbn</keyword>
+      <keyword>issn</keyword>
+      <keyword>issuenum</keyword>
+      <keyword>itermset</keyword>
+      <keyword>jobtitle</keyword>
+      <keyword>keycode</keyword>
+      <keyword>keywordset</keyword>
+      <keyword>keyword</keyword>
+      <keyword>lhs</keyword>
+      <keyword>lineage</keyword>
+      <keyword>lineannotation</keyword>
+      <keyword>literallayout</keyword>
+      <keyword>lot</keyword>
+      <keyword>lotentry</keyword>
+      <keyword>manvolnum</keyword>
+      <keyword>markup</keyword>
+      <keyword>medialabel</keyword>
+      <keyword>mediaobjectco</keyword>
+      <keyword>member</keyword>
+      <keyword>methodname</keyword>
+      <keyword>methodparam</keyword>
+      <keyword>methodsynopsis</keyword>
+      <keyword>modespec</keyword>
+      <keyword>modifier</keyword>
+      <keyword>mousebutton</keyword>
+      <keyword>msgaud</keyword>
+      <keyword>msgentry</keyword>
+      <keyword>msgexplan</keyword>
+      <keyword>msginfo</keyword>
+      <keyword>msglevel</keyword>
+      <keyword>msgmain</keyword>
+      <keyword>msgorig</keyword>
+      <keyword>msgrel</keyword>
+      <keyword>msgset</keyword>
+      <keyword>msgsub</keyword>
+      <keyword>msgtext</keyword>
+      <keyword>msg</keyword>
+      <keyword>nonterminal</keyword>
+      <keyword>objectinfo</keyword>
+      <keyword>olink</keyword>
+      <keyword>ooclass</keyword>
+      <keyword>ooexception</keyword>
+      <keyword>oointerface</keyword>
+      <keyword>optional</keyword>
+      <keyword>orgdiv</keyword>
+      <keyword>otheraddr</keyword>
+      <keyword>othercredit</keyword>
+      <keyword>othername</keyword>
+      <keyword>pagenums</keyword>
+      <keyword>paramdef</keyword>
+      <keyword>parameter</keyword>
+      <keyword>partinfo</keyword>
+      <keyword>partintro</keyword>
+      <keyword>part</keyword>
+      <keyword>personblurb</keyword>
+      <keyword>personname</keyword>
+      <keyword>phone</keyword>
+      <keyword>pob</keyword>
+      <keyword>postcode</keyword>
+      <keyword>prefaceinfo</keyword>
+      <keyword>preface</keyword>
+      <keyword>primaryie</keyword>
+      <keyword>printhistory</keyword>
+      <keyword>procedure</keyword>
+      <keyword>productionrecap</keyword>
+      <keyword>productionset</keyword>
+      <keyword>production</keyword>
+      <keyword>productname</keyword>
+      <keyword>productnumber</keyword>
+      <keyword>programlistingco</keyword>
+      <keyword>prompt</keyword>
+      <keyword>property</keyword>
+      <keyword>qandadiv</keyword>
+      <keyword>qandaentry</keyword>
+      <keyword>qandaset</keyword>
+      <keyword>question</keyword>
+      <keyword>quote</keyword>
+      <keyword>refclass</keyword>
+      <keyword>refdescriptor</keyword>
+      <keyword>refentryinfo</keyword>
+      <keyword>refentrytitle</keyword>
+      <keyword>refentry</keyword>
+      <keyword>referenceinfo</keyword>
+      <keyword>reference</keyword>
+      <keyword>refmeta</keyword>
+      <keyword>refmiscinfo</keyword>
+      <keyword>refname</keyword>
+      <keyword>refnamediv</keyword>
+      <keyword>refpurpose</keyword>
+      <keyword>refsect1</keyword>
+      <keyword>refsect1info</keyword>
+      <keyword>refsect2</keyword>
+      <keyword>refsect2info</keyword>
+      <keyword>refsect3</keyword>
+      <keyword>refsect3info</keyword>
+      <keyword>refsection</keyword>
+      <keyword>refsectioninfo</keyword>
+      <keyword>refsynopsisdivinfo</keyword>
+      <keyword>refsynopsisdiv</keyword>
+      <keyword>returnvalue</keyword>
+      <keyword>revremark</keyword>
+      <keyword>rhs</keyword>
+      <keyword>sbr</keyword>
+      <keyword>screenco</keyword>
+      <keyword>screeninfo</keyword>
+      <keyword>secondaryie</keyword>
+      <keyword>sect1info</keyword>
+      <keyword>sect2info</keyword>
+      <keyword>sect3info</keyword>
+      <keyword>sect4info</keyword>
+      <keyword>sect5info</keyword>
+      <keyword>sect5</keyword>
+      <keyword>sectioninfo</keyword>
+      <keyword>seealsoie</keyword>
+      <keyword>seealso</keyword>
+      <keyword>seeie</keyword>
+      <keyword>seglistitem</keyword>
+      <keyword>segmentedlist</keyword>
+      <keyword>segtitle</keyword>
+      <keyword>seg</keyword>
+      <keyword>seriesvolnums</keyword>
+      <keyword>setindexinfo</keyword>
+      <keyword>setindex</keyword>
+      <keyword>setinfo</keyword>
+      <keyword>set</keyword>
+      <keyword>sgmltag</keyword>
+      <keyword>shortaffil</keyword>
+      <keyword>sidebar</keyword>
+      <keyword>sidebarinfo</keyword>
+      <keyword>simpara</keyword>
+      <keyword>simplelist</keyword>
+      <keyword>simplemsgentry</keyword>
+      <keyword>simplesect</keyword>
+      <keyword>spanspec</keyword>
+      <keyword>state</keyword>
+      <keyword>stepalternatives</keyword>
+      <keyword>step</keyword>
+      <keyword>street</keyword>
+      <keyword>structfield</keyword>
+      <keyword>structname</keyword>
+      <keyword>subject</keyword>
+      <keyword>subjectset</keyword>
+      <keyword>subjectterm</keyword>
+      <keyword>subscript</keyword>
+      <keyword>substeps</keyword>
+      <keyword>subtitle</keyword>
+      <keyword>superscript</keyword>
+      <keyword>symbol</keyword>
+      <keyword>synopfragment</keyword>
+      <keyword>synopfragmentref</keyword>
+      <keyword>synopsis</keyword>
+      <keyword>systemitem</keyword>
+      <keyword>taskprerequisites</keyword>
+      <keyword>taskrelated</keyword>
+      <keyword>tasksummary</keyword>
+      <keyword>task</keyword>
+      <keyword>td</keyword>
+      <keyword>tertiaryie</keyword>
+      <keyword>textdata</keyword>
+      <keyword>tfoot</keyword>
+      <keyword>tocback</keyword>
+      <keyword>tocchap</keyword>
+      <keyword>tocentry</keyword>
+      <keyword>tocfront</keyword>
+      <keyword>toclevel</keyword>
+      <keyword>tocpart</keyword>
+      <keyword>toc</keyword>
+      <keyword>token</keyword>
+      <keyword>trademark</keyword>
+      <keyword>type</keyword>
+      <keyword>varargs</keyword>
+      <keyword>varname</keyword>
+      <keyword>videodata</keyword>
+      <keyword>videoobject</keyword>
+      <keyword>void</keyword>
+      <keyword>volumenum</keyword>
+      <keyword>wordasword</keyword>
+    </context>
+
+    <context id="docbook-tags">
+      <include>
+        <context ref="header-elements"/>
+        <context ref="formatting-elements"/>
+        <context ref="gui-elements"/>
+        <context ref="structural-elements"/>
+        <context ref="xml:element-name" original="true"/>
+      </include>
+    </context>
+
+    <replace id="xml:element-name" ref="docbook-tags"/>
+
+    <context id="docbook">
+      <include>
+        <context ref="xml:xml"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

@@ -1,0 +1,1659 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalProperty: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalPeriodType.html" title="ICalPeriodType">
+<link rel="next" href="libical-glib-i-cal-recur.html" title="i-cal-recur">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalProperty.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalPeriodType.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-i-cal-recur.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalProperty"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalProperty.top_of_page"></a>ICalProperty</span></h2>
+<p>ICalProperty</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalProperty.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-new" title="i_cal_property_new ()">i_cal_property_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-new-clone" title="i_cal_property_new_clone ()">i_cal_property_new_clone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-new-from-string" title="i_cal_property_new_from_string ()">i_cal_property_new_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-as-ical-string-r" title="i_cal_property_as_ical_string_r ()">i_cal_property_as_ical_string_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-free" title="i_cal_property_free ()">i_cal_property_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-isa" title="i_cal_property_isa ()">i_cal_property_isa</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-isa-property" title="i_cal_property_isa_property ()">i_cal_property_isa_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-add-parameter" title="i_cal_property_add_parameter ()">i_cal_property_add_parameter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-set-parameter" title="i_cal_property_set_parameter ()">i_cal_property_set_parameter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-set-parameter-from-string" title="i_cal_property_set_parameter_from_string ()">i_cal_property_set_parameter_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-parameter-as-string-r" title="i_cal_property_get_parameter_as_string_r ()">i_cal_property_get_parameter_as_string_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-remove-parameter-by-kind" title="i_cal_property_remove_parameter_by_kind ()">i_cal_property_remove_parameter_by_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-remove-parameter-by-name" title="i_cal_property_remove_parameter_by_name ()">i_cal_property_remove_parameter_by_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-remove-parameter-by-ref" title="i_cal_property_remove_parameter_by_ref ()">i_cal_property_remove_parameter_by_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-count-parameters" title="i_cal_property_count_parameters ()">i_cal_property_count_parameters</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="returnvalue">ICalParameter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-first-parameter" title="i_cal_property_get_first_parameter ()">i_cal_property_get_first_parameter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="returnvalue">ICalParameter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-next-parameter" title="i_cal_property_get_next_parameter ()">i_cal_property_get_next_parameter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-set-value" title="i_cal_property_set_value ()">i_cal_property_set_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-set-value-from-string" title="i_cal_property_set_value_from_string ()">i_cal_property_set_value_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="returnvalue">ICalValue</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-value" title="i_cal_property_get_value ()">i_cal_property_get_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-value-as-string-r" title="i_cal_property_get_value_as_string_r ()">i_cal_property_get_value_as_string_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-value-set-parent" title="i_cal_value_set_parent ()">i_cal_value_set_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-value-get-parent" title="i_cal_value_get_parent ()">i_cal_value_get_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-parameter-set-parent" title="i_cal_parameter_set_parent ()">i_cal_parameter_set_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-parameter-get-parent" title="i_cal_parameter_get_parent ()">i_cal_parameter_get_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-set-x-name" title="i_cal_property_set_x_name ()">i_cal_property_set_x_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-x-name" title="i_cal_property_get_x_name ()">i_cal_property_get_x_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-get-property-name-r" title="i_cal_property_get_property_name_r ()">i_cal_property_get_property_name_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="returnvalue">ICalValueKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-parameter-value-to-value-kind" title="i_cal_parameter_value_to_value_kind ()">i_cal_parameter_value_to_value_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="returnvalue">ICalValueKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-kind-to-value-kind" title="i_cal_property_kind_to_value_kind ()">i_cal_property_kind_to_value_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-value-kind-to-kind" title="i_cal_property_value_kind_to_kind ()">i_cal_property_value_kind_to_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-kind-to-string" title="i_cal_property_kind_to_string ()">i_cal_property_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-string-to-kind" title="i_cal_property_string_to_kind ()">i_cal_property_string_to_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-kind-is-valid" title="i_cal_property_kind_is_valid ()">i_cal_property_kind_is_valid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="returnvalue">ICalPropertyMethod</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-string-to-method" title="i_cal_property_string_to_method ()">i_cal_property_string_to_method</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-method-to-string" title="i_cal_property_method_to_string ()">i_cal_property_method_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-enum-to-string-r" title="i_cal_property_enum_to_string_r ()">i_cal_property_enum_to_string_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-kind-and-string-to-enum" title="i_cal_property_kind_and_string_to_enum ()">i_cal_property_kind_and_string_to_enum</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="returnvalue">ICalPropertyStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-string-to-status" title="i_cal_property_string_to_status ()">i_cal_property_string_to_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-status-to-string" title="i_cal_property_status_to_string ()">i_cal_property_status_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalProperty.html#i-cal-property-enum-belongs-to-property" title="i_cal_property_enum_belongs_to_property ()">i_cal_property_enum_belongs_to_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalProperty.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalProperty.html#I-CAL-PROPERTY-TYPE:CAPS" title="I_CAL_PROPERTY_TYPE">I_CAL_PROPERTY_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty">ICalProperty</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalProperty.html#ICalPropertyClass" title="struct ICalPropertyClass">ICalPropertyClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalProperty.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalProperty.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-property-new"></a><h3>i_cal_property_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+i_cal_property_new (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> kind</code></em>);</pre>
+<p>Create a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> of the target type.</p>
+<div class="refsect3">
+<a name="i-cal-property-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The kind of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be created.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-new.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> with the type <em class="parameter"><code>kind</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-new-clone"></a><h3>i_cal_property_new_clone ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+i_cal_property_new_clone (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Deeply clone a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-new-clone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be cloned.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-new-clone.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> deeply cloned from <em class="parameter"><code>prop</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-new-from-string"></a><h3>i_cal_property_new_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+i_cal_property_new_from_string (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Create a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> from a string.</p>
+<div class="refsect3">
+<a name="i-cal-property-new-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string used to construct a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-new-from-string.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> from <em class="parameter"><code>str</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-as-ical-string-r"></a><h3>i_cal_property_as_ical_string_r ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_as_ical_string_r (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Convert a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to a string representation.</p>
+<div class="refsect3">
+<a name="i-cal-property-as-ical-string-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be converted.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-as-ical-string-r.returns"></a><h4>Returns</h4>
+<p>The string representation of <em class="parameter"><code>prop</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-free"></a><h3>i_cal_property_free ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_free (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Free a <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-property-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be freed. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-isa"></a><h3>i_cal_property_isa ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+i_cal_property_isa (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *property</code></em>);</pre>
+<p>Get the kind of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-isa.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> which type is to be determined.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-isa.returns"></a><h4>Returns</h4>
+<p> The type of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-isa-property"></a><h3>i_cal_property_isa_property ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_property_isa_property (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *property</code></em>);</pre>
+<p>Check whether the native part of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> is of the type icalproperty.</p>
+<div class="refsect3">
+<a name="i-cal-property-isa-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>The object whose native part to be checked.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-isa-property.returns"></a><h4>Returns</h4>
+<p> 1 if the native part of <em class="parameter"><code>property</code></em>
+is of the type icalproperty, 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-add-parameter"></a><h3>i_cal_property_add_parameter ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_add_parameter (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                              <em class="parameter"><code><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> *parameter</code></em>);</pre>
+<p>Add a <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> into the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. It behaves like set the copy of the <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a>. Upon
+completion the native part of <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> will be set to NULL.</p>
+<div class="refsect3">
+<a name="i-cal-property-add-parameter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parameter</p></td>
+<td class="parameter_description"><p>The parameter to be added into <em class="parameter"><code>prop</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-set-parameter"></a><h3>i_cal_property_set_parameter ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_set_parameter (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                              <em class="parameter"><code><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> *parameter</code></em>);</pre>
+<p>Set a <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> into the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. It behaves like set the copy of the <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a>. Upon
+completion the native part of <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> will be set to NULL.</p>
+<div class="refsect3">
+<a name="i-cal-property-set-parameter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parameter</p></td>
+<td class="parameter_description"><p>The parameter to be set into <em class="parameter"><code>prop</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-set-parameter-from-string"></a><h3>i_cal_property_set_parameter_from_string ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_set_parameter_from_string
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *name</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *value</code></em>);</pre>
+<p>Set the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> with the parameter defined by the name and value.</p>
+<div class="refsect3">
+<a name="i-cal-property-set-parameter-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>The name of the parameter.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The value of the parameter.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-parameter-as-string-r"></a><h3>i_cal_property_get_parameter_as_string_r ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_get_parameter_as_string_r
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *name</code></em>);</pre>
+<p>Get the string representation of the target parameter in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-parameter-as-string-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>The name of the target parameter.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-parameter-as-string-r.returns"></a><h4>Returns</h4>
+<p>The string representation of the parameter. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-remove-parameter-by-kind"></a><h3>i_cal_property_remove_parameter_by_kind ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_remove_parameter_by_kind
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                <em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterKind" title="enum ICalParameterKind"><span class="type">ICalParameterKind</span></a> kind</code></em>);</pre>
+<p>Remove the target kind of the parameters in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-remove-parameter-by-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be manipulated.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterKind" title="enum ICalParameterKind"><span class="type">ICalParameterKind</span></a> to be removed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-remove-parameter-by-name"></a><h3>i_cal_property_remove_parameter_by_name ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_remove_parameter_by_name
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *name</code></em>);</pre>
+<p>Remove parameter in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> by name.</p>
+<div class="refsect3">
+<a name="i-cal-property-remove-parameter-by-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be manipulated.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>The name of the parameter to be removed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-remove-parameter-by-ref"></a><h3>i_cal_property_remove_parameter_by_ref ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_remove_parameter_by_ref
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                <em class="parameter"><code><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> *param</code></em>);</pre>
+<p>Remove the parameter in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> by ref.</p>
+<div class="refsect3">
+<a name="i-cal-property-remove-parameter-by-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be manipulated.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>param</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> to be removed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-count-parameters"></a><h3>i_cal_property_count_parameters ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_property_count_parameters (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Count the parameters in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-count-parameters.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be checked.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-count-parameters.returns"></a><h4>Returns</h4>
+<p> The count of the parameters in the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-first-parameter"></a><h3>i_cal_property_get_first_parameter ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="returnvalue">ICalParameter</span></a> *
+i_cal_property_get_first_parameter (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                    <em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterKind" title="enum ICalParameterKind"><span class="type">ICalParameterKind</span></a> kind</code></em>);</pre>
+<p>Get the first <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> from the parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-first-parameter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The target kind of <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> to be retrieved.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-first-parameter.returns"></a><h4>Returns</h4>
+<p>The first <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> of <em class="parameter"><code>prop</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-next-parameter"></a><h3>i_cal_property_get_next_parameter ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="returnvalue">ICalParameter</span></a> *
+i_cal_property_get_next_parameter (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                   <em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterKind" title="enum ICalParameterKind"><span class="type">ICalParameterKind</span></a> kind</code></em>);</pre>
+<p>Get the next <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> from the parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-next-parameter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The target kind of <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> to be retrieved.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-next-parameter.returns"></a><h4>Returns</h4>
+<p>The next <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> of <em class="parameter"><code>prop</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-set-value"></a><h3>i_cal_property_set_value ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_set_value (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                          <em class="parameter"><code><a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> *value</code></em>);</pre>
+<p>Set the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> with the <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-set-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The target <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> will be set as the property of <em class="parameter"><code>prop</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-set-value-from-string"></a><h3>i_cal_property_set_value_from_string ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_set_value_from_string (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                                      <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *value</code></em>,
+                                      <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *kind</code></em>);</pre>
+<p>Set the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> with the <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> constructed from string.</p>
+<div class="refsect3">
+<a name="i-cal-property-set-value-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The value used to construct the <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The kind used to construct the <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-value"></a><h3>i_cal_property_get_value ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="returnvalue">ICalValue</span></a> *
+i_cal_property_get_value (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Get the <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-value.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> of <em class="parameter"><code>prop</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-value-as-string-r"></a><h3>i_cal_property_get_value_as_string_r ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_get_value_as_string_r (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Get the string representation of the value in <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-value-as-string-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-value-as-string-r.returns"></a><h4>Returns</h4>
+<p>The string representation of the value of the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-value-set-parent"></a><h3>i_cal_value_set_parent ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_value_set_parent (<em class="parameter"><code><a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> *value</code></em>,
+                        <em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *property</code></em>);</pre>
+<p>Set the parent property of a value.</p>
+<div class="refsect3">
+<a name="i-cal-value-set-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The child <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>The parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-value-get-parent"></a><h3>i_cal_value_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+i_cal_value_get_parent (<em class="parameter"><code><a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a> *value</code></em>);</pre>
+<p>Get the parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> of the specified <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-value-get-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The child <a class="link" href="libical-glib-ICalValue.html#ICalValue" title="ICalValue"><span class="type">ICalValue</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-value-get-parent.returns"></a><h4>Returns</h4>
+<p>The parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parameter-set-parent"></a><h3>i_cal_parameter_set_parent ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_parameter_set_parent (<em class="parameter"><code><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> *param</code></em>,
+                            <em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *property</code></em>);</pre>
+<p>Set the parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> of an <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parameter-set-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>param</p></td>
+<td class="parameter_description"><p>The child <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>The parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parameter-get-parent"></a><h3>i_cal_parameter_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="returnvalue">ICalProperty</span></a> *
+i_cal_parameter_get_parent (<em class="parameter"><code><a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a> *param</code></em>);</pre>
+<p>Get the parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> of the specified <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parameter-get-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>param</p></td>
+<td class="parameter_description"><p>The child <a class="link" href="libical-glib-ICalParameter.html#ICalParameter" title="ICalParameter"><span class="type">ICalParameter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parameter-get-parent.returns"></a><h4>Returns</h4>
+<p>The parent <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-set-x-name"></a><h3>i_cal_property_set_x_name ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_property_set_x_name (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>,
+                           <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *name</code></em>);</pre>
+<p>Set the name of x property for the <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-set-x-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>The name string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-x-name"></a><h3>i_cal_property_get_x_name ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_get_x_name (<em class="parameter"><code><a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Get the name of x property.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-x-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-x-name.returns"></a><h4>Returns</h4>
+<p>The name of x property. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-get-property-name-r"></a><h3>i_cal_property_get_property_name_r ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_get_property_name_r (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a> *prop</code></em>);</pre>
+<p>Get the property name of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-get-property-name-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>prop</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-get-property-name-r.returns"></a><h4>Returns</h4>
+<p>Property name of <a class="link" href="libical-glib-ICalProperty.html#ICalProperty" title="ICalProperty"><span class="type">ICalProperty</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parameter-value-to-value-kind"></a><h3>i_cal_parameter_value_to_value_kind ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="returnvalue">ICalValueKind</span></a>
+i_cal_parameter_value_to_value_kind (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterValue" title="enum ICalParameterValue"><span class="type">ICalParameterValue</span></a> value</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterValue" title="enum ICalParameterValue"><span class="type">ICalParameterValue</span></a> to <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parameter-value-to-value-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-i-cal-derived-parameter.html#ICalParameterValue" title="enum ICalParameterValue"><span class="type">ICalParameterValue</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parameter-value-to-value-kind.returns"></a><h4>Returns</h4>
+<p> <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-kind-to-value-kind"></a><h3>i_cal_property_kind_to_value_kind ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="returnvalue">ICalValueKind</span></a>
+i_cal_property_kind_to_value_kind (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> kind</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> to <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-kind-to-value-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-kind-to-value-kind.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-value-kind-to-kind"></a><h3>i_cal_property_value_kind_to_kind ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+i_cal_property_value_kind_to_kind (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a> kind</code></em>);</pre>
+<p>Convert a <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a> to a <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-value-kind-to-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-i-cal-derived-value.html#ICalValueKind" title="enum ICalValueKind"><span class="type">ICalValueKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-value-kind-to-kind.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-kind-to-string"></a><h3>i_cal_property_kind_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_kind_to_string (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> kind</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> to a string.</p>
+<div class="refsect3">
+<a name="i-cal-property-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-kind-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of <em class="parameter"><code>kind</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-string-to-kind"></a><h3>i_cal_property_string_to_kind ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="returnvalue">ICalPropertyKind</span></a>
+i_cal_property_string_to_kind (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *string</code></em>);</pre>
+<p>Convert the string to <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-string-to-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>string</p></td>
+<td class="parameter_description"><p>A string representing <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-string-to-kind.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-kind-is-valid"></a><h3>i_cal_property_kind_is_valid ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_property_kind_is_valid (<em class="parameter"><code>const <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> kind</code></em>);</pre>
+<p>Check whether <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> is valid.</p>
+<div class="refsect3">
+<a name="i-cal-property-kind-is-valid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-kind-is-valid.returns"></a><h4>Returns</h4>
+<p> 1 if valid, 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-string-to-method"></a><h3>i_cal_property_string_to_method ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="returnvalue">ICalPropertyMethod</span></a>
+i_cal_property_string_to_method (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert the string to <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-string-to-method.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>A string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-string-to-method.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="type">ICalPropertyMethod</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-method-to-string"></a><h3>i_cal_property_method_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_method_to_string (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="type">ICalPropertyMethod</span></a> method</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="type">ICalPropertyMethod</span></a> to string.</p>
+<div class="refsect3">
+<a name="i-cal-property-method-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>method</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="type">ICalPropertyMethod</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-method-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyMethod" title="enum ICalPropertyMethod"><span class="type">ICalPropertyMethod</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-enum-to-string-r"></a><h3>i_cal_property_enum_to_string_r ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_enum_to_string_r (<em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> e</code></em>);</pre>
+<p>Convert the enum to string.</p>
+<div class="refsect3">
+<a name="i-cal-property-enum-to-string-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>e</p></td>
+<td class="parameter_description"><p>The enum to be converted.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-enum-to-string-r.returns"></a><h4>Returns</h4>
+<p>The string representation of <em class="parameter"><code>e</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-kind-and-string-to-enum"></a><h3>i_cal_property_kind_and_string_to_enum ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_property_kind_and_string_to_enum
+                               (<em class="parameter"><code>const <GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> kind</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert a integer and string into an enum.</p>
+<div class="refsect3">
+<a name="i-cal-property-kind-and-string-to-enum.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>The kind.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>A string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-kind-and-string-to-enum.returns"></a><h4>Returns</h4>
+<p> The enum.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-string-to-status"></a><h3>i_cal_property_string_to_status ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="returnvalue">ICalPropertyStatus</span></a>
+i_cal_property_string_to_status (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Convert the string to <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-string-to-status.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>A string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-string-to-status.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="type">ICalPropertyStatus</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-status-to-string"></a><h3>i_cal_property_status_to_string ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_property_status_to_string (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="type">ICalPropertyStatus</span></a> method</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="type">ICalPropertyStatus</span></a> to string.</p>
+<div class="refsect3">
+<a name="i-cal-property-status-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>method</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="type">ICalPropertyStatus</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-status-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of <a class="link" href="libical-glib-i-cal-derived-value.html#ICalPropertyStatus" title="enum ICalPropertyStatus"><span class="type">ICalPropertyStatus</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-property-enum-belongs-to-property"></a><h3>i_cal_property_enum_belongs_to_property ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_property_enum_belongs_to_property
+                               (<em class="parameter"><code><a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a> kind</code></em>,
+                                <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> e</code></em>);</pre>
+<p>Check whether the enum belongs to the <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-property-enum-belongs-to-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>A <a class="link" href="libical-glib-i-cal-derived-property.html#ICalPropertyKind" title="enum ICalPropertyKind"><span class="type">ICalPropertyKind</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>e</p></td>
+<td class="parameter_description"><p>The enum to be checked.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-property-enum-belongs-to-property.returns"></a><h4>Returns</h4>
+<p> 1 if yes, 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalProperty.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-PROPERTY-TYPE:CAPS"></a><h3>I_CAL_PROPERTY_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_PROPERTY_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalProperty"></a><h3>ICalProperty</h3>
+<pre class="programlisting">typedef struct {
+} ICalProperty;
+</pre>
+<p>This is the ICalProperty instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalPropertyClass"></a><h3>struct ICalPropertyClass</h3>
+<pre class="programlisting">struct ICalPropertyClass {
+};
+</pre>
+<p>This is the ICalProperty class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

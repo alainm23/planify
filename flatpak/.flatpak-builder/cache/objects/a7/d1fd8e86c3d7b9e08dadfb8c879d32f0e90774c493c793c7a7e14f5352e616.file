@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DeeResultSet</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch03.html" title="Indexes">
+<link rel="prev" href="dee-1.0-Model-Readers.html" title="Model Readers">
+<link rel="next" href="DeeTermList.html" title="DeeTermList">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="dee-1.0-Model-Readers.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="DeeTermList.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#dee-1.0-DeeResultSet.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#dee-1.0-DeeResultSet.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="dee-1.0-DeeResultSet"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="dee-1.0-DeeResultSet.top_of_page"></a>DeeResultSet</span></h2>
+<p>DeeResultSet — Cursor-like interface for results sets</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="dee-1.0-DeeResultSet.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;dee.h&gt;
+
+struct              <a class="link" href="dee-1.0-DeeResultSet.html#DeeResultSetIface" title="struct DeeResultSetIface">DeeResultSetIface</a>;
+<span class="returnvalue">DeeModel</span> *          <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-get-model" title="dee_result_set_get_model ()">dee_result_set_get_model</a>            (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-get-n-rows" title="dee_result_set_get_n_rows ()">dee_result_set_get_n_rows</a>           (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-has-next" title="dee_result_set_has_next ()">dee_result_set_has_next</a>             (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()">dee_result_set_next</a>                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-peek" title="dee_result_set_peek ()">dee_result_set_peek</a>                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-seek" title="dee_result_set_seek ()">dee_result_set_seek</a>                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pos</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-tell" title="dee_result_set_tell ()">dee_result_set_tell</a>                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-DeeResultSet.description"></a><h2>Description</h2>
+<p>
+Interface for results returned by <a class="link" href="DeeIndex.html#dee-index-lookup" title="dee_index_lookup ()"><code class="function">dee_index_lookup()</code></a>.
+</p>
+<p>
+This interface utilizes a cursor-like metaphor. You advance the cursor
+by calling <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a> or adjust it manually by calling
+<a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-seek" title="dee_result_set_seek ()"><code class="function">dee_result_set_seek()</code></a>.
+</p>
+<p>
+Calling <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a> will also return the row at the
+current cursor position. You may retrieve the current row without advancing
+the cursor by calling <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-peek" title="dee_result_set_peek ()"><code class="function">dee_result_set_peek()</code></a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-DeeResultSet.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DeeResultSetIface"></a><h3>struct DeeResultSetIface</h3>
+<pre class="programlisting">struct DeeResultSetIface {
+  GTypeInterface g_iface;
+
+  guint           (*get_n_rows)        (DeeResultSet *self);
+
+  DeeModelIter*   (*next)              (DeeResultSet *self);
+
+  gboolean        (*has_next)          (DeeResultSet *self);
+  
+  DeeModelIter*   (*peek)              (DeeResultSet *self);
+
+  void            (*seek)              (DeeResultSet *self,
+                                        guint         pos);
+
+  guint           (*tell)              (DeeResultSet *self);
+
+  DeeModel*       (*get_model)         (DeeResultSet *self);
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-get-model"></a><h3>dee_result_set_get_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeModel</span> *          dee_result_set_get_model            (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Get the model associated with a result set
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to get the mode for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The model that the rows point into. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-get-n-rows"></a><h3>dee_result_set_get_n_rows ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               dee_result_set_get_n_rows           (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Get the number of <a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a>s held in a <span class="type">DeeResultSet</span>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to get the size of</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The number of rows held in the result set</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-has-next"></a><h3>dee_result_set_has_next ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            dee_result_set_has_next             (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Check if a call to <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a> will succeed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if and only if more rows can be retrieved by calling
+<a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-next"></a><h3>dee_result_set_next ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_result_set_next                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Get the current row from the result set and advance the cursor.
+To ensure that calls to this method will succeed you can call
+<a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-has-next" title="dee_result_set_has_next ()"><code class="function">dee_result_set_has_next()</code></a>.
+</p>
+<p>
+To retrieve the current row without advancing the cursor call
+<a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-peek" title="dee_result_set_peek ()"><code class="function">dee_result_set_peek()</code></a> in stead of this method.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to get a row from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> at the current cursor position. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-peek"></a><h3>dee_result_set_peek ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_result_set_peek                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Get the row at the current cursor position.
+</p>
+<p>
+To retrieve the current row and advance the cursor position call
+<a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a> in stead of this method.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to get a row from</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The <a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> at the current cursor position. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-seek"></a><h3>dee_result_set_seek ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                dee_result_set_seek                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pos</code></em>);</pre>
+<p>
+Set the cursor position. Following calls to <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-peek" title="dee_result_set_peek ()"><code class="function">dee_result_set_peek()</code></a>
+or <a class="link" href="dee-1.0-DeeResultSet.html#dee-result-set-next" title="dee_result_set_next ()"><code class="function">dee_result_set_next()</code></a> will read the row at position <em class="parameter"><code>pos</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to seek in</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pos</code></em> :</span></p></td>
+<td>The position to seek to</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-result-set-tell"></a><h3>dee_result_set_tell ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               dee_result_set_tell                 (<em class="parameter"><code><span class="type">DeeResultSet</span> *self</code></em>);</pre>
+<p>
+Get the current position of the cursor.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <span class="type">DeeResultSet</span> to check the cursor position for</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The current position of the cursor</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

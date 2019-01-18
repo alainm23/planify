@@ -42,8 +42,7 @@
 }
 
 .button-circular {
-    border-radius: 100px;
-    background-color: @base_color;
+    border-radius: 50px;
 }
 
 .circular {
@@ -143,6 +142,10 @@
     box-shadow: none;
     padding: 3px;
     background-color: transparent;
+}
+
+.paned-right {
+    border-right: 1px solid @menu_separator;
 }
 
 .show-settings-button image {

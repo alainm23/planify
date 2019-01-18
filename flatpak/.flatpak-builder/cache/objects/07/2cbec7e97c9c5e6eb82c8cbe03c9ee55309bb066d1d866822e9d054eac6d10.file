@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Guillaume Chéreau <guillaume.chereau@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="rst" name="reStructuredText" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">text/x-rst</property>
+    <property name="globs">*.rst</property>
+    <property name="line-comment-start">..\u0020</property>
+  </metadata>
+
+  <styles>
+    <style id="header" name="Header" map-to="def:type"/>
+    <style id="emphasis" name="Emphasis" map-to="def:doc-comment-element"/>
+    <style id="strong-emphasis" name="Strong Emphasis" map-to="def:statement"/>
+    <style id="bullet" name="Bullet" map-to="def:preprocessor"/>
+    <style id="directive" name="Directive" map-to="def:constant"/>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="link" name="Link" map-to="def:type"/>
+    <style id="substitution" name="Substitution" map-to="def:type"/>
+    <style id="code" name="Code" map-to="def:identifier"/>
+    <style id="url" name="Url" map-to="def:underlined"/>
+  </styles>
+
+  <definitions>
+
+    <context id="directive" class="no-spell-check" style-ref="directive">
+      <match>^\s*\.\. .*::.*$</match>
+    </context>
+
+    <context id="footnotes" style-ref="directive">
+      <match>^\s*\.\. \[.+\] .*$</match>
+    </context>
+
+    <context id="link-target" class="no-spell-check" style-ref="directive">
+      <match>^\s*\.\. _.*:.*$</match>
+    </context>
+
+    <context id="comment" style-ref="comment">
+      <start>(\s*)\.\.(\s+).+$</start>
+      <end>^(?!(\%{1@start}  \%{2@start})|(^$))</end>
+    </context>
+
+    <context id="comment-single" style-ref="comment">
+      <start>^(\s*)\.\.(\s*)$</start>
+      <end>x</end>
+      <include>
+        <context id="comment-single-block" style-ref="comment" end-parent="true">
+          <start>(\s*).+$</start>
+          <end>^(?!(\%{1@start}))</end>
+        </context>
+      </include>
+    </context>
+
+    <context id="title-adornment" style-ref="header">
+      <match>^\s*(=+|\-+|`+|:+|(\.\.\.+)|'+|"+|~+|\^+|_+|\*+|\++|#+)\s*$</match>
+    </context>
+
+    <context id="bullet" style-ref="bullet">
+      <match>^\s*[\*\+\-•‣⁃] </match>
+    </context>
+
+    <define-regex id="enumerator-chars" extended="true">
+      ([a-zA-Z]|([0-9]+))
+    </define-regex>
+
+    <context id="enumerator" style-ref="bullet">
+      <match>^\s*((\%{enumerator-chars}\.)|(\(?\%{enumerator-chars}\)) )</match>
+    </context>
+
+    <context id="field" style-ref="bullet">
+      <match>^\s*:.+?:</match>
+    </context>
+
+    <context id="strong-emphasis" style-ref="strong-emphasis">
+      <match>\*\*(?!\s).+?(?!\s)\*\*</match>
+    </context>
+
+    <context id="emphasis" style-ref="emphasis">
+      <match>\*(?!\s).+?(?!\s)\*</match>
+    </context>
+
+    <context id="link" style-ref="link">
+      <match>(\S+_\b)|(`\b.*?\b`_)</match>
+    </context>
+
+    <context id="substitution" style-ref="substitution">
+      <match>\|\b.*\b\|</match>
+    </context>
+
+    <context id="literals">
+      <include>
+        <context id="inline-literals" class="no-spell-check" style-ref="code">
+          <match>``(?!\s).*(?!\s)``</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="url" style-ref="url">
+      <match>((http)|(file))://\S*</match>
+    </context>
+
+    <context id="rst">
+      <include>
+        <context ref="directive"/>
+        <context ref="link-target"/>
+        <context ref="footnotes"/>
+        <context ref="comment"/>
+        <context ref="comment-single"/>
+        <context ref="title-adornment"/>
+        <context ref="bullet"/>
+        <context ref="enumerator"/>
+        <context ref="field"/>
+        <context ref="strong-emphasis"/>
+        <context ref="emphasis"/>
+        <context ref="link"/>
+        <context ref="substitution"/>
+        <context ref="literals"/>
+        <context ref="url"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

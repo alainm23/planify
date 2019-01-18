@@ -26,6 +26,8 @@ public class Application : Gtk.Application {
     public static Services.Notifications notification;
     public static Services.Signals signals;
     public static Services.Github github;
+    public static Services.Share share;
+    
     public static Utils utils;
 
     public const string CSS = """
@@ -52,6 +54,7 @@ public class Application : Gtk.Application {
         notification = new Services.Notifications ();
         signals = new Services.Signals ();
         github = new Services.Github ();
+        share = new Services.Share ();
     }
 
     public static Application _instance = null;
@@ -101,7 +104,6 @@ public class Application : Gtk.Application {
         });
 
         var quick_find_action = new SimpleAction ("quick_find", null);
-        add_action (quick_find_action);
         set_accels_for_action ("app.quick_find", {"<Control>f"});
 
         quick_find_action.activate.connect (() => {
@@ -109,12 +111,32 @@ public class Application : Gtk.Application {
         });
 
         var calendar_events_action = new SimpleAction ("calendar_events", null);
-        add_action (calendar_events_action);
         set_accels_for_action ("app.calendar_events", {"<Control>e"});
-
         calendar_events_action.activate.connect (() => {
             signals.on_signal_show_events ();
         });
+
+        var show_task = new SimpleAction ("show-task", VariantType.INT32);
+        show_task.activate.connect ((parameter) => {
+            var task = Application.database.get_task (parameter.get_int32 ());
+            
+            activate ();
+
+            Timeout.add (200, () => {
+                Application.signals.go_task_page (task.id, task.project_id);
+                return false;
+            });
+        });
+
+        var show_window = new SimpleAction ("show-window", null);
+        show_window.activate.connect (() => {
+            activate ();
+        });
+
+        add_action (quick_find_action);
+        add_action (calendar_events_action);
+        add_action (show_task);
+        add_action (show_window);
 
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();

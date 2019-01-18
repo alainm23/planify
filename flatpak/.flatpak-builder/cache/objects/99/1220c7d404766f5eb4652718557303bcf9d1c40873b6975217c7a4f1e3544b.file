@@ -1,0 +1,50 @@
+<schemalist>
+    <enum id="io.elementary.calendar.savedstate.window-state">
+        <value nick="Normal" value="0" />
+        <value nick="Maximized" value="1" />
+    </enum>
+    <schema path="/io/elementary/calendar/settings/" id="io.elementary.calendar.settings">
+        <key name="plugins-disabled" type="as">
+          <default>[]</default>
+          <summary>List of disabled plugins</summary>
+          <description>Plugin modules to not load during startup</description>
+        </key>
+    </schema>
+    <schema path="/io/elementary/calendar/saved-state/" id="io.elementary.calendar.savedstate">
+        <key name="window-width" type="i">
+            <default>850</default>
+            <summary>The saved width of the window.</summary>
+            <description>The saved width of the window. Must be greater than 700, or it will not take effect.</description>
+        </key>
+        <key name="window-height" type="i">
+            <default>550</default>
+            <summary>The saved height of the window.</summary>
+            <description>The saved height of the window. Must be greater than 400, or it will not take effect.</description>
+        </key>
+        <key name="window-state" enum="io.elementary.calendar.savedstate.window-state">
+            <default>"Normal"</default>
+            <summary>The saved state of the window.</summary>
+            <description>The saved state of the window.</description>
+        </key>
+        <key name="show-weeks" type="b">
+            <default>true</default>
+            <summary>Whether or not to show weeknumbers.</summary>
+            <description>Whether or not to show weeknumbers.</description>
+        </key>
+        <key name="month-page" type="s">
+            <default>""</default>
+            <summary>The current year-month that is shown.</summary>
+            <description>The current year-month that is shown.</description>
+        </key>
+        <key name="selected-day" type="s">
+            <default>""</default>
+            <summary>The current selected day.</summary>
+            <description>The current selected day.</description>
+        </key>
+        <key name="hpaned-position" type="i">
+            <default>650</default>
+            <summary>The x coordinate of the hpaned dragger.</summary>
+            <description>The x coordinate of the hpaned dragger.</description>
+        </key>
+    </schema>
+</schemalist>

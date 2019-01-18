@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg6"
+   version="1.1"
+   width="16"
+   height="16">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <path
+     id="path818"
+     d="M 11 1 A 10 10 0 0 0 1 11 A 10 10 0 0 0 1.6035156 14.392578 A 10 10 0 0 0 5 15 A 10 10 0 0 0 10.513672 13.335938 A 2 2 0 0 1 10 12 A 2 2 0 0 1 12 10 A 2 2 0 0 1 13.333984 10.513672 A 10 10 0 0 0 15 5 A 10 10 0 0 0 14.396484 1.6074219 A 10 10 0 0 0 11 1 z M 10.996094 1.9980469 L 11 1.9980469 C 11.867661 2.0015308 12.718133 2.2045861 13.548828 2.4550781 C 13.79778 3.2847708 13.999257 4.1337396 14.001953 5 L 14.001953 5.0019531 C 14.001629 6.4464111 13.633051 7.8828209 12.966797 9.1640625 A 3 3 0 0 0 12 9 A 3 3 0 0 0 9 12 A 3 3 0 0 0 9.1640625 12.96875 C 7.8838114 13.634157 6.4470987 14.001279 5.0039062 14.001953 C 4.134955 13.998841 3.2831003 13.795786 2.4511719 13.544922 C 2.2020346 12.714612 2.0005569 11.864952 1.9980469 10.998047 C 1.9985758 8.6421645 2.9688998 6.3006315 4.6347656 4.6347656 C 6.3001771 2.9693542 8.6408619 1.9991044 10.996094 1.9980469 z "
+     style="font-variation-settings:normal;vector-effect:none;fill:#666666;stroke:none;stroke-width:1;opacity:1;fill-opacity:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+  <path
+     id="path893"
+     d="M 15.477089,0.00679278 C 12.548881,2.8249703 9.4650169,5.4377473 6.2128906,7.875 L 6.9121094,8.5742188 C 10.079117,6.1723282 13.13667,3.5410398 15.995553,0.77955436 Z"
+     style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#666666;fill-opacity:1;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+</svg>

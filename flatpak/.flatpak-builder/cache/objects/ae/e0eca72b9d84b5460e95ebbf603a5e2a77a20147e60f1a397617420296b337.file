@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DbusmenuServer: libdbusmenu-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API">
+<link rel="prev" href="ch01.html" title="API">
+<link rel="next" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html" title="DbusmenuMenuitemProxy">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libdbusmenu-glib-DbusmenuServer.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libdbusmenu-glib-DbusmenuMenuitemProxy.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libdbusmenu-glib-DbusmenuServer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libdbusmenu-glib-DbusmenuServer.top_of_page"></a>DbusmenuServer</span></h2>
+<p>DbusmenuServer — The server signals changed and
+		updates on a tree of <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> objecs.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.stability-level"></a><h2>Stability Level</h2>
+<acronym title="Unstable interfaces are experimental or transitional. They are typically used to
+give outside developers early access to new or rapidly changing technology, or
+to provide an interim solution to a problem where a more general solution is
+anticipated. No claims are made about either source or binary compatibility from
+one minor release to the next.
+
+The Unstable interface level is a warning that these interfaces are  subject to
+change without warning and should not be used in unbundled products.
+
+Given such caveats, customer impact need not be a factor when considering
+incompatible changes to an Unstable interface in a major or minor release.
+Nonetheless, when such changes are introduced, the changes should still be
+mentioned in the release notes for the affected release.
+"><span class="acronym">Unstable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="returnvalue">DbusmenuServer</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-new" title="dbusmenu_server_new ()">dbusmenu_server_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-get-status" title="dbusmenu_server_get_status ()">dbusmenu_server_get_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-get-text-direction" title="dbusmenu_server_get_text_direction ()">dbusmenu_server_get_text_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-root" title="dbusmenu_server_set_root ()">dbusmenu_server_set_root</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-status" title="dbusmenu_server_set_status ()">dbusmenu_server_set_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-text-direction" title="dbusmenu_server_set_text_direction ()">dbusmenu_server_set_text_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ID-PROP-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE">DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ID-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_ID_UPDATE">DBUSMENU_SERVER_SIGNAL_ID_UPDATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATED:CAPS" title="DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED">DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATE:CAPS" title="DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE">DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-SIGNAL-ITEM-ACTIVATION:CAPS" title="DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION">DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-DBUS-OBJECT:CAPS" title="DBUSMENU_SERVER_PROP_DBUS_OBJECT">DBUSMENU_SERVER_PROP_DBUS_OBJECT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-ROOT-NODE:CAPS" title="DBUSMENU_SERVER_PROP_ROOT_NODE">DBUSMENU_SERVER_PROP_ROOT_NODE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-STATUS:CAPS" title="DBUSMENU_SERVER_PROP_STATUS">DBUSMENU_SERVER_PROP_STATUS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-TEXT-DIRECTION:CAPS" title="DBUSMENU_SERVER_PROP_TEXT_DIRECTION">DBUSMENU_SERVER_PROP_TEXT_DIRECTION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DBUSMENU-SERVER-PROP-VERSION:CAPS" title="DBUSMENU_SERVER_PROP_VERSION">DBUSMENU_SERVER_PROP_VERSION</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer">DbusmenuServer</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libdbusmenu-glib/server.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.description"></a><h2>Description</h2>
+<p>A <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> is the object that represents the local
+	tree of <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> objects on DBus.  It watches the
+	various signals that those objects emit and correctly
+	represents them across DBus to a <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> so that
+	the same tree can be maintained in another process.</p>
+<p>	The server needs to have the root set of <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a>
+	objects set via <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#dbusmenu-server-set-root" title="dbusmenu_server_set_root ()"><span class="type">dbusmenu_server_set_root</span></a> but it will query
+	all of the objects in that tree automatically.  After setting
+	the root there should be no other maintence required by
+	users of the server class.</p>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="dbusmenu-server-new"></a><h3>dbusmenu_server_new ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="returnvalue">DbusmenuServer</span></a> *
+dbusmenu_server_new (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
+<p>Creates a new <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> object with a specific object
+	path on DBus.  If <em class="parameter"><code>object</code></em>
+ is set to NULL the default object
+	name of "/com/canonical/dbusmenu" will be used.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>The object name to show for this menu structure
+on DBus.  May be NULL.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.2.8.2.6"></a><h4>Returns</h4>
+<p> A brand new <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-server-get-status"></a><h3>dbusmenu_server_get_status ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+dbusmenu_server_get_status (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> *server</code></em>);</pre>
+<p>Gets the current statust hat the server is sending out over
+	DBus.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>server</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> to get the status from</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.2.8.3.6"></a><h4>Returns</h4>
+<p> The current status the server is sending</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-server-get-text-direction"></a><h3>dbusmenu_server_get_text_direction ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+dbusmenu_server_get_text_direction (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> *server</code></em>);</pre>
+<p>Returns the value of the text direction that is being exported
+	over DBus for this server.  It should relate to the direction
+	of the labels and other text fields that are being exported by
+	this server.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>server</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> object to get the text direction from</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.2.8.4.6"></a><h4>Returns</h4>
+<p> Text direction exported for this server.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-server-set-root"></a><h3>dbusmenu_server_set_root ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+dbusmenu_server_set_root (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> *self</code></em>,
+                          <em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> *root</code></em>);</pre>
+<p>This function contains all of the <a href="https://developer.gnome.org/gobject/unstable/gobject-Generic-values.html#GValue"><span class="type">GValue</span></a> wrapping
+	required to set the property <span class="type">“root-node”</span>
+	on the server <em class="parameter"><code>self</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> object to set the root on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>root</p></td>
+<td class="parameter_description"><p>The new root <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> tree</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-server-set-status"></a><h3>dbusmenu_server_set_status ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+dbusmenu_server_set_status (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> *server</code></em>,
+                            <em class="parameter"><code><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="type">DbusmenuStatus</span></a> status</code></em>);</pre>
+<p>Changes the status of the server.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>server</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> to set the status on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>status</p></td>
+<td class="parameter_description"><p>Status value to set on the server</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-server-set-text-direction"></a><h3>dbusmenu_server_set_text_direction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+dbusmenu_server_set_text_direction (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> *server</code></em>,
+                                    <em class="parameter"><code><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="type">DbusmenuTextDirection</span></a> dir</code></em>);</pre>
+<p>Sets the text direction that should be exported over DBus for
+	this server.  If the value is set to <a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TEXT-DIRECTION-NONE:CAPS"><span class="type">DBUSMENU_TEXT_DIRECTION_NONE</span></a>
+	the default detection will be used for setting the value and
+	exported over DBus.</p>
+<div class="refsect3">
+<a name="id-1.2.2.8.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>server</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> object to set the text direction on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dir</p></td>
+<td class="parameter_description"><p>Direction of the text</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuServer.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-SIGNAL-ID-PROP-UPDATE:CAPS"></a><h3>DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_SIGNAL_ID_PROP_UPDATE  "item-property-updated"
+</pre>
+<p>String to attach to signal <span class="type">“item-property-updated”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-SIGNAL-ID-UPDATE:CAPS"></a><h3>DBUSMENU_SERVER_SIGNAL_ID_UPDATE</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_SIGNAL_ID_UPDATE       "item-updated"
+</pre>
+<p>String to attach to signal <span class="type">“item-updated”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATED:CAPS"></a><h3>DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED  "layout-updated"
+</pre>
+<p>String to attach to signal <span class="type">“layout-updated”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-SIGNAL-LAYOUT-UPDATE:CAPS"></a><h3>DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATE   DBUSMENU_SERVER_SIGNAL_LAYOUT_UPDATED
+</pre>
+<p>String to attach to signal <span class="type">“layout-updated”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-SIGNAL-ITEM-ACTIVATION:CAPS"></a><h3>DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_SIGNAL_ITEM_ACTIVATION "item-activation-requested"
+</pre>
+<p>String to attach to signal <span class="type">“item-activation-requested”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-PROP-DBUS-OBJECT:CAPS"></a><h3>DBUSMENU_SERVER_PROP_DBUS_OBJECT</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_PROP_DBUS_OBJECT       "dbus-object"
+</pre>
+<p>String to access property <span class="type">“dbus-object”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-PROP-ROOT-NODE:CAPS"></a><h3>DBUSMENU_SERVER_PROP_ROOT_NODE</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_PROP_ROOT_NODE         "root-node"
+</pre>
+<p>String to access property <span class="type">“root-node”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-PROP-STATUS:CAPS"></a><h3>DBUSMENU_SERVER_PROP_STATUS</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_PROP_STATUS            "status"
+</pre>
+<p>String to access property <span class="type">“status”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-PROP-TEXT-DIRECTION:CAPS"></a><h3>DBUSMENU_SERVER_PROP_TEXT_DIRECTION</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_PROP_TEXT_DIRECTION    "text-direction"
+</pre>
+<p>String to access property <span class="type">“text-direction”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-SERVER-PROP-VERSION:CAPS"></a><h3>DBUSMENU_SERVER_PROP_VERSION</h3>
+<pre class="programlisting">#define DBUSMENU_SERVER_PROP_VERSION           "version"
+</pre>
+<p>String to access property <span class="type">“version”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DbusmenuServer"></a><h3>struct DbusmenuServer</h3>
+<pre class="programlisting">struct DbusmenuServer {
+};
+</pre>
+<p>A server which represents a sharing of a set of
+	<a href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem"><span class="type">DbusmenuMenuitems</span></a> across DBus to a <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.gnome.evolution.dataserver.Calendar7
+Exec=/app/libexec/evolution-calendar-factory
+SystemdService=evolution-calendar-factory.service

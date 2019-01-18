@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g color='#bebebe' transform='translate(-333 291)'>
+        
+        <path d='M333-285v4h1.652l3.348 3.37v-10.74l-3.348 3.37z' fill='#666' opacity='.35' overflow='visible' style='marker:none'/>
+        <path d='M341-285v1l1 1-1 1v1h1l1-1 1 1h1v-1l-1-1 1-1v-1h-1l-1 1-1-1z' fill='#666' opacity='.4' overflow='visible' style='marker:none'/>
+    </g>
+</svg>

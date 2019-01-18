@@ -36,7 +36,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
     construct {
         get_style_context ().add_class ("welcome");
-        get_style_context ().add_class ("view");
+        get_style_context ().add_class ("paned-right");
+        
         orientation = Gtk.Orientation.VERTICAL;
 
         inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
@@ -59,6 +60,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         listbox = new Gtk.ListBox  ();
         listbox.activate_on_single_click = true;
+        listbox.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
 
@@ -72,23 +74,35 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add_project_button.tooltip_text = _("Add new project");
         add_project_button.add (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
-        var settings_button = new Gtk.ToggleButton ();
-        settings_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
-        settings_button.tooltip_text = _("Settings");
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.halign = Gtk.Align.CENTER;
-        settings_button.margin_end = 12;
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("settings-button");
+        var menu_button = new Gtk.ToggleButton ();
+        menu_button.can_focus = false;
+        menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
+        menu_button.tooltip_text = _("Settings");
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.halign = Gtk.Align.CENTER;
+        menu_button.margin_end = 12;
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("settings-button");
+
+        var project_list_menu = new Widgets.Popovers.ProjectListMenu (menu_button);
+
+        menu_button.toggled.connect (() => {
+            if (menu_button.active) {
+                project_list_menu.show_all ();
+            }
+        });
+  
+        project_list_menu.closed.connect (() => {
+            menu_button.active = false;
+        });
 
         var action_bar = new Gtk.ActionBar ();
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.get_style_context ().add_class ("planner-actionbar");
         action_bar.set_center_widget (add_project_button);
+        action_bar.pack_end (menu_button);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.valign = Gtk.Align.START;
         main_grid.expand = true;
 
         main_grid.add (listbox);
@@ -127,8 +141,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             add_project_button.active = false;
         });
 
-        Application.database.on_add_project_signal.connect (() => {
-            var project = Application.database.get_last_project ();
+        Application.database.on_add_project_signal.connect ((project) => {
             var row = new Widgets.ProjectRow (project);
             listbox.add (row);
             listbox.show_all ();

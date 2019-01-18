@@ -1,0 +1,101 @@
+load ('def.lefty');
+definit ();
+#
+# initialize window data
+#
+canvas = defcanvas;
+wrect = [0 = ['x' = 0; 'y' = 0;]; 1 = ['x' = 400; 'y' = 500;];];
+setwidgetattr (canvas, ['window' = wrect;]);
+
+sq = function (x) {
+    return x * x;
+};
+
+# data structures
+#
+length = 300;
+center = ['x' = 200; 'y' = 250;];
+radius = 2 * length / sqrt (12);
+fractalangle = 0;
+maxlevel = 2;
+
+# drawing functions
+#
+# draw a Koch curve (a ``snowflake'' fractal)
+#
+# start with a triangle and keep replacing edges
+# with the construct: _/\_
+# until the recursion level reaches 'maxlevel'
+#
+fractal = function (level, length, angle) {
+    local nlength, newpenpos;
+
+    if (level >= maxlevel) {
+        newpenpos.x = penpos.x + length * cos (angle);
+        newpenpos.y = penpos.y + length * sin (angle);
+        line (canvas, null, penpos, newpenpos, ['color' = 1;]);
+        penpos = newpenpos;
+        return;
+    }
+    nlength = length / 3;
+    fractal (level + 1, nlength, angle);
+    fractal (level + 1, nlength, angle + 60);
+    fractal (level + 1, nlength, angle - 60);
+    fractal (level + 1, nlength, angle);
+};
+drawfractal = function () {
+    clear (canvas);
+    setpick (canvas, center, wrect);
+    penpos = [
+        'x' = center.x + cos (fractalangle + 210) * radius;
+        'y' = center.y + sin (fractalangle + 210) * radius;
+    ];
+    fractal (0, length, fractalangle +  60);
+    fractal (0, length, fractalangle -  60);
+    fractal (0, length, fractalangle - 180);
+    remove ('penpos');
+};
+
+# editing functions
+#
+# transform the fractal.
+#
+# map point 'prevpoint' to point 'currpoint'
+# with respect to the center of the fractal.
+#
+transformfractal = function (prevpoint, currpoint) {
+    local prevtan, currtan, prevradius, currradius;
+
+    prevtan = atan (prevpoint.y - center.y, prevpoint.x - center.x);
+    currtan = atan (currpoint.y - center.y, currpoint.x - center.x);
+    fractalangle = fractalangle + (currtan - prevtan);
+    prevradius = sqrt (
+        sq (prevpoint.y - center.y) + sq (prevpoint.x - center.x)
+    );
+    currradius = sqrt (
+        sq (currpoint.y - center.y) + sq (currpoint.x - center.x)
+    );
+    radius = radius / prevradius * currradius;
+    length = radius / 2 * sqrt (12);
+};
+
+# user interface functions
+#
+# bind changes to the fractal to user actions
+#
+leftup = function (data) {
+    transformfractal (data.ppos, data.pos);
+    drawfractal ();
+};
+dops = function () {
+    local s;
+
+    s = ['x' = 8 * 300; 'y' = 10.5 * 300;];
+    canvas = createwidget (-1, ['type' = 'ps'; 'size' = s;]);
+    setwidgetattr (canvas, ['window' = wrect;]);
+    drawfractal ();
+    destroywidget (canvas);
+    canvas=defcanvas;
+};
+transformfractal (['x' = 0; 'y' = 0;], ['x' = 0; 'y' = 0;]);
+drawfractal ();

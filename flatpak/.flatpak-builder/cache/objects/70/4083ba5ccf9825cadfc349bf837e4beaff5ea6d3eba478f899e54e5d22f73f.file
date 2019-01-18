@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2009 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="dosbatch" _name="DOS Batch" version="2.0" _section="Script">
+  <metadata>
+    <property name="globs">*.bat;*.cmd;*.sys</property>
+    <property name="line-comment-start">rem</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="commands" name="Command" map-to="def:keyword"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>^\s*(rem\b|:\s*:)</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>exist</keyword>
+      <keyword>exit</keyword>
+      <keyword>for</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>not</keyword>
+      <keyword>return</keyword>
+      <keyword>say</keyword>
+      <keyword>select</keyword>
+      <keyword>then</keyword>
+      <keyword>when</keyword>
+    </context>
+
+    <context id="commands" style-ref="keyword">
+      <keyword>ansi</keyword>
+      <keyword>append</keyword>
+      <keyword>assign</keyword>
+      <keyword>assoc</keyword>
+      <keyword>attrib</keyword>
+      <keyword>at</keyword>
+      <keyword>autofail</keyword>
+      <keyword>backup</keyword>
+      <keyword>basedev</keyword>
+      <keyword>boot</keyword>
+      <keyword>break</keyword>
+      <keyword>buffers</keyword>
+      <keyword>cache</keyword>
+      <keyword>call</keyword>
+      <keyword>cacls</keyword>
+      <keyword>cd</keyword>
+      <keyword>chcp</keyword>
+      <keyword>chdir</keyword>
+      <keyword>chkdsk</keyword>
+      <keyword>chkntfs</keyword>
+      <keyword>cls</keyword>
+      <keyword>cmd</keyword>
+      <keyword>codepage</keyword>
+      <keyword>color</keyword>
+      <keyword>command</keyword>
+      <keyword>compact</keyword>
+      <keyword>comp</keyword>
+      <keyword>convert</keyword>
+      <keyword>copy</keyword>
+      <keyword>date</keyword>
+      <keyword>del</keyword>
+      <keyword>dir</keyword>
+      <keyword>diskcomp</keyword>
+      <keyword>diskcopy</keyword>
+      <keyword>doskey</keyword>
+      <keyword>echo</keyword>
+      <keyword>endlocal</keyword>
+      <keyword>erase</keyword>
+      <keyword>fc</keyword>
+      <keyword>find</keyword>
+      <keyword>findstr</keyword>
+      <keyword>format</keyword>
+      <keyword>ftype</keyword>
+      <keyword>graftabl</keyword>
+      <keyword>help</keyword>
+      <keyword>keyb</keyword>
+      <keyword>label</keyword>
+      <keyword>md</keyword>
+      <keyword>mkdir</keyword>
+      <keyword>mode</keyword>
+      <keyword>more</keyword>
+      <keyword>move</keyword>
+      <keyword>path</keyword>
+      <keyword>pause</keyword>
+      <keyword>popd</keyword>
+      <keyword>print</keyword>
+      <keyword>prompt</keyword>
+      <keyword>pushd</keyword>
+      <keyword>rd</keyword>
+      <keyword>recover</keyword>
+      <keyword>rename</keyword>
+      <keyword>ren</keyword>
+      <keyword>replace</keyword>
+      <keyword>restore</keyword>
+      <keyword>rmdir</keyword>
+      <keyword>run</keyword>
+      <keyword>set</keyword>
+      <keyword>setboot</keyword>
+      <keyword>setlocal</keyword>
+      <keyword>shift</keyword>
+      <keyword>sort</keyword>
+      <keyword>start</keyword>
+      <keyword>subst</keyword>
+      <keyword>time</keyword>
+      <keyword>title</keyword>
+      <keyword>trapdump</keyword>
+      <keyword>tree</keyword>
+      <keyword>type</keyword>
+      <keyword>undelete</keyword>
+      <keyword>unpack</keyword>
+      <keyword>use</keyword>
+      <keyword>verify</keyword>
+      <keyword>ver</keyword>
+      <keyword>vol</keyword>
+      <keyword>xcopy</keyword>
+    </context>
+
+    <context id="dosbatch" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="string"/>
+        <context ref="keywords"/>
+        <context ref="commands"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

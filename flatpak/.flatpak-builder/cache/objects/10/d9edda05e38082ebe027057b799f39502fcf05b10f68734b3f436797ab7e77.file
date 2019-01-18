@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Dee Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="next" href="ch01.html" title="Peer Discovery">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book">
+<div class="titlepage">
+<div><div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">Dee Reference Manual</p></th></tr></table></div></div>
+<hr>
+</div>
+<div class="toc"><dl class="toc">
+<dt><span class="chapter"><a href="ch01.html">Peer Discovery</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="DeeClient.html">DeeClient</a></span><span class="refpurpose">Creates a client object you can use to connect
+                    to a <span class="type">DeeServer</span>.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeePeer.html">DeePeer</a></span><span class="refpurpose"> — Finds other objects with the same swarm-name on the bus.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeServer.html">DeeServer</a></span><span class="refpurpose"> — Creates a server object you can connect to.</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch02.html">Models</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-Filters.html">Filters</a></span><span class="refpurpose">A suite of simple <span class="type">DeeFilter</span>s for use with <span class="type">DeeFilterModel</span>s</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeFilterModel.html">DeeFilterModel</a></span><span class="refpurpose">A <span class="type">DeeModel</span> that contains a filtered subset of
+                    another <span class="type">DeeModel</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-DeeModel.html">DeeModel</a></span><span class="refpurpose"> — A generic table model interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeProxyModel.html">DeeProxyModel</a></span><span class="refpurpose">A model that wraps another underlying <span class="type">DeeModel</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeSequenceModel.html">DeeSequenceModel</a></span><span class="refpurpose">A <span class="type">DeeModel</span> implementation backed by a <span class="type">GSequence</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeSerializableModel.html">DeeSerializableModel</a></span><span class="refpurpose">Abstract base class for easing implementations of
+                    <span class="type">DeeModel</span>s providing a unique version number
+                    for each row</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeSharedModel.html">DeeSharedModel</a></span><span class="refpurpose">A <span class="type">DeeModel</span> that can synchronize with other
+   <span class="type">DeeSharedModel</span> objects across D-Bus.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeTransaction.html">DeeTransaction</a></span><span class="refpurpose">A self contained change set for a <span class="type">DeeModel</span></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch03.html">Indexes</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="DeeAnalyzer.html">DeeAnalyzer</a></span><span class="refpurpose"> — Primary gateway for data indexing</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeHashIndex.html">DeeHashIndex</a></span><span class="refpurpose">A <span class="type">DeeHashIndex</span> implementation doing lookups in a hash map</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeIndex.html">DeeIndex</a></span><span class="refpurpose">An inverted index interface for smart access to a <span class="type">DeeModel</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-Model-Readers.html">Model Readers</a></span><span class="refpurpose">Extracting strings from <span class="type">DeeModel</span>s</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-DeeResultSet.html">DeeResultSet</a></span><span class="refpurpose"> — Cursor-like interface for results sets</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeTermList.html">DeeTermList</a></span><span class="refpurpose">A simple collection type representing a list of indexed terms for a row in a <span class="type">DeeIndex</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeTextAnalyzer.html">DeeTextAnalyzer</a></span><span class="refpurpose"> — Analyze UTF8 text</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="DeeTreeIndex.html">DeeTreeIndex</a></span><span class="refpurpose">A <span class="type">DeeTreeIndex</span> backed by a balanced binary tree</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-Dee-ICU-Extensions.html">Dee ICU Extensions</a></span><span class="refpurpose">A suite of <span class="type">DeeTermFilter</span>s based on ICU</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch04.html">Resources and Serialization</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="DeeFileResourceManager.html">DeeFileResourceManager</a></span><span class="refpurpose"> — A resource manager backed by memory mapped files</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-DeeResourceManager.html">DeeResourceManager</a></span><span class="refpurpose">Store and load <span class="type">DeeSerializable</span>s by name</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="dee-1.0-DeeSerializable.html">DeeSerializable</a></span><span class="refpurpose">Interface for classes that can serialize to and from <span class="type">GVariant</span>s</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="object-tree.html">Object Hierarchy</a></span></dt>
+<dt><span class="index"><a href="api-index-full.html">API Index</a></span></dt>
+<dt><span class="glossary"><a href="annotation-glossary.html">Annotation Glossary</a></span></dt>
+</dl></div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

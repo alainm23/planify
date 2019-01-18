@@ -1,0 +1,71 @@
+<svg height='48' version='1' viewBox='0 0 48 48' width='48' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+    <title>
+        elementary Icon Template
+    </title>
+    <defs>
+        <linearGradient id='f'>
+            <stop offset='0' stop-color='#997543'/>
+            <stop offset='.239' stop-color='#715d43'/>
+            <stop offset='.276' stop-color='#7b6241'/>
+            <stop offset='1' stop-color='#604c31'/>
+        </linearGradient>
+        <linearGradient id='g'>
+            <stop offset='0'/>
+            <stop offset='1' stop-opacity='0'/>
+        </linearGradient>
+        <linearGradient id='a'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.084' stop-color='#fff' stop-opacity='.235'/>
+            <stop offset='.951' stop-color='#fff' stop-opacity='.157'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.392'/>
+        </linearGradient>
+        <linearGradient id='b'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.036' stop-color='#fff' stop-opacity='.235'/>
+            <stop offset='.951' stop-color='#fff' stop-opacity='.157'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.392'/>
+        </linearGradient>
+        <linearGradient id='c'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.302' stop-color='#fff'/>
+            <stop offset='.344' stop-color='#fff' stop-opacity='.643'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.391'/>
+        </linearGradient>
+        <linearGradient id='e'>
+            <stop offset='0' stop-color='#dac196'/>
+            <stop offset='.239' stop-color='#c7ae8e'/>
+            <stop offset='.276' stop-color='#dac197'/>
+            <stop offset='1' stop-color='#b19974'/>
+        </linearGradient>
+        <linearGradient id='h'>
+            <stop offset='0' stop-opacity='0'/>
+            <stop offset='.5'/>
+            <stop offset='1' stop-opacity='0'/>
+        </linearGradient>
+        <linearGradient id='d'>
+            <stop offset='0' stop-color='#fff' stop-opacity='0'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='0'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(1.05405 0 0 .21622 126.703 171.31)' gradientUnits='userSpaceOnUse' xlink:href='#a' id='p' x1='24' x2='24' y1='7.347' y2='43'/>
+        <linearGradient gradientTransform='matrix(1.05405 0 0 .7027 126.703 176.635)' gradientUnits='userSpaceOnUse' xlink:href='#b' id='o' x1='24' x2='24' y1='5.564' y2='43'/>
+        <linearGradient gradientTransform='translate(128 163)' gradientUnits='userSpaceOnUse' xlink:href='#c' id='n' x1='26' x2='26' y1='22' y2='8'/>
+        <linearGradient gradientTransform='matrix(1.28223 0 0 1.17469 121.93 157.697)' gradientUnits='userSpaceOnUse' xlink:href='#d' id='m' x1='23.452' x2='43.007' y1='30.555' y2='45.934'/>
+        <linearGradient gradientTransform='matrix(1.28223 0 0 1.55726 121.93 147.71)' gradientUnits='userSpaceOnUse' xlink:href='#e' id='l' x1='24.823' x2='24.997' y1='15.378' y2='37.277'/>
+        <linearGradient gradientTransform='translate(128 163)' gradientUnits='userSpaceOnUse' xlink:href='#f' id='q' x1='15.464' x2='15.464' y1='7.976' y2='45.042'/>
+        <radialGradient cx='5' cy='41.5' fx='5' fy='41.5' gradientTransform='matrix(.4012 0 0 1.2 169.994 -254.8)' gradientUnits='userSpaceOnUse' xlink:href='#g' id='k' r='5'/>
+        <linearGradient gradientTransform='matrix(1.74414 0 0 1.0909 111.07 160.818)' gradientUnits='userSpaceOnUse' xlink:href='#h' id='j' x1='17.554' x2='17.554' y1='46' y2='35'/>
+        <radialGradient cx='5' cy='41.5' fx='5' fy='41.5' gradientTransform='matrix(.4012 0 0 1.2 -134.006 -254.8)' gradientUnits='userSpaceOnUse' xlink:href='#g' id='i' r='5'/>
+    </defs>
+    <g transform='translate(-128 -163)'>
+        
+        <rect fill='url(#i)' height='12' opacity='.4' transform='scale(-1)' width='2' x='-132' y='-211'/>
+        <rect fill='url(#j)' height='12' opacity='.4' width='40' x='132' y='199'/>
+        <rect fill='url(#k)' height='12' opacity='.4' transform='scale(1 -1)' width='2' x='172' y='-211'/>
+        <path d='M137.01 171.5h29.498c1.722 0 2.497-.287 2.992 1l3.002 8v25.674c0 1.553.103 1.316-1.62 1.316h-37.765c-1.722 0-1.619.237-1.619-1.316V180.5l3.002-8c.48-1.26.789-1 2.51-1z' display='block' fill='url(#l)' overflow='visible' style='marker:none'/>
+        <path d='M137.948 172.513h27.653c1.614 0 2.613.556 3.29 2.086l2.329 6.42v23.144c0 1.46-.82 2.196-2.434 2.196h-33.733c-1.614 0-2.273-.808-2.273-2.27v-23.07l2.254-6.558c.451-1.185 1.3-1.948 2.914-1.948z' display='block' fill='none' opacity='.505' overflow='visible' stroke='url(#m)' stroke-width='.742' style='marker:none'/>
+        <path d='M150 171h4v14c-.394 0-.787-.771-1.181-.771-.403 0-.806.771-1.21.771-.324 0-.649-.675-.973-.675-.212 0-.424.675-.636.675v-14z' fill='url(#n)' opacity='.3' overflow='visible' style='marker:none'/>
+        <path d='M171.5 206.5h-39v-26h39z' fill='none' opacity='.3' stroke='url(#o)' stroke-linecap='round' stroke-linejoin='round'/>
+        <path d='M132.5 180.5l3.277-8h32.446l3.277 8' fill='none' opacity='.2' stroke='url(#p)' stroke-linecap='round' stroke-linejoin='round'/>
+        <path d='M137.01 171.5h29.498c1.722 0 2.497-.287 2.992 1l3.002 8v25.674c0 1.553.103 1.316-1.62 1.316h-37.765c-1.722 0-1.619.237-1.619-1.316V180.5l3.002-8c.48-1.26.789-1 2.51-1z' display='block' fill='none' opacity='.5' overflow='visible' stroke='url(#q)' stroke-linecap='round' stroke-width='.994' style='marker:none'/>
+    </g>
+</svg>

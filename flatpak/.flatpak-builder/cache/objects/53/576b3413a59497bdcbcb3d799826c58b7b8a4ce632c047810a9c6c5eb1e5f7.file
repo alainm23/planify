@@ -1,0 +1,664 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DbusmenuClient: libdbusmenu-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libdbusmenu-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API">
+<link rel="prev" href="libdbusmenu-glib-DbusmenuMenuitem.html" title="DbusmenuMenuitem">
+<link rel="next" href="libdbusmenu-glib-Types.html" title="Types">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libdbusmenu-glib-DbusmenuClient.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libdbusmenu-glib-DbusmenuMenuitem.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libdbusmenu-glib-Types.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libdbusmenu-glib-DbusmenuClient"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libdbusmenu-glib-DbusmenuClient.top_of_page"></a>DbusmenuClient</span></h2>
+<p>DbusmenuClient — The catcher of all the server traffic</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.stability-level"></a><h2>Stability Level</h2>
+<acronym title="Unstable interfaces are experimental or transitional. They are typically used to
+give outside developers early access to new or rapidly changing technology, or
+to provide an interim solution to a problem where a more general solution is
+anticipated. No claims are made about either source or binary compatibility from
+one minor release to the next.
+
+The Unstable interface level is a warning that these interfaces are  subject to
+change without warning and should not be used in unbundled products.
+
+Given such caveats, customer impact need not be a factor when considering
+incompatible changes to an Unstable interface in a major or minor release.
+Nonetheless, when such changes are introduced, the changes should still be
+mentioned in the release notes for the affected release.
+"><span class="acronym">Unstable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClientTypeHandler" title="DbusmenuClientTypeHandler ()">*DbusmenuClientTypeHandler</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="returnvalue">DbusmenuClient</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-new" title="dbusmenu_client_new ()">dbusmenu_client_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-String-Utility-Functions.html#GStrv"><span class="returnvalue">GStrv</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-icon-paths" title="dbusmenu_client_get_icon_paths ()">dbusmenu_client_get_icon_paths</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="returnvalue">DbusmenuMenuitem</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-root" title="dbusmenu_client_get_root ()">dbusmenu_client_get_root</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-status" title="dbusmenu_client_get_status ()">dbusmenu_client_get_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-get-text-direction" title="dbusmenu_client_get_text_direction ()">dbusmenu_client_get_text_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-add-type-handler" title="dbusmenu_client_add_type_handler ()">dbusmenu_client_add_type_handler</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-add-type-handler-full" title="dbusmenu_client_add_type_handler_full ()">dbusmenu_client_add_type_handler_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-LAYOUT-UPDATED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED">DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ROOT-CHANGED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED">DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-NEW-MENUITEM:CAPS" title="DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM">DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-EVENT-RESULT:CAPS" title="DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT">DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ITEM-ACTIVATE:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE">DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-SIGNAL-ICON-THEME-DIRS-CHANGED:CAPS" title="DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED">DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-DBUS-NAME:CAPS" title="DBUSMENU_CLIENT_PROP_DBUS_NAME">DBUSMENU_CLIENT_PROP_DBUS_NAME</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-DBUS-OBJECT:CAPS" title="DBUSMENU_CLIENT_PROP_DBUS_OBJECT">DBUSMENU_CLIENT_PROP_DBUS_OBJECT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-GROUP-EVENTS:CAPS" title="DBUSMENU_CLIENT_PROP_GROUP_EVENTS">DBUSMENU_CLIENT_PROP_GROUP_EVENTS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-STATUS:CAPS" title="DBUSMENU_CLIENT_PROP_STATUS">DBUSMENU_CLIENT_PROP_STATUS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-PROP-TEXT-DIRECTION:CAPS" title="DBUSMENU_CLIENT_PROP_TEXT_DIRECTION">DBUSMENU_CLIENT_PROP_TEXT_DIRECTION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-DEFAULT:CAPS" title="DBUSMENU_CLIENT_TYPES_DEFAULT">DBUSMENU_CLIENT_TYPES_DEFAULT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-SEPARATOR:CAPS" title="DBUSMENU_CLIENT_TYPES_SEPARATOR">DBUSMENU_CLIENT_TYPES_SEPARATOR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DBUSMENU-CLIENT-TYPES-IMAGE:CAPS" title="DBUSMENU_CLIENT_TYPES_IMAGE">DBUSMENU_CLIENT_TYPES_IMAGE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient">DbusmenuClient</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libdbusmenu-glib/client.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.description"></a><h2>Description</h2>
+<p>The client exists as a mirror to the server.  For most folks
+	all they will do with a client is set it up to connect to
+	a server and then watch as the menu items on their side
+	of the bus change.  This is all they should need to know about
+	the client, that it magically makes their menuitems dance.</p>
+<p>	It does this by setting up signal watchers and adjusting
+	the menuitems appropriately.  Most users should watch the
+	menu items and the signal <span class="type">“layout-changed”</span> for
+	larger events so that they can be optimized.  It is possible
+	with that signal that even the root node would change.  If
+	that doesn't happen the normal signals on the individual
+	nodes should be enough for most users.</p>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="DbusmenuClientTypeHandler"></a><h3>DbusmenuClientTypeHandler ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<span class="c_punctuation">(</span>*DbusmenuClientTypeHandler<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> *newitem</code></em>,
+                              <em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> *parent</code></em>,
+                              <em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>The type handler is called when a dbusmenu item is created
+	with a matching type as setup in <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#dbusmenu-client-add-type-handler" title="dbusmenu_client_add_type_handler ()"><span class="type">dbusmenu_client_add_type_handler</span></a></p>
+<div class="refsect3">
+<a name="id-1.2.5.8.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>newitem</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> that was created</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parent</p></td>
+<td class="parameter_description"><p>The parent of <em class="parameter"><code>newitem</code></em>
+or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> if none</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>A pointer to the <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>The data you gave us</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.2.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a> if the type has been handled.  <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><span class="type">FALSE</span></a> if this
+function was somehow unable to handle it.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-new"></a><h3>dbusmenu_client_new ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="returnvalue">DbusmenuClient</span></a> *
+dbusmenu_client_new (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
+<p>This function creates a new client that connects to a specific
+server on DBus.  That server is at a specific location sharing
+a known object.  The interface is assumed by the code to be 
+the DBus menu interface.  The newly created client will start
+sending out events as it syncs up with the server.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>The DBus name for the server to connect to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>The object on the server to monitor</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.3.6"></a><h4>Returns</h4>
+<p> A brand new <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-get-icon-paths"></a><h3>dbusmenu_client_get_icon_paths ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-String-Utility-Functions.html#GStrv"><span class="returnvalue">GStrv</span></a>
+dbusmenu_client_get_icon_paths (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>);</pre>
+<p>Gets the stored and exported icon paths from the client.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> to get the icon paths from</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.4.6"></a><h4>Returns</h4>
+<p> A NULL-terminated list of icon paths with
+memory managed by the client.  Duplicate if you want
+to keep them. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-get-root"></a><h3>dbusmenu_client_get_root ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="returnvalue">DbusmenuMenuitem</span></a> *
+dbusmenu_client_get_root (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>);</pre>
+<p>Grabs the root node for the specified client <em class="parameter"><code>client</code></em>
+.  This
+function may block.  It will block if there is currently a
+call to update the layout, it will block on that layout 
+updated and then return the newly updated layout.  Chances
+are that this update is in the queue for the mainloop as
+it would have been requested some time ago, but in theory
+it could block longer.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> to get the root node from</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.5.6"></a><h4>Returns</h4>
+<p> A <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> representing the root of
+menu on the server.  If there is no server or there is
+an error receiving its layout it'll return <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-get-status"></a><h3>dbusmenu_client_get_status ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuStatus" title="enum DbusmenuStatus"><span class="returnvalue">DbusmenuStatus</span></a>
+dbusmenu_client_get_status (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>);</pre>
+<p>Gets the recommended current status that the server
+	is exporting for the menus.  In situtations where the
+	value is <a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-STATUS-NOTICE:CAPS"><span class="type">DBUSMENU_STATUS_NOTICE</span></a> it is recommended that
+	the client show the menus to the user an a more noticible
+	way.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> to check the status on</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.6.6"></a><h4>Returns</h4>
+<p> Status being exported.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-get-text-direction"></a><h3>dbusmenu_client_get_text_direction ()</h3>
+<pre class="programlisting"><a class="link" href="libdbusmenu-glib-Types.html#DbusmenuTextDirection" title="enum DbusmenuTextDirection"><span class="returnvalue">DbusmenuTextDirection</span></a>
+dbusmenu_client_get_text_direction (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>);</pre>
+<p>Gets the text direction that the server is exporting.  If
+	the server is not exporting a direction then the value
+	<a class="link" href="libdbusmenu-glib-Types.html#DBUSMENU-TEXT-DIRECTION-NONE:CAPS"><span class="type">DBUSMENU_TEXT_DIRECTION_NONE</span></a> will be returned.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> to check the text direction on</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.7.6"></a><h4>Returns</h4>
+<p> Text direction being exported.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-add-type-handler"></a><h3>dbusmenu_client_add_type_handler ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+dbusmenu_client_add_type_handler (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>,
+                                  <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                  <em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClientTypeHandler" title="DbusmenuClientTypeHandler ()"><span class="type">DbusmenuClientTypeHandler</span></a> newfunc</code></em>);</pre>
+<p>This function connects into the type handling of the <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a>.
+Every new menuitem that comes in immediately gets asked for its
+properties.  When we get those properties we check the 'type'
+property and look to see if it matches a handler that is known
+by the client.  If so, the <em class="parameter"><code>newfunc</code></em>
+ function is executed on that
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a>.  If not, then the DbusmenuClient::new-menuitem
+signal is sent.</p>
+<p>In the future the known types will be sent to the server so that it
+can make choices about the menu item types availble.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.8.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>Client where we're getting types coming in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>A text string that will be matched with the 'type'
+property on incoming menu items</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>newfunc</p></td>
+<td class="parameter_description"><p> The function that will be executed with those new
+items when they come in. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until the GDestroyNotify argument is called."><span class="acronym">scope notified</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.8.7"></a><h4>Returns</h4>
+<p> If registering the new type was successful.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dbusmenu-client-add-type-handler-full"></a><h3>dbusmenu_client_add_type_handler_full ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+dbusmenu_client_add_type_handler_full (<em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a> *client</code></em>,
+                                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                       <em class="parameter"><code><a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClientTypeHandler" title="DbusmenuClientTypeHandler ()"><span class="type">DbusmenuClientTypeHandler</span></a> newfunc</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> destroy_func</code></em>);</pre>
+<p>This function connects into the type handling of the <a class="link" href="libdbusmenu-glib-DbusmenuClient.html#DbusmenuClient" title="struct DbusmenuClient"><span class="type">DbusmenuClient</span></a>.
+Every new menuitem that comes in immediately gets asked for its
+properties.  When we get those properties we check the 'type'
+property and look to see if it matches a handler that is known
+by the client.  If so, the <em class="parameter"><code>newfunc</code></em>
+ function is executed on that
+<a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a>.  If not, then the DbusmenuClient::new-menuitem
+signal is sent.</p>
+<p>In the future the known types will be sent to the server so that it
+can make choices about the menu item types availble.</p>
+<div class="refsect3">
+<a name="id-1.2.5.8.9.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>Client where we're getting types coming in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>A text string that will be matched with the 'type'
+property on incoming menu items</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>newfunc</p></td>
+<td class="parameter_description"><p> The function that will be executed with those new
+items when they come in. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until the GDestroyNotify argument is called."><span class="acronym">scope notified</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>Data passed to <em class="parameter"><code>newfunc</code></em>
+when it is called</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>destroy_func</p></td>
+<td class="parameter_description"><p>A function that is called when the type handler is
+removed (usually on client destruction) which will free
+the resources in <em class="parameter"><code>user_data</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.8.9.7"></a><h4>Returns</h4>
+<p> If registering the new type was successful.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="libdbusmenu-glib-DbusmenuClient.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-LAYOUT-UPDATED:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_LAYOUT_UPDATED  "layout-updated"
+</pre>
+<p>String to attach to signal <span class="type">“layout-updated”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-ROOT-CHANGED:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_ROOT_CHANGED    "root-changed"
+</pre>
+<p>String to attach to signal <span class="type">“root-changed”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-NEW-MENUITEM:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_NEW_MENUITEM    "new-menuitem"
+</pre>
+<p>String to attach to signal <span class="type">“new-menuitem”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-EVENT-RESULT:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_EVENT_RESULT    "event-result"
+</pre>
+<p>String to attach to signal <span class="type">“event-result”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-ITEM-ACTIVATE:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_ITEM_ACTIVATE   "item-activate"
+</pre>
+<p>String to attach to signal <span class="type">“item-activate”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-SIGNAL-ICON-THEME-DIRS-CHANGED:CAPS"></a><h3>DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_SIGNAL_ICON_THEME_DIRS_CHANGED    "icon-theme-dirs-changed"
+</pre>
+<p>String to attach to signal <span class="type">“icon-theme-dirs-changed”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-PROP-DBUS-NAME:CAPS"></a><h3>DBUSMENU_CLIENT_PROP_DBUS_NAME</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_PROP_DBUS_NAME     "dbus-name"
+</pre>
+<p>String to access property <span class="type">“dbus-name”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-PROP-DBUS-OBJECT:CAPS"></a><h3>DBUSMENU_CLIENT_PROP_DBUS_OBJECT</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_PROP_DBUS_OBJECT   "dbus-object"
+</pre>
+<p>String to access property <span class="type">“dbus-object”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-PROP-GROUP-EVENTS:CAPS"></a><h3>DBUSMENU_CLIENT_PROP_GROUP_EVENTS</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_PROP_GROUP_EVENTS "group-events"
+</pre>
+<p>String to access property <span class="type">“group-events”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-PROP-STATUS:CAPS"></a><h3>DBUSMENU_CLIENT_PROP_STATUS</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_PROP_STATUS        "status"
+</pre>
+<p>String to access property <span class="type">“status”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-PROP-TEXT-DIRECTION:CAPS"></a><h3>DBUSMENU_CLIENT_PROP_TEXT_DIRECTION</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_PROP_TEXT_DIRECTION "text-direction"
+</pre>
+<p>String to access property <span class="type">“text-direction”</span></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-TYPES-DEFAULT:CAPS"></a><h3>DBUSMENU_CLIENT_TYPES_DEFAULT</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_TYPES_DEFAULT      "standard"
+</pre>
+<p>Used to set the 'type' property on a menu item to create
+a standard menu item.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-TYPES-SEPARATOR:CAPS"></a><h3>DBUSMENU_CLIENT_TYPES_SEPARATOR</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_TYPES_SEPARATOR    "separator"
+</pre>
+<p>Used to set the 'type' property on a menu item to create
+a separator menu item.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DBUSMENU-CLIENT-TYPES-IMAGE:CAPS"></a><h3>DBUSMENU_CLIENT_TYPES_IMAGE</h3>
+<pre class="programlisting">#define DBUSMENU_CLIENT_TYPES_IMAGE        "standard"
+</pre>
+<p>Used to set the 'type' property on a menu item to create
+an image menu item.  Deprecated as standard menu items now
+support images as well.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DbusmenuClient"></a><h3>struct DbusmenuClient</h3>
+<pre class="programlisting">struct DbusmenuClient {
+};
+</pre>
+<p>The client for a <a class="link" href="libdbusmenu-glib-DbusmenuServer.html#DbusmenuServer" title="struct DbusmenuServer"><span class="type">DbusmenuServer</span></a> creating a shared
+	object set of <a class="link" href="libdbusmenu-glib-DbusmenuMenuitem.html#DbusmenuMenuitem" title="struct DbusmenuMenuitem"><span class="type">DbusmenuMenuitem</span></a> objects.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.24</div>
+</body>
+</html>

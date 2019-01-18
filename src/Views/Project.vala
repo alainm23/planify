@@ -193,24 +193,20 @@ public class Views.Project : Gtk.EventBox {
         labels_popover = new Widgets.Popovers.LabelsPopover (labels_button);
         labels_popover.position = Gtk.PositionType.BOTTOM;
 
-        var search_button = new Gtk.Button.from_icon_name ("system-search-symbolic", Gtk.IconSize.MENU);
+        var search_button = new Gtk.ToggleButton ();
         search_button.get_style_context ().add_class ("planner-search-menu");
         search_button.tooltip_text = _("Search");
         search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
+        search_button.add (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU));
+
+        var search_popover = new Widgets.Popovers.SearchPopover (search_button);
 
         var share_button = new Gtk.Button.from_icon_name ("planner-share-symbolic", Gtk.IconSize.MENU);
         share_button.get_style_context ().add_class ("planner-share-menu");
         share_button.tooltip_text = _("Share");
         share_button.valign = Gtk.Align.CENTER;
         share_button.halign = Gtk.Align.CENTER;
-
-        share_button.clicked.connect (() => {
-            var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
-            share_dialog.project = project.id;
-            share_dialog.destroy.connect (Gtk.main_quit);
-            share_dialog.show_all ();
-        });
 
         show_hide_all_button = new Gtk.ToggleButton ();
         show_hide_all_button.valign = Gtk.Align.CENTER;
@@ -226,7 +222,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.column_spacing = 12;
 
         action_grid.add (labels_button);
-        //action_grid.add (search_button);
+        action_grid.add (search_button);
         action_grid.add (paste_button);
         action_grid.add (share_button);
         action_grid.add (show_hide_all_button);
@@ -407,6 +403,30 @@ public class Views.Project : Gtk.EventBox {
 
         show_all ();
 
+        search_button.toggled.connect (() => {
+            if (search_button.active) {
+                search_popover.show_all ();
+            }
+        });
+  
+        search_popover.closed.connect (() => {
+            search_button.active = false;
+        });
+
+        search_popover.search_changed.connect ((text) => {
+            tasks_list.set_filter_func ((row) => {
+                var item = row as Widgets.TaskRow;
+                return text.down () in item.task.content.down ();
+            });
+        });
+
+        share_button.clicked.connect (() => {
+            var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
+            share_dialog.project = project.id;
+            share_dialog.destroy.connect (Gtk.main_quit);
+            share_dialog.show_all ();
+        });
+
         tasks_list.set_filter_func ((row) => {
             var item = row as Widgets.TaskRow;
             return item.task.checked == 0;
@@ -439,6 +459,8 @@ public class Views.Project : Gtk.EventBox {
                     var item = row as Widgets.TaskRow;
                     return true;
                 });
+
+                check_all_visible_alertview ();
             } else {
                 show_completed_button.tooltip_text = _("Show completed tasks");
                 show_completed_icon.icon_name = "emblem-default-symbolic";
@@ -447,6 +469,8 @@ public class Views.Project : Gtk.EventBox {
                     var item = row as Widgets.TaskRow;
                     return item.task.checked == 0;
                 });
+
+                check_visible_alertview ();
             }
         });
         /*
@@ -545,7 +569,8 @@ public class Views.Project : Gtk.EventBox {
                         _("Tap to undo"),
                         "edit-paste",
                         3,
-                        true);
+                        true
+                    );
                 }
             }
 
@@ -724,18 +749,6 @@ public class Views.Project : Gtk.EventBox {
         });
     }
 
-    public void apply_remove () {
-        foreach (Gtk.Widget element in tasks_list.get_children ()) {
-            var row = element as Widgets.TaskRow;
-
-            if (row.task.project_id != project.id) {
-                tasks_list.remove (element);
-            }
-        }
-
-        //tasks_list.invalidate_sort ();
-    }
-
     public void update_tasks_list () {
         var all_tasks = new Gee.ArrayList<Objects.Task?> ();
         all_tasks = Application.database.get_all_tasks_by_project (project.id);
@@ -782,21 +795,23 @@ public class Views.Project : Gtk.EventBox {
 
             }
         }
-
-        /*
-        Thread<void*> thread = new Thread<void*>.try ("Conntections Thread.", () => {
-            return null;
-        });
-        */
     }
 
     public void check_visible_alertview () {
         if (Application.utils.is_listbox_empty (tasks_list)) {
             main_stack.visible_child_name = "alert";
-            //box.valign = Gtk.Align.FILL;
         } else {
             main_stack.visible_child_name = "main";
-            //box.valign = Gtk.Align.START;
+        }
+
+        show_all ();
+    }
+
+    public void check_all_visible_alertview () {
+        if (Application.utils.is_listbox_all_empty (tasks_list)) {
+            main_stack.visible_child_name = "alert";
+        } else {
+            main_stack.visible_child_name = "main";
         }
 
         show_all ();
@@ -828,9 +843,8 @@ public class Views.Project : Gtk.EventBox {
             });
 
             tasks_list.show_all ();
+            check_all_visible_alertview ();
         }
-
-        check_visible_alertview ();
     }
 
     private void task_on_revealer () {

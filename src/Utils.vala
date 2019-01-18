@@ -35,6 +35,74 @@ public class Utils : GLib.Object {
         }
     }
 
+    public void update_images_credits () {
+        new Thread<void*> ("scan_local_files", () => {
+            try {
+                var parser = new Json.Parser ();
+                parser.load_from_file ("/usr/share/com.github.alainm23.planner/credits.json");
+    
+                var root = parser.get_root ().get_object ();
+    
+                var developers = root.get_array_member ("developers");
+                var designers = root.get_array_member ("designers");
+                var translators = root.get_array_member ("translators");
+                var supports = root.get_array_member ("supports");
+    
+                foreach (var _item in developers.get_elements ()) {
+                    var item = _item.get_object ();
+                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
+                }
+            
+                foreach (var _item in designers.get_elements ()) {
+                    var item = _item.get_object ();
+                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
+                }
+    
+                foreach (var _item in translators.get_elements ()) {
+                    var item = _item.get_object ();
+                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
+                }
+
+                foreach (var _item in supports.get_elements ()) {
+                    var item = _item.get_object ();
+                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
+                }
+            } catch (Error e) {
+                print ("Error: %s\n", e.message);
+            }
+        
+            return null;
+        });
+    }
+
+    public void download_profile_image (string id, string avatar) {
+        // Create file  
+        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%s.jpg").printf (id));
+        
+        var file_path = File.new_for_path (image_path);
+        var file_from_uri = File.new_for_uri (avatar);
+        if (!file_path.query_exists ()) {
+            MainLoop loop = new MainLoop ();
+        
+            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                // Report copy-status:
+                print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
+            }, (obj, res) => {
+                try {
+                    if (file_from_uri.copy_async.end (res)) {
+                        print ("Avatar Profile Downloaded\n");
+                    }
+                } catch (Error e) {
+                    print ("Error: %s\n", e.message);
+                }
+            
+                loop.quit ();
+            });
+            
+            loop.run ();
+        }
+    }
+
     public string convert_invert (string hex) {
         var gdk_white = Gdk.RGBA ();
         gdk_white.parse ("#fff");

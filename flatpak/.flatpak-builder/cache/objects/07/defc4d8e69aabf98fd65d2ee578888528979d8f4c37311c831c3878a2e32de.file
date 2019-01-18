@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="gap" name="GAP" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="mimetypes">text/x-gap</property>
+    <property name="globs">*.g;*.gd;*.gi;*.gap</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="character" name="Character" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+  </styles>
+
+  <definitions>
+    <context id="character" style-ref="character">
+      <match>\'(\\[trnb\\\'\"]|[^\\])\'</match>
+    </context>
+    <context id="keyword" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>do</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>fail</keyword>
+      <keyword>false</keyword>
+      <keyword>fi</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>infinity</keyword>
+      <keyword>local</keyword>
+      <keyword>not</keyword>
+      <keyword>od</keyword>
+      <keyword>or</keyword>
+      <keyword>rec</keyword>
+      <keyword>repeat</keyword>
+      <keyword>return</keyword>
+      <keyword>then</keyword>
+      <keyword>true</keyword>
+      <keyword>until</keyword>
+      <keyword>while</keyword>
+    </context>
+    <context id="decimal" style-ref="decimal">
+      <match>\b[0-9]+\b</match>
+    </context>
+
+    <context id="gap">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:string"/>
+        <context ref="character"/>
+        <context ref="keyword"/>
+        <context ref="decimal"/>
+      </include>
+    </context>
+  </definitions>
+</language>

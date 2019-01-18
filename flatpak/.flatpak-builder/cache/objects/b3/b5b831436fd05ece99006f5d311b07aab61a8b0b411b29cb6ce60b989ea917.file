@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Milo Casagrande <milo@ubuntu.com>
+ Copyright (C) 2009 Milo Casagrande <milo@ubuntu.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+<language id="mallard" name="Mallard" version="2.0" _section="Markup">
+
+  <metadata>
+    <property name="globs">*.page</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="page"    name="Page Elements"    map-to="def:identifier"/>
+    <style id="section" name="Section Elements" map-to="def:identifier"/>
+    <style id="block"   name="Block Elements"   map-to="def:identifier"/>
+    <style id="inline"  name="Inline Elements"  map-to="def:identifier"/>
+  </styles>
+
+<definitions>
+
+  <context id="page-element" once-only="true" style-ref="page" class="no-spell-check">
+    <keyword>page</keyword>
+  </context>
+
+  <context id="section-element" style-ref="section" class="no-spell-check">
+    <keyword>section</keyword>
+  </context>
+
+  <context id="block-elements" style-ref="block" class="no-spell-check">
+    <keyword>code</keyword>
+    <keyword>p</keyword>
+    <keyword>example</keyword>
+    <keyword>screen</keyword>
+    <keyword>media</keyword>
+    <keyword>comment</keyword>
+    <keyword>figure</keyword>
+    <keyword>listing</keyword>
+    <keyword>note</keyword>
+    <keyword>quote</keyword>
+    <keyword>synopsis</keyword>
+    <keyword>list</keyword>
+    <keyword>steps</keyword>
+    <keyword>terms</keyword>
+    <keyword>tree</keyword>
+    <keyword>table</keyword>
+    <keyword>col</keyword>
+    <keyword>colgroup</keyword>
+    <keyword>tr</keyword>
+    <keyword>td</keyword>
+    <keyword>item</keyword>
+  </context>
+
+  <context id="inline-elements" style-ref="inline" class="no-spell-check">
+    <keyword>app</keyword>
+    <keyword>cmd</keyword>
+    <keyword>code</keyword>
+    <keyword>em</keyword>
+    <keyword>file</keyword>
+    <keyword>gui</keyword>
+    <keyword>guiseq</keyword>
+    <keyword>input</keyword>
+    <keyword>key</keyword>
+    <keyword>keyseq</keyword>
+    <keyword>link</keyword>
+    <keyword>media</keyword>
+    <keyword>output</keyword>
+    <keyword>span</keyword>
+    <keyword>sys</keyword>
+    <keyword>var</keyword>
+    <keyword>info</keyword>
+    <keyword>credit</keyword>
+    <keyword>name</keyword>
+    <keyword>email</keyword>
+    <keyword>copyright</keyword>
+    <keyword>year</keyword>
+    <keyword>license</keyword>
+    <keyword>desc</keyword>
+    <keyword>link</keyword>
+    <keyword>revision</keyword>
+    <keyword>title</keyword>
+    <keyword>subtitle</keyword>
+    <keyword>desc</keyword>
+    <keyword>cite</keyword>
+  </context>
+
+  <context id="mallard-tags">
+    <include>
+      <context ref="page-element"/>
+      <context ref="section-element"/>
+      <context ref="block-elements"/>
+      <context ref="inline-elements"/>
+      <context ref="xml:element-name" original="true"/>
+    </include>
+  </context>
+
+  <replace id="xml:element-name" ref="mallard-tags"/>
+
+  <context id="mallard">
+    <include>
+      <context ref="xml:xml"/>
+    </include>
+  </context>
+</definitions>
+
+</language>

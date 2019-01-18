@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2003 Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2003 Michael Terry <mike@mterry.name>
+ Copyright (C) 2004 Benoît Dejean <tazforever@dlfp.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="ada" name="Ada" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-ada;text/x-adasrc</property>
+    <property name="globs">*.adb;*.ads</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="storage-class" name="Storage Class" map-to="def:type"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="base-n-number" name="Arbitrary base number" map-to="def:base-n-integer"/>
+    <style id="real" name="Real number" map-to="def:floating-point"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <!-- no escapes possible except for "" = literal " -->
+      <include>
+         <context id="string-esc" style-ref="escaped-character" extend-parent="true">
+            <match>""</match>
+         </context>
+       </include>
+    </context>
+
+    <context id="character-constant" style-ref="string">
+      <match>'.'</match>
+    </context>
+
+    <context id="preprocessor-keyword" style-ref="preprocessor">
+      <keyword>package</keyword>
+      <keyword>pragma</keyword>
+      <keyword>use</keyword>
+      <keyword>with</keyword>
+    </context>
+
+    <context id="function" style-ref="keyword">
+      <keyword>function</keyword>
+      <keyword>procedure</keyword>
+      <keyword>return</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>abort</keyword>
+      <keyword>abs</keyword>
+      <keyword>accept</keyword>
+      <keyword>all</keyword>
+      <keyword>and</keyword>
+      <keyword>begin</keyword>
+      <keyword>body</keyword>
+      <keyword>case</keyword>
+      <keyword>declare</keyword>
+      <keyword>delay</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>elsif</keyword>
+      <keyword>end</keyword>
+      <keyword>entry</keyword>
+      <keyword>exception</keyword>
+      <keyword>exit</keyword>
+      <keyword>for</keyword>
+      <keyword>generic</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>is</keyword>
+      <keyword>loop</keyword>
+      <keyword>mod</keyword>
+      <keyword>new</keyword>
+      <keyword>not</keyword>
+      <keyword>null</keyword>
+      <keyword>or</keyword>
+      <keyword>others</keyword>
+      <keyword>out</keyword>
+      <keyword>protected</keyword>
+      <keyword>raise</keyword>
+      <keyword>record</keyword>
+      <keyword>rem</keyword>
+      <keyword>renames</keyword>
+      <keyword>requeue</keyword>
+      <keyword>reverse</keyword>
+      <keyword>select</keyword>
+      <keyword>separate</keyword>
+      <keyword>subtype</keyword>
+      <keyword>task</keyword>
+      <keyword>terminate</keyword>
+      <keyword>then</keyword>
+      <keyword>type</keyword>
+      <keyword>until</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>xor</keyword>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>abstract</keyword>
+      <keyword>access</keyword>
+      <keyword>aliased</keyword>
+      <keyword>array</keyword>
+      <keyword>at</keyword>
+      <keyword>constant</keyword>
+      <keyword>delta</keyword>
+      <keyword>digits</keyword>
+      <keyword>interface</keyword>
+      <keyword>limited</keyword>
+      <keyword>of</keyword>
+      <keyword>private</keyword>
+      <keyword>range</keyword>
+      <keyword>tagged</keyword>
+      <keyword>synchronized</keyword>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>boolean</keyword>
+      <keyword>character</keyword>
+      <keyword>count</keyword>
+      <keyword>duration</keyword>
+      <keyword>float</keyword>
+      <keyword>integer</keyword>
+      <keyword>long_float</keyword>
+      <keyword>long_integer</keyword>
+      <keyword>priority</keyword>
+      <keyword>short_float</keyword>
+      <keyword>short_integer</keyword>
+      <keyword>string</keyword>
+    </context>
+
+    <define-regex id="hexnum">[0-9a-f][0-9a-f_]*</define-regex>
+    <define-regex id="exponent">[Ee][+-]?[0-9][0-9_]*</define-regex>
+
+    <context id="based-numeral" style-ref="base-n-number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\#\%{hexnum}(\.\%{hexnum})?\#\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="real" style-ref="real">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\.[0-9][0-9_]*\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="number" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*(E[+]?[0-9][0-9_]*)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="ada" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="string"/>
+        <context ref="character-constant"/>
+        <context ref="preprocessor-keyword"/>
+        <context ref="function"/>
+        <context ref="keyword"/>
+        <context ref="storage-class"/>
+        <context ref="type"/>
+        <context ref="based-numeral"/>
+        <context ref="real"/>
+        <context ref="number"/>
+        <context ref="boolean"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Ben James
+ Copyright (C) 2010 Ben James
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="systemverilog" name="SystemVerilog" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.sv;*.svh</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="compiler-directive" name="Compiler Directive" map-to="def:preprocessor"/>
+    <style id="system-task" name="System Task" map-to="def:keyword"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Type" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <context id="compiler-directive" style-ref="compiler-directive">
+      <prefix>`</prefix>
+      <keyword>begin_keywords</keyword>
+      <keyword>default_decay_time</keyword>
+      <keyword>default_trireg_strength</keyword>
+      <keyword>delay_mode_distributed</keyword>
+      <keyword>delay_mode_path</keyword>
+      <keyword>delay_mode_unit</keyword>
+      <keyword>delay_mode_zero</keyword>
+      <keyword>end_keywords</keyword>
+      <keyword>pragma</keyword>
+    </context>
+
+    <context id="system-task" style-ref="system-task">
+      <prefix>\$</prefix>
+      <keyword>assertkill</keyword>
+      <keyword>assertoff</keyword>
+      <keyword>asserton</keyword>
+      <keyword>bits</keyword>
+      <keyword>bitstoshortreal</keyword>
+      <keyword>cast</keyword>
+      <keyword>comment</keyword>
+      <keyword>countones</keyword>
+      <keyword>dimensions</keyword>
+      <keyword>error</keyword>
+      <keyword>exit</keyword>
+      <keyword>fatal</keyword>
+      <keyword>fell</keyword>
+      <keyword>fullskew</keyword>
+      <keyword>get_coverage</keyword>
+      <keyword>high</keyword>
+      <keyword>history</keyword>
+      <keyword>increment</keyword>
+      <keyword>info</keyword>
+      <keyword>isunbounded</keyword>
+      <keyword>isunknown</keyword>
+      <keyword>left</keyword>
+      <keyword>load_coverage_db</keyword>
+      <keyword>low</keyword>
+      <keyword>onehot</keyword>
+      <keyword>onehot0</keyword>
+      <keyword>past</keyword>
+      <keyword>recrem</keyword>
+      <keyword>removal</keyword>
+      <keyword>right</keyword>
+      <keyword>root</keyword>
+      <keyword>rose</keyword>
+      <keyword>sampled</keyword>
+      <keyword>set_coverage_db_name</keyword>
+      <keyword>shortrealtobits</keyword>
+      <keyword>showvariables</keyword>
+      <keyword>size</keyword>
+      <keyword>stable</keyword>
+      <keyword>timescale</keyword>
+      <keyword>timeskew</keyword>
+      <keyword>typename</keyword>
+      <keyword>typeof</keyword>
+      <keyword>urandom</keyword>
+      <keyword>unit</keyword>
+      <keyword>unpacked_dimensions</keyword>
+      <keyword>upscope</keyword>
+      <keyword>urandom</keyword>
+      <keyword>urandom_range</keyword>
+      <keyword>var</keyword>
+      <keyword>vcdclose</keyword>
+      <keyword>version</keyword>
+      <keyword>warning</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>accept_on</keyword>
+      <keyword>alias</keyword>
+      <keyword>always_comb</keyword>
+      <keyword>always_ff</keyword>
+      <keyword>always_latch</keyword>
+      <keyword>assert</keyword>
+      <keyword>assume</keyword>
+      <keyword>automatic</keyword>
+      <keyword>before</keyword>
+      <keyword>bind</keyword>
+      <keyword>bins</keyword>
+      <keyword>binsof</keyword>
+      <keyword>break</keyword>
+      <keyword>cell</keyword>
+      <keyword>checker</keyword>
+      <keyword>class</keyword>
+      <keyword>clocking</keyword>
+      <keyword>config</keyword>
+      <keyword>const</keyword>
+      <keyword>constraint</keyword>
+      <keyword>context</keyword>
+      <keyword>continue</keyword>
+      <keyword>cover</keyword>
+      <keyword>covergroup</keyword>
+      <keyword>coverpoint</keyword>
+      <keyword>cross</keyword>
+      <keyword>design</keyword>
+      <keyword>dist</keyword>
+      <keyword>do</keyword>
+      <keyword>endchecker</keyword>
+      <keyword>endclass</keyword>
+      <keyword>endclocking</keyword>
+      <keyword>endconfig</keyword>
+      <keyword>endgroup</keyword>
+      <keyword>endinterface</keyword>
+      <keyword>endpackage</keyword>
+      <keyword>endprogram</keyword>
+      <keyword>endproperty</keyword>
+      <keyword>endproperty</keyword>
+      <keyword>endsequence</keyword>
+      <keyword>endspecify</keyword>
+      <keyword>enum</keyword>
+      <keyword>expect</keyword>
+      <keyword>export</keyword>
+      <keyword>extends</keyword>
+      <keyword>extern</keyword>
+      <keyword>final</keyword>
+      <keyword>first_match</keyword>
+      <keyword>foreach</keyword>
+      <keyword>forever</keyword>
+      <keyword>forkjoin</keyword>
+      <keyword>global</keyword>
+      <keyword>iff</keyword>
+      <keyword>ignore_bins</keyword>
+      <keyword>illegal_bins</keyword>
+      <keyword>implies</keyword>
+      <keyword>import</keyword>
+      <keyword>incdir</keyword>
+      <keyword>inside</keyword>
+      <keyword>instance</keyword>
+      <keyword>interface</keyword>
+      <keyword>intersect</keyword>
+      <keyword>join_any</keyword>
+      <keyword>join_none</keyword>
+      <keyword>liblist</keyword>
+      <keyword>library</keyword>
+      <keyword>local</keyword>
+      <keyword>matches</keyword>
+      <keyword>modport</keyword>
+      <keyword>new</keyword>
+      <keyword>nexttime</keyword>
+      <keyword>noshoowcancelled</keyword>
+      <keyword>null</keyword>
+      <keyword>package</keyword>
+      <keyword>packed</keyword>
+      <keyword>priority</keyword>
+      <keyword>program</keyword>
+      <keyword>property</keyword>
+      <keyword>protected</keyword>
+      <keyword>pulsestyle_onevent</keyword>
+      <keyword>pulsestyle_ondetect</keyword>
+      <keyword>pure</keyword>
+      <keyword>rand</keyword>
+      <keyword>randc</keyword>
+      <keyword>randcase</keyword>
+      <keyword>randsequence</keyword>
+      <keyword>ref</keyword>
+      <keyword>reject_on</keyword>
+      <keyword>restrict</keyword>
+      <keyword>return</keyword>
+      <keyword>s_always</keyword>
+      <keyword>s_eventually</keyword>
+      <keyword>s_nexttime</keyword>
+      <keyword>s_until</keyword>
+      <keyword>s_until_with</keyword>
+      <keyword>sequence</keyword>
+      <keyword>showcancelled</keyword>
+      <keyword>solve</keyword>
+      <keyword>static</keyword>
+      <keyword>struct</keyword>
+      <keyword>super</keyword>
+      <keyword>sync_accept_on</keyword>
+      <keyword>sync_reject_on</keyword>
+      <keyword>tagged</keyword>
+      <keyword>this</keyword>
+      <keyword>throughout</keyword>
+      <keyword>timeprecision</keyword>
+      <keyword>timeunit</keyword>
+      <keyword>type</keyword>
+      <keyword>typedef</keyword>
+      <keyword>union</keyword>
+      <keyword>unique</keyword>
+      <keyword>unique0</keyword>
+      <keyword>until</keyword>
+      <keyword>until_with</keyword>
+      <keyword>untyped</keyword>
+      <keyword>use</keyword>
+      <keyword>var</keyword>
+      <keyword>virtual</keyword>
+      <keyword>void</keyword>
+      <keyword>wait_order</keyword>
+      <keyword>wildcard</keyword>
+      <keyword>with</keyword>
+      <keyword>within</keyword>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>bit</keyword>
+      <keyword>byte</keyword>
+      <keyword>chandle</keyword>
+      <keyword>genvar</keyword>
+      <keyword>int</keyword>
+      <keyword>localparam</keyword>
+      <keyword>logic</keyword>
+      <keyword>longint</keyword>
+      <keyword>shortint</keyword>
+      <keyword>shortreal</keyword>
+      <keyword>string</keyword>
+      <keyword>uwire</keyword>
+    </context>
+
+    <!-- Language definition: SystemVerilog-specific items and everything from Verilog. -->
+    <context id="systemverilog" class="no-spell-check">
+      <include>
+        <context ref="compiler-directive"/>
+        <context ref="system-task"/>
+        <context ref="keyword"/>
+        <context ref="type"/>
+        <context ref="verilog:verilog"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

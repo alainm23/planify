@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Martin Blanchard <tchaik@gmx.com>
+ Copyright (C) 2015 Martin Blanchard <tchaik@gmx.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="csv" name="CSV" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/csv</property>
+    <property name="globs">*.csv</property>
+  </metadata>
+
+  <styles>
+    <style id="decimal"           name="Decimal number"        map-to="def:decimal"/>
+    <style id="escaped-character" name="Escaped character"     map-to="def:special-char"/>
+    <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
+    <style id="string"            name="String"                map-to="def:string"/>
+  </styles>
+
+  <definitions>
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="floating-point" style-ref="floating-point">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ((\.[0-9]+ | [0-9]+\.[0-9]*) ([Ee][+-]?[0-9]*)? | ([0-9]+[Ee][+-]?[0-9]*))
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match extended="true">
+            \"\"   # escaped double-quote
+          </match>
+        </context>
+      </include>
+    </context>
+
+    <context id="csv" class="no-spell-check">
+      <include>
+        <context ref="decimal"/>
+        <context ref="floating-point"/>
+        <context ref="string"/>
+      </include>
+    </context>
+  </definitions>
+</language>

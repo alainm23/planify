@@ -1,0 +1,48 @@
+/*
+ * The transitive 5-net, also known as Petersen's graph,
+ * can be used to test the "stability points" of the layout
+ * algorithm.
+ * 
+ * The "ideal" layout is achieved for certain random seed
+ * values when len=1.5.  For len=2.5 or above, the layout
+ * is stable. Sometimes, the graph is rendered "inside-out".
+ */ 
+graph "Petersen" {
+	node [
+		fontname = "Arial"
+		label = "\N"
+		shape = "circle"
+		width = "0.400000"
+		height = "0.400000"
+		color = "black"
+	]
+	edge [
+		color = "black"
+	]
+	/* Outer wheel. The len= is what makes it outer */
+	"0" -- "1" -- "2" -- "3" -- "4" -- "0" [
+		color = "blue"
+		len = 2.6
+	]
+	"0" -- "5" [
+		color = "red"
+		weight = "5"
+	]
+	"1" -- "6" [
+		color = "red"
+		weight = "5"
+	]
+	"2" -- "7" [
+		color = "red"
+		weight = "5"
+	]
+	"3" -- "8" [
+		color = "red"
+		weight = "5"
+	]
+	"4" -- "9" [
+		color = "red"
+		weight = "5"
+	]
+	"5" -- "7" -- "9" -- "6" -- "8" -- "5";
+}

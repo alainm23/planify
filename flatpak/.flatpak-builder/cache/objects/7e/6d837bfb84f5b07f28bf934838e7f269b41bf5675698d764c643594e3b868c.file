@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Marco Barisione, Emanuele Aina, Ole Christian Eidheim
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+ Copyright (C) 2018 Ole Christian Eidheim <eidheim@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="cpp" name="C++" version="2.0" _section="Source">
+    <metadata>
+      <property name="mimetypes">text/x-c++;text/x-cpp;text/x-c++src</property>
+      <property name="globs">*.cpp;*.cxx;*.cc;*.C;*.c++</property>
+      <property name="line-comment-start">//</property>
+      <property name="block-comment-start">/*</property>
+      <property name="block-comment-end">*/</property>
+    </metadata>
+
+    <styles>
+        <style id="raw-string" name="Raw String" map-to="def:string"/>
+        <style id="keyword" name="Keyword" map-to="c:keyword"/>
+        <style id="type" name="Data Type" map-to="c:type"/>
+        <style id="common-defines" name="Common Defines" map-to="c:common-defines"/>
+    </styles>
+
+    <definitions>
+        <!-- C++-specific stuff (i.e. stuff which is not C) -->
+        <context id="cpp-proper">
+            <include>
+                <context id="raw-string" style-ref="raw-string" class="string" class-disabled="no-spell-check">
+                  <start>R"([^\(\)\\ ]*)\(</start>
+                  <end>\)\%{1@start}"</end>
+                </context>
+
+                <context id="keywords" style-ref="keyword">
+                    <keyword>alignas</keyword>
+                    <keyword>alignof</keyword>
+                    <keyword>and</keyword>
+                    <keyword>and_eq</keyword>
+                    <keyword>bitand</keyword>
+                    <keyword>bitor</keyword>
+                    <keyword>catch</keyword>
+                    <keyword>compl</keyword>
+                    <keyword>constexpr</keyword>
+                    <keyword>const_cast</keyword>
+                    <keyword>decltype</keyword>
+                    <keyword>delete</keyword>
+                    <keyword>dynamic_cast</keyword>
+                    <keyword>false</keyword>
+                    <keyword>final</keyword>
+                    <keyword>friend</keyword>
+                    <keyword>new</keyword>
+                    <keyword>noexcept</keyword>
+                    <keyword>not</keyword>
+                    <keyword>not_eq</keyword>
+                    <keyword>nullptr</keyword>
+                    <keyword>operator</keyword>
+                    <keyword>or</keyword>
+                    <keyword>or_eq</keyword>
+                    <keyword>override</keyword>
+                    <keyword>private</keyword>
+                    <keyword>protected</keyword>
+                    <keyword>public</keyword>
+                    <keyword>reinterpret_cast</keyword>
+                    <keyword>static_assert</keyword>
+                    <keyword>static_cast</keyword>
+                    <keyword>this</keyword>
+                    <keyword>thread_local</keyword>
+                    <keyword>throw</keyword>
+                    <keyword>true</keyword>
+                    <keyword>try</keyword>
+                    <keyword>typeid</keyword>
+                    <keyword>using</keyword>
+                    <keyword>xor</keyword>
+                    <keyword>xor_eq</keyword>
+
+                    <keyword>class</keyword>
+                    <keyword>namespace</keyword>
+                    <keyword>typename</keyword>
+                    <keyword>template</keyword>
+                    <keyword>virtual</keyword>
+                </context>
+
+                <context id="types" style-ref="type">
+                    <keyword>bool</keyword>
+                    <keyword>char16_t</keyword>
+                    <keyword>char32_t</keyword>
+                    <keyword>explicit</keyword>
+                    <keyword>export</keyword>
+                    <keyword>inline</keyword>
+                    <keyword>mutable</keyword>
+                    <keyword>nullptr_t</keyword>
+                    <keyword>wchar_t</keyword>
+                </context>
+
+                <context id="common-defines" style-ref="common-defines">
+                    <keyword>__STDC__</keyword>
+                    <keyword>__cplusplus</keyword>
+                </context>
+            </include>
+        </context>
+
+        <!-- actual language definition: C++-specific stuff plus everything from C -->
+        <context id="cpp">
+            <include>
+                <context ref="cpp-proper"/>
+                <context ref="c:c"/>
+            </include>
+        </context>
+    </definitions>
+</language>

@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Archit Baweja <bighead@users.sourceforge.net>
+ Copyright (C) 2004 Archit Baweja <bighead@users.sourceforge.net>
+ Copyright (C) 2005 Michael Witrant <mike@lepton.fr>
+ Copyright (C) 2006 Gabriel Bauman <gabe@codehaus.org>
+ Copyright (C) 2013 Jesse van den Kieboom <jessevdk@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="ruby" name="Ruby" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">application/x-ruby;text/x-ruby</property>
+    <property name="globs">*.rb;*.rake;*.gemspec;Rakefile;Capfile;Gemfile</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="escape"               name="Escaped Character"     map-to="def:special-char"/>
+    <style id="comment"              name="Comment"               map-to="def:comment"/>
+    <style id="attribute-definition" name="Attribute Definition"  map-to="def:statement"/>
+    <style id="module-handler"       name="Module handler"        map-to="def:preprocessor"/>
+    <style id="keyword"              name="Keyword"               map-to="def:keyword"/>
+    <style id="nil-value"            name="Nil Constant"          map-to="def:special-constant"/>
+    <style id="boolean"              name="Boolean value"         map-to="def:boolean"/>
+    <style id="floating-point"       name="Floating point number" map-to="def:floating-point"/>
+    <style id="decimal"              name="Decimal number"        map-to="def:decimal"/>
+    <style id="base-n-integer"       name="Base-N number"         map-to="def:base-n-integer"/>
+    <style id="numeric-literal"      name="Numeric literal"       map-to="def:base-n-integer"/>
+    <style id="string"               name="String"                map-to="def:string"/>
+    <style id="literal"              name="Literal"               map-to="def:special-char"/>
+    <style id="builtin"              name="Builtin"               map-to="def:type"/>
+    <style id="constant"             name="Constant"              map-to="def:type"/>
+    <style id="symbol"               name="Symbol"                map-to="def:string"/>
+    <style id="special-variable"     name="Special Variable"      map-to="def:identifier"/>
+    <style id="predefined-variable"  name="Predefined Variable"   map-to="def:identifier"/>
+    <style id="variable"             name="Variable"              map-to="def:identifier"/>
+    <style id="here-doc"             name="Heredoc"               map-to="def:string" />
+    <style id="here-doc-bound"       name="Heredoc Bound"         map-to="def:string"/>
+    <style id="regex"                name="Regular Expression"    map-to="def:identifier"/>
+  </styles>
+
+  <definitions>
+
+    <context id="escape" style-ref="escape">
+      <match>\\((0-7){3}|(x[a-fA-F0-9]{2})|(c\S)|([CM]-\S)|(M-C-\S)|.)</match>
+    </context>
+
+    <context id="multiline-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>^=begin</start>
+      <end>^=end</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="attribute-definitions" style-ref="attribute-definition">
+      <keyword>attr</keyword>
+      <keyword>attr_writer</keyword>
+      <keyword>attr_reader</keyword>
+      <keyword>attr_accessor</keyword>
+    </context>
+
+    <context id="definitions" style-ref="keyword">
+      <!-- do not highlight the .class method -->
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>alias</keyword>
+      <keyword>class</keyword>
+      <keyword>module</keyword>
+      <keyword>def</keyword>
+      <keyword>undef</keyword>
+    </context>
+
+    <context id="module-handlers" style-ref="module-handler">
+      <keyword>require</keyword>
+      <keyword>include</keyword>
+      <keyword>load</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>BEGIN</keyword>
+      <keyword>END</keyword>
+      <keyword>and</keyword>
+      <keyword>begin</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>defined?</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>elsif</keyword>
+      <keyword>end</keyword>
+      <keyword>ensure</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>next</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>redo</keyword>
+      <keyword>rescue</keyword>
+      <keyword>retry</keyword>
+      <keyword>return</keyword>
+      <keyword>then</keyword>
+      <keyword>throw</keyword>
+      <keyword>unless</keyword>
+      <keyword>until</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="builtins" style-ref="builtin">
+      <keyword>ARGF</keyword>
+      <keyword>ARGV</keyword>
+      <keyword>Abbrev</keyword>
+      <keyword>ArgumentError</keyword>
+      <keyword>Array</keyword>
+      <keyword>Base64</keyword>
+      <keyword>Benchmark::Tms</keyword>
+      <keyword>Benchmark</keyword>
+      <keyword>Bignum</keyword>
+      <keyword>Binding</keyword>
+      <keyword>CGI::Cookie</keyword>
+      <keyword>CGI::HtmlExtension</keyword>
+      <keyword>CGI::QueryExtension</keyword>
+      <keyword>CGI::Session::FileStore</keyword>
+      <keyword>CGI::Session::MemoryStore</keyword>
+      <keyword>CGI::Session</keyword>
+      <keyword>CGI</keyword>
+      <keyword>Class</keyword>
+      <keyword>Comparable</keyword>
+      <keyword>Complex</keyword>
+      <keyword>ConditionVariable</keyword>
+      <keyword>Continuation</keyword>
+      <keyword>DATA</keyword>
+      <keyword>Data</keyword>
+      <keyword>Date</keyword>
+      <keyword>DateTime</keyword>
+      <keyword>Delegator</keyword>
+      <keyword>Dir</keyword>
+      <keyword>ENV</keyword>
+      <keyword>EOFError</keyword>
+      <keyword>ERB::Util</keyword>
+      <keyword>ERB</keyword>
+      <keyword>Enumerable::Enumerator</keyword>
+      <keyword>Enumerable</keyword>
+      <keyword>Errno</keyword>
+      <keyword>Exception</keyword>
+      <keyword>FalseClass</keyword>
+      <keyword>File::Constants</keyword>
+      <keyword>File::Stat</keyword>
+      <keyword>File</keyword>
+      <keyword>FileTest</keyword>
+      <keyword>FileUtils::DryRun</keyword>
+      <keyword>FileUtils::NoWrite</keyword>
+      <keyword>FileUtils::StreamUtils</keyword>
+      <keyword>FileUtils::Verbose</keyword>
+      <keyword>FileUtils</keyword>
+      <keyword>Find</keyword>
+      <keyword>Fixnum</keyword>
+      <keyword>Float</keyword>
+      <keyword>FloatDomainError</keyword>
+      <keyword>Forwardable</keyword>
+      <keyword>GC</keyword>
+      <keyword>Generator</keyword>
+      <keyword>Hash</keyword>
+      <keyword>IO</keyword>
+      <keyword>IOError</keyword>
+      <keyword>Iconv::BrokenLibrary</keyword>
+      <keyword>Iconv::Failure</keyword>
+      <keyword>Iconv::IllegalSequence</keyword>
+      <keyword>Iconv::InvalidCharacter</keyword>
+      <keyword>Iconv::InvalidEncoding</keyword>
+      <keyword>Iconv::OutOfRange</keyword>
+      <keyword>Iconv</keyword>
+      <keyword>IndexError</keyword>
+      <keyword>Integer</keyword>
+      <keyword>Interrupt</keyword>
+      <keyword>Kernel</keyword>
+      <keyword>LoadError</keyword>
+      <keyword>LocalJumpError</keyword>
+      <keyword>Logger::Application</keyword>
+      <keyword>Logger::Error</keyword>
+      <keyword>Logger::Formatter</keyword>
+      <keyword>Logger::LogDevice::LogDeviceMutex</keyword>
+      <keyword>Logger::LogDevice</keyword>
+      <keyword>Logger::Severity</keyword>
+      <keyword>Logger::ShiftingError</keyword>
+      <keyword>Logger</keyword>
+      <keyword>Marshal</keyword>
+      <keyword>MatchData</keyword>
+      <keyword>Math</keyword>
+      <keyword>Matrix</keyword>
+      <keyword>Method</keyword>
+      <keyword>Module</keyword>
+      <keyword>Mutex</keyword>
+      <keyword>NameError::message</keyword>
+      <keyword>NameError</keyword>
+      <keyword>NilClass</keyword>
+      <keyword>NoMemoryError</keyword>
+      <keyword>NoMethodError</keyword>
+      <keyword>NotImplementedError</keyword>
+      <keyword>Numeric</keyword>
+      <keyword>Object</keyword>
+      <keyword>ObjectSpace</keyword>
+      <keyword>Observable</keyword>
+      <keyword>PStore::Error</keyword>
+      <keyword>PStore</keyword>
+      <keyword>Pathname</keyword>
+      <keyword>Precision</keyword>
+      <keyword>Proc</keyword>
+      <keyword>Process::GID</keyword>
+      <keyword>Process::Status</keyword>
+      <keyword>Process::Sys</keyword>
+      <keyword>Process::UID</keyword>
+      <keyword>Process</keyword>
+      <keyword>Queue</keyword>
+      <keyword>RUBY_PLATFORM</keyword>
+      <keyword>RUBY_RELEASE_DATE</keyword>
+      <keyword>RUBY_VERSION</keyword>
+      <keyword>Range</keyword>
+      <keyword>RangeError</keyword>
+      <keyword>Rational</keyword>
+      <keyword>Regexp</keyword>
+      <keyword>RegexpError</keyword>
+      <keyword>RuntimeError</keyword>
+      <keyword>STDERR</keyword>
+      <keyword>STDIN</keyword>
+      <keyword>STDOUT</keyword>
+      <keyword>ScriptError</keyword>
+      <keyword>SecurityError</keyword>
+      <keyword>Set</keyword>
+      <keyword>Shellwords</keyword>
+      <keyword>Signal</keyword>
+      <keyword>SignalException</keyword>
+      <keyword>SimpleDelegator</keyword>
+      <keyword>SingleForwardable</keyword>
+      <keyword>Singleton</keyword>
+      <keyword>SingletonClassMethods</keyword>
+      <keyword>SizedQueue</keyword>
+      <keyword>SortedSet</keyword>
+      <keyword>StandardError</keyword>
+      <keyword>String</keyword>
+      <keyword>StringIO</keyword>
+      <keyword>StringScanner::Error</keyword>
+      <keyword>StringScanner</keyword>
+      <keyword>Struct::Tms</keyword>
+      <keyword>Struct</keyword>
+      <keyword>Symbol</keyword>
+      <keyword>SyncEnumerator</keyword>
+      <keyword>SyntaxError</keyword>
+      <keyword>SystemCallError</keyword>
+      <keyword>SystemExit</keyword>
+      <keyword>SystemStackError</keyword>
+      <keyword>Tempfile</keyword>
+      <keyword>Test::Unit</keyword>
+      <keyword>Test</keyword>
+      <keyword>Thread</keyword>
+      <keyword>ThreadError</keyword>
+      <keyword>ThreadGroup</keyword>
+      <keyword>ThreadsWait</keyword>
+      <keyword>Time</keyword>
+      <keyword>Timeout::Error</keyword>
+      <keyword>Timeout</keyword>
+      <keyword>TrueClass</keyword>
+      <keyword>TypeError</keyword>
+      <keyword>URI::BadURIError</keyword>
+      <keyword>URI::Error</keyword>
+      <keyword>URI::Escape</keyword>
+      <keyword>URI::FTP</keyword>
+      <keyword>URI::Generic</keyword>
+      <keyword>URI::HTTP</keyword>
+      <keyword>URI::HTTPS</keyword>
+      <keyword>URI::InvalidComponentError</keyword>
+      <keyword>URI::InvalidURIError</keyword>
+      <keyword>URI::LDAP</keyword>
+      <keyword>URI::MailTo</keyword>
+      <keyword>URI::REGEXP::PATTERN</keyword>
+      <keyword>URI::REGEXP</keyword>
+      <keyword>URI</keyword>
+      <keyword>UnboundMethod</keyword>
+      <keyword>Vector</keyword>
+      <keyword>YAML</keyword>
+      <keyword>ZeroDivisionError</keyword>
+      <keyword>Zlib::BufError</keyword>
+      <keyword>Zlib::DataError</keyword>
+      <keyword>Zlib::Deflate</keyword>
+      <keyword>Zlib::Error</keyword>
+      <keyword>Zlib::GzipFile::CRCError</keyword>
+      <keyword>Zlib::GzipFile::Error</keyword>
+      <keyword>Zlib::GzipFile::LengthError</keyword>
+      <keyword>Zlib::GzipFile::NoFooter</keyword>
+      <keyword>Zlib::GzipFile</keyword>
+      <keyword>Zlib::GzipReader</keyword>
+      <keyword>Zlib::GzipWriter</keyword>
+      <keyword>Zlib::Inflate</keyword>
+      <keyword>Zlib::MemError</keyword>
+      <keyword>Zlib::NeedDict</keyword>
+      <keyword>Zlib::StreamEnd</keyword>
+      <keyword>Zlib::StreamError</keyword>
+      <keyword>Zlib::VersionError</keyword>
+      <keyword>Zlib::ZStream</keyword>
+      <keyword>Zlib</keyword>
+      <keyword>fatal</keyword>
+    </context>
+
+    <context id="special-variables" style-ref="special-variable">
+      <keyword>self</keyword>
+      <keyword>super</keyword>
+      <keyword>__FILE__</keyword>
+      <keyword>__LINE__</keyword>
+    </context>
+
+    <context id="predefined-variables" style-ref="predefined-variable">
+      <match extended="true">
+        \$([!$&amp;"'*+,./0:;&lt;=&gt;?@\`~1-9]|
+           -[0FIKadilpvw]|
+           (deferr|defout|stderr|stdin|stdout|
+            DEBUG|FILENAME|KCODE|LOADED_FEATURES|LOAD_PATH|
+            PROGRAM_NAME|SAFE|VERBOSE)\b)
+      </match>
+    </context>
+
+    <context id="global-variables" style-ref="variable">
+      <match>\$[a-zA-Z_][a-zA-Z0-9_]*</match>
+    </context>
+
+    <context id="class-variables" style-ref="variable">
+      <match>@@[a-zA-Z_][a-zA-Z0-9_]*</match>
+    </context>
+
+    <context id="instance-variables" style-ref="variable">
+      <match>@[a-zA-Z_][a-zA-Z0-9_]*</match>
+    </context>
+
+    <context id="symbols" style-ref="symbol">
+      <match>(?&lt;!:):[a-zA-Z0-9_]+</match>
+    </context>
+
+    <context id="regexp-variables" style-ref="regex">
+      <match>\$[1-9][0-9]*</match>
+    </context>
+
+    <context id="constants" style-ref="constant">
+      <match>(::)?\b[A-Z][A-Za-z0-9_]*\b</match>
+    </context>
+
+    <context id="nil-value" style-ref="nil-value">
+      <keyword>NIL</keyword>
+      <keyword>nil</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>FALSE</keyword>
+      <keyword>TRUE</keyword>
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <define-regex id="underscore_num">\d(_?\d)*</define-regex>
+
+    <define-regex id="float" extended="true">
+      ( \%{underscore_num}\.\%{underscore_num} ) |
+      ( (\%{underscore_num}(\.\%{underscore_num})?)[eE][+-]?\%{underscore_num} )
+    </define-regex>
+
+    <context id="float" style-ref="floating-point">
+      <match>(?&lt;![\w\.])\%{float}(?![\w\.])</match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>(?&lt;![\w\.])([1-9](_?[0-9])*|0)(?![\w\.])</match>
+    </context>
+
+    <context id="hex" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[xX][0-9A-Fa-f](_?[0-9A-Fa-f])*(?![\w\.])</match>
+    </context>
+
+    <context id="octal" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[0-7](_?[0-7])*(?![\w\.])</match>
+    </context>
+
+    <context id="binary" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[bB][01](_?[01])*(?![\w\.])</match>
+    </context>
+
+    <context id="numeric-literal" style-ref="numeric-literal">
+      <match>(?&lt;![\w\.])\?((\\[MC]-){1,2}|\\?)\S</match>
+    </context>
+
+    <!-- in double quotes and backticks -->
+    <context id="simple-interpolation">
+      <start>#(?=[@$])</start> <!-- need assertion to not highlight single # -->
+      <end></end>
+      <include>
+        <context ref="class-variables"/>
+        <context ref="instance-variables"/>
+        <context ref="global-variables"/>
+      </include>
+    </context>
+
+    <!-- in double quotes and backticks -->
+    <!-- FIXME: really would like for the syntax highlight to go back
+         to none here, as any ruby code could go here -->
+    <context id="complex-interpolation">
+      <start>#{</start>
+      <end>}</end>
+      <include>
+        <context ref="ruby:*"/>
+      </include>
+    </context>
+
+    <context id="inside-interpolated-string">
+      <include>
+        <context ref="escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="complex-interpolation"/>
+        <context ref="simple-interpolation"/>
+      </include>
+    </context>
+
+    <!-- ruby strings do not end at line end,
+         so we cannot use def:string
+         (parts lifted from perl.lang) -->
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="inside-interpolated-string"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context style-ref="escape">
+          <match>\\['\\]</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="backtick-quoted-string" style-ref="string">
+      <start>`</start>
+      <end>`</end>
+      <include>
+        <context ref="inside-interpolated-string"/>
+      </include>
+    </context>
+
+    <context id="here-doc-string" style-ref="here-doc" style-inside="true">
+      <start>&lt;&lt;([a-zA-Z_]\w*)</start>
+      <end>^\%{1@start}</end>
+      <include>
+        <context ref="inside-interpolated-string"/>
+      </include>
+    </context>
+
+    <context id="here-doc-indented-string" style-ref="here-doc" style-inside="true">
+      <start>&lt;&lt;-([a-zA-Z_]\w*)</start>
+      <end>^\s*\%{1@start}</end>
+      <include>
+        <context ref="inside-interpolated-string"/>
+      </include>
+    </context>
+
+    <context id="here-doc-single-quoted-string" style-ref="here-doc" style-inside="true">
+      <start>&lt;&lt;'(\w+)'</start>
+      <end>^\%{1@start}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="here-doc-bound"/>
+        <context sub-pattern="0" where="end" style-ref="here-doc-bound"/>
+      </include>
+    </context>
+
+    <context id="here-doc-double-quoted-string" style-ref="here-doc" style-inside="true">
+      <start>&lt;&lt;"(\w+)"</start>
+      <end>^\%{1@start}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="here-doc-bound"/>
+        <context sub-pattern="0" where="end" style-ref="here-doc-bound"/>
+        <context ref="inside-interpolated-string"/>
+      </include>
+    </context>
+
+    <context id="interpolated-literal">
+      <include>
+        <context style-ref="string" style-inside="true">
+          <start>[%][QWx]?\(</start>
+          <end>\)</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context ref="inside-interpolated-string"/>
+            <context>
+              <start>\(</start>
+              <end>\)</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true" >
+          <start>[%][QWx]?\[</start>
+          <end>]</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context ref="inside-interpolated-string"/>
+            <context>
+              <start>\[</start>
+              <end>]</end>
+            </context>
+
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][QWx]?{</start>
+          <end>}</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context ref="inside-interpolated-string"/>
+            <context>
+              <start>{</start>
+              <end>}</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][QWx]?&lt;</start>
+          <end>&gt;</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context ref="inside-interpolated-string"/>
+            <context>
+              <start>&lt;</start>
+              <end>&gt;</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][QWx]?([^[:alnum:]{&lt;[(])</start>
+          <end>\%{1@start}</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context ref="inside-interpolated-string"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="non-interpolated-literal">
+      <include>
+        <context style-ref="string" style-inside="true">
+          <start>[%][qsw]\(</start>
+          <end>\)</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context style-ref="escape">
+              <match>\\['\\]</match>
+            </context>
+            <context>
+              <start>\(</start>
+              <end>\)</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][qsw]\[</start>
+          <end>]</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context style-ref="escape">
+              <match>\\['\\]</match>
+            </context>
+            <context>
+              <start>\[</start>
+              <end>]</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][qsw]\{</start>
+          <end>\}</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context style-ref="escape">
+              <match>\\['\\]</match>
+            </context>
+            <context>
+              <start>\{</start>
+              <end>\}</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][qsw]&lt;</start>
+          <end>&gt;</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context style-ref="escape">
+              <match>\\['\\]</match>
+            </context>
+            <context>
+              <start>&lt;</start>
+              <end>&gt;</end>
+            </context>
+          </include>
+        </context>
+
+        <context style-ref="string" style-inside="true">
+          <start>[%][qsw]([^[:alnum:]{&lt;[(])</start>
+          <end>\%{1@start}</end>
+          <include>
+            <context where="start" sub-pattern="0" style-ref="literal"/>
+            <context where="end" sub-pattern="0" style-ref="literal"/>
+
+            <context style-ref="escape">
+              <match>\\['\\]</match>
+            </context>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <define-regex id="regex-opts">[iomx]*[neus]?[iomx]*</define-regex>
+
+    <context id="regex-bracketed" style-ref="escape" style-inside="true">
+      <start>(?&lt;!\\)[[]</start>
+      <end>(?&lt;!\\)]</end>
+    </context>
+
+    <context id="regex-alt-form" style-ref="regex">
+      <start>\%r\|</start>
+      <end>\|\%{regex-opts}</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="complex-interpolation"/>
+        <context ref="simple-interpolation"/>
+        <context ref="regex-bracketed"/>
+       </include>
+     </context>
+
+    <context id="regex-simple" style-ref="regex">
+      <start extended="true">
+        ((?&lt;=([(]|\s))|^)
+        \/
+        (?=
+          ([^/\\]*(\\.))*
+          [^/]*
+          \/
+          \%{regex-opts}
+          ([),;.]|\s|$)
+        )</start>
+      <end>\/\%{regex-opts}</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="complex-interpolation"/>
+        <context ref="simple-interpolation"/>
+        <context ref="regex-bracketed"/>
+      </include>
+    </context>
+
+    <context id="ruby" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="multiline-comment"/>
+        <context ref="here-doc-single-quoted-string"/>
+        <context ref="here-doc-double-quoted-string"/>
+        <context ref="here-doc-string"/>
+        <context ref="here-doc-indented-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="backtick-quoted-string"/>
+        <context ref="attribute-definitions"/>
+        <context ref="definitions"/>
+        <context ref="module-handlers"/>
+        <context ref="keywords"/>
+        <context ref="builtins"/>
+        <context ref="special-variables"/>
+        <context ref="predefined-variables"/>
+        <context ref="global-variables"/>
+        <context ref="class-variables"/>
+        <context ref="instance-variables"/>
+        <context ref="symbols"/>
+        <context ref="regexp-variables"/>
+        <context ref="constants"/>
+        <context ref="nil-value"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="hex"/>
+        <context ref="octal"/>
+        <context ref="binary"/>
+        <context ref="numeric-literal"/>
+        <context ref="regex-alt-form"/>
+        <context ref="regex-simple"/>
+        <context ref="non-interpolated-literal"/>
+        <context ref="interpolated-literal"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

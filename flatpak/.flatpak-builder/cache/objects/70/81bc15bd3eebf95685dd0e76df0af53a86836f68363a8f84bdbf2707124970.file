@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DeeProxyModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch02.html" title="Models">
+<link rel="prev" href="dee-1.0-DeeModel.html" title="DeeModel">
+<link rel="next" href="DeeSequenceModel.html" title="DeeSequenceModel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="dee-1.0-DeeModel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="DeeSequenceModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#DeeProxyModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#DeeProxyModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#DeeProxyModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#DeeProxyModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#DeeProxyModel.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="DeeProxyModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="DeeProxyModel.top_of_page"></a>DeeProxyModel</span></h2>
+<p>DeeProxyModel — A model that wraps another underlying <span class="type">DeeModel</span></p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="DeeProxyModel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;dee.h&gt;
+
+struct              <a class="link" href="DeeProxyModel.html#DeeProxyModel-struct" title="struct DeeProxyModel">DeeProxyModel</a>;
+struct              <a class="link" href="DeeProxyModel.html#DeeProxyModelClass" title="struct DeeProxyModelClass">DeeProxyModelClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="DeeSerializableModel.html" title="DeeSerializableModel">DeeSerializableModel</a>
+         +----DeeProxyModel
+               +----<a class="link" href="DeeFilterModel.html" title="DeeFilterModel">DeeFilterModel</a>
+               +----<a class="link" href="DeeSharedModel.html" title="DeeSharedModel">DeeSharedModel</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+DeeProxyModel implements
+ DeeModel and  DeeSerializable.</p>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="DeeProxyModel.html#DeeProxyModel--back-end" title='The "back-end" property'>back-end</a>"                 <span class="type">DeeModel</span>*             : Read / Write / Construct Only
+  "<a class="link" href="DeeProxyModel.html#DeeProxyModel--inherit-seqnums" title='The "inherit-seqnums" property'>inherit-seqnums</a>"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+  "<a class="link" href="DeeProxyModel.html#DeeProxyModel--proxy-signals" title='The "proxy-signals" property'>proxy-signals</a>"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="DeeProxyModel.html" title="DeeProxyModel"><span class="type">DeeProxyModel</span></a> wraps another <span class="type">DeeModel</span> instance and use it as a back end
+by proxuing all method calls down to the back end.
+</p>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DeeProxyModel-struct"></a><h3>struct DeeProxyModel</h3>
+<pre class="programlisting">struct DeeProxyModel;</pre>
+<p>
+All fields in the DeeProxyModel structure are private and should never be
+accessed directly
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeProxyModelClass"></a><h3>struct DeeProxyModelClass</h3>
+<pre class="programlisting">struct DeeProxyModelClass {
+};
+</pre>
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="DeeProxyModel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="DeeProxyModel--back-end"></a><h3>The <code class="literal">"back-end"</code> property</h3>
+<pre class="programlisting">  "back-end"                 <span class="type">DeeModel</span>*             : Read / Write / Construct Only</pre>
+<p>
+The backend model used by this proxy model.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeProxyModel--inherit-seqnums"></a><h3>The <code class="literal">"inherit-seqnums"</code> property</h3>
+<pre class="programlisting">  "inherit-seqnums"          <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+Boolean property defining whether sequence numbers will be inherited
+from the back end model.
+You will most likely want to set this property to false
+if the implementation manipulates with the rows in the model and keep
+track of seqnums yourself.
+</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeProxyModel--proxy-signals"></a><h3>The <code class="literal">"proxy-signals"</code> property</h3>
+<pre class="programlisting">  "proxy-signals"            <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>              : Read / Write / Construct Only</pre>
+<p>
+Boolean property defining whether or not to automatically forward signals
+from the back end model. This is especially useful for sub classes wishing
+to do their own more advanced signal forwarding.
+</p>
+<p>Default value: TRUE</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

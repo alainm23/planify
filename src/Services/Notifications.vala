@@ -20,8 +20,6 @@
 */
 
 public class Services.Notifications : GLib.Object {
-    private Notify.Notification notification;
-
     public signal void on_signal_weather_update ();
     public signal void on_signal_location_manual ();
 
@@ -33,23 +31,36 @@ public class Services.Notifications : GLib.Object {
                                                 bool   remove_clipboard_task);
 
     public Notifications () {
-        Notify.init ("Planner");
         start_notification ();
     }
 
-    public void send_notification (string summary, string body, string icon) {
-        var notification = new Notify.Notification (summary, body, icon);
-        notification.set_urgency (Notify.Urgency.NORMAL);
+    public void send_notification (string title, string body, string icon) {
+        var notification = new Notification (title);
+        notification.set_body (body);
+        notification.set_icon (new ThemedIcon (icon));
+        notification.set_priority (GLib.NotificationPriority.NORMAL);
+                            
+        notification.set_default_action ("app.show-window");
 
-        try {
-            notification.show ();
-        } catch (GLib.Error e) {
-            warning ("Failed to show notification: %s", e.message);
-        }
+        Application.instance.send_notification ("com.github.alainm23.planner", notification);
+    }
+
+    public void send_task_notification (string title, Objects.Task task) {                            
+        var notification = new Notification (title);
+        notification.set_body (task.content);
+        notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
+        notification.set_priority (GLib.NotificationPriority.URGENT);
+                            
+        notification.set_default_action_and_target_value (
+            "app.show-task", 
+            new Variant.int32 (task.id)
+        );
+
+        Application.instance.send_notification ("com.github.alainm23.planner", notification);
     }
 
     public void start_notification () {
-        GLib.Timeout.add_seconds (15, () => {
+        GLib.Timeout.add (1000 * 15, () => {
             var all_tasks = new Gee.ArrayList<Objects.Task?> ();
             all_tasks = Application.database.get_all_reminder_tasks ();
 
@@ -60,25 +71,29 @@ public class Services.Notifications : GLib.Object {
                 if (Application.utils.is_today (reminder_date)) {
                     if (now_date.get_hour () == reminder_date.get_hour ()) {
                         if (now_date.get_minute () == reminder_date.get_minute ()) {
-                            var summary = "";
+                            var title = "";
                             var body = task.content;
-
+                            
                             if (task.is_inbox == 1) {
-                                summary = _("Inbox");
+                                title = _("Inbox");
                             } else {
-                                summary = Application.database.get_project (task.project_id).name;
+                                title = Application.database.get_project (task.project_id).name;
                             }
 
-                            notification = new Notify.Notification (summary, body, "com.github.alainm23.planner");
-                            notification.set_urgency (Notify.Urgency.CRITICAL);
+                            var notification = new Notification (title);
+                            notification.set_body (body);
+                            notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
+                            notification.set_priority (GLib.NotificationPriority.URGENT);
+                            
+                            notification.set_default_action_and_target_value (
+                                "app.show-task", 
+                                new Variant.int32 (task.id)
+                            );
 
-                            try {
-                                notification.show ();
-                                task.was_notified = 1;
-                                Application.database.update_task (task);
-                            } catch (GLib.Error e) {
-                                warning ("Failed to show notification: %s", e.message);
-                            }
+                            Application.instance.send_notification ("com.github.alainm23.planner", notification);
+                            
+                            task.was_notified = 1;
+                            Application.database.update_task (task);
                         }
                     }
                 }

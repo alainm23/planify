@@ -1,0 +1,7 @@
+[Unit]
+Description=Evolution user prompter
+
+[Service]
+Type=dbus
+BusName=org.gnome.evolution.dataserver.UserPrompter0
+ExecStart=/app/libexec/evolution-user-prompter

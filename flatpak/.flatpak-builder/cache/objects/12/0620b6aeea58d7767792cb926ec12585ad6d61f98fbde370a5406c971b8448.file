@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Marco Barisione, Emanuele Aina, Paolo Borelli
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+ Copyright (C) 2007 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="xml" name="XML" version="2.0" _section="Markup">
+    <metadata>
+        <property name="mimetypes">application/xml;text/xml;text/sgml</property>
+        <property name="globs">*.xml;*.xspf;*.siv;*.smil;*.smi;*.sml;*.kino;*.xul;*.xbel;*.abw;*.zabw;*.glade;*.jnlp;*.xhtml;*.svg;*.mml;*.rdf;*.rss;*.wml;*.xmi;*.fo;*.xslfo;*.sgml</property>
+        <property name="block-comment-start">&lt;!--</property>
+        <property name="block-comment-end">--&gt;</property>
+    </metadata>
+
+    <styles>
+        <style id="comment"                 name="Comment"                 map-to="def:comment"/>
+        <style id="doctype"                 name="DOCTYPE"                 map-to="def:preprocessor"/>
+        <style id="cdata-delim"             name="CDATA delimiter"         map-to="def:preprocessor"/>
+        <style id="processing-instruction"  name="Processing instruction"  map-to="def:preprocessor"/>
+        <style id="element-name"            name="Element name"            map-to="def:identifier"/>
+        <style id="attribute-name"          name="Attribute name"          map-to="def:type"/>
+        <style id="attribute-value"         name="Attribute value"         map-to="def:string"/>
+        <style id="entity"                  name="Entity"                  map-to="def:preprocessor"/>
+        <style id="tag"                     name="Tag"/>
+        <style id="namespace"               name="Namespace"               map-to="xml:element-name"/>
+        <style id="error"                   name="Error"                   map-to="def:error"/>
+    </styles>
+
+    <definitions>
+        <define-regex id="prefix">[[:alpha:]_][[:alnum:]._-]*</define-regex>
+
+        <define-regex id="name">[[:alpha:]_][[:alnum:].:_-]*</define-regex>
+
+        <context id="entity" style-ref="entity" class="no-spell-check">
+            <match>&amp;\%{name};</match>
+        </context>
+
+        <context id="character-reference" style-ref="entity">
+            <match>&amp;#([0-9]+|x[a-fA-F0-9]+);</match>
+        </context>
+
+        <context id="unallowed-chars" style-ref="error" extend-parent="false">
+            <match>[&amp;&lt;]</match>
+        </context>
+
+        <context id="comment" style-ref="comment" class="comment">
+            <start>&lt;!--</start>
+            <end>--&gt;</end>
+            <include>
+                <context style-ref="error" extend-parent="false">
+                    <match>--+</match>
+                </context>
+                <context ref="def:in-comment"/>
+            </include>
+        </context>
+
+        <context id="doctype" class="no-spell-check">
+            <start>(&lt;!DOCTYPE)\s+(\%{name})</start>
+            <end>&gt;</end>
+            <include>
+              <context sub-pattern="1" where="start" style-ref="doctype"/>
+              <context sub-pattern="2" where="start" style-ref="doctype"/>
+              <context sub-pattern="0" where="end" style-ref="doctype"/>
+              <context>
+                <match>(SYSTEM)\s+(\"[^\"]*\")</match>
+                <include>
+                  <context sub-pattern="1" style-ref="doctype"/>
+                  <context sub-pattern="2" style-ref="attribute-value"/>
+                </include>
+              </context>
+              <context>
+                <match>(PUBLIC)\s+(\"[^\"]*\")\s+(\"[^\"]*\")</match>
+                <include>
+                  <context sub-pattern="1" style-ref="doctype"/>
+                  <context sub-pattern="2" style-ref="attribute-value"/>
+                  <context sub-pattern="3" style-ref="attribute-value"/>
+                </include>
+              </context>
+              <context>
+                <start>\[</start>
+                <end>\]</end>
+                <include>
+                  <context sub-pattern="0" where="start" style-ref="doctype"/>
+                  <context sub-pattern="0" where="end" style-ref="doctype"/>
+                  <context ref="dtd:dtd"/>
+                </include>
+              </context>
+            </include>
+        </context>
+
+        <context id="cdata" class="no-spell-check">
+            <start>&lt;!\[CDATA\[</start>
+            <end>\]\]&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="cdata-delim" class="no-spell-check"/>
+                <context sub-pattern="0" where="end" style-ref="cdata-delim"/>
+            </include>
+        </context>
+
+        <context id="processing-instruction" style-ref="processing-instruction">
+            <start>&lt;\?</start>
+            <end>\?&gt;</end>
+        </context>
+
+        <!-- The following three contexts can be <replace>d in xml
+             dialect lang files, to custommize highlighting, e.g.
+             highlighting docbook tags as keywords -->
+
+        <context id="namespace" style-ref="namespace" class="no-spell-check">
+            <match>(?&lt;!:)\%{prefix}:</match>
+        </context>
+
+        <!-- Match attribute-name before element-name otherwise
+             "text" in <fo:block text-align="left"> is detected as
+             element -->
+        <context id="attribute-name" style-ref="attribute-name" class="no-spell-check">
+            <match>\b\%{name}\s*=</match>
+        </context>
+
+        <context id="attribute-value" style-ref="attribute-value" class="string" class-disabled="no-spell-check">
+            <start>["']</start>
+            <end>\%{0@start}</end>
+            <include>
+                <context ref="entity"/>
+                <context ref="character-reference"/>
+                <context ref="unallowed-chars"/>
+            </include>
+        </context>
+
+        <context id="element-name" once-only="true" style-ref="element-name" class="no-spell-check">
+            <match>\b\%{name}\b(?!\s*=)</match>
+        </context>
+
+        <context id="prolog" class="no-spell-check">
+            <start>&lt;\?xml</start>
+            <end>\?&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="processing-instruction"/>
+                <context sub-pattern="0" where="end" style-ref="processing-instruction"/>
+                <context ref="attribute-value"/>
+                <context ref="attribute-name"/>
+            </include>
+        </context>
+
+        <context id="start-tag" style-ref="tag" class="no-spell-check">
+            <start>&lt;(?!/)</start>
+            <end>/?&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="element-name"/>
+                <context sub-pattern="0" where="end" style-ref="element-name"/>
+                <context ref="entity"/>
+                <context ref="character-reference"/>
+                <context ref="unallowed-chars"/>
+                <context ref="namespace"/>
+                <context ref="attribute-name"/>
+                <context ref="attribute-value"/>
+                <context ref="element-name"/>
+                <context style-ref="error" extend-parent="false">
+                  <match>\S</match>
+                </context>
+            </include>
+        </context>
+
+        <context id="end-tag" style-ref="tag" class="no-spell-check">
+            <start>&lt;/</start>
+            <end>&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="element-name"/>
+                <context sub-pattern="0" where="end" style-ref="element-name"/>
+                <context ref="entity"/>
+                <context ref="character-reference"/>
+                <context ref="unallowed-chars"/>
+                <context ref="namespace"/>
+                <context ref="element-name"/>
+                <context style-ref="error" extend-parent="false">
+                  <match>\S</match>
+                </context>
+            </include>
+        </context>
+
+        <context id="close-tag-outside-tag" style-ref="error">
+          <match>/&gt;</match>
+        </context>
+
+        <context id="xml">
+            <include>
+                <context ref="comment"/>
+                <context ref="doctype"/>
+                <context ref="cdata"/>
+                <context ref="prolog"/>
+                <context ref="processing-instruction"/>
+                <context ref="start-tag"/>
+                <context ref="end-tag"/>
+                <context ref="entity"/>
+                <context ref="character-reference"/>
+                <context ref="unallowed-chars"/>
+                <context ref="close-tag-outside-tag"/>
+            </include>
+        </context>
+    </definitions>
+</language>

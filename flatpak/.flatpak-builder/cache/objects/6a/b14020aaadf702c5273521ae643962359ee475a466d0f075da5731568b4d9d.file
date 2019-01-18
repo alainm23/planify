@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Julien Castelain, Markus Johnsson
+ Copyright (C) 2008 Julien Castelain <jcastelain@gmail.com>
+ Copyright (C) 2008 Markus Johnsson <markus.johnsson.84@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="actionscript" name="ActionScript" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-actionscript</property>
+    <property name="globs">*.as</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="external" name="External" map-to="def:preprocessor"/>
+    <style id="declaration" name="Declaration" map-to="def:type"/>
+    <style id="storage-class" name="Storage Class" map-to="def:type"/>
+    <style id="scope-declaration" name="Scope Declaration" map-to="def:type"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="number" name="Number" map-to="def:decimal"/>
+    <style id="reserved" name="Future Reserved Keywords" map-to="def:error"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="string-2" style-ref="string" end-at-line-end="true">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>include</keyword>
+      <keyword>package</keyword>
+    </context>
+
+    <context id="declarations" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>extends</keyword>
+      <keyword>function</keyword>
+      <keyword>implements</keyword>
+      <keyword>instanceof</keyword>
+      <keyword>interface</keyword>
+      <keyword>is</keyword>
+      <keyword>namespace</keyword>
+      <keyword>throws</keyword>
+      <keyword>var</keyword>
+      <keyword>const</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="type">
+      <keyword>arguments</keyword>
+      <keyword>Array</keyword>
+      <keyword>Boolean</keyword>
+      <keyword>Class</keyword>
+      <keyword>Bitmap</keyword>
+      <keyword>BitmapData</keyword>
+      <keyword>BitmapDataChannel</keyword>
+      <keyword>ByteArray</keyword>
+      <keyword>Camera</keyword>
+      <keyword>Capabilities</keyword>
+      <keyword>CapsStyle</keyword>
+      <keyword>ColorTransform</keyword>
+      <keyword>ContextMenu</keyword>
+      <keyword>Dictionary</keyword>
+      <keyword>DisplayObject</keyword>
+      <keyword>DisplayObjectContainer</keyword>
+      <keyword>Endian</keyword>
+      <keyword>Error</keyword>
+      <keyword>Event</keyword>
+      <keyword>EventDispatcher</keyword>
+      <keyword>ExternalInterface</keyword>
+      <keyword>FileFilter</keyword>
+      <keyword>FileReference</keyword>
+      <keyword>FileReferenceList</keyword>
+      <keyword>Function</keyword>
+      <keyword>Graphics</keyword>
+      <keyword>int</keyword>
+      <keyword>IBitmapDrawable</keyword>
+      <keyword>IEventDispatcher</keyword>
+      <keyword>IOError</keyword>
+      <keyword>Keyboard</keyword>
+      <keyword>KeyboardEvent</keyword>
+      <keyword>KeyLocation</keyword>
+      <keyword>Loader</keyword>
+      <keyword>LocalConnection</keyword>
+      <keyword>Math</keyword>
+      <keyword>Matrix</keyword>
+      <keyword>Microphone</keyword>
+      <keyword>Mouse</keyword>
+      <keyword>MovieClip</keyword>
+      <keyword>Namespace</keyword>
+      <keyword>NetConnection</keyword>
+      <keyword>NetStream</keyword>
+      <keyword>Number</keyword>
+      <keyword>Object</keyword>
+      <keyword>Point</keyword>
+      <keyword>PrintJob</keyword>
+      <keyword>Proxy</keyword>
+      <keyword>QName</keyword>
+      <keyword>Rectangle</keyword>
+      <keyword>RegExp</keyword>
+      <keyword>Responder</keyword>
+      <keyword>Scene</keyword>
+      <keyword>Security</keyword>
+      <keyword>Shape</keyword>
+      <keyword>SharedObject</keyword>
+      <keyword>Socket</keyword>
+      <keyword>Sound</keyword>
+      <keyword>SoundChannel</keyword>
+      <keyword>SoundTransform</keyword>
+      <keyword>Sprite</keyword>
+      <keyword>Stage</keyword>
+      <keyword>String</keyword>
+      <keyword>StyleSheet</keyword>
+      <keyword>SWFVersion</keyword>
+      <keyword>System</keyword>
+      <keyword>TextField</keyword>
+      <keyword>TextFormat</keyword>
+      <keyword>Timer</keyword>
+      <keyword>uint</keyword>
+      <keyword>Video</keyword>
+      <keyword>XML</keyword>
+      <keyword>XMLDocument</keyword>
+      <keyword>XMLList</keyword>
+      <keyword>XMLNode</keyword>
+      <keyword>XMLNodeType</keyword>
+      <keyword>XMLSocket</keyword>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>dynamic</keyword>
+      <keyword>internal</keyword>
+      <keyword>final</keyword>
+      <keyword>static</keyword>
+    </context>
+
+    <context id="scope-declarations" style-ref="scope-declaration">
+      <keyword>flash_proxy</keyword>
+      <keyword>internal</keyword>
+      <keyword>override</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>set</keyword>
+      <keyword>get</keyword>
+    </context>
+
+    <context id="flow" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>is</keyword>
+      <keyword>return</keyword>
+      <keyword>throw</keyword>
+      <keyword>switch</keyword>
+      <keyword>try</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="memory" style-ref="keyword">
+      <keyword>new</keyword>
+      <keyword>super</keyword>
+      <keyword>this</keyword>
+      <keyword>void</keyword>
+    </context>
+
+    <context id="future-reserved-words" style-ref="reserved">
+        <keyword>goto</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
+        \b(([0-9]+[Ee][-]?[0-9]+|
+        ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+        [0-9]+[FfDd]))
+      </match>
+    </context>
+
+    <context id="actionscript">
+      <include>
+        <context ref="string"/>
+        <context ref="string-2"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="externals"/>
+        <context ref="declarations"/>
+        <context ref="primitive-types"/>
+        <context ref="storage-class"/>
+        <context ref="scope-declarations"/>
+        <context ref="flow"/>
+        <context ref="memory"/>
+        <context ref="future-reserved-words"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="numeric"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

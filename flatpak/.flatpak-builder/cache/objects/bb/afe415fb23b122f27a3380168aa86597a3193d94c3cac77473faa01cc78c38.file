@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!--
+    This is a generated document.  Do not edit.
+-->
+<HTML VERSION="2.0">
+<HEAD>
+<TITLE>The DOT Language</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<A NAME="top"></A>
+<H1 ALIGN=CENTER>The DOT Language</H1>
+<HR>
+The following is an abstract grammar defining the DOT language.
+Terminals are shown in bold font and nonterminals in italics.
+Literal characters are given in single quotes.
+Parentheses ( and ) indicate grouping when needed.
+Square brackets [ and ] enclose optional items.
+Vertical bars | separate alternatives.
+<TABLE>
+<TR>
+  <TD ALIGN=RIGHT><I>graph</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <B>strict</B> ] (<B>graph</B> | <B>digraph</B>) [ <I>ID</I> ] <B>'{'</B> <I>stmt_list</I> <B>'}'</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>stmt_list</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <I>stmt</I> [ <B>';'</B> ] <I>stmt_list</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>stmt</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>node_stmt</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>edge_stmt</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>attr_stmt</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>ID</I> <B>'='</B> <I>ID</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><I>subgraph</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>attr_stmt</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>(<B>graph</B> | <B>node</B> | <B>edge</B>) <I>attr_list</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>attr_list</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>'['</B> [ <I>a_list</I> ] <B>']'</B> [ <I>attr_list</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>a_list</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>ID</I> <B>'='</B> <I>ID</I> [ (<B>';'</B> | <B>','</B>) ] [ <I>a_list</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>edge_stmt</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>(<I>node_id</I> | <I>subgraph</I>) <I>edgeRHS</I> [ <I>attr_list</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>edgeRHS</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>edgeop</I> (<I>node_id</I> | <I>subgraph</I>) [ <I>edgeRHS</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>node_stmt</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>node_id</I> [ <I>attr_list</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>node_id</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>ID</I> [ <I>port</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>port</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>':'</B> <I>ID</I> [ <B>':'</B> <I>compass_pt</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>':'</B> <I>compass_pt</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>subgraph</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <B>subgraph</B> [ <I>ID</I> ] ] <B>'{'</B> <I>stmt_list</I> <B>'}'</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>compass_pt</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>(<B>n</B> | <B>ne</B> | <B>e</B> | <B>se</B> | <B>s</B> | <B>sw</B> | <B>w</B> | <B>nw</B> | <B>c</B> | <B>_</B>)</TD>
+</TR>
+</TABLE>
+<P>
+The keywords <B>node</B>, <B>edge</B>, <B>graph</B>, <B>digraph</B>,
+<B>subgraph</B>, and <B>strict</B> are case-independent.
+Note also that the allowed compass point values are not keywords, so
+these strings can be used elsewhere as ordinary identifiers and, conversely,
+the parser will actually accept any identifier.
+<P>
+An <I>ID</I> is one of the following: 
+<MENU>
+<LI> Any string of alphabetic (<TT>[a-zA-Z&#92;200-&#92;377]</TT>) characters, underscores (<TT>'_'</TT>) or
+digits (<TT>[0-9]</TT>), not beginning with a digit;
+<LI> a numeral [<tt>-</tt>]<sup>?</sup>(<tt>.</tt>[<tt>0</tt>-<tt>9</tt>]<sup>+</sup>  | [<tt>0</tt>-<tt>9</tt>]<sup>+</sup>(<tt>.</tt>[<tt>0</tt>-<tt>9</tt>]<sup>*</sup>)<sup>?</sup> ); 
+<LI> any double-quoted string (&quot;...&quot;) possibly containing escaped 
+quotes (\&quot;)<SUP>1</SUP>;
+<LI> an HTML string (&lt;...&gt;).
+</MENU>
+An ID is just a string; the lack of quote characters in the first two
+forms is just for simplicity. There is no semantic difference between
+<TT>abc_2</TT> and <TT>"abc_2"</TT>, or between <TT>2.34</TT> and 
+<TT>"2.34"</TT>. Obviously, to use a keyword as an ID, it must be quoted.
+Note that, in HTML strings, angle
+brackets must occur in matched pairs, and newlines and other formatting whitespace
+characters are allowed.
+In addition, the content must be legal XML, so that the special XML
+escape sequences for &quot;, &amp;, &lt;, and &gt; may be necessary
+in order to embed these characters in attribute values or raw text.
+As an ID, an HTML string can be any legal XML string. However, if used
+as a label attribute, it is interpreted specially and must follow the syntax
+for <A HREF=shapes.html#html>HTML-like labels</A>.
+<P>
+Both quoted strings and HTML strings are scanned as a unit, so
+any embedded comments will be treated as part of the strings.
+<P>
+An <I>edgeop</I> is <TT>-></TT> in directed graphs and <TT>--</TT> in
+undirected graphs.
+<P>
+The language supports C++-style comments: <TT>/* */</TT> and <TT>//</TT>.
+In addition, a line beginning with a '#' character is considered a line
+output from a C preprocessor (e.g., #  34 to indicate line 34 ) and discarded.
+<P>
+Semicolons and commas aid readability but are not required.
+Also, any amount of whitespace may be inserted between terminals.
+<P>
+As another aid for readability, dot allows double-quoted strings to
+span multiple physical lines using the standard C convention of a
+backslash immediately preceding a newline character<SUP>2</SUP>. In addition, 
+double-quoted strings can be concatenated using a '+' operator.
+As HTML strings can contain newline characters, which are used solely for 
+formatting, the language does not allow escaped newlines or
+concatenation operators to be used within them.
+<H2>Subgraphs and Clusters</H2>
+Subgraphs play three roles in Graphviz. First, a subgraph can be used to 
+represent graph structure, indicating that certain nodes and edges should 
+be grouped together. This is the usual role for subgraphs 
+and typically specifies semantic information about the graph components. 
+It can also provide a convenient shorthand for edges. An edge statement allows
+a subgraph on both the left and right sides of the edge operator.
+When this occurs, an edge is created from every node on the left to every node
+on the right. For example, the specification
+<PRE>
+  A -> {B C}
+</PRE>
+is equivalent to
+<PRE>
+  A -> B
+  A -> C
+</PRE>
+<P>
+In the second role, a subgraph can provide a context for setting attributes.
+For example, a subgraph could specify that blue 
+is the default color for all nodes defined in it. 
+In the context of 
+graph drawing, a more interesting example is: 
+<PRE>
+subgraph { 
+rank = same; A; B; C; 
+} 
+</PRE>
+This (anonymous) subgraph specifies that the nodes A, B and C 
+should all be placed on the same rank if drawn using dot. 
+<P>
+The third role for subgraphs directly involves how the graph
+will be laid out by certain layout engines. If the name of 
+the subgraph begins with <TT>cluster</TT>, Graphviz notes the subgraph as 
+a special <I>cluster</I> subgraph. If supported, the layout engine will 
+do the layout so that the nodes belonging to the cluster are drawn together, 
+with the entire drawing of the cluster contained within a bounding rectangle. 
+Note that, for good and bad, cluster subgraphs are not part of the
+DOT language, but solely a syntactic convention adhered to by
+certain of the layout engines.
+<H2>Lexical and Semantic Notes</H2>
+A graph must be specified as either a <B>digraph</B> or a <B>graph</B>.
+Semantically, this indicates whether or not there is a natural direction from
+one of the edge's nodes to the other. 
+Lexically, a digraph must specify an edge using the edge operator <TT>-></TT>
+while a undirected graph must use <TT>--</TT>.
+Operationally, the distinction is used to define different default rendering
+attributes. For example, edges in a digraph will be drawn, by default, with
+an arrowhead pointing to the head node. For ordinary graphs, edges are drawn
+without any arrowheads by default.
+<P>
+A graph may also be described as <B>strict</B>. 
+This forbids the creation of multi-edges, i.e., there can be at most one 
+edge with a given tail node and head node in the directed case. For undirected 
+graphs, there can be at most one
+edge connected to the same two nodes. Subsequent edge statements using
+the same two nodes will identify the edge with the previously defined one
+and apply any attributes given in the edge statement.
+For example, the graph
+<PRE>
+strict graph { 
+  a -- b
+  a -- b
+  b -- a [color=blue]
+} 
+</PRE>
+will have a single edge connecting nodes <TT>a</TT> and <TT>b</TT>,
+whose color is blue.
+<P>
+If a default attribute is
+defined using a <B>node</B>,  <B>edge</B>, or  <B>graph</B> statement,
+or by an attribute assignment not attached to a node or edge, any object of the
+appropriate type defined afterwards will inherit this attribute value.
+This holds until the default attribute is set to a new value, from which
+point the new value is used. Objects defined before a default attribute
+is set will have an empty string value attached to the attribute once
+the default attribute definition is made.
+<P>
+Note, in particular, that a subgraph receives the attribute settings of
+its parent graph at the time of its definition. This can be useful; for
+example, one can assign a font to the root graph and all subgraphs will
+also use the font. For some attributes, however, this property is
+undesirable. If one attaches a label to the root graph, it is probably
+not the desired effect to have the label used by all subgraphs. Rather
+than listing the graph attribute at the top of the graph, and the
+resetting the attribute as needed in the subgraphs, one can simply defer
+the attribute definition in the graph until the appropriate subgraphs
+have been defined.
+<P>
+If an edge belongs to a cluster, its endpoints belong to that cluster.
+Thus, where you put an edge can effect a layout, as clusters are sometimes
+laid out recursively.
+<P>
+There are certain restrictions on subgraphs and clusters. First, at
+present, the names of a graph and it subgraphs share the same namespace.
+Thus, each subgraph must have a unique name. Second, although nodes
+can belong to any number of subgraphs, it is assumed clusters form
+a strict hierarchy when viewed as subsets of nodes and edges.
+<H2>Character encodings</H2>
+The DOT language assumes at least the ascii character set.
+Quoted strings, both ordinary and HTML-like, may contain non-ascii characters.
+In most cases, these strings are uninterpreted: they simply serve as
+unique identifiers or values passed through untouched. Labels, however,
+are meant to be displayed, which requires that the software be able to
+compute the size of the text and determine the appropriate glyphs. 
+For this, it needs to know what character encoding is used.
+<P>
+By default, DOT assumes the UTF-8 character encoding. It also accepts
+the Latin1 (ISO-8859-1) character set, assuming the input graph uses
+the <B><A HREF=attrs.html#a:charset>charset</A></B> attribute to 
+specify this. For graphs using other
+character sets, there are usually programs, such as <TT>iconv</TT>, which
+will translate from one character set to another.
+<P>
+Another way to avoid non-ascii characters in labels is to use HTML entities
+for special characters. During label evaluation, these entities are
+translated into the underlying character. This
+<a HREF="http://www.graphviz.org/doc/char.html">
+table</a> shows the supported entities, with their Unicode value, a typical
+glyph, and the HTML entity name. Thus, to include a lower-case Greek beta
+into a string, one can use the ascii sequence <TT>&amp;beta;</TT>. 
+In general, one should only use entities that are allowed in the output
+character set, and for which there is a glyph in the font.
+<HR>
+<FONT size="2">
+<OL TYPE="1">
+<LI> In quoted strings in DOT, the only escaped character is double-quote
+("). That is, in quoted strings, the dyad &#92;" is converted to "; all other
+characters are left unchanged. In particular, &#92;&#92; remains &#92;&#92;. Layout
+engines may apply additional escape sequences.
+<LI> Previous to 2.30, the language allowed escaped newlines to be used anywhere outside
+of HTML strings. The new lex-based scanner makes this difficult to implement. Given the
+perceived lack of usefulness of this generality, we have restricted this feature to
+double-quoted strings, where it can actually be helpful.
+</OL>
+</FONT>
+</BODY>
+</HTML>

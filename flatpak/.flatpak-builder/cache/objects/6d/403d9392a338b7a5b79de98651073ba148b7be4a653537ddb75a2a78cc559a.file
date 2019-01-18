@@ -1,0 +1,102 @@
+/*
+* Copyright (c) 2016 elementary LLC. (http://launchpad.net/egtk)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA.
+*
+* Authored by: Daniel Foré <daniel@elementary.io>
+*/
+
+/***************
+ * Back Button *
+ ***************/
+
+.back-button,
+.titlebar .back-button {
+    box-shadow: none;
+}
+
+.back-button,
+.titlebar .back-button {
+    border-image: -gtk-scaled(url("assets/button-back-dark.svg"), url("assets/button-back-dark@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:focus,
+.titlebar .back-button:focus {
+    border-image: -gtk-scaled(url("assets/button-back-focus-dark.svg"), url("assets/button-back-focus-dark@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-rtl-dark.svg"), url("assets/button-back-rtl-dark@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+}
+
+.back-button:focus:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-focus-rtl-dark.svg"), url("assets/button-back-focus-rtl-dark@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+}
+
+.back-button:backdrop {
+    border-image: -gtk-scaled(url("assets/button-back-backdrop-dark.svg"), url("assets/button-back-backdrop-dark@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:backdrop:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-backdrop-rtl-dark.svg"), url("assets/button-back-rtl-dark@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+    box-shadow: none;
+}
+
+.back-button:active,
+.back-button:hover:active,
+.back-button:focus:active {
+    border-image: -gtk-scaled(url("assets/button-back-active-dark.svg"), url("assets/button-back-active-dark@2.svg")) 2 3 3 11 / 2px 3px 3px 11px stretch;
+    border-width: 1px 3px 3px 11px;
+    border-radius: 0 2.5px 2.5px 0;
+    box-shadow: none;
+}
+
+.back-button:active:dir(rtl),
+.back-button:hover:active:dir(rtl),
+.back-button:focus:active:dir(rtl) {
+    border-image: -gtk-scaled(url("assets/button-back-active-rtl-dark.svg"), url("assets/button-back-active-rtl-dark@2.svg")) 2 11 3 3 / 2px 11px 3px 3px stretch;
+    border-width: 1px 11px 3px 3px;
+    border-radius: 2.5px 0 0 2.5px;
+    box-shadow: none;
+}
+
+/***************
+* Fancy Scales *
+***************/
+
+scale.warmth trough,
+scale.temperature trough {
+    box-shadow:
+        inset 0 0 0 1px alpha (#000, 0.7),
+        inset 0 1px 0 alpha (#000, 0.7),
+        inset 0 2px 0 alpha (#fff, 0.15),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+}

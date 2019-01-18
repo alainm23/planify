@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Evert Verhellen <evert.verhellen@advalvas.be>
+ Copyright (C) 2003, 2005 Evert Verhellen <evert.verhellen@advalvas.be>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="sql" name="SQL" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-sql</property>
+    <property name="globs">*.sql</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="floating-point" name="Floating Point" map-to="def:floating-point"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="some-thing" name="No idea what it is" map-to="def:preprocessor"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="oracle-built-in-datatypes" style-ref="type">
+      <keyword>N?VARCHAR2</keyword>
+      <keyword>NUMBER</keyword>
+      <keyword>LONG</keyword>
+      <keyword>DATE</keyword>
+      <keyword>TIMESTAMP</keyword>
+      <keyword>INTERVAL</keyword>
+      <!-- FIXME no \n in patterns! -->
+      <keyword>(LONG[ \t\n]+)?RAW</keyword>
+      <keyword>U?ROWID</keyword>
+      <keyword>N?CHAR</keyword>
+      <keyword>(N?C|B)LOB</keyword>
+      <keyword>BFILE</keyword>
+      <keyword>BINARY_(FLOAT|DOUBLE)</keyword>
+    </context>
+
+    <context id="ansi-datatypes" style-ref="type">
+      <!-- FIXME no \n in patterns! -->
+      <keyword>(NATIONAL[ \t\n]+)?CHAR(ACTER)?([ \t\n]+VARYING)?</keyword>
+      <!-- FIXME no \n in patterns! -->
+      <keyword>NCHAR([ \t\n]+VARYING)?</keyword>
+      <keyword>NUMERIC|DECIMAL</keyword>
+      <keyword>INTEGER|INT|SMALLINT</keyword>
+      <!-- FIXME no \n in patterns! -->
+      <keyword>FLOAT|DOUBLE[ \t\n]+PRECISION|REAL</keyword>
+    </context>
+
+    <context id="sql-ds-and-db2-datatypes" style-ref="type">
+      <keyword>CHARACTER</keyword>
+      <!-- FIXME no \n in patterns! -->
+      <keyword>(LONG[ \t\n]+)?VARCHAR</keyword>
+      <keyword>DECIMAL</keyword>
+      <keyword>INTEGER|SMALLINT</keyword>
+      <keyword>FLOAT</keyword>
+    </context>
+
+    <context id="oracle-supplied-types" style-ref="type">
+      <keyword>SYS\.ANY(TYPE|DATA(SET)?)</keyword>
+      <keyword>XMLType</keyword>
+      <keyword>(HTTP|XDB|DB)?URIType</keyword>
+      <keyword>(MDSYS\.)?SDO_((TOPO_)?GEOMETRY|GEORASTER)</keyword>
+      <keyword>ORDSYS\.ORD(Audio|Doc|Image(Signature)?|Video)</keyword>
+      <keyword>SI_(StillImage|(Average|Positional)?Color|ColorHistogram|Texture|FeatureList)</keyword>
+    </context>
+
+    <context id="text-literals" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>[NnQqUu]?(['`])</start>
+      <end>\%{1@start}</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="integer-literals" style-ref="decimal">
+      <match>\b[0-9]+\b</match>
+    </context>
+
+    <context id="number-literals" style-ref="floating-point">
+      <match>(\b[0-9]+(\.[0-9]+)?|\.[0-9]+)([Ee][\+-]?[0-9]+)?\b</match>
+    </context>
+
+    <context id="size-clause" style-ref="decimal">
+      <match>\b[0-9]+[ \t]*([Kk]|[Mm]|[Gg]|[Tt])\b</match>
+    </context>
+
+    <context id="unlimited" style-ref="decimal">
+      <keyword>UNLIMITED</keyword>
+    </context>
+
+    <context id="null" style-ref="decimal">
+      <keyword>NULL</keyword>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="numeric-functions" style-ref="function">
+      <keyword>ABS</keyword>
+      <keyword>A(COS|SIN|TAN2?)</keyword>
+      <keyword>BITAND</keyword>
+      <keyword>CEIL</keyword>
+      <keyword>(COS|SIN|TAN)H?</keyword>
+      <keyword>EXP</keyword>
+      <keyword>FLOOR</keyword>
+      <keyword>LN</keyword>
+      <keyword>LOG</keyword>
+      <keyword>MOD</keyword>
+      <keyword>NANVL</keyword>
+      <keyword>POWER</keyword>
+      <keyword>REMAINDER</keyword>
+      <keyword>ROUND</keyword>
+      <keyword>SIGN</keyword>
+      <keyword>SQRT</keyword>
+      <keyword>TRUNC</keyword>
+      <keyword>WIDTH_BUCKET</keyword>
+    </context>
+
+    <context id="character-functions-returning-character-values" style-ref="function">
+      <keyword>N?CHR</keyword>
+      <keyword>CONCAT</keyword>
+      <keyword>(NLS_)?(INITCAP|LOWER|UPPER)</keyword>
+      <keyword>(L|R)PAD</keyword>
+      <keyword>(L|R)?TRIM</keyword>
+      <keyword>NLSSORT</keyword>
+      <keyword>REGEXP_(REPLACE|SUBSTR)</keyword>
+      <keyword>REPLACE</keyword>
+      <keyword>SOUNDEX</keyword>
+      <keyword>SUBSTR</keyword>
+      <keyword>TRANSLATE</keyword>
+      <keyword>TREAT</keyword>
+    </context>
+
+    <context id="nls-character-functions" style-ref="function">
+      <keyword>NLS_CHARSET_DECL_LEN</keyword>
+      <keyword>NLS_CHARSET_(ID|NAME)</keyword>
+    </context>
+
+    <context id="character-functions-returning-number-values" style-ref="function">
+      <keyword>ASCII</keyword>
+      <keyword>INSTR</keyword>
+      <keyword>LENGTH</keyword>
+      <keyword>REGEXP_INSTR</keyword>
+    </context>
+
+    <context id="datetime-functions" style-ref="function">
+      <keyword>ADD_MONTHS</keyword>
+      <keyword>CURRENT_(DATE|TIMESTAMP)</keyword>
+      <keyword>DBTIMEZONE</keyword>
+      <keyword>EXTRACT</keyword>
+      <keyword>FROM_TZ</keyword>
+      <keyword>(LAST|NEXT)_DAY</keyword>
+      <keyword>LOCALTIMESTAMP</keyword>
+      <keyword>MONTHS_BETWEEN</keyword>
+      <keyword>NEW_TIME</keyword>
+      <keyword>NUMTO(DS|YM)INTERVAL</keyword>
+      <keyword>ROUND</keyword>
+      <keyword>SESSIONTIMEZONE</keyword>
+      <keyword>SYS_EXTRACT_UTC</keyword>
+      <keyword>SYS(DATE|TIMESTAMP)</keyword>
+      <keyword>TO_CHAR</keyword>
+      <keyword>TO_(DS|YM)INTERVAL</keyword>
+      <keyword>TO_TIMESTAMP(_TZ)?</keyword>
+      <keyword>TRUNC</keyword>
+      <keyword>TZ_OFFSET</keyword>
+    </context>
+
+    <context id="general-comparison-functions" style-ref="function">
+      <keyword>GREATEST</keyword>
+      <keyword>LEAST</keyword>
+    </context>
+
+    <context id="conversion-functions" style-ref="function">
+      <keyword>ASCIISTR</keyword>
+      <keyword>BIN_TO_NUM</keyword>
+      <keyword>CAST</keyword>
+      <keyword>CHARTOROWID</keyword>
+      <keyword>(DE)?COMPOSE</keyword>
+      <keyword>CONVERT</keyword>
+      <keyword>HEXTORAW</keyword>
+      <keyword>NUMTO(DS|YM)INTERVAL</keyword>
+      <keyword>RAWTON?HEX</keyword>
+      <keyword>ROWIDTON?CHAR</keyword>
+      <keyword>SCN_TO_TIMESTAMP</keyword>
+      <keyword>TIMESTAMP_TO_SCN</keyword>
+      <keyword>TO_BINARY_(DOUBLE|FLOAT)</keyword>
+      <keyword>TO_N?(CHAR|CLOB)</keyword>
+      <keyword>TO_DATE</keyword>
+      <keyword>TO_(DS|YM)INTERVAL</keyword>
+      <keyword>TO_LOB</keyword>
+      <keyword>TO_(MULTI|SINGLE)_BYTE</keyword>
+      <keyword>TO_NUMBER</keyword>
+      <keyword>TRANSLATE</keyword>
+      <keyword>UNISTR</keyword>
+    </context>
+
+    <context id="large-object-functions" style-ref="function">
+      <keyword>BFILENAME</keyword>
+      <keyword>EMPTY_(B|C)LOB</keyword>
+    </context>
+
+    <context id="collection-functions" style-ref="function">
+      <keyword>CARDINALITY</keyword>
+      <keyword>COLLECT</keyword>
+      <keyword>POWERMULTISET(_BY_CARDINALITY)?</keyword>
+    </context>
+
+    <context id="hierarchical-function" style-ref="function">
+      <keyword>SYS_CONNECT_BY_PATH</keyword>
+    </context>
+
+    <context id="data-mining-functions" style-ref="function">
+      <keyword>CLUSTER_(ID|PROBABILITY|SET)</keyword>
+      <keyword>FEATURE_(ID|SET|VALUE)</keyword>
+      <keyword>PREDICTION</keyword>
+      <keyword>PREDICTION_(COST|DETAILS|PROBABILITY|SET)</keyword>
+    </context>
+
+    <context id="xml-functions" style-ref="function">
+      <keyword>(APPEND|INSERT)CHILDXML</keyword>
+      <keyword>(DELETE|UPDATE)XML</keyword>
+      <keyword>DEPTH</keyword>
+      <keyword>EXISTSNODE</keyword>
+      <keyword>EXTRACT(VALUE)?</keyword>
+      <keyword>INSERTXMLBEFORE</keyword>
+      <keyword>PATH</keyword>
+      <keyword>SYS_DBURIGEN</keyword>
+      <keyword>SYS_XML(AGG|GEN)</keyword>
+      <keyword>XML(AGG|CDATA|COLATTVAL|COMMENT|CONCAT|ELEMENT|FOREST|PARSE|PI|QUERY|ROOT|SEQUENCE|SERIALIZE|TABLE|TRANSFORM)</keyword>
+    </context>
+
+    <context id="encoding-and-decoding-functions" style-ref="function">
+      <keyword>DECODE</keyword>
+      <keyword>DUMP</keyword>
+      <keyword>ORA_HASH</keyword>
+      <keyword>VSIZE</keyword>
+    </context>
+
+    <context id="null-related-functions" style-ref="function">
+      <keyword>COALESCE</keyword>
+      <keyword>LNNVL</keyword>
+      <keyword>NULLIF</keyword>
+      <keyword>NVL2?</keyword>
+    </context>
+
+    <context id="environment-and-identifier-functions" style-ref="function">
+      <keyword>SYS_CONTEXT</keyword>
+      <keyword>SYS_GUID</keyword>
+      <keyword>SYS_TYPEID</keyword>
+      <keyword>UID</keyword>
+      <keyword>USER</keyword>
+      <keyword>USERENV</keyword>
+    </context>
+
+    <context id="aggregate-functions" style-ref="function">
+      <keyword>AVG</keyword>
+      <keyword>CORR(_(S|K))?</keyword>
+      <keyword>COUNT</keyword>
+      <keyword>COVAR_(POP|SAMP)</keyword>
+      <keyword>CUME_DIST</keyword>
+      <keyword>(DENSE|PERCENT)_RANK</keyword>
+      <keyword>FIRST|LAST</keyword>
+      <keyword>GROUP_ID</keyword>
+      <keyword>GROUPING(_ID)?</keyword>
+      <keyword>MAX|MIN</keyword>
+      <keyword>MEDIAN</keyword>
+      <keyword>PERCENTILE_(CONT|DISC)</keyword>
+      <keyword>RANK</keyword>
+      <keyword>REGR_(SLOPE|INTERCEPT|COUNT|R2|AVGX|AVGY|SXX|SYY|SXY)</keyword>
+      <keyword>STATS_((BINOMIAL|F|KS|MW|WSR)_TEST|CROSSTAB|MODE|ONE_WAY_ANOVA|T_TEST_(ONE|PAIRED|INDEPU?))</keyword>
+      <keyword>STDDEV|VARIANCE</keyword>
+      <keyword>(STDDEV|VAR)_(POP|SAMP)</keyword>
+      <keyword>SUM</keyword>
+    </context>
+
+    <context id="analytic-functions" style-ref="function">
+      <keyword>AVG</keyword>
+      <keyword>CORR</keyword>
+      <keyword>COVAR_(POP|SAMP)</keyword>
+      <keyword>COUNT</keyword>
+      <keyword>CUME_DIST</keyword>
+      <keyword>(DENSE|PERCENT)_RANK</keyword>
+      <keyword>(FIRST|LAST)(_VALUE)?</keyword>
+      <keyword>LAG</keyword>
+      <keyword>LEAD</keyword>
+      <keyword>MAX|MIN</keyword>
+      <keyword>NTILE</keyword>
+      <keyword>PERCENTILE_(CONT|DISC)</keyword>
+      <keyword>RANK</keyword>
+      <keyword>RATIO_TO_REPORT</keyword>
+      <keyword>REGR_(SLOPE|INTERCEPT|COUNT|R2|AVGX|AVGY|SXX|SYY|SXY)</keyword>
+      <keyword>ROW_NUMBER</keyword>
+      <keyword>STDDEV|VARIANCE</keyword>
+      <keyword>(STDDEV|VAR)_(POP|SAMP)</keyword>
+      <keyword>SUM</keyword>
+    </context>
+
+    <context id="object-reference-functions" style-ref="function">
+      <keyword>DEREF</keyword>
+      <keyword>MAKE_REF</keyword>
+      <keyword>REF</keyword>
+      <keyword>REFTOHEX</keyword>
+      <keyword>VALUE</keyword>
+    </context>
+
+    <context id="model-functions" style-ref="function">
+      <keyword>CV</keyword>
+      <keyword>ITERATION_NUMBER</keyword>
+      <keyword>PRESENT(NN)?V</keyword>
+      <keyword>PREVIOUS</keyword>
+    </context>
+
+    <context id="ansi-reserved-words" style-ref="keyword">
+      <keyword>ADD</keyword>
+      <keyword>ALL</keyword>
+      <keyword>ALTER</keyword>
+      <keyword>AND</keyword>
+      <keyword>ANY</keyword>
+      <keyword>AS</keyword>
+      <keyword>ASC</keyword>
+      <keyword>BETWEEN</keyword>
+      <keyword>BY</keyword>
+      <keyword>CASE</keyword>
+      <keyword>CHECK</keyword>
+      <keyword>CREATE</keyword>
+      <keyword>CROSS</keyword>
+      <keyword>CURRENT</keyword>
+      <keyword>DECIMAL</keyword>
+      <keyword>DEFAULT</keyword>
+      <keyword>DELETE</keyword>
+      <keyword>DISTINCT</keyword>
+      <keyword>DROP</keyword>
+      <keyword>ELSE</keyword>
+      <keyword>END</keyword>
+      <keyword>FLOAT</keyword>
+      <keyword>FOR</keyword>
+      <keyword>FROM</keyword>
+      <keyword>FULL</keyword>
+      <keyword>GRANT</keyword>
+      <keyword>GROUP</keyword>
+      <keyword>HAVING</keyword>
+      <keyword>IMMEDIATE</keyword>
+      <keyword>INNER</keyword>
+      <keyword>INSERT</keyword>
+      <keyword>INTEGER</keyword>
+      <keyword>INTERSECT</keyword>
+      <keyword>INTO</keyword>
+      <keyword>IN</keyword>
+      <keyword>IS</keyword>
+      <keyword>JOIN</keyword>
+      <keyword>LEFT</keyword>
+      <keyword>LEVEL</keyword>
+      <keyword>LIKE</keyword>
+      <keyword>NATURAL</keyword>
+      <keyword>NOT</keyword>
+      <keyword>OF</keyword>
+      <keyword>ON</keyword>
+      <keyword>OPTION</keyword>
+      <keyword>ORDER</keyword>
+      <keyword>OR</keyword>
+      <keyword>OUTER</keyword>
+      <keyword>PRIOR</keyword>
+      <keyword>PRIVILEGES</keyword>
+      <keyword>PUBLIC</keyword>
+      <keyword>REVOKE</keyword>
+      <keyword>RIGHT</keyword>
+      <keyword>ROWS</keyword>
+      <keyword>SELECT</keyword>
+      <keyword>SESSION</keyword>
+      <keyword>SET</keyword>
+      <keyword>SIZE</keyword>
+      <keyword>SMALLINT</keyword>
+      <keyword>TABLE</keyword>
+      <keyword>THEN</keyword>
+      <keyword>TO</keyword>
+      <keyword>UNION</keyword>
+      <keyword>UNIQUE</keyword>
+      <keyword>UPDATE</keyword>
+      <keyword>USING</keyword>
+      <keyword>VALUES</keyword>
+      <keyword>VIEW</keyword>
+      <keyword>WHEN</keyword>
+      <keyword>WITH</keyword>
+    </context>
+
+    <context id="oracle-reserved-words" style-ref="keyword">
+      <keyword>ACCESS</keyword>
+      <keyword>AUDIT</keyword>
+      <keyword>CLUSTER</keyword>
+      <keyword>COMMENT</keyword>
+      <keyword>COMPRESS</keyword>
+      <keyword>CONNECT[ \t]+BY</keyword>
+      <keyword>CUBE</keyword>
+      <keyword>EXCLUSIVE</keyword>
+      <keyword>EXISTS</keyword>
+      <keyword>FILE</keyword>
+      <keyword>GROUPING[ \t]+SETS</keyword>
+      <keyword>IDENTIFIED</keyword>
+      <keyword>INCREMENT</keyword>
+      <keyword>INDEX</keyword>
+      <keyword>INITIAL</keyword>
+      <keyword>LOCK</keyword>
+      <keyword>MAXEXTENTS</keyword>
+      <keyword>MINUS</keyword>
+      <keyword>MLSLABEL</keyword>
+      <keyword>MODE</keyword>
+      <keyword>MODIFY</keyword>
+      <keyword>NOAUDIT</keyword>
+      <keyword>NOCOMPRESS</keyword>
+      <keyword>NOCYCLE</keyword>
+      <keyword>NOWAIT</keyword>
+      <keyword>OFFLINE</keyword>
+      <keyword>ONLINE</keyword>
+      <keyword>PCTFREE</keyword>
+      <keyword>RENAME</keyword>
+      <keyword>RESOURCE</keyword>
+      <keyword>ROLLUP</keyword>
+      <keyword>ROW</keyword>
+      <keyword>ROWNUM</keyword>
+      <keyword>SHARE</keyword>
+      <keyword>SIBLINGS</keyword>
+      <keyword>START[ \t]+WITH</keyword>
+      <keyword>SUCCESSFUL</keyword>
+      <keyword>SYNONYM</keyword>
+      <keyword>TRIGGER</keyword>
+      <keyword>VALIDATE</keyword>
+      <keyword>WHERE</keyword>
+    </context>
+
+    <context id="sql-statements" style-ref="keyword">
+      <prefix>^[ \t]*</prefix>
+      <keyword>ALTER[ \t]+(CLUSTER|DATABASE|DIMENSION|DISKGROUP|FUNCTION|INDEX(TYPE)?|JAVA|MATERIALIZED[ \t]+VIEW([ \t]+LOG)?|OPERATOR|OUTLINE|PACKAGE|PROCEDURE|PROFILE|RESOURCE[ \t]+COST|ROLE|ROLLBACK[ \t]+SEGMENT|SEQUENCE|SESSION|SYSTEM|TABLE(SPACE)?|TRIGGER|TYPE|USER|VIEW)</keyword>
+      <keyword>ANALYZE</keyword>
+      <keyword>(DIS)?ASSOCIATE[ \t]+STATISTICS</keyword>
+      <keyword>CALL</keyword>
+      <keyword>COMMIT([ \t]+WORK)?</keyword>
+      <keyword>CREATE[ \t]+(CLUSTER|CONTEXT|CONTROLFILE|DATABASE([ \t]+LINK)?|DIMENSION|DIRECTORY|DISKGROUP|FUNCTION|INDEX(TYPE)?|JAVA|LIBRARY|MATERIALIZED[ \t]+VIEW([ \t]+LOG)?|OPERATOR|OUTLINE|PACKAGE([ \t]+BODY)?|S?PFILE|PROCEDURE|PROFILE|RESTORE[ \t]+POINT|ROLE|ROLLBACK[ \t]+SEGMENT|SCHEMA|SEQUENCE|SYNONYM|TABLE(SPACE)?|TRIGGER|TYPE([ \t]+BODY)?|USER|VIEW)</keyword>
+      <keyword>DROP[ \t]+(CLUSTER|CONTEXT|DATABASE([ \t]+LINK)?|DIMENSION|DIRECTORY|DISKGROUP|FUNCTION|INDEX(TYPE)?|JAVA|LIBRARY|MATERIALIZED[ \t]+VIEW([ \t]+LOG)?|OPERATOR|OUTLINE|PACKAGE|PROCEDURE|PROFILE|RESTORE[ \t]+POINT|ROLE|ROLLBACK[ \t]+SEGMENT|SEQUENCE|SYNONYM|TABLE(SPACE)?|TRIGGER|TYPE([ \t]+BODY)?|USER|VIEW)</keyword>
+      <keyword>EXPLAIN[ \t]+PLAN</keyword>
+      <keyword>FLASHBACK[ \t]+(DATABASE|TABLE)</keyword>
+      <keyword>LOCK[ \t]+TABLE</keyword>
+      <keyword>MERGE</keyword>
+      <keyword>PURGE</keyword>
+      <keyword>ROLLBACK</keyword>
+      <keyword>SAVEPOINT</keyword>
+      <keyword>SET[ \t]+CONSTRAINTS?</keyword>
+      <keyword>SET[ \t]+ROLE</keyword>
+      <keyword>SET[ \t]+TRANSACTION</keyword>
+      <keyword>TRUNCATE</keyword>
+    </context>
+
+    <context id="operators" style-ref="keyword">
+      <keyword>CONNECT_BY_ROOT</keyword>
+      <keyword>MULTISET[ \t]+(EXCEPT|INTERSECT|UNION)</keyword>
+    </context>
+
+    <context id="conditions" style-ref="keyword">
+      <keyword>SOME</keyword>
+      <keyword>IS[ \t]+(NOT[ \t]+)?(NAN|INFINITE)</keyword>
+      <keyword>IS[ \t]+(NOT[ \t]+)?NULL</keyword>
+      <keyword>(EQUALS|UNDER)_PATH</keyword>
+      <keyword>(NOT[ \t]+)?IN</keyword>
+      <keyword>IS[ \t]+(NOT[ \t]+)?A[ \t]+SET</keyword>
+      <keyword>IS[ \t]+(NOT[ \t]+)?EMPTY</keyword>
+      <keyword>IS[ \t]+(NOT[ \t]+)?OF([ \t]+TYPE)?</keyword>
+      <keyword>IS[ \t]+PRESENT</keyword>
+      <keyword>(NOT[ \t]+)?LIKE(C|2|4)?</keyword>
+      <keyword>(NOT[ \t]+)?MEMBER([ \t]+OF)?</keyword>
+      <keyword>REGEXP_LIKE</keyword>
+      <keyword>(NOT[ \t]+)?SUBMULTISET([ \t]+OF)?</keyword>
+    </context>
+
+    <context id="sql-plus-at-sign" style-ref="some-thing">
+      <match>^[ \t]*@</match>
+    </context>
+
+    <context id="sql-plus-double-at-sign" style-ref="some-thing">
+      <match>^[ \t]*@@</match>
+    </context>
+
+    <context id="sql-plus-slash" style-ref="some-thing">
+      <match>^[ \t]*/</match>
+    </context>
+
+    <context id="sql-plus-commands" style-ref="some-thing">
+      <prefix>^[ \t]*</prefix>
+      <keyword>ACC(EPT)?</keyword>
+      <keyword>A(PPEND)?</keyword>
+      <keyword>ARCHIVE[ \t]LOG</keyword>
+      <keyword>ATTRIBUTE</keyword>
+      <keyword>BRE(AK)?</keyword>
+      <keyword>BTI(TLE)?</keyword>
+      <keyword>C(HANGE)?</keyword>
+      <keyword>CL(EAR)?</keyword>
+      <keyword>COL(UMN)?</keyword>
+      <keyword>COMP(UTE)?</keyword>
+      <keyword>CONN(ECT)?</keyword>
+      <keyword>COPY</keyword>
+      <keyword>DEF(INE)?</keyword>
+      <keyword>DEL</keyword>
+      <keyword>DESC(RIBE)?</keyword>
+      <keyword>DISC(ONNECT)?</keyword>
+      <keyword>ED(IT)?</keyword>
+      <keyword>EXEC(UTE)?</keyword>
+      <keyword>EXIT|QUIT</keyword>
+      <keyword>GET</keyword>
+      <keyword>HELP</keyword>
+      <keyword>HO(ST)?</keyword>
+      <keyword>I(NPUT)?</keyword>
+      <keyword>L(IST)?</keyword>
+      <keyword>PASSW(ORD)?</keyword>
+      <keyword>PAU(SE)?</keyword>
+      <keyword>PRI(NT)?</keyword>
+      <keyword>PRO(MPT)?</keyword>
+      <keyword>RECOVER</keyword>
+      <keyword>REM(ARK)?</keyword>
+      <keyword>REPF(OOTER)?</keyword>
+      <keyword>REPH(EADER)?</keyword>
+      <keyword>R(UN)?</keyword>
+      <keyword>SAV(E)?</keyword>
+      <keyword>SET[ \t]+(APPI(NFO)?|ARRAY(SIZE)?|AUTO(COMMIT)?|AUTOP(RINT)?|AUTORECOVERY|AUTOT(RACE)?|BLO(CKTERMINATOR)?|CMDS(EP)?|COLSEP|COM(PATIBILITY)?|CON(CAT)?|COPYC(OMMIT)?|COPYTYPECHECK|DEF(INE)?|DESCRIBE|ECHO|EDITF(ILE)?|EMB(EDDED)?|ESC(APE)?|FEED(BACK)?|FLAGGER|FLU(SH)?|HEA(DING)?|HEADS(EP)?|INSTANCE|LIN(ESIZE)?|LOBOF(FSET)?|LOGSOURCE|LONG|LONGC(HUNKSIZE)?|MARK(UP)?|NEWP(AGE)?|NULL|NUMF(ORMAT)?|NUM(WIDTH)?|PAGES(IZE)?|PAU(SE)?|RECSEP|RECSEPCHAR|SERVEROUT(PUT)?|SHIFT(INOUT)?|SHOW(MODE)?|SQLBL(ANKLINES)?|SQLC(ASE)?|SQLCO(NTINUE)?|SQLN(UMBER)?|SQLPLUSCOMPAT(IBILITY)?|SQLPRE(FIX)?|SQLP(ROMPT)?|SQLT(ERMINATOR)?|SUF(FIX)?|TAB|TERM(OUT)?|TI(ME)?|TIMI(NG)?|TRIM(OUT)?|TRIMS(POOL)?|UND(ERLINE)?|VER(IFY)?|WRA(P)?)</keyword>
+      <keyword>SHO(W)?</keyword>
+      <keyword>SHUTDOWN</keyword>
+      <keyword>SPO(OL)?</keyword>
+      <keyword>STA(RT)?</keyword>
+      <keyword>STARTUP</keyword>
+      <keyword>STORE</keyword>
+      <keyword>TIMI(NG)?</keyword>
+      <keyword>TTI(TLE)?</keyword>
+      <keyword>UNDEF(INE)?</keyword>
+      <keyword>VAR(IABLE)?</keyword>
+      <keyword>WHENEVER[ \t]+(OS|SQL)ERROR</keyword>
+    </context>
+
+    <context id="sql" class="no-spell-check">
+      <include>
+        <context ref="oracle-built-in-datatypes"/>
+        <context ref="ansi-datatypes"/>
+        <context ref="sql-ds-and-db2-datatypes"/>
+        <context ref="oracle-supplied-types"/>
+        <context ref="text-literals"/>
+        <context ref="integer-literals"/>
+        <context ref="number-literals"/>
+        <context ref="size-clause"/>
+        <context ref="unlimited"/>
+        <context ref="null"/>
+        <context ref="block-comment"/>
+        <context ref="line-comment"/>
+        <context ref="numeric-functions"/>
+        <context ref="character-functions-returning-character-values"/>
+        <context ref="nls-character-functions"/>
+        <context ref="character-functions-returning-number-values"/>
+        <context ref="datetime-functions"/>
+        <context ref="general-comparison-functions"/>
+        <context ref="conversion-functions"/>
+        <context ref="large-object-functions"/>
+        <context ref="collection-functions"/>
+        <context ref="hierarchical-function"/>
+        <context ref="data-mining-functions"/>
+        <context ref="xml-functions"/>
+        <context ref="encoding-and-decoding-functions"/>
+        <context ref="null-related-functions"/>
+        <context ref="environment-and-identifier-functions"/>
+        <context ref="aggregate-functions"/>
+        <context ref="analytic-functions"/>
+        <context ref="object-reference-functions"/>
+        <context ref="model-functions"/>
+        <context ref="ansi-reserved-words"/>
+        <context ref="oracle-reserved-words"/>
+        <context ref="sql-statements"/>
+        <context ref="operators"/>
+        <context ref="conditions"/>
+        <context ref="sql-plus-at-sign"/>
+        <context ref="sql-plus-double-at-sign"/>
+        <context ref="sql-plus-slash"/>
+        <context ref="sql-plus-commands"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

@@ -1,0 +1,468 @@
+#
+# dotty_ui: user interface functions and data structures
+#
+dotty.protogt.doaction = function (data, s) {
+    local vt, gt;
+
+    vt = dotty.views[data.widget];
+    gt = dotty.graphs[vt.gtid];
+    data.menuitem = s;
+    if (data.obj.nid >= 0) {
+        if (gt.actions.node[s]) {
+            gt.actions.node[s] (gt, vt, data.obj, data);
+            return;
+        }
+    } else if (data.obj.eid >= 0) {
+        if (gt.actions.edge[s]) {
+            gt.actions.edge[s] (gt, vt, data.obj, data);
+            return;
+        }
+    }
+    if (gt.actions.general[s])
+        gt.actions.general[s] (gt, vt, data);
+};
+dotty.protogt.actions.general = [
+    "undo" = function (gt, vt, data) {
+        gt.undo (gt, 1);
+    };
+    "paste" = function (gt, vt, data) {
+        gt.paste (gt, data.pos, 1);
+    };
+    "do layout" = function (gt, vt, data) {
+        gt.layoutgraph (gt);
+    };
+    "cancel layout" = function (gt, vt, data) {
+        gt.cancellayout (gt);
+    };
+    "redraw" = function (gt, vt, data) {
+        gt.redrawgraph (gt, [vt.vtid = vt;]);
+    };
+    "new graph" = function (gt, vt, data) {
+        gt.erasegraph (gt, null, null);
+    };
+    "load graph" = function (gt, vt, data) {
+        gt.loadgraph (gt, null, 'file', dotty.protogt.graph, 1);
+    };
+    "reload graph" = function (gt, vt, data) {
+        gt.loadgraph (gt, gt.name, gt.type, gt.graph, 1);
+    };
+    "save graph" = function (gt, vt, data) {
+        gt.savegraph (gt, gt.name, gt.type);
+    };
+    "save graph as" = function (gt, vt, data) {
+        gt.savegraph (gt, null, 'file');
+    };
+    "open view" = function (gt, vt, data) {
+        gt = dotty.protogt.creategraph (null);
+        gt.createview (gt, null);
+    };
+    "copy view" = function (gt, vt, data) {
+        gt = gt.copygraph (gt);
+        gt.createview (gt, vt);
+    };
+    "birdseye view" = function (gt, vt, data) {
+        gt.createview (gt, dotty.protovt.birdseye);
+    };
+    "clone view" = function (gt, vt, data) {
+        gt.createview (gt, vt);
+    };
+    "close view" = function (gt, vt, data) {
+        gt.destroyview (gt, vt);
+        if (tablesize (gt.views) == 0)
+            gt.destroygraph (gt);
+    };
+    "set graph attr" = function (gt, vt, data) {
+        gt.setattr (gt, ['attr' = gt.graph.graphattr;]);
+    };
+    "set node attr" = function (gt, vt, data) {
+        gt.setattr (gt, ['attr' = gt.graph.nodeattr;]);
+    };
+    "set edge attr" = function (gt, vt, data) {
+        gt.setattr (gt, ['attr' = gt.graph.edgeattr;]);
+    };
+    "zoom in" = function (gt, vt, data) {
+        gt.zoom (gt, vt, 0.5, data.pos);
+    };
+    "zoom out" = function (gt, vt, data) {
+        gt.zoom (gt, vt, 2, data.pos);
+    };
+    "zoom in slowly" = function (gt, vt, data) {
+        gt.zoom (gt, vt, 0.9, data.pos);
+    };
+    "zoom out slowly" = function (gt, vt, data) {
+        gt.zoom (gt, vt, 1.1, data.pos);
+    };
+    "scroll horizontally" = function (gt, vt, data) {
+        vt.scrollmode = 'h';
+    };
+    "scroll vertically" = function (gt, vt, data) {
+        vt.scrollmode = 'v';
+    };
+    "find node" = function (gt, vt, data) {
+        gt.findnode (gt, vt);
+    };
+    "print graph" = function (gt, vt, data) {
+        gt.printorsave (gt, vt, null, null, null, null);
+    };
+    "text view" = function (gt, vt, data) {
+        if (dotty.txtview == 'on')
+            dotty.txtview = 'off';
+        else
+            dotty.txtview = 'on';
+        txtview (dotty.txtview);
+    };
+    "quit" = function (gt, vt, data) {
+        exit ();
+    };
+];
+dotty.protogt.actions.node = [
+    "cut" = function (gt, vt, obj, data) {
+        gt.cut (gt, obj, 'one', 'support', 'cut');
+        dotty.clipgt.layoutgraph (dotty.clipgt);
+    };
+    "Cut" = function (gt, vt, obj, data) {
+        gt.cut (gt, obj, 'reachable', 'support', 'cut');
+        dotty.clipgt.layoutgraph (dotty.clipgt);
+    };
+    "copy" = function (gt, vt, obj, data) {
+        gt.cut (gt, obj, 'one', 'support', 'copy');
+        dotty.clipgt.layoutgraph (dotty.clipgt);
+    };
+    "Copy" = function (gt, vt, obj, data) {
+        gt.cut (gt, obj, 'reachable', 'support', 'copy');
+        dotty.clipgt.layoutgraph (dotty.clipgt);
+    };
+    "group" = function (gt, vt, obj, data) {
+        local kv;
+
+        if ((kv = gt.getattr (gt, obj)))
+            gt.groupnodesbyattr (gt, kv.key, kv.val, [
+                'label' = kv.val; kv.key = kv.val;
+            ], 1, 1);
+    };
+    "Group" = function (gt, vt, obj, data) {
+        local kv;
+
+        if ((kv = gt.getattr (gt, obj)))
+            gt.groupnodesbyattr (gt, kv.key, kv.val, [
+                'label' = kv.val; kv.key = kv.val;
+            ], 0, 1);
+    };
+    "delete" = function (gt, vt, obj, data) {
+        if (obj.eid >= 0)
+            gt.removeedge (gt, obj);
+        else
+            gt.removenode (gt, obj);
+    };
+    "Delete" = function (gt, vt, obj, data) {
+        gt.removesubtree (gt, obj);
+    };
+    "remove" = function (gt, vt, obj, data) {
+        if (obj.nid >= 0)
+            if ((kv = gt.getattr (gt, obj)))
+                gt.removenodesbyattr (gt, kv.key, kv.val);
+    };
+    "Remove" = function (gt, vt, obj, data) {
+        if (obj.nid >= 0)
+            if ((kv = gt.getattr (gt, obj)))
+                gt.removesubtreesbyattr (gt, kv.key, kv.val);
+    };
+    "set attr" = function (gt, vt, obj, data) {
+        gt.setattr (gt, obj);
+    };
+    "print attr" = function (gt, vt, obj, data) {
+        if (obj.nid >= 0)
+            echo ('node: ', obj.name);
+        dump (obj.attr);
+    };
+];
+dotty.protogt.actions.edge = dotty.protogt.actions.node;
+dotty.protovt.normal.menus = [
+    'general' = [
+        0 = "undo";
+        1 = "paste";
+        2 = "do layout";
+        3 = "cancel layout";
+        4 = "redraw";
+        5 = "new graph";
+        6 = "load graph";
+        7 = "reload graph";
+        8 = "save graph";
+        9 = "save graph as";
+        10 = "open view";
+        11 = "copy view";
+        12 = "clone view";
+        13 = "birdseye view";
+        14 = "close view";
+        15 = "set graph attr";
+        16 = "set node attr";
+        17 = "set edge attr";
+        18 = "zoom in";
+        19 = "zoom out";
+        20 = "find node";
+        21 = "print graph";
+        22 = "text view";
+        23 = "quit";
+    ];
+    'node' = [
+        0 = "cut";
+        1 = "Cut";
+        2 = "copy";
+        3 = "Copy";
+        4 = "group";
+        5 = "Group";
+        6 = "delete";
+        7 = "Delete";
+        8 = "remove";
+        9 = "Remove";
+        10 = "set attr";
+        11 = "print attr";
+    ];
+    'edge' = [
+        0 = "cut";
+        1 = "Cut";
+        2 = "copy";
+        3 = "Copy";
+        4 = "delete";
+        5 = "Delete";
+        6 = "set attr";
+        7 = "print attr";
+    ];
+];
+dotty.protovt.normal.keys = [
+    'general' = [
+        'u' = "undo";
+        'p' = "paste";
+        'l' = "do layout";
+        'k' = "cancel layout";
+        ' ' = "redraw";
+        'L' = "reload graph";
+        's' = "save graph";
+        'Z' = "zoom in slowly";
+        'z' = "zoom out slowly";
+        'h' = "scroll horizontally";
+        'v' = "scroll vertically";
+    ];
+    'node' = [
+        'c' = "copy";
+        'C' = "Copy";
+        'g' = "group";
+        'G' = "Group";
+        'd' = "delete";
+        'D' = "Delete";
+        'r' = "remove";
+        'R' = "Remove";
+        'a' = "set attr";
+    ];
+    'edge' = [
+        'c' = "copy";
+        'C' = "Copy";
+        'd' = "delete";
+        'D' = "Delete";
+        'a' = "set attr";
+    ];
+];
+dotty.protovt.birdseye.menus = dotty.protovt.normal.menus;
+dotty.protovt.birdseye.keys = dotty.protovt.normal.keys;
+dotty.protovt.normal.uifuncs = [
+    'leftdown' = function (data) {
+        local gt;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        if (data.obj.nid >= 0) {
+            dotty.node2move = data.obj;
+            dotty.movewidget = data.widget;
+            dotty.rp2 = data.pos;
+        }
+    };
+    'leftmove' = function (data) {
+        local gt;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        if (dotty.node2move & (
+            dotty.rp2.x ~= data.pos.x | dotty.rp2.y ~= data.pos.y
+        )) {
+            gt.movenode (gt, dotty.node2move, data.pos);
+            dotty.rp2 = data.pos;
+        }
+    };
+    'leftup' = function (data) {
+        local gt;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        if (dotty.node2move) {
+            if (dotty.movewidget == data.widget)
+                gt.movenode (gt, dotty.node2move, data.pos);
+            dotty.node2move = 0;
+        } else if (~data.obj)
+            gt.insertnode (gt, data.pos, null, null, null, 1);
+    };
+    'middledown' = function (data) {
+        if (~(data.obj.nid >= 0))
+            return;
+        dotty.rubberband = 1;
+        dotty.movewidget = data.widget;
+        setgfxattr (data.widget, ['mode' = 'xor';]);
+        dotty.rp1 = data.pos;
+        dotty.rp2 = data.pos;
+        line (data.widget, null, dotty.rp1, dotty.rp2, ['color' = 1;]);
+    };
+    'middlemove' = function (data) {
+        if (dotty.rubberband ~= 1 | (
+            dotty.rp2.x == data.pos.x & dotty.rp2.y == data.pos.y
+        ))
+            return;
+        line (data.widget, null, dotty.rp1, dotty.rp2, ['color' = 1;]);
+        dotty.rp2 = data.pos;
+        line (data.widget, null, dotty.rp1, dotty.rp2, ['color' = 1;]);
+    };
+    'middleup' = function (data) {
+        local gt;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        if (dotty.rubberband ~= 1)
+            return;
+        dotty.rubberband = 0;
+        line (dotty.movewidget, null, dotty.rp1, dotty.rp2, ['color' = 1;]);
+        setgfxattr (dotty.movewidget, ['mode' = 'src';]);
+        if (dotty.movewidget ~= data.widget | ~(
+            data.pobj.nid >= 0) | ~(data.obj.nid >= 0
+        ))
+            return;
+        if (data.pobj.attr.support)
+            gt.groupnodes (gt, [
+                data.obj.nid = data.obj;
+                data.pobj.nid = data.pobj;
+            ], data.obj, null, null, null, 1, 1);
+        else if (data.obj.attr.support)
+            gt.groupnodes (gt, [
+                data.obj.nid = data.obj;
+                data.pobj.nid = data.pobj;
+            ], data.pobj, null, null, null, 1, 1);
+        else
+            gt.insertedge (gt, data.pobj, null, data.obj, null, null, 1);
+    };
+    'rightdown' = function (data) {
+        local vt, gt, menu, i;
+
+        vt = dotty.views[data.widget];
+        gt = dotty.graphs[vt.gtid];
+        if (~data.obj)
+            menu = vt.menus.general;
+        else if (data.obj.nid >= 0)
+            menu = vt.menus.node;
+        else if (data.obj.eid >= 0)
+            menu = vt.menus.edge;
+        if ((i = displaymenu (data.widget, menu)) >= 0)
+            gt.doaction (data, menu[i]);
+    };
+    'button3up' = function (data) {
+        local vt, attr;
+
+        vt = dotty.views[data.widget];
+        attr = getwidgetattr (vt.scroll, [0 = 'childcenter';]);
+        if (vt.scrollmode == 'h')
+            attr.childcenter.x = attr.childcenter.x - 40;
+        else
+            attr.childcenter.y = attr.childcenter.y - 40;
+        setwidgetattr (vt.scroll, ['childcenter' = attr.childcenter;]);
+    };
+    'button4up' = function (data) {
+        local vt, attr;
+
+        vt = dotty.views[data.widget];
+        attr = getwidgetattr (vt.scroll, [0 = 'childcenter';]);
+        if (vt.scrollmode == 'h')
+            attr.childcenter.x = attr.childcenter.x + 40;
+        else
+            attr.childcenter.y = attr.childcenter.y + 40;
+        setwidgetattr (vt.scroll, ['childcenter' = attr.childcenter;]);
+    };
+    'keyup' = function (data) {
+        local vt, gt, action;
+
+        vt = dotty.views[data.widget];
+        gt = dotty.graphs[vt.gtid];
+        if (data.obj.nid >= 0) {
+            if (vt.keys.node[data.key])
+                action = vt.keys.node[data.key];
+        } else if (data.obj.eid >= 0) {
+            if (vt.keys.edge[data.key])
+                action = vt.keys.edge[data.key];
+        }
+        if (~action)
+            if (vt.keys.general[data.key])
+                action = vt.keys.general[data.key];
+        if (action)
+            gt.doaction (data, action);
+    };
+    'redraw' = function (data) {
+        local vt, gt;
+
+        vt = dotty.views[data.widget];
+        gt = dotty.graphs[vt.gtid];
+        gt.drawgraph (gt, [vt.vtid = vt;]);
+    };
+    'closeview' = function (data) {
+        local vt, gt;
+
+        vt = dotty.views[data.widget];
+        gt = dotty.graphs[vt.gtid];
+        gt.destroyview (gt, vt);
+        if (tablesize (gt.views) == 0)
+            gt.destroygraph (gt);
+    };
+];
+dotty.protovt.birdseye.uifuncs = [
+    'leftdown' = function (data) {
+        local gt, vid;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        for (vid in gt.views) {
+            vt = gt.views[vid];
+            if (vt.type ~= 'birdseye')
+                gt.setviewcenter ([vid = vt;], data.pos);
+        }
+    };
+    'leftmove' = function (data) {
+        local gt, vid;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        for (vid in gt.views) {
+            vt = gt.views[vid];
+            if (vt.type ~= 'birdseye')
+                gt.setviewcenter ([vid = vt;], data.pos);
+        }
+    };
+    'leftup' = function (data) {
+        local gt, vid;
+
+        gt = dotty.graphs[dotty.views[data.widget].gtid];
+        for (vid in gt.views) {
+            vt = gt.views[vid];
+            if (vt.type ~= 'birdseye')
+                gt.setviewcenter ([vid = vt;], data.pos);
+        }
+    };
+    'middledown' = dotty.protovt.normal.uifuncs.middledown;
+    'middlemove' = dotty.protovt.normal.uifuncs.middlemove;
+    'middleup' = dotty.protovt.normal.uifuncs.middleup;
+    'rightdown' = dotty.protovt.normal.uifuncs.rightdown;
+    'keyup' = dotty.protovt.normal.uifuncs.keyup;
+    'redraw' = dotty.protovt.normal.uifuncs.redraw;
+    'closeview' = dotty.protovt.normal.uifuncs.closeview;
+];
+dotty.monitorfile = function (data) {
+    local gtid, gt, lpt;
+
+    for (gtid in dotty.layoutpending) {
+        lpt = dotty.layoutpending[gtid];
+        if (lpt.fd == data.fd) {
+            gt = dotty.graphs[lpt.gtid];
+            gt.haveinput = 1;
+            gt.layoutgraph (gt);
+            return 1;
+        }
+    }
+    return 0;
+};

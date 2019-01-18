@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@math.tamu.edu>
+ Author: Patryk Zawadzki <patrys@pld-linux.org>
+ Copyright (C) 2007 Yevgen Muntyan <muntyan@math.tamu.edu>
+ Copyright (C) 2010 Patryk Zawadzki <patrys@pld-linux.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="objj" name="Objective-J" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-objective-j</property>
+    <property name="globs">*.j</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="boolean"       name="Boolean"       map-to="js:boolean"/>
+    <style id="keyword"       name="Keyword"       map-to="js:keyword"/>
+    <style id="type"          name="Data Type"     map-to="js:type"/>
+    <style id="preprocessor"  name="Preprocessor"  map-to="def:preprocessor"/>
+    <style id="included-file" name="Included File" map-to="js:string"/>
+    <style id="string"        name="String"        map-to="js:string"/>
+    <style id="null-value"    name="Null Value"    map-to="js:null-value"/>
+  </styles>
+
+  <definitions>
+    <!-- Objective-J-specific stuff (i.e. stuff which is not JS) -->
+    <context id="headers">
+      <include>
+        <context style-ref="keyword">
+          <prefix>\@</prefix>
+          <keyword>catch</keyword>
+          <keyword>class</keyword>
+          <keyword>defs</keyword>
+          <keyword>encode</keyword>
+          <keyword>end</keyword>
+          <keyword>finally</keyword>
+          <keyword>implementation</keyword>
+          <keyword>interface</keyword>
+          <keyword>private</keyword>
+          <keyword>protected</keyword>
+          <keyword>protocol</keyword>
+          <keyword>public</keyword>
+          <keyword>selector</keyword>
+          <keyword>synchronized</keyword>
+          <keyword>throw</keyword>
+          <keyword>try</keyword>
+        </context>
+
+        <context style-ref="preprocessor">
+          <match extended="true">
+            \@
+            (import)\s*
+            (".*?"|&lt;.*&gt;)
+          </match>
+          <include>
+            <context id="included-file" sub-pattern="2" style-ref="included-file"/>
+          </include>
+        </context>
+
+        <context style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>\@"</start>
+          <end>"</end>
+        </context>
+      </include>
+    </context>
+
+    <!-- ObjJ-specific stuff (i.e. stuff which is not C), which isn't
+         good to highlight in C headers -->
+    <context id="sources">
+      <include>
+        <context style-ref="boolean">
+          <keyword>YES</keyword>
+          <keyword>NO</keyword>
+        </context>
+
+        <context style-ref="keyword">
+          <keyword>self</keyword>
+          <keyword>super</keyword>
+          <keyword>_cmd</keyword>
+        </context>
+
+        <context style-ref="type">
+          <keyword>BOOL</keyword>
+          <keyword>Class</keyword>
+          <keyword>id</keyword>
+          <keyword>int</keyword>
+          <keyword>IMP</keyword>
+          <keyword>SEL</keyword>
+        </context>
+
+        <context style-ref="null-value">
+          <keyword>nil</keyword>
+          <keyword>Nil</keyword>
+        </context>
+      </include>
+    </context>
+
+    <!-- actual language definition: Objective-J-specific stuff plus everything from JS -->
+    <context id="objj" class="no-spell-check">
+      <include>
+        <context ref="headers"/>
+        <context ref="sources"/>
+        <context ref="js:js"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

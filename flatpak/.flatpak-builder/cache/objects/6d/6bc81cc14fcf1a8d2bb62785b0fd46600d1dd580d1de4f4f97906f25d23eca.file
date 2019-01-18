@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Fabio Zendhi Nagao <nagaozen@evolved.com.br>
+ Copyright (C) 2009 Fabio Zendhi Nagao <nagaozen@evolved.com.br>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="asp" name="ASP" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-asp;application/x-asp;application/x-asap</property>
+    <property name="globs">*.asp</property>
+    <property name="line-comment-start">'</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="function" name="Function" map-to="def:function"/>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="object" name="ASP Object" map-to="def:type"/>
+    <style id="constant" name="VBScript and ADO constants" map-to="def:constant"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="special-constant" name="Special constant" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="number" name="Number" map-to="def:decimal"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>'</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="old-style-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>^rem</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+      ^\s*@\s*(codepage|enablesessionstate|language|lcid|transaction)\b
+      </start>
+      <include>
+        <context ref="line-comment"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+        <!-- VBScript statements -->
+      <keyword>call</keyword>
+      <keyword>case</keyword>
+      <keyword>class</keyword>
+      <keyword>const</keyword>
+      <keyword>dim</keyword>
+      <keyword>do</keyword>
+      <keyword>each</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>end</keyword>
+      <keyword>erase</keyword>
+      <keyword>error</keyword>
+      <keyword>executeGlobal</keyword>
+      <keyword>execute</keyword>
+      <keyword>exit</keyword>
+      <keyword>explicit</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>get</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>let</keyword>
+      <keyword>loop</keyword>
+      <keyword>me</keyword>
+      <keyword>new</keyword>
+      <keyword>next</keyword>
+      <keyword>on</keyword>
+      <keyword>option</keyword>
+      <keyword>private</keyword>
+      <keyword>property</keyword>
+      <keyword>public</keyword>
+      <keyword>randomize</keyword>
+      <keyword>redim</keyword>
+      <keyword>rem</keyword>
+      <keyword>resume</keyword>
+      <keyword>select</keyword>
+      <keyword>set</keyword>
+      <keyword>stop</keyword>
+      <keyword>sub</keyword>
+      <keyword>then</keyword>
+      <keyword>to</keyword>
+      <keyword>wend</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+        <!-- VBScript text operators -->
+      <keyword>and</keyword>
+      <keyword>mod</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>xor</keyword>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <keyword>abs</keyword>
+      <keyword>array</keyword>
+      <keyword>asc</keyword>
+      <keyword>atn</keyword>
+      <keyword>cbool</keyword>
+      <keyword>cbyte</keyword>
+      <keyword>ccur</keyword>
+      <keyword>cdate</keyword>
+      <keyword>cdbl</keyword>
+      <keyword>chr</keyword>
+      <keyword>cint</keyword>
+      <keyword>clng</keyword>
+      <keyword>cos</keyword>
+      <keyword>createobject</keyword>
+      <keyword>csng</keyword>
+      <keyword>cstr</keyword>
+      <keyword>date</keyword>
+      <keyword>dateadd</keyword>
+      <keyword>datediff</keyword>
+      <keyword>datepart</keyword>
+      <keyword>dateserial</keyword>
+      <keyword>datevalue</keyword>
+      <keyword>day</keyword>
+      <keyword>escape</keyword>
+      <keyword>eval</keyword>
+      <keyword>exp</keyword>
+      <keyword>filter</keyword>
+      <keyword>formatcurrency</keyword>
+      <keyword>formatdatetime</keyword>
+      <keyword>formatnumber</keyword>
+      <keyword>formatpercent</keyword>
+      <keyword>getlocale</keyword>
+      <keyword>getobject</keyword>
+      <keyword>getref</keyword>
+      <keyword>hex</keyword>
+      <keyword>hour</keyword>
+      <keyword>instr</keyword>
+      <keyword>instrrev</keyword>
+      <keyword>isarray</keyword>
+      <keyword>isdate</keyword>
+      <keyword>isempty</keyword>
+      <keyword>isnull</keyword>
+      <keyword>isnumeric</keyword>
+      <keyword>isobject</keyword>
+      <keyword>join</keyword>
+      <keyword>lbound</keyword>
+      <keyword>lcase</keyword>
+      <keyword>left</keyword>
+      <keyword>len</keyword>
+      <keyword>log</keyword>
+      <keyword>ltrim</keyword>
+      <keyword>rtrim</keyword>
+      <keyword>trim</keyword>
+      <keyword>mid</keyword>
+      <keyword>minute</keyword>
+      <keyword>month</keyword>
+      <keyword>monthname</keyword>
+      <keyword>now</keyword>
+      <keyword>oct</keyword>
+      <keyword>replace</keyword>
+      <keyword>rgb</keyword>
+      <keyword>right</keyword>
+      <keyword>rnd</keyword>
+      <keyword>round</keyword>
+      <keyword>scriptengine</keyword>
+      <keyword>scriptenginebuildversion</keyword>
+      <keyword>scriptenginemajorversion</keyword>
+      <keyword>scriptengineminorversion</keyword>
+      <keyword>second</keyword>
+      <keyword>setlocale</keyword>
+      <keyword>sgn</keyword>
+      <keyword>sin</keyword>
+      <keyword>space</keyword>
+      <keyword>split</keyword>
+      <keyword>sqr</keyword>
+      <keyword>strcomp</keyword>
+      <keyword>strreverse</keyword>
+      <keyword>tan</keyword>
+      <keyword>time</keyword>
+      <keyword>timer</keyword>
+      <keyword>timeserial</keyword>
+      <keyword>timevalue</keyword>
+      <keyword>typename</keyword>
+      <keyword>ubound</keyword>
+      <keyword>ucase</keyword>
+      <keyword>unescape</keyword>
+      <keyword>vartype</keyword>
+      <keyword>weekday</keyword>
+      <keyword>weekdayname</keyword>
+      <keyword>year</keyword>
+      <!-- ASP Response properties and Methods -->
+      <keyword>\.buffer</keyword>
+      <keyword>\.charset</keyword>
+      <keyword>\.cachecontrol</keyword>
+      <keyword>\.contenttype</keyword>
+      <keyword>\.expires</keyword>
+      <keyword>\.expiresabsolute</keyword>
+      <keyword>\.isclientconnected</keyword>
+      <keyword>\.pics</keyword>
+      <keyword>\.status</keyword>
+      <keyword>\.addheader</keyword>
+      <keyword>\.appendtolog</keyword>
+      <keyword>\.binarywrite</keyword>
+      <keyword>\.clear</keyword>
+      <keyword>\.end</keyword>
+      <keyword>\.flush</keyword>
+      <keyword>\.redirect</keyword>
+      <keyword>\.write</keyword>
+      <!-- ASP Request properties and Methods -->
+      <keyword>\.totalbytes</keyword>
+      <keyword>\.binaryread</keyword>
+      <!-- ASP Application properties and Methods -->
+      <keyword>\.remove</keyword>
+      <keyword>\.removeAll</keyword>
+      <keyword>\.lock</keyword>
+      <keyword>\.unlock</keyword>
+      <keyword>\.application_onstart</keyword>
+      <keyword>\.application_onend</keyword>
+      <!-- ASP Session properties and Methods -->
+      <keyword>\.codepage</keyword>
+      <keyword>\.lcid</keyword>
+      <keyword>\.sessionid</keyword>
+      <keyword>\.timeout</keyword>
+      <keyword>\.abandon</keyword>
+      <keyword>\.session_onstart</keyword>
+      <keyword>\.session_onend</keyword>
+      <!-- ASP Server properties and Methods -->
+      <keyword>\.scripttimeout</keyword>
+      <keyword>\.execute</keyword>
+      <keyword>\.getlasterror</keyword>
+      <keyword>\.htmlencode</keyword>
+      <keyword>\.mappath</keyword>
+      <keyword>\.transfer</keyword>
+      <keyword>\.urlencode</keyword>
+      <!-- ASP Error properties and Methods - won't implement this -->
+      <keyword>\.aspcode</keyword>
+      <keyword>\.aspdescription</keyword>
+      <keyword>\.category</keyword>
+      <keyword>\.column</keyword>
+      <keyword>\.description</keyword>
+      <keyword>\.file</keyword>
+      <keyword>\.line</keyword>
+      <keyword>\.number</keyword>
+      <keyword>\.source</keyword>
+      <!-- ASP FileSystem properties and Methods -->
+      <keyword>\.drives</keyword>
+      <keyword>\.buildpath</keyword>
+      <keyword>\.copyfile</keyword>
+      <keyword>\.copyfolder</keyword>
+      <keyword>\.createfolder</keyword>
+      <keyword>\.createtextfile</keyword>
+      <keyword>\.deletefile</keyword>
+      <keyword>\.deletefolder</keyword>
+      <keyword>\.driveexists</keyword>
+      <keyword>\.fileexists</keyword>
+      <keyword>\.folderexists</keyword>
+      <keyword>\.getabsolutepathname</keyword>
+      <keyword>\.getbasename</keyword>
+      <keyword>\.getdrive</keyword>
+      <keyword>\.getdrivename</keyword>
+      <keyword>\.getextensionname</keyword>
+      <keyword>\.getfile</keyword>
+      <keyword>\.getfilename</keyword>
+      <keyword>\.getfolder</keyword>
+      <keyword>\.getparentfoldername</keyword>
+      <keyword>\.getspecialfolder</keyword>
+      <keyword>\.gettempname</keyword>
+      <keyword>\.movefile</keyword>
+      <keyword>\.movefolder</keyword>
+      <keyword>\.opentextfile</keyword>
+      <!-- ASP TextStream properties and Methods -->
+      <keyword>\.atendofline</keyword>
+      <keyword>\.atendofstream</keyword>
+      <keyword>\.close</keyword>
+      <keyword>\.read</keyword>
+      <keyword>\.readall</keyword>
+      <keyword>\.readline</keyword>
+      <keyword>\.skip</keyword>
+      <keyword>\.skipline</keyword>
+      <keyword>\.writeline</keyword>
+      <keyword>\.writeblanklines</keyword>
+      <!-- ASP Drive properties and Methods -->
+      <keyword>\.availablespace</keyword>
+      <keyword>\.driveletter</keyword>
+      <keyword>\.drivetype</keyword>
+      <keyword>\.filesystem</keyword>
+      <keyword>\.freespace</keyword>
+      <keyword>\.isready</keyword>
+      <keyword>\.path</keyword>
+      <keyword>\.rootfolder</keyword>
+      <keyword>\.serialnumber</keyword>
+      <keyword>\.sharename</keyword>
+      <keyword>\.totalsize</keyword>
+      <keyword>\.volumename</keyword>
+      <!-- ASP Folder and File properties and Methods -->
+      <keyword>\.attributes</keyword>
+      <keyword>\.datecreated</keyword>
+      <keyword>\.datelastaccessed</keyword>
+      <keyword>\.datelastmodified</keyword>
+      <keyword>\.drive</keyword>
+      <keyword>\.name</keyword>
+      <keyword>\.parentfolder</keyword>
+      <keyword>\.shortname</keyword>
+      <keyword>\.shortpath</keyword>
+      <keyword>\.size</keyword>
+      <keyword>\.type</keyword>
+      <keyword>\.copy</keyword>
+      <keyword>\.delete</keyword>
+      <keyword>\.move</keyword>
+      <keyword>\.openastextstream</keyword>
+      <keyword>\.isrootfolder</keyword>
+      <!-- ASP Dictionary properties and Methods -->
+      <keyword>\.comparemode</keyword>
+      <keyword>\.count</keyword>
+      <keyword>\.item</keyword>
+      <keyword>\.key</keyword>
+      <keyword>\.add</keyword>
+      <keyword>\.exists</keyword>
+      <keyword>\.items</keyword>
+      <keyword>\.keys</keyword>
+      <!-- ADO Command properties and Methods -->
+      <keyword>\.activeconnection</keyword>
+      <keyword>\.commandtext</keyword>
+      <keyword>\.commandtimeout</keyword>
+      <keyword>\.commandtype</keyword>
+      <keyword>\.prepared</keyword>
+      <keyword>\.state</keyword>
+      <keyword>\.cancel</keyword>
+      <keyword>\.createparameter</keyword>
+      <!-- ADO Connection properties and Methods -->
+      <keyword>\.commadtimeout</keyword>
+      <keyword>\.connectionstring</keyword>
+      <keyword>\.connectiontimeout</keyword>
+      <keyword>\.cursorlocation</keyword>
+      <keyword>\.defaultdatabase</keyword>
+      <keyword>\.isolationlevel</keyword>
+      <keyword>\.mode</keyword>
+      <keyword>\.provider</keyword>
+      <keyword>\.version</keyword>
+      <keyword>\.begintrans</keyword>
+      <keyword>\.close</keyword>
+      <keyword>\.committrans</keyword>
+      <keyword>\.open</keyword>
+      <keyword>\.openschema</keyword>
+      <keyword>\.rollbacktrans</keyword>
+      <!-- ADO Error properties and Methods -->
+      <keyword>\.helpcontext</keyword>
+      <keyword>\.helpfile</keyword>
+      <keyword>\.nativeerror</keyword>
+      <keyword>\.sqlstate</keyword>
+      <!-- ADO Field properties and Methods -->
+      <keyword>\.actualsize</keyword>
+      <keyword>\.definedsize</keyword>
+      <keyword>\.numericscale</keyword>
+      <keyword>\.originalvalue</keyword>
+      <keyword>\.precision</keyword>
+      <keyword>\.underlyingvalue</keyword>
+      <keyword>\.value</keyword>
+      <keyword>\.appendChunk</keyword>
+      <keyword>\.getChunk</keyword>
+      <!-- ADO Parameter properties and Methods -->
+      <keyword>\.direction</keyword>
+      <!-- ADO Property (everything is already defined) -->
+      <!-- ADO Record properties and Methods -->
+      <keyword>\.parenturl</keyword>
+      <keyword>\.recordtype</keyword>
+      <keyword>\.copyrecord</keyword>
+      <keyword>\.deleterecord</keyword>
+      <keyword>\.getchildren</keyword>
+      <keyword>\.moverecord</keyword>
+      <!-- ADO Recordset properties and Methods -->
+      <keyword>\.absolutepage</keyword>
+      <keyword>\.absoluteposition</keyword>
+      <keyword>\.activeCommand</keyword>
+      <keyword>\.bof</keyword>
+      <keyword>\.bookmark</keyword>
+      <keyword>\.cachesize</keyword>
+      <keyword>\.cursortype</keyword>
+      <keyword>\.datamember</keyword>
+      <keyword>\.editmode</keyword>
+      <keyword>\.eof</keyword>
+      <keyword>\.index</keyword>
+      <keyword>\.locktype</keyword>
+      <keyword>\.marshaloptions</keyword>
+      <keyword>\.maxrecords</keyword>
+      <keyword>\.pagecount</keyword>
+      <keyword>\.pagesize</keyword>
+      <keyword>\.recordcount</keyword>
+      <keyword>\.sort</keyword>
+      <keyword>\.stayinsync</keyword>
+      <keyword>\.addnew</keyword>
+      <keyword>\.cancelbatch</keyword>
+      <keyword>\.cancelupdate</keyword>
+      <keyword>\.clone</keyword>
+      <keyword>\.comparebookmarks</keyword>
+      <keyword>\.find</keyword>
+      <keyword>\.getrows</keyword>
+      <keyword>\.getstring</keyword>
+      <keyword>\.movefirst</keyword>
+      <keyword>\.movelast</keyword>
+      <keyword>\.movenext</keyword>
+      <keyword>\.moveprevious</keyword>
+      <keyword>\.nextrecordset</keyword>
+      <keyword>\.requery</keyword>
+      <keyword>\.resync</keyword>
+      <keyword>\.save</keyword>
+      <keyword>\.seek</keyword>
+      <keyword>\.supports</keyword>
+      <keyword>\.update</keyword>
+      <keyword>\.updatebatch</keyword>
+      <!-- ADO Stream properties and Methods -->
+      <keyword>\.eos</keyword>
+      <keyword>\.lineseparator</keyword>
+      <keyword>\.position</keyword>
+      <keyword>\.copyto</keyword>
+      <keyword>\.loadfromfile</keyword>
+      <keyword>\.readtext</keyword>
+      <keyword>\.savetofile</keyword>
+      <keyword>\.seteos</keyword>
+      <keyword>\.writetext</keyword>
+    </context>
+
+    <context id="operators" style-ref="operator" extend-parent="false">
+      <match>[-^:/\=\+\*&amp;&lt;&gt;]</match>
+    </context>
+
+    <context id="objects" style-ref="object">
+      <!-- ASP Objects -->
+      <keyword>response</keyword>
+      <keyword>request</keyword>
+      <keyword>application</keyword>
+      <keyword>session</keyword>
+      <keyword>server</keyword>
+      <!-- ASP Collections -->
+      <keyword>\.querystring</keyword>
+      <keyword>\.form</keyword>
+      <keyword>\.cookies</keyword>
+      <keyword>\.servervariables</keyword>
+      <keyword>\.clientcertificate</keyword>
+      <keyword>\.contents</keyword>
+      <keyword>\.staticobjects</keyword>
+      <keyword>\.files</keyword>
+      <keyword>\.subfolders</keyword>
+      <keyword>\.parameters</keyword>
+      <keyword>\.properties</keyword>
+      <keyword>\.errors</keyword>
+    </context>
+
+    <context id="constants" style-ref="constant">
+      <!-- VBScript constants -->
+      <keyword>vbBlack</keyword>
+      <keyword>vbRed</keyword>
+      <keyword>vbGreen</keyword>
+      <keyword>vbYellow</keyword>
+      <keyword>vbBlue</keyword>
+      <keyword>vbMagenta</keyword>
+      <keyword>vbCyan</keyword>
+      <keyword>vbWhite</keyword>
+      <keyword>vbBinaryCompare</keyword>
+      <keyword>vbTextCompare</keyword>
+      <keyword>vbSunday</keyword>
+      <keyword>vbMonday</keyword>
+      <keyword>vbTuesday</keyword>
+      <keyword>vbWednesday</keyword>
+      <keyword>vbThursday</keyword>
+      <keyword>vbFriday</keyword>
+      <keyword>vbSaturday</keyword>
+      <keyword>vbUseSystemDayOfWeek</keyword>
+      <keyword>vbFirstJan1</keyword>
+      <keyword>vbFirstFourDays</keyword>
+      <keyword>vbFirstFullWeek</keyword>
+      <keyword>vbGeneralDate</keyword>
+      <keyword>vbLongDate</keyword>
+      <keyword>vbShortDate</keyword>
+      <keyword>vbLongTime</keyword>
+      <keyword>vbShortTime</keyword>
+      <keyword>vbObjectError</keyword>
+      <keyword>vbOKOnly</keyword>
+      <keyword>vbOKCancel</keyword>
+      <keyword>vbAbortRetryIgnore</keyword>
+      <keyword>vbYesNoCancel</keyword>
+      <keyword>vbYesNo</keyword>
+      <keyword>vbRetryCancel</keyword>
+      <keyword>vbCritical</keyword>
+      <keyword>vbQuestion</keyword>
+      <keyword>vbExclamation</keyword>
+      <keyword>vbInformation</keyword>
+      <keyword>vbDefaultButton1</keyword>
+      <keyword>vbDefaultButton2</keyword>
+      <keyword>vbDefaultButton3</keyword>
+      <keyword>vbDefaultButton4</keyword>
+      <keyword>vbApplicationModal</keyword>
+      <keyword>vbSystemModal</keyword>
+      <keyword>vbCr</keyword>
+      <keyword>vbCrLf</keyword>
+      <keyword>vbFormFeed</keyword>
+      <keyword>vbLf</keyword>
+      <keyword>vbNewLine</keyword>
+      <keyword>vbNullChar</keyword>
+      <keyword>vbNullString</keyword>
+      <keyword>vbTab</keyword>
+      <keyword>vbVerticalTab</keyword>
+      <keyword>vbUseDefault</keyword>
+      <keyword>vbTrue</keyword>
+      <keyword>vbFalse</keyword>
+      <keyword>vbEmpty</keyword>
+      <keyword>vbNull</keyword>
+      <keyword>vbInteger</keyword>
+      <keyword>vbLong</keyword>
+      <keyword>vbSingle</keyword>
+      <keyword>vbDouble</keyword>
+      <keyword>vbCurrency</keyword>
+      <keyword>vbDate</keyword>
+      <keyword>vbString</keyword>
+      <keyword>vbObject</keyword>
+      <keyword>vbError</keyword>
+      <keyword>vbBoolean</keyword>
+      <keyword>vbVariant</keyword>
+      <keyword>vbDataObject</keyword>
+      <keyword>vbDecimal</keyword>
+      <keyword>vbByte</keyword>
+      <keyword>vbArray</keyword>
+      <!-- ADO constants -->
+      <!--   CursorTypeEnum Values -->
+      <keyword>adOpenForwardOnly</keyword>
+      <keyword>adOpenKeyset</keyword>
+      <keyword>adOpenDynamic</keyword>
+      <keyword>adOpenStatic</keyword>
+      <!--   CursorOptionEnum Values -->
+      <keyword>adHoldRecords</keyword>
+      <keyword>adMovePrevious</keyword>
+      <keyword>adAddNew</keyword>
+      <keyword>adDelete</keyword>
+      <keyword>adUpdate</keyword>
+      <keyword>adBookmark</keyword>
+      <keyword>adApproxPosition</keyword>
+      <keyword>adUpdateBatch</keyword>
+      <keyword>adResync</keyword>
+      <keyword>adNotify</keyword>
+      <keyword>adFind</keyword>
+      <keyword>adSeek</keyword>
+      <keyword>adIndex</keyword>
+      <!--   LockTypeEnum Values -->
+      <keyword>adLockReadOnly</keyword>
+      <keyword>adLockPessimistic</keyword>
+      <keyword>adLockOptimistic</keyword>
+      <keyword>adLockBatchOptimistic</keyword>
+      <!--   ExecuteOptionEnum Values -->
+      <keyword>adAsyncExecute</keyword>
+      <keyword>adAsyncFetch</keyword>
+      <keyword>adAsyncFetchNonBlocking</keyword>
+      <keyword>adExecuteNoRecords</keyword>
+      <keyword>adExecuteStream</keyword>
+      <!--   ConnectOptionEnum Values -->
+      <keyword>adAsyncConnect</keyword>
+      <!--   ObjectStateEnum Values -->
+      <keyword>adStateClosed</keyword>
+      <keyword>adStateOpen</keyword>
+      <keyword>adStateConnecting</keyword>
+      <keyword>adStateExecuting</keyword>
+      <keyword>adStateFetching</keyword>
+      <!--   CursorLocationEnum Values -->
+      <keyword>adUseServer</keyword>
+      <keyword>adUseClient</keyword>
+      <!--   DataTypeEnum Values -->
+      <keyword>adEmpty</keyword>
+      <keyword>adTinyInt</keyword>
+      <keyword>adSmallInt</keyword>
+      <keyword>adInteger</keyword>
+      <keyword>adBigInt</keyword>
+      <keyword>adUnsignedTinyInt</keyword>
+      <keyword>adUnsignedSmallInt</keyword>
+      <keyword>adUnsignedInt</keyword>
+      <keyword>adUnsignedBigInt</keyword>
+      <keyword>adSingle</keyword>
+      <keyword>adDouble</keyword>
+      <keyword>adCurrency</keyword>
+      <keyword>adDecimal</keyword>
+      <keyword>adNumeric</keyword>
+      <keyword>adBoolean</keyword>
+      <keyword>adError</keyword>
+      <keyword>adUserDefined</keyword>
+      <keyword>adVariant</keyword>
+      <keyword>adIDispatch</keyword>
+      <keyword>adIUnknown</keyword>
+      <keyword>adGUID</keyword>
+      <keyword>adDate</keyword>
+      <keyword>adDBDate</keyword>
+      <keyword>adDBTime</keyword>
+      <keyword>adDBTimeStamp</keyword>
+      <keyword>adBSTR</keyword>
+      <keyword>adChar</keyword>
+      <keyword>adVarChar</keyword>
+      <keyword>adLongVarChar</keyword>
+      <keyword>adWChar</keyword>
+      <keyword>adVarWChar</keyword>
+      <keyword>adLongVarWChar</keyword>
+      <keyword>adBinary</keyword>
+      <keyword>adVarBinary</keyword>
+      <keyword>adLongVarBinary</keyword>
+      <keyword>adChapter</keyword>
+      <keyword>adFileTime</keyword>
+      <keyword>adPropVariant</keyword>
+      <keyword>adVarNumeric</keyword>
+      <keyword>adArray</keyword>
+      <!--   FieldAttributeEnum Values -->
+      <keyword>adFldMayDefer</keyword>
+      <keyword>adFldUpdatable</keyword>
+      <keyword>adFldUnknownUpdatable</keyword>
+      <keyword>adFldFixed</keyword>
+      <keyword>adFldIsNullable</keyword>
+      <keyword>adFldMayBeNull</keyword>
+      <keyword>adFldLong</keyword>
+      <keyword>adFldRowID</keyword>
+      <keyword>adFldRowVersion</keyword>
+      <keyword>adFldCacheDeferred</keyword>
+      <keyword>adFldIsChapter</keyword>
+      <keyword>adFldNegativeScale</keyword>
+      <keyword>adFldKeyColumn</keyword>
+      <keyword>adFldIsRowURL</keyword>
+      <keyword>adFldIsDefaultStream</keyword>
+      <keyword>adFldIsCollection</keyword>
+      <!--   EditModeEnum Values -->
+      <keyword>adEditNone</keyword>
+      <keyword>adEditInProgress</keyword>
+      <keyword>adEditAdd</keyword>
+      <keyword>adEditDelete</keyword>
+      <!--   RecordStatusEnum Values -->
+      <keyword>adRecOK</keyword>
+      <keyword>adRecNew</keyword>
+      <keyword>adRecModified</keyword>
+      <keyword>adRecDeleted</keyword>
+      <keyword>adRecUnmodified</keyword>
+      <keyword>adRecInvalid</keyword>
+      <keyword>adRecMultipleChanges</keyword>
+      <keyword>adRecPendingChanges</keyword>
+      <keyword>adRecCanceled</keyword>
+      <keyword>adRecCantRelease</keyword>
+      <keyword>adRecConcurrencyViolation</keyword>
+      <keyword>adRecIntegrityViolation</keyword>
+      <keyword>adRecMaxChangesExceeded</keyword>
+      <keyword>adRecObjectOpen</keyword>
+      <keyword>adRecOutOfMemory</keyword>
+      <keyword>adRecPermissionDenied</keyword>
+      <keyword>adRecSchemaViolation</keyword>
+      <keyword>adRecDBDeleted</keyword>
+      <!--   GetRowsOptionEnum Values -->
+      <keyword>adGetRowsRest</keyword>
+      <!--   PositionEnum Values -->
+      <keyword>adPosUnknown</keyword>
+      <keyword>adPosBOF</keyword>
+      <keyword>adPosEOF</keyword>
+      <!--   BookmarkEnum Values -->
+      <keyword>adBookmarkCurrent</keyword>
+      <keyword>adBookmarkFirst</keyword>
+      <keyword>adBookmarkLast</keyword>
+      <!--   MarshalOptionsEnum Values -->
+      <keyword>adMarshalAll</keyword>
+      <keyword>adMarshalModifiedOnly</keyword>
+      <!--   AffectEnum Values -->
+      <keyword>adAffectCurrent</keyword>
+      <keyword>adAffectGroup</keyword>
+      <keyword>adAffectAllChapters</keyword>
+      <!--   ResyncEnum Values -->
+      <keyword>adResyncUnderlyingValues</keyword>
+      <keyword>adResyncAllValues</keyword>
+      <!--   CompareEnum Values -->
+      <keyword>adCompareLessThan</keyword>
+      <keyword>adCompareEqual</keyword>
+      <keyword>adCompareGreaterThan</keyword>
+      <keyword>adCompareNotEqual</keyword>
+      <keyword>adCompareNotComparable</keyword>
+      <!--   FilterGroupEnum Values -->
+      <keyword>adFilterNone</keyword>
+      <keyword>adFilterPendingRecords</keyword>
+      <keyword>adFilterAffectedRecords</keyword>
+      <keyword>adFilterFetchedRecords</keyword>
+      <keyword>adFilterConflictingRecords</keyword>
+      <!--   SearchDirectionEnum Values -->
+      <keyword>adSearchForward</keyword>
+      <keyword>adSearchBackward</keyword>
+      <!--   PersistFormatEnum Values -->
+      <keyword>adPersistADTG</keyword>
+      <keyword>adPersistXML</keyword>
+      <!--   StringFormatEnum Values -->
+      <keyword>adClipString</keyword>
+      <!--   ConnectPromptEnum Values -->
+      <keyword>adPromptAlways</keyword>
+      <keyword>adPromptComplete</keyword>
+      <keyword>adPromptCompleteRequired</keyword>
+      <keyword>adPromptNever</keyword>
+      <!--   ConnectModeEnum Values -->
+      <keyword>adModeUnknown</keyword>
+      <keyword>adModeRead</keyword>
+      <keyword>adModeWrite</keyword>
+      <keyword>adModeReadWrite</keyword>
+      <keyword>adModeShareDenyRead</keyword>
+      <keyword>adModeShareDenyWrite</keyword>
+      <keyword>adModeShareExclusive</keyword>
+      <keyword>adModeShareDenyNone</keyword>
+      <keyword>adModeRecursive</keyword>
+      <!--   RecordCreateOptionsEnum Values -->
+      <keyword>adCreateCollection</keyword>
+      <keyword>adCreateStructDoc</keyword>
+      <keyword>adCreateNonCollection</keyword>
+      <keyword>adOpenIfExists</keyword>
+      <keyword>adCreateOverwrite</keyword>
+      <keyword>adFailIfNotExists</keyword>
+      <!--   RecordOpenOptionsEnum Values -->
+      <keyword>adOpenRecordUnspecified</keyword>
+      <keyword>adOpenOutput</keyword>
+      <keyword>adOpenAsync</keyword>
+      <keyword>adDelayFetchStream</keyword>
+      <keyword>adDelayFetchFields</keyword>
+      <keyword>adOpenExecuteCommand</keyword>
+      <!--   IsolationLevelEnum Values -->
+      <keyword>adXactUnspecified</keyword>
+      <keyword>adXactChaos</keyword>
+      <keyword>adXactReadUncommitted</keyword>
+      <keyword>adXactBrowse</keyword>
+      <keyword>adXactCursorStability</keyword>
+      <keyword>adXactReadCommitted</keyword>
+      <keyword>adXactRepeatableRead</keyword>
+      <keyword>adXactSerializable</keyword>
+      <keyword>adXactIsolated</keyword>
+      <!--   XactAttributeEnum Values -->
+      <keyword>adXactCommitRetaining</keyword>
+      <keyword>adXactAbortRetaining</keyword>
+      <!--   PropertyAttributesEnum Values -->
+      <keyword>adPropNotSupported</keyword>
+      <keyword>adPropRequired</keyword>
+      <keyword>adPropOptional</keyword>
+      <keyword>adPropRead</keyword>
+      <keyword>adPropWrite</keyword>
+      <!--   ErrorValueEnum Values -->
+      <keyword>adErrProviderFailed</keyword>
+      <keyword>adErrInvalidArgument</keyword>
+      <keyword>adErrOpeningFile</keyword>
+      <keyword>adErrReadFile</keyword>
+      <keyword>adErrWriteFile</keyword>
+      <keyword>adErrNoCurrentRecord</keyword>
+      <keyword>adErrIllegalOperation</keyword>
+      <keyword>adErrCantChangeProvider</keyword>
+      <keyword>adErrInTransaction</keyword>
+      <keyword>adErrFeatureNotAvailable</keyword>
+      <keyword>adErrItemNotFound</keyword>
+      <keyword>adErrObjectInCollection</keyword>
+      <keyword>adErrObjectNotSet</keyword>
+      <keyword>adErrDataConversion</keyword>
+      <keyword>adErrObjectClosed</keyword>
+      <keyword>adErrObjectOpen</keyword>
+      <keyword>adErrProviderNotFound</keyword>
+      <keyword>adErrBoundToCommand</keyword>
+      <keyword>adErrInvalidParamInfo</keyword>
+      <keyword>adErrInvalidConnection</keyword>
+      <keyword>adErrNotReentrant</keyword>
+      <keyword>adErrStillExecuting</keyword>
+      <keyword>adErrOperationCancelled</keyword>
+      <keyword>adErrStillConnecting</keyword>
+      <keyword>adErrInvalidTransaction</keyword>
+      <keyword>adErrUnsafeOperation</keyword>
+      <keyword>adwrnSecurityDialog</keyword>
+      <keyword>adwrnSecurityDialogHeader</keyword>
+      <keyword>adErrIntegrityViolation</keyword>
+      <keyword>adErrPermissionDenied</keyword>
+      <keyword>adErrDataOverflow</keyword>
+      <keyword>adErrSchemaViolation</keyword>
+      <keyword>adErrSignMismatch</keyword>
+      <keyword>adErrCantConvertvalue</keyword>
+      <keyword>adErrCantCreate</keyword>
+      <keyword>adErrColumnNotOnThisRow</keyword>
+      <keyword>adErrURLIntegrViolSetColumns</keyword>
+      <keyword>adErrURLDoesNotExist</keyword>
+      <keyword>adErrTreePermissionDenied</keyword>
+      <keyword>adErrInvalidURL</keyword>
+      <keyword>adErrResourceLocked</keyword>
+      <keyword>adErrResourceExists</keyword>
+      <keyword>adErrCannotComplete</keyword>
+      <keyword>adErrVolumeNotFound</keyword>
+      <keyword>adErrOutOfSpace</keyword>
+      <keyword>adErrResourceOutOfScope</keyword>
+      <keyword>adErrUnavailable</keyword>
+      <keyword>adErrURLNamedRowDoesNotExist</keyword>
+      <keyword>adErrDelResOutOfScope</keyword>
+      <keyword>adErrPropInvalidColumn</keyword>
+      <keyword>adErrPropInvalidOption</keyword>
+      <keyword>adErrPropInvalidValue</keyword>
+      <keyword>adErrPropConflicting</keyword>
+      <keyword>adErrPropNotAllSettable</keyword>
+      <keyword>adErrPropNotSet</keyword>
+      <keyword>adErrPropNotSettable</keyword>
+      <keyword>adErrPropNotSupported</keyword>
+      <keyword>adErrCatalogNotSet</keyword>
+      <keyword>adErrCantChangeConnection</keyword>
+      <keyword>adErrFieldsUpdateFailed</keyword>
+      <keyword>adErrDenyNotSupported</keyword>
+      <keyword>adErrDenyTypeNotSupported</keyword>
+      <keyword>adErrProviderNotSpecified</keyword>
+      <keyword>adErrConnectionStringTooLong</keyword>
+      <!--   ParameterAttributesEnum Values -->
+      <keyword>adParamSigned</keyword>
+      <keyword>adParamNullable</keyword>
+      <keyword>adParamLong</keyword>
+      <!--   ParameterDirectionEnum Values -->
+      <keyword>adParamUnknown</keyword>
+      <keyword>adParamInput</keyword>
+      <keyword>adParamOutput</keyword>
+      <keyword>adParamInputOutput</keyword>
+      <keyword>adParamReturnValue</keyword>
+      <!--   CommandTypeEnum Values -->
+      <keyword>adCmdUnknown</keyword>
+      <keyword>adCmdText</keyword>
+      <keyword>adCmdTable</keyword>
+      <keyword>adCmdStoredProc</keyword>
+      <keyword>adCmdFile</keyword>
+      <keyword>adCmdTableDirect</keyword>
+      <!--   EventStatusEnum Values -->
+      <keyword>adStatusOK</keyword>
+      <keyword>adStatusErrorsOccurred</keyword>
+      <keyword>adStatusCantDeny</keyword>
+      <keyword>adStatusCancel</keyword>
+      <keyword>adStatusUnwantedEvent</keyword>
+      <!--   EventReasonEnum Values -->
+      <keyword>adRsnAddNew</keyword>
+      <keyword>adRsnDelete</keyword>
+      <keyword>adRsnUpdate</keyword>
+      <keyword>adRsnUndoUpdate</keyword>
+      <keyword>adRsnUndoAddNew</keyword>
+      <keyword>adRsnUndoDelete</keyword>
+      <keyword>adRsnRequery</keyword>
+      <keyword>adRsnResynch</keyword>
+      <keyword>adRsnClose</keyword>
+      <keyword>adRsnMove</keyword>
+      <keyword>adRsnFirstChange</keyword>
+      <keyword>adRsnMoveFirst</keyword>
+      <keyword>adRsnMoveNext</keyword>
+      <keyword>adRsnMovePrevious</keyword>
+      <keyword>adRsnMoveLast</keyword>
+      <!--   SchemaEnum Values -->
+      <keyword>adSchemaProviderSpecific</keyword>
+      <keyword>adSchemaAsserts</keyword>
+      <keyword>adSchemaCatalogs</keyword>
+      <keyword>adSchemaCharacterSets</keyword>
+      <keyword>adSchemaCollations</keyword>
+      <keyword>adSchemaColumns</keyword>
+      <keyword>adSchemaCheckConstraints</keyword>
+      <keyword>adSchemaConstraintColumnUsage</keyword>
+      <keyword>adSchemaConstraintTableUsage</keyword>
+      <keyword>adSchemaKeyColumnUsage</keyword>
+      <keyword>adSchemaReferentialConstraints</keyword>
+      <keyword>adSchemaTableConstraints</keyword>
+      <keyword>adSchemaColumnsDomainUsage</keyword>
+      <keyword>adSchemaIndexes</keyword>
+      <keyword>adSchemaColumnPrivileges</keyword>
+      <keyword>adSchemaTablePrivileges</keyword>
+      <keyword>adSchemaUsagePrivileges</keyword>
+      <keyword>adSchemaProcedures</keyword>
+      <keyword>adSchemaSchemata</keyword>
+      <keyword>adSchemaSQLLanguages</keyword>
+      <keyword>adSchemaStatistics</keyword>
+      <keyword>adSchemaTables</keyword>
+      <keyword>adSchemaTranslations</keyword>
+      <keyword>adSchemaProviderTypes</keyword>
+      <keyword>adSchemaViews</keyword>
+      <keyword>adSchemaViewColumnUsage</keyword>
+      <keyword>adSchemaViewTableUsage</keyword>
+      <keyword>adSchemaProcedureParameters</keyword>
+      <keyword>adSchemaForeignKeys</keyword>
+      <keyword>adSchemaPrimaryKeys</keyword>
+      <keyword>adSchemaProcedureColumns</keyword>
+      <keyword>adSchemaDBInfoKeywords</keyword>
+      <keyword>adSchemaDBInfoLiterals</keyword>
+      <keyword>adSchemaCubes</keyword>
+      <keyword>adSchemaDimensions</keyword>
+      <keyword>adSchemaHierarchies</keyword>
+      <keyword>adSchemaLevels</keyword>
+      <keyword>adSchemaMeasures</keyword>
+      <keyword>adSchemaProperties</keyword>
+      <keyword>adSchemaMembers</keyword>
+      <keyword>adSchemaTrustees</keyword>
+      <keyword>adSchemaFunctions</keyword>
+      <keyword>adSchemaActions</keyword>
+      <keyword>adSchemaCommands</keyword>
+      <keyword>adSchemaSets</keyword>
+      <!--   FieldStatusEnum Values -->
+      <keyword>adFieldOK</keyword>
+      <keyword>adFieldCantConvertValue</keyword>
+      <keyword>adFieldIsNull</keyword>
+      <keyword>adFieldTruncated</keyword>
+      <keyword>adFieldSignMismatch</keyword>
+      <keyword>adFieldDataOverflow</keyword>
+      <keyword>adFieldCantCreate</keyword>
+      <keyword>adFieldUnavailable</keyword>
+      <keyword>adFieldPermissionDenied</keyword>
+      <keyword>adFieldIntegrityViolation</keyword>
+      <keyword>adFieldSchemaViolation</keyword>
+      <keyword>adFieldBadStatus</keyword>
+      <keyword>adFieldDefault</keyword>
+      <keyword>adFieldIgnore</keyword>
+      <keyword>adFieldDoesNotExist</keyword>
+      <keyword>adFieldInvalidURL</keyword>
+      <keyword>adFieldResourceLocked</keyword>
+      <keyword>adFieldResourceExists</keyword>
+      <keyword>adFieldCannotComplete</keyword>
+      <keyword>adFieldVolumeNotFound</keyword>
+      <keyword>adFieldOutOfSpace</keyword>
+      <keyword>adFieldCannotDeleteSource</keyword>
+      <keyword>adFieldReadOnly</keyword>
+      <keyword>adFieldResourceOutOfScope</keyword>
+      <keyword>adFieldAlreadyExists</keyword>
+      <keyword>adFieldPendingInsert</keyword>
+      <keyword>adFieldPendingDelete</keyword>
+      <keyword>adFieldPendingChange</keyword>
+      <keyword>adFieldPendingUnknown</keyword>
+      <keyword>adFieldPendingUnknownDelete</keyword>
+      <!--   SeekEnum Values -->
+      <keyword>adSeekFirstEQ</keyword>
+      <keyword>adSeekLastEQ</keyword>
+      <keyword>adSeekAfterEQ</keyword>
+      <keyword>adSeekAfter</keyword>
+      <keyword>adSeekBeforeEQ</keyword>
+      <keyword>adSeekBefore</keyword>
+      <!--   ADCPROP_UPDATECRITERIA_ENUM Values -->
+      <keyword>adCriteriaKey</keyword>
+      <keyword>adCriteriaAllCols</keyword>
+      <keyword>adCriteriaUpdCols</keyword>
+      <keyword>adCriteriaTimeStamp</keyword>
+      <!--   ADCPROP_ASYNCTHREADPRIORITY_ENUM Values -->
+      <keyword>adPriorityLowest</keyword>
+      <keyword>adPriorityBelowNormal</keyword>
+      <keyword>adPriorityNormal</keyword>
+      <keyword>adPriorityAboveNormal</keyword>
+      <keyword>adPriorityHighest</keyword>
+      <!--   ADCPROP_AUTORECALC_ENUM Values -->
+      <keyword>adRecalcUpFront</keyword>
+      <keyword>adRecalcAlways</keyword>
+      <!--   ADCPROP_UPDATERESYNC_ENUM Values -->
+      <keyword>adResyncNone</keyword>
+      <keyword>adResyncAutoIncrement</keyword>
+      <keyword>adResyncConflicts</keyword>
+      <keyword>adResyncUpdates</keyword>
+      <keyword>adResyncInserts</keyword>
+      <keyword>adResyncAll</keyword>
+      <!--   MoveRecordOptionsEnum Values -->
+      <keyword>adMoveUnspecified</keyword>
+      <keyword>adMoveOverWrite</keyword>
+      <keyword>adMoveDontUpdateLinks</keyword>
+      <keyword>adMoveAllowEmulation</keyword>
+      <!--   CopyRecordOptionsEnum Values -->
+      <keyword>adCopyUnspecified</keyword>
+      <keyword>adCopyOverWrite</keyword>
+      <keyword>adCopyAllowEmulation</keyword>
+      <keyword>adCopyNonRecursive</keyword>
+      <!--   StreamTypeEnum Values -->
+      <keyword>adTypeBinary</keyword>
+      <keyword>adTypeText</keyword>
+      <!--   LineSeparatorEnum Values -->
+      <keyword>adLF</keyword>
+      <keyword>adCR</keyword>
+      <keyword>adCRLF</keyword>
+      <!--   StreamOpenOptionsEnum Values -->
+      <keyword>adOpenStreamUnspecified</keyword>
+      <keyword>adOpenStreamAsync</keyword>
+      <keyword>adOpenStreamFromRecord</keyword>
+      <!--   StreamWriteEnum Values -->
+      <keyword>adWriteChar</keyword>
+      <keyword>adWriteLine</keyword>
+      <!--   SaveOptionsEnum Values -->
+      <keyword>adSaveCreateNotExist</keyword>
+      <keyword>adSaveCreateOverWrite</keyword>
+      <!--   FieldEnum Values -->
+      <keyword>adDefaultStream</keyword>
+      <keyword>adRecordURL</keyword>
+      <!--   StreamReadEnum Values -->
+      <keyword>adReadAll</keyword>
+      <keyword>adReadLine</keyword>
+      <!--   RecordTypeEnum Values -->
+      <keyword>adSimpleRecord</keyword>
+      <keyword>adCollectionRecord</keyword>
+      <keyword>adStructDoc</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>boolean</keyword>
+      <keyword>byte</keyword>
+      <keyword>currency</keyword>
+      <keyword>date</keyword>
+      <keyword>double</keyword>
+      <keyword>empty</keyword>
+      <keyword>error</keyword>
+      <keyword>integer</keyword>
+      <keyword>long</keyword>
+      <keyword>object</keyword>
+      <keyword>single</keyword>
+      <keyword>string</keyword>
+    </context>
+
+    <context id="special-constants" style-ref="special-constant">
+      <keyword>nothing</keyword>
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        (\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b|
+         \b(([0-9]+[Ee][-]?[0-9]+|
+            ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+            [0-9]+[FfDd]))
+      </match>
+    </context>
+
+    <context id="asp-block">
+      <start>&lt;[%]</start>
+      <end>[%]&gt;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="0" where="end" style-ref="preprocessor"/>
+        <context ref="line-comment"/>
+        <context ref="old-style-comment"/>
+        <context ref="string"/>
+        <context ref="preprocessor"/>
+        <context ref="keywords"/>
+        <context ref="functions"/>
+        <context ref="operators"/>
+        <context ref="objects"/>
+        <context ref="constants"/>
+        <context ref="types"/>
+        <context ref="special-constants"/>
+        <context ref="boolean"/>
+        <context ref="numeric"/>
+<!--//
+
+ASP(Active Server Pages) technology allows almost any programming language with
+support to ActiveScripting to be used with it, but including the languages below
+doesn't work as expected because of definitions conflicts between them. I've
+tested and recommend to just change the Syntax Highlighting to the desired
+language if it's another than VBScript. VBScript was chosen here because it's
+the standard language for ASP.
+
+        <context ref="js:js"/>
+        <context ref="perl:perl"/>
+        <context ref="python:python"/>
+        <context ref="tcl:tcl"/>
+        <context ref="php:php"/>
+
+//-->
+      </include>
+    </context>
+
+    <context id="asp" class="no-spell-check">
+      <include>
+        <context ref="asp-block"/>
+        <context ref="html:html"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

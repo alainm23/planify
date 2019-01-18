@@ -1,0 +1,2 @@
+[org.freedesktop.folks]
+primary-store = /system/folks/backends/primary_store

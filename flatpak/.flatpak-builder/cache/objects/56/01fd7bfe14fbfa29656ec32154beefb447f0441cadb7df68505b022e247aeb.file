@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: John Luke <jluke@cfl.rr.com>
+ Copyright (C) 2003 John Luke <jluke@cfl.rr.com>
+ Copyright (C) 2004 Jeroen Zwartepoorte <jeroen@xs4all.nl>
+ Copyright (C) 2004 Alessio Frusciante <algol@firenze.linux.it>
+ Copyright (C) 2005 Brion Vibber <brion@pobox.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="c-sharp" name="C#" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-csharpsrc;text/x-csharp</property>
+    <property name="globs">*.cs</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="char" name="Character" map-to="def:character"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+    <style id="format" name="String Format" map-to="def:special-char"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="null-value" name="Null Value" map-to="def:special-constant"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="hexadecimal" name="Hexadecimal number" map-to="def:base-n-integer"/>
+    <style id="real" name="Real number" map-to="def:floating-point"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="multiline-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <define-regex id="preproc-start">^\s*#\s*</define-regex>
+
+    <context id="if-false-comment" style-ref="comment">
+      <start>\%{preproc-start}if\s*false\b</start>
+      <end>\%{preproc-start}(endif|else|elif)\b</end>
+      <include>
+        <context id="if-in-if-false">
+          <start>\%{preproc-start}if(n?def)?\b</start>
+          <end>\%{preproc-start}endif\b</end>
+          <include>
+            <context ref="if-in-if-false"/>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="preprocessor" style-ref="preprocessor" end-at-line-end="true">
+      <start extended="true">
+        \%{preproc-start}
+        (define|undef|if(n?def)?|else|elif|endif|line|error|warning|region|endregion)
+        \b
+      </start>
+      <include>
+        <context ref="line-comment"/>
+        <context ref="multiline-comment"/>
+      </include>
+    </context>
+
+    <context id="multiline-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>@"</start>
+      <end>"</end>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>async</keyword>
+      <keyword>await</keyword>
+      <keyword>class</keyword>
+      <keyword>delegate</keyword>
+      <keyword>enum</keyword>
+      <keyword>event</keyword>
+      <keyword>interface</keyword>
+      <keyword>namespace</keyword>
+      <keyword>struct</keyword>
+      <keyword>using</keyword>
+      <keyword>abstract</keyword>
+      <keyword>const</keyword>
+      <keyword>explicit</keyword>
+      <keyword>extern</keyword>
+      <keyword>fixed</keyword>
+      <keyword>implicit</keyword>
+      <keyword>internal</keyword>
+      <keyword>lock</keyword>
+      <keyword>out</keyword>
+      <keyword>override</keyword>
+      <keyword>params</keyword>
+      <keyword>partial</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>ref</keyword>
+      <keyword>sealed</keyword>
+      <keyword>static</keyword>
+      <keyword>readonly</keyword>
+      <keyword>unsafe</keyword>
+      <keyword>virtual</keyword>
+      <keyword>volatile</keyword>
+      <keyword>add</keyword>
+      <keyword>as</keyword>
+      <keyword>assembly</keyword>
+      <keyword>base</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>checked</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>get</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>is</keyword>
+      <keyword>nameof</keyword>
+      <keyword>new</keyword>
+      <keyword>remove</keyword>
+      <keyword>return</keyword>
+      <keyword>set</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>stackalloc</keyword>
+      <keyword>super</keyword>
+      <keyword>switch</keyword>
+      <keyword>this</keyword>
+      <keyword>throw</keyword>
+      <keyword>try</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unchecked</keyword>
+      <keyword>value</keyword>
+      <keyword>var</keyword>
+      <keyword>void</keyword>
+      <keyword>while</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="primitives" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>decimal</keyword>
+      <keyword>double</keyword>
+      <keyword>dynamic</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>object</keyword>
+      <keyword>operator</keyword>
+      <keyword>sbyte</keyword>
+      <keyword>short</keyword>
+      <keyword>string</keyword>
+      <keyword>uint</keyword>
+      <keyword>ulong</keyword>
+      <keyword>ushort</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9]+[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][a-fA-F0-9]+[uUlL]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="real" style-ref="real">
+      <match extended="true">
+        (?&lt;![\w\.])
+        ((\.[0-9]+|[0-9]+\.[0-9]*)([Ee][+-]?[0-9]*)?[FfDdMm]?|
+         ([0-9]+[Ee][+-]?[0-9]*)[FfDdMm]? |
+         ([0-9]+)[FfDdMm])
+        (?![\w\.])
+      </match>
+    </context>
+
+    <!-- FIXME Taken from C, is it right? -->
+    <define-regex id="escaped-character" extended="true">
+      \\(                   # leading backslash
+      [\\\"\'nrbtfav\?] |   # escaped character
+      [0-7]{1,3} |          # one, two, or three octal digits
+      x[0-9A-Fa-f]+         # 'x' followed by hex digits
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+	<context id="csharp-format" style-ref="format">
+          <match>{[0-9][0-9:\#\%,./cdefgnrxtsuDTFGMY]*}</match>
+        </context>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="char" style-ref="char">
+      <!-- FIXME I don't know C# syntax -->
+      <match>'(\%{escaped-character}|.)'</match>
+    </context>
+
+    <context id="c-sharp" class="no-spell-check">
+      <include>
+        <context ref="multiline-string"/>
+        <context ref="string"/>
+        <context ref="char"/>
+        <context ref="line-comment"/>
+        <context ref="multiline-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="if-false-comment"/>
+        <context ref="preprocessor"/>
+        <context ref="keywords"/>
+        <context ref="primitives"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="decimal"/>
+        <context ref="hexadecimal"/>
+        <context ref="real"/>
+      </include>
+    </context>
+  </definitions>
+</language>

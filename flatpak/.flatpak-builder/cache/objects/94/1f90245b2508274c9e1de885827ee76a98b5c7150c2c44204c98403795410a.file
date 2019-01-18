@@ -1,0 +1,152 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-recur-iterator.h"
+#include "libical-glib-private.h"
+#include "i-cal-recurrence-type.h"
+#include "i-cal-timetype.h"
+
+G_DEFINE_TYPE (ICalRecurIterator, i_cal_recur_iterator, I_CAL_TYPE_OBJECT)
+
+static void i_cal_recur_iterator_class_init (ICalRecurIteratorClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalRecurIterator));
+}
+
+static void i_cal_recur_iterator_init (G_GNUC_UNUSED ICalRecurIterator *self)
+{
+}
+
+/**
+ * i_cal_recur_iterator_new_full: (skip)
+ * @native: The native libical object.
+ * @owner: The parent.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalRecurIterator *
+i_cal_recur_iterator_new_full (icalrecur_iterator *native, 
+                               GObject *owner)
+{
+    ICalRecurIterator *object;
+    if (native == NULL)
+        return NULL;
+    object = g_object_new (I_CAL_RECUR_ITERATOR_TYPE, NULL);
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) native,
+                            (GDestroyNotify) icalrecur_iterator_free,
+                            FALSE,
+                            owner);
+
+    return object;
+}
+/**
+ * i_cal_recur_iterator_new:
+ * @rule: The rule applied on the #ICalRecurIterator.
+ * @dtstart: The start time of the recurrence.
+ *
+ * Create an #ICalRecurIterator.
+ *
+ * Returns: (transfer full): The newly created #ICalRecurIterator
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurIterator *
+i_cal_recur_iterator_new (ICalRecurrenceType *rule, 
+                          ICalTimetype *dtstart)
+{
+	g_return_val_if_fail (I_CAL_IS_RECURRENCE_TYPE (rule), NULL);
+	g_return_val_if_fail (rule != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (dtstart), NULL);
+	g_return_val_if_fail (dtstart != NULL, NULL);
+
+	return i_cal_recur_iterator_new_full (icalrecur_iterator_new (* (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (rule)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (dtstart))), NULL);
+}
+
+/**
+ * i_cal_recur_iterator_next:
+ * @iterator: The iterator.
+ *
+ * Get the next occurrence from an iterator.
+ *
+ * Returns: (transfer none): The next occurrence according to this recurrence rule.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_recur_iterator_next (ICalRecurIterator *iterator)
+{
+	g_return_val_if_fail (I_CAL_IS_RECUR_ITERATOR (iterator), NULL);
+	g_return_val_if_fail (iterator != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalrecur_iterator_next ((icalrecur_iterator *)i_cal_object_get_native (I_CAL_OBJECT (iterator))));
+}
+
+/**
+ * i_cal_recur_iterator_set_start:
+ * @iterator: The iterator.
+ * @start: The date-time to move the iterator to.
+ *
+ * Set the date-time at which the iterator will start, where 'start' is a value between DTSTART and UNTIL.
+Note:
+ * CAN NOT be used with RRULEs that contain COUNT.
+ *
+ * Returns: 1 if succeeded, 0 if failed, like when the recurrence type is unsupported.
+ *
+ * Since: 3.0
+ *
+ **/
+gint
+i_cal_recur_iterator_set_start (ICalRecurIterator *iterator, 
+                                ICalTimetype *start)
+{
+	g_return_val_if_fail (I_CAL_IS_RECUR_ITERATOR (iterator), 0);
+	g_return_val_if_fail (iterator != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (start), 0);
+	g_return_val_if_fail (start != NULL, 0);
+
+	return icalrecur_iterator_set_start ((icalrecur_iterator *)i_cal_object_get_native (I_CAL_OBJECT (iterator)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (start)));
+}
+
+/**
+ * i_cal_recur_iterator_free: (skip)
+ * @iterator: The iterator to be freed.
+ *
+ * Free an iterator.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_recur_iterator_free (ICalRecurIterator *iterator)
+{
+	g_return_if_fail (I_CAL_IS_RECUR_ITERATOR (iterator));
+	g_return_if_fail (iterator != NULL);
+
+	icalrecur_iterator_free ((icalrecur_iterator *)i_cal_object_get_native (I_CAL_OBJECT (iterator)));
+}

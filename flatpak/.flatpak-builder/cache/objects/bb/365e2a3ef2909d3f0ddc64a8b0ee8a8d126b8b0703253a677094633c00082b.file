@@ -1,0 +1,290 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-period-type.h"
+#include "libical-glib-private.h"
+#include "i-cal-timetype.h"
+#include "i-cal-duration-type.h"
+
+G_DEFINE_TYPE (ICalPeriodType, i_cal_period_type, I_CAL_TYPE_OBJECT)
+
+static void i_cal_period_type_class_init (ICalPeriodTypeClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalPeriodType));
+}
+
+static void i_cal_period_type_init (G_GNUC_UNUSED ICalPeriodType *self)
+{
+}
+
+/**
+ * i_cal_period_type_new_full: (skip)
+ * @native: The native libical object.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalPeriodType *
+i_cal_period_type_new_full (struct icalperiodtype native)
+{
+    ICalPeriodType *object;
+    struct icalperiodtype *clone;
+    object = g_object_new (I_CAL_PERIOD_TYPE_TYPE, NULL);
+    clone = g_new (struct icalperiodtype, 1);
+    *clone = native;
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) clone,
+                            (GDestroyNotify) g_free,
+                            FALSE,
+                            NULL);
+
+    return object;
+}
+/**
+ * i_cal_period_type_get_start:
+ * @period: The #ICalPeriodType to be queried.
+ *
+ * Get the start time from an #ICalPeriodType.
+ *
+ * Returns: (transfer full): The start of @period.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_period_type_get_start (ICalPeriodType *period)
+{
+	g_return_val_if_fail (period != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (period), NULL);
+
+	return i_cal_timetype_new_full ((* (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period)).start);
+}
+
+/**
+ * i_cal_period_type_set_start:
+ * @period: The #ICalPeriodType to be set.
+ * @start: The start of @period.
+ *
+ * Set the start time of an #ICalPeriodType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_period_type_set_start (ICalPeriodType *period, 
+                             ICalTimetype *start)
+{
+	struct icalperiodtype *periodtype;
+	g_return_if_fail (period != NULL);
+	g_return_if_fail (I_CAL_IS_PERIOD_TYPE (period));
+	g_return_if_fail (start != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (start));
+
+	periodtype = (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period);
+	periodtype->start = * (struct icaltimetype *)i_cal_object_get_native ((ICalObject *)start);
+}
+
+/**
+ * i_cal_period_type_get_end:
+ * @period: The #ICalPeriodType to be queried.
+ *
+ * Get the end time from an #ICalPeriodType.
+ *
+ * Returns: (transfer full): The end of @period.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_period_type_get_end (ICalPeriodType *period)
+{
+	g_return_val_if_fail (period != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (period), NULL);
+
+	return i_cal_timetype_new_full ((* (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period)).end);
+}
+
+/**
+ * i_cal_period_type_set_end:
+ * @period: The #ICalPeriodType to be set.
+ * @end: The end of @period.
+ *
+ * Set the end time of an #ICalPeriodType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_period_type_set_end (ICalPeriodType *period, 
+                           ICalTimetype *end)
+{
+	struct icalperiodtype *periodtype;
+	g_return_if_fail (period != NULL);
+	g_return_if_fail (I_CAL_IS_PERIOD_TYPE (period));
+	g_return_if_fail (end != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (end));
+
+	periodtype = (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period);
+	periodtype->end = (* (struct icaltimetype *)i_cal_object_get_native ((ICalObject *)end));
+}
+
+/**
+ * i_cal_period_type_get_duration:
+ * @period: The #ICalPeriodType to be queried.
+ *
+ * Get the duration from an #ICalPeriodType.
+ *
+ * Returns: (transfer full): The duration of @period.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDurationType *
+i_cal_period_type_get_duration (ICalPeriodType *period)
+{
+	g_return_val_if_fail (period != NULL, NULL);
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (period), NULL);
+
+	return i_cal_duration_type_new_full ((* (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period)).duration);
+}
+
+/**
+ * i_cal_period_type_set_duration:
+ * @period: The #ICalPeriodType to be set.
+ * @duration: The duration of @period.
+ *
+ * Set the duration of an #ICalPeriodType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_period_type_set_duration (ICalPeriodType *period, 
+                                ICalDurationType *duration)
+{
+	struct icalperiodtype *periodtype;
+	g_return_if_fail (period != NULL);
+	g_return_if_fail (I_CAL_IS_PERIOD_TYPE (period));
+	g_return_if_fail (duration != NULL);
+	g_return_if_fail (I_CAL_IS_DURATION_TYPE (duration));
+
+	periodtype = (struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period);
+	periodtype->duration = (* (struct icaldurationtype *)i_cal_object_get_native ((ICalObject *)duration));
+}
+
+/**
+ * i_cal_period_type_from_string:
+ * @str: The string used to create the #ICalPeriodType
+ *
+ * Create a #ICalPeriodType from a string.
+ *
+ * Returns: (transfer full): The newly created #ICalPeriodType
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPeriodType *
+i_cal_period_type_from_string (const gchar *str)
+{
+	g_return_val_if_fail (str != NULL, NULL);
+
+	return i_cal_period_type_new_full (icalperiodtype_from_string (str));
+}
+
+/**
+ * i_cal_period_type_as_ical_string_r:
+ * @p: The #ICalPeriodType to be translated.
+ *
+ * Translate #ICalPeriodType to string.
+ *
+ * Returns: (transfer full): The string representation of #ICalPeriodType.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_period_type_as_ical_string_r (ICalPeriodType *p)
+{
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (p), NULL);
+	g_return_val_if_fail (p != NULL, NULL);
+
+	return icalperiodtype_as_ical_string_r (* (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (p)));
+}
+
+/**
+ * i_cal_period_type_null_period:
+ *
+ * Create a default #ICalPeriodType.
+ *
+ * Returns: (transfer full): The newly created default #ICalPeriodType
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPeriodType *
+i_cal_period_type_null_period (void)
+{
+	return i_cal_period_type_new_full (icalperiodtype_null_period ());
+}
+
+/**
+ * i_cal_period_type_is_null_period:
+ * @p: The #ICalPeriodType to be checked.
+ *
+ * Check the #ICalPeriodType is null_period.
+ *
+ * Returns: 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_period_type_is_null_period (ICalPeriodType *p)
+{
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (p), 0);
+	g_return_val_if_fail (p != NULL, 0);
+
+	return icalperiodtype_is_null_period (* (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (p)));
+}
+
+/**
+ * i_cal_period_type_is_valid_period:
+ * @p: The #ICalPeriodType to be checked.
+ *
+ * Check the #ICalPeriodType is valid_period.
+ *
+ * Returns: 1 if yes, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_period_type_is_valid_period (ICalPeriodType *p)
+{
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (p), 0);
+	g_return_val_if_fail (p != NULL, 0);
+
+	return icalperiodtype_is_valid_period (* (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (p)));
+}

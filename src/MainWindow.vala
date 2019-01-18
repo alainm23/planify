@@ -101,6 +101,8 @@ public class MainWindow : Gtk.Window {
         });
 
         Application.database.update_indicators ();
+
+        Application.utils.update_images_credits ();
     }
 
     private void check_badge_count () {

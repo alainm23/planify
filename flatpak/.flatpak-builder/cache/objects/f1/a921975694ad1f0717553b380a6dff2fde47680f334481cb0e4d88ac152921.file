@@ -1,0 +1,120 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if !defined (__LIBICAL_GLIB_H_INSIDE__) && !defined (LIBICAL_GLIB_COMPILATION)
+#error "Only <libical-glib/libical-glib.h> can be included directly."
+#endif
+
+#ifndef I_CAL_PERIOD_TYPE_H
+#define I_CAL_PERIOD_TYPE_H
+
+#include <libical-glib/i-cal-forward-declarations.h>
+#include <libical-glib/i-cal-object.h>
+
+G_BEGIN_DECLS
+
+#define I_CAL_PERIOD_TYPE_TYPE \
+    (i_cal_period_type_get_type ())
+
+#define I_CAL_PERIOD_TYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST \
+    ((obj), I_CAL_PERIOD_TYPE_TYPE, ICalPeriodType))
+
+#define I_CAL_PERIOD_TYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST \
+    ((klass), I_CAL_PERIOD_TYPE_TYPE, ICalPeriodTypeClass))
+
+#define I_CAL_IS_PERIOD_TYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE \
+    ((obj), I_CAL_PERIOD_TYPE_TYPE))
+
+#define I_CAL_IS_PERIOD_TYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE \
+    ((klass), I_CAL_PERIOD_TYPE_TYPE))
+
+/**
+ * ICalPeriodType:
+ *
+ * This is the ICalPeriodType instance.
+ */
+
+/**
+ * ICalPeriodTypeClass:
+ *
+ * This is the ICalPeriodType class.
+ */
+typedef struct _ICalPeriodTypeClass ICalPeriodTypeClass;
+
+struct _ICalPeriodType {
+    /*< private >*/
+    ICalObject parent;
+};
+
+struct _ICalPeriodTypeClass {
+    /*< private >*/
+    ICalObjectClass parent;
+};
+
+LIBICAL_ICAL_EXPORT
+GType 		i_cal_period_type_get_type	(void);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_period_type_get_start	(ICalPeriodType *period);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_period_type_set_start	(ICalPeriodType *period,
+						 ICalTimetype *start);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_period_type_get_end	(ICalPeriodType *period);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_period_type_set_end	(ICalPeriodType *period,
+						 ICalTimetype *end);
+
+LIBICAL_ICAL_EXPORT
+ICalDurationType *
+		i_cal_period_type_get_duration	(ICalPeriodType *period);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_period_type_set_duration	(ICalPeriodType *period,
+						 ICalDurationType *duration);
+
+LIBICAL_ICAL_EXPORT
+ICalPeriodType *
+		i_cal_period_type_from_string	(const gchar *str);
+
+LIBICAL_ICAL_EXPORT
+gchar *		i_cal_period_type_as_ical_string_r
+						(ICalPeriodType *p);
+
+LIBICAL_ICAL_EXPORT
+ICalPeriodType *
+		i_cal_period_type_null_period	(void);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_period_type_is_null_period
+						(ICalPeriodType *p);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_period_type_is_valid_period
+						(ICalPeriodType *p);
+
+G_END_DECLS
+
+#endif /* I_CAL_PERIOD_TYPE_H */

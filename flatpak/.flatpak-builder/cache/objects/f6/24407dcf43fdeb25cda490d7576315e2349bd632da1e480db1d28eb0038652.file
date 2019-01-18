@@ -1,0 +1,6 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g color='#bebebe' transform='translate(-1153.027 186.98)'>
+        
+        <path d='M1154.777-185.98a.748.748 0 0 0-.75.75v13.5c0 .416.334.75.75.75h12.5c.415 0 .75-.334.75-.75v-13.5a.748.748 0 0 0-.75-.75zm.25 1h1v1h-1zm2.5 0h7c.277 0 .5.223.5.5v5c0 .277-.223.5-.5.5h-7a.499.499 0 0 1-.5-.5v-5c0-.277.223-.5.5-.5zm8.5 0h1v1h-1zm-11 2h1v1h-1zm11 0h1v1h-1zm-11 2h1v1h-1zm11 0h1v1h-1zm-11 2h1v1h-1zm11 0h1v1h-1zm-8.5 1h7c.277 0 .5.223.5.5v5c0 .277-.223.5-.5.5h-7a.499.499 0 0 1-.5-.5v-5c0-.277.223-.5.5-.5zm-2.5 1h1v1h-1zm11 0h1v1h-1zm-11 2h1v1h-1zm11 0h1v1h-1zm-11 2h1v1h-1zm11 0h1v1h-1z' fill='#666' overflow='visible' style='marker:none'/>
+    </g>
+</svg>

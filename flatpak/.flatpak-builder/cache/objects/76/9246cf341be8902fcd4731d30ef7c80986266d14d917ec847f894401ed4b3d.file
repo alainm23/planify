@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: P. F. Chimento <philip.chimento@gmail.com>
+ Copyright (C) 2011 P. F. Chimento <philip.chimento@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="automake" name="Automake" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">Makefile.am;GNUmakefile.am</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <!--
+    Early versions of this were based on Vim's Automake syntax highlighting
+    file. This language definition is for Automake's Makefile.am files. It is
+    based on the definition of Makefile, except it highlights Makefile variables
+    which are significant to Automake, as well as Autoconf-style @variable@
+    substitutions.
+  -->
+
+  <styles>
+    <style id="lhs"       name="Automake Variable" map-to="def:identifier"/>
+    <style id="primary"   name="Primary"           map-to="def:type"/>
+    <style id="secondary" name="Secondary"         map-to="def:statement"/>
+    <style id="prefix"    name="Prefix"            map-to="def:statement"/>
+    <style id="target"    name="Optional Target"   map-to="def:statement"/>
+    <style id="dirname"   name="Built-in Target"   map-to="def:statement"/>
+    <style id="keyword"   name="Other Keyword"     map-to="def:statement"/>
+    <style id="subst"     name="Substitution"      map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+    <!-- Allow substitutions on RHS of assignment -->
+    <replace id="makefile:assignment-rhs" ref="assignment-rhs"/>
+    <!-- Also allow substitutions in makefile's shell code -->
+    <replace id="makefile:command" ref="command"/>
+
+    <!-- Also allow substitutions in automake variable names, that's why the
+    @ is in here; as in libfoobar_@VERSION@_SOURCES -->
+    <define-regex id="variable">[A-Za-z0-9_@]+</define-regex>
+
+    <!-- What is allowed on a line before an Automake variable - no tabs! -->
+    <define-regex id="space">^ *</define-regex>
+
+    <!-- What must come after an Automake variable - one of the assignment
+    operators =, +=, ?=, := (Not sure what := does, but Webkit's GNUmakefile.am
+    uses it, for example -->
+    <define-regex id="operator">\s*[\+\?:]?=</define-regex>
+
+    <!-- Prefixes for primaries and secondaries -->
+    <define-regex id="prefix">(?:no)?dist|no(?:base|trans)</define-regex>
+
+    <!-- "Primaries", or the last component of Product List Variables -->
+    <define-regex id="primary" extended="true">
+      PROGRAMS|
+      (?:LT)?LIBRARIES|
+      LISP|
+      PYTHON|
+      JAVA|
+      SCRIPTS|
+      DATA|
+      HEADERS|
+      MANS|
+      TEXINFOS
+    </define-regex>
+
+    <!-- Non-directory installation targets -->
+    <define-regex id="target">noinst|check|EXTRA</define-regex>
+
+    <!-- The list of things that can go before "FLAGS" -->
+    <define-regex id="flags" extended="true">
+      C|
+      CCAS|
+      CPP|
+      CXX|
+      F|
+      GCJ|
+      JAVAC|
+      L|
+      LD|
+      LIBTOOL|
+      (?:[A-Z]+_)?LOG|
+      MAKEINFO(?:HTML)?|
+      OBJC|
+      R|
+      UPC|
+      VALA|
+      Y
+    </define-regex>
+
+    <!-- "Secondaries", or the last component of Product Source Variables -->
+    <define-regex id="secondary" extended="true">
+      AR|
+      DEPENDENCIES|
+      LDADD|
+      LIBADD|
+      LINK|
+      SHORTNAME|
+      SOURCES|
+      \%{flags}FLAGS
+    </define-regex>
+
+    <!-- Names of other Automake variables that aren't primaries, secondaries,
+    flags, or target directories -->
+    <define-regex id="keyword" extended="true">
+      ACLOCAL_AMFLAGS|
+      AM_DEFAULT_SOURCE_EXT|
+      AUTOMAKE_OPTIONS|
+      BUILT_SOURCES|
+      CC|
+      CLASSPATH_ENV|
+      (?:DIST|MAINTAINER|MOSTLY)?CLEANFILES|
+      COMPILE|
+      (?:CXX|FC|OBJC|UPC)(?:COMPILE|LINK)?|
+      DEFAULT_INCLUDES|
+      DEFS|
+      DISTCHECK_CONFIGURE_FLAGS|
+      DVIPS|
+      ETAGS_ARGS|
+      EXTRA_DIST|
+      F77(?:COMPILE)?|
+      FLINK|
+      INCLUDE|
+      JAVAC|
+      JAVAROOT|
+      LIBS|
+      LINK|
+      (?:[A-Z]+_)?LOG_COMPILER|
+      MAKEINFO(?:HTML)?|
+      (?:OMIT|TAGS)_DEPENDENCIES|
+      (?:DIST_)?SUBDIRS|
+      SUFFIXES|
+      (?:AM_)?TESTS_ENVIRONMENT|
+      TESTS|
+      TEXI2(?:DVI|PDF)|
+      TEXINFO_TEX|
+      VALAC
+    </define-regex>
+
+    <!-- Predefined directory targets -->
+    <define-regex id="dirname" extended="true">
+      s?bin|
+      (?:pkg)?lib(?:exec)?|
+      (?:pkg)?data|
+      (?:pkg|old)?include|
+      dataroot|
+      sysconf|
+      (?:shared|local)state|
+      doc|
+      info|
+      html|
+      dvi|
+      pdf|
+      ps|
+      lisp|
+      locale|
+      man[1-8]?(?:ext)?|
+      src|
+      (?:pkg)?python|
+      (?:pkg)?pyexec
+    </define-regex>
+
+    <!-- Substitutions from AC_SUBST -->
+    <context id="subst" style-ref="subst">
+      <match>@\%{variable}@</match>
+    </context>
+
+    <!-- Lines starting with ## are not copied into Makefile.in, and no
+    substitutions are performed -->
+    <context id="nosubcomment" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>^##</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <!-- Copy of def:shell-like-comment, except it includes substitutions -->
+    <context id="comment" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>#</start>
+      <include>
+        <context ref="subst"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <!-- Assignment to a FLAGS variable -->
+    <context id="flags-assignment" end-at-line-end="true">
+      <start>\%{space}((?:AM_)?\%{flags}FLAGS)\%{operator}</start>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="keyword"/>
+        <context ref="assignment-rhs"/>
+      </include>
+    </context>
+
+    <!-- Assignment to a non-primary, secondary, flags, or dir variable -->
+    <context id="keyword-assignment" end-at-line-end="true">
+      <start>\%{space}(\%{keyword})\%{operator}</start>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="keyword"/>
+        <context ref="assignment-rhs"/>
+      </include>
+    </context>
+
+    <!-- Assignment to a primary. The subpatterns are named. Subpattern names
+    must not conflict subpattern names in other expressions, so some are
+    prefixed with a 'p' -->
+    <context id="primary-assignment" end-at-line-end="true">
+      <start extended="true">
+        \%{space}                           # beginning of line
+        (?P&lt;pprefix&gt;(?:\%{prefix}_)*) # any number of prefixes_
+        (?:                                 # either...
+          (?P&lt;target&gt;\%{target})|     # ...a nondir target (e.g. noinst),
+          (?P&lt;dirname&gt;\%{dirname})|   # ...a dir target (e.g. bin)
+          (?P&lt;pvariable&gt;\%{variable}) # ...or a user-defined dir
+        )
+        (?P&lt;primary&gt;_\%{primary})     # and a _PRIMARY
+        \%{operator}                        # an assignment operator
+      </start>
+      <include>
+        <context sub-pattern="primary" where="start" style-ref="primary"/>
+        <context sub-pattern="pprefix" where="start" style-ref="prefix"/>
+        <context sub-pattern="target" where="start" style-ref="target"/>
+        <context sub-pattern="dirname" where="start" style-ref="dirname"/>
+        <context sub-pattern="pvariable" where="start" style-ref="lhs"/>
+        <context ref="assignment-rhs"/>
+      </include>
+    </context>
+
+    <!-- Assignment to a secondary. Again, some subpatterns have to be prefixed
+    with an 's' -->
+    <context id="secondary-assignment" end-at-line-end="true">
+      <start extended="true">
+        \%{space}                           # beginning of line
+        (?P&lt;sprefix&gt;
+          (?:(?:\%{prefix}|EXTRA)_)*)       # any number of prefix_ or EXTRA_
+        (?P&lt;svariable&gt;\%{variable})   # the canonicalized_program_name
+        (?P&lt;secondary&gt;_\%{secondary}) # and a _SECONDARY
+        \%{operator}                        # an assignment operator
+      </start>
+      <include>
+        <context sub-pattern="sprefix" where="start" style-ref="prefix"/>
+        <context sub-pattern="svariable" where="start" style-ref="lhs"/>
+        <context sub-pattern="secondary" where="start" style-ref="secondary"/>
+        <context ref="assignment-rhs"/>
+      </include>
+    </context>
+
+    <!-- Assignment to a directory variable (e.g. foobardir) -->
+    <context id="dir-assignment" end-at-line-end="true">
+      <start>\%{space}(\%{variable})(dir)\%{operator}</start>
+      <include>
+        <context id="dir-lhs" sub-pattern="1" where="start" style-ref="lhs"/>
+        <context id="dir" sub-pattern="2" where="start" style-ref="keyword"/>
+        <context ref="assignment-rhs"/>
+      </include>
+    </context>
+
+    <!-- What is allowed on the right-hand side of an assignment -->
+    <context id="assignment-rhs" end-at-line-end="true">
+      <start></start>
+      <include>
+        <context ref="def:line-continue"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="makefile:variable"/>
+        <context ref="makefile:string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="sh:backtick-subshell"/>
+        <context ref="subst"/>
+      </include>
+    </context>
+
+    <!-- Copy of makefile:command, except it includes substitutions -->
+    <context id="command" extend-parent="false" end-at-line-end="true">
+      <start></start>
+      <include>
+        <context ref="def:line-continue"/>
+        <context ref="subst"/>
+        <context ref="sh:sh" original="true"/>
+      </include>
+    </context>
+
+    <!-- All the contexts listed here represent an assignment to a variable
+    (Automake variable or otherwise), and they all contain the "assignment-rhs"
+    context -->
+    <context id="assignment">
+      <include>
+        <context ref="flags-assignment"/>
+        <context ref="keyword-assignment"/>
+        <context ref="primary-assignment"/>
+        <context ref="secondary-assignment"/>
+        <context ref="dir-assignment"/>
+        <context ref="makefile:assignment"/>
+      </include>
+    </context>
+
+    <!-- The main context -->
+    <context id="automake">
+      <include>
+        <context ref="makefile:directives" style-ref="def:keyword"/>
+        <context ref="makefile:functions" style-ref="def:function"/>
+        <context ref="subst" style-ref="subst"/>
+        <!-- Must come before 'comment' -->
+        <context ref="nosubcomment" style-ref="def:comment"/>
+        <context ref="comment" style-ref="def:comment"/>
+        <context ref="assignment"/>
+        <!-- Must come after 'comment', otherwise we can get rules starting
+        with #; must also come after 'assignment' because of := operator -->
+        <context ref="makefile:rule"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

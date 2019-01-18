@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AppStream Library Reference Manual: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="next" href="ch01.html" title="AppStream API Reference">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book">
+<div class="titlepage">
+<div>
+<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">AppStream Library Reference Manual</p></th></tr></table></div>
+<div><p class="releaseinfo">
+      The latest version of this documentation can be found on-line at
+      <a class="ulink" href="http://www.freedesktop.org/software/appstream/docs/api" target="_top">freedesktop.org/software/appstream/docs/api</a>.
+    </p></div>
+</div>
+<hr>
+</div>
+<div class="toc"><dl class="toc">
+<dt><span class="chapter"><a href="ch01.html">AppStream API Reference</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsComponent.html">AsComponent</a></span><span class="refpurpose"> — Object representing a software component</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-as-enums.html">as-enums</a></span><span class="refpurpose"> — Some enums used by various other modules</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsIcon.html">AsIcon</a></span><span class="refpurpose"> — Describes an icon of an application.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsProvided.html">AsProvided</a></span><span class="refpurpose"> — Description of the provided-items in components</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsBundle.html">AsBundle</a></span><span class="refpurpose"> — Description of bundles the <span class="type">AsComponent</span> is shipped with.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsLaunchable.html">AsLaunchable</a></span><span class="refpurpose"> — Description of launchable entries for a software component</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsTranslation.html">AsTranslation</a></span><span class="refpurpose"> — Description of translation domains for an upstream component.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsSuggested.html">AsSuggested</a></span><span class="refpurpose"> — Suggestions for other software suggested by a component.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsRelation.html">AsRelation</a></span><span class="refpurpose"> — Description of relations a software component has with other items</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsRelease.html">AsRelease</a></span><span class="refpurpose"> — Object representing a single upstream release</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsChecksum.html">AsChecksum</a></span><span class="refpurpose"> — A single checksum used in a release.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsScreenshot.html">AsScreenshot</a></span><span class="refpurpose"> — Object representing a single screenshot</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsImage.html">AsImage</a></span><span class="refpurpose"> — Object representing a single image used in a screenshot.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsContentRating.html">AsContentRating</a></span><span class="refpurpose"> — Object representing a content rating</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsMetadata.html">AsMetadata</a></span><span class="refpurpose"> — Parser for AppStream metadata</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsPool.html">AsPool</a></span><span class="refpurpose"> — Access the AppStream metadata pool.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsCategory.html">AsCategory</a></span><span class="refpurpose"> — Representation of a XDG category</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsValidator.html">AsValidator</a></span><span class="refpurpose"> — Validator and report-generator about AppStream XML metadata</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsValidatorIssue.html">AsValidatorIssue</a></span><span class="refpurpose"> — Object representing an issue found in AppStream metadata</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-as-spdx.html">as-spdx</a></span><span class="refpurpose"> — Helper functions to work with SPDX license descriptions.</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-as-utils.html">as-utils</a></span><span class="refpurpose"> — Helper functions that are used inside libappstream</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="appstream-AsDistroDetails.html">AsDistroDetails</a></span><span class="refpurpose"> — Provides information about the current distribution</span>
+</dt>
+</dl></dd>
+<dt><span class="index"><a href="api-index-full.html">API Index</a></span></dt>
+<dt><span class="index"><a href="deprecated-api-index.html">Index of deprecated API</a></span></dt>
+<dt><span class="glossary"><a href="annotation-glossary.html">Annotation Glossary</a></span></dt>
+<dt><span class="chapter"><a href="manpages.html">AppStream Manual Pages</a></span></dt>
+<dd><dl><dt>
+<span class="refentrytitle"><a href="re23.html">appstreamcli</a></span><span class="refpurpose"> — Handle AppStream metadata and the AppStream index</span>
+</dt></dl></dd>
+</dl></div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

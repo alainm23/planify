@@ -1,0 +1,68 @@
+/* Copyright 2016 elementary LLC.
+*
+* This file is part of the elementary GTK theme.
+*
+* The elementary GTK theme is free software: you can redistribute it
+* and/or modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* The elementary GTK theme is distributed in the hope that it will be
+* useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along
+* with the elementary GTK theme. If not, see http://www.gnu.org/licenses/.
+*/
+
+.pulse {
+    animation: pulse 500ms ease-in-out infinite;
+    animation-direction: alternate;
+}
+
+.pulse.attention {
+    color: @attention_color;
+}
+
+.pulse.success {
+    color: @success_color;
+}
+
+.pulse.warning {
+    color: @warning_color;
+}
+
+.pulse.error {
+    color: @error_color;
+}
+
+@keyframes pulse {
+    0% {
+        color: inherit;
+    }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out 1;
+}
+
+@keyframes shake {
+    0% { padding-left: 0; }
+    25% { padding-left: 64px; }
+    50% { padding-left: 0; }
+    75% { padding-left: 32px; }
+    100% { padding-left: 0; }
+}
+
+.spin,
+entry.spin:dir(ltr) image:last-child,
+entry.spin:dir(rtl) image:first-child {
+    animation: spin 600ms linear infinite;
+}
+
+@keyframes spin {
+    to {
+        -gtk-icon-transform: rotate(1turn);
+    }
+}

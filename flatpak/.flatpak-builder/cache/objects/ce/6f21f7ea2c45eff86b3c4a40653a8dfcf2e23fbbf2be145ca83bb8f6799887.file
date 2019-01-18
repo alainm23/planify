@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Hüseyin Temucin <htemucin@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="cuda" name="CUDA" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.cu;*.cuh</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+
+  <styles>
+    <style id="keyword"       name="Keyword"           map-to="def:keyword"/>
+    <style id="data-type"     name="Data Type"         map-to="def:type"/>
+    <style id="cuda-global"   name="Global Functions"  map-to="def:function"/>
+    <style id="cuda-device"   name="Device Functions"  map-to="def:function"/>
+    <style id="global-var"    name="Global Variables"  map-to="def:identifier"/>
+  </styles>
+
+  <definitions>
+    <context id="cuda-keywords" style-ref="keyword">
+      <keyword>__global__</keyword>
+      <keyword>__host__</keyword>
+      <keyword>__device__</keyword>
+      <keyword>__constant__</keyword>
+      <keyword>__shared__</keyword>
+    </context>
+
+    <context id="cuda-types" style-ref="data-type">
+      <keyword>uint</keyword>
+      <keyword>int1 </keyword>
+      <keyword>uint1</keyword>
+      <keyword>int2</keyword>
+      <keyword>uint2</keyword>
+      <keyword>int3</keyword>
+      <keyword>uint3</keyword>
+      <keyword>int4</keyword>
+      <keyword>uint4</keyword>
+      <keyword>float1</keyword>
+      <keyword>float2</keyword>
+      <keyword>float3</keyword>
+      <keyword>float4</keyword>
+      <keyword>char1</keyword>
+      <keyword>char2</keyword>
+      <keyword>char3</keyword>
+      <keyword>char4</keyword>
+      <keyword>uchar1</keyword>
+      <keyword>uchar2</keyword>
+      <keyword>uchar3</keyword>
+      <keyword>uchar4</keyword>
+      <keyword>short1</keyword>
+      <keyword>short2</keyword>
+      <keyword>short3</keyword>
+      <keyword>short4</keyword>
+      <keyword>dim1</keyword>
+      <keyword>dim2</keyword>
+      <keyword>dim3</keyword>
+      <keyword>dim4</keyword>
+    </context>
+
+    <context id="cudaglobal" style-ref="global-var">
+      <keyword>gridDim</keyword>
+      <keyword>blockIdx</keyword>
+      <keyword>blockDim</keyword>
+      <keyword>threadIdx</keyword>
+    </context>
+
+    <context id="kernel-call" style-ref="latex:display-math">
+      <start>&lt;&lt;&lt;</start>
+      <end>&gt;&gt;&gt;</end>
+    </context>
+
+    <context id="cudaatom" style-ref="cuda-device">
+      <keyword>atomicAdd</keyword>
+      <keyword>atomicAnd</keyword>
+      <keyword>atomicCAS</keyword>
+      <keyword>atomicDec</keyword>
+      <keyword>atomicExch</keyword>
+      <keyword>atomicInc</keyword>
+      <keyword>atomicMax</keyword>
+      <keyword>atomicMin</keyword>
+      <keyword>atomicOr</keyword>
+      <keyword>atomicSub</keyword>
+      <keyword>atomicXor</keyword>
+    </context>
+
+    <context id="cudadev" style-ref="cuda-device">
+      <keyword>tex1D</keyword>
+      <keyword>tex1Dfetch</keyword>
+      <keyword>tex2D</keyword>
+      <keyword>__float_as_int</keyword>
+      <keyword>__int_as_float</keyword>
+      <keyword>__float2int_rn</keyword>
+      <keyword>__float2int_rz</keyword>
+      <keyword>__float2int_ru</keyword>
+      <keyword>__float2int_rd</keyword>
+      <keyword>__float2uint_rn</keyword>
+      <keyword>__float2uint_rz</keyword>
+      <keyword>__float2uint_ru</keyword>
+      <keyword>__float2uint_rd</keyword>
+      <keyword>__int2float_rn</keyword>
+      <keyword>__int2float_rz</keyword>
+      <keyword>__int2float_ru</keyword>
+      <keyword>__int2float_rd</keyword>
+      <keyword>__uint2float_rn</keyword>
+      <keyword>__uint2float_rz</keyword>
+      <keyword>__uint2float_ru</keyword>
+      <keyword>__uint2float_rd</keyword>
+      <keyword>__fadd_rz</keyword>
+      <keyword>__fmul_rz</keyword>
+      <keyword>__fdividef</keyword>
+      <keyword>__mul24</keyword>
+      <keyword>__umul24</keyword>
+      <keyword>__mulhi</keyword>
+      <keyword>__umulhi</keyword>
+      <keyword>__mul64hi</keyword>
+      <keyword>__umul64hi</keyword>
+      <keyword>min</keyword>
+      <keyword>umin</keyword>
+      <keyword>fminf</keyword>
+      <keyword>fmin</keyword>
+      <keyword>max</keyword>
+      <keyword>umax</keyword>
+      <keyword>fmaxf</keyword>
+      <keyword>fmax</keyword>
+      <keyword>abs</keyword>
+      <keyword>fabsf</keyword>
+      <keyword>fabs</keyword>
+      <keyword>sqrtf</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>sinf</keyword>
+      <keyword>__sinf</keyword>
+      <keyword>sin</keyword>
+      <keyword>cosf</keyword>
+      <keyword>__cosf</keyword>
+      <keyword>cos</keyword>
+      <keyword>sincosf</keyword>
+      <keyword>__sincosf</keyword>
+      <keyword>expf</keyword>
+      <keyword>__expf</keyword>
+      <keyword>exp</keyword>
+      <keyword>logf</keyword>
+      <keyword>__logf</keyword>
+      <keyword>log</keyword>
+    </context>
+
+    <context id="cuda-runtime" style-ref="cuda-global">
+      <keyword>cudaBindTexture</keyword>
+      <keyword>cudaBindTextureToArray</keyword>
+      <keyword>cudaChooseDevice</keyword>
+      <keyword>cudaConfigureCall</keyword>
+      <keyword>cudaCreateChannelDesc</keyword>
+      <keyword>cudaD3D10GetDevice</keyword>
+      <keyword>cudaD3D10MapResources</keyword>
+      <keyword>cudaD3D10RegisterResource</keyword>
+      <keyword>cudaD3D10ResourceGetMappedArray</keyword>
+      <keyword>cudaD3D10ResourceGetMappedPitch</keyword>
+      <keyword>cudaD3D10ResourceGetMappedPointer</keyword>
+      <keyword>cudaD3D10ResourceGetMappedSize</keyword>
+      <keyword>cudaD3D10ResourceGetSurfaceDimensions</keyword>
+      <keyword>cudaD3D10ResourceSetMapFlags</keyword>
+      <keyword>cudaD3D10SetDirect3DDevice</keyword>
+      <keyword>cudaD3D10UnmapResources</keyword>
+      <keyword>cudaD3D10UnregisterResource</keyword>
+      <keyword>cudaD3D9GetDevice</keyword>
+      <keyword>cudaD3D9GetDirect3DDevice</keyword>
+      <keyword>cudaD3D9MapResources</keyword>
+      <keyword>cudaD3D9RegisterResource</keyword>
+      <keyword>cudaD3D9ResourceGetMappedArray</keyword>
+      <keyword>cudaD3D9ResourceGetMappedPitch</keyword>
+      <keyword>cudaD3D9ResourceGetMappedPointer</keyword>
+      <keyword>cudaD3D9ResourceGetMappedSize</keyword>
+      <keyword>cudaD3D9ResourceGetSurfaceDimensions</keyword>
+      <keyword>cudaD3D9ResourceSetMapFlags</keyword>
+      <keyword>cudaD3D9SetDirect3DDevice</keyword>
+      <keyword>cudaD3D9UnmapResources</keyword>
+      <keyword>cudaD3D9UnregisterResource</keyword>
+      <keyword>cudaEventCreate</keyword>
+      <keyword>cudaEventDestroy</keyword>
+      <keyword>cudaEventElapsedTime</keyword>
+      <keyword>cudaEventQuery</keyword>
+      <keyword>cudaEventRecord</keyword>
+      <keyword>cudaEventSynchronize</keyword>
+      <keyword>cudaFree</keyword>
+      <keyword>cudaFreeArray</keyword>
+      <keyword>cudaFreeHost </keyword>
+      <keyword>cudaGetChannelDesc</keyword>
+      <keyword>cudaGetDevice</keyword>
+      <keyword>cudaGetDeviceCount</keyword>
+      <keyword>cudaGetDeviceProperties</keyword>
+      <keyword>cudaGetErrorString</keyword>
+      <keyword>cudaGetLastError</keyword>
+      <keyword>cudaGetSymbolAddress</keyword>
+      <keyword>cudaGetSymbolSize</keyword>
+      <keyword>cudaGetTextureAlignmentOffset</keyword>
+      <keyword>cudaGetTextureReference</keyword>
+      <keyword>cudaGLMapBufferObject</keyword>
+      <keyword>cudaGLRegisterBufferObject</keyword>
+      <keyword>cudaGLSetGLDevice</keyword>
+      <keyword>cudaGLUnmapBufferObject</keyword>
+      <keyword>cudaGLUnregisterBufferObject</keyword>
+      <keyword>cudaLaunch</keyword>
+      <keyword>cudaMalloc</keyword>
+      <keyword>cudaMalloc3D</keyword>
+      <keyword>cudaMalloc3DArray</keyword>
+      <keyword>cudaMallocArray</keyword>
+      <keyword>cudaMallocHost</keyword>
+      <keyword>cudaMallocPitch</keyword>
+      <keyword>cudaMemcpy</keyword>
+      <keyword>cudaMemcpy2D</keyword>
+      <keyword>cudaMemcpy2DArrayToArray</keyword>
+      <keyword>cudaMemcpy2DFromArray</keyword>
+      <keyword>cudaMemcpy2DToArray</keyword>
+      <keyword>cudaMemcpy3D</keyword>
+      <keyword>cudaMemcpyArrayToArray</keyword>
+      <keyword>cudaMemcpyFromArray</keyword>
+      <keyword>cudaMemcpyFromSymbol</keyword>
+      <keyword>cudaMemcpyToArray</keyword>
+      <keyword>cudaMemcpyToSymbol</keyword>
+      <keyword>cudaMemset</keyword>
+      <keyword>cudaMemset2D</keyword>
+      <keyword>cudaMemset3D</keyword>
+      <keyword>cudaSetDevice</keyword>
+      <keyword>cudaSetupArgument</keyword>
+      <keyword>cudaStreamCreate</keyword>
+      <keyword>cudaStreamDestroy</keyword>
+      <keyword>cudaStreamQuery</keyword>
+      <keyword>cudaStreamSynchronize</keyword>
+      <keyword>cudaThreadExit</keyword>
+      <keyword>cudaThreadSynchronize</keyword>
+      <keyword>cudaUnbindTexture</keyword>
+    </context>
+
+    <context id="cuda">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="c:string"/>
+        <context ref="c:escaped-character"/>
+        <context ref="c:storage-class"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="c:char"/>
+        <context ref="def:decimal"/>
+        <context ref="def:float"/>
+        <context ref="c:hexadecimal"/>
+        <context ref="c:octal"/>
+        <context ref="c:keywords"/>
+        <context ref="cuda-keywords"/>
+        <context ref="c:types"/>
+        <context ref="cuda-types"/>
+        <context ref="cudaglobal"/>
+        <context ref="kernel-call"/>
+        <context ref="cudaatom"/>
+        <context ref="cudadev"/>
+        <context ref="cuda-runtime"/>
+        <context ref="c:preprocessor"/>
+        <context ref="c:include"/>
+        <context ref="c:if0-comment"/>
+      </include>
+    </context>
+  </definitions>
+</language>

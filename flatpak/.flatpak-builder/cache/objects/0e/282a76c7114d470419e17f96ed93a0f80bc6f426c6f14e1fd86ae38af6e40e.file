@@ -1,0 +1,14 @@
+prefix=/app
+libdir=/app/lib
+includedir=/app/include
+datarootdir=/app/share
+datadir=/app/share
+
+privincludedir=/app/include/evolution-data-server
+
+Name: libecal
+Description: Client library for evolution calendars
+Version: 3.31.3
+Requires: libical libedataserver-1.2
+Libs: -L${libdir} -lecal-1.2
+Cflags: -I${privincludedir} 

@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalAttach: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalArray.html" title="ICalArray">
+<link rel="next" href="libical-glib-ICalCompIter.html" title="ICalCompIter">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalAttach.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalArray.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalCompIter.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalAttach"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalAttach.top_of_page"></a>ICalAttach</span></h2>
+<p>ICalAttach</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalAttach.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="returnvalue">ICalAttach</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-new-from-url" title="i_cal_attach_new_from_url ()">i_cal_attach_new_from_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="returnvalue">ICalAttach</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-new-from-data" title="i_cal_attach_new_from_data ()">i_cal_attach_new_from_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-ref" title="i_cal_attach_ref ()">i_cal_attach_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-unref" title="i_cal_attach_unref ()">i_cal_attach_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-get-is-url" title="i_cal_attach_get_is_url ()">i_cal_attach_get_is_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-get-url" title="i_cal_attach_get_url ()">i_cal_attach_get_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guchar"><span class="returnvalue">guchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalAttach.html#i-cal-attach-get-data" title="i_cal_attach_get_data ()">i_cal_attach_get_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalAttach.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalAttach.html#I-CAL-ATTACH-TYPE:CAPS" title="I_CAL_ATTACH_TYPE">I_CAL_ATTACH_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach">ICalAttach</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalAttach.html#ICalAttachClass" title="struct ICalAttachClass">ICalAttachClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalAttach.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalAttach.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-attach-new-from-url"></a><h3>i_cal_attach_new_from_url ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="returnvalue">ICalAttach</span></a> *
+i_cal_attach_new_from_url (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *url</code></em>);</pre>
+<p>Create a new <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> from the url</p>
+<div class="refsect3">
+<a name="i-cal-attach-new-from-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>url</p></td>
+<td class="parameter_description"><p>The url from which the object is created</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-attach-new-from-url.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> from the <em class="parameter"><code>url</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-new-from-data"></a><h3>i_cal_attach_new_from_data ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="returnvalue">ICalAttach</span></a> *
+i_cal_attach_new_from_data (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *data</code></em>,
+                            <em class="parameter"><code><GTKDOCLINK HREF="GFunc"><span class="type">GFunc</span></GTKDOCLINK> free_fn</code></em>,
+                            <em class="parameter"><code><GTKDOCLINK HREF="void"><span class="type">void</span></GTKDOCLINK> *free_fn_data</code></em>);</pre>
+<p>Create a new <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> from the data.</p>
+<div class="refsect3">
+<a name="i-cal-attach-new-from-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>The data used to create the <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>free_fn</p></td>
+<td class="parameter_description"><p>The function used to free the data when the create <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> is detroyed. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>free_fn_data</p></td>
+<td class="parameter_description"><p>The userdata used for the free function <em class="parameter"><code>free_fn</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-attach-new-from-data.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-ref"></a><h3>i_cal_attach_ref ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_attach_ref (<em class="parameter"><code><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> *attach</code></em>);</pre>
+<p>Increase the ref counter by 1 for the <em class="parameter"><code>attach</code></em>
+</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-attach-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>attach</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> to be referenced by once</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-unref"></a><h3>i_cal_attach_unref ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_attach_unref (<em class="parameter"><code><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> *attach</code></em>);</pre>
+<p>Decrese the ref counter by 1 for the <em class="parameter"><code>attach</code></em>
+</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-attach-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>attach</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> to be unreferenced by once</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-get-is-url"></a><h3>i_cal_attach_get_is_url ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_attach_get_is_url (<em class="parameter"><code><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> *attach</code></em>);</pre>
+<p>Check whether the <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> is built from url</p>
+<div class="refsect3">
+<a name="i-cal-attach-get-is-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>attach</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-attach-get-is-url.returns"></a><h4>Returns</h4>
+<p> 1 if the <em class="parameter"><code>attach</code></em>
+is built from url and 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-get-url"></a><h3>i_cal_attach_get_url ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_attach_get_url (<em class="parameter"><code><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> *attach</code></em>);</pre>
+<p>Get the url if the <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> is built from the url. NULL if else.</p>
+<div class="refsect3">
+<a name="i-cal-attach-get-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>attach</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-attach-get-url.returns"></a><h4>Returns</h4>
+<p>The url component of the <em class="parameter"><code>attach</code></em>
+. NULL if it is built from data or there is an error. </p>
+<p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-attach-get-data"></a><h3>i_cal_attach_get_data ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guchar"><span class="returnvalue">guchar</span></GTKDOCLINK> *
+i_cal_attach_get_data (<em class="parameter"><code><a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> *attach</code></em>);</pre>
+<p>Get the data if the <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> is built from the data. NULL if else.</p>
+<div class="refsect3">
+<a name="i-cal-attach-get-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>attach</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalAttach.html#ICalAttach" title="ICalAttach"><span class="type">ICalAttach</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-attach-get-data.returns"></a><h4>Returns</h4>
+<p>The data component of the <em class="parameter"><code>attach</code></em>
+. NULL if it is built from url or there is an error. </p>
+<p><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> utf8][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalAttach.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-ATTACH-TYPE:CAPS"></a><h3>I_CAL_ATTACH_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_ATTACH_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalAttach"></a><h3>ICalAttach</h3>
+<pre class="programlisting">typedef struct {
+} ICalAttach;
+</pre>
+<p>This is the ICalAttach instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalAttachClass"></a><h3>struct ICalAttachClass</h3>
+<pre class="programlisting">struct ICalAttachClass {
+};
+</pre>
+<p>This is the ICalAttach class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-633 -117)'>
+        
+        <path color='#bebebe' d='M640.375 120l-3.562 9.281h-.875V130h2.812v-.719h-1.094l.844-2.187h4.188l.843 2.187h-1.093V130h3.625v-.719h-1L641.5 120zm.219 1.625l1.844 4.75h-3.657z' fill='#666' font-family='DejaVu Serif' font-size='13.717' font-weight='400' letter-spacing='0' overflow='visible' style='line-height:125%;-inkscape-font-specification:&apos;DejaVu Serif&apos;;marker:none' word-spacing='0'/>
+        <path d='M633 127v-4l2 2zM649 127v-4l-2 2z' fill='#666' fill-rule='evenodd'/>
+    </g>
+</svg>

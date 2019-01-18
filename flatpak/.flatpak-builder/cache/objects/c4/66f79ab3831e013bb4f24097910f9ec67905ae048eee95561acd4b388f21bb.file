@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Jürg Billeter <j@bitron.ch>
+ Copyright (C) 2005 Jürg Billeter <j@bitron.ch>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="vhdl" name="VHDL" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-vhdl</property>
+    <property name="globs">*.vhd</property>
+    <property name="line-comment-start">--</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="character" name="Character" map-to="def:character"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Type" map-to="def:type"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="base-n-number" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="real" name="Real number" map-to="def:floating-point"/>
+    <style id="number" name="Number" map-to="def:number"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>--</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="character" style-ref="string">
+      <match>'.'</match>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>access</keyword>
+      <keyword>after</keyword>
+      <keyword>alias</keyword>
+      <keyword>all</keyword>
+      <keyword>architecture</keyword>
+      <keyword>array</keyword>
+      <keyword>assert</keyword>
+      <keyword>attribute</keyword>
+      <keyword>begin</keyword>
+      <keyword>block</keyword>
+      <keyword>body</keyword>
+      <keyword>buffer</keyword>
+      <keyword>bus</keyword>
+      <keyword>case</keyword>
+      <keyword>component</keyword>
+      <keyword>configuration</keyword>
+      <keyword>constant</keyword>
+      <keyword>disconnect</keyword>
+      <keyword>downto</keyword>
+      <keyword>else</keyword>
+      <keyword>elsif</keyword>
+      <keyword>end</keyword>
+      <keyword>entity</keyword>
+      <keyword>exit</keyword>
+      <keyword>file</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>generate</keyword>
+      <keyword>generic</keyword>
+      <keyword>group</keyword>
+      <keyword>guarded</keyword>
+      <keyword>if</keyword>
+      <keyword>impure</keyword>
+      <keyword>in</keyword>
+      <keyword>inertial</keyword>
+      <keyword>inout</keyword>
+      <keyword>is</keyword>
+      <keyword>label</keyword>
+      <keyword>library</keyword>
+      <keyword>linkage</keyword>
+      <keyword>literal</keyword>
+      <keyword>loop</keyword>
+      <keyword>map</keyword>
+      <keyword>new</keyword>
+      <keyword>next</keyword>
+      <keyword>null</keyword>
+      <keyword>of</keyword>
+      <keyword>on</keyword>
+      <keyword>open</keyword>
+      <keyword>others</keyword>
+      <keyword>out</keyword>
+      <keyword>package</keyword>
+      <keyword>port</keyword>
+      <keyword>postponed</keyword>
+      <keyword>procedure</keyword>
+      <keyword>process</keyword>
+      <keyword>pure</keyword>
+      <keyword>range</keyword>
+      <keyword>record</keyword>
+      <keyword>register</keyword>
+      <keyword>reject</keyword>
+      <keyword>report</keyword>
+      <keyword>return</keyword>
+      <keyword>select</keyword>
+      <keyword>severity</keyword>
+      <keyword>signal</keyword>
+      <keyword>shared</keyword>
+      <keyword>subtype</keyword>
+      <keyword>then</keyword>
+      <keyword>to</keyword>
+      <keyword>transport</keyword>
+      <keyword>type</keyword>
+      <keyword>unaffected</keyword>
+      <keyword>units</keyword>
+      <keyword>until</keyword>
+      <keyword>use</keyword>
+      <keyword>variable</keyword>
+      <keyword>wait</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>note</keyword>
+      <keyword>warning</keyword>
+      <keyword>error</keyword>
+      <keyword>failure</keyword>
+      <keyword>and</keyword>
+      <keyword>nand</keyword>
+      <keyword>or</keyword>
+      <keyword>nor</keyword>
+      <keyword>xor</keyword>
+      <keyword>xnor</keyword>
+      <keyword>rol</keyword>
+      <keyword>ror</keyword>
+      <keyword>sla</keyword>
+      <keyword>sll</keyword>
+      <keyword>sra</keyword>
+      <keyword>srl</keyword>
+      <keyword>mod</keyword>
+      <keyword>rem</keyword>
+      <keyword>abs</keyword>
+      <keyword>not</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>bit</keyword>
+      <keyword>bit_vector</keyword>
+      <keyword>character</keyword>
+      <keyword>boolean</keyword>
+      <keyword>integer</keyword>
+      <keyword>real</keyword>
+      <keyword>time</keyword>
+      <keyword>string</keyword>
+      <keyword>severity_level</keyword>
+      <keyword>positive</keyword>
+      <keyword>natural</keyword>
+      <keyword>signed</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>line</keyword>
+      <keyword>text</keyword>
+      <keyword>std_logic</keyword>
+      <keyword>std_logic_vector</keyword>
+      <keyword>std_ulogic</keyword>
+      <keyword>std_ulogic_vector</keyword>
+      <keyword>qsim_state</keyword>
+      <keyword>qsim_state_vector</keyword>
+      <keyword>qsim_12state</keyword>
+      <keyword>qsim_12state_vector</keyword>
+      <keyword>qsim_strength</keyword>
+      <keyword>mux_bit</keyword>
+      <keyword>mux_vectory</keyword>
+      <keyword>reg_bit</keyword>
+      <keyword>reg_vector</keyword>
+      <keyword>wor_bit</keyword>
+      <keyword>wor_vector</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <define-regex id="hexnum">[0-9a-f][0-9a-f_]*</define-regex>
+    <define-regex id="exponent">[Ee][+-]?[0-9][0-9_]*</define-regex>
+
+    <context id="base-n-number" style-ref="base-n-number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\#\%{hexnum}(\.\%{hexnum})?\#\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="real" style-ref="real">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*\.[0-9][0-9_]*\%{exponent}?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9_]*(E[+]?[0-9][0-9_]*)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="vhdl" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="string"/>
+        <context ref="character"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="boolean"/>
+        <context ref="base-n-number"/>
+        <context ref="real"/>
+        <context ref="number"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

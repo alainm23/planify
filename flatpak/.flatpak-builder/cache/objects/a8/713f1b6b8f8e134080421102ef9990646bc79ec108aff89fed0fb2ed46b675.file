@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Marco Barisione, Emanuele Aina
+ Copyright (C) 2005-2007 Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 Emanuele Aina
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="def" name="Defaults" hidden="true" version="2.0">
+  <styles>
+
+    <!-- styles defined here are all the styles that
+         a language can use as default for its styles.
+         The styles are defined in logical groups.
+         A style scheme has to at least define the style
+         for the first item of each group and if desired
+         define the style for the other items to achieve a
+         more finegrained control on the apperance.
+         Finally a style scheme may also define language
+         specific styles. -->
+
+    <!-- Comment group -->
+    <!-- Any comment -->
+    <style id="comment"             name="Comment"/>
+    <!-- A shebang: #!/bin/sh -->
+    <style id="shebang"             name="Shebang"               map-to="def:comment"/>
+    <!-- A special comment containing documentation like in javadoc or
+         gtk-doc -->
+    <style id="doc-comment"         name="Documentation comment" map-to="def:comment"/>
+    <!-- A element inside a documentation comment: @author -->
+    <!-- This style doesn't map to anything since it must be used as an additional
+         style for text which is already styled as a "doc-comment" -->
+    <style id="doc-comment-element" name="Documentation comment element" />
+
+    <!-- Constant group -->
+    <!-- Any constant -->
+    <style id="constant"            name="Constant"/>
+    <!-- A character constant: 'c' -->
+    <style id="character"           name="Character"             map-to="def:constant"/>
+    <!-- A string constant: "this is a string" -->
+    <style id="string"              name="String"                map-to="def:constant"/>
+    <!-- Special character in a string constant: "%s", "\t" -->
+    <!-- This style doesn't map to anything since it must be used as an additional
+         style for text which is already styled as a "string" -->
+    <style id="special-char"        name="Special character (inside a string)" />
+    <!-- A generic number constant -->
+    <style id="number"              name="Number"                map-to="def:constant"/>
+    <!-- A floating point constant: 2.3e10 -->
+    <style id="floating-point"      name="Floating point number" map-to="def:number"/>
+    <!-- A decimal number: 1234 -->
+    <style id="decimal"             name="Decimal number"        map-to="def:number"/>
+    <!-- A base-N number: 0xFFFF -->
+    <style id="base-n-integer"      name="Base-N number"         map-to="def:number"/>
+    <!-- A complex number -->
+    <style id="complex"             name="Complex number"        map-to="def:number"/>
+    <!-- A special constant like NULL in C or null in Java -->
+    <style id="special-constant"    name="Special constant"      map-to="def:constant"/>
+    <!-- A boolean constant: TRUE, false -->
+    <style id="boolean"             name="Boolean value"         map-to="def:special-constant"/>
+
+    <!-- Identifier group -->
+    <!-- Any variable name -->
+    <style id="identifier"          name="Identifier" />
+    <!-- A function name (also: methods for classes) -->
+    <style id="function"            name="Function" map-to="def:identifier"/>
+    <!-- A builtin name: like __import__, abs in Python
+        (see http://docs.python.org/lib/built-in-funcs.html) -->
+    <style id="builtin"             name="Built-in identifier" map-to="def:identifier"/>
+
+    <!-- Statement group -->
+    <!-- Any statement -->
+    <style id="statement"           name="Statement"/>
+    <!-- Operators: "+", "*", etc. -->
+    <style id="operator"            name="Operator" map-to="def:statement" />
+    <!-- keywords: "if", "for", "while", etc. -->
+    <style id="keyword"             name="Keyword" map-to="def:statement" />
+
+    <!-- Type group -->
+    <!--A primitive data type: int, long, char, etc. -->
+    <style id="type"                name="Data type"/>
+
+    <!-- Others -->
+    <!-- This one is for '#include <foo.h>' and "#pragma blah", or 'use foobar', etc.. -->
+    <style id="preprocessor"        name="Preprocessor directive"/>
+    <!-- Any erroneous construct -->
+    <style id="error"               name="Error"/>
+    <!-- to mark possibily errors or unrecommended syntax  -->
+    <style id="warning"             name="Warning"/>
+    <!--Reserved keywords: like "const" and "goto" in Java -->
+    <style id="reserved"            name="Reserved keyword" map-to="def:error" />
+    <!-- Anything that needs extra attention; mostly the keywords TODO, FIXME and XXX -->
+    <style id="note"                name="Note (FIXME, TODO, XXX, etc.)"/>
+    <!-- Text that stands out, HTML links, e-mail addresses, etc. -->
+    <style id="underlined"          name="Underlined"/>
+    <!-- Text that acts as some kind of heading, such as h1, h2, ... in html. -->
+    <style id="heading0"            name="Heading 0"/>
+    <style id="heading1"            name="Heading 1"/>
+    <style id="heading2"            name="Heading 2"/>
+    <style id="heading3"            name="Heading 3"/>
+    <style id="heading4"            name="Heading 4"/>
+    <style id="heading5"            name="Heading 5"/>
+    <style id="heading6"            name="Heading 6"/>
+  </styles>
+
+  <definitions>
+    <!-- An empty string always matches. -->
+    <define-regex id="always-match"></define-regex>
+
+    <!-- $^ never matches. -->
+    <define-regex id="never-match">$^</define-regex>
+
+    <define-regex id="decimal" extended="true">
+      (?&lt;![\w\.]) ([1-9][0-9]* | 0) (?![\w\.])
+    </define-regex>
+    <define-regex id="octal" extended="true">
+      (?&lt;![\w\.]) 0 [0-7]+ (?![\w\.])
+    </define-regex>
+    <define-regex id="hexadecimal" extended="true">
+      (?&lt;![\w\.]) 0 [xX] [0-9a-fA-F]+ (?![\w\.])
+    </define-regex>
+    <define-regex id="float" extended="true" case-sensitive="false">
+      \b
+      ([0-9]+ e [-+]? [0-9]+ |
+       ([0-9]* \. [0-9]+ | [0-9]+ \.)
+       (e [-+]? [0-9]+)?) [fl]?
+      \b
+    </define-regex>
+
+    <context id="decimal" style-ref="decimal">
+      <match>\%{decimal}</match>
+    </context>
+    <context id="octal" style-ref="base-n-integer">
+      <match>\%{octal}</match>
+    </context>
+    <context id="hexadecimal" style-ref="base-n-integer">
+      <match>\%{hexadecimal}</match>
+    </context>
+    <context id="float" style-ref="floating-point">
+      <match>\%{float}</match>
+    </context>
+
+    <!-- FIXME is it working at line end? -->
+    <define-regex id="net-address" extended="true" case-sensitive="false">
+      \%[                                         # separator
+      (https?|ftp|nntp|news|javascript|about):    # protocol
+      [^\ \\]* [^\ \\.:;,?&gt;&lt;)]              # address
+          (?![a-z0-9_.-])                             # separator
+    </define-regex>
+
+    <define-regex id="email-address" extended="true" case-sensitive="false">
+      \%[                 # separator
+      (mailto:)?          # optional "mailto:"
+      [a-z0-9_.+-]+       # user name
+      @                   # at
+      [a-z0-9_.+-]+       # domain
+          \%]                 # separator
+    </define-regex>
+
+    <context id="in-comment" class-disabled="no-spell-check">
+      <include>
+        <context id="net-address" extend-parent="false" style-ref="underlined" class="no-spell-check">
+          <match>\%{net-address}</match>
+        </context>
+        <context id="email-address" extend-parent="false" style-ref="underlined" class="no-spell-check">
+          <match>\%{email-address}</match>
+        </context>
+        <context id="comment-note" extend-parent="false" style-ref="note" class="no-spell-check comment-note">
+          <match>\b(FIXME|TODO|XXX)\b</match>
+        </context>
+      </include>
+    </context>
+
+    <!-- A line comment starting with # -->
+    <context id="shell-like-comment" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check" class="comment">
+      <start>#</start>
+      <include>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+
+    <!-- C style comments -->
+    <context id="c-like-comment" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check" class="comment" >
+      <start>//</start>
+      <include>
+        <context ref="in-line-comment"/>
+      </include>
+    </context>
+    <context id="c-like-comment-multiline" style-ref="comment" class-disabled="no-spell-check" class="comment" >
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+    <context id="c-like-close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="line-continue" style-ref="preprocessor">
+      <start>\\$</start>
+      <end>^</end>
+    </context>
+
+    <!-- this is intended to be used from line comments
+         that can continue on a different line after "\" -->
+    <context id="in-line-comment" class-disabled="no-spell-check" class="comment">
+      <include>
+        <context ref="line-continue" ignore-style="true"/>
+        <context ref="in-comment"/>
+      </include>
+    </context>
+
+    <context id="shebang" style-ref="shebang" first-line-only="true" class="no-spell-check">
+      <start>^#!</start>
+      <end>$</end>
+    </context>
+
+    <context id="escape" style-ref="special-char">
+      <match>\\.</match>
+    </context>
+
+    <!-- usual quoted string, ends at line end, \ is an escape char -->
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="line-continue"/>
+      </include>
+    </context>
+
+    <!-- same thing but with single quote marks -->
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="escape"/>
+        <context ref="line-continue"/>
+      </include>
+    </context>
+
+    <!-- Dummy context, needed to load the style mappings when parsing v1 files -->
+    <context id="def"/>
+
+  </definitions>
+</language>

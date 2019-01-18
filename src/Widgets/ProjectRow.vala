@@ -27,7 +27,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Entry name_entry;
     private Gtk.Label number_label;
     public Objects.Project project { get; construct; }
-    public MainWindow window { get; construct; }
     /*
     private const Gtk.TargetEntry targetEntriesProjectRow [] = {
 		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
@@ -129,8 +128,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             menu_revealer.reveal_child = false;
         });
 
-        menu_popover.on_selected_menu.connect ((index) => {
-            if (index == 0) {
+        menu_popover.on_selected_menu.connect ((type) => {
+            if (type == "finalize") {
                 int tasks_number = Application.database.get_project_no_completed_tasks_number (project.id);
 
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
@@ -158,7 +157,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 }
 
                 message_dialog.destroy ();
-            } else if (index == 1) {
+            } else if (type == "edit") {
                 name_label.visible = false;
                 name_entry.visible = true;
 
@@ -166,13 +165,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    name_entry.grab_focus ();
 				    return false;
 			    });
-            } else if (index == 2) {
+            } else if (type == "share") {
                 // Share project
                 var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
                 share_dialog.project = project.id;
                 share_dialog.destroy.connect (Gtk.main_quit);
                 share_dialog.show_all ();
-            } else if (index == 3) {
+            } else if (type == "remove") {
                 int tasks_number = Application.database.get_project_tasks_number (project.id);
                 // Algoritmo para saber si hay o no tareas y si es plural o singular
 
@@ -200,6 +199,26 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 }
 
                 message_dialog.destroy ();
+            } else if (type == "export") {
+                var chooser = new Gtk.FileChooserDialog (_("Export Project"), null, Gtk.FileChooserAction.SAVE);
+                chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
+                chooser.add_button ("_Save", Gtk.ResponseType.ACCEPT);
+                chooser.set_do_overwrite_confirmation (true);
+
+                var filter = new Gtk.FileFilter ();
+                filter.set_filter_name (_("Planner files"));
+                filter.add_pattern ("*.planner");
+                chooser.add_filter (filter);
+
+                if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+                    var file = chooser.get_file ();
+
+                    if (!file.get_basename ().down ().has_suffix (".planner")) {
+                        Application.share.exort_project (project.id,file.get_path () + ".planner");
+                    }
+                }
+
+                chooser.destroy();
             }
         });
 

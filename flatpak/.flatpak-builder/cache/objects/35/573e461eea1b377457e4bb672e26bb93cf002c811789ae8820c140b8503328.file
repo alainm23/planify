@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Dee Reference Manual" link="index.html" author="" name="dee-1.0" version="2" language="c">
+  <chapters>
+    <sub name="Peer Discovery" link="ch01.html">
+      <sub name="DeeClient" link="DeeClient.html"/>
+      <sub name="DeePeer" link="DeePeer.html"/>
+      <sub name="DeeServer" link="DeeServer.html"/>
+    </sub>
+    <sub name="Models" link="ch02.html">
+      <sub name="Filters" link="dee-1.0-Filters.html"/>
+      <sub name="DeeFilterModel" link="DeeFilterModel.html"/>
+      <sub name="DeeModel" link="dee-1.0-DeeModel.html"/>
+      <sub name="DeeProxyModel" link="DeeProxyModel.html"/>
+      <sub name="DeeSequenceModel" link="DeeSequenceModel.html"/>
+      <sub name="DeeSerializableModel" link="DeeSerializableModel.html"/>
+      <sub name="DeeSharedModel" link="DeeSharedModel.html"/>
+      <sub name="DeeTransaction" link="DeeTransaction.html"/>
+    </sub>
+    <sub name="Indexes" link="ch03.html">
+      <sub name="DeeAnalyzer" link="DeeAnalyzer.html"/>
+      <sub name="DeeHashIndex" link="DeeHashIndex.html"/>
+      <sub name="DeeIndex" link="DeeIndex.html"/>
+      <sub name="Model Readers" link="dee-1.0-Model-Readers.html"/>
+      <sub name="DeeResultSet" link="dee-1.0-DeeResultSet.html"/>
+      <sub name="DeeTermList" link="DeeTermList.html"/>
+      <sub name="DeeTextAnalyzer" link="DeeTextAnalyzer.html"/>
+      <sub name="DeeTreeIndex" link="DeeTreeIndex.html"/>
+      <sub name="Dee ICU Extensions" link="dee-1.0-Dee-ICU-Extensions.html"/>
+    </sub>
+    <sub name="Resources and Serialization" link="ch04.html">
+      <sub name="DeeFileResourceManager" link="DeeFileResourceManager.html"/>
+      <sub name="DeeResourceManager" link="dee-1.0-DeeResourceManager.html"/>
+      <sub name="DeeSerializable" link="dee-1.0-DeeSerializable.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+  </chapters>
+  <functions>
+    <keyword type="struct" name="DeeClient" link="DeeClient.html#DeeClient-struct"/>
+    <keyword type="struct" name="DeeClientClass" link="DeeClient.html#DeeClientClass"/>
+    <keyword type="function" name="dee_client_new ()" link="DeeClient.html#dee-client-new"/>
+    <keyword type="function" name="dee_client_new_for_address ()" link="DeeClient.html#dee-client-new-for-address"/>
+    <keyword type="property" name="The &quot;bus-address&quot; property" link="DeeClient.html#DeeClient--bus-address"/>
+    <keyword type="macro" name="DEE_PEER_DBUS_IFACE" link="DeePeer.html#DEE-PEER-DBUS-IFACE:CAPS"/>
+    <keyword type="struct" name="struct DeePeer" link="DeePeer.html#DeePeer-struct"/>
+    <keyword type="struct" name="struct DeePeerClass" link="DeePeer.html#DeePeerClass"/>
+    <keyword type="function" name="dee_peer_get_connections ()" link="DeePeer.html#dee-peer-get-connections"/>
+    <keyword type="function" name="dee_peer_get_swarm_leader ()" link="DeePeer.html#dee-peer-get-swarm-leader"/>
+    <keyword type="function" name="dee_peer_get_swarm_name ()" link="DeePeer.html#dee-peer-get-swarm-name"/>
+    <keyword type="function" name="dee_peer_is_swarm_leader ()" link="DeePeer.html#dee-peer-is-swarm-leader"/>
+    <keyword type="function" name="dee_peer_is_swarm_owner ()" link="DeePeer.html#dee-peer-is-swarm-owner"/>
+    <keyword type="function" name="dee_peer_list_peers ()" link="DeePeer.html#dee-peer-list-peers"/>
+    <keyword type="function" name="dee_peer_new ()" link="DeePeer.html#dee-peer-new"/>
+    <keyword type="property" name="The &quot;swarm-leader&quot; property" link="DeePeer.html#DeePeer--swarm-leader"/>
+    <keyword type="property" name="The &quot;swarm-name&quot; property" link="DeePeer.html#DeePeer--swarm-name"/>
+    <keyword type="property" name="The &quot;swarm-owner&quot; property" link="DeePeer.html#DeePeer--swarm-owner"/>
+    <keyword type="signal" name="The &quot;connection-acquired&quot; signal" link="DeePeer.html#DeePeer-connection-acquired"/>
+    <keyword type="signal" name="The &quot;connection-closed&quot; signal" link="DeePeer.html#DeePeer-connection-closed"/>
+    <keyword type="signal" name="The &quot;peer-found&quot; signal" link="DeePeer.html#DeePeer-peer-found"/>
+    <keyword type="signal" name="The &quot;peer-lost&quot; signal" link="DeePeer.html#DeePeer-peer-lost"/>
+    <keyword type="struct" name="DeeServer" link="DeeServer.html#DeeServer-struct"/>
+    <keyword type="struct" name="DeeServerClass" link="DeeServer.html#DeeServerClass"/>
+    <keyword type="function" name="dee_server_bus_address_for_name ()" link="DeeServer.html#dee-server-bus-address-for-name"/>
+    <keyword type="function" name="dee_server_get_client_address ()" link="DeeServer.html#dee-server-get-client-address"/>
+    <keyword type="function" name="dee_server_new ()" link="DeeServer.html#dee-server-new"/>
+    <keyword type="function" name="dee_server_new_for_address ()" link="DeeServer.html#dee-server-new-for-address"/>
+    <keyword type="property" name="The &quot;bus-address&quot; property" link="DeeServer.html#DeeServer--bus-address"/>
+    <keyword type="property" name="The &quot;same-user-only&quot; property" link="DeeServer.html#DeeServer--same-user-only"/>
+    <keyword type="struct" name="DeeFilter" link="dee-1.0-Filters.html#DeeFilter"/>
+    <keyword type="function" name="DeeFilterMapFunc ()" link="dee-1.0-Filters.html#DeeFilterMapFunc"/>
+    <keyword type="function" name="DeeFilterMapNotify ()" link="dee-1.0-Filters.html#DeeFilterMapNotify"/>
+    <keyword type="function" name="dee_filter_destroy ()" link="dee-1.0-Filters.html#dee-filter-destroy"/>
+    <keyword type="function" name="dee_filter_map ()" link="dee-1.0-Filters.html#dee-filter-map"/>
+    <keyword type="function" name="dee_filter_new ()" link="dee-1.0-Filters.html#dee-filter-new"/>
+    <keyword type="function" name="dee_filter_new_collator ()" link="dee-1.0-Filters.html#dee-filter-new-collator"/>
+    <keyword type="function" name="dee_filter_new_collator_desc ()" link="dee-1.0-Filters.html#dee-filter-new-collator-desc"/>
+    <keyword type="function" name="dee_filter_new_for_any_column ()" link="dee-1.0-Filters.html#dee-filter-new-for-any-column"/>
+    <keyword type="function" name="dee_filter_new_for_key_column ()" link="dee-1.0-Filters.html#dee-filter-new-for-key-column"/>
+    <keyword type="function" name="dee_filter_new_regex ()" link="dee-1.0-Filters.html#dee-filter-new-regex"/>
+    <keyword type="function" name="dee_filter_new_sort ()" link="dee-1.0-Filters.html#dee-filter-new-sort"/>
+    <keyword type="function" name="dee_filter_notify ()" link="dee-1.0-Filters.html#dee-filter-notify"/>
+    <keyword type="struct" name="DeeFilter" link="DeeFilterModel.html#DeeFilter"/>
+    <keyword type="struct" name="struct DeeFilterModel" link="DeeFilterModel.html#DeeFilterModel-struct"/>
+    <keyword type="struct" name="struct DeeFilterModelClass" link="DeeFilterModel.html#DeeFilterModelClass"/>
+    <keyword type="function" name="dee_filter_model_append_iter ()" link="DeeFilterModel.html#dee-filter-model-append-iter"/>
+    <keyword type="function" name="dee_filter_model_contains ()" link="DeeFilterModel.html#dee-filter-model-contains"/>
+    <keyword type="function" name="dee_filter_model_insert_iter ()" link="DeeFilterModel.html#dee-filter-model-insert-iter"/>
+    <keyword type="function" name="dee_filter_model_insert_iter_before ()" link="DeeFilterModel.html#dee-filter-model-insert-iter-before"/>
+    <keyword type="function" name="dee_filter_model_insert_iter_with_original_order ()" link="DeeFilterModel.html#dee-filter-model-insert-iter-with-original-order"/>
+    <keyword type="function" name="dee_filter_model_new ()" link="DeeFilterModel.html#dee-filter-model-new"/>
+    <keyword type="function" name="dee_filter_model_prepend_iter ()" link="DeeFilterModel.html#dee-filter-model-prepend-iter"/>
+    <keyword type="property" name="The &quot;filter&quot; property" link="DeeFilterModel.html#DeeFilterModel--filter"/>
+    <keyword type="" name="Indexes - Access by Key or Full Text Analysis" link="dee-1.0-DeeModel.html#dee-1.0-DeeModel.on_indexes"/>
+    <keyword type="" name="Sorting" link="dee-1.0-DeeModel.html#dee-1.0-DeeModel.on_sorting"/>
+    <keyword type="" name="Tags - Attach Arbitrary Data to Rows" link="dee-1.0-DeeModel.html#dee-1.0-DeeModel.on_tags"/>
+    <keyword type="function" name="DeeCompareRowFunc ()" link="dee-1.0-DeeModel.html#DeeCompareRowFunc"/>
+    <keyword type="struct" name="struct DeeModelIface" link="dee-1.0-DeeModel.html#DeeModelIface"/>
+    <keyword type="struct" name="DeeModelIter" link="dee-1.0-DeeModel.html#DeeModelIter-struct"/>
+    <keyword type="struct" name="DeeModelTag" link="dee-1.0-DeeModel.html#DeeModelTag"/>
+    <keyword type="function" name="dee_model_append ()" link="dee-1.0-DeeModel.html#dee-model-append"/>
+    <keyword type="function" name="dee_model_append_row ()" link="dee-1.0-DeeModel.html#dee-model-append-row"/>
+    <keyword type="function" name="dee_model_build_row ()" link="dee-1.0-DeeModel.html#dee-model-build-row"/>
+    <keyword type="function" name="dee_model_clear ()" link="dee-1.0-DeeModel.html#dee-model-clear"/>
+    <keyword type="function" name="dee_model_clear_tag ()" link="dee-1.0-DeeModel.html#dee-model-clear-tag"/>
+    <keyword type="function" name="dee_model_find_row_sorted ()" link="dee-1.0-DeeModel.html#dee-model-find-row-sorted"/>
+    <keyword type="function" name="dee_model_find_sorted ()" link="dee-1.0-DeeModel.html#dee-model-find-sorted"/>
+    <keyword type="function" name="dee_model_get ()" link="dee-1.0-DeeModel.html#dee-model-get"/>
+    <keyword type="function" name="dee_model_get_bool ()" link="dee-1.0-DeeModel.html#dee-model-get-bool"/>
+    <keyword type="function" name="dee_model_get_column_schema ()" link="dee-1.0-DeeModel.html#dee-model-get-column-schema"/>
+    <keyword type="function" name="dee_model_get_double ()" link="dee-1.0-DeeModel.html#dee-model-get-double"/>
+    <keyword type="function" name="dee_model_get_first_iter ()" link="dee-1.0-DeeModel.html#dee-model-get-first-iter"/>
+    <keyword type="function" name="dee_model_get_int32 ()" link="dee-1.0-DeeModel.html#dee-model-get-int32"/>
+    <keyword type="function" name="dee_model_get_int64 ()" link="dee-1.0-DeeModel.html#dee-model-get-int64"/>
+    <keyword type="function" name="dee_model_get_iter_at_row ()" link="dee-1.0-DeeModel.html#dee-model-get-iter-at-row"/>
+    <keyword type="function" name="dee_model_get_last_iter ()" link="dee-1.0-DeeModel.html#dee-model-get-last-iter"/>
+    <keyword type="function" name="dee_model_get_n_columns ()" link="dee-1.0-DeeModel.html#dee-model-get-n-columns"/>
+    <keyword type="function" name="dee_model_get_n_rows ()" link="dee-1.0-DeeModel.html#dee-model-get-n-rows"/>
+    <keyword type="function" name="dee_model_get_position ()" link="dee-1.0-DeeModel.html#dee-model-get-position"/>
+    <keyword type="function" name="dee_model_get_row ()" link="dee-1.0-DeeModel.html#dee-model-get-row"/>
+    <keyword type="function" name="dee_model_get_schema ()" link="dee-1.0-DeeModel.html#dee-model-get-schema"/>
+    <keyword type="function" name="dee_model_get_string ()" link="dee-1.0-DeeModel.html#dee-model-get-string"/>
+    <keyword type="function" name="dee_model_get_tag ()" link="dee-1.0-DeeModel.html#dee-model-get-tag"/>
+    <keyword type="function" name="dee_model_get_uchar ()" link="dee-1.0-DeeModel.html#dee-model-get-uchar"/>
+    <keyword type="function" name="dee_model_get_uint32 ()" link="dee-1.0-DeeModel.html#dee-model-get-uint32"/>
+    <keyword type="function" name="dee_model_get_uint64 ()" link="dee-1.0-DeeModel.html#dee-model-get-uint64"/>
+    <keyword type="function" name="dee_model_get_value ()" link="dee-1.0-DeeModel.html#dee-model-get-value"/>
+    <keyword type="function" name="dee_model_insert ()" link="dee-1.0-DeeModel.html#dee-model-insert"/>
+    <keyword type="function" name="dee_model_insert_before ()" link="dee-1.0-DeeModel.html#dee-model-insert-before"/>
+    <keyword type="function" name="dee_model_insert_row ()" link="dee-1.0-DeeModel.html#dee-model-insert-row"/>
+    <keyword type="function" name="dee_model_insert_row_before ()" link="dee-1.0-DeeModel.html#dee-model-insert-row-before"/>
+    <keyword type="function" name="dee_model_insert_row_sorted ()" link="dee-1.0-DeeModel.html#dee-model-insert-row-sorted"/>
+    <keyword type="function" name="dee_model_insert_sorted ()" link="dee-1.0-DeeModel.html#dee-model-insert-sorted"/>
+    <keyword type="function" name="dee_model_is_first ()" link="dee-1.0-DeeModel.html#dee-model-is-first"/>
+    <keyword type="function" name="dee_model_is_last ()" link="dee-1.0-DeeModel.html#dee-model-is-last"/>
+    <keyword type="function" name="dee_model_next ()" link="dee-1.0-DeeModel.html#dee-model-next"/>
+    <keyword type="function" name="dee_model_prepend ()" link="dee-1.0-DeeModel.html#dee-model-prepend"/>
+    <keyword type="function" name="dee_model_prepend_row ()" link="dee-1.0-DeeModel.html#dee-model-prepend-row"/>
+    <keyword type="function" name="dee_model_prev ()" link="dee-1.0-DeeModel.html#dee-model-prev"/>
+    <keyword type="function" name="dee_model_register_tag ()" link="dee-1.0-DeeModel.html#dee-model-register-tag"/>
+    <keyword type="function" name="dee_model_remove ()" link="dee-1.0-DeeModel.html#dee-model-remove"/>
+    <keyword type="function" name="dee_model_set ()" link="dee-1.0-DeeModel.html#dee-model-set"/>
+    <keyword type="function" name="dee_model_set_row ()" link="dee-1.0-DeeModel.html#dee-model-set-row"/>
+    <keyword type="function" name="dee_model_set_schema ()" link="dee-1.0-DeeModel.html#dee-model-set-schema"/>
+    <keyword type="function" name="dee_model_set_schema_full ()" link="dee-1.0-DeeModel.html#dee-model-set-schema-full"/>
+    <keyword type="function" name="dee_model_set_tag ()" link="dee-1.0-DeeModel.html#dee-model-set-tag"/>
+    <keyword type="function" name="dee_model_set_value ()" link="dee-1.0-DeeModel.html#dee-model-set-value"/>
+    <keyword type="struct" name="struct DeeProxyModel" link="DeeProxyModel.html#DeeProxyModel-struct"/>
+    <keyword type="struct" name="struct DeeProxyModelClass" link="DeeProxyModel.html#DeeProxyModelClass"/>
+    <keyword type="property" name="The &quot;back-end&quot; property" link="DeeProxyModel.html#DeeProxyModel--back-end"/>
+    <keyword type="property" name="The &quot;inherit-seqnums&quot; property" link="DeeProxyModel.html#DeeProxyModel--inherit-seqnums"/>
+    <keyword type="property" name="The &quot;proxy-signals&quot; property" link="DeeProxyModel.html#DeeProxyModel--proxy-signals"/>
+    <keyword type="macro" name="DEE_SEQUENCE_MODEL_DBUS_IFACE" link="DeeSequenceModel.html#DEE-SEQUENCE-MODEL-DBUS-IFACE:CAPS"/>
+    <keyword type="struct" name="struct DeeSequenceModel" link="DeeSequenceModel.html#DeeSequenceModel-struct"/>
+    <keyword type="struct" name="struct DeeSequenceModelClass" link="DeeSequenceModel.html#DeeSequenceModelClass"/>
+    <keyword type="function" name="dee_sequence_model_new ()" link="DeeSequenceModel.html#dee-sequence-model-new"/>
+    <keyword type="struct" name="struct DeeSerializableModel" link="DeeSerializableModel.html#DeeSerializableModel-struct"/>
+    <keyword type="struct" name="struct DeeSerializableModelClass" link="DeeSerializableModel.html#DeeSerializableModelClass"/>
+    <keyword type="function" name="dee_serializable_model_get_seqnum ()" link="DeeSerializableModel.html#dee-serializable-model-get-seqnum"/>
+    <keyword type="function" name="dee_serializable_model_inc_seqnum ()" link="DeeSerializableModel.html#dee-serializable-model-inc-seqnum"/>
+    <keyword type="function" name="dee_serializable_model_set_seqnum ()" link="DeeSerializableModel.html#dee-serializable-model-set-seqnum"/>
+    <keyword type="macro" name="DEE_SHARED_MODEL_DBUS_IFACE" link="DeeSharedModel.html#DEE-SHARED-MODEL-DBUS-IFACE:CAPS"/>
+    <keyword type="struct" name="struct DeeSharedModel" link="DeeSharedModel.html#DeeSharedModel-struct"/>
+    <keyword type="enum" name="enum DeeSharedModelAccessMode" link="DeeSharedModel.html#DeeSharedModelAccessMode-enum"/>
+    <keyword type="struct" name="struct DeeSharedModelClass" link="DeeSharedModel.html#DeeSharedModelClass"/>
+    <keyword type="enum" name="enum DeeSharedModelError" link="DeeSharedModel.html#DeeSharedModelError"/>
+    <keyword type="function" name="dee_shared_model_flush_revision_queue ()" link="DeeSharedModel.html#dee-shared-model-flush-revision-queue"/>
+    <keyword type="function" name="dee_shared_model_get_peer ()" link="DeeSharedModel.html#dee-shared-model-get-peer"/>
+    <keyword type="function" name="dee_shared_model_get_swarm_name ()" link="DeeSharedModel.html#dee-shared-model-get-swarm-name"/>
+    <keyword type="function" name="dee_shared_model_is_leader ()" link="DeeSharedModel.html#dee-shared-model-is-leader"/>
+    <keyword type="function" name="dee_shared_model_is_synchronized ()" link="DeeSharedModel.html#dee-shared-model-is-synchronized"/>
+    <keyword type="function" name="dee_shared_model_new ()" link="DeeSharedModel.html#dee-shared-model-new"/>
+    <keyword type="function" name="dee_shared_model_new_for_peer ()" link="DeeSharedModel.html#dee-shared-model-new-for-peer"/>
+    <keyword type="function" name="dee_shared_model_new_with_back_end ()" link="DeeSharedModel.html#dee-shared-model-new-with-back-end"/>
+    <keyword type="property" name="The &quot;access-mode&quot; property" link="DeeSharedModel.html#DeeSharedModel--access-mode"/>
+    <keyword type="property" name="The &quot;flush-mode&quot; property" link="DeeSharedModel.html#DeeSharedModel--flush-mode"/>
+    <keyword type="property" name="The &quot;peer&quot; property" link="DeeSharedModel.html#DeeSharedModel--peer"/>
+    <keyword type="property" name="The &quot;synchronized&quot; property" link="DeeSharedModel.html#DeeSharedModel--synchronized"/>
+    <keyword type="signal" name="The &quot;begin-transaction&quot; signal" link="DeeSharedModel.html#DeeSharedModel-begin-transaction"/>
+    <keyword type="signal" name="The &quot;end-transaction&quot; signal" link="DeeSharedModel.html#DeeSharedModel-end-transaction"/>
+    <keyword type="macro" name="DEE_TRANSACTION_ERROR" link="DeeTransaction.html#DEE-TRANSACTION-ERROR:CAPS"/>
+    <keyword type="struct" name="struct DeeTransaction" link="DeeTransaction.html#DeeTransaction-struct"/>
+    <keyword type="struct" name="struct DeeTransactionClass" link="DeeTransaction.html#DeeTransactionClass"/>
+    <keyword type="enum" name="enum DeeTransactionError" link="DeeTransaction.html#DeeTransactionError"/>
+    <keyword type="function" name="dee_transaction_commit ()" link="DeeTransaction.html#dee-transaction-commit"/>
+    <keyword type="function" name="dee_transaction_error_quark ()" link="DeeTransaction.html#dee-transaction-error-quark"/>
+    <keyword type="function" name="dee_transaction_get_target ()" link="DeeTransaction.html#dee-transaction-get-target"/>
+    <keyword type="function" name="dee_transaction_is_committed ()" link="DeeTransaction.html#dee-transaction-is-committed"/>
+    <keyword type="function" name="dee_transaction_new ()" link="DeeTransaction.html#dee-transaction-new"/>
+    <keyword type="property" name="The &quot;target&quot; property" link="DeeTransaction.html#DeeTransaction--target"/>
+    <keyword type="struct" name="struct DeeAnalyzer" link="DeeAnalyzer.html#DeeAnalyzer-struct"/>
+    <keyword type="struct" name="struct DeeAnalyzerClass" link="DeeAnalyzer.html#DeeAnalyzerClass"/>
+    <keyword type="function" name="DeeCollatorFunc ()" link="DeeAnalyzer.html#DeeCollatorFunc"/>
+    <keyword type="function" name="DeeTermFilterFunc ()" link="DeeAnalyzer.html#DeeTermFilterFunc"/>
+    <keyword type="function" name="dee_analyzer_add_term_filter ()" link="DeeAnalyzer.html#dee-analyzer-add-term-filter"/>
+    <keyword type="function" name="dee_analyzer_analyze ()" link="DeeAnalyzer.html#dee-analyzer-analyze"/>
+    <keyword type="function" name="dee_analyzer_collate_cmp ()" link="DeeAnalyzer.html#dee-analyzer-collate-cmp"/>
+    <keyword type="function" name="dee_analyzer_collate_cmp_func ()" link="DeeAnalyzer.html#dee-analyzer-collate-cmp-func"/>
+    <keyword type="function" name="dee_analyzer_collate_key ()" link="DeeAnalyzer.html#dee-analyzer-collate-key"/>
+    <keyword type="function" name="dee_analyzer_new ()" link="DeeAnalyzer.html#dee-analyzer-new"/>
+    <keyword type="function" name="dee_analyzer_tokenize ()" link="DeeAnalyzer.html#dee-analyzer-tokenize"/>
+    <keyword type="struct" name="struct DeeHashIndex" link="DeeHashIndex.html#DeeHashIndex-struct"/>
+    <keyword type="struct" name="struct DeeHashIndexClass" link="DeeHashIndex.html#DeeHashIndexClass"/>
+    <keyword type="function" name="dee_hash_index_new ()" link="DeeHashIndex.html#dee-hash-index-new"/>
+    <keyword type="struct" name="struct DeeIndex" link="DeeIndex.html#DeeIndex-struct"/>
+    <keyword type="struct" name="struct DeeIndexClass" link="DeeIndex.html#DeeIndexClass"/>
+    <keyword type="function" name="DeeIndexIterFunc ()" link="DeeIndex.html#DeeIndexIterFunc"/>
+    <keyword type="enum" name="enum DeeTermMatchFlag" link="DeeIndex.html#DeeTermMatchFlag"/>
+    <keyword type="function" name="dee_index_foreach ()" link="DeeIndex.html#dee-index-foreach"/>
+    <keyword type="function" name="dee_index_get_analyzer ()" link="DeeIndex.html#dee-index-get-analyzer"/>
+    <keyword type="function" name="dee_index_get_model ()" link="DeeIndex.html#dee-index-get-model"/>
+    <keyword type="function" name="dee_index_get_n_rows ()" link="DeeIndex.html#dee-index-get-n-rows"/>
+    <keyword type="function" name="dee_index_get_n_rows_for_term ()" link="DeeIndex.html#dee-index-get-n-rows-for-term"/>
+    <keyword type="function" name="dee_index_get_n_terms ()" link="DeeIndex.html#dee-index-get-n-terms"/>
+    <keyword type="function" name="dee_index_get_reader ()" link="DeeIndex.html#dee-index-get-reader"/>
+    <keyword type="function" name="dee_index_get_supported_term_match_flags ()" link="DeeIndex.html#dee-index-get-supported-term-match-flags"/>
+    <keyword type="function" name="dee_index_lookup ()" link="DeeIndex.html#dee-index-lookup"/>
+    <keyword type="function" name="dee_index_lookup_one ()" link="DeeIndex.html#dee-index-lookup-one"/>
+    <keyword type="property" name="The &quot;analyzer&quot; property" link="DeeIndex.html#DeeIndex--analyzer"/>
+    <keyword type="property" name="The &quot;model&quot; property" link="DeeIndex.html#DeeIndex--model"/>
+    <keyword type="property" name="The &quot;reader&quot; property" link="DeeIndex.html#DeeIndex--reader"/>
+    <keyword type="struct" name="DeeFilter" link="dee-1.0-Model-Readers.html#DeeFilter"/>
+    <keyword type="struct" name="DeeModelReader" link="dee-1.0-Model-Readers.html#DeeModelReader"/>
+    <keyword type="function" name="DeeModelReaderFunc ()" link="dee-1.0-Model-Readers.html#DeeModelReaderFunc"/>
+    <keyword type="function" name="dee_model_reader_destroy ()" link="dee-1.0-Model-Readers.html#dee-model-reader-destroy"/>
+    <keyword type="function" name="dee_model_reader_new ()" link="dee-1.0-Model-Readers.html#dee-model-reader-new"/>
+    <keyword type="function" name="dee_model_reader_new_for_int32_column ()" link="dee-1.0-Model-Readers.html#dee-model-reader-new-for-int32-column"/>
+    <keyword type="function" name="dee_model_reader_new_for_string_column ()" link="dee-1.0-Model-Readers.html#dee-model-reader-new-for-string-column"/>
+    <keyword type="function" name="dee_model_reader_new_for_uint32_column ()" link="dee-1.0-Model-Readers.html#dee-model-reader-new-for-uint32-column"/>
+    <keyword type="function" name="dee_model_reader_read ()" link="dee-1.0-Model-Readers.html#dee-model-reader-read"/>
+    <keyword type="struct" name="struct DeeResultSetIface" link="dee-1.0-DeeResultSet.html#DeeResultSetIface"/>
+    <keyword type="function" name="dee_result_set_get_model ()" link="dee-1.0-DeeResultSet.html#dee-result-set-get-model"/>
+    <keyword type="function" name="dee_result_set_get_n_rows ()" link="dee-1.0-DeeResultSet.html#dee-result-set-get-n-rows"/>
+    <keyword type="function" name="dee_result_set_has_next ()" link="dee-1.0-DeeResultSet.html#dee-result-set-has-next"/>
+    <keyword type="function" name="dee_result_set_next ()" link="dee-1.0-DeeResultSet.html#dee-result-set-next"/>
+    <keyword type="function" name="dee_result_set_peek ()" link="dee-1.0-DeeResultSet.html#dee-result-set-peek"/>
+    <keyword type="function" name="dee_result_set_seek ()" link="dee-1.0-DeeResultSet.html#dee-result-set-seek"/>
+    <keyword type="function" name="dee_result_set_tell ()" link="dee-1.0-DeeResultSet.html#dee-result-set-tell"/>
+    <keyword type="struct" name="struct DeeTermList" link="DeeTermList.html#DeeTermList-struct"/>
+    <keyword type="struct" name="struct DeeTermListClass" link="DeeTermList.html#DeeTermListClass"/>
+    <keyword type="function" name="dee_term_list_add_term ()" link="DeeTermList.html#dee-term-list-add-term"/>
+    <keyword type="function" name="dee_term_list_clear ()" link="DeeTermList.html#dee-term-list-clear"/>
+    <keyword type="function" name="dee_term_list_clone ()" link="DeeTermList.html#dee-term-list-clone"/>
+    <keyword type="function" name="dee_term_list_get_term ()" link="DeeTermList.html#dee-term-list-get-term"/>
+    <keyword type="function" name="dee_term_list_num_terms ()" link="DeeTermList.html#dee-term-list-num-terms"/>
+    <keyword type="struct" name="struct DeeTextAnalyzer" link="DeeTextAnalyzer.html#DeeTextAnalyzer-struct"/>
+    <keyword type="struct" name="struct DeeTextAnalyzerClass" link="DeeTextAnalyzer.html#DeeTextAnalyzerClass"/>
+    <keyword type="function" name="dee_text_analyzer_new ()" link="DeeTextAnalyzer.html#dee-text-analyzer-new"/>
+    <keyword type="struct" name="struct DeeTreeIndex" link="DeeTreeIndex.html#DeeTreeIndex-struct"/>
+    <keyword type="struct" name="struct DeeTreeIndexClass" link="DeeTreeIndex.html#DeeTreeIndexClass"/>
+    <keyword type="function" name="dee_tree_index_new ()" link="DeeTreeIndex.html#dee-tree-index-new"/>
+    <keyword type="macro" name="DEE_ICU_ERROR" link="dee-1.0-Dee-ICU-Extensions.html#DEE-ICU-ERROR:CAPS"/>
+    <keyword type="enum" name="enum DeeICUError" link="dee-1.0-Dee-ICU-Extensions.html#DeeICUError"/>
+    <keyword type="struct" name="DeeICUTermFilter" link="dee-1.0-Dee-ICU-Extensions.html#DeeICUTermFilter"/>
+    <keyword type="function" name="dee_icu_error_quark ()" link="dee-1.0-Dee-ICU-Extensions.html#dee-icu-error-quark"/>
+    <keyword type="function" name="dee_icu_term_filter_apply ()" link="dee-1.0-Dee-ICU-Extensions.html#dee-icu-term-filter-apply"/>
+    <keyword type="function" name="dee_icu_term_filter_destroy ()" link="dee-1.0-Dee-ICU-Extensions.html#dee-icu-term-filter-destroy"/>
+    <keyword type="function" name="dee_icu_term_filter_new ()" link="dee-1.0-Dee-ICU-Extensions.html#dee-icu-term-filter-new"/>
+    <keyword type="function" name="dee_icu_term_filter_new_ascii_folder ()" link="dee-1.0-Dee-ICU-Extensions.html#dee-icu-term-filter-new-ascii-folder"/>
+    <keyword type="struct" name="struct DeeFileResourceManager" link="DeeFileResourceManager.html#DeeFileResourceManager-struct"/>
+    <keyword type="struct" name="struct DeeFileResourceManagerClass" link="DeeFileResourceManager.html#DeeFileResourceManagerClass"/>
+    <keyword type="function" name="dee_file_resource_manager_add_search_path ()" link="DeeFileResourceManager.html#dee-file-resource-manager-add-search-path"/>
+    <keyword type="function" name="dee_file_resource_manager_get_primary_path ()" link="DeeFileResourceManager.html#dee-file-resource-manager-get-primary-path"/>
+    <keyword type="function" name="dee_file_resource_manager_new ()" link="DeeFileResourceManager.html#dee-file-resource-manager-new"/>
+    <keyword type="property" name="The &quot;primary-path&quot; property" link="DeeFileResourceManager.html#DeeFileResourceManager--primary-path"/>
+    <keyword type="struct" name="struct DeeResourceManagerIface" link="dee-1.0-DeeResourceManager.html#DeeResourceManagerIface"/>
+    <keyword type="function" name="dee_resource_manager_get_default ()" link="dee-1.0-DeeResourceManager.html#dee-resource-manager-get-default"/>
+    <keyword type="function" name="dee_resource_manager_load ()" link="dee-1.0-DeeResourceManager.html#dee-resource-manager-load"/>
+    <keyword type="function" name="dee_resource_manager_store ()" link="dee-1.0-DeeResourceManager.html#dee-resource-manager-store"/>
+    <keyword type="" name="On Subclasses of DeeSerializable Types" link="dee-1.0-DeeSerializable.html#dee-1.0-DeeSerializable.on_subclasses"/>
+    <keyword type="struct" name="struct DeeSerializableIface" link="dee-1.0-DeeSerializable.html#DeeSerializableIface"/>
+    <keyword type="function" name="DeeSerializableParseFunc ()" link="dee-1.0-DeeSerializable.html#DeeSerializableParseFunc"/>
+    <keyword type="function" name="dee_serializable_externalize ()" link="dee-1.0-DeeSerializable.html#dee-serializable-externalize"/>
+    <keyword type="function" name="dee_serializable_parse ()" link="dee-1.0-DeeSerializable.html#dee-serializable-parse"/>
+    <keyword type="function" name="dee_serializable_parse_external ()" link="dee-1.0-DeeSerializable.html#dee-serializable-parse-external"/>
+    <keyword type="function" name="dee_serializable_register_parser ()" link="dee-1.0-DeeSerializable.html#dee-serializable-register-parser"/>
+    <keyword type="function" name="dee_serializable_serialize ()" link="dee-1.0-DeeSerializable.html#dee-serializable-serialize"/>
+    <keyword type="constant" name="DEE_SHARED_MODEL_ACCESS_MODE_WORLD_WRITABLE" link="DeeSharedModel.html#DEE-SHARED-MODEL-ACCESS-MODE-WORLD-WRITABLE:CAPS"/>
+    <keyword type="constant" name="DEE_SHARED_MODEL_ACCESS_MODE_LEADER_WRITABLE" link="DeeSharedModel.html#DEE-SHARED-MODEL-ACCESS-MODE-LEADER-WRITABLE:CAPS"/>
+    <keyword type="constant" name="DEE_SHARED_MODEL_ERROR_LEADER_INVALIDATED" link="DeeSharedModel.html#DEE-SHARED-MODEL-ERROR-LEADER-INVALIDATED:CAPS"/>
+    <keyword type="constant" name="DEE_TRANSACTION_ERROR_CONCURRENT_MODIFICATION" link="DeeTransaction.html#DEE-TRANSACTION-ERROR-CONCURRENT-MODIFICATION:CAPS"/>
+    <keyword type="constant" name="DEE_TRANSACTION_ERROR_COMMITTED" link="DeeTransaction.html#DEE-TRANSACTION-ERROR-COMMITTED:CAPS"/>
+    <keyword type="constant" name="DEE_TERM_MATCH_EXACT" link="DeeIndex.html#DEE-TERM-MATCH-EXACT:CAPS"/>
+    <keyword type="constant" name="DEE_TERM_MATCH_PREFIX" link="DeeIndex.html#DEE-TERM-MATCH-PREFIX:CAPS"/>
+    <keyword type="constant" name="DEE_ICU_ERROR_BAD_RULE" link="dee-1.0-Dee-ICU-Extensions.html#DEE-ICU-ERROR-BAD-RULE:CAPS"/>
+    <keyword type="constant" name="DEE_ICU_ERROR_BAD_ID" link="dee-1.0-Dee-ICU-Extensions.html#DEE-ICU-ERROR-BAD-ID:CAPS"/>
+    <keyword type="constant" name="DEE_ICU_ERROR_UNKNOWN" link="dee-1.0-Dee-ICU-Extensions.html#DEE-ICU-ERROR-UNKNOWN:CAPS"/>
+  </functions>
+</book>

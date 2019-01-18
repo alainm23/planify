@@ -1,12 +1,12 @@
 {
-    "app-id": "com.github.alainm23.planner",
-    "base": "io.elementary.BaseApp",
-    "base-version": "juno",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "3.30",
-    "sdk": "org.gnome.Sdk",
-    "command": "com.github.alainm23.planner",
-    "finish-args": [
+    "app-id" : "com.github.alainm23.planner",
+    "base" : "io.elementary.BaseApp",
+    "base-version" : "juno",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "3.30",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "com.github.alainm23.planner",
+    "finish-args" : [
         "--share=ipc",
         "--share=network",
         "--socket=x11",
@@ -20,75 +20,75 @@
         "--filesystem=~/.config/dconf:ro",
         "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
     ],
-    "modules": [
+    "modules" : [
         {
-            "name": "libdee",
-            "build-options": {
-                "cflags": "-Wno-error=misleading-indentation"
+            "name" : "libdee",
+            "build-options" : {
+                "cflags" : "-Wno-error=misleading-indentation"
             },
-            "sources": [
+            "sources" : [
                 {
-                    "type": "archive",
-                    "url": "https://launchpad.net/dee/1.0/1.2.7/+download/dee-1.2.7.tar.gz",
-                    "md5": "b92f27f0a99cac24c2128880601bb7d7"
+                    "type" : "archive",
+                    "url" : "https://launchpad.net/dee/1.0/1.2.7/+download/dee-1.2.7.tar.gz",
+                    "md5" : "b92f27f0a99cac24c2128880601bb7d7"
                 }
             ]
         },
         {
-            "name": "libdbusmenu",
-            "config-opts": [
+            "name" : "libdbusmenu",
+            "config-opts" : [
                 "--enable-gtk",
                 "--disable-dumper"
             ],
-            "make-install-args": [
+            "make-install-args" : [
                 "typelibdir=/app/lib/girepository-1.0"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "archive",
-                    "url": "https://launchpad.net/libdbusmenu/16.04/16.04.0/+download/libdbusmenu-16.04.0.tar.gz",
-                    "md5": "3c05d53053b3ea69384b5f93d7a4c7c4"
+                    "type" : "archive",
+                    "url" : "https://launchpad.net/libdbusmenu/16.04/16.04.0/+download/libdbusmenu-16.04.0.tar.gz",
+                    "md5" : "3c05d53053b3ea69384b5f93d7a4c7c4"
                 }
             ]
         },
         {
-            "name": "libunity",
-            "sources": [
+            "name" : "libunity",
+            "sources" : [
                 {
-                    "type": "archive",
-                    "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libunity/7.1.4+16.04.20180209.1-0ubuntu1/libunity_7.1.4+16.04.20180209.1.orig.tar.gz",
-                    "sha256": "d4013500c0a972ecea5ba26e3567ee5d4c3eae481281badbbbe3cbaeab5f389b"
+                    "type" : "archive",
+                    "url" : "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libunity/7.1.4+16.04.20180209.1-0ubuntu1/libunity_7.1.4+16.04.20180209.1.orig.tar.gz",
+                    "sha256" : "d4013500c0a972ecea5ba26e3567ee5d4c3eae481281badbbbe3cbaeab5f389b"
                 }
             ]
         },
         {
-            "name": "gtksourceview",
-            "build-options": {
-                "cflags": "-Wno-error=cast-function-type -Wno-error=deprecated-declarations -Wno-error=null-dereference -Wno-error=incompatible-pointer-types"
+            "name" : "gtksourceview",
+            "build-options" : {
+                "cflags" : "-Wno-error=cast-function-type -Wno-error=deprecated-declarations -Wno-error=null-dereference -Wno-error=incompatible-pointer-types"
             },
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/gtksourceview.git",
-                    "tag": "3.24.9"
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview.git",
+                    "tag" : "3.24.9"
                 }
             ]
         },
         {
-            "name": "libical",
-            "buildsystem": "cmake",
-            "sources": [
+            "name" : "libical",
+            "buildsystem" : "cmake",
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/libical/libical.git",
-                    "tag": "v3.0.4"
+                    "type" : "git",
+                    "url" : "https://github.com/libical/libical.git",
+                    "tag" : "v3.0.4"
                 }
             ]
         },
         {
-            "name": "evolution-data-server",
-            "buildsystem": "cmake",
-            "config-opts": [
+            "name" : "evolution-data-server",
+            "buildsystem" : "cmake",
+            "config-opts" : [
                 "-DENABLE_GTK=ON",
                 "-DENABLE_INTROSPECTION=ON",
                 "-DENABLE_VALA_BINDINGS=ON",
@@ -103,64 +103,64 @@
                 "-DWITH_OPENLDAP=OFF",
                 "-DWITH_LIBDB=OFF"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
-                    "commit": "550f44363b0aadf30014aed36bd62631c8b80cb9"
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
+                    "commit" : "550f44363b0aadf30014aed36bd62631c8b80cb9"
                 }
             ]
         },
         {
-            "name": "libyaml",
-            "sources": [
+            "name" : "libyaml",
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/yaml/libyaml.git",
-                    "tag": "0.2.1"
+                    "type" : "git",
+                    "url" : "https://github.com/yaml/libyaml.git",
+                    "tag" : "0.2.1"
                 }
             ]
         },
         {
-            "name": "appstream",
-            "buildsystem": "meson",
-            "config-opts": [
+            "name" : "appstream",
+            "buildsystem" : "meson",
+            "config-opts" : [
                 "-Dstemming=false"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/ximion/appstream.git",
-                    "tag": "APPSTREAM_0_12_4"
+                    "type" : "git",
+                    "url" : "https://github.com/ximion/appstream.git",
+                    "tag" : "APPSTREAM_0_12_4"
                 }
             ]
         },
         {
-            "name": "libchamplain",
-            "sources": [
+            "name" : "libchamplain",
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libchamplain.git",
-                    "tag": "LIBCHAMPLAIN_0_12_16"
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libchamplain.git",
+                    "tag" : "LIBCHAMPLAIN_0_12_16"
                 }
             ]
         },
         {
-            "name": "telepathy-glib",
-            "config-opts": [
+            "name" : "telepathy-glib",
+            "config-opts" : [
                 "--enable-vala-bindings"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/TelepathyIM/telepathy-glib.git",
-                    "tag": "telepathy-glib-0.24.1"
+                    "type" : "git",
+                    "url" : "https://github.com/TelepathyIM/telepathy-glib.git",
+                    "tag" : "telepathy-glib-0.24.1"
                 }
             ]
         },
         {
-            "name": "folks",
-            "config-opts": [
+            "name" : "folks",
+            "config-opts" : [
                 "--enable-vala",
                 "--enable-inspect-tool",
                 "--disable-tracker-backend",
@@ -172,50 +172,54 @@
                 "--disable-modular-tests",
                 "--disable-installed-tests"
             ],
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/folks.git",
-                    "branch": "master"
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/folks.git",
+                    "branch" : "master"
                 }
             ]
         },
         {
-            "name": "geocode-glib",
-            "buildsystem": "meson",
-            "builddir": true,
-            "sources": [
+            "name" : "geocode-glib",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/geocode-glib.git",
-                    "tag": "3.26.0"
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/geocode-glib.git",
+                    "tag" : "3.26.0"
                 }
             ]
         },
         {
-            "name": "io.elementary.calendar",
-            "buildsystem": "meson",
-            "sources": [
+            "name" : "io.elementary.calendar",
+            "buildsystem" : "meson",
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/elementary/calendar.git",
-                    "tag": "4.2.3"
+                    "type" : "git",
+                    "url" : "https://github.com/elementary/calendar.git",
+                    "tag" : "4.2.3"
                 }
             ]
         },
         {
-            "name": "planner",
-            "buildsystem": "meson",
-            "sources": [
+            "name" : "planner",
+            "buildsystem" : "meson",
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/alainm23/planner.git"
+                    "type" : "git",
+                    "url" : "https://github.com/alainm23/planner.git"
                 },
                 {
-                    "type": "patch",
-                    "path": "elementary-theme.patch"
+                    "type" : "patch",
+                    "path" : "elementary-theme.patch"
                 }
             ]
         }
-    ]
+    ],
+    "build-options" : {
+        "env" : {
+        }
+    }
 }

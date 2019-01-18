@@ -1,0 +1,428 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-timetype.h"
+#include "libical-glib-private.h"
+#include "i-cal-timezone.h"
+
+G_DEFINE_TYPE (ICalTimetype, i_cal_timetype, I_CAL_TYPE_OBJECT)
+
+static void i_cal_timetype_class_init (ICalTimetypeClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalTimetype));
+}
+
+static void i_cal_timetype_init (G_GNUC_UNUSED ICalTimetype *self)
+{
+}
+
+/**
+ * i_cal_timetype_new_full: (skip)
+ * @native: The native libical object.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalTimetype *
+i_cal_timetype_new_full (struct icaltimetype native)
+{
+    ICalTimetype *object;
+    struct icaltimetype *clone;
+    object = g_object_new (I_CAL_TIMETYPE_TYPE, NULL);
+    clone = g_new (struct icaltimetype, 1);
+    *clone = native;
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) clone,
+                            (GDestroyNotify) g_free,
+                            FALSE,
+                            NULL);
+
+    return object;
+}
+/**
+ * i_cal_timetype_new_default: (skip)
+ *
+ * Create a new #ICalTimetype.
+ *
+ * Returns: The newly created #ICalTimetype. It is the epoch time (1970-01-01 00:00:00 UTC)
+ *
+ * Since: 1.0
+ *
+ **/
+struct icaltimetype
+i_cal_timetype_new_default (void)
+{
+	struct icaltimetype timetype;
+	timetype.year = 1970;
+	timetype.month = 1;
+	timetype.day = 1;
+	timetype.hour = 0;
+	timetype.minute = 0;
+	timetype.second = 0;
+	timetype.is_date = 0;
+	timetype.is_daylight = 0;
+	timetype.zone = icaltimezone_get_utc_timezone();
+	return timetype;
+}
+
+/**
+ * i_cal_timetype_new:
+ *
+ * Create a new #ICalTimetype.
+ *
+ * Returns: (transfer full): The newly created #ICalTimetype. It is the epoch time (1970-01-01 00:00:00 UTC)
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_timetype_new (void)
+{
+	return i_cal_timetype_new_full (i_cal_timetype_new_default());
+}
+
+/**
+ * i_cal_timetype_get_year:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the year of #ICalTimetype.
+ *
+ * Returns: The year.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_year (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->year;
+}
+
+/**
+ * i_cal_timetype_set_year:
+ * @timetype: The #ICalTimetype to be set.
+ * @year: The year.
+ *
+ * Set the year of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_year (ICalTimetype *timetype, 
+                         gint year)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->year = year;
+}
+
+/**
+ * i_cal_timetype_get_month:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the month of #ICalTimetype.
+ *
+ * Returns: The month.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_month (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->month;
+}
+
+/**
+ * i_cal_timetype_set_month:
+ * @timetype: The #ICalTimetype to be set.
+ * @month: The month.
+ *
+ * Set the month of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_month (ICalTimetype *timetype, 
+                          gint month)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->month = month;
+}
+
+/**
+ * i_cal_timetype_get_day:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the day of #ICalTimetype.
+ *
+ * Returns: The day.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_day (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->day;
+}
+
+/**
+ * i_cal_timetype_set_day:
+ * @timetype: The #ICalTimetype to be set.
+ * @day: The day.
+ *
+ * Set the day of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_day (ICalTimetype *timetype, 
+                        gint day)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->day = day;
+}
+
+/**
+ * i_cal_timetype_get_hour:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the hour of #ICalTimetype.
+ *
+ * Returns: The hour.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_hour (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->hour;
+}
+
+/**
+ * i_cal_timetype_set_hour:
+ * @timetype: The #ICalTimetype to be set.
+ * @hour: The hour.
+ *
+ * Set the hour of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_hour (ICalTimetype *timetype, 
+                         gint hour)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->hour = hour;
+}
+
+/**
+ * i_cal_timetype_get_minute:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the minute of #ICalTimetype.
+ *
+ * Returns: The minute.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_minute (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->minute;
+}
+
+/**
+ * i_cal_timetype_set_minute:
+ * @timetype: The #ICalTimetype to be set.
+ * @minute: The minute.
+ *
+ * Set the minute of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_minute (ICalTimetype *timetype, 
+                           gint minute)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->minute = minute;
+}
+
+/**
+ * i_cal_timetype_get_second:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the second of #ICalTimetype.
+ *
+ * Returns: The second.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_get_second (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->second;
+}
+
+/**
+ * i_cal_timetype_set_second:
+ * @timetype: The #ICalTimetype to be set.
+ * @second: The second.
+ *
+ * Set the second of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_second (ICalTimetype *timetype, 
+                           gint second)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->second = second;
+}
+
+/**
+ * i_cal_timetype_is_utc:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get if the #ICalTimetype is in UTC.
+ *
+ * Returns: If the time is in UTC.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_is_utc (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return icaltime_is_utc(*(struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype));
+}
+
+/**
+ * i_cal_timetype_is_date:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the is_date of #ICalTimetype.
+ *
+ * Returns: The is_date.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_is_date (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->is_date;
+}
+
+/**
+ * i_cal_timetype_set_is_date:
+ * @timetype: The #ICalTimetype to be set.
+ * @is_date: The is_date.
+ *
+ * Set the is_date of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_is_date (ICalTimetype *timetype, 
+                            gint is_date)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->is_date = is_date;
+}
+
+/**
+ * i_cal_timetype_is_daylight:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the is_daylight of #ICalTimetype.
+ *
+ * Returns: The is_daylight.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_timetype_is_daylight (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return ((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->is_daylight;
+}
+
+/**
+ * i_cal_timetype_set_is_daylight:
+ * @timetype: The #ICalTimetype to be set.
+ * @is_daylight: The is_daylight.
+ *
+ * Set the is_daylight of #ICalTimetype.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_timetype_set_is_daylight (ICalTimetype *timetype, 
+                                gint is_daylight)
+{
+	g_return_if_fail (timetype != NULL && I_CAL_IS_TIMETYPE (timetype));
+	((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->is_daylight = is_daylight;
+}
+
+/**
+ * i_cal_timetype_get_zone:
+ * @timetype: The #ICalTimetype to be queried.
+ *
+ * Get the is_daylight of #ICalTimetype.
+ *
+ * Returns: The timezone.
+ *
+ * Since: 1.0
+ *
+ **/
+const ICalTimezone *
+i_cal_timetype_get_zone (ICalTimetype *timetype)
+{
+	g_return_val_if_fail (timetype != NULL, 0);
+	return i_cal_timezone_new_full ((icaltimezone *)(((struct icaltimetype *)i_cal_object_get_native ((ICalObject *)timetype))->zone), NULL, TRUE);
+}

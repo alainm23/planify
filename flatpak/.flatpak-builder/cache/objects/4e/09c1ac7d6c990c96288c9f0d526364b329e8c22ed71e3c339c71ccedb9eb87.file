@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>geocode-error: geocode-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="geocode-glib Reference Manual">
+<link rel="up" href="ch01.html" title="Geocode-glib">
+<link rel="prev" href="GeocodeBackend.html" title="GeocodeBackend">
+<link rel="next" href="GeocodeForward.html" title="GeocodeForward">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#geocode-glib-geocode-error.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GeocodeBackend.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GeocodeForward.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="geocode-glib-geocode-error"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="geocode-glib-geocode-error.top_of_page"></a>geocode-error</span></h2>
+<p>geocode-error — Error helper functions</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<span class="returnvalue">GQuark</span>
+</td>
+<td class="function_name">
+<a class="link" href="geocode-glib-geocode-error.html#geocode-error-quark" title="geocode_error_quark ()">geocode_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="geocode-glib-geocode-error.html#GEOCODE-ERROR:CAPS" title="GEOCODE_ERROR">GEOCODE_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="geocode-glib-geocode-error.html#GeocodeError" title="enum GeocodeError">GeocodeError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;geocode-glib/geocode-glib.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.description"></a><h2>Description</h2>
+<p>Contains helper functions for reporting errors to the user.</p>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="geocode-error-quark"></a><h3>geocode_error_quark ()</h3>
+<pre class="programlisting"><span class="returnvalue">GQuark</span>
+geocode_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets the geocode-glib error quark.</p>
+<div class="refsect3">
+<a name="geocode-error-quark.returns"></a><h4>Returns</h4>
+<p> a <span class="type">GQuark</span>.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="geocode-glib-geocode-error.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GEOCODE-ERROR:CAPS"></a><h3>GEOCODE_ERROR</h3>
+<pre class="programlisting">#define GEOCODE_ERROR (geocode_error_quark ())
+</pre>
+<p>Error domain for geocode-glib. Errors from this domain will be from
+the <a class="link" href="geocode-glib-geocode-error.html#GeocodeError" title="enum GeocodeError"><span class="type">GeocodeError</span></a> enumeration.
+See <span class="type">GError</span> for more information on error domains.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeError"></a><h3>enum GeocodeError</h3>
+<p>Error codes returned by geocode-glib functions.</p>
+<div class="refsect3">
+<a name="GeocodeError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GEOCODE-ERROR-PARSE:CAPS"></a>GEOCODE_ERROR_PARSE</p></td>
+<td class="enum_member_description">
+<p>An error occured parsing the response from the web service.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GEOCODE-ERROR-NOT-SUPPORTED:CAPS"></a>GEOCODE_ERROR_NOT_SUPPORTED</p></td>
+<td class="enum_member_description">
+<p>The request made was not supported.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GEOCODE-ERROR-NO-MATCHES:CAPS"></a>GEOCODE_ERROR_NO_MATCHES</p></td>
+<td class="enum_member_description">
+<p>The requests made didn't have any matches.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GEOCODE-ERROR-INVALID-ARGUMENTS:CAPS"></a>GEOCODE_ERROR_INVALID_ARGUMENTS</p></td>
+<td class="enum_member_description">
+<p>The request made contained invalid arguments.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GEOCODE-ERROR-INTERNAL-SERVER:CAPS"></a>GEOCODE_ERROR_INTERNAL_SERVER</p></td>
+<td class="enum_member_description">
+<p>The server encountered an (possibly unrecoverable) internal error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

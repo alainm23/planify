@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2008 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="dot" name="Graphviz Dot" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/vnd.graphviz</property>
+    <property name="globs">*.dot;*.gv</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="attribute" name="Attribute name" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>digraph</keyword>
+      <keyword>edge</keyword>
+      <keyword>node</keyword>
+      <keyword>subgraph</keyword>
+    </context>
+
+    <context id="attributes" style-ref="attribute">
+      <keyword>arrowhead</keyword>
+      <keyword>arrowsize</keyword>
+      <keyword>arrowtail</keyword>
+      <keyword>bgcolor</keyword>
+      <keyword>center</keyword>
+      <keyword>color</keyword>
+      <keyword>constraint</keyword>
+      <keyword>decorateP</keyword>
+      <keyword>dir</keyword>
+      <keyword>distortion</keyword>
+      <keyword>fillcolor</keyword>
+      <keyword>fontcolor</keyword>
+      <keyword>fontname</keyword>
+      <keyword>fontsize</keyword>
+      <keyword>headclip</keyword>
+      <keyword>headlabel</keyword>
+      <keyword>height</keyword>
+      <keyword>labelangle</keyword>
+      <keyword>labeldistance</keyword>
+      <keyword>labelfontcolor</keyword>
+      <keyword>labelfontname</keyword>
+      <keyword>labelfontsize</keyword>
+      <keyword>label</keyword>
+      <keyword>layers</keyword>
+      <keyword>layer</keyword>
+      <keyword>margin</keyword>
+      <keyword>mclimit</keyword>
+      <keyword>minlen</keyword>
+      <keyword>name</keyword>
+      <keyword>nodesep</keyword>
+      <keyword>nslimit</keyword>
+      <keyword>ordering</keyword>
+      <keyword>orientation</keyword>
+      <keyword>pagedir</keyword>
+      <keyword>page</keyword>
+      <keyword>peripheries</keyword>
+      <keyword>port_label_distance</keyword>
+      <keyword>rankdir</keyword>
+      <keyword>ranksep</keyword>
+      <keyword>rank</keyword>
+      <keyword>ratio</keyword>
+      <keyword>regular</keyword>
+      <keyword>rotate</keyword>
+      <keyword>samehead</keyword>
+      <keyword>sametail</keyword>
+      <keyword>shapefile</keyword>
+      <keyword>shape</keyword>
+      <keyword>sides</keyword>
+      <keyword>size</keyword>
+      <keyword>skew</keyword>
+      <keyword>style</keyword>
+      <keyword>tailclip</keyword>
+      <keyword>taillabel</keyword>
+      <keyword>URL</keyword>
+      <keyword>weight</keyword>
+      <keyword>width</keyword>
+    </context>
+
+    <context id="dot" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="keywords"/>
+        <context ref="attributes"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>
+

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Maya Daemon
+Comment=View Event Reminders
+Icon=office-calendar
+Exec=/app/libexec/io.elementary.calendar-daemon
+Terminal=false
+Type=Application
+Categories=System;
+OnlyShowIn=Pantheon;
+NoDisplay=true
+X-GNOME-AutoRestart=true
+X-GNOME-Autostart-Phase=Applications

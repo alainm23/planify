@@ -1,0 +1,2036 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>API Index: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="index.html" title="AppStream Library Reference Manual">
+<link rel="prev" href="appstream-AsDistroDetails.html" title="AsDistroDetails">
+<link rel="next" href="deprecated-api-index.html" title="Index of deprecated API">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"><span id="nav_index"><a class="shortcut" href="#idxA">A</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxB">B</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxC">C</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxD">D</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxF">F</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxG">G</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxI">I</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxL">L</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxM">M</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxP">P</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxR">R</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxS">S</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxT">T</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxU">U</a>
+                     <span class="dim">|</span> 
+                  <a class="shortcut" href="#idxV">V</a></span></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="appstream-AsDistroDetails.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="deprecated-api-index.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="index">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="api-index-full"></a>API Index</h1></div></div></div>
+<a name="idx"></a><a name="idxA"></a><h3 class="title">A</h3>
+<dt>
+AsAgreement, struct in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+AsAgreementClass, struct in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+AsAgreementKind, enum in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+AsAgreementSection, struct in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+AsAgreementSectionClass, struct in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_add_section, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_get_kind, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_get_sections, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_get_section_default, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_get_version_id, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_kind_from_string, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_kind_to_string, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_new, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_get_active_locale, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_get_description, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_get_kind, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_get_name, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_new, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_set_active_locale, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_set_description, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_set_kind, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_section_set_name, function in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+as_agreement_set_kind, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+as_agreement_set_version_id, function in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+AS_APPSTREAM_CACHE_PATH, macro in as-settings-private
+</dt>
+<dd></dd>
+<a name="idxB"></a><h3 class="title">B</h3>
+<dt>
+<a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle">AsBundle</a>, struct in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#AsBundleClass" title="struct AsBundleClass">AsBundleClass</a>, struct in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind">AsBundleKind</a>, enum in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-get-id" title="as_bundle_get_id ()">as_bundle_get_id</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-get-kind" title="as_bundle_get_kind ()">as_bundle_get_kind</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-kind-from-string" title="as_bundle_kind_from_string ()">as_bundle_kind_from_string</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-kind-to-string" title="as_bundle_kind_to_string ()">as_bundle_kind_to_string</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-new" title="as_bundle_new ()">as_bundle_new</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-set-id" title="as_bundle_set_id ()">as_bundle_set_id</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#as-bundle-set-kind" title="as_bundle_set_kind ()">as_bundle_set_kind</a>, function in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<a name="idxC"></a><h3 class="title">C</h3>
+<dt>
+<a class="link" href="appstream-AsPool.html#AsCacheFlags" title="enum AsCacheFlags">AsCacheFlags</a>, enum in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory">AsCategory</a>, struct in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#AsCategoryClass" title="struct AsCategoryClass">AsCategoryClass</a>, struct in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-add-child" title="as_category_add_child ()">as_category_add_child</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-add-component" title="as_category_add_component ()">as_category_add_component</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-add-desktop-group" title="as_category_add_desktop_group ()">as_category_add_desktop_group</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-children" title="as_category_get_children ()">as_category_get_children</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-components" title="as_category_get_components ()">as_category_get_components</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-desktop-groups" title="as_category_get_desktop_groups ()">as_category_get_desktop_groups</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-icon" title="as_category_get_icon ()">as_category_get_icon</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-id" title="as_category_get_id ()">as_category_get_id</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-name" title="as_category_get_name ()">as_category_get_name</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-get-summary" title="as_category_get_summary ()">as_category_get_summary</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-has-children" title="as_category_has_children ()">as_category_has_children</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-has-component" title="as_category_has_component ()">as_category_has_component</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-new" title="as_category_new ()">as_category_new</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-remove-child" title="as_category_remove_child ()">as_category_remove_child</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-set-icon" title="as_category_set_icon ()">as_category_set_icon</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-set-id" title="as_category_set_id ()">as_category_set_id</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-set-name" title="as_category_set_name ()">as_category_set_name</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-category-set-summary" title="as_category_set_summary ()">as_category_set_summary</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#AsChecksum" title="AsChecksum">AsChecksum</a>, struct in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#AsChecksumClass" title="struct AsChecksumClass">AsChecksumClass</a>, struct in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#AsChecksumKind" title="enum AsChecksumKind">AsChecksumKind</a>, enum in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-get-kind" title="as_checksum_get_kind ()">as_checksum_get_kind</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-get-value" title="as_checksum_get_value ()">as_checksum_get_value</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-kind-from-string" title="as_checksum_kind_from_string ()">as_checksum_kind_from_string</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-kind-to-string" title="as_checksum_kind_to_string ()">as_checksum_kind_to_string</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-new" title="as_checksum_new ()">as_checksum_new</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-set-kind" title="as_checksum_set_kind ()">as_checksum_set_kind</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#as-checksum-set-value" title="as_checksum_set_value ()">as_checksum_set_value</a>, function in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent">AsComponent</a>, struct in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsComponentClass" title="struct AsComponentClass">AsComponentClass</a>, struct in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsComponentKind" title="enum AsComponentKind">AsComponentKind</a>, enum in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsComponentScope" title="enum AsComponentScope">AsComponentScope</a>, enum in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-addon" title="as_component_add_addon ()">as_component_add_addon</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-agreement" title="as_component_add_agreement ()">as_component_add_agreement</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-bundle" title="as_component_add_bundle ()">as_component_add_bundle</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-category" title="as_component_add_category ()">as_component_add_category</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-content-rating" title="as_component_add_content_rating ()">as_component_add_content_rating</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-extends" title="as_component_add_extends ()">as_component_add_extends</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-icon" title="as_component_add_icon ()">as_component_add_icon</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-language" title="as_component_add_language ()">as_component_add_language</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-launchable" title="as_component_add_launchable ()">as_component_add_launchable</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-provided" title="as_component_add_provided ()">as_component_add_provided</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-relation" title="as_component_add_relation ()">as_component_add_relation</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-release" title="as_component_add_release ()">as_component_add_release</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-screenshot" title="as_component_add_screenshot ()">as_component_add_screenshot</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-suggested" title="as_component_add_suggested ()">as_component_add_suggested</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-translation" title="as_component_add_translation ()">as_component_add_translation</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-add-url" title="as_component_add_url ()">as_component_add_url</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-active-locale" title="as_component_get_active_locale ()">as_component_get_active_locale</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-addons" title="as_component_get_addons ()">as_component_get_addons</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-agreement-by-kind" title="as_component_get_agreement_by_kind ()">as_component_get_agreement_by_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-bundle" title="as_component_get_bundle ()">as_component_get_bundle</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-bundles" title="as_component_get_bundles ()">as_component_get_bundles</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-categories" title="as_component_get_categories ()">as_component_get_categories</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-compulsory-for-desktops" title="as_component_get_compulsory_for_desktops ()">as_component_get_compulsory_for_desktops</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-content-rating" title="as_component_get_content_rating ()">as_component_get_content_rating</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-content-ratings" title="as_component_get_content_ratings ()">as_component_get_content_ratings</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-custom" title="as_component_get_custom ()">as_component_get_custom</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-custom-value" title="as_component_get_custom_value ()">as_component_get_custom_value</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-data-id" title="as_component_get_data_id ()">as_component_get_data_id</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-description" title="as_component_get_description ()">as_component_get_description</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-desktop-id" title="as_component_get_desktop_id ()">as_component_get_desktop_id</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-developer-name" title="as_component_get_developer_name ()">as_component_get_developer_name</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-extends" title="as_component_get_extends ()">as_component_get_extends</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-icons" title="as_component_get_icons ()">as_component_get_icons</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-icon-by-size" title="as_component_get_icon_by_size ()">as_component_get_icon_by_size</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-id" title="as_component_get_id ()">as_component_get_id</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-keywords" title="as_component_get_keywords ()">as_component_get_keywords</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-kind" title="as_component_get_kind ()">as_component_get_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-language" title="as_component_get_language ()">as_component_get_language</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-languages" title="as_component_get_languages ()">as_component_get_languages</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-launchable" title="as_component_get_launchable ()">as_component_get_launchable</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-launchables" title="as_component_get_launchables ()">as_component_get_launchables</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-merge-kind" title="as_component_get_merge_kind ()">as_component_get_merge_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-metadata-license" title="as_component_get_metadata_license ()">as_component_get_metadata_license</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-name" title="as_component_get_name ()">as_component_get_name</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-origin" title="as_component_get_origin ()">as_component_get_origin</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-pkgname" title="as_component_get_pkgname ()">as_component_get_pkgname</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-pkgnames" title="as_component_get_pkgnames ()">as_component_get_pkgnames</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-project-group" title="as_component_get_project_group ()">as_component_get_project_group</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-project-license" title="as_component_get_project_license ()">as_component_get_project_license</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-provided" title="as_component_get_provided ()">as_component_get_provided</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-provided-for-kind" title="as_component_get_provided_for_kind ()">as_component_get_provided_for_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-recommends" title="as_component_get_recommends ()">as_component_get_recommends</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-releases" title="as_component_get_releases ()">as_component_get_releases</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-requires" title="as_component_get_requires ()">as_component_get_requires</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-screenshots" title="as_component_get_screenshots ()">as_component_get_screenshots</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-search-tokens" title="as_component_get_search_tokens ()">as_component_get_search_tokens</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-source-pkgname" title="as_component_get_source_pkgname ()">as_component_get_source_pkgname</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-suggested" title="as_component_get_suggested ()">as_component_get_suggested</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-summary" title="as_component_get_summary ()">as_component_get_summary</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-translations" title="as_component_get_translations ()">as_component_get_translations</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-url" title="as_component_get_url ()">as_component_get_url</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-get-value-flags" title="as_component_get_value_flags ()">as_component_get_value_flags</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-has-bundle" title="as_component_has_bundle ()">as_component_has_bundle</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-has-category" title="as_component_has_category ()">as_component_has_category</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-insert-custom-value" title="as_component_insert_custom_value ()">as_component_insert_custom_value</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-is-compulsory-for-desktop" title="as_component_is_compulsory_for_desktop ()">as_component_is_compulsory_for_desktop</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-is-ignored" title="as_component_is_ignored ()">as_component_is_ignored</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-is-member-of-category" title="as_component_is_member_of_category ()">as_component_is_member_of_category</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-is-valid" title="as_component_is_valid ()">as_component_is_valid</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-kind-from-string" title="as_component_kind_from_string ()">as_component_kind_from_string</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-kind-to-string" title="as_component_kind_to_string ()">as_component_kind_to_string</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-new" title="as_component_new ()">as_component_new</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-search-matches" title="as_component_search_matches ()">as_component_search_matches</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-search-matches-all" title="as_component_search_matches_all ()">as_component_search_matches_all</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-active-locale" title="as_component_set_active_locale ()">as_component_set_active_locale</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-compulsory-for-desktop" title="as_component_set_compulsory_for_desktop ()">as_component_set_compulsory_for_desktop</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-data-id" title="as_component_set_data_id ()">as_component_set_data_id</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-description" title="as_component_set_description ()">as_component_set_description</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-developer-name" title="as_component_set_developer_name ()">as_component_set_developer_name</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-id" title="as_component_set_id ()">as_component_set_id</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-keywords" title="as_component_set_keywords ()">as_component_set_keywords</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-kind" title="as_component_set_kind ()">as_component_set_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-merge-kind" title="as_component_set_merge_kind ()">as_component_set_merge_kind</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-metadata-license" title="as_component_set_metadata_license ()">as_component_set_metadata_license</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-name" title="as_component_set_name ()">as_component_set_name</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-origin" title="as_component_set_origin ()">as_component_set_origin</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-pkgnames" title="as_component_set_pkgnames ()">as_component_set_pkgnames</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-project-group" title="as_component_set_project_group ()">as_component_set_project_group</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-project-license" title="as_component_set_project_license ()">as_component_set_project_license</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-source-pkgname" title="as_component_set_source_pkgname ()">as_component_set_source_pkgname</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-summary" title="as_component_set_summary ()">as_component_set_summary</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-set-value-flags" title="as_component_set_value_flags ()">as_component_set_value_flags</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-component-to-string" title="as_component_to_string ()">as_component_to_string</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+AS_CONFIG_NAME, macro in as-settings-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#AsContentRating" title="AsContentRating">AsContentRating</a>, struct in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#AsContentRatingClass" title="struct AsContentRatingClass">AsContentRatingClass</a>, struct in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#AsContentRatingValue" title="enum AsContentRatingValue">AsContentRatingValue</a>, enum in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-get-kind" title="as_content_rating_get_kind ()">as_content_rating_get_kind</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-get-minimum-age" title="as_content_rating_get_minimum_age ()">as_content_rating_get_minimum_age</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-get-value" title="as_content_rating_get_value ()">as_content_rating_get_value</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-new" title="as_content_rating_new ()">as_content_rating_new</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-set-kind" title="as_content_rating_set_kind ()">as_content_rating_set_kind</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-set-value" title="as_content_rating_set_value ()">as_content_rating_set_value</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-value-from-string" title="as_content_rating_value_from_string ()">as_content_rating_value_from_string</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#as-content-rating-value-to-string" title="as_content_rating_value_to_string ()">as_content_rating_value_to_string</a>, function in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AS-CURRENT-FORMAT-VERSION:CAPS" title="AS_CURRENT_FORMAT_VERSION">AS_CURRENT_FORMAT_VERSION</a>, macro in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<a name="idxD"></a><h3 class="title">D</h3>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#AsDistroDetails" title="AsDistroDetails">AsDistroDetails</a>, struct in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#AsDistroDetailsClass" title="struct AsDistroDetailsClass">AsDistroDetailsClass</a>, struct in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-get-bool" title="as_distro_details_get_bool ()">as_distro_details_get_bool</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-get-id" title="as_distro_details_get_id ()">as_distro_details_get_id</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-get-name" title="as_distro_details_get_name ()">as_distro_details_get_name</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-get-str" title="as_distro_details_get_str ()">as_distro_details_get_str</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-get-version" title="as_distro_details_get_version ()">as_distro_details_get_version</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#as-distro-details-new" title="as_distro_details_new ()">as_distro_details_new</a>, function in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<a name="idxF"></a><h3 class="title">F</h3>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-flags-add" title="as_flags_add()">as_flags_add</a>, macro in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-flags-contains" title="as_flags_contains()">as_flags_contains</a>, macro in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-flags-invert" title="as_flags_invert()">as_flags_invert</a>, macro in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-flags-remove" title="as_flags_remove()">as_flags_remove</a>, macro in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsFormatKind" title="enum AsFormatKind">AsFormatKind</a>, enum in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsFormatStyle" title="enum AsFormatStyle">AsFormatStyle</a>, enum in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsFormatVersion" title="enum AsFormatVersion">AsFormatVersion</a>, enum in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-format-kind-from-string" title="as_format_kind_from_string ()">as_format_kind_from_string</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-format-kind-to-string" title="as_format_kind_to_string ()">as_format_kind_to_string</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-format-version-from-string" title="as_format_version_from_string ()">as_format_version_from_string</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-format-version-to-string" title="as_format_version_to_string ()">as_format_version_to_string</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<a name="idxG"></a><h3 class="title">G</h3>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-get-appstream-version" title="as_get_appstream_version ()">as_get_appstream_version</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#as-get-default-categories" title="as_get_default_categories ()">as_get_default_categories</a>, function in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<a name="idxI"></a><h3 class="title">I</h3>
+<dt>
+<a class="link" href="appstream-AsIcon.html#AsIcon" title="AsIcon">AsIcon</a>, struct in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#AsIconClass" title="struct AsIconClass">AsIconClass</a>, struct in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#AsIconKind" title="enum AsIconKind">AsIconKind</a>, enum in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-filename" title="as_icon_get_filename ()">as_icon_get_filename</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-height" title="as_icon_get_height ()">as_icon_get_height</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-kind" title="as_icon_get_kind ()">as_icon_get_kind</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-name" title="as_icon_get_name ()">as_icon_get_name</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-scale" title="as_icon_get_scale ()">as_icon_get_scale</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-url" title="as_icon_get_url ()">as_icon_get_url</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-get-width" title="as_icon_get_width ()">as_icon_get_width</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-kind-from-string" title="as_icon_kind_from_string ()">as_icon_kind_from_string</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-kind-to-string" title="as_icon_kind_to_string ()">as_icon_kind_to_string</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-new" title="as_icon_new ()">as_icon_new</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-filename" title="as_icon_set_filename ()">as_icon_set_filename</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-height" title="as_icon_set_height ()">as_icon_set_height</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-kind" title="as_icon_set_kind ()">as_icon_set_kind</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-name" title="as_icon_set_name ()">as_icon_set_name</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-scale" title="as_icon_set_scale ()">as_icon_set_scale</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-url" title="as_icon_set_url ()">as_icon_set_url</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#as-icon-set-width" title="as_icon_set_width ()">as_icon_set_width</a>, function in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#AsImage" title="AsImage">AsImage</a>, struct in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#AsImageClass" title="struct AsImageClass">AsImageClass</a>, struct in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#AsImageKind" title="enum AsImageKind">AsImageKind</a>, enum in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-get-height" title="as_image_get_height ()">as_image_get_height</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-get-kind" title="as_image_get_kind ()">as_image_get_kind</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-get-locale" title="as_image_get_locale ()">as_image_get_locale</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-get-url" title="as_image_get_url ()">as_image_get_url</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-get-width" title="as_image_get_width ()">as_image_get_width</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-kind-from-string" title="as_image_kind_from_string ()">as_image_kind_from_string</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-kind-to-string" title="as_image_kind_to_string ()">as_image_kind_to_string</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-new" title="as_image_new ()">as_image_new</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-set-height" title="as_image_set_height ()">as_image_set_height</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-set-kind" title="as_image_set_kind ()">as_image_set_kind</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-set-locale" title="as_image_set_locale ()">as_image_set_locale</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-set-url" title="as_image_set_url ()">as_image_set_url</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#as-image-set-width" title="as_image_set_width ()">as_image_set_width</a>, function in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+AS_INTERNAL_VISIBLE, macro in as-settings-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#AsIssueImportance" title="enum AsIssueImportance">AsIssueImportance</a>, enum in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#AsIssueKind" title="enum AsIssueKind">AsIssueKind</a>, enum in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-is-spdx-license-expression" title="as_is_spdx_license_expression ()">as_is_spdx_license_expression</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-is-spdx-license-id" title="as_is_spdx_license_id ()">as_is_spdx_license_id</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<a name="idxL"></a><h3 class="title">L</h3>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#AsLaunchable" title="AsLaunchable">AsLaunchable</a>, struct in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#AsLaunchableClass" title="struct AsLaunchableClass">AsLaunchableClass</a>, struct in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#AsLaunchableKind" title="enum AsLaunchableKind">AsLaunchableKind</a>, enum in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-add-entry" title="as_launchable_add_entry ()">as_launchable_add_entry</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-get-entries" title="as_launchable_get_entries ()">as_launchable_get_entries</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-get-kind" title="as_launchable_get_kind ()">as_launchable_get_kind</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-kind-from-string" title="as_launchable_kind_from_string ()">as_launchable_kind_from_string</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-kind-to-string" title="as_launchable_kind_to_string ()">as_launchable_kind_to_string</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-new" title="as_launchable_new ()">as_launchable_new</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#as-launchable-set-kind" title="as_launchable_set_kind ()">as_launchable_set_kind</a>, function in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-license-is-metadata-license" title="as_license_is_metadata_license ()">as_license_is_metadata_license</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-license-to-spdx-id" title="as_license_to_spdx_id ()">as_license_to_spdx_id</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<a name="idxM"></a><h3 class="title">M</h3>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-markup-convert-simple" title="as_markup_convert_simple ()">as_markup_convert_simple</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsMergeKind" title="enum AsMergeKind">AsMergeKind</a>, enum in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-merge-kind-from-string" title="as_merge_kind_from_string ()">as_merge_kind_from_string</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#as-merge-kind-to-string" title="as_merge_kind_to_string ()">as_merge_kind_to_string</a>, function in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsMetadata" title="AsMetadata">AsMetadata</a>, struct in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsMetadataClass" title="struct AsMetadataClass">AsMetadataClass</a>, struct in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsMetadataError" title="enum AsMetadataError">AsMetadataError</a>, enum in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-add-component" title="as_metadata_add_component ()">as_metadata_add_component</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-clear-components" title="as_metadata_clear_components ()">as_metadata_clear_components</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-components-to-collection" title="as_metadata_components_to_collection ()">as_metadata_components_to_collection</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-component-to-metainfo" title="as_metadata_component_to_metainfo ()">as_metadata_component_to_metainfo</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AS-METADATA-ERROR:CAPS" title="AS_METADATA_ERROR">AS_METADATA_ERROR</a>, macro in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-error-quark" title="as_metadata_error_quark ()">as_metadata_error_quark</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-architecture" title="as_metadata_get_architecture ()">as_metadata_get_architecture</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-component" title="as_metadata_get_component ()">as_metadata_get_component</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-components" title="as_metadata_get_components ()">as_metadata_get_components</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-format-style" title="as_metadata_get_format_style ()">as_metadata_get_format_style</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-format-version" title="as_metadata_get_format_version ()">as_metadata_get_format_version</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-locale" title="as_metadata_get_locale ()">as_metadata_get_locale</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-origin" title="as_metadata_get_origin ()">as_metadata_get_origin</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-parse-flags" title="as_metadata_get_parse_flags ()">as_metadata_get_parse_flags</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-update-existing" title="as_metadata_get_update_existing ()">as_metadata_get_update_existing</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-get-write-header" title="as_metadata_get_write_header ()">as_metadata_get_write_header</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-new" title="as_metadata_new ()">as_metadata_new</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse" title="as_metadata_parse ()">as_metadata_parse</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse-desktop-data" title="as_metadata_parse_desktop_data ()">as_metadata_parse_desktop_data</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-parse-file" title="as_metadata_parse_file ()">as_metadata_parse_file</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-save-collection" title="as_metadata_save_collection ()">as_metadata_save_collection</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-save-metainfo" title="as_metadata_save_metainfo ()">as_metadata_save_metainfo</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-architecture" title="as_metadata_set_architecture ()">as_metadata_set_architecture</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-format-style" title="as_metadata_set_format_style ()">as_metadata_set_format_style</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-format-version" title="as_metadata_set_format_version ()">as_metadata_set_format_version</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-locale" title="as_metadata_set_locale ()">as_metadata_set_locale</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-origin" title="as_metadata_set_origin ()">as_metadata_set_origin</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-parse-flags" title="as_metadata_set_parse_flags ()">as_metadata_set_parse_flags</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-update-existing" title="as_metadata_set_update_existing ()">as_metadata_set_update_existing</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#as-metadata-set-write-header" title="as_metadata_set_write_header ()">as_metadata_set_write_header</a>, function in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<a name="idxP"></a><h3 class="title">P</h3>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AsParseFlags" title="enum AsParseFlags">AsParseFlags</a>, enum in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AsPool" title="AsPool">AsPool</a>, struct in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AsPoolClass" title="struct AsPoolClass">AsPoolClass</a>, struct in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AsPoolError" title="enum AsPoolError">AsPoolError</a>, enum in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AsPoolFlags" title="enum AsPoolFlags">AsPoolFlags</a>, enum in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-add-component" title="as_pool_add_component ()">as_pool_add_component</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-add-metadata-location" title="as_pool_add_metadata_location ()">as_pool_add_metadata_location</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-clear" title="as_pool_clear ()">as_pool_clear</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-clear-metadata-locations" title="as_pool_clear_metadata_locations ()">as_pool_clear_metadata_locations</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AS-POOL-ERROR:CAPS" title="AS_POOL_ERROR">AS_POOL_ERROR</a>, macro in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-error-quark" title="as_pool_error_quark ()">as_pool_error_quark</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-cache-flags" title="as_pool_get_cache_flags ()">as_pool_get_cache_flags</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components" title="as_pool_get_components ()">as_pool_get_components</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components-by-categories" title="as_pool_get_components_by_categories ()">as_pool_get_components_by_categories</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components-by-id" title="as_pool_get_components_by_id ()">as_pool_get_components_by_id</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components-by-kind" title="as_pool_get_components_by_kind ()">as_pool_get_components_by_kind</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components-by-launchable" title="as_pool_get_components_by_launchable ()">as_pool_get_components_by_launchable</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-components-by-provided-item" title="as_pool_get_components_by_provided_item ()">as_pool_get_components_by_provided_item</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-flags" title="as_pool_get_flags ()">as_pool_get_flags</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-get-locale" title="as_pool_get_locale ()">as_pool_get_locale</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-load" title="as_pool_load ()">as_pool_load</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-load-cache-file" title="as_pool_load_cache_file ()">as_pool_load_cache_file</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-new" title="as_pool_new ()">as_pool_new</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-refresh-cache" title="as_pool_refresh_cache ()">as_pool_refresh_cache</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-save-cache-file" title="as_pool_save_cache_file ()">as_pool_save_cache_file</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-search" title="as_pool_search ()">as_pool_search</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-set-cache-flags" title="as_pool_set_cache_flags ()">as_pool_set_cache_flags</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-set-flags" title="as_pool_set_flags ()">as_pool_set_flags</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#as-pool-set-locale" title="as_pool_set_locale ()">as_pool_set_locale</a>, function in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#AsProvided" title="AsProvided">AsProvided</a>, struct in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#AsProvidedClass" title="struct AsProvidedClass">AsProvidedClass</a>, struct in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#AsProvidedKind" title="enum AsProvidedKind">AsProvidedKind</a>, enum in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-add-item" title="as_provided_add_item ()">as_provided_add_item</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-get-items" title="as_provided_get_items ()">as_provided_get_items</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-get-kind" title="as_provided_get_kind ()">as_provided_get_kind</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-has-item" title="as_provided_has_item ()">as_provided_has_item</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-from-string" title="as_provided_kind_from_string ()">as_provided_kind_from_string</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-to-l10n-string" title="as_provided_kind_to_l10n_string ()">as_provided_kind_to_l10n_string</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-kind-to-string" title="as_provided_kind_to_string ()">as_provided_kind_to_string</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-new" title="as_provided_new ()">as_provided_new</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+as_provided_set_from_variant, function in as-provided-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#as-provided-set-kind" title="as_provided_set_kind ()">as_provided_set_kind</a>, function in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+as_provided_to_variant, function in as-provided-private
+</dt>
+<dd></dd>
+<a name="idxR"></a><h3 class="title">R</h3>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AsRelation" title="AsRelation">AsRelation</a>, struct in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AsRelationClass" title="struct AsRelationClass">AsRelationClass</a>, struct in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AsRelationCompare" title="enum AsRelationCompare">AsRelationCompare</a>, enum in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AsRelationItemKind" title="enum AsRelationItemKind">AsRelationItemKind</a>, enum in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AsRelationKind" title="enum AsRelationKind">AsRelationKind</a>, enum in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-compare-from-string" title="as_relation_compare_from_string ()">as_relation_compare_from_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-compare-to-string" title="as_relation_compare_to_string ()">as_relation_compare_to_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-compare-to-symbols-string" title="as_relation_compare_to_symbols_string ()">as_relation_compare_to_symbols_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-compare" title="as_relation_get_compare ()">as_relation_get_compare</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-item-kind" title="as_relation_get_item_kind ()">as_relation_get_item_kind</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-kind" title="as_relation_get_kind ()">as_relation_get_kind</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-value" title="as_relation_get_value ()">as_relation_get_value</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-value-int" title="as_relation_get_value_int ()">as_relation_get_value_int</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-get-version" title="as_relation_get_version ()">as_relation_get_version</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-item-kind-from-string" title="as_relation_item_kind_from_string ()">as_relation_item_kind_from_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-item-kind-to-string" title="as_relation_item_kind_to_string ()">as_relation_item_kind_to_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-kind-from-string" title="as_relation_kind_from_string ()">as_relation_kind_from_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-kind-to-string" title="as_relation_kind_to_string ()">as_relation_kind_to_string</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-new" title="as_relation_new ()">as_relation_new</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-set-compare" title="as_relation_set_compare ()">as_relation_set_compare</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-set-item-kind" title="as_relation_set_item_kind ()">as_relation_set_item_kind</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-set-kind" title="as_relation_set_kind ()">as_relation_set_kind</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-set-value" title="as_relation_set_value ()">as_relation_set_value</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-set-version" title="as_relation_set_version ()">as_relation_set_version</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#as-relation-version-compare" title="as_relation_version_compare ()">as_relation_version_compare</a>, function in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#AsRelease" title="AsRelease">AsRelease</a>, struct in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#AsReleaseClass" title="struct AsReleaseClass">AsReleaseClass</a>, struct in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#AsReleaseKind" title="enum AsReleaseKind">AsReleaseKind</a>, enum in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-add-checksum" title="as_release_add_checksum ()">as_release_add_checksum</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-add-location" title="as_release_add_location ()">as_release_add_location</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-active-locale" title="as_release_get_active_locale ()">as_release_get_active_locale</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-checksum" title="as_release_get_checksum ()">as_release_get_checksum</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-checksums" title="as_release_get_checksums ()">as_release_get_checksums</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-description" title="as_release_get_description ()">as_release_get_description</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-kind" title="as_release_get_kind ()">as_release_get_kind</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-locations" title="as_release_get_locations ()">as_release_get_locations</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-size" title="as_release_get_size ()">as_release_get_size</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-timestamp" title="as_release_get_timestamp ()">as_release_get_timestamp</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-urgency" title="as_release_get_urgency ()">as_release_get_urgency</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-get-version" title="as_release_get_version ()">as_release_get_version</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-kind-from-string" title="as_release_kind_from_string ()">as_release_kind_from_string</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-kind-to-string" title="as_release_kind_to_string ()">as_release_kind_to_string</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-new" title="as_release_new ()">as_release_new</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-active-locale" title="as_release_set_active_locale ()">as_release_set_active_locale</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-description" title="as_release_set_description ()">as_release_set_description</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-kind" title="as_release_set_kind ()">as_release_set_kind</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-size" title="as_release_set_size ()">as_release_set_size</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-timestamp" title="as_release_set_timestamp ()">as_release_set_timestamp</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-urgency" title="as_release_set_urgency ()">as_release_set_urgency</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-set-version" title="as_release_set_version ()">as_release_set_version</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-release-vercmp" title="as_release_vercmp ()">as_release_vercmp</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<a name="idxS"></a><h3 class="title">S</h3>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#AsScreenshot" title="AsScreenshot">AsScreenshot</a>, struct in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#AsScreenshotClass" title="struct AsScreenshotClass">AsScreenshotClass</a>, struct in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#AsScreenshotKind" title="enum AsScreenshotKind">AsScreenshotKind</a>, enum in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-add-image" title="as_screenshot_add_image ()">as_screenshot_add_image</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-get-active-locale" title="as_screenshot_get_active_locale ()">as_screenshot_get_active_locale</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-get-caption" title="as_screenshot_get_caption ()">as_screenshot_get_caption</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-get-images" title="as_screenshot_get_images ()">as_screenshot_get_images</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-get-images-all" title="as_screenshot_get_images_all ()">as_screenshot_get_images_all</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-get-kind" title="as_screenshot_get_kind ()">as_screenshot_get_kind</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-is-valid" title="as_screenshot_is_valid ()">as_screenshot_is_valid</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-kind-from-string" title="as_screenshot_kind_from_string ()">as_screenshot_kind_from_string</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-kind-to-string" title="as_screenshot_kind_to_string ()">as_screenshot_kind_to_string</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-new" title="as_screenshot_new ()">as_screenshot_new</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-set-active-locale" title="as_screenshot_set_active_locale ()">as_screenshot_set_active_locale</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-set-caption" title="as_screenshot_set_caption ()">as_screenshot_set_caption</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#as-screenshot-set-kind" title="as_screenshot_set_kind ()">as_screenshot_set_kind</a>, function in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#AsSizeKind" title="enum AsSizeKind">AsSizeKind</a>, enum in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-size-kind-from-string" title="as_size_kind_from_string ()">as_size_kind_from_string</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#as-size-kind-to-string" title="as_size_kind_to_string ()">as_size_kind_to_string</a>, function in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-spdx-license-detokenize" title="as_spdx_license_detokenize ()">as_spdx_license_detokenize</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-spdx.html#as-spdx-license-tokenize" title="as_spdx_license_tokenize ()">as_spdx_license_tokenize</a>, function in <a class="link" href="appstream-as-spdx.html" title="as-spdx">as-spdx</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#AsSuggested" title="AsSuggested">AsSuggested</a>, struct in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#AsSuggestedClass" title="struct AsSuggestedClass">AsSuggestedClass</a>, struct in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#AsSuggestedKind" title="enum AsSuggestedKind">AsSuggestedKind</a>, enum in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-add-id" title="as_suggested_add_id ()">as_suggested_add_id</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+as_suggested_emit_yaml, function in as-suggested-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-get-ids" title="as_suggested_get_ids ()">as_suggested_get_ids</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-get-kind" title="as_suggested_get_kind ()">as_suggested_get_kind</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-is-valid" title="as_suggested_is_valid ()">as_suggested_is_valid</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-kind-from-string" title="as_suggested_kind_from_string ()">as_suggested_kind_from_string</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-kind-to-string" title="as_suggested_kind_to_string ()">as_suggested_kind_to_string</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+as_suggested_load_from_xml, function in as-suggested-private
+</dt>
+<dd></dd>
+<dt>
+as_suggested_load_from_yaml, function in as-suggested-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-new" title="as_suggested_new ()">as_suggested_new</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+as_suggested_set_from_variant, function in as-suggested-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#as-suggested-set-kind" title="as_suggested_set_kind ()">as_suggested_set_kind</a>, function in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+as_suggested_to_variant, function in as-suggested-private
+</dt>
+<dd></dd>
+<dt>
+as_suggested_to_xml_node, function in as-suggested-private
+</dt>
+<dd></dd>
+<a name="idxT"></a><h3 class="title">T</h3>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#AsTranslation" title="AsTranslation">AsTranslation</a>, struct in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#AsTranslationClass" title="struct AsTranslationClass">AsTranslationClass</a>, struct in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#AsTranslationKind" title="enum AsTranslationKind">AsTranslationKind</a>, enum in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-get-id" title="as_translation_get_id ()">as_translation_get_id</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-get-kind" title="as_translation_get_kind ()">as_translation_get_kind</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-kind-from-string" title="as_translation_kind_from_string ()">as_translation_kind_from_string</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-kind-to-string" title="as_translation_kind_to_string ()">as_translation_kind_to_string</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+as_translation_load_from_xml, function in as-translation-private
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-new" title="as_translation_new ()">as_translation_new</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-set-id" title="as_translation_set_id ()">as_translation_set_id</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#as-translation-set-kind" title="as_translation_set_kind ()">as_translation_set_kind</a>, function in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+as_translation_to_xml_node, function in as-translation-private
+</dt>
+<dd></dd>
+<dt>
+AS_TYPE_AGREEMENT, macro in AsAgreement
+</dt>
+<dd></dd>
+<dt>
+AS_TYPE_AGREEMENT_SECTION, macro in AsAgreementSection
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsBundle.html#AS-TYPE-BUNDLE:CAPS" title="AS_TYPE_BUNDLE">AS_TYPE_BUNDLE</a>, macro in <a class="link" href="appstream-AsBundle.html" title="AsBundle">AsBundle</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsCategory.html#AS-TYPE-CATEGORY:CAPS" title="AS_TYPE_CATEGORY">AS_TYPE_CATEGORY</a>, macro in <a class="link" href="appstream-AsCategory.html" title="AsCategory">AsCategory</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsChecksum.html#AS-TYPE-CHECKSUM:CAPS" title="AS_TYPE_CHECKSUM">AS_TYPE_CHECKSUM</a>, macro in <a class="link" href="appstream-AsChecksum.html" title="AsChecksum">AsChecksum</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AS-TYPE-COMPONENT:CAPS" title="AS_TYPE_COMPONENT">AS_TYPE_COMPONENT</a>, macro in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsContentRating.html#AS-TYPE-CONTENT:CAPS" title="AS_TYPE_CONTENT">AS_TYPE_CONTENT</a>, macro in <a class="link" href="appstream-AsContentRating.html" title="AsContentRating">AsContentRating</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsDistroDetails.html#AS-TYPE-DISTRO-DETAILS:CAPS" title="AS_TYPE_DISTRO_DETAILS">AS_TYPE_DISTRO_DETAILS</a>, macro in <a class="link" href="appstream-AsDistroDetails.html" title="AsDistroDetails">AsDistroDetails</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsIcon.html#AS-TYPE-ICON:CAPS" title="AS_TYPE_ICON">AS_TYPE_ICON</a>, macro in <a class="link" href="appstream-AsIcon.html" title="AsIcon">AsIcon</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsImage.html#AS-TYPE-IMAGE:CAPS" title="AS_TYPE_IMAGE">AS_TYPE_IMAGE</a>, macro in <a class="link" href="appstream-AsImage.html" title="AsImage">AsImage</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsLaunchable.html#AS-TYPE-LAUNCHABLE:CAPS" title="AS_TYPE_LAUNCHABLE">AS_TYPE_LAUNCHABLE</a>, macro in <a class="link" href="appstream-AsLaunchable.html" title="AsLaunchable">AsLaunchable</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsMetadata.html#AS-TYPE-METADATA:CAPS" title="AS_TYPE_METADATA">AS_TYPE_METADATA</a>, macro in <a class="link" href="appstream-AsMetadata.html" title="AsMetadata">AsMetadata</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsPool.html#AS-TYPE-POOL:CAPS" title="AS_TYPE_POOL">AS_TYPE_POOL</a>, macro in <a class="link" href="appstream-AsPool.html" title="AsPool">AsPool</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsProvided.html#AS-TYPE-PROVIDED:CAPS" title="AS_TYPE_PROVIDED">AS_TYPE_PROVIDED</a>, macro in <a class="link" href="appstream-AsProvided.html" title="AsProvided">AsProvided</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelation.html#AS-TYPE-RELATION:CAPS" title="AS_TYPE_RELATION">AS_TYPE_RELATION</a>, macro in <a class="link" href="appstream-AsRelation.html" title="AsRelation">AsRelation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsRelease.html#AS-TYPE-RELEASE:CAPS" title="AS_TYPE_RELEASE">AS_TYPE_RELEASE</a>, macro in <a class="link" href="appstream-AsRelease.html" title="AsRelease">AsRelease</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsScreenshot.html#AS-TYPE-SCREENSHOT:CAPS" title="AS_TYPE_SCREENSHOT">AS_TYPE_SCREENSHOT</a>, macro in <a class="link" href="appstream-AsScreenshot.html" title="AsScreenshot">AsScreenshot</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsSuggested.html#AS-TYPE-SUGGESTED:CAPS" title="AS_TYPE_SUGGESTED">AS_TYPE_SUGGESTED</a>, macro in <a class="link" href="appstream-AsSuggested.html" title="AsSuggested">AsSuggested</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsTranslation.html#AS-TYPE-TRANSLATION:CAPS" title="AS_TYPE_TRANSLATION">AS_TYPE_TRANSLATION</a>, macro in <a class="link" href="appstream-AsTranslation.html" title="AsTranslation">AsTranslation</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#AS-TYPE-VALIDATOR:CAPS" title="AS_TYPE_VALIDATOR">AS_TYPE_VALIDATOR</a>, macro in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#AS-TYPE-VALIDATOR-ISSUE:CAPS" title="AS_TYPE_VALIDATOR_ISSUE">AS_TYPE_VALIDATOR_ISSUE</a>, macro in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<a name="idxU"></a><h3 class="title">U</h3>
+<dt>
+<a class="link" href="appstream-as-enums.html#AsUrgencyKind" title="enum AsUrgencyKind">AsUrgencyKind</a>, enum in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-urgency-kind-from-string" title="as_urgency_kind_from_string ()">as_urgency_kind_from_string</a>, function in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-urgency-kind-to-string" title="as_urgency_kind_to_string ()">as_urgency_kind_to_string</a>, function in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#AsUrlKind" title="enum AsUrlKind">AsUrlKind</a>, enum in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-url-kind-from-string" title="as_url_kind_from_string ()">as_url_kind_from_string</a>, function in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-enums.html#as-url-kind-to-string" title="as_url_kind_to_string ()">as_url_kind_to_string</a>, function in <a class="link" href="appstream-as-enums.html" title="as-enums">as-enums</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-compare-versions" title="as_utils_compare_versions ()">as_utils_compare_versions</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-is-category-name" title="as_utils_is_category_name ()">as_utils_is_category_name</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-is-desktop-environment" title="as_utils_is_desktop_environment ()">as_utils_is_desktop_environment</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-is-tld" title="as_utils_is_tld ()">as_utils_is_tld</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-locale-is-compatible" title="as_utils_locale_is_compatible ()">as_utils_locale_is_compatible</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-as-utils.html#as-utils-sort-components-into-categories" title="as_utils_sort_components_into_categories ()">as_utils_sort_components_into_categories</a>, function in <a class="link" href="appstream-as-utils.html" title="as-utils">as-utils</a>
+</dt>
+<dd></dd>
+<a name="idxV"></a><h3 class="title">V</h3>
+<dt>
+<a class="link" href="appstream-AsValidator.html#AsValidator" title="AsValidator">AsValidator</a>, struct in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#AsValidatorClass" title="struct AsValidatorClass">AsValidatorClass</a>, struct in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#AsValidatorIssue" title="AsValidatorIssue">AsValidatorIssue</a>, struct in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#AsValidatorIssueClass" title="struct AsValidatorIssueClass">AsValidatorIssueClass</a>, struct in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-clear-issues" title="as_validator_clear_issues ()">as_validator_clear_issues</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-get-check-urls" title="as_validator_get_check_urls ()">as_validator_get_check_urls</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-get-issues" title="as_validator_get_issues ()">as_validator_get_issues</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-cid" title="as_validator_issue_get_cid ()">as_validator_issue_get_cid</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-filename" title="as_validator_issue_get_filename ()">as_validator_issue_get_filename</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-importance" title="as_validator_issue_get_importance ()">as_validator_issue_get_importance</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-kind" title="as_validator_issue_get_kind ()">as_validator_issue_get_kind</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-line" title="as_validator_issue_get_line ()">as_validator_issue_get_line</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-location" title="as_validator_issue_get_location ()">as_validator_issue_get_location</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-get-message" title="as_validator_issue_get_message ()">as_validator_issue_get_message</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-new" title="as_validator_issue_new ()">as_validator_issue_new</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-cid" title="as_validator_issue_set_cid ()">as_validator_issue_set_cid</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-filename" title="as_validator_issue_set_filename ()">as_validator_issue_set_filename</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-importance" title="as_validator_issue_set_importance ()">as_validator_issue_set_importance</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-kind" title="as_validator_issue_set_kind ()">as_validator_issue_set_kind</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-line" title="as_validator_issue_set_line ()">as_validator_issue_set_line</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidatorIssue.html#as-validator-issue-set-message" title="as_validator_issue_set_message ()">as_validator_issue_set_message</a>, function in <a class="link" href="appstream-AsValidatorIssue.html" title="AsValidatorIssue">AsValidatorIssue</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-new" title="as_validator_new ()">as_validator_new</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-set-check-urls" title="as_validator_set_check_urls ()">as_validator_set_check_urls</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-validate-data" title="as_validator_validate_data ()">as_validator_validate_data</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-validate-file" title="as_validator_validate_file ()">as_validator_validate_file</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsValidator.html#as-validator-validate-tree" title="as_validator_validate_tree ()">as_validator_validate_tree</a>, function in <a class="link" href="appstream-AsValidator.html" title="AsValidator">AsValidator</a>
+</dt>
+<dd></dd>
+<dt>
+<a class="link" href="appstream-AsComponent.html#AsValueFlags" title="enum AsValueFlags">AsValueFlags</a>, enum in <a class="link" href="appstream-AsComponent.html" title="AsComponent">AsComponent</a>
+</dt>
+<dd></dd>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Jens-Hanno Schwalm  <hanno@schwalm-bremen.de>
+ Copyright (C) 2007 Jens-Hanno Schwalm; <hanno@schwalm-bremen.de>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="forth" name="Forth" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-forth</property>
+    <property name="globs">*.frt;*.fs</property>
+    <property name="line-comment-start">\</property>
+    <property name="block-comment-start">(*</property>
+    <property name="block-comment-end">*)</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"       name="Comment"            map-to="def:comment"/>
+    <style id="string"        name="String"             map-to="def:string"/>
+    <style id="preprocessor"  name="Preprocessor"       map-to="def:preprocessor"/>
+    <style id="keyword"       name="Keyword"            map-to="def:statement"/>
+    <style id="type"          name="Data Type"          map-to="def:type"/>
+    <style id="number"        name="Number"             map-to="def:decimal"/>
+    <style id="debugs"        name="Debug Code"         map-to="def:comment"/>
+    <style id="error"         name="Error Text"         map-to="def:error"/>
+    <style id="compiler"      name="Compiler Directive" map-to="def:identifier"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+    <context id="forth" class="no-spell-check">
+      <include>
+        <!--        single line comments                        \        \G        -->
+        <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])(\\|--|\\G)(?![^\s])</start>
+          <include>
+            <context ref="def:in-line-comment"/>
+          </include>
+        </context>
+
+        <!--        multiline comments ending with ")"        (        (S        (F        -->
+        <context id="comment-multiline" style-ref="comment" class="comment" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])(\(|\(S|\(F)(?![^\s])</start>
+          <end>\)</end>
+          <include>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+
+        <!--        multiline comment (* ....*)        -->
+        <context id="comment-multiline2" style-ref="comment" class="comment" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])\(\*(?![^\s])</start>
+          <end>\*\)(?![^\s])</end>
+          <include>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+
+        <!--        multiline comment DOC ... ENDDOC        -->
+        <context id="comment-multiline3" style-ref="comment" class="comment" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])DOC(?![^\s])</start>
+          <end>(?&lt;![^\s])ENDDOC(?![^\s])</end>
+          <include>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+
+        <!--        preprocessor instructions followed by a string        -->
+        <context id="preproc1" style-ref="preprocessor">
+          <match extended="true">
+            (?&lt;![^\s])
+            (NEEDS|INCLUDE|IN|MARKER)\s+[^\s]*
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        REVISION instruction is followed by a filename plus a string between "..."        -->
+        <context id="preproc2" style-ref="preprocessor">
+          <match extended="true">
+            (?&lt;![^\s])
+            (REVISION)\s+[^\s]*\s*".*"
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        preprocessor instructions        -->
+        <context id="preproc3" style-ref="preprocessor">
+          <match extended="true">
+            (?&lt;![^\s])
+            (INCLUDED|INCLUDE-FILE)
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        all defining or compiler extension words are followed by another whitespace delinited word        -->
+        <context id="definers" style-ref="type">
+          <match extended="true">
+            (?&lt;![^\s])
+            (POSTPONE|\[COMPILE\]|\[CHAR\]|\['\]|COMPILE|CHAR|[DFT]?VALUE|[2FT]?VARIABLE|[DS]?FVARIABLE|[T]?USER|[T]?CODE|[DZFT]?LOCAL|
+            [2FT]?CONSTANT|TCONSTANT-|TSUB|=\:|==\:|DEFER|HC\:|[VHTM]?\:)\s+[^\s]+
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        the grouped local words like LOCALS| read words until a last |        -->
+        <context id="locals" style-ref="type">
+          <match extended="true">
+            (?&lt;![^\s])
+            ([DFZ]?LOCALS)\|\s+[^\|]+[\|]
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        strings ended by a "                S"        ."        EVAL"        C"        Z"        -->
+        <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])(S|[.]|EVAL|C|Z|,)"\s</start>
+          <end>"</end>
+         </context>
+
+        <!--        strings ended by a ~ character when " is inside a string:        .~        -->
+        <context id="string2" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])(.~)\s</start>
+          <end>~</end>
+         </context>
+
+        <!--        comment string  .( ..)        -->
+        <context id="string3" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])[.]\(\s</start>
+          <end>\)</end>
+         </context>
+
+        <!--        error strings ending with "                ABORT"        ?ERROR"        -->
+        <context id="errorstring" style-ref="error" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+          <start>(?&lt;![^\s])(ABORT|\?ERROR)"\s</start>
+          <end>"</end>
+         </context>
+
+        <!--        represent numbers including the hex, decimal and binary prefixes, also short characters        -->
+        <context id="number" style-ref="number">
+          <match extended="true">
+            (?&lt;![^\s])
+            ([$][-+]?[A-F0-9.]+ |
+             [#][-+]?[0-9.]+ |
+             [%][-+]?[0-1.]+ |
+             [-+]?[0-9.]+ |
+             [-+]?[0-9]+[.]?[0-9]*[eE][0-9]* |
+             '[^\s]' |
+             [\^][A-Za-z] |
+             TRUE |
+             FALSE)
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        Control flow Keywords -->
+        <context id="keywords" style-ref="keyword">
+          <match extended="true">
+            (?&lt;![^\s])
+            (\[IF\]|\[ELSE\]|\[THEN\]|\[DEFINED\]|\[UNDEFINED\]|\?DEF|\?UNDEF|THROW|CASE|ENDCASE|OF|ENDOF|FOR|NEXT|
+                    IF[,]?|ELSE[,]?|THEN[,]?|ENDIF[,]?|BEGIN[,]?|WHILE[,]?|REPEAT[,]?|UNTIL[,]?|AGAIN[,]?|DO|LOOP|\?DO|\+LOOP|LEAVE|\?LEAVE|UNLOOP|EXIT|\?EXIT|
+                    PAR|ENDPAR|STARTP|ENDP)
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        Compiler modifications -->
+        <context id="keywords2" style-ref="compiler">
+          <match extended="true">
+            (?&lt;![^\s])
+            (PRIVATE|PRIVATES|DEPRIVE|FORGET|IMMEDIATE|ALSO|ONLY|FORTH|DEFINITIONS|HEADERLESS)
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        Defining keywords without displaying the following word        -->
+        <context id="keywords3" style-ref="type">
+          <match extended="true">
+            (?&lt;![^\s])
+            (\:ABOUT|DOES>|FORGET>|CREATE|\:NONAME)
+            (?![^\s])
+          </match>
+        </context>
+
+        <!--        <<DEBUG        ..... DEBUG>> -->
+        <context id="comment-debug" extend-parent="false" style-ref="debugs">
+          <start>(?&lt;![^\s])(&lt;&lt;DEBUG)(?![^\s])</start>
+          <end>(?&lt;![^\s])(DEBUG>>)(?![^\s])</end>
+          <include>
+            <context ref="keywords"/>
+            <context ref="keywords2"/>
+            <context ref="keywords3"/>
+            <context ref="number"/>
+            <context ref="comment"/>
+            <context ref="string" />
+            <context ref="string2" />
+            <context ref="string3" />
+            <context ref="errorstring" />
+            <context ref="locals" />
+            <context ref="definers" />
+            <context ref="comment-multiline"/>
+          </include>
+        </context>
+
+        <!--        [ ... ] is displayed as a preprocessor structure        -->
+        <context id="preproc4" extend-parent="true" style-ref="preprocessor">
+          <start>(?&lt;![^\s])(\[)(?![^\s])</start>
+          <end>(?&lt;![^\s])(\])(?![^\s])</end>
+          <include>
+            <context ref="keywords"/>
+            <context ref="number"/>
+            <context ref="comment"/>
+            <context ref="comment-multiline"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

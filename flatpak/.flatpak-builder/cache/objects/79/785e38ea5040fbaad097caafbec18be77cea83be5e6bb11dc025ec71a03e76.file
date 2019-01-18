@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="dtd" name="DTD" version="2.0" _section="Markup">
+    <metadata>
+      <property name="mimetypes">text/x-dtd</property>
+      <property name="globs">*.dtd</property>
+      <property name="block-comment-start">&lt;!--</property>
+      <property name="block-comment-end">--&gt;</property>
+    </metadata>
+
+    <styles>
+      <style id="entity" name="entity" map-to="xml:entity"/>
+      <style id="decl" name="decl" map-to="xml:doctype"/>
+      <style id="error" name="error" map-to="xml:error"/>
+      <style id="quoted-value" name="Quoted Value" map-to="xml:attribute-value"/>
+    </styles>
+
+    <definitions>
+      <define-regex id="prefix">[a-zA-Z_][a-zA-Z0-9._-]*</define-regex>
+      <define-regex id="name">[a-zA-Z_][a-zA-Z0-9.:_-]*</define-regex>
+
+      <context id="entity" style-ref="entity">
+        <match>%\%{name};</match>
+      </context>
+
+      <context id="decl-element">
+        <start>&lt;!ELEMENT\b</start>
+        <end>&gt;</end>
+        <include>
+          <context sub-pattern="0" where="start" style-ref="decl"/>
+          <context sub-pattern="0" where="end" style-ref="decl"/>
+          <context ref="entity"/>
+          <context ref="quoted-value"/>
+        </include>
+      </context>
+
+
+      <context id="quoted-value" style-ref="quoted-value">
+        <start>"</start>
+        <end>"</end>
+        <include>
+          <context style-ref="entity">
+            <match>[%&amp;]\%{name};</match>
+          </context>
+          <context style-ref="error" extend-parent="false">
+            <match>[%&amp;]\S*</match>
+          </context>
+        </include>
+      </context>
+
+      <context id="NDATA" extend-parent="false">
+        <start>\bNDATA\b</start>
+        <include>
+          <context sub-pattern="0" where="start" style-ref="decl"/>
+          <context>
+            <match>\%{name}</match>
+          </context>
+          <context ref="error"/>
+        </include>
+      </context>
+
+      <context id="decl-entity">
+        <start>&lt;!ENTITY\s+(%\s+)?\%{name}\b</start>
+        <end>&gt;</end>
+        <include>
+          <context sub-pattern="0" where="start" style-ref="decl"/>
+          <context sub-pattern="0" where="end" style-ref="decl"/>
+          <context ref="quoted-value"/>
+          <context extend-parent="false">
+            <start>(SYSTEM|PUBLIC)(?=\s|$)</start>
+            <include>
+              <context sub-pattern="0" where="start" style-ref="decl"/>
+              <context ref="quoted-value"/>
+              <context ref="NDATA"/>
+              <context ref="error"/>
+            </include>
+          </context>
+          <context ref="error"/>
+        </include>
+      </context>
+
+
+      <context id="decl-attlist">
+        <start>&lt;!ATTLIST\b</start>
+        <end>&gt;</end>
+        <include>
+          <context sub-pattern="0" where="start" style-ref="decl"/>
+          <context sub-pattern="0" where="end" style-ref="decl"/>
+          <context ref="entity"/>
+          <context ref="quoted-value"/>
+        </include>
+      </context>
+
+      <context id="decl-notation">
+        <start>&lt;!NOTATION\b</start>
+        <end>&gt;</end>
+        <include>
+          <context sub-pattern="0" where="start" style-ref="decl"/>
+          <context sub-pattern="0" where="end" style-ref="decl"/>
+          <context ref="entity"/>
+          <context ref="quoted-value"/>
+        </include>
+      </context>
+
+      <context id="error" style-ref="error" extend-parent="false">
+        <match>\S+</match>
+      </context>
+
+      <context id="dtd">
+        <include>
+          <context ref="xml:comment"/>
+          <context ref="decl-element"/>
+          <context ref="decl-entity"/>
+          <context ref="decl-attlist"/>
+          <context ref="decl-notation"/>
+        </include>
+      </context>
+    </definitions>
+</language>

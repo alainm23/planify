@@ -3,7 +3,6 @@
 <gresources>
   <gresource prefix="/com/github/alainm23/planner">
     <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
-    <file alias="credits.json">credits.json</file>
 
     <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
     <file alias="planner-today-1.svg">resources/planner-today-1.svg</file>

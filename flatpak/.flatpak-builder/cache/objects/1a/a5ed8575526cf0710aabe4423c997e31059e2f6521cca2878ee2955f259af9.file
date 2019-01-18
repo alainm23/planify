@@ -1,0 +1,10 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/graphviz
+
+Name: libxdot
+Description: Library for parsing graphs in xdot format
+Version: 2.40.1
+Libs: -L${libdir} -lxdot
+Cflags: -I${includedir}

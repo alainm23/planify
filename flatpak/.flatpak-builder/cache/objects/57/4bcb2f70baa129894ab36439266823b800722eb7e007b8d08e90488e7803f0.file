@@ -1,0 +1,73 @@
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2006 Paolo Maggi <paolo@gnome.org>
+ Copyright (C) 2006 Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>
+
+ gtksourceview is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ gtksourceview is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<!-- FIXME: the "name" attribute can be "_name" to be marked for translation -->
+<!ENTITY % itemattrs
+ "name  CDATA #REQUIRED
+  style CDATA #REQUIRED">
+
+<!ELEMENT language (escape-char?,(line-comment|block-comment|string|syntax-item|pattern-item|keyword-list)+)>
+<!-- FIXME: the "name" and "section" attributes can be prefixed with
+     "_" to be marked for translation -->
+<!ATTLIST language
+  name                CDATA #REQUIRED
+  version             CDATA #REQUIRED
+  section             CDATA #REQUIRED
+  translation-domain  CDATA #IMPLIED
+  mimetypes           CDATA #REQUIRED>
+
+<!ELEMENT escape-char (#PCDATA)>
+
+<!ELEMENT line-comment (start-regex)>
+<!ATTLIST line-comment
+  %itemattrs;>
+
+<!ELEMENT block-comment (start-regex,end-regex)>
+<!ATTLIST block-comment
+  %itemattrs;>
+
+<!ELEMENT string (start-regex,end-regex)>
+<!ATTLIST string
+  %itemattrs;
+  end-at-line-end (true|false) "true">
+
+<!ELEMENT syntax-item (start-regex,end-regex)>
+<!ATTLIST syntax-item
+  %itemattrs;>
+
+<!ELEMENT pattern-item (regex)>
+<!ATTLIST pattern-item
+  %itemattrs;>
+
+<!ELEMENT keyword-list (keyword+)>
+<!ATTLIST keyword-list
+  %itemattrs;
+  case-sensitive                  (true|false) "true"
+  match-empty-string-at-beginning (true|false) "false"
+  match-empty-string-at-end       (true|false) "false"
+  beginning-regex                 CDATA        #IMPLIED
+  end-regex                       CDATA        #IMPLIED>
+
+<!ELEMENT start-regex (#PCDATA)>
+<!ELEMENT end-regex (#PCDATA)>
+<!ELEMENT regex (#PCDATA)>
+<!ELEMENT keyword (#PCDATA)>

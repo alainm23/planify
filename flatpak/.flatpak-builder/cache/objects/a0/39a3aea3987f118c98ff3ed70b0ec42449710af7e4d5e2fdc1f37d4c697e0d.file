@@ -1,0 +1,938 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GeocodeLocation: geocode-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="geocode-glib Reference Manual">
+<link rel="up" href="ch01.html" title="Geocode-glib">
+<link rel="prev" href="GeocodeForward.html" title="GeocodeForward">
+<link rel="next" href="geocode-glib-geocode-mock-backend.html" title="geocode-mock-backend">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GeocodeLocation.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GeocodeLocation.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GeocodeLocation.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GeocodeForward.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="geocode-glib-geocode-mock-backend.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GeocodeLocation"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GeocodeLocation.top_of_page"></a>GeocodeLocation</span></h2>
+<p>GeocodeLocation — Geocode location object</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GeocodeLocation.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="returnvalue">GeocodeLocation</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-new" title="geocode_location_new ()">geocode_location_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="returnvalue">GeocodeLocation</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-new-with-description" title="geocode_location_new_with_description ()">geocode_location_new_with_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-equal" title="geocode_location_equal ()">geocode_location_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-set-from-uri" title="geocode_location_set_from_uri ()">geocode_location_set_from_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-to-uri" title="geocode_location_to_uri ()">geocode_location_to_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">double</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-distance-from" title="geocode_location_get_distance_from ()">geocode_location_get_distance_from</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-set-description" title="geocode_location_set_description ()">geocode_location_set_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-description" title="geocode_location_get_description ()">geocode_location_get_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-latitude" title="geocode_location_get_latitude ()">geocode_location_get_latitude</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-longitude" title="geocode_location_get_longitude ()">geocode_location_get_longitude</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-altitude" title="geocode_location_get_altitude ()">geocode_location_get_altitude</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GeocodeLocation.html#GeocodeLocationCRS" title="enum GeocodeLocationCRS"><span class="returnvalue">GeocodeLocationCRS</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-crs" title="geocode_location_get_crs ()">geocode_location_get_crs</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-accuracy" title="geocode_location_get_accuracy ()">geocode_location_get_accuracy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="GeocodeLocation.html#geocode-location-get-timestamp" title="geocode_location_get_timestamp ()">geocode_location_get_timestamp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--accuracy" title="The “accuracy” property">accuracy</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--altitude" title="The “altitude” property">altitude</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GeocodeLocation.html#GeocodeLocationCRS" title="enum GeocodeLocationCRS"><span class="type">GeocodeLocationCRS</span></a></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--crs" title="The “crs” property">crs</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--description" title="The “description” property">description</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--latitude" title="The “latitude” property">latitude</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--longitude" title="The “longitude” property">longitude</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint64</span></td>
+<td class="property_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation--timestamp" title="The “timestamp” property">timestamp</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GeocodeLocation-struct" title="struct GeocodeLocation">GeocodeLocation</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GeocodeLocationClass" title="struct GeocodeLocationClass">GeocodeLocationClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GeocodeLocationURIScheme" title="enum GeocodeLocationURIScheme">GeocodeLocationURIScheme</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GeocodeLocationCRS" title="enum GeocodeLocationCRS">GeocodeLocationCRS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ALTITUDE-UNKNOWN:CAPS" title="GEOCODE_LOCATION_ALTITUDE_UNKNOWN">GEOCODE_LOCATION_ALTITUDE_UNKNOWN</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-UNKNOWN:CAPS" title="GEOCODE_LOCATION_ACCURACY_UNKNOWN">GEOCODE_LOCATION_ACCURACY_UNKNOWN</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-STREET:CAPS" title="GEOCODE_LOCATION_ACCURACY_STREET">GEOCODE_LOCATION_ACCURACY_STREET</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-CITY:CAPS" title="GEOCODE_LOCATION_ACCURACY_CITY">GEOCODE_LOCATION_ACCURACY_CITY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-REGION:CAPS" title="GEOCODE_LOCATION_ACCURACY_REGION">GEOCODE_LOCATION_ACCURACY_REGION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-COUNTRY:CAPS" title="GEOCODE_LOCATION_ACCURACY_COUNTRY">GEOCODE_LOCATION_ACCURACY_COUNTRY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GeocodeLocation.html#GEOCODE-LOCATION-ACCURACY-CONTINENT:CAPS" title="GEOCODE_LOCATION_ACCURACY_CONTINENT">GEOCODE_LOCATION_ACCURACY_CONTINENT</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GeocodeLocation
+</pre>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;geocode-glib/geocode-glib.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> instance represents a location on earth, with an
+optional description.</p>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="geocode-location-new"></a><h3>geocode_location_new ()</h3>
+<pre class="programlisting"><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="returnvalue">GeocodeLocation</span></a> *
+geocode_location_new (<em class="parameter"><code><span class="type">gdouble</span> latitude</code></em>,
+                      <em class="parameter"><code><span class="type">gdouble</span> longitude</code></em>,
+                      <em class="parameter"><code><span class="type">gdouble</span> accuracy</code></em>);</pre>
+<p>Creates a new <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> object.</p>
+<div class="refsect3">
+<a name="geocode-location-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>latitude</p></td>
+<td class="parameter_description"><p>a valid latitude</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>longitude</p></td>
+<td class="parameter_description"><p>a valid longitude</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accuracy</p></td>
+<td class="parameter_description"><p>accuracy of location in meters</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> object. Use <code class="function">g_object_unref()</code> when done.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-new-with-description"></a><h3>geocode_location_new_with_description ()</h3>
+<pre class="programlisting"><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="returnvalue">GeocodeLocation</span></a> *
+geocode_location_new_with_description (<em class="parameter"><code><span class="type">gdouble</span> latitude</code></em>,
+                                       <em class="parameter"><code><span class="type">gdouble</span> longitude</code></em>,
+                                       <em class="parameter"><code><span class="type">gdouble</span> accuracy</code></em>,
+                                       <em class="parameter"><code>const <span class="type">char</span> *description</code></em>);</pre>
+<p>Creates a new <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> object.</p>
+<div class="refsect3">
+<a name="geocode-location-new-with-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>latitude</p></td>
+<td class="parameter_description"><p>a valid latitude</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>longitude</p></td>
+<td class="parameter_description"><p>a valid longitude</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accuracy</p></td>
+<td class="parameter_description"><p>accuracy of location in meters</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>description</p></td>
+<td class="parameter_description"><p>a description for the location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-new-with-description.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> object. Use <code class="function">g_object_unref()</code> when done.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-equal"></a><h3>geocode_location_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+geocode_location_equal (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *a</code></em>,
+                        <em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *b</code></em>);</pre>
+<p>Compare two <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> instances for equality. This compares all fields
+and only returns <code class="literal">TRUE</code> if the instances are exactly equal. For example, if
+both locations have the same physical coordinates, but one location has its
+<a class="link" href="GeocodeLocation.html#GeocodeLocation--description" title="The “description” property"><span class="type">“description”</span></a> property set and the other does not, <code class="literal">FALSE</code>
+will be returned. Similarly, if both locations have the same
+<a class="link" href="GeocodeLocation.html#GeocodeLocation--latitude" title="The “latitude” property"><span class="type">“latitude”</span></a>, <a class="link" href="GeocodeLocation.html#GeocodeLocation--longitude" title="The “longitude” property"><span class="type">“longitude”</span></a> and
+<a class="link" href="GeocodeLocation.html#GeocodeLocation--altitude" title="The “altitude” property"><span class="type">“altitude”</span></a>, but a different <a class="link" href="GeocodeLocation.html#GeocodeLocation--accuracy" title="The “accuracy” property"><span class="type">“accuracy”</span></a> or
+<a class="link" href="GeocodeLocation.html#GeocodeLocation--timestamp" title="The “timestamp” property"><span class="type">“timestamp”</span></a>, <code class="literal">FALSE</code> will be returned. Or if both locations
+have the same<a class="link" href="GeocodeLocation.html#GeocodeLocation--latitude" title="The “latitude” property"><span class="type">“latitude”</span></a> and <a class="link" href="GeocodeLocation.html#GeocodeLocation--longitude" title="The “longitude” property"><span class="type">“longitude”</span></a> but a
+different <a class="link" href="GeocodeLocation.html#GeocodeLocation--altitude" title="The “altitude” property"><span class="type">“altitude”</span></a>, <code class="literal">FALSE</code> will be returned.</p>
+<p>Both instances must be non-<code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="geocode-location-equal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>a location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>another location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-equal.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the instances are equal, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-full.html#api-index-3.23.1">3.23.1</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-set-from-uri"></a><h3>geocode_location_set_from_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+geocode_location_set_from_uri (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>,
+                               <em class="parameter"><code>const <span class="type">char</span> *uri</code></em>,
+                               <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Initialize a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> object with the given <em class="parameter"><code>uri</code></em>
+.</p>
+<p>The URI should be in the geo scheme (RFC 5870) which in its simplest form
+looks like:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>geo:latitude,longitude</p></li></ul></div>
+<p>An <a class="ulink" href="http://developer.android.com/guide/components/intents-common.html#Maps" target="_top">
+Android extension</a> to set a description is also supported in the form of:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>geo:0,0?q=latitude,longitude(description)</p></li></ul></div>
+<div class="refsect3">
+<a name="geocode-location-set-from-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a URI mapping out a location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p><span class="type">GError</span> for error reporting, or <code class="literal">NULL</code> to ignore</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-set-from-uri.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> on success and <code class="literal">FALSE</code> on error.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-to-uri"></a><h3>geocode_location_to_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+geocode_location_to_uri (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>,
+                         <em class="parameter"><code><a class="link" href="GeocodeLocation.html#GeocodeLocationURIScheme" title="enum GeocodeLocationURIScheme"><span class="type">GeocodeLocationURIScheme</span></a> scheme</code></em>);</pre>
+<p>Creates a URI representing <em class="parameter"><code>loc</code></em>
+ in the scheme specified in <em class="parameter"><code>scheme</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-to-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scheme</p></td>
+<td class="parameter_description"><p>the scheme of the requested URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-to-uri.returns"></a><h4>Returns</h4>
+<p> a URI representing the location. The returned string should be freed
+with <code class="function">g_free()</code> when no longer needed.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-distance-from"></a><h3>geocode_location_get_distance_from ()</h3>
+<pre class="programlisting"><span class="returnvalue">double</span>
+geocode_location_get_distance_from (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loca</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *locb</code></em>);</pre>
+<p>Calculates the distance in km, along the curvature of the Earth,
+between 2 locations. Note that altitude changes are not
+taken into account.</p>
+<div class="refsect3">
+<a name="geocode-location-get-distance-from.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>loca</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>locb</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-distance-from.returns"></a><h4>Returns</h4>
+<p> a distance in km.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-set-description"></a><h3>geocode_location_set_description ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+geocode_location_set_description (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>,
+                                  <em class="parameter"><code>const <span class="type">char</span> *description</code></em>);</pre>
+<p>Sets the description of <em class="parameter"><code>loc</code></em>
+ to <em class="parameter"><code>description</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-set-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>description</p></td>
+<td class="parameter_description"><p>a description for the location</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-description"></a><h3>geocode_location_get_description ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+geocode_location_get_description (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the description of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-description.returns"></a><h4>Returns</h4>
+<p> The description of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-latitude"></a><h3>geocode_location_get_latitude ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_location_get_latitude (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the latitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-latitude.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-latitude.returns"></a><h4>Returns</h4>
+<p> The latitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-longitude"></a><h3>geocode_location_get_longitude ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_location_get_longitude (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the longitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-longitude.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-longitude.returns"></a><h4>Returns</h4>
+<p> The longitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-altitude"></a><h3>geocode_location_get_altitude ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_location_get_altitude (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the altitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-altitude.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-altitude.returns"></a><h4>Returns</h4>
+<p> The altitude of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-crs"></a><h3>geocode_location_get_crs ()</h3>
+<pre class="programlisting"><a class="link" href="GeocodeLocation.html#GeocodeLocationCRS" title="enum GeocodeLocationCRS"><span class="returnvalue">GeocodeLocationCRS</span></a>
+geocode_location_get_crs (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the Coordinate Reference System Identification of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-crs.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-crs.returns"></a><h4>Returns</h4>
+<p> The CRS of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-accuracy"></a><h3>geocode_location_get_accuracy ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+geocode_location_get_accuracy (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the accuracy (in meters) of location <em class="parameter"><code>loc</code></em>
+.</p>
+<div class="refsect3">
+<a name="geocode-location-get-accuracy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-accuracy.returns"></a><h4>Returns</h4>
+<p> The accuracy of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="geocode-location-get-timestamp"></a><h3>geocode_location_get_timestamp ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>
+geocode_location_get_timestamp (<em class="parameter"><code><a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> *loc</code></em>);</pre>
+<p>Gets the timestamp (in seconds since the Epoch) of location <em class="parameter"><code>loc</code></em>
+. See
+<a class="link" href="GeocodeLocation.html#GeocodeLocation--timestamp" title="The “timestamp” property"><span class="type">“timestamp”</span></a>.</p>
+<div class="refsect3">
+<a name="geocode-location-get-timestamp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>loc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="geocode-location-get-timestamp.returns"></a><h4>Returns</h4>
+<p> The timestamp of location <em class="parameter"><code>loc</code></em>
+.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GeocodeLocation-struct"></a><h3>struct GeocodeLocation</h3>
+<pre class="programlisting">struct GeocodeLocation;</pre>
+<p>All the fields in the <a class="link" href="GeocodeLocation.html" title="GeocodeLocation"><span class="type">GeocodeLocation</span></a> structure are private and should never be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocationClass"></a><h3>struct GeocodeLocationClass</h3>
+<pre class="programlisting">struct GeocodeLocationClass {
+};
+</pre>
+<p>All the fields in the <a class="link" href="GeocodeLocation.html#GeocodeLocationClass" title="struct GeocodeLocationClass"><span class="type">GeocodeLocationClass</span></a> structure are private and should never be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocationURIScheme"></a><h3>enum GeocodeLocationURIScheme</h3>
+<p>The URI scheme for this location.</p>
+<div class="refsect3">
+<a name="GeocodeLocationURIScheme.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="enum_member_name"><p><a name="GEOCODE-LOCATION-URI-SCHEME-GEO:CAPS"></a>GEOCODE_LOCATION_URI_SCHEME_GEO</p></td>
+<td class="enum_member_description">
+<p>The 'geo' URI scheme, RFC 5870</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocationCRS"></a><h3>enum GeocodeLocationCRS</h3>
+<p>Coordinate Reference System Identification for a location.</p>
+<div class="refsect3">
+<a name="GeocodeLocationCRS.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="enum_member_name"><p><a name="GEOCODE-LOCATION-CRS-WGS84:CAPS"></a>GEOCODE_LOCATION_CRS_WGS84</p></td>
+<td class="enum_member_description">
+<p>CRS is World Geodetic System, standard for Earth.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ALTITUDE-UNKNOWN:CAPS"></a><h3>GEOCODE_LOCATION_ALTITUDE_UNKNOWN</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ALTITUDE_UNKNOWN -G_MAXDOUBLE
+</pre>
+<p>Constant representing unknown altitude.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-UNKNOWN:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_UNKNOWN</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_UNKNOWN -1
+</pre>
+<p>Constant representing unknown accuracy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-STREET:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_STREET</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_STREET 1000 /* 1 km */
+</pre>
+<p>Constant representing street-level accuracy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-CITY:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_CITY</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_CITY 15000 /* 15 km */
+</pre>
+<p>Constant representing city-level accuracy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-REGION:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_REGION</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_REGION 50000 /* 50 km */
+</pre>
+<p>Constant representing region-level accuracy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-COUNTRY:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_COUNTRY</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_COUNTRY 300000 /* 300 km */
+</pre>
+<p>Constant representing country-level accuracy.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GEOCODE-LOCATION-ACCURACY-CONTINENT:CAPS"></a><h3>GEOCODE_LOCATION_ACCURACY_CONTINENT</h3>
+<pre class="programlisting">#define GEOCODE_LOCATION_ACCURACY_CONTINENT 3000000 /* 3000 km */
+</pre>
+<p>Constant representing continent-level accuracy.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GeocodeLocation.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GeocodeLocation--accuracy"></a><h3>The <code class="literal">“accuracy”</code> property</h3>
+<pre class="programlisting">  “accuracy”                 <span class="type">gdouble</span></pre>
+<p>The accuracy of this location in meters.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--altitude"></a><h3>The <code class="literal">“altitude”</code> property</h3>
+<pre class="programlisting">  “altitude”                 <span class="type">gdouble</span></pre>
+<p>The altitude of this location in meters.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: -1.79769e+308</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--crs"></a><h3>The <code class="literal">“crs”</code> property</h3>
+<pre class="programlisting">  “crs”                      <a class="link" href="GeocodeLocation.html#GeocodeLocationCRS" title="enum GeocodeLocationCRS"><span class="type">GeocodeLocationCRS</span></a></pre>
+<p>The Coordinate Reference System Identification of this location.
+Only the value 'wgs84' is currently valid.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: GEOCODE_LOCATION_CRS_WGS84</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--description"></a><h3>The <code class="literal">“description”</code> property</h3>
+<pre class="programlisting">  “description”              <span class="type">gchar</span> *</pre>
+<p>The description of this location.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--latitude"></a><h3>The <code class="literal">“latitude”</code> property</h3>
+<pre class="programlisting">  “latitude”                 <span class="type">gdouble</span></pre>
+<p>The latitude of this location in degrees.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [-90,90]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--longitude"></a><h3>The <code class="literal">“longitude”</code> property</h3>
+<pre class="programlisting">  “longitude”                <span class="type">gdouble</span></pre>
+<p>The longitude of this location in degrees.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [-180,180]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GeocodeLocation--timestamp"></a><h3>The <code class="literal">“timestamp”</code> property</h3>
+<pre class="programlisting">  “timestamp”                <span class="type">guint64</span></pre>
+<p>A timestamp in seconds since</p>
+<a class="ulink" href="http://en.wikipedia.org/wiki/Unix_epoch" target="_top">Epoch</a>,
+<p>giving when the location was resolved from an address.</p>
+<p>A value of 0 (zero) will be interpreted as the current time.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: &lt;= G_MAXINT64</p>
+<p>Default value: 0</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

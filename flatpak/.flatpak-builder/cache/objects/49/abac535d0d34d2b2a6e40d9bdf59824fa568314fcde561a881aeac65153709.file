@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Søren Hauberg
+ Copyright (C) 2009 Søren Hauberg <soren@hauberg.org>
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="fcl" name="FCL" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="globs">*.fcl</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment"/>
+    <style id="floating-point"    name="Floating Point"    map-to="def:floating-point"/>
+    <style id="keyword"           name="Keyword"           map-to="def:keyword"/>
+    <style id="block"             name="Block"             map-to="def:function"/>
+    <style id="decimal"           name="Decimal"           map-to="def:decimal"/>
+    <style id="reserved-constant" name="Reserved Constant" map-to="def:special-constant"/>
+  </styles>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>ACCU</keyword>
+      <keyword>ACT</keyword>
+      <keyword>AND</keyword>
+      <keyword>ASUM</keyword>
+      <keyword>BDIF</keyword>
+      <keyword>BSUM</keyword>
+      <keyword>COA</keyword>
+      <keyword>COG</keyword>
+      <keyword>COGS</keyword>
+      <keyword>DEFAULT</keyword>
+      <keyword>IF</keyword>
+      <keyword>IS</keyword>
+      <keyword>LM</keyword>
+      <keyword>MAX</keyword>
+      <keyword>METHOD</keyword>
+      <keyword>MIN</keyword>
+      <keyword>NC</keyword>
+      <keyword>NOT</keyword>
+      <keyword>NSUM</keyword>
+      <keyword>OR</keyword>
+      <keyword>PROD</keyword>
+      <keyword>RANGE</keyword>
+      <keyword>RM</keyword>
+      <keyword>RULE</keyword>
+      <keyword>TERM</keyword>
+      <keyword>THEN</keyword>
+      <keyword>WITH</keyword>
+    </context>
+
+    <context id="block" style-ref="block">
+      <keyword>DEFUZZIFY</keyword>
+      <keyword>END_DEFUZZIFY</keyword>
+      <keyword>END_FUNCTION_BLOCK</keyword>
+      <keyword>END_FUZZIFY</keyword>
+      <keyword>END_OPTIONS</keyword>
+      <keyword>END_RULEBLOCK</keyword>
+      <keyword>END_VAR</keyword>
+      <keyword>FUNCTION_BLOCK</keyword>
+      <keyword>FUZZIFY</keyword>
+      <keyword>OPTIONS</keyword>
+      <keyword>RULEBLOCK</keyword>
+      <keyword>VAR</keyword>
+      <keyword>VAR_INPUT</keyword>
+      <keyword>VAR_OUTPUT</keyword>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>\b([1-9][0-9]*|0)([Uu]([Ll]|LL|ll)?|([Ll]|LL|ll)[Uu]?)?\b</match>
+    </context>
+
+    <context id="floating-point-number" style-ref="floating-point">
+      <match>\b([0-9]+[Ee][-]?[0-9]+|([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFlL]?</match>
+    </context>
+
+    <context id="fcl" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="keyword"/>
+        <context ref="block"/>
+        <context ref="decimal"/>
+        <context ref="floating-point-number"/>
+      </include>
+    </context>
+  </definitions>
+</language>
+
+

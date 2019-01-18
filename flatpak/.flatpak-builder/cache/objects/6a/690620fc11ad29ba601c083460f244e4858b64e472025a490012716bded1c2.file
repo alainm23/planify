@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-313 191)'>
+        <path color='#000' d='M321-190.002c-1.608 0-3.03.965-3.656 2.398l-.023.047a4.013 4.013 0 0 0-.207.635c-.2-.052-.407-.079-.614-.08-.135 0-.27.014-.404.037a2.5 2.5 0 0 0-2.096 2.463 2.5 2.5 0 0 0 2.5 2.5h1.705c.688-1.181 1.877-1.998 3.295-1.998h.002c1.402.001 2.523.844 3.219 1.998H326a2 2 0 1 0 0-4l-.014.002H325c0-.252-.028-.497-.072-.736l-.01-.063h.002A4 4 0 0 0 321-190z' fill='#666' fill-rule='evenodd' overflow='visible' style='isolation:auto;mix-blend-mode:normal'/>
+        
+        <path color='#000' d='M321.5-183a2.998 2.998 0 0 0-2.908 2.273 1.875 1.875 0 0 0 .283 3.727h6.003a1.875 1.875 0 0 0 0-3.75h-.48A2.998 2.998 0 0 0 321.5-183z' fill='#666' fill-rule='evenodd' overflow='visible' style='isolation:auto;mix-blend-mode:normal'/>
+    </g>
+</svg>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim: set sts=2 sw=2: -->
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Eric Cooper <ecc@cmu.edu>
+ Copyright (C) 2007 Eric Cooper <ecc@cmu.edu>
+ Copyright (C) 2007 Eric Norige <thelema314@gmail.com>
+ Copyright (C) 2009 Alexandr Kuleshov <sterh@live.ru>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="ocaml" name="OCaml" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-ocaml</property>
+    <property name="globs">*.ml;*.mli;*.mll;*.mly</property>
+    <property name="block-comment-start">(*</property>
+    <property name="block-comment-end">*)</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="ocamldoc" name="Ocamldoc Comments" map-to="def:note"/>
+    <style id="base-n-integer" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="floating-point" name="Floating Point number" map-to="def:floating-point"/>
+    <style id="decimal" name="Decimal number" map-to="def:decimal"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="meta-keyword" name="Type, module or object keyword" map-to="def:keyword"/>
+    <style id="fun-keyword" name="Builtin-function keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="label" name="Labeled argument" map-to="def:type"/>
+    <style id="poly-variant" name="Polymorphic Variant" map-to="def:type"/>
+    <style id="variant" name="Variant Constructor" map-to="def:type"/>
+    <style id="type-var" name="Type Variable" map-to="def:type"/>
+    <style id="module" name="Module Path" map-to="def:type"/>
+    <style id="escape" name="Escaped Character" map-to="def:special-char"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="error" name="Error" map-to="def:error"/>
+    <style id="std-modules" name="Standard Modules" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="cap-ident">\b[A-Z][A-Za-z0-9_']*</define-regex>
+    <define-regex id="low-ident">\b[a-z][A-Za-z0-9_']*</define-regex>
+    <define-regex id="char-esc">\\((\\|"|'|n|t|b|r)|[0-9]{3}|x[0-9a-fA-F]{2})</define-regex>
+
+    <context id="escape-seq" style-ref="escape">
+      <match>\%{char-esc}</match>
+    </context>
+
+    <!-- here's the main context -->
+    <context id="ocaml" class="no-spell-check">
+      <include>
+	<context id="ocamldoc" style-ref="ocamldoc">
+	  <start>\(\*\*(?!\))</start>
+	  <end>\*\)</end>
+	  <include>
+	    <context id="comment-in-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+	      <start>\(\*</start>
+	      <end>\*\)</end>
+	      <include>
+		<context ref="string"/>
+		<context ref="comment-in-comment"/>
+		<context ref="def:in-comment:*"/>
+	      </include>
+	    </context>
+	    <context ref="string"/>
+	    <context ref="def:in-comment:*"/>
+	  </include>
+	</context>
+	<context id="comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+	  <start>\(\*</start>
+	  <end>\*\)</end>
+	  <include>
+	    <context ref="string"/>
+	    <context ref="comment-in-comment"/>
+	    <context ref="def:in-comment:*"/>
+	  </include>
+	</context>
+	<context id="hex-number" style-ref="base-n-integer">
+	  <match>[-]?0[xX][0-9A-Fa-f][0-9A-Fa-f_]*[lL]?</match>
+	</context>
+	<context id="octal-number" style-ref="base-n-integer">
+	  <match>[-]?0[oO][0-7][0-7_]*[lL]?</match>
+	</context>
+	<context id="binary-number" style-ref="base-n-integer">
+	  <match>[-]?0[bB][01][01_]*[lL]?</match>
+	</context>
+	<context id="decimal" style-ref="decimal">
+	  <match>[-]?[0-9][0-9_]*[lLn]?</match>
+	</context>
+	<context id="floating-point-number" style-ref="floating-point">
+	  <match>[-]?[0-9][0-9_]*(\.[0-9_]*)?([Ee][+-]?[0-9][0-9_]*)?</match>
+	</context>
+	<context id="label" style-ref="label">
+	  <match>[~?]\%{low-ident}</match>
+	</context>
+	<context id="poly-variant" style-ref="poly-variant">
+	  <match>`\%{cap-ident}</match>
+	</context>
+	<context id="modpath" style-ref="module">
+	  <!-- include final '.'?  At the moment, no.  -->
+	  <match>\%{cap-ident}(\.\%{cap-ident})*(?=\.)</match>
+	</context>
+	<context id="variant" style-ref="variant">
+	  <match>\%{cap-ident}</match>
+	</context>
+	<context id="string" style-ref="string">
+	  <start>"</start>
+	  <end>"</end>
+	  <include>
+	    <context ref="escape-seq"/>
+	  </include>
+	</context>
+	<context id="character-constant" style-ref="string">
+	  <match>('\%{char-esc}')|('[^\\']')</match>
+	</context>
+	<context id="type-var" style-ref="type-var">
+	  <match>'\%{low-ident}</match>
+	</context>
+	<context id="arraylit">
+	  <start>\[\|</start>
+	  <end>\|\]</end>
+	  <include>
+	    <context ref="ocaml"/>
+	  </include>
+	</context>
+	<context id="badarray" style-ref="error" extend-parent="false">
+	  <match>\|\]</match>
+	</context>
+	<context id="listlit">
+	  <start>\[</start>
+	  <end>(?&lt;!\|)\]</end>
+	  <include>
+	    <context ref="ocaml"/>
+	  </include>
+	</context>
+	<context id="badlist" style-ref="error" extend-parent="false">
+	  <match>\]</match>
+	</context>
+	<context id="boolean-constant" style-ref="boolean">
+	  <keyword>true</keyword>
+	  <keyword>false</keyword>
+	</context>
+	<!-- Flow control & common keywords -->
+	<context id="keywords" style-ref="keyword">
+	  <keyword>and</keyword>
+	  <keyword>assert</keyword>
+	  <keyword>begin</keyword>
+	  <keyword>do</keyword>
+	  <keyword>done</keyword>
+	  <keyword>downto</keyword>
+	  <keyword>else</keyword>
+	  <keyword>end</keyword>
+	  <keyword>for</keyword>
+	  <keyword>fun</keyword>
+	  <keyword>function</keyword>
+	  <keyword>if</keyword>
+	  <keyword>in</keyword>
+	  <keyword>let</keyword>
+	  <keyword>match</keyword>
+	  <keyword>rec</keyword>
+	  <keyword>then</keyword>
+	  <keyword>to</keyword>
+	  <keyword>try</keyword>
+	  <keyword>val</keyword>
+	  <keyword>when</keyword>
+	  <keyword>while</keyword>
+	  <keyword>with</keyword>
+	</context>
+	<!-- types, objects and modules -->
+	<context id="meta-words" style-ref="meta-keyword">
+	  <keyword>as</keyword>
+	  <keyword>class</keyword>
+	  <keyword>constraint</keyword>
+	  <keyword>exception</keyword>
+	  <keyword>external</keyword>
+	  <keyword>functor</keyword>
+	  <keyword>include</keyword>
+	  <keyword>inherit</keyword>
+	  <keyword>initializer</keyword>
+	  <keyword>method</keyword>
+	  <keyword>module</keyword>
+	  <keyword>mutable</keyword>
+	  <keyword>new</keyword>
+	  <keyword>object</keyword>
+	  <keyword>of</keyword>
+	  <keyword>open</keyword>
+	  <keyword>private</keyword>
+	  <keyword>struct</keyword>
+	  <keyword>sig</keyword>
+	  <keyword>type</keyword>
+	  <keyword>virtual</keyword>
+	</context>
+	<context id="function-keywords" style-ref="fun-keyword">
+	  <!-- function-like keywords -->
+	  <keyword>asr</keyword>
+	  <keyword>land</keyword>
+	  <keyword>lazy</keyword>
+	  <keyword>lor</keyword>
+	  <keyword>lsl</keyword>
+	  <keyword>lsr</keyword>
+	  <keyword>lxor</keyword>
+	  <keyword>mod</keyword>
+	  <keyword>or</keyword>
+	  <!-- from pervasives, but same as others -->
+	  <keyword>lnot</keyword>
+	</context>
+	<context id="types" style-ref="type">
+	  <!-- pervasives types -->
+	  <keyword>option</keyword>
+	  <keyword>ignore</keyword>
+	  <keyword>ref</keyword>
+	  <keyword>array</keyword>
+	  <keyword>bool</keyword>
+	  <keyword>char</keyword>
+	  <keyword>float</keyword>
+	  <keyword>int</keyword>
+	  <keyword>list</keyword>
+	  <keyword>string</keyword>
+	  <keyword>unit</keyword>
+	</context>
+	<context id="standart-modules" style-ref="std-modules">
+	  <!--Standart modules -->
+	  <keyword>Arg</keyword>
+	  <keyword>Arith_status</keyword>
+	  <keyword>Array</keyword>
+	  <keyword>ArrayLabels</keyword>
+	  <keyword>Big_int</keyword>
+	  <keyword>Bigarray</keyword>
+	  <keyword>Buffer</keyword>
+	  <keyword>Callback</keyword>
+	  <keyword>CamlinternalMod</keyword>
+	  <keyword>CamlinternalOO</keyword>
+	  <keyword>Char</keyword>
+	  <keyword>Complex</keyword>
+	  <keyword>Condition</keyword>
+	  <keyword>Dbm</keyword>
+	  <keyword>Digest</keyword>
+	  <keyword>DynLink</keyword>
+	  <keyword>Event</keyword>
+	  <keyword>Filename</keyword>
+	  <keyword>Format</keyword>
+	  <keyword>Gc</keyword>
+	  <keyword>Genlex</keyword>
+	  <keyword>Graphics</keyword>
+	  <keyword>GraphicsX11</keyword>
+	  <keyword>Hashtbl</keyword>
+	  <keyword>Int32</keyword>
+	  <keyword>Int64</keyword>
+	  <keyword>LargeFile</keyword>
+	  <keyword>Lazy</keyword>
+	  <keyword>Lexing</keyword>
+	  <keyword>List</keyword>
+	  <keyword>ListLabels</keyword>
+	  <keyword>Map</keyword>
+	  <keyword>Marshal</keyword>
+	  <keyword>MoreLabels</keyword>
+	  <keyword>Mutex</keyword>
+	  <keyword>Mativeint</keyword>
+	  <keyword>Num</keyword>
+	  <keyword>Oo</keyword>
+	  <keyword>Parsing</keyword>
+	  <keyword>Printexc</keyword>
+	  <keyword>Printf</keyword>
+	  <keyword>Queue</keyword>
+	  <keyword>Random</keyword>
+	  <keyword>Scanf</keyword>
+	  <keyword>Set</keyword>
+	  <keyword>Sort</keyword>
+	  <keyword>Stack</keyword>
+	  <keyword>StdLabels</keyword>
+	  <keyword>Str</keyword>
+	  <keyword>Stream</keyword>
+	  <keyword>StringLabels</keyword>
+	  <keyword>Sys</keyword>
+	  <keyword>Thread</keyword>
+	  <keyword>ThreadUnix</keyword>
+	  <keyword>Unix</keyword>
+	  <keyword>UnixLabels</keyword>
+	  <keyword>Weak</keyword>
+	  <!-- Standart modules -->
+	</context>
+      </include>
+    </context>
+  </definitions>
+</language>

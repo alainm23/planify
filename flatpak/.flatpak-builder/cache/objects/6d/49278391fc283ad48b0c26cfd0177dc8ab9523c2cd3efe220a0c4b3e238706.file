@@ -1,0 +1,46 @@
+digraph G {
+  rankdir=LR
+  node [shape=plaintext]
+  a [
+     label=<
+<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+  <TR><TD ROWSPAN="3" BGCOLOR="yellow">class</TD></TR>
+  <TR><TD PORT="here" BGCOLOR="lightblue">qualifier</TD></TR>
+</TABLE>>
+  ]
+    b [shape=ellipse style=filled
+  label=<
+<TABLE BGCOLOR="bisque">
+  <TR><TD COLSPAN="3">elephant</TD> 
+      <TD ROWSPAN="2" BGCOLOR="chartreuse" 
+          VALIGN="bottom" ALIGN="right">two</TD> </TR>
+  <TR><TD COLSPAN="2" ROWSPAN="2">
+        <TABLE BGCOLOR="grey">
+          <TR> <TD>corn</TD> </TR> 
+          <TR> <TD BGCOLOR="yellow">c</TD> </TR> 
+          <TR> <TD>f</TD> </TR> 
+        </TABLE> </TD>
+      <TD BGCOLOR="white">penguin</TD> 
+  </TR> 
+  <TR> <TD COLSPAN="2" BORDER="4" ALIGN="right" PORT="there">4</TD> </TR>
+</TABLE>>
+  ]
+  c [ 
+  label=<long line 1<BR/>line 2<BR ALIGN="LEFT"/>line 3<BR ALIGN="RIGHT"/>>
+  ]
+
+  subgraph { rank=same b c }
+  a:here -> b:there [dir=both arrowtail = diamond]
+  c -> b
+  d [shape=triangle]
+  d -> c [label=<
+<TABLE>
+  <TR><TD BGCOLOR="red" WIDTH="10"> </TD>
+      <TD>Edge labels<BR/>also</TD>
+      <TD BGCOLOR="blue" WIDTH="10"> </TD>
+  </TR>
+</TABLE>>
+  ]
+ 
+}
+

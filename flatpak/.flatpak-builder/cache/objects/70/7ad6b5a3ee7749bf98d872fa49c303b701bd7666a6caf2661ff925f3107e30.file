@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.0"
+   width="16"
+   height="16"
+   id="svg8472">
+  <defs
+     id="defs8474">
+    <linearGradient
+       id="linearGradient7653">
+      <stop
+         id="stop7655"
+         style="stop-color:#babdb6;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop7657"
+         style="stop-color:#eeeeec;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient7669">
+      <stop
+         id="stop7671"
+         style="stop-color:#555753;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop7673"
+         style="stop-color:#555753;stop-opacity:0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       x1="336.38605"
+       y1="426.56412"
+       x2="336.38605"
+       y2="424.16095"
+       id="linearGradient9774"
+       xlink:href="#linearGradient7653"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6619286,0,0,0.5541422,-220.77558,-231.53464)" />
+    <linearGradient
+       x1="336.38605"
+       y1="427.76694"
+       x2="336.38605"
+       y2="424.16095"
+       id="linearGradient9777"
+       xlink:href="#linearGradient7669"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.6626178,0,0,0.5383127,-221.02564,-224.722)" />
+  </defs>
+  <metadata
+     id="metadata8477">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Node Smooth</dc:title>
+        <dc:date>2006-05-01</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Lapo Calamandrei</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>node</rdf:li>
+            <rdf:li>vertex</rdf:li>
+            <rdf:li>smooth</rdf:li>
+            <rdf:li>curve</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       d="m 13.375397,3.4220093 c 0.735087,3.831631 -1.853267,7.0650017 -5.8807347,7.0650017 -4.0731408,0 -6.5698813,-3.1870414 -5.8807345,-7.0650017"
+       id="path7726"
+       style="fill:none;stroke:url(#linearGradient9777);stroke-width:2.99999952;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       d="m 13.381641,3.3181331 c 0.711376,3.9852867 -1.851338,7.2727539 -5.8746199,7.2727539 -4.0689079,0 -6.6318895,-3.2397756 -5.874613,-7.2727539"
+       id="path7728"
+       style="fill:none;stroke:url(#linearGradient9774);stroke-width:0.99999994;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0" />
+    <path
+       d="m 5.50002,8.50001 4,0 0,3.99994 -4,0 0,-3.99994 z"
+       id="path7747"
+       style="fill:#d3d7cf;fill-opacity:1;stroke:#888a85;stroke-width:1.00000024;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       d="m 6.50002,9.50002 2,0 0,2.00008 -2,0 0,-2.00008 z"
+       id="path7749"
+       style="fill:none;stroke:#ffffff;stroke-width:1.00000048;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" />
+  </g>
+</svg>

@@ -1,0 +1,459 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-parameter.h"
+#include "libical-glib-private.h"
+#include "i-cal-derived-parameter.h"
+
+G_DEFINE_TYPE (ICalParameter, i_cal_parameter, I_CAL_TYPE_OBJECT)
+
+static void i_cal_parameter_class_init (ICalParameterClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalParameter));
+}
+
+static void i_cal_parameter_init (G_GNUC_UNUSED ICalParameter *self)
+{
+}
+
+/**
+ * i_cal_parameter_new_full: (skip)
+ * @native: The native libical object.
+ * @owner: The parent.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalParameter *
+i_cal_parameter_new_full (icalparameter *native, 
+                          GObject *owner)
+{
+    ICalParameter *object;
+    if (native == NULL)
+        return NULL;
+    object = g_object_new (I_CAL_PARAMETER_TYPE, NULL);
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) native,
+                            (GDestroyNotify) icalparameter_free,
+                            FALSE,
+                            owner);
+
+    return object;
+}
+/**
+ * i_cal_parameter_new:
+ * @v: The type of #ICalParameter to be created
+ *
+ * Create a new #ICalParameter according to the kind type
+ *
+ * Returns: (transfer full): The newly created #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new (ICalParameterKind v)
+{
+	return i_cal_parameter_new_full (icalparameter_new ((icalparameter_kind) (v)), NULL);
+}
+
+/**
+ * i_cal_parameter_new_clone:
+ * @p: (in): The #ICalParameter to be cloned
+ *
+ * Deep clone a #ICalParameter
+ *
+ * Returns: (transfer full): The newly created #ICalParameter with the same properties as the @p.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_clone (ICalParameter *p)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (p), NULL);
+	g_return_val_if_fail (p != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_clone ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (p))), NULL);
+}
+
+/**
+ * i_cal_parameter_new_from_string:
+ * @value: (in) (transfer none): The string from which the #ICalParameter is created.
+ *
+ * Create a #ICalParameter from a string of form "PARAMNAME=VALUE".
+ *
+ * Returns: (transfer full): The newly created $ICalParameter with the properties specified in the @value.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_from_string (const gchar *value)
+{
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_from_string (value), NULL);
+}
+
+/**
+ * i_cal_parameter_new_from_value_string:
+ * @kind: The kind of #ICalParameter to be created.
+ * @value: The string from which #ICalParameter to be created.
+ *
+ * Create a new #ICalParameter from just the value, the part after the "="
+ *
+ * Returns: (transfer full): The newly created #ICalParameter
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameter *
+i_cal_parameter_new_from_value_string (ICalParameterKind kind, 
+                                       const gchar *value)
+{
+	g_return_val_if_fail (value != NULL, NULL);
+
+	return i_cal_parameter_new_full (icalparameter_new_from_value_string ((icalparameter_kind) (kind), value), NULL);
+}
+
+/**
+ * i_cal_parameter_free: (skip)
+ * @parameter: (in): The #ICalParameter to be freeed.
+ *
+ * Free the native part of the ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_free (ICalParameter *parameter)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (parameter));
+	g_return_if_fail (parameter != NULL);
+
+	icalparameter_free ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (parameter)));
+}
+
+/**
+ * i_cal_parameter_as_ical_string_r:
+ * @parameter: (in): The #ICalParameter to be converted.
+ *
+ * Convert an #ICalParameter to the string representation.
+ *
+ * Returns: (transfer full): The string representation of the @parameter.
+ *
+ * Since: 1.0
+ *
+ **/
+gchar *
+i_cal_parameter_as_ical_string_r (ICalParameter *parameter)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (parameter), NULL);
+	g_return_val_if_fail (parameter != NULL, NULL);
+
+	return icalparameter_as_ical_string_r ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (parameter)));
+}
+
+/**
+ * i_cal_parameter_isa:
+ * @parameter: The #ICalParameter to be determined for the type.
+ *
+ * Check the type of a #ICalParameter.
+ *
+ * Returns: The type of the @parameter.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterKind
+i_cal_parameter_isa (ICalParameter *parameter)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (parameter), I_CAL_NO_PARAMETER);
+	g_return_val_if_fail (parameter != NULL, I_CAL_NO_PARAMETER);
+
+	return (ICalParameterKind) (icalparameter_isa ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (parameter))));
+}
+
+/**
+ * i_cal_parameter_isa_parameter:
+ * @param: (in): The #ICalParameter to be checked.
+ *
+ * Check whether the native part of the #ICalParameter is of type icalparameter.
+ *
+ * Returns: 1 if the native part is of type icalparameter, 0 if not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_parameter_isa_parameter (ICalParameter *param)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param), 0);
+	g_return_val_if_fail (param != NULL, 0);
+
+	return icalparameter_isa_parameter ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)));
+}
+
+/**
+ * i_cal_parameter_set_xname:
+ * @param: The #ICalParameter of which the xname to be set.
+ * @v: The name to be set into the @param.
+ *
+ * Set the xname property of the native part of the #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_xname (ICalParameter *param, 
+                           const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (param));
+	g_return_if_fail (param != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_xname ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)), v);
+}
+
+/**
+ * i_cal_parameter_get_xname:
+ * @param: The #ICalParameter to be queried
+ *
+ * Get the xname property of the native part of the #ICalParameter.
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_xname (ICalParameter *param)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param), NULL);
+	g_return_val_if_fail (param != NULL, NULL);
+
+	return icalparameter_get_xname ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)));
+}
+
+/**
+ * i_cal_parameter_set_xvalue:
+ * @param: The #ICalParameter of which the xvalue to be set.
+ * @v: The value to be set into the @param.
+ *
+ * Set the xvalue property of the native part of the #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_xvalue (ICalParameter *param, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (param));
+	g_return_if_fail (param != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_xvalue ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)), v);
+}
+
+/**
+ * i_cal_parameter_get_xvalue:
+ * @param: The #ICalParameter to be queried
+ *
+ * Get the xvalue property of the native part of the #ICalParameter.
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_xvalue (ICalParameter *param)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param), NULL);
+	g_return_val_if_fail (param != NULL, NULL);
+
+	return icalparameter_get_xvalue ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)));
+}
+
+/**
+ * i_cal_parameter_set_iana_name:
+ * @param: The #ICalParameter of which the iana_name to be set.
+ * @v: The name to be set into the @param.
+ *
+ * Set the iana_name property of the native part of the #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_iana_name (ICalParameter *param, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (param));
+	g_return_if_fail (param != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_iana_name ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)), v);
+}
+
+/**
+ * i_cal_parameter_get_iana_name:
+ * @param: The #ICalParameter to be queried
+ *
+ * Get the iana_name property of the native part of the #ICalParameter.
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_iana_name (ICalParameter *param)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param), NULL);
+	g_return_val_if_fail (param != NULL, NULL);
+
+	return icalparameter_get_iana_name ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)));
+}
+
+/**
+ * i_cal_parameter_set_iana_value:
+ * @param: The #ICalParameter of which the iana_value to be set.
+ * @v: The value to be set into the @param.
+ *
+ * Set the iana_value property of the native part of the #ICalParameter.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_parameter_set_iana_value (ICalParameter *param, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PARAMETER (param));
+	g_return_if_fail (param != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalparameter_set_iana_value ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)), v);
+}
+
+/**
+ * i_cal_parameter_get_iana_value:
+ * @param: The #ICalParameter to be queried
+ *
+ * Get the iana_value property of the native part of the #ICalParameter.
+ *
+ * Returns: (allow-none): the property of the @value
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_get_iana_value (ICalParameter *param)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param), NULL);
+	g_return_val_if_fail (param != NULL, NULL);
+
+	return icalparameter_get_iana_value ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param)));
+}
+
+/**
+ * i_cal_parameter_has_same_name:
+ * @param1: The #ICalParameter to be checked
+ * @param2: The #ICalParameter to be checked
+ *
+ * Check whether native parts of two #ICalParameters have the same name
+ *
+ * Returns: 1 if the parameters have the same name, 0 or not.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_parameter_has_same_name (ICalParameter *param1, 
+                               ICalParameter *param2)
+{
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param1), 0);
+	g_return_val_if_fail (param1 != NULL, 0);
+	g_return_val_if_fail (I_CAL_IS_PARAMETER (param2), 0);
+	g_return_val_if_fail (param2 != NULL, 0);
+
+	return icalparameter_has_same_name ((icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param1)), (icalparameter *)i_cal_object_get_native (I_CAL_OBJECT (param2)));
+}
+
+/**
+ * i_cal_parameter_kind_to_string:
+ * @kind: The #ICalParameterKind to be converted
+ *
+ * Convert the #ICalParameter to the string representation
+ *
+ * Returns: The string representation of @kind.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_parameter_kind_to_string (ICalParameterKind kind)
+{
+	return icalparameter_kind_to_string ((icalparameter_kind) (kind));
+}
+
+/**
+ * i_cal_parameter_string_to_kind:
+ * @string: The string representation of the #ICalParameter
+ *
+ * Convert a string to the #ICalParameterKind
+ *
+ * Returns: The #ICalParameterKind converted from @string
+ *
+ * Since: 1.0
+ *
+ **/
+ICalParameterKind
+i_cal_parameter_string_to_kind (const gchar *string)
+{
+	g_return_val_if_fail (string != NULL, I_CAL_NO_PARAMETER);
+
+	return (ICalParameterKind) (icalparameter_string_to_kind (string));
+}
+
+/**
+ * i_cal_parameter_kind_is_valid:
+ * @kind: The #ICalPropertyKind
+ *
+ * Check whether #ICalParameterKind is valid.
+ *
+ * Returns: 1 if valid, 0 if not.
+ *
+ * Since: 3.0.4
+ *
+ **/
+gint
+i_cal_parameter_kind_is_valid (const ICalParameterKind kind)
+{
+	return icalparameter_kind_is_valid ((icalparameter_kind) (kind));
+}

@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalDurationType: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-i-cal-derived-value.html" title="i-cal-derived-value">
+<link rel="next" href="libical-glib-i-cal-enums.html" title="i-cal-enums">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalDurationType.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-i-cal-derived-value.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-i-cal-enums.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalDurationType"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalDurationType.top_of_page"></a>ICalDurationType</span></h2>
+<p>ICalDurationType</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalDurationType.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-is-neg" title="i_cal_duration_type_is_neg ()">i_cal_duration_type_is_neg</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-is-neg" title="i_cal_duration_type_set_is_neg ()">i_cal_duration_type_set_is_neg</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-get-days" title="i_cal_duration_type_get_days ()">i_cal_duration_type_get_days</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-days" title="i_cal_duration_type_set_days ()">i_cal_duration_type_set_days</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-get-weeks" title="i_cal_duration_type_get_weeks ()">i_cal_duration_type_get_weeks</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-weeks" title="i_cal_duration_type_set_weeks ()">i_cal_duration_type_set_weeks</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-get-hours" title="i_cal_duration_type_get_hours ()">i_cal_duration_type_get_hours</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-hours" title="i_cal_duration_type_set_hours ()">i_cal_duration_type_set_hours</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-get-minutes" title="i_cal_duration_type_get_minutes ()">i_cal_duration_type_get_minutes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-minutes" title="i_cal_duration_type_set_minutes ()">i_cal_duration_type_set_minutes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-get-seconds" title="i_cal_duration_type_get_seconds ()">i_cal_duration_type_get_seconds</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-set-seconds" title="i_cal_duration_type_set_seconds ()">i_cal_duration_type_set_seconds</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-from-int" title="i_cal_duration_type_from_int ()">i_cal_duration_type_from_int</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-from-string" title="i_cal_duration_type_from_string ()">i_cal_duration_type_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-as-int" title="i_cal_duration_type_as_int ()">i_cal_duration_type_as_int</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-as-ical-string-r" title="i_cal_duration_type_as_ical_string_r ()">i_cal_duration_type_as_ical_string_r</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-null-duration" title="i_cal_duration_type_null_duration ()">i_cal_duration_type_null_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-bad-duration" title="i_cal_duration_type_bad_duration ()">i_cal_duration_type_bad_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-is-null-duration" title="i_cal_duration_type_is_null_duration ()">i_cal_duration_type_is_null_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalDurationType.html#i-cal-duration-type-is-bad-duration" title="i_cal_duration_type_is_bad_duration ()">i_cal_duration_type_is_bad_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalDurationType.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalDurationType.html#I-CAL-DURATION-TYPE-TYPE:CAPS" title="I_CAL_DURATION_TYPE_TYPE">I_CAL_DURATION_TYPE_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType">ICalDurationType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationTypeClass" title="struct ICalDurationTypeClass">ICalDurationTypeClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalDurationType.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalDurationType.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-duration-type-is-neg"></a><h3>i_cal_duration_type_is_neg ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_duration_type_is_neg (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the is_neg of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-neg.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-neg.returns"></a><h4>Returns</h4>
+<p> The is_neg.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-is-neg"></a><h3>i_cal_duration_type_set_is_neg ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_is_neg (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                                <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> is_neg</code></em>);</pre>
+<p>Set the is_neg of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-is-neg.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_neg</p></td>
+<td class="parameter_description"><p>The is_neg.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-get-days"></a><h3>i_cal_duration_type_get_days ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+i_cal_duration_type_get_days (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the days of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-days.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-days.returns"></a><h4>Returns</h4>
+<p> The days.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-days"></a><h3>i_cal_duration_type_set_days ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_days (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                              <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> days</code></em>);</pre>
+<p>Set the days of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-days.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>days</p></td>
+<td class="parameter_description"><p>The days.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-get-weeks"></a><h3>i_cal_duration_type_get_weeks ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+i_cal_duration_type_get_weeks (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the weeks of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-weeks.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-weeks.returns"></a><h4>Returns</h4>
+<p> The weeks.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-weeks"></a><h3>i_cal_duration_type_set_weeks ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_weeks (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                               <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> weeks</code></em>);</pre>
+<p>Set the weeks of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-weeks.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>weeks</p></td>
+<td class="parameter_description"><p>The weeks.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-get-hours"></a><h3>i_cal_duration_type_get_hours ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+i_cal_duration_type_get_hours (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the hours of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-hours.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-hours.returns"></a><h4>Returns</h4>
+<p> The hours.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-hours"></a><h3>i_cal_duration_type_set_hours ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_hours (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                               <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> hours</code></em>);</pre>
+<p>Set the hours of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-hours.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hours</p></td>
+<td class="parameter_description"><p>The hours.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-get-minutes"></a><h3>i_cal_duration_type_get_minutes ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+i_cal_duration_type_get_minutes (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the minutes of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-minutes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-minutes.returns"></a><h4>Returns</h4>
+<p> The minutes.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-minutes"></a><h3>i_cal_duration_type_set_minutes ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_minutes (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                                 <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> minutes</code></em>);</pre>
+<p>Set the minutes of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-minutes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minutes</p></td>
+<td class="parameter_description"><p>The minutes.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-get-seconds"></a><h3>i_cal_duration_type_get_seconds ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="guint"><span class="returnvalue">guint</span></GTKDOCLINK>
+i_cal_duration_type_get_seconds (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>);</pre>
+<p>Get the seconds of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-seconds.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-get-seconds.returns"></a><h4>Returns</h4>
+<p> The seconds.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-set-seconds"></a><h3>i_cal_duration_type_set_seconds ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_duration_type_set_seconds (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration_type</code></em>,
+                                 <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> seconds</code></em>);</pre>
+<p>Set the seconds of <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-set-seconds.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>duration_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be set.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>seconds</p></td>
+<td class="parameter_description"><p>The seconds.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-from-int"></a><h3>i_cal_duration_type_from_int ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+i_cal_duration_type_from_int (<em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> t</code></em>);</pre>
+<p>Create a <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> from the duration in second</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-from-int.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>t</p></td>
+<td class="parameter_description"><p>the duration in second</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-from-int.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-from-string"></a><h3>i_cal_duration_type_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+i_cal_duration_type_from_string (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Create a <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> from the duration in string</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string representation of the duration</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-from-string.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-as-int"></a><h3>i_cal_duration_type_as_int ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_duration_type_as_int (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to the representation in second</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-as-int.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be converted</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-as-int.returns"></a><h4>Returns</h4>
+<p> The duration in second</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-as-ical-string-r"></a><h3>i_cal_duration_type_as_ical_string_r ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_duration_type_as_ical_string_r (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration</code></em>);</pre>
+<p>Convert the <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to the representation in string</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-as-ical-string-r.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be converted</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-as-ical-string-r.returns"></a><h4>Returns</h4>
+<p>The duration in string. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-null-duration"></a><h3>i_cal_duration_type_null_duration ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+i_cal_duration_type_null_duration (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> with all the fields to be zero</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-null-duration.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-bad-duration"></a><h3>i_cal_duration_type_bad_duration ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="returnvalue">ICalDurationType</span></a> *
+i_cal_duration_type_bad_duration (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a bad <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a></p>
+<div class="refsect3">
+<a name="i-cal-duration-type-bad-duration.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-is-null-duration"></a><h3>i_cal_duration_type_is_null_duration ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_duration_type_is_null_duration (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration</code></em>);</pre>
+<p>Check whether the <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> is the null_duration</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-null-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be checked</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-null-duration.returns"></a><h4>Returns</h4>
+<p> 1 if <em class="parameter"><code>duration</code></em>
+is the null_duration, 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-duration-type-is-bad-duration"></a><h3>i_cal_duration_type_is_bad_duration ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_duration_type_is_bad_duration (<em class="parameter"><code><a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> *duration</code></em>);</pre>
+<p>Check whether the <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> is the bad_duration</p>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-bad-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalDurationType.html#ICalDurationType" title="ICalDurationType"><span class="type">ICalDurationType</span></a> to be checked</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-duration-type-is-bad-duration.returns"></a><h4>Returns</h4>
+<p> 1 if <em class="parameter"><code>duration</code></em>
+is the bad_duration, 0 if not.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalDurationType.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-DURATION-TYPE-TYPE:CAPS"></a><h3>I_CAL_DURATION_TYPE_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_DURATION_TYPE_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalDurationType"></a><h3>ICalDurationType</h3>
+<pre class="programlisting">typedef struct {
+} ICalDurationType;
+</pre>
+<p>This is the ICalDurationType instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalDurationTypeClass"></a><h3>struct ICalDurationTypeClass</h3>
+<pre class="programlisting">struct ICalDurationTypeClass {
+};
+</pre>
+<p>This is the ICalDurationType class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DeeFilterModel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch02.html" title="Models">
+<link rel="prev" href="dee-1.0-Filters.html" title="Filters">
+<link rel="next" href="dee-1.0-DeeModel.html" title="DeeModel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="dee-1.0-Filters.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="dee-1.0-DeeModel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#DeeFilterModel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#DeeFilterModel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#DeeFilterModel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#DeeFilterModel.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#DeeFilterModel.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="DeeFilterModel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="DeeFilterModel.top_of_page"></a>DeeFilterModel</span></h2>
+<p>DeeFilterModel — A <span class="type">DeeModel</span> that contains a filtered subset of
+                    another <span class="type">DeeModel</span></p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="DeeFilterModel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;dee.h&gt;
+
+                    <a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter">DeeFilter</a>;
+struct              <a class="link" href="DeeFilterModel.html#DeeFilterModel-struct" title="struct DeeFilterModel">DeeFilterModel</a>;
+struct              <a class="link" href="DeeFilterModel.html#DeeFilterModelClass" title="struct DeeFilterModelClass">DeeFilterModelClass</a>;
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="DeeFilterModel.html#dee-filter-model-append-iter" title="dee_filter_model_append_iter ()">dee_filter_model_append_iter</a>        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="DeeFilterModel.html#dee-filter-model-contains" title="dee_filter_model_contains ()">dee_filter_model_contains</a>           (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="DeeFilterModel.html#dee-filter-model-insert-iter" title="dee_filter_model_insert_iter ()">dee_filter_model_insert_iter</a>        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pos</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="DeeFilterModel.html#dee-filter-model-insert-iter-before" title="dee_filter_model_insert_iter_before ()">dee_filter_model_insert_iter_before</a> (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *pos</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="DeeFilterModel.html#dee-filter-model-insert-iter-with-original-order" title="dee_filter_model_insert_iter_with_original_order ()">dee_filter_model_insert_iter_with_original_order</a>
+                                                        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);
+<span class="returnvalue">DeeModel</span> *          <a class="link" href="DeeFilterModel.html#dee-filter-model-new" title="dee_filter_model_new ()">dee_filter_model_new</a>                (<em class="parameter"><code><span class="type">DeeModel</span> *orig_model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter"><span class="type">DeeFilter</span></a> *filter</code></em>);
+<a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      <a class="link" href="DeeFilterModel.html#dee-filter-model-prepend-iter" title="dee_filter_model_prepend_iter ()">dee_filter_model_prepend_iter</a>       (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a class="link" href="DeeSerializableModel.html" title="DeeSerializableModel">DeeSerializableModel</a>
+         +----<a class="link" href="DeeProxyModel.html" title="DeeProxyModel">DeeProxyModel</a>
+               +----DeeFilterModel
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+DeeFilterModel implements
+ DeeModel and  DeeSerializable.</p>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="DeeFilterModel.html#DeeFilterModel--filter" title='The "filter" property'>filter</a>"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.description"></a><h2>Description</h2>
+<p>
+A <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> should be regarded as a view on a specific subset of
+of another <span class="type">DeeModel</span>, filtered according to a given "filtering rule".
+</p>
+<p>
+Filter models re-use the <a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a>s of the back end model they
+filter. This means that any iter from the filter model can be used directly
+on the back end model. This is a powerful invariant, but implies the
+restriction that a row in the filter model contains the exact same data
+as the corresponding row in the back end model (ie. you can not apply
+a "transfomation map" to the filtered data).
+</p>
+<p>
+The reuse of row iters also minimizes the amount of memory shuffling needed
+to set up a filter model. The filtering functions, <a class="link" href="dee-1.0-Filters.html#DeeFilterMapFunc" title="DeeFilterMapFunc ()"><span class="type">DeeFilterMapFunc</span></a> and
+<a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a>, has also been designed to minimize the amount of work
+done to create a filter model. So if the filter functions are written
+optimally the resulting filter models should be cheap to construct.
+</p>
+<p>
+Another important feature of the filter model is also that the rows 
+need not be in the same order as the original rows in the back end model.
+</p>
+<p>
+There is a suite of filters shipped with Dee which you can browse in the
+<a class="link" href="dee-1.0-Filters.html#dee-1.0-Filters.top_of_page">Filters section</a>.
+</p>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DeeFilter"></a><h3>DeeFilter</h3>
+<pre class="programlisting">typedef struct {
+  DeeFilterMapFunc   map_func;
+  DeeFilterMapNotify map_notify;
+  GDestroyNotify     destroy;
+  gpointer           userdata;
+} DeeFilter;
+</pre>
+<p>
+Structure encapsulating the mapping logic used to construct a <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeFilterModel-struct"></a><h3>struct DeeFilterModel</h3>
+<pre class="programlisting">struct DeeFilterModel;</pre>
+<p>
+All fields in the DeeFilterModel structure are private and should never be
+accessed directly
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="DeeFilterModelClass"></a><h3>struct DeeFilterModelClass</h3>
+<pre class="programlisting">struct DeeFilterModelClass {
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-append-iter"></a><h3>dee_filter_model_append_iter ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_filter_model_append_iter        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);</pre>
+<p>
+Includes <em class="parameter"><code>iter</code></em> from the back end model in the filtered model, appending
+it to the end of the filtered rows.
+</p>
+<p>
+This method is usually called when implementing <a class="link" href="dee-1.0-Filters.html#DeeFilterMapFunc" title="DeeFilterMapFunc ()"><span class="type">DeeFilterMapFunc</span></a> or
+<a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a> methods.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Always returns <em class="parameter"><code>iter</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-contains"></a><h3>dee_filter_model_contains ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            dee_filter_model_contains           (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);</pre>
+<p>
+Check if <em class="parameter"><code>iter</code></em> from the back end model is mapped in <em class="parameter"><code>self</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> to check</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>The <a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> to check. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if and only if <em class="parameter"><code>iter</code></em> is contained in <em class="parameter"><code>self</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-insert-iter"></a><h3>dee_filter_model_insert_iter ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_filter_model_insert_iter        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> pos</code></em>);</pre>
+<p>
+Includes <em class="parameter"><code>iter</code></em> from the back end model in the filtered model, inserting it at
+<em class="parameter"><code>pos</code></em> pushing other rows down.
+</p>
+<p>
+This method is usually called when implementing <a class="link" href="dee-1.0-Filters.html#DeeFilterMapFunc" title="DeeFilterMapFunc ()"><span class="type">DeeFilterMapFunc</span></a> or
+<a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a> methods.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Always returns <em class="parameter"><code>iter</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-insert-iter-before"></a><h3>dee_filter_model_insert_iter_before ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_filter_model_insert_iter_before (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *pos</code></em>);</pre>
+<p>
+Includes <em class="parameter"><code>iter</code></em> from the back end model in the filtered model, inserting it at
+the position before <em class="parameter"><code>pos</code></em> pushing other rows down.
+</p>
+<p>
+This method is usually called when implementing <a class="link" href="dee-1.0-Filters.html#DeeFilterMapFunc" title="DeeFilterMapFunc ()"><span class="type">DeeFilterMapFunc</span></a> or
+<a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a> methods.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Always returns <em class="parameter"><code>iter</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-insert-iter-with-original-order"></a><h3>dee_filter_model_insert_iter_with_original_order ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_filter_model_insert_iter_with_original_order
+                                                        (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);</pre>
+<p>
+<em class="parameter"><code>self</code></em>: A <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> instance
+<em class="parameter"><code>iter</code></em>: Iterator
+</p>
+<p>
+Inserts <em class="parameter"><code>iter</code></em> in <em class="parameter"><code>self</code></em> in a way that is consistent with the ordering of the
+rows in the original <span class="type">DeeModel</span> behind <em class="parameter"><code>self</code></em>. THis method assumes that <em class="parameter"><code>self</code></em>
+is already ordered this way. If that's not the case then this method has
+undefined behaviour.
+</p>
+<p>
+This method is mainly intended as a helper for <a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a> functions
+of <a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter"><span class="type">DeeFilter</span></a> implementations that creates filter models sorted in
+accordance with the original models.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Always returns <em class="parameter"><code>iter</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-new"></a><h3>dee_filter_model_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeModel</span> *          dee_filter_model_new                (<em class="parameter"><code><span class="type">DeeModel</span> *orig_model</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter"><span class="type">DeeFilter</span></a> *filter</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>orig_model</code></em> :</span></p></td>
+<td>The back end model. This will be set as the
+<a class="link" href="DeeProxyModel.html#DeeProxyModel--back-end" title='The "back-end" property'><span class="type">"back-end"</span></a> property</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>Structure containing the logic used to create the filter model.
+The filter model will create it's own copy of <em class="parameter"><code>filter</code></em> so unless
+<em class="parameter"><code>filter</code></em> is allocated statically or on the stack you need to free it
+after calling this method.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated <a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a>. Free with <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> DeeFilterModel]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-filter-model-prepend-iter"></a><h3>dee_filter_model_prepend_iter ()</h3>
+<pre class="programlisting"><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="returnvalue">DeeModelIter</span></a> *      dee_filter_model_prepend_iter       (<em class="parameter"><code><a class="link" href="DeeFilterModel.html" title="DeeFilterModel"><span class="type">DeeFilterModel</span></a> *self</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="dee-1.0-DeeModel.html#DeeModelIter"><span class="type">DeeModelIter</span></a> *iter</code></em>);</pre>
+<p>
+Includes <em class="parameter"><code>iter</code></em> from the back end model in the filtered model, prepending
+it to the beginning of the filtered rows.
+</p>
+<p>
+This method is usually called when implementing <a class="link" href="dee-1.0-Filters.html#DeeFilterMapFunc" title="DeeFilterMapFunc ()"><span class="type">DeeFilterMapFunc</span></a> or
+<a class="link" href="dee-1.0-Filters.html#DeeFilterMapNotify" title="DeeFilterMapNotify ()"><span class="type">DeeFilterMapNotify</span></a> methods.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>Always returns <em class="parameter"><code>iter</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="DeeFilterModel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="DeeFilterModel--filter"></a><h3>The <code class="literal">"filter"</code> property</h3>
+<pre class="programlisting">  "filter"                   <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              : Read / Write / Construct Only</pre>
+<p>
+Property holding the <a class="link" href="dee-1.0-Filters.html#DeeFilter" title="DeeFilter"><span class="type">DeeFilter</span></a> used to filter the model
+defined in the <span class="type">"back-end"</span> property.
+</p>
+<p>
+Type: DeeFilter
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

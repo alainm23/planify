@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/canonical/unity/lenses/" id="com.canonical.Unity.Lenses" gettext-domain="libunity">
+    <key type="s" name="remote-content-search">
+      <default>'none'</default>
+      <choices><choice value='all'/><choice value='none'/></choices>
+      <summary>Content fetching from remote source preference.</summary>
+      <description>"all" is to enable the supported default lens to search from remote and commercial sources. "none" will indicate the lenses to not perform that remote search at all.</description>
+    </key>
+    <key type="as" name="always-search">
+      <default>['applications.scope','music.scope','videos.scope','files.scope']</default>
+      <summary>Scopes that will always be searched from Home Lens.</summary>
+      <description>List of scope IDs that will always be running and searched by Unity Dash - Home Lens.</description>
+    </key>
+    <key type="as" name="disabled-scopes">
+      <default>[]</default>
+      <summary>Scopes that will be ignored during queries.</summary>
+      <description>List of scope IDs that will be ignored when master scopes are querying their subscopes (this list changes when user enables or disables a scope).</description>
+    </key>
+    <key type="as" name="hidden-scopes">
+      <default>[]</default>
+      <summary>Scopes that are blacklisted.</summary>
+      <description>List of scope IDs that will be considered the same as if they were not installed at all.</description>
+    </key>
+    <key type="as" name="locked-scopes">
+      <default>[]</default>
+      <summary>Scopes that cannot be enabled nor disabled by the user.</summary>
+      <description>List of scope IDs that the user will see as installed and won't be able to enable nor disable.</description>
+    </key>
+    <key type="as" name="home-lens-priority">
+      <default>['files.scope', 'music.scope' ]</default>
+      <summary>List of scope ids specifying how categories should be ordered in the Dash home screen.</summary>
+      <description>The ordering of categories listed on the Dash home screen will be influenced by this list.</description>
+    </key>
+    <key type="as" name="home-lens-default-view">
+      <default>['applications.scope', 'files.scope']</default>
+      <summary>Scopes in default Dash Home Lens view, when there is no search query entered.</summary>
+      <description>List of scopes IDs which will be queried in the default view of Home Lens.</description>
+    </key>
+  </schema>
+</schemalist>

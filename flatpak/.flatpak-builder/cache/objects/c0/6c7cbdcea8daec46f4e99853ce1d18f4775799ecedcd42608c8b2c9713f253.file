@@ -1,0 +1,52 @@
+--- vladimir@worklogic.com: this below isn't implemented yet! ---
+--- Talk to me if you're interested in it and want to help ---
+                           Latex/Psfrag Attributes+
+Only work in -Tps and if latex2e and psfrag.sty ver.3 are installed.
+  The resulting ps file will print latex commands unless you include it in a
+tex file that does \usepackage[scanall]{psfrag}, or run it through the
+supplied script "psfrag" (which wraps it in such a tex file).
+
+psfrag: string [GNE]. This text is passed through latex. 
+  Example: node: a1 [psfrag="$\alpha_1$"]
+           edge: x->y [label="x -> y" psfrag="$x \rightarrow y$"] 
+  The name/label is used only as a guide for positioning, but you better
+  specify them. E.g. if the edge had no label attribute, dot would have to
+  assume that the label is 17 characters wide.
+    The line breaks \l,\n,\r are *not* processed in the psfrag attribute.
+  If you want line breaks, arrange it with latex commands, and *also* specify
+  a label that emulates the breaks.
+tailpsfrag/headpsfrag: string [E]. Same for tail/head of the edge.
+fontname: [GNE] Use any of the commands described in latex2e's fntguide.
+  If the command sequence contains %s, the text is inserted there. Else the
+  text is preceded by the command, all surrounded by braces. For example, if
+  the text is "..." then \texttt{%s} becomes \texttt{...}, and \ttfamily
+  becomes {\ttfamily ...}. 
+    If fontname matches "tt" then dot will use fixed font width for its
+  positioning (is 0.65 right??). If fontname matches "bf" then dot will
+  multiply the width for positioning purposes by ?? (for all families??).
+    You cannot change the font by simply giving a different font name.
+  E.g. to switch to Courier, you either have to use \texttt{%s} with a style
+  that uses Postscript fonts, or else use \fontfamily{pcr}\selectfont ("pcr"
+  stands for postscript courier). As a precaution, dot won't output a fontname
+  that does not contain \.
+    Often used commands are \rmfamily (roman), \sffamily (sans serif),
+  \ttfamily (typewriter), \mdseries (medium, i.e. normal), \bfseries (bold),
+  \upshape (upright, i.e. normal), \itshape (italic), \slshape (slanted),
+  \scshape (small caps); or their equivalents \textrm{%s}, ...; \boldmath;
+  \mathcal{%s}.
+fontsize: "n\cmd". [GNE] Dot assumes for positioning purposes that the font is
+  n points high, and emits the font changing command \cmd to latex. Both n and
+  \cmd are optional.
+    If \cmd is missing then you are informing dot that the latex fontsize is n.
+  *Please* do this at the top level. The default 14 is probably wrong for you.
+  The correct setting for a 10pt article style is "digraph G {fontsize=10 ...}"
+    If you use "n!", dot will force this size to latex by emitting commands
+  \fontsize\selectfont. This is not smart unless you use scalable fonts, eg
+  postscript fonts. 
+    If n is missing and \cmd is one of the standard commands \tiny,
+  \scriptsize, \footnotesize, \normalsize, \large, \Large, \LARGE, \huge or
+  \HUGE, dot will compute the new size automatically. Otherwise you have to
+  specify both.
+    If the command contains %s, the text will be inserted there, else the
+  text is preceded by the command, all surrounded by braces.
+

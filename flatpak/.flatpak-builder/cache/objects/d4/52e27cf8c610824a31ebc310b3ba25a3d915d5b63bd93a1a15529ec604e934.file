@@ -1,0 +1,32 @@
+digraph Alf {
+size = "6,9";
+node [ shape = record ];
+Decl [ label = "\n\nDecl|{name|access|decl_flags|extern_c_linkage}"];
+Nontype_decl [ label = "Nontype_decl|{type}"];
+Defined_decl [ label = "Defined_decl|{linkage}"];
+Data_decl [ label = "Data_decl|{storage_class}"];
+Function_decl [ label = "Function_decl|{formals|defaults}"];
+Data [ label = "Data|{initializer}"];
+Function [ label = "Function|{body}"];
+Constructor [ label = "Constructor|{member_initializers}"];
+Aggregate ->  Type_decl ;
+Class -> Aggregate;
+Union -> Aggregate;
+Data -> Data_decl;
+Data -> Defn;
+Data_decl -> Defined_decl;
+Data_member ->  Nontype_decl ;
+Defined_decl -> Nontype_decl;
+Defn -> Defined_decl;
+Enum ->  Type_decl ;
+Enumerator ->  Nontype_decl ;
+Function -> Defn;
+Function -> Function_decl;
+Constructor -> Function;
+Destructor -> Function;
+Function_decl -> Defined_decl;
+Nontype_decl ->  Decl ;
+Template_type_arg ->  Type_decl ;
+Type_decl ->  Decl ;
+Typedef ->  Type_decl ;
+}

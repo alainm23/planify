@@ -1,0 +1,55 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-unknowntokenhandling.h"
+#include "libical-glib-private.h"
+
+/**
+ * i_cal_get_unknown_token_handling_setting:
+ *
+ * Get the setting of #ICalUnknowntokenhandling
+ *
+ * Returns: The setting of #ICalUnknowntokenhandling
+ *
+ * Since: 1.0
+ *
+ **/
+ICalUnknowntokenhandling
+i_cal_get_unknown_token_handling_setting (void)
+{
+	return (ICalUnknowntokenhandling) (ical_get_unknown_token_handling_setting ());
+}
+
+/**
+ * i_cal_set_unknown_token_handling_setting:
+ * @newSetting: A #ICalUnknowntokenhandling
+ *
+ * Set the setting of #ICalUnknowntokenhandling
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_set_unknown_token_handling_setting (ICalUnknowntokenhandling newSetting)
+{
+	ical_set_unknown_token_handling_setting ((ical_unknown_token_handling) (newSetting));
+}

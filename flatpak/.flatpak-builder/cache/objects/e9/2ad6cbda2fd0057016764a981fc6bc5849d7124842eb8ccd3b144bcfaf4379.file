@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DeeResourceManager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Dee Reference Manual">
+<link rel="up" href="ch04.html" title="Resources and Serialization">
+<link rel="prev" href="DeeFileResourceManager.html" title="DeeFileResourceManager">
+<link rel="next" href="dee-1.0-DeeSerializable.html" title="DeeSerializable">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="DeeFileResourceManager.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Dee Reference Manual</th>
+<td><a accesskey="n" href="dee-1.0-DeeSerializable.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#dee-1.0-DeeResourceManager.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#dee-1.0-DeeResourceManager.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="dee-1.0-DeeResourceManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="dee-1.0-DeeResourceManager.top_of_page"></a>DeeResourceManager</span></h2>
+<p>DeeResourceManager — Store and load <span class="type">DeeSerializable</span>s by name</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="dee-1.0-DeeResourceManager.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;dee.h&gt;
+
+struct              <a class="link" href="dee-1.0-DeeResourceManager.html#DeeResourceManagerIface" title="struct DeeResourceManagerIface">DeeResourceManagerIface</a>;
+<span class="returnvalue">DeeResourceManager</span> * <a class="link" href="dee-1.0-DeeResourceManager.html#dee-resource-manager-get-default" title="dee_resource_manager_get_default ()">dee_resource_manager_get_default</a>   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           <a class="link" href="dee-1.0-DeeResourceManager.html#dee-resource-manager-load" title="dee_resource_manager_load ()">dee_resource_manager_load</a>           (<em class="parameter"><code><span class="type">DeeResourceManager</span> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="dee-1.0-DeeResourceManager.html#dee-resource-manager-store" title="dee_resource_manager_store ()">dee_resource_manager_store</a>          (<em class="parameter"><code><span class="type">DeeResourceManager</span> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeSerializable</span> *resource</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-DeeResourceManager.description"></a><h2>Description</h2>
+<p>
+The <span class="type">DeeResourceManager</span> API provides a simple API for storing and loading
+DeeSerializables from some persistent storage. The resources
+are stored in a flat structure identified by names that should be chosen
+similarly to DBus names. That is reverse domain names ala
+net.launchpad.Example.MyData.
+</p>
+</div>
+<div class="refsect1">
+<a name="dee-1.0-DeeResourceManager.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="DeeResourceManagerIface"></a><h3>struct DeeResourceManagerIface</h3>
+<pre class="programlisting">struct DeeResourceManagerIface {
+  GTypeInterface g_iface;
+
+  gboolean       (*store)         (DeeResourceManager  *self,
+                                   DeeSerializable     *resource,
+                                   const gchar         *resource_name,
+                                   GError             **error);
+
+  GObject*       (*load)          (DeeResourceManager  *self,
+                                   const gchar         *resource_name,
+                                   GError             **error);
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-resource-manager-get-default"></a><h3>dee_resource_manager_get_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">DeeResourceManager</span> * dee_resource_manager_get_default   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Get a pointer to the platform default <span class="type">DeeResourceManager</span>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>The default resource manager for the platform.
+Do not unreference. If you need to keep the instance around
+you must manually reference it. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-resource-manager-load"></a><h3>dee_resource_manager_load ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="returnvalue">GObject</span></a> *           dee_resource_manager_load           (<em class="parameter"><code><span class="type">DeeResourceManager</span> *self</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Load a resource from persistent storage. The loaded resource will be of the
+same GType as when it was stored (provided that the same serialization and
+parse functions are registered).
+</p>
+<p>
+In case of an error the error will be in the <a href="http://library.gnome.org/devel/glib/unstable/glib-File-Utilities.html#GFileError"><span class="type">GFileError</span></a> domain. Specifically
+if there is no resource with the name <em class="parameter"><code>resource_name</code></em> the error code will
+be <a href="http://library.gnome.org/devel/glib/unstable/glib-File-Utilities.html#G-FILE-ERROR-NOENT:CAPS"><span class="type">G_FILE_ERROR_NOENT</span></a>.
+</p>
+<p>
+Important note: This call may do blocking IO. The resource manager must
+guarantee that this call is reasonably fast, like writing the externalized
+resource to a file, but not blocking IO over a network socket.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The resource manager to invoke</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>resource_name</code></em> :</span></p></td>
+<td>The name of the resource to retrieve</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>A return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> pointer. <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore errors</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>A newly allocated <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> in case of success
+and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> otherwise. In case of a runtime error the <em class="parameter"><code>error</code></em>
+pointer will be set. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="dee-resource-manager-store"></a><h3>dee_resource_manager_store ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            dee_resource_manager_store          (<em class="parameter"><code><span class="type">DeeResourceManager</span> *self</code></em>,
+                                                         <em class="parameter"><code><span class="type">DeeSerializable</span> *resource</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_name</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Store a resource under a given name. The resource manager must guarantee
+that the stored data survives system reboots and that you can recreate a
+copy of <em class="parameter"><code>resource</code></em> by calling <a class="link" href="dee-1.0-DeeResourceManager.html#dee-resource-manager-load" title="dee_resource_manager_load ()"><code class="function">dee_resource_manager_load()</code></a> using the
+same <em class="parameter"><code>resource_name</code></em>.
+</p>
+<p>
+Important note: This call may do blocking IO. The resource manager must
+guarantee that this call is reasonably fast, like writing the externalized
+resource to a file, but not blocking IO over a network socket.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>self</code></em> :</span></p></td>
+<td>The resource manager to invoke</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>resource</code></em> :</span></p></td>
+<td>A <span class="type">DeeSerializable</span> to store under <em class="parameter"><code>resource_name</code></em>. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>resource_name</code></em> :</span></p></td>
+<td>The name to store the resource under. Will overwrite any
+existing resource with the same name</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>A return location for a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> pointer. <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore errors</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success and <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise. In case of a runtime
+error the <em class="parameter"><code>error</code></em> pointer will point to a <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> in the
+<span class="type">DeeResourceError</span> domain.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

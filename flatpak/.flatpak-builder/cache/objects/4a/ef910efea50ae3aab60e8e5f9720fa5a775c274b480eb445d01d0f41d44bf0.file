@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Copyright 2013-2015 The Rust Project Developers.
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!--
+ This file is based on the file published at
+
+    https://github.com/rust-lang/gedit-config
+
+ by the Rust developers, which used the following license:
+
+Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
+http://www.apache.org/licenses/LICENSE-2.0> or the MIT license
+<LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
+option. This file may not be copied, modified, or distributed
+except according to those terms.
+-->
+
+<language id="rust" name="Rust" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/rust</property>
+    <property name="globs">*.rs</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"    name="Comment"       map-to="def:comment"/>
+    <style id="string"     name="String"        map-to="def:string"/>
+    <style id="char"       name="Character"     map-to="def:character"/>
+    <style id="keyword"    name="Keyword"       map-to="def:keyword"/>
+    <style id="type"       name="Data Type"     map-to="def:type"/>
+    <style id="boolean"    name="Boolean value" map-to="def:boolean"/>
+    <style id="identifier" name="Identifier"    map-to="def:identifier"/>
+    <style id="number"     name="Number"        map-to="def:number"/>
+    <style id="scope"      name="Scope"         map-to="def:preprocessor"/>
+    <style id="attribute"  name="Attribute"     map-to="def:preprocessor"/>
+    <style id="macro"      name="Macro"         map-to="def:preprocessor"/>
+    <style id="error"      name="Error"         map-to="def:error"/>
+  </styles>
+
+  <definitions>
+
+    <context id="function" style-ref="keyword">
+      <keyword>fn</keyword>
+    </context>
+
+    <context id="type" style-ref="keyword">
+      <keyword>type</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>as</keyword>
+      <keyword>box</keyword>
+      <keyword>break</keyword>
+      <keyword>const</keyword>
+      <keyword>continue</keyword>
+      <keyword>crate</keyword>
+      <keyword>default</keyword>
+      <keyword>else</keyword>
+      <keyword>enum</keyword>
+      <keyword>extern</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>impl</keyword>
+      <keyword>in</keyword>
+      <keyword>let</keyword>
+      <keyword>loop</keyword>
+      <keyword>match</keyword>
+      <keyword>mod</keyword>
+      <keyword>move</keyword>
+      <keyword>mut</keyword>
+      <keyword>pub</keyword>
+      <keyword>ref</keyword>
+      <keyword>return</keyword>
+      <keyword>static</keyword>
+      <keyword>struct</keyword>
+      <keyword>super</keyword>
+      <keyword>trait</keyword>
+      <keyword>union</keyword>
+      <keyword>unsafe</keyword>
+      <keyword>use</keyword>
+      <keyword>where</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="reserved" style-ref="keyword">
+      <keyword>abstract</keyword>
+      <keyword>alignof</keyword>
+      <keyword>become</keyword>
+      <keyword>do</keyword>
+      <keyword>final</keyword>
+      <keyword>macro</keyword>
+      <keyword>offsetof</keyword>
+      <keyword>override</keyword>
+      <keyword>priv</keyword>
+      <keyword>proc</keyword>
+      <keyword>pure</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unsized</keyword>
+      <keyword>virtual</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>isize</keyword>
+      <keyword>usize</keyword>
+      <keyword>i8</keyword>
+      <keyword>i16</keyword>
+      <keyword>i32</keyword>
+      <keyword>i64</keyword>
+      <keyword>i128</keyword>
+      <keyword>u8</keyword>
+      <keyword>u16</keyword>
+      <keyword>u32</keyword>
+      <keyword>u64</keyword>
+      <keyword>u128</keyword>
+      <keyword>f32</keyword>
+      <keyword>f64</keyword>
+      <keyword>char</keyword>
+      <keyword>str</keyword>
+    </context>
+
+    <context id="self" style-ref="identifier">
+      <keyword>Self</keyword>
+      <keyword>self</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <define-regex id="int-suffix" extended="true">
+      (i8|i16|i32|i64|i128|isize|u8|u16|u32|u64|u128|usize)
+    </define-regex>
+
+    <define-regex id="exponent" extended="true">
+      ([eE][+-]?[0-9_]+)
+    </define-regex>
+
+    <define-regex id="float-suffix" extended="true">
+      (\%{exponent}?(f32|f64)?)|(\.[0-9][0-9_]*\%{exponent}?)?(f32|f64)?|\.
+    </define-regex>
+
+    <define-regex id="num-suffix" extended="true">
+      \%{int-suffix}|\%{float-suffix}
+    </define-regex>
+
+    <define-regex id="bin-digit" extended="true">
+      [01]
+    </define-regex>
+
+    <define-regex id="hex-digit" extended="true">
+      [0-9a-fA-F]
+    </define-regex>
+
+    <define-regex id="oct-digit" extended="true">
+      [0-7]
+    </define-regex>
+
+    <context id="number" style-ref="number">
+      <match extended="true">
+        ((?&lt;=\.\.)|(?&lt;![\w\.]))
+        (
+        [0-9][0-9_]*\%{num-suffix}?|
+        0b(\%{bin-digit}|_)+\%{int-suffix}?|
+        0o(\%{oct-digit}|_)+\%{int-suffix}?|
+        0x(\%{hex-digit}|_)+\%{int-suffix}?
+        )
+        ((?![\w\.].)|(?=\.\.))
+      </match>
+    </context>
+
+    <context id="invalid-number" style-ref="error">
+      <match extended="true">
+        ((?&lt;=\.\.)|(?&lt;![\w\.]))
+        (
+        0b(\%{bin-digit}|_)*(?!\%{bin-digit}|_).\w*\%{int-suffix}?|
+        0o(\%{oct-digit}|_)*(?!\%{oct-digit}|_).\w*\%{int-suffix}?|
+        0x(\%{hex-digit}|_)*(?!\%{hex-digit}|_).\w*\%{int-suffix}?
+        )
+        ((?![\w\.].)|(?=\.\.))
+      </match>
+    </context>
+
+    <define-regex id="ident" extended="true">
+      ([^[:cntrl:][:space:][:punct:][:digit:]]|_)([^[:cntrl:][:punct:][:space:]]|_)*
+    </define-regex>
+
+    <context id="scope" style-ref="scope">
+      <match extended="true">
+        \%{ident}::
+      </match>
+    </context>
+
+    <context id="macro" style-ref="macro">
+      <match extended="true">
+        \%{ident}!
+      </match>
+    </context>
+
+    <context id="lifetime" style-ref="keyword">
+      <match extended="true">
+        '\%{ident}
+      </match>
+    </context>
+
+    <define-regex id="common-escape" extended="true">
+      '|"|
+      \\|n|r|t|0|
+      x\%{hex-digit}{2}
+    </define-regex>
+
+    <define-regex id="unicode-escape" extended="true">
+      u{(\%{hex-digit}_*){1,6}}
+    </define-regex>
+
+    <context id="string-escape" style-ref="def:special-char">
+      <match>\\\%{common-escape}|\\\%{unicode-escape}</match>
+    </context>
+
+    <context id="byte-string-escape" style-ref="def:special-char">
+      <match>\\\%{common-escape}</match>
+    </context>
+
+    <context id="raw-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>b?r(#*)"</start>
+      <end>"\%{1@start}</end>
+      <include>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="string-escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="byte-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>b"</start>
+      <end>"</end>
+      <include>
+        <context ref="byte-string-escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="char" style-ref="char">
+      <match extended="true">'([^\\']|\\\%{common-escape}|\\\%{unicode-escape})'</match>
+    </context>
+
+    <context id="invalid-char" style-ref="error">
+      <match extended="true">'([^\\']|\\\%{common-escape}|\\\%{unicode-escape}){2,}'(?!\%{ident})</match>
+    </context>
+
+    <context id="byte" style-ref="char">
+      <match extended="true">b'([^\\']|\\\%{common-escape})'</match>
+    </context>
+
+    <context id="invalid-byte" style-ref="error">
+      <match extended="true">b'([^\\']|\\\%{common-escape}){2,}'</match>
+    </context>
+
+    <context id="attribute" style-ref="attribute" class="attribute">
+      <start extended="true">\#!?\[</start>
+      <end>\]</end>
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="string"/>
+        <context ref="raw-string"/>
+      </include>
+    </context>
+
+    <context id="comment-multiline-nested" style-ref="comment" class-disabled="no-spell-check" class="comment" >
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="comment-multiline-nested"/>
+      </include>
+    </context>
+
+    <context id="rust" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment" style-ref="comment"/>
+        <context ref="comment-multiline-nested"/>
+        <context ref="function"/>
+        <context ref="type"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="self"/>
+        <context ref="macro"/>
+        <context ref="boolean"/>
+        <context ref="number"/>
+        <context ref="invalid-number"/>
+        <context ref="scope"/>
+        <context ref="string"/>
+        <context ref="byte-string"/>
+        <context ref="raw-string"/>
+        <context ref="char"/>
+        <context ref="invalid-char"/>
+        <context ref="byte"/>
+        <context ref="invalid-byte"/>
+        <context ref="lifetime"/>
+        <context ref="attribute"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@katamail.com>
+ Copyright (C) 2008 Paolo Borelli <pborelli@katamail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="xslt" name="XSLT" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">application/xslt+xml</property>
+    <property name="globs">*.xslt;*.xsl</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="element" name="Element" map-to="def:keyword"/>
+    <style id="namespace" name="Namespace" map-to="xslt:element"/>
+  </styles>
+
+  <definitions>
+
+    <context id="namespace" style-ref="namespace">
+      <match>(?&lt;!:)xsl:</match>
+    </context>
+
+    <context id="xslt-namespace">
+      <include>
+        <context ref="namespace"/>
+        <context ref="xml:namespace" original="true"/>
+      </include>
+    </context>
+
+    <context id="elements" once-only="true" style-ref="element">
+      <suffix>\b(?!\s*=)</suffix>
+      <keyword>analyze-string</keyword>
+      <keyword>apply-imports</keyword>
+      <keyword>apply-templates</keyword>
+      <keyword>attribute-set</keyword>
+      <keyword>attribute</keyword>
+      <keyword>call-template</keyword>
+      <keyword>character-map</keyword>
+      <keyword>choose</keyword>
+      <keyword>comment</keyword>
+      <keyword>copy-of</keyword>
+      <keyword>copy</keyword>
+      <keyword>decimal-format</keyword>
+      <keyword>document</keyword>
+      <keyword>element</keyword>
+      <keyword>fallback</keyword>
+      <keyword>for-each-group</keyword>
+      <keyword>for-each</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>import-schema</keyword>
+      <keyword>import</keyword>
+      <keyword>include</keyword>
+      <keyword>key</keyword>
+      <keyword>matching-substring</keyword>
+      <keyword>message</keyword>
+      <keyword>namespace-alias</keyword>
+      <keyword>namespace</keyword>
+      <keyword>number</keyword>
+      <keyword>next-match</keyword>
+      <keyword>non-matching-substring</keyword>
+      <keyword>otherwise</keyword>
+      <keyword>output-character</keyword>
+      <keyword>output</keyword>
+      <keyword>param</keyword>
+      <keyword>perform-sort</keyword>
+      <keyword>preserve-space</keyword>
+      <keyword>processing-instruction</keyword>
+      <keyword>result-document</keyword>
+      <keyword>script</keyword>
+      <keyword>sequence</keyword>
+      <keyword>sort</keyword>
+      <keyword>strip-space</keyword>
+      <keyword>stylesheet</keyword>
+      <keyword>template</keyword>
+      <keyword>text</keyword>
+      <keyword>transform</keyword>
+      <keyword>value-of</keyword>
+      <keyword>variable</keyword>
+      <keyword>when</keyword>
+      <keyword>with-param</keyword>
+    </context>
+
+    <context id="xslt-tags">
+      <include>
+        <context ref="elements"/>
+        <context ref="xml:element-name" original="true"/>
+      </include>
+    </context>
+
+    <replace id="xml:namespace" ref="xslt-namespace"/>
+    <replace id="xml:element-name" ref="xslt-tags"/>
+
+    <context id="xslt">
+      <include>
+        <context ref="xml:xml"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

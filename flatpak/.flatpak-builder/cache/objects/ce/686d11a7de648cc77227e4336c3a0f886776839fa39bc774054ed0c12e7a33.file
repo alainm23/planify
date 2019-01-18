@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg6649"
+   height="48"
+   width="48"
+   version="1.1">
+  <defs
+     id="defs6651" />
+  <metadata
+     id="metadata6654">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="rect5505-21"
+     d="M 6.5 5 C 5.115 5 4 6.115 4 7.5 L 4 42.5 C 4 43.885 5.115 45 6.5 45 L 41.5 45 C 42.885 45 44 43.885 44 42.5 L 44 7.5 C 44 6.115 42.885 5 41.5 5 L 6.5 5 z M 10.005859 19 C 21.03491 19 30.00003 27.954516 30 38.994141 L 25.970703 38.994141 C 25.970703 30.175131 18.816419 23.013672 10.005859 23.013672 L 10.005859 19 z M 10 26.945312 C 16.647016 26.945312 22.054688 32.342511 22.054688 39 L 18.410156 39 C 18.410156 34.35232 14.640372 30.578125 10 30.578125 L 10 26.945312 z M 12.318359 34.621094 C 12.916557 34.62111 13.423368 34.833378 13.839844 35.257812 C 14.263886 35.674703 14.476563 36.190763 14.476562 36.804688 C 14.476562 37.403486 14.263886 37.913453 13.839844 38.337891 C 13.423368 38.754779 12.916557 38.964858 12.318359 38.964844 C 11.70501 38.964858 11.185776 38.754779 10.761719 38.337891 C 10.337688 37.921033 10.126953 37.411065 10.126953 36.804688 C 10.126953 36.190764 10.337688 35.674702 10.761719 35.257812 C 11.185776 34.833377 11.70501 34.62111 12.318359 34.621094 z "
+     style="color:#000000;font-variation-settings:normal;display:inline;overflow:visible;visibility:visible;opacity:1;vector-effect:none;fill:#666666;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.02564108;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
+</svg>

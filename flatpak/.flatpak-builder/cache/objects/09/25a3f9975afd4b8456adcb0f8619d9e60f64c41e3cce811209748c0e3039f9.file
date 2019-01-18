@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Sapphire Becker <guess@logicplace.com>
+ Copyright (C) 2011 by Sapphire Becker <guess@logicplace.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+<!--
+ TODO:
+  If once-only or end-parent is ever supported for context-reference and
+  context-to-be-included elements this can be updated to allow only one
+  value in the doc, after a key, and between each comma in an array. Also
+  I'd be able to add support for displaying an error for trailing commas.
+-->
+<language id="json" name="JSON" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">application/json</property>
+    <property name="globs">*.json;*.geojson;*.topojson</property>
+  </metadata>
+
+  <styles>
+    <style id="keyname"       name="Key"                   map-to="def:constant"/>
+    <style id="special-char"  name="Escaped Character"     map-to="js:escape"/>
+    <style id="string"        name="String"                map-to="js:string"/>
+    <style id="null-value"    name="Null Value"            map-to="js:null-value"/>
+    <style id="boolean"       name="Boolean Value"         map-to="js:boolean"/>
+    <style id="error"         name="Error"                 map-to="def:error"/>
+    <style id="decimal"       name="Decimal"               map-to="def:decimal"/>
+    <style id="float"         name="Floating point number" map-to="def:floating-point"/>
+  </styles>
+
+  <definitions>
+    <context id="array">
+      <start>\[</start>
+      <end>\]</end>
+      <include>
+        <context>
+          <start></start>
+          <end>,|\s*(?=\&#93;)</end>
+            <include>
+            <context ref="value"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="object">
+      <start>\{</start>
+      <end>\}</end>
+      <include>
+        <context ref="string" style-ref="keyname"/>
+        <context>
+          <start>:</start>
+          <end>,|\s*(?=})</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="keyname"/>
+            <context ref="value"/>
+          </include>
+        </context>
+        <context ref="catchall"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context id="valid-escape" style-ref="special-char">
+          <match>\\(?:[ntrfb"\\/]|u[0-9a-fA-F]{4})</match>
+        </context>
+        <context id="invalid-escape" style-ref="error">
+          <match>\\(?:x[0-9a-fA-F]{2}|[0-3]?[0-7]{1,2}|.)</match>
+        </context>
+        <context id="line-continue" style-ref="error">
+          <start>\\$</start>
+          <end>^</end>
+        </context>
+      </include>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>-?(?:[1-9][0-9]*|0)(?![.eE])</match>
+    </context>
+
+    <context id="float" style-ref="float">
+      <match>-?(?:[1-9][0-9]*|0)(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?</match>
+    </context>
+
+    <context id="catchall" style-ref="error" extend-parent="false">
+      <match>\S</match>
+    </context>
+
+    <context id="value"><include>
+      <context ref="object"/>
+      <context ref="array"/>
+      <context ref="string"/>
+      <context ref="decimal"/>
+      <context ref="float"/>
+      <context ref="js:null-value" style-ref="null-value"/>
+      <context ref="js:boolean" style-ref="boolean"/>
+      <context ref="catchall"/>
+    </include></context>
+
+    <context id="json" class="no-spell-check">
+      <include>
+        <context ref="value"/>
+      </include>
+    </context>
+  </definitions>
+</language>

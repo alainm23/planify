@@ -1,0 +1,157 @@
+load ('def.lefty');
+definit ();
+#
+# initialize window data
+#
+canvas = defcanvas;
+wrect = [0 = ['x' = 0; 'y' = 0;]; 1 = ['x' = 400; 'y' = 500;];];
+setwidgetattr (canvas, ['window' = wrect;]);
+#
+# data structures
+#
+objarray = [];
+objnum = 0;
+#
+# misc functions
+#
+min = function (a, b) {
+    if (a <= b)
+        return a;
+    return b;
+};
+max = function (a, b) {
+    if (b <= a)
+        return a;
+    return b;
+};
+rectof = function (p1, p2) {
+    return [
+        0 = ['x' = min (p1.x, p2.x); 'y' = min (p1.y, p2.y);];
+        1 = ['x' = max (p1.x, p2.x); 'y' = max (p1.y, p2.y);];
+    ];
+};
+pointadd = function (p1, p2) {
+    return ['x' = p2.x + p1.x; 'y' = p2.y + p1.y;];
+};
+pointsub = function (p1, p2) {
+    return ['x' = p2.x - p1.x; 'y' = p2.y - p1.y;];
+};
+#
+# rendering functions
+#
+drawbox = function (obj, color) {
+    box (canvas, obj, obj.rect, ['color' = color;]);
+};
+redrawboxes = function () {
+    local i;
+    clear (canvas);
+    for (i = 0; i < objnum; i = i + 1)
+        drawbox (objarray[i], 1);
+};
+redraw = function (canvas) {
+    redrawboxes ();
+};
+#
+# editing functions
+#
+new = function (rect) {
+    objarray[objnum] = [
+        'rect' = rect;
+        'id' = objnum;
+    ];
+    objnum = objnum + 1;
+    return objarray[objnum - 1];
+};
+reshape = function (obj, rect) {
+    obj.rect = rect;
+    return obj;
+};
+move = function (obj, p) {
+    obj.rect[0] = pointadd (obj.rect[0], p);
+    obj.rect[1] = pointadd (obj.rect[1], p);
+    return obj;
+};
+delete = function (obj) {
+    if (obj.id ~= objnum - 1) {
+        objarray[obj.id] = objarray[objnum - 1];
+        objarray[obj.id].id = obj.id;
+    }
+    remove (objnum - 1, objarray);
+    objnum = objnum - 1;
+};
+#
+# user interface functions
+#
+# left mouse button creates new box
+# middle button moves a box
+# right button deletes a box
+#
+leftdown = function (data) {
+    if (data.obj ~= null)
+        return;
+    leftbox = new (rectof (data.pos, data.pos));
+    drawbox (leftbox, 1);
+    setgfxattr (canvas, ['mode' = 'xor';]);
+};
+leftmove = function (data) {
+    if (~leftbox)
+        return;
+    drawbox (leftbox, 1);
+    clearpick (canvas, leftbox);
+    reshape (leftbox, rectof (data.ppos, data.pos));
+    drawbox (leftbox, 1);
+};
+leftup = function (data) {
+    if (~leftbox)
+        return;
+    drawbox (leftbox, 1);
+    clearpick (canvas, leftbox);
+    reshape (leftbox, rectof (data.ppos, data.pos));
+    setgfxattr (canvas, ['mode' = 'src';]);
+    drawbox (leftbox, 1);
+    remove ('leftbox');
+};
+middledown = function (data) {
+    if (data.obj == null)
+        return;
+    middlebox = data.obj;
+    middlepos = data.pos;
+    setgfxattr (canvas, ['mode' = 'xor';]);
+};
+middlemove = function (data) {
+    if (~middlebox)
+        return;
+    drawbox (middlebox, 1);
+    clearpick (canvas, middlebox);
+    move (middlebox, pointsub (middlepos, data.pos));
+    middlepos = data.pos;
+    drawbox (middlebox, 1);
+};
+middleup = function (data) {
+    if (~middlebox)
+        return;
+    drawbox (middlebox, 1);
+    clearpick (canvas, middlebox);
+    move (middlebox, pointsub (middlepos, data.pos));
+    setgfxattr (canvas, ['mode' = 'src';]);
+    drawbox (middlebox, 1);
+    remove ('middlepos');
+    remove ('middlebox');
+};
+rightup = function (data) {
+    if (data.pobj == null)
+        return;
+    drawbox (data.obj, 0);
+    clearpick (canvas, data.obj);
+    delete (data.obj);
+};
+dops = function () {
+    local s;
+
+    s = ['x' = 8 * 300; 'y' = 10.5 * 300;];
+    canvas = createwidget (-1, ['type' = 'ps'; 'size' = s;]);
+    setwidgetattr (canvas, ['window' = wrect;]);
+    redraw (canvas);
+    destroywidget (canvas);
+    canvas=defcanvas;
+};

@@ -1,0 +1,11 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/graphviz
+
+Name: libgvpr
+Description: The GVPR library
+Version: 2.40.1
+Libs: -L${libdir} -lgvpr -lcgraph -lcdt
+Cflags: -I${includedir}
+

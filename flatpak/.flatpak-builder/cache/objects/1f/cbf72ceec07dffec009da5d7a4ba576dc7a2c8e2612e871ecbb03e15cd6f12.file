@@ -1,0 +1,3126 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GObject" version="2.0"/>
+  <include name="Gio" version="2.0"/>
+  <include name="Json" version="1.0"/>
+  <include name="Soup" version="2.4"/>
+  <package name="geocode-glib-1.0"/>
+  <c:include name="geocode-glib/geocode-glib.h"/>
+  <namespace name="GeocodeGlib"
+             version="1.0"
+             shared-library="libgeocode-glib.so.0"
+             c:identifier-prefixes="Geocode"
+             c:symbol-prefixes="geocode">
+    <interface name="Backend"
+               c:symbol-prefix="backend"
+               c:type="GeocodeBackend"
+               version="3.23.1"
+               glib:type-name="GeocodeBackend"
+               glib:get-type="geocode_backend_get_type"
+               glib:type-struct="BackendInterface">
+      <doc xml:space="preserve">All the fields in the #GeocodeBackend structure are private and should
+never be accessed directly.</doc>
+      <virtual-method name="forward_search"
+                      invoker="forward_search"
+                      version="3.23.1"
+                      throws="1">
+        <doc xml:space="preserve">Gets the result of a forward geocoding query using the @backend.
+
+If no results are found, a %GEOCODE_ERROR_NO_MATCHES error is returned.
+
+This is a synchronous function, which means it may block on network requests.
+In most situations, the asynchronous version
+(geocode_backend_forward_search_async()) is more appropriate. See its
+documentation for more information on usage.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="forward_search_async"
+                      invoker="forward_search_async"
+                      version="3.23.1">
+        <doc xml:space="preserve">Asynchronously performs a forward geocoding query using the @backend. Use
+geocode_backend_forward_search() to do the same thing synchronously.
+
+The @params hash table is in the format used by Telepathy, and documented
+in the [Telepathy specification](http://telepathy.freedesktop.org/spec/Connection_Interface_Location.html#Mapping:Location).
+
+See also: [XEP-0080 specification](http://xmpp.org/extensions/xep-0080.html).
+
+When the operation is finished, @callback will be called. You can then call
+geocode_backend_forward_search_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     closure="3">
+            <doc xml:space="preserve">the data to pass to the @callback function</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="forward_search_finish"
+                      invoker="forward_search_finish"
+                      version="3.23.1"
+                      throws="1">
+        <doc xml:space="preserve">Finishes a forward geocoding operation. See
+geocode_backend_forward_search_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="reverse_resolve"
+                      invoker="reverse_resolve"
+                      version="3.23.1"
+                      throws="1">
+        <doc xml:space="preserve">Gets the result of a reverse geocoding query using the @backend.
+
+If no result could be found, a %GEOCODE_ERROR_NOT_SUPPORTED error will be
+returned. This typically happens if the coordinates to geocode are in the
+middle of the ocean.
+
+This is a synchronous function, which means it may block on network requests.
+In most situations, the asynchronous version,
+geocode_backend_forward_search_async(), is more appropriate. See its
+documentation for more information on usage.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="reverse_resolve_async"
+                      invoker="reverse_resolve_async"
+                      version="3.23.1">
+        <doc xml:space="preserve">Asynchronously gets the result of a reverse geocoding query using the
+backend.
+
+Typically, a single result will be returned representing the place at a
+given latitude and longitude (the `lat` and `lon` keys to @params); but in
+some cases the results will be ambiguous and *multiple* results will be
+returned. They will be returned in order of relevance, with the most
+relevant result first in the list.
+
+The @params hash table is in the format used by Telepathy, and documented
+in the [Telepathy specification](http://telepathy.freedesktop.org/spec/Connection_Interface_Location.html#Mapping:Location).
+
+See also: [XEP-0080 specification](http://xmpp.org/extensions/xep-0080.html).
+
+Use geocode_backend_reverse_resolve() to do the same thing synchronously.
+
+When the operation is finished, @callback will be called. You can then call
+geocode_backend_reverse_resolve_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied.</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     closure="3">
+            <doc xml:space="preserve">the data to pass to callback function.</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="reverse_resolve_finish"
+                      invoker="reverse_resolve_finish"
+                      version="3.23.1"
+                      throws="1">
+        <doc xml:space="preserve">Finishes a reverse geocoding operation. See geocode_backend_reverse_resolve_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="forward_search"
+              c:identifier="geocode_backend_forward_search"
+              version="3.23.1"
+              throws="1">
+        <doc xml:space="preserve">Gets the result of a forward geocoding query using the @backend.
+
+If no results are found, a %GEOCODE_ERROR_NO_MATCHES error is returned.
+
+This is a synchronous function, which means it may block on network requests.
+In most situations, the asynchronous version
+(geocode_backend_forward_search_async()) is more appropriate. See its
+documentation for more information on usage.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="forward_search_async"
+              c:identifier="geocode_backend_forward_search_async"
+              version="3.23.1">
+        <doc xml:space="preserve">Asynchronously performs a forward geocoding query using the @backend. Use
+geocode_backend_forward_search() to do the same thing synchronously.
+
+The @params hash table is in the format used by Telepathy, and documented
+in the [Telepathy specification](http://telepathy.freedesktop.org/spec/Connection_Interface_Location.html#Mapping:Location).
+
+See also: [XEP-0080 specification](http://xmpp.org/extensions/xep-0080.html).
+
+When the operation is finished, @callback will be called. You can then call
+geocode_backend_forward_search_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">the data to pass to the @callback function</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="forward_search_finish"
+              c:identifier="geocode_backend_forward_search_finish"
+              version="3.23.1"
+              throws="1">
+        <doc xml:space="preserve">Finishes a forward geocoding operation. See
+geocode_backend_forward_search_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="reverse_resolve"
+              c:identifier="geocode_backend_reverse_resolve"
+              version="3.23.1"
+              throws="1">
+        <doc xml:space="preserve">Gets the result of a reverse geocoding query using the @backend.
+
+If no result could be found, a %GEOCODE_ERROR_NOT_SUPPORTED error will be
+returned. This typically happens if the coordinates to geocode are in the
+middle of the ocean.
+
+This is a synchronous function, which means it may block on network requests.
+In most situations, the asynchronous version,
+geocode_backend_forward_search_async(), is more appropriate. See its
+documentation for more information on usage.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="reverse_resolve_async"
+              c:identifier="geocode_backend_reverse_resolve_async"
+              version="3.23.1">
+        <doc xml:space="preserve">Asynchronously gets the result of a reverse geocoding query using the
+backend.
+
+Typically, a single result will be returned representing the place at a
+given latitude and longitude (the `lat` and `lon` keys to @params); but in
+some cases the results will be ambiguous and *multiple* results will be
+returned. They will be returned in order of relevance, with the most
+relevant result first in the list.
+
+The @params hash table is in the format used by Telepathy, and documented
+in the [Telepathy specification](http://telepathy.freedesktop.org/spec/Connection_Interface_Location.html#Mapping:Location).
+
+See also: [XEP-0080 specification](http://xmpp.org/extensions/xep-0080.html).
+
+Use geocode_backend_reverse_resolve() to do the same thing synchronously.
+
+When the operation is finished, @callback will be called. You can then call
+geocode_backend_reverse_resolve_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied.</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">the data to pass to callback function.</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="reverse_resolve_finish"
+              c:identifier="geocode_backend_reverse_resolve_finish"
+              version="3.23.1"
+              throws="1">
+        <doc xml:space="preserve">Finishes a reverse geocoding operation. See geocode_backend_reverse_resolve_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="backend" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBackend.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </instance-parameter>
+          <parameter name="result" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </method>
+    </interface>
+    <record name="BackendInterface"
+            c:type="GeocodeBackendInterface"
+            glib:is-gtype-struct-for="Backend"
+            version="3.23.1">
+      <doc xml:space="preserve">Interface which defines the basic operations for geocoding.</doc>
+      <field name="g_iface" readable="0" private="1">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="forward_search">
+        <callback name="forward_search" throws="1">
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="params" transfer-ownership="none">
+              <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+              <type name="GLib.HashTable" c:type="GHashTable*">
+                <type name="utf8"/>
+                <type name="GObject.Value"/>
+              </type>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="forward_search_async">
+        <callback name="forward_search_async">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="params" transfer-ownership="none">
+              <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+              <type name="GLib.HashTable" c:type="GHashTable*">
+                <type name="utf8"/>
+                <type name="GObject.Value"/>
+              </type>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <doc xml:space="preserve">optional #GCancellable, %NULL to ignore.</doc>
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+            <parameter name="callback"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       scope="async"
+                       closure="4">
+              <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied</doc>
+              <type name="Gio.AsyncReadyCallback"
+                    c:type="GAsyncReadyCallback"/>
+            </parameter>
+            <parameter name="user_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       closure="4">
+              <doc xml:space="preserve">the data to pass to the @callback function</doc>
+              <type name="gpointer" c:type="gpointer"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="forward_search_finish">
+        <callback name="forward_search_finish" throws="1">
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="result" transfer-ownership="none">
+              <doc xml:space="preserve">a #GAsyncResult.</doc>
+              <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="reverse_resolve">
+        <callback name="reverse_resolve" throws="1">
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="params" transfer-ownership="none">
+              <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+              <type name="GLib.HashTable" c:type="GHashTable*">
+                <type name="utf8"/>
+                <type name="GObject.Value"/>
+              </type>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="reverse_resolve_async">
+        <callback name="reverse_resolve_async">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="params" transfer-ownership="none">
+              <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+              <type name="GLib.HashTable" c:type="GHashTable*">
+                <type name="utf8"/>
+                <type name="GObject.Value"/>
+              </type>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+            <parameter name="callback"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       scope="async"
+                       closure="4">
+              <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied.</doc>
+              <type name="Gio.AsyncReadyCallback"
+                    c:type="GAsyncReadyCallback"/>
+            </parameter>
+            <parameter name="user_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       closure="4">
+              <doc xml:space="preserve">the data to pass to callback function.</doc>
+              <type name="gpointer" c:type="gpointer"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="reverse_resolve_finish">
+        <callback name="reverse_resolve_finish" throws="1">
+          <return-value transfer-ownership="full">
+            <doc xml:space="preserve">A list of
+   #GeocodePlace instances, or %NULL in case of errors. The list is ordered
+   by relevance, with most relevant results first. Free the returned
+   instances with g_object_unref() and the list with g_list_free() when done.</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </return-value>
+          <parameters>
+            <parameter name="backend" transfer-ownership="none">
+              <doc xml:space="preserve">a #GeocodeBackend.</doc>
+              <type name="Backend" c:type="GeocodeBackend*"/>
+            </parameter>
+            <parameter name="result" transfer-ownership="none">
+              <doc xml:space="preserve">a #GAsyncResult.</doc>
+              <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="padding" readable="0" private="1">
+        <array zero-terminated="0" c:type="gpointer" fixed-size="4">
+          <type name="gpointer" c:type="gpointer"/>
+        </array>
+      </field>
+    </record>
+    <class name="BoundingBox"
+           c:symbol-prefix="bounding_box"
+           c:type="GeocodeBoundingBox"
+           parent="GObject.Object"
+           glib:type-name="GeocodeBoundingBox"
+           glib:get-type="geocode_bounding_box_get_type"
+           glib:type-struct="BoundingBoxClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeLocation structure are private and should
+never be accessed directly.</doc>
+      <constructor name="new" c:identifier="geocode_bounding_box_new">
+        <doc xml:space="preserve">Creates a new #GeocodeBoundingBox object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeBoundingBox object. Use g_object_unref() when done.</doc>
+          <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+        </return-value>
+        <parameters>
+          <parameter name="top" transfer-ownership="none">
+            <doc xml:space="preserve">The left coordinate</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="bottom" transfer-ownership="none">
+            <doc xml:space="preserve">The bottom coordinate</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="left" transfer-ownership="none">
+            <doc xml:space="preserve">The left coordinate</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="right" transfer-ownership="none">
+            <doc xml:space="preserve">The right coordinate</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="equal"
+              c:identifier="geocode_bounding_box_equal"
+              version="3.23.1">
+        <doc xml:space="preserve">Compare two #GeocodeBoundingBox instances for equality. This compares all
+fields and only returns %TRUE if the instances are exactly equal.
+
+Both instances must be non-%NULL.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">%TRUE if the instances are equal, %FALSE otherwise</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="a" transfer-ownership="none">
+            <doc xml:space="preserve">a bounding box</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </instance-parameter>
+          <parameter name="b" transfer-ownership="none">
+            <doc xml:space="preserve">another bounding box</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_bottom" c:identifier="geocode_bounding_box_get_bottom">
+        <doc xml:space="preserve">Gets the bottom coordinate of @bbox.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">the bottom coordinate of @bbox.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="bbox" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBoundingBox</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_left" c:identifier="geocode_bounding_box_get_left">
+        <doc xml:space="preserve">Gets the left coordinate of @bbox.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">the left coordinate of @bbox.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="bbox" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBoundingBox</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_right" c:identifier="geocode_bounding_box_get_right">
+        <doc xml:space="preserve">Gets the right coordinate of @bbox.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">the right coordinate of @bbox.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="bbox" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBoundingBox</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_top" c:identifier="geocode_bounding_box_get_top">
+        <doc xml:space="preserve">Gets the top coordinate of @bbox.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">the top coordinate of @bbox.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="bbox" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeBoundingBox</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <property name="bottom"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">Bottom coordinate.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="left"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">Left coordinate.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="right"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">Right coordinate.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="top"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">Top coordinate.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <field name="parent_instance" readable="0" private="1">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="BoundingBoxPrivate" c:type="GeocodeBoundingBoxPrivate*"/>
+      </field>
+    </class>
+    <record name="BoundingBoxClass"
+            c:type="GeocodeBoundingBoxClass"
+            glib:is-gtype-struct-for="BoundingBox">
+      <doc xml:space="preserve">All the fields in the #GeocodeBoundingBoxClass structure are private and
+should never be accessed directly.</doc>
+      <field name="parent_class" readable="0" private="1">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="BoundingBoxPrivate"
+            c:type="GeocodeBoundingBoxPrivate"
+            disguised="1">
+    </record>
+    <enumeration name="Error"
+                 glib:type-name="GeocodeError"
+                 glib:get-type="geocode_error_get_type"
+                 c:type="GeocodeError"
+                 glib:error-domain="geocode_error">
+      <doc xml:space="preserve">Error codes returned by geocode-glib functions.</doc>
+      <member name="parse"
+              value="0"
+              c:identifier="GEOCODE_ERROR_PARSE"
+              glib:nick="parse">
+        <doc xml:space="preserve">An error occured parsing the response from the web service.</doc>
+      </member>
+      <member name="not_supported"
+              value="1"
+              c:identifier="GEOCODE_ERROR_NOT_SUPPORTED"
+              glib:nick="not-supported">
+        <doc xml:space="preserve">The request made was not supported.</doc>
+      </member>
+      <member name="no_matches"
+              value="2"
+              c:identifier="GEOCODE_ERROR_NO_MATCHES"
+              glib:nick="no-matches">
+        <doc xml:space="preserve">The requests made didn't have any matches.</doc>
+      </member>
+      <member name="invalid_arguments"
+              value="3"
+              c:identifier="GEOCODE_ERROR_INVALID_ARGUMENTS"
+              glib:nick="invalid-arguments">
+        <doc xml:space="preserve">The request made contained invalid arguments.</doc>
+      </member>
+      <member name="internal_server"
+              value="4"
+              c:identifier="GEOCODE_ERROR_INTERNAL_SERVER"
+              glib:nick="internal-server">
+        <doc xml:space="preserve">The server encountered an (possibly unrecoverable) internal error.</doc>
+      </member>
+      <function name="quark" c:identifier="geocode_error_quark">
+        <doc xml:space="preserve">Gets the geocode-glib error quark.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a #GQuark.</doc>
+          <type name="GLib.Quark" c:type="GQuark"/>
+        </return-value>
+      </function>
+    </enumeration>
+    <class name="Forward"
+           c:symbol-prefix="forward"
+           c:type="GeocodeForward"
+           parent="GObject.Object"
+           glib:type-name="GeocodeForward"
+           glib:get-type="geocode_forward_get_type"
+           glib:type-struct="ForwardClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeForward structure are private and should never be accessed directly.</doc>
+      <constructor name="new_for_params"
+                   c:identifier="geocode_forward_new_for_params">
+        <doc xml:space="preserve">Creates a new #GeocodeForward to perform geocoding with. The
+#GHashTable is in the format used by Telepathy, and documented
+on &lt;ulink url="http://telepathy.freedesktop.org/spec/Connection_Interface_Location.html#Mapping:Location"&gt;Telepathy's specification site&lt;/ulink&gt;.
+
+See also: &lt;ulink url="http://xmpp.org/extensions/xep-0080.html"&gt;XEP-0080 specification&lt;/ulink&gt;.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeForward. Use g_object_unref() when done.</doc>
+          <type name="Forward" c:type="GeocodeForward*"/>
+        </return-value>
+        <parameters>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">a #GHashTable with string keys, and #GValue values.</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_for_string"
+                   c:identifier="geocode_forward_new_for_string">
+        <doc xml:space="preserve">Creates a new #GeocodeForward to perform forward geocoding with. The
+string is in free-form format.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeForward. Use g_object_unref() when done.</doc>
+          <type name="Forward" c:type="GeocodeForward*"/>
+        </return-value>
+        <parameters>
+          <parameter name="str" transfer-ownership="none">
+            <doc xml:space="preserve">a string containing a free-form description of the location</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="get_answer_count"
+              c:identifier="geocode_forward_get_answer_count">
+        <doc xml:space="preserve">Gets the number of requested results for searches.</doc>
+        <return-value transfer-ownership="none">
+          <type name="guint" c:type="guint"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_bounded" c:identifier="geocode_forward_get_bounded">
+        <doc xml:space="preserve">Gets the #GeocodeForward:bounded property that regulates whether the
+#GeocodeForward:search-area property acts restricting or not.</doc>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_search_area"
+              c:identifier="geocode_forward_get_search_area">
+        <doc xml:space="preserve">Gets the area to limit searches within.</doc>
+        <return-value transfer-ownership="none" nullable="1">
+          <doc xml:space="preserve">the search area, or %NULL if none is set</doc>
+          <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="search" c:identifier="geocode_forward_search" throws="1">
+        <doc xml:space="preserve">Gets the result of a forward geocoding
+query using the current backend (see geocode_forward_set_backend()). By
+default the GNOME Nominatim server is used. See #GeocodeBackend for more
+information.
+
+If no results are found, a %GEOCODE_ERROR_NO_MATCHES error is returned.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="search_async" c:identifier="geocode_forward_search_async">
+        <doc xml:space="preserve">Asynchronously performs a forward geocoding
+query using a web service. Use geocode_forward_search() to do the same
+thing synchronously.
+
+When the operation is finished, @callback will be called. You can then call
+geocode_forward_search_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable forward, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="2">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">the data to pass to callback function</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="search_finish"
+              c:identifier="geocode_forward_search_finish"
+              throws="1">
+        <doc xml:space="preserve">Finishes a forward geocoding operation. See geocode_forward_search_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A list of
+places or %NULL in case of errors. Free the returned instances with
+g_object_unref() and the list with g_list_free() when done.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="Place"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_answer_count"
+              c:identifier="geocode_forward_set_answer_count">
+        <doc xml:space="preserve">Sets the number of requested results to @count.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="count" transfer-ownership="none">
+            <doc xml:space="preserve">the number of requested results, which must be greater than zero</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_backend"
+              c:identifier="geocode_forward_set_backend"
+              version="3.23.1">
+        <doc xml:space="preserve">Specifies the backend to use in the forward geocoding operation.
+
+If none is given, the default GNOME Nominatim server is used.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="backend"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">a #GeocodeBackend, or %NULL to use the
+   default one.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_bounded" c:identifier="geocode_forward_set_bounded">
+        <doc xml:space="preserve">Set the #GeocodeForward:bounded property that regulates whether the
+#GeocodeForward:search-area property acts restricting or not.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="bounded" transfer-ownership="none">
+            <doc xml:space="preserve">#TRUE to restrict results to only items contained within the
+#GeocodeForward:search-area bounding box.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_search_area"
+              c:identifier="geocode_forward_set_search_area">
+        <doc xml:space="preserve">Sets the area to limit searches within.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="forward" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeForward representing a query</doc>
+            <type name="Forward" c:type="GeocodeForward*"/>
+          </instance-parameter>
+          <parameter name="box" transfer-ownership="none">
+            <doc xml:space="preserve">a bounding box to limit the search area.</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="answer-count" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The number of requested results to a search query.</doc>
+        <type name="guint" c:type="guint"/>
+      </property>
+      <property name="bounded" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">If set to #TRUE then only results in the #GeocodeForward:search-area
+bounding box are returned.
+If set to #FALSE the #GeocodeForward:search-area is treated like a
+preferred area for results.</doc>
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="search-area" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The bounding box that limits the search area.
+If #GeocodeForward:bounded property is set to #TRUE only results from
+this area is returned.</doc>
+        <type name="BoundingBox"/>
+      </property>
+      <field name="parent_instance" readable="0" private="1">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="ForwardPrivate" c:type="GeocodeForwardPrivate*"/>
+      </field>
+    </class>
+    <record name="ForwardClass"
+            c:type="GeocodeForwardClass"
+            glib:is-gtype-struct-for="Forward">
+      <doc xml:space="preserve">All the fields in the #GeocodeForwardClass structure are private and should never be accessed directly.</doc>
+      <field name="parent_class" readable="0" private="1">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ForwardPrivate" c:type="GeocodeForwardPrivate" disguised="1">
+    </record>
+    <constant name="LOCATION_ACCURACY_CITY"
+              value="15000"
+              c:type="GEOCODE_LOCATION_ACCURACY_CITY">
+      <doc xml:space="preserve">Constant representing city-level accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LOCATION_ACCURACY_CONTINENT"
+              value="3000000"
+              c:type="GEOCODE_LOCATION_ACCURACY_CONTINENT">
+      <doc xml:space="preserve">Constant representing continent-level accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LOCATION_ACCURACY_COUNTRY"
+              value="300000"
+              c:type="GEOCODE_LOCATION_ACCURACY_COUNTRY">
+      <doc xml:space="preserve">Constant representing country-level accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LOCATION_ACCURACY_REGION"
+              value="50000"
+              c:type="GEOCODE_LOCATION_ACCURACY_REGION">
+      <doc xml:space="preserve">Constant representing region-level accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LOCATION_ACCURACY_STREET"
+              value="1000"
+              c:type="GEOCODE_LOCATION_ACCURACY_STREET">
+      <doc xml:space="preserve">Constant representing street-level accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <constant name="LOCATION_ACCURACY_UNKNOWN"
+              value="-1"
+              c:type="GEOCODE_LOCATION_ACCURACY_UNKNOWN">
+      <doc xml:space="preserve">Constant representing unknown accuracy.</doc>
+      <type name="gint" c:type="gint"/>
+    </constant>
+    <class name="Location"
+           c:symbol-prefix="location"
+           c:type="GeocodeLocation"
+           parent="GObject.Object"
+           glib:type-name="GeocodeLocation"
+           glib:get-type="geocode_location_get_type"
+           glib:type-struct="LocationClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeLocation structure are private and should never be accessed directly.</doc>
+      <constructor name="new" c:identifier="geocode_location_new">
+        <doc xml:space="preserve">Creates a new #GeocodeLocation object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeLocation object. Use g_object_unref() when done.</doc>
+          <type name="Location" c:type="GeocodeLocation*"/>
+        </return-value>
+        <parameters>
+          <parameter name="latitude" transfer-ownership="none">
+            <doc xml:space="preserve">a valid latitude</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="longitude" transfer-ownership="none">
+            <doc xml:space="preserve">a valid longitude</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="accuracy" transfer-ownership="none">
+            <doc xml:space="preserve">accuracy of location in meters</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_with_description"
+                   c:identifier="geocode_location_new_with_description">
+        <doc xml:space="preserve">Creates a new #GeocodeLocation object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeLocation object. Use g_object_unref() when done.</doc>
+          <type name="Location" c:type="GeocodeLocation*"/>
+        </return-value>
+        <parameters>
+          <parameter name="latitude" transfer-ownership="none">
+            <doc xml:space="preserve">a valid latitude</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="longitude" transfer-ownership="none">
+            <doc xml:space="preserve">a valid longitude</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="accuracy" transfer-ownership="none">
+            <doc xml:space="preserve">accuracy of location in meters</doc>
+            <type name="gdouble" c:type="gdouble"/>
+          </parameter>
+          <parameter name="description" transfer-ownership="none">
+            <doc xml:space="preserve">a description for the location</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="equal"
+              c:identifier="geocode_location_equal"
+              version="3.23.1">
+        <doc xml:space="preserve">Compare two #GeocodeLocation instances for equality. This compares all fields
+and only returns %TRUE if the instances are exactly equal. For example, if
+both locations have the same physical coordinates, but one location has its
+#GeocodeLocation:description property set and the other does not, %FALSE
+will be returned. Similarly, if both locations have the same
+#GeocodeLocation:latitude, #GeocodeLocation:longitude and
+#GeocodeLocation:altitude, but a different #GeocodeLocation:accuracy or
+#GeocodeLocation:timestamp, %FALSE will be returned. Or if both locations
+have the same#GeocodeLocation:latitude and #GeocodeLocation:longitude but a
+different #GeocodeLocation:altitude, %FALSE will be returned.
+
+Both instances must be non-%NULL.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">%TRUE if the instances are equal, %FALSE otherwise</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="a" transfer-ownership="none">
+            <doc xml:space="preserve">a location</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+          <parameter name="b" transfer-ownership="none">
+            <doc xml:space="preserve">another location</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_accuracy" c:identifier="geocode_location_get_accuracy">
+        <doc xml:space="preserve">Gets the accuracy (in meters) of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The accuracy of location @loc.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_altitude" c:identifier="geocode_location_get_altitude">
+        <doc xml:space="preserve">Gets the altitude of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The altitude of location @loc.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_crs" c:identifier="geocode_location_get_crs">
+        <doc xml:space="preserve">Gets the Coordinate Reference System Identification of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The CRS of location @loc.</doc>
+          <type name="LocationCRS" c:type="GeocodeLocationCRS"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_description"
+              c:identifier="geocode_location_get_description">
+        <doc xml:space="preserve">Gets the description of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The description of location @loc.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_distance_from"
+              c:identifier="geocode_location_get_distance_from">
+        <doc xml:space="preserve">Calculates the distance in km, along the curvature of the Earth,
+between 2 locations. Note that altitude changes are not
+taken into account.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a distance in km.</doc>
+          <type name="gdouble" c:type="double"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loca" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+          <parameter name="locb" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_latitude" c:identifier="geocode_location_get_latitude">
+        <doc xml:space="preserve">Gets the latitude of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The latitude of location @loc.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_longitude"
+              c:identifier="geocode_location_get_longitude">
+        <doc xml:space="preserve">Gets the longitude of location @loc.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The longitude of location @loc.</doc>
+          <type name="gdouble" c:type="gdouble"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_timestamp"
+              c:identifier="geocode_location_get_timestamp">
+        <doc xml:space="preserve">Gets the timestamp (in seconds since the Epoch) of location @loc. See
+#GeocodeLocation:timestamp.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The timestamp of location @loc.</doc>
+          <type name="guint64" c:type="guint64"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_description"
+              c:identifier="geocode_location_set_description">
+        <doc xml:space="preserve">Sets the description of @loc to @description.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+          <parameter name="description" transfer-ownership="none">
+            <doc xml:space="preserve">a description for the location</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_from_uri"
+              c:identifier="geocode_location_set_from_uri"
+              throws="1">
+        <doc xml:space="preserve">Initialize a #GeocodeLocation object with the given @uri.
+
+The URI should be in the geo scheme (RFC 5870) which in its simplest form
+looks like:
+
+- geo:latitude,longitude
+
+An &lt;ulink
+url="http://developer.android.com/guide/components/intents-common.html#Maps"&gt;
+Android extension&lt;/ulink&gt; to set a description is also supported in the form of:
+
+- geo:0,0?q=latitude,longitude(description)</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">%TRUE on success and %FALSE on error.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+          <parameter name="uri" transfer-ownership="none">
+            <doc xml:space="preserve">a URI mapping out a location</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="to_uri" c:identifier="geocode_location_to_uri">
+        <doc xml:space="preserve">Creates a URI representing @loc in the scheme specified in @scheme.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a URI representing the location. The returned string should be freed
+with g_free() when no longer needed.</doc>
+          <type name="utf8" c:type="char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="loc" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </instance-parameter>
+          <parameter name="scheme" transfer-ownership="none">
+            <doc xml:space="preserve">the scheme of the requested URI</doc>
+            <type name="LocationURIScheme" c:type="GeocodeLocationURIScheme"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="accuracy" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The accuracy of this location in meters.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="altitude" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The altitude of this location in meters.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="crs"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">The Coordinate Reference System Identification of this location.
+Only the value 'wgs84' is currently valid.</doc>
+        <type name="LocationCRS"/>
+      </property>
+      <property name="description" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The description of this location.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="latitude" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The latitude of this location in degrees.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="longitude" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The longitude of this location in degrees.</doc>
+        <type name="gdouble" c:type="gdouble"/>
+      </property>
+      <property name="timestamp"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">A timestamp in seconds since
+&lt;ulink url="http://en.wikipedia.org/wiki/Unix_epoch"&gt;Epoch&lt;/ulink&gt;,
+giving when the location was resolved from an address.
+
+A value of 0 (zero) will be interpreted as the current time.</doc>
+        <type name="guint64" c:type="guint64"/>
+      </property>
+      <field name="parent_instance" readable="0" private="1">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="LocationPrivate" c:type="GeocodeLocationPrivate*"/>
+      </field>
+    </class>
+    <enumeration name="LocationCRS"
+                 glib:type-name="GeocodeLocationCRS"
+                 glib:get-type="geocode_location_crs_get_type"
+                 c:type="GeocodeLocationCRS">
+      <doc xml:space="preserve">Coordinate Reference System Identification for a location.</doc>
+      <member name="wgs84"
+              value="0"
+              c:identifier="GEOCODE_LOCATION_CRS_WGS84"
+              glib:nick="wgs84">
+        <doc xml:space="preserve">CRS is World Geodetic System, standard for Earth.</doc>
+      </member>
+    </enumeration>
+    <record name="LocationClass"
+            c:type="GeocodeLocationClass"
+            glib:is-gtype-struct-for="Location">
+      <doc xml:space="preserve">All the fields in the #GeocodeLocationClass structure are private and should never be accessed directly.</doc>
+      <field name="parent_class" readable="0" private="1">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="LocationPrivate"
+            c:type="GeocodeLocationPrivate"
+            disguised="1">
+    </record>
+    <enumeration name="LocationURIScheme"
+                 glib:type-name="GeocodeLocationURIScheme"
+                 glib:get-type="geocode_location_uri_scheme_get_type"
+                 c:type="GeocodeLocationURIScheme">
+      <doc xml:space="preserve">The URI scheme for this location.</doc>
+      <member name="geo"
+              value="0"
+              c:identifier="GEOCODE_LOCATION_URI_SCHEME_GEO"
+              glib:nick="geo">
+        <doc xml:space="preserve">The 'geo' URI scheme, RFC 5870</doc>
+      </member>
+    </enumeration>
+    <class name="MockBackend"
+           c:symbol-prefix="mock_backend"
+           c:type="GeocodeMockBackend"
+           version="3.23.1"
+           parent="GObject.Object"
+           glib:type-name="GeocodeMockBackend"
+           glib:get-type="geocode_mock_backend_get_type"
+           glib:type-struct="MockBackendClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeMockBackend structure are private and should
+never be accessed directly.</doc>
+      <implements name="Backend"/>
+      <constructor name="new"
+                   c:identifier="geocode_mock_backend_new"
+                   version="3.23.1">
+        <doc xml:space="preserve">Creates a new mock backend implementation with no initial forward or reverse
+query results (so it will return an empty result set for all queries).</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeMockBackend</doc>
+          <type name="MockBackend" c:type="GeocodeMockBackend*"/>
+        </return-value>
+      </constructor>
+      <method name="add_forward_result"
+              c:identifier="geocode_mock_backend_add_forward_result"
+              version="3.23.1">
+        <doc xml:space="preserve">Add a query and corresponding result (or error) to the mock backend, meaning
+that if it receives a forward search for @params through
+geocode_backend_forward_search() (or its asynchronous variants), the mock
+backend will return the given @results or @error to the caller.
+
+If a set of @params is added to the backend multiple times, the most
+recently provided @results and @error will be used.
+
+Exactly one of @results and @error must be set. Empty result sets are
+represented as a %GEOCODE_ERROR_NO_MATCHES error.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeMockBackend</doc>
+            <type name="MockBackend" c:type="GeocodeMockBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">query parameters to
+    respond to, in the same format as accepted by geocode_forward_search()</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="results"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">result set
+    to return for the query, or %NULL if @error is non-%NULL; result sets
+    must be in the same format as returned by geocode_forward_search()</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </parameter>
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">error to return for the query, or %NULL if @results
+    should be returned instead; errors must match those returned by
+    geocode_forward_search()</doc>
+            <type name="GLib.Error" c:type="const GError*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="add_reverse_result"
+              c:identifier="geocode_mock_backend_add_reverse_result"
+              version="3.23.1">
+        <doc xml:space="preserve">Add a query and corresponding result (or error) to the mock backend, meaning
+that if it receives a reverse search for @params through
+geocode_backend_reverse_resolve() (or its asynchronous variants), the mock
+backend will return the given @results or @error to the caller.
+
+If a set of @params is added to the backend multiple times, the most
+recently provided @results and @error will be used.
+
+Exactly one of @results and @error must be set. Empty result sets are
+represented as a %GEOCODE_ERROR_NOT_SUPPORTED error.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeMockBackend</doc>
+            <type name="MockBackend" c:type="GeocodeMockBackend*"/>
+          </instance-parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve">query parameters to
+    respond to, in the same format as accepted by geocode_reverse_resolve()</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*">
+              <type name="utf8"/>
+              <type name="GObject.Value"/>
+            </type>
+          </parameter>
+          <parameter name="results"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">result set
+    to return for the query, or %NULL if @error is non-%NULL; result sets
+    must be in the same format as returned by geocode_reverse_resolve()</doc>
+            <type name="GLib.List" c:type="GList*">
+              <type name="Place"/>
+            </type>
+          </parameter>
+          <parameter name="error"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">error to return for the query, or %NULL if @results
+    should be returned instead; errors must match those returned by
+    geocode_reverse_resolve()</doc>
+            <type name="GLib.Error" c:type="const GError*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="clear"
+              c:identifier="geocode_mock_backend_clear"
+              version="3.23.1">
+        <doc xml:space="preserve">Clear the set of stored results in the mock backend which have been added
+using geocode_mock_backend_add_forward_result() and
+geocode_mock_backend_add_reverse_result(). Additionally, clear the query log
+so far (see geocode_mock_backend_get_query_log()).
+
+This effectively resets the mock backend to its initial state.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeMockBackend</doc>
+            <type name="MockBackend" c:type="GeocodeMockBackend*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_query_log"
+              c:identifier="geocode_mock_backend_get_query_log"
+              version="3.23.1">
+        <doc xml:space="preserve">Get the details of the forward and reverse queries which have been requested
+of the mock backend since the most recent call to
+geocode_mock_backend_clear(). The query details are provided as
+#GeocodeMockBackendQuery structures, which map the query parameters to
+either the result set or the error which geocode_backend_forward_search()
+or geocode_backend_reverse_resolve() (or their asynchronous variants)
+returned to the caller.
+
+The results are provided in the order in which calls were made to
+geocode_backend_forward_search() and geocode_backend_reverse_resolve().
+Results for forward and reverse queries may be interleaved.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">potentially
+    empty sequence of forward and reverse query details</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*">
+            <type name="MockBackendQuery"/>
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeMockBackend</doc>
+            <type name="MockBackend" c:type="GeocodeMockBackend*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+    </class>
+    <record name="MockBackendClass"
+            c:type="GeocodeMockBackendClass"
+            glib:is-gtype-struct-for="MockBackend">
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="MockBackendQuery"
+            c:type="GeocodeMockBackendQuery"
+            version="3.23.1">
+      <doc xml:space="preserve">The details of a forward or reverse query which was performed on a
+#GeocodeMockBackend by application code. This includes the input (@params,
+@is_forward), and the output which was returned (@results or @error).
+
+Empty result sets are represented by the %GEOCODE_ERROR_NO_MATCHES error
+(for forward queries) or the %GEOCODE_ERROR_NOT_SUPPORTED error (for reverse
+queries), rather than an empty @results list.</doc>
+      <field name="params" writable="1">
+        <doc xml:space="preserve">query parameters, in the format accepted by geocode_forward_search()
+    (if @is_forward is %TRUE) or geocode_reverse_resolve() (otherwise)</doc>
+        <type name="GLib.HashTable" c:type="GHashTable*">
+          <type name="gpointer" c:type="gpointer"/>
+          <type name="gpointer" c:type="gpointer"/>
+        </type>
+      </field>
+      <field name="is_forward" writable="1">
+        <doc xml:space="preserve">%TRUE if this represents a call to geocode_forward_search();
+    %FALSE if it represents a call to geocode_reverse_resolve()</doc>
+        <type name="gboolean" c:type="gboolean"/>
+      </field>
+      <field name="results" writable="1">
+        <doc xml:space="preserve">results returned by the
+    query, or %NULL if an error was returned</doc>
+        <type name="GLib.List" c:type="GList*">
+          <type name="Place"/>
+        </type>
+      </field>
+      <field name="error" writable="1">
+        <doc xml:space="preserve">error returned by the query, or %NULL if a result set
+    was returned</doc>
+        <type name="GLib.Error" c:type="GError*"/>
+      </field>
+    </record>
+    <class name="Nominatim"
+           c:symbol-prefix="nominatim"
+           c:type="GeocodeNominatim"
+           version="3.23.1"
+           parent="GObject.Object"
+           glib:type-name="GeocodeNominatim"
+           glib:get-type="geocode_nominatim_get_type"
+           glib:type-struct="NominatimClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeNominatim structure are private and should
+never be accessed directly.</doc>
+      <implements name="Backend"/>
+      <constructor name="new"
+                   c:identifier="geocode_nominatim_new"
+                   version="3.23.1">
+        <doc xml:space="preserve">Creates a new backend implementation for an online Nominatim server. See
+the documentation for #GeocodeNominatim:base-url and
+#GeocodeNominatim:maintainer-email-address.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeNominatim. Use g_object_unref() when done.</doc>
+          <type name="Nominatim" c:type="GeocodeNominatim*"/>
+        </return-value>
+        <parameters>
+          <parameter name="base_url" transfer-ownership="none">
+            <doc xml:space="preserve">a the base URL of the Nominatim server.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="maintainer_email_address" transfer-ownership="none">
+            <doc xml:space="preserve">the email address of the software maintainer.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <function name="get_gnome"
+                c:identifier="geocode_nominatim_get_gnome"
+                version="3.23.1">
+        <doc xml:space="preserve">Gets a reference to the default Nominatim server on nominatim.gnome.org.
+
+This function is thread-safe.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeNominatim. Use g_object_unref() when done.</doc>
+          <type name="Nominatim" c:type="GeocodeNominatim*"/>
+        </return-value>
+      </function>
+      <virtual-method name="query" throws="1">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Nominatim" c:type="GeocodeNominatim*"/>
+          </instance-parameter>
+          <parameter name="uri" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="query_async">
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Nominatim" c:type="GeocodeNominatim*"/>
+          </instance-parameter>
+          <parameter name="uri" transfer-ownership="none">
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="3">
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     closure="3">
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="query_finish" throws="1">
+        <return-value transfer-ownership="full">
+          <type name="utf8" c:type="gchar*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <type name="Nominatim" c:type="GeocodeNominatim*"/>
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none">
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <property name="base-url"
+                version="3.23.1"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">The base URL of the Nominatim service, for example
+`https://nominatim.example.org`.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="maintainer-email-address"
+                version="3.23.1"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">E-mail address of the maintainer of the software making the
+geocoding requests to the  Nominatim server. This is used to contact
+them in the event of a problem with their usage. See
+[the Nominatim API](http://wiki.openstreetmap.org/wiki/Nominatim).</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="user-agent"
+                version="3.23.1"
+                writable="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">User-Agent string to send with HTTP(S) requests, or %NULL to use the
+default user agent, which is derived from the geocode-glib version
+and #GApplication:id, for example: `geocode-glib/3.20 (MyAppId)`.
+
+As per the
+[Nominatim usage policy](http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy),
+it should be set to a string which identifies the application which
+is using geocode-glib, and must be a valid
+[user agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)
+string.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="NominatimClass"
+            c:type="GeocodeNominatimClass"
+            glib:is-gtype-struct-for="Nominatim"
+            version="3.23.1">
+      <doc xml:space="preserve">#GeocodeNominatim allows derived classes to override its query functions,
+which are called for each network request the Nominatim client makes. All
+network requests are `GET`s with no request body; just a URI. The default
+implementation makes the requests internally, but derived classes may want
+to override these queries to check the URIs for testing, for example.
+
+Applications should not normally have to derive #GeocodeNominatim; these
+virtual methods are mainly intended for testing.</doc>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+      <field name="query">
+        <callback name="query" throws="1">
+          <return-value transfer-ownership="full">
+            <type name="utf8" c:type="gchar*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Nominatim" c:type="GeocodeNominatim*"/>
+            </parameter>
+            <parameter name="uri" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="query_async">
+        <callback name="query_async">
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Nominatim" c:type="GeocodeNominatim*"/>
+            </parameter>
+            <parameter name="uri" transfer-ownership="none">
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+            <parameter name="cancellable"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1">
+              <type name="Gio.Cancellable" c:type="GCancellable*"/>
+            </parameter>
+            <parameter name="callback"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       scope="async"
+                       closure="4">
+              <type name="Gio.AsyncReadyCallback"
+                    c:type="GAsyncReadyCallback"/>
+            </parameter>
+            <parameter name="user_data"
+                       transfer-ownership="none"
+                       nullable="1"
+                       allow-none="1"
+                       closure="4">
+              <type name="gpointer" c:type="gpointer"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="query_finish">
+        <callback name="query_finish" throws="1">
+          <return-value transfer-ownership="full">
+            <type name="utf8" c:type="gchar*"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <type name="Nominatim" c:type="GeocodeNominatim*"/>
+            </parameter>
+            <parameter name="res" transfer-ownership="none">
+              <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <class name="Place"
+           c:symbol-prefix="place"
+           c:type="GeocodePlace"
+           parent="GObject.Object"
+           glib:type-name="GeocodePlace"
+           glib:get-type="geocode_place_get_type"
+           glib:type-struct="PlaceClass">
+      <doc xml:space="preserve">All the fields in the #GeocodePlace structure are private and should never be accessed directly.</doc>
+      <constructor name="new" c:identifier="geocode_place_new">
+        <doc xml:space="preserve">Creates a new #GeocodePlace object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodePlace object. Use g_object_unref() when done.</doc>
+          <type name="Place" c:type="GeocodePlace*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none">
+            <doc xml:space="preserve">the name of place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="place_type" transfer-ownership="none">
+            <doc xml:space="preserve">the type of place</doc>
+            <type name="PlaceType" c:type="GeocodePlaceType"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <constructor name="new_with_location"
+                   c:identifier="geocode_place_new_with_location">
+        <doc xml:space="preserve">Creates a new #GeocodePlace object.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodePlace object. Use g_object_unref() when done.</doc>
+          <type name="Place" c:type="GeocodePlace*"/>
+        </return-value>
+        <parameters>
+          <parameter name="name" transfer-ownership="none">
+            <doc xml:space="preserve">the name of place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+          <parameter name="place_type" transfer-ownership="none">
+            <doc xml:space="preserve">the type of place</doc>
+            <type name="PlaceType" c:type="GeocodePlaceType"/>
+          </parameter>
+          <parameter name="location" transfer-ownership="none">
+            <doc xml:space="preserve">the location info for the place</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="equal" c:identifier="geocode_place_equal" version="3.23.1">
+        <doc xml:space="preserve">Compare two #GeocodePlace instances for equality. This compares all fields
+and only returns %TRUE if the instances are exactly equal. For example, if
+both places have the same #GeocodePlace:location, but place @b has its
+#GeocodePlace:continent property set and place @a does not, %FALSE will be
+returned.
+
+Both instances must be non-%NULL.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">%TRUE if the instances are equal, %FALSE otherwise</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="a" transfer-ownership="none">
+            <doc xml:space="preserve">a place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="b" transfer-ownership="none">
+            <doc xml:space="preserve">another place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_administrative_area"
+              c:identifier="geocode_place_get_administrative_area">
+        <doc xml:space="preserve">Gets the local administrative area of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The local administrative area of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_area" c:identifier="geocode_place_get_area">
+        <doc xml:space="preserve">Gets the area of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The area of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_bounding_box"
+              c:identifier="geocode_place_get_bounding_box">
+        <doc xml:space="preserve">Gets the bounding box for the place @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">A #GeocodeBoundingBox, or NULL if boundaries are
+unknown.</doc>
+          <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_building" c:identifier="geocode_place_get_building">
+        <doc xml:space="preserve">Gets the building of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The building of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_continent" c:identifier="geocode_place_get_continent">
+        <doc xml:space="preserve">Gets the continent of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The continent of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_country" c:identifier="geocode_place_get_country">
+        <doc xml:space="preserve">Gets the country of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The country of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_country_code"
+              c:identifier="geocode_place_get_country_code">
+        <doc xml:space="preserve">Gets the ISO-3166 country code of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The ISO-3166 country code of the @place, in upper case.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_county" c:identifier="geocode_place_get_county">
+        <doc xml:space="preserve">Gets the county of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The country of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_icon" c:identifier="geocode_place_get_icon">
+        <doc xml:space="preserve">Gets the #GIcon representing the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The #GIcon representing the @place.</doc>
+          <type name="Gio.Icon" c:type="GIcon*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_location" c:identifier="geocode_place_get_location">
+        <doc xml:space="preserve">Gets the associated location object.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The associated location object.</doc>
+          <type name="Location" c:type="GeocodeLocation*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_name" c:identifier="geocode_place_get_name">
+        <doc xml:space="preserve">Gets the name of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The name of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_osm_id" c:identifier="geocode_place_get_osm_id">
+        <doc xml:space="preserve">Gets the OpenStreetMap ID of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The osm ID of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_osm_type" c:identifier="geocode_place_get_osm_type">
+        <doc xml:space="preserve">Gets the OpenStreetMap type of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The osm type of the @place.</doc>
+          <type name="PlaceOsmType" c:type="GeocodePlaceOsmType"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_place_type"
+              c:identifier="geocode_place_get_place_type">
+        <doc xml:space="preserve">Gets the type of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The type of the @place.</doc>
+          <type name="PlaceType" c:type="GeocodePlaceType"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_postal_code"
+              c:identifier="geocode_place_get_postal_code">
+        <doc xml:space="preserve">Gets the postal code of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The postal code of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_state" c:identifier="geocode_place_get_state">
+        <doc xml:space="preserve">Gets the state of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The state of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_street" c:identifier="geocode_place_get_street">
+        <doc xml:space="preserve">Gets the street of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The street of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_street_address"
+              c:identifier="geocode_place_get_street_address">
+        <doc xml:space="preserve">Gets the street address of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The street address of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="get_town" c:identifier="geocode_place_get_town">
+        <doc xml:space="preserve">Gets the town of the @place.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">The town of the @place.</doc>
+          <type name="utf8" c:type="const char*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="set_administrative_area"
+              c:identifier="geocode_place_set_administrative_area">
+        <doc xml:space="preserve">Sets the local administrative area of @place to @admin_area.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="admin_area" transfer-ownership="none">
+            <doc xml:space="preserve">an administrative area for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_area" c:identifier="geocode_place_set_area">
+        <doc xml:space="preserve">Sets the area of @place to @area.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="area" transfer-ownership="none">
+            <doc xml:space="preserve">a area</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_bounding_box"
+              c:identifier="geocode_place_set_bounding_box">
+        <doc xml:space="preserve">Sets the #GeocodeBoundingBox for the place @place.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="bbox" transfer-ownership="none">
+            <doc xml:space="preserve">A #GeocodeBoundingBox for the place</doc>
+            <type name="BoundingBox" c:type="GeocodeBoundingBox*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_building" c:identifier="geocode_place_set_building">
+        <doc xml:space="preserve">Sets the building of @place to @building.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="building" transfer-ownership="none">
+            <doc xml:space="preserve">a building</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_continent" c:identifier="geocode_place_set_continent">
+        <doc xml:space="preserve">Sets the continent of @place to @continent.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="continent" transfer-ownership="none">
+            <doc xml:space="preserve">a continent for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_country" c:identifier="geocode_place_set_country">
+        <doc xml:space="preserve">Sets the country of @place to @country.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="country" transfer-ownership="none">
+            <doc xml:space="preserve">a country for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_country_code"
+              c:identifier="geocode_place_set_country_code">
+        <doc xml:space="preserve">Sets the ISO country code of @place to @country_code.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="country_code" transfer-ownership="none">
+            <doc xml:space="preserve">an ISO country code for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_county" c:identifier="geocode_place_set_county">
+        <doc xml:space="preserve">Sets the county of @place to @county.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="county" transfer-ownership="none">
+            <doc xml:space="preserve">a county for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_location" c:identifier="geocode_place_set_location">
+        <doc xml:space="preserve">Sets the location of @place to @location.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="location" transfer-ownership="none">
+            <doc xml:space="preserve">A location</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_name" c:identifier="geocode_place_set_name">
+        <doc xml:space="preserve">Sets the name of the @place to @name.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="name" transfer-ownership="none">
+            <doc xml:space="preserve">the name of place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_postal_code"
+              c:identifier="geocode_place_set_postal_code">
+        <doc xml:space="preserve">Sets the postal code of @place to @postal_code.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="postal_code" transfer-ownership="none">
+            <doc xml:space="preserve">a postal code for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_state" c:identifier="geocode_place_set_state">
+        <doc xml:space="preserve">Sets the state of @place to @state.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="state" transfer-ownership="none">
+            <doc xml:space="preserve">a state for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_street" c:identifier="geocode_place_set_street">
+        <doc xml:space="preserve">Sets the street of @place to @street.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="street" transfer-ownership="none">
+            <doc xml:space="preserve">a street</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_street_address"
+              c:identifier="geocode_place_set_street_address">
+        <doc xml:space="preserve">Sets the street address of @place to @street_address.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="street_address" transfer-ownership="none">
+            <doc xml:space="preserve">a street address for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_town" c:identifier="geocode_place_set_town">
+        <doc xml:space="preserve">Sets the town of @place to @town.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="place" transfer-ownership="none">
+            <doc xml:space="preserve">A place</doc>
+            <type name="Place" c:type="GeocodePlace*"/>
+          </instance-parameter>
+          <parameter name="town" transfer-ownership="none">
+            <doc xml:space="preserve">a town for the place</doc>
+            <type name="utf8" c:type="const char*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <property name="administrative-area"
+                writable="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">The local administrative area.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="area" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">A named area such as a campus or neighborhood.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="bounding-box" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The bounding box for the place.</doc>
+        <type name="BoundingBox"/>
+      </property>
+      <property name="building" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">A specific building on a street or in an area.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="continent" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The continent.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="country" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The country.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="country-code" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The country code.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="county" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The county.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="icon" transfer-ownership="none">
+        <doc xml:space="preserve">#GIcon representing the @GeocodePlace.</doc>
+        <type name="Gio.Icon"/>
+      </property>
+      <property name="location" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The location info for the place.</doc>
+        <type name="Location"/>
+      </property>
+      <property name="name" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The name of the place.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="osm-id" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The OpenStreetMap id of the place.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="osm-type" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The OpenStreetMap type of the place.</doc>
+        <type name="PlaceOsmType"/>
+      </property>
+      <property name="place-type"
+                writable="1"
+                construct-only="1"
+                transfer-ownership="none">
+        <doc xml:space="preserve">The type of the place.</doc>
+        <type name="PlaceType"/>
+      </property>
+      <property name="postal-code" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The postal code.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="state" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The state.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="street" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The street name.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="street-address" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The street address.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="town" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve">The town.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <field name="parent_instance" readable="0" private="1">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="PlacePrivate" c:type="GeocodePlacePrivate*"/>
+      </field>
+    </class>
+    <record name="PlaceClass"
+            c:type="GeocodePlaceClass"
+            glib:is-gtype-struct-for="Place">
+      <doc xml:space="preserve">All the fields in the #GeocodePlaceClass structure are private and should never be accessed directly.</doc>
+      <field name="parent_class" readable="0" private="1">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <enumeration name="PlaceOsmType"
+                 glib:type-name="GeocodePlaceOsmType"
+                 glib:get-type="geocode_place_osm_type_get_type"
+                 c:type="GeocodePlaceOsmType">
+      <doc xml:space="preserve">Osm type of the place.</doc>
+      <member name="unknown"
+              value="0"
+              c:identifier="GEOCODE_PLACE_OSM_TYPE_UNKNOWN"
+              glib:nick="unknown">
+        <doc xml:space="preserve">Unknown type</doc>
+      </member>
+      <member name="node"
+              value="1"
+              c:identifier="GEOCODE_PLACE_OSM_TYPE_NODE"
+              glib:nick="node">
+        <doc xml:space="preserve">Defines a point in space.</doc>
+      </member>
+      <member name="relation"
+              value="2"
+              c:identifier="GEOCODE_PLACE_OSM_TYPE_RELATION"
+              glib:nick="relation">
+        <doc xml:space="preserve">Used to explain how other elements work together.</doc>
+      </member>
+      <member name="way"
+              value="3"
+              c:identifier="GEOCODE_PLACE_OSM_TYPE_WAY"
+              glib:nick="way">
+        <doc xml:space="preserve">Defines a linear feature and area boundaries.</doc>
+      </member>
+    </enumeration>
+    <record name="PlacePrivate" c:type="GeocodePlacePrivate" disguised="1">
+    </record>
+    <enumeration name="PlaceType"
+                 glib:type-name="GeocodePlaceType"
+                 glib:get-type="geocode_place_type_get_type"
+                 c:type="GeocodePlaceType">
+      <doc xml:space="preserve">Type of the place.</doc>
+      <member name="unknown"
+              value="0"
+              c:identifier="GEOCODE_PLACE_TYPE_UNKNOWN"
+              glib:nick="unknown">
+        <doc xml:space="preserve">Type is unknown for this place.</doc>
+      </member>
+      <member name="building"
+              value="1"
+              c:identifier="GEOCODE_PLACE_TYPE_BUILDING"
+              glib:nick="building">
+        <doc xml:space="preserve">A building or house.</doc>
+      </member>
+      <member name="street"
+              value="2"
+              c:identifier="GEOCODE_PLACE_TYPE_STREET"
+              glib:nick="street">
+        <doc xml:space="preserve">A street.</doc>
+      </member>
+      <member name="town"
+              value="3"
+              c:identifier="GEOCODE_PLACE_TYPE_TOWN"
+              glib:nick="town">
+        <doc xml:space="preserve">A populated settlement such as a city, town, village.</doc>
+      </member>
+      <member name="state"
+              value="4"
+              c:identifier="GEOCODE_PLACE_TYPE_STATE"
+              glib:nick="state">
+        <doc xml:space="preserve">One of the primary administrative areas within a country.</doc>
+      </member>
+      <member name="county"
+              value="5"
+              c:identifier="GEOCODE_PLACE_TYPE_COUNTY"
+              glib:nick="county">
+        <doc xml:space="preserve">One of the secondary administrative areas within a country.</doc>
+      </member>
+      <member name="local_administrative_area"
+              value="6"
+              c:identifier="GEOCODE_PLACE_TYPE_LOCAL_ADMINISTRATIVE_AREA"
+              glib:nick="local-administrative-area">
+        <doc xml:space="preserve">One of the tertiary administrative areas within a country.</doc>
+      </member>
+      <member name="postal_code"
+              value="7"
+              c:identifier="GEOCODE_PLACE_TYPE_POSTAL_CODE"
+              glib:nick="postal-code">
+        <doc xml:space="preserve">A partial or full postal code.</doc>
+      </member>
+      <member name="country"
+              value="8"
+              c:identifier="GEOCODE_PLACE_TYPE_COUNTRY"
+              glib:nick="country">
+        <doc xml:space="preserve">One of the countries or dependent territories defined by the ISO 3166-1 standard.</doc>
+      </member>
+      <member name="island"
+              value="9"
+              c:identifier="GEOCODE_PLACE_TYPE_ISLAND"
+              glib:nick="island">
+        <doc xml:space="preserve">An island.</doc>
+      </member>
+      <member name="airport"
+              value="10"
+              c:identifier="GEOCODE_PLACE_TYPE_AIRPORT"
+              glib:nick="airport">
+        <doc xml:space="preserve">An airport.</doc>
+      </member>
+      <member name="railway_station"
+              value="11"
+              c:identifier="GEOCODE_PLACE_TYPE_RAILWAY_STATION"
+              glib:nick="railway-station">
+        <doc xml:space="preserve">A railway station.</doc>
+      </member>
+      <member name="bus_stop"
+              value="12"
+              c:identifier="GEOCODE_PLACE_TYPE_BUS_STOP"
+              glib:nick="bus-stop">
+        <doc xml:space="preserve">A bus stop.</doc>
+      </member>
+      <member name="motorway"
+              value="13"
+              c:identifier="GEOCODE_PLACE_TYPE_MOTORWAY"
+              glib:nick="motorway">
+        <doc xml:space="preserve">A high capacity highways designed to safely carry fast motor traffic.</doc>
+      </member>
+      <member name="drainage"
+              value="14"
+              c:identifier="GEOCODE_PLACE_TYPE_DRAINAGE"
+              glib:nick="drainage">
+        <doc xml:space="preserve">A water feature such as a river, canal, lake, bay or ocean.</doc>
+      </member>
+      <member name="land_feature"
+              value="15"
+              c:identifier="GEOCODE_PLACE_TYPE_LAND_FEATURE"
+              glib:nick="land-feature">
+        <doc xml:space="preserve">A land feature such as a park, mountain or beach.</doc>
+      </member>
+      <member name="miscellaneous"
+              value="16"
+              c:identifier="GEOCODE_PLACE_TYPE_MISCELLANEOUS"
+              glib:nick="miscellaneous">
+        <doc xml:space="preserve">A uncategorized place.</doc>
+      </member>
+      <member name="supername"
+              value="17"
+              c:identifier="GEOCODE_PLACE_TYPE_SUPERNAME"
+              glib:nick="supername">
+        <doc xml:space="preserve">An area covering multiple countries.</doc>
+      </member>
+      <member name="point_of_interest"
+              value="18"
+              c:identifier="GEOCODE_PLACE_TYPE_POINT_OF_INTEREST"
+              glib:nick="point-of-interest">
+        <doc xml:space="preserve">A point of interest such as a school, hospital or tourist attraction.</doc>
+      </member>
+      <member name="suburb"
+              value="19"
+              c:identifier="GEOCODE_PLACE_TYPE_SUBURB"
+              glib:nick="suburb">
+        <doc xml:space="preserve">A subdivision of a town such as a suburb or neighborhood.</doc>
+      </member>
+      <member name="colloquial"
+              value="20"
+              c:identifier="GEOCODE_PLACE_TYPE_COLLOQUIAL"
+              glib:nick="colloquial">
+        <doc xml:space="preserve">A place known by a colloquial name.</doc>
+      </member>
+      <member name="zone"
+              value="21"
+              c:identifier="GEOCODE_PLACE_TYPE_ZONE"
+              glib:nick="zone">
+        <doc xml:space="preserve">An area known within a specific context such as MSA or area code.</doc>
+      </member>
+      <member name="historical_state"
+              value="22"
+              c:identifier="GEOCODE_PLACE_TYPE_HISTORICAL_STATE"
+              glib:nick="historical-state">
+        <doc xml:space="preserve">A historical primary administrative area within a country.</doc>
+      </member>
+      <member name="historical_county"
+              value="23"
+              c:identifier="GEOCODE_PLACE_TYPE_HISTORICAL_COUNTY"
+              glib:nick="historical-county">
+        <doc xml:space="preserve">A historical secondary administrative area within a country.</doc>
+      </member>
+      <member name="continent"
+              value="24"
+              c:identifier="GEOCODE_PLACE_TYPE_CONTINENT"
+              glib:nick="continent">
+        <doc xml:space="preserve">One of the major land masses on the Earth.</doc>
+      </member>
+      <member name="time_zone"
+              value="25"
+              c:identifier="GEOCODE_PLACE_TYPE_TIME_ZONE"
+              glib:nick="time-zone">
+        <doc xml:space="preserve">An area defined by the Olson standard (tz database).</doc>
+      </member>
+      <member name="estate"
+              value="26"
+              c:identifier="GEOCODE_PLACE_TYPE_ESTATE"
+              glib:nick="estate">
+        <doc xml:space="preserve">A housing development or subdivision known by name.</doc>
+      </member>
+      <member name="historical_town"
+              value="27"
+              c:identifier="GEOCODE_PLACE_TYPE_HISTORICAL_TOWN"
+              glib:nick="historical-town">
+        <doc xml:space="preserve">A historical populated settlement that is no longer known by its original name.</doc>
+      </member>
+      <member name="ocean"
+              value="28"
+              c:identifier="GEOCODE_PLACE_TYPE_OCEAN"
+              glib:nick="ocean">
+        <doc xml:space="preserve">One of the five major bodies of water on the Earth.</doc>
+      </member>
+      <member name="sea"
+              value="29"
+              c:identifier="GEOCODE_PLACE_TYPE_SEA"
+              glib:nick="sea">
+        <doc xml:space="preserve">An area of open water smaller than an ocean.</doc>
+      </member>
+      <member name="school"
+              value="30"
+              c:identifier="GEOCODE_PLACE_TYPE_SCHOOL"
+              glib:nick="school">
+        <doc xml:space="preserve">Institution designed for learning under the supervision of teachers.</doc>
+      </member>
+      <member name="place_of_worship"
+              value="31"
+              c:identifier="GEOCODE_PLACE_TYPE_PLACE_OF_WORSHIP"
+              glib:nick="place-of-worship">
+        <doc xml:space="preserve">All places of worship independently of the religion or denomination.</doc>
+      </member>
+      <member name="restaurant"
+              value="32"
+              c:identifier="GEOCODE_PLACE_TYPE_RESTAURANT"
+              glib:nick="restaurant">
+        <doc xml:space="preserve">Generally formal place with sit-down facilities selling full meals served by waiters.</doc>
+      </member>
+      <member name="bar"
+              value="33"
+              c:identifier="GEOCODE_PLACE_TYPE_BAR"
+              glib:nick="bar">
+        <doc xml:space="preserve">A bar or pub.</doc>
+      </member>
+      <member name="light_rail_station"
+              value="34"
+              c:identifier="GEOCODE_PLACE_TYPE_LIGHT_RAIL_STATION"
+              glib:nick="light-rail-station">
+        <doc xml:space="preserve">A light rail station or tram stop.</doc>
+      </member>
+    </enumeration>
+    <class name="Reverse"
+           c:symbol-prefix="reverse"
+           c:type="GeocodeReverse"
+           parent="GObject.Object"
+           glib:type-name="GeocodeReverse"
+           glib:get-type="geocode_reverse_get_type"
+           glib:type-struct="ReverseClass">
+      <doc xml:space="preserve">All the fields in the #GeocodeReverse structure are private and should never be accessed directly.</doc>
+      <constructor name="new_for_location"
+                   c:identifier="geocode_reverse_new_for_location">
+        <doc xml:space="preserve">Creates a new #GeocodeReverse to perform reverse geocoding with.
+Use geocode_reverse_resolve_async() to perform the resolution.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">a new #GeocodeReverse. Use g_object_unref() when done.</doc>
+          <type name="Reverse" c:type="GeocodeReverse*"/>
+        </return-value>
+        <parameters>
+          <parameter name="location" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeLocation object</doc>
+            <type name="Location" c:type="GeocodeLocation*"/>
+          </parameter>
+        </parameters>
+      </constructor>
+      <method name="resolve" c:identifier="geocode_reverse_resolve" throws="1">
+        <doc xml:space="preserve">Gets the result of a reverse geocoding
+query using the current backend (see geocode_reverse_set_backend()). By
+default the GNOME Nominatim server is used. See #GeocodeBackend for more
+information.
+
+If no result could be found, a %GEOCODE_ERROR_NOT_SUPPORTED error will be
+returned. This typically happens if the coordinates to geocode are in the
+middle of the ocean.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A #GeocodePlace instance, or %NULL in case of
+errors. Free the returned instance with #g_object_unref() when done.</doc>
+          <type name="Place" c:type="GeocodePlace*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="object" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeReverse representing a query</doc>
+            <type name="Reverse" c:type="GeocodeReverse*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="resolve_async"
+              c:identifier="geocode_reverse_resolve_async">
+        <doc xml:space="preserve">Asynchronously gets the result of a reverse geocoding
+query using a web service. Use geocode_reverse_resolve() to do the same
+thing synchronously.
+
+When the operation is finished, @callback will be called. You can then call
+geocode_reverse_resolve_finish() to get the result of the operation.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="object" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeReverse representing a query</doc>
+            <type name="Reverse" c:type="GeocodeReverse*"/>
+          </instance-parameter>
+          <parameter name="cancellable"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Gio.Cancellable" c:type="GCancellable*"/>
+          </parameter>
+          <parameter name="callback"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1"
+                     scope="async"
+                     closure="2">
+            <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request is satisfied</doc>
+            <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+          </parameter>
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">the data to pass to callback function</doc>
+            <type name="gpointer" c:type="gpointer"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="resolve_finish"
+              c:identifier="geocode_reverse_resolve_finish"
+              throws="1">
+        <doc xml:space="preserve">Finishes a reverse geocoding operation. See geocode_reverse_resolve_async().</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A #GeocodePlace instance, or %NULL in case of
+errors. Free the returned instance with #g_object_unref() when done.</doc>
+          <type name="Place" c:type="GeocodePlace*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="object" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeReverse representing a query</doc>
+            <type name="Reverse" c:type="GeocodeReverse*"/>
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none">
+            <doc xml:space="preserve">a #GAsyncResult.</doc>
+            <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="set_backend"
+              c:identifier="geocode_reverse_set_backend"
+              version="3.23.1">
+        <doc xml:space="preserve">Specifies the backend to use in the reverse geocoding operation.
+
+If none is given, the default GNOME Nominatim server is used.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="object" transfer-ownership="none">
+            <doc xml:space="preserve">a #GeocodeReverse representing a query</doc>
+            <type name="Reverse" c:type="GeocodeReverse*"/>
+          </instance-parameter>
+          <parameter name="backend"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve">a #GeocodeBackend, or %NULL to use the default one.</doc>
+            <type name="Backend" c:type="GeocodeBackend*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <field name="parent_instance" readable="0" private="1">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+      <field name="priv" readable="0" private="1">
+        <type name="ReversePrivate" c:type="GeocodeReversePrivate*"/>
+      </field>
+    </class>
+    <record name="ReverseClass"
+            c:type="GeocodeReverseClass"
+            glib:is-gtype-struct-for="Reverse">
+      <doc xml:space="preserve">All the fields in the #GeocodeReverseClass structure are private and should never be accessed directly.</doc>
+      <field name="parent_class" readable="0" private="1">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="ReversePrivate" c:type="GeocodeReversePrivate" disguised="1">
+    </record>
+    <function name="error_quark"
+              c:identifier="geocode_error_quark"
+              moved-to="Error.quark">
+      <doc xml:space="preserve">Gets the geocode-glib error quark.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve">a #GQuark.</doc>
+        <type name="GLib.Quark" c:type="GQuark"/>
+      </return-value>
+    </function>
+  </namespace>
+</repository>

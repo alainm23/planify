@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Amos Wenger aka nddrylliog <amoswenger@gmail.com>
+ Copyright (C) 2010 Amos Wenger aka nddrylliog <amoswenger@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="ooc" name="OOC" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.ooc</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"                  map-to="def:comment"/>
+    <style id="error"             name="Error"                    map-to="def:error"/>
+    <style id="escaped-character" name="Escaped Character"        map-to="def:special-char"/>
+    <style id="string"            name="String"                   map-to="def:string"/>
+    <style id="external"          name="External"                 map-to="def:preprocessor"/>
+    <style id="declaration"       name="Declaration"              map-to="def:type"/>
+    <style id="storage-class"     name="Storage Class"            map-to="def:type"/>
+    <style id="scope-declaration" name="Scope Declaration"        map-to="def:type"/>
+    <style id="keyword"           name="Keyword"                  map-to="def:keyword"/>
+    <style id="null-value"        name="Null Value"               map-to="def:special-constant"/>
+    <style id="boolean"           name="Boolean value"            map-to="def:boolean"/>
+    <style id="floating-point"    name="Floating point number"    map-to="def:floating-point"/>
+    <style id="decimal"           name="Decimal number"           map-to="def:decimal"/>
+    <style id="octal"             name="Octal number"             map-to="def:base-n-integer"/>
+    <style id="hexadecimal"       name="Hexadecimal number"       map-to="def:base-n-integer"/>
+    <style id="reserved"          name="Future Reserved Keywords" map-to="def:error"/>
+    <style id="type"              name="Data Type"                map-to="def:type"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-character" extended="true">
+      \\(               # leading backslash
+      [\\\"\'nrbtf] |   # escaped character
+      [0-9]{1,3}    |   # latin encoded char
+      u[0-9]{1,4}       # unicode char
+      )
+    </define-regex>
+
+    <context id="string" style-ref="string" end-at-line-end="false">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>include</keyword>
+      <keyword>use</keyword>
+    </context>
+
+    <context id="declarations" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>cover</keyword>
+      <keyword>func</keyword>
+      <keyword>implement</keyword>
+      <keyword>interface</keyword>
+      <keyword>operator</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="type">
+      <keyword>Int</keyword>
+      <keyword>Int8</keyword>
+      <keyword>Int16</keyword>
+      <keyword>Int32</keyword>
+      <keyword>Int64</keyword>
+      <keyword>Int80</keyword>
+      <keyword>Int128</keyword>
+
+      <keyword>UInt</keyword>
+      <keyword>UInt8</keyword>
+      <keyword>UInt16</keyword>
+      <keyword>UInt32</keyword>
+      <keyword>UInt64</keyword>
+      <keyword>UInt80</keyword>
+      <keyword>UInt128</keyword>
+
+      <keyword>Octet</keyword>
+      <keyword>Short</keyword>
+      <keyword>UShort</keyword>
+      <keyword>Long</keyword>
+      <keyword>ULong</keyword>
+      <keyword>LLong</keyword>
+      <keyword>ULLong</keyword>
+
+      <keyword>Float</keyword>
+      <keyword>Double</keyword>
+      <keyword>LDouble</keyword>
+      <keyword>Float32</keyword>
+      <keyword>Float64</keyword>
+      <keyword>Float128</keyword>
+
+      <keyword>Char</keyword>
+      <keyword>UChar</keyword>
+      <keyword>SChar</keyword>
+      <keyword>WChar</keyword>
+      <keyword>String</keyword>
+
+      <keyword>Void</keyword>
+      <keyword>Pointer</keyword>
+      <keyword>Bool</keyword>
+      <keyword>SizeT</keyword>
+      <keyword>This</keyword>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>abstract</keyword>
+      <keyword>static</keyword>
+      <keyword>final</keyword>
+      <keyword>extern</keyword>
+      <keyword>const</keyword>
+      <keyword>proto</keyword>
+    </context>
+
+    <context id="scope-declarations" style-ref="scope-declaration">
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>internal</keyword>
+    </context>
+
+    <context id="flow" style-ref="keyword">
+      <keyword>as</keyword>
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>else</keyword>
+      <keyword>fallthrough</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>match</keyword>
+      <keyword>return</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="memory" style-ref="keyword">
+      <keyword>new</keyword>
+      <keyword>this</keyword>
+    </context>
+
+    <context id="future-reserved-words" style-ref="reserved">
+      <keyword>catch</keyword>
+      <keyword>const</keyword>
+      <keyword>goto</keyword>
+      <keyword>finally</keyword>
+      <keyword>throw</keyword>
+      <keyword>try</keyword>
+      <keyword>with</keyword>
+      <keyword>scope</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <!-- http://www.lysator.liu.se/c/ANSI-C-grammar-l.html -->
+    <context id="float" style-ref="floating-point">
+        <match extended="true">
+            (?&lt;![\w\.])
+            ((\.[0-9]+ | [0-9]+\.[0-9]*) ([Ee][+-]?[0-9]*)? |
+             ([0-9]+[Ee][+-]?[0-9]*))
+            [fFlL]?
+            (?![\w\.])
+        </match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+        <match extended="true">
+            (?&lt;![\w\.])
+            0[xX][a-fA-F0-9]+[uUlL]*
+            (?![\w\.])
+        </match>
+    </context>
+
+    <context id="octal" style-ref="octal">
+        <match extended="true">
+            (?&lt;![\w\.])
+            0[cC][0-7]+[uUlL]*
+            (?![\w\.])
+        </match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+        <match extended="true">
+            (?&lt;![\w\.])
+            [0-9]+[uUlL]*
+            (?![\w\.])
+        </match>
+    </context>
+
+    <context id="ooc">
+      <include>
+        <context ref="string"/>
+        <context ref="line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="externals"/>
+        <context ref="declarations"/>
+        <context ref="primitive-types"/>
+        <context ref="storage-class"/>
+        <context ref="scope-declarations"/>
+        <context ref="flow"/>
+        <context ref="memory"/>
+        <context ref="future-reserved-words"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="decimal"/>
+        <context ref="hexadecimal"/>
+        <context ref="octal"/>
+        <context ref="float"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

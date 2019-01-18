@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2012  Stefan Sundin (recover89@gmail.com)
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="llvm" _name="LLVM IR" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.ll</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"     name="Comment"       map-to="def:comment"/>
+    <style id="string"      name="String"        map-to="def:string"/>
+    <style id="keyword"     name="Keyword"       map-to="def:keyword"/>
+    <style id="function"    name="Function"      map-to="def:function"/>
+    <style id="constant"    name="Constants"     map-to="def:constant"/>
+    <style id="variable"    name="Variable"      map-to="def:variable"/>
+    <style id="identifier"  name="Identifier"    map-to="def:identifier"/>
+    <style id="type"        name="Data Type"     map-to="def:type"/>
+    <style id="boolean"     name="Boolean value" map-to="def:boolean"/>
+    <style id="number"      name="Number"        map-to="def:decimal"/>
+  </styles>
+
+  <definitions>
+    <context id="keywords" style-ref="keyword">
+      <!-- Linkage Types -->
+      <keyword>private</keyword>
+      <keyword>linker_private</keyword>
+      <keyword>linker_private_weak</keyword>
+      <keyword>linker_private_weak_def_auto</keyword>
+      <keyword>internal</keyword>
+      <keyword>available_externally</keyword>
+      <keyword>linkonce</keyword>
+      <keyword>common</keyword>
+      <keyword>weak</keyword>
+      <keyword>appending</keyword>
+      <keyword>extern_weak</keyword>
+      <keyword>linkonce_odr</keyword>
+      <keyword>weak_odr</keyword>
+      <keyword>external</keyword>
+      <keyword>dllimport</keyword>
+      <keyword>dllexport</keyword>
+      <!-- Calling Conventions -->
+      <keyword>ccc</keyword>
+      <keyword>fastcc</keyword>
+      <keyword>coldcc</keyword>
+      <!-- Visibility Styles -->
+      <keyword>default</keyword>
+      <keyword>hidden</keyword>
+      <keyword>protected</keyword>
+      <!-- Named Types -->
+      <keyword>type</keyword>
+      <!-- Global Variables -->
+      <keyword>thread_local</keyword>
+      <keyword>constant</keyword>
+      <keyword>unnamed_addr</keyword>
+      <keyword>addrspace</keyword>
+      <!-- Functions -->
+      <keyword>define</keyword>
+      <!-- Aliases -->
+      <keyword>alias</keyword>
+      <!-- Parameter Attributes -->
+      <keyword>declare</keyword>
+      <keyword>zeroext</keyword>
+      <keyword>signext</keyword>
+      <keyword>inreg</keyword>
+      <keyword>byval</keyword>
+      <keyword>sret</keyword>
+      <keyword>noalias</keyword>
+      <keyword>nocapture</keyword>
+      <keyword>nest</keyword>
+      <!-- Garbage Collector Names -->
+      <keyword>gc</keyword>
+      <!-- Function Attributes -->
+      <keyword>address_safety</keyword>
+      <keyword>alignstack</keyword>
+      <keyword>alwaysinline</keyword>
+      <keyword>nonlazybind</keyword>
+      <keyword>inlinehint</keyword>
+      <keyword>naked</keyword>
+      <keyword>noimplicitfloat</keyword>
+      <keyword>noinline</keyword>
+      <keyword>noredzone</keyword>
+      <keyword>noreturn</keyword>
+      <keyword>nounwind</keyword>
+      <keyword>optsize</keyword>
+      <keyword>readnone</keyword>
+      <keyword>readonly</keyword>
+      <keyword>returns_twice</keyword>
+      <keyword>ssp</keyword>
+      <keyword>sspreq</keyword>
+      <keyword>uwtable</keyword>
+      <keyword>align</keyword>
+      <!-- Module-Level Inline Assembly -->
+      <keyword>module</keyword>
+      <keyword>asm</keyword>
+      <!-- Data Layout -->
+      <keyword>target</keyword>
+      <keyword>datalayout</keyword>
+      <keyword>triple</keyword>
+      <!-- Atomic Memory Ordering Constraints -->
+      <keyword>unordered</keyword>
+      <keyword>monotonic</keyword>
+      <keyword>acquire</keyword>
+      <keyword>release</keyword>
+      <keyword>acq_rel</keyword>
+      <keyword>seq_cst</keyword>
+      <keyword>singlethread</keyword>
+      <!-- add / sub / mul / shl -->
+      <keyword>nuw</keyword>
+      <keyword>nsw</keyword>
+      <!-- udiv / sdiv / lshr / ashr -->
+      <keyword>exact</keyword>
+      <!-- load / store / cmpxchg / atomicrmw -->
+      <keyword>volatile</keyword>
+      <keyword>atomic</keyword>
+      <!-- trunc / zext / sext / fptrunc / fpext / fptoui / fptosi / uitofp / sitofp / ptrtoint / inttoptr / bitcast -->
+      <keyword>to</keyword>
+      <!-- landingpad -->
+      <keyword>personality</keyword>
+      <keyword>cleanup</keyword>
+      <keyword>catch</keyword>
+      <keyword>filter</keyword>
+      <!-- icmp -->
+      <keyword>eq</keyword>
+      <keyword>ne</keyword>
+      <keyword>ugt</keyword>
+      <keyword>uge</keyword>
+      <keyword>ult</keyword>
+      <keyword>ule</keyword>
+      <keyword>sgt</keyword>
+      <keyword>slt</keyword>
+      <keyword>sle</keyword>
+      <!-- fcmp -->
+      <keyword>oeq</keyword>
+      <keyword>ogt</keyword>
+      <keyword>oge</keyword>
+      <keyword>olt</keyword>
+      <keyword>ole</keyword>
+      <keyword>one</keyword>
+      <keyword>ord</keyword>
+      <keyword>ueq</keyword>
+      <keyword>ugt</keyword>
+      <keyword>uge</keyword>
+      <keyword>ult</keyword>
+      <keyword>ule</keyword>
+      <keyword>une</keyword>
+      <keyword>uno</keyword>
+      <!-- getelementptr -->
+      <keyword>inbounds</keyword>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <!-- Terminator Instructions -->
+      <keyword>ret</keyword>
+      <keyword>br</keyword>
+      <keyword>switch</keyword>
+      <keyword>indirectbr</keyword>
+      <keyword>invoke</keyword>
+      <keyword>resume</keyword>
+      <keyword>unreachable</keyword>
+      <!-- Binary Operations -->
+      <keyword>add</keyword>
+      <keyword>fadd</keyword>
+      <keyword>sub</keyword>
+      <keyword>fsub</keyword>
+      <keyword>mul</keyword>
+      <keyword>fmul</keyword>
+      <keyword>udiv</keyword>
+      <keyword>sdiv</keyword>
+      <keyword>fdiv</keyword>
+      <keyword>urem</keyword>
+      <keyword>srem</keyword>
+      <keyword>frem</keyword>
+      <!-- Bitwise Binary Operations -->
+      <keyword>shl</keyword>
+      <keyword>lshr</keyword>
+      <keyword>ashr</keyword>
+      <keyword>and</keyword>
+      <keyword>or</keyword>
+      <keyword>xor</keyword>
+      <!-- Vector Operations -->
+      <keyword>extractelement</keyword>
+      <keyword>insertelement</keyword>
+      <keyword>shufflevector</keyword>
+      <!-- Aggregate Operations -->
+      <keyword>extractvalue</keyword>
+      <keyword>insertvalue</keyword>
+      <!-- Memory Access and Addressing Operations -->
+      <keyword>alloca</keyword>
+      <keyword>load</keyword>
+      <keyword>store</keyword>
+      <keyword>fence</keyword>
+      <keyword>cmpxchg</keyword>
+      <keyword>atomicrmw</keyword>
+      <keyword>getelementptr</keyword>
+      <!-- Conversion Operations -->
+      <keyword>trunc</keyword>
+      <keyword>zext</keyword>
+      <keyword>sext</keyword>
+      <keyword>fptrunc</keyword>
+      <keyword>fpext</keyword>
+      <keyword>fptoui</keyword>
+      <keyword>fptosi</keyword>
+      <keyword>uitofp</keyword>
+      <keyword>sitofp</keyword>
+      <keyword>ptrtoint</keyword>
+      <keyword>inttoptr</keyword>
+      <keyword>bitcast</keyword>
+      <!-- Other Operations -->
+      <keyword>icmp</keyword>
+      <keyword>fcmp</keyword>
+      <keyword>phi</keyword>
+      <keyword>select</keyword>
+      <keyword>call</keyword>
+      <keyword>va_arg</keyword>
+      <keyword>landingpad</keyword>
+    </context>
+
+    <context id="constant" style-ref="constant">
+      <keyword>null</keyword>
+      <keyword>zeroinitializer</keyword>
+      <keyword>undef</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <!-- Floating Point Types -->
+      <keyword>half</keyword>
+      <keyword>float</keyword>
+      <keyword>double</keyword>
+      <keyword>x86_fp80</keyword>
+      <keyword>fp128</keyword>
+      <keyword>ppc_fp128</keyword>
+      <!-- X86mmx Type -->
+      <keyword>x86mmx</keyword>
+      <!-- Void Type -->
+      <keyword>void</keyword>
+      <!-- Label Type -->
+      <keyword>label</keyword>
+      <!-- Metadata Type -->
+      <keyword>metadata</keyword>
+      <!-- Opaque Structure Types -->
+      <keyword>opaque</keyword>
+    </context>
+
+    <context id="integertype" style-ref="type">
+     <match>i[0-9]+</match>
+    </context>
+
+    <context id="variable" style-ref="variable">
+      <match>[%!][a-zA-Z$\._0-9]*</match>
+    </context>
+
+    <context id="identifier" style-ref="identifier">
+      <match>@[a-zA-Z$\._][a-zA-Z$\._0-9]*</match>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        (\b([0-9]+|0x[0-9a-fA-F]+)\b|
+        \b([0-9]*\.[0-9]+[Ee][+-]?[0-9]+|
+        [0-9]+))
+      </match>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>;</start>
+    </context>
+
+    <context id="llvm">
+      <include>
+        <context ref="keywords"/>
+        <context ref="functions"/>
+        <context ref="constant"/>
+        <context ref="boolean"/>
+        <context ref="types"/>
+        <context ref="integertype"/>
+        <context ref="variable"/>
+        <context ref="identifier"/>
+        <context ref="numeric"/>
+        <context ref="string"/>
+        <context ref="line-comment"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

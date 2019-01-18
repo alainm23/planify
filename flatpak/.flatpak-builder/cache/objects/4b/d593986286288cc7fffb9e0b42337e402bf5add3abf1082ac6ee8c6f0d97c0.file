@@ -1,0 +1,280 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#if !defined (__LIBICAL_GLIB_H_INSIDE__) && !defined (LIBICAL_GLIB_COMPILATION)
+#error "Only <libical-glib/libical-glib.h> can be included directly."
+#endif
+
+#ifndef I_CAL_RECURRENCE_TYPE_H
+#define I_CAL_RECURRENCE_TYPE_H
+
+#include <libical-glib/i-cal-forward-declarations.h>
+#include <libical-glib/i-cal-object.h>
+
+G_BEGIN_DECLS
+
+#define I_CAL_RECURRENCE_TYPE_TYPE \
+    (i_cal_recurrence_type_get_type ())
+
+#define I_CAL_RECURRENCE_TYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_CAST \
+    ((obj), I_CAL_RECURRENCE_TYPE_TYPE, ICalRecurrenceType))
+
+#define I_CAL_RECURRENCE_TYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_CAST \
+    ((klass), I_CAL_RECURRENCE_TYPE_TYPE, ICalRecurrenceTypeClass))
+
+#define I_CAL_IS_RECURRENCE_TYPE(obj) \
+    (G_TYPE_CHECK_INSTANCE_TYPE \
+    ((obj), I_CAL_RECURRENCE_TYPE_TYPE))
+
+#define I_CAL_IS_RECURRENCE_TYPE_CLASS(klass) \
+    (G_TYPE_CHECK_CLASS_TYPE \
+    ((klass), I_CAL_RECURRENCE_TYPE_TYPE))
+
+/**
+ * ICalRecurrenceType:
+ *
+ * This is the ICalRecurrenceType instance.
+ */
+
+/**
+ * ICalRecurrenceTypeClass:
+ *
+ * This is the ICalRecurrenceType class.
+ */
+typedef struct _ICalRecurrenceTypeClass ICalRecurrenceTypeClass;
+
+struct _ICalRecurrenceType {
+    /*< private >*/
+    ICalObject parent;
+};
+
+struct _ICalRecurrenceTypeClass {
+    /*< private >*/
+    ICalObjectClass parent;
+};
+typedef enum {
+	I_CAL_SECONDLY_RECURRENCE = ICAL_SECONDLY_RECURRENCE,
+	I_CAL_MINUTELY_RECURRENCE = ICAL_MINUTELY_RECURRENCE,
+	I_CAL_HOURLY_RECURRENCE = ICAL_HOURLY_RECURRENCE,
+	I_CAL_DAILY_RECURRENCE = ICAL_DAILY_RECURRENCE,
+	I_CAL_WEEKLY_RECURRENCE = ICAL_WEEKLY_RECURRENCE,
+	I_CAL_MONTHLY_RECURRENCE = ICAL_MONTHLY_RECURRENCE,
+	I_CAL_YEARLY_RECURRENCE = ICAL_YEARLY_RECURRENCE,
+	I_CAL_NO_RECURRENCE = ICAL_NO_RECURRENCE
+} ICalRecurrenceTypeFrequency;
+
+typedef enum {
+	I_CAL_NO_WEEKDAY = ICAL_NO_WEEKDAY,
+	I_CAL_SUNDAY_WEEKDAY = ICAL_SUNDAY_WEEKDAY,
+	I_CAL_MONDAY_WEEKDAY = ICAL_MONDAY_WEEKDAY,
+	I_CAL_TUESDAY_WEEKDAY = ICAL_TUESDAY_WEEKDAY,
+	I_CAL_WEDNESDAY_WEEKDAY = ICAL_WEDNESDAY_WEEKDAY,
+	I_CAL_THURSDAY_WEEKDAY = ICAL_THURSDAY_WEEKDAY,
+	I_CAL_FRIDAY_WEEKDAY = ICAL_FRIDAY_WEEKDAY,
+	I_CAL_SATURDAY_WEEKDAY = ICAL_SATURDAY_WEEKDAY
+} ICalRecurrenceTypeWeekday;
+
+typedef enum {
+	I_CAL_SKIP_BACKWARD = ICAL_SKIP_BACKWARD,
+	I_CAL_SKIP_FORWARD = ICAL_SKIP_FORWARD,
+	I_CAL_SKIP_OMIT = ICAL_SKIP_OMIT,
+	I_CAL_SKIP_UNDEFINED = ICAL_SKIP_UNDEFINED
+} ICalRecurrenceTypeSkip;
+
+typedef enum {
+	I_CAL_RECURRENCE_ARRAY_MAX = ICAL_RECURRENCE_ARRAY_MAX,
+	I_CAL_RECURRENCE_ARRAY_MAX_BYTE = ICAL_RECURRENCE_ARRAY_MAX_BYTE
+} ICalRecurrenceTypeArrayMaxValues;
+
+
+LIBICAL_ICAL_EXPORT
+GType 		i_cal_recurrence_type_get_type	(void);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_recurrence_type_rscale_is_supported
+						(void);
+
+LIBICAL_ICAL_EXPORT
+ICalArray *	i_cal_recurrence_type_rscale_supported_calendars
+						(void);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_clear	(ICalRecurrenceType *r);
+
+LIBICAL_ICAL_EXPORT
+ICalRecurrenceTypeWeekday 
+		i_cal_recurrence_type_day_day_of_week
+						(gshort day);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_recurrence_type_day_position
+						(gshort day);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_recurrence_type_month_is_leap
+						(gshort month);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_recurrence_type_month_month
+						(gshort month);
+
+LIBICAL_ICAL_EXPORT
+ICalRecurrenceType *
+		i_cal_recurrence_type_from_string
+						(const gchar *str);
+
+LIBICAL_ICAL_EXPORT
+gchar *		i_cal_recurrence_type_as_string_r
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+ICalTimetype *	i_cal_recurrence_type_get_until	(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_until	(ICalRecurrenceType *recur,
+						 ICalTimetype *until);
+
+LIBICAL_ICAL_EXPORT
+ICalRecurrenceTypeFrequency 
+		i_cal_recurrence_type_get_freq	(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_freq	(ICalRecurrenceType *recur,
+						 ICalRecurrenceTypeFrequency freq);
+
+LIBICAL_ICAL_EXPORT
+gint 		i_cal_recurrence_type_get_count	(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_count	(ICalRecurrenceType *recur,
+						 gint count);
+
+LIBICAL_ICAL_EXPORT
+gshort 		i_cal_recurrence_type_get_interval
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_interval
+						(ICalRecurrenceType *recur,
+						 gshort interval);
+
+LIBICAL_ICAL_EXPORT
+ICalRecurrenceTypeWeekday 
+		i_cal_recurrence_type_get_week_start
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_week_start
+						(ICalRecurrenceType *recur,
+						 ICalRecurrenceTypeWeekday week_start);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_second
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_second
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_minute
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_minute
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_hour
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_hour
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_day
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_day
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_month_day
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_month_day
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_year_day
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_year_day
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_week_no
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_week_no
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_month
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_month
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+LIBICAL_ICAL_EXPORT
+GArray *	i_cal_recurrence_type_get_by_set_pos
+						(ICalRecurrenceType *recur);
+
+LIBICAL_ICAL_EXPORT
+void		i_cal_recurrence_type_set_by_set_pos
+						(ICalRecurrenceType *recur,
+						 guint index,
+						 gshort value);
+
+G_END_DECLS
+
+#endif /* I_CAL_RECURRENCE_TYPE_H */

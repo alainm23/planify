@@ -1,0 +1,7 @@
+[Unit]
+Description=Evolution source registry
+
+[Service]
+Type=dbus
+BusName=org.gnome.evolution.dataserver.Sources5
+ExecStart=/app/libexec/evolution-source-registry

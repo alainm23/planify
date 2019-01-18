@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Borelli <pborelli@gnome.org>
+ Copyright (C) 2007 Paolo Borelli
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="awk" name="awk" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">application/x-awk</property>
+    <property name="globs">*.awk</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="pattern" name="Pattern" map-to="def:preprocessor"/>
+    <style id="variable" name="Variable" map-to="def:identifier"/>
+    <style id="builtin-function" name="Builtin Function" map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>do</keyword>
+      <keyword>delete</keyword>
+      <keyword>else</keyword>
+      <keyword>exit</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>getline</keyword>
+      <keyword>if</keyword>
+      <keyword>next</keyword>
+      <keyword>nextfile</keyword>
+      <keyword>print</keyword>
+      <keyword>printf</keyword>
+      <keyword>return</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="patterns" style-ref="pattern">
+      <keyword>BEGIN</keyword>
+      <keyword>END</keyword>
+    </context>
+
+    <context id="variables" style-ref="variable">
+      <keyword>ARGC</keyword>
+      <keyword>ARGV</keyword>
+      <keyword>FILENAME</keyword>
+      <keyword>FNR</keyword>
+      <keyword>FS</keyword>
+      <keyword>NF</keyword>
+      <keyword>NR</keyword>
+      <keyword>OFMT</keyword>
+      <keyword>OFS</keyword>
+      <keyword>ORS</keyword>
+      <keyword>RLENGTH</keyword>
+      <keyword>RS</keyword>
+      <keyword>RSTART</keyword>
+      <keyword>SUBSEP</keyword>
+      <keyword>ARGIND</keyword>
+      <keyword>BINMODE</keyword>
+      <keyword>CONVFMT</keyword>
+      <keyword>ENVIRON</keyword>
+      <keyword>ERRNO</keyword>
+      <keyword>FIELDWIDTHS</keyword>
+      <keyword>IGNORECASE</keyword>
+      <keyword>LINT</keyword>
+      <keyword>PROCINFO</keyword>
+      <keyword>RT</keyword>
+      <keyword>RLENGTH</keyword>
+      <keyword>TEXTDOMAIN</keyword>
+    </context>
+
+    <context id="built-in-functions" style-ref="builtin-function">
+      <keyword>gsub</keyword>
+      <keyword>index</keyword>
+      <keyword>length</keyword>
+      <keyword>match</keyword>
+      <keyword>split</keyword>
+      <keyword>sprintf</keyword>
+      <keyword>sub</keyword>
+      <keyword>substr</keyword>
+      <keyword>tolower</keyword>
+      <keyword>toupper</keyword>
+    </context>
+
+    <context id="arithmetic-functions" style-ref="builtin-function">
+      <keyword>atan2</keyword>
+      <keyword>cos</keyword>
+      <keyword>exp</keyword>
+      <keyword>int</keyword>
+      <keyword>log</keyword>
+      <keyword>rand</keyword>
+      <keyword>sin</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>srand</keyword>
+    </context>
+
+    <context id="field-variable" style-ref="variable">
+      <match>\$\d+</match>
+    </context>
+
+    <context id="awk">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:string"/>
+        <context ref="keywords"/>
+        <context ref="patterns"/>
+        <context ref="variables"/>
+        <context ref="field-variable"/>
+        <context ref="built-in-functions"/>
+        <context ref="arithmetic-functions"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

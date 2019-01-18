@@ -1,0 +1,109 @@
+load ('def.lefty');
+definit ();
+#
+# initialize window data
+#
+canvas = defcanvas;
+wrect = [0 = ['x' = 0; 'y' = 0;]; 1 = ['x' = 800; 'y' = 1000;];];
+lmargin = 100;
+width = 800;
+height = 1000;
+setwidgetattr (canvas, ['window' = wrect;]);
+fonts = [
+    'timr' = [
+        14 = 'timr14';
+        18 = 'timr18';
+        24 = 'timr24';
+    ];
+    'courr' = [
+        14 = 'courr14';
+        18 = 'courr18';
+        24 = 'courr24';
+    ];
+];
+x2ps = [
+    'timr24' = 'Times-Roman';
+    'timr18' = 'Times-Roman';
+    'timr14' = 'Times-Roman';
+    'courr24' = 'Courier';
+    'courr18' = 'Courier';
+    'courr14' = 'Courier';
+];
+
+calc = function () {
+    local i, j, cpos, tsiz, dist, slidep;
+    tsiz = ['x' = 0; 'y' = 0;];
+    for (i = 0; slides[i]; i = i + 1) {
+        slidep = slides[i];
+        if (slidep.skip) {
+            tsiz.y = tsiz.y + slidep.skip;
+        } else {
+            for (j = 0; slidep.text[j]; j = j + 1) {
+                if (j > 0)
+                    tsiz.y = tsiz.y + 5;
+                if (~slidep.font)
+                    slidep.font = slides.font;
+                if (~slidep.size)
+                    slidep.size = slides.size;
+                if (~slidep.just)
+                    slidep.just = slides.just;
+                slidep.tsiz[j] = textsize (canvas, slidep.text[j],
+                        fonts[slidep.font][slidep.size], 0);
+                tsiz.y = tsiz.y + slidep.tsiz[j].y;
+            }
+        }
+    }
+    dist = (height - tsiz.y) / (i + 1);
+    cpos = ['x' = lmargin; 'y' = height - dist;];
+    for (i = 0; slides[i]; i = i + 1) {
+        slidep = slides[i];
+        if (slidep.skip) {
+            cpos.y = cpos.y - slidep.skip - dist;
+        } else {
+            for (j = 0; slidep.text[j]; j = j + 1) {
+                if (j > 0)
+                    cpos.y = cpos.y - 5;
+                if (slidep.just == 0)
+                    slidep.tpos[j].x = cpos.x;
+                else
+                    slidep.tpos[j].x = width / 2;
+                cpos.y = cpos.y - slidep.tsiz[j].y;
+                slidep.tpos[j].y = cpos.y;
+            }
+            cpos.y = cpos.y - dist;
+        }
+    }
+};
+redraw = function () {
+    local i, j, slidep;
+    for (i = 0; slides[i]; i = i + 1) {
+        slidep = slides[i];
+        if (~slidep.skip)
+            for (j = 0; slidep.text[j]; j = j + 1)
+                text (canvas, slidep, slidep.tpos[j], slidep.text[j],
+                        fonts[slidep.font][slidep.size], 0, slidep.just);
+    }
+};
+dops = function () {
+    local i, j, slidep, r;
+
+    r = [0 = ['x' = 0; 'y' = 0;]; 1 = ['x' = 8 * 300; 'y' = 10.5 * 300;];];
+    canvas = createwidget (-1, ['type' = 'ps'; 'origin' = r[0]; 'size' = r[1]
+;]);
+    setwidgetattr (canvas, ['window' = wrect;]);
+    for (i = 0; slides[i]; i = i + 1) {
+        slidep = slides[i];
+        if (~slidep.skip)
+            for (j = 0; slidep.text[j]; j = j + 1)
+                text (canvas, slidep, slidep.tpos[j], slidep.text[j],
+                        x2ps[fonts[slidep.font][slidep.size]],
+                        slidep.tsiz[j].y, slidep.just, 1);
+    }
+    destroywidget (canvas);
+    canvas=defcanvas;
+};
+doit = function () {
+    calc ();
+    redraw ();
+    dops ();
+};

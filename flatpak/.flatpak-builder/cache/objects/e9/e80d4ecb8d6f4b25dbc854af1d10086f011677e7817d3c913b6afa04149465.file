@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: James Leigh <james@leighnet.ca>
+ Copyright (C) 2009 James Leigh <james@leighnet.ca>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="sparql" name="SPARQL" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">application/sparql-query</property>
+    <property name="globs">*.rq</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="class"      name="Class"      map-to="def:type"/>
+    <style id="datatype"   name="Data Type"  map-to="def:type"/>
+    <style id="function"   name="Function"   map-to="def:function"/>
+    <style id="individual" name="Individual" map-to="def:special-constant"/>
+    <style id="keyword"    name="Keyword"    map-to="def:keyword"/>
+    <style id="namespace"  name="Namespace"  map-to="def:builtin"/>
+    <style id="boolean"    name="Boolean"    map-to="def:boolean"/>
+    <style id="literal"    name="Literal"    map-to="def:string"/>
+    <style id="predicate"  name="Predicate"  map-to="def:function"/>
+    <style id="qname"      name="QName" />
+    <style id="iri"        name="IRI"        map-to="def:special-constant"/>
+    <style id="var"        name="Variable"   map-to="def:preprocessor"/>
+    <style id="operator"   name="Operator"   map-to="def:operator"/>
+  </styles>
+
+  <definitions>
+
+    <context id="var" style-ref="var">
+      <match>[\?\$][a-zA-Z_0-9]+</match>
+    </context>
+
+    <context id="booleans" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <context id="a" style-ref="keyword">
+      <keyword>a</keyword>
+    </context>
+
+    <context id="operators" style-ref="operator" extend-parent="false">
+      <match>[-.^@,;|\=\+\*\!&amp;&lt;&gt;()\[\]{}]</match>
+    </context>
+
+    <context id="iri" style-ref="iri">
+      <match extended="true">
+        &lt;(([a-zA-Z][0-9a-zA-Z+\-\.]*:)?/{0,2}
+        [0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*'()%]+)?
+        (\#[0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*'()%]*)?&gt;
+      </match>
+    </context>
+
+    <context id="qnames" style-ref="qname">
+      <match>(?&lt;!\w)[a-zA-Z_]*:[a-zA-Z0-9_]+\%]</match>
+    </context>
+
+    <!-- Use define-regex to override case-sensitivity of keywords -->
+    <define-regex id="keywords-regex" extended="true" case-sensitive="false">
+      \%[(
+        ORDER\s+BY   |
+        FROM\s+NAMED |
+        BASE         |
+        SELECT       |
+        FROM         |
+        PREFIX       |
+        CONSTRUCT    |
+        LIMIT        |
+        DESCRIBE     |
+        OFFSET       |
+        WHERE        |
+        ASK          |
+        DISTINCT     |
+        REDUCED      |
+        GROUP\s+BY   |
+        AS           |
+        HAVING       |
+        GRAPH        |
+        OPTIONAL     |
+        FILTER       |
+        UNION        |
+        MINUS        |
+        SERVICE      |
+        NOT          |
+        EXISTS
+      )\%]
+    </define-regex>
+
+    <!-- Use define-regex to override case-sensitivity of keywords -->
+    <define-regex id="functions-regex" extended="true" case-sensitive="false">
+      \%[(
+        STR         |
+        isURI       |
+        LANG        |
+        isIRI       |
+        LANGMATCHES |
+        isLITERAL   |
+        DATATYPE    |
+        REGEX       |
+        BOUND       |
+        sameTERM    |
+        DESC        |
+        ASC         |
+        SUM         |
+        AVG         |
+        COUNT       |
+        SAMPLE      |
+        COALESCE    |
+        MIN         |
+        MAX
+      )\%]
+    </define-regex>
+
+    <context id="keywords" style-ref="keyword">
+      <match>\%{keywords-regex}</match>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <match>\%{functions-regex}</match>
+    </context>
+
+    <context id="namespaces" style-ref="namespace">
+      <match extended="true">
+        xsd:\s*&lt;http://www.w3.org/2001/XMLSchema\#&gt;           |
+        rdf:\s*&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns\#&gt; |
+        rdfs:\s*&lt;http://www.w3.org/2000/01/rdf-schema\#&gt;      |
+        owl:\s*&lt;http://www.w3.org/2002/07/owl\#&gt;              |
+        dcam:\s*&lt;http://purl.org/dc/dcam/&gt;                    |
+        dc:\s*&lt;http://purl.org/dc/elements/1.1/&gt;              |
+        dcterms:\s*&lt;http://purl.org/dc/terms/&gt;                |
+        skos:\s*&lt;http://www.w3.org/2004/02/skos/core\#&gt;
+      </match>
+    </context>
+
+    <context id="datatypes" style-ref="datatype">
+      <keyword>xsd:ID</keyword>
+      <keyword>xsd:IDREF</keyword>
+      <keyword>xsd:NCName</keyword>
+      <keyword>xsd:NMTOKEN</keyword>
+      <keyword>xsd:Name</keyword>
+      <keyword>xsd:anyAtomicType</keyword>
+      <keyword>xsd:anyURI</keyword>
+      <keyword>xsd:base64Binary</keyword>
+      <keyword>xsd:boolean</keyword>
+      <keyword>xsd:byte</keyword>
+      <keyword>xsd:date</keyword>
+      <keyword>xsd:dateTime</keyword>
+      <keyword>xsd:dayTimeDuration</keyword>
+      <keyword>xsd:decimal</keyword>
+      <keyword>xsd:double</keyword>
+      <keyword>xsd:duration</keyword>
+      <keyword>xsd:float</keyword>
+      <keyword>xsd:gDay</keyword>
+      <keyword>xsd:gMonth</keyword>
+      <keyword>xsd:gMonthDay</keyword>
+      <keyword>xsd:gYear</keyword>
+      <keyword>xsd:gYearMonth</keyword>
+      <keyword>xsd:hexBinary</keyword>
+      <keyword>xsd:int</keyword>
+      <keyword>xsd:integer</keyword>
+      <keyword>xsd:language</keyword>
+      <keyword>xsd:long</keyword>
+      <keyword>xsd:negativeInteger</keyword>
+      <keyword>xsd:nonNegativeInteger</keyword>
+      <keyword>xsd:nonPositiveInteger</keyword>
+      <keyword>xsd:normalizedString</keyword>
+      <keyword>xsd:precisionDecimal</keyword>
+      <keyword>xsd:positiveInteger</keyword>
+      <keyword>xsd:short</keyword>
+      <keyword>xsd:string</keyword>
+      <keyword>xsd:time</keyword>
+      <keyword>xsd:token</keyword>
+      <keyword>xsd:unsignedByte</keyword>
+      <keyword>xsd:unsignedInt</keyword>
+      <keyword>xsd:unsignedLong</keyword>
+      <keyword>xsd:unsignedShort</keyword>
+      <keyword>xsd:yearMonthDuration</keyword>
+      <keyword>dcterms:Box</keyword>
+      <keyword>dcterms:ISO3166</keyword>
+      <keyword>dcterms:ISO639-2</keyword>
+      <keyword>dcterms:ISO639-3</keyword>
+      <keyword>dcterms:Period</keyword>
+      <keyword>dcterms:Point</keyword>
+      <keyword>dcterms:RFC1766</keyword>
+      <keyword>dcterms:RFC3066</keyword>
+      <keyword>dcterms:RFC4646</keyword>
+      <keyword>dcterms:URI</keyword>
+      <keyword>dcterms:W3CDTF</keyword>
+    </context>
+
+    <context id="classes" style-ref="class">
+      <keyword>rdf:Property</keyword>
+      <keyword>rdf:Statement</keyword>
+      <keyword>rdf:Bag</keyword>
+      <keyword>rdf:Seq</keyword>
+      <keyword>rdf:Alt</keyword>
+      <keyword>rdf:List</keyword>
+      <keyword>rdf:XMLLiteral</keyword>
+      <keyword>rdfs:Resource</keyword>
+      <keyword>rdfs:Class</keyword>
+      <keyword>rdfs:Literal</keyword>
+      <keyword>rdfs:Container</keyword>
+      <keyword>rdfs:ContainerMembershipProperty</keyword>
+      <keyword>rdfs:Datatype</keyword>
+      <keyword>owl:Class</keyword>
+      <keyword>owl:Thing</keyword>
+      <keyword>owl:Nothing</keyword>
+      <keyword>owl:AllDifferent</keyword>
+      <keyword>owl:Restriction</keyword>
+      <keyword>owl:ObjectProperty</keyword>
+      <keyword>owl:DatatypeProperty</keyword>
+      <keyword>owl:TransitiveProperty</keyword>
+      <keyword>owl:SymmetricProperty</keyword>
+      <keyword>owl:FunctionalProperty</keyword>
+      <keyword>owl:InverseFunctionalProperty</keyword>
+      <keyword>owl:AnnotationProperty</keyword>
+      <keyword>owl:Ontology</keyword>
+      <keyword>owl:OntologyProperty</keyword>
+      <keyword>owl:DeprecatedClass</keyword>
+      <keyword>owl:DeprecatedProperty</keyword>
+      <keyword>owl:DataRange</keyword>
+      <keyword>skos:Collection</keyword>
+      <keyword>skos:Concept</keyword>
+      <keyword>skos:ConceptScheme</keyword>
+      <keyword>skos:OrderedCollection</keyword>
+      <keyword>dcam:VocabularyEncodingScheme</keyword>
+      <keyword>dcterms:Agent</keyword>
+      <keyword>dcterms:AgentClass</keyword>
+      <keyword>dcterms:BibliographicResource</keyword>
+      <keyword>dcterms:FileFormat</keyword>
+      <keyword>dcterms:Frequency</keyword>
+      <keyword>dcterms:Jurisdiction</keyword>
+      <keyword>dcterms:LicenseDocument</keyword>
+      <keyword>dcterms:LinguisticSystem</keyword>
+      <keyword>dcterms:Location</keyword>
+      <keyword>dcterms:LocationPeriodOrJurisdiction</keyword>
+      <keyword>dcterms:MediaType</keyword>
+      <keyword>dcterms:MediaTypeOrExtent</keyword>
+      <keyword>dcterms:MethodOfAccrual</keyword>
+      <keyword>dcterms:MethodOfInstruction</keyword>
+      <keyword>dcterms:PeriodOfTime</keyword>
+      <keyword>dcterms:PhysicalMedium</keyword>
+      <keyword>dcterms:PhysicalResource</keyword>
+      <keyword>dcterms:Policy</keyword>
+      <keyword>dcterms:ProvenanceStatement</keyword>
+      <keyword>dcterms:RightsStatement</keyword>
+      <keyword>dcterms:SizeOrDuration</keyword>
+      <keyword>dcterms:Standard</keyword>
+    </context>
+
+    <context id="predicates" style-ref="predicate">
+      <keyword>rdf:type</keyword>
+      <keyword>rdf:subject</keyword>
+      <keyword>rdf:predicate</keyword>
+      <keyword>rdf:object</keyword>
+      <keyword>rdf:value</keyword>
+      <keyword>rdf:first</keyword>
+      <keyword>rdf:rest</keyword>
+      <keyword>rdfs:subClassOf</keyword>
+      <keyword>rdfs:subPropertyOf</keyword>
+      <keyword>rdfs:comment</keyword>
+      <keyword>rdfs:label</keyword>
+      <keyword>rdfs:domain</keyword>
+      <keyword>rdfs:range</keyword>
+      <keyword>rdfs:seeAlso</keyword>
+      <keyword>rdfs:isDefinedBy</keyword>
+      <keyword>rdfs:member</keyword>
+      <keyword>owl:equivalentClass</keyword>
+      <keyword>owl:disjointWith</keyword>
+      <keyword>owl:equivalentProperty</keyword>
+      <keyword>owl:sameAs</keyword>
+      <keyword>owl:differentFrom</keyword>
+      <keyword>owl:distinctMembers</keyword>
+      <keyword>owl:unionOf</keyword>
+      <keyword>owl:intersectionOf</keyword>
+      <keyword>owl:complementOf</keyword>
+      <keyword>owl:oneOf</keyword>
+      <keyword>owl:onProperty</keyword>
+      <keyword>owl:allValuesFrom</keyword>
+      <keyword>owl:hasValue</keyword>
+      <keyword>owl:someValuesFrom</keyword>
+      <keyword>owl:minCardinality</keyword>
+      <keyword>owl:maxCardinality</keyword>
+      <keyword>owl:cardinality</keyword>
+      <keyword>owl:inverseOf</keyword>
+      <keyword>owl:imports</keyword>
+      <keyword>owl:versionInfo</keyword>
+      <keyword>owl:priorVersion</keyword>
+      <keyword>owl:backwardCompatibleWith</keyword>
+      <keyword>owl:incompatibleWith</keyword>
+      <keyword>skos:altLabel</keyword>
+      <keyword>skos:broadMatch</keyword>
+      <keyword>skos:broader</keyword>
+      <keyword>skos:broaderTransitive</keyword>
+      <keyword>skos:changeNote</keyword>
+      <keyword>skos:closeMatch</keyword>
+      <keyword>skos:definition</keyword>
+      <keyword>skos:editorialNote</keyword>
+      <keyword>skos:exactMatch</keyword>
+      <keyword>skos:example</keyword>
+      <keyword>skos:hasTopConcept</keyword>
+      <keyword>skos:hiddenLabel</keyword>
+      <keyword>skos:historyNote</keyword>
+      <keyword>skos:inScheme</keyword>
+      <keyword>skos:mappingRelation</keyword>
+      <keyword>skos:member</keyword>
+      <keyword>skos:memberList</keyword>
+      <keyword>skos:narrowMatch</keyword>
+      <keyword>skos:narrower</keyword>
+      <keyword>skos:narrowerTransitive</keyword>
+      <keyword>skos:notation</keyword>
+      <keyword>skos:note</keyword>
+      <keyword>skos:prefLabel</keyword>
+      <keyword>skos:related</keyword>
+      <keyword>skos:relatedMatch</keyword>
+      <keyword>skos:scopeNote</keyword>
+      <keyword>skos:semanticRelation</keyword>
+      <keyword>skos:topConceptOf</keyword>
+      <keyword>dc:contributor</keyword>
+      <keyword>dc:coverage</keyword>
+      <keyword>dc:creator</keyword>
+      <keyword>dc:date</keyword>
+      <keyword>dc:description</keyword>
+      <keyword>dc:format</keyword>
+      <keyword>dc:identifier</keyword>
+      <keyword>dc:language</keyword>
+      <keyword>dc:publisher</keyword>
+      <keyword>dc:relation</keyword>
+      <keyword>dc:rights</keyword>
+      <keyword>dc:source</keyword>
+      <keyword>dc:subject</keyword>
+      <keyword>dc:title</keyword>
+      <keyword>dc:type</keyword>
+      <keyword>dcam:memberOf</keyword>
+      <keyword>dcterms:abstract</keyword>
+      <keyword>dcterms:accessRights</keyword>
+      <keyword>dcterms:accrualMethod</keyword>
+      <keyword>dcterms:accrualPeriodicity</keyword>
+      <keyword>dcterms:accrualPolicy</keyword>
+      <keyword>dcterms:alternative</keyword>
+      <keyword>dcterms:audience</keyword>
+      <keyword>dcterms:available</keyword>
+      <keyword>dcterms:bibliographicCitation</keyword>
+      <keyword>dcterms:conformsTo</keyword>
+      <keyword>dcterms:contributor</keyword>
+      <keyword>dcterms:coverage</keyword>
+      <keyword>dcterms:created</keyword>
+      <keyword>dcterms:creator</keyword>
+      <keyword>dcterms:date</keyword>
+      <keyword>dcterms:dateAccepted</keyword>
+      <keyword>dcterms:dateCopyrighted</keyword>
+      <keyword>dcterms:dateSubmitted</keyword>
+      <keyword>dcterms:description</keyword>
+      <keyword>dcterms:educationLevel</keyword>
+      <keyword>dcterms:extent</keyword>
+      <keyword>dcterms:format</keyword>
+      <keyword>dcterms:hasFormat</keyword>
+      <keyword>dcterms:hasPart</keyword>
+      <keyword>dcterms:hasVersion</keyword>
+      <keyword>dcterms:identifier</keyword>
+      <keyword>dcterms:instructionalMethod</keyword>
+      <keyword>dcterms:isFormatOf</keyword>
+      <keyword>dcterms:isPartOf</keyword>
+      <keyword>dcterms:isReferencedBy</keyword>
+      <keyword>dcterms:isReplacedBy</keyword>
+      <keyword>dcterms:isRequiredBy</keyword>
+      <keyword>dcterms:issued</keyword>
+      <keyword>dcterms:isVersionOf</keyword>
+      <keyword>dcterms:language</keyword>
+      <keyword>dcterms:license</keyword>
+      <keyword>dcterms:mediator</keyword>
+      <keyword>dcterms:medium</keyword>
+      <keyword>dcterms:modified</keyword>
+      <keyword>dcterms:provenance</keyword>
+      <keyword>dcterms:publisher</keyword>
+      <keyword>dcterms:references</keyword>
+      <keyword>dcterms:relation</keyword>
+      <keyword>dcterms:replaces</keyword>
+      <keyword>dcterms:requires</keyword>
+      <keyword>dcterms:rights</keyword>
+      <keyword>dcterms:rightsHolder</keyword>
+      <keyword>dcterms:source</keyword>
+      <keyword>dcterms:spatial</keyword>
+      <keyword>dcterms:subject</keyword>
+      <keyword>dcterms:tableOfContents</keyword>
+      <keyword>dcterms:temporal</keyword>
+      <keyword>dcterms:title</keyword>
+      <keyword>dcterms:type</keyword>
+      <keyword>dcterms:valid</keyword>
+    </context>
+
+    <context id="individuals" style-ref="individual">
+      <keyword>rdf:nil</keyword>
+      <keyword>dcterms:DCMIType</keyword>
+      <keyword>dcterms:DDC</keyword>
+      <keyword>dcterms:IMT</keyword>
+      <keyword>dcterms:LCC</keyword>
+      <keyword>dcterms:LCSH</keyword>
+      <keyword>dcterms:MESH</keyword>
+      <keyword>dcterms:NLM</keyword>
+      <keyword>dcterms:TGN</keyword>
+      <keyword>dcterms:UDC</keyword>
+    </context>
+
+    <context id="sparql">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:string"/>
+        <context ref="def:decimal"/>
+        <context ref="def:float"/>
+        <context ref="def:hexadecimal"/>
+
+        <context ref="keywords"/>
+        <context ref="namespaces"/>
+        <context ref="functions"/>
+        <context ref="datatypes"/>
+        <context ref="classes"/>
+        <context ref="predicates"/>
+        <context ref="individuals"/>
+        <context ref="qnames"/>
+
+        <context ref="iri"/>
+        <context ref="var"/>
+        <context ref="booleans"/>
+        <context ref="a"/>
+        <context ref="operators"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

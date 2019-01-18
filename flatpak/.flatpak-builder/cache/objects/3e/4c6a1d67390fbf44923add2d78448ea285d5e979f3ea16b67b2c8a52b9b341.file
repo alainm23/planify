@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-1053 247)'>
+        
+        <path color='#bebebe' d='M1056-247c-.554 0-1 .446-1 1v14c0 .554.446 1 1 1h10c.554 0 1-.446 1-1v-10c0-.554-4.446-5-5-5zm.5 1h5.5v4h4v9.5c0 .277-.223.5-.5.5h-9a.499.499 0 0 1-.5-.5v-13c0-.277.223-.5.5-.5z' fill='#666' overflow='visible' style='marker:none'/>
+        <path color='#000' d='M1059.432-241c-.86 0-1.568.708-1.568 1.568 0 .86.708 1.569 1.568 1.569.86 0 1.568-.708 1.568-1.569 0-.86-.708-1.568-1.568-1.568zm0 1c.32 0 .568.249.568.568 0 .32-.248.569-.568.569a.56.56 0 0 1-.568-.569.56.56 0 0 1 .568-.568zm2.568 1v1h2v-1zm-4 2v1h6v-1zm0 2v1h4v-1z' fill='#666' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal;marker:none' white-space='normal'/>
+    </g>
+</svg>

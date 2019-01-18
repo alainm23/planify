@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Authors: Jim Teeuwen
+ Copyright (C) 2009-2010 Jim Teeuwen <jimteeuwen@gmail.com>
+ Copyright (C) 2010 Kenny Meyer <knny.myer@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+
+  See: http://code.google.com/p/go/source/browse/misc/vim/syntax/go.vim
+-->
+<language id="go" name="Go" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetype">text/x-go</property>
+    <property name="globs">*.go</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"             map-to="def:comment"/>
+    <style id="error"             name="Error"               map-to="def:error"/>
+    <style id="string"            name="String"              map-to="def:string"/>
+    <style id="char"              name="Character"           map-to="def:character"/>
+    <style id="keyword"           name="Keyword"             map-to="def:keyword"/>
+    <style id="type"              name="Data Type"           map-to="def:type"/>
+    <style id="printf"            name="printf Conversion"   map-to="def:special-char"/>
+    <style id="escaped-character" name="Escaped Character"   map-to="def:special-char"/>
+    <style id="floating-point"    name="Floating point number" map-to="def:floating-point"/>
+    <style id="imaginary"         name="Imaginary number"    map-to="def:number"/>
+    <style id="decimal"           name="Decimal number"      map-to="def:decimal"/>
+    <style id="octal"             name="Octal number"        map-to="def:base-n-integer"/>
+    <style id="hexadecimal"       name="Hexadecimal number"  map-to="def:base-n-integer"/>
+    <style id="boolean"           name="Boolean value"       map-to="def:boolean"/>
+    <style id="builtin-constant"  name="Builtin Constant"    map-to="def:special-constant"/>
+    <style id="builtin-function"  name="Builtin Function"    map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="escaped-character" extended="true">
+      \\(                   # leading backslash
+      [\\\"\'nrbtfav\?] |   # escaped character
+      [0-7]{1,3} |          # one, two, or three octal digits
+      x[0-9A-Fa-f]+         # 'x' followed by hex digits
+      )
+    </define-regex>
+
+    <!--contexts NOT used on the main context-->
+    <context id="printf" style-ref="printf" extend-parent="false">
+      <match extended="true">
+        \%\%|\%
+        [#0\-\ \+\*]*        # flags
+        (?:[1-9][0-9]*|\*)?  # width
+        (?:\.(?:[0-9]+|\*))? # precision
+        [vTtbcdoqxXUeEfgGsp] # conversion specifier
+      </match>
+    </context>
+
+    <!--contexts used on the main context-->
+    <context id="comment" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="comment-multiline" style-ref="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="quoted-string" style-ref="string" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="printf"/>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="backquote-string" style-ref="string" end-at-line-end="false" class-disabled="no-spell-check">
+      <start>`</start>
+      <end>`</end>
+      <include>
+        <context ref="printf"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="char" style-ref="char">
+      <match>'(\%{escaped-character}|.)'</match>
+    </context>
+
+    <define-regex id="float" extended="true">
+      ((\.[0-9]+ | [0-9]+\.[0-9]*) ([Ee][+-]?[0-9]+)? |
+      ([0-9]+[Ee][+-]?[0-9]+))
+    </define-regex>
+
+    <context id="imaginary" style-ref="imaginary">
+      <match>(?&lt;![\w\.])(\%{float}|\[0-9]+)[i]\b</match>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match>(?&lt;![\w\.])\%{float}(?![\w\.])</match>
+    </context>
+
+    <context id="hexadecimal" style-ref="hexadecimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][a-fA-F0-9]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="invalid-hexadecimal" style-ref="error">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[xX][a-fA-F0-9]*[g-zG-Z][a-zA-Z0-9]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="octal" style-ref="octal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[0-7]+
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="invalid-octal" style-ref="error">
+      <match extended="true">
+        (?&lt;![\w\.])
+        0[0-7]*[89][0-9]*
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match extended="true">
+        (?&lt;![\w\.])
+        (0|[1-9][0-9]*)
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <match extended="true">
+        (?&lt;![\w\.])
+        (true|false)
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>const</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>defer</keyword>
+      <keyword>else</keyword>
+      <keyword>fallthrough</keyword>
+      <keyword>for</keyword>
+      <keyword>func</keyword>
+      <keyword>go</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>interface</keyword>
+      <keyword>package</keyword>
+      <keyword>range</keyword>
+      <keyword>return</keyword>
+      <keyword>select</keyword>
+      <keyword>struct</keyword>
+      <keyword>switch</keyword>
+      <keyword>type</keyword>
+      <keyword>var</keyword>
+    </context>
+
+    <context id="types" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>chan</keyword>
+      <keyword>complex64</keyword>
+      <keyword>complex128</keyword>
+      <keyword>error</keyword>
+      <keyword>float32</keyword>
+      <keyword>float64</keyword>
+      <keyword>func</keyword>
+      <keyword>int</keyword>
+      <keyword>int8</keyword>
+      <keyword>int16</keyword>
+      <keyword>int32</keyword>
+      <keyword>int64</keyword>
+      <keyword>map</keyword>
+      <keyword>rune</keyword>
+      <keyword>string</keyword>
+      <keyword>uint</keyword>
+      <keyword>uint8</keyword>
+      <keyword>uint16</keyword>
+      <keyword>uint32</keyword>
+      <keyword>uint64</keyword>
+      <keyword>uintptr</keyword>
+    </context>
+
+    <context id="builtin-constant" style-ref="builtin-constant">
+      <keyword>iota</keyword>
+      <keyword>nil</keyword>
+    </context>
+
+    <context id="builtin-function" style-ref="builtin-function">
+      <keyword>append</keyword>
+      <keyword>cap</keyword>
+      <keyword>close</keyword>
+      <keyword>complex</keyword>
+      <keyword>copy</keyword>
+      <keyword>delete</keyword>
+      <keyword>imag</keyword>
+      <keyword>len</keyword>
+      <keyword>make</keyword>
+      <keyword>new</keyword>
+      <keyword>panic</keyword>
+      <keyword>real</keyword>
+      <keyword>recover</keyword>
+    </context>
+
+    <context id="go" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="comment-multiline"/>
+        <context ref="close-comment-outside-comment"/>
+        <context ref="quoted-string"/>
+        <context ref="backquote-string"/>
+        <context ref="char"/>
+        <context ref="float"/>
+        <context ref="hexadecimal"/>
+        <context ref="invalid-hexadecimal"/>
+        <context ref="octal"/>
+        <context ref="invalid-octal"/>
+        <context ref="decimal"/>
+        <context ref="boolean"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="builtin-constant"/>
+        <context ref="builtin-function"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

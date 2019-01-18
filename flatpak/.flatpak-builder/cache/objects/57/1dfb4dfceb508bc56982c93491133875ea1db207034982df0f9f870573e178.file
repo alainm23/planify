@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Jorn Baayen
+ Copyright (C) 2012 Jorn Baayen <jorn.baayen@moct7.com>
+
+ Based on modelica.xml from Kate, Copyright (C) 2008 Federico Zenith.
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="modelica" name="Modelica" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="mimetypes">text/x-modelica</property>
+    <property name="globs">*.mo;*.mop</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment"/>
+    <style id="string"            name="String"            map-to="def:string"/>
+    <style id="operator"          name="Operator"          map-to="def:operator"/>
+    <style id="class-type"        name="Class type"        map-to="def:type"/>
+    <style id="data-type"         name="Data type"         map-to="def:type"/>
+    <style id="default-attribute" name="Default Attribute" map-to="def:identifier"/>
+    <style id="boolean"           name="Boolean"           map-to="def:boolean"/>
+    <style id="decimal"           name="Decimal"           map-to="def:decimal"/>
+    <style id="floating-point"    name="Floating Point"    map-to="def:floating-point"/>
+    <style id="base-n-integer"    name="Base-N Integer"    map-to="def:base-n-integer"/>
+    <style id="keyword"           name="Keyword"           map-to="def:keyword"/>
+    <style id="builtin"           name="Builtin"           map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="false" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <!--To see the list of operators, use the function __operators__-->
+    <context id="operator" style-ref="operator">
+      <match extended="true">
+        (\.)?\+{1,2}?(?!\+) |   # arithmetic operators
+        (\.)?\-{1,2}?(?!\-) |   # already counting
+        (\.)?\*{1,2}?(?!\*) |   # with auto increment,
+        (\.)?\/(?!\^) |         # element by element,
+        (\.)?\\(?!\^) |         # left division
+        (\.)?\^(?!\^) |         # and both exp
+        (?&lt;=[0-9a-zA-Z_)\]}])(\.)?' |                  # transpose operator
+        &lt;=? | &gt;=? | != | ~= | == | &lt;&gt; |       # comparison operators
+        &amp;{1,2}?(?!&amp;) | \|{1,2}?(?!\|) | ! | ~ |   # boolean operators
+        = |                                               # assignment operator
+        : |                                               # range operator
+      </match>
+    </context>
+
+    <context id="class-type" style-ref="class-type">
+      <keyword>class</keyword>
+      <keyword>block</keyword>
+      <keyword>connector</keyword>
+      <keyword>function</keyword>
+      <keyword>model</keyword>
+      <keyword>package</keyword>
+      <keyword>record</keyword>
+      <keyword>type</keyword>
+    </context>
+
+    <context id="data-type" style-ref="data-type">
+      <keyword>Boolean</keyword>
+      <keyword>enumeration</keyword>
+      <keyword>ExternalObject</keyword>
+      <keyword>Integer</keyword>
+      <keyword>Real</keyword>
+      <keyword>StateSelect</keyword>
+      <keyword>String</keyword>
+    </context>
+
+    <context id="default-attribute" style-ref="default-attribute">
+      <keyword>display</keyword>
+      <keyword>fixed</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>nominal</keyword>
+      <keyword>quantity</keyword>
+      <keyword>start</keyword>
+      <keyword>stateSelect</keyword>
+      <keyword>unit</keyword>
+      <keyword>value</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <!-- falase and true can be used as functions too. Do not highlight as
+      boolean if followed by parentheses -->
+      <suffix>\b(?!(\s)*\()</suffix>
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>\b([1-9][0-9]*|0)([Uu]([Ll]|LL|ll)?|([Ll]|LL|ll)[Uu]?)?\b</match>
+    </context>
+
+    <context id="floating-point-number" style-ref="floating-point">
+      <match>\b([0-9]+[Ee][-]?[0-9]+|([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFlL]?</match>
+    </context>
+
+    <!--To see the list of keywords, use the function __keywords__-->
+    <context id="keyword" style-ref="keyword">
+      <keyword>algorithm</keyword>
+      <keyword>and</keyword>
+      <keyword>annotation</keyword>
+      <keyword>assert</keyword>
+      <keyword>break</keyword>
+      <keyword>connect</keyword>
+      <keyword>constant</keyword>
+      <keyword>constrainedby</keyword>
+      <keyword>discrete</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>elsewhen</keyword>
+      <keyword>encapsulated</keyword>
+      <keyword>end</keyword>
+      <keyword>equation</keyword>
+      <keyword>expandable</keyword>
+      <keyword>extends</keyword>
+      <keyword>external</keyword>
+      <keyword>false</keyword>
+      <keyword>final</keyword>
+      <keyword>flow</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>import</keyword>
+      <keyword>in</keyword>
+      <keyword>inner</keyword>
+      <keyword>input</keyword>
+      <keyword>loop</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>outer</keyword>
+      <keyword>output</keyword>
+      <keyword>parameter</keyword>
+      <keyword>partial</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>redeclare</keyword>
+      <keyword>replaceable</keyword>
+      <keyword>return</keyword>
+      <keyword>then</keyword>
+      <keyword>true</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+      <keyword>within</keyword>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+      <!-- NOTE this is more like a built-in variable, but as it changes
+           its value during the simulation it is more like a function
+           without the (), and has therefore been placed here.-->
+      <keyword>time</keyword>
+
+      <keyword>abs</keyword>
+      <keyword>ceil</keyword>
+      <keyword>div</keyword>
+      <keyword>floor</keyword>
+      <keyword>integer</keyword>
+      <keyword>mod</keyword>
+      <keyword>rem</keyword>
+      <keyword>sign</keyword>
+      <keyword>sqrt</keyword>
+
+      <keyword>sin</keyword>
+      <keyword>cos</keyword>
+      <keyword>tan</keyword>
+      <keyword>asin</keyword>
+      <keyword>acos</keyword>
+      <keyword>atan</keyword>
+      <keyword>atan2</keyword>
+      <keyword>sinh</keyword>
+      <keyword>cosh</keyword>
+      <keyword>tanh</keyword>
+      <keyword>exp</keyword>
+      <keyword>log</keyword>
+      <keyword>log10</keyword>
+
+      <keyword>analysisType</keyword>
+      <keyword>cardinality</keyword> <!-- NOTE deprecated in 3.0. -->
+      <keyword>change</keyword>
+      <keyword>delay</keyword>
+      <keyword>der</keyword>
+      <keyword>direction</keyword>
+      <keyword>edge</keyword>
+      <keyword>initial</keyword>
+      <keyword>isPresent</keyword>
+      <keyword>noEvent</keyword>
+      <keyword>pre</keyword>
+      <keyword>reinit</keyword>
+      <keyword>sample</keyword>
+      <keyword>semiLinear</keyword>
+      <keyword>smooth</keyword>
+      <keyword>terminal</keyword>
+      <keyword>terminate</keyword>
+
+      <keyword>ndims</keyword>
+      <keyword>size</keyword>
+      <keyword>scalar</keyword>
+      <keyword>vector</keyword>
+      <keyword>matrix</keyword>
+      <keyword>array</keyword>
+      <keyword>zeros</keyword>
+      <keyword>ones</keyword>
+      <keyword>fill</keyword>
+      <keyword>identity</keyword>
+      <keyword>diagonal</keyword>
+      <keyword>linspace</keyword>
+      <keyword>min</keyword>
+      <keyword>max</keyword>
+      <keyword>sum</keyword>
+      <keyword>product</keyword>
+      <keyword>transpose</keyword>
+      <keyword>outerProduct</keyword>
+      <keyword>symmetric</keyword>
+      <keyword>cross</keyword>
+      <keyword>skew</keyword>
+      <keyword>cat</keyword>
+    </context>
+
+    <context id="modelica" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="double-quoted-string"/>
+        <context ref="operator"/>
+        <context ref="class-type"/>
+        <context ref="data-type"/>
+        <context ref="default-attribute"/>
+        <context ref="boolean"/>
+        <context ref="decimal"/>
+        <context ref="floating-point-number"/>
+        <context ref="keyword"/>
+        <context ref="builtin"/>
+      </include>
+    </context>
+  </definitions>
+</language>

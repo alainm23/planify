@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Mark Corbin <mark@dibsco.co.uk>
+ Copyright (C) 2014 Mark Corbin
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="ansforth94" name="ANS-Forth94" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">text/x-forth</property>
+    <property name="globs">*.4th;*.forth</property>
+    <property name="line-comment-start">\\</property>
+    <property name="block-comment-start">\(</property>
+    <property name="block-comment-end">\)</property>
+  </metadata>
+
+  <styles>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="obs-keyword" name="Obsolete Keyword" map-to="def:keyword"/>
+
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="alert" name="Alert" map-to="def:note"/>
+    <style id="character" name="Character" map-to="def:character"/>
+    <style id="word" name="Word" map-to="def:function"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="constant" name="Constant" map-to="def:constant"/>
+    <style id="variable" name="Variable" map-to="def:type"/>
+    <style id="local-variable" name="Local Variable" map-to="def:type"/>
+    <style id="single-number" name="Single Number" map-to="def:base-n-integer"/>
+    <style id="double-number" name="Double Number" map-to="def:base-n-integer"/>
+    <style id="float" name="Float" map-to="def:floating-point"/>
+  </styles>
+
+
+  <default-regex-options case-sensitive="false"/>
+  <keyword-char-class>(\S)</keyword-char-class>
+
+  <definitions>
+
+    <context id="core-keywords" style-ref="keyword">
+      <keyword>!</keyword>
+      <keyword>#</keyword>
+      <keyword>#&gt;</keyword>
+      <keyword>#S</keyword>
+      <keyword>&apos;</keyword>
+      <keyword>\(</keyword>
+      <keyword>\*</keyword>
+      <keyword>\*/</keyword>
+      <keyword>\*/MOD</keyword>
+      <keyword>\+</keyword>
+      <keyword>\+!</keyword>
+      <keyword>\+LOOP</keyword>
+      <keyword>,</keyword>
+      <keyword>-</keyword>
+      <keyword>\.</keyword>
+      <keyword>\.&quot;</keyword>
+      <keyword>/</keyword>
+      <keyword>/MOD</keyword>
+      <keyword>0&lt;</keyword>
+      <keyword>0=</keyword>
+      <keyword>1\+</keyword>
+      <keyword>1-</keyword>
+      <keyword>2!</keyword>
+      <keyword>2\*</keyword>
+      <keyword>2/</keyword>
+      <keyword>2@</keyword>
+      <keyword>2DROP</keyword>
+      <keyword>2DUP</keyword>
+      <keyword>2OVER</keyword>
+      <keyword>2SWAP</keyword>
+      <keyword>:</keyword>
+      <keyword>;</keyword>
+      <keyword>&lt;</keyword>
+      <keyword>&lt;#</keyword>
+      <keyword>=</keyword>
+      <keyword>&gt;</keyword>
+      <keyword>&gt;BODY</keyword>
+      <keyword>&gt;IN</keyword>
+      <keyword>&gt;NUMBER</keyword>
+      <keyword>&gt;R</keyword>
+      <keyword>\?DUP</keyword>
+      <keyword>@</keyword>
+      <keyword>ABORT</keyword>
+      <keyword>ABORT&quot;</keyword>
+      <keyword>ABS</keyword>
+      <keyword>ACCEPT</keyword>
+      <keyword>ALIGN</keyword>
+      <keyword>ALIGNED</keyword>
+      <keyword>ALLOT</keyword>
+      <keyword>AND</keyword>
+      <keyword>BASE</keyword>
+      <keyword>BEGIN</keyword>
+      <keyword>BL</keyword>
+      <keyword>C!</keyword>
+      <keyword>C,</keyword>
+      <keyword>C@</keyword>
+      <keyword>CELL\+</keyword>
+      <keyword>CELLS</keyword>
+      <keyword>CHAR</keyword>
+      <keyword>CHAR\+</keyword>
+      <keyword>CHARS</keyword>
+      <keyword>CONSTANT</keyword>
+      <keyword>COUNT</keyword>
+      <keyword>CR</keyword>
+      <keyword>CREATE</keyword>
+      <keyword>DECIMAL</keyword>
+      <keyword>DEPTH</keyword>
+      <keyword>DO</keyword>
+      <keyword>DOES&gt;</keyword>
+      <keyword>DROP</keyword>
+      <keyword>DUP</keyword>
+      <keyword>ELSE</keyword>
+      <keyword>EMIT</keyword>
+      <keyword>ENVIRONMENT\?</keyword>
+      <keyword>EVALUATE</keyword>
+      <keyword>EXECUTE</keyword>
+      <keyword>EXIT</keyword>
+      <keyword>FILL</keyword>
+      <keyword>FIND</keyword>
+      <keyword>FM/MOD</keyword>
+      <keyword>HERE</keyword>
+      <keyword>HOLD</keyword>
+      <keyword>I</keyword>
+      <keyword>IF</keyword>
+      <keyword>IMMEDIATE</keyword>
+      <keyword>INVERT</keyword>
+      <keyword>J</keyword>
+      <keyword>KEY</keyword>
+      <keyword>LEAVE</keyword>
+      <keyword>LITERAL</keyword>
+      <keyword>LOOP</keyword>
+      <keyword>LSHIFT</keyword>
+      <keyword>M\*</keyword>
+      <keyword>MAX</keyword>
+      <keyword>MIN</keyword>
+      <keyword>MOD</keyword>
+      <keyword>MOVE</keyword>
+      <keyword>NEGATE</keyword>
+      <keyword>OR</keyword>
+      <keyword>OVER</keyword>
+      <keyword>POSTPONE</keyword>
+      <keyword>QUIT</keyword>
+      <keyword>R&gt;</keyword>
+      <keyword>R@</keyword>
+      <keyword>RECURSE</keyword>
+      <keyword>REPEAT</keyword>
+      <keyword>ROT</keyword>
+      <keyword>RSHIFT</keyword>
+      <keyword>S&quot;</keyword>
+      <keyword>S&gt;D</keyword>
+      <keyword>SIGN</keyword>
+      <keyword>SM/REM</keyword>
+      <keyword>SOURCE</keyword>
+      <keyword>SPACE</keyword>
+      <keyword>SPACES</keyword>
+      <keyword>STATE</keyword>
+      <keyword>SWAP</keyword>
+      <keyword>THEN</keyword>
+      <keyword>TYPE</keyword>
+      <keyword>U\.</keyword>
+      <keyword>U&lt;</keyword>
+      <keyword>UM\*</keyword>
+      <keyword>UM/MOD</keyword>
+      <keyword>UNLOOP</keyword>
+      <keyword>UNTIL</keyword>
+      <keyword>VARIABLE</keyword>
+      <keyword>WHILE</keyword>
+      <keyword>WORD</keyword>
+      <keyword>XOR</keyword>
+      <keyword>\[</keyword>
+      <keyword>\[&apos;\]</keyword>
+      <keyword>\[CHAR\]</keyword>
+      <keyword>\]</keyword>
+    </context>
+
+    <context id="core-ext-keywords" style-ref="keyword">
+      <keyword>\.\(</keyword>
+      <keyword>\.R</keyword>
+      <keyword>0&lt;&gt;</keyword>
+      <keyword>0&gt;</keyword>
+      <keyword>2&gt;R</keyword>
+      <keyword>2R&gt;</keyword>
+      <keyword>2R@</keyword>
+      <keyword>:NONAME</keyword>
+      <keyword>&lt;&gt;</keyword>
+      <keyword>\?DO</keyword>
+      <keyword>AGAIN</keyword>
+      <keyword>C&quot;</keyword>
+      <keyword>CASE</keyword>
+      <keyword>COMPILE,</keyword>
+      <keyword>ENDCASE</keyword>
+      <keyword>ENDOF</keyword>
+      <keyword>ERASE</keyword>
+      <keyword>FALSE</keyword>
+      <keyword>HEX</keyword>
+      <keyword>MARKER</keyword>
+      <keyword>NIP</keyword>
+      <keyword>OF</keyword>
+      <keyword>PAD</keyword>
+      <keyword>PARSE</keyword>
+      <keyword>PICK</keyword>
+      <keyword>REFILL</keyword>
+      <keyword>RESTORE-INPUT</keyword>
+      <keyword>ROLL</keyword>
+      <keyword>SAVE-INPUT</keyword>
+      <keyword>SOURCE-ID</keyword>
+      <keyword>TO</keyword>
+      <keyword>TRUE</keyword>
+      <keyword>TUCK</keyword>
+      <keyword>U\.R</keyword>
+      <keyword>U&gt;</keyword>
+      <keyword>UNUSED</keyword>
+      <keyword>VALUE</keyword>
+      <keyword>WITHIN</keyword>
+      <keyword>\[COMPILE\]</keyword>
+      <keyword>\\</keyword>
+    </context>
+
+    <context id="obsolete-core-ext-keywords" style-ref="obs-keyword">
+      <keyword>#TIB</keyword>
+      <keyword>CONVERT</keyword>
+      <keyword>EXPECT</keyword>
+      <keyword>QUERY</keyword>
+      <keyword>SPAN</keyword>
+      <keyword>TIB</keyword>
+    </context>
+
+    <context id="block-keywords" style-ref="keyword">
+      <keyword>BLK</keyword>
+      <keyword>BLOCK</keyword>
+      <keyword>BUFFER</keyword>
+      <keyword>EVALUATE</keyword>
+      <keyword>FLUSH</keyword>
+      <keyword>LOAD</keyword>
+      <keyword>SAVE-BUFFERS</keyword>
+      <keyword>UPDATE</keyword>
+    </context>
+
+    <context id="block-ext-keywords" style-ref="keyword">
+      <keyword>EMPTY-BUFFERS</keyword>
+      <keyword>LIST</keyword>
+      <keyword>REFILL</keyword>
+      <keyword>SCR</keyword>
+      <keyword>THRU</keyword>
+      <keyword>\\</keyword>
+    </context>
+
+    <context id="double-keywords" style-ref="keyword">
+      <keyword>2CONSTANT</keyword>
+      <keyword>2LITERAL</keyword>
+      <keyword>2VARIABLE</keyword>
+      <keyword>D\+</keyword>
+      <keyword>D-</keyword>
+      <keyword>D\.</keyword>
+      <keyword>D\.R</keyword>
+      <keyword>D0&lt;</keyword>
+      <keyword>D0=</keyword>
+      <keyword>D2\*</keyword>
+      <keyword>D2/</keyword>
+      <keyword>D&lt;</keyword>
+      <keyword>D=</keyword>
+      <keyword>D&gt;S</keyword>
+      <keyword>DABS</keyword>
+      <keyword>DMAX</keyword>
+      <keyword>DMIN</keyword>
+      <keyword>DNEGATE</keyword>
+      <keyword>M\*/</keyword>
+      <keyword>M\+</keyword>
+    </context>
+
+    <context id="double-ext-keywords" style-ref="keyword">
+      <keyword>2ROT</keyword>
+      <keyword>DU&lt;</keyword>
+    </context>
+
+    <context id="exception-keywords" style-ref="keyword">
+      <keyword>CATCH</keyword>
+      <keyword>THROW</keyword>
+    </context>
+
+    <context id="exception-ext-keywords" style-ref="keyword">
+      <keyword>ABORT</keyword>
+      <keyword>ABORT&quot;</keyword>
+    </context>
+
+    <context id="facility-keywords" style-ref="keyword">
+      <keyword>AT-XY</keyword>
+      <keyword>KEY\?</keyword>
+      <keyword>PAGE</keyword>
+    </context>
+
+    <context id="facility-ext-keywords" style-ref="keyword">
+      <keyword>EKEY</keyword>
+      <keyword>EKEY&gt;CHAR</keyword>
+      <keyword>EKEY\?</keyword>
+      <keyword>EMIT\?</keyword>
+      <keyword>MS</keyword>
+      <keyword>TIME&amp;DATE</keyword>
+    </context>
+
+    <context id="file-keywords" style-ref="keyword">
+      <keyword>\(</keyword>
+      <keyword>BIN</keyword>
+      <keyword>CLOSE-FILE</keyword>
+      <keyword>CREATE-FILE</keyword>
+      <keyword>DELETE-FILE</keyword>
+      <keyword>FILE-POSITION</keyword>
+      <keyword>FILE-SIZE</keyword>
+      <keyword>INCLUDE-FILE</keyword>
+      <keyword>INCLUDED</keyword>
+      <keyword>OPEN-FILE</keyword>
+      <keyword>R/O</keyword>
+      <keyword>R/W</keyword>
+      <keyword>READ-FILE</keyword>
+      <keyword>READ-LINE</keyword>
+      <keyword>REPOSITION-FILE</keyword>
+      <keyword>RESIZE-FILE</keyword>
+      <keyword>S&quot;</keyword>
+      <keyword>SOURCE-ID</keyword>
+      <keyword>W/O</keyword>
+      <keyword>WRITE-FILE</keyword>
+      <keyword>WRITE-LINE</keyword>
+    </context>
+
+    <context id="file-ext-keywords" style-ref="keyword">
+      <keyword>FILE-STATUS</keyword>
+      <keyword>FLUSH-FILE</keyword>
+      <keyword>REFILL</keyword>
+      <keyword>RENAME-FILE</keyword>
+    </context>
+
+    <context id="floating-keywords" style-ref="keyword">
+      <keyword>&gt;FLOAT</keyword>
+      <keyword>D&gt;F</keyword>
+      <keyword>F!</keyword>
+      <keyword>F\*</keyword>
+      <keyword>F\+</keyword>
+      <keyword>F-</keyword>
+      <keyword>F/</keyword>
+      <keyword>F0&lt;</keyword>
+      <keyword>F0=</keyword>
+      <keyword>F&lt;</keyword>
+      <keyword>F&gt;D</keyword>
+      <keyword>F@</keyword>
+      <keyword>FALIGN</keyword>
+      <keyword>FALIGNED</keyword>
+      <keyword>FCONSTANT</keyword>
+      <keyword>FDEPTH</keyword>
+      <keyword>FDROP</keyword>
+      <keyword>FDUP</keyword>
+      <keyword>FLITERAL</keyword>
+      <keyword>FLOAT\+</keyword>
+      <keyword>FLOATS</keyword>
+      <keyword>FLOOR</keyword>
+      <keyword>FMAX</keyword>
+      <keyword>FMIN</keyword>
+      <keyword>FNEGATE</keyword>
+      <keyword>FOVER</keyword>
+      <keyword>FROT</keyword>
+      <keyword>FROUND</keyword>
+      <keyword>FSWAP</keyword>
+      <keyword>FVARIABLE</keyword>
+      <keyword>REPRESENT</keyword>
+    </context>
+
+    <context id="floating-ext-keywords" style-ref="keyword">
+      <keyword>DF!</keyword>
+      <keyword>DF@</keyword>
+      <keyword>DFALIGN</keyword>
+      <keyword>DFALIGNED</keyword>
+      <keyword>DFLOAT\+</keyword>
+      <keyword>DFLOATS</keyword>
+      <keyword>F\*\*</keyword>
+      <keyword>F\.</keyword>
+      <keyword>FABS</keyword>
+      <keyword>FACOS</keyword>
+      <keyword>FACOSH</keyword>
+      <keyword>FALOG</keyword>
+      <keyword>FASIN</keyword>
+      <keyword>FASINH</keyword>
+      <keyword>FATAN</keyword>
+      <keyword>FATAN2</keyword>
+      <keyword>FATANH</keyword>
+      <keyword>FCOS</keyword>
+      <keyword>FCOSH</keyword>
+      <keyword>FE\.</keyword>
+      <keyword>FEXP</keyword>
+      <keyword>FEXPM1</keyword>
+      <keyword>FLN</keyword>
+      <keyword>FLNP1</keyword>
+      <keyword>FLOG</keyword>
+      <keyword>FS\.</keyword>
+      <keyword>FSIN</keyword>
+      <keyword>FSINCOS</keyword>
+      <keyword>FSINH</keyword>
+      <keyword>FSQRT</keyword>
+      <keyword>FTAN</keyword>
+      <keyword>FTANH</keyword>
+      <keyword>F~</keyword>
+      <keyword>PRECISION</keyword>
+      <keyword>SET-PRECISION</keyword>
+      <keyword>SF!</keyword>
+      <keyword>SF@</keyword>
+      <keyword>SFALIGN</keyword>
+      <keyword>SFALIGNED</keyword>
+      <keyword>SFLOAT\+</keyword>
+      <keyword>SFLOATS</keyword>
+    </context>
+
+    <context id="local-keywords" style-ref="keyword">
+      <keyword>\(LOCAL\)</keyword>
+      <keyword>TO</keyword>
+    </context>
+
+    <context id="local-ext-keywords" style-ref="keyword">
+      <keyword>LOCALS\|</keyword>
+    </context>
+
+    <context id="memory-keywords" style-ref="keyword">
+      <keyword>ALLOCATE</keyword>
+      <keyword>FREE</keyword>
+      <keyword>RESIZE</keyword>
+    </context>
+
+    <context id="tools-keywords" style-ref="keyword">
+      <keyword>\.S</keyword>
+      <keyword>\?</keyword>
+      <keyword>DUMP</keyword>
+      <keyword>SEE</keyword>
+      <keyword>WORDS</keyword>
+    </context>
+
+    <context id="tools-ext-keywords" style-ref="keyword">
+      <keyword>;CODE</keyword>
+      <keyword>AHEAD</keyword>
+      <keyword>ASSEMBLER</keyword>
+      <keyword>BYE</keyword>
+      <keyword>CODE</keyword>
+      <keyword>CS-PICK</keyword>
+      <keyword>CS-ROLL</keyword>
+      <keyword>EDITOR</keyword>
+      <keyword>STATE</keyword>
+      <keyword>\[ELSE\]</keyword>
+      <keyword>\[IF\]</keyword>
+      <keyword>\[THEN\]</keyword>
+    </context>
+
+    <context id="obsolete-tools-ext-keywords" style-ref="obs-keyword">
+      <keyword>FORGET</keyword>
+    </context>
+
+    <context id="search-keywords" style-ref="keyword">
+      <keyword>DEFINITIONS</keyword>
+      <keyword>FIND</keyword>
+      <keyword>FORTH-WORDLIST</keyword>
+      <keyword>GET-CURRENT</keyword>
+      <keyword>GET-ORDER</keyword>
+      <keyword>SEARCH-WORDLIST</keyword>
+      <keyword>SET-CURRENT</keyword>
+      <keyword>SET-ORDER</keyword>
+      <keyword>WORDLIST</keyword>
+    </context>
+
+    <context id="search-ext-keywords" style-ref="keyword">
+      <keyword>ALSO</keyword>
+      <keyword>FORTH</keyword>
+      <keyword>ONLY</keyword>
+      <keyword>ORDER</keyword>
+      <keyword>PREVIOUS</keyword>
+    </context>
+
+    <context id="string-keywords" style-ref="keyword">
+      <keyword>-TRAILING</keyword>
+      <keyword>/STRING</keyword>
+      <keyword>BLANK</keyword>
+      <keyword>CMOVE</keyword>
+      <keyword>CMOVE&gt;</keyword>
+      <keyword>COMPARE</keyword>
+      <keyword>SEARCH</keyword>
+      <keyword>SLITERAL</keyword>
+    </context>
+
+    <context id="comment-multiline" style-ref="comment" class-disabled="no-spell-check">
+      <start>\%[\(\%]</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="comment-single" style-ref="comment" end-at-line-end="true" class-disabled="no-spell-check">
+      <start>\%[\\\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="character-single" style-ref="keyword">
+      <match>\%[(CHAR|\[CHAR\])\s+(.)\%]</match>
+      <include>
+        <context sub-pattern="4" style-ref="character"/>
+      </include>
+    </context>
+
+    <context id="word-core" style-ref="keyword">
+      <match>\%[(:|[']|CREATE|POSTPONE)\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="4" style-ref="word"/>
+      </include>
+    </context>
+
+    <context id="string-core" style-ref="string">
+      <start>\%[([.]&quot;|ABORT&quot;|S&quot;)\%]</start>
+      <end>&quot;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+      </include>
+    </context>
+
+    <context id="parse-string-core" style-ref="keyword">
+      <match>\%[WORD\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="string"/>
+      </include>
+    </context>
+
+    <context id="constant-core" style-ref="keyword">
+      <match>\%[CONSTANT\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="constant"/>
+      </include>
+    </context>
+
+    <context id="variable-core" style-ref="keyword">
+      <match>\%[VARIABLE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="word-core-ext" style-ref="keyword">
+      <match>\%[(MARKER|\[COMPILE\])\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="4" style-ref="word"/>
+      </include>
+    </context>
+
+    <context id="string-core-ext" style-ref="string">
+      <start>\%[C&quot;\%]</start>
+      <end>&quot;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+      </include>
+    </context>
+
+    <context id="parse-string-core-ext" style-ref="keyword">
+      <match>\%[PARSE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="string"/>
+      </include>
+    </context>
+
+    <context id="display-string-core-ext" style-ref="string">
+      <start>\%[[.]\(\%]</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+      </include>
+    </context>
+
+    <context id="variable-core-ext" style-ref="keyword">
+      <match>\%[(TO|VALUE)\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="4" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="constant-double" style-ref="keyword">
+      <match>\%[2CONSTANT\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="constant"/>
+      </include>
+    </context>
+
+    <context id="variable-double" style-ref="keyword">
+      <match>\%[2VARIABLE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="constant-floating" style-ref="keyword">
+      <match>\%[FCONSTANT\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="constant"/>
+      </include>
+    </context>
+
+    <context id="variable-floating" style-ref="keyword">
+      <match>\%[FVARIABLE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="variable-local-ext" style-ref="local-variable">
+      <start>\%[LOCALS\|\%]</start>
+      <end>\|</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+      </include>
+    </context>
+
+    <context id="word-tools" style-ref="keyword">
+      <match>\%[SEE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="word"/>
+      </include>
+    </context>
+
+    <context id="word-tools-ext" style-ref="keyword">
+      <match>\%[CODE\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="word"/>
+      </include>
+    </context>
+
+    <context id="word-obs-tools-ext" style-ref="obs-keyword">
+      <match>\%[FORGET\s+(\S*)\%]</match>
+      <include>
+        <context sub-pattern="3" style-ref="word"/>
+      </include>
+    </context>
+
+    <context id="number-single" style-ref="single-number">
+      <match>\%[[-]?[0-9]+\%]</match>
+    </context>
+
+    <context id="number-double" style-ref="double-number">
+      <match>\%[[-]?[0-9]+[.][0-9]*\%]</match>
+    </context>
+
+    <context id="number-float" style-ref="float">
+      <match>\%[([+]|[-])?([0-9]+[.]?[0-9]*)(E|e)([+]|[-])?([0-9]*)\%]</match>
+    </context>
+
+
+    <context id="ansforth94" class="no-spell-check">
+      <include>
+        <context ref="comment-multiline"/>
+        <context ref="comment-single"/>
+        <context ref="character-single"/>
+        <context ref="word-core"/>
+        <context ref="string-core"/>
+        <context ref="parse-string-core"/>
+        <context ref="constant-core"/>
+        <context ref="variable-core"/>
+        <context ref="comment-single"/>
+        <context ref="word-core-ext"/>
+        <context ref="string-core-ext"/>
+        <context ref="parse-string-core-ext"/>
+        <context ref="display-string-core-ext"/>
+        <context ref="variable-core-ext"/>
+        <context ref="constant-double"/>
+        <context ref="variable-double"/>
+        <context ref="constant-floating"/>
+        <context ref="variable-floating"/>
+        <context ref="variable-local-ext"/>
+        <context ref="word-tools"/>
+        <context ref="word-tools-ext"/>
+        <context ref="word-obs-tools-ext"/>
+
+        <context ref="core-keywords"/>
+        <context ref="core-ext-keywords"/>
+        <context ref="obsolete-core-ext-keywords"/>
+        <context ref="block-keywords"/>
+        <context ref="block-ext-keywords"/>
+        <context ref="double-keywords"/>
+        <context ref="double-ext-keywords"/>
+        <context ref="exception-keywords"/>
+        <context ref="exception-ext-keywords"/>
+        <context ref="facility-keywords"/>
+        <context ref="facility-ext-keywords"/>
+        <context ref="file-keywords"/>
+        <context ref="file-ext-keywords"/>
+        <context ref="floating-keywords"/>
+        <context ref="floating-ext-keywords"/>
+        <context ref="local-keywords"/>
+        <context ref="local-ext-keywords"/>
+        <context ref="memory-keywords"/>
+        <context ref="tools-keywords"/>
+        <context ref="tools-ext-keywords"/>
+        <context ref="obsolete-tools-ext-keywords"/>
+        <context ref="search-keywords"/>
+        <context ref="search-ext-keywords"/>
+	<context ref="string-keywords"/>
+
+        <context ref="number-single"/>
+        <context ref="number-double"/>
+        <context ref="number-float"/>
+      </include>
+    </context>
+  </definitions>
+</language>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   height="24"
+   width="24"
+   version="1.1"
+   id="svg6">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <g
+     transform="translate(-669,27)"
+     id="g4"
+     style="color:#000000">
+    <path
+       d="m 680.5,-23 c -4.13,0 -7.5,3.37 -7.5,7.5 0,4.13 3.37,7.5 7.5,7.5 4.13,0 7.5,-3.37 7.5,-7.5 0,-4.13 -3.37,-7.5 -7.5,-7.5 z m 0,2 c 3.05,0 5.5,2.45 5.5,5.5 0,3.05 -2.45,5.5 -5.5,5.5 -3.05,0 -5.5,-2.45 -5.5,-5.5 0,-3.05 2.45,-5.5 5.5,-5.5 z m 2.965,2.002 a 0.5,0.5 0 0 0 -0.072,0.008 v 0.008 a 0.5,0.5 0 0 0 -0.25,0.156 l -2.657,2.649 -1.656,-1.649 a 0.5,0.5 0 1 0 -0.687,0.688 l 2,2 a 0.5,0.5 0 0 0 0.687,0 l 3,-3 a 0.5,0.5 0 0 0 -0.365,-0.86 z"
+       font-weight="400"
+       overflow="visible"
+       style="font-weight:400;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;overflow:visible;isolation:auto;mix-blend-mode:normal;fill:#666666"
+       id="path2" />
+  </g>
+</svg>

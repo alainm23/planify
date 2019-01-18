@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Riccardo Lancellotti <riccardo@weblab.ing.unimo.it>
+ Copyright (C) 2005 Riccardo Lancellotti <riccardo@weblab.ing.unimo.it>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="tcl" name="Tcl" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-tcl;application/x-tcl</property>
+    <property name="globs">*.tcl;*.tk</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="variable" name="Variable" map-to="def:type"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+
+    <context id="variable" style-ref="variable">
+      <match>[$@%][$]?[a-zA-Z_][a-zA-Z0-9_]*</match>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>string</keyword>
+      <keyword>subst</keyword>
+      <keyword>regexp</keyword>
+      <keyword>regsub</keyword>
+      <keyword>scan</keyword>
+      <keyword>format</keyword>
+      <keyword>binary</keyword>
+      <keyword>list</keyword>
+      <keyword>split</keyword>
+      <keyword>join</keyword>
+      <keyword>concat</keyword>
+      <keyword>llength</keyword>
+      <keyword>lrange</keyword>
+      <keyword>lsearch</keyword>
+      <keyword>lreplace</keyword>
+      <keyword>lindex</keyword>
+      <keyword>lsort</keyword>
+      <keyword>linsert</keyword>
+      <keyword>lrepeat</keyword>
+      <keyword>dict</keyword>
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>then</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>switch</keyword>
+      <keyword>case</keyword>
+      <keyword>while</keyword>
+      <keyword>continue</keyword>
+      <keyword>return</keyword>
+      <keyword>break</keyword>
+      <keyword>catch</keyword>
+      <keyword>error</keyword>
+      <keyword>eval</keyword>
+      <keyword>uplevel</keyword>
+      <keyword>after</keyword>
+      <keyword>update</keyword>
+      <keyword>vwait</keyword>
+      <keyword>proc</keyword>
+      <keyword>rename</keyword>
+      <keyword>set</keyword>
+      <keyword>lset</keyword>
+      <keyword>lassign</keyword>
+      <keyword>unset</keyword>
+      <keyword>namespace</keyword>
+      <keyword>variable</keyword>
+      <keyword>upvar</keyword>
+      <keyword>global</keyword>
+      <keyword>trace</keyword>
+      <keyword>array</keyword>
+      <keyword>incr</keyword>
+      <keyword>append</keyword>
+      <keyword>lappend</keyword>
+      <keyword>expr</keyword>
+      <keyword>file</keyword>
+      <keyword>open</keyword>
+      <keyword>close</keyword>
+      <keyword>socket</keyword>
+      <keyword>fconfigure</keyword>
+      <keyword>puts</keyword>
+      <keyword>gets</keyword>
+      <keyword>read</keyword>
+      <keyword>seek</keyword>
+      <keyword>tell</keyword>
+      <keyword>eof</keyword>
+      <keyword>flush</keyword>
+      <keyword>fblocked</keyword>
+      <keyword>fcopy</keyword>
+      <keyword>fileevent</keyword>
+      <keyword>source</keyword>
+      <keyword>load</keyword>
+      <keyword>unload</keyword>
+      <keyword>package</keyword>
+      <keyword>info</keyword>
+      <keyword>interp</keyword>
+      <keyword>history</keyword>
+      <keyword>bgerror</keyword>
+      <keyword>unknown</keyword>
+      <keyword>memory</keyword>
+      <keyword>cd</keyword>
+      <keyword>pwd</keyword>
+      <keyword>clock</keyword>
+      <keyword>time</keyword>
+      <keyword>exec</keyword>
+      <keyword>glob</keyword>
+      <keyword>pid</keyword>
+      <keyword>exit</keyword>
+    </context>
+
+    <context id="tcl">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="def:string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="variable"/>
+        <context ref="keyword"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

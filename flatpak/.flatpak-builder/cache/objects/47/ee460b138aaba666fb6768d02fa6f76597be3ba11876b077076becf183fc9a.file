@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsBundle: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsProvided.html" title="AsProvided">
+<link rel="next" href="appstream-AsLaunchable.html" title="AsLaunchable">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsBundle.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsProvided.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsLaunchable.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsBundle"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsBundle.top_of_page"></a>AsBundle</span></h2>
+<p>AsBundle — Description of bundles the <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> is shipped with.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsBundle.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-kind-to-string" title="as_bundle_kind_to_string ()">as_bundle_kind_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="returnvalue">AsBundleKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-kind-from-string" title="as_bundle_kind_from_string ()">as_bundle_kind_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="returnvalue">AsBundle</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-new" title="as_bundle_new ()">as_bundle_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="returnvalue">AsBundleKind</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-get-kind" title="as_bundle_get_kind ()">as_bundle_get_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-set-kind" title="as_bundle_set_kind ()">as_bundle_set_kind</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-get-id" title="as_bundle_get_id ()">as_bundle_get_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsBundle.html#as-bundle-set-id" title="as_bundle_set_id ()">as_bundle_set_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsBundle.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsBundle.html#AS-TYPE-BUNDLE:CAPS" title="AS_TYPE_BUNDLE">AS_TYPE_BUNDLE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsBundle.html#AsBundleClass" title="struct AsBundleClass">AsBundleClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind">AsBundleKind</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle">AsBundle</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsBundle.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsBundle.description"></a><h2>Description</h2>
+<p>This class provides information contained in an AppStream bundle tag.
+See https://www.freedesktop.org/software/appstream/docs/chap-CollectionData.html<span class="type">tag-ct-bundle</span>
+for more information.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsBundle.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-bundle-kind-to-string"></a><h3>as_bundle_kind_to_string ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_bundle_kind_to_string (<em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="type">AsBundleKind</span></a> kind</code></em>);</pre>
+<p>Converts the enumerated value to an text representation.</p>
+<div class="refsect3">
+<a name="as-bundle-kind-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><code class="literal">AsBundleKind</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-bundle-kind-to-string.returns"></a><h4>Returns</h4>
+<p> string version of <em class="parameter"><code>kind</code></em>
+</p>
+</div>
+<p class="since">Since: 0.8.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-kind-from-string"></a><h3>as_bundle_kind_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="returnvalue">AsBundleKind</span></a>
+as_bundle_kind_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *bundle_str</code></em>);</pre>
+<p>Converts the text representation to an enumerated value.</p>
+<div class="refsect3">
+<a name="as-bundle-kind-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bundle_str</p></td>
+<td class="parameter_description"><p>the string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-bundle-kind-from-string.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="type">AsBundleKind</span></a> or <a class="link" href="appstream-AsBundle.html#AS-BUNDLE-KIND-UNKNOWN:CAPS"><code class="literal">AS_BUNDLE_KIND_UNKNOWN</code></a> for unknown</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-new"></a><h3>as_bundle_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="returnvalue">AsBundle</span></a> *
+as_bundle_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a>.</p>
+<div class="refsect3">
+<a name="as-bundle-new.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-get-kind"></a><h3>as_bundle_get_kind ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="returnvalue">AsBundleKind</span></a>
+as_bundle_get_kind (<em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> *bundle</code></em>);</pre>
+<p>Gets the bundle kind.</p>
+<div class="refsect3">
+<a name="as-bundle-get-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bundle</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-bundle-get-kind.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="type">AsBundleKind</span></a></p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-set-kind"></a><h3>as_bundle_set_kind ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_bundle_set_kind (<em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> *bundle</code></em>,
+                    <em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="type">AsBundleKind</span></a> kind</code></em>);</pre>
+<p>Sets the bundle kind.</p>
+<div class="refsect3">
+<a name="as-bundle-set-kind.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bundle</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the <a class="link" href="appstream-AsBundle.html#AsBundleKind" title="enum AsBundleKind"><span class="type">AsBundleKind</span></a>, e.g. <a class="link" href="appstream-AsBundle.html#AS-BUNDLE-KIND-LIMBA:CAPS"><code class="literal">AS_BUNDLE_KIND_LIMBA</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-get-id"></a><h3>as_bundle_get_id ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_bundle_get_id (<em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> *bundle</code></em>);</pre>
+<p>Gets the ID for this bundle.</p>
+<div class="refsect3">
+<a name="as-bundle-get-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bundle</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-bundle-get-id.returns"></a><h4>Returns</h4>
+<p> ID, e.g. "foobar-1.0.2"</p>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-bundle-set-id"></a><h3>as_bundle_set_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_bundle_set_id (<em class="parameter"><code><a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> *bundle</code></em>,
+                  <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>Sets the ID for this bundle.</p>
+<div class="refsect3">
+<a name="as-bundle-set-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bundle</p></td>
+<td class="parameter_description"><p>an <a class="link" href="appstream-AsBundle.html#AsBundle" title="AsBundle"><span class="type">AsBundle</span></a> instance.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>the URL.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 0.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsBundle.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-BUNDLE:CAPS"></a><h3>AS_TYPE_BUNDLE</h3>
+<pre class="programlisting">#define AS_TYPE_BUNDLE (as_bundle_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsBundleClass"></a><h3>struct AsBundleClass</h3>
+<pre class="programlisting">struct AsBundleClass {
+	GObjectClass parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsBundleKind"></a><h3>enum AsBundleKind</h3>
+<p>The bundle type.</p>
+<div class="refsect3">
+<a name="AsBundleKind.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-UNKNOWN:CAPS"></a>AS_BUNDLE_KIND_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>Type invalid or not known</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-PACKAGE:CAPS"></a>AS_BUNDLE_KIND_PACKAGE</p></td>
+<td class="enum_member_description">
+<p>A native package (currently not used)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-LIMBA:CAPS"></a>AS_BUNDLE_KIND_LIMBA</p></td>
+<td class="enum_member_description">
+<p>A Limba bundle</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-FLATPAK:CAPS"></a>AS_BUNDLE_KIND_FLATPAK</p></td>
+<td class="enum_member_description">
+<p>A Flatpak bundle</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-APPIMAGE:CAPS"></a>AS_BUNDLE_KIND_APPIMAGE</p></td>
+<td class="enum_member_description">
+<p>An AppImageKit bundle</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="AS-BUNDLE-KIND-SNAP:CAPS"></a>AS_BUNDLE_KIND_SNAP</p></td>
+<td class="enum_member_description">
+<p>A Snap/Snappy bundle</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsBundle"></a><h3>AsBundle</h3>
+<pre class="programlisting">typedef struct _AsBundle AsBundle;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

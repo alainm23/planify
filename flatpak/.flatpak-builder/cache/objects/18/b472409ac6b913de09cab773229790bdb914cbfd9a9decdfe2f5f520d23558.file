@@ -1,0 +1,755 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AsCategory: AppStream Library Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="AppStream Library Reference Manual">
+<link rel="up" href="ch01.html" title="AppStream API Reference">
+<link rel="prev" href="appstream-AsPool.html" title="AsPool">
+<link rel="next" href="appstream-AsValidator.html" title="AsValidator">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#appstream-AsCategory.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="appstream-AsPool.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="appstream-AsValidator.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="appstream-AsCategory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="appstream-AsCategory.top_of_page"></a>AsCategory</span></h2>
+<p>AsCategory — Representation of a XDG category</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="appstream-AsCategory.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="returnvalue">AsCategory</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-new" title="as_category_new ()">as_category_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-id" title="as_category_get_id ()">as_category_get_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-set-id" title="as_category_set_id ()">as_category_set_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-name" title="as_category_get_name ()">as_category_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-set-name" title="as_category_set_name ()">as_category_set_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-summary" title="as_category_get_summary ()">as_category_get_summary</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-set-summary" title="as_category_set_summary ()">as_category_set_summary</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-icon" title="as_category_get_icon ()">as_category_get_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-set-icon" title="as_category_set_icon ()">as_category_set_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-children" title="as_category_get_children ()">as_category_get_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-has-children" title="as_category_has_children ()">as_category_has_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-add-child" title="as_category_add_child ()">as_category_add_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-remove-child" title="as_category_remove_child ()">as_category_remove_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-desktop-groups" title="as_category_get_desktop_groups ()">as_category_get_desktop_groups</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-add-desktop-group" title="as_category_add_desktop_group ()">as_category_add_desktop_group</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-get-components" title="as_category_get_components ()">as_category_get_components</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-add-component" title="as_category_add_component ()">as_category_add_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-category-has-component" title="as_category_has_component ()">as_category_has_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GPtrArray</span> *
+</td>
+<td class="function_name">
+<a class="link" href="appstream-AsCategory.html#as-get-default-categories" title="as_get_default_categories ()">as_get_default_categories</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsCategory.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="appstream-AsCategory.html#AS-TYPE-CATEGORY:CAPS" title="AS_TYPE_CATEGORY">AS_TYPE_CATEGORY</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="appstream-AsCategory.html#AsCategoryClass" title="struct AsCategoryClass">AsCategoryClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory">AsCategory</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent">AsComponent</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsCategory.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;appstream.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="appstream-AsCategory.description"></a><h2>Description</h2>
+<p>This object represents an XDG category, as defined at:
+http://standards.freedesktop.org/menu-spec/menu-spec-1.0.html<span class="type">category-registry</span></p>
+<p>The <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> object does not support all aspects of a menu. Its main purpose
+is to be used in software-centers to group visual components (gui/web applications).</p>
+<p>You can use <a class="link" href="appstream-AsCategory.html#as-get-default-categories" title="as_get_default_categories ()"><code class="literal">as_get_default_categories</code></a>() to get a set of supported default categories.</p>
+<p>See also: <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a></p>
+</div>
+<div class="refsect1">
+<a name="appstream-AsCategory.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="as-category-new"></a><h3>as_category_new ()</h3>
+<pre class="programlisting"><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="returnvalue">AsCategory</span></a> *
+as_category_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p>
+<div class="refsect3">
+<a name="as-category-new.returns"></a><h4>Returns</h4>
+<p>a new <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-id"></a><h3>as_category_get_id ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_category_get_id (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Get the ID of this category.</p>
+<div class="refsect3">
+<a name="as-category-get-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-set-id"></a><h3>as_category_set_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_set_id (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                    <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>Set the ID of this category.</p>
+<div class="refsect3">
+<a name="as-category-set-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-name"></a><h3>as_category_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_category_get_name (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Get the name of this category.</p>
+<div class="refsect3">
+<a name="as-category-get-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-set-name"></a><h3>as_category_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_set_name (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the name of this category.</p>
+<div class="refsect3">
+<a name="as-category-set-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-summary"></a><h3>as_category_get_summary ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_category_get_summary (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Get the summary (short description) of this category.</p>
+<div class="refsect3">
+<a name="as-category-get-summary.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-set-summary"></a><h3>as_category_set_summary ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_set_summary (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Get the summary (short description) of this category.</p>
+<div class="refsect3">
+<a name="as-category-set-summary.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>A new short summary of this category.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-icon"></a><h3>as_category_get_icon ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+as_category_get_icon (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Get the stock icon name for this category.</p>
+<div class="refsect3">
+<a name="as-category-get-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-set-icon"></a><h3>as_category_set_icon ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_set_icon (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>Set the stock icon name for this category.</p>
+<div class="refsect3">
+<a name="as-category-set-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-children"></a><h3>as_category_get_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_category_get_children (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<div class="refsect3">
+<a name="as-category-get-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-category-get-children.returns"></a><h4>Returns</h4>
+<p>A list of subcategories. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> AsCategory][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-has-children"></a><h3>as_category_has_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_category_has_children (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Test for sub-categories.</p>
+<div class="refsect3">
+<a name="as-category-has-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-category-has-children.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if this category has any subcategory</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-add-child"></a><h3>as_category_add_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_add_child (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                       <em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *subcat</code></em>);</pre>
+<p>Add a subcategory to this category.</p>
+<div class="refsect3">
+<a name="as-category-add-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>subcat</p></td>
+<td class="parameter_description"><p>A subcategory to add.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-remove-child"></a><h3>as_category_remove_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_remove_child (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                          <em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *subcat</code></em>);</pre>
+<p>Drop a subcategory from this <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p>
+<div class="refsect3">
+<a name="as-category-remove-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>subcat</p></td>
+<td class="parameter_description"><p>A subcategory to remove.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-desktop-groups"></a><h3>as_category_get_desktop_groups ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_category_get_desktop_groups (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<div class="refsect3">
+<a name="as-category-get-desktop-groups.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-category-get-desktop-groups.returns"></a><h4>Returns</h4>
+<p>A list of desktop-file categories. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-add-desktop-group"></a><h3>as_category_add_desktop_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_add_desktop_group (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *group_name</code></em>);</pre>
+<p>Add a desktop-file category to this <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p>
+<div class="refsect3">
+<a name="as-category-add-desktop-group.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>group_name</p></td>
+<td class="parameter_description"><p>A subcategory to add.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-get-components"></a><h3>as_category_get_components ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_category_get_components (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>);</pre>
+<p>Get list of components which have been sorted into this category.</p>
+<div class="refsect3">
+<a name="as-category-get-components.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-category-get-components.returns"></a><h4>Returns</h4>
+<p>List of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> AsComponent]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-add-component"></a><h3>as_category_add_component ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+as_category_add_component (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                           <em class="parameter"><code><a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> *cpt</code></em>);</pre>
+<p>Add a component to this category.</p>
+<div class="refsect3">
+<a name="as-category-add-component.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cpt</p></td>
+<td class="parameter_description"><p>The <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> to add.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-category-has-component"></a><h3>as_category_has_component ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+as_category_has_component (<em class="parameter"><code><a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a> *category</code></em>,
+                           <em class="parameter"><code><a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> *cpt</code></em>);</pre>
+<p>Check if the exact <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> <em class="parameter"><code>cpt</code></em>
+ is a member of this
+category already.</p>
+<div class="refsect3">
+<a name="as-category-has-component.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>category</p></td>
+<td class="parameter_description"><p>An instance of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cpt</p></td>
+<td class="parameter_description"><p>The <a class="link" href="appstream-AsComponent.html#AsComponent" title="AsComponent"><span class="type">AsComponent</span></a> to look for.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-category-has-component.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the component is present.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="as-get-default-categories"></a><h3>as_get_default_categories ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *
+as_get_default_categories (<em class="parameter"><code><span class="type">gboolean</span> with_special</code></em>);</pre>
+<p>Get a list of the default Freedesktop and AppStream categories
+that software components (especially GUI applications) can be sorted
+into in software centers.</p>
+<div class="refsect3">
+<a name="as-get-default-categories.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>with_special</p></td>
+<td class="parameter_description"><p>Include special categories (e.g. "addons", and "all"/"featured" in submenus)</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="as-get-default-categories.returns"></a><h4>Returns</h4>
+<p>a list of <a class="link" href="appstream-AsCategory.html#AsCategory" title="AsCategory"><span class="type">AsCategory</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> AsCategory]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="appstream-AsCategory.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="AS-TYPE-CATEGORY:CAPS"></a><h3>AS_TYPE_CATEGORY</h3>
+<pre class="programlisting">#define AS_TYPE_CATEGORY (as_category_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsCategoryClass"></a><h3>struct AsCategoryClass</h3>
+<pre class="programlisting">struct AsCategoryClass {
+	GObjectClass parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsCategory"></a><h3>AsCategory</h3>
+<pre class="programlisting">typedef struct _AsCategory AsCategory;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="AsComponent"></a><h3>AsComponent</h3>
+<pre class="programlisting">typedef struct _AsComponent AsComponent;</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView.
+
+ Authors: Sylvestre Ledru
+ Copyright (C) 2010 Sylvestre Ledru <sylvestre.ledru@scilab.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="scilab" name="Scilab" version="2.0" _section="Scientific">
+  <metadata>
+    <property name="globs">*.sce;*.sci</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment"/>
+    <style id="floating-point"    name="Floating Point"    map-to="def:floating-point"/>
+    <style id="string"            name="String"            map-to="def:string"/>
+    <style id="keyword"           name="Keyword"           map-to="def:keyword"/>
+    <style id="function"          name="Function"          map-to="def:function"/>
+    <style id="boolean"           name="Boolean"           map-to="def:boolean"/>
+    <style id="reserved-constant" name="Reserved Constant" map-to="def:special-constant"/>
+  </styles>
+
+  <definitions>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <!--
+       To do not misdetect the transpose operator ' as the start of a string
+       we assert to not follow a variable name (letters, digits and underscores)
+       or a closing bracket (round, square or curly) or a dot (to form the
+       array transpose operator ".'" ). -->
+      <start>(?&lt;![0-9a-zA-Z_)\]}\.])'</start>
+      <end>'</end>
+      <include>
+        <context style-ref="def:special-char">
+          <match>''</match>
+        </context>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>%f</keyword>
+      <keyword>%F</keyword>
+      <keyword>%t</keyword>
+      <keyword>%T</keyword>
+    </context>
+
+    <context id="reserved-constant" style-ref="reserved-constant">
+      <keyword>%pi</keyword>
+      <keyword>%eps</keyword>
+      <keyword>%inf</keyword>
+      <keyword>%nan</keyword>
+      <keyword>%e</keyword>
+      <keyword>%i</keyword>
+      <keyword>%z</keyword>
+      <keyword>%s</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>abort</keyword>
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>clear</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>do</keyword>
+      <keyword>elseif</keyword>
+      <keyword>else</keyword>
+      <keyword>endfunction</keyword>
+      <keyword>end</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>global</keyword>
+      <keyword>if</keyword>
+      <keyword>pause</keyword>
+      <keyword>return</keyword>
+      <keyword>resume</keyword>
+      <keyword>select</keyword>
+      <keyword>try</keyword>
+      <keyword>then</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="floating-point-number" style-ref="floating-point">
+       <match>\b([0-9]+[DdEe][+-]?[0-9]+|([0-9]*\.[0-9]+|[0-9]+\.)([DdEe][+-]?[0-9]+)?)</match>
+     </context>
+
+    <context id="function" style-ref="function">
+      <keyword>abs</keyword>
+      <keyword>and</keyword>
+      <keyword>acos</keyword>
+      <keyword>asin</keyword>
+      <keyword>atan</keyword>
+      <keyword>ceil</keyword>
+      <keyword>cd</keyword>
+      <keyword>chdir</keyword>
+      <keyword>clearglobal</keyword>
+      <keyword>cosh</keyword>
+      <keyword>cos</keyword>
+      <keyword>cumprod</keyword>
+      <keyword>deff</keyword>
+      <keyword>disp</keyword>
+      <keyword>error</keyword>
+      <keyword>exec</keyword>
+      <keyword>execstr</keyword>
+      <keyword>exists</keyword>
+      <keyword>exp</keyword>
+      <keyword>eye</keyword>
+      <keyword>gettext</keyword>
+      <keyword>floor</keyword>
+      <keyword>fprintf</keyword>
+      <keyword>fread</keyword>
+      <keyword>fsolve</keyword>
+      <keyword>imag</keyword>
+      <keyword>isdef</keyword>
+      <keyword>isempty</keyword>
+      <keyword>isinf</keyword>
+      <keyword>isnan</keyword>
+      <keyword>isvector</keyword>
+      <keyword>lasterror</keyword>
+      <keyword>length</keyword>
+      <keyword>load</keyword>
+      <keyword>linspace</keyword>
+      <keyword>list</keyword>
+      <keyword>listfiles</keyword>
+      <keyword>log10</keyword>
+      <keyword>log2</keyword>
+      <keyword>log</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>msprintf</keyword>
+      <keyword>mclose</keyword>
+      <keyword>mopen</keyword>
+      <keyword>ones</keyword>
+      <keyword>or</keyword>
+      <keyword>pathconvert</keyword>
+      <keyword>poly</keyword>
+      <keyword>printf</keyword>
+      <keyword>prod</keyword>
+      <keyword>pwd</keyword>
+      <keyword>rand</keyword>
+      <keyword>real</keyword>
+      <keyword>round</keyword>
+      <keyword>sinh</keyword>
+      <keyword>sin</keyword>
+      <keyword>size</keyword>
+      <keyword>gsort</keyword>
+      <keyword>sprintf</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>strcat</keyword>
+      <keyword>strcmp</keyword>
+      <keyword>string</keyword>
+      <keyword>sum</keyword>
+      <keyword>system</keyword>
+      <keyword>tanh</keyword>
+      <keyword>tan</keyword>
+      <keyword>type</keyword>
+      <keyword>typename</keyword>
+      <keyword>warning</keyword>
+      <keyword>zeros</keyword>
+    </context>
+
+    <context id="scilab" class="no-spell-check">
+      <include>
+        <context ref="line-comment"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="boolean"/>
+        <context ref="reserved-constant"/>
+        <context ref="keyword"/>
+        <context ref="floating-point-number"/>
+        <context ref="function"/>
+      </include>
+    </context>
+  </definitions>
+</language>

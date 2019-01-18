@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2005-2007 - Marco Barisione <barisione@gmail.com>
+ Copyright (C) 2005-2007 - Emanuele Aina
+ Copyright (C) 2014 - Sébastien Wilmet <swilmet@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="html" name="HTML" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">text/html</property>
+    <property name="globs">*.html;*.htm</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="xml:comment"/>
+    <style id="tag" name="Tag" map-to="xml:element-name"/>
+    <style id="attrib-name" name="Attribute Name" map-to="xml:attribute-name"/>
+    <style id="attrib-value" name="Attribute Value" map-to="xml:attribute-value"/>
+    <style id="dtd" name="DTD" map-to="xml:doctype"/>
+    <style id="error" name="Error" map-to="xml:error"/>
+    <style id="title" name="Page title" map-to="def:heading0"/>
+    <style id="h1" name="Heading level 1" map-to="def:heading1"/>
+    <style id="h2" name="Heading level 2" map-to="def:heading2"/>
+    <style id="h3" name="Heading level 3" map-to="def:heading3"/>
+    <style id="h4" name="Heading level 4" map-to="def:heading4"/>
+    <style id="h5" name="Heading level 5" map-to="def:heading5"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+    <!-- Html comments are more permissive than xml comments -->
+    <context id="comment" style-ref="comment" class="comment">
+      <start>&lt;!--</start>
+      <end>--\s*&gt;</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="dtd" style-ref="dtd" class="no-spell-check">
+      <start>&lt;!</start>
+      <end>&gt;</end>
+    </context>
+
+    <!-- This is a placeholder context intended to be <replace>d
+         in languages like php that need to embedd contexts inside
+         html tags and attributes.
+    -->
+    <context id="embedded-lang-hook">
+      <start>\%{def:never-match}</start>
+      <end></end>
+    </context>
+
+    <context id="headings">
+      <include>
+        <context id="title" style-inside="true" style-ref="title" end-at-line-end="true">
+          <start>&lt;title&gt;</start>
+          <end>&lt;/title&gt;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context sub-pattern="0" where="end" style-ref="tag"/>
+            <context ref="embedded-lang-hook"/>
+          </include>
+        </context>
+        <context id="h1" end-at-line-end="true">
+          <start>&lt;\s*h1</start>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context ref="generic-tag"/>
+            <context id="h1-inside" style-inside="true" style-ref="h1" end-at-line-end="true" end-parent="true">
+              <start>&gt;</start>
+              <end>&lt;\s*/h1\s*&gt;</end>
+              <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="embedded-lang-hook"/>
+                <!-- We cannot match any further here, because matching to tag will override our end-match -->
+              </include>
+            </context>
+          </include>
+        </context>
+        <context id="h2" end-at-line-end="true">
+          <start>&lt;\s*h2</start>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context ref="generic-tag"/>
+            <context id="h2-inside" style-inside="true" style-ref="h2" end-at-line-end="true" end-parent="true">
+              <start>&gt;</start>
+              <end>&lt;\s*/h2\s*&gt;</end>
+              <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="embedded-lang-hook"/>
+                <!-- We cannot match any further here, because matching to tag will override our end-match -->
+              </include>
+            </context>
+          </include>
+        </context>
+        <context id="h3" end-at-line-end="true">
+          <start>&lt;\s*h3</start>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context ref="generic-tag"/>
+            <context id="h3-inside" style-inside="true" style-ref="h3" end-at-line-end="true" end-parent="true">
+              <start>&gt;</start>
+              <end>&lt;\s*/h3\s*&gt;</end>
+              <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="embedded-lang-hook"/>
+                <!-- We cannot match any further here, because matching to tag will override our end-match -->
+              </include>
+            </context>
+          </include>
+        </context>
+        <context id="h4" end-at-line-end="true">
+          <start>&lt;\s*h4</start>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context ref="generic-tag"/>
+            <context id="h4-inside" style-inside="true" style-ref="h4" end-at-line-end="true" end-parent="true">
+              <start>&gt;</start>
+              <end>&lt;\s*/h4\s*&gt;</end>
+              <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="embedded-lang-hook"/>
+                <!-- We cannot match any further here, because matching to tag will override our end-match -->
+              </include>
+            </context>
+          </include>
+        </context>
+        <context id="h5" end-at-line-end="true">
+          <start>&lt;\s*h5</start>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context ref="generic-tag"/>
+            <context id="h5-inside" style-inside="true" style-ref="h5" end-at-line-end="true" end-parent="true">
+              <start>&gt;</start>
+              <end>&lt;\s*/h5\s*&gt;</end>
+              <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="embedded-lang-hook"/>
+                <!-- We cannot match any further here, because matching to tag will override our end-match -->
+              </include>
+            </context>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <define-regex id="attribute-name">[a-z0-9:_-]+</define-regex>
+
+    <context id="generic-tag">
+      <include>
+        <!-- Attribute in the form: name="value" -->
+        <context id="attrib-quoted" class="no-spell-check">
+          <start>(\%{attribute-name}\s*=\s*)(\")</start>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="attrib-name"/>
+            <context sub-pattern="2" where="start" style-ref="attrib-value"/>
+            <context id="string" end-parent="true" end-at-line-end="true" style-ref="attrib-value" class="string" class-disabled="no-spell-check">
+              <start>\%{def:always-match}</start>
+              <end>\"</end>
+              <include>
+                <context ref="xml:entity"/>
+                <context ref="xml:character-reference"/>
+                <context ref="embedded-lang-hook"/>
+              </include>
+            </context>
+          </include>
+        </context>
+
+        <!-- Attribute in the form: name=value -->
+        <context id="attrib-unquoted" style-ref="attrib-value" class="no-spell-check">
+          <start>\%{attribute-name}\s*=\s*</start>
+          <end>(?=&gt;|\s)</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="attrib-name"/>
+            <context ref="xml:entity"/>
+            <context ref="xml:character-reference"/>
+            <context ref="embedded-lang-hook"/>
+          </include>
+        </context>
+
+        <!-- Attribute in the form: name -->
+        <context id="attrib-no-value" style-ref="attrib-name" class="no-spell-check">
+          <match>\%{attribute-name}</match>
+        </context>
+
+        <context ref="embedded-lang-hook"/>
+      </include>
+    </context>
+
+    <context id="style" class="no-spell-check">
+      <start>&lt;\s*style\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context ref="generic-tag"/>
+
+        <context end-parent="true" style-ref="tag">
+          <match>/\s*&gt;</match>
+        </context>
+
+        <context id="style-code" end-parent="true">
+          <start>&gt;</start>
+          <end>&lt;\s*/\s*style\s*&gt;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context sub-pattern="0" where="end" style-ref="tag"/>
+            <context ref="embedded-lang-hook"/>
+            <context ref="css:css"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="script" class="no-spell-check">
+      <start>&lt;\s*script\%]</start>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context ref="generic-tag"/>
+
+        <context end-parent="true" style-ref="tag">
+          <match>/\s*&gt;</match>
+        </context>
+
+        <context id="js-code" end-parent="true">
+          <start>&gt;</start>
+          <end>&lt;\s*/\s*script\s*&gt;</end>
+          <include>
+            <context sub-pattern="0" where="start" style-ref="tag"/>
+            <context sub-pattern="0" where="end" style-ref="tag"/>
+            <context ref="embedded-lang-hook"/>
+            <context ref="js:js"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="tag" class="no-spell-check">
+      <start>&lt;\s*/?\s*[a-z0-9_-]+</start>
+      <end>/?\s*&gt;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+        <context ref="generic-tag"/>
+      </include>
+    </context>
+
+    <context id="html">
+      <include>
+        <context ref="xml:doctype"/>
+        <context ref="xml:entity"/>
+        <context ref="xml:character-reference"/>
+        <context ref="xml:cdata"/>
+        <context ref="comment"/>
+        <context ref="dtd"/>
+        <context ref="headings"/>
+        <context ref="style"/>
+        <context ref="script"/>
+        <context ref="tag"/>
+      </include>
+    </context>
+  </definitions>
+</language>

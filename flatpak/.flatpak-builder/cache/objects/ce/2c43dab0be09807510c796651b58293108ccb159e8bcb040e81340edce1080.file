@@ -1,0 +1,44 @@
+digraph "tree" {
+// The problem disappeared when I removed the "ELEM3 -> ID5;" line!
+//size="4,5";
+ordering=out;
+node [shape=plaintext];
+SPEC -> DEF2;
+SPEC -> DEF1;
+DEF1 -> ID1;
+DEF1 -> SET1;
+DEF1 -> SC1;
+DEF2 -> ID2;
+DEF2 -> SET2;
+DEF2 -> SC2;
+SET1 -> OPEN1;
+SET1 -> ELEM1;
+SET1 -> SC3;
+SET1 -> ELEM2;
+SET1 -> CLOSE1;
+ELEM1 -> ID3;
+SET2 -> OPEN2;
+SET2 -> ELEM3;
+SET2 -> CLOSE2;
+ELEM2 -> ID4;
+ELEM3 -> ID5;
+DEF1 [label=DEF];
+DEF2 [label=DEF];
+SET1 [label=SET];
+SC1 [label=";"];
+SC3 [label=";"];
+SET2 [label=SET];
+SC2 [label=";"];
+OPEN1 [label="{"];
+OPEN2 [label="{"];
+CLOSE1 [label="}"];
+CLOSE2 [label="}"];
+ELEM1 [label=ELEMENT];
+ELEM2 [label=ELEMENT];
+ELEM3 [label=ELEMENT];
+ID1 [label=cities];
+ID2 [label=insects];
+ID3 [label=andover];
+ID4 [label=boston];
+ID5 [label=fly];
+}

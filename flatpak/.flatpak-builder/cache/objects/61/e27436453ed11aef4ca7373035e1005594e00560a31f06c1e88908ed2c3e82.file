@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Maggi <paolo.maggi@polito.it>
+ Copyright (C) 2003 Paolo Maggi <paolo.maggi@polito.it>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="diff" name="Diff" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-diff;text/x-patch;text/x-reject</property>
+    <property name="globs">*.diff;*.patch;*.rej</property>
+  </metadata>
+
+  <styles>
+    <style id="added-line"    name="Added line"/> <!--Others 2-->
+    <style id="removed-line"  name="Removed line"/> <!--Others 3-->
+    <style id="changed-line"  name="Changed line"/> <!--Preprocessor-->
+    <style id="special-case"  name="Special case"/> <!--String-->
+    <style id="location"      name="Location"/> <!--Keyword-->
+    <style id="ignore"        name="Ignore" map-to="def:comment"/>
+    <style id="diff-file"     name=""/> <!--Data Type-->
+  </styles>
+
+  <definitions>
+    <define-regex id="diff-file">^(diff |\+\+\+ |Index: |==== |\*\*\* |--- )</define-regex>
+
+    <context id="diff">
+      <include>
+        <context id="diff-file" style-ref="diff-file" end-at-line-end="true">
+          <start>\%{diff-file}</start>
+        </context>
+
+        <context id="removed-line" style-ref="removed-line">
+          <match>^(&lt;|-).*$</match>
+        </context>
+
+        <context id="added-line" style-ref="added-line">
+          <match>^(\+|&gt;).*$</match>
+        </context>
+
+        <context id="changed-line" style-ref="changed-line">
+          <match>^\! .*$</match>
+        </context>
+
+        <context id="location" style-ref="location" end-at-line-end="true">
+          <start>^((@@)|[0-9]|\*\*\*\*)</start>
+          <include>
+            <context ref="def:escape"/>
+          </include>
+        </context>
+
+        <context id="special-case" style-ref="special-case">
+          <prefix>^</prefix>
+          <suffix>\b</suffix>
+          <keyword>Only in .*</keyword>
+          <keyword>Files .* and .* are identical$</keyword>
+          <keyword>Files .* and .* differ$</keyword>
+          <keyword>Binary files .* and .* differ$</keyword>
+          <keyword>File .* is a .* while file .* is a .*</keyword>
+          <keyword>No newline at end of file .*</keyword>
+        </context>
+
+        <context style-ref="ignore" end-at-line-end="true">
+          <start>^\S</start>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

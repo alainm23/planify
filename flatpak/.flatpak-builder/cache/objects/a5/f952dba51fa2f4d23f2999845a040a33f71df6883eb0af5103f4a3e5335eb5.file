@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<book xmlns="http://www.devhelp.net/book" title="AppStream Library Reference Manual" link="index.html" author="" name="appstream" version="2" language="c" online="http://www.freedesktop.org/software/appstream/docs/api">
+  <chapters>
+    <sub name="AppStream API Reference" link="ch01.html">
+      <sub name="AsComponent" link="appstream-AsComponent.html"/>
+      <sub name="as-enums" link="appstream-as-enums.html"/>
+      <sub name="AsIcon" link="appstream-AsIcon.html"/>
+      <sub name="AsProvided" link="appstream-AsProvided.html"/>
+      <sub name="AsBundle" link="appstream-AsBundle.html"/>
+      <sub name="AsLaunchable" link="appstream-AsLaunchable.html"/>
+      <sub name="AsTranslation" link="appstream-AsTranslation.html"/>
+      <sub name="AsSuggested" link="appstream-AsSuggested.html"/>
+      <sub name="AsRelation" link="appstream-AsRelation.html"/>
+      <sub name="AsRelease" link="appstream-AsRelease.html"/>
+      <sub name="AsChecksum" link="appstream-AsChecksum.html"/>
+      <sub name="AsScreenshot" link="appstream-AsScreenshot.html"/>
+      <sub name="AsImage" link="appstream-AsImage.html"/>
+      <sub name="AsContentRating" link="appstream-AsContentRating.html"/>
+      <sub name="AsMetadata" link="appstream-AsMetadata.html"/>
+      <sub name="AsPool" link="appstream-AsPool.html"/>
+      <sub name="AsCategory" link="appstream-AsCategory.html"/>
+      <sub name="AsValidator" link="appstream-AsValidator.html"/>
+      <sub name="AsValidatorIssue" link="appstream-AsValidatorIssue.html"/>
+      <sub name="as-spdx" link="appstream-as-spdx.html"/>
+      <sub name="as-utils" link="appstream-as-utils.html"/>
+      <sub name="AsDistroDetails" link="appstream-AsDistroDetails.html"/>
+    </sub>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated API" link="deprecated-api-index.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+    <sub name="AppStream Manual Pages" link="manpages.html">
+      <sub name="appstreamcli" link="re23.html"/>
+    </sub>
+  </chapters>
+  <functions>
+    <keyword type="function" name="as_component_kind_to_string ()" link="appstream-AsComponent.html#as-component-kind-to-string"/>
+    <keyword type="function" name="as_component_kind_from_string ()" link="appstream-AsComponent.html#as-component-kind-from-string"/>
+    <keyword type="function" name="as_merge_kind_to_string ()" link="appstream-AsComponent.html#as-merge-kind-to-string"/>
+    <keyword type="function" name="as_merge_kind_from_string ()" link="appstream-AsComponent.html#as-merge-kind-from-string"/>
+    <keyword type="function" name="as_component_new ()" link="appstream-AsComponent.html#as-component-new"/>
+    <keyword type="function" name="as_component_get_value_flags ()" link="appstream-AsComponent.html#as-component-get-value-flags"/>
+    <keyword type="function" name="as_component_set_value_flags ()" link="appstream-AsComponent.html#as-component-set-value-flags"/>
+    <keyword type="function" name="as_component_get_active_locale ()" link="appstream-AsComponent.html#as-component-get-active-locale"/>
+    <keyword type="function" name="as_component_set_active_locale ()" link="appstream-AsComponent.html#as-component-set-active-locale"/>
+    <keyword type="function" name="as_component_get_id ()" link="appstream-AsComponent.html#as-component-get-id"/>
+    <keyword type="function" name="as_component_set_id ()" link="appstream-AsComponent.html#as-component-set-id"/>
+    <keyword type="function" name="as_component_get_data_id ()" link="appstream-AsComponent.html#as-component-get-data-id"/>
+    <keyword type="function" name="as_component_set_data_id ()" link="appstream-AsComponent.html#as-component-set-data-id"/>
+    <keyword type="function" name="as_component_get_kind ()" link="appstream-AsComponent.html#as-component-get-kind"/>
+    <keyword type="function" name="as_component_set_kind ()" link="appstream-AsComponent.html#as-component-set-kind"/>
+    <keyword type="function" name="as_component_get_origin ()" link="appstream-AsComponent.html#as-component-get-origin"/>
+    <keyword type="function" name="as_component_set_origin ()" link="appstream-AsComponent.html#as-component-set-origin"/>
+    <keyword type="function" name="as_component_get_pkgname ()" link="appstream-AsComponent.html#as-component-get-pkgname"/>
+    <keyword type="function" name="as_component_get_pkgnames ()" link="appstream-AsComponent.html#as-component-get-pkgnames"/>
+    <keyword type="function" name="as_component_set_pkgnames ()" link="appstream-AsComponent.html#as-component-set-pkgnames"/>
+    <keyword type="function" name="as_component_get_source_pkgname ()" link="appstream-AsComponent.html#as-component-get-source-pkgname"/>
+    <keyword type="function" name="as_component_set_source_pkgname ()" link="appstream-AsComponent.html#as-component-set-source-pkgname"/>
+    <keyword type="function" name="as_component_get_name ()" link="appstream-AsComponent.html#as-component-get-name"/>
+    <keyword type="function" name="as_component_set_name ()" link="appstream-AsComponent.html#as-component-set-name"/>
+    <keyword type="function" name="as_component_get_summary ()" link="appstream-AsComponent.html#as-component-get-summary"/>
+    <keyword type="function" name="as_component_set_summary ()" link="appstream-AsComponent.html#as-component-set-summary"/>
+    <keyword type="function" name="as_component_get_description ()" link="appstream-AsComponent.html#as-component-get-description"/>
+    <keyword type="function" name="as_component_set_description ()" link="appstream-AsComponent.html#as-component-set-description"/>
+    <keyword type="function" name="as_component_get_launchables ()" link="appstream-AsComponent.html#as-component-get-launchables" since="0.11.0"/>
+    <keyword type="function" name="as_component_get_launchable ()" link="appstream-AsComponent.html#as-component-get-launchable" since="0.11.0"/>
+    <keyword type="function" name="as_component_add_launchable ()" link="appstream-AsComponent.html#as-component-add-launchable" since="0.11.0"/>
+    <keyword type="function" name="as_component_get_metadata_license ()" link="appstream-AsComponent.html#as-component-get-metadata-license"/>
+    <keyword type="function" name="as_component_set_metadata_license ()" link="appstream-AsComponent.html#as-component-set-metadata-license"/>
+    <keyword type="function" name="as_component_get_project_license ()" link="appstream-AsComponent.html#as-component-get-project-license"/>
+    <keyword type="function" name="as_component_set_project_license ()" link="appstream-AsComponent.html#as-component-set-project-license"/>
+    <keyword type="function" name="as_component_get_project_group ()" link="appstream-AsComponent.html#as-component-get-project-group"/>
+    <keyword type="function" name="as_component_set_project_group ()" link="appstream-AsComponent.html#as-component-set-project-group"/>
+    <keyword type="function" name="as_component_get_developer_name ()" link="appstream-AsComponent.html#as-component-get-developer-name"/>
+    <keyword type="function" name="as_component_set_developer_name ()" link="appstream-AsComponent.html#as-component-set-developer-name"/>
+    <keyword type="function" name="as_component_get_compulsory_for_desktops ()" link="appstream-AsComponent.html#as-component-get-compulsory-for-desktops"/>
+    <keyword type="function" name="as_component_set_compulsory_for_desktop ()" link="appstream-AsComponent.html#as-component-set-compulsory-for-desktop"/>
+    <keyword type="function" name="as_component_is_compulsory_for_desktop ()" link="appstream-AsComponent.html#as-component-is-compulsory-for-desktop"/>
+    <keyword type="function" name="as_component_get_categories ()" link="appstream-AsComponent.html#as-component-get-categories"/>
+    <keyword type="function" name="as_component_add_category ()" link="appstream-AsComponent.html#as-component-add-category"/>
+    <keyword type="function" name="as_component_has_category ()" link="appstream-AsComponent.html#as-component-has-category"/>
+    <keyword type="function" name="as_component_get_screenshots ()" link="appstream-AsComponent.html#as-component-get-screenshots"/>
+    <keyword type="function" name="as_component_add_screenshot ()" link="appstream-AsComponent.html#as-component-add-screenshot"/>
+    <keyword type="function" name="as_component_get_keywords ()" link="appstream-AsComponent.html#as-component-get-keywords"/>
+    <keyword type="function" name="as_component_set_keywords ()" link="appstream-AsComponent.html#as-component-set-keywords"/>
+    <keyword type="function" name="as_component_get_icons ()" link="appstream-AsComponent.html#as-component-get-icons"/>
+    <keyword type="function" name="as_component_get_icon_by_size ()" link="appstream-AsComponent.html#as-component-get-icon-by-size"/>
+    <keyword type="function" name="as_component_add_icon ()" link="appstream-AsComponent.html#as-component-add-icon"/>
+    <keyword type="function" name="as_component_get_provided ()" link="appstream-AsComponent.html#as-component-get-provided"/>
+    <keyword type="function" name="as_component_add_provided ()" link="appstream-AsComponent.html#as-component-add-provided" since="0.6.2"/>
+    <keyword type="function" name="as_component_get_provided_for_kind ()" link="appstream-AsComponent.html#as-component-get-provided-for-kind"/>
+    <keyword type="function" name="as_component_get_url ()" link="appstream-AsComponent.html#as-component-get-url" since="0.6.2"/>
+    <keyword type="function" name="as_component_add_url ()" link="appstream-AsComponent.html#as-component-add-url" since="0.6.2"/>
+    <keyword type="function" name="as_component_get_releases ()" link="appstream-AsComponent.html#as-component-get-releases"/>
+    <keyword type="function" name="as_component_add_release ()" link="appstream-AsComponent.html#as-component-add-release"/>
+    <keyword type="function" name="as_component_get_extends ()" link="appstream-AsComponent.html#as-component-get-extends" since="0.7.0"/>
+    <keyword type="function" name="as_component_add_extends ()" link="appstream-AsComponent.html#as-component-add-extends" since="0.7.0"/>
+    <keyword type="function" name="as_component_get_addons ()" link="appstream-AsComponent.html#as-component-get-addons" since="0.9.2"/>
+    <keyword type="function" name="as_component_add_addon ()" link="appstream-AsComponent.html#as-component-add-addon" since="0.9.2"/>
+    <keyword type="function" name="as_component_get_languages ()" link="appstream-AsComponent.html#as-component-get-languages" since="0.7.0"/>
+    <keyword type="function" name="as_component_get_language ()" link="appstream-AsComponent.html#as-component-get-language" since="0.7.0"/>
+    <keyword type="function" name="as_component_add_language ()" link="appstream-AsComponent.html#as-component-add-language" since="0.7.0"/>
+    <keyword type="function" name="as_component_get_translations ()" link="appstream-AsComponent.html#as-component-get-translations" since="0.9.2"/>
+    <keyword type="function" name="as_component_add_translation ()" link="appstream-AsComponent.html#as-component-add-translation" since="0.9.2"/>
+    <keyword type="function" name="as_component_has_bundle ()" link="appstream-AsComponent.html#as-component-has-bundle"/>
+    <keyword type="function" name="as_component_get_bundles ()" link="appstream-AsComponent.html#as-component-get-bundles" since="0.10"/>
+    <keyword type="function" name="as_component_get_bundle ()" link="appstream-AsComponent.html#as-component-get-bundle" since="0.8.0"/>
+    <keyword type="function" name="as_component_add_bundle ()" link="appstream-AsComponent.html#as-component-add-bundle" since="0.8.0"/>
+    <keyword type="function" name="as_component_get_suggested ()" link="appstream-AsComponent.html#as-component-get-suggested"/>
+    <keyword type="function" name="as_component_add_suggested ()" link="appstream-AsComponent.html#as-component-add-suggested"/>
+    <keyword type="function" name="as_component_get_search_tokens ()" link="appstream-AsComponent.html#as-component-get-search-tokens" since="0.9.7"/>
+    <keyword type="function" name="as_component_search_matches ()" link="appstream-AsComponent.html#as-component-search-matches" since="0.9.7"/>
+    <keyword type="function" name="as_component_search_matches_all ()" link="appstream-AsComponent.html#as-component-search-matches-all" since="0.9.8"/>
+    <keyword type="function" name="as_component_get_merge_kind ()" link="appstream-AsComponent.html#as-component-get-merge-kind" since="0.9.8"/>
+    <keyword type="function" name="as_component_set_merge_kind ()" link="appstream-AsComponent.html#as-component-set-merge-kind" since="0.9.8"/>
+    <keyword type="function" name="as_component_is_member_of_category ()" link="appstream-AsComponent.html#as-component-is-member-of-category"/>
+    <keyword type="function" name="as_component_is_ignored ()" link="appstream-AsComponent.html#as-component-is-ignored" since="0.10.2"/>
+    <keyword type="function" name="as_component_is_valid ()" link="appstream-AsComponent.html#as-component-is-valid"/>
+    <keyword type="function" name="as_component_to_string ()" link="appstream-AsComponent.html#as-component-to-string"/>
+    <keyword type="function" name="as_component_get_custom ()" link="appstream-AsComponent.html#as-component-get-custom" since="0.10.5"/>
+    <keyword type="function" name="as_component_get_custom_value ()" link="appstream-AsComponent.html#as-component-get-custom-value" since="0.10.5"/>
+    <keyword type="function" name="as_component_insert_custom_value ()" link="appstream-AsComponent.html#as-component-insert-custom-value" since="0.10.5"/>
+    <keyword type="function" name="as_component_get_content_ratings ()" link="appstream-AsComponent.html#as-component-get-content-ratings" since="0.11.0"/>
+    <keyword type="function" name="as_component_get_content_rating ()" link="appstream-AsComponent.html#as-component-get-content-rating" since="0.11.0"/>
+    <keyword type="function" name="as_component_add_content_rating ()" link="appstream-AsComponent.html#as-component-add-content-rating" since="0.11.0"/>
+    <keyword type="function" name="as_component_get_recommends ()" link="appstream-AsComponent.html#as-component-get-recommends" since="0.12.0"/>
+    <keyword type="function" name="as_component_get_requires ()" link="appstream-AsComponent.html#as-component-get-requires" since="0.12.0"/>
+    <keyword type="function" name="as_component_add_relation ()" link="appstream-AsComponent.html#as-component-add-relation" since="0.12.0"/>
+    <keyword type="function" name="as_component_add_agreement ()" link="appstream-AsComponent.html#as-component-add-agreement" since="0.12.1"/>
+    <keyword type="function" name="as_component_get_agreement_by_kind ()" link="appstream-AsComponent.html#as-component-get-agreement-by-kind" since="0.12.1"/>
+    <keyword type="function" name="as_component_get_desktop_id ()" link="appstream-AsComponent.html#as-component-get-desktop-id" deprecated="0.11.0: Replaced by #AsLaunchable and %as_component_get_launchable" since="0.9.8"/>
+    <keyword type="macro" name="AS_TYPE_COMPONENT" link="appstream-AsComponent.html#AS-TYPE-COMPONENT:CAPS"/>
+    <keyword type="struct" name="struct AsComponentClass" link="appstream-AsComponent.html#AsComponentClass"/>
+    <keyword type="enum" name="enum AsComponentKind" link="appstream-AsComponent.html#AsComponentKind"/>
+    <keyword type="enum" name="enum AsMergeKind" link="appstream-AsComponent.html#AsMergeKind"/>
+    <keyword type="enum" name="enum AsComponentScope" link="appstream-AsComponent.html#AsComponentScope"/>
+    <keyword type="enum" name="enum AsValueFlags" link="appstream-AsComponent.html#AsValueFlags"/>
+    <keyword type="struct" name="AsComponent" link="appstream-AsComponent.html#AsComponent"/>
+    <keyword type="macro" name="as_flags_add()" link="appstream-as-enums.html#as-flags-add"/>
+    <keyword type="macro" name="as_flags_remove()" link="appstream-as-enums.html#as-flags-remove"/>
+    <keyword type="macro" name="as_flags_invert()" link="appstream-as-enums.html#as-flags-invert"/>
+    <keyword type="macro" name="as_flags_contains()" link="appstream-as-enums.html#as-flags-contains"/>
+    <keyword type="function" name="as_url_kind_to_string ()" link="appstream-as-enums.html#as-url-kind-to-string"/>
+    <keyword type="function" name="as_url_kind_from_string ()" link="appstream-as-enums.html#as-url-kind-from-string"/>
+    <keyword type="function" name="as_urgency_kind_to_string ()" link="appstream-as-enums.html#as-urgency-kind-to-string" since="0.6.5"/>
+    <keyword type="function" name="as_urgency_kind_from_string ()" link="appstream-as-enums.html#as-urgency-kind-from-string" since="0.6.5"/>
+    <keyword type="enum" name="enum AsUrlKind" link="appstream-as-enums.html#AsUrlKind"/>
+    <keyword type="enum" name="enum AsUrgencyKind" link="appstream-as-enums.html#AsUrgencyKind"/>
+    <keyword type="function" name="as_icon_kind_from_string ()" link="appstream-AsIcon.html#as-icon-kind-from-string"/>
+    <keyword type="function" name="as_icon_kind_to_string ()" link="appstream-AsIcon.html#as-icon-kind-to-string"/>
+    <keyword type="function" name="as_icon_new ()" link="appstream-AsIcon.html#as-icon-new"/>
+    <keyword type="function" name="as_icon_get_kind ()" link="appstream-AsIcon.html#as-icon-get-kind"/>
+    <keyword type="function" name="as_icon_set_kind ()" link="appstream-AsIcon.html#as-icon-set-kind"/>
+    <keyword type="function" name="as_icon_get_name ()" link="appstream-AsIcon.html#as-icon-get-name"/>
+    <keyword type="function" name="as_icon_set_name ()" link="appstream-AsIcon.html#as-icon-set-name"/>
+    <keyword type="function" name="as_icon_get_url ()" link="appstream-AsIcon.html#as-icon-get-url"/>
+    <keyword type="function" name="as_icon_set_url ()" link="appstream-AsIcon.html#as-icon-set-url"/>
+    <keyword type="function" name="as_icon_get_filename ()" link="appstream-AsIcon.html#as-icon-get-filename"/>
+    <keyword type="function" name="as_icon_set_filename ()" link="appstream-AsIcon.html#as-icon-set-filename"/>
+    <keyword type="function" name="as_icon_get_width ()" link="appstream-AsIcon.html#as-icon-get-width"/>
+    <keyword type="function" name="as_icon_set_width ()" link="appstream-AsIcon.html#as-icon-set-width"/>
+    <keyword type="function" name="as_icon_get_height ()" link="appstream-AsIcon.html#as-icon-get-height"/>
+    <keyword type="function" name="as_icon_set_height ()" link="appstream-AsIcon.html#as-icon-set-height"/>
+    <keyword type="function" name="as_icon_get_scale ()" link="appstream-AsIcon.html#as-icon-get-scale" since="0.11.0"/>
+    <keyword type="function" name="as_icon_set_scale ()" link="appstream-AsIcon.html#as-icon-set-scale" since="0.11.0"/>
+    <keyword type="macro" name="AS_TYPE_ICON" link="appstream-AsIcon.html#AS-TYPE-ICON:CAPS"/>
+    <keyword type="struct" name="struct AsIconClass" link="appstream-AsIcon.html#AsIconClass"/>
+    <keyword type="enum" name="enum AsIconKind" link="appstream-AsIcon.html#AsIconKind"/>
+    <keyword type="struct" name="AsIcon" link="appstream-AsIcon.html#AsIcon"/>
+    <keyword type="function" name="as_provided_kind_to_string ()" link="appstream-AsProvided.html#as-provided-kind-to-string"/>
+    <keyword type="function" name="as_provided_kind_from_string ()" link="appstream-AsProvided.html#as-provided-kind-from-string"/>
+    <keyword type="function" name="as_provided_kind_to_l10n_string ()" link="appstream-AsProvided.html#as-provided-kind-to-l10n-string"/>
+    <keyword type="function" name="as_provided_new ()" link="appstream-AsProvided.html#as-provided-new"/>
+    <keyword type="function" name="as_provided_get_kind ()" link="appstream-AsProvided.html#as-provided-get-kind"/>
+    <keyword type="function" name="as_provided_set_kind ()" link="appstream-AsProvided.html#as-provided-set-kind"/>
+    <keyword type="function" name="as_provided_get_items ()" link="appstream-AsProvided.html#as-provided-get-items"/>
+    <keyword type="function" name="as_provided_add_item ()" link="appstream-AsProvided.html#as-provided-add-item"/>
+    <keyword type="function" name="as_provided_has_item ()" link="appstream-AsProvided.html#as-provided-has-item"/>
+    <keyword type="macro" name="AS_TYPE_PROVIDED" link="appstream-AsProvided.html#AS-TYPE-PROVIDED:CAPS"/>
+    <keyword type="struct" name="struct AsProvidedClass" link="appstream-AsProvided.html#AsProvidedClass"/>
+    <keyword type="enum" name="enum AsProvidedKind" link="appstream-AsProvided.html#AsProvidedKind"/>
+    <keyword type="struct" name="AsProvided" link="appstream-AsProvided.html#AsProvided"/>
+    <keyword type="function" name="as_bundle_kind_to_string ()" link="appstream-AsBundle.html#as-bundle-kind-to-string" since="0.8.0"/>
+    <keyword type="function" name="as_bundle_kind_from_string ()" link="appstream-AsBundle.html#as-bundle-kind-from-string"/>
+    <keyword type="function" name="as_bundle_new ()" link="appstream-AsBundle.html#as-bundle-new" since="0.10"/>
+    <keyword type="function" name="as_bundle_get_kind ()" link="appstream-AsBundle.html#as-bundle-get-kind" since="0.10"/>
+    <keyword type="function" name="as_bundle_set_kind ()" link="appstream-AsBundle.html#as-bundle-set-kind" since="0.10"/>
+    <keyword type="function" name="as_bundle_get_id ()" link="appstream-AsBundle.html#as-bundle-get-id" since="0.10"/>
+    <keyword type="function" name="as_bundle_set_id ()" link="appstream-AsBundle.html#as-bundle-set-id" since="0.10"/>
+    <keyword type="macro" name="AS_TYPE_BUNDLE" link="appstream-AsBundle.html#AS-TYPE-BUNDLE:CAPS"/>
+    <keyword type="struct" name="struct AsBundleClass" link="appstream-AsBundle.html#AsBundleClass"/>
+    <keyword type="enum" name="enum AsBundleKind" link="appstream-AsBundle.html#AsBundleKind"/>
+    <keyword type="struct" name="AsBundle" link="appstream-AsBundle.html#AsBundle"/>
+    <keyword type="function" name="as_launchable_kind_to_string ()" link="appstream-AsLaunchable.html#as-launchable-kind-to-string" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_kind_from_string ()" link="appstream-AsLaunchable.html#as-launchable-kind-from-string" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_new ()" link="appstream-AsLaunchable.html#as-launchable-new" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_get_kind ()" link="appstream-AsLaunchable.html#as-launchable-get-kind" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_set_kind ()" link="appstream-AsLaunchable.html#as-launchable-set-kind" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_get_entries ()" link="appstream-AsLaunchable.html#as-launchable-get-entries" since="0.11.0"/>
+    <keyword type="function" name="as_launchable_add_entry ()" link="appstream-AsLaunchable.html#as-launchable-add-entry" since="0.11.0"/>
+    <keyword type="macro" name="AS_TYPE_LAUNCHABLE" link="appstream-AsLaunchable.html#AS-TYPE-LAUNCHABLE:CAPS"/>
+    <keyword type="struct" name="struct AsLaunchableClass" link="appstream-AsLaunchable.html#AsLaunchableClass"/>
+    <keyword type="enum" name="enum AsLaunchableKind" link="appstream-AsLaunchable.html#AsLaunchableKind"/>
+    <keyword type="struct" name="AsLaunchable" link="appstream-AsLaunchable.html#AsLaunchable"/>
+    <keyword type="function" name="as_translation_kind_to_string ()" link="appstream-AsTranslation.html#as-translation-kind-to-string"/>
+    <keyword type="function" name="as_translation_kind_from_string ()" link="appstream-AsTranslation.html#as-translation-kind-from-string"/>
+    <keyword type="function" name="as_translation_new ()" link="appstream-AsTranslation.html#as-translation-new"/>
+    <keyword type="function" name="as_translation_get_kind ()" link="appstream-AsTranslation.html#as-translation-get-kind"/>
+    <keyword type="function" name="as_translation_set_kind ()" link="appstream-AsTranslation.html#as-translation-set-kind"/>
+    <keyword type="function" name="as_translation_get_id ()" link="appstream-AsTranslation.html#as-translation-get-id"/>
+    <keyword type="function" name="as_translation_set_id ()" link="appstream-AsTranslation.html#as-translation-set-id"/>
+    <keyword type="macro" name="AS_TYPE_TRANSLATION" link="appstream-AsTranslation.html#AS-TYPE-TRANSLATION:CAPS"/>
+    <keyword type="struct" name="struct AsTranslationClass" link="appstream-AsTranslation.html#AsTranslationClass"/>
+    <keyword type="enum" name="enum AsTranslationKind" link="appstream-AsTranslation.html#AsTranslationKind"/>
+    <keyword type="struct" name="AsTranslation" link="appstream-AsTranslation.html#AsTranslation"/>
+    <keyword type="function" name="as_suggested_kind_from_string ()" link="appstream-AsSuggested.html#as-suggested-kind-from-string"/>
+    <keyword type="function" name="as_suggested_kind_to_string ()" link="appstream-AsSuggested.html#as-suggested-kind-to-string"/>
+    <keyword type="function" name="as_suggested_new ()" link="appstream-AsSuggested.html#as-suggested-new"/>
+    <keyword type="function" name="as_suggested_get_kind ()" link="appstream-AsSuggested.html#as-suggested-get-kind"/>
+    <keyword type="function" name="as_suggested_set_kind ()" link="appstream-AsSuggested.html#as-suggested-set-kind"/>
+    <keyword type="function" name="as_suggested_get_ids ()" link="appstream-AsSuggested.html#as-suggested-get-ids"/>
+    <keyword type="function" name="as_suggested_add_id ()" link="appstream-AsSuggested.html#as-suggested-add-id"/>
+    <keyword type="function" name="as_suggested_is_valid ()" link="appstream-AsSuggested.html#as-suggested-is-valid"/>
+    <keyword type="macro" name="AS_TYPE_SUGGESTED" link="appstream-AsSuggested.html#AS-TYPE-SUGGESTED:CAPS"/>
+    <keyword type="struct" name="struct AsSuggestedClass" link="appstream-AsSuggested.html#AsSuggestedClass"/>
+    <keyword type="enum" name="enum AsSuggestedKind" link="appstream-AsSuggested.html#AsSuggestedKind"/>
+    <keyword type="struct" name="AsSuggested" link="appstream-AsSuggested.html#AsSuggested"/>
+    <keyword type="function" name="as_relation_kind_to_string ()" link="appstream-AsRelation.html#as-relation-kind-to-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_kind_from_string ()" link="appstream-AsRelation.html#as-relation-kind-from-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_item_kind_to_string ()" link="appstream-AsRelation.html#as-relation-item-kind-to-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_item_kind_from_string ()" link="appstream-AsRelation.html#as-relation-item-kind-from-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_compare_from_string ()" link="appstream-AsRelation.html#as-relation-compare-from-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_compare_to_string ()" link="appstream-AsRelation.html#as-relation-compare-to-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_compare_to_symbols_string ()" link="appstream-AsRelation.html#as-relation-compare-to-symbols-string" since="0.12.0"/>
+    <keyword type="function" name="as_relation_new ()" link="appstream-AsRelation.html#as-relation-new" since="0.11.0"/>
+    <keyword type="function" name="as_relation_get_kind ()" link="appstream-AsRelation.html#as-relation-get-kind" since="0.12.0"/>
+    <keyword type="function" name="as_relation_set_kind ()" link="appstream-AsRelation.html#as-relation-set-kind" since="0.12.0"/>
+    <keyword type="function" name="as_relation_get_item_kind ()" link="appstream-AsRelation.html#as-relation-get-item-kind" since="0.12.0"/>
+    <keyword type="function" name="as_relation_set_item_kind ()" link="appstream-AsRelation.html#as-relation-set-item-kind" since="0.12.0"/>
+    <keyword type="function" name="as_relation_get_compare ()" link="appstream-AsRelation.html#as-relation-get-compare" since="0.12.0"/>
+    <keyword type="function" name="as_relation_set_compare ()" link="appstream-AsRelation.html#as-relation-set-compare" since="0.12.0"/>
+    <keyword type="function" name="as_relation_get_version ()" link="appstream-AsRelation.html#as-relation-get-version" since="0.12.0"/>
+    <keyword type="function" name="as_relation_set_version ()" link="appstream-AsRelation.html#as-relation-set-version" since="0.12.0"/>
+    <keyword type="function" name="as_relation_get_value ()" link="appstream-AsRelation.html#as-relation-get-value" since="0.12.0"/>
+    <keyword type="function" name="as_relation_get_value_int ()" link="appstream-AsRelation.html#as-relation-get-value-int" since="0.12.0"/>
+    <keyword type="function" name="as_relation_set_value ()" link="appstream-AsRelation.html#as-relation-set-value" since="0.12.0"/>
+    <keyword type="function" name="as_relation_version_compare ()" link="appstream-AsRelation.html#as-relation-version-compare" since="0.12.0"/>
+    <keyword type="macro" name="AS_TYPE_RELATION" link="appstream-AsRelation.html#AS-TYPE-RELATION:CAPS"/>
+    <keyword type="struct" name="struct AsRelationClass" link="appstream-AsRelation.html#AsRelationClass"/>
+    <keyword type="enum" name="enum AsRelationKind" link="appstream-AsRelation.html#AsRelationKind"/>
+    <keyword type="enum" name="enum AsRelationItemKind" link="appstream-AsRelation.html#AsRelationItemKind"/>
+    <keyword type="enum" name="enum AsRelationCompare" link="appstream-AsRelation.html#AsRelationCompare"/>
+    <keyword type="struct" name="AsRelation" link="appstream-AsRelation.html#AsRelation"/>
+    <keyword type="function" name="as_release_kind_to_string ()" link="appstream-AsRelease.html#as-release-kind-to-string" since="0.12.0"/>
+    <keyword type="function" name="as_release_kind_from_string ()" link="appstream-AsRelease.html#as-release-kind-from-string" since="0.12.0"/>
+    <keyword type="function" name="as_size_kind_to_string ()" link="appstream-AsRelease.html#as-size-kind-to-string" since="0.8.6"/>
+    <keyword type="function" name="as_size_kind_from_string ()" link="appstream-AsRelease.html#as-size-kind-from-string" since="0.8.6"/>
+    <keyword type="function" name="as_release_new ()" link="appstream-AsRelease.html#as-release-new"/>
+    <keyword type="function" name="as_release_get_kind ()" link="appstream-AsRelease.html#as-release-get-kind" since="0.12.0"/>
+    <keyword type="function" name="as_release_set_kind ()" link="appstream-AsRelease.html#as-release-set-kind" since="0.12.0"/>
+    <keyword type="function" name="as_release_get_active_locale ()" link="appstream-AsRelease.html#as-release-get-active-locale"/>
+    <keyword type="function" name="as_release_set_active_locale ()" link="appstream-AsRelease.html#as-release-set-active-locale"/>
+    <keyword type="function" name="as_release_get_version ()" link="appstream-AsRelease.html#as-release-get-version"/>
+    <keyword type="function" name="as_release_set_version ()" link="appstream-AsRelease.html#as-release-set-version"/>
+    <keyword type="function" name="as_release_vercmp ()" link="appstream-AsRelease.html#as-release-vercmp"/>
+    <keyword type="function" name="as_release_get_timestamp ()" link="appstream-AsRelease.html#as-release-get-timestamp"/>
+    <keyword type="function" name="as_release_set_timestamp ()" link="appstream-AsRelease.html#as-release-set-timestamp"/>
+    <keyword type="function" name="as_release_get_description ()" link="appstream-AsRelease.html#as-release-get-description"/>
+    <keyword type="function" name="as_release_set_description ()" link="appstream-AsRelease.html#as-release-set-description"/>
+    <keyword type="function" name="as_release_get_locations ()" link="appstream-AsRelease.html#as-release-get-locations" since="0.8.1"/>
+    <keyword type="function" name="as_release_add_location ()" link="appstream-AsRelease.html#as-release-add-location" since="0.8.1"/>
+    <keyword type="function" name="as_release_get_checksums ()" link="appstream-AsRelease.html#as-release-get-checksums" since="0.10"/>
+    <keyword type="function" name="as_release_get_checksum ()" link="appstream-AsRelease.html#as-release-get-checksum" since="0.8.2"/>
+    <keyword type="function" name="as_release_add_checksum ()" link="appstream-AsRelease.html#as-release-add-checksum" since="0.8.2"/>
+    <keyword type="function" name="as_release_get_urgency ()" link="appstream-AsRelease.html#as-release-get-urgency" since="0.6.5"/>
+    <keyword type="function" name="as_release_set_urgency ()" link="appstream-AsRelease.html#as-release-set-urgency" since="0.6.5"/>
+    <keyword type="function" name="as_release_get_size ()" link="appstream-AsRelease.html#as-release-get-size" since="0.8.6"/>
+    <keyword type="function" name="as_release_set_size ()" link="appstream-AsRelease.html#as-release-set-size" since="0.8.6"/>
+    <keyword type="macro" name="AS_TYPE_RELEASE" link="appstream-AsRelease.html#AS-TYPE-RELEASE:CAPS"/>
+    <keyword type="struct" name="struct AsReleaseClass" link="appstream-AsRelease.html#AsReleaseClass"/>
+    <keyword type="enum" name="enum AsReleaseKind" link="appstream-AsRelease.html#AsReleaseKind" since="0.12.0"/>
+    <keyword type="enum" name="enum AsSizeKind" link="appstream-AsRelease.html#AsSizeKind" since="0.8.6"/>
+    <keyword type="struct" name="AsRelease" link="appstream-AsRelease.html#AsRelease"/>
+    <keyword type="function" name="as_checksum_kind_to_string ()" link="appstream-AsChecksum.html#as-checksum-kind-to-string"/>
+    <keyword type="function" name="as_checksum_kind_from_string ()" link="appstream-AsChecksum.html#as-checksum-kind-from-string"/>
+    <keyword type="function" name="as_checksum_new ()" link="appstream-AsChecksum.html#as-checksum-new"/>
+    <keyword type="function" name="as_checksum_get_kind ()" link="appstream-AsChecksum.html#as-checksum-get-kind"/>
+    <keyword type="function" name="as_checksum_set_kind ()" link="appstream-AsChecksum.html#as-checksum-set-kind"/>
+    <keyword type="function" name="as_checksum_get_value ()" link="appstream-AsChecksum.html#as-checksum-get-value"/>
+    <keyword type="function" name="as_checksum_set_value ()" link="appstream-AsChecksum.html#as-checksum-set-value"/>
+    <keyword type="macro" name="AS_TYPE_CHECKSUM" link="appstream-AsChecksum.html#AS-TYPE-CHECKSUM:CAPS"/>
+    <keyword type="struct" name="struct AsChecksumClass" link="appstream-AsChecksum.html#AsChecksumClass"/>
+    <keyword type="enum" name="enum AsChecksumKind" link="appstream-AsChecksum.html#AsChecksumKind"/>
+    <keyword type="struct" name="AsChecksum" link="appstream-AsChecksum.html#AsChecksum"/>
+    <keyword type="function" name="as_screenshot_kind_from_string ()" link="appstream-AsScreenshot.html#as-screenshot-kind-from-string"/>
+    <keyword type="function" name="as_screenshot_kind_to_string ()" link="appstream-AsScreenshot.html#as-screenshot-kind-to-string"/>
+    <keyword type="function" name="as_screenshot_is_valid ()" link="appstream-AsScreenshot.html#as-screenshot-is-valid"/>
+    <keyword type="function" name="as_screenshot_new ()" link="appstream-AsScreenshot.html#as-screenshot-new"/>
+    <keyword type="function" name="as_screenshot_get_kind ()" link="appstream-AsScreenshot.html#as-screenshot-get-kind"/>
+    <keyword type="function" name="as_screenshot_set_kind ()" link="appstream-AsScreenshot.html#as-screenshot-set-kind"/>
+    <keyword type="function" name="as_screenshot_get_caption ()" link="appstream-AsScreenshot.html#as-screenshot-get-caption"/>
+    <keyword type="function" name="as_screenshot_set_caption ()" link="appstream-AsScreenshot.html#as-screenshot-set-caption"/>
+    <keyword type="function" name="as_screenshot_get_images_all ()" link="appstream-AsScreenshot.html#as-screenshot-get-images-all" since="0.10"/>
+    <keyword type="function" name="as_screenshot_get_images ()" link="appstream-AsScreenshot.html#as-screenshot-get-images"/>
+    <keyword type="function" name="as_screenshot_add_image ()" link="appstream-AsScreenshot.html#as-screenshot-add-image"/>
+    <keyword type="function" name="as_screenshot_get_active_locale ()" link="appstream-AsScreenshot.html#as-screenshot-get-active-locale"/>
+    <keyword type="function" name="as_screenshot_set_active_locale ()" link="appstream-AsScreenshot.html#as-screenshot-set-active-locale"/>
+    <keyword type="macro" name="AS_TYPE_SCREENSHOT" link="appstream-AsScreenshot.html#AS-TYPE-SCREENSHOT:CAPS"/>
+    <keyword type="struct" name="struct AsScreenshotClass" link="appstream-AsScreenshot.html#AsScreenshotClass"/>
+    <keyword type="enum" name="enum AsScreenshotKind" link="appstream-AsScreenshot.html#AsScreenshotKind"/>
+    <keyword type="struct" name="AsScreenshot" link="appstream-AsScreenshot.html#AsScreenshot"/>
+    <keyword type="function" name="as_image_kind_from_string ()" link="appstream-AsImage.html#as-image-kind-from-string"/>
+    <keyword type="function" name="as_image_kind_to_string ()" link="appstream-AsImage.html#as-image-kind-to-string"/>
+    <keyword type="function" name="as_image_new ()" link="appstream-AsImage.html#as-image-new"/>
+    <keyword type="function" name="as_image_get_kind ()" link="appstream-AsImage.html#as-image-get-kind"/>
+    <keyword type="function" name="as_image_set_kind ()" link="appstream-AsImage.html#as-image-set-kind"/>
+    <keyword type="function" name="as_image_get_url ()" link="appstream-AsImage.html#as-image-get-url"/>
+    <keyword type="function" name="as_image_set_url ()" link="appstream-AsImage.html#as-image-set-url"/>
+    <keyword type="function" name="as_image_get_width ()" link="appstream-AsImage.html#as-image-get-width"/>
+    <keyword type="function" name="as_image_set_width ()" link="appstream-AsImage.html#as-image-set-width"/>
+    <keyword type="function" name="as_image_get_height ()" link="appstream-AsImage.html#as-image-get-height"/>
+    <keyword type="function" name="as_image_set_height ()" link="appstream-AsImage.html#as-image-set-height"/>
+    <keyword type="function" name="as_image_get_locale ()" link="appstream-AsImage.html#as-image-get-locale" since="0.9.5"/>
+    <keyword type="function" name="as_image_set_locale ()" link="appstream-AsImage.html#as-image-set-locale" since="0.9.5"/>
+    <keyword type="macro" name="AS_TYPE_IMAGE" link="appstream-AsImage.html#AS-TYPE-IMAGE:CAPS"/>
+    <keyword type="struct" name="struct AsImageClass" link="appstream-AsImage.html#AsImageClass"/>
+    <keyword type="enum" name="enum AsImageKind" link="appstream-AsImage.html#AsImageKind"/>
+    <keyword type="struct" name="AsImage" link="appstream-AsImage.html#AsImage"/>
+    <keyword type="function" name="as_content_rating_value_to_string ()" link="appstream-AsContentRating.html#as-content-rating-value-to-string" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_value_from_string ()" link="appstream-AsContentRating.html#as-content-rating-value-from-string" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_new ()" link="appstream-AsContentRating.html#as-content-rating-new" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_get_kind ()" link="appstream-AsContentRating.html#as-content-rating-get-kind" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_set_kind ()" link="appstream-AsContentRating.html#as-content-rating-set-kind" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_get_minimum_age ()" link="appstream-AsContentRating.html#as-content-rating-get-minimum-age" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_get_value ()" link="appstream-AsContentRating.html#as-content-rating-get-value" since="0.11.0"/>
+    <keyword type="function" name="as_content_rating_set_value ()" link="appstream-AsContentRating.html#as-content-rating-set-value" since="0.11.0"/>
+    <keyword type="macro" name="AS_TYPE_CONTENT" link="appstream-AsContentRating.html#AS-TYPE-CONTENT:CAPS"/>
+    <keyword type="struct" name="struct AsContentRatingClass" link="appstream-AsContentRating.html#AsContentRatingClass"/>
+    <keyword type="enum" name="enum AsContentRatingValue" link="appstream-AsContentRating.html#AsContentRatingValue"/>
+    <keyword type="struct" name="AsContentRating" link="appstream-AsContentRating.html#AsContentRating"/>
+    <keyword type="function" name="as_format_kind_to_string ()" link="appstream-AsMetadata.html#as-format-kind-to-string" since="0.10"/>
+    <keyword type="function" name="as_format_kind_from_string ()" link="appstream-AsMetadata.html#as-format-kind-from-string" since="0.10"/>
+    <keyword type="function" name="as_format_version_to_string ()" link="appstream-AsMetadata.html#as-format-version-to-string" since="0.10"/>
+    <keyword type="function" name="as_format_version_from_string ()" link="appstream-AsMetadata.html#as-format-version-from-string" since="0.10"/>
+    <keyword type="function" name="as_metadata_new ()" link="appstream-AsMetadata.html#as-metadata-new"/>
+    <keyword type="function" name="as_metadata_error_quark ()" link="appstream-AsMetadata.html#as-metadata-error-quark"/>
+    <keyword type="function" name="as_metadata_parse_file ()" link="appstream-AsMetadata.html#as-metadata-parse-file"/>
+    <keyword type="function" name="as_metadata_parse ()" link="appstream-AsMetadata.html#as-metadata-parse"/>
+    <keyword type="function" name="as_metadata_parse_desktop_data ()" link="appstream-AsMetadata.html#as-metadata-parse-desktop-data"/>
+    <keyword type="function" name="as_metadata_get_component ()" link="appstream-AsMetadata.html#as-metadata-get-component"/>
+    <keyword type="function" name="as_metadata_get_components ()" link="appstream-AsMetadata.html#as-metadata-get-components"/>
+    <keyword type="function" name="as_metadata_clear_components ()" link="appstream-AsMetadata.html#as-metadata-clear-components"/>
+    <keyword type="function" name="as_metadata_add_component ()" link="appstream-AsMetadata.html#as-metadata-add-component"/>
+    <keyword type="function" name="as_metadata_component_to_metainfo ()" link="appstream-AsMetadata.html#as-metadata-component-to-metainfo"/>
+    <keyword type="function" name="as_metadata_save_metainfo ()" link="appstream-AsMetadata.html#as-metadata-save-metainfo"/>
+    <keyword type="function" name="as_metadata_components_to_collection ()" link="appstream-AsMetadata.html#as-metadata-components-to-collection"/>
+    <keyword type="function" name="as_metadata_save_collection ()" link="appstream-AsMetadata.html#as-metadata-save-collection"/>
+    <keyword type="function" name="as_metadata_get_format_version ()" link="appstream-AsMetadata.html#as-metadata-get-format-version"/>
+    <keyword type="function" name="as_metadata_set_format_version ()" link="appstream-AsMetadata.html#as-metadata-set-format-version"/>
+    <keyword type="function" name="as_metadata_get_format_style ()" link="appstream-AsMetadata.html#as-metadata-get-format-style"/>
+    <keyword type="function" name="as_metadata_set_format_style ()" link="appstream-AsMetadata.html#as-metadata-set-format-style"/>
+    <keyword type="function" name="as_metadata_set_locale ()" link="appstream-AsMetadata.html#as-metadata-set-locale"/>
+    <keyword type="function" name="as_metadata_get_locale ()" link="appstream-AsMetadata.html#as-metadata-get-locale"/>
+    <keyword type="function" name="as_metadata_get_origin ()" link="appstream-AsMetadata.html#as-metadata-get-origin"/>
+    <keyword type="function" name="as_metadata_set_origin ()" link="appstream-AsMetadata.html#as-metadata-set-origin"/>
+    <keyword type="function" name="as_metadata_get_update_existing ()" link="appstream-AsMetadata.html#as-metadata-get-update-existing"/>
+    <keyword type="function" name="as_metadata_set_update_existing ()" link="appstream-AsMetadata.html#as-metadata-set-update-existing"/>
+    <keyword type="function" name="as_metadata_get_write_header ()" link="appstream-AsMetadata.html#as-metadata-get-write-header"/>
+    <keyword type="function" name="as_metadata_set_write_header ()" link="appstream-AsMetadata.html#as-metadata-set-write-header"/>
+    <keyword type="function" name="as_metadata_get_architecture ()" link="appstream-AsMetadata.html#as-metadata-get-architecture"/>
+    <keyword type="function" name="as_metadata_set_architecture ()" link="appstream-AsMetadata.html#as-metadata-set-architecture"/>
+    <keyword type="function" name="as_metadata_get_parse_flags ()" link="appstream-AsMetadata.html#as-metadata-get-parse-flags"/>
+    <keyword type="function" name="as_metadata_set_parse_flags ()" link="appstream-AsMetadata.html#as-metadata-set-parse-flags"/>
+    <keyword type="macro" name="AS_TYPE_METADATA" link="appstream-AsMetadata.html#AS-TYPE-METADATA:CAPS"/>
+    <keyword type="struct" name="struct AsMetadataClass" link="appstream-AsMetadata.html#AsMetadataClass"/>
+    <keyword type="enum" name="enum AsFormatStyle" link="appstream-AsMetadata.html#AsFormatStyle"/>
+    <keyword type="enum" name="enum AsFormatKind" link="appstream-AsMetadata.html#AsFormatKind"/>
+    <keyword type="enum" name="enum AsFormatVersion" link="appstream-AsMetadata.html#AsFormatVersion"/>
+    <keyword type="macro" name="AS_CURRENT_FORMAT_VERSION" link="appstream-AsMetadata.html#AS-CURRENT-FORMAT-VERSION:CAPS"/>
+    <keyword type="enum" name="enum AsParseFlags" link="appstream-AsMetadata.html#AsParseFlags"/>
+    <keyword type="enum" name="enum AsMetadataError" link="appstream-AsMetadata.html#AsMetadataError"/>
+    <keyword type="macro" name="AS_METADATA_ERROR" link="appstream-AsMetadata.html#AS-METADATA-ERROR:CAPS"/>
+    <keyword type="struct" name="AsMetadata" link="appstream-AsMetadata.html#AsMetadata"/>
+    <keyword type="function" name="as_pool_error_quark ()" link="appstream-AsPool.html#as-pool-error-quark"/>
+    <keyword type="function" name="as_pool_new ()" link="appstream-AsPool.html#as-pool-new"/>
+    <keyword type="function" name="as_pool_get_locale ()" link="appstream-AsPool.html#as-pool-get-locale"/>
+    <keyword type="function" name="as_pool_set_locale ()" link="appstream-AsPool.html#as-pool-set-locale"/>
+    <keyword type="function" name="as_pool_load ()" link="appstream-AsPool.html#as-pool-load"/>
+    <keyword type="function" name="as_pool_load_cache_file ()" link="appstream-AsPool.html#as-pool-load-cache-file"/>
+    <keyword type="function" name="as_pool_save_cache_file ()" link="appstream-AsPool.html#as-pool-save-cache-file"/>
+    <keyword type="function" name="as_pool_clear ()" link="appstream-AsPool.html#as-pool-clear"/>
+    <keyword type="function" name="as_pool_add_component ()" link="appstream-AsPool.html#as-pool-add-component"/>
+    <keyword type="function" name="as_pool_get_components ()" link="appstream-AsPool.html#as-pool-get-components"/>
+    <keyword type="function" name="as_pool_get_components_by_id ()" link="appstream-AsPool.html#as-pool-get-components-by-id"/>
+    <keyword type="function" name="as_pool_get_components_by_provided_item ()" link="appstream-AsPool.html#as-pool-get-components-by-provided-item"/>
+    <keyword type="function" name="as_pool_get_components_by_kind ()" link="appstream-AsPool.html#as-pool-get-components-by-kind"/>
+    <keyword type="function" name="as_pool_get_components_by_categories ()" link="appstream-AsPool.html#as-pool-get-components-by-categories"/>
+    <keyword type="function" name="as_pool_get_components_by_launchable ()" link="appstream-AsPool.html#as-pool-get-components-by-launchable" since="0.11.4"/>
+    <keyword type="function" name="as_pool_search ()" link="appstream-AsPool.html#as-pool-search" since="0.9.7"/>
+    <keyword type="function" name="as_pool_clear_metadata_locations ()" link="appstream-AsPool.html#as-pool-clear-metadata-locations"/>
+    <keyword type="function" name="as_pool_add_metadata_location ()" link="appstream-AsPool.html#as-pool-add-metadata-location"/>
+    <keyword type="function" name="as_pool_get_cache_flags ()" link="appstream-AsPool.html#as-pool-get-cache-flags"/>
+    <keyword type="function" name="as_pool_set_cache_flags ()" link="appstream-AsPool.html#as-pool-set-cache-flags"/>
+    <keyword type="function" name="as_pool_get_flags ()" link="appstream-AsPool.html#as-pool-get-flags"/>
+    <keyword type="function" name="as_pool_set_flags ()" link="appstream-AsPool.html#as-pool-set-flags"/>
+    <keyword type="function" name="as_pool_refresh_cache ()" link="appstream-AsPool.html#as-pool-refresh-cache"/>
+    <keyword type="macro" name="AS_TYPE_POOL" link="appstream-AsPool.html#AS-TYPE-POOL:CAPS"/>
+    <keyword type="struct" name="struct AsPoolClass" link="appstream-AsPool.html#AsPoolClass"/>
+    <keyword type="enum" name="enum AsCacheFlags" link="appstream-AsPool.html#AsCacheFlags"/>
+    <keyword type="enum" name="enum AsPoolFlags" link="appstream-AsPool.html#AsPoolFlags"/>
+    <keyword type="enum" name="enum AsPoolError" link="appstream-AsPool.html#AsPoolError"/>
+    <keyword type="macro" name="AS_POOL_ERROR" link="appstream-AsPool.html#AS-POOL-ERROR:CAPS"/>
+    <keyword type="struct" name="AsPool" link="appstream-AsPool.html#AsPool"/>
+    <keyword type="function" name="as_category_new ()" link="appstream-AsCategory.html#as-category-new"/>
+    <keyword type="function" name="as_category_get_id ()" link="appstream-AsCategory.html#as-category-get-id"/>
+    <keyword type="function" name="as_category_set_id ()" link="appstream-AsCategory.html#as-category-set-id"/>
+    <keyword type="function" name="as_category_get_name ()" link="appstream-AsCategory.html#as-category-get-name"/>
+    <keyword type="function" name="as_category_set_name ()" link="appstream-AsCategory.html#as-category-set-name"/>
+    <keyword type="function" name="as_category_get_summary ()" link="appstream-AsCategory.html#as-category-get-summary"/>
+    <keyword type="function" name="as_category_set_summary ()" link="appstream-AsCategory.html#as-category-set-summary"/>
+    <keyword type="function" name="as_category_get_icon ()" link="appstream-AsCategory.html#as-category-get-icon"/>
+    <keyword type="function" name="as_category_set_icon ()" link="appstream-AsCategory.html#as-category-set-icon"/>
+    <keyword type="function" name="as_category_get_children ()" link="appstream-AsCategory.html#as-category-get-children"/>
+    <keyword type="function" name="as_category_has_children ()" link="appstream-AsCategory.html#as-category-has-children"/>
+    <keyword type="function" name="as_category_add_child ()" link="appstream-AsCategory.html#as-category-add-child"/>
+    <keyword type="function" name="as_category_remove_child ()" link="appstream-AsCategory.html#as-category-remove-child"/>
+    <keyword type="function" name="as_category_get_desktop_groups ()" link="appstream-AsCategory.html#as-category-get-desktop-groups"/>
+    <keyword type="function" name="as_category_add_desktop_group ()" link="appstream-AsCategory.html#as-category-add-desktop-group"/>
+    <keyword type="function" name="as_category_get_components ()" link="appstream-AsCategory.html#as-category-get-components"/>
+    <keyword type="function" name="as_category_add_component ()" link="appstream-AsCategory.html#as-category-add-component"/>
+    <keyword type="function" name="as_category_has_component ()" link="appstream-AsCategory.html#as-category-has-component"/>
+    <keyword type="function" name="as_get_default_categories ()" link="appstream-AsCategory.html#as-get-default-categories"/>
+    <keyword type="macro" name="AS_TYPE_CATEGORY" link="appstream-AsCategory.html#AS-TYPE-CATEGORY:CAPS"/>
+    <keyword type="struct" name="struct AsCategoryClass" link="appstream-AsCategory.html#AsCategoryClass"/>
+    <keyword type="struct" name="AsCategory" link="appstream-AsCategory.html#AsCategory"/>
+    <keyword type="struct" name="AsComponent" link="appstream-AsCategory.html#AsComponent"/>
+    <keyword type="function" name="as_validator_new ()" link="appstream-AsValidator.html#as-validator-new"/>
+    <keyword type="function" name="as_validator_clear_issues ()" link="appstream-AsValidator.html#as-validator-clear-issues"/>
+    <keyword type="function" name="as_validator_validate_file ()" link="appstream-AsValidator.html#as-validator-validate-file"/>
+    <keyword type="function" name="as_validator_validate_data ()" link="appstream-AsValidator.html#as-validator-validate-data"/>
+    <keyword type="function" name="as_validator_validate_tree ()" link="appstream-AsValidator.html#as-validator-validate-tree"/>
+    <keyword type="function" name="as_validator_get_issues ()" link="appstream-AsValidator.html#as-validator-get-issues"/>
+    <keyword type="function" name="as_validator_get_check_urls ()" link="appstream-AsValidator.html#as-validator-get-check-urls"/>
+    <keyword type="function" name="as_validator_set_check_urls ()" link="appstream-AsValidator.html#as-validator-set-check-urls"/>
+    <keyword type="macro" name="AS_TYPE_VALIDATOR" link="appstream-AsValidator.html#AS-TYPE-VALIDATOR:CAPS"/>
+    <keyword type="struct" name="struct AsValidatorClass" link="appstream-AsValidator.html#AsValidatorClass"/>
+    <keyword type="struct" name="AsValidator" link="appstream-AsValidator.html#AsValidator"/>
+    <keyword type="function" name="as_validator_issue_new ()" link="appstream-AsValidatorIssue.html#as-validator-issue-new"/>
+    <keyword type="function" name="as_validator_issue_get_kind ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-kind"/>
+    <keyword type="function" name="as_validator_issue_set_kind ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-kind"/>
+    <keyword type="function" name="as_validator_issue_get_importance ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-importance"/>
+    <keyword type="function" name="as_validator_issue_set_importance ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-importance"/>
+    <keyword type="function" name="as_validator_issue_get_message ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-message"/>
+    <keyword type="function" name="as_validator_issue_set_message ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-message"/>
+    <keyword type="function" name="as_validator_issue_get_cid ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-cid"/>
+    <keyword type="function" name="as_validator_issue_set_cid ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-cid"/>
+    <keyword type="function" name="as_validator_issue_get_filename ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-filename"/>
+    <keyword type="function" name="as_validator_issue_set_filename ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-filename"/>
+    <keyword type="function" name="as_validator_issue_get_line ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-line"/>
+    <keyword type="function" name="as_validator_issue_set_line ()" link="appstream-AsValidatorIssue.html#as-validator-issue-set-line"/>
+    <keyword type="function" name="as_validator_issue_get_location ()" link="appstream-AsValidatorIssue.html#as-validator-issue-get-location"/>
+    <keyword type="macro" name="AS_TYPE_VALIDATOR_ISSUE" link="appstream-AsValidatorIssue.html#AS-TYPE-VALIDATOR-ISSUE:CAPS"/>
+    <keyword type="struct" name="struct AsValidatorIssueClass" link="appstream-AsValidatorIssue.html#AsValidatorIssueClass"/>
+    <keyword type="enum" name="enum AsIssueImportance" link="appstream-AsValidatorIssue.html#AsIssueImportance"/>
+    <keyword type="enum" name="enum AsIssueKind" link="appstream-AsValidatorIssue.html#AsIssueKind"/>
+    <keyword type="struct" name="AsValidatorIssue" link="appstream-AsValidatorIssue.html#AsValidatorIssue"/>
+    <keyword type="function" name="as_is_spdx_license_id ()" link="appstream-as-spdx.html#as-is-spdx-license-id" since="0.9.8"/>
+    <keyword type="function" name="as_is_spdx_license_expression ()" link="appstream-as-spdx.html#as-is-spdx-license-expression" since="0.9.8"/>
+    <keyword type="function" name="as_spdx_license_tokenize ()" link="appstream-as-spdx.html#as-spdx-license-tokenize" since="0.9.8"/>
+    <keyword type="function" name="as_spdx_license_detokenize ()" link="appstream-as-spdx.html#as-spdx-license-detokenize" since="0.9.8"/>
+    <keyword type="function" name="as_license_to_spdx_id ()" link="appstream-as-spdx.html#as-license-to-spdx-id" since="0.9.8"/>
+    <keyword type="function" name="as_license_is_metadata_license ()" link="appstream-as-spdx.html#as-license-is-metadata-license"/>
+    <keyword type="function" name="as_markup_convert_simple ()" link="appstream-as-utils.html#as-markup-convert-simple"/>
+    <keyword type="function" name="as_utils_locale_is_compatible ()" link="appstream-as-utils.html#as-utils-locale-is-compatible" since="0.9.5"/>
+    <keyword type="function" name="as_utils_is_category_name ()" link="appstream-as-utils.html#as-utils-is-category-name"/>
+    <keyword type="function" name="as_utils_is_tld ()" link="appstream-as-utils.html#as-utils-is-tld" since="0.9.8"/>
+    <keyword type="function" name="as_utils_is_desktop_environment ()" link="appstream-as-utils.html#as-utils-is-desktop-environment" since="0.10.0"/>
+    <keyword type="function" name="as_utils_sort_components_into_categories ()" link="appstream-as-utils.html#as-utils-sort-components-into-categories"/>
+    <keyword type="function" name="as_utils_compare_versions ()" link="appstream-as-utils.html#as-utils-compare-versions"/>
+    <keyword type="function" name="as_get_appstream_version ()" link="appstream-as-utils.html#as-get-appstream-version"/>
+    <keyword type="function" name="as_distro_details_new ()" link="appstream-AsDistroDetails.html#as-distro-details-new"/>
+    <keyword type="function" name="as_distro_details_get_id ()" link="appstream-AsDistroDetails.html#as-distro-details-get-id"/>
+    <keyword type="function" name="as_distro_details_get_name ()" link="appstream-AsDistroDetails.html#as-distro-details-get-name"/>
+    <keyword type="function" name="as_distro_details_get_version ()" link="appstream-AsDistroDetails.html#as-distro-details-get-version"/>
+    <keyword type="function" name="as_distro_details_get_str ()" link="appstream-AsDistroDetails.html#as-distro-details-get-str"/>
+    <keyword type="function" name="as_distro_details_get_bool ()" link="appstream-AsDistroDetails.html#as-distro-details-get-bool"/>
+    <keyword type="macro" name="AS_TYPE_DISTRO_DETAILS" link="appstream-AsDistroDetails.html#AS-TYPE-DISTRO-DETAILS:CAPS"/>
+    <keyword type="struct" name="struct AsDistroDetailsClass" link="appstream-AsDistroDetails.html#AsDistroDetailsClass"/>
+    <keyword type="struct" name="AsDistroDetails" link="appstream-AsDistroDetails.html#AsDistroDetails"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_UNKNOWN" link="appstream-AsComponent.html#AS-COMPONENT-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_GENERIC" link="appstream-AsComponent.html#AS-COMPONENT-KIND-GENERIC:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_DESKTOP_APP" link="appstream-AsComponent.html#AS-COMPONENT-KIND-DESKTOP-APP:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_CONSOLE_APP" link="appstream-AsComponent.html#AS-COMPONENT-KIND-CONSOLE-APP:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_WEB_APP" link="appstream-AsComponent.html#AS-COMPONENT-KIND-WEB-APP:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_ADDON" link="appstream-AsComponent.html#AS-COMPONENT-KIND-ADDON:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_FONT" link="appstream-AsComponent.html#AS-COMPONENT-KIND-FONT:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_CODEC" link="appstream-AsComponent.html#AS-COMPONENT-KIND-CODEC:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_INPUTMETHOD" link="appstream-AsComponent.html#AS-COMPONENT-KIND-INPUTMETHOD:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_FIRMWARE" link="appstream-AsComponent.html#AS-COMPONENT-KIND-FIRMWARE:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_DRIVER" link="appstream-AsComponent.html#AS-COMPONENT-KIND-DRIVER:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_LOCALIZATION" link="appstream-AsComponent.html#AS-COMPONENT-KIND-LOCALIZATION:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_SERVICE" link="appstream-AsComponent.html#AS-COMPONENT-KIND-SERVICE:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_KIND_REPOSITORY" link="appstream-AsComponent.html#AS-COMPONENT-KIND-REPOSITORY:CAPS"/>
+    <keyword type="constant" name="AS_MERGE_KIND_NONE" link="appstream-AsComponent.html#AS-MERGE-KIND-NONE:CAPS"/>
+    <keyword type="constant" name="AS_MERGE_KIND_REPLACE" link="appstream-AsComponent.html#AS-MERGE-KIND-REPLACE:CAPS"/>
+    <keyword type="constant" name="AS_MERGE_KIND_APPEND" link="appstream-AsComponent.html#AS-MERGE-KIND-APPEND:CAPS"/>
+    <keyword type="constant" name="AS_MERGE_KIND_REMOVE_COMPONENT" link="appstream-AsComponent.html#AS-MERGE-KIND-REMOVE-COMPONENT:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_SCOPE_UNKNOWN" link="appstream-AsComponent.html#AS-COMPONENT-SCOPE-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_SCOPE_SYSTEM" link="appstream-AsComponent.html#AS-COMPONENT-SCOPE-SYSTEM:CAPS"/>
+    <keyword type="constant" name="AS_COMPONENT_SCOPE_USER" link="appstream-AsComponent.html#AS-COMPONENT-SCOPE-USER:CAPS"/>
+    <keyword type="constant" name="AS_VALUE_FLAG_NONE" link="appstream-AsComponent.html#AS-VALUE-FLAG-NONE:CAPS"/>
+    <keyword type="constant" name="AS_VALUE_FLAG_DUPLICATE_CHECK" link="appstream-AsComponent.html#AS-VALUE-FLAG-DUPLICATE-CHECK:CAPS"/>
+    <keyword type="constant" name="AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK" link="appstream-AsComponent.html#AS-VALUE-FLAG-NO-TRANSLATION-FALLBACK:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_UNKNOWN" link="appstream-as-enums.html#AS-URL-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_HOMEPAGE" link="appstream-as-enums.html#AS-URL-KIND-HOMEPAGE:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_BUGTRACKER" link="appstream-as-enums.html#AS-URL-KIND-BUGTRACKER:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_FAQ" link="appstream-as-enums.html#AS-URL-KIND-FAQ:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_HELP" link="appstream-as-enums.html#AS-URL-KIND-HELP:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_DONATION" link="appstream-as-enums.html#AS-URL-KIND-DONATION:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_TRANSLATE" link="appstream-as-enums.html#AS-URL-KIND-TRANSLATE:CAPS"/>
+    <keyword type="constant" name="AS_URL_KIND_CONTACT" link="appstream-as-enums.html#AS-URL-KIND-CONTACT:CAPS"/>
+    <keyword type="constant" name="AS_URGENCY_KIND_UNKNOWN" link="appstream-as-enums.html#AS-URGENCY-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_URGENCY_KIND_LOW" link="appstream-as-enums.html#AS-URGENCY-KIND-LOW:CAPS"/>
+    <keyword type="constant" name="AS_URGENCY_KIND_MEDIUM" link="appstream-as-enums.html#AS-URGENCY-KIND-MEDIUM:CAPS"/>
+    <keyword type="constant" name="AS_URGENCY_KIND_HIGH" link="appstream-as-enums.html#AS-URGENCY-KIND-HIGH:CAPS"/>
+    <keyword type="constant" name="AS_URGENCY_KIND_CRITICAL" link="appstream-as-enums.html#AS-URGENCY-KIND-CRITICAL:CAPS"/>
+    <keyword type="constant" name="AS_ICON_KIND_UNKNOWN" link="appstream-AsIcon.html#AS-ICON-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_ICON_KIND_CACHED" link="appstream-AsIcon.html#AS-ICON-KIND-CACHED:CAPS"/>
+    <keyword type="constant" name="AS_ICON_KIND_STOCK" link="appstream-AsIcon.html#AS-ICON-KIND-STOCK:CAPS"/>
+    <keyword type="constant" name="AS_ICON_KIND_LOCAL" link="appstream-AsIcon.html#AS-ICON-KIND-LOCAL:CAPS"/>
+    <keyword type="constant" name="AS_ICON_KIND_REMOTE" link="appstream-AsIcon.html#AS-ICON-KIND-REMOTE:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_UNKNOWN" link="appstream-AsProvided.html#AS-PROVIDED-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_LIBRARY" link="appstream-AsProvided.html#AS-PROVIDED-KIND-LIBRARY:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_BINARY" link="appstream-AsProvided.html#AS-PROVIDED-KIND-BINARY:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_MIMETYPE" link="appstream-AsProvided.html#AS-PROVIDED-KIND-MIMETYPE:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_FONT" link="appstream-AsProvided.html#AS-PROVIDED-KIND-FONT:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_MODALIAS" link="appstream-AsProvided.html#AS-PROVIDED-KIND-MODALIAS:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_PYTHON_2" link="appstream-AsProvided.html#AS-PROVIDED-KIND-PYTHON-2:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_PYTHON" link="appstream-AsProvided.html#AS-PROVIDED-KIND-PYTHON:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_DBUS_SYSTEM" link="appstream-AsProvided.html#AS-PROVIDED-KIND-DBUS-SYSTEM:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_DBUS_USER" link="appstream-AsProvided.html#AS-PROVIDED-KIND-DBUS-USER:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_FIRMWARE_RUNTIME" link="appstream-AsProvided.html#AS-PROVIDED-KIND-FIRMWARE-RUNTIME:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_FIRMWARE_FLASHED" link="appstream-AsProvided.html#AS-PROVIDED-KIND-FIRMWARE-FLASHED:CAPS"/>
+    <keyword type="constant" name="AS_PROVIDED_KIND_ID" link="appstream-AsProvided.html#AS-PROVIDED-KIND-ID:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_UNKNOWN" link="appstream-AsBundle.html#AS-BUNDLE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_PACKAGE" link="appstream-AsBundle.html#AS-BUNDLE-KIND-PACKAGE:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_LIMBA" link="appstream-AsBundle.html#AS-BUNDLE-KIND-LIMBA:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_FLATPAK" link="appstream-AsBundle.html#AS-BUNDLE-KIND-FLATPAK:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_APPIMAGE" link="appstream-AsBundle.html#AS-BUNDLE-KIND-APPIMAGE:CAPS"/>
+    <keyword type="constant" name="AS_BUNDLE_KIND_SNAP" link="appstream-AsBundle.html#AS-BUNDLE-KIND-SNAP:CAPS"/>
+    <keyword type="constant" name="AS_LAUNCHABLE_KIND_UNKNOWN" link="appstream-AsLaunchable.html#AS-LAUNCHABLE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_LAUNCHABLE_KIND_DESKTOP_ID" link="appstream-AsLaunchable.html#AS-LAUNCHABLE-KIND-DESKTOP-ID:CAPS"/>
+    <keyword type="constant" name="AS_LAUNCHABLE_KIND_SERVICE" link="appstream-AsLaunchable.html#AS-LAUNCHABLE-KIND-SERVICE:CAPS"/>
+    <keyword type="constant" name="AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST" link="appstream-AsLaunchable.html#AS-LAUNCHABLE-KIND-COCKPIT-MANIFEST:CAPS"/>
+    <keyword type="constant" name="AS_LAUNCHABLE_KIND_URL" link="appstream-AsLaunchable.html#AS-LAUNCHABLE-KIND-URL:CAPS"/>
+    <keyword type="constant" name="AS_TRANSLATION_KIND_UNKNOWN" link="appstream-AsTranslation.html#AS-TRANSLATION-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_TRANSLATION_KIND_GETTEXT" link="appstream-AsTranslation.html#AS-TRANSLATION-KIND-GETTEXT:CAPS"/>
+    <keyword type="constant" name="AS_TRANSLATION_KIND_QT" link="appstream-AsTranslation.html#AS-TRANSLATION-KIND-QT:CAPS"/>
+    <keyword type="constant" name="AS_SUGGESTED_KIND_UNKNOWN" link="appstream-AsSuggested.html#AS-SUGGESTED-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_SUGGESTED_KIND_UPSTREAM" link="appstream-AsSuggested.html#AS-SUGGESTED-KIND-UPSTREAM:CAPS"/>
+    <keyword type="constant" name="AS_SUGGESTED_KIND_HEURISTIC" link="appstream-AsSuggested.html#AS-SUGGESTED-KIND-HEURISTIC:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_KIND_UNKNOWN" link="appstream-AsRelation.html#AS-RELATION-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_KIND_REQUIRES" link="appstream-AsRelation.html#AS-RELATION-KIND-REQUIRES:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_KIND_RECOMMENDS" link="appstream-AsRelation.html#AS-RELATION-KIND-RECOMMENDS:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_ITEM_KIND_UNKNOWN" link="appstream-AsRelation.html#AS-RELATION-ITEM-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_ITEM_KIND_ID" link="appstream-AsRelation.html#AS-RELATION-ITEM-KIND-ID:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_ITEM_KIND_MODALIAS" link="appstream-AsRelation.html#AS-RELATION-ITEM-KIND-MODALIAS:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_ITEM_KIND_KERNEL" link="appstream-AsRelation.html#AS-RELATION-ITEM-KIND-KERNEL:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_ITEM_KIND_MEMORY" link="appstream-AsRelation.html#AS-RELATION-ITEM-KIND-MEMORY:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_UNKNOWN" link="appstream-AsRelation.html#AS-RELATION-COMPARE-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_EQ" link="appstream-AsRelation.html#AS-RELATION-COMPARE-EQ:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_NE" link="appstream-AsRelation.html#AS-RELATION-COMPARE-NE:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_LT" link="appstream-AsRelation.html#AS-RELATION-COMPARE-LT:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_GT" link="appstream-AsRelation.html#AS-RELATION-COMPARE-GT:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_LE" link="appstream-AsRelation.html#AS-RELATION-COMPARE-LE:CAPS"/>
+    <keyword type="constant" name="AS_RELATION_COMPARE_GE" link="appstream-AsRelation.html#AS-RELATION-COMPARE-GE:CAPS"/>
+    <keyword type="constant" name="AS_RELEASE_KIND_UNKNOWN" link="appstream-AsRelease.html#AS-RELEASE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_RELEASE_KIND_STABLE" link="appstream-AsRelease.html#AS-RELEASE-KIND-STABLE:CAPS"/>
+    <keyword type="constant" name="AS_RELEASE_KIND_DEVELOPMENT" link="appstream-AsRelease.html#AS-RELEASE-KIND-DEVELOPMENT:CAPS"/>
+    <keyword type="constant" name="AS_SIZE_KIND_UNKNOWN" link="appstream-AsRelease.html#AS-SIZE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_SIZE_KIND_DOWNLOAD" link="appstream-AsRelease.html#AS-SIZE-KIND-DOWNLOAD:CAPS"/>
+    <keyword type="constant" name="AS_SIZE_KIND_INSTALLED" link="appstream-AsRelease.html#AS-SIZE-KIND-INSTALLED:CAPS"/>
+    <keyword type="constant" name="AS_CHECKSUM_KIND_NONE" link="appstream-AsChecksum.html#AS-CHECKSUM-KIND-NONE:CAPS"/>
+    <keyword type="constant" name="AS_CHECKSUM_KIND_SHA1" link="appstream-AsChecksum.html#AS-CHECKSUM-KIND-SHA1:CAPS"/>
+    <keyword type="constant" name="AS_CHECKSUM_KIND_SHA256" link="appstream-AsChecksum.html#AS-CHECKSUM-KIND-SHA256:CAPS"/>
+    <keyword type="constant" name="AS_SCREENSHOT_KIND_UNKNOWN" link="appstream-AsScreenshot.html#AS-SCREENSHOT-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_SCREENSHOT_KIND_DEFAULT" link="appstream-AsScreenshot.html#AS-SCREENSHOT-KIND-DEFAULT:CAPS"/>
+    <keyword type="constant" name="AS_SCREENSHOT_KIND_EXTRA" link="appstream-AsScreenshot.html#AS-SCREENSHOT-KIND-EXTRA:CAPS"/>
+    <keyword type="constant" name="AS_IMAGE_KIND_UNKNOWN" link="appstream-AsImage.html#AS-IMAGE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_IMAGE_KIND_SOURCE" link="appstream-AsImage.html#AS-IMAGE-KIND-SOURCE:CAPS"/>
+    <keyword type="constant" name="AS_IMAGE_KIND_THUMBNAIL" link="appstream-AsImage.html#AS-IMAGE-KIND-THUMBNAIL:CAPS"/>
+    <keyword type="constant" name="AS_CONTENT_RATING_VALUE_UNKNOWN" link="appstream-AsContentRating.html#AS-CONTENT-RATING-VALUE-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_CONTENT_RATING_VALUE_NONE" link="appstream-AsContentRating.html#AS-CONTENT-RATING-VALUE-NONE:CAPS"/>
+    <keyword type="constant" name="AS_CONTENT_RATING_VALUE_MILD" link="appstream-AsContentRating.html#AS-CONTENT-RATING-VALUE-MILD:CAPS"/>
+    <keyword type="constant" name="AS_CONTENT_RATING_VALUE_MODERATE" link="appstream-AsContentRating.html#AS-CONTENT-RATING-VALUE-MODERATE:CAPS"/>
+    <keyword type="constant" name="AS_CONTENT_RATING_VALUE_INTENSE" link="appstream-AsContentRating.html#AS-CONTENT-RATING-VALUE-INTENSE:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_STYLE_UNKNOWN" link="appstream-AsMetadata.html#AS-FORMAT-STYLE-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_STYLE_METAINFO" link="appstream-AsMetadata.html#AS-FORMAT-STYLE-METAINFO:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_STYLE_COLLECTION" link="appstream-AsMetadata.html#AS-FORMAT-STYLE-COLLECTION:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_KIND_UNKNOWN" link="appstream-AsMetadata.html#AS-FORMAT-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_KIND_XML" link="appstream-AsMetadata.html#AS-FORMAT-KIND-XML:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_KIND_YAML" link="appstream-AsMetadata.html#AS-FORMAT-KIND-YAML:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_KIND_DESKTOP_ENTRY" link="appstream-AsMetadata.html#AS-FORMAT-KIND-DESKTOP-ENTRY:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_6" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-6:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_7" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-7:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_8" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-8:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_9" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-9:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_10" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-10:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_11" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-11:CAPS"/>
+    <keyword type="constant" name="AS_FORMAT_VERSION_V0_12" link="appstream-AsMetadata.html#AS-FORMAT-VERSION-V0-12:CAPS"/>
+    <keyword type="constant" name="AS_PARSE_FLAG_NONE" link="appstream-AsMetadata.html#AS-PARSE-FLAG-NONE:CAPS"/>
+    <keyword type="constant" name="AS_PARSE_FLAG_IGNORE_MEDIABASEURL" link="appstream-AsMetadata.html#AS-PARSE-FLAG-IGNORE-MEDIABASEURL:CAPS"/>
+    <keyword type="constant" name="AS_METADATA_ERROR_FAILED" link="appstream-AsMetadata.html#AS-METADATA-ERROR-FAILED:CAPS"/>
+    <keyword type="constant" name="AS_METADATA_ERROR_PARSE" link="appstream-AsMetadata.html#AS-METADATA-ERROR-PARSE:CAPS"/>
+    <keyword type="constant" name="AS_METADATA_ERROR_FORMAT_UNEXPECTED" link="appstream-AsMetadata.html#AS-METADATA-ERROR-FORMAT-UNEXPECTED:CAPS"/>
+    <keyword type="constant" name="AS_METADATA_ERROR_NO_COMPONENT" link="appstream-AsMetadata.html#AS-METADATA-ERROR-NO-COMPONENT:CAPS"/>
+    <keyword type="constant" name="AS_METADATA_ERROR_VALUE_MISSING" link="appstream-AsMetadata.html#AS-METADATA-ERROR-VALUE-MISSING:CAPS"/>
+    <keyword type="constant" name="AS_CACHE_FLAG_NONE" link="appstream-AsPool.html#AS-CACHE-FLAG-NONE:CAPS"/>
+    <keyword type="constant" name="AS_CACHE_FLAG_USE_USER" link="appstream-AsPool.html#AS-CACHE-FLAG-USE-USER:CAPS"/>
+    <keyword type="constant" name="AS_CACHE_FLAG_USE_SYSTEM" link="appstream-AsPool.html#AS-CACHE-FLAG-USE-SYSTEM:CAPS"/>
+    <keyword type="constant" name="AS_POOL_FLAG_NONE" link="appstream-AsPool.html#AS-POOL-FLAG-NONE:CAPS"/>
+    <keyword type="constant" name="AS_POOL_FLAG_READ_COLLECTION" link="appstream-AsPool.html#AS-POOL-FLAG-READ-COLLECTION:CAPS"/>
+    <keyword type="constant" name="AS_POOL_FLAG_READ_METAINFO" link="appstream-AsPool.html#AS-POOL-FLAG-READ-METAINFO:CAPS"/>
+    <keyword type="constant" name="AS_POOL_FLAG_READ_DESKTOP_FILES" link="appstream-AsPool.html#AS-POOL-FLAG-READ-DESKTOP-FILES:CAPS"/>
+    <keyword type="constant" name="AS_POOL_ERROR_FAILED" link="appstream-AsPool.html#AS-POOL-ERROR-FAILED:CAPS"/>
+    <keyword type="constant" name="AS_POOL_ERROR_TARGET_NOT_WRITABLE" link="appstream-AsPool.html#AS-POOL-ERROR-TARGET-NOT-WRITABLE:CAPS"/>
+    <keyword type="constant" name="AS_POOL_ERROR_INCOMPLETE" link="appstream-AsPool.html#AS-POOL-ERROR-INCOMPLETE:CAPS"/>
+    <keyword type="constant" name="AS_POOL_ERROR_COLLISION" link="appstream-AsPool.html#AS-POOL-ERROR-COLLISION:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_IMPORTANCE_UNKNOWN" link="appstream-AsValidatorIssue.html#AS-ISSUE-IMPORTANCE-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_IMPORTANCE_ERROR" link="appstream-AsValidatorIssue.html#AS-ISSUE-IMPORTANCE-ERROR:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_IMPORTANCE_WARNING" link="appstream-AsValidatorIssue.html#AS-ISSUE-IMPORTANCE-WARNING:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_IMPORTANCE_INFO" link="appstream-AsValidatorIssue.html#AS-ISSUE-IMPORTANCE-INFO:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_IMPORTANCE_PEDANTIC" link="appstream-AsValidatorIssue.html#AS-ISSUE-IMPORTANCE-PEDANTIC:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_UNKNOWN" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_MARKUP_INVALID" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-MARKUP-INVALID:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_LEGACY" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-LEGACY:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_TAG_DUPLICATED" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-TAG-DUPLICATED:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_TAG_MISSING" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-TAG-MISSING:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_TAG_UNKNOWN" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-TAG-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_TAG_NOT_ALLOWED" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-TAG-NOT-ALLOWED:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_PROPERTY_MISSING" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-PROPERTY-MISSING:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_PROPERTY_INVALID" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-PROPERTY-INVALID:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_VALUE_MISSING" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-VALUE-MISSING:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_VALUE_WRONG" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-VALUE-WRONG:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_VALUE_ISSUE" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-VALUE-ISSUE:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_FILE_MISSING" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-FILE-MISSING:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_WRONG_NAME" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-WRONG-NAME:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_READ_ERROR" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-READ-ERROR:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_REMOTE_ERROR" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-REMOTE-ERROR:CAPS"/>
+    <keyword type="constant" name="AS_ISSUE_KIND_UNUSUAL" link="appstream-AsValidatorIssue.html#AS-ISSUE-KIND-UNUSUAL:CAPS"/>
+  </functions>
+</book>

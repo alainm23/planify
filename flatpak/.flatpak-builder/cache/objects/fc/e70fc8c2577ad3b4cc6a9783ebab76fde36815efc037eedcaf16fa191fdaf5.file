@@ -1,0 +1,6789 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-derived-property.h"
+#include "libical-glib-private.h"
+#include "i-cal-duration-type.h"
+#include "i-cal-datetimeperiod-type.h"
+#include "i-cal-property.h"
+#include "i-cal-recurrence-type.h"
+#include "i-cal-derived-value.h"
+#include "i-cal-period-type.h"
+#include "i-cal-geo-type.h"
+#include "i-cal-timetype.h"
+#include "i-cal-trigger-type.h"
+#include "i-cal-reqstat-type.h"
+#include "i-cal-attach.h"
+
+/**
+ * i_cal_property_new_acceptresponse:
+ * @v: The acceptresponse.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_acceptresponse (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_acceptresponse (v), NULL);
+}
+
+/**
+ * i_cal_property_set_acceptresponse:
+ * @prop: The #ICalProperty to be set
+ * @v: The acceptresponse.
+ *
+ * Set the acceptresponse for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_acceptresponse (ICalProperty *prop, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_acceptresponse ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_acceptresponse:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the acceptresponse of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the acceptresponse of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_property_get_acceptresponse (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_acceptresponse ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_acknowledged:
+ * @v: The time of acknowledgement.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_acknowledged (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_acknowledged (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_acknowledged:
+ * @prop: The #ICalProperty to be set
+ * @v: The acknowledgement time.
+ *
+ * Set the acknowledged time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_acknowledged (ICalProperty *prop, 
+                                 ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_acknowledged ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_acknowledged:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the acknowledged time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the acknowledged time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_acknowledged (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_acknowledged ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_action:
+ * @v: The action.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_action (ICalPropertyAction v)
+{
+	return i_cal_property_new_full (icalproperty_new_action ((icalproperty_action) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_action:
+ * @prop: The #ICalProperty to be set
+ * @v: The action.
+ *
+ * Set the action for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_action (ICalProperty *prop, 
+                           ICalPropertyAction v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_action ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_action) (v));
+}
+
+/**
+ * i_cal_property_get_action:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the action of #ICalProperty.
+ *
+ * Returns: Get the action of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyAction
+i_cal_property_get_action (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_ACTION_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_ACTION_NONE);
+
+	return (ICalPropertyAction) (icalproperty_get_action ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_allowconflict:
+ * @v: The allowconflict.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_allowconflict (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_allowconflict (v), NULL);
+}
+
+/**
+ * i_cal_property_set_allowconflict:
+ * @prop: The #ICalProperty to be set
+ * @v: The allowconflict.
+ *
+ * Set the allowconflict for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_allowconflict (ICalProperty *prop, 
+                                  const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_allowconflict ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_allowconflict:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the allowconflict of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the allowconflict of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_allowconflict (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_allowconflict ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_attach:
+ * @v: The #ICalAttach.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly created #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_attach (ICalAttach *v)
+{
+	ICalProperty *property;
+	g_return_val_if_fail (v != NULL && I_CAL_IS_ATTACH (v), NULL);
+	property = i_cal_property_new_full (icalproperty_new_attach (i_cal_object_get_native ((ICalObject *)v)), NULL);
+	i_cal_object_set_owner ((ICalObject *)v, (GObject *)property);
+	return property;
+}
+
+/**
+ * i_cal_property_set_attach:
+ * @prop: The #ICalProperty to be set
+ * @v: The attach.
+ *
+ * Set the attach for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_attach (ICalProperty *prop, 
+                           ICalAttach *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_ATTACH (v));
+	g_return_if_fail (v != NULL);
+
+	i_cal_object_set_owner ((ICalObject *)v, (GObject *)prop);
+	icalproperty_set_attach ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalattach *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_attach:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the attach of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the attach of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalAttach *
+i_cal_property_get_attach (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_attach_new_full (icalproperty_get_attach ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))), (GObject *)prop);
+}
+
+/**
+ * i_cal_property_new_attendee:
+ * @v: The attendee.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_attendee (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_attendee (v), NULL);
+}
+
+/**
+ * i_cal_property_set_attendee:
+ * @prop: The #ICalProperty to be set
+ * @v: The attendee.
+ *
+ * Set the attendee for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_attendee (ICalProperty *prop, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_attendee ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_attendee:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the attendee of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the attendee of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_attendee (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_attendee ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_busytype:
+ * @v: The busytype.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_busytype (ICalPropertyBusytype v)
+{
+	return i_cal_property_new_full (icalproperty_new_busytype ((icalproperty_busytype) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_busytype:
+ * @prop: The #ICalProperty to be set
+ * @v: The busytype.
+ *
+ * Set the busytype for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_busytype (ICalProperty *prop, 
+                             ICalPropertyBusytype v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_busytype ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_busytype) (v));
+}
+
+/**
+ * i_cal_property_get_busytype:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the busytype of #ICalProperty.
+ *
+ * Returns: Get the busytype of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyBusytype
+i_cal_property_get_busytype (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_BUSYTYPE_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_BUSYTYPE_NONE);
+
+	return (ICalPropertyBusytype) (icalproperty_get_busytype ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_calid:
+ * @v: The calid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_calid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_calid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_calid:
+ * @prop: The #ICalProperty to be set
+ * @v: The calid.
+ *
+ * Set the calid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_calid (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_calid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_calid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the calid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the calid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_calid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_calid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_calmaster:
+ * @v: The calmaster.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_calmaster (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_calmaster (v), NULL);
+}
+
+/**
+ * i_cal_property_set_calmaster:
+ * @prop: The #ICalProperty to be set
+ * @v: The calmaster.
+ *
+ * Set the calmaster for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_calmaster (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_calmaster ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_calmaster:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the calmaster of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the calmaster of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_calmaster (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_calmaster ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_calscale:
+ * @v: The calscale.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_calscale (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_calscale (v), NULL);
+}
+
+/**
+ * i_cal_property_set_calscale:
+ * @prop: The #ICalProperty to be set
+ * @v: The calscale.
+ *
+ * Set the calscale for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_calscale (ICalProperty *prop, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_calscale ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_calscale:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the calscale of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the calscale of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_calscale (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_calscale ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_capversion:
+ * @v: The capversion.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_capversion (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_capversion (v), NULL);
+}
+
+/**
+ * i_cal_property_set_capversion:
+ * @prop: The #ICalProperty to be set
+ * @v: The capversion.
+ *
+ * Set the capversion for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_capversion (ICalProperty *prop, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_capversion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_capversion:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the capversion of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the capversion of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_capversion (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_capversion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_carlevel:
+ * @v: The carlevel.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_carlevel (ICalPropertyCarlevel v)
+{
+	return i_cal_property_new_full (icalproperty_new_carlevel ((icalproperty_carlevel) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_carlevel:
+ * @prop: The #ICalProperty to be set
+ * @v: The carlevel.
+ *
+ * Set the carlevel for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_carlevel (ICalProperty *prop, 
+                             ICalPropertyCarlevel v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_carlevel ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_carlevel) (v));
+}
+
+/**
+ * i_cal_property_get_carlevel:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the carlevel of #ICalProperty.
+ *
+ * Returns: Get the carlevel of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyCarlevel
+i_cal_property_get_carlevel (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_CARLEVEL_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_CARLEVEL_NONE);
+
+	return (ICalPropertyCarlevel) (icalproperty_get_carlevel ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_carid:
+ * @v: The carid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_carid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_carid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_carid:
+ * @prop: The #ICalProperty to be set
+ * @v: The carid.
+ *
+ * Set the carid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_carid (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_carid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_carid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the carid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the carid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_carid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_carid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_categories:
+ * @v: The categories.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_categories (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_categories (v), NULL);
+}
+
+/**
+ * i_cal_property_set_categories:
+ * @prop: The #ICalProperty to be set
+ * @v: The categories.
+ *
+ * Set the categories for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_categories (ICalProperty *prop, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_categories ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_categories:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the categories of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the categories of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_categories (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_categories ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_class:
+ * @v: The class.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_class (ICalProperty_Class v)
+{
+	return i_cal_property_new_full (icalproperty_new_class ((icalproperty_class) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_class:
+ * @prop: The #ICalProperty to be set
+ * @v: The class.
+ *
+ * Set the class for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_class (ICalProperty *prop, 
+                          ICalProperty_Class v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_class ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_class) (v));
+}
+
+/**
+ * i_cal_property_get_class:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the class of #ICalProperty.
+ *
+ * Returns: Get the class of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty_Class
+i_cal_property_get_class (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_CLASS_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_CLASS_NONE);
+
+	return (ICalProperty_Class) (icalproperty_get_class ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_cmd:
+ * @v: The cmd.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_cmd (ICalPropertyCmd v)
+{
+	return i_cal_property_new_full (icalproperty_new_cmd ((icalproperty_cmd) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_cmd:
+ * @prop: The #ICalProperty to be set
+ * @v: The cmd.
+ *
+ * Set the cmd for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_cmd (ICalProperty *prop, 
+                        ICalPropertyCmd v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_cmd ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_cmd) (v));
+}
+
+/**
+ * i_cal_property_get_cmd:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the cmd of #ICalProperty.
+ *
+ * Returns: Get the cmd of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyCmd
+i_cal_property_get_cmd (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_CMD_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_CMD_NONE);
+
+	return (ICalPropertyCmd) (icalproperty_get_cmd ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_comment:
+ * @v: The comment.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_comment (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_comment (v), NULL);
+}
+
+/**
+ * i_cal_property_set_comment:
+ * @prop: The #ICalProperty to be set
+ * @v: The comment.
+ *
+ * Set the comment for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_comment (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_comment ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_comment:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the comment of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the comment of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_comment (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_comment ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_completed:
+ * @v: The time of completed.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_completed (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_completed (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_completed:
+ * @prop: The #ICalProperty to be set
+ * @v: The completed time.
+ *
+ * Set the completed time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_completed (ICalProperty *prop, 
+                              ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_completed ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_completed:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the completed time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the completed time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_completed (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_completed ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_components:
+ * @v: The components.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_components (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_components (v), NULL);
+}
+
+/**
+ * i_cal_property_set_components:
+ * @prop: The #ICalProperty to be set
+ * @v: The components.
+ *
+ * Set the components for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_components (ICalProperty *prop, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_components ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_components:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the components of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the components of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_components (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_components ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_contact:
+ * @v: The contact.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_contact (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_contact (v), NULL);
+}
+
+/**
+ * i_cal_property_set_contact:
+ * @prop: The #ICalProperty to be set
+ * @v: The contact.
+ *
+ * Set the contact for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_contact (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_contact ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_contact:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the contact of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the contact of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_contact (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_contact ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_created:
+ * @v: The time of created.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_created (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_created (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_created:
+ * @prop: The #ICalProperty to be set
+ * @v: The created time.
+ *
+ * Set the created time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_created (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_created ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_created:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the created time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the created time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_created (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_created ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_csid:
+ * @v: The csid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_csid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_csid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_csid:
+ * @prop: The #ICalProperty to be set
+ * @v: The csid.
+ *
+ * Set the csid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_csid (ICalProperty *prop, 
+                         const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_csid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_csid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the csid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the csid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_csid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_csid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_datemax:
+ * @v: The time of datemax.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_datemax (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_datemax (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_datemax:
+ * @prop: The #ICalProperty to be set
+ * @v: The datemax time.
+ *
+ * Set the datemax time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_datemax (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_datemax ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_datemax:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the datemax time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the datemax time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_datemax (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_datemax ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_datemin:
+ * @v: The time of datemin.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_datemin (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_datemin (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_datemin:
+ * @prop: The #ICalProperty to be set
+ * @v: The datemin time.
+ *
+ * Set the datemin time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_datemin (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_datemin ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_datemin:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the datemin time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the datemin time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_datemin (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_datemin ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_decreed:
+ * @v: The decreed.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_decreed (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_decreed (v), NULL);
+}
+
+/**
+ * i_cal_property_set_decreed:
+ * @prop: The #ICalProperty to be set
+ * @v: The decreed.
+ *
+ * Set the decreed for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_decreed (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_decreed ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_decreed:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the decreed of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the decreed of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_decreed (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_decreed ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_defaultcharset:
+ * @v: The defaultcharset.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_defaultcharset (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_defaultcharset (v), NULL);
+}
+
+/**
+ * i_cal_property_set_defaultcharset:
+ * @prop: The #ICalProperty to be set
+ * @v: The defaultcharset.
+ *
+ * Set the defaultcharset for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_defaultcharset (ICalProperty *prop, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_defaultcharset ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_defaultcharset:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the defaultcharset of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the defaultcharset of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_defaultcharset (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_defaultcharset ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_defaultlocale:
+ * @v: The defaultlocale.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_defaultlocale (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_defaultlocale (v), NULL);
+}
+
+/**
+ * i_cal_property_set_defaultlocale:
+ * @prop: The #ICalProperty to be set
+ * @v: The defaultlocale.
+ *
+ * Set the defaultlocale for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_defaultlocale (ICalProperty *prop, 
+                                  const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_defaultlocale ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_defaultlocale:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the defaultlocale of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the defaultlocale of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_defaultlocale (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_defaultlocale ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_defaulttzid:
+ * @v: The defaulttzid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_defaulttzid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_defaulttzid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_defaulttzid:
+ * @prop: The #ICalProperty to be set
+ * @v: The defaulttzid.
+ *
+ * Set the defaulttzid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_defaulttzid (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_defaulttzid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_defaulttzid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the defaulttzid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the defaulttzid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_defaulttzid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_defaulttzid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_defaultvcars:
+ * @v: The defaultvcars.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_defaultvcars (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_defaultvcars (v), NULL);
+}
+
+/**
+ * i_cal_property_set_defaultvcars:
+ * @prop: The #ICalProperty to be set
+ * @v: The defaultvcars.
+ *
+ * Set the defaultvcars for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_defaultvcars (ICalProperty *prop, 
+                                 const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_defaultvcars ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_defaultvcars:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the defaultvcars of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the defaultvcars of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_defaultvcars (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_defaultvcars ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_deny:
+ * @v: The deny.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_deny (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_deny (v), NULL);
+}
+
+/**
+ * i_cal_property_set_deny:
+ * @prop: The #ICalProperty to be set
+ * @v: The deny.
+ *
+ * Set the deny for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_deny (ICalProperty *prop, 
+                         const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_deny ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_deny:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the deny of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the deny of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_deny (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_deny ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_description:
+ * @v: The description.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_description (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_description (v), NULL);
+}
+
+/**
+ * i_cal_property_set_description:
+ * @prop: The #ICalProperty to be set
+ * @v: The description.
+ *
+ * Set the description for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_description (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_description ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_description:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the description of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the description of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_description (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_description ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_dtend:
+ * @v: The time of dtend.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_dtend (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_dtend (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_dtend:
+ * @prop: The #ICalProperty to be set
+ * @v: The dtend time.
+ *
+ * Set the dtend time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_dtend (ICalProperty *prop, 
+                          ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_dtend ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_dtend:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the dtend time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the dtend time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_dtend (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_dtend ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_dtstamp:
+ * @v: The time of dtstamp.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_dtstamp (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_dtstamp (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_dtstamp:
+ * @prop: The #ICalProperty to be set
+ * @v: The dtstamp time.
+ *
+ * Set the dtstamp time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_dtstamp (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_dtstamp ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_dtstamp:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the dtstamp time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the dtstamp time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_dtstamp (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_dtstamp ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_dtstart:
+ * @v: The time of dtstart.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_dtstart (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_dtstart (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_dtstart:
+ * @prop: The #ICalProperty to be set
+ * @v: The dtstart time.
+ *
+ * Set the dtstart time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_dtstart (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_dtstart ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_dtstart:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the dtstart time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the dtstart time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_dtstart (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_dtstart ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_due:
+ * @v: The time of due.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_due (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_due (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_due:
+ * @prop: The #ICalProperty to be set
+ * @v: The due time.
+ *
+ * Set the due time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_due (ICalProperty *prop, 
+                        ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_due ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_due:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the due time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the due time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_due (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_due ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_duration:
+ * @v: The duration.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_duration (ICalDurationType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_DURATION_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_duration (* (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_duration:
+ * @prop: The #ICalProperty to be set
+ * @v: The duration.
+ *
+ * Set the duration for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_duration (ICalProperty *prop, 
+                             ICalDurationType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_DURATION_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_duration ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_duration:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the duration of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the duration of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDurationType *
+i_cal_property_get_duration (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_duration_type_new_full (icalproperty_get_duration ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_estimatedduration:
+ * @v: The estimatedduration.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_estimatedduration (ICalDurationType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_DURATION_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_estimatedduration (* (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_estimatedduration:
+ * @prop: The #ICalProperty to be set
+ * @v: The estimatedduration.
+ *
+ * Set the estimatedduration for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_estimatedduration (ICalProperty *prop, 
+                                      ICalDurationType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_DURATION_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_estimatedduration ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaldurationtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_estimatedduration:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the estimatedduration of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the estimatedduration of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDurationType *
+i_cal_property_get_estimatedduration (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_duration_type_new_full (icalproperty_get_estimatedduration ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_exdate:
+ * @v: The time of exdate.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_exdate (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_exdate (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_exdate:
+ * @prop: The #ICalProperty to be set
+ * @v: The exdate time.
+ *
+ * Set the exdate time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_exdate (ICalProperty *prop, 
+                           ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_exdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_exdate:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the exdate time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the exdate time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_exdate (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_exdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_expand:
+ * @v: The expand.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_expand (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_expand (v), NULL);
+}
+
+/**
+ * i_cal_property_set_expand:
+ * @prop: The #ICalProperty to be set
+ * @v: The expand.
+ *
+ * Set the expand for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_expand (ICalProperty *prop, 
+                           gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_expand ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_expand:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the expand of #ICalProperty.
+ *
+ * Returns: Get the expand of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_expand (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_expand ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_exrule:
+ * @v: The exrule recurrence type.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_exrule (ICalRecurrenceType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_RECURRENCE_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_exrule (* (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_exrule:
+ * @prop: The #ICalProperty to be set
+ * @v: The exrule recurrence type.
+ *
+ * Set the exrule time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_exrule (ICalProperty *prop, 
+                           ICalRecurrenceType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_RECURRENCE_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_exrule ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_exrule:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the exrule recurrence type of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the exrule recurrence type of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceType *
+i_cal_property_get_exrule (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_recurrence_type_new_full (icalproperty_get_exrule ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_freebusy:
+ * @v: The freebusy period type.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_freebusy (ICalPeriodType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_PERIOD_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_freebusy (* (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_freebusy:
+ * @prop: The #ICalProperty to be set
+ * @v: The freebusy period type.
+ *
+ * Set the freebusy time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_freebusy (ICalProperty *prop, 
+                             ICalPeriodType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_PERIOD_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_freebusy ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icalperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_freebusy:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the freebusy period type of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the freebusy period type of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPeriodType *
+i_cal_property_get_freebusy (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_period_type_new_full (icalproperty_get_freebusy ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_geo:
+ * @v: The geo type.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_geo (ICalGeoType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_GEO_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_geo (* (struct icalgeotype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_geo:
+ * @prop: The #ICalProperty to be set
+ * @v: The geo type.
+ *
+ * Set the geo for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_geo (ICalProperty *prop, 
+                        ICalGeoType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_GEO_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_geo ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icalgeotype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_geo:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the geo type of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the geo type of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalGeoType *
+i_cal_property_get_geo (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_geo_type_new_full (icalproperty_get_geo ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_grant:
+ * @v: The grant.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_grant (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_grant (v), NULL);
+}
+
+/**
+ * i_cal_property_set_grant:
+ * @prop: The #ICalProperty to be set
+ * @v: The grant.
+ *
+ * Set the grant for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_grant (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_grant ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_grant:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the grant of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the grant of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_grant (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_grant ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_itipversion:
+ * @v: The itipversion.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_itipversion (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_itipversion (v), NULL);
+}
+
+/**
+ * i_cal_property_set_itipversion:
+ * @prop: The #ICalProperty to be set
+ * @v: The itipversion.
+ *
+ * Set the itipversion for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_itipversion (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_itipversion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_itipversion:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the itipversion of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the itipversion of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_itipversion (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_itipversion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_lastmodified:
+ * @v: The time of lastmodified.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_lastmodified (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_lastmodified (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_lastmodified:
+ * @prop: The #ICalProperty to be set
+ * @v: The lastmodified time.
+ *
+ * Set the lastmodified time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_lastmodified (ICalProperty *prop, 
+                                 ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_lastmodified ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_lastmodified:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the lastmodified time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the lastmodified time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_lastmodified (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_lastmodified ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_location:
+ * @v: The location.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_location (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_location (v), NULL);
+}
+
+/**
+ * i_cal_property_set_location:
+ * @prop: The #ICalProperty to be set
+ * @v: The location.
+ *
+ * Set the location for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_location (ICalProperty *prop, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_location ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_location:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the location of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the location of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_location (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_location ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_maxcomponentsize:
+ * @v: The maxcomponentsize.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_maxcomponentsize (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_maxcomponentsize (v), NULL);
+}
+
+/**
+ * i_cal_property_set_maxcomponentsize:
+ * @prop: The #ICalProperty to be set
+ * @v: The maxcomponentsize.
+ *
+ * Set the maxcomponentsize for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_maxcomponentsize (ICalProperty *prop, 
+                                     gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_maxcomponentsize ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_maxcomponentsize:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the maxcomponentsize of #ICalProperty.
+ *
+ * Returns: Get the maxcomponentsize of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_maxcomponentsize (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_maxcomponentsize ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_maxdate:
+ * @v: The time of maxdate.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_maxdate (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_maxdate (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_maxdate:
+ * @prop: The #ICalProperty to be set
+ * @v: The maxdate time.
+ *
+ * Set the maxdate time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_maxdate (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_maxdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_maxdate:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the maxdate time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the maxdate time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_maxdate (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_maxdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_maxresults:
+ * @v: The maxresults.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_maxresults (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_maxresults (v), NULL);
+}
+
+/**
+ * i_cal_property_set_maxresults:
+ * @prop: The #ICalProperty to be set
+ * @v: The maxresults.
+ *
+ * Set the maxresults for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_maxresults (ICalProperty *prop, 
+                               gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_maxresults ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_maxresults:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the maxresults of #ICalProperty.
+ *
+ * Returns: Get the maxresults of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_maxresults (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_maxresults ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_maxresultssize:
+ * @v: The maxresultssize.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_maxresultssize (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_maxresultssize (v), NULL);
+}
+
+/**
+ * i_cal_property_set_maxresultssize:
+ * @prop: The #ICalProperty to be set
+ * @v: The maxresultssize.
+ *
+ * Set the maxresultssize for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_maxresultssize (ICalProperty *prop, 
+                                   gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_maxresultssize ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_maxresultssize:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the maxresultssize of #ICalProperty.
+ *
+ * Returns: Get the maxresultssize of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_maxresultssize (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_maxresultssize ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_method:
+ * @v: The method.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_method (ICalPropertyMethod v)
+{
+	return i_cal_property_new_full (icalproperty_new_method ((icalproperty_method) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_method:
+ * @prop: The #ICalProperty to be set
+ * @v: The method.
+ *
+ * Set the method for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_method (ICalProperty *prop, 
+                           ICalPropertyMethod v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_method ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_method) (v));
+}
+
+/**
+ * i_cal_property_get_method:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the method of #ICalProperty.
+ *
+ * Returns: Get the method of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyMethod
+i_cal_property_get_method (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_METHOD_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_METHOD_NONE);
+
+	return (ICalPropertyMethod) (icalproperty_get_method ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_mindate:
+ * @v: The time of mindate.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_mindate (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_mindate (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_mindate:
+ * @prop: The #ICalProperty to be set
+ * @v: The mindate time.
+ *
+ * Set the mindate time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_mindate (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_mindate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_mindate:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the mindate time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the mindate time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_mindate (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_mindate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_multipart:
+ * @v: The multipart.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_multipart (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_multipart (v), NULL);
+}
+
+/**
+ * i_cal_property_set_multipart:
+ * @prop: The #ICalProperty to be set
+ * @v: The multipart.
+ *
+ * Set the multipart for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_multipart (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_multipart ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_multipart:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the multipart of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the multipart of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_multipart (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_multipart ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_name:
+ * @v: The name.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_name (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_name (v), NULL);
+}
+
+/**
+ * i_cal_property_set_name:
+ * @prop: The #ICalProperty to be set
+ * @v: The name.
+ *
+ * Set the name for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_name (ICalProperty *prop, 
+                         const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_name ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_name:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the name of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the name of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_name (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_name ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_organizer:
+ * @v: The organizer.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_organizer (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_organizer (v), NULL);
+}
+
+/**
+ * i_cal_property_set_organizer:
+ * @prop: The #ICalProperty to be set
+ * @v: The organizer.
+ *
+ * Set the organizer for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_organizer (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_organizer ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_organizer:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the organizer of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the organizer of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_organizer (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_organizer ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_owner:
+ * @v: The owner.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_owner (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_owner (v), NULL);
+}
+
+/**
+ * i_cal_property_set_owner:
+ * @prop: The #ICalProperty to be set
+ * @v: The owner.
+ *
+ * Set the owner for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_owner (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_owner ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_owner:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the owner of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the owner of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_owner (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_owner ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_percentcomplete:
+ * @v: The percentcomplete.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_percentcomplete (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_percentcomplete (v), NULL);
+}
+
+/**
+ * i_cal_property_set_percentcomplete:
+ * @prop: The #ICalProperty to be set
+ * @v: The percentcomplete.
+ *
+ * Set the percentcomplete for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_percentcomplete (ICalProperty *prop, 
+                                    gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_percentcomplete ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_percentcomplete:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the percentcomplete of #ICalProperty.
+ *
+ * Returns: Get the percentcomplete of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_percentcomplete (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_percentcomplete ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_permission:
+ * @v: The permission.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_permission (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_permission (v), NULL);
+}
+
+/**
+ * i_cal_property_set_permission:
+ * @prop: The #ICalProperty to be set
+ * @v: The permission.
+ *
+ * Set the permission for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_permission (ICalProperty *prop, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_permission ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_permission:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the permission of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the permission of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_permission (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_permission ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_pollcompletion:
+ * @v: The pollcompletion.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_pollcompletion (ICalPropertyPollcompletion v)
+{
+	return i_cal_property_new_full (icalproperty_new_pollcompletion ((icalproperty_pollcompletion) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_pollcompletion:
+ * @prop: The #ICalProperty to be set
+ * @v: The pollcompletion.
+ *
+ * Set the pollcompletion for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_pollcompletion (ICalProperty *prop, 
+                                   ICalPropertyPollcompletion v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_pollcompletion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_pollcompletion) (v));
+}
+
+/**
+ * i_cal_property_get_pollcompletion:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the pollcompletion of #ICalProperty.
+ *
+ * Returns: Get the pollcompletion of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyPollcompletion
+i_cal_property_get_pollcompletion (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_POLLCOMPLETION_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_POLLCOMPLETION_NONE);
+
+	return (ICalPropertyPollcompletion) (icalproperty_get_pollcompletion ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_pollitemid:
+ * @v: The pollitemid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_pollitemid (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_pollitemid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_pollitemid:
+ * @prop: The #ICalProperty to be set
+ * @v: The pollitemid.
+ *
+ * Set the pollitemid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_pollitemid (ICalProperty *prop, 
+                               gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_pollitemid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_pollitemid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the pollitemid of #ICalProperty.
+ *
+ * Returns: Get the pollitemid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_pollitemid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_pollitemid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_pollmode:
+ * @v: The pollmode.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_pollmode (ICalPropertyPollmode v)
+{
+	return i_cal_property_new_full (icalproperty_new_pollmode ((icalproperty_pollmode) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_pollmode:
+ * @prop: The #ICalProperty to be set
+ * @v: The pollmode.
+ *
+ * Set the pollmode for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_pollmode (ICalProperty *prop, 
+                             ICalPropertyPollmode v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_pollmode ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_pollmode) (v));
+}
+
+/**
+ * i_cal_property_get_pollmode:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the pollmode of #ICalProperty.
+ *
+ * Returns: Get the pollmode of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyPollmode
+i_cal_property_get_pollmode (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_POLLMODE_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_POLLMODE_NONE);
+
+	return (ICalPropertyPollmode) (icalproperty_get_pollmode ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_pollproperties:
+ * @v: The pollproperties.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_pollproperties (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_pollproperties (v), NULL);
+}
+
+/**
+ * i_cal_property_set_pollproperties:
+ * @prop: The #ICalProperty to be set
+ * @v: The pollproperties.
+ *
+ * Set the pollproperties for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_pollproperties (ICalProperty *prop, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_pollproperties ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_pollproperties:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the pollproperties of #ICalProperty.
+ *
+ * Returns: Get the pollproperties of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_pollproperties (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_pollproperties ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_pollwinner:
+ * @v: The pollwinner.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_pollwinner (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_pollwinner (v), NULL);
+}
+
+/**
+ * i_cal_property_set_pollwinner:
+ * @prop: The #ICalProperty to be set
+ * @v: The pollwinner.
+ *
+ * Set the pollwinner for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_pollwinner (ICalProperty *prop, 
+                               gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_pollwinner ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_pollwinner:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the pollwinner of #ICalProperty.
+ *
+ * Returns: Get the pollwinner of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_pollwinner (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_pollwinner ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_priority:
+ * @v: The priority.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_priority (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_priority (v), NULL);
+}
+
+/**
+ * i_cal_property_set_priority:
+ * @prop: The #ICalProperty to be set
+ * @v: The priority.
+ *
+ * Set the priority for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_priority (ICalProperty *prop, 
+                             gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_priority ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_priority:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the priority of #ICalProperty.
+ *
+ * Returns: Get the priority of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_priority (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_priority ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_prodid:
+ * @v: The prodid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_prodid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_prodid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_prodid:
+ * @prop: The #ICalProperty to be set
+ * @v: The prodid.
+ *
+ * Set the prodid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_prodid (ICalProperty *prop, 
+                           const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_prodid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_prodid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the prodid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the prodid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_prodid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_prodid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_query:
+ * @v: The query.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_query (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_query (v), NULL);
+}
+
+/**
+ * i_cal_property_set_query:
+ * @prop: The #ICalProperty to be set
+ * @v: The query.
+ *
+ * Set the query for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_query (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_query ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_query:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the query of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the query of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_query (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_query ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_querylevel:
+ * @v: The querylevel.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_querylevel (ICalPropertyQuerylevel v)
+{
+	return i_cal_property_new_full (icalproperty_new_querylevel ((icalproperty_querylevel) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_querylevel:
+ * @prop: The #ICalProperty to be set
+ * @v: The querylevel.
+ *
+ * Set the querylevel for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_querylevel (ICalProperty *prop, 
+                               ICalPropertyQuerylevel v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_querylevel ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_querylevel) (v));
+}
+
+/**
+ * i_cal_property_get_querylevel:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the querylevel of #ICalProperty.
+ *
+ * Returns: Get the querylevel of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyQuerylevel
+i_cal_property_get_querylevel (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_QUERYLEVEL_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_QUERYLEVEL_NONE);
+
+	return (ICalPropertyQuerylevel) (icalproperty_get_querylevel ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_queryid:
+ * @v: The queryid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_queryid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_queryid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_queryid:
+ * @prop: The #ICalProperty to be set
+ * @v: The queryid.
+ *
+ * Set the queryid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_queryid (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_queryid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_queryid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the queryid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the queryid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_queryid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_queryid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_queryname:
+ * @v: The queryname.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_queryname (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_queryname (v), NULL);
+}
+
+/**
+ * i_cal_property_set_queryname:
+ * @prop: The #ICalProperty to be set
+ * @v: The queryname.
+ *
+ * Set the queryname for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_queryname (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_queryname ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_queryname:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the queryname of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the queryname of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_queryname (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_queryname ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_rdate:
+ * @v: The rdate.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_rdate (ICalDatetimeperiodType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_DATETIMEPERIOD_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_rdate (* (struct icaldatetimeperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_rdate:
+ * @prop: The #ICalProperty to be set
+ * @v: The rdate.
+ *
+ * Set the rdate for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_rdate (ICalProperty *prop, 
+                          ICalDatetimeperiodType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_DATETIMEPERIOD_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_rdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaldatetimeperiodtype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_rdate:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the rdate  of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the rdate  of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalDatetimeperiodType *
+i_cal_property_get_rdate (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_datetimeperiod_type_new_full (icalproperty_get_rdate ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_recuraccepted:
+ * @v: The recuraccepted.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_recuraccepted (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_recuraccepted (v), NULL);
+}
+
+/**
+ * i_cal_property_set_recuraccepted:
+ * @prop: The #ICalProperty to be set
+ * @v: The recuraccepted.
+ *
+ * Set the recuraccepted for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_recuraccepted (ICalProperty *prop, 
+                                  const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_recuraccepted ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_recuraccepted:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the recuraccepted of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the recuraccepted of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_recuraccepted (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_recuraccepted ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_recurexpand:
+ * @v: The recurexpand.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_recurexpand (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_recurexpand (v), NULL);
+}
+
+/**
+ * i_cal_property_set_recurexpand:
+ * @prop: The #ICalProperty to be set
+ * @v: The recurexpand.
+ *
+ * Set the recurexpand for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_recurexpand (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_recurexpand ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_recurexpand:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the recurexpand of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the recurexpand of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_recurexpand (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_recurexpand ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_recurlimit:
+ * @v: The recurlimit.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_recurlimit (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_recurlimit (v), NULL);
+}
+
+/**
+ * i_cal_property_set_recurlimit:
+ * @prop: The #ICalProperty to be set
+ * @v: The recurlimit.
+ *
+ * Set the recurlimit for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_recurlimit (ICalProperty *prop, 
+                               const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_recurlimit ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_recurlimit:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the recurlimit of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the recurlimit of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_recurlimit (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_recurlimit ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_recurrenceid:
+ * @v: The time of recurrenceid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_recurrenceid (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_recurrenceid (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_recurrenceid:
+ * @prop: The #ICalProperty to be set
+ * @v: The recurrenceid time.
+ *
+ * Set the recurrenceid time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_recurrenceid (ICalProperty *prop, 
+                                 ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_recurrenceid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_recurrenceid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the recurrenceid time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the recurrenceid time of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_recurrenceid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_recurrenceid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_relatedto:
+ * @v: The relatedto.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_relatedto (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_relatedto (v), NULL);
+}
+
+/**
+ * i_cal_property_set_relatedto:
+ * @prop: The #ICalProperty to be set
+ * @v: The relatedto.
+ *
+ * Set the relatedto for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_relatedto (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_relatedto ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_relatedto:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the relatedto of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the relatedto of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_relatedto (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_relatedto ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_relcalid:
+ * @v: The relcalid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_relcalid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_relcalid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_relcalid:
+ * @prop: The #ICalProperty to be set
+ * @v: The relcalid.
+ *
+ * Set the relcalid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_relcalid (ICalProperty *prop, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_relcalid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_relcalid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the relcalid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the relcalid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_relcalid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_relcalid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_repeat:
+ * @v: The repeat.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_repeat (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_repeat (v), NULL);
+}
+
+/**
+ * i_cal_property_set_repeat:
+ * @prop: The #ICalProperty to be set
+ * @v: The repeat.
+ *
+ * Set the repeat for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_repeat (ICalProperty *prop, 
+                           gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_repeat ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_repeat:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the repeat of #ICalProperty.
+ *
+ * Returns: Get the repeat of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_repeat (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_repeat ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_replyurl:
+ * @v: The replyurl.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_replyurl (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_replyurl (v), NULL);
+}
+
+/**
+ * i_cal_property_set_replyurl:
+ * @prop: The #ICalProperty to be set
+ * @v: The replyurl.
+ *
+ * Set the replyurl for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_replyurl (ICalProperty *prop, 
+                             const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_replyurl ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_replyurl:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the replyurl of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the replyurl of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_property_get_replyurl (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_replyurl ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_requeststatus:
+ * @v: The requeststatus.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_requeststatus (ICalReqstatType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_REQSTAT_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_requeststatus (* (struct icalreqstattype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_requeststatus:
+ * @prop: The #ICalProperty to be set
+ * @v: The requeststatus.
+ *
+ * Set the requeststatus for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_requeststatus (ICalProperty *prop, 
+                                  ICalReqstatType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_REQSTAT_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_requeststatus ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icalreqstattype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_requeststatus:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the requeststatus of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the requeststatus of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalReqstatType *
+i_cal_property_get_requeststatus (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_reqstat_type_new_full (icalproperty_get_requeststatus ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_resources:
+ * @v: The resources.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_resources (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_resources (v), NULL);
+}
+
+/**
+ * i_cal_property_set_resources:
+ * @prop: The #ICalProperty to be set
+ * @v: The resources.
+ *
+ * Set the resources for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_resources (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_resources ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_resources:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the resources of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the resources of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_resources (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_resources ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_response:
+ * @v: The response.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_response (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_response (v), NULL);
+}
+
+/**
+ * i_cal_property_set_response:
+ * @prop: The #ICalProperty to be set
+ * @v: The response.
+ *
+ * Set the response for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_response (ICalProperty *prop, 
+                             gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_response ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_response:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the response of #ICalProperty.
+ *
+ * Returns: Get the response of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+gint
+i_cal_property_get_response (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_response ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_restriction:
+ * @v: The restriction.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_restriction (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_restriction (v), NULL);
+}
+
+/**
+ * i_cal_property_set_restriction:
+ * @prop: The #ICalProperty to be set
+ * @v: The restriction.
+ *
+ * Set the restriction for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_restriction (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_restriction ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_restriction:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the restriction of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the restriction of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_restriction (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_restriction ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_rrule:
+ * @v: The rrule recurrence type.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_rrule (ICalRecurrenceType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_RECURRENCE_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_rrule (* (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_rrule:
+ * @prop: The #ICalProperty to be set
+ * @v: The rrule recurrence type.
+ *
+ * Set the rrule for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_rrule (ICalProperty *prop, 
+                          ICalRecurrenceType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_RECURRENCE_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_rrule ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icalrecurrencetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_rrule:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the rrule recurrence type of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the rrule recurrence type of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalRecurrenceType *
+i_cal_property_get_rrule (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_recurrence_type_new_full (icalproperty_get_rrule ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_scope:
+ * @v: The scope.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_scope (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_scope (v), NULL);
+}
+
+/**
+ * i_cal_property_set_scope:
+ * @prop: The #ICalProperty to be set
+ * @v: The scope.
+ *
+ * Set the scope for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_scope (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_scope ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_scope:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the scope of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the scope of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_scope (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_scope ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_sequence:
+ * @v: The sequence.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_sequence (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_sequence (v), NULL);
+}
+
+/**
+ * i_cal_property_set_sequence:
+ * @prop: The #ICalProperty to be set
+ * @v: The sequence.
+ *
+ * Set the sequence for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_sequence (ICalProperty *prop, 
+                             gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_sequence ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_sequence:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the sequence of #ICalProperty.
+ *
+ * Returns: Get the sequence of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_sequence (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_sequence ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_status:
+ * @v: The status.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_status (ICalPropertyStatus v)
+{
+	return i_cal_property_new_full (icalproperty_new_status ((icalproperty_status) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_status:
+ * @prop: The #ICalProperty to be set
+ * @v: The status.
+ *
+ * Set the status for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_status (ICalProperty *prop, 
+                           ICalPropertyStatus v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_status ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_status) (v));
+}
+
+/**
+ * i_cal_property_get_status:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the status of #ICalProperty.
+ *
+ * Returns: Get the status of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyStatus
+i_cal_property_get_status (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_STATUS_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_STATUS_NONE);
+
+	return (ICalPropertyStatus) (icalproperty_get_status ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_storesexpanded:
+ * @v: The storesexpanded.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_storesexpanded (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_storesexpanded (v), NULL);
+}
+
+/**
+ * i_cal_property_set_storesexpanded:
+ * @prop: The #ICalProperty to be set
+ * @v: The storesexpanded.
+ *
+ * Set the storesexpanded for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_storesexpanded (ICalProperty *prop, 
+                                   const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_storesexpanded ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_storesexpanded:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the storesexpanded of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the storesexpanded of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_storesexpanded (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_storesexpanded ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_summary:
+ * @v: The summary.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_summary (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_summary (v), NULL);
+}
+
+/**
+ * i_cal_property_set_summary:
+ * @prop: The #ICalProperty to be set
+ * @v: The summary.
+ *
+ * Set the summary for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_summary (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_summary ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_summary:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the summary of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the summary of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_summary (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_summary ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_target:
+ * @v: The target.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_target (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_target (v), NULL);
+}
+
+/**
+ * i_cal_property_set_target:
+ * @prop: The #ICalProperty to be set
+ * @v: The target.
+ *
+ * Set the target for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_target (ICalProperty *prop, 
+                           const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_target ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_target:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the target of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the target of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_target (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_target ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_taskmode:
+ * @v: The taskmode.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_taskmode (ICalPropertyTaskmode v)
+{
+	return i_cal_property_new_full (icalproperty_new_taskmode ((icalproperty_taskmode) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_taskmode:
+ * @prop: The #ICalProperty to be set
+ * @v: The taskmode.
+ *
+ * Set the taskmode for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_taskmode (ICalProperty *prop, 
+                             ICalPropertyTaskmode v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_taskmode ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_taskmode) (v));
+}
+
+/**
+ * i_cal_property_get_taskmode:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the taskmode of #ICalProperty.
+ *
+ * Returns: Get the taskmode of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalPropertyTaskmode
+i_cal_property_get_taskmode (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_TASKMODE_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_TASKMODE_NONE);
+
+	return (ICalPropertyTaskmode) (icalproperty_get_taskmode ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_transp:
+ * @v: The transp.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_transp (ICalPropertyTransp v)
+{
+	return i_cal_property_new_full (icalproperty_new_transp ((icalproperty_transp) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_transp:
+ * @prop: The #ICalProperty to be set
+ * @v: The transp.
+ *
+ * Set the transp for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_transp (ICalProperty *prop, 
+                           ICalPropertyTransp v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_transp ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_transp) (v));
+}
+
+/**
+ * i_cal_property_get_transp:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the transp of #ICalProperty.
+ *
+ * Returns: Get the transp of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyTransp
+i_cal_property_get_transp (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_TRANSP_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_TRANSP_NONE);
+
+	return (ICalPropertyTransp) (icalproperty_get_transp ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_trigger:
+ * @v: The trigger period type.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_trigger (ICalTriggerType *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TRIGGER_TYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_trigger (* (struct icaltriggertype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_trigger:
+ * @prop: The #ICalProperty to be set
+ * @v: The trigger period type.
+ *
+ * Set the trigger time for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_trigger (ICalProperty *prop, 
+                            ICalTriggerType *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TRIGGER_TYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_trigger ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltriggertype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_trigger:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the trigger period type of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the trigger period type of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTriggerType *
+i_cal_property_get_trigger (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_trigger_type_new_full (icalproperty_get_trigger ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_tzid:
+ * @v: The tzid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_tzid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzid:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzid.
+ *
+ * Set the tzid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_tzid (ICalProperty *prop, 
+                         const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_tzid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the tzid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_tzid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_tzid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_tzidaliasof:
+ * @v: The tzidaliasof.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzidaliasof (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_tzidaliasof (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzidaliasof:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzidaliasof.
+ *
+ * Set the tzidaliasof for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_tzidaliasof (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_tzidaliasof ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzidaliasof:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzidaliasof of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the tzidaliasof of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_property_get_tzidaliasof (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_tzidaliasof ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_tzname:
+ * @v: The tzname.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzname (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_tzname (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzname:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzname.
+ *
+ * Set the tzname for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_tzname (ICalProperty *prop, 
+                           const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_tzname ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzname:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzname of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the tzname of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_tzname (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_tzname ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_tzoffsetfrom:
+ * @v: The tzoffsetfrom.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzoffsetfrom (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_tzoffsetfrom (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzoffsetfrom:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzoffsetfrom.
+ *
+ * Set the tzoffsetfrom for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_tzoffsetfrom (ICalProperty *prop, 
+                                 gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_tzoffsetfrom ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzoffsetfrom:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzoffsetfrom of #ICalProperty.
+ *
+ * Returns: Get the tzoffsetfrom of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_tzoffsetfrom (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_tzoffsetfrom ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_tzoffsetto:
+ * @v: The tzoffsetto.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzoffsetto (gint v)
+{
+	return i_cal_property_new_full (icalproperty_new_tzoffsetto (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzoffsetto:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzoffsetto.
+ *
+ * Set the tzoffsetto for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_tzoffsetto (ICalProperty *prop, 
+                               gint v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_tzoffsetto ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzoffsetto:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzoffsetto of #ICalProperty.
+ *
+ * Returns: Get the tzoffsetto of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+gint
+i_cal_property_get_tzoffsetto (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), 0);
+	g_return_val_if_fail (prop != NULL, 0);
+
+	return icalproperty_get_tzoffsetto ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_tzuntil:
+ * @v: The time of acknowledgement.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzuntil (ICalTimetype *v)
+{
+	g_return_val_if_fail (I_CAL_IS_TIMETYPE (v), NULL);
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_tzuntil (* (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v))), NULL);
+}
+
+/**
+ * i_cal_property_set_tzuntil:
+ * @prop: The #ICalProperty to be set
+ * @v: The acknowledgement time.
+ *
+ * Set the tzuntil time for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_tzuntil (ICalProperty *prop, 
+                            ICalTimetype *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (I_CAL_IS_TIMETYPE (v));
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_tzuntil ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), * (struct icaltimetype *)i_cal_object_get_native (I_CAL_OBJECT (v)));
+}
+
+/**
+ * i_cal_property_get_tzuntil:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzuntil time of #ICalProperty.
+ *
+ * Returns: (transfer full): Get the tzuntil time of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+ICalTimetype *
+i_cal_property_get_tzuntil (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return i_cal_timetype_new_full (icalproperty_get_tzuntil ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_tzurl:
+ * @v: The tzurl.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_tzurl (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_tzurl (v), NULL);
+}
+
+/**
+ * i_cal_property_set_tzurl:
+ * @prop: The #ICalProperty to be set
+ * @v: The tzurl.
+ *
+ * Set the tzurl for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_tzurl (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_tzurl ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_tzurl:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the tzurl of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the tzurl of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_tzurl (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_tzurl ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_uid:
+ * @v: The uid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_uid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_uid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_uid:
+ * @prop: The #ICalProperty to be set
+ * @v: The uid.
+ *
+ * Set the uid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_uid (ICalProperty *prop, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_uid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_uid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the uid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the uid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_uid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_uid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_url:
+ * @v: The url.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_url (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_url (v), NULL);
+}
+
+/**
+ * i_cal_property_set_url:
+ * @prop: The #ICalProperty to be set
+ * @v: The url.
+ *
+ * Set the url for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_url (ICalProperty *prop, 
+                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_url ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_url:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the url of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the url of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_url (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_url ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_version:
+ * @v: The version.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_version (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_version (v), NULL);
+}
+
+/**
+ * i_cal_property_set_version:
+ * @prop: The #ICalProperty to be set
+ * @v: The version.
+ *
+ * Set the version for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_version (ICalProperty *prop, 
+                            const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_version ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_version:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the version of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the version of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_version (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_version ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_voter:
+ * @v: The voter.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 2.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_voter (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_voter (v), NULL);
+}
+
+/**
+ * i_cal_property_set_voter:
+ * @prop: The #ICalProperty to be set
+ * @v: The voter.
+ *
+ * Set the voter for the #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+void
+i_cal_property_set_voter (ICalProperty *prop, 
+                          const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_voter ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_voter:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the voter of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the voter of #ICalProperty.
+ *
+ * Since: 2.0
+ *
+ **/
+const gchar *
+i_cal_property_get_voter (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_voter ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_x:
+ * @v: The x.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_x (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_x (v), NULL);
+}
+
+/**
+ * i_cal_property_set_x:
+ * @prop: The #ICalProperty to be set
+ * @v: The x.
+ *
+ * Set the x for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_x (ICalProperty *prop, 
+                      const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_x ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_x:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the x of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the x of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_x (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_x ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicclass:
+ * @v: The xlicclass.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicclass (ICalPropertyXlicclass v)
+{
+	return i_cal_property_new_full (icalproperty_new_xlicclass ((icalproperty_xlicclass) (v)), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicclass:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicclass.
+ *
+ * Set the xlicclass for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicclass (ICalProperty *prop, 
+                              ICalPropertyXlicclass v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+
+	icalproperty_set_xlicclass ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), (icalproperty_xlicclass) (v));
+}
+
+/**
+ * i_cal_property_get_xlicclass:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicclass of #ICalProperty.
+ *
+ * Returns: Get the xlicclass of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPropertyXlicclass
+i_cal_property_get_xlicclass (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), I_CAL_XLICCLASS_NONE);
+	g_return_val_if_fail (prop != NULL, I_CAL_XLICCLASS_NONE);
+
+	return (ICalPropertyXlicclass) (icalproperty_get_xlicclass ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop))));
+}
+
+/**
+ * i_cal_property_new_xlicclustercount:
+ * @v: The xlicclustercount.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicclustercount (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicclustercount (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicclustercount:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicclustercount.
+ *
+ * Set the xlicclustercount for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicclustercount (ICalProperty *prop, 
+                                     const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicclustercount ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicclustercount:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicclustercount of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicclustercount of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicclustercount (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicclustercount ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicerror:
+ * @v: The xlicerror.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicerror (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicerror (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicerror:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicerror.
+ *
+ * Set the xlicerror for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicerror (ICalProperty *prop, 
+                              const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicerror ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicerror:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicerror of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicerror of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicerror (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicerror ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimecharset:
+ * @v: The xlicmimecharset.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimecharset (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimecharset (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimecharset:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimecharset.
+ *
+ * Set the xlicmimecharset for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimecharset (ICalProperty *prop, 
+                                    const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimecharset ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimecharset:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimecharset of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimecharset of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimecharset (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimecharset ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimecid:
+ * @v: The xlicmimecid.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimecid (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimecid (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimecid:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimecid.
+ *
+ * Set the xlicmimecid for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimecid (ICalProperty *prop, 
+                                const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimecid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimecid:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimecid of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimecid of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimecid (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimecid ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimecontenttype:
+ * @v: The xlicmimecontenttype.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimecontenttype (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimecontenttype (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimecontenttype:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimecontenttype.
+ *
+ * Set the xlicmimecontenttype for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimecontenttype (ICalProperty *prop, 
+                                        const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimecontenttype ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimecontenttype:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimecontenttype of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimecontenttype of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimecontenttype (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimecontenttype ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimeencoding:
+ * @v: The xlicmimeencoding.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimeencoding (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimeencoding (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimeencoding:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimeencoding.
+ *
+ * Set the xlicmimeencoding for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimeencoding (ICalProperty *prop, 
+                                     const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimeencoding ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimeencoding:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimeencoding of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimeencoding of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimeencoding (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimeencoding ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimefilename:
+ * @v: The xlicmimefilename.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimefilename (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimefilename (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimefilename:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimefilename.
+ *
+ * Set the xlicmimefilename for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimefilename (ICalProperty *prop, 
+                                     const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimefilename ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimefilename:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimefilename of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimefilename of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimefilename (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimefilename ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}
+
+/**
+ * i_cal_property_new_xlicmimeoptinfo:
+ * @v: The xlicmimeoptinfo.
+ *
+ * Create a new #ICalProperty.
+ *
+ * Returns: (transfer full): The newly create #ICalProperty
+ *
+ * Since: 1.0
+ *
+ **/
+ICalProperty *
+i_cal_property_new_xlicmimeoptinfo (const gchar *v)
+{
+	g_return_val_if_fail (v != NULL, NULL);
+
+	return i_cal_property_new_full (icalproperty_new_xlicmimeoptinfo (v), NULL);
+}
+
+/**
+ * i_cal_property_set_xlicmimeoptinfo:
+ * @prop: The #ICalProperty to be set
+ * @v: The xlicmimeoptinfo.
+ *
+ * Set the xlicmimeoptinfo for the #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_property_set_xlicmimeoptinfo (ICalProperty *prop, 
+                                    const gchar *v)
+{
+	g_return_if_fail (I_CAL_IS_PROPERTY (prop));
+	g_return_if_fail (prop != NULL);
+	g_return_if_fail (v != NULL);
+
+	icalproperty_set_xlicmimeoptinfo ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)), v);
+}
+
+/**
+ * i_cal_property_get_xlicmimeoptinfo:
+ * @prop: The #ICalProperty to be queried.
+ *
+ * Get the xlicmimeoptinfo of #ICalProperty.
+ *
+ * Returns: (transfer none): Get the xlicmimeoptinfo of #ICalProperty.
+ *
+ * Since: 1.0
+ *
+ **/
+const gchar *
+i_cal_property_get_xlicmimeoptinfo (ICalProperty *prop)
+{
+	g_return_val_if_fail (I_CAL_IS_PROPERTY (prop), NULL);
+	g_return_val_if_fail (prop != NULL, NULL);
+
+	return icalproperty_get_xlicmimeoptinfo ((icalproperty *)i_cal_object_get_native (I_CAL_OBJECT (prop)));
+}

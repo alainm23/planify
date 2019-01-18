@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg4715"
+   height="16"
+   width="16"
+   version="1.1">
+  <defs
+     id="defs4717" />
+  <metadata
+     id="metadata4720">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <path
+     id="rect876"
+     d="M 6 0 C 5.446 0 5 0.446 5 1 L 5 9 C 5 9.554 5.446 10 6 10 L 14 10 C 14.554 10 15 9.554 15 9 L 15 1 C 15 0.446 14.554 0 14 0 L 6 0 z M 10.314453 1.5 C 10.442986 1.4990128 10.572599 1.5412163 10.640625 1.6523438 C 10.692555 1.9598088 10.798159 2.263751 10.966797 2.5332031 C 11.13525 2.8835349 11.45611 3.1417359 11.703125 3.4433594 C 12.399073 4.2927357 12.35766 5.5612628 11.712891 6.4257812 C 11.652341 6.4919092 11.597365 6.6334474 11.490234 6.6035156 C 11.450224 6.5840326 11.395032 6.5337409 11.419922 6.4824219 C 11.604917 6.0573027 11.736572 5.5900662 11.730469 5.1230469 C 11.741885 4.476966 11.242548 3.9282374 10.6875 3.6347656 L 10.6875 6.9707031 C 10.6875 7.7199631 10.300933 8.2988647 9.6328125 8.4570312 C 9.0430117 8.6363576 8.3254556 8.242481 8.2539062 7.6386719 C 8.2028553 6.9938852 8.75586 6.4342487 9.375 6.2695312 C 9.581062 6.208725 9.8172258 6.1920645 10 6.2304688 L 10 2.0195312 C 9.968551 1.8052839 10.016516 1.4831844 10.314453 1.5 z M 1.5 5 C 1.223 5 1 5.223 1 5.5 L 1 15.5 C 1 15.777 1.223 16 1.5 16 L 10.5 16 C 10.777 16 11 15.777 11 15.5 L 11 11 L 8 11 L 8 15 L 4 15 L 4 11 L 6 11 C 5.2589301 11 4.6209515 10.595799 4.2753906 10 L 4 10 L 4 9 L 4 6 L 4 5 L 1.5 5 z M 2 6 L 3 6 L 3 7 L 2 7 L 2 6 z M 2 8 L 3 8 L 3 9 L 2 9 L 2 8 z M 2 10 L 3 10 L 3 11 L 2 11 L 2 10 z M 2 12 L 3 12 L 3 13 L 2 13 L 2 12 z M 9 12 L 10 12 L 10 13 L 9 13 L 9 12 z M 2 14 L 3 14 L 3 15 L 2 15 L 2 14 z M 9 14 L 10 14 L 10 15 L 9 15 L 9 14 z "
+     style="opacity:1;vector-effect:none;fill:#555761;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:normal" />
+</svg>

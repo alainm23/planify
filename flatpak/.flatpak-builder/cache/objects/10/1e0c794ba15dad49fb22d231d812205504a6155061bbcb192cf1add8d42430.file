@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Stefano Palazzo <stefano-palazzo@ubuntu.com>
+ Copyright (C) 2012 Stefano Palazzo <stefano-palazzo@ubuntu.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="python3" name="Python 3" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-python3</property>
+    <property name="globs">*.py3</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="module-handler"    name="Module Handler"        map-to="python:module-handler"/>
+    <style id="keyword"           name="Keyword"               map-to="python:keyword"/>
+    <style id="multiline-string"  name="Multiline string"      map-to="python:multiline-string"/>
+    <style id="string"            name="String"                map-to="python:string"/>
+    <style id="escaped-char"      name="Escaped Character"     map-to="python:escaped-char"/>
+    <style id="format"            name="Format"                map-to="python:format"/>
+    <style id="special-variable"  name="Special Variable"      map-to="python:special-variable"/>
+    <style id="boolean"           name="Boolean"               map-to="python:boolean"/>
+    <style id="floating-point"    name="Floating point number" map-to="python:floating-point"/>
+    <style id="decimal"           name="Decimal number"        map-to="python:decimal"/>
+    <style id="base-n-integer"    name="Base-N number"         map-to="python:base-n-integer"/>
+    <style id="complex"           name="Complex number"        map-to="python:complex"/>
+    <style id="builtin-constant"  name="Builtin Constant"      map-to="python:builtin-constant"/>
+    <style id="builtin-object"    name="Builtin Object"        map-to="python:builtin-object"/>
+    <style id="builtin-function"  name="Builtin Function"      map-to="python:builtin-function"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="identifier">[_a-zA-Z][_a-zA-Z0-9]*</define-regex>
+    <define-regex id="number">[1-9][0-9]*</define-regex>
+
+
+    <define-regex id="string-prefix">(b|B)?</define-regex>
+    <define-regex id="raw-string-prefix">(r|R|rb|RB|rB|Rb|br|BR|bR|Br)</define-regex>
+
+    <context id="multiline-double-quoted-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="python:escaped-char"/>
+      </include>
+    </context>
+
+    <context id="multiline-single-quoted-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="python:escaped-char"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}"</start>
+      <end>"</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="python:escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{string-prefix}'</start>
+      <end>'</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="python:escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="multiline-double-quoted-raw-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="python:format"/>
+      </include>
+    </context>
+
+    <context id="multiline-single-quoted-raw-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}'''</start>
+      <end>'''</end>
+      <include>
+        <context ref="python:format"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-raw-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}"</start>
+      <end>"</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-raw-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>\%{raw-string-prefix}'</start>
+      <end>'</end>
+      <include>
+        <context ref="python:format"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="python3" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+
+        <context ref="multiline-double-quoted-string"/>
+        <context ref="multiline-single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+
+        <context ref="multiline-double-quoted-raw-string"/>
+        <context ref="multiline-single-quoted-raw-string"/>
+        <context ref="double-quoted-raw-string"/>
+        <context ref="single-quoted-raw-string"/>
+
+        <context ref="python:special-variables"/>
+        <context ref="python:boolean"/>
+
+        <context ref="python:complex"/>
+
+        <context ref="python:float"/>
+
+        <context ref="python:decimal"/>
+
+        <context id="binary" style-ref="base-n-integer">
+          <match>(?&lt;![\w\.])0[bB][0-1]+[lL]?(?![\w\.])</match>
+        </context>
+
+        <context id="octal" style-ref="base-n-integer">
+          <match>(?&lt;![\w\.])0[oO][0-7]+[lL]?(?![\w\.])</match>
+        </context>
+
+        <context ref="python:hex"/>
+
+        <context ref="python:module-handler-from"/>
+        <context ref="python:module-handler"/>
+        <context ref="python:function-definition"/>
+        <context ref="python:class-definition"/>
+        <context ref="python:decorator"/>
+
+        <context ref="python:keywords"/>
+        <context id="3x-only-keywords" style-ref="keyword">
+          <keyword>async</keyword>
+          <keyword>await</keyword>
+          <keyword>nonlocal</keyword>
+        </context>
+
+        <context ref="python:builtin-constants"/>
+        <context ref="python:builtin-objects"/>
+        <context id="3x-only-builtin-objects" style-ref="builtin-object">
+          <prefix>(?&lt;![\w\.])</prefix>
+          <keyword>ResourceWarning</keyword>
+        </context>
+
+        <context ref="python:builtin-functions"/>
+        <context id="3x-only-builtin-functions" style-ref="builtin-function">
+          <prefix>(?&lt;![\w\.])</prefix>
+          <keyword>ascii</keyword>
+          <keyword>bin</keyword>
+          <keyword>bytearray</keyword>
+          <keyword>bytes</keyword>
+          <keyword>exec</keyword>
+          <keyword>format</keyword>
+          <keyword>memoryview</keyword>
+          <keyword>next</keyword>
+          <keyword>print</keyword>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

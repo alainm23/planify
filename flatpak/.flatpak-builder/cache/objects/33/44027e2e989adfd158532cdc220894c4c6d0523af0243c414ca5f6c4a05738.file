@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Remy Loubradou <remy.loubradou@gmail.com>
+ Copyright (C) 2011 Remy Loubradou <remy.loubradou@gmail.com>
+ Copyright (C) 2015 Seán de Búrca <leftmostcat@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="jade" name="Jade" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.jade;*.pug</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"                 name="Comment"                 map-to="def:comment"/>
+    <style id="doctype"                 name="DOCTYPE"                 map-to="def:preprocessor"/>
+    <style id="processing-instruction"  name="Processing instruction"  map-to="def:preprocessor"/>
+    <style id="element-name"            name="Element name"            map-to="def:identifier"/>
+    <style id="attribute-name"          name="Attribute name"          map-to="def:type"/>
+    <style id="attribute-value"         name="Attribute value"         map-to="def:string"/>
+    <style id="tags"                    name="Tags"                    map-to="def:keyword"/>
+    <style id="entity"                  name="Entity"                  map-to="def:preprocessor"/>
+    <style id="error"                   name="Error"                   map-to="def:error"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="name">[a-zA-Z0-9_-]+</define-regex>
+
+    <context id="doctype" style-ref="doctype">
+      <match>^(!!!)\s*([a-zA-Z0-9-_]+)</match>
+    </context>
+
+    <context id="attribute-name" class="no-spell-check">
+      <match>(\b\%{name}\s*) *=</match>
+      <include>
+        <context sub-pattern="1" style-ref="attribute-name"/>
+      </include>
+    </context>
+
+    <context id="entity" style-ref="entity" class="no-spell-check">
+      <match>&amp;\%{name};</match>
+    </context>
+
+    <context id="character-reference" style-ref="entity">
+      <match>&amp;#([0-9]+|x[a-fA-F0-9]+);</match>
+    </context>
+
+    <context id="unallowed-chars" style-ref="error" extend-parent="false">
+      <match>[&amp;&lt;]</match>
+    </context>
+
+    <context id="attribute-value" style-ref="attribute-value" class="string" class-disabled="no-spell-check">
+      <start>["']</start>
+      <end>\%{0@start}</end>
+      <include>
+        <context ref="entity"/>
+        <context ref="character-reference"/>
+        <context ref="unallowed-chars"/>
+      </include>
+    </context>
+
+    <context id="attributes">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context style-ref="error" extend-parent="false">
+          <match>"[^"]+" *[a-zA-Z0-9_-]+</match>
+        </context>
+        <context ref="attribute-name"/>
+        <context ref="attribute-value"/>
+      </include>
+    </context>
+
+    <context id="tags">
+      <match extended="true">
+        ^\s*\b
+        (
+          a|
+          abbr|
+          acronym|
+          address|
+          area|
+          article|
+          aside|
+          audio|
+          b|
+          base|
+          big|
+          blockquote|
+          body|
+          br|
+          button|
+          canvas|
+          caption|
+          cite|
+          code|
+          col|
+          colgroup|
+          dd|
+          del|
+          details|
+          dfn|
+          div|
+          dl|
+          dt|
+          em|
+          fieldset|
+          figcaption|
+          figure|
+          footer|
+          form|
+          frame|
+          frameset|
+          h1|
+          h2|
+          h3|
+          h4|
+          h5|
+          h6|
+          head|
+          header|
+          hgroup|
+          hr|
+          html|
+          i|
+          iframe|
+          img|
+          input|
+          ins|
+          kbd|
+          label|
+          legend|
+          li|
+          link|
+          map|
+          mark|
+          menu|
+          meta|
+          nav|
+          noframes|
+          noscript|
+          object|
+          ol|
+          optgroup|
+          option|
+          p|
+          param|
+          pre|
+          q|
+          samp|
+          script|
+          section|
+          select|
+          small|
+          span|
+          strike|
+          strong|
+          style|
+          sub|
+          summary|
+          sup|
+          table|
+          tbody|
+          td|
+          textarea|
+          tfoot|
+          th|
+          thead|
+          time|
+          title|
+          tr|
+          tt|
+          ul|
+          var|
+          var_keys|
+          video
+        )
+        \s*\b[\?!:]{0,1}
+      </match>
+      <include>
+        <context sub-pattern="1" style-ref="tags"/>
+      </include>
+    </context>
+
+    <context id="attribute-id" style-ref="attribute-name">
+      <match>#[a-zA-Z0-9_-]+</match>
+    </context>
+
+    <context id="attribute-class" style-ref="attribute-name">
+      <match>\.[a-zA-Z0-9_-]+</match>
+    </context>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="jade-executable">
+      <start>^\s*(-)</start>
+      <end>$</end>
+    </context>
+
+    <context id="interpolated">
+      <start>[^\\](#\{)</start>
+      <end>[^\}]+\}</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="processing-instruction"/>
+        <context sub-pattern="0" where="end" style-ref="processing-instruction"/>
+      </include>
+    </context>
+
+    <context id="jade-filter" style-ref="processing-instruction">
+      <match>^\s*\:[^$]+$</match>
+    </context>
+
+    <context id="jade" class="no-spell-check">
+      <include>
+        <context ref="doctype"/>
+        <context ref="attributes"/>
+        <context ref="attribute-id"/>
+        <context ref="attribute-class"/>
+        <context ref="tags"/>
+        <context ref="line-comment"/>
+        <context ref="jade-executable"/>
+        <context ref="interpolated" />
+        <context ref="jade-filter"/>
+      </include>
+    </context>
+  </definitions>
+</language>

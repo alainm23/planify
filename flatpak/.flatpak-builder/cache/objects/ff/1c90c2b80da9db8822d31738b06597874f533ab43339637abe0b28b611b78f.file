@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Ming Han Teh <tehminghan@gmail.com>
+ Copyright (C) 2011 Ming Han Teh <tehminghan@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="sml" name="Standard ML" version="2.0" _section="Source">
+  <metadata>
+    <property name="globs">*.sml;*.sig</property>
+    <property name="block-comment-start">(*</property>
+    <property name="block-comment-end">*)</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="character" name="Character" map-to="def:character"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="escaped-character" name="Escaped Character" map-to="def:special-char"/>
+    <style id="base-n-integer" name="Base-N Integer" map-to="def:base-n-integer"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="boolean" name="Boolean value" map-to="def:boolean"/>
+    <style id="floating-point" name="Floating Point number" map-to="def:floating-point"/>
+    <style id="special-var" name="Module name, Variant, etc" map-to="def:type"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="integer">\b([~]?[0-9]+)</define-regex>
+    <define-regex id="integer-hex">\b(0x[~]?[0-9A-Fa-f]+)</define-regex>
+    <define-regex id="word">\b(0w[0-9]+)</define-regex>
+    <define-regex id="word-hex">\b(0wx[0-9A-Fa-f]+)</define-regex>
+    <define-regex id="real">\b([~]?[0-9]+).([0-9]+)([Ee]?([~]?[0-9]+)?)</define-regex>
+    <define-regex id="upper-case">\b[A-Z][0-9A-Za-z_']*\b</define-regex>
+
+    <context id="escaped-character" style-ref="escaped-character">
+      <match>\\.</match>
+    </context>
+
+    <context id="comment" style-ref="comment">
+      <start>\(\*</start>
+      <end>\*\)</end>
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="comment"/>
+      </include>
+    </context>
+
+    <context id="character" end-at-line-end="true" style-ref="character">
+      <start>#"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped-character" />
+      </include>
+    </context>
+
+    <context id="string" end-at-line-end="true" style-ref="string">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped-character" />
+      </include>
+    </context>
+
+    <context id="integer" style-ref="decimal">
+      <match>\%{integer}</match>
+    </context>
+
+    <context id="integer-hex" style-ref="base-n-integer">
+      <match>\%{integer-hex}</match>
+    </context>
+
+    <context id="word" style-ref="decimal">
+      <match>\%{word}</match>
+    </context>
+
+    <context id="word-hex" style-ref="base-n-integer">
+      <match>\%{word-hex}</match>
+    </context>
+
+    <context id="real" style-ref="floating-point">
+      <match>\%{real}</match>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>true</keyword>
+      <keyword>false</keyword>
+    </context>
+
+    <!-- Anything that starts with an upper case... -->
+    <context id="special-var" style-ref="special-var">
+      <match>\%{upper-case}</match>
+    </context>
+
+    <!-- http://smlnj.cs.uchicago.edu/dist/working/110.72/compiler.tgz/
+         compiler/Parse/lex/tokentable.sml -->
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>abstype</keyword>
+      <keyword>as</keyword>
+      <keyword>case</keyword>
+      <keyword>datatype</keyword>
+      <keyword>else</keyword>
+      <keyword>end</keyword>
+      <keyword>eqtype</keyword>
+      <keyword>exception</keyword>
+      <keyword>do</keyword>
+      <keyword>fn</keyword>
+      <keyword>fun</keyword>
+      <keyword>functor</keyword>
+      <keyword>funsig</keyword>
+      <keyword>handle</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>include</keyword>
+      <keyword>infix</keyword>
+      <keyword>infixr</keyword>
+      <keyword>lazy</keyword>
+      <keyword>let</keyword>
+      <keyword>local</keyword>
+      <keyword>nonfix</keyword>
+      <keyword>of</keyword>
+      <keyword>op</keyword>
+      <keyword>open</keyword>
+      <keyword>overload</keyword>
+      <keyword>raise</keyword>
+      <keyword>rec</keyword>
+      <keyword>sharing</keyword>
+      <keyword>sig</keyword>
+      <keyword>signature</keyword>
+      <keyword>struct</keyword>
+      <keyword>structure</keyword>
+      <keyword>then</keyword>
+      <keyword>type</keyword>
+      <keyword>val</keyword>
+      <keyword>where</keyword>
+      <keyword>while</keyword>
+      <keyword>with</keyword>
+      <keyword>withtype</keyword>
+      <keyword>orelse</keyword>
+      <keyword>andalso</keyword>
+    </context>
+
+    <!-- Top level types -->
+    <!-- http://www.standardml.org/Basis/top-level-chapter.html -->
+    <context id="top-level-types" style-ref="type">
+      <keyword>unit</keyword>
+      <keyword>int</keyword>
+      <keyword>word</keyword>
+      <keyword>real</keyword>
+      <keyword>char</keyword>
+      <keyword>string</keyword>
+      <keyword>substring</keyword>
+      <keyword>exn</keyword>
+      <keyword>array</keyword>
+      <keyword>vector</keyword>
+      <keyword>ref</keyword>
+      <keyword>bool</keyword>
+      <keyword>option</keyword>
+      <keyword>order</keyword>
+      <keyword>list</keyword>
+    </context>
+
+    <!-- Main context -->
+    <context id="sml" class="no-spell-check">
+      <include>
+        <context ref="comment"/>
+        <context ref="character"/>
+        <context ref="string"/>
+        <context ref="integer"/>
+        <context ref="integer-hex"/>
+        <context ref="word"/>
+        <context ref="word-hex"/>
+        <context ref="real"/>
+        <context ref="boolean"/>
+        <context ref="special-var"/>
+        <context ref="keywords"/>
+        <context ref="top-level-types"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

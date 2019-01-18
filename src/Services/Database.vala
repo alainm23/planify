@@ -24,7 +24,7 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void update_project_signal (Objects.Project project);
-    public signal void on_add_project_signal ();
+    public signal void on_add_project_signal (Objects.Project project);
     public signal void on_signal_remove_project (Objects.Project project);
 
     public signal void add_task_signal (Objects.Task task);
@@ -324,6 +324,54 @@ public class Services.Database : GLib.Object {
         return res;
     }
 
+    public int add_project_return (Objects.Project project) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO PROJECTS (name," +
+            "note, deadline, item_order, is_deleted, color)" +
+            "VALUES (?, ?, ?, ?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, project.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, project.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, project.deadline);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, project.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (6, project.color);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        stmt.reset ();
+
+        res = db.prepare_v2 ("SELECT id FROM PROJECTS WHERE name = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, project.name);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () == Sqlite.ROW) {
+            project.id = stmt.column_int (0);
+
+            // Add track to list
+            on_add_project_signal (project);
+
+            return project.id;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return project.id;
+        }
+    }
 
     public int add_project (Objects.Project project) {
         Sqlite.Statement stmt;
@@ -353,11 +401,25 @@ public class Services.Database : GLib.Object {
 
         res = stmt.step ();
 
-        if (res == Sqlite.DONE) {
-            on_add_project_signal ();
-        }
+        stmt.reset ();
 
-        return res;
+        res = db.prepare_v2 ("SELECT id FROM PROJECTS WHERE name = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, project.name);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () == Sqlite.ROW) {
+            project.id = stmt.column_int (0);
+
+            // Add track to list
+            on_add_project_signal (project);
+
+            return Sqlite.DONE;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return Sqlite.ERROR;
+        }
     }
 
     public int update_project (Objects.Project project) {
@@ -621,6 +683,79 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return Sqlite.ERROR;
+        }
+    }
+
+    public int add_task_return_id (Objects.Task task) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
+            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, task.checked);
+        assert (res == Sqlite.OK);
+        res = stmt.bind_int (2, task.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, task.list_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, task.task_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, task.is_inbox);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, task.has_reminder);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, task.sidebar_width);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (8, task.was_notified);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (9, task.content);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (10, task.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (11, task.when_date_utc);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (12, task.reminder_time);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (13, task.labels);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (14, task.checklist);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        stmt.reset ();
+
+        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE content = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, task.content);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () == Sqlite.ROW) {
+            task.id = stmt.column_int (0);
+
+            // Add track to list
+            add_task_signal (task);
+            update_indicators ();
+
+            return task.id;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return task.id;
         }
     }
 

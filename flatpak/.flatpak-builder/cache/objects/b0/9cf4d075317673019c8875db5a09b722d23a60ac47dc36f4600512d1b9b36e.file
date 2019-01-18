@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="Champlain" version="0.12"/>
+  <include name="Clutter" version="1.0"/>
+  <include name="Gtk" version="3.0"/>
+  <package name="champlain-gtk-0.12"/>
+  <c:include name="champlain-gtk/champlain-gtk.h"/>
+  <namespace name="GtkChamplain"
+             version="0.12"
+             shared-library="libchamplain-gtk-0.12.so.0"
+             c:identifier-prefixes="GtkChamplain"
+             c:symbol-prefixes="gtk_champlain">
+    <class name="Embed"
+           c:symbol-prefix="embed"
+           c:type="GtkChamplainEmbed"
+           version="0.4"
+           parent="Gtk.Alignment"
+           glib:type-name="GtkChamplainEmbed"
+           glib:get-type="gtk_champlain_embed_get_type"
+           glib:type-struct="EmbedClass">
+      <doc xml:space="preserve">The #GtkChamplainEmbed structure contains only private data
+and should be accessed using the provided API</doc>
+      <implements name="Atk.ImplementorIface"/>
+      <implements name="Gtk.Buildable"/>
+      <constructor name="new"
+                   c:identifier="gtk_champlain_embed_new"
+                   version="0.4">
+        <doc xml:space="preserve">Creates an instance of #GtkChamplainEmbed.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a new #GtkChamplainEmbed ready to be used as a #GtkWidget.</doc>
+          <type name="Gtk.Widget" c:type="GtkWidget*"/>
+        </return-value>
+      </constructor>
+      <method name="get_view"
+              c:identifier="gtk_champlain_embed_get_view"
+              version="0.4">
+        <doc xml:space="preserve">Gets a #ChamplainView from the #GtkChamplainEmbed object.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve">a #ChamplainView ready to be used</doc>
+          <type name="Champlain.View" c:type="ChamplainView*"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="embed" transfer-ownership="none">
+            <doc xml:space="preserve">a #ChamplainView, the map view to embed</doc>
+            <type name="Embed" c:type="GtkChamplainEmbed*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <property name="champlain-view" version="0.4" transfer-ownership="none">
+        <doc xml:space="preserve">The #ChamplainView to embed in the Gtk+ widget.</doc>
+        <type name="Champlain.View"/>
+      </property>
+      <field name="bin">
+        <type name="Gtk.Alignment" c:type="GtkAlignment"/>
+      </field>
+      <field name="priv">
+        <type name="EmbedPrivate" c:type="GtkChamplainEmbedPrivate*"/>
+      </field>
+    </class>
+    <record name="EmbedClass"
+            c:type="GtkChamplainEmbedClass"
+            glib:is-gtype-struct-for="Embed">
+      <field name="parent_class">
+        <type name="Gtk.AlignmentClass" c:type="GtkAlignmentClass"/>
+      </field>
+    </record>
+    <record name="EmbedPrivate"
+            c:type="GtkChamplainEmbedPrivate"
+            disguised="1">
+    </record>
+  </namespace>
+</repository>

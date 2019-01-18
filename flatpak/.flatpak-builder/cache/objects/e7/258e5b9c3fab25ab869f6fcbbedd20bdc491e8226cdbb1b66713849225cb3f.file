@@ -1,0 +1,156 @@
+/* Generated file (by generator) */
+
+/*
+ * Copyright (C) 2015 William Yu <williamyu@gnome.org>
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of version 2.1. of the GNU Lesser General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include "i-cal-datetimeperiod-type.h"
+#include "libical-glib-private.h"
+#include "i-cal-timetype.h"
+#include "i-cal-period-type.h"
+
+G_DEFINE_TYPE (ICalDatetimeperiodType, i_cal_datetimeperiod_type, I_CAL_TYPE_OBJECT)
+
+static void i_cal_datetimeperiod_type_class_init (ICalDatetimeperiodTypeClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (ICalDatetimeperiodType));
+}
+
+static void i_cal_datetimeperiod_type_init (G_GNUC_UNUSED ICalDatetimeperiodType *self)
+{
+}
+
+/**
+ * i_cal_datetimeperiod_type_new_full: (skip)
+ * @native: The native libical object.
+ *
+ * Create a new libical-glib object from the native libical object and the owner.
+ *
+ * Returns: (transfer full): The newly create libical-glib object.
+ *
+ * Since: 1.0
+ **/
+ICalDatetimeperiodType *
+i_cal_datetimeperiod_type_new_full (struct icaldatetimeperiodtype native)
+{
+    ICalDatetimeperiodType *object;
+    struct icaldatetimeperiodtype *clone;
+    object = g_object_new (I_CAL_DATETIMEPERIOD_TYPE_TYPE, NULL);
+    clone = g_new (struct icaldatetimeperiodtype, 1);
+    *clone = native;
+    i_cal_object_construct ((ICalObject *)object,
+                            (gpointer) clone,
+                            (GDestroyNotify) g_free,
+                            FALSE,
+                            NULL);
+
+    return object;
+}
+/**
+ * i_cal_datetimeperiod_type_new_default: (skip)
+ *
+ * Create a new default #ICalDatetimeperiodType
+ *
+ * Returns: (transfer full): The newly created #ICalDatetimeperiodType
+ *
+ * Since: 1.0
+ *
+ **/
+struct icaldatetimeperiodtype
+i_cal_datetimeperiod_type_new_default (void)
+{
+	struct icaldatetimeperiodtype datetimeperiodtype;
+	datetimeperiodtype.time = i_cal_timetype_new_default ();
+	datetimeperiodtype.period = icalperiodtype_null_period ();
+	return datetimeperiodtype;
+}
+
+/**
+ * i_cal_datetimeperiod_type_get_time:
+ * @dtp: The #ICalDatetimeperiodType to be queried
+ *
+ * Get the time attribute of #ICalDatetimeperiodType.
+ *
+ * Returns: (transfer full): The time attribute of @dtp.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalTimetype *
+i_cal_datetimeperiod_type_get_time (ICalDatetimeperiodType *dtp)
+{
+	g_return_val_if_fail (dtp != NULL && I_CAL_IS_DATETIMEPERIOD_TYPE (dtp), NULL);
+	return i_cal_timetype_new_full (((struct icaldatetimeperiodtype *)i_cal_object_get_native ((ICalObject *)dtp))->time);
+}
+
+/**
+ * i_cal_datetimeperiod_type_set_time:
+ * @dtp: The #ICalDatetimeperiodType to be set
+ * @time: The time attribute of @dtp.
+ *
+ * Set the time attribute of #ICalDatetimeperiodType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_datetimeperiod_type_set_time (ICalDatetimeperiodType *dtp, 
+                                    ICalTimetype *time)
+{
+	g_return_if_fail (dtp != NULL && I_CAL_IS_DATETIMEPERIOD_TYPE (dtp));
+	g_return_if_fail (time != NULL && I_CAL_IS_TIMETYPE (time));
+	((struct icaldatetimeperiodtype *)i_cal_object_get_native ((ICalObject *)dtp))->time = *(struct icaltimetype *)i_cal_object_get_native ((ICalObject *)time);
+}
+
+/**
+ * i_cal_datetimeperiod_type_get_period:
+ * @dtp: The #ICalDatetimeperiodType to be queried
+ *
+ * Get the period attribute of #ICalDatetimeperiodType.
+ *
+ * Returns: (transfer full): The period attribute of @dtp.
+ *
+ * Since: 1.0
+ *
+ **/
+ICalPeriodType *
+i_cal_datetimeperiod_type_get_period (ICalDatetimeperiodType *dtp)
+{
+	g_return_val_if_fail (dtp != NULL && I_CAL_IS_DATETIMEPERIOD_TYPE (dtp), NULL);
+	return i_cal_period_type_new_full (((struct icaldatetimeperiodtype *)i_cal_object_get_native ((ICalObject *)dtp))->period);
+}
+
+/**
+ * i_cal_datetimeperiod_type_set_period:
+ * @dtp: The #ICalDatetimeperiodType to be set
+ * @period: The period attribute of @dtp.
+ *
+ * Set the period attribute of #ICalDatetimeperiodType.
+ *
+ * Since: 1.0
+ *
+ **/
+void
+i_cal_datetimeperiod_type_set_period (ICalDatetimeperiodType *dtp, 
+                                      ICalPeriodType *period)
+{
+	g_return_if_fail (dtp != NULL && I_CAL_IS_DATETIMEPERIOD_TYPE (dtp));
+	g_return_if_fail (period != NULL && I_CAL_IS_PERIOD_TYPE (period));
+	((struct icaldatetimeperiodtype *)i_cal_object_get_native ((ICalObject *)dtp))->period = *(struct icalperiodtype *)i_cal_object_get_native ((ICalObject *)period);
+}

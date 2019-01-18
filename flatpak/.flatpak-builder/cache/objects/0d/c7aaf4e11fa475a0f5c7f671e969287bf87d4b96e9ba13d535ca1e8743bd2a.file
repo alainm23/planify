@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Ian Liu Rodrigues <ian.liu88@gmail.com> (modified from java.lang)
+ Copyright (C) 2003 Gustavo Giráldez <gustavo.giraldez@gmx.net>
+ Copyright (C) 2006 Jeff Walden <jwalden@mit.edu>
+ Copyright (C) 2012 Sapphire Becker <guess@logicplace.com>
+ Copyright (C) 2016 Wolfang Torres <wolfang.torres@gmail.com>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!--
+References:
+  https://en.wikipedia.org/wiki/Haxe
+  https://haxe.org/documentation/
+  https://haxe.org/manual/expression.html
+-->
+
+<language id="haxe" name="Haxe" version="2.0" _section="Source">
+
+  <metadata>
+
+    <property name="mimetypes">text/x-haxe</property>
+    <property name="globs">*.hx</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment" />
+    <style id="external"          name="External"          map-to="def:preprocessor" />
+    <style id="preprocessor"      name="Preprocessor"      map-to="def:preprocessor" />
+    <style id="declaration"       name="Declaration"       map-to="def:type" />
+    <style id="storage-class"     name="Storage Class"     map-to="def:type" />
+    <style id="scope"             name="Scope"             map-to="def:type" />
+    <style id="keyword"           name="Keyword"           map-to="def:keyword" />
+    <style id="string"            name="String"            map-to="def:string" />
+    <style id="number"            name="Number"            map-to="def:decimal" />
+    <style id="boolean"           name="Boolean value"     map-to="def:boolean" />
+    <style id="null-value"        name="Null Value"        map-to="def:special-constant" />
+    <style id="type"              name="Data Type"         map-to="def:identifier" />
+    <style id="metadata"          name="Metadata"          map-to="def:constant" />
+    <style id="macro"             name="Macro"             map-to="def:preprocessor" />
+    <style id="error"             name="Error"             map-to="def:error" />
+    <style id="escaped-char"      name="Escaped Character" map-to="def:special-char" />
+    <style id="identifier-prefix" name="Identifier Prefix" map-to="def:warning" />
+  </styles>
+
+  <definitions>
+
+    <define-regex id="escaped-char" extended="true">\\(x?\d+|[\\\?\"\'nt])</define-regex>
+
+    <define-regex id="escaped-char-error" extended="true">\\[^\\\?\"\'ntx\d]</define-regex>
+
+    <context id="line-comment" style-ref="comment" end-at-line-end="true">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment" />
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment" />
+      </include>
+    </context>
+
+    <context id="close-comment-outside-comment" style-ref="error">
+      <match>\*/(?!\*)</match>
+    </context>
+
+    <context id="escaped-char" style-ref="escaped-char">
+      <match>\%{escaped-char}</match>
+    </context>
+
+    <context id="escaped-char-error" style-ref="error">
+      <match>\%{escaped-char-error}</match>
+    </context>
+
+    <context id="externals" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>package</keyword>
+      <keyword>extern</keyword>
+      <keyword>using</keyword>
+    </context>
+
+    <context id="preo-proc" style-ref="preprocessor">
+      <prefix>^\s*#\s*</prefix>
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+      <keyword>elseif</keyword>
+      <keyword>end</keyword>
+    </context>
+
+    <context id="declarations" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>enum</keyword>
+      <keyword>extends</keyword>
+      <keyword>function</keyword>
+      <keyword>implements</keyword>
+      <keyword>interface</keyword>
+      <keyword>typedef</keyword>
+      <keyword>var</keyword>
+      <keyword>macro</keyword>
+    </context>
+
+    <context id="primitive-types" style-ref="type">
+      <match>[A-Z][a-zA-Z0-9]*</match>
+    </context>
+
+    <context id="storage-class" style-ref="storage-class">
+      <keyword>static</keyword>
+      <keyword>inline</keyword>
+      <keyword>abstract</keyword>
+    </context>
+
+    <context id="scope" style-ref="scope">
+      <keyword>private</keyword>
+      <keyword>public</keyword>
+      <keyword>dynamic</keyword>
+      <keyword>override</keyword>
+    </context>
+
+    <context id="flow" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>case</keyword>
+      <keyword>cast</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue</keyword>
+      <keyword>default</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>return</keyword>
+      <keyword>switch</keyword>
+      <keyword>throw</keyword>
+      <keyword>try</keyword>
+      <keyword>untyped</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="memory" style-ref="keyword">
+      <keyword>new</keyword>
+      <keyword>super</keyword>
+      <keyword>this</keyword>
+    </context>
+
+    <context id="string" style-ref="string">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped-char" />
+        <context ref="escaped-char-error" />
+      </include>
+    </context>
+
+    <context id="string-2" style-ref="string">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="escaped-char" />
+        <context ref="escaped-char-error" />
+      </include>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">(\b([0-9]+|0[xX][0-9a-fA-F]+)[Ll]?\b| \b(([0-9]+[Ee][-]?[0-9]+| ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?| [0-9]+[FfDd]))</match>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="metadata" style-ref="metadata">
+      <match>@\w+</match>
+    </context>
+
+    <context id="macro" style-ref="macro">
+      <match>@:\w+</match>
+    </context>
+
+    <context id="identifier-prefix" style-ref="identifier-prefix">
+      <match>_hx_\w+</match>
+    </context>
+
+    <context id="haxe">
+      <include>
+        <context ref="line-comment" />
+        <context ref="block-comment" />
+        <context ref="close-comment-outside-comment" />
+        <context ref="externals" />
+        <context ref="preo-proc" />
+        <context ref="declarations" />
+        <context ref="primitive-types" />
+        <context ref="storage-class" />
+        <context ref="scope" />
+        <context ref="flow" />
+        <context ref="memory" />
+        <context ref="string" />
+        <context ref="string-2" />
+        <context ref="numeric" />
+        <context ref="boolean" />
+        <context ref="null-value" />
+        <context ref="metadata" />
+        <context ref="macro" />
+        <context ref="identifier-prefix" />
+      </include>
+    </context>
+
+  </definitions>
+</language>

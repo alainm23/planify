@@ -1,0 +1,7 @@
+<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-713 23)'>
+        <path d='M725-13v2h-2v2h2v2h2v-2h2v-2h-2v-2z' fill='#666'/>
+        
+        <path color='#000' d='M721.014-22.38L719.028-17h-5.514l4.285 3.482-1.42 5.338 4.635-3.002.986.639V-11a1 1 0 0 1 1-1h1v-1a1 1 0 0 1 .797-.979L728.514-17H723zm4.146 12.366A1 1 0 0 1 725-10a1 1 0 0 1 .168.014z' fill='#666' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;-inkscape-font-specification:sans-serif;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;marker:none'/>
+    </g>
+</svg>

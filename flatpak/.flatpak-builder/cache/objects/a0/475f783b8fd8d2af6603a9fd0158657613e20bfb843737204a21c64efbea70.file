@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalParser: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalParameter.html" title="ICalParameter">
+<link rel="next" href="libical-glib-ICalPeriodType.html" title="ICalPeriodType">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalParser.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalParameter.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalPeriodType.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalParser"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalParser.top_of_page"></a>ICalParser</span></h2>
+<p>ICalParser</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalParser.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="returnvalue">ICalParser</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-new" title="i_cal_parser_new ()">i_cal_parser_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-add-line" title="i_cal_parser_add_line ()">i_cal_parser_add_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-clean" title="i_cal_parser_clean ()">i_cal_parser_clean</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalParser.html#ICalParserState" title="enum ICalParserState"><span class="returnvalue">ICalParserState</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-get-state" title="i_cal_parser_get_state ()">i_cal_parser_get_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-free" title="i_cal_parser_free ()">i_cal_parser_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-parse" title="i_cal_parser_parse ()">i_cal_parser_parse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-set-gen-data" title="i_cal_parser_set_gen_data ()">i_cal_parser_set_gen_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-parse-string" title="i_cal_parser_parse_string ()">i_cal_parser_parse_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-get-line" title="i_cal_parser_get_line ()">i_cal_parser_get_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalParser.html#i-cal-parser-string-line-generator" title="i_cal_parser_string_line_generator ()">i_cal_parser_string_line_generator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalParser.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalParser.html#I-CAL-PARSER-TYPE:CAPS" title="I_CAL_PARSER_TYPE">I_CAL_PARSER_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser">ICalParser</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalParser.html#ICalParserClass" title="struct ICalParserClass">ICalParserClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalParser.html#ICalParserState" title="enum ICalParserState">ICalParserState</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalParser.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalParser.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-parser-new"></a><h3>i_cal_parser_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="returnvalue">ICalParser</span></a> *
+i_cal_parser_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a default <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parser-new.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-add-line"></a><h3>i_cal_parser_add_line ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+i_cal_parser_add_line (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>,
+                       <em class="parameter"><code><GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Add a line at one time into the <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> until the parsing is complete and <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> will be
+returned.</p>
+<div class="refsect3">
+<a name="i-cal-parser-add-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> used to parse the string into the <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input. Default is transfer none."><span class="acronym">in</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>A line of string representation of the <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-add-line.returns"></a><h4>Returns</h4>
+<p>The complete <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>. </p>
+<p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-clean"></a><h3>i_cal_parser_clean ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+i_cal_parser_clean (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>);</pre>
+<p>We won't get a clean exit if some components did not have an "END" tag. Clear off any component that
+may be left in the list</p>
+<div class="refsect3">
+<a name="i-cal-parser-clean.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The parser to be cleaned and queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-clean.returns"></a><h4>Returns</h4>
+<p>The root <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> in <em class="parameter"><code>parser</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-get-state"></a><h3>i_cal_parser_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalParser.html#ICalParserState" title="enum ICalParserState"><span class="returnvalue">ICalParserState</span></a>
+i_cal_parser_get_state (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>);</pre>
+<p>Get the state of the target parser.</p>
+<div class="refsect3">
+<a name="i-cal-parser-get-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-get-state.returns"></a><h4>Returns</h4>
+<p> The parser state stored in the <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-free"></a><h3>i_cal_parser_free ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_parser_free (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>);</pre>
+<p>Free a <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parser-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> to be freed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-parse"></a><h3>i_cal_parser_parse ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+i_cal_parser_parse (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>,
+                    <em class="parameter"><code><GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK>* (*func) (gchar *,size_t,void *)</code></em>);</pre>
+<p>icalparser_parse takes a string that holds the text ( in RFC 2445 format ) and returns a pointer to an
+icalcomponent. The caller owns the memory. line_gen_func is a pointer to a function that returns one
+content line per invocation</p>
+<div class="refsect3">
+<a name="i-cal-parser-parse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The parser used to parse the string and output the <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>The function used to parse.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-parse.returns"></a><h4>Returns</h4>
+<p>The component output by the parser. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-set-gen-data"></a><h3>i_cal_parser_set_gen_data ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_parser_set_gen_data (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>,
+                           <em class="parameter"><code><GTKDOCLINK HREF="void"><span class="type">void</span></GTKDOCLINK> *data</code></em>);</pre>
+<p>Set the data that icalparser_parse will give to the line_gen_func as the parameter 'd'</p>
+<div class="refsect3">
+<a name="i-cal-parser-set-gen-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The parser</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>Set the data that icalparser_parse will give to the line_gen_func as the parameter 'd'</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-parse-string"></a><h3>i_cal_parser_parse_string ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+i_cal_parser_parse_string (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *str</code></em>);</pre>
+<p>Parse the string into a <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>.</p>
+<div class="refsect3">
+<a name="i-cal-parser-parse-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>The string to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-parse-string.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> parsed from str. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-get-line"></a><h3>i_cal_parser_get_line ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_parser_get_line (<em class="parameter"><code><a class="link" href="libical-glib-ICalParser.html#ICalParser" title="ICalParser"><span class="type">ICalParser</span></a> *parser</code></em>,
+                       <em class="parameter"><code><GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK>* (*func) (gchar *,size_t,void *)</code></em>);</pre>
+<p>Given a line generator function, return a single iCal content line.</p>
+<div class="refsect3">
+<a name="i-cal-parser-get-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>The parser to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>A line generator function.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-get-line.returns"></a><h4>Returns</h4>
+<p>A single iCal content line. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-parser-string-line-generator"></a><h3>i_cal_parser_string_line_generator ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_parser_string_line_generator (<em class="parameter"><code><GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *out</code></em>,
+                                    <em class="parameter"><code><GTKDOCLINK HREF="size-t"><span class="type">size_t</span></GTKDOCLINK> buf_size</code></em>,
+                                    <em class="parameter"><code><GTKDOCLINK HREF="void"><span class="type">void</span></GTKDOCLINK> *d</code></em>);</pre>
+<p>The string line generator used as line_gen_func</p>
+<div class="refsect3">
+<a name="i-cal-parser-string-line-generator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>out</p></td>
+<td class="parameter_description"><p>The input.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>buf_size</p></td>
+<td class="parameter_description"><p>The size of the buffer.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>d</p></td>
+<td class="parameter_description"><p>The data to be supplied.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-parser-string-line-generator.returns"></a><h4>Returns</h4>
+<p>The generated line. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalParser.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-PARSER-TYPE:CAPS"></a><h3>I_CAL_PARSER_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_PARSER_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalParser"></a><h3>ICalParser</h3>
+<pre class="programlisting">typedef struct {
+} ICalParser;
+</pre>
+<p>This is the ICalParser instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalParserClass"></a><h3>struct ICalParserClass</h3>
+<pre class="programlisting">struct ICalParserClass {
+};
+</pre>
+<p>This is the ICalParser class.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalParserState"></a><h3>enum ICalParserState</h3>
+<div class="refsect3">
+<a name="ICalParserState.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="I-CAL-PARSER-ERROR:CAPS"></a>I_CAL_PARSER_ERROR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="I-CAL-PARSER-SUCCESS:CAPS"></a>I_CAL_PARSER_SUCCESS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="I-CAL-PARSER-BEGIN-COMP:CAPS"></a>I_CAL_PARSER_BEGIN_COMP</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="I-CAL-PARSER-END-COMP:CAPS"></a>I_CAL_PARSER_END_COMP</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="I-CAL-PARSER-IN-PROGRESS:CAPS"></a>I_CAL_PARSER_IN_PROGRESS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

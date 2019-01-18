@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Link M Dupont, Andrew Johnson
+ Copyright (C) 2005 Link M Dupont <link@subpop.net>
+ Copyright (C) 2005 Andrew Johnson <acjgenius@earthlink.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="gtkrc" name="GtkRC" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-gtkrc</property>
+    <property name="globs">gtkrc;.gtkrc;gtkrc-*;.gtkrc-*</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="decimal" name="Decimal" map-to="def:decimal"/>
+    <style id="variable" name="Data Type" map-to="def:type"/>
+    <style id="state" name="Widget State" map-to="def:special-constant"/>
+    <style id="include-directive" name="Include directive" map-to="def:preprocessor"/>
+    <style id="boolean-value" name="Boolean value" map-to="def:boolean"/>
+  </styles>
+
+  <definitions>
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>#</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="keysymbol" style-ref="keyword">
+      <match>::|=</match>
+    </context>
+    <context id="number" style-ref="decimal">
+      <match>\b[0-9][0-9\.]*\b</match>
+    </context>
+    <context id="keyword" style-ref="keyword">
+      <keyword>style</keyword>
+      <keyword>engine</keyword>
+      <keyword>widget_class</keyword>
+      <keyword>class</keyword>
+      <keyword>widget</keyword>
+    </context>
+    <context id="variable" style-ref="variable">
+      <keyword>fg</keyword>
+      <keyword>bg</keyword>
+      <keyword>bg_pixmap</keyword>
+      <keyword>base</keyword>
+      <keyword>text</keyword>
+    </context>
+    <context id="state" style-ref="state">
+      <keyword>ACTIVE</keyword>
+      <keyword>SELECTED</keyword>
+      <keyword>NORMAL</keyword>
+      <keyword>PRELIGHT</keyword>
+      <keyword>INSENSITIVE</keyword>
+    </context>
+    <context id="include-directive" style-ref="include-directive">
+      <keyword>include</keyword>
+    </context>
+    <context id="boolean-value" style-ref="boolean-value">
+      <keyword>TRUE</keyword>
+      <keyword>FALSE</keyword>
+    </context>
+    <context id="gtkrc" class="no-spell-check">
+      <include>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="line-comment"/>
+        <context ref="keysymbol"/>
+        <context ref="number"/>
+        <context ref="keyword"/>
+        <context ref="variable"/>
+        <context ref="state"/>
+        <context ref="include-directive"/>
+        <context ref="boolean-value"/>
+      </include>
+    </context>
+  </definitions>
+</language>

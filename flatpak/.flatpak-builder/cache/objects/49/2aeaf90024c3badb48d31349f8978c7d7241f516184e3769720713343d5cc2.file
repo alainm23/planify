@@ -1,0 +1,1256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ICalTimezone: libical-glib Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="libical-glib Reference Manual">
+<link rel="up" href="ch01.html" title="API Reference">
+<link rel="prev" href="libical-glib-ICalTimetype.html" title="ICalTimetype">
+<link rel="next" href="libical-glib-ICalTimezonePhase.html" title="ICalTimezonePhase">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libical-glib-ICalTimezone.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="libical-glib-ICalTimetype.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libical-glib-ICalTimezonePhase.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libical-glib-ICalTimezone"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libical-glib-ICalTimezone.top_of_page"></a>ICalTimezone</span></h2>
+<p>ICalTimezone</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimezone.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-new" title="i_cal_timezone_new ()">i_cal_timezone_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-copy" title="i_cal_timezone_copy ()">i_cal_timezone_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-free" title="i_cal_timezone_free ()">i_cal_timezone_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-set-tzid-prefix" title="i_cal_timezone_set_tzid_prefix ()">i_cal_timezone_set_tzid_prefix</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-free-builtin-timezones" title="i_cal_timezone_free_builtin_timezones ()">i_cal_timezone_free_builtin_timezones</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-builtin-timezone" title="i_cal_timezone_get_builtin_timezone ()">i_cal_timezone_get_builtin_timezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-builtin-timezone-from-offset" title="i_cal_timezone_get_builtin_timezone_from_offset ()">i_cal_timezone_get_builtin_timezone_from_offset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-builtin-timezone-from-tzid" title="i_cal_timezone_get_builtin_timezone_from_tzid ()">i_cal_timezone_get_builtin_timezone_from_tzid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="returnvalue">ICalArray</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-builtin-timezones" title="i_cal_timezone_get_builtin_timezones ()">i_cal_timezone_get_builtin_timezones</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-utc-timezone" title="i_cal_timezone_get_utc_timezone ()">i_cal_timezone_get_utc_timezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-tzid" title="i_cal_timezone_get_tzid ()">i_cal_timezone_get_tzid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-location" title="i_cal_timezone_get_location ()">i_cal_timezone_get_location</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-tznames" title="i_cal_timezone_get_tznames ()">i_cal_timezone_get_tznames</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gdouble"><span class="returnvalue">gdouble</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-latitude" title="i_cal_timezone_get_latitude ()">i_cal_timezone_get_latitude</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gdouble"><span class="returnvalue">gdouble</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-longitude" title="i_cal_timezone_get_longitude ()">i_cal_timezone_get_longitude</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-component" title="i_cal_timezone_get_component ()">i_cal_timezone_get_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-set-component" title="i_cal_timezone_set_component ()">i_cal_timezone_set_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-display-name" title="i_cal_timezone_get_display_name ()">i_cal_timezone_get_display_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-convert-time" title="i_cal_timezone_convert_time ()">i_cal_timezone_convert_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-utc-offset" title="i_cal_timezone_get_utc_offset ()">i_cal_timezone_get_utc_offset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-utc-offset-of-utc-time" title="i_cal_timezone_get_utc_offset_of_utc_time ()">i_cal_timezone_get_utc_offset_of_utc_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="returnvalue">ICalArray</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-array-new" title="i_cal_timezone_array_new ()">i_cal_timezone_array_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-array-append-from-vtimezone" title="i_cal_timezone_array_append_from_vtimezone ()">i_cal_timezone_array_append_from_vtimezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-array-free" title="i_cal_timezone_array_free ()">i_cal_timezone_array_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-time-tiemzone-expand-vtimezone" title="i_cal_time_tiemzone_expand_vtimezone ()">i_cal_time_tiemzone_expand_vtimezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-location-from-vtimezone" title="i_cal_timezone_get_location_from_vtimezone ()">i_cal_timezone_get_location_from_vtimezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-tznames-from-vtimezone" title="i_cal_timezone_get_tznames_from_vtimezone ()">i_cal_timezone_get_tznames_from_vtimezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-set-zone-directory" title="i_cal_timezone_set_zone_directory ()">i_cal_timezone_set_zone_directory</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-free-zone-directory" title="i_cal_timezone_free_zone_directory ()">i_cal_timezone_free_zone_directory</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-release-zone-tab" title="i_cal_timezone_release_zone_tab ()">i_cal_timezone_release_zone_tab</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-set-builtin-tzdata" title="i_cal_timezone_set_builtin_tzdata ()">i_cal_timezone_set_builtin_tzdata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-get-builtin-tzdata" title="i_cal_timezone_get_builtin_tzdata ()">i_cal_timezone_get_builtin_tzdata</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-dump-changes" title="i_cal_timezone_dump_changes ()">i_cal_timezone_dump_changes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="libical-glib-ICalTimezone.html#i-cal-timezone-array-element-at" title="i_cal_timezone_array_element_at ()">i_cal_timezone_array_element_at</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimezone.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimezone.html#I-CAL-TIMEZONE-TYPE:CAPS" title="I_CAL_TIMEZONE_TYPE">I_CAL_TIMEZONE_TYPE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone">ICalTimezone</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezoneClass" title="struct ICalTimezoneClass">ICalTimezoneClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimezone.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimezone.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="i-cal-timezone-new"></a><h3>i_cal_timezone_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>The constructor of the type <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p>
+<div class="refsect3">
+<a name="i-cal-timezone-new.returns"></a><h4>Returns</h4>
+<p>The newly created object of the type <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-copy"></a><h3>i_cal_timezone_copy ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_copy (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>The clone method for <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p>
+<div class="refsect3">
+<a name="i-cal-timezone-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> needs to be cloned.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-copy.returns"></a><h4>Returns</h4>
+<p>The newly created <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> with the same values as <em class="parameter"><code>zone</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-free"></a><h3>i_cal_timezone_free ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_free (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>,
+                     <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> free_struct</code></em>);</pre>
+<p>The destructor of <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-timezone-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be freed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>free_struct</p></td>
+<td class="parameter_description"><p>Whether to free it or reset it. 1 to free and 0 to reset</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-set-tzid-prefix"></a><h3>i_cal_timezone_set_tzid_prefix ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_set_tzid_prefix (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *new_prefix</code></em>);</pre>
+<p>Sets the prefix to be used for tzid's generated from system tzdata. Must be globally unique (such as
+a domain name owned by the developer of the calling application), and begin and end with forward slashes.
+Do not change or de-allocate the string buffer after calling this.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-set-tzid-prefix.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>new_prefix</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be set</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-free-builtin-timezones"></a><h3>i_cal_timezone_free_builtin_timezones ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_free_builtin_timezones (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Free any builtin timezone information</p>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-builtin-timezone"></a><h3>i_cal_timezone_get_builtin_timezone ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_get_builtin_timezone (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *location</code></em>);</pre>
+<p>Returns a single builtin timezone, given its Olson city name.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>location</p></td>
+<td class="parameter_description"><p>The location representing the timezone.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone.returns"></a><h4>Returns</h4>
+<p>The builtin <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> with the name of <em class="parameter"><code>location</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-builtin-timezone-from-offset"></a><h3>i_cal_timezone_get_builtin_timezone_from_offset ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_get_builtin_timezone_from_offset
+                               (<em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> offset</code></em>,
+                                <em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *tzname</code></em>);</pre>
+<p>Returns a single builtin timezone, given its offset.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone-from-offset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>offset</p></td>
+<td class="parameter_description"><p>The offset used to get the <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tzname</p></td>
+<td class="parameter_description"><p>The reference <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone-from-offset.returns"></a><h4>Returns</h4>
+<p> (transfer full)</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-builtin-timezone-from-tzid"></a><h3>i_cal_timezone_get_builtin_timezone_from_tzid ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_get_builtin_timezone_from_tzid
+                               (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *tzid</code></em>);</pre>
+<p>Returns a single builtin timezone, given its TZID.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone-from-tzid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>tzid</p></td>
+<td class="parameter_description"><p>The tzid name</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezone-from-tzid.returns"></a><h4>Returns</h4>
+<p> (transfer full)</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-builtin-timezones"></a><h3>i_cal_timezone_get_builtin_timezones ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="returnvalue">ICalArray</span></a> *
+i_cal_timezone_get_builtin_timezones (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns a list of builtin timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-timezones.returns"></a><h4>Returns</h4>
+<p>The builtin <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-utc-timezone"></a><h3>i_cal_timezone_get_utc_timezone ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_get_utc_timezone (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns the UTC timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-utc-timezone.returns"></a><h4>Returns</h4>
+<p>The utc <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-tzid"></a><h3>i_cal_timezone_get_tzid ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_tzid (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the TZID of a timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tzid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tzid.returns"></a><h4>Returns</h4>
+<p> The timezone id</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-location"></a><h3>i_cal_timezone_get_location ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_location (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the city name of a timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-location.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-location.returns"></a><h4>Returns</h4>
+<p> The location of the <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-tznames"></a><h3>i_cal_timezone_get_tznames ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_tznames (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the TZNAME properties used in the latest STANDARD and DAYLIGHT components. If they are the same
+it will return just one, e.g. "LMT". If they are different it will format them like "EST/EDT". Note that
+this may also return NULL.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tznames.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tznames.returns"></a><h4>Returns</h4>
+<p> The timezone name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-latitude"></a><h3>i_cal_timezone_get_latitude ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gdouble"><span class="returnvalue">gdouble</span></GTKDOCLINK>
+i_cal_timezone_get_latitude (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the latitude of a builtin timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-latitude.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-latitude.returns"></a><h4>Returns</h4>
+<p> The latitude of the <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-longitude"></a><h3>i_cal_timezone_get_longitude ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gdouble"><span class="returnvalue">gdouble</span></GTKDOCLINK>
+i_cal_timezone_get_longitude (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the longitude of a builtin timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-longitude.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-longitude.returns"></a><h4>Returns</h4>
+<p> The longitude of the <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-component"></a><h3>i_cal_timezone_get_component ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="returnvalue">ICalComponent</span></a> *
+i_cal_timezone_get_component (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Returns the VTIMEZONE component of a timezone.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-component.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-component.returns"></a><h4>Returns</h4>
+<p>the VTIMEZONE component of the <em class="parameter"><code>zone</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-set-component"></a><h3>i_cal_timezone_set_component ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timezone_set_component (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>,
+                              <em class="parameter"><code><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> *comp</code></em>);</pre>
+<p>Sets the VTIMEZONE component of <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>, initializing the tzid, location and tzname fields. It
+returns 1 on success or 0 on failure, i.e. no TZID was found.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-set-component.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>comp</p></td>
+<td class="parameter_description"><p>The VTIMEZONE component of an <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>, initializing the tzid, location and tzname fields.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-set-component.returns"></a><h4>Returns</h4>
+<p> Whether the action is successful. 1 for success, 0 for failure.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-display-name"></a><h3>i_cal_timezone_get_display_name ()</h3>
+<pre class="programlisting">const <GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_display_name (<em class="parameter"><code>const <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>);</pre>
+<p>Get the display name of the <em class="parameter"><code>zone</code></em>
+.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-display-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> to be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-display-name.returns"></a><h4>Returns</h4>
+<p> The display name of <em class="parameter"><code>zone</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-convert-time"></a><h3>i_cal_timezone_convert_time ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_convert_time (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *tt</code></em>,
+                             <em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *from_zone</code></em>,
+                             <em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *to_zone</code></em>);</pre>
+<p>Convert time from one timezone to another.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-convert-time.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tt</p></td>
+<td class="parameter_description"><p>The time to be converted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>from_zone</p></td>
+<td class="parameter_description"><p>from timezone</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>to_zone</p></td>
+<td class="parameter_description"><p>to timezone</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-utc-offset"></a><h3>i_cal_timezone_get_utc_offset ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_get_utc_offset (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>,
+                               <em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *tt</code></em>,
+                               <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> *is_daylight</code></em>);</pre>
+<p>Calculates the UTC offset of a given local time in the given timezone.  It is the number of seconds to
+add to UTC to get local time.  The is_daylight flag is set to 1 if the time is in daylight-savings time.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-utc-offset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The given <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tt</p></td>
+<td class="parameter_description"><p>The local time.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_daylight</p></td>
+<td class="parameter_description"><p>whether it is day light.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-utc-offset-of-utc-time"></a><h3>i_cal_timezone_get_utc_offset_of_utc_time ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_get_utc_offset_of_utc_time
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>,
+                                <em class="parameter"><code><a class="link" href="libical-glib-ICalTimetype.html#ICalTimetype" title="ICalTimetype"><span class="type">ICalTimetype</span></a> *tt</code></em>,
+                                <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> *is_daylight</code></em>);</pre>
+<p>Calculates the UTC offset of a given UTC time in the given timezone.  It is the number of seconds to
+add to UTC to get local time.  The is_daylight flag is set to 1 if the time is in daylight-savings time.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-utc-offset-of-utc-time.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The given <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tt</p></td>
+<td class="parameter_description"><p>The local time.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_daylight</p></td>
+<td class="parameter_description"><p>whether it is day light.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-array-new"></a><h3>i_cal_timezone_array_new ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="returnvalue">ICalArray</span></a> *
+i_cal_timezone_array_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a new array of timezones.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-array-new.returns"></a><h4>Returns</h4>
+<p>Create a new array. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-array-append-from-vtimezone"></a><h3>i_cal_timezone_array_append_from_vtimezone ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_array_append_from_vtimezone
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="type">ICalArray</span></a> *timezones</code></em>,
+                                <em class="parameter"><code><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> *child</code></em>);</pre>
+<p>Populate the array of timezones with component.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-array-append-from-vtimezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timezones</p></td>
+<td class="parameter_description"><p>The timezones to be populated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>The component to be appended to <em class="parameter"><code>timezones</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-array-free"></a><h3>i_cal_timezone_array_free ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_array_free (<em class="parameter"><code><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="type">ICalArray</span></a> *timezones</code></em>);</pre>
+<p>Free an array of timezones.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="i-cal-timezone-array-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>timezones</p></td>
+<td class="parameter_description"><p>Free an array.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-time-tiemzone-expand-vtimezone"></a><h3>i_cal_time_tiemzone_expand_vtimezone ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_time_tiemzone_expand_vtimezone (<em class="parameter"><code><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> *comp</code></em>,
+                                      <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> end_year</code></em>,
+                                      <em class="parameter"><code><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="type">ICalArray</span></a> *changes</code></em>);</pre>
+<p>Apply a list of timezone changes on the array of components until the end year.</p>
+<div class="refsect3">
+<a name="i-cal-time-tiemzone-expand-vtimezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>comp</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_year</p></td>
+<td class="parameter_description"><p>The end year.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>changes</p></td>
+<td class="parameter_description"><p>The changes to be applies.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-location-from-vtimezone"></a><h3>i_cal_timezone_get_location_from_vtimezone ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_location_from_vtimezone
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> *component</code></em>);</pre>
+<p>Get the location of the vtimezone in component.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-location-from-vtimezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-location-from-vtimezone.returns"></a><h4>Returns</h4>
+<p> The location of vtimezone.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-tznames-from-vtimezone"></a><h3>i_cal_timezone_get_tznames_from_vtimezone ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gchar"><span class="returnvalue">gchar</span></GTKDOCLINK> *
+i_cal_timezone_get_tznames_from_vtimezone
+                               (<em class="parameter"><code><a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> *component</code></em>);</pre>
+<p>Get the name of the vtimezone in component.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tznames-from-vtimezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>The <a class="link" href="libical-glib-ICalComponent.html#ICalComponent" title="ICalComponent"><span class="type">ICalComponent</span></a> to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-get-tznames-from-vtimezone.returns"></a><h4>Returns</h4>
+<p> The name of vtimezone.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-set-zone-directory"></a><h3>i_cal_timezone_set_zone_directory ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_set_zone_directory (<em class="parameter"><code>const <GTKDOCLINK HREF="gchar"><span class="type">gchar</span></GTKDOCLINK> *path</code></em>);</pre>
+<p>Set the directory to look for the zonefiles</p>
+<div class="refsect3">
+<a name="i-cal-timezone-set-zone-directory.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>The path to look for the zonefiles</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-free-zone-directory"></a><h3>i_cal_timezone_free_zone_directory ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_free_zone_directory (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Free memory dedicated to the zonefile directory</p>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-release-zone-tab"></a><h3>i_cal_timezone_release_zone_tab ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_release_zone_tab (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Free memory dedicated to the zonefile directory</p>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-set-builtin-tzdata"></a><h3>i_cal_timezone_set_builtin_tzdata ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="void"><span class="returnvalue">void</span></GTKDOCLINK>
+i_cal_timezone_set_builtin_tzdata (<em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> set</code></em>);</pre>
+<p>Set whether to use builtin timezones files.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-set-builtin-tzdata.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>set</p></td>
+<td class="parameter_description"><p>Whether to use builtin timezones files.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-get-builtin-tzdata"></a><h3>i_cal_timezone_get_builtin_tzdata ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timezone_get_builtin_tzdata (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Get whether to use builtin timezones files.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-get-builtin-tzdata.returns"></a><h4>Returns</h4>
+<p> Whether to use builtin timezones files.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2-0.html#api-index-2.0">2.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-dump-changes"></a><h3>i_cal_timezone_dump_changes ()</h3>
+<pre class="programlisting"><GTKDOCLINK HREF="gint"><span class="returnvalue">gint</span></GTKDOCLINK>
+i_cal_timezone_dump_changes (<em class="parameter"><code><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> *zone</code></em>,
+                             <em class="parameter"><code><GTKDOCLINK HREF="gint"><span class="type">gint</span></GTKDOCLINK> max_year</code></em>,
+                             <em class="parameter"><code><GTKDOCLINK HREF="FILE:CAPS"><span class="type">FILE</span></GTKDOCLINK> *fp</code></em>);</pre>
+<p>This outputs a list of timezone changes for the given timezone to the given file, up to the maximum year
+given.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-dump-changes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>The timezone to be queried.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>max_year</p></td>
+<td class="parameter_description"><p>max year</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fp</p></td>
+<td class="parameter_description"><p>The file handle.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-dump-changes.returns"></a><h4>Returns</h4>
+<p> 1 if success.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="i-cal-timezone-array-element-at"></a><h3>i_cal_timezone_array_element_at ()</h3>
+<pre class="programlisting"><a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="returnvalue">ICalTimezone</span></a> *
+i_cal_timezone_array_element_at (<em class="parameter"><code><a class="link" href="libical-glib-ICalArray.html#ICalArray" title="ICalArray"><span class="type">ICalArray</span></a> *timezones</code></em>,
+                                 <em class="parameter"><code><GTKDOCLINK HREF="guint"><span class="type">guint</span></GTKDOCLINK> index</code></em>);</pre>
+<p>Get the <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> at specified position in array.</p>
+<div class="refsect3">
+<a name="i-cal-timezone-array-element-at.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>timezones</p></td>
+<td class="parameter_description"><p>The array to be visited.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>The index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="i-cal-timezone-array-element-at.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="libical-glib-ICalTimezone.html#ICalTimezone" title="ICalTimezone"><span class="type">ICalTimezone</span></a> at the position <em class="parameter"><code>index</code></em>
+in <em class="parameter"><code>timezones</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1-0.html#api-index-1.0">1.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="libical-glib-ICalTimezone.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="I-CAL-TIMEZONE-TYPE:CAPS"></a><h3>I_CAL_TIMEZONE_TYPE</h3>
+<pre class="programlisting">#define             I_CAL_TIMEZONE_TYPE</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalTimezone"></a><h3>ICalTimezone</h3>
+<pre class="programlisting">typedef struct {
+} ICalTimezone;
+</pre>
+<p>This is the ICalTimezone instance.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ICalTimezoneClass"></a><h3>struct ICalTimezoneClass</h3>
+<pre class="programlisting">struct ICalTimezoneClass {
+};
+</pre>
+<p>This is the ICalTimezone class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+prefix=/app
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libical
+Description: An implementation of basic iCAL protocols
+Version: 3.0.4
+Libs: -L${libdir} -lical -licalss -licalvcal
+Libs.private: -lpthread
+Requires.private: icu-i18n
+Cflags: -I${includedir}

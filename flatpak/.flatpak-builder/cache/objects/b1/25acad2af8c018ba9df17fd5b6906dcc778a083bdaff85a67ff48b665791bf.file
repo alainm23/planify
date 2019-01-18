@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Adam Dingle
+ Copyright (C) 2017 Adam Dingle <adam@medovina.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<language id="kotlin" name="Kotlin" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="mimetypes">text/x-kotlin</property>
+    <property name="globs">*.kt</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="builtin"           name="Builtin Value"           map-to="def:builtin"/>
+    <style id="comment"           name="Comment"                 map-to="def:comment"/>
+    <style id="declaration"       name="Declaration"             map-to="def:type"/>
+    <style id="default"           name="Default"/>
+    <style id="error"             name="Error"                   map-to="def:error"/>
+    <style id="escaped-character" name="Escaped Character"       map-to="def:special-char"/>
+    <style id="external"          name="External"                map-to="def:preprocessor"/>
+    <style id="identifier"        name="Identifier"              map-to="def:identifier"/>
+    <style id="interpolated"      name="Interpolated Expression" map-to="def:identifier"/>
+    <style id="keyword"           name="Keyword"                 map-to="def:keyword"/>
+    <style id="modifier"          name="Modifier"                map-to="def:type"/>
+    <style id="number"            name="Number"                  map-to="def:decimal"/>
+    <style id="operator"          name="Operator"                map-to="def:operator"/>
+    <style id="special"           name="Special Constant"        map-to="def:special-constant"/>
+    <style id="string"            name="String"                  map-to="def:string"/>
+    <style id="type"              name="Data Type"               map-to="def:identifier"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="simple-name">[a-zA-Z_$][a-zA-Z_$0-9]*</define-regex>
+
+    <define-regex id="compound-name">\%{simple-name}(\.\%{simple-name})*</define-regex>
+
+    <define-regex id="annotation-target" extended="true">
+      field|file|property|get|set|receiver|param|setparam|delegate
+    </define-regex>
+
+    <context id="annotation" style-ref="special">
+      <match extended="true">
+          @(\%{annotation-target}:)?
+          ( \%{compound-name} | \[ (\%{compound-name} \s*)+ \] )
+      </match>
+    </context>
+
+    <context id="block-comment" style-ref="comment">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+        <context ref="block-comment"/>
+      </include>
+    </context>
+
+    <context id="builtin" style-ref="builtin">
+      <keyword>it</keyword>
+      <keyword>super</keyword>
+      <keyword>this@?</keyword>
+    </context>
+
+    <define-regex id="escaped-character" extended="true">
+      \\(               # leading backslash
+      [\\\"\'nrbt$] |   # escaped character
+      u[0-9a-fA-F]{4}   # unicode char
+      )
+    </define-regex>
+
+    <context id="character" style-ref="special">
+      <match>'(\%{escaped-character}|.)'</match>
+    </context>
+
+    <context id="character-error" style-ref="error">
+      <match>'(\%{escaped-character}|.)[^\s]+'</match>
+    </context>
+
+    <context id="declaration" style-ref="declaration">
+      <keyword>class</keyword>
+      <keyword>constructor</keyword>
+      <keyword>fun</keyword>
+      <keyword>get</keyword>
+      <keyword>init</keyword>
+      <keyword>interface</keyword>
+      <keyword>object</keyword>
+      <keyword>set</keyword>
+      <keyword>typealias</keyword>
+      <keyword>val</keyword>
+      <keyword>var</keyword>
+    </context>
+
+    <context id="variance-annotation">
+      <match>(&lt;|,) *(in|out)</match>
+      <include>
+        <context sub-pattern="1" style-ref="operator" />
+        <context sub-pattern="2" style-ref="modifier" />
+      </include>
+    </context>
+
+    <context id="expression" style-ref="keyword">
+      <keyword>as</keyword>
+      <keyword>break@?</keyword>
+      <keyword>catch</keyword>
+      <keyword>continue@?</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>finally</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>is</keyword>
+      <keyword>return@?</keyword>
+      <keyword>throw</keyword>
+      <keyword>to</keyword>
+      <keyword>try</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="external" style-ref="external">
+      <keyword>import</keyword>
+      <keyword>package</keyword>
+    </context>
+
+    <context id="literal-identifier">
+      <start>`</start>
+      <end>`</end>
+    </context>
+
+    <context id="modifier" style-ref="modifier">
+      <keyword>abstract</keyword>
+      <keyword>annotation</keyword>
+      <keyword>by</keyword>
+      <keyword>companion</keyword>
+      <keyword>const</keyword>
+      <keyword>crossinline</keyword>
+      <keyword>data</keyword>
+      <keyword>enum</keyword>
+      <keyword>external</keyword>
+      <keyword>final</keyword>
+      <keyword>infix</keyword>
+      <keyword>inline</keyword>
+      <keyword>inner</keyword>
+      <keyword>internal</keyword>
+      <keyword>lateinit</keyword>
+      <keyword>noinline</keyword>
+      <keyword>open</keyword>
+      <keyword>operator</keyword>
+      <keyword>override</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>reified</keyword>
+      <keyword>sealed</keyword>
+      <keyword>suspend</keyword>
+      <keyword>tailrec</keyword>
+      <keyword>vararg</keyword>
+      <keyword>where</keyword>
+    </context>
+
+    <context id="numeric" style-ref="number">
+      <match extended="true">
+        \b ( 0x [0-9A-Fa-f][0-9A-Fa-f_]*   # hex literal
+           | 0b [01][01_]*                 # binary literal
+           | ([0-9]+[Ee][-]?[0-9]+|
+              ([0-9]*\.[0-9]+|[0-9]+\.)([Ee][-]?[0-9]+)?)[fFdD]?|
+              [0-9]+[FfDd]                 # floating-point literal
+           | [0-9][0-9_]*L?                # integer literal
+           )
+      </match>
+    </context>
+
+    <context id="operator" style-ref="operator">
+      <match>[-+*/%=.!|?@:;,_&amp;&lt;&gt;()\[\]]</match>
+    </context>
+
+    <context id="special" style-ref="special">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+      <keyword>null</keyword>
+    </context>
+
+    <context id="interpolated-identifier" style-ref="interpolated">
+      <match>\$[a-zA-Z]+</match>
+    </context>
+
+    <context id="interpolated-expression" style-ref="interpolated">
+      <start>\${</start>
+      <end>}</end>
+      <include>
+        <context ref="kotlin"/>
+      </include>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true"
+             class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context id="escaped-character" style-ref="escaped-character">
+          <match>\%{escaped-character}</match>
+        </context>
+        <context ref="interpolated-identifier"/>
+        <context ref="interpolated-expression"/>
+      </include>
+    </context>
+
+    <context id="multiline-string" style-ref="string" end-at-line-end="false" class="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="interpolated-identifier"/>
+        <context ref="interpolated-expression"/>
+      </include>
+    </context>
+
+    <context id="type" style-ref="type">
+      <keyword>dynamic</keyword>
+
+      <!-- kotlin -->
+      <keyword>Annotation</keyword>
+      <keyword>Any</keyword>
+      <keyword>Array</keyword>
+      <keyword>AssertionError</keyword>
+      <keyword>Boolean</keyword>
+      <keyword>BooleanArray</keyword>
+      <keyword>Byte</keyword>
+      <keyword>ByteArray</keyword>
+      <keyword>Char</keyword>
+      <keyword>CharArray</keyword>
+      <keyword>CharSequence</keyword>
+      <keyword>ClassCastException</keyword>
+      <keyword>Comparable</keyword>
+      <keyword>Comparator</keyword>
+      <keyword>ConcurrentModificationException</keyword>
+      <keyword>DeprecationLevel</keyword>
+      <keyword>Double</keyword>
+      <keyword>DoubleArray</keyword>
+      <keyword>Enum</keyword>
+      <keyword>Error</keyword>
+      <keyword>Exception</keyword>
+      <keyword>Float</keyword>
+      <keyword>FloatArray</keyword>
+      <keyword>Function</keyword>
+      <keyword>IllegalArgumentException</keyword>
+      <keyword>IllegalStateException</keyword>
+      <keyword>IndexOutOfBoundsException</keyword>
+      <keyword>Int</keyword>
+      <keyword>IntArray</keyword>
+      <keyword>KotlinVersion</keyword>
+      <keyword>Lazy</keyword>
+      <keyword>LazyThreadSafetyMode</keyword>
+      <keyword>Long</keyword>
+      <keyword>LongArray</keyword>
+      <keyword>NoSuchElementException</keyword>
+      <keyword>NoWhenBranchMatchedException</keyword>
+      <keyword>Nothing</keyword>
+      <keyword>NullPointerException</keyword>
+      <keyword>Number</keyword>
+      <keyword>NumberFormatException</keyword>
+      <keyword>Pair</keyword>
+      <keyword>RuntimeException</keyword>
+      <keyword>Short</keyword>
+      <keyword>ShortArray</keyword>
+      <keyword>String</keyword>
+      <keyword>Throwable</keyword>
+      <keyword>Triple</keyword>
+      <keyword>Unit</keyword>
+      <keyword>UnsupportedOperationException</keyword>
+      <keyword>NotImplementedError</keyword>
+
+      <!-- kotlin.collections -->
+      <keyword>AbstractCollection</keyword>
+      <keyword>AbstractIterator</keyword>
+      <keyword>AbstractList</keyword>
+      <keyword>AbstractMap</keyword>
+      <keyword>AbstractMutableCollection</keyword>
+      <keyword>AbstractMutableList</keyword>
+      <keyword>AbstractMutableMap</keyword>
+      <keyword>AbstractMutableSet</keyword>
+      <keyword>AbstractSet</keyword>
+      <keyword>ArrayList</keyword>
+      <keyword>BooleanIterator</keyword>
+      <keyword>ByteIterator</keyword>
+      <keyword>CharIterator</keyword>
+      <keyword>Collection</keyword>
+      <keyword>DoubleIterator</keyword>
+      <keyword>FloatIterator</keyword>
+      <keyword>Grouping</keyword>
+      <keyword>HashMap</keyword>
+      <keyword>HashSet</keyword>
+      <keyword>IndexedValue</keyword>
+      <keyword>IntIterator</keyword>
+      <keyword>Iterable</keyword>
+      <keyword>Iterator</keyword>
+      <keyword>LinkedHashMap</keyword>
+      <keyword>LinkedHashSet</keyword>
+      <keyword>List</keyword>
+      <keyword>ListIterator</keyword>
+      <keyword>LongIterator</keyword>
+      <keyword>Map</keyword>
+      <keyword>MutableCollection</keyword>
+      <keyword>MutableIterable</keyword>
+      <keyword>MutableIterator</keyword>
+      <keyword>MutableList</keyword>
+      <keyword>MutableListIterator</keyword>
+      <keyword>MutableMap</keyword>
+      <keyword>MutableSet</keyword>
+      <keyword>RandomAccess</keyword>
+      <keyword>Set</keyword>
+      <keyword>ShortIterator</keyword>
+
+      <!-- kotlin.ranges -->
+      <keyword>CharProgression</keyword>
+      <keyword>CharRange</keyword>
+      <keyword>ClosedFloatingPointRange</keyword>
+      <keyword>ClosedRange</keyword>
+      <keyword>IntProgression</keyword>
+      <keyword>IntRange</keyword>
+      <keyword>LongProgression</keyword>
+      <keyword>LongRange</keyword>
+
+      <!-- kotlin.sequences -->
+      <keyword>Sequence</keyword>
+
+      <!-- kotlin.text -->
+      <keyword>Appendable</keyword>
+      <keyword>CharCategory</keyword>
+      <keyword>CharDirectionality</keyword>
+      <keyword>Charsets</keyword>
+      <keyword>MatchGroup</keyword>
+      <keyword>MatchGroupCollection</keyword>
+      <keyword>MatchNamedGroupCollection</keyword>
+      <keyword>MatchResult</keyword>
+      <keyword>Regex</keyword>
+      <keyword>RegexOption</keyword>
+      <keyword>StringBuilder</keyword>
+      <keyword>Typography</keyword>
+
+    </context>
+
+    <context id="kotlin" class="no-spell-check">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="annotation"/>
+        <context ref="block-comment"/>
+        <context ref="builtin"/>
+        <context ref="character"/>
+        <context ref="character-error"/>
+        <context ref="declaration"/>
+        <context ref="variance-annotation"/>
+        <context ref="expression"/>
+        <context ref="external"/>
+        <context ref="literal-identifier"/>
+        <context ref="modifier"/>
+        <context ref="multiline-string"/>
+        <context ref="numeric"/>
+        <context ref="operator"/>
+        <context ref="special"/>
+        <context ref="string"/>
+        <context ref="type"/>
+      </include>
+    </context>
+  </definitions>
+
+</language>

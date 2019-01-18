@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Silian Della Ragione <silian87@gechi.it>
+ Copyright (C) 2005 Silian Della Ragione <silian87@gechi.it>
+ Copyright (C) 2008 Steve Frécinaux <code@istique.net>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="sh" name="sh" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-shellscript;application/x-shellscript;text/x-sh</property>
+    <property name="globs">*.sh;*bashrc;.profile;.bash_profile</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"             name="Comment"             map-to="def:comment"/>
+    <style id="function"            name="Function"            map-to="def:function"/>
+    <style id="string"              name="String"              map-to="def:string"/>
+    <style id="keyword"             name="Keyword"             map-to="def:keyword"/>
+    <style id="variable"            name="Variable"            map-to="def:type"/> <!-- FIXME: need to sort out proper styles for variables -->
+    <style id="variable-definition" name="Variable Definition" map-to="sh:variable"/>
+    <style id="others"              name="Others"              map-to="def:keyword"/>
+    <style id="common-command"      name="Common Commands"     map-to="def:keyword"/>
+    <style id="here-doc-bound"      name="Heredoc Bound"       map-to="def:keyword"/>
+    <style id="subshell"            name="Subshell"            map-to="def:preprocessor"/>
+  </styles>
+
+  <definitions>
+
+    <!-- we cannot use def:shell-like-comment, because
+         m4.lang needs to replace this context -->
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>(?&lt;!\S)#</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <!-- highlight escaped chars -->
+        <context style-ref="def:special-char">
+            <match>\\[$`"\\]</match>
+        </context>
+        <!-- skip backslash where it's not an escaping char -->
+        <context>
+            <match>\\</match>
+        </context>
+        <context ref="def:line-continue"/>
+        <context ref="variable"/>
+        <context ref="backtick-subshell"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+    <context id="subshell">
+      <start>\(</start>
+      <end>\)</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context ref="sh"/>
+      </include>
+    </context>
+
+    <context id="backtick-subshell" style-ref="subshell">
+      <start>`</start>
+      <end>`</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+        <context ref="variable"/>
+        <context ref="built-in-command"/>
+        <context ref="common-command"/>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+      </include>
+    </context>
+
+    <context id="punctuator" style-ref="others">
+      <match>[;\|&amp;/]</match>
+    </context>
+
+    <context id="function" style-ref="function">
+      <match>\b[a-zA-Z_][a-zA-Z0-9_]+[ \t]*\(\)</match>
+    </context>
+
+    <context id="redirection" style-ref="others">
+      <keyword>&gt;&amp;+[0-9]</keyword>
+      <keyword>\b[0-9]+&gt;&amp;</keyword>
+      <keyword>\b[0-9]+&gt;&amp;+[0-9]</keyword>
+      <keyword>\b[0-9]+&gt;</keyword>
+      <keyword>&gt;&gt;</keyword>
+      <keyword>\b[0-9]+&gt;&gt;</keyword>
+      <keyword>&lt;&amp;[0-9]</keyword>
+      <keyword>\b[0-9]+&lt;&amp;</keyword>
+      <keyword>\b[0-9]+&lt;&amp;[0-9]</keyword>
+      <keyword>\b[0-9]+&lt;</keyword>
+      <keyword>&lt;&lt;+[0-9]</keyword>
+      <keyword>\b[0-9]+&lt;&lt;</keyword>
+    </context>
+
+    <context id="here-doc">
+      <start extended="true" dupnames="true">
+        # (?&lt;!&lt;) and [^\s&lt;] are for not matching
+        # here-word (&lt;&lt;&lt;)
+        (?&lt;!&lt;)
+        &lt;&lt;-?\s*\\?(
+          \"(?P&lt;HDB&gt;[^\s&lt;]+)\" | # "EOF"
+          \'(?P&lt;HDB&gt;[^\s&lt;]+)\' | # 'EOF'
+          (?P&lt;HDB&gt;[^\s&lt;]+)       # EOF
+        )$
+      </start>
+      <end>^\t*\%{HDB@start}$</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="here-doc-bound"/>
+        <context sub-pattern="0" where="end" style-ref="here-doc-bound"/>
+      </include>
+    </context>
+
+    <context id="operator" style-ref="function">
+      <keyword>\-a\b</keyword>
+      <keyword>\-b\b</keyword>
+      <keyword>\-c\b</keyword>
+      <keyword>\-d\b</keyword>
+      <keyword>\-e\b</keyword>
+      <keyword>\-f\b</keyword>
+      <keyword>\-g\b</keyword>
+      <keyword>\-h\b</keyword>
+      <keyword>\-k\b</keyword>
+      <keyword>\-p\b</keyword>
+      <keyword>\-r\b</keyword>
+      <keyword>\-s\b</keyword>
+      <keyword>\-t\b</keyword>
+      <keyword>\-u\b</keyword>
+      <keyword>\-w\b</keyword>
+      <keyword>\-x\b</keyword>
+      <keyword>\-O\b</keyword>
+      <keyword>\-G\b</keyword>
+      <keyword>\-L\b</keyword>
+      <keyword>\-S\b</keyword>
+      <keyword>\-N\b</keyword>
+      <keyword>\-nt\b</keyword>
+      <keyword>\-ot\b</keyword>
+      <keyword>\-ef\b</keyword>
+      <keyword>\-o\b</keyword>
+      <keyword>\-z\b</keyword>
+      <keyword>\-n\b</keyword>
+      <keyword>&lt;</keyword>
+      <keyword>&gt;</keyword>
+      <keyword>\!=</keyword>
+      <keyword>\-eq\b</keyword>
+      <keyword>\-ne\b</keyword>
+      <keyword>\-lt\b</keyword>
+      <keyword>\-le\b</keyword>
+      <keyword>\-gt\b</keyword>
+      <keyword>\-ge\b</keyword>
+    </context>
+
+    <context id="short-parameter-expansion" style-ref="variable">
+      <match>\$([!@?*#\$0-9]|[a-zA-Z0-9_]+)</match>
+    </context>
+
+    <context id="parameter-expansion" style-ref="variable">
+      <start>\$\{</start>
+      <end>\}</end>
+      <include>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="variable"/>
+        <context ref="backtick-subshell"/>
+      </include>
+    </context>
+
+    <context id="variable">
+      <include>
+        <context ref="short-parameter-expansion"/>
+        <context ref="parameter-expansion"/>
+      </include>
+    </context>
+
+    <context id="variable-definition">
+      <match>(^\s*|(?&lt;=then|else|do|export)\s+)([a-zA-Z_][a-zA-Z0-9_]*)\=</match>
+      <include>
+        <context sub-pattern="2" style-ref="variable-definition"/>
+      </include>
+    </context>
+
+    <context id="built-in-command-1" style-ref="keyword">
+      <prefix></prefix>
+      <suffix></suffix>
+      <keyword>\!</keyword>
+      <keyword>\{</keyword>
+      <keyword>\}</keyword>
+      <keyword>\:</keyword>
+      <keyword>(?&lt;=\s)\.(?=\s)</keyword>
+    </context>
+
+    <context id="for-command">
+      <start>\bfor\b</start>
+      <end>\b(in|do)\b</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context style-ref="variable-definition" once-only="true">
+          <match>\w+</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="built-in-command-2" style-ref="keyword">
+      <prefix>(?&lt;![^\s;\(\)\`])</prefix>
+      <suffix>(?![^\s;\(\)\`])</suffix>
+      <keyword>do</keyword>
+      <keyword>done</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>fi</keyword>
+      <keyword>for</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>select</keyword>
+      <keyword>then</keyword>
+      <keyword>until</keyword>
+      <keyword>while</keyword>
+      <keyword>alias</keyword>
+      <keyword>bg</keyword>
+      <keyword>bind</keyword>
+      <keyword>break</keyword>
+      <keyword>builtin</keyword>
+      <keyword>cd</keyword>
+      <keyword>command</keyword>
+      <keyword>compgen</keyword>
+      <keyword>complete</keyword>
+      <keyword>continue</keyword>
+      <keyword>declare</keyword>
+      <keyword>dirs</keyword>
+      <keyword>disown</keyword>
+      <keyword>echo</keyword>
+      <keyword>enable</keyword>
+      <keyword>eval</keyword>
+      <keyword>exec</keyword>
+      <keyword>exit</keyword>
+      <keyword>export</keyword>
+      <keyword>fc</keyword>
+      <keyword>fg</keyword>
+      <keyword>getopts</keyword>
+      <keyword>hash</keyword>
+      <keyword>help</keyword>
+      <keyword>history</keyword>
+      <keyword>jobs</keyword>
+      <keyword>let</keyword>
+      <keyword>local</keyword>
+      <keyword>logout</keyword>
+      <keyword>popd</keyword>
+      <keyword>printf</keyword>
+      <keyword>pushd</keyword>
+      <keyword>read</keyword>
+      <keyword>readonly</keyword>
+      <keyword>return</keyword>
+      <keyword>set</keyword>
+      <keyword>shift</keyword>
+      <keyword>shopt</keyword>
+      <keyword>source</keyword>
+      <keyword>suspend</keyword>
+      <keyword>test</keyword>
+      <keyword>times</keyword>
+      <keyword>trap</keyword>
+      <keyword>type</keyword>
+      <keyword>typeset</keyword>
+      <keyword>ulimit</keyword>
+      <keyword>umask</keyword>
+      <keyword>unalias</keyword>
+      <keyword>unset</keyword>
+      <keyword>wait</keyword>
+    </context>
+
+    <context id="built-in-command">
+      <include>
+        <context ref="built-in-command-1"/>
+        <context ref="for-command"/>
+        <context ref="built-in-command-2"/>
+      </include>
+    </context>
+
+    <context id="common-command" style-ref="common-command">
+      <prefix>(?&lt;![\w\-\.])</prefix>
+      <suffix>(?![\w\-\.])</suffix>
+      <keyword>ar</keyword>
+      <keyword>awk</keyword>
+      <keyword>basename</keyword>
+      <keyword>bash</keyword>
+      <keyword>beep</keyword>
+      <keyword>bunzip2</keyword>
+      <keyword>bzcat</keyword>
+      <keyword>bzcmp</keyword>
+      <keyword>bzdiff</keyword>
+      <keyword>bzegrep</keyword>
+      <keyword>bzfgrep</keyword>
+      <keyword>bzgrep</keyword>
+      <keyword>bzip2recover</keyword>
+      <keyword>bzip2</keyword>
+      <keyword>bzless</keyword>
+      <keyword>bzmore</keyword>
+      <keyword>cc</keyword>
+      <keyword>cat</keyword>
+      <keyword>chattr</keyword>
+      <keyword>chgrp</keyword>
+      <keyword>chmod</keyword>
+      <keyword>chown</keyword>
+      <keyword>chroot</keyword>
+      <keyword>clear</keyword>
+      <keyword>cmp</keyword>
+      <keyword>cpp</keyword>
+      <keyword>cp</keyword>
+      <keyword>cut</keyword>
+      <keyword>date</keyword>
+      <keyword>dd</keyword>
+      <keyword>df</keyword>
+      <keyword>dialog</keyword>
+      <keyword>diff3</keyword>
+      <keyword>diff</keyword>
+      <keyword>dirname</keyword>
+      <keyword>dir</keyword>
+      <keyword>du</keyword>
+      <keyword>egrep</keyword>
+      <keyword>eject</keyword>
+      <keyword>env</keyword>
+      <keyword>expr</keyword>
+      <keyword>false</keyword>
+      <keyword>fgrep</keyword>
+      <keyword>file</keyword>
+      <keyword>find</keyword>
+      <keyword>fmt</keyword>
+      <keyword>free</keyword>
+      <keyword>ftp</keyword>
+      <keyword>funzip</keyword>
+      <keyword>fuser</keyword>
+      <keyword>gawk</keyword>
+      <keyword>gcc</keyword>
+      <keyword>getent</keyword>
+      <keyword>getopt</keyword>
+      <keyword>grep</keyword>
+      <keyword>groups</keyword>
+      <keyword>gunzip</keyword>
+      <keyword>gzip</keyword>
+      <keyword>head</keyword>
+      <keyword>hostname</keyword>
+      <keyword>id</keyword>
+      <keyword>ifconfig</keyword>
+      <keyword>info</keyword>
+      <keyword>insmod</keyword>
+      <keyword>install</keyword>
+      <keyword>join</keyword>
+      <keyword>killall</keyword>
+      <keyword>kill</keyword>
+      <keyword>lastb</keyword>
+      <keyword>last</keyword>
+      <keyword>ld</keyword>
+      <keyword>less</keyword>
+      <keyword>ln</keyword>
+      <keyword>locate</keyword>
+      <keyword>lockfile</keyword>
+      <keyword>login</keyword>
+      <keyword>logname</keyword>
+      <keyword>lp</keyword>
+      <keyword>lpr</keyword>
+      <keyword>lsattr</keyword>
+      <keyword>ls</keyword>
+      <keyword>lsmod</keyword>
+      <keyword>make</keyword>
+      <keyword>man</keyword>
+      <keyword>mkdir</keyword>
+      <keyword>mkfifo</keyword>
+      <keyword>mknod</keyword>
+      <keyword>mktemp</keyword>
+      <keyword>modprobe</keyword>
+      <keyword>more</keyword>
+      <keyword>mount</keyword>
+      <keyword>mv</keyword>
+      <keyword>namei</keyword>
+      <keyword>nawk</keyword>
+      <keyword>nice</keyword>
+      <keyword>nl</keyword>
+      <keyword>passwd</keyword>
+      <keyword>patch</keyword>
+      <keyword>perl</keyword>
+      <keyword>pgawk</keyword>
+      <keyword>pidof</keyword>
+      <keyword>ping</keyword>
+      <keyword>pkg-config</keyword>
+      <keyword>pr</keyword>
+      <keyword>ps</keyword>
+      <keyword>pwd</keyword>
+      <keyword>readlink</keyword>
+      <keyword>renice</keyword>
+      <keyword>rmdir</keyword>
+      <keyword>rm</keyword>
+      <keyword>scp</keyword>
+      <keyword>sed</keyword>
+      <keyword>seq</keyword>
+      <keyword>sh</keyword>
+      <keyword>sleep</keyword>
+      <keyword>sort</keyword>
+      <keyword>split</keyword>
+      <keyword>ssh-add</keyword>
+      <keyword>ssh-agent</keyword>
+      <keyword>ssh-keygen</keyword>
+      <keyword>ssh-keyscan</keyword>
+      <keyword>ssh</keyword>
+      <keyword>stat</keyword>
+      <keyword>sudo</keyword>
+      <keyword>sum</keyword>
+      <keyword>su</keyword>
+      <keyword>sync</keyword>
+      <keyword>tac</keyword>
+      <keyword>tail</keyword>
+      <keyword>tar</keyword>
+      <keyword>tee</keyword>
+      <keyword>tempfile</keyword>
+      <keyword>touch</keyword>
+      <keyword>true</keyword>
+      <keyword>tr</keyword>
+      <keyword>umount</keyword>
+      <keyword>uname</keyword>
+      <keyword>uniq</keyword>
+      <keyword>unlink</keyword>
+      <keyword>unzip</keyword>
+      <keyword>uptime</keyword>
+      <keyword>wall</keyword>
+      <keyword>wc</keyword>
+      <keyword>wget</keyword>
+      <keyword>whereis</keyword>
+      <keyword>which</keyword>
+      <keyword>whoami</keyword>
+      <keyword>who</keyword>
+      <keyword>write</keyword>
+      <keyword>w</keyword>
+      <keyword>xargs</keyword>
+      <keyword>xdialog</keyword>
+      <keyword>zcat</keyword>
+      <keyword>zcmp</keyword>
+      <keyword>zdiff</keyword>
+      <keyword>zegrep</keyword>
+      <keyword>zenity</keyword>
+      <keyword>zfgrep</keyword>
+      <keyword>zforce</keyword>
+      <keyword>zgrep</keyword>
+      <keyword>zip</keyword>
+      <keyword>zless</keyword>
+      <keyword>zmore</keyword>
+      <keyword>znew</keyword>
+    </context>
+
+    <context id="case">
+      <start>\bcase\b</start>
+      <end>\besac\b</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="keyword"/>
+        <context sub-pattern="0" where="end" style-ref="keyword"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context style-ref="others">
+          <match>[^\)\s]+\s*\)|;;</match>
+        </context>
+        <context ref="sh"/>
+      </include>
+    </context>
+
+    <context id="sh" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="line-comment"/>
+        <context ref="def:escape"/>
+        <context ref="single-quoted-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="subshell"/>
+        <context ref="backtick-subshell"/>
+        <context ref="case"/>
+        <context ref="punctuator"/>
+        <context ref="function"/>
+        <context ref="here-doc"/>
+        <context ref="redirection"/>
+        <context ref="operator"/>
+        <context ref="variable"/>
+        <context ref="variable-definition"/>
+        <context ref="built-in-command"/>
+        <context ref="common-command"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

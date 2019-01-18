@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Sebastian Dröge <slomo@circular-chaos.org>
+ Copyright (C) 2006 Sebastian Dröge <slomo@circular-chaos.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="boo" name="Boo" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-boo</property>
+    <property name="globs">*.boo</property>
+    <property name="line-comment-start">#</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"             map-to="def:comment"/>
+    <style id="multiline-string"  name="Multiline string"    map-to="def:string"/>
+    <style id="string"            name="String"              map-to="def:string"/>
+    <style id="regex"             name="Regular Expression"  map-to="def:string"/>
+    <style id="namespace"         name="Namespace"           map-to="def:preprocessor"/>
+    <style id="type"              name="Data Type"           map-to="def:type"/>
+    <style id="definition"        name="Definition"          map-to="def:keyword"/>
+    <style id="keyword"           name="Keyword"             map-to="def:keyword"/>
+    <style id="special-variable"  name="Special Variable"    map-to="def:identifier"/>
+    <style id="null-value"        name="Null Value"          map-to="def:special-constant"/>
+    <style id="boolean"           name="Boolean"             map-to="def:boolean"/>
+    <style id="number"            name="Number"              map-to="def:number"/>
+    <style id="builtin"           name="Builtin Function"    map-to="def:builtin"/>
+  </styles>
+
+  <definitions>
+
+    <context id="c-style-line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:in-line-comment"/>
+      </include>
+    </context>
+
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <context id="multiline-string" style-ref="multiline-string" class="string" class-disabled="no-spell-check">
+      <start>"""</start>
+      <end>"""</end>
+      <include>
+        <context ref="def:escape"/>
+      </include>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="regex" style-ref="regex" end-at-line-end="true">
+      <start>/(?!/)</start>
+      <end>/</end>
+    </context>
+
+    <context id="namespace" style-ref="namespace">
+      <keyword>as</keyword>
+      <keyword>from</keyword>
+      <keyword>import</keyword>
+      <keyword>namespace</keyword>
+    </context>
+
+    <context id="primitives" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>byte</keyword>
+      <keyword>char</keyword>
+      <keyword>date</keyword>
+      <keyword>decimal</keyword>
+      <keyword>double</keyword>
+      <keyword>duck</keyword>
+      <keyword>float</keyword>
+      <keyword>int</keyword>
+      <keyword>long</keyword>
+      <keyword>object</keyword>
+      <keyword>operator</keyword>
+      <keyword>regex</keyword>
+      <keyword>sbyte</keyword>
+      <keyword>short</keyword>
+      <keyword>single</keyword>
+      <keyword>string</keyword>
+      <keyword>timespan</keyword>
+      <keyword>uint</keyword>
+      <keyword>ulong</keyword>
+      <keyword>ushort</keyword>
+    </context>
+
+    <context id="definitions" style-ref="definition">
+      <keyword>abstract</keyword>
+      <keyword>callable</keyword>
+      <keyword>class</keyword>
+      <keyword>constructor</keyword>
+      <keyword>def</keyword>
+      <keyword>destructor</keyword>
+      <keyword>do</keyword>
+      <keyword>enum</keyword>
+      <keyword>event</keyword>
+      <keyword>final</keyword>
+      <keyword>get</keyword>
+      <keyword>interface</keyword>
+      <keyword>internal</keyword>
+      <keyword>of</keyword>
+      <keyword>override</keyword>
+      <keyword>partial</keyword>
+      <keyword>private</keyword>
+      <keyword>protected</keyword>
+      <keyword>public</keyword>
+      <keyword>return</keyword>
+      <keyword>set</keyword>
+      <keyword>static</keyword>
+      <keyword>struct</keyword>
+      <keyword>transient</keyword>
+      <keyword>virtual</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>break</keyword>
+      <keyword>cast</keyword>
+      <keyword>continue</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>ensure</keyword>
+      <keyword>except</keyword>
+      <keyword>for</keyword>
+      <keyword>given</keyword>
+      <keyword>goto</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>isa</keyword>
+      <keyword>is</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+      <keyword>otherwise</keyword>
+      <keyword>pass</keyword>
+      <keyword>raise</keyword>
+      <keyword>ref</keyword>
+      <keyword>try</keyword>
+      <keyword>unless</keyword>
+      <keyword>when</keyword>
+      <keyword>while</keyword>
+    </context>
+
+    <context id="special-variables" style-ref="special-variable">
+      <keyword>self</keyword>
+      <keyword>super</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+      <keyword>null</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="numbers" style-ref="number">
+      <match extended="true">
+        (?&lt;![\w\.])
+        [0-9][0-9\.]*(m|ms|d|h|s|f|F|l|L)?
+        (?![\w\.])
+      </match>
+    </context>
+
+    <context id="builtins" style-ref="builtin">
+      <keyword>array</keyword>
+      <keyword>assert</keyword>
+      <keyword>checked</keyword>
+      <keyword>enumerate</keyword>
+      <keyword>__eval__</keyword>
+      <keyword>filter</keyword>
+      <keyword>getter</keyword>
+      <keyword>len</keyword>
+      <keyword>lock</keyword>
+      <keyword>map</keyword>
+      <keyword>matrix</keyword>
+      <keyword>max</keyword>
+      <keyword>min</keyword>
+      <keyword>normalArrayIndexing</keyword>
+      <keyword>print</keyword>
+      <keyword>property</keyword>
+      <keyword>range</keyword>
+      <keyword>rawArrayIndexing</keyword>
+      <keyword>required</keyword>
+      <keyword>__switch__</keyword>
+      <keyword>typeof</keyword>
+      <keyword>unchecked</keyword>
+      <keyword>using</keyword>
+      <keyword>yieldAll</keyword>
+      <keyword>zip</keyword>
+    </context>
+
+    <context id="boo" class="no-spell-check">
+      <include>
+        <context ref="def:shell-like-comment"/>
+        <context ref="c-style-line-comment"/>
+        <context ref="block-comment"/>
+        <context ref="multiline-string"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="regex"/>
+        <context ref="namespace"/>
+        <context ref="primitives"/>
+        <context ref="definitions"/>
+        <context ref="keywords"/>
+        <context ref="special-variables"/>
+        <context ref="null-value"/>
+        <context ref="boolean"/>
+        <context ref="numbers"/>
+        <context ref="builtins"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

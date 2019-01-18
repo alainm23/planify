@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="pkgconfig" name="pkg-config" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-pkg-config</property>
+    <property name="globs">*.pc</property>
+  </metadata>
+
+  <styles>
+    <style id="variable" name="Variable" map-to="def:keyword"/>
+    <style id="info" name="Package Info" map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+    <context id="var-value" style-ref="variable">
+      <match>\$\{[\w_]*\}</match>
+    </context>
+
+    <context id="pkgconfig">
+      <include>
+        <context ref="def:shell-like-comment"/>
+
+        <context end-at-line-end="true">
+          <start>^([\w_]+)\s*=\s*</start>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="variable"/>
+            <context ref="var-value"/>
+          </include>
+        </context>
+
+        <context end-at-line-end="true">
+          <start>^([\w_\.]+)\s*\:\s*</start>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="info"/>
+            <context ref="var-value"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

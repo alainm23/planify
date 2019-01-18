@@ -1,0 +1,8 @@
+gio-2.0
+atk
+gdk-pixbuf-2.0
+pango
+cairo
+gdk-2.0
+clutter-1.0
+gtk+-2.0

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Author: Paolo Borelli <pborelli@katamail.com>
+ Copyright (C) 2005 Paolo Borelli <pborelli@katamail.com>
+ Copyright (C) 2005 Ricardo Lenz
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="makefile" name="Makefile" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-makefile</property>
+    <property name="globs">[Mm]akefile;GNUmakefile;*.make;*.mak;*.mk</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="variable"        name="Variable" map-to="def:type"/>
+    <style id="assignment-rhs"  name="Assignment Right Hand Side"/>
+    <style id="assignment-lhs"  name="Assignment Left Hand Side"/>
+    <style id="targets"         name="targets" map-to="def:function"/>
+    <style id="prereq"          name="prereq"/>
+    <style id="command"         name="command"/>
+    <style id="trailing-tab"    name="Trailing Tab"/>
+    <style id="function"        name="function" map-to="def:function"/>
+    <style id="keyword"         name="keyword" map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+    <replace id="sh:sh" ref="command"/>
+    <replace id="sh:variable" ref="sh-variable"/>
+
+    <define-regex id="variable">[a-zA-Z_][a-zA-Z0-9_]*</define-regex>
+
+    <context id="variable-1">
+      <match>\$\((\%{variable})\)</match>
+      <include>
+        <context sub-pattern="1" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="variable-2">
+      <match>\$\{(\%{variable})\}</match>
+      <include>
+        <context sub-pattern="1" style-ref="variable"/>
+      </include>
+    </context>
+
+    <context id="variable">
+      <include>
+        <context ref="variable-1"/>
+        <context ref="variable-2"/>
+      </include>
+    </context>
+
+    <context id="sh-variable">
+      <include>
+        <context ref="variable"/>
+        <context ref="sh:variable" original="true"/>
+      </include>
+    </context>
+
+    <context id="string">
+      <include>
+	<!-- skip escaped characters -->
+        <context>
+          <match>\\.</match>
+        </context>
+        <context ref="def:string"/>
+      </include>
+    </context>
+
+    <context id="assignment-rhs" style-ref="assignment-rhs" end-at-line-end="true">
+      <start></start>
+      <include>
+        <context ref="def:line-continue"/>
+        <context ref="def:shell-like-comment"/>
+        <context ref="variable"/>
+        <context ref="string"/>
+        <context ref="def:single-quoted-string"/>
+        <context ref="sh:backtick-subshell"/>
+      </include>
+    </context>
+
+    <context id="command" style-ref="command" extend-parent="false" end-at-line-end="true">
+      <start></start>
+      <include>
+        <context ref="def:line-continue"/>
+        <context ref="sh:sh" original="true"/>
+      </include>
+    </context>
+
+    <context id="directives" style-ref="keyword">
+      <keyword>define</keyword>
+      <keyword>else</keyword>
+      <keyword>endef</keyword>
+      <keyword>endif</keyword>
+      <keyword>if</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>ifeq</keyword>
+      <keyword>ifndef</keyword>
+      <keyword>ifneq</keyword>
+      <keyword>include</keyword>
+      <keyword>override</keyword>
+      <keyword>unexport</keyword>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <keyword>addprefix</keyword>
+      <keyword>addsuffix</keyword>
+      <keyword>basename</keyword>
+      <keyword>call</keyword>
+      <keyword>dir</keyword>
+      <keyword>error</keyword>
+      <keyword>filter</keyword>
+      <keyword>filter-out</keyword>
+      <keyword>findstring</keyword>
+      <keyword>firstword</keyword>
+      <keyword>foreach</keyword>
+      <keyword>join</keyword>
+      <keyword>notdir</keyword>
+      <keyword>origin</keyword>
+      <keyword>patsubst</keyword>
+      <keyword>shell</keyword>
+      <keyword>sort</keyword>
+      <keyword>strip</keyword>
+      <keyword>subst</keyword>
+      <keyword>suffix</keyword>
+      <keyword>warning</keyword>
+      <keyword>wildcard</keyword>
+      <keyword>word</keyword>
+      <keyword>words</keyword>
+    </context>
+
+    <context id="makefile">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:shell-like-comment"/>
+
+        <context id="assignment" end-at-line-end="true">
+          <start>^(\%{variable})\s*[\+\?:]?=</start>
+            <include>
+              <context sub-pattern="1" where="start" style-ref="assignment-lhs"/>
+              <context ref="assignment-rhs"/>
+            </include>
+        </context>
+
+        <context id="rule">
+          <start>^([^\t\:][^\:]*)\:</start>
+          <end>^(?!\t)</end>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="targets"/>
+            <context ref="def:shell-like-comment"/>
+            <context ref="directives"/>
+            <context id="prereq" end-at-line-end="true" style-ref="prereq">
+              <start>(?&lt;=:)(?=.)</start>
+              <end>;</end>
+              <include>
+                <context ref="def:escape"/>
+                <context ref="def:line-continue"/>
+                <context ref="variable"/>
+                <context ref="functions"/>
+              </include>
+            </context>
+            <context id="trailing-tab" style-ref="trailing-tab">
+              <match>^\t+$</match>
+            </context>
+            <context ref="command"/>
+          </include>
+        </context>
+
+        <context ref="directives"/>
+        <context ref="functions"/>
+
+      </include>
+    </context>
+  </definitions>
+</language>

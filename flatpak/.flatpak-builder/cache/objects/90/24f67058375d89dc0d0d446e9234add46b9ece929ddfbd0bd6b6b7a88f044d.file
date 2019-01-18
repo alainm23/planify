@@ -1,0 +1,6 @@
+<svg height='24' width='24' xmlns='http://www.w3.org/2000/svg'>
+    <g transform='translate(-673 95)'>
+        <path color='#000' d='M682-90v5h2v1h-7v1h3v1h-2v5h6v-5h-2v-1h6v1h-2v5h3.147a1.004 1.004 0 0 1-.15-.531V-78H687v-3h4v.996h.375a1.004 1.004 0 0 1 .625.219V-82h-2v-1h3v-1h-7v-1h2v-5zm1 1h4v3h-4zm-4 8h4v3h-4zm11 2v1.469l1.063 1.062L690-75.406V-74h1.438l1.062-1.063L693.563-74H695v-1.406l-1.094-1.063L695-77.53V-79h-1.406l-1.094 1.094L691.375-79z' fill='#666' overflow='visible' style='isolation:auto;mix-blend-mode:normal;marker:none'/>
+        
+    </g>
+</svg>

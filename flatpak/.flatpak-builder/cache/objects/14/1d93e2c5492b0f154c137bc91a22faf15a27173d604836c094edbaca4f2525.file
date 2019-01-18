@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016 Matthias Klumpp -->
+<component type="console-application">
+  <id>org.freedesktop.appstream.cli</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>AppStream CLI</name>
+  <name xml:lang="zh_TW">AppStream 命令列介面</name>
+  <name xml:lang="zh_CN">AppStream 命令行界面</name>
+  <name xml:lang="uk">Командний рядок AppStream</name>
+  <name xml:lang="tr">AppStream CLI</name>
+  <name xml:lang="sv">AppStream-CLI</name>
+  <name xml:lang="sr@latin">CLI za Programski tok</name>
+  <name xml:lang="sr">ЦЛИ за Програмски ток</name>
+  <name xml:lang="sk">Textové používateľské rozhranie pre AppStream</name>
+  <name xml:lang="ru">Интерфейс командной строки AppStream</name>
+  <name xml:lang="pt_BR">CLI do AppStream</name>
+  <name xml:lang="pt">CLI do AppStream</name>
+  <name xml:lang="pl">Interfejs AppStream dla wiersza poleceń</name>
+  <name xml:lang="nl">AppStream-CLI</name>
+  <name xml:lang="nb">Kommandolinjegrensesnitt for AppStream</name>
+  <name xml:lang="lt">AppStream komandų eilutė</name>
+  <name xml:lang="ko">AppStream CLI</name>
+  <name xml:lang="ja">AppStream CLI</name>
+  <name xml:lang="it">CLI AppStream</name>
+  <name xml:lang="id">CLI AppStream</name>
+  <name xml:lang="hu">AppStream parancssori felület</name>
+  <name xml:lang="gd">AppStream CLI</name>
+  <name xml:lang="fr">Interface en ligne de commande AppStream</name>
+  <name xml:lang="fi">AppStream-komentorivityökalu</name>
+  <name xml:lang="es">Interfaz de consola de AppStream</name>
+  <name xml:lang="de">AppStream CLI</name>
+  <name xml:lang="cs">Textové uživatelské rozhraní pro AppStream</name>
+  <name xml:lang="ca">Interfície de línia d'ordres d'AppStream</name>
+  <summary>An utility to work with AppStream metadata</summary>
+  <summary xml:lang="zh_TW">處理 AppStream 中介資料的公用程式</summary>
+  <summary xml:lang="zh_CN">用于操作 AppStream 元数据的实用工具</summary>
+  <summary xml:lang="uk">Інструмент для обробки метаданих AppStream</summary>
+  <summary xml:lang="tr">AppStream üst verisiyle çalışmak için bir araç</summary>
+  <summary xml:lang="sv">Ett verktyg för att jobba med AppStream-metadata</summary>
+  <summary xml:lang="sk">Nástroj pre prácu s AppStream mataúdajmi</summary>
+  <summary xml:lang="ru">Утилита для работы с метаданными AppStream</summary>
+  <summary xml:lang="pt_BR">Um utilitário para trabalhar com os metadados do AppStream</summary>
+  <summary xml:lang="pt">Um utilitário para trabalhar com os metadados do AppStream</summary>
+  <summary xml:lang="pl">Narzędzie do działania z metadanymi AppStream</summary>
+  <summary xml:lang="nl">Een hulpmiddel om te werken met AppStream-metagegevens</summary>
+  <summary xml:lang="nb">Et verktøy for å jobbe med AppStream-metadata</summary>
+  <summary xml:lang="lt">Paslaugų programa, skirta darbui su AppStream metaduomenimis</summary>
+  <summary xml:lang="ko">AppStream 메타 데이터 작업용 유틸리티</summary>
+  <summary xml:lang="ja">AppStream メタデータを使用して動作するユーティリティー</summary>
+  <summary xml:lang="it">Uno strumento per lavorare con metadati AppStream</summary>
+  <summary xml:lang="id">Utilitas untuk bekerja dengan metadata AppStream</summary>
+  <summary xml:lang="hu">Egy segédprogram az AppStream metaadatokkal való munkához</summary>
+  <summary xml:lang="gd">Goireas gus obair le meata-dàta AppStream</summary>
+  <summary xml:lang="fr">Un utilitaire travaillant sur les métadonnées AppStream</summary>
+  <summary xml:lang="es">Utilidad para trabajar con metadatos de AppStream</summary>
+  <summary xml:lang="de">Ein Dienstprogramm zum Arbeiten mit AppStream-Metadaten</summary>
+  <summary xml:lang="cs">Nástroj pro práci s AppStream metadaty</summary>
+  <summary xml:lang="ca">Una utilitat per treballar amb les metadades AppStream</summary>
+  <summary xml:lang="ar">أداة للتعامل مع بيانات AppStream الوصفية</summary>
+  <description>
+    <p>
+      AppStream is a cross-distribution specification to provide metadata about software components.
+    </p>
+    <p xml:lang="zh_TW">AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。</p>
+    <p xml:lang="zh_CN">AppStream 为一个跨散布版的规范，旨在提供软件组件的元数据。</p>
+    <p xml:lang="uk">AppStream — багатоплатформова специфікація надання метаданих щодо компонентів програмного забезпечення.</p>
+    <p xml:lang="tr">AppStream yazılım bileşenleri hakkında üst veri sağlayan dağıtımlararası bir spesifikasyondur.</p>
+    <p xml:lang="sv">AppStream är en multiplattform-specifikation för att tillhandahålla metadata om programkomponenter.</p>
+    <p xml:lang="sk">AppStream je štandard pre poskytovanie metaúdajov o programovom vybavení, používaný cez linuxové distribúcie.</p>
+    <p xml:lang="ru">AppStream — это кросс-платформенная спецификация предоставления метаданных о программных компонентах.</p>
+    <p xml:lang="pt_BR">AppStream é uma especificação independente de distribuição para provimento de metadados sobre componentes de software.</p>
+    <p xml:lang="pt">AppStream é uma especificação independente de distribuição para provimento de metadados sobre componentes de software.</p>
+    <p xml:lang="pl">AppStream to specyfikacja używana przez wiele dystrybucji do dostarczania metadanych o składnikach oprogramowania.</p>
+    <p xml:lang="nl">AppStream is een distributie-onafhankelijke specificatie die metagegevens beschikbaar stelt over software-onderdelen.</p>
+    <p xml:lang="nb">AppStream er spesifikasjon for flere distribusjoner som tilbyr metadata om programvarekomponenter.</p>
+    <p xml:lang="lt">AppStream yra daugiadistribucinė specifikacija, skirta pateikti metaduomenis apie programinės įrangos komponentus.</p>
+    <p xml:lang="ko">AppStream은 소프트웨어 구성 요소에 대한 메타 데이터를 제공하는 교차 배포 사양입니다.</p>
+    <p xml:lang="it">AppStream è una specifica multi-distribuzione che fornisce metadati riguardo ai componenti software.</p>
+    <p xml:lang="id">AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata tentang komponen perangkat lunak.</p>
+    <p xml:lang="hu">Az AppStream egy disztribúciók közötti specifikáció, amely metaadatokat biztosít a szoftverkomponensekről.</p>
+    <p xml:lang="gd">’S e sònrachadh thar-sgaoilidh a th’ ann an AppStream gus meata-dàta mu cho-phàirtean bathair-bhog a sholar.</p>
+    <p xml:lang="fr">AppStream est une spécification multi-distribution qui fournit des méta-données concernant les composants logiciels.</p>
+    <p xml:lang="es">AppStream es una especificación diseñada para funcionar en cualquier distribución cuyo fin es proporcionar metadatos sobre componentes de «software».</p>
+    <p xml:lang="de">AppStream ist eine Distributionsübergreifende Spezifikation zur Bereitstellung von Metadaten über Softwarekomponenten.</p>
+    <p xml:lang="cs">AppStream je standard pro poskytování metadat o programovém vybavení, používaný napříč linuxovými distribucemi.</p>
+    <p xml:lang="ca">AppStream és una especificació independent de la distribució que proporciona metadades quant als components de programari.</p>
+    <p xml:lang="ar">آب-ستريم هو جزء من المواصفات المشتركة لجميع الإصدارات والذي يوفّر البيانات الوصفية للمكوّنات البرمجية.</p>
+    <p>
+      This tool allows for reading, writing, validating and transformation of AppStream XML or YAML metadata.
+      It also gives access to the system metadata pool, for example to query for software that provides a
+      specific MIME-type, and installing it by its software component identifier.
+    </p>
+    <p xml:lang="zh_TW">本工具可以讀寫、驗證與變換 AppStream XML 或 YAML 中介資料；此外還能存取系統中介資料池，搜尋諸如提供某特定 MIME 類型使用的軟體，並按照其軟體組件辨識碼安裝等。</p>
+    <p xml:lang="uk">За допомогою цієї програми ви зможете читати, записувати, перевіряти та перетворювати метадані AppStream у форматах XML і YAML. Також за її допомогою можна отримувати доступ до буфера загальносистемних метаданих, наприклад, для того, щоб визначити програмне забезпечення для обробки даних певного типу MIME та його встановлення за ідентифікатором компонента програмного забезпечення.</p>
+    <p xml:lang="tr">Bu araç, AppStream XML veya YAML meta verilerinin okunmasına, yazılmasına, onaylanmasına ve dönüştürülmesine izin verir. Ayrıca sistem meta veri havuzuna erişim sağlar, örneğin belirli bir MIME türü sağlayan yazılımın sorgulanması ve yazılım bileşen tanımlayıcısı ile kurulması.</p>
+    <p xml:lang="sv">Det här verktyget möjliggör läsning, skrivning, validering och transformering av AppStream XML- eller YAML-metadata. Det ger också åtkomst till systemmetadatapoolen för att till exempel söka efter program som innehåller en specifik MIME-typ och installera den med dess programidentifierare.</p>
+    <p xml:lang="sk">Tento nástroj umožňuje čítanie, zápis, overovanie a premenu AppStream XML alebo Yamli metaúdajov. Tiež sprístupňuje systémový fond metaúdajov napríklad pre dotazovanie sa na softvér, poskytujúci konkrétny MIME typ a jeho inštaláciu na základe identifikátora softvérovej súčasti.</p>
+    <p xml:lang="ru">Эта утилита позволяет читать, записывать, проверять и преобразовывать метаданные AppStream в формате XML или YAML. Она также даёт доступ к системному пулу метаданных, например, для запроса ПО, работающего с определённым типом файлов, и его установки по идентификатору программного компонента.</p>
+    <p xml:lang="pt_BR">Esta ferramenta permite ler, escrever, validar e transformar metadados AppStream em XML ou YAML. Também permite acessar o pool de metadados do sistema para, por exemplo, consultar por um software fornecendo um Tipo MIME específico e instalá-lo usando o identificador de componente de seu software.</p>
+    <p xml:lang="pt">Esta ferramenta permite ler, escrever, validar e transformar metadados AppStream em XML ou YAML. Também permite acessar o pool de metadados do sistema para, por exemplo, consultar por um software fornecendo um Tipo MIME específico e instalá-lo usando o identificador de componente de seu software.</p>
+    <p xml:lang="pl">To narzędzie umożliwia odczytywanie, zapisywanie, sprawdzanie poprawności i przekształcanie metadanych AppStream w językach XML i YAML. Umożliwia także dostęp do puli metadanych systemu, aby na przykład wyszukać oprogramowanie dostarczające podany typ MIME i zainstalować je według jego identyfikatora składnika oprogramowania.</p>
+    <p xml:lang="nl">Dit hulpprogramma stelt u in staat AppStream XML of YAML-metagegevens te lezen, schrijven, valideren en wijzigen. Het stelt u tevens in staat om toegang te krijgen tot de systeem-metagegevenspool. U kunt daar bijv. zoeken naar software die een bepaald mimetype aanbiedt en deze installeren middels de ID.</p>
+    <p xml:lang="nb">Dette verktøyet tillater lesing, skriving og godkjenning av transformering av AppStream -XML eller -YAML-metadata. Det gir også tilgang til systemets metadatagrunnlag, for eksempel for spørringer til programvare som tilbyr en spesifikk MIME-type, og installasjon av dens programvarekomponentidentifikator.</p>
+    <p xml:lang="lt">Šis įrankis leidžia skaityti, rašyti, patikrinti ir transformuoti AppStream XML ar YAML metaduomenis. Jis taip pat suteikia prieigą prie metaduomenų telkinio, pavyzdžiui, tam, kad užklausti programinę įrangą, kurį teikia tam tikrą MIME tipą, ir leidžia įdiegti ją pagal jos programinės įrangos komponento identifikatorių.</p>
+    <p xml:lang="ko">이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변환을 허용합니다. 또한 시스템 메타 데이터 풀에 대한 액세스를 제공합니다, 예를 들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식별자로 설치합니다.</p>
+    <p xml:lang="it">Questo strumento consente di leggere, scrivere, validare e trasformare metadati AppStream XML o YAML. Consente inoltre di accedere all'insieme dei metadati del sistema per, per esempio, eseguire ricerche su un software che fornisce uno specifico tipo di MIME e installarlo attraverso il suo identificativo.</p>
+    <p xml:lang="id">Alat ini memungkinkan pembacaan, penulisan, validasi, dan transformasi metadata XML atau YAML AppStream. Ini memberi akses ke pool metadata sistem untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu dan memasangnya dengan identifier komponen perangkat lunaknya.</p>
+    <p xml:lang="hu">Ezzel az eszközzel AppStream XML vagy YAML metaadatokat olvashat, írhat, érvényesíthet és transzformálhat. Hozzáférést is biztosít a rendszer metaadataihoz, például le tudja kérdezni a szoftvereket, amelyek bizonyos MIME-típusokat biztosítanak, és telepíteni tudja a szoftverkomponens-azonosítója alapján.</p>
+    <p xml:lang="de">Dieses Werkzeug ermöglicht das Lesen, Schreiben, Überprüfen und Umwandeln von AppStream XML- oder YAML-Metadaten. Es erlaubt auch den Zugriff auf den System-Metadaten-Pool, z. B. Abfrage nach Anwendungen, die einen bestimmten MIME-Typ liefert und Installation anhand der Softwarekomponentenkennung.</p>
+    <p xml:lang="cs">Tento nástroj umožňuje čtení, zápis, ověřování a přeměnu AppStream XML nebo YAML metadat. Také zpřístupňuje systémový fond metadat například pro dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci na základě identifikátoru softwarové součásti.</p>
+    <p xml:lang="ca">Aquesta eina permet llegir, escriure, validar i transformar les metadades XML o YAML d'AppStream. També dóna accés a l'agrupació de metadades del sistema, per exemple consultar quin programari proporciona un tipus MIME específic i instal·lar-lo pel seu identificador de component de programari.</p>
+  </description>
+  <url type="homepage">https://www.freedesktop.org/wiki/Distributions/AppStream/</url>
+  <url type="help">https://www.freedesktop.org/software/appstream/docs/chap-AppStream-ManualPages.html</url>
+  <project_group>Freedesktop</project_group>
+  <translation type="gettext">appstream</translation>
+  <provides>
+    <binary>appstreamcli</binary>
+  </provides>
+</component>

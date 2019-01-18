@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim: tabstop=2 shiftwidth=2
+
+  yaml.lang basic syntax highlighting of YAML for GtkSourceView
+
+  Copyright (C) 2013 Masood Behabadi <masood@dentcat.com>
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, see <http://www.gnu.org/licenses/>.
+-->
+<language id="yaml" name="YAML" _section="Other" version="2.0">
+  <metadata>
+    <property name="mimetypes">application/x-yaml</property>
+    <property name="globs">*.yaml;*.yml;</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="scalar"    name="Block literal"   map-to="def:string"/>
+    <style id="comment"   name="Comment"         map-to="def:comment"/>
+    <style id="string"    name="String"          map-to="def:string"/>
+    <style id="anchor"    name="Anchor"          map-to="def:identifier"/>
+    <style id="tag"       name="Tag"             map-to="def:preprocessor"/>
+    <style id="alias"     name="Alias"           map-to="def:type"/>
+    <style id="map-key"   name="Map key"         map-to="def:keyword"/>
+    <style id="directive" name="Directive"       map-to="def:shebang"/>
+    <style id="null"      name="Null"            map-to="def:special-constant"/>
+    <style id="bool"      name="Boolean"         map-to="def:boolean"/>
+    <style id="int"       name="Integer"         map-to="def:decimal"/>
+    <style id="float"     name="Floating point"  map-to="def:floating-point"/>
+  </styles>
+
+  <definitions>
+
+    <define-regex id="ischar">[^-\?:,\[\]\{\}#&amp;*!|&gt;'"%@\s]</define-regex>
+
+    <define-regex id="lschar">[\s\[\{,]</define-regex>
+    <define-regex id="rschar">[\s\]\},]</define-regex>
+
+    <context id="scalar" class-disabled="no-spell-check">
+      <start>(?&lt;=^|\s)[|&gt;]$</start>
+      <include>
+        <context end-parent="true" style-ref="scalar">
+          <start>^(?'indent'\s+)</start>
+          <end>^(?!\%{indent@start})</end>
+        </context>
+        <context end-parent="true">
+          <match>(?=.)</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="alias" style-ref="alias">
+      <match>(?&lt;=^|\s)\*\%{ischar}+(?=$|\s)</match>
+    </context>
+
+    <context id="tag" style-ref="tag">
+      <match>(?&lt;=^|\s)!(?:\%{ischar}*)?!?\%{ischar}+(?=$|\s)</match>
+    </context>
+
+    <context id="anchor" style-ref="anchor">
+      <match>(?&lt;=^|\s)&amp;\%{ischar}+(?=$|\s)</match>
+    </context>
+
+    <context id="string" end-at-line-end="true" style-ref="string" class-disabled="no-spell-check">
+      <start>(?&lt;=^|\%{lschar})(?'q'["'])</start>
+      <end>[^\\]\%{q@start}</end>
+    </context>
+
+    <context id="unquoted-string" end-at-line-end="true" style-ref="string" class-disabled="no-spell-check">
+      <start>(?=\%{ischar}|[:-\?\]\}]\S)</start>
+      <end>(?=:\s|:$|\s#)</end>
+    </context>
+
+    <context id="inline-unquoted" end-at-line-end="true" style-ref="string" class-disabled="no-spell-check">
+      <start>(?=\%{ischar}|-\S)</start>
+      <end>(?=[:,?\[\{\]\}]|\s#)</end>
+    </context>
+
+    <context id="null" style-ref="null">
+      <match>(?:null)(?=\s*$|\s+#)</match>
+    </context>
+
+    <context id="inline-null" style-ref="null">
+      <match>(?:null)(?=\s*[:,?\[\{\]\}]|\s+#)</match>
+    </context>
+
+    <context id="bool" style-ref="bool">
+      <match>(?:true|false)(?=\s*$|\s+#)</match>
+    </context>
+
+    <context id="inline-bool" style-ref="bool">
+      <match>(?:true|false)(?=\s*[:,?\[\{\]\}]|\s+#)</match>
+    </context>
+
+    <context id="inline-int" style-ref="int">
+      <match>-?(?:0|[1-9][0-9]*)(?=\s*[:,?\[\{\]\}]|\s+#)</match>
+    </context>
+
+    <context id="int" style-ref="int">
+      <match>-?(?:0|[1-9][0-9]*)(?=\s*$|\s+#)</match>
+    </context>
+
+    <context id="inline-float" style-ref="float">
+      <match>-?(?:0|[1-9][0-9]*)(?:[.][0-9]*)?(?:[eE][-+]?[0-9]+)?(?=\s*[:,?\[\{\]\}]|\s+#)</match>
+    </context>
+
+    <context id="float" style-ref="float">
+      <match>-?(?:0|[1-9][0-9]*)(?:[.][0-9]*)?(?:[eE][-+]?[0-9]+)?(?=\s*$|\s+#)</match>
+    </context>
+
+    <context id="comment" style-ref="comment">
+      <match>(?&lt;=^|\s)#.*$</match>
+    </context>
+
+    <context id="inline-sequence">
+      <start>(?&lt;=^|\s)\[</start>
+      <include>
+        <context ref="scalar"/>
+        <context ref="inline-sequence"/>
+        <context ref="inline-map"/>
+        <context ref="comment"/>
+        <context ref="alias"/>
+        <context ref="tag"/>
+        <context ref="anchor"/>
+        <context ref="string"/>
+        <context ref="inline-null"/>
+        <context ref="inline-bool"/>
+        <context ref="inline-int"/>
+        <context ref="inline-float"/>
+        <context ref="inline-unquoted"/>
+        <context end-parent="true">
+          <match>\]</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="inline-map">
+      <start>(?&lt;=^|\s)\{</start>
+      <include>
+        <context ref="scalar"/>
+        <context ref="inline-sequence"/>
+        <context ref="inline-map"/>
+        <context ref="comment"/>
+        <context ref="alias"/>
+        <context ref="tag"/>
+        <context ref="anchor"/>
+        <context ref="string"/>
+        <context ref="inline-null"/>
+        <context ref="inline-bool"/>
+        <context ref="inline-int"/>
+        <context ref="inline-float"/>
+        <context ref="inline-unquoted"/>
+        <context end-parent="true">
+          <match>\}</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="map">
+      <match>(?&lt;=^|\s)((?:[^:]|:(?=\S))+)(?::\s+|:$)</match>
+      <include>
+        <context sub-pattern="1" style-ref="map-key"/>
+      </include>
+    </context>
+
+    <context id="sequence">
+      <match>^\s*-\s+</match>
+    </context>
+
+    <context id="document" style-ref="comment">
+      <match>^(?:-{3}|[.]{3})(?:\s+|$)</match>
+    </context>
+
+    <context id="directive" style-ref="directive">
+      <match>^%\%{ischar}(?:\%{ischar}|\s+)*</match>
+    </context>
+
+    <context id="yaml" class="no-spell-check">
+      <include>
+        <context ref="directive"/>
+        <context ref="document"/>
+        <context ref="scalar"/>
+        <context ref="sequence"/>
+        <context ref="inline-sequence"/>
+        <context ref="inline-map"/>
+        <context ref="comment"/>
+        <context ref="null"/>
+        <context ref="bool"/>
+        <context ref="int"/>
+        <context ref="float"/>
+        <context ref="alias"/>
+        <context ref="tag"/>
+        <context ref="anchor"/>
+        <context ref="map"/>
+        <context ref="string"/>
+        <context ref="unquoted-string"/>
+      </include>
+    </context>
+
+  </definitions>
+
+</language>

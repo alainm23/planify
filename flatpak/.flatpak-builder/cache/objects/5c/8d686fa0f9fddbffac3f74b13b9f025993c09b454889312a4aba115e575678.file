@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2015 Jussi Pakkanen <jpakkane@gmail.com>
+ Copyright (C) 2015 Igor Gnatenko <ignatenko@src.gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="meson" name="Meson" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-meson</property>
+    <property name="globs">meson.build;meson_options.txt</property>
+    <property name="line-comment-start">#</property>
+  </metadata>
+
+  <styles>
+    <style id="builtin-command" name="Builtin Command" map-to="def:function"/>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="string" name="String" map-to="def:string" />
+    <style id="boolean" name="Boolean" map-to="def:boolean"/>
+  </styles>
+
+  <definitions>
+    <context id="multiline-string" style-ref="def:string">
+      <start>'''</start>
+      <end>'''</end>
+    </context>
+
+    <context id="string" style-ref="def:string" end-at-line-end="true">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+    <!-- https://github.com/mesonbuild/meson/wiki/Reference%20manual -->
+    <context id="builtin-command" style-ref="builtin-command">
+      <prefix>(?i)</prefix>
+      <keyword>add_global_arguments</keyword>
+      <keyword>add_global_link_arguments</keyword>
+      <keyword>add_languages</keyword>
+      <keyword>add_project_arguments</keyword>
+      <keyword>add_project_link_arguments</keyword>
+      <keyword>benchmark</keyword>
+      <keyword>build_target</keyword>
+      <keyword>configuration_data</keyword>
+      <keyword>configure_file</keyword>
+      <keyword>custom_target</keyword>
+      <keyword>declare_dependency</keyword>
+      <keyword>dependency</keyword>
+      <keyword>error</keyword>
+      <keyword>environment</keyword>
+      <keyword>executable</keyword>
+      <keyword>find_program</keyword>
+      <keyword>find_library</keyword>
+      <keyword>files</keyword>
+      <keyword>generator</keyword>
+      <keyword>get_option</keyword>
+      <keyword>get_variable</keyword>
+      <keyword>import</keyword>
+      <keyword>include_directories</keyword>
+      <keyword>install_data</keyword>
+      <keyword>install_headers</keyword>
+      <keyword>install_man</keyword>
+      <keyword>install_subdir</keyword>
+      <keyword>is_subproject</keyword>
+      <keyword>is_variable</keyword>
+      <keyword>jar</keyword>
+      <keyword>join_paths</keyword>
+      <keyword>library</keyword>
+      <keyword>message</keyword>
+      <keyword>project</keyword>
+      <keyword>run_command</keyword>
+      <keyword>run_target</keyword>
+      <keyword>set_variable</keyword>
+      <keyword>shared_library</keyword>
+      <keyword>static_library</keyword>
+      <keyword>subdir</keyword>
+      <keyword>subproject</keyword>
+      <keyword>test</keyword>
+      <keyword>vcs_tag</keyword>
+
+      <!-- Used in option file -->
+      <keyword>option</keyword>
+    </context>
+
+    <context id="operator" style-ref="operator">
+      <keyword>if</keyword>
+      <keyword>elif</keyword>
+      <keyword>else</keyword>
+      <keyword>endif</keyword>
+      <keyword>foreach</keyword>
+      <keyword>endforeach</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <prefix>(?&lt;![\w\.])</prefix>
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+    <context id="meson" class="no-spell-check">
+      <include>
+        <context ref="multiline-string"/>
+        <context ref="string"/>
+        <context ref="builtin-command"/>
+        <context ref="operator"/>
+        <context ref="boolean"/>
+        <context ref="keywords"/>
+        <context ref="def:shell-like-comment"/>
+      </include>
+    </context>
+  </definitions>
+</language>

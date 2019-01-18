@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2006-2007 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="dpatch" name="DPatch" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-dpatch</property>
+    <property name="globs">*.dpatch</property>
+  </metadata>
+
+  <styles>
+    <style id="patch-start" name="Patch Start" map-to="def:keyword"/>
+  </styles>
+
+  <definitions>
+    <context id="dpatch">
+      <include>
+        <context ref="sh:sh"/>
+        <context id="patch">
+          <start>^(\@DPATCH\@).*</start>
+          <include>
+            <context sub-pattern="1" where="start" style-ref="patch-start"/>
+            <context ref="diff:diff"/>
+          </include>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

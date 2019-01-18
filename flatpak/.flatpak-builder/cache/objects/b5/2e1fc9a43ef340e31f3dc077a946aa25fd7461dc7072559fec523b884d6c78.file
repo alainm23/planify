@@ -1,0 +1,25 @@
+/* Copyright 2011–2018 elementary, Inc.  (https://elementary.io)
+*
+* This file is part of the elementary GTK theme.
+*
+* The elementary GTK theme is free software: you can redistribute it
+* and/or modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* The elementary GTK theme is distributed in the hope that it will be
+* useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*
+* You should have received a copy of the GNU General Public License along
+* with the elementary GTK theme. If not, see http://www.gnu.org/licenses/.
+*/
+
+/* Brand Colors */
+@define-color colorPrimary @titlebar_color;
+@define-color colorAccent @selected_bg_color;
+@define-color textColorPrimary mix (@colorPrimary, @text_color, 0.75);
+@define-color textColorPrimaryShadow alpha (shade (@colorPrimary, 1.4), 0.4);
+@define-color tab_base_color @base_color;
+

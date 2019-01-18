@@ -1,0 +1,7 @@
+[Unit]
+Description=Evolution calendar service
+
+[Service]
+Type=dbus
+BusName=org.gnome.evolution.dataserver.Calendar7
+ExecStart=/app/libexec/evolution-calendar-factory

@@ -1,0 +1,71 @@
+<svg height='128' version='1' viewBox='0 0 128 128' width='128' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns='http://www.w3.org/2000/svg'>
+    <title>
+        elementary Icon Template
+    </title>
+    <defs>
+        <linearGradient id='f'>
+            <stop offset='0' stop-color='#997543'/>
+            <stop offset='.239' stop-color='#715d43'/>
+            <stop offset='.276' stop-color='#7b6241'/>
+            <stop offset='1' stop-color='#604c31'/>
+        </linearGradient>
+        <linearGradient id='g'>
+            <stop offset='0'/>
+            <stop offset='1' stop-opacity='0'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(2.94595 0 0 .5946 265.297 109.23)' gradientUnits='userSpaceOnUse' xlink:href='#a' id='p' x1='24' x2='24' y1='4.318' y2='43'/>
+        <linearGradient id='a'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.084' stop-color='#fff' stop-opacity='.235'/>
+            <stop offset='.951' stop-color='#fff' stop-opacity='.157'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.392'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(2.94595 0 0 1.91892 265.297 124.946)' gradientUnits='userSpaceOnUse' xlink:href='#b' id='o' x1='24' x2='24' y1='5.564' y2='43'/>
+        <linearGradient id='b'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.036' stop-color='#fff' stop-opacity='.235'/>
+            <stop offset='.951' stop-color='#fff' stop-opacity='.157'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.392'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(3 0 0 2.71429 264 88.286)' gradientUnits='userSpaceOnUse' xlink:href='#c' id='n' x1='26' x2='26' y1='22' y2='8'/>
+        <linearGradient id='c'>
+            <stop offset='0' stop-color='#fff'/>
+            <stop offset='.302' stop-color='#fff'/>
+            <stop offset='.344' stop-color='#fff' stop-opacity='.643'/>
+            <stop offset='1' stop-color='#fff' stop-opacity='.391'/>
+        </linearGradient>
+        <linearGradient gradientTransform='translate(272 88)' gradientUnits='userSpaceOnUse' xlink:href='#d' id='m' x1='63.5' x2='63.5' y1='47.5' y2='23.5'/>
+        <linearGradient id='d'>
+            <stop offset='0' stop-color='#ad8757'/>
+            <stop offset='1' stop-color='#c7ad88' stop-opacity='.392'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(3.47108 0 0 4.14948 254.598 48.177)' gradientUnits='userSpaceOnUse' xlink:href='#e' id='l' x1='24.823' x2='24.997' y1='15.378' y2='37.277'/>
+        <linearGradient id='e'>
+            <stop offset='0' stop-color='#dac196'/>
+            <stop offset='.239' stop-color='#c7ae8e'/>
+            <stop offset='.276' stop-color='#dac197'/>
+            <stop offset='1' stop-color='#b19974'/>
+        </linearGradient>
+        <linearGradient gradientTransform='matrix(2.70707 0 0 2.6646 271.03 88.92)' gradientUnits='userSpaceOnUse' xlink:href='#f' id='q' x1='15.464' x2='15.464' y1='7.976' y2='45.042'/>
+        <radialGradient cx='5' cy='41.5' fx='5' fy='41.5' gradientTransform='matrix(1.60482 0 0 3.8 382.055 -354.7)' gradientUnits='userSpaceOnUse' xlink:href='#g' id='k' r='5'/>
+        <linearGradient gradientTransform='matrix(4.7016 0 0 3.45455 225.502 57.09)' gradientUnits='userSpaceOnUse' xlink:href='#h' id='j' x1='17.554' x2='17.554' y1='46' y2='35'/>
+        <linearGradient id='h'>
+            <stop offset='0' stop-opacity='0'/>
+            <stop offset='.5'/>
+            <stop offset='1' stop-opacity='0'/>
+        </linearGradient>
+        <radialGradient cx='5' cy='41.5' fx='5' fy='41.5' gradientTransform='matrix(1.60482 0 0 3.8 -290.024 -354.7)' gradientUnits='userSpaceOnUse' xlink:href='#g' id='i' r='5'/>
+    </defs>
+    <g transform='translate(-272 -89)'>
+        
+        <rect fill='url(#i)' height='38' opacity='.3' transform='scale(-1)' width='8' x='-282' y='-216'/>
+        <rect fill='url(#j)' height='38' opacity='.3' width='108.137' x='281.921' y='178'/>
+        <rect fill='url(#k)' height='38' opacity='.3' transform='scale(1 -1)' width='8' x='390.079' y='-216'/>
+        <path color='#000' d='M295.423 111.57h79.852c4.662 0 6.76-.764 8.099 2.664l8.126 21.317v68.41c0 4.14.278 3.507-4.383 3.507H284.883c-4.661 0-4.383.633-4.383-3.506V135.55l8.126-21.317c1.302-3.359 2.135-2.664 6.797-2.664z' display='block' fill='url(#l)' overflow='visible' style='marker:none'/>
+        <path d='M335.5 112v23' fill='none' opacity='.4' stroke='url(#m)'/>
+        <path d='M330 110h12v38c-1.181 0-2.362-2.093-3.544-2.093-1.209 0-2.418 2.093-3.628 2.093-.973 0-1.947-1.831-2.92-1.831-.636 0-1.272 1.831-1.908 1.831v-38z' fill='url(#n)' opacity='.3' overflow='visible' style='marker:none'/>
+        <path d='M390.5 206.5h-109v-71h109z' fill='none' opacity='.3' stroke='url(#o)' stroke-linecap='round' stroke-linejoin='round'/>
+        <path d='M281.5 134.5l9.16-22h90.68l9.16 22m-54-22.5v23' fill='none' opacity='.2' stroke='url(#p)' stroke-linecap='round' stroke-linejoin='round'/>
+        <path color='#000' d='M295.423 111.57h79.852c4.662 0 6.76-.764 8.099 2.664l8.126 21.317v68.41c0 4.14.278 3.507-4.383 3.507H284.883c-4.661 0-4.383.633-4.383-3.506V135.55l8.126-21.317c1.302-3.359 2.135-2.664 6.797-2.664z' display='block' fill='none' opacity='.5' overflow='visible' stroke='url(#q)' stroke-linecap='round' stroke-width='.994' style='marker:none'/>
+    </g>
+</svg>

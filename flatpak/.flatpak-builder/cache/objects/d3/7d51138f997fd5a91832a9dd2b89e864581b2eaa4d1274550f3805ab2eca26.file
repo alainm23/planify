@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright (C) 2006-2007 GtkSourceView team
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+<style-scheme id="kate" _name="Kate" version="1.0">
+  <author>GtkSourceView team</author>
+  <_description>Color scheme used in the Kate text editor</_description>
+
+  <color name="red"                         value="#FF0000"/>
+  <color name="blue"                        value="#0000FF"/>
+  <color name="dark-blue"                   value="#0057AE"/>
+  <color name="dark-red"                    value="#800000"/>
+  <color name="dark-green"                  value="#008000"/>
+  <color name="grey"                        value="#808080"/>
+  <color name="yellow"                      value="#FFFF00"/>
+  <color name="white"                       value="#FFFFFF"/>
+  <color name="brown"                       value="#B07E00"/>
+  <color name="black"                       value="#000000"/>
+
+  <!-- Global Settings -->
+  <style name="text"                        foreground="black" background="white"/>
+  <style name="selection"                   foreground="white" background="#43ace8"/>
+  <style name="current-line"                background="#EEF6FF"/>
+  <style name="line-numbers"                foreground="black" background="#d6d2d0"/>
+  <style name="right-margin"                foreground="black" background="black"/>
+  <style name="bracket-match"               foreground="white" background="black"/>
+  <style name="bracket-mismatch"            background="red"/>
+  <style name="draw-spaces"                 foreground="#d3d7cf"/>
+  <style name="background-pattern"          background="#f3f3f3"/>
+
+  <!-- Search Matching -->
+  <style name="search-match"                background="yellow"/>
+
+  <!-- Bookmarks -->
+  <style name="bookmark"                    background="#E5E5FF"/>
+
+  <!-- legacy styles for old lang files -->
+  <style name="Others"                      foreground="dark-red"/>
+  <style name="Others 2"                    bold="true"/>
+  <style name="Others 3"                    foreground="dark-green"/>
+
+  <!-- Comments -->
+  <style name="def:comment"                 foreground="grey" italic="true" bold="false"/>
+  <style name="def:shebang"                 foreground="grey" bold="true"/>
+  <style name="def:doc-comment"             foreground="blue"/>
+  <style name="def:doc-comment-element"     bold="true"/>
+
+  <!-- Types -->
+  <style name="def:type"                    foreground="dark-blue"/>
+
+  <!-- Constants -->
+  <style name="def:constant"                foreground="dark-blue"/>
+  <style name="def:decimal"                 foreground="brown"/>
+  <style name="def:base-n-integer"          foreground="brown"/>
+  <style name="def:floating-point"          foreground="brown"/>
+  <style name="def:complex"                 use-style="def:base-n-integer"/>
+  <style name="def:character"               foreground="#FF80E0"/>
+  <style name="def:string"                  foreground="#DD0000"/>
+  <style name="def:special-char"            foreground="#FF00FF"/>
+  <style name="def:builtin"                 use-style="def:type"/>
+
+  <!-- Identifiers -->
+  <style name="def:identifier"              foreground="dark-blue"/>
+  <style name="def:function"                use-style="def:identifier"/>
+
+  <!-- Statements -->
+  <style name="def:statement"               bold="true"/>
+
+  <!-- Others -->
+  <style name="def:preprocessor"            bold="true"/>
+  <style name="def:note"                    foreground="#BF0303" background="#F7E7E7" bold="true" italic="false"/>
+  <style name="def:error"                   foreground="red" underline="true"/>
+  <style name="def:warning"                 foreground="brown" underline="true"/>
+  <style name="def:underlined"              underline="single"/>
+
+  <!-- Heading styles, uncomment to enable -->
+  <!--
+  <style name="def:heading0"                scale="5.0"/>
+  <style name="def:heading1"                scale="2.5"/>
+  <style name="def:heading2"                scale="2.0"/>
+  <style name="def:heading3"                scale="1.7"/>
+  <style name="def:heading4"                scale="1.5"/>
+  <style name="def:heading5"                scale="1.3"/>
+  <style name="def:heading6"                scale="1.2"/>
+  -->
+
+  <!-- Language specific styles -->
+  <style name="c:preprocessor"              foreground="dark-green"/>
+  <style name="c:included-file"             use-style="c:preprocessor"/>
+  <style name="c:common-defines"            foreground="#0095FF" bold="true"/>
+
+  <style name="diff:diff-file"              use-style="def:statement"/>
+  <style name="diff:added-line"             use-style="def:decimal"/>
+  <style name="diff:removed-line"           use-style="def:string"/>
+  <style name="diff:changed-line"           use-style="c:preprocessor"/>
+  <style name="diff:special-case"/>
+  <style name="diff:location"               use-style="def:type"/>
+
+  <style name="xml:attribute-name"          foreground="dark-green"/>
+  <style name="xml:element-name"            bold="true"/>
+  <style name="xml:entity"                  foreground="blue"/>
+  <style name="xml:cdata-delim"             foreground="#008080" bold="true"/>
+  <style name="xml:processing-instruction"  bold="true"/>
+  <style name="xml:doctype"                 foreground="dark-red" bold="true"/>
+
+  <style name="docbook-element"             foreground="#004141" bold="true"/>
+  <style name="docbook:header-elements"     use-style="docbook-element"/>
+  <style name="docbook:formatting-elements" use-style="docbook-element"/>
+  <style name="docbook:gui-elements"        use-style="docbook-element"/>
+  <style name="docbook:structural-elements" use-style="docbook-element"/>
+
+  <style name="js:object"                   foreground="dark-green"/>
+  <style name="js:constructors"             bold="true"/>
+
+  <style name="mooscript:special-vars"      use-style="c:preprocessor"/>
+
+  <style name="latex:display-math"          background="#C0FFC0"/>
+  <style name="latex:inline-math"           foreground="#006400"/>
+  <style name="latex:math-bound"            bold="true"/>
+  <style name="latex:common-commands"       foreground="dark-red"/>
+  <style name="latex:command"               foreground="#7000DF"/>
+  <style name="latex:include"               use-style="latex:common-commands"/>
+
+  <style name="changelog:date"              use-style="def:type"/>
+  <style name="changelog:email"             use-style="c:preprocessor"/>
+  <style name="changelog:file"              use-style="def:function"/>
+  <style name="changelog:bullet"            use-style="changelog:file"/>
+  <style name="changelog:release"           foreground="#0095FF" bold="true"/>
+
+  <style name="perl:pod"                    foreground="grey"/>
+
+  <style name="python:string-conversion"    background="#BEBEBE"/>
+  <style name="python:module-handler"       use-style="def:character"/>
+  <style name="python:special-variable"     use-style="def:type"/>
+  <style name="python:builtin-constant"     use-style="def:type"/>
+  <style name="python:builtin-object"       use-style="def:type"/>
+  <style name="python:builtin-function"     use-style="def:type"/>
+  <style name="python:boolean"              use-style="def:type"/>
+
+  <style name="scheme:parens"               use-style="def:statement"/>
+  <style name="scheme:any-function"         use-style="def:statement"/>
+
+  <style name="sh:dollar"                   foreground="dark-green" bold="true"/>
+
+  <style name="makefile:trailing-tab"       background="#FFC0CB"/>
+
+  <style name="t2t:italic"                  italic="true"/>
+  <style name="t2t:bold"                    bold="true"/>
+  <style name="t2t:verbatim"                background="#lightgrey"/>
+  <style name="t2t:verbatim-block"          line-background="#lightgrey"/>
+  <style name="t2t:comment"                 foreground="dark-green"/>
+  <style name="t2t:option"                  foreground="dark-green"/>
+</style-scheme>

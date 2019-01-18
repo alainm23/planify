@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!--
+    This is a generated document.  Do not edit.
+-->
+<HTML VERSION="2.0">
+<HEAD>
+<TITLE>Arrow Shapes</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<A NAME="top"></A>
+<H1 ALIGN=CENTER>Arrow Shapes</H1>
+<HR>
+Arrow shapes can be specified and named using the following simple
+grammar. 
+Terminals are shown in bold font and nonterminals in italics.
+Literal characters are given in single quotes.
+Square brackets [ and ] enclose optional items.
+Vertical bars | separate alternatives.
+<TABLE>
+<TR>
+  <TD ALIGN=RIGHT><I>arrowname</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>aname</I> [ <I>aname</I> [ <I>aname</I> [ <I>aname</I> ] ] ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>aname</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <I>modifiers</I> ] <I>shape</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>modifiers</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT>[ <B>'o'</B> ] [ <I>side</I> ]</TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>side</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>'l'</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>'r'</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT><I>shape</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><B>box</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>crow</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>curve</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>icurve</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>diamond</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>dot</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>inv</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>none</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>normal</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>tee</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>vee</B></TD>
+</TR>
+</TABLE>
+<P>
+The primitive shapes are:
+<CENTER>
+<TABLE>
+  <TR>
+    <TD>"box"<TD><IMG SRC="a_box.gif">
+    <TD>"crow"<TD><IMG SRC="a_crow.gif">
+    <TD>"curve"<TD><IMG SRC="a_curve.gif">
+    <TD>"diamond"<TD><IMG SRC="a_diamond.gif">
+  </TR>
+  <TR>
+  </TR>
+  <TR>
+    <TD>"dot"<TD><IMG SRC="a_dot.gif">
+    <TD>"icurve"<TD><IMG SRC="a_icurve.gif">
+    <TD>"inv"<TD><IMG SRC="a_inv.gif">
+    <TD>"none"<TD><IMG SRC="a_none.gif">
+  </TR>
+  <TR>
+  </TR>
+  <TR>
+    <TD>"normal"<TD><IMG SRC="a_normal.gif">
+    <TD>"tee"<TD><IMG SRC="a_tee.gif">
+    <TD>"vee"<TD><IMG SRC="a_open.gif">
+  </TR>
+</TABLE>
+</CENTER>
+<P>
+As for the modifiers:
+<DL>
+<DT>'l'
+  <DD> Clip the shape, leaving only the part to the left of the edge.
+<DT>'r'
+  <DD> Clip the shape, leaving only the part to the right of the edge.
+<DT>'o'
+  <DD> Use an open (non-filled) version of the shape.
+</DL>
+Left and right are defined as those directions determined by looking
+from the edge towards the point where the arrow "touches" the node.
+<P>
+As an example, the arrow shape <TT>lteeoldiamond</TT> is parsed as
+<TT>'l' 'tee' 'o' 'l' 'diamond'</TT> and corresponds to the shape
+<CENTER>
+<IMG SRC="a_lteeoldiamond.gif">
+</CENTER>
+Note that the first arrow shape specified occurs closest to the node.
+Subsequent arrow shapes, if specified, occur further from the node.
+Also, a shape of <tt>none</tt> uses space, so, for example, the arrowhead <tt>nonenormal</tt>
+is not the same as <tt>normal</tt>.
+<P>
+Not all syntactically legal combinations of modifiers are meaningful
+or semantically valid.
+For example, none of the modifiers make any sense with <TT>none</TT>.
+The following table indicates which modifiers are allowed with which shapes.
+<P>
+<CENTER>
+<TABLE BORDER=2>
+<TR ALIGN=CENTER>
+ <TH>Modifier</TH>
+ <TH>box
+ <TH>crow
+ <TH>curve
+ <TH>diamond
+ <TH>dot
+ <TH>icurve
+ <TH>inv
+ <TH>none
+ <TH>normal
+ <TH>tee
+ <TH>vee
+</TR>
+<TR ALIGN=CENTER><TD>'l'/'r'<TD>X<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>X<TD>X<TD>X</TR>
+<TR ALIGN=CENTER><TD>'o'    <TD>X<TD>&nbsp;<TD>&nbsp;<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>&nbsp;</TR>
+</TABLE>
+</CENTER>
+<P>
+This yields 42 different arrow shapes. The optional second, third, fourth shapes
+can independently be any of the 42, except the last cannot be <TT>none</TT> as
+this would create a redundant shape.
+Thus, there are 41 &middot; 42<sup>3</sup> + 41 &middot; 42<sup>2</sup> + 41 &middot; 42 + 42 = 3,111,696 different combinations.
+
+<P>
+The following display contains the 42 combinations possible with a single
+arrow shape. The node attached to the arrow is not drawn but would appear
+on the right side of the edge.
+<P>
+<CENTER>
+<TABLE>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_box.gif">
+    <TD><IMG SRC="aa_lbox.gif">
+    <TD><IMG SRC="aa_rbox.gif">
+    <TD><IMG SRC="aa_obox.gif">
+    <TD><IMG SRC="aa_olbox.gif">
+    <TD><IMG SRC="aa_orbox.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>box
+    <TD>lbox
+    <TD>rbox
+    <TD>obox
+    <TD>olbox
+    <TD>orbox
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_crow.gif">
+    <TD><IMG SRC="aa_lcrow.gif">
+    <TD><IMG SRC="aa_rcrow.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>crow
+    <TD>lcrow
+    <TD>rcrow
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_diamond.gif">
+    <TD><IMG SRC="aa_ldiamond.gif">
+    <TD><IMG SRC="aa_rdiamond.gif">
+    <TD><IMG SRC="aa_odiamond.gif">
+    <TD><IMG SRC="aa_oldiamond.gif">
+    <TD><IMG SRC="aa_ordiamond.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>diamond
+    <TD>ldiamond
+    <TD>rdiamond
+    <TD>odiamond
+    <TD>oldiamond
+    <TD>ordiamond
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_dot.gif">
+    <TD><IMG SRC="aa_odot.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>dot
+    <TD>odot
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_inv.gif">
+    <TD><IMG SRC="aa_linv.gif">
+    <TD><IMG SRC="aa_rinv.gif">
+    <TD><IMG SRC="aa_oinv.gif">
+    <TD><IMG SRC="aa_olinv.gif">
+    <TD><IMG SRC="aa_orinv.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>inv
+    <TD>linv
+    <TD>rinv
+    <TD>oinv
+    <TD>olinv
+    <TD>orinv
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_none.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>none
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_normal.gif">
+    <TD><IMG SRC="aa_lnormal.gif">
+    <TD><IMG SRC="aa_rnormal.gif">
+    <TD><IMG SRC="aa_onormal.gif">
+    <TD><IMG SRC="aa_olnormal.gif">
+    <TD><IMG SRC="aa_ornormal.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>normal
+    <TD>lnormal
+    <TD>rnormal
+    <TD>onormal
+    <TD>olnormal
+    <TD>ornormal
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_tee.gif">
+    <TD><IMG SRC="aa_ltee.gif">
+    <TD><IMG SRC="aa_rtee.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>tee
+    <TD>ltee
+    <TD>rtee
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_vee.gif">
+    <TD><IMG SRC="aa_lvee.gif">
+    <TD><IMG SRC="aa_rvee.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>vee
+    <TD>lvee
+    <TD>rvee
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD><IMG SRC="aa_curve.gif">
+    <TD><IMG SRC="aa_lcurve.gif">
+    <TD><IMG SRC="aa_rcurve.gif">
+    <TD><IMG SRC="aa_icurve.gif">
+    <TD><IMG SRC="aa_licurve.gif">
+    <TD><IMG SRC="aa_ricurve.gif">
+  </TR>
+  <TR ALIGN=CENTER>
+    <TD>curve
+    <TD>lcurve
+    <TD>rcurve
+    <TD>icurve
+    <TD>licurve
+    <TD>ricurve
+  </TR>
+</TABLE>
+</CENTER>
+</BODY>
+</HTML>

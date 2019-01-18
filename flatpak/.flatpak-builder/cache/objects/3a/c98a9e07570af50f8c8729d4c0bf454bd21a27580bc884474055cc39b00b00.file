@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors: Duncan Coutts
+ Copyright (C) 2007 Duncan Coutts <duncan@haskell.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="haddock" name="Haddock" version="2.0" _section="Markup" hidden="true">
+
+  <styles>
+    <style id="markup"     name="Inline Haddock Section" map-to="def:doc-comment"/>
+    <style id="directive"  name="Haddock Directive" map-to="def:doc-comment-element"/>
+    <style id="identifier" name="Hyperlinked Identifier" map-to="def:doc-comment-element"/>
+    <style id="module"     name="Hyperlinked Module Name" map-to="def:doc-comment-element"/>
+    <style id="escape"     name="Escape" map-to="def:special-char"/>
+    <style id="emphasis"   name="Emphasis" map-to="def:doc-comment-element"/>
+    <style id="monospace"  name="Monospace" />
+    <style id="codeblock"  name="Code Block" />
+    <style id="property"   name="Header Property" map-to="def:doc-comment-element"/>
+    <style id="itemized"   name="Itemized list" map-to="def:doc-comment-element"/>
+    <style id="enumerated" name="Enumerated list" map-to="def:doc-comment-element"/>
+    <style id="definition" name="Definition list" map-to="def:doc-comment-element"/>
+    <style id="url"        name="URL" map-to="def:underlined"/>
+    <style id="anchor"     name="Anchor" map-to="def:doc-comment-element"/>
+  </styles>
+
+  <definitions>
+    <context id="haddock">
+      <include>
+        <!-- Spec: http://haskell.org/haddock/haddock-html-0.8/markup.html -->
+
+        <context id="escape" style-ref="escape" extend-parent="true">
+          <match>\\[/'`"@#&lt;*-]</match>
+        </context>
+
+        <context id="character-reference" style-ref="escape">
+            <match>&amp;#([0-9]+|x[a-fA-F0-9]+);</match>
+        </context>
+
+        <context id="identifier" style-ref="identifier" extend-parent="false">
+          <match>'[a-zA-Z_][0-9a-zA-Z._'#]*'</match>
+        </context>
+
+        <context id="module" style-ref="module" extend-parent="false">
+          <match>"[A-Z][0-9a-zA-Z._']*"</match>
+        </context>
+
+        <context id="emphasis" style-ref="emphasis" extend-parent="false">
+          <start>/</start>
+          <end>/</end>
+          <include>
+            <context ref="escape"/>
+            <context ref="character-reference"/>
+          </include>
+        </context>
+
+        <context id="monospace" style-ref="monospace" extend-parent="false">
+          <start>@</start>
+          <end>@</end>
+          <include>
+            <context ref="escape"/>
+            <context ref="character-reference"/>
+          </include>
+        </context>
+
+        <context id="codeblock" style-ref="codeblock">
+          <match>^\s*--+\s+&gt;.*$</match>
+        </context>
+
+        <context id="property" extend-parent="false">
+          <match>^\s*--+\s+([A-Z][a-zA-Z0-9'_]*)\s*:.*$</match>
+          <include>
+            <context sub-pattern="1" style-ref="property"/>
+          </include>
+        </context>
+
+        <context id="list-item" extend-parent="false">
+          <match extended="true">
+            ^(\s*--+)?\s+             # line start possibly with line comment
+            ( \*(?=\s) | -(?=\s)      # bulleted item
+            | \([0-9]\) | [0-9]\.     # enumerated item
+            | \[@[a-zA-Z0-9._'\#]*@\] # definition list item
+            )
+          </match>
+          <include>
+            <context sub-pattern="2" style-ref="itemized" />
+          </include>
+        </context>
+
+        <context id="url" style-ref="url" extend-parent="false">
+          <match>&lt;.*&gt;</match>
+        </context>
+
+        <context id="anchor" style-ref="anchor" extend-parent="false">
+          <match>#[a-z][0-9a-zA-Z_']*#|[A-Z][0-9a-zA-Z._']*#[a-z][0-9a-zA-Z_']*+</match>
+        </context>
+
+        <!-- haddock markup inside Haskell line comments -->
+        <context id="line-paragraph" style-ref="markup" extend-parent="true" end-parent="true">
+          <start>\s+([|^*$]+)</start>
+          <end>^(?!\s*--+)</end>
+          <include>
+            <context ref="escape"/>
+            <context ref="character-reference"/>
+            <context ref="identifier"/>
+            <context ref="module"/>
+            <context ref="emphasis"/>
+            <context ref="monospace"/>
+            <context ref="codeblock"/>
+            <context ref="property"/>
+            <context ref="list-item"/>
+            <context ref="url"/>
+            <context ref="anchor"/>
+          </include>
+        </context>
+
+        <!-- haddock markup inside Haskell block comment -->
+        <context id="block-paragraph" style-ref="markup" extend-parent="false">
+          <start>(?&lt;={-)\s?[|^*$]</start>
+          <include>
+            <context ref="escape"/>
+            <context ref="character-reference"/>
+            <context ref="identifier"/>
+            <context ref="module"/>
+            <context ref="emphasis"/>
+            <context ref="monospace"/>
+            <context ref="codeblock"/>
+            <context ref="property"/>
+            <context ref="list-item"/>
+            <context ref="url"/>
+            <context ref="anchor"/>
+          </include>
+        </context>
+
+        <context id="directive" style-ref="directive">
+          <prefix>#</prefix>
+          <keyword>hide</keyword>
+          <keyword>prune</keyword>
+          <keyword>ignore-exports</keyword>
+        </context>
+
+      </include>
+    </context>
+
+  </definitions>
+</language>

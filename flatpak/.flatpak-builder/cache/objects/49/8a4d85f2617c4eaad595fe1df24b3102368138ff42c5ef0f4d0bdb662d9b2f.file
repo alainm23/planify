@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/org/gnome/evolution-data-server/addressbook/" id="org.gnome.evolution-data-server.addressbook" gettext-domain="evolution-data-server">
+    <key type="s" name="self-contact-uid">
+      <default>''</default>
+      <summary>Contact UID of a user</summary>
+    </key>
+  </schema>
+</schemalist>

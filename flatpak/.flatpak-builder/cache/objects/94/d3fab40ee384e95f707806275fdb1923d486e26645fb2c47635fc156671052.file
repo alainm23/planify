@@ -1,0 +1,578 @@
+* {
+	font-family: 'Times New Roman';
+	font-size: 12pt;
+}
+
+ul.external_link {
+}
+
+.main_optional_parameter {
+	font-style: italic;
+}
+
+.main_diagram {
+	border-style: none;
+	display: block;
+	margin: 0px auto;
+}
+
+
+.main_notification {
+	padding-right: 10px;
+	padding-left: 60px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-color: #aaaaff;
+	background-color: #eeeeff;
+	border-style: solid;
+	border-width: 1px;
+	margin: 10px;
+	min-height: 48px;
+	background-position: 6px 0.5em;
+	background-repeat: no-repeat;
+	background-image: url(warning.png);
+}
+
+.main_table {
+	border-collapse: collapse;
+	border: 1px solid #aaaaff;
+	background: #eeeeff;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+.main_source, .main_sourcesample {
+	padding-right: 10px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	margin: 10px;
+
+	border-color: #aaaaff;
+	background-color: #eeeeff;
+	border-style: solid;
+	border-width: 1px;
+}
+
+
+input {
+	border-color: #aaaaff;
+	border-style: solid;
+	border-width: 1px;
+}
+
+
+
+
+.site_header {
+	font-size: 25px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	background-color: #aaaaff;
+	width: 100%;
+}
+
+
+div {
+	font-family:'Verdana';
+	font-size: 12;
+}
+
+
+.site_title {
+	text-align: left;
+	font-size: 40;
+}
+
+div.site_footer {
+	text-align: center;
+	background-color: #aaaaff;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	width: 100%;
+	clear: left;
+}
+
+
+div.site_body {
+	font-size: 10;
+}
+
+
+.site_content {
+	font-size: 12px;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-align: left;
+}
+
+
+.main_type {
+	text-decoration: none;
+	font-style: italic;
+	color: #000000;
+}
+
+.main_basic_type {
+	text-decoration: none;
+	font-weight: bold;
+	color: #2e8b57;
+}
+
+.main_keyword {
+	text-decoration: none;
+	font-weight: bold;
+	color: #a52a2a;
+}
+
+.main_source .main_literal {
+	text-decoration: none;
+	color: #ff0000;
+}
+
+.main_comment {
+	text-decoration: none;
+	color: #888a85;
+}
+
+.main_preprocessor {
+	text-decoration: none;
+	color: #ad7fa8;
+}
+
+div.main_code_definition {
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+
+	font-family: monospace;
+	border-color: #aaaaff;
+	background-color: #eeeeff;
+	border-style: solid;
+	border-width: 1px;
+	margin: 10px;
+}
+
+div.main_notification_block {
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+
+	border-color: #d08717;
+	background-color: #fbf2c3;
+	border-style: solid;
+	border-width: 1px;
+	margin: 10px;
+}
+
+span.main_block_headline {
+	background-image:url(tip.png);
+	background-repeat:no-repeat;
+	background-position:center right;
+	font-weight:bold;
+	display:block;
+}
+
+div.main_block_content {
+	margin-left:15px;
+}
+
+span.leaf_code_definition {
+	font-family: monospace;
+}
+
+
+div.leaf_brief_description {
+	display: block;
+	margin-left: 40px;
+}
+
+
+h1.main_title {
+	font-size: 20px;
+	margin-bottom: 0px;
+}
+
+h2.main_title {
+	margin-bottom: 0px;
+}
+
+h3.main_title {
+	margin-bottom: 0px;
+}
+
+.main_hr {
+	border: 0;
+	color: #aaaaff;
+	background-color: #aaaaff;
+	height: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+
+
+.main_parameter_table_text, .main_errordomain_table_text, .main_enum_table_text {
+}
+
+.main_parameter_table_unknown_parameter {
+	color: GREY;
+}
+
+.main_parameter_table_name, .main_errordomain_table_name, .main_enum_table_name {
+	vertical-align: top;
+	text-align: right;
+	font-weight: bold;
+	width: 120px;
+	padding-right: 10px;
+}
+
+.main_parameter_table, .main_errordomain_table, .main_enum_table {
+	margin-weight: 20px;
+	margin-left: 20px;
+}
+
+
+
+.description a.constant, .brief_description a.constant {
+	background-image:url(constant.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.namespace, .brief_description a.namespace {
+	background-image:url(namespace.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.struct, .brief_description a.struct {
+	background-image:url(struct.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.interface, .brief_description a.interface {
+	background-image:url(interface.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.enum, .brief_description a.enum {
+	background-image:url(enum.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.errordomain, .brief_description a.errordomain {
+	background-image:url(errordomain.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.delegate, .brief_description a.delegate {
+	background-image:url(delegate.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.signal, .brief_description a.signal {
+	background-image:url(signal.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.field, .brief_description a.field {
+	background-image:url(field.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.enumvalue, .brief_description a.enumvalue {
+	background-image:url(enumvalue.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.errorcode, .brief_description a.errorcode {
+	background-image:url(errorcode.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.class, .brief_description a.class {
+	background-image:url(class.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.abstract_class, .brief_description a.abstract_class {
+	background-image:url(abstractclass.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+	font-style: italic;
+}
+.description a.property, .brief_description a.property {
+	background-image:url(property.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.virtual_property, .brief_description a.virtual_property {
+	background-image:url(virtualproperty.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.abstract_property, .brief_description a.abstract_property {
+	background-image:url(abstractproperty.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.method, .brief_description a.method {
+	background-image:url(method.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.static_method, .brief_description a.static_method {
+	background-image:url(staticmethod.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.virtual_method, .brief_description a.virtual_method {
+	background-image:url(virtualmethod.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.abstract_method, .brief_description a.abstract_method {
+	background-image:url(abstractmethod.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+.description a.creation_method, .brief_description a.creation_method {
+	background-image:url(constructor.png);
+	display:inline-block;
+	padding-right:17px;
+	background-repeat:no-repeat;
+	background-position:center right;
+	border:0px;
+}
+
+.navi_main .errorcode, .navi_inline .errorcode {
+	list-style-image:url(errorcode.png);
+}
+.navi_main .enumvalue, .navi_inline .enumvalue {
+	list-style-image:url(enumvalue.png);
+}
+.navi_main .abstract_class, .navi_inline .abstract_class {
+	list-style-image: url(abstractclass.png);
+}
+.navi_main .abstract_method, .navi_inline .abstract_method {
+	list-style-image: url( abstractmethod.png );
+}
+.navi_main .creation_method, .navi_inline .creation_method, .main_list_m {
+	list-style-image: url(constructor.png);
+}
+.navi_main .static_method, .navi_inline .static_method {
+	list-style-image: url(staticmethod.png);
+}
+.navi_main .package_index {
+	list-style-image: url(packages.png);
+}
+.navi_main .virtual_method, .navi_inline .virtual_method {
+	list-style-image: url(virtualmethod.png);
+}
+.navi_main .errordomain, .navi_inline .errordomain, .main_list_errdom {
+	list-style-image: url(errordomain.png);
+}
+.navi_main .namespace, .navi_inline .namespace, .main_list_ns {
+	list-style-image: url(namespace.png);
+}
+.navi_main .method, .navi_inline .method {
+	list-style-image: url(method.png);
+}
+.navi_main .struct, .navi_inline .struct, .main_list_stru {
+	list-style-image: url(struct.png);
+}
+.navi_main .interface, .navi_inline .interface, .main_list_iface {
+	list-style-image: url(interface.png);
+}
+.navi_main .field, .navi_inline .field, .main_list_field {
+	list-style-image: url(field.png);
+}
+.navi_main .class, .navi_inline .class, .main_list_cl {
+	list-style-image: url(class.png);
+}
+.navi_main .enum, .navi_inline .enum, .main_list_en {
+	list-style-image: url(enum.png);
+}
+.navi_main .property, .navi_inline .property, .main_list_prop {
+	list-style-image: url(property.png);
+}
+.navi_main .abstract_property, .navi_inline .abstract_property {
+	list-style-image: url(abstractproperty.png);
+}
+.navi_main .virtual_property, .navi_inline .virtual_property {
+	list-style-image: url(virtualproperty.png);
+}
+.navi_main .delegate, .navi_inline .delegate, .main_list_del {
+	list-style-image: url(delegate.png);
+}
+.navi_main .signal, .navi_inline .signal, .main_list_sig {
+	list-style-image: url(signal.png);
+}
+.navi_main .package, .navi_inline .package {
+	list-style-image: url(package.png);
+}
+.navi_main .constant, .navi_inline .constant {
+	list-style-image: url(constant.png);
+}
+
+
+.navi_main {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 30px;
+}
+
+.navi_hr {
+	border: 0;
+	color: #aaaaff;
+	background-color: #aaaaff;
+	height: 1px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+
+
+.navi_main a, .navi_inline a,
+a.external_link
+{
+	text-decoration: none;
+	color: 	#214b87;
+}
+
+.navi_main .abstract_class > a, .navi_inline .abstract_class > a {
+	font-style: italic;
+}
+
+a.navi_link:hover, a.external_link:hover {
+	text-decoration: underline;
+}
+
+ul.no_bullet li {
+	list-style-type: none;
+}
+
+.main_see_list {
+}
+
+.navi_inline {
+}
+
+.css_content_literal {
+	font-family: monospace;
+	color: #ff01ff;
+}
+
+code {
+	font-family: monospace;
+}
+
+.main_code_definition a, .leaf_code_definition a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.main_code_definition a:hover, .leaf_code_definition a:hover {
+	text-decoration: underline;
+}
+
+.box {
+}
+.box .headline {
+	background-image: url("coll_open.png");
+	background-position: calc(100% - 1px) center;
+	background-repeat: no-repeat;
+	background-color: #eeeeff;
+	border-color: #aaaaff;
+	border-style: solid;
+	border-width: 1px;
+	margin: auto;
+	width: 90%;
+	margin-top: 20px;
+	font-weight: bold;  
+}
+.box .content {
+	border-color: #aaaaff;
+	border-width: 0 1 1 1;
+	border-style: solid;
+	overflow: auto;
+	display: none;
+	margin: auto;
+	width: 90%;
+}
+.box .column {
+	float: left;
+	width: 33%;
+}
+
+.namespace_note {
+}
+.package_note {
+}
+
+.deprecated {
+	text-decoration:line-through;
+}

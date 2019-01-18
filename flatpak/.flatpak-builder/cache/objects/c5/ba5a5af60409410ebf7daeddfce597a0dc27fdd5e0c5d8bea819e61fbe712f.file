@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Copyright (C) 2010 - Fernando Brito <email@fernandobrito.com>
+ Copyright (C) 2011 - Daniel Bader <bugs.bader@googlemail.com>
+
+ Credits:
+  Based on prolog.lang by Ignacio Casal Quinteiro <icq@gnome.org>
+  Cobol keywords taken from cobol.vim by Tim Pope <vimNOSPAM@tpope.info>
+  and the COBOL2000 (BS2000) V1.2 compiler description by Fujitsu Siemens.
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="cobol" name="COBOL" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetype">text/x-cobol</property>
+    <property name="globs">*.cbl;*.cob;*.cbd;*.cdb;*.cdc</property>
+    <property name="line-comment-start">*</property>
+  </metadata>
+
+  <styles>
+    <style id="comment"           name="Comment"           map-to="def:comment"/>
+    <style id="statement"         name="Statement"         map-to="def:statement"/>
+    <style id="variable"          name="Variable"          map-to="def:type"/>
+    <style id="keyword"           name="Keyword"           map-to="def:keyword"/>
+    <style id="constant"          name="Constant"          map-to="def:constant"/>
+    <style id="string"            name="String"            map-to="def:string"/>
+    <style id="number"            name="Number"            map-to="def:decimal"/>
+    <style id="operator"          name="Operator"          map-to="def:operator"/>
+    <style id="error"             name="Error"             map-to="def:error"/>
+  </styles>
+
+  <default-regex-options case-sensitive="false"/>
+
+  <definitions>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>^\s{0,6}\*</start>
+      <include>
+        <context ref="def:in-comment"/>
+      </include>
+    </context>
+
+    <!-- everything must start at the 8th column, except the line comment, that is indicated ONLY by a * in the 7th -->
+    <context id="bad-ident" style-ref="error" end-at-line-end="true" class="error" class-disabled="no-spell-check">
+      <start>^\s{0,6}\w</start>
+    </context>
+
+    <!-- http://docs.hp.com/en/65/books/lrintr.htm -->
+    <context id="bad-long-line" style-ref="error">
+      <match>.{74,}</match>
+    </context>
+
+    <!-- Credits: http://stackoverflow.com/questions/632475/regex-to-pick-commas-outside-of-quotes -->
+    <context id="bad-comment-line" style-ref="error" end-at-line-end="true" class="error" class-disabled="no-spell-check">
+      <start>(\*)(?=(?:[^"']|["|'][^"']*")*$)</start>
+    </context>
+
+    <context id="variable" style-ref="variable">
+      <match>\b([A-Za-z0-9_]*)\b</match>
+    </context>
+
+    <context id="string-double-quote" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+    </context>
+
+    <context id="string-single-quote" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+    </context>
+
+    <context id="number" style-ref="number">
+      <match extended="true">
+        \b[0-9]+(\.[0-9]+)?\b
+      </match>
+    </context>
+
+    <context id="constant" style-ref="constant">
+      <keyword>space</keyword>
+      <keyword>spaces</keyword>
+      <keyword>null</keyword>
+      <keyword>zero</keyword>
+      <keyword>zeroes</keyword>
+      <keyword>zeros</keyword>
+      <keyword>low-values</keyword>
+      <keyword>low-value</keyword>
+      <keyword>high-values</keyword>
+      <keyword>high-value</keyword>
+      <keyword>quotes</keyword>
+      <keyword>quote</keyword>
+    </context>
+
+    <context id="keyword" style-ref="keyword">
+      <keyword>accept</keyword>
+      <keyword>access</keyword>
+      <keyword>active-class</keyword>
+      <keyword>add</keyword>
+      <keyword>address</keyword>
+      <keyword>advancing</keyword>
+      <keyword>after</keyword>
+      <keyword>all</keyword>
+      <keyword>allocate</keyword>
+      <keyword>alphabet</keyword>
+      <keyword>alphabetic-lower</keyword>
+      <keyword>alphabetic-upper</keyword>
+      <keyword>alphabetic</keyword>
+      <keyword>alphanumeric-edited</keyword>
+      <keyword>alphanumeric</keyword>
+      <keyword>also</keyword>
+      <keyword>alter</keyword>
+      <keyword>alternate</keyword>
+      <keyword>and</keyword>
+      <keyword>any</keyword>
+      <keyword>anycase</keyword>
+      <keyword>are</keyword>
+      <keyword>area</keyword>
+      <keyword>areas</keyword>
+      <keyword>as</keyword>
+      <keyword>ascending</keyword>
+      <keyword>assign</keyword>
+      <keyword>at</keyword>
+      <keyword>author</keyword>
+
+      <keyword>b-and</keyword>
+      <keyword>b-not</keyword>
+      <keyword>b-or</keyword>
+      <keyword>b-xor</keyword>
+      <keyword>based</keyword>
+      <keyword>before</keyword>
+      <keyword>beginning</keyword>
+      <keyword>binary-char</keyword>
+      <keyword>binary-double</keyword>
+      <keyword>binary-long</keyword>
+      <keyword>binary-short</keyword>
+      <keyword>binary</keyword>
+      <keyword>bit</keyword>
+      <keyword>blank</keyword>
+      <keyword>block</keyword>
+      <keyword>boolean</keyword>
+      <keyword>bottom</keyword>
+      <keyword>by</keyword>
+
+      <keyword>case</keyword>
+      <keyword>cbl-ctr</keyword>
+      <keyword>cf</keyword>
+      <keyword>ch</keyword>
+      <keyword>character</keyword>
+      <keyword>characters</keyword>
+      <keyword>checking</keyword>
+      <keyword>class-id</keyword>
+      <keyword>class-units</keyword>
+      <keyword>class</keyword>
+      <keyword>close</keyword>
+      <keyword>code</keyword>
+      <keyword>code-set</keyword>
+      <keyword>col</keyword>
+      <keyword>collating</keyword>
+      <keyword>cols</keyword>
+      <keyword>column</keyword>
+      <keyword>columns</keyword>
+      <keyword>comma</keyword>
+      <keyword>commit</keyword>
+      <keyword>common</keyword>
+      <keyword>communication</keyword>
+      <keyword>comp-1</keyword>
+      <keyword>comp-2</keyword>
+      <keyword>comp-3</keyword>
+      <keyword>comp-5</keyword>
+      <keyword>comp</keyword>
+      <keyword>computational-1</keyword>
+      <keyword>computational-2</keyword>
+      <keyword>computational-3</keyword>
+      <keyword>computational-5</keyword>
+      <keyword>computational</keyword>
+      <keyword>compute</keyword>
+      <keyword>condition</keyword>
+      <keyword>connect</keyword>
+      <keyword>console</keyword>
+      <keyword>constant</keyword>
+      <keyword>contains</keyword>
+      <keyword>content</keyword>
+      <keyword>continue</keyword>
+      <keyword>control</keyword>
+      <keyword>controls</keyword>
+      <keyword>converting</keyword>
+      <keyword>copy</keyword>
+      <keyword>corr</keyword>
+      <keyword>corresponding</keyword>
+      <keyword>count</keyword>
+      <keyword>creating</keyword>
+      <keyword>crt</keyword>
+      <keyword>currency</keyword>
+      <keyword>current</keyword>
+      <keyword>cursor</keyword>
+
+      <keyword>data-pointer</keyword>
+      <keyword>database-exception</keyword>
+      <keyword>database-key-long</keyword>
+      <keyword>database-key</keyword>
+      <keyword>date-compiled</keyword>
+      <keyword>date-written</keyword>
+      <keyword>date</keyword>
+      <keyword>day</keyword>
+      <keyword>day-of-week</keyword>
+      <keyword>db</keyword>
+      <keyword>de</keyword>
+      <keyword>debug-contents</keyword>
+      <keyword>debug-item</keyword>
+      <keyword>debug-line</keyword>
+      <keyword>debug-name</keyword>
+      <keyword>debug-sub-1</keyword>
+      <keyword>debug-sub-2</keyword>
+      <keyword>debug-sub-3</keyword>
+      <keyword>debugging</keyword>
+      <keyword>decimal-point</keyword>
+      <keyword>declaratives</keyword>
+      <keyword>default</keyword>
+      <keyword>delete</keyword>
+      <keyword>delimited</keyword>
+      <keyword>delimiter</keyword>
+      <keyword>depending</keyword>
+      <keyword>descending</keyword>
+      <keyword>detail</keyword>
+      <keyword>disable</keyword>
+      <keyword>disc</keyword>
+      <keyword>disconnect</keyword>
+      <keyword>display</keyword>
+      <keyword>divide</keyword>
+      <keyword>division</keyword>
+      <keyword>down</keyword>
+      <keyword>duplicate</keyword>
+      <keyword>duplicates</keyword>
+      <keyword>dynamic</keyword>
+
+      <keyword>ebcdic</keyword>
+      <keyword>ec</keyword>
+      <keyword>else</keyword>
+      <keyword>empty</keyword>
+      <keyword>enable</keyword>
+      <keyword>end-accept</keyword>
+      <keyword>end-add</keyword>
+      <keyword>end-compute</keyword>
+      <keyword>end-delete</keyword>
+      <keyword>end-display</keyword>
+      <keyword>end-divide</keyword>
+      <keyword>end-evaluate</keyword>
+      <keyword>end-invoke</keyword>
+      <keyword>end-multiply</keyword>
+      <keyword>end-of-page</keyword>
+      <keyword>end-read</keyword>
+      <keyword>end-receive</keyword>
+      <keyword>end-return</keyword>
+      <keyword>end-rewrite</keyword>
+      <keyword>end-search</keyword>
+      <keyword>end-start</keyword>
+      <keyword>end-string</keyword>
+      <keyword>end-subtract</keyword>
+      <keyword>end-unstring</keyword>
+      <keyword>end-write</keyword>
+      <keyword>end</keyword>
+      <keyword>ending</keyword>
+      <keyword>entry</keyword>
+      <keyword>eo</keyword>
+      <keyword>eop</keyword>
+      <keyword>equal</keyword>
+      <keyword>equals</keyword>
+      <keyword>erase</keyword>
+      <keyword>error</keyword>
+      <keyword>escape</keyword>
+      <keyword>evaluate</keyword>
+      <keyword>every</keyword>
+      <keyword>exception-object</keyword>
+      <keyword>exception</keyword>
+      <keyword>exclusive</keyword>
+      <keyword>exit</keyword>
+      <keyword>extend</keyword>
+      <keyword>extended</keyword>
+      <keyword>external</keyword>
+
+      <keyword>factory</keyword>
+      <keyword>false</keyword>
+      <keyword>fd</keyword>
+      <keyword>fetch</keyword>
+      <keyword>file-control</keyword>
+      <keyword>filler</keyword>
+      <keyword>final</keyword>
+      <keyword>find</keyword>
+      <keyword>finish</keyword>
+      <keyword>first</keyword>
+      <keyword>float-extended</keyword>
+      <keyword>float-long</keyword>
+      <keyword>float-short</keyword>
+      <keyword>footing</keyword>
+      <keyword>for</keyword>
+      <keyword>format</keyword>
+      <keyword>free</keyword>
+      <keyword>from</keyword>
+      <keyword>function-id</keyword>
+      <keyword>function</keyword>
+
+      <keyword>generate</keyword>
+      <keyword>get</keyword>
+      <keyword>giving</keyword>
+      <keyword>global</keyword>
+      <keyword>go</keyword>
+      <keyword>greater</keyword>
+      <keyword>group-usage</keyword>
+      <keyword>group</keyword>
+
+      <keyword>heading</keyword>
+
+      <keyword>i-o-control</keyword>
+      <keyword>i-o</keyword>
+      <keyword>id</keyword>
+      <keyword>ignoring</keyword>
+      <keyword>in</keyword>
+      <keyword>including</keyword>
+      <keyword>index</keyword>
+      <keyword>indexed</keyword>
+      <keyword>indicate</keyword>
+      <keyword>inherits</keyword>
+      <keyword>initial</keyword>
+      <keyword>initialize</keyword>
+      <keyword>initiate</keyword>
+      <keyword>input</keyword>
+      <keyword>inspect</keyword>
+      <keyword>installation</keyword>
+      <keyword>interface</keyword>
+      <keyword>interface-id</keyword>
+      <keyword>into</keyword>
+      <keyword>invalid</keyword>
+      <keyword>is</keyword>
+
+      <keyword>just</keyword>
+      <keyword>justified</keyword>
+
+      <keyword>keep</keyword>
+      <keyword>key</keyword>
+
+      <keyword>label</keyword>
+      <keyword>last</keyword>
+      <keyword>leading</keyword>
+      <keyword>left</keyword>
+      <keyword>length</keyword>
+      <keyword>less</keyword>
+      <keyword>limit</keyword>
+      <keyword>limited</keyword>
+      <keyword>limits</keyword>
+      <keyword>linage</keyword>
+      <keyword>line</keyword>
+      <keyword>line-counter</keyword>
+      <keyword>lines</keyword>
+      <keyword>locale</keyword>
+      <keyword>lock</keyword>
+
+      <keyword>mask</keyword>
+      <keyword>matching</keyword>
+      <keyword>member</keyword>
+      <keyword>members</keyword>
+      <keyword>membership</keyword>
+      <keyword>memory</keyword>
+      <keyword>merge</keyword>
+      <keyword>message</keyword>
+      <keyword>method</keyword>
+      <keyword>method-id</keyword>
+      <keyword>minus</keyword>
+      <keyword>mode</keyword>
+      <keyword>modify</keyword>
+      <keyword>modules</keyword>
+      <keyword>more-labels</keyword>
+      <keyword>move</keyword>
+      <keyword>multiple</keyword>
+      <keyword>multiply</keyword>
+
+      <keyword>national-edited</keyword>
+      <keyword>national</keyword>
+      <keyword>native</keyword>
+      <keyword>negative</keyword>
+      <keyword>nested</keyword>
+      <keyword>next</keyword>
+      <keyword>no</keyword>
+      <keyword>not</keyword>
+      <keyword>number</keyword>
+      <keyword>numeric-edited</keyword>
+      <keyword>numeric</keyword>
+
+      <keyword>object-computer</keyword>
+      <keyword>object-reference</keyword>
+      <keyword>object</keyword>
+      <keyword>occurence</keyword>
+      <keyword>occurs</keyword>
+      <keyword>of</keyword>
+      <keyword>off</keyword>
+      <keyword>omitted</keyword>
+      <keyword>on</keyword>
+      <keyword>open</keyword>
+      <keyword>optional</keyword>
+      <keyword>options</keyword>
+      <keyword>or</keyword>
+      <keyword>order</keyword>
+      <keyword>organization</keyword>
+      <keyword>other</keyword>
+      <keyword>output</keyword>
+      <keyword>overflow</keyword>
+      <keyword>override</keyword>
+      <keyword>owner</keyword>
+
+      <keyword>packed-decimal</keyword>
+      <keyword>padding</keyword>
+      <keyword>page-counter</keyword>
+      <keyword>page</keyword>
+      <keyword>permanent</keyword>
+      <keyword>pf</keyword>
+      <keyword>ph</keyword>
+      <keyword>pic</keyword>
+      <keyword>picture</keyword>
+      <keyword>plus</keyword>
+      <keyword>pointer</keyword>
+      <keyword>position</keyword>
+      <keyword>positive</keyword>
+      <keyword>present</keyword>
+      <keyword>print-switch</keyword>
+      <keyword>printing</keyword>
+      <keyword>prior</keyword>
+      <keyword>proceed</keyword>
+      <keyword>program-begin</keyword>
+      <keyword>program-done</keyword>
+      <keyword>program-id</keyword>
+      <keyword>program-pointer</keyword>
+      <keyword>program</keyword>
+      <keyword>property</keyword>
+      <keyword>protected</keyword>
+      <keyword>prototype</keyword>
+      <keyword>purge</keyword>
+
+      <keyword>raise</keyword>
+      <keyword>raising</keyword>
+      <keyword>random</keyword>
+      <keyword>rd</keyword>
+      <keyword>read</keyword>
+      <keyword>ready</keyword>
+      <keyword>realm-name</keyword>
+      <keyword>realm</keyword>
+      <keyword>receive</keyword>
+      <keyword>record</keyword>
+      <keyword>recording</keyword>
+      <keyword>records</keyword>
+      <keyword>redefines</keyword>
+      <keyword>reel</keyword>
+      <keyword>reference</keyword>
+      <keyword>relative</keyword>
+      <keyword>release</keyword>
+      <keyword>remainder</keyword>
+      <keyword>removal</keyword>
+      <keyword>renames</keyword>
+      <keyword>repeated</keyword>
+      <keyword>replace</keyword>
+      <keyword>replacing</keyword>
+      <keyword>report</keyword>
+      <keyword>reporting</keyword>
+      <keyword>reports</keyword>
+      <keyword>repository</keyword>
+      <keyword>rerun</keyword>
+      <keyword>reserve</keyword>
+      <keyword>reset</keyword>
+      <keyword>result</keyword>
+      <keyword>resume</keyword>
+      <keyword>retaining</keyword>
+      <keyword>retrieval</keyword>
+      <keyword>retry</keyword>
+      <keyword>return</keyword>
+      <keyword>returning</keyword>
+      <keyword>reversed</keyword>
+      <keyword>rewind</keyword>
+      <keyword>rewrite</keyword>
+      <keyword>rf</keyword>
+      <keyword>rh</keyword>
+      <keyword>right</keyword>
+      <keyword>rollback</keyword>
+      <keyword>rounded</keyword>
+      <keyword>run</keyword>
+
+      <keyword>same</keyword>
+      <keyword>screen</keyword>
+      <keyword>sd</keyword>
+      <keyword>search</keyword>
+      <keyword>section</keyword>
+      <keyword>security</keyword>
+      <keyword>segment-limit</keyword>
+      <keyword>select</keyword>
+      <keyword>selective</keyword>
+      <keyword>self</keyword>
+      <keyword>send</keyword>
+      <keyword>sentence</keyword>
+      <keyword>separate</keyword>
+      <keyword>sequence</keyword>
+      <keyword>sequential</keyword>
+      <keyword>set-selection</keyword>
+      <keyword>set</keyword>
+      <keyword>sets</keyword>
+      <keyword>sharing</keyword>
+      <keyword>sign</keyword>
+      <keyword>size</keyword>
+      <keyword>sort-merge</keyword>
+      <keyword>sort-tape</keyword>
+      <keyword>sort-tapes</keyword>
+      <keyword>sort</keyword>
+      <keyword>sorted</keyword>
+      <keyword>source-computer</keyword>
+      <keyword>source</keyword>
+      <keyword>sources</keyword>
+      <keyword>special-names</keyword>
+      <keyword>standard-1</keyword>
+      <keyword>standard-2</keyword>
+      <keyword>standard</keyword>
+      <keyword>start</keyword>
+      <keyword>status</keyword>
+      <keyword>stop</keyword>
+      <keyword>store</keyword>
+      <keyword>string</keyword>
+      <keyword>sub-schema</keyword>
+      <keyword>subtract</keyword>
+      <keyword>sum</keyword>
+      <keyword>super</keyword>
+      <keyword>suppress</keyword>
+      <keyword>suppressing</keyword>
+      <keyword>symbolic</keyword>
+      <keyword>sync</keyword>
+      <keyword>synchronized</keyword>
+      <keyword>system-default</keyword>
+      <keyword>system</keyword>
+
+      <keyword>table</keyword>
+      <keyword>tally</keyword>
+      <keyword>tallying</keyword>
+      <keyword>tape</keyword>
+      <keyword>tapes</keyword>
+      <keyword>tenant</keyword>
+      <keyword>terminal</keyword>
+      <keyword>terminate</keyword>
+      <keyword>test</keyword>
+      <keyword>than</keyword>
+      <keyword>then</keyword>
+      <keyword>through</keyword>
+      <keyword>thru</keyword>
+      <keyword>time</keyword>
+      <keyword>times</keyword>
+      <keyword>to</keyword>
+      <keyword>top</keyword>
+      <keyword>trailing</keyword>
+      <keyword>true</keyword>
+      <keyword>try</keyword>
+      <keyword>type</keyword>
+      <keyword>typedef</keyword>
+
+      <keyword>unit</keyword>
+      <keyword>units</keyword>
+      <keyword>universal</keyword>
+      <keyword>unlock</keyword>
+      <keyword>unstring</keyword>
+      <keyword>until</keyword>
+      <keyword>up</keyword>
+      <keyword>update</keyword>
+      <keyword>upon</keyword>
+      <keyword>usage-mode</keyword>
+      <keyword>usage</keyword>
+      <keyword>use</keyword>
+      <keyword>user-default</keyword>
+      <keyword>using</keyword>
+
+      <keyword>val-status</keyword>
+      <keyword>valid</keyword>
+      <keyword>validate-status</keyword>
+      <keyword>validate</keyword>
+      <keyword>value</keyword>
+      <keyword>values</keyword>
+      <keyword>varying</keyword>
+      <keyword>via</keyword>
+
+      <keyword>when</keyword>
+      <keyword>with</keyword>
+      <keyword>within</keyword>
+      <keyword>words</keyword>
+      <keyword>write</keyword>
+    </context>
+
+    <context id="section-name" style-ref="keyword">
+      <keyword>configuration</keyword>
+      <keyword>input-output</keyword>
+      <keyword>file</keyword>
+      <keyword>working-storage</keyword>
+      <keyword>local-storage</keyword>
+      <keyword>linkage</keyword>
+    </context>
+
+    <context id="division-name" style-ref="keyword">
+      <keyword>identification</keyword>
+      <keyword>environment</keyword>
+      <keyword>data</keyword>
+      <keyword>procedure</keyword>
+    </context>
+
+    <context id="call" style-ref="statement">
+      <keyword>end-call</keyword>
+      <keyword>call</keyword>
+      <keyword>cancel</keyword>
+      <keyword>goback</keyword>
+      <keyword>end-perform</keyword>
+      <keyword>perform</keyword>
+      <keyword>invoke</keyword>
+      <keyword>end-if</keyword>
+      <keyword>if</keyword>
+    </context>
+
+    <context id="cobol" class="no-spell-check">
+      <include>
+        <context ref="constant"/>
+        <context ref="keyword"/>
+        <context ref="call"/>
+        <context ref="division-name"/>
+        <context ref="section-name"/>
+        <context ref="line-comment"/>
+        <context ref="bad-ident"/>
+        <context ref="bad-comment-line"/>
+        <context ref="bad-long-line"/>
+        <context ref="string-double-quote"/>
+        <context ref="string-single-quote"/>
+        <context ref="number"/>
+        <context ref="variable"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

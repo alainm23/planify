@@ -1,38 +1,66 @@
 {
     "developers" : [
         {
-            "name": "Alain M. (alainm23)",
+            "id": "33765137",
+            "name": "Alain M.",
+            "username": "alainm23",
             "avatar": "https://avatars0.githubusercontent.com/u/33765137?v=4",
             "profile_url": "https://github.com/alainm23"
         }
     ],
     "designers" : [
         {
-            "name": "Alain M. (alainm23)",
+            "id": "33765137",
+            "name": "Alain M",
+            "username": "alainm23",
             "avatar": "https://avatars0.githubusercontent.com/u/33765137?v=4",
             "profile_url": "https://github.com/alainm23"
         },
         {
-            "name": "Alessandro (Alecaddd)",
+            "id": "2527103",
+            "name": "Alessandro",
+            "username": "Alecaddd",
             "avatar": "https://avatars1.githubusercontent.com/u/2527103?v=4",
             "profile_url": "https://github.com/Alecaddd"
         }
     ],
     "translators" : [
         {
+            "id": "33765137",
             "name": "Alain M.",
-            "avatar": "",
-            "profile_url": ""
+            "username": "alainm23",
+            "avatar": "https://avatars0.githubusercontent.com/u/33765137?v=4",
+            "profile_url": "https://github.com/alainm23"
         },
         {
+            "id": "4456790",
             "name": "Marciel Sousa",
-            "avatar": "",
-            "profile_url": ""
+            "username": "marcielmj",
+            "avatar": "https://avatars1.githubusercontent.com/u/4456790?s=400&v=4",
+            "profile_url": "https://github.com/marcielmj"
         },
         {
+            "id": "41022093",
             "name": "Prongs Dark",
-            "avatar": "",
-            "profile_url": ""
+            "username": "realProngsDark",
+            "avatar": "https://avatars3.githubusercontent.com/u/41022093?s=400&v=4",
+            "profile_url": "https://github.com/realProngsDark"
+        },
+        {
+            "id": "45366162",
+            "name": "Nathan",
+            "username": "NathanBnm",
+            "avatar": "https://avatars2.githubusercontent.com/u/45366162?s=400&v=4",
+            "profile_url": "https://github.com/NathanBnm"
+        }
+    ],
+    "supports" : [
+        {
+            "id": "29329325",
+            "name": "Haris",
+            "username": "harisvsulaiman",
+            "avatar": "https://avatars0.githubusercontent.com/u/29329325?s=400&v=4",
+            "profile_url": "https://github.com/harisvsulaiman"
         }
     ]
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  
+  <schema path="/org/gnome/evolution/shell/" id="org.gnome.evolution.eds-shell">
+    <key type="b" name="start-offline">
+      <default>false</default>
+      <summary>Start in offline mode</summary>
+      <description>Whether Evolution will start up in offline mode instead of online mode.</description>
+    </key>
+  </schema>
+</schemalist>

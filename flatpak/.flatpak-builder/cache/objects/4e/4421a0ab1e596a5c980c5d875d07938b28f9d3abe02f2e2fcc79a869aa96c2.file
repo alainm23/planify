@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Paolo Maggi <paolo@gnome.org>
+ Copyright (C) 2005 Paolo Maggi <paolo@gnome.org>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="idl" name="IDL" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-idl</property>
+    <property name="globs">*.idl</property>
+    <property name="line-comment-start">//</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="type" name="Data Type" map-to="def:type"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="keyword" name="Keyword" map-to="def:keyword"/>
+    <style id="string" name="String" map-to="def:string"/>
+  </styles>
+
+  <definitions>
+    <context id="block-comment" style-ref="comment" class="comment" class-disabled="no-spell-check">
+      <start>/\*</start>
+      <end>\*/</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>//</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="sectional" style-ref="preprocessor">
+      <start>%\{</start>
+      <end>%\}</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="include-pragma" style-ref="preprocessor" end-at-line-end="true">
+      <start>^#[ \t]*(include|pragma)</start>
+      <include>
+        <context ref="def:escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+    <context id="keywords" style-ref="keyword">
+      <keyword>abstract</keyword>
+      <keyword>attribute</keyword>
+      <keyword>case</keyword>
+      <keyword>const</keyword>
+      <keyword>context</keyword>
+      <keyword>custom</keyword>
+      <keyword>default</keyword>
+      <keyword>exception</keyword>
+      <keyword>enum</keyword>
+      <keyword>factory</keyword>
+      <keyword>FALSE</keyword>
+      <keyword>in</keyword>
+      <keyword>inout</keyword>
+      <keyword>interface</keyword>
+      <keyword>local</keyword>
+      <keyword>module</keyword>
+      <keyword>native</keyword>
+      <keyword>oneway</keyword>
+      <keyword>out</keyword>
+      <keyword>private</keyword>
+      <keyword>public</keyword>
+      <keyword>raises</keyword>
+      <keyword>readonly</keyword>
+      <keyword>struct</keyword>
+      <keyword>support</keyword>
+      <keyword>switch</keyword>
+      <keyword>TRUE</keyword>
+      <keyword>truncatable</keyword>
+      <keyword>typedef</keyword>
+      <keyword>union</keyword>
+      <keyword>valuetype</keyword>
+    </context>
+    <context id="types" style-ref="type">
+      <keyword>any</keyword>
+      <keyword>boolean</keyword>
+      <keyword>char</keyword>
+      <keyword>double</keyword>
+      <keyword>fixed</keyword>
+      <keyword>float</keyword>
+      <keyword>long</keyword>
+      <keyword>Object</keyword>
+      <keyword>octet</keyword>
+      <keyword>sequence</keyword>
+      <keyword>short</keyword>
+      <keyword>string</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>ValueBase</keyword>
+      <keyword>void</keyword>
+      <keyword>wchar</keyword>
+      <keyword>wstring</keyword>
+    </context>
+    <context id="preprocessor-definitions" style-ref="preprocessor">
+      <prefix>^[ \t]*#[ \t]*</prefix>
+      <keyword>if</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>ifndef</keyword>
+      <keyword>else</keyword>
+      <keyword>elif</keyword>
+      <keyword>define</keyword>
+      <keyword>endif</keyword>
+      <keyword>undef</keyword>
+    </context>
+    <context id="idl" class="no-spell-check">
+      <include>
+        <context ref="block-comment"/>
+        <context ref="line-comment"/>
+        <context ref="sectional"/>
+        <context ref="string"/>
+        <context ref="include-pragma"/>
+        <context ref="keywords"/>
+        <context ref="types"/>
+        <context ref="preprocessor-definitions"/>
+      </include>
+    </context>
+  </definitions>
+</language>

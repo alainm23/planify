@@ -1,0 +1,126 @@
+digraph g {
+graph [
+];
+node [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+shape = "box"
+color = "black"
+width = "0.5"
+];
+edge [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+"22690" [
+label = "22690\n?"
+pname = "?"
+kind = "proc"
+];
+"22692" [
+label = "22692\ndotty"
+pname = "dotty"
+kind = "proc"
+];
+"116842+2595" [
+label = "116842+2595\n/home/ek/work/sun4/bin/dotty"
+fname = "/home/ek/work/sun4/bin/dotty"
+shape = "ellipse"
+kind = "file"
+];
+"22693" [
+label = "22693\nlefty"
+pname = "lefty"
+kind = "proc"
+];
+"182440-1" [
+label = "182440-1\n182441-1\npipe"
+fontsize = "7"
+fname = "pipe"
+shape = "doublecircle"
+subkind = "pipe"
+kind = "file"
+];
+"182442-1" [
+label = "182442-1\n182443-1\npipe"
+fontsize = "7"
+fname = "pipe"
+shape = "doublecircle"
+subkind = "pipe"
+kind = "file"
+];
+"22694" [
+label = "22694\ndot"
+pname = "dot"
+kind = "proc"
+];
+"4761+2595" [
+label = "4761+2595\n/home/ek/pm2.dot"
+fname = "/home/ek/pm2.dot"
+shape = "ellipse"
+kind = "file"
+];
+"22690" -> "22692" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+"22692" -> "116842+2595" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "back"
+color = "black"
+];
+"22692" -> "22693" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+"22693" -> "182440-1" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "back"
+color = "black"
+];
+"22693" -> "182442-1" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "forward"
+color = "black"
+];
+"22693" -> "22694" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+color = "black"
+];
+"22694" -> "182440-1" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "forward"
+color = "black"
+];
+"22694" -> "182442-1" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "back"
+color = "black"
+];
+"22693" -> "4761+2595" [
+fontsize = "14"
+fontname = "Times-Roman"
+fontcolor = "black"
+dir = "back"
+color = "black"
+];
+}

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Authors:  Chong Kai Xiong, Simon Wenner
+ Copyright (C) 2005-2006  Chong Kai Xiong  <descender@phreaker.net>
+ Copyright (C) 2009-2010  Simon Wenner  <simon@wenner.ch>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!--
+ Defines all symbols of the OpenGL Shading Language (GLSL) version 4.0.
+ Specification (February 12, 2010):
+http://www.opengl.org/registry/doc/GLSLangSpec.4.00.7.pdf
+-->
+<language id="glsl" _name="OpenGL Shading Language" version="2.0" _section="Source">
+
+  <metadata>
+    <property name="globs">*.glslv;*.glslf;*.glsl</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="preprocessor"      name="Preprocessor"          map-to="def:preprocessor"/>
+    <style id="type"              name="Data Type"             map-to="def:type"/>
+    <style id="keyword"           name="Keyword"               map-to="def:keyword"/>
+    <style id="builtin-function"  name="Builtin Function"      map-to="def:builtin"/>
+    <style id="builtin-constant"  name="Builtin Constant"      map-to="def:constant"/>
+    <style id="builtin-variable"  name="Builtin Variable"      map-to="def:identifier"/>
+    <style id="future-use"        name="Reserved Keywords"/>
+  </styles>
+
+  <definitions>
+    <context id="preprocessor" style-ref="preprocessor">
+      <prefix>^[ \t]*#[ \t]*</prefix>
+      <keyword>define</keyword>
+      <keyword>undef</keyword>
+      <keyword>(if|elif)([ \t]+defined)?</keyword>
+      <keyword>ifdef</keyword>
+      <keyword>ifndef</keyword>
+      <keyword>else</keyword>
+      <keyword>endif</keyword>
+      <keyword>error</keyword>
+      <keyword>pragma</keyword>
+      <keyword>extension</keyword>
+      <keyword>version</keyword>
+      <keyword>line</keyword>
+    </context>
+
+    <context id="common-macros" style-ref="preprocessor">
+      <keyword>__VERSION__</keyword>
+      <keyword>__LINE__</keyword>
+      <keyword>__FILE__</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>discard</keyword>
+      <keyword>do</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>else</keyword>
+      <keyword>return</keyword>
+      <keyword>while</keyword>
+      <keyword>switch</keyword>
+      <keyword>case</keyword>
+      <keyword>default</keyword>
+      <!-- qualifiers -->
+      <keyword>attribute</keyword>
+      <keyword>const</keyword>
+      <keyword>in</keyword>
+      <keyword>inout</keyword>
+      <keyword>out</keyword>
+      <keyword>uniform</keyword>
+      <keyword>varying</keyword>
+      <keyword>invariant</keyword>
+      <keyword>centroid</keyword>
+      <keyword>flat</keyword>
+      <keyword>smooth</keyword>
+      <keyword>noperspective</keyword>
+      <keyword>layout</keyword>
+      <keyword>patch</keyword>
+      <keyword>sample</keyword>
+      <keyword>subroutine</keyword>
+      <!-- precision -->
+      <keyword>lowp</keyword>
+      <keyword>mediump</keyword>
+      <keyword>highp</keyword>
+      <keyword>precision</keyword>
+    </context>
+
+    <context id="primitives" style-ref="type">
+      <keyword>bool</keyword>
+      <keyword>float</keyword>
+      <keyword>double</keyword>
+      <keyword>int</keyword>
+      <keyword>uint</keyword>
+      <keyword>struct</keyword>
+      <keyword>void</keyword>
+      <keyword>[bdiu]?vec[2-4]</keyword>
+      <keyword>[d]?mat[2-4]</keyword>
+      <keyword>[d]?mat[2-4]x[2-4]</keyword>
+      <keyword>[iu]?sampler[1-3]D</keyword>
+      <keyword>sampler[1-2]DShadow</keyword>
+      <keyword>[iu]?sampler[1-2]DArray</keyword>
+      <keyword>sampler[1-2]DArrayShadow</keyword>
+      <keyword>[iu]?samplerCube</keyword>
+      <keyword>samplerCubeShadow</keyword>
+      <keyword>[iu]?sampler2DRect</keyword>
+      <keyword>sampler2DRectShadow</keyword>
+      <keyword>[iu]?samplerBuffer</keyword>
+      <keyword>[iu]?sampler2DMS</keyword>
+      <keyword>[iu]?sampler2DMSArray</keyword>
+      <keyword>[iu]?sampler2DMSCubeArray</keyword>
+      <keyword>samplerCubeArrayShadow</keyword>
+    </context>
+
+    <context id="reserved-keywords-for-future-use" style-ref="future-use">
+      <keyword>common</keyword>
+      <keyword>partition</keyword>
+      <keyword>active</keyword>
+      <keyword>asm</keyword>
+      <keyword>class</keyword>
+      <keyword>union</keyword>
+      <keyword>enum</keyword>
+      <keyword>typedef</keyword>
+      <keyword>template</keyword>
+      <keyword>this</keyword>
+      <keyword>packed</keyword>
+      <keyword>goto</keyword>
+      <keyword>inline</keyword>
+      <keyword>noinline</keyword>
+      <keyword>volatile</keyword>
+      <keyword>public</keyword>
+      <keyword>static</keyword>
+      <keyword>extern</keyword>
+      <keyword>external</keyword>
+      <keyword>interface</keyword>
+      <keyword>long</keyword>
+      <keyword>short</keyword>
+      <keyword>half</keyword>
+      <keyword>fixed</keyword>
+      <keyword>unsigned</keyword>
+      <keyword>input</keyword>
+      <keyword>output</keyword>
+      <keyword>[hf]vec[2-4]</keyword>
+      <keyword>sampler3DRect</keyword>
+      <keyword>filter</keyword>
+      <keyword>sizeof</keyword>
+      <keyword>cast</keyword>
+      <keyword>namespace</keyword>
+      <keyword>using</keyword>
+      <keyword>row_major</keyword>
+    </context>
+
+    <context id="builtin-functions" style-ref="builtin-function">
+      <!-- Section 8.1 -->
+      <keyword>radians</keyword>
+      <keyword>degrees</keyword>
+      <keyword>sin</keyword>
+      <keyword>cos</keyword>
+      <keyword>tan</keyword>
+      <keyword>asin</keyword>
+      <keyword>acos</keyword>
+      <keyword>atan</keyword>
+      <keyword>sinh</keyword>
+      <keyword>cosh</keyword>
+      <keyword>tanh</keyword>
+      <keyword>asinh</keyword>
+      <keyword>acosh</keyword>
+      <keyword>atanh</keyword>
+      <!-- Section 8.2 -->
+      <keyword>pow</keyword>
+      <keyword>exp</keyword>
+      <keyword>log</keyword>
+      <keyword>exp2</keyword>
+      <keyword>log2</keyword>
+      <keyword>sqrt</keyword>
+      <keyword>inversesqrt</keyword>
+      <!-- Section 8.3 -->
+      <keyword>abs</keyword>
+      <keyword>sign</keyword>
+      <keyword>floor</keyword>
+      <keyword>trunc</keyword>
+      <keyword>round</keyword>
+      <keyword>roundEven</keyword>
+      <keyword>ceil</keyword>
+      <keyword>fract</keyword>
+      <keyword>mod</keyword>
+      <keyword>modf</keyword>
+      <keyword>min</keyword>
+      <keyword>max</keyword>
+      <keyword>clamp</keyword>
+      <keyword>mix</keyword>
+      <keyword>step</keyword>
+      <keyword>smoothstep</keyword>
+      <keyword>isnan</keyword>
+      <keyword>isinf</keyword>
+      <keyword>floatBitsToInt</keyword>
+      <keyword>floatBitsToUint</keyword>
+      <keyword>intBitsToFloat</keyword>
+      <keyword>uintBitsToFloat</keyword>
+      <keyword>fma</keyword>
+      <keyword>frexp</keyword>
+      <keyword>ldexp</keyword>
+      <!-- Section 8.4 -->
+      <keyword>packUnorm2x16</keyword>
+      <keyword>packUnorm4x8</keyword>
+      <keyword>packSnorm4x8</keyword>
+      <keyword>unpackUnorm2x16</keyword>
+      <keyword>unpackUnorm4x8</keyword>
+      <keyword>unpackSnorm4x8</keyword>
+      <keyword>packDouble2x32</keyword>
+      <keyword>unpackDouble2x32</keyword>
+      <!-- Section 8.5 -->
+      <keyword>length</keyword>
+      <keyword>distance</keyword>
+      <keyword>dot</keyword>
+      <keyword>cross</keyword>
+      <keyword>normalize</keyword>
+      <keyword>ftransform</keyword>
+      <keyword>faceforward</keyword>
+      <keyword>reflect</keyword>
+      <keyword>refract</keyword>
+      <!-- Section 8.6 -->
+      <keyword>matrixCompMult</keyword>
+      <keyword>outerProduct</keyword>
+      <keyword>transpose</keyword>
+      <keyword>determinant</keyword>
+      <keyword>inverse</keyword>
+      <!-- Section 8.7 -->
+      <keyword>lessThan</keyword>
+      <keyword>lessThanEqual</keyword>
+      <keyword>greaterThan</keyword>
+      <keyword>greaterThanEqual</keyword>
+      <keyword>equal</keyword>
+      <keyword>notEqual</keyword>
+      <keyword>any</keyword>
+      <keyword>all</keyword>
+      <keyword>not</keyword>
+      <!-- Section 8.8 -->
+      <keyword>uaddCarry</keyword>
+      <keyword>usubBorrow</keyword>
+      <keyword>umulExtended</keyword>
+      <keyword>imulExtended</keyword>
+      <keyword>bitfieldExtract</keyword>
+      <keyword>bitfildInsert</keyword>
+      <keyword>bitfieldReverse</keyword>
+      <keyword>bitCount</keyword>
+      <keyword>findLSB</keyword>
+      <keyword>findMSB</keyword>
+      <!-- Section 8.9 -->
+      <keyword>textureSize</keyword>
+      <keyword>textureQueryLOD</keyword>
+      <keyword>texture</keyword>
+      <keyword>textureProj</keyword>
+      <keyword>textureLod</keyword>
+      <keyword>textureOffset</keyword>
+      <keyword>texelFetch</keyword>
+      <keyword>texelFetchOffset</keyword>
+      <keyword>textureProjOffset</keyword>
+      <keyword>textureLodOffset</keyword>
+      <keyword>textureProjLod</keyword>
+      <keyword>textureProjLodOffset</keyword>
+      <keyword>textureGrad</keyword>
+      <keyword>textureGradOffset</keyword>
+      <keyword>textureProjGrad</keyword>
+      <keyword>textureProjGradOffset</keyword>
+      <keyword>textureGather</keyword>
+      <keyword>textureGatherOffset</keyword>
+
+      <keyword>texture[1-3]D</keyword>
+      <keyword>texture[1-3]DProj</keyword>
+      <keyword>texture[1-3]DLod</keyword>
+      <keyword>texture[1-3]DProjLod</keyword>
+
+      <keyword>textureCube</keyword>
+      <keyword>textureCubeLod</keyword>
+
+      <keyword>shadow[1-2]D</keyword>
+      <keyword>shadow[1-2]DProj</keyword>
+      <keyword>shadow[1-2]DLod</keyword>
+      <keyword>shadow[1-2]DProjLod</keyword>
+      <!-- Section 8.10 -->
+      <keyword>dFdx</keyword>
+      <keyword>dFdy</keyword>
+      <keyword>fwidth</keyword>
+      <keyword>interpolateAtCentroid</keyword>
+      <keyword>interpolateAtSample</keyword>
+      <keyword>interpolateAtOffset</keyword>
+      <!-- Section 8.11 -->
+      <keyword>noise[1-4]</keyword>
+      <!-- Section 8.12 -->
+      <keyword>EmitStreamVertex</keyword>
+      <keyword>EndStreamPrimitive</keyword>
+      <keyword>EmitVertex</keyword>
+      <keyword>EndPrimitive</keyword>
+      <!-- Section 8.13 -->
+      <keyword>barrier</keyword>
+    </context>
+
+    <context id="builtin-variables" style-ref="builtin-variable">
+      <!-- Section 7.1 (vertex language) -->
+      <keyword>gl_VertexID</keyword>
+      <keyword>gl_InstanceID</keyword>
+      <keyword>gl_Position</keyword>
+      <keyword>gl_PointSize</keyword>
+      <keyword>gl_ClipDistance</keyword>
+      <!-- Section 7.1 (geometry language) -->
+      <keyword>gl_PrimitiveIDIn</keyword>
+      <keyword>gl_InvocationID</keyword>
+      <keyword>gl_PrimitiveID</keyword>
+      <keyword>gl_Layer</keyword>
+      <!-- Section 7.1 (tessellation control language) -->
+      <keyword>gl_PatchVerticesIn</keyword>
+      <keyword>gl_TessLevelOuter</keyword>
+      <keyword>gl_TessLevelInner</keyword>
+      <!-- Section 7.1 (tessellation evaluation language) -->
+      <keyword>gl_TessCoord</keyword>
+      <!-- Section 7.1 (fragment language) -->
+      <keyword>gl_FragCoord</keyword>
+      <keyword>gl_FrontFacing</keyword>
+      <keyword>gl_PointCoord</keyword>
+      <keyword>gl_SampleID</keyword>
+      <keyword>gl_SamplePosition</keyword>
+      <keyword>gl_FragColor</keyword>
+      <keyword>gl_FragData</keyword>
+      <keyword>gl_FragDepth</keyword>
+      <keyword>gl_SampleMask</keyword>
+      <!-- Section 7.1.1 (compatibility profile) -->
+      <keyword>gl_ClipVertex</keyword>
+      <keyword>gl_FrontColor</keyword>
+      <keyword>gl_BackColor</keyword>
+      <keyword>gl_FrontSecondaryColor</keyword>
+      <keyword>gl_BackSecondaryColor</keyword>
+      <keyword>gl_TexCoord</keyword>
+      <keyword>gl_FogFragCoord</keyword>
+      <!-- Section 7.2 (compatibility profile vertex attributes) -->
+      <keyword>gl_Color</keyword>
+      <keyword>gl_SecondaryColor</keyword>
+      <keyword>gl_Normal</keyword>
+      <keyword>gl_Vertex</keyword>
+      <keyword>gl_MultiTexCoord[0-7]</keyword>
+      <keyword>gl_FogCoord</keyword>
+    </context>
+
+    <context id="builtin-constants" style-ref="builtin-constant">
+      <!-- Section 7.3 -->
+      <keyword>gl_MaxVertexAttribs</keyword>
+      <keyword>gl_MaxVertexUniformComponents</keyword>
+      <keyword>gl_MaxVaryingFloats</keyword>
+      <keyword>gl_MaxVaryingComponents</keyword>
+      <keyword>gl_MaxVertexOutputComponents</keyword>
+      <keyword>gl_MaxGeometryInputComponents</keyword>
+      <keyword>gl_MaxGeometryOutputComponents</keyword>
+      <keyword>gl_MaxFragmentInputComponents</keyword>
+      <keyword>gl_MaxVertexTextureImageUnits</keyword>
+      <keyword>gl_MaxCombinedTextureImageUnits</keyword>
+      <keyword>gl_MaxTextureImageUnits</keyword>
+      <keyword>gl_MaxFragmentUniformComponents</keyword>
+      <keyword>gl_MaxDrawBuffers</keyword>
+      <keyword>gl_MaxClipDistances</keyword>
+      <keyword>gl_MaxGeometryTextureImageUnits</keyword>
+      <keyword>gl_MaxGeometryOutputVertices</keyword>
+      <keyword>gl_MaxGeometryTotalOutputComponents</keyword>
+      <keyword>gl_MaxGeometryUniformComponents</keyword>
+      <keyword>gl_MaxGeometryVaryingComponents</keyword>
+      <keyword>gl_MaxTessControlInputComponents</keyword>
+      <keyword>gl_MaxTessControlOutputComponents</keyword>
+      <keyword>gl_MaxTessControlTextureImageUnits</keyword>
+      <keyword>gl_MaxTessControlUniformComponents</keyword>
+      <keyword>gl_MaxTessControlTotalOutputComponents</keyword>
+      <keyword>gl_MaxTessEvaluationInputComponents</keyword>
+      <keyword>gl_MaxTessEvaluationOutputComponents</keyword>
+      <keyword>gl_MaxTessEvaluationTextureImageUnits</keyword>
+      <keyword>gl_MaxTessEvaluationUniformComponents</keyword>
+      <keyword>gl_MaxTessPatchComponents</keyword>
+      <keyword>gl_MaxPatchVertices</keyword>
+      <keyword>gl_MaxTessGenLevel</keyword>
+      <!-- Section 7.3.1 (compatibility profile) -->
+      <keyword>gl_MaxTextureUnits</keyword>
+      <keyword>gl_MaxTextureCoords</keyword>
+      <keyword>gl_MaxClipPlanes</keyword>
+    </context>
+
+    <context id="builtin-uniform-states" style-ref="builtin-constant">
+      <!-- Section 7.4 -->
+      <keyword>gl_DepthRange</keyword>
+
+      <keyword>gl_ModelViewMatrix</keyword>
+      <keyword>gl_ProjectionMatrix</keyword>
+      <keyword>gl_ModelViewProjectionMatrix</keyword>
+      <keyword>gl_TextureMatrix</keyword>
+
+      <keyword>gl_NormalMatrix</keyword>
+
+      <keyword>gl_ModelViewMatrixInverse</keyword>
+      <keyword>gl_ProjectionMatrixInverse</keyword>
+      <keyword>gl_ModelViewProjectionMatrixInverse</keyword>
+      <keyword>gl_TextureMatrixInverse</keyword>
+
+      <keyword>gl_ModelViewMatrixTranspose</keyword>
+      <keyword>gl_ProjectionMatrixTranspose</keyword>
+      <keyword>gl_ModelViewProjectionMatrixTranspose</keyword>
+      <keyword>gl_TextureMatrixTranspose</keyword>
+
+      <keyword>gl_ModelViewMatrixInverseTranspose</keyword>
+      <keyword>gl_ProjectionMatrixInverseTranspose</keyword>
+      <keyword>gl_ModelViewProjectionMatrixInverseTranspose</keyword>
+      <keyword>gl_TextureMatrixInverseTranspose</keyword>
+
+      <keyword>gl_NormalScale</keyword>
+      <keyword>gl_ClipPlane</keyword>
+      <keyword>gl_Point</keyword>
+
+      <keyword>gl_FrontMaterial</keyword>
+      <keyword>gl_BackMaterial</keyword>
+
+      <keyword>gl_LightSource</keyword>
+      <keyword>gl_LightModel</keyword>
+
+      <keyword>gl_FrontLightModelProduct</keyword>
+      <keyword>gl_BackLightModelProduct</keyword>
+
+      <keyword>gl_FrontLightProduct</keyword>
+      <keyword>gl_BackLightProduct</keyword>
+
+      <keyword>gl_TextureEnvColor</keyword>
+      <keyword>gl_EyePlaneS</keyword>
+      <keyword>gl_EyePlaneT</keyword>
+      <keyword>gl_EyePlaneR</keyword>
+      <keyword>gl_EyePlaneQ</keyword>
+      <keyword>gl_ObjectPlaneS</keyword>
+      <keyword>gl_ObjectPlaneT</keyword>
+      <keyword>gl_ObjectPlaneR</keyword>
+      <keyword>gl_ObjectPlaneQ</keyword>
+
+      <keyword>gl_Fog</keyword>
+    </context>
+
+    <context id="glsl">
+      <include>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="c:if0-comment"/>
+        <context ref="preprocessor"/>
+        <context ref="common-macros"/>
+        <context ref="keywords"/>
+        <context ref="primitives"/>
+        <context ref="c:boolean"/>
+        <context ref="c:decimal"/>
+        <context ref="c:octal"/>
+        <context ref="c:hexadecimal"/>
+        <context ref="c:float"/>
+        <context ref="builtin-functions"/>
+        <context ref="builtin-variables"/>
+        <context ref="builtin-constants"/>
+        <context ref="builtin-uniform-states"/>
+        <context ref="reserved-keywords-for-future-use"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>

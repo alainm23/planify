@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.gnome.evolution.dataserver.UserPrompter0
+Exec=/app/libexec/evolution-user-prompter
+SystemdService=evolution-user-prompter.service

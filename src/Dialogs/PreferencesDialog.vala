@@ -137,14 +137,16 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
 
     private Gtk.Widget get_github_login_widget () {
-        var github_image = new Gtk.Image.from_icon_name ("planner-github", Gtk.IconSize.DIALOG);
+        var github_image = new Gtk.Image ();
+        github_image.gicon = new ThemedIcon ("planner-github");
+        github_image.pixel_size = 48;
 
         var title_label = new Gtk.Label (_("Github"));
         title_label.halign = Gtk.Align.START;
         title_label.valign = Gtk.Align.END;
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
-		var subtitle_label = new Gtk.Label (_("Connect your account to work with issues"));
+		var subtitle_label = new Gtk.Label (_("Connect your account to work with Issues"));
         subtitle_label.halign = Gtk.Align.START;
         subtitle_label.valign = Gtk.Align.START;
 		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
@@ -209,6 +211,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         title_grid.attach (subtitle_label, 1, 1, 1, 1);
 
         var main_grid = new Gtk.Grid ();
+        main_grid.margin = 12;
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -268,10 +271,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     
     private Gtk.Widget get_github_widget () {
         var user = Application.database.get_user ();
-
-        var cache_folder = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
-        var profile_folder = GLib.Path.build_filename (cache_folder, "profile");
-        var image_path = GLib.Path.build_filename (profile_folder, ("%i.jpg").printf ((int) user.id));
+        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
 
         profile_image = new Granite.Widgets.Avatar.from_file (image_path, 48);
         
@@ -282,38 +282,25 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         github_icon.pixel_size = 20;
 
         var profile_overlay = new Gtk.Overlay ();
-        profile_overlay.margin_start = 6;
-        profile_overlay.margin_top = 6;
-        profile_overlay.margin_bottom = 6;
+        profile_overlay.margin_top = 12;
+        profile_overlay.halign = Gtk.Align.CENTER;
         profile_overlay.add_overlay (github_icon);
         profile_overlay.add (profile_image);
 
         username_label = new Gtk.Label ("%s (%s)".printf (user.name, user.login));
         username_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-        username_label.halign = Gtk.Align.START;
-        username_label.valign = Gtk.Align.END;
+        username_label.halign = Gtk.Align.CENTER;
 
         var subtitle_label = new Gtk.Label (_("Check which repositories you want to work with"));
-        subtitle_label.halign = Gtk.Align.START;
-        subtitle_label.valign = Gtk.Align.START;
+        subtitle_label.halign = Gtk.Align.CENTER;
+        subtitle_label.margin_bottom = 12;
 		subtitle_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 		subtitle_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-
-        var title_grid = new Gtk.Grid ();
-        title_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
-        title_grid.column_spacing = 6;
-        title_grid.attach (profile_overlay, 0, 0, 1, 2);
-        title_grid.attach (username_label, 1, 0, 1, 1);
-        title_grid.attach (subtitle_label, 1, 1, 1, 1);
 
         var listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
-
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.expand = true;
-        scrolled.add (listbox);
 
         var update_issues_button = new Gtk.Button.with_label (_("Update issues"));
         update_issues_button.get_style_context ().add_class ("planner-button-issues");
@@ -335,15 +322,23 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        main_grid.add (title_grid);
+        main_grid.add (profile_overlay);
+        main_grid.add (username_label);
+        main_grid.add (subtitle_label);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (scrolled);
+        main_grid.add (listbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (action_grid);
 
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scrolled.vscrollbar_policy = Gtk.PolicyType.AUTOMATIC;
+        scrolled.expand = true;
+        scrolled.add (main_grid);
+
         var main_frame = new Gtk.Frame (null);
-        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        main_frame.add (main_grid);
+        //main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
 
         Application.database.adden_new_repository.connect ((repo) => {
             try {
@@ -1032,7 +1027,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
                 return ((Widgets.SourceItem)child1).label.collate (((Widgets.SourceItem)child2).label);
             else
                 return comparison;
-        });
+        }); 
 
         calendar_scroll = new Gtk.ScrolledWindow (null, null);
         calendar_scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -1169,39 +1164,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
-        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.selection_mode = Gtk.SelectionMode.NONE;
         listbox.expand = true;
-
-        var row_1 = new PerfilRow ("Alain M.", "https://avatars0.githubusercontent.com/u/33765137?v=4", "");
-        var row_2 = new PerfilRow ("Alessandro (Alecaddd)", "https://avatars1.githubusercontent.com/u/2527103?v=4", "");
-
-        listbox.add (row_1);
-        listbox.add (row_2);
-        
-        listbox.show_all ();
-        /*
-        var parser = new Json.Parser ();
-        parser.load_from_file ("/com/github/alainm23/planner/credits.json");
-
-        var root = parser.get_root ().get_object ();
-
-        var developers = root.get_array_member ("developers");
-        var designers = root.get_array_member ("designers");
-        var translators = root.get_array_member ("translators");
-
-        foreach (var _item in designers.get_elements ()) {
-            var item = _item.get_object ();
-
-            var name = item.get_string_member ("name");
-            var avatar = item.get_string_member ("avatar");
-            var profile_url = item.get_string_member ("profile_url");
-
-            var row = new PerfilRow (name, avatar, profile_url);
-
-            listbox.add (row);
-            listbox.show_all ();
-        }
-        */
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -1219,7 +1183,51 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         back_button.clicked.connect (() => {
             main_stack.visible_child_name = "about";
         });
-    
+
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_file ("/usr/share/com.github.alainm23.planner/credits.json");
+
+            var root = parser.get_root ().get_object ();
+
+            var developers = root.get_array_member ("developers");
+            var designers = root.get_array_member ("designers");
+            var translators = root.get_array_member ("translators");
+            var supports = root.get_array_member ("supports");
+
+            listbox.add (new Granite.HeaderLabel (_("Developer")));
+            foreach (var _item in developers.get_elements ()) {
+                var item = _item.get_object ();
+                var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
+                listbox.add (row);
+            }
+
+            listbox.add (new Granite.HeaderLabel (_("Designer")));
+            foreach (var _item in designers.get_elements ()) {
+                var item = _item.get_object ();
+                var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
+                listbox.add (row);
+            }
+
+            listbox.add (new Granite.HeaderLabel (_("Translator")));
+            foreach (var _item in translators.get_elements ()) {
+                var item = _item.get_object ();
+                var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
+                listbox.add (row);
+            }
+
+            listbox.add (new Granite.HeaderLabel (_("Support")));
+            foreach (var _item in supports.get_elements ()) {
+                var item = _item.get_object ();
+                var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
+                listbox.add (row);
+            }
+
+            listbox.show_all ();
+        } catch (Error e) {
+            print ("Error: %s\n", e.message);
+        }
+        
         return main_frame;
     }
 
@@ -1380,8 +1388,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (s_3);
         main_grid.add (donation_eventbox);
         main_grid.add (s_4);
-        //main_grid.add (credits_eventbox);
-        //main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (credits_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (main_grid);
@@ -1667,7 +1675,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (run_background_eventbox);
         main_grid.add (s_7);
         main_grid.add (launch_eventbox);
-        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (main_grid);
@@ -1927,46 +1934,66 @@ public class ThemeChild : Gtk.FlowBoxChild {
 }
 
 public class PerfilRow : Gtk.ListBoxRow {
-    public string name {
+    public string profile_name {
         set {
             name_label.label = value;
         }
     }
 
-    public string avatar {
+    public string username {
         set {
-            image.set_from_file_async.begin (File.new_for_uri (value), 32, 32, false);
+            name_label.label = name_label.label + " <small>%s</small>".printf (value);
         }
     }
 
-    public string url { get; construct; }
+    public string id {
+        set {
+            try {
+                var path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%s.jpg").printf (value));
+                var pixbuf = new Gdk.Pixbuf.from_file_at_scale (path, 24, 24, true);
+            
+                avatar_image.pixbuf = pixbuf;
+            } catch (Error e) {
+                print ("Error: %s\n", e.message);
+            } 
+        }
+    }
+
+    public string url { 
+        set {
+            link_button.uri = value;
+        }
+    }
 
     private Gtk.Label name_label;
-    private Granite.AsyncImage image;
     private Granite.Widgets.Avatar avatar_image;
+    private Gtk.LinkButton link_button;
 
-    public PerfilRow (string name, string avatar, string url) {
+    public PerfilRow (string profile_name, string username, string id, string url) {
         Object (
-            name: name,
-            avatar: avatar,
-            url: url
+            profile_name: profile_name,
+            id: id,
+            url: url,
+            username: username
         );
     }
 
     construct {
-        image = new Granite.AsyncImage (true, true);
-        //avatar_image = new Granite.Widgets.Avatar.from_pixbuf (image.pixbuf);
-        //
-        var grid = new Gtk.Grid ();
-        grid.add (image);
+        avatar_image = new Granite.Widgets.Avatar ();
 
         name_label = new Gtk.Label (null);
+        name_label.use_markup = true;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
 
+        link_button = new Gtk.LinkButton ("");
+        link_button.label = _("Profile");
+
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.margin = 6;
-        box.pack_start (grid, false, false, 0);
-        box.pack_start (name_label, false, false, 6);
+        box.margin_start = 6;
+        box.margin_end = 12;
+        box.pack_start (avatar_image, false, false, 0);
+        box.pack_start (name_label, false, false, 3);
+        box.pack_end (link_button, false, false, 0);
 
         add (box);
     }

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Author: Yevgen Muntyan <muntyan@tamu.edu>
+ Copyright (C) 2008 Yevgen Muntyan <muntyan@tamu.edu>
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<language id="t2t" name="txt2tags" version="2.0" _section="Markup">
+  <metadata>
+    <property name="globs">*.t2t</property>
+    <property name="line-comment-start">%</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment"/>
+    <style id="option" name="Option"/>
+    <style id="option-name" name="Option Name" map-to="def:keyword"/>
+    <style id="header" name="Header" map-to="def:keyword"/>
+    <style id="section" name="Section" map-to="def:keyword"/>
+    <style id="section-1" name="Section 1" map-to="t2t:section"/>
+    <style id="section-2" name="Section 2" map-to="t2t:section"/>
+    <style id="section-3" name="Section 3" map-to="t2t:section"/>
+    <style id="section-4" name="Section 4" map-to="t2t:section"/>
+    <style id="section-5" name="Section 5" map-to="t2t:section"/>
+    <style id="anchor" name="Anchor" map-to="t2t:section"/>
+    <style id="italic" name="Italic"/>
+    <style id="bold" name="Bold"/>
+    <style id="verbatim" name="Verbatim"/>
+    <style id="verbatim-block" name="Verbatim Block"/>
+  </styles>
+
+  <definitions>
+    <context id="header" first-line-only="true" style-ref="header">
+      <match>.+</match>
+    </context>
+
+    <context id="options">
+      <include>
+        <context id="option" style-ref="option">
+          <match>^(%!\s*(?:[Tt]arget|[Ee]ncoding|[Oo]ptions|[Pp](?:ost|re)proc|[Ii]nclude(?:conf)?|[Ss]tyle|[Gg]uicolors)(?:\(\S+\))?)\s*:.*</match>
+          <include>
+            <context id="option-name" sub-pattern="1" style-ref="option-name"/>
+          </include>
+        </context>
+        <context id="invalid-option" style-ref="def:error">
+          <match>^%!.*</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
+      <start>^%</start>
+    </context>
+
+    <context id="sections">
+      <include>
+        <context id="section-1">
+          <match>^(=(?!=).*(?&lt;!=)=)(?!=)(\[.*\])?</match>
+          <include>
+            <context sub-pattern="1" style-ref="section-1"/>
+            <context sub-pattern="2" style-ref="anchor"/>
+          </include>
+        </context>
+        <context id="section-2">
+          <match>^(==(?!=).*(?&lt;!=)==)(?!=)(\[.*\])?</match>
+          <include>
+            <context sub-pattern="1" style-ref="section-2"/>
+            <context sub-pattern="2" style-ref="anchor"/>
+          </include>
+        </context>
+        <context id="section-3">
+          <match>^(===(?!=).*(?&lt;!=)===)(?!=)(\[.*\])?</match>
+          <include>
+            <context sub-pattern="1" style-ref="section-3"/>
+            <context sub-pattern="2" style-ref="anchor"/>
+          </include>
+        </context>
+        <context id="section-4">
+          <match>^(====(?!=).*(?&lt;!=)====)(?!=)(\[.*\])?</match>
+          <include>
+            <context sub-pattern="1" style-ref="section-4"/>
+            <context sub-pattern="2" style-ref="anchor"/>
+          </include>
+        </context>
+        <context id="section-5">
+          <match>^(=====(?!=).*(?&lt;!=)=====)(?!=)(\[.*\])?</match>
+          <include>
+            <context sub-pattern="1" style-ref="section-5"/>
+            <context sub-pattern="2" style-ref="anchor"/>
+          </include>
+        </context>
+      </include>
+    </context>
+
+    <context id="italic">
+      <match>//(.*?)//</match>
+      <include>
+        <context sub-pattern="1" style-ref="italic"/>
+      </include>
+    </context>
+
+    <context id="bold">
+      <match>\*\*(.*?)\*\*</match>
+      <include>
+        <context sub-pattern="1" style-ref="bold"/>
+      </include>
+    </context>
+
+    <context id="verbatim">
+      <match>``(.*?)``</match>
+      <include>
+        <context sub-pattern="1" style-ref="verbatim"/>
+      </include>
+    </context>
+
+    <context id="verbatim-block" style-ref="verbatim-block" style-inside="true">
+      <start>^```$</start>
+      <end>^```$</end>
+    </context>
+
+    <context id="t2t" class="no-spell-check">
+      <include>
+        <context ref="header"/>
+        <context ref="sections"/>
+        <context ref="options"/>
+        <context ref="comment"/>
+        <context ref="italic"/>
+        <context ref="bold"/>
+        <context ref="verbatim"/>
+        <context ref="verbatim-block"/>
+      </include>
+    </context>
+  </definitions>
+</language>
