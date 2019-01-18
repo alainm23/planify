@@ -29,25 +29,25 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="1.2" date="2019-01-18">
+    <release version="1.2.1" date="2019-01-18">
       <description>
         <p>Improvements:</p>
-          <ul>
-              <li>Better reminder notifications</li>
-              <li>Improvement default theme</li>
-              <li>Redesign 'when' popover</li>
-              <li>New 'About' view</li>
-              <li>New 'Credits' view</li>
-              <li>Redesign 'Issues' view</li>
-              <li>New task search</li>
-              <li>Adding support to import and export projects</li>
-          </ul>
+        <ul>
+          <li>Better reminder notifications</li>
+          <li>Improvement default theme</li>
+          <li>Redesign 'when' popover</li>
+          <li>New 'About' view</li>
+          <li>New 'Credits' view</li>
+          <li>Redesign 'Issues' view</li>
+          <li>New task search</li>
+          <li>Adding support to import and export projects</li>
+        </ul>
         <p>Translations:</p>
-          <ul>
-              <li>German (kr428)</li>
-              <li>French (NathanBnm)</li>
-              <li>Update Spanish translation</li>
-          </ul>
+        <ul>
+          <li>German (kr428)</li>
+          <li>French (NathanBnm)</li>
+          <li>Update Spanish translation</li>
+        </ul>
       </description>
     </release>
     <release version="1.1.1" date="2019-01-11">
