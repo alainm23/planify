@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 00:16-0500\n"
+"POT-Creation-Date: 2019-01-18 09:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,13 +27,13 @@ msgstr ""
 #: src/Views/Today.vala:51 src/Views/Upcoming.vala:467
 #: src/Views/Upcoming.vala:536 src/Views/Project.vala:130
 #: src/Views/Project.vala:154 src/Views/Project.vala:166
-#: src/Dialogs/PreferencesDialog.vala:480
-#: src/Dialogs/PreferencesDialog.vala:485
-#: src/Dialogs/PreferencesDialog.vala:595
-#: src/Dialogs/PreferencesDialog.vala:691
-#: src/Dialogs/PreferencesDialog.vala:1085
-#: src/Dialogs/PreferencesDialog.vala:1099
-#: src/Dialogs/PreferencesDialog.vala:1101 src/Dialogs/ShareDialog.vala:80
+#: src/Dialogs/PreferencesDialog.vala:483
+#: src/Dialogs/PreferencesDialog.vala:488
+#: src/Dialogs/PreferencesDialog.vala:598
+#: src/Dialogs/PreferencesDialog.vala:694
+#: src/Dialogs/PreferencesDialog.vala:1088
+#: src/Dialogs/PreferencesDialog.vala:1102
+#: src/Dialogs/PreferencesDialog.vala:1104 src/Dialogs/ShareDialog.vala:80
 #: src/Widgets/WhenButton.vala:119 src/Widgets/ProjectsList.vala:46
 #: src/Widgets/TaskRow.vala:775 src/Widgets/TaskRow.vala:942
 #: src/Widgets/TaskRow.vala:971 src/Widgets/TaskNew.vala:320
@@ -54,13 +54,13 @@ msgstr ""
 #: src/Services/Notifications.vala:78 src/Views/Inbox.vala:50
 #: src/Views/Today.vala:485 src/Views/Today.vala:534
 #: src/Views/Upcoming.vala:460 src/Views/Upcoming.vala:529
-#: src/Dialogs/PreferencesDialog.vala:475
-#: src/Dialogs/PreferencesDialog.vala:485
-#: src/Dialogs/PreferencesDialog.vala:590
-#: src/Dialogs/PreferencesDialog.vala:686
-#: src/Dialogs/PreferencesDialog.vala:1083
-#: src/Dialogs/PreferencesDialog.vala:1097
-#: src/Dialogs/PreferencesDialog.vala:1101 src/Dialogs/ShareDialog.vala:57
+#: src/Dialogs/PreferencesDialog.vala:478
+#: src/Dialogs/PreferencesDialog.vala:488
+#: src/Dialogs/PreferencesDialog.vala:593
+#: src/Dialogs/PreferencesDialog.vala:689
+#: src/Dialogs/PreferencesDialog.vala:1086
+#: src/Dialogs/PreferencesDialog.vala:1100
+#: src/Dialogs/PreferencesDialog.vala:1104 src/Dialogs/ShareDialog.vala:57
 #: src/Widgets/ProjectsList.vala:43 src/Widgets/TaskRow.vala:175
 #: src/Widgets/TaskRow.vala:381 src/Widgets/TaskRow.vala:889
 #: src/Widgets/QuickFind.vala:246 src/Widgets/Popovers/MovePopover.vala:93
@@ -149,9 +149,9 @@ msgid "Tap to undo"
 msgstr ""
 
 #: src/Views/Inbox.vala:424 src/Views/Inbox.vala:499 src/Views/Today.vala:483
-#: src/Views/Upcoming.vala:50 src/Dialogs/PreferencesDialog.vala:600
-#: src/Dialogs/PreferencesDialog.vala:696
-#: src/Dialogs/PreferencesDialog.vala:1087 src/Dialogs/ShareDialog.vala:99
+#: src/Views/Upcoming.vala:50 src/Dialogs/PreferencesDialog.vala:603
+#: src/Dialogs/PreferencesDialog.vala:699
+#: src/Dialogs/PreferencesDialog.vala:1090 src/Dialogs/ShareDialog.vala:99
 #: src/Widgets/ProjectsList.vala:49 src/Widgets/QuickFind.vala:254
 msgid "Upcoming"
 msgstr ""
@@ -253,269 +253,269 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:142
+#: src/Dialogs/PreferencesDialog.vala:144
 msgid "Github"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:147
-msgid "Connect your account to work with issues"
+#: src/Dialogs/PreferencesDialog.vala:149
+msgid "Connect your account to work with Issues"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:156
+#: src/Dialogs/PreferencesDialog.vala:158
 msgid "Username"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:161
+#: src/Dialogs/PreferencesDialog.vala:163
 msgid "Password"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:172
+#: src/Dialogs/PreferencesDialog.vala:174
 msgid "Enter a correct Username"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:182
+#: src/Dialogs/PreferencesDialog.vala:184
 msgid "Connect"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:189
+#: src/Dialogs/PreferencesDialog.vala:191
 msgid "Forgot password…"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:192
+#: src/Dialogs/PreferencesDialog.vala:194
 msgid "Don't have an account? Sign Up"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:291
+#: src/Dialogs/PreferencesDialog.vala:294
 msgid "Check which repositories you want to work with"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:302
+#: src/Dialogs/PreferencesDialog.vala:305
 msgid "Update issues"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:305
+#: src/Dialogs/PreferencesDialog.vala:308
 msgid "Update repositories"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:308
+#: src/Dialogs/PreferencesDialog.vala:311
 msgid "Delete account"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:374
+#: src/Dialogs/PreferencesDialog.vala:377
 msgid "Are you sure you want to delete your Github account?"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:379
+#: src/Dialogs/PreferencesDialog.vala:382
 #: src/Widgets/Popovers/ProjectMenu.vala:40
 msgid "Delete"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:409
+#: src/Dialogs/PreferencesDialog.vala:412
 msgid "Banana"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:410
+#: src/Dialogs/PreferencesDialog.vala:413
 msgid "Black"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:411
+#: src/Dialogs/PreferencesDialog.vala:414
 msgid "Blueberry"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:412
+#: src/Dialogs/PreferencesDialog.vala:415
 msgid "Strawberry"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:413
+#: src/Dialogs/PreferencesDialog.vala:416
 msgid "Lemon"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:414
+#: src/Dialogs/PreferencesDialog.vala:417
 msgid "Slate"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:415
+#: src/Dialogs/PreferencesDialog.vala:418
 msgid "Pink"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:442
-#: src/Dialogs/PreferencesDialog.vala:562
-#: src/Dialogs/PreferencesDialog.vala:658
-#: src/Dialogs/PreferencesDialog.vala:744
-#: src/Dialogs/PreferencesDialog.vala:840
-#: src/Dialogs/PreferencesDialog.vala:976
-#: src/Dialogs/PreferencesDialog.vala:1147
+#: src/Dialogs/PreferencesDialog.vala:445
+#: src/Dialogs/PreferencesDialog.vala:565
+#: src/Dialogs/PreferencesDialog.vala:661
+#: src/Dialogs/PreferencesDialog.vala:747
+#: src/Dialogs/PreferencesDialog.vala:843
+#: src/Dialogs/PreferencesDialog.vala:979
+#: src/Dialogs/PreferencesDialog.vala:1150
 msgid "Back"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:447
-#: src/Dialogs/PreferencesDialog.vala:1464
+#: src/Dialogs/PreferencesDialog.vala:450
+#: src/Dialogs/PreferencesDialog.vala:1467
 msgid "Badge Count"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:460
+#: src/Dialogs/PreferencesDialog.vala:463
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:470
-#: src/Dialogs/PreferencesDialog.vala:772
-#: src/Dialogs/PreferencesDialog.vala:1095
-#: src/Dialogs/PreferencesDialog.vala:1111
+#: src/Dialogs/PreferencesDialog.vala:473
+#: src/Dialogs/PreferencesDialog.vala:775
+#: src/Dialogs/PreferencesDialog.vala:1098
+#: src/Dialogs/PreferencesDialog.vala:1114
 msgid "None"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:490
-#: src/Dialogs/PreferencesDialog.vala:1103 src/Widgets/CalendarEvents.vala:76
+#: src/Dialogs/PreferencesDialog.vala:493
+#: src/Dialogs/PreferencesDialog.vala:1106 src/Widgets/CalendarEvents.vala:76
 msgid "Notifications"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:567
-#: src/Dialogs/PreferencesDialog.vala:1504
+#: src/Dialogs/PreferencesDialog.vala:570
+#: src/Dialogs/PreferencesDialog.vala:1507
 msgid "Start Page"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:580
+#: src/Dialogs/PreferencesDialog.vala:583
 msgid "Choose that page should be first initial when Planner is open."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:663
-#: src/Dialogs/PreferencesDialog.vala:1486
+#: src/Dialogs/PreferencesDialog.vala:666
+#: src/Dialogs/PreferencesDialog.vala:1489
 msgid "Items"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:676
+#: src/Dialogs/PreferencesDialog.vala:679
 msgid "Choose which items should be displayed in the left side panel."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:701 src/Widgets/ProjectsList.vala:51
+#: src/Dialogs/PreferencesDialog.vala:704 src/Widgets/ProjectsList.vala:51
 #: src/Widgets/QuickFind.vala:258
 msgid "All Tasks"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:706 src/Widgets/ProjectsList.vala:55
+#: src/Dialogs/PreferencesDialog.vala:709 src/Widgets/ProjectsList.vala:55
 #: src/Widgets/QuickFind.vala:262
 msgid "Completed Tasks"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:749
-#: src/Dialogs/PreferencesDialog.vala:1526
+#: src/Dialogs/PreferencesDialog.vala:752
+#: src/Dialogs/PreferencesDialog.vala:1529
 msgid "Quick Save"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:762
+#: src/Dialogs/PreferencesDialog.vala:765
 msgid "Choose how many clicks to close and save all open tasks."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:777
-#: src/Dialogs/PreferencesDialog.vala:1113
+#: src/Dialogs/PreferencesDialog.vala:780
+#: src/Dialogs/PreferencesDialog.vala:1116
 msgid "Double Click"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:782
-#: src/Dialogs/PreferencesDialog.vala:1115
+#: src/Dialogs/PreferencesDialog.vala:785
+#: src/Dialogs/PreferencesDialog.vala:1118
 msgid "Triple Click"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:845
-#: src/Dialogs/PreferencesDialog.vala:1548
+#: src/Dialogs/PreferencesDialog.vala:848
+#: src/Dialogs/PreferencesDialog.vala:1551
 msgid "Weather"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:858
+#: src/Dialogs/PreferencesDialog.vala:861
 msgid "Get the weather forecast in a simple and beautiful widget."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:868
+#: src/Dialogs/PreferencesDialog.vala:871
 msgid "Temperature"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:875
+#: src/Dialogs/PreferencesDialog.vala:878
 msgid "°F"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:876
+#: src/Dialogs/PreferencesDialog.vala:879
 msgid "°C"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:879
+#: src/Dialogs/PreferencesDialog.vala:882
 msgid "Location"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:894
+#: src/Dialogs/PreferencesDialog.vala:897
 msgid "Automatic:"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:897
-#: src/Dialogs/PreferencesDialog.vala:1124
+#: src/Dialogs/PreferencesDialog.vala:900
+#: src/Dialogs/PreferencesDialog.vala:1127
 msgid "Automatic Location"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:981
-#: src/Dialogs/PreferencesDialog.vala:1570
+#: src/Dialogs/PreferencesDialog.vala:984
+#: src/Dialogs/PreferencesDialog.vala:1573
 msgid "Calendar Events"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:994
+#: src/Dialogs/PreferencesDialog.vala:997
 msgid "Events from your personal and shared calendars can be displayed."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1004
-#: src/Dialogs/PreferencesDialog.vala:1140
+#: src/Dialogs/PreferencesDialog.vala:1007
+#: src/Dialogs/PreferencesDialog.vala:1143
 msgid "Enabled"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1142
+#: src/Dialogs/PreferencesDialog.vala:1145
 msgid "Disabled"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1153
-#: src/Dialogs/PreferencesDialog.vala:1344
+#: src/Dialogs/PreferencesDialog.vala:1156
+#: src/Dialogs/PreferencesDialog.vala:1347
 msgid "Credits"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1195
+#: src/Dialogs/PreferencesDialog.vala:1198
 msgid "Developer"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1202
+#: src/Dialogs/PreferencesDialog.vala:1205
 msgid "Designer"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1209
+#: src/Dialogs/PreferencesDialog.vala:1212
 msgid "Translator"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1216
-#: src/Dialogs/PreferencesDialog.vala:1322
+#: src/Dialogs/PreferencesDialog.vala:1219
+#: src/Dialogs/PreferencesDialog.vala:1325
 msgid "Support"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1256
+#: src/Dialogs/PreferencesDialog.vala:1259
 msgid "Home Page"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1278
+#: src/Dialogs/PreferencesDialog.vala:1281
 msgid "Report a Issue"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1300
+#: src/Dialogs/PreferencesDialog.vala:1303
 msgid "Translations"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1592
+#: src/Dialogs/PreferencesDialog.vala:1595
 msgid "Run in background"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1604
+#: src/Dialogs/PreferencesDialog.vala:1607
 msgid "Let Planner run in background and send notifications."
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1617
+#: src/Dialogs/PreferencesDialog.vala:1620
 msgid "Launch at Login"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1986
+#: src/Dialogs/PreferencesDialog.vala:1989
 msgid "Profile"
 msgstr ""
 
@@ -540,6 +540,7 @@ msgid "Move"
 msgstr ""
 
 #: src/Widgets/HeaderBar.vala:42 src/Widgets/HeaderBar.vala:51
+#: data/com.github.alainm23.planner.appdata.xml.in:24
 msgid "Quick Find"
 msgstr ""
 
@@ -887,63 +888,66 @@ msgid "How Planner works"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:12
-msgid "1. Collect your Ideas"
+msgid ""
+"1. Collect your Ideas - The Inbox is your default task list in Planner. When "
+"you add a task, it goes straight to your Inbox unless you specify that the "
+"task goes into a project."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 msgid ""
-"The Inbox is your default task list in Planner. When you add a task, it goes "
-"straight to your Inbox unless you specify that the task goes into a project."
+"2. Get Organized - Create a project for each of your goqnals, then add the "
+"steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
-msgid "2. Get Organized"
+msgid ""
+"3. Calendar and Events - See your calendar events and plan your time "
+"effectively. Planner will remind you on the right day."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
 msgid ""
-"Create a project for each of your goqnals, then add the steps to reach them. "
-"Review these regularly to stay on top of things."
+"4. Be even more organized - Add a deadline to your tasks, create labels, use "
+"checklists."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:16
-msgid "3. Calendar and Events"
+msgid ""
+"5. Share your progress - Share all the progress of your project or some "
+"special task, all this in Markdown."
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:17
 msgid ""
-"See your calendar events and plan your time effectively. Planner will remind "
-"you on the right day."
+"6. Support for Github Issues - Connect your account and start receiving "
+"notifications of every new issue in your repositories"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
-msgid "4. Be even more organized"
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:19
-msgid "Add a deadline to your tasks, create labels, use checklists."
+msgid "Other features"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
-msgid "5. Share your progress"
+msgid "Reminders notifications"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
-msgid ""
-"Share all the progress of your project or some special task, all this in "
-"Markdown."
+msgid "Import and export your projects"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
-msgid "6. Support for Github Issues"
+msgid "Different themes to choose"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
-msgid ""
-"Conecte su cuenta y comience a recibir notificaciones de cada nuevo problema "
-"en los repositorios que seleccionó."
+msgid "Weather forecast"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:118
+#: data/com.github.alainm23.planner.appdata.xml.in:25
+msgid "Night mode"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:121
 msgid "Alain M."
 msgstr ""
