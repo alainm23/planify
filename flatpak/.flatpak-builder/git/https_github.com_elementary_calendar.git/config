@@ -1,9 +1,0 @@
-[core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = true
-[remote "origin"]
-	url = https://github.com/elementary/calendar.git
-	fetch = +refs/*:refs/*
-[transfer]
-	fsckObjects = 1

@@ -1,7 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-693 23)'>
-        <path color='#000' d='M700.5-23c-4.13 0-7.5 3.37-7.5 7.5s3.37 7.5 7.5 7.5c.514 0 1.015-.051 1.5-.15v-2.06c-.477.133-.979.21-1.5.21-3.05 0-5.5-2.45-5.5-5.5s2.45-5.5 5.5-5.5a5.485 5.485 0 0 1 5.29 7h2.06c.099-.485.15-.986.15-1.5 0-4.13-3.37-7.5-7.5-7.5zm2.965 4.002a.5.5 0 0 0-.072.008v.008a.5.5 0 0 0-.25.156l-2.657 2.649-1.656-1.649a.5.5 0 1 0-.687.688l2 2a.5.5 0 0 0 .687 0l3-3a.5.5 0 0 0-.365-.86z' fill='#666' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal' white-space='normal'/>
-        
-        <path color='#bebebe' d='M705-12.997v1.996h-2v1.998h2v1.996h2v-1.996h2v-1.998h-2v-1.996z' fill='#666' overflow='visible' style='marker:none'/>
-    </g>
-</svg>

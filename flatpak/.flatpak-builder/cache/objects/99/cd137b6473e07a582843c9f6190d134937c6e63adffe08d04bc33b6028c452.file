@@ -1,7 +1,0 @@
-[org.gnome.evolution-data-server.addressbook]
-self-contact-uid = /apps/evolution/addressbook/self/self_uid
-
-[org.gnome.evolution-data-server.calendar]
-contacts-reminder-enabled = /apps/evolution/calendar/other/use_ba_reminder
-contacts-reminder-interval = /apps/evolution/calendar/other/ba_reminder_interval
-contacts-reminder-units = /apps/evolution/calendar/other/ba_reminder_units

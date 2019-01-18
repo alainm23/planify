@@ -1,5 +1,0 @@
-[Runtime]
-name=com.github.alainm23.planner.Debug
-
-[ExtensionOf]
-ref=app/com.github.alainm23.planner/x86_64/master

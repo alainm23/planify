@@ -1,7 +1,0 @@
-[Unit]
-Description=Evolution address book service
-
-[Service]
-Type=dbus
-BusName=org.gnome.evolution.dataserver.AddressBook9
-ExecStart=/app/libexec/evolution-addressbook-factory

@@ -1,7 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g color='#bebebe' transform='translate(-1233 -61)'>
-        
-        <path d='M1241 62c-3.842 0-7 3.158-7 7s3.158 7 7 7 7-3.158 7-7-3.158-7-7-7zm0 4c1.68 0 3 1.32 3 3s-1.32 3-3 3-3-1.32-3-3 1.32-3 3-3z' fill='#666' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal;marker:none' white-space='normal'/>
-        <path d='M1241.005 67.006c-1.098 0-2.013.898-2.013 1.996 0 1.099.915 1.997 2.013 1.997a2.002 2.002 0 0 0 1.997-1.997 2.002 2.002 0 0 0-1.997-1.996z' fill='#666' font-family='Sans' font-weight='400' overflow='visible' style='line-height:normal;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;marker:none'/>
-    </g>
-</svg>

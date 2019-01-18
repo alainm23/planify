@@ -1,6 +1,0 @@
-<svg height='16' width='16.002' xmlns='http://www.w3.org/2000/svg'>
-    <g color='#000' transform='translate(-932 -523.948)'>
-        <path d='M933 525l-1 3v1c0 2 2 2 2 2 1.108 0 2-.892 2-2 0 1.108.892 2 2 2s2-.892 2-2c0 1.108.892 2 2 2s2-.892 2-2c0 1.108.892 2 2 2 0 0 2 0 2-2v-1l-1-3zm0 7v6s0 1 1 1h12c1 0 1-1 1-1v-6h-1v6h-2v-3.5c0-.831-.669-1.5-1.5-1.5s-1.5.669-1.5 1.5v3.5h-7v-6zm3 1v3h3v-3z' fill='#666' fill-rule='evenodd' style='isolation:auto;mix-blend-mode:normal'/>
-        
-    </g>
-</svg>

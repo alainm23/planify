@@ -1,7 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-1073 -61)'>
-        <path d='M1081 62.004a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 4a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2 2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm2.465 3a.5.5 0 0 1 .035 0 .5.5 0 0 1 .5.5.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5.5.5 0 0 1 .465-.5z' fill='#666'/>
-        <path color='#000' d='M1081 73.003c-1.845 0-3.086.537-3.856 1.096-.769.56-1.091 1.182-1.091 1.182a.5.5 0 0 0 .447.722h9a.5.5 0 0 0 .447-.722s-.32-.623-1.09-1.182c-.769-.56-2.012-1.096-3.857-1.096z' fill='#666' fill-rule='evenodd' font-family='sans-serif' font-weight='400' overflow='visible' style='line-height:normal;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;text-orientation:mixed;shape-padding:0;isolation:auto;mix-blend-mode:normal' white-space='normal'/>
-        
-    </g>
-</svg>

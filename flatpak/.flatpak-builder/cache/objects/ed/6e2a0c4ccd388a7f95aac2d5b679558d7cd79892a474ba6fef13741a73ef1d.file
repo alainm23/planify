@@ -1,5 +1,0 @@
-[Application]
-name=com.github.alainm23.planner
-runtime=org.gnome.Platform/x86_64/3.30
-sdk=org.gnome.Sdk/x86_64/3.30
-base=app/io.elementary.BaseApp/x86_64/juno

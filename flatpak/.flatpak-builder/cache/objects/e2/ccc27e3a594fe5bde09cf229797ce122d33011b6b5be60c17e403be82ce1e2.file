@@ -1,6 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-953 151)'>
-        <path color='#000' d='M956.5-150a2.506 2.506 0 0 0-2.5 2.5v9c0 1.376 1.124 2.5 2.5 2.5h9c1.377 0 2.5-1.124 2.5-2.5v-9c0-1.376-1.123-2.5-2.5-2.5zm0 1h9c.84 0 1.5.66 1.5 1.5v9c0 .84-.66 1.5-1.5 1.5h-9c-.84 0-1.5-.66-1.5-1.5v-9c0-.84.66-1.5 1.5-1.5zm-1.5 6.875l5.25 4.5 6.75-8.937-2-1.813-5.218 6.594-3.063-2.656z' fill='#666' font-family='Sans' font-weight='400' overflow='visible' style='line-height:normal;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;marker:none'/>
-        
-    </g>
-</svg>

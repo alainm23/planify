@@ -1,6 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-873 35)'>
-        
-        <path class='error' d='M874-25c0 1 1 1 1 1h2s1 0 1-1v-.5c0-1.5 2-1.5 2-1.5h2s2 0 2 1.5v.5c0 1 1 1 1 1h2s1 0 1-1v-1c0-3.5-5.5-3-5.5-3h-3s-5.5-.5-5.5 3z' fill='#c6262e' fill-rule='evenodd'/>
-    </g>
-</svg>

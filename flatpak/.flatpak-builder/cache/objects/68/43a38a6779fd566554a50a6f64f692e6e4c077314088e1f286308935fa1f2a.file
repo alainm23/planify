@@ -1,7 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-453 191)'>
-        <path d='M460-185.989l.014 5.984c0 .554.446 1 1 1s1-.446 1-1l-.014-5.984zm.514 7.984c-.277 0-.5.223-.5.5v1c0 .277.223.5.5.5h1c.277 0 .5-.223.5-.5v-1c0-.277-.223-.5-.5-.5h-.5z' fill='#c6262e' fill-rule='evenodd' overflow='visible' style='marker:none'/>
-        
-        <path class='error' color='#000' d='M461-190c-1.608 0-3.03.965-3.656 2.398l-.023.047a4.013 4.013 0 0 0-.207.635c-.2-.052-.407-.079-.614-.08-.135 0-.27.014-.404.037A2.5 2.5 0 0 0 454-184.5a2.5 2.5 0 0 0 2.5 2.5h2.51l-.01-3.986-.002-1.002h4l.012 4.988H466a2 2 0 1 0 0-4h-1c0-.251-.028-.496-.072-.734l-.01-.063h.002a4 4 0 0 0-3.92-3.201z' fill='#666' fill-rule='evenodd' overflow='visible' style='isolation:auto;mix-blend-mode:normal'/>
-    </g>
-</svg>

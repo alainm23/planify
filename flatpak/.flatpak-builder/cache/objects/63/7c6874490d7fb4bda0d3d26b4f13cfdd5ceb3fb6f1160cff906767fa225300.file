@@ -1,6 +1,0 @@
-<svg height='16' width='16' xmlns='http://www.w3.org/2000/svg'>
-    <g transform='translate(-1273 -41)'>
-        
-        <path color='#000' d='M1278 41c-1.108 0-2 .892-2 2v12c0 1.108.892 2 2 2h6c1.108 0 2-.892 2-2V43c0-1.108-.892-2-2-2zm-.5 3h7c.277 0 .5.223.5.5v9c0 .277-.223.5-.5.5h-7a.499.499 0 0 1-.5-.5v-9c0-.277.223-.5.5-.5zm3.5 10.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z' fill='#666' overflow='visible' style='marker:none'/>
-    </g>
-</svg>

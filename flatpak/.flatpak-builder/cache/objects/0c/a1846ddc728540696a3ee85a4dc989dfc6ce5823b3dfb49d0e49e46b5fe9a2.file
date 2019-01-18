@@ -1,6 +1,0 @@
-digraph G {
-    node [shape=record];
-    a [label = "<f0> foo | x | <f1> bar"];
-    b [label = "a | { <f0> foo | x | <f1> bar } | b"];
-    a:f0 -> b:f1 
-}
