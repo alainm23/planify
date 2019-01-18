@@ -98,7 +98,20 @@ public class Services.Share : GLib.Object {
 	    var root = builder.get_root ();
 
         generator.set_root (root);
-        generator.to_file (path);
+        
+        try {
+            generator.to_file (path);
+
+            Application.notification.send_local_notification (
+                project.name,
+                _("Your project was exported correctly"),
+                "document-export",
+                4,
+                false
+            );
+        } catch (Error e) {
+            print ("Error: %s\n", e.message);
+        }
     }
 
     public void import_project (string path) {
@@ -117,37 +130,50 @@ public class Services.Share : GLib.Object {
             project.deadline = node_project.get_string_member ("deadline");
             project.color = node_project.get_string_member ("color");
 
-            int project_id = Application.database.add_project_return (project);
+            if (!Application.database.project_exists (project.name)) {
+                int project_id = Application.database.add_project_return (project);
             
-            // Tasks
-            var tasks = node_project.get_array_member ("tasks");
-            foreach (var item in tasks.get_elements ()) {
-                var item_details = item.get_object ();
+                // Tasks
+                var tasks = node_project.get_array_member ("tasks");
+                foreach (var item in tasks.get_elements ()) {
+                    var item_details = item.get_object ();
 
-                var task = new Objects.Task ();
-                task.checked = (int) item_details.get_int_member ("checked");
-                task.has_reminder = (int) item_details.get_int_member ("has_reminder");
-                task.was_notified = (int) item_details.get_int_member ("was_notified");
-                task.content = item_details.get_string_member ("content");
-                task.note = item_details.get_string_member ("note");
-                task.when_date_utc = item_details.get_string_member ("when_date_utc");
-                task.reminder_time = item_details.get_string_member ("reminder_time");
-                task.checklist = item_details.get_string_member ("checklist");
-                task.labels = item_details.get_string_member ("labels");
+                    var task = new Objects.Task ();
+                    task.checked = (int) item_details.get_int_member ("checked");
+                    task.has_reminder = (int) item_details.get_int_member ("has_reminder");
+                    task.was_notified = (int) item_details.get_int_member ("was_notified");
+                    task.content = item_details.get_string_member ("content");
+                    task.note = item_details.get_string_member ("note");
+                    task.when_date_utc = item_details.get_string_member ("when_date_utc");
+                    task.reminder_time = item_details.get_string_member ("reminder_time");
+                    task.checklist = item_details.get_string_member ("checklist");
+                    task.labels = item_details.get_string_member ("labels");
 
-                task.project_id = project_id;
+                    task.project_id = project_id;
 
-                Application.database.add_task (task);
+                    Application.database.add_task (task);
+                }
+
+                Application.signals.check_project_import (project_id);
+                
+                Application.notification.send_local_notification (
+                    project.name,
+                    _("Your project was imported correctly"),
+                    "document-import",
+                    4,
+                    false
+                );
+            } else {
+                var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                    _("Import another project"),
+                    _("This project was already imported"),
+                    "dialog-warning",
+                    Gtk.ButtonsType.CLOSE
+                );
+
+                message_dialog.run ();
+                message_dialog.destroy ();
             }
-
-            Application.signals.check_project_import (project_id);
-            Application.notification.send_local_notification (
-                project.name,
-                _("Your project was imported correctly"),
-                "document-import",
-                4,
-                false
-            );
         } catch (Error e) {
             print ("Error: %s\n", e.message);
         }

@@ -51,6 +51,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
+        height_request = 550;
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -1190,26 +1191,26 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
             var root = parser.get_root ().get_object ();
 
-            var developers = root.get_array_member ("developers");
-            var designers = root.get_array_member ("designers");
-            var translators = root.get_array_member ("translators");
-            var supports = root.get_array_member ("supports");
+            var developers = root.get_array_member ("developing");
+            var designers = root.get_array_member ("design");
+            var translators = root.get_array_member ("translation");
+            var supports = root.get_array_member ("support");
 
-            listbox.add (new Granite.HeaderLabel (_("Developer")));
+            listbox.add (new Granite.HeaderLabel (_("Developing")));
             foreach (var _item in developers.get_elements ()) {
                 var item = _item.get_object ();
                 var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
                 listbox.add (row);
             }
 
-            listbox.add (new Granite.HeaderLabel (_("Designer")));
+            listbox.add (new Granite.HeaderLabel (_("Design")));
             foreach (var _item in designers.get_elements ()) {
                 var item = _item.get_object ();
                 var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
                 listbox.add (row);
             }
 
-            listbox.add (new Granite.HeaderLabel (_("Translator")));
+            listbox.add (new Granite.HeaderLabel (_("Translation")));
             foreach (var _item in translators.get_elements ()) {
                 var item = _item.get_object ();
                 var row = new PerfilRow (item.get_string_member ("name"), item.get_string_member ("username"), item.get_string_member ("id"), item.get_string_member ("profile_url"));
@@ -1239,7 +1240,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         planner_icon.halign = Gtk.Align.CENTER;
         planner_icon.hexpand = true;
 
-        var planner_label = new Gtk.Label ("Planner 1.1.1");
+        var planner_label = new Gtk.Label ("Planner 1.2");
         planner_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         planner_label.halign = Gtk.Align.CENTER;
         planner_label.hexpand = true;

@@ -34,7 +34,6 @@ You'll need the following dependencies:
 * libsqlite3-dev
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
-* libnotify-dev
 * meson
 * valac >= 0.40.3
 

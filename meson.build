@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '1.1.1')
+        version: '1.2')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -109,7 +109,6 @@ executable(
         dependency('gtk+-3.0'),
         dependency('sqlite3'),
         dependency('unity'),
-        dependency('libnotify'),
         dependency('libgeoclue-2.0'),
         dependency('libsoup-2.4'),
         dependency('json-glib-1.0'),

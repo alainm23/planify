@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 09:40-0500\n"
+"POT-Creation-Date: 2019-01-18 12:55-0500\n"
 "PO-Revision-Date: 2019-01-11 08:10-0300\n"
 "Last-Translator: Marciel Sousa <marcielmj@gmail.com>\n"
 "Language-Team: \n"
@@ -483,15 +483,15 @@ msgid "Credits"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1198
-msgid "Developer"
+msgid "Developing"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1205
-msgid "Designer"
+msgid "Design"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1212
-msgid "Translator"
+msgid "Translation"
 msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1219
@@ -687,11 +687,6 @@ msgstr "AM"
 #: src/Widgets/TimePicker.vala:70
 msgid "PM"
 msgstr "PM"
-
-#. / TRANSLATORS: separates hours from minutes.
-#: src/Widgets/TimePicker.vala:90
-msgid ":"
-msgstr ""
 
 #: src/Widgets/CalendarEvents.vala:75
 msgid "Events"

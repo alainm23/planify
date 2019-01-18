@@ -45,10 +45,10 @@ public class Services.Notifications : GLib.Object {
         Application.instance.send_notification ("com.github.alainm23.planner", notification);
     }
 
-    public void send_task_notification (string title, Objects.Task task) {                            
+    public void send_task_notification (string title, Objects.Task task, string icon) {                            
         var notification = new Notification (title);
         notification.set_body (task.content);
-        notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
+        notification.set_icon (new ThemedIcon (icon));
         notification.set_priority (GLib.NotificationPriority.URGENT);
                             
         notification.set_default_action_and_target_value (

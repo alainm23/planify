@@ -97,7 +97,11 @@ public class Services.Github : GLib.Object {
                     task.id = Application.database.add_task_return_id (task);
 
                     // Send Noty
-                    Application.notification.send_task_notification ("Github Issues - %s".printf (repo.name), task);
+                    Application.notification.send_task_notification (
+                        "Github Issues - %s".printf (repo.name), 
+                        task,
+                        "planner-github"
+                    );
 
                     // Update repo
                     Application.database.update_repository (repo);
@@ -216,7 +220,7 @@ public class Services.Github : GLib.Object {
 
             if (Application.database.add_user (user) == Sqlite.DONE) {
                 // Create file  
-                var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
+                var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("profile-%i.jpg").printf ((int) user.id));
         
                 // Create avatar image file 
                 var file_path = File.new_for_path (image_path);
@@ -292,7 +296,7 @@ public class Services.Github : GLib.Object {
 
     public bool delete_account () {
         var user = Application.database.get_user ();
-        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
+        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("profile-%i.jpg").printf ((int) user.id));
         var file_path = File.new_for_path (image_path);
         
         if (file_path.query_exists ()) {

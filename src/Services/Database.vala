@@ -149,31 +149,48 @@ public class Services.Database : GLib.Object {
     }
 
     public bool user_exists () {
-        bool file_exists = false;
+        bool exists = false;
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("SELECT COUNT (*) FROM USERS", -1, out stmt);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            file_exists = stmt.column_int (0) > 0;
+            exists = stmt.column_int (0) > 0;
         }
 
-        return file_exists;
+        return exists;
+    }
+
+    public bool project_exists (string name) {
+        bool exists = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM PROJECTS WHERE name LIKE ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, name);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            exists = stmt.column_int (0) > 0;
+        }
+
+        return exists;
     }
 
     public bool repo_exists () {
-        bool file_exists = false;
+        bool exists = false;
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES", -1, out stmt);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            file_exists = stmt.column_int (0) > 0;
+            exists = stmt.column_int (0) > 0;
         }
 
-        return file_exists;
+        return exists;
     }
 
     public Objects.User get_user () {

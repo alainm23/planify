@@ -87,7 +87,7 @@ public class Widgets.TimePicker : Gtk.EventBox {
         am_pm_modebutton.hexpand = true;
 
         /// TRANSLATORS: separates hours from minutes.
-        var separation_label = new Gtk.Label (_(":"));
+        var separation_label = new Gtk.Label (":");
 
         hours_spinbutton = new Gtk.SpinButton.with_range (1, 12, 1);
         hours_spinbutton.orientation = Gtk.Orientation.VERTICAL;

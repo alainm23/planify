@@ -54,8 +54,8 @@ public class Widgets.Popovers.ProjectListMenu : Gtk.Popover {
 
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
                 popdown ();
+                
                 var file = chooser.get_file ();
-
                 Application.share.import_project (file.get_path ());
             }
 
