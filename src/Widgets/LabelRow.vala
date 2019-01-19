@@ -20,8 +20,10 @@
 */
 
 public class Widgets.LabelRow : Gtk.ListBoxRow {
-    public weak MainWindow window { get; construct; }
     public Objects.Label label { get; construct; }
+    private Gtk.Revealer action_revealer;
+
+    public bool filter { get; construct; }
 
     public signal void on_signal_edit (Objects.Label label);
     public const string COLOR_CSS = """
@@ -29,9 +31,10 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             color: %s;
         }
     """;
-    public LabelRow (Objects.Label _label) {
+    public LabelRow (Objects.Label _label, bool filter) {
         Object (
-            label: _label
+            label: _label,
+            filter: filter
         );
     }
 
@@ -63,7 +66,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         action_box.pack_start (edit_button, false, false, 0);
         action_box.pack_start (remove_button, false, false, 0);
 
-        var action_revealer = new Gtk.Revealer ();
+        action_revealer = new Gtk.Revealer ();
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         action_revealer.add (action_box);
         action_revealer.reveal_child = false;
@@ -97,7 +100,10 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         }
 
         eventbox.enter_notify_event.connect ((event) => {
-            action_revealer.reveal_child = true;
+            if (filter == false) {
+                action_revealer.reveal_child = true;
+            }
+            
             return false;
         });
 
@@ -107,6 +113,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             }
 
             action_revealer.reveal_child = false;
+            
             return false;
         });
 

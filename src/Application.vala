@@ -28,6 +28,8 @@ public class Application : Gtk.Application {
     public static Services.Github github;
     public static Services.Share share;
     
+    public static string APP_VERSION;
+
     public static Utils utils;
 
     public const string CSS = """
@@ -55,6 +57,8 @@ public class Application : Gtk.Application {
         signals = new Services.Signals ();
         github = new Services.Github ();
         share = new Services.Share ();
+
+        APP_VERSION =  "1.2.1";
     }
 
     public static Application _instance = null;

@@ -100,7 +100,7 @@ public class Services.Github : GLib.Object {
                     Application.notification.send_task_notification (
                         "Github Issues - %s".printf (repo.name), 
                         task,
-                        "planner-github"
+                        "com.github.alainm23.planner"
                     );
 
                     // Update repo

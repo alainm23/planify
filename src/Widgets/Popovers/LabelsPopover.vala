@@ -20,14 +20,30 @@
 */
 
 public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
-    private Gtk.Stack stack;
+    private Gtk.Stack main_stack;
+    private Granite.Widgets.ModeButton mode_button;
+
     public Gtk.ListBox labels_listbox;
     private Gtk.Button submit_button;
     private Gtk.Entry label_entry;
     private Gtk.Entry color_hex_entry;
 
     private Objects.Label label;
+
     private bool edit;
+    public bool filter {
+        set {
+            if (value) {
+                mode_button.visible = false;
+                mode_button.no_show_all = true;
+                main_stack.margin_top = 12;
+            }
+        }
+        get {
+            return mode_button.no_show_all;
+        }
+    }
+
     private int label_update_id;
     public const string COLOR_CSS = """
         .label-preview {
@@ -58,30 +74,69 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         }
     """;
     public signal void on_selected_label (Objects.Label label);
-    public LabelsPopover (Gtk.Widget relative) {
+    public LabelsPopover (Gtk.Widget relative, bool filter) {
         Object (
             relative_to: relative,
             modal: true,
-            position: Gtk.PositionType.RIGHT
+            position: Gtk.PositionType.RIGHT,
+            filter: filter
         );
     }
 
     construct {
         label = new Objects.Label ();
-        width_request = 290;
-        height_request = 300;
+        edit = false;
 
-        stack = new Gtk.Stack ();
-        stack.expand = true;
-        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.hexpand = true;
+        mode_button.margin = 6;
+        mode_button.valign = Gtk.Align.CENTER;
 
-        stack.add_named (get_all_labels_widget (), "labels_view");
-        stack.add_named (get_new_label_widget (), "add_label_view");
+        mode_button.append_icon ("tag-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("list-add-symbolic", Gtk.IconSize.MENU);
 
-        stack.visible_child_name = "labels_view";
+        mode_button.selected = 0;
 
-        add (stack);
+        main_stack = new Gtk.Stack ();
+        main_stack.expand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+
+        main_stack.add_named (get_all_labels_widget (), "labels_view");
+        main_stack.add_named (get_new_label_widget (), "add_label_view");
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.width_request = 250;
+
+        main_grid.add (mode_button);
+        main_grid.add (main_stack);
+
+        add (main_grid);
         update_label_list ();
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                main_stack.visible_child_name = "labels_view";
+
+                label_entry.text = "";
+                color_hex_entry.text = "";
+
+                label.name = "";
+                label.color = "";
+                edit = false;
+                label_update_id = 0;
+            } else {
+                main_stack.visible_child_name = "add_label_view";
+
+                submit_button.label = _("Add");
+            }
+        });
+
+        labels_listbox.row_activated.connect ((item_row) => {
+            var row = item_row as Widgets.LabelRow;
+            on_selected_label (row.label);
+        });
     }
 
     public void update_label_list () {
@@ -93,11 +148,13 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         all_labels = Application.database.get_all_labels ();
 
         foreach (var label in all_labels) {
-            var row = new Widgets.LabelRow (label);
+            var row = new Widgets.LabelRow (label, filter);
+
             labels_listbox.add (row);
 
             row.on_signal_edit.connect ((_label) => {
-                stack.visible_child_name = "add_label_view";
+                mode_button.selected = 1;
+                main_stack.visible_child_name = "add_label_view";
                 edit = true;
 
                 submit_button.label = _("Update");
@@ -128,12 +185,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
     }
 
     private Gtk.Widget get_new_label_widget () {
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("New Label")));
-        title_label.halign = Gtk.Align.CENTER;
-        title_label.hexpand = true;
-        title_label.use_markup = true;
-        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-
         var label_preview = new Gtk.Label ("Label name");
         label_preview.valign = Gtk.Align.CENTER;
         label_preview.get_style_context ().add_class ("label-preview");
@@ -159,24 +210,12 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         color_grid.add (random_button);
         color_grid.add (color_button);
 
-        submit_button = new Gtk.Button ();
+        submit_button = new Gtk.Button.with_label (_("Add"));
+        submit_button.margin_top = 12;
         submit_button.sensitive = false;
         submit_button.valign = Gtk.Align.END;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.tooltip_text = _("Add new label");
-
-        var back_button = new Gtk.Button.with_label (_("Cancel"));
-        back_button.can_focus = false;
-        back_button.valign = Gtk.Align.END;
-        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
-        back_button.tooltip_text = _("Cancel");
-
-        var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        bottom_box.vexpand = true;
-        bottom_box.homogeneous = true;
-        bottom_box.valign = Gtk.Align.END;
-        bottom_box.pack_start (back_button, true, true, 0);
-        bottom_box.pack_start (submit_button, true, true, 0);
 
         var grid = new Gtk.Grid ();
         grid.margin = 6;
@@ -185,14 +224,13 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         grid.row_spacing = 3;
         grid.orientation = Gtk.Orientation.VERTICAL;
 
-        grid.add (title_label);
         grid.add (new Granite.HeaderLabel (_("Preview")));
         grid.add (label_preview);
         grid.add (new Granite.HeaderLabel (_("Name")));
         grid.add (label_entry);
         grid.add (new Granite.HeaderLabel (_("Color")));
         grid.add (color_grid);
-        grid.add (bottom_box);
+        grid.add (submit_button);
 
         label_entry.changed.connect (() => {
             if (label_entry.text == "") {
@@ -204,11 +242,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
             }
         });
 
-        back_button.clicked.connect (() => {
-            stack.visible_child_name = "labels_view";
-            label_entry.grab_focus ();
-        });
-
         color_hex_entry.changed.connect (() => {
             var rgba = Gdk.RGBA ();
             if (rgba.parse (color_hex_entry.text)) {
@@ -218,7 +251,12 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         });
 
         random_button.clicked.connect (() => {
-            string random_color = "rgb(%i, %i, %i)".printf (GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255), GLib.Random.int_range (0, 255));
+            string random_color = "rgb(%i, %i, %i)".printf (
+                GLib.Random.int_range (0, 255), 
+                GLib.Random.int_range (0, 255), 
+                GLib.Random.int_range (0, 255)
+            );
+
             var rgba = Gdk.RGBA ();
             rgba.parse (random_color);
 
@@ -242,7 +280,9 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
                 if (Application.database.update_label (label) == Sqlite.DONE) {
                     label_entry.text = "";
                     color_hex_entry.text = "";
-                    stack.visible_child_name = "labels_view";
+
+                    main_stack.visible_child_name = "labels_view";
+                    mode_button.selected = 0;
 
                     update_label_list ();
                     show_all ();
@@ -256,7 +296,9 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
                 if (Application.database.add_label (label) == Sqlite.DONE) {
                     label_entry.text = "";
                     color_hex_entry.text = "";
-                    stack.visible_child_name = "labels_view";
+
+                    main_stack.visible_child_name = "labels_view";
+                    mode_button.selected = 0;
 
                     update_label_list ();
                     show_all ();
@@ -274,17 +316,6 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
     }
 
     private Gtk.Widget get_all_labels_widget () {
-        var title_label = new Gtk.Label ("<small>%s</small>".printf (_("Labels")));
-        title_label.halign = Gtk.Align.CENTER;
-        title_label.hexpand = true;
-        title_label.use_markup = true;
-        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-
-        var add_button = new Gtk.Button.with_label (_("Create label"));
-        add_button.margin = 6;
-        add_button.can_focus = false;
-        add_button.tooltip_text = _("Add new label");
-
         labels_listbox = new Gtk.ListBox  ();
         labels_listbox.activate_on_single_click = true;
         labels_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -296,19 +327,8 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
         var grid = new Gtk.Grid ();;
         grid.expand = true;
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.attach (title_label, 0, 0, 1, 1);
-        grid.attach (scrolled_window, 0, 2, 1, 1);
-        grid.attach (add_button, 0, 3, 1, 1);
-
-        add_button.clicked.connect (() => {
-            stack.visible_child_name = "add_label_view";
-            submit_button.label = _("Create");
-        });
-
-        labels_listbox.row_activated.connect ((item_row) => {
-            var row = item_row as Widgets.LabelRow;
-            on_selected_label (row.label);
-        });
+        
+        grid.add (scrolled_window);
 
         return grid;
     }

@@ -44,6 +44,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
         quick_find_grid.add (entry);
 
         listbox = new Gtk.ListBox ();
+        listbox.selection_mode = Gtk.SelectionMode.BROWSE;
         listbox.expand = true;
 
         var search_scroll = new Gtk.ScrolledWindow (null, null);
