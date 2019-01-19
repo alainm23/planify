@@ -1,18 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for the com.github.alainm23.planner package.
+# Copyright (C) 2019 THE com.github.alainm23.planner'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.alainm23.planner package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# NathanBnm, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-19 10:33-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2019-01-18 12:55-0500\n"
+"PO-Revision-Date: 2019-01-19 08:30+0100\n"
+"Last-Translator: NathanBnm\n"
+"Language-Team: Français\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -247,7 +247,7 @@ msgstr "Problèmes"
 
 #: src/Dialogs/PreferencesDialog.vala:63
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: src/Dialogs/PreferencesDialog.vala:94 src/Dialogs/ShareDialog.vala:190
 msgid "Close"
@@ -376,7 +376,7 @@ msgstr "Notifications"
 #: src/Dialogs/PreferencesDialog.vala:571
 #: src/Dialogs/PreferencesDialog.vala:1508
 msgid "Start Page"
-msgstr "Pas de démarrage"
+msgstr "Page de démarrage"
 
 #: src/Dialogs/PreferencesDialog.vala:584
 msgid "Choose that page should be first initial when Planner is open."
@@ -481,28 +481,28 @@ msgstr "Désactivé"
 #: src/Dialogs/PreferencesDialog.vala:1157
 #: src/Dialogs/PreferencesDialog.vala:1348
 msgid "Credits"
-msgstr ""
+msgstr "Crédits"
 
 #: src/Dialogs/PreferencesDialog.vala:1199
 msgid "Developing"
-msgstr ""
+msgstr "Développement"
 
 #: src/Dialogs/PreferencesDialog.vala:1206
 msgid "Design"
-msgstr ""
+msgstr "Design"
 
 #: src/Dialogs/PreferencesDialog.vala:1213
 msgid "Translation"
-msgstr ""
+msgstr "Traduction"
 
 #: src/Dialogs/PreferencesDialog.vala:1220
 #: src/Dialogs/PreferencesDialog.vala:1326
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: src/Dialogs/PreferencesDialog.vala:1260
 msgid "Home Page"
-msgstr ""
+msgstr "Page d'accueil"
 
 #: src/Dialogs/PreferencesDialog.vala:1282
 #, fuzzy
@@ -528,7 +528,7 @@ msgstr "Lancer à la connexion"
 
 #: src/Dialogs/PreferencesDialog.vala:1990
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: src/Dialogs/ShareDialog.vala:200 src/Dialogs/ShareDialog.vala:213
 msgid "Copy to clipboard"
@@ -624,7 +624,7 @@ msgstr "Convertir en projet"
 #: src/Widgets/ProjectRow.vala:209
 #, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Fichiers Planner"
 
 #: src/Widgets/ItemRow.vala:96
 #, c-format
@@ -810,12 +810,11 @@ msgstr "Changer le nom du projet"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:37
 msgid "Export"
-msgstr ""
+msgstr "Exporter"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:37
-#, fuzzy
 msgid "Export project"
-msgstr "Convertir en projet"
+msgstr "Exporter le projet"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
@@ -874,11 +873,11 @@ msgstr "Aperçu"
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
 msgid "Never worry about forgetting things again"
-msgstr ""
+msgstr "Ne soyez plus jamais inquiet d'oublier des choses"
 
 #: data/com.github.alainm23.planner.desktop.in:8
 msgid "com.github.alainm23.planner"
-msgstr "Ne soyez plus jamais inquiet d'oublier des choses."
+msgstr "com.github.alainm23.planner"
 
 #: data/com.github.alainm23.planner.desktop.in:12
 msgid ""
@@ -905,9 +904,9 @@ msgid ""
 "you add a task, it goes straight to your Inbox unless you specify that the "
 "task goes into a project."
 msgstr ""
-"La boîte de réception est votre liste de tâches par défaut dans Planner. "
-"Quand vous ajoutez une tâche, elle va directement dans votre boîte de "
-"réception, sauf si vous spécifiez que la tâche est incluse dans un projet."
+"1. Rassemblez vos idées - La boîte de réception est votre liste de tâches par défaut dans Planner. Quand "
+"vous ajoutez une tâche, elle va directement dans votre boîte de réception, sauf si vous spécifiez que la "
+"tâche est incluse dans un projet."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 #, fuzzy
@@ -915,8 +914,8 @@ msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
-"Créez un projet pour chacun de vos objectifs, puis ajoutez les étapes pour "
-"les atteindre. Passez-les en revue régulièrement pour vous tenir au courant."
+"2. Soyez organisé - Créez un projet pour chacun de vos objectifs, puis ajoutez les "
+"étapes pour les atteindre. Passez-les en revue régulièrement pour vous tenir au courant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
 #, fuzzy
@@ -924,7 +923,7 @@ msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
 "effectively. Planner will remind you on the right day."
 msgstr ""
-"Voyez les événements de votre calendrier et planifiez votre temps "
+"3. Calendrier et événements - Voyez les événements de votre calendrier et planifiez votre temps "
 "efficacement. Planner vous les rapellera le jour correspondant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
@@ -933,7 +932,7 @@ msgid ""
 "4. Be even more organized - Add a deadline to your tasks, create labels, use "
 "checklists."
 msgstr ""
-"Ajoutez une date limite à vos tâches, créez des étiquettes, utilisez des "
+"4. Soyez toujours plus organisé - Ajoutez une date limite à vos tâches, créez des étiquettes, utilisez des "
 "cases à cocher."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:16
@@ -942,7 +941,7 @@ msgid ""
 "5. Share your progress - Share all the progress of your project or some "
 "special task, all this in Markdown."
 msgstr ""
-"Partagez tout l'avancement de votre projet ou d'une tâche spécifique, le "
+"5. Partagez votre progrès - Partagez tout l'avancement de votre projet ou d'une tâche spécifique, le "
 "tout dans fichier Markdown."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:17
@@ -950,23 +949,25 @@ msgid ""
 "6. Support for Github Issues - Connect your account and start receiving "
 "notifications of every new issue in your repositories"
 msgstr ""
+"6. Signalez les problèmes sur Github - Connectez-vous à votre compte et commencez à recevoir "
+"les notifications de chaque nouveau numéro dans vos dépôts"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 msgid "Other features"
-msgstr ""
+msgstr "Autres fonctionnalités"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
 #, fuzzy
 msgid "Reminders notifications"
-msgstr "Notifications"
+msgstr "Notifications de rappel"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 msgid "Import and export your projects"
-msgstr ""
+msgstr "Importez et exportez vos projets"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 msgid "Different themes to choose"
-msgstr ""
+msgstr "Différents thèmes"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
 #, fuzzy
