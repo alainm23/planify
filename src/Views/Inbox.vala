@@ -92,7 +92,7 @@ public class Views.Inbox : Gtk.EventBox {
         labels_button.valign = Gtk.Align.CENTER;
         labels_button.halign = Gtk.Align.CENTER;
 
-        labels_popover = new Widgets.Popovers.LabelsPopover (labels_button);
+        labels_popover = new Widgets.Popovers.LabelsPopover (labels_button, true);
         labels_popover.position = Gtk.PositionType.BOTTOM;
 
         var share_button = new Gtk.Button.from_icon_name ("planner-share-symbolic", Gtk.IconSize.MENU);

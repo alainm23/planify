@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 12:55-0500\n"
+"POT-Creation-Date: 2019-01-19 10:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,17 +27,17 @@ msgstr "Planner"
 #: src/Views/Today.vala:51 src/Views/Upcoming.vala:467
 #: src/Views/Upcoming.vala:536 src/Views/Project.vala:130
 #: src/Views/Project.vala:154 src/Views/Project.vala:166
-#: src/Dialogs/PreferencesDialog.vala:483
-#: src/Dialogs/PreferencesDialog.vala:488
-#: src/Dialogs/PreferencesDialog.vala:598
-#: src/Dialogs/PreferencesDialog.vala:694
-#: src/Dialogs/PreferencesDialog.vala:1088
-#: src/Dialogs/PreferencesDialog.vala:1102
-#: src/Dialogs/PreferencesDialog.vala:1104 src/Dialogs/ShareDialog.vala:80
+#: src/Dialogs/PreferencesDialog.vala:484
+#: src/Dialogs/PreferencesDialog.vala:489
+#: src/Dialogs/PreferencesDialog.vala:599
+#: src/Dialogs/PreferencesDialog.vala:695
+#: src/Dialogs/PreferencesDialog.vala:1089
+#: src/Dialogs/PreferencesDialog.vala:1103
+#: src/Dialogs/PreferencesDialog.vala:1105 src/Dialogs/ShareDialog.vala:80
 #: src/Widgets/WhenButton.vala:119 src/Widgets/ProjectsList.vala:46
 #: src/Widgets/TaskRow.vala:775 src/Widgets/TaskRow.vala:942
 #: src/Widgets/TaskRow.vala:971 src/Widgets/TaskNew.vala:320
-#: src/Widgets/CalendarEvents.vala:136 src/Widgets/QuickFind.vala:250
+#: src/Widgets/CalendarEvents.vala:136 src/Widgets/QuickFind.vala:251
 #: src/Widgets/Popovers/WhenPopover.vala:99
 msgid "Today"
 msgstr "Astăzi"
@@ -54,16 +54,16 @@ msgstr "Mâine"
 #: src/Services/Notifications.vala:78 src/Views/Inbox.vala:50
 #: src/Views/Today.vala:485 src/Views/Today.vala:534
 #: src/Views/Upcoming.vala:460 src/Views/Upcoming.vala:529
-#: src/Dialogs/PreferencesDialog.vala:478
-#: src/Dialogs/PreferencesDialog.vala:488
-#: src/Dialogs/PreferencesDialog.vala:593
-#: src/Dialogs/PreferencesDialog.vala:689
-#: src/Dialogs/PreferencesDialog.vala:1086
-#: src/Dialogs/PreferencesDialog.vala:1100
-#: src/Dialogs/PreferencesDialog.vala:1104 src/Dialogs/ShareDialog.vala:57
+#: src/Dialogs/PreferencesDialog.vala:479
+#: src/Dialogs/PreferencesDialog.vala:489
+#: src/Dialogs/PreferencesDialog.vala:594
+#: src/Dialogs/PreferencesDialog.vala:690
+#: src/Dialogs/PreferencesDialog.vala:1087
+#: src/Dialogs/PreferencesDialog.vala:1101
+#: src/Dialogs/PreferencesDialog.vala:1105 src/Dialogs/ShareDialog.vala:57
 #: src/Widgets/ProjectsList.vala:43 src/Widgets/TaskRow.vala:175
 #: src/Widgets/TaskRow.vala:381 src/Widgets/TaskRow.vala:889
-#: src/Widgets/QuickFind.vala:246 src/Widgets/Popovers/MovePopover.vala:93
+#: src/Widgets/QuickFind.vala:247 src/Widgets/Popovers/MovePopover.vala:93
 msgid "Inbox"
 msgstr "Intrări"
 
@@ -149,10 +149,10 @@ msgid "Tap to undo"
 msgstr "Apasă pentru a reveni"
 
 #: src/Views/Inbox.vala:424 src/Views/Inbox.vala:499 src/Views/Today.vala:483
-#: src/Views/Upcoming.vala:50 src/Dialogs/PreferencesDialog.vala:603
-#: src/Dialogs/PreferencesDialog.vala:699
-#: src/Dialogs/PreferencesDialog.vala:1090 src/Dialogs/ShareDialog.vala:99
-#: src/Widgets/ProjectsList.vala:49 src/Widgets/QuickFind.vala:254
+#: src/Views/Upcoming.vala:50 src/Dialogs/PreferencesDialog.vala:604
+#: src/Dialogs/PreferencesDialog.vala:700
+#: src/Dialogs/PreferencesDialog.vala:1091 src/Dialogs/ShareDialog.vala:99
+#: src/Widgets/ProjectsList.vala:49 src/Widgets/QuickFind.vala:255
 msgid "Upcoming"
 msgstr "Urmează"
 
@@ -193,7 +193,7 @@ msgid "Add new project"
 msgstr "Adaugă un proiect nou"
 
 #: src/Views/Project.vala:90 src/Widgets/Popovers/NewProject.vala:208
-#: src/Widgets/Popovers/LabelsPopover.vala:191
+#: src/Widgets/Popovers/LabelsPopover.vala:229
 msgid "Name"
 msgstr "Nume"
 
@@ -233,297 +233,297 @@ msgstr "Alege culoarea favorită"
 msgid "Preferences"
 msgstr "Preferințe"
 
-#: src/Dialogs/PreferencesDialog.vala:59
+#: src/Dialogs/PreferencesDialog.vala:60
 msgid "General"
 msgstr "General"
 
-#: src/Dialogs/PreferencesDialog.vala:60
+#: src/Dialogs/PreferencesDialog.vala:61
 msgid "Appearance"
 msgstr "Aspect"
 
-#: src/Dialogs/PreferencesDialog.vala:61
+#: src/Dialogs/PreferencesDialog.vala:62
 msgid "Issues"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:62
+#: src/Dialogs/PreferencesDialog.vala:63
 msgid "About"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:93 src/Dialogs/ShareDialog.vala:190
+#: src/Dialogs/PreferencesDialog.vala:94 src/Dialogs/ShareDialog.vala:190
 msgid "Close"
 msgstr "Închide"
 
-#: src/Dialogs/PreferencesDialog.vala:144
+#: src/Dialogs/PreferencesDialog.vala:145
 #, fuzzy
 msgid "Github"
 msgstr "Mergi pe Gtihub"
 
-#: src/Dialogs/PreferencesDialog.vala:149
+#: src/Dialogs/PreferencesDialog.vala:150
 msgid "Connect your account to work with Issues"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:158
+#: src/Dialogs/PreferencesDialog.vala:159
 msgid "Username"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:163
+#: src/Dialogs/PreferencesDialog.vala:164
 msgid "Password"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:174
+#: src/Dialogs/PreferencesDialog.vala:175
 msgid "Enter a correct Username"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:184
+#: src/Dialogs/PreferencesDialog.vala:185
 msgid "Connect"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:191
+#: src/Dialogs/PreferencesDialog.vala:192
 msgid "Forgot password…"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:194
+#: src/Dialogs/PreferencesDialog.vala:195
 msgid "Don't have an account? Sign Up"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:294
+#: src/Dialogs/PreferencesDialog.vala:295
 msgid "Check which repositories you want to work with"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:305
+#: src/Dialogs/PreferencesDialog.vala:306
 #, fuzzy
 msgid "Update issues"
 msgstr "Actualizează"
 
-#: src/Dialogs/PreferencesDialog.vala:308
+#: src/Dialogs/PreferencesDialog.vala:309
 msgid "Update repositories"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:311
+#: src/Dialogs/PreferencesDialog.vala:312
 #, fuzzy
 msgid "Delete account"
 msgstr "Șterge Proiectul"
 
-#: src/Dialogs/PreferencesDialog.vala:377
+#: src/Dialogs/PreferencesDialog.vala:378
 #, fuzzy
 msgid "Are you sure you want to delete your Github account?"
 msgstr "Sigur vrei sa ștergi această sarcină?"
 
-#: src/Dialogs/PreferencesDialog.vala:382
+#: src/Dialogs/PreferencesDialog.vala:383
 #: src/Widgets/Popovers/ProjectMenu.vala:40
 msgid "Delete"
 msgstr "Șterge"
 
-#: src/Dialogs/PreferencesDialog.vala:412
+#: src/Dialogs/PreferencesDialog.vala:413
 msgid "Banana"
 msgstr "Banană"
 
-#: src/Dialogs/PreferencesDialog.vala:413
+#: src/Dialogs/PreferencesDialog.vala:414
 msgid "Black"
 msgstr "Negru"
 
-#: src/Dialogs/PreferencesDialog.vala:414
+#: src/Dialogs/PreferencesDialog.vala:415
 msgid "Blueberry"
 msgstr "Afine"
 
-#: src/Dialogs/PreferencesDialog.vala:415
+#: src/Dialogs/PreferencesDialog.vala:416
 msgid "Strawberry"
 msgstr "Căpșuni"
 
-#: src/Dialogs/PreferencesDialog.vala:416
+#: src/Dialogs/PreferencesDialog.vala:417
 msgid "Lemon"
 msgstr "Lămâie"
 
-#: src/Dialogs/PreferencesDialog.vala:417
+#: src/Dialogs/PreferencesDialog.vala:418
 msgid "Slate"
 msgstr "Tablă"
 
-#: src/Dialogs/PreferencesDialog.vala:418
+#: src/Dialogs/PreferencesDialog.vala:419
 msgid "Pink"
 msgstr "Roz"
 
-#: src/Dialogs/PreferencesDialog.vala:445
-#: src/Dialogs/PreferencesDialog.vala:565
-#: src/Dialogs/PreferencesDialog.vala:661
-#: src/Dialogs/PreferencesDialog.vala:747
-#: src/Dialogs/PreferencesDialog.vala:843
-#: src/Dialogs/PreferencesDialog.vala:979
-#: src/Dialogs/PreferencesDialog.vala:1150
+#: src/Dialogs/PreferencesDialog.vala:446
+#: src/Dialogs/PreferencesDialog.vala:566
+#: src/Dialogs/PreferencesDialog.vala:662
+#: src/Dialogs/PreferencesDialog.vala:748
+#: src/Dialogs/PreferencesDialog.vala:844
+#: src/Dialogs/PreferencesDialog.vala:980
+#: src/Dialogs/PreferencesDialog.vala:1151
 msgid "Back"
 msgstr "Negru"
 
-#: src/Dialogs/PreferencesDialog.vala:450
-#: src/Dialogs/PreferencesDialog.vala:1467
+#: src/Dialogs/PreferencesDialog.vala:451
+#: src/Dialogs/PreferencesDialog.vala:1468
 msgid "Badge Count"
 msgstr "Afișarea numărului de notificări"
 
-#: src/Dialogs/PreferencesDialog.vala:463
+#: src/Dialogs/PreferencesDialog.vala:464
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
 
-#: src/Dialogs/PreferencesDialog.vala:473
-#: src/Dialogs/PreferencesDialog.vala:775
-#: src/Dialogs/PreferencesDialog.vala:1098
-#: src/Dialogs/PreferencesDialog.vala:1114
+#: src/Dialogs/PreferencesDialog.vala:474
+#: src/Dialogs/PreferencesDialog.vala:776
+#: src/Dialogs/PreferencesDialog.vala:1099
+#: src/Dialogs/PreferencesDialog.vala:1115
 msgid "None"
 msgstr "Niciuna"
 
-#: src/Dialogs/PreferencesDialog.vala:493
-#: src/Dialogs/PreferencesDialog.vala:1106 src/Widgets/CalendarEvents.vala:76
+#: src/Dialogs/PreferencesDialog.vala:494
+#: src/Dialogs/PreferencesDialog.vala:1107 src/Widgets/CalendarEvents.vala:76
 msgid "Notifications"
 msgstr "Notificări"
 
-#: src/Dialogs/PreferencesDialog.vala:570
-#: src/Dialogs/PreferencesDialog.vala:1507
+#: src/Dialogs/PreferencesDialog.vala:571
+#: src/Dialogs/PreferencesDialog.vala:1508
 msgid "Start Page"
 msgstr "Pagina de start"
 
-#: src/Dialogs/PreferencesDialog.vala:583
+#: src/Dialogs/PreferencesDialog.vala:584
 msgid "Choose that page should be first initial when Planner is open."
 msgstr "Alege pagina ce ar trebui afișată când deschizi Planner"
 
-#: src/Dialogs/PreferencesDialog.vala:666
-#: src/Dialogs/PreferencesDialog.vala:1489
+#: src/Dialogs/PreferencesDialog.vala:667
+#: src/Dialogs/PreferencesDialog.vala:1490
 msgid "Items"
 msgstr "Obiecte"
 
-#: src/Dialogs/PreferencesDialog.vala:679
+#: src/Dialogs/PreferencesDialog.vala:680
 #, fuzzy
 msgid "Choose which items should be displayed in the left side panel."
 msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
 
-#: src/Dialogs/PreferencesDialog.vala:704 src/Widgets/ProjectsList.vala:51
-#: src/Widgets/QuickFind.vala:258
+#: src/Dialogs/PreferencesDialog.vala:705 src/Widgets/ProjectsList.vala:51
+#: src/Widgets/QuickFind.vala:259
 msgid "All Tasks"
 msgstr "Toate Sarcinile"
 
-#: src/Dialogs/PreferencesDialog.vala:709 src/Widgets/ProjectsList.vala:55
-#: src/Widgets/QuickFind.vala:262
+#: src/Dialogs/PreferencesDialog.vala:710 src/Widgets/ProjectsList.vala:55
+#: src/Widgets/QuickFind.vala:263
 msgid "Completed Tasks"
 msgstr "Sarcini Completate"
 
-#: src/Dialogs/PreferencesDialog.vala:752
-#: src/Dialogs/PreferencesDialog.vala:1529
+#: src/Dialogs/PreferencesDialog.vala:753
+#: src/Dialogs/PreferencesDialog.vala:1530
 msgid "Quick Save"
 msgstr "Salvare rapidă"
 
-#: src/Dialogs/PreferencesDialog.vala:765
+#: src/Dialogs/PreferencesDialog.vala:766
 msgid "Choose how many clicks to close and save all open tasks."
 msgstr ""
 "Alege câte click-uri să apeși pentru a închide și salva toate sarcinile "
 "deschise."
 
-#: src/Dialogs/PreferencesDialog.vala:780
-#: src/Dialogs/PreferencesDialog.vala:1116
+#: src/Dialogs/PreferencesDialog.vala:781
+#: src/Dialogs/PreferencesDialog.vala:1117
 msgid "Double Click"
 msgstr "Dublu-click"
 
-#: src/Dialogs/PreferencesDialog.vala:785
-#: src/Dialogs/PreferencesDialog.vala:1118
+#: src/Dialogs/PreferencesDialog.vala:786
+#: src/Dialogs/PreferencesDialog.vala:1119
 msgid "Triple Click"
 msgstr "Triplu-click"
 
-#: src/Dialogs/PreferencesDialog.vala:848
-#: src/Dialogs/PreferencesDialog.vala:1551
+#: src/Dialogs/PreferencesDialog.vala:849
+#: src/Dialogs/PreferencesDialog.vala:1552
 msgid "Weather"
 msgstr "Vreme"
 
-#: src/Dialogs/PreferencesDialog.vala:861
+#: src/Dialogs/PreferencesDialog.vala:862
 msgid "Get the weather forecast in a simple and beautiful widget."
 msgstr "Primește previziunile meteo într-un widget frumos."
 
-#: src/Dialogs/PreferencesDialog.vala:871
+#: src/Dialogs/PreferencesDialog.vala:872
 msgid "Temperature"
 msgstr "Temperatură"
 
-#: src/Dialogs/PreferencesDialog.vala:878
+#: src/Dialogs/PreferencesDialog.vala:879
 msgid "°F"
 msgstr "°F"
 
-#: src/Dialogs/PreferencesDialog.vala:879
+#: src/Dialogs/PreferencesDialog.vala:880
 msgid "°C"
 msgstr "°C"
 
-#: src/Dialogs/PreferencesDialog.vala:882
+#: src/Dialogs/PreferencesDialog.vala:883
 msgid "Location"
 msgstr "Locație"
 
-#: src/Dialogs/PreferencesDialog.vala:897
+#: src/Dialogs/PreferencesDialog.vala:898
 msgid "Automatic:"
 msgstr "Automat"
 
-#: src/Dialogs/PreferencesDialog.vala:900
-#: src/Dialogs/PreferencesDialog.vala:1127
+#: src/Dialogs/PreferencesDialog.vala:901
+#: src/Dialogs/PreferencesDialog.vala:1128
 msgid "Automatic Location"
 msgstr "Locație automată"
 
-#: src/Dialogs/PreferencesDialog.vala:984
-#: src/Dialogs/PreferencesDialog.vala:1573
+#: src/Dialogs/PreferencesDialog.vala:985
+#: src/Dialogs/PreferencesDialog.vala:1574
 msgid "Calendar Events"
 msgstr "Evenimente din calendar"
 
-#: src/Dialogs/PreferencesDialog.vala:997
+#: src/Dialogs/PreferencesDialog.vala:998
 msgid "Events from your personal and shared calendars can be displayed."
 msgstr "Poți vedea evenimente din calendarul personal și cele partajate."
 
-#: src/Dialogs/PreferencesDialog.vala:1007
-#: src/Dialogs/PreferencesDialog.vala:1143
+#: src/Dialogs/PreferencesDialog.vala:1008
+#: src/Dialogs/PreferencesDialog.vala:1144
 msgid "Enabled"
 msgstr "Activat"
 
-#: src/Dialogs/PreferencesDialog.vala:1145
+#: src/Dialogs/PreferencesDialog.vala:1146
 msgid "Disabled"
 msgstr "Dezactivat"
 
-#: src/Dialogs/PreferencesDialog.vala:1156
-#: src/Dialogs/PreferencesDialog.vala:1347
+#: src/Dialogs/PreferencesDialog.vala:1157
+#: src/Dialogs/PreferencesDialog.vala:1348
 msgid "Credits"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1198
+#: src/Dialogs/PreferencesDialog.vala:1199
 msgid "Developing"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1205
+#: src/Dialogs/PreferencesDialog.vala:1206
 msgid "Design"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1212
+#: src/Dialogs/PreferencesDialog.vala:1213
 msgid "Translation"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1219
-#: src/Dialogs/PreferencesDialog.vala:1325
+#: src/Dialogs/PreferencesDialog.vala:1220
+#: src/Dialogs/PreferencesDialog.vala:1326
 msgid "Support"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1259
+#: src/Dialogs/PreferencesDialog.vala:1260
 msgid "Home Page"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1281
+#: src/Dialogs/PreferencesDialog.vala:1282
 #, fuzzy
 msgid "Report a Issue"
 msgstr "Raportează o problemă"
 
-#: src/Dialogs/PreferencesDialog.vala:1303
+#: src/Dialogs/PreferencesDialog.vala:1304
 msgid "Translations"
 msgstr ""
 
-#: src/Dialogs/PreferencesDialog.vala:1595
+#: src/Dialogs/PreferencesDialog.vala:1596
 msgid "Run in background"
 msgstr "Rulează în fundal"
 
-#: src/Dialogs/PreferencesDialog.vala:1607
+#: src/Dialogs/PreferencesDialog.vala:1608
 msgid "Let Planner run in background and send notifications."
 msgstr "Permite-i lui Planner să ruleze în fundal și să trimită notificări."
 
-#: src/Dialogs/PreferencesDialog.vala:1620
+#: src/Dialogs/PreferencesDialog.vala:1621
 msgid "Launch at Login"
 msgstr "Pornește la Login"
 
-#: src/Dialogs/PreferencesDialog.vala:1989
+#: src/Dialogs/PreferencesDialog.vala:1990
 msgid "Profile"
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr "Proiectul tău e gata să fie partajat"
 msgid "When"
 msgstr "Când"
 
-#: src/Widgets/LabelButton.vala:34 src/Widgets/Popovers/LabelsPopover.vala:277
+#: src/Widgets/LabelButton.vala:34
 msgid "Labels"
 msgstr "Etichete"
 
@@ -659,15 +659,15 @@ msgstr "Șterge Sarcina"
 msgid "You'll be notified %s at %s"
 msgstr "Vei fi notificat"
 
-#: src/Widgets/LabelRow.vala:53
+#: src/Widgets/LabelRow.vala:56
 msgid "Edit Label"
 msgstr "Modifică Eticheta"
 
-#: src/Widgets/LabelRow.vala:59 src/Widgets/LabelRow.vala:120
+#: src/Widgets/LabelRow.vala:62 src/Widgets/LabelRow.vala:127
 msgid "Delete Label"
 msgstr "Șterge Eticheta"
 
-#: src/Widgets/LabelRow.vala:115
+#: src/Widgets/LabelRow.vala:122
 msgid "Are you sure you want to delete this Label?"
 msgstr "Sigur vrei să ștergi eticheta?"
 
@@ -729,7 +729,7 @@ msgstr ""
 msgid "Quick find"
 msgstr "Găsire rapidă"
 
-#: src/Widgets/QuickFind.vala:102
+#: src/Widgets/QuickFind.vala:103
 msgid "all"
 msgstr "toate"
 
@@ -779,7 +779,6 @@ msgid "Personal"
 msgstr "Personal"
 
 #: src/Widgets/Popovers/NewProject.vala:194
-#: src/Widgets/Popovers/LabelsPopover.vala:305
 msgid "Create"
 msgstr "Creaza"
 
@@ -788,7 +787,7 @@ msgid "Create a new project"
 msgstr "Creaza un proiect nou"
 
 #: src/Widgets/Popovers/NewProject.vala:210
-#: src/Widgets/Popovers/LabelsPopover.vala:193
+#: src/Widgets/Popovers/LabelsPopover.vala:231
 msgid "Color"
 msgstr "Culoare"
 
@@ -809,8 +808,9 @@ msgid "Export"
 msgstr ""
 
 #: src/Widgets/Popovers/ProjectMenu.vala:37
-msgid "Export proyect"
-msgstr ""
+#, fuzzy
+msgid "Export project"
+msgstr "Convertește la Proiect"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
@@ -845,35 +845,26 @@ msgstr "Împărtășește sarcina"
 msgid "Clear"
 msgstr "Golește"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:103
+#: src/Widgets/Popovers/LabelsPopover.vala:132
+#: src/Widgets/Popovers/LabelsPopover.vala:213
+msgid "Add"
+msgstr ""
+
+#: src/Widgets/Popovers/LabelsPopover.vala:160
 msgid "Update"
 msgstr "Actualizează"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:131
-msgid "New Label"
-msgstr "Etichetă nouă"
-
-#: src/Widgets/Popovers/LabelsPopover.vala:143
+#: src/Widgets/Popovers/LabelsPopover.vala:194
 msgid "Priority: Low"
 msgstr "Prioritate: Scăzută"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:166
-#: src/Widgets/Popovers/LabelsPopover.vala:286
+#: src/Widgets/Popovers/LabelsPopover.vala:218
 msgid "Add new label"
 msgstr "Adaugă o etichetă nouă"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:168
-#: src/Widgets/Popovers/LabelsPopover.vala:172
-msgid "Cancel"
-msgstr "Oprește"
-
-#: src/Widgets/Popovers/LabelsPopover.vala:189
+#: src/Widgets/Popovers/LabelsPopover.vala:227
 msgid "Preview"
 msgstr "Previzualizează"
-
-#: src/Widgets/Popovers/LabelsPopover.vala:283
-msgid "Create label"
-msgstr "Crează eticheta"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
@@ -914,7 +905,7 @@ msgstr ""
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 #, fuzzy
 msgid ""
-"2. Get Organized - Create a project for each of your goqnals, then add the "
+"2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
 "Crează un proiect pentru fiecare țel al tău, și apoi adaugă pașii pentru "
@@ -981,9 +972,18 @@ msgstr "Vreme"
 msgid "Night mode"
 msgstr "Mod noapte"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:121
+#: data/com.github.alainm23.planner.appdata.xml.in:142
 msgid "Alain M."
 msgstr "Alain M."
+
+#~ msgid "New Label"
+#~ msgstr "Etichetă nouă"
+
+#~ msgid "Cancel"
+#~ msgstr "Oprește"
+
+#~ msgid "Create label"
+#~ msgstr "Crează eticheta"
 
 #~ msgid "Help"
 #~ msgstr "Ajutor"

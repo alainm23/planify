@@ -34,10 +34,15 @@ public class Services.Notifications : GLib.Object {
         start_notification ();
     }
 
-    public void send_notification (string title, string body, string icon) {
+    public void send_notification (string title, string body, string icon_name) {
         var notification = new Notification (title);
         notification.set_body (body);
-        notification.set_icon (new ThemedIcon (icon));
+
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon (icon_name);
+        icon.pixel_size = 24;
+        
+        notification.set_icon (icon.gicon);
         notification.set_priority (GLib.NotificationPriority.NORMAL);
                             
         notification.set_default_action ("app.show-window");

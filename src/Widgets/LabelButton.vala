@@ -34,7 +34,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         var label_name = new Gtk.Label (_("Labels"));
         label_name.margin_bottom = 1;
 
-        var labels_popover = new Widgets.Popovers.LabelsPopover (this);
+        var labels_popover = new Widgets.Popovers.LabelsPopover (this, false);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.pack_start (label_icon, false, false, 0);

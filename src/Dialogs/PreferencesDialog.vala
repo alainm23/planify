@@ -1240,7 +1240,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         planner_icon.halign = Gtk.Align.CENTER;
         planner_icon.hexpand = true;
 
-        var planner_label = new Gtk.Label ("Planner 1.2.1");
+        var planner_label = new Gtk.Label ("Planner %s".printf (Application.APP_VERSION));
         planner_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         planner_label.halign = Gtk.Align.CENTER;
         planner_label.hexpand = true;

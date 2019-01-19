@@ -34,7 +34,7 @@ public class Widgets.Popovers.ProjectMenu : Gtk.Popover {
         var finalize_menu = new Widgets.ModelButton (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
         var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", _("Change project name"));
         
-        var export_menu = new Widgets.ModelButton (_("Export"), "document-export-symbolic", _("Export proyect"));
+        var export_menu = new Widgets.ModelButton (_("Export"), "document-export-symbolic", _("Export project"));
         var share_menu = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", _("Share project"));
 
         var remove_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic", _("Delete project"));

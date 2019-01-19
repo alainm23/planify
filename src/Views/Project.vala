@@ -190,7 +190,7 @@ public class Views.Project : Gtk.EventBox {
         labels_button.valign = Gtk.Align.CENTER;
         labels_button.halign = Gtk.Align.CENTER;
 
-        labels_popover = new Widgets.Popovers.LabelsPopover (labels_button);
+        labels_popover = new Widgets.Popovers.LabelsPopover (labels_button, true);
         labels_popover.position = Gtk.PositionType.BOTTOM;
 
         var search_button = new Gtk.ToggleButton ();
