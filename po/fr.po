@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-18 12:55-0500\n"
+"POT-Creation-Date: 2019-01-19 11:27-0500\n"
 "PO-Revision-Date: 2019-01-19 08:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -51,7 +51,7 @@ msgid "Tomorrow"
 msgstr "Demain"
 
 #. Items
-#: src/Services/Notifications.vala:78 src/Views/Inbox.vala:50
+#: src/Services/Notifications.vala:83 src/Views/Inbox.vala:50
 #: src/Views/Today.vala:485 src/Views/Today.vala:534
 #: src/Views/Upcoming.vala:460 src/Views/Upcoming.vala:529
 #: src/Dialogs/PreferencesDialog.vala:479
@@ -616,10 +616,9 @@ msgstr ""
 msgid "Delete Project"
 msgstr "Supprimer le projet"
 
-#: src/Widgets/ProjectRow.vala:203
-#, fuzzy
-msgid "Export Project"
-msgstr "Convertir en projet"
+#: src/Widgets/ProjectRow.vala:203 src/Widgets/Popovers/ProjectMenu.vala:37
+msgid "Export project"
+msgstr "Exporter le projet"
 
 #: src/Widgets/ProjectRow.vala:209
 #, fuzzy
@@ -812,10 +811,6 @@ msgstr "Changer le nom du projet"
 msgid "Export"
 msgstr "Exporter"
 
-#: src/Widgets/Popovers/ProjectMenu.vala:37
-msgid "Export project"
-msgstr "Exporter le projet"
-
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
 msgstr "Partager le projet"
@@ -904,9 +899,10 @@ msgid ""
 "you add a task, it goes straight to your Inbox unless you specify that the "
 "task goes into a project."
 msgstr ""
-"1. Rassemblez vos idées - La boîte de réception est votre liste de tâches par défaut dans Planner. Quand "
-"vous ajoutez une tâche, elle va directement dans votre boîte de réception, sauf si vous spécifiez que la "
-"tâche est incluse dans un projet."
+"1. Rassemblez vos idées - La boîte de réception est votre liste de tâches "
+"par défaut dans Planner. Quand vous ajoutez une tâche, elle va directement "
+"dans votre boîte de réception, sauf si vous spécifiez que la tâche est "
+"incluse dans un projet."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 #, fuzzy
@@ -914,8 +910,9 @@ msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
-"2. Soyez organisé - Créez un projet pour chacun de vos objectifs, puis ajoutez les "
-"étapes pour les atteindre. Passez-les en revue régulièrement pour vous tenir au courant."
+"2. Soyez organisé - Créez un projet pour chacun de vos objectifs, puis "
+"ajoutez les étapes pour les atteindre. Passez-les en revue régulièrement "
+"pour vous tenir au courant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
 #, fuzzy
@@ -923,8 +920,9 @@ msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
 "effectively. Planner will remind you on the right day."
 msgstr ""
-"3. Calendrier et événements - Voyez les événements de votre calendrier et planifiez votre temps "
-"efficacement. Planner vous les rapellera le jour correspondant."
+"3. Calendrier et événements - Voyez les événements de votre calendrier et "
+"planifiez votre temps efficacement. Planner vous les rapellera le jour "
+"correspondant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
 #, fuzzy
@@ -932,8 +930,8 @@ msgid ""
 "4. Be even more organized - Add a deadline to your tasks, create labels, use "
 "checklists."
 msgstr ""
-"4. Soyez toujours plus organisé - Ajoutez une date limite à vos tâches, créez des étiquettes, utilisez des "
-"cases à cocher."
+"4. Soyez toujours plus organisé - Ajoutez une date limite à vos tâches, "
+"créez des étiquettes, utilisez des cases à cocher."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:16
 #, fuzzy
@@ -941,16 +939,17 @@ msgid ""
 "5. Share your progress - Share all the progress of your project or some "
 "special task, all this in Markdown."
 msgstr ""
-"5. Partagez votre progrès - Partagez tout l'avancement de votre projet ou d'une tâche spécifique, le "
-"tout dans fichier Markdown."
+"5. Partagez votre progrès - Partagez tout l'avancement de votre projet ou "
+"d'une tâche spécifique, le tout dans fichier Markdown."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:17
 msgid ""
 "6. Support for Github Issues - Connect your account and start receiving "
 "notifications of every new issue in your repositories"
 msgstr ""
-"6. Signalez les problèmes sur Github - Connectez-vous à votre compte et commencez à recevoir "
-"les notifications de chaque nouveau numéro dans vos dépôts"
+"6. Signalez les problèmes sur Github - Connectez-vous à votre compte et "
+"commencez à recevoir les notifications de chaque nouveau numéro dans vos "
+"dépôts"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 msgid "Other features"
@@ -979,9 +978,13 @@ msgstr "Météo"
 msgid "Night mode"
 msgstr "Mode nuit"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:142
+#: data/com.github.alainm23.planner.appdata.xml.in:155
 msgid "Alain M."
 msgstr "Alain M."
+
+#, fuzzy
+#~ msgid "Export Project"
+#~ msgstr "Exporter le projet"
 
 #~ msgid "New Label"
 #~ msgstr "Nouvelle étiquette"

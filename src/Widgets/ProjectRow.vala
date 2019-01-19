@@ -200,7 +200,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 message_dialog.destroy ();
             } else if (type == "export") {
-                var chooser = new Gtk.FileChooserDialog (_("Export Project"), null, Gtk.FileChooserAction.SAVE);
+                var chooser = new Gtk.FileChooserDialog (_("Export project"), null, Gtk.FileChooserAction.SAVE);
                 chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
                 chooser.add_button ("_Save", Gtk.ResponseType.ACCEPT);
                 chooser.set_do_overwrite_confirmation (true);

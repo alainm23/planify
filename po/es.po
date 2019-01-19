@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-19 10:33-0500\n"
+"POT-Creation-Date: 2019-01-19 11:27-0500\n"
 "PO-Revision-Date: 2019-01-18 12:55-0500\n"
 "Last-Translator: Alain M. <alain23@protonmail.com>\n"
 "Language-Team: \n"
@@ -52,7 +52,7 @@ msgid "Tomorrow"
 msgstr "Mañana"
 
 #. Items
-#: src/Services/Notifications.vala:78 src/Views/Inbox.vala:50
+#: src/Services/Notifications.vala:83 src/Views/Inbox.vala:50
 #: src/Views/Today.vala:485 src/Views/Today.vala:534
 #: src/Views/Upcoming.vala:460 src/Views/Upcoming.vala:529
 #: src/Dialogs/PreferencesDialog.vala:479
@@ -609,8 +609,9 @@ msgstr ""
 msgid "Delete Project"
 msgstr "Eliminar proyecto"
 
-#: src/Widgets/ProjectRow.vala:203
-msgid "Export Project"
+#: src/Widgets/ProjectRow.vala:203 src/Widgets/Popovers/ProjectMenu.vala:37
+#, fuzzy
+msgid "Export project"
 msgstr "Exportar Proyecto"
 
 #: src/Widgets/ProjectRow.vala:209
@@ -803,11 +804,6 @@ msgstr "Cambiar nombre del proyecto"
 msgid "Export"
 msgstr "Exportar"
 
-#: src/Widgets/Popovers/ProjectMenu.vala:37
-#, fuzzy
-msgid "Export project"
-msgstr "Exportar Proyecto"
-
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
 msgstr "Compartir proyecto"
@@ -965,9 +961,12 @@ msgstr "Pronóstico del tiempo"
 msgid "Night mode"
 msgstr "Modo Noche"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:142
+#: data/com.github.alainm23.planner.appdata.xml.in:155
 msgid "Alain M."
 msgstr "Alain M."
+
+#~ msgid "Export Project"
+#~ msgstr "Exportar Proyecto"
 
 #~ msgid "Export proyect"
 #~ msgstr "Exportar Proyecto"
