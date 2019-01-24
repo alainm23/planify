@@ -60,7 +60,7 @@ public class Application : Gtk.Application {
 
         APP_VERSION =  "1.2.2";
     }
-
+  
     public static Application _instance = null;
 
     public static Application instance {

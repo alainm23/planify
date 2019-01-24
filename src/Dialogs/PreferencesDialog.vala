@@ -1658,6 +1658,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var s_7 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         s_7.margin_start = 36;
 
+        var s_8 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_8.margin_start = 36;
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
@@ -1676,6 +1679,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (run_background_eventbox);
         main_grid.add (s_7);
         main_grid.add (launch_eventbox);
+        main_grid.add (s_8);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (main_grid);

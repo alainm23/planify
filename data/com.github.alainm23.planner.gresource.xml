@@ -39,6 +39,8 @@
     <file alias="planner-upcoming.svg">resources/planner-upcoming.svg</file>
     <file alias="planner-startup-symbolic.svg">resources/planner-startup-symbolic.svg</file>
 
+    <file alias="planner-text-symbolic.svg">resources/planner-text-symbolic.svg</file>
+    <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
     <file alias="planner-notification-symbolic.svg">resources/planner-notification-symbolic.svg</file>
     <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
     <file alias="planner-note-symbolic.svg">resources/planner-note-symbolic.svg</file>

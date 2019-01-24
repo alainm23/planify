@@ -318,7 +318,6 @@
     color: #fafafa;
 }
 
-
 .task-hover {
     background-color: @color_selected;
     border-radius: 3px;
@@ -335,6 +334,10 @@
 
 .no-padding {
     padding: 0px;
+}
+
+.format-bar {
+    background-color: @bg_color;
 }
 
 .checklist-preview {

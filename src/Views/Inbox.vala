@@ -137,7 +137,7 @@ public class Views.Inbox : Gtk.EventBox {
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
-
+ 
         add_task_revealer = new Gtk.Revealer ();
         add_task_revealer.valign = Gtk.Align.END;
         add_task_revealer.halign = Gtk.Align.END;

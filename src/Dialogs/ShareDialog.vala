@@ -165,9 +165,21 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         title = _("Share");
         set_size_request (640, 494);
 
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.get_style_context ().add_class ("format-bar");
+        mode_button.hexpand = true;
+        mode_button.margin_end = 24;
+        mode_button.margin_top = 12;
+        mode_button.halign = Gtk.Align.END;
+        mode_button.valign = Gtk.Align.START;
+
+        mode_button.append_icon ("planner-markdown-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("planner-text-symbolic", Gtk.IconSize.MENU);
+
+        mode_button.selected = 0;
+
         source_view = new Gtk.SourceView ();
         source_view.margin = 6;
-        //source_view.wrap_mode = Gtk.WrapMode.WORD;
         source_view.monospace = true;
         source_view.expand = true;
 
@@ -185,7 +197,11 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         content_grid.orientation = Gtk.Orientation.VERTICAL;
         content_grid.add (main_frame);
 
-        ((Gtk.Container) get_content_area ()).add (content_grid);
+        var main_overlay = new Gtk.Overlay ();
+        main_overlay.add_overlay (mode_button);
+        main_overlay.add (content_grid);
+
+        ((Gtk.Container) get_content_area ()).add (main_overlay);
 
         var close_button = new Gtk.Button.with_label (_("Close"));
         close_button.valign = Gtk.Align.END;

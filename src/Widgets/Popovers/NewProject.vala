@@ -32,12 +32,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 
     public signal void on_add_project_signal ();
 
-    public const string COLOR_CSS = """
-        .proyect-color-preview {
-            color: %s;
-        }
-    """;
-
     public NewProject (Gtk.Widget relative) {
         Object (
             relative_to: relative,
@@ -56,17 +50,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         name_entry.max_length = 50;
         name_entry.margin_bottom = 12;
         name_entry.placeholder_text = _("Personal");
-
-        var color_preview_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
-        color_preview_button.image.get_style_context ().add_class ("proyect-color-preview");
-        color_preview_button.height_request = 25;
-        color_preview_button.valign = Gtk.Align.START;
-        color_preview_button.can_focus = false;
-
-        var name_grid = new Gtk.Grid ();
-        name_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
-        name_grid.add (name_entry);
-        name_grid.add (color_preview_button);
 
         var color_1 = new Gtk.Button ();
         color_1.valign = Gtk.Align.CENTER;
@@ -146,7 +129,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
         color_box.add (color_2);
         color_box.add (color_3);
         color_box.add (color_4);
-        color_box.add  (color_5);
+        color_box.add (color_5);
         color_box.add (color_6);
         color_box.add (color_7);
         color_box.add (color_n);
@@ -206,7 +189,7 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
 
         main_grid.add (title_label);
         main_grid.add (new Granite.HeaderLabel (_("Name")));
-        main_grid.add (name_grid);
+        main_grid.add (name_entry);
         main_grid.add (new Granite.HeaderLabel (_("Color")));
         main_grid.add (color_box);
         main_grid.add (color_hex_revealer);
@@ -307,13 +290,11 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             string hex = Application.utils.rgb_to_hex_string (color_button.rgba);
 
             color_hex_entry.text = hex;
-            apply_styles (hex);
         });
 
         color_button.color_set.connect (() => {
             string hex = Application.utils.rgb_to_hex_string (color_button.rgba);
             color_hex_entry.text = hex;
-            apply_styles (hex);
         });
 
         color_hex_entry.changed.connect (() => {
@@ -321,7 +302,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
             if (rgba.parse (color_hex_entry.text)) {
                 color_button.rgba = rgba;
 
-                apply_styles (Application.utils.rgb_to_hex_string (color_button.rgba));
                 if (name_entry.text != "") {
                     add_button.sensitive = true;
                 }
@@ -329,20 +309,6 @@ public class Widgets.Popovers.NewProject : Gtk.Popover {
                 add_button.sensitive = false;
             }
         });
-    }
-
-    private void apply_styles (string hex) {
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var colored_css = COLOR_CSS.printf (hex);
-
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
-        }
     }
 
     private void on_click_add_project () {
