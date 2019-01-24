@@ -86,11 +86,11 @@ msgstr "%A %d %b"
 
 #: src/Views/Inbox.vala:43
 msgid "All clear"
-msgstr "Tout est libre"
+msgstr "Il n'y a rien ici"
 
 #: src/Views/Inbox.vala:44
 msgid "Looks like everything's is organized. Tap + to add a task."
-msgstr "On dirait que tout est organisé. Tapez sur + pour ajouter une tâche."
+msgstr "On dirait que tout est organisé. Cliquez sur + pour ajouter une tâche."
 
 #: src/Views/Inbox.vala:58 src/Views/Inbox.vala:73 src/Views/Today.vala:64
 #: src/Views/Today.vala:242 src/Views/Upcoming.vala:58
@@ -169,7 +169,7 @@ msgstr "C'est tout pour aujourd'hui !"
 
 #: src/Views/Today.vala:45
 msgid "Enjoy your day."
-msgstr "Passez une bonne journée."
+msgstr "Profitez de votre journée."
 
 #: src/Views/Upcoming.vala:43
 msgid "Get a bird's eye view of yours upcoming tasks"
@@ -260,7 +260,7 @@ msgstr "Github"
 #: src/Dialogs/PreferencesDialog.vala:150
 #, fuzzy
 msgid "Connect your account to work with Issues"
-msgstr "Connectez votre compte pour pouvoir signaler les problèmes"
+msgstr "Connectez votre compte pour pouvoir signaler les problèmes" 
 
 #: src/Dialogs/PreferencesDialog.vala:159
 msgid "Username"
@@ -511,7 +511,7 @@ msgstr "Signaler un problème"
 
 #: src/Dialogs/PreferencesDialog.vala:1304
 msgid "Translations"
-msgstr ""
+msgstr "Traductions"
 
 #: src/Dialogs/PreferencesDialog.vala:1596
 msgid "Run in background"
@@ -540,7 +540,7 @@ msgstr "Votre projet est prêt à être partagé"
 
 #: src/Widgets/WhenButton.vala:24
 msgid "When"
-msgstr "Quand"
+msgstr "Date"
 
 #: src/Widgets/LabelButton.vala:34
 msgid "Labels"
@@ -598,7 +598,7 @@ msgstr "Ce projet contient %i tâches non complétées"
 
 #: src/Widgets/ProjectRow.vala:141 src/Widgets/Popovers/ProjectMenu.vala:34
 msgid "Mark as Completed"
-msgstr "Marquer comme complété"
+msgstr "Marquer comme terminé"
 
 #: src/Widgets/ProjectRow.vala:179
 msgid "Are you sure you want to delete this project?"
@@ -847,7 +847,7 @@ msgstr "Effacer"
 #: src/Widgets/Popovers/LabelsPopover.vala:132
 #: src/Widgets/Popovers/LabelsPopover.vala:213
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/Widgets/Popovers/LabelsPopover.vala:160
 msgid "Update"
