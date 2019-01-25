@@ -39,7 +39,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
             font-size: 11px;
             font-weight: 600;
             margin: 2px;
-            padding: 2px 6px 2px 6px;
+            padding: 0px 3px 0px 3px;
         }
     """;
     public LabelChild (Objects.Label _label) {

@@ -52,6 +52,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     construct {
         title = _("Preferences");
         height_request = 550;
+        width_request = 650;
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -59,7 +60,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         mode_button.append_text (_("General"));
         mode_button.append_text (_("Appearance"));
-        mode_button.append_text (_("Issues"));
+        mode_button.append_text (_("Github"));
         mode_button.append_text (_("About"));
 
         mode_button.selected = 0;
@@ -304,20 +305,45 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         listbox.expand = true;
 
         var update_issues_button = new Gtk.Button.with_label (_("Update issues"));
-        update_issues_button.get_style_context ().add_class ("planner-button-issues");
-
-        var update_repos_button = new Gtk.Button.with_label (_("Update repositories"));
-        update_repos_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        update_issues_button.margin = 6;
+        update_issues_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         var reset_account_button = new Gtk.Button.with_label (_("Delete account"));
+        reset_account_button.margin = 6;
         reset_account_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
+        var label_icon = new Gtk.Image ();
+        label_icon.gicon = new ThemedIcon ("tag");
+        label_icon.pixel_size = 16;
+        label_icon.margin_start = 6;
+
+        var label = new Gtk.Label (_("Labels"));
+        label.get_style_context ().add_class ("h3");
+
+        var repos_combobox = new Gtk.ComboBoxText ();
+        repos_combobox.margin = 6;
+        repos_combobox.margin_end = 12;
+
+        var repos_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        repos_box.hexpand = true;
+        repos_box.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        repos_box.pack_start (label_icon, false, false, 0);
+        repos_box.pack_start (label, false, false, 6);
+        repos_box.pack_end (repos_combobox, false, false, 0);
+
+        var s_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_1.margin_top = 12;
+
+        var s_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
+        var s_3 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_3.margin_top = 12;
+
         var action_grid = new Gtk.Grid ();
+        action_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin = 6;
         action_grid.add (update_issues_button);
-        action_grid.add (update_repos_button);
         action_grid.add (reset_account_button);
 
         var main_grid = new Gtk.Grid ();
@@ -329,6 +355,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (listbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (s_1);
+        main_grid.add (repos_box);
+        main_grid.add (s_2);
+        main_grid.add (s_3);
         main_grid.add (action_grid);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
@@ -345,8 +375,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             try {
                 Idle.add (() => {
                     var item = new Widgets.RepositoryRow (repo);
+                    
                     listbox.add (item);
-
+                    repos_combobox.append_text (repo.name);
+                    
                     listbox.show_all ();
                     return false;
                 });
@@ -361,17 +393,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         foreach (var repo in all_repos) {
             var row = new Widgets.RepositoryRow (repo);
+            
             listbox.add (row);
+            repos_combobox.append_text (repo.name);
         }
         
         listbox.show_all ();
-
-        update_repos_button.clicked.connect (() => {
-            if (Application.database.user_exists ()) {
-                var _user = Application.database.get_user ();
-                Application.github.get_repos (_user.login, _user.token, _user.id);
-            }
-        });
 
         reset_account_button.clicked.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (

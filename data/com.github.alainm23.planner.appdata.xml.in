@@ -116,12 +116,6 @@
     <screenshot>
       <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-02.png</image>
     </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-03.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/screenshot/screenshot-04.png</image>
-    </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
@@ -157,7 +151,7 @@
   <url type="bugtracker">https://github.com/alainm23/planner/issues</url>
   <url type="translate">https://github.com/alainm23/planner/tree/master/po#readme</url>
   <url type="donation">https://www.paypal.me/alainm23</url>
-  <url type="help">ttps://www.paypal.me/alainm23</url>
+  <url type="help">https://www.paypal.me/alainm23</url>
   <custom>
     <value key="x-appcenter-color-primary">#ffe16b</value>
     <value key="x-appcenter-color-primary-text">#000</value>

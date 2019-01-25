@@ -33,7 +33,7 @@ public class Widgets.RepositoryRow : Gtk.ListBoxRow {
         selectable = false;
 
         var repo_icon = new Gtk.Image ();
-        repo_icon.gicon = new ThemedIcon ("planner-repository-symbolic");
+        repo_icon.gicon = new ThemedIcon ("planner-repository");
         repo_icon.pixel_size = 16;
 
         var name_label = new Gtk.Label (repository.name);

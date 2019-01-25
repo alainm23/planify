@@ -69,8 +69,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
-        mode_switch.primary_icon_tooltip_text = ("Light background");
-        mode_switch.secondary_icon_tooltip_text = ("Dark background");
+        mode_switch.primary_icon_tooltip_text = (_("Light background"));
+        mode_switch.secondary_icon_tooltip_text = (_("Dark background"));
         mode_switch.valign = Gtk.Align.CENTER;
 
         var label = new Gtk.Label (_("Night Mode"));

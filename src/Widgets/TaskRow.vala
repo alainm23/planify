@@ -30,7 +30,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Button remove_button;
 
     private Gtk.Image note_preview_icon;
-    private Gtk.Image label_preview_icon;
     private Gtk.Label checklist_preview_label;
     private Gtk.Box checklist_preview_box;
     private Gtk.Label when_preview_label;
@@ -40,6 +39,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Box reminder_preview_box;
     private Gtk.Label reminder_preview_label;
     public Gtk.Box project_preview_box;
+
+    private Gtk.Grid preview_labels;
 
     private Gtk.Revealer labels_flowbox_revealer;
 
@@ -121,12 +122,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         check_note_preview_icon ();
 
-        label_preview_icon = new Gtk.Image ();
-        label_preview_icon.gicon = new ThemedIcon ("planner-label-symbolic");
-        label_preview_icon.pixel_size = 14;
-
-        check_label_preview_icon ();
-
         var checklist_preview_icon = new Gtk.Image ();
         checklist_preview_icon.gicon = new ThemedIcon ("planner-checklist-symbolic");
         checklist_preview_icon.pixel_size = 14;
@@ -178,13 +173,21 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             project_preview_label.label = project.name;
         }
 
+        preview_labels = new Gtk.Grid ();
+        preview_labels.column_spacing = 3;
+        preview_labels.valign = Gtk.Align.CENTER;
+
+        check_preview_labels ();
+
         previews_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         previews_box.pack_start (when_preview_label, false, false, 0);
         previews_box.pack_start (name_label, false, false, 0);
         previews_box.pack_start (note_preview_icon, false, false, 3);
-        previews_box.pack_start (label_preview_icon, false, false, 3);
         previews_box.pack_start (checklist_preview_box, false, false, 3);
         previews_box.pack_start (reminder_preview_box, false, false, 3);
+
+        previews_box.pack_start (preview_labels, false, false, 3);
+
         previews_box.pack_end (project_preview_box, false, false, 0);
 
         name_eventbox = new Gtk.EventBox ();
@@ -795,6 +798,28 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
     }
 
+    public void check_preview_labels () {
+        foreach (Gtk.Widget element in preview_labels.get_children ()) {
+            preview_labels.remove (element);
+        }
+
+        string[] labels_array = task.labels.split (";");
+
+        foreach (string id in labels_array) {
+            var label = Application.database.get_label (id);
+
+            if (label.id != 0) {
+                var label_preview = new Gtk.Label (label.name);
+                label_preview.valign = Gtk.Align.CENTER;
+                label_preview.get_style_context ().add_class ("label-" + label.id.to_string ());
+
+                preview_labels.add (label_preview);
+            }
+        }
+
+        preview_labels.show_all ();
+    }
+
     public void show_content () {
         main_grid.get_style_context ().add_class ("popover");
         main_grid.get_style_context ().add_class ("planner-popover");
@@ -846,16 +871,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         } else {
             note_preview_icon.visible = true;
             note_preview_icon.no_show_all = false;
-        }
-    }
-
-    public void check_label_preview_icon () {
-        if (task.labels == "") {
-            label_preview_icon.visible = false;
-            label_preview_icon.no_show_all = true;
-        } else {
-            label_preview_icon.visible = true;
-            label_preview_icon.no_show_all = false;
         }
     }
 
@@ -913,10 +928,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         );
 
         check_note_preview_icon ();
-        check_label_preview_icon ();
         check_checklist_progress ();
         check_when_preview_icon ();
         check_reminder_preview_icon ();
+        check_preview_labels ();
         update_checklist ();
         update_labels ();
         show_all ();
@@ -1019,8 +1034,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             Application.database.update_task_signal (task);
             on_signal_update (task);
 
-            check_label_preview_icon ();
             check_checklist_progress ();
+            check_preview_labels ();
 
             show_all ();
         }

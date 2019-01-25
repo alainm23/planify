@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # NathanBnm, 2019.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-19 11:27-0500\n"
-"PO-Revision-Date: 2019-01-19 08:30+0100\n"
+"PO-Revision-Date: 2019-01-25 10:41-0500\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: src/MainWindow.vala:35 data/com.github.alainm23.planner.desktop.in:3
 #: data/com.github.alainm23.planner.desktop.in:4
@@ -181,7 +181,7 @@ msgstr "Voici votre calendrier pour les tâches suivantes."
 
 #: src/Views/Project.vala:63
 msgid "keep your tasks organized in projects"
-msgstr "Organisez vos tâches en projets"
+msgstr "organisez vos tâches en projets"
 
 #: src/Views/Project.vala:64
 msgid "Tap + to add a task."
@@ -258,9 +258,8 @@ msgid "Github"
 msgstr "Github"
 
 #: src/Dialogs/PreferencesDialog.vala:150
-#, fuzzy
 msgid "Connect your account to work with Issues"
-msgstr "Connectez votre compte pour pouvoir signaler les problèmes" 
+msgstr "Connectez votre compte pour pouvoir signaler les problèmes"
 
 #: src/Dialogs/PreferencesDialog.vala:159
 msgid "Username"
@@ -505,7 +504,6 @@ msgid "Home Page"
 msgstr "Page d'accueil"
 
 #: src/Dialogs/PreferencesDialog.vala:1282
-#, fuzzy
 msgid "Report a Issue"
 msgstr "Signaler un problème"
 
@@ -621,7 +619,6 @@ msgid "Export project"
 msgstr "Exporter le projet"
 
 #: src/Widgets/ProjectRow.vala:209
-#, fuzzy
 msgid "Planner files"
 msgstr "Fichiers Planner"
 
@@ -735,7 +732,7 @@ msgstr "Recherche rapide"
 
 #: src/Widgets/QuickFind.vala:103
 msgid "all"
-msgstr "Tout"
+msgstr "tout"
 
 #: src/Widgets/NoteChild.vala:46
 msgid "Title"
@@ -893,7 +890,6 @@ msgid "How Planner works"
 msgstr "Comment Planner fonctionne"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:12
-#, fuzzy
 msgid ""
 "1. Collect your Ideas - The Inbox is your default task list in Planner. When "
 "you add a task, it goes straight to your Inbox unless you specify that the "
@@ -905,7 +901,6 @@ msgstr ""
 "incluse dans un projet."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
-#, fuzzy
 msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
@@ -915,7 +910,6 @@ msgstr ""
 "pour vous tenir au courant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
-#, fuzzy
 msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
 "effectively. Planner will remind you on the right day."
@@ -925,7 +919,6 @@ msgstr ""
 "correspondant."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
-#, fuzzy
 msgid ""
 "4. Be even more organized - Add a deadline to your tasks, create labels, use "
 "checklists."
@@ -934,7 +927,6 @@ msgstr ""
 "créez des étiquettes, utilisez des cases à cocher."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:16
-#, fuzzy
 msgid ""
 "5. Share your progress - Share all the progress of your project or some "
 "special task, all this in Markdown."
@@ -956,7 +948,6 @@ msgid "Other features"
 msgstr "Autres fonctionnalités"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
-#, fuzzy
 msgid "Reminders notifications"
 msgstr "Notifications de rappel"
 
@@ -969,12 +960,10 @@ msgid "Different themes to choose"
 msgstr "Différents thèmes"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
-#, fuzzy
 msgid "Weather forecast"
 msgstr "Météo"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:25
-#, fuzzy
 msgid "Night mode"
 msgstr "Mode nuit"
 

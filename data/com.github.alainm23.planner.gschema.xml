@@ -105,6 +105,14 @@
           </description>
         </key>
 
+        <key name="labels-repository" type="s">
+          <default>"none"</default>
+          <summary>Labels Repository</summary>
+          <description>
+            Labels Repository
+          </description>
+        </key>
+
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>

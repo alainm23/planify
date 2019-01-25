@@ -31,12 +31,11 @@ public class Services.Github : GLib.Object {
         session = new Soup.Session ();
         session.ssl_strict = false;
 
-        Timeout.add_seconds (1 * 30, () => {
-            check_issues ();
-
-            return false;
-        });
-
+        if (Application.database.user_exists ()) {
+            var user = Application.database.get_user ();
+            get_repos (user.login, user.token, user.id);
+        }
+        
         init_server ();
     }
 
