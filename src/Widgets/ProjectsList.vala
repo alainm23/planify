@@ -80,7 +80,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         menu_button.tooltip_text = _("Settings");
         menu_button.valign = Gtk.Align.CENTER;
         menu_button.halign = Gtk.Align.CENTER;
-        menu_button.margin_end = 12;
+        menu_button.margin_end = 6;
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         menu_button.get_style_context ().add_class ("settings-button");
 
@@ -146,7 +146,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
             listbox.add (row);
             listbox.show_all ();
         });
-
 
         listbox.row_activated.connect ((row) => {
             if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2 || row.get_index () == 3 || row.get_index () == 4) {

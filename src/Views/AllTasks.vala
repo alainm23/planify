@@ -226,7 +226,6 @@ public class Views.AllTasks : Gtk.EventBox {
                 }
             }
 
-            tasks_list.unselect_all ();
             return false;
         });
 
@@ -348,10 +347,6 @@ public class Views.AllTasks : Gtk.EventBox {
 
         tasks_list.add (row);
 
-        row.on_signal_update.connect ((_task) => {
-            tasks_list.unselect_all ();
-        });
-
         tasks_list.show_all ();
 
         check_visible_alertview ();
@@ -387,10 +382,6 @@ public class Views.AllTasks : Gtk.EventBox {
             var row = new Widgets.TaskRow (task);
 
             tasks_list.add (row);
-
-            row.on_signal_update.connect ((_task) => {
-                tasks_list.unselect_all ();
-            });
         }
 
         tasks_list.show_all ();

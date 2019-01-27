@@ -27,11 +27,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Entry name_entry;
     private Gtk.Label number_label;
     public Objects.Project project { get; construct; }
-    /*
-    private const Gtk.TargetEntry targetEntriesProjectRow [] = {
-		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
-	};
-    */
+
     public const string COLOR_CSS = """
         .proyect-%i {
             background-color: %s;
@@ -336,50 +332,4 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             number_label.no_show_all = false;
         }
     }
-    /*
-    private void build_drag_and_drop () {
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);
-
-        drag_begin.connect (on_drag_begin);
-        //get.Gtk (this, Gtk.DestDefaults.MOTION, targetEntriesProjectRow, Gdk.DragAction.MOVE);
-        drag_motion.connect (on_drag_motion);
-        drag_leave.connect (on_drag_leave);
-    }
-
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = (widget as Widgets.ProjectRow);
-
-        Gtk.Allocation alloc;
-		row.get_allocation (out alloc);
-
-        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
-        var cr = new Cairo.Context (surface);
-		cr.set_source_rgba (0, 0, 0, 0.3);
-		cr.set_line_width (1);
-
-        cr.move_to (0, 0);
-		cr.line_to (alloc.width, 0);
-		cr.line_to (alloc.width, alloc.height);
-		cr.line_to (0, alloc.height);
-		cr.line_to (0, 0);
-		cr.stroke ();
-
-        cr.set_source_rgba (255, 255, 255, 0.5);
-		cr.rectangle (0, 0, alloc.width, alloc.height);
-		cr.fill ();
-
-        row.main_grid.draw (cr);
-
-		Gtk.drag_set_icon_surface (context, surface);
-    }
-
-    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        get_style_context ().add_class ("highlight");
-        return true;
-    }
-
-    public void on_drag_leave (Gdk.DragContext context, uint time) {
-		get_style_context ().remove_class ("highlight");
-	}
-    */
 }

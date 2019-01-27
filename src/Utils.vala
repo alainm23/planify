@@ -328,6 +328,88 @@ public class Utils : GLib.Object {
         return weather_icon_name.get (key);
     }
 
+    public string get_weaher_color (string key) {
+        var weather_colors = new GLib.HashTable<string, string> (str_hash, str_equal);
+
+        weather_colors.insert("weather-overcast-symbolic", "#68758e");
+        weather_colors.insert("weather-showers-symbolic", "#68758e");
+        weather_colors.insert("weather-showers-scattered-symbolic", "#68758e");
+        weather_colors.insert("weather-storm-symbolic", "#555c68");
+        weather_colors.insert("weather-snow-symbolic", "#9ca7ba");
+        weather_colors.insert("weather-fog-symbolic", "#a1a6af");
+
+        return weather_colors.get (key);
+    }
+
+    public string get_weather_description (string key) {
+        var weather_descriptions = new GLib.HashTable<string, string> (str_hash, str_equal);
+
+        weather_descriptions.insert("Clouds", _("Clouds"));
+        weather_descriptions.insert("Clear", _("Clear"));
+        weather_descriptions.insert("Atmosphere", _("Atmosphere"));
+        weather_descriptions.insert("Snow", _("Snow"));
+        weather_descriptions.insert("Rain", _("Rain"));
+        weather_descriptions.insert("Drizzle", _("Drizzle"));
+        weather_descriptions.insert("Thunderstorm", _("Thunderstorm"));
+
+        return weather_descriptions.get (key);
+    }
+
+    public string get_weather_description_detail (string key) {
+        var details = new GLib.HashTable<string, string> (str_hash, str_equal);
+
+        details.insert("200", _("Thunderstorm with light rain"));
+        details.insert("201", _("Thunderstorm with rain"));
+        details.insert("202", _("Thunderstorm with heavy rain"));
+        details.insert("210", _("Light thunderstorm"));
+        details.insert("211", _("Thunderstorm"));
+        details.insert("212", _("Heavy thunderstorm"));
+        details.insert("221", _("Ragged thunderstorm"));
+        details.insert("230", _("Thunderstorm with light drizzle"));
+        details.insert("231", _("Thunderstorm with drizzle"));
+        details.insert("232", _("Thunderstorm with heavy drizzle"));
+        
+        details.insert("300", _("Light intensity drizzle"));
+        details.insert("301", _("Drizzle"));
+        details.insert("302", _("Heavy intensity drizzle"));
+        details.insert("310", _("Light intensity drizzle rain"));
+        details.insert("311", _("Drizzle rain"));
+        details.insert("312", _("Heavy intensity drizzle rain"));
+        details.insert("313", _("Shower rain and drizzle"));
+        details.insert("314", _("Heavy shower rain and drizzle"));
+        details.insert("321", _("Shower drizzle"));
+        
+        details.insert("500", _("Light rain"));
+        details.insert("501", _("Moderate rain"));
+        details.insert("502", _("Heavy intensity rain"));
+        details.insert("503", _("Very heavy rain"));
+        details.insert("504", _("Extreme rain"));
+        details.insert("511", _("Freezing rain"));
+        details.insert("520", _("Light intensity shower rain"));
+        details.insert("521", _("Shower rain"));
+        details.insert("522", _("Heavy intensity shower rain"));
+        details.insert("531", _("Ragged shower rain"));
+
+        details.insert("600", _("Light snow"));
+        details.insert("601", _("Snow"));
+        details.insert("602", _("Heavy snow"));
+        details.insert("611", _("Sleet"));
+        details.insert("612", _("Shower sleet"));
+        details.insert("615", _("Light rain and snow"));
+        details.insert("616", _("Rain and snow"));
+        details.insert("620", _("Light shower snow"));
+        details.insert("621", _("Shower snow"));
+        details.insert("622", _("Heavy shower snow"));
+        
+        details.insert("800", _("Clear sky"));
+        details.insert("801", _("Few clouds"));
+        details.insert("802", _("Scattered clouds"));
+        details.insert("803", _("Broken clouds"));
+        details.insert("804", _("Overcast clouds"));
+
+        return details.get (key);
+    }
+
     public string get_default_date_format (string date_string) {
         var now = new GLib.DateTime.now_local ();
         var date = new GLib.DateTime.from_iso8601 (date_string, new GLib.TimeZone.local ());
@@ -400,6 +482,24 @@ public class Utils : GLib.Object {
 
     public GLib.DateTime strip_time (GLib.DateTime datetime) {
         return datetime.add_full (0, 0, 0, -datetime.get_hour (), -datetime.get_minute (), -datetime.get_second ());
+    }
+
+    public bool check_internet_connection () {
+        var host = "www.google.com";
+
+        try {
+            // Resolve hostname to IP address
+            var resolver = Resolver.get_default ();
+            var addresses = resolver.lookup_by_name (host, null);
+            var address = addresses.nth_data (0);
+            if (address == null) {
+                return false;
+            }
+        } catch (Error e) {
+            debug ("%s\n", e.message);
+            return false;
+        }
+        return true;
     }
 
     /*

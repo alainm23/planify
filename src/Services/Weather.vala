@@ -26,7 +26,10 @@ public class Services.Weather : GLib.Object {
     public string country { get; set; }
     public double temperature;
     public string description { get; set; }
+    public string description_detail { get; set; }
     public string icon { get; set; }
+
+    public Gee.ArrayList<Forecast?> forecast_list;
 
     public string geo_city;
     public string geo_country;
@@ -45,6 +48,9 @@ public class Services.Weather : GLib.Object {
         country = "-";
         temperature = 0;
         description = "-";
+        description_detail = "-";
+
+        forecast_list = new Gee.ArrayList<Forecast?> ();
 
         geo_city = "-";
         geo_country = "-";
@@ -86,10 +92,10 @@ public class Services.Weather : GLib.Object {
           var parser = new Json.Parser ();
           parser.load_from_data ((string) message.response_body.flatten ().data, -1);
 
-          var response_root_object = parser.get_root ().get_object ();
-          var sys = response_root_object.get_object_member ("sys");
+          var root = parser.get_root ().get_object ();
+          var sys = root.get_object_member ("sys");
 
-          geo_city = response_root_object.get_string_member ("name");
+          geo_city = root.get_string_member ("name");
           geo_country = sys.get_string_member ("country");
 
           if (fetch_weather_info) {
@@ -121,27 +127,99 @@ public class Services.Weather : GLib.Object {
             var parser = new Json.Parser ();
             parser.load_from_data ((string) message.response_body.flatten ().data, -1);
 
-            var response_root_object = parser.get_root ().get_object ();
-            var weather = response_root_object.get_array_member ("weather");
-            var sys = response_root_object.get_object_member ("sys");
-            var main = response_root_object.get_object_member ("main");
+            var root = parser.get_root ().get_object ();
+            var weather = root.get_array_member ("weather");
+            var sys = root.get_object_member ("sys");
+            var main = root.get_object_member ("main");
 
             string weather_description = "";
+            string weather_description_detail = "";
             string weather_icon = "";
+            int64 weather_id = 0;
+
             foreach (var weather_details_item in weather.get_elements ()) {
                 var weather_details = weather_details_item.get_object ();
 
+                weather_id = weather_details.get_int_member ("id");
                 weather_description = weather_details.get_string_member ("main");
+                weather_description_detail = weather_details.get_string_member ("description");
                 weather_icon = weather_details.get_string_member ("icon");
             }
 
-            city = response_root_object.get_string_member ("name");
+            city = root.get_string_member ("name");
             country = sys.get_string_member ("country");
             temperature = main.get_double_member ("temp");
-            description = weather_description;
+            description = Application.utils.get_weather_description (weather_description);
+            description_detail = Application.utils.get_weather_description_detail (weather_id.to_string ());
             icon = weather_icon;
 
-            weather_info_updated ();
+            update_forecast_weather ();
+        } catch (Error e) {
+            weather_error ();
+            stderr.printf ("Failed to connect to OpenWeatherMap service.\n");
+        }
+    }
+
+    private void update_forecast_weather () {
+        string APP_ID = "0c6dd6ac81b50705599a4d7e3cf02e89";
+        string API_URL = "http://api.openweathermap.org/data/2.5/forecast";
+        string units = get_units ();
+
+        string uri;
+        if (Application.settings.get_boolean ("location-automatic")) {
+            uri = "%s?lat=%f&lon=%f&appid=%s&units=%s".printf (API_URL, this.latitude, this.longitude, APP_ID, units);
+        } else {
+            uri = "%s?q=%s,%s&appid=%s&units=%s".printf (API_URL, this.city, this.country, APP_ID, units);
+        }
+        
+        var session = new Soup.Session ();
+        var message = new Soup.Message ("GET", uri);
+        session.send_message (message);
+        
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+            /*
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+            "This is a primary text",
+            (string) message.response_body.flatten ().data,
+            "applications-development",
+            Gtk.ButtonsType.CLOSE
+            );
+
+            message_dialog.run ();
+            message_dialog.destroy ();
+            */
+            var root = parser.get_root ().get_object ();
+            var list = root.get_array_member ("list");
+
+            forecast_list.clear ();
+
+            foreach (var item in list.get_elements ()) {
+                if (forecast_list.size < 5) {
+                    var item_details = item.get_object ();
+
+                    int64 _date = 0;
+                    string _icon = ""; 
+                    string _temp = "";
+
+                    _date = item_details.get_int_member ("dt");
+
+                    var main = item_details.get_object_member ("main");
+                    _temp = get_temperature_format (main.get_double_member ("temp"));
+
+                    var weather = item_details.get_array_member ("weather");
+                    foreach (var w in weather.get_elements ()) {
+                        var weather_details = w.get_object (); 
+                        _icon = Application.utils.get_weather_icon_name (weather_details.get_string_member ("icon"));
+                    }
+
+                    var forecast = new Forecast (_date, _icon, _temp);
+                    forecast_list.add (forecast);
+                }
+            }
+
+            weather_info_updated ();       
         } catch (Error e) {
             weather_error ();
             stderr.printf ("Failed to connect to OpenWeatherMap service.\n");
@@ -194,17 +272,25 @@ public class Services.Weather : GLib.Object {
     }
 
     public string get_temperature () {
-        var formatted_temperature = _("%i°").printf ((int) this.temperature);
+        var formatted_temperature = _("%i°").printf ((int) temperature);
         return formatted_temperature;
     }
 
-    public void print_weather_info () {
-       stdout.printf ("City: %s\n", this.city);
-       stdout.printf ("Country: %s\n", this.country);
-       stdout.printf ("Description: %s\n", this.description);
-       stdout.printf ("Temperature: %f\n", this.temperature);
+    public string get_temperature_format (double t) {
+        var formatted_temperature = _("%i°").printf ((int) t);
+        return formatted_temperature;
+    }
+}
 
-       stdout.printf ("GEO City: %s\n", this.geo_city);
-       stdout.printf ("GEO Country: %s\n", this.geo_country);
-   }
+public class Forecast : GLib.Object {
+    public string icon;
+    public string temperature;
+    public GLib.DateTime datetime;
+
+    public Forecast (int64 date = 0, string icon = "", string temperature = "") {
+        datetime = new GLib.DateTime.from_unix_local (date);
+
+        this.icon = icon;
+        this.temperature = temperature;
+    }
 }

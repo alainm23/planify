@@ -10,15 +10,6 @@
     padding: 1px 6px;
 }
 
-.task {
-    transition: all 250ms ease;
-}
-
-.task:selected {
-    background-color: transparent;
-    color: @fg_color;
-}
-
 .label-child {
     transition: all 150ms ease;
 }
@@ -301,23 +292,6 @@
     border: none;
 }
 
-.planner-weather-widget {
-    border-radius: 6px;
-    background-color: #0e141f;
-}
-
-.planner-weather-widget label {
-    color: #fafafa;
-}
-
-.planner-weather-widget image {
-    color: #fafafa;
-}
-
-.planner-weather-widget spinner {
-    color: #fafafa;
-}
-
 .task-hover {
     background-color: @color_selected;
     border-radius: 3px;
@@ -385,7 +359,7 @@
     font-size: 11px;
     font-weight: 500;
     margin: 2px;
-    padding: 0px 6px 0px 6px
+    padding: 0px 6px 0px 6px;
 }
 
 .color-button:hover {
@@ -450,6 +424,27 @@
     border-radius: 6px;
     border: 0.5px solid #48C522;
     padding: 3px;
+}
+
+.planner-spinner {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+            #fafafa,
+                1.3
+            ),
+            #fafafa
+        );
+    border: 1px solid shade (#fafafa, 0.9);
+    border-radius: 50px;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 2px alpha (#000, 0.3);
+    color: #333;
+    padding: 4px;
 }
 
 .share-view text {

@@ -305,11 +305,15 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         listbox.expand = true;
 
         var update_issues_button = new Gtk.Button.with_label (_("Update issues"));
-        update_issues_button.margin = 6;
+        update_issues_button.margin_start = 6;
+        update_issues_button.margin_top = 6;
+        update_issues_button.margin_bottom = 6;
         update_issues_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         var reset_account_button = new Gtk.Button.with_label (_("Delete account"));
-        reset_account_button.margin = 6;
+        reset_account_button.margin_end = 6;
+        reset_account_button.margin_top = 6;
+        reset_account_button.margin_bottom = 6;
         reset_account_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
         var label_icon = new Gtk.Image ();
@@ -322,7 +326,6 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var repos_combobox = new Gtk.ComboBoxText ();
         repos_combobox.margin = 6;
-        repos_combobox.margin_end = 12;
 
         var repos_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         repos_box.hexpand = true;
@@ -427,7 +430,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         update_issues_button.clicked.connect (() => {
-            Application.github.check_issues ();
+            if (Application.utils.check_internet_connection ()) {
+                Application.github.check_issues ();
+            }
         });
 
         return main_frame;

@@ -198,7 +198,7 @@ public class Dialogs.ShareDialog : Gtk.Dialog {
         content_grid.add (main_frame);
 
         var main_overlay = new Gtk.Overlay ();
-        main_overlay.add_overlay (mode_button);
+        //main_overlay.add_overlay (mode_button);
         main_overlay.add (content_grid);
 
         ((Gtk.Container) get_content_area ()).add (main_overlay);

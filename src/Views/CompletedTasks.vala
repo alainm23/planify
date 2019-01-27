@@ -225,7 +225,6 @@ public class Views.CompletedTasks : Gtk.EventBox {
                 }
             }
 
-            tasks_list.unselect_all ();
             return false;
         });
 
@@ -366,8 +365,6 @@ public class Views.CompletedTasks : Gtk.EventBox {
                         });
                     }
                 }
-
-                tasks_list.unselect_all ();
             });
 
             tasks_list.show_all ();
@@ -416,8 +413,6 @@ public class Views.CompletedTasks : Gtk.EventBox {
                         });
                     }
                 }
-
-                tasks_list.unselect_all ();
             });
         }
 

@@ -137,6 +137,7 @@ public class Views.Upcoming : Gtk.EventBox {
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
+        add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         add_task_button.tooltip_text = _("Add new task");
 
         add_task_revealer = new Gtk.Revealer ();
@@ -274,8 +275,6 @@ public class Views.Upcoming : Gtk.EventBox {
                     );
                 }
             }
-
-            tasks_list.unselect_all ();
         });
 
         this.event.connect ((event) => {
@@ -305,7 +304,6 @@ public class Views.Upcoming : Gtk.EventBox {
                 }
             }
 
-            tasks_list.unselect_all ();
             return false;
         });
 
@@ -555,8 +553,6 @@ public class Views.Upcoming : Gtk.EventBox {
                         return true;
                     });
                 }
-
-                tasks_list.unselect_all ();
             });
 
             tasks_list.show_all ();
@@ -582,7 +578,5 @@ public class Views.Upcoming : Gtk.EventBox {
 
             task_new_revealer.when_datetime = new GLib.DateTime.now_local ().add_days (1);
         }
-
-        tasks_list.unselect_all ();
     }
 }

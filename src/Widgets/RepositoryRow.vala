@@ -41,7 +41,7 @@ public class Widgets.RepositoryRow : Gtk.ListBoxRow {
         name_label.get_style_context ().add_class ("h3");
 
         var sensitive_switch = new Gtk.Switch ();
-        sensitive_switch.margin_end = 6;
+        sensitive_switch.margin_end = 3;
         sensitive_switch.get_style_context ().add_class ("active-switch");
         sensitive_switch.valign = Gtk.Align.CENTER;
 

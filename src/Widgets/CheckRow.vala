@@ -46,7 +46,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("task");
+        selectable = false;
         tooltip_text = checklist_name;
 
         checked_button = new Gtk.CheckButton ();

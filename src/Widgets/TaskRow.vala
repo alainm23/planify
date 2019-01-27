@@ -58,11 +58,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public Gtk.Box project_box;
 
     private Widgets.WhenButton when_button;
-    /*
-    private const Gtk.TargetEntry targetEntriesProjectRow [] = {
-		{ "ProjectRow", Gtk.TargetFlags.SAME_APP, 0 }
-	};
-    */
+
     public signal void on_signal_update (Objects.Task task);
     public signal void on_signal_remove (Objects.Task task);
 
@@ -73,8 +69,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("task");
-
+        selectable = false;
+        
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
 
@@ -1029,7 +1025,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             task.checklist = task.checklist + row.get_check ();
         }
 
-
         if (Application.database.update_task (task) == Sqlite.DONE) {
             Application.database.update_task_signal (task);
             on_signal_update (task);
@@ -1040,39 +1035,4 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             show_all ();
         }
     }
-
-    /*
-    private void build_drag_and_drop () {
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesProjectRow, Gdk.DragAction.MOVE);
-
-        drag_begin.connect (on_drag_begin);
-    }
-
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = (widget as Widgets.TaskRow);
-
-        Gtk.Allocation alloc;
-		row.get_allocation (out alloc);
-
-        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
-        var cr = new Cairo.Context (surface);
-		cr.set_source_rgba (0, 0, 0, 0.3);
-		cr.set_line_width (1);
-
-        cr.move_to (0, 0);
-		cr.line_to (alloc.width, 0);
-		cr.line_to (alloc.width, alloc.height);
-		cr.line_to (0, alloc.height);
-		cr.line_to (0, 0);
-		cr.stroke ();
-
-        cr.set_source_rgba (255, 255, 255, 0.5);
-		cr.rectangle (0, 0, alloc.width, alloc.height);
-		cr.fill ();
-
-        row.main_grid.draw (cr);
-
-		Gtk.drag_set_icon_surface (context, surface);
-    }
-    */
  }

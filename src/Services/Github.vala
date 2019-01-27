@@ -31,17 +31,26 @@ public class Services.Github : GLib.Object {
         session = new Soup.Session ();
         session.ssl_strict = false;
 
-        if (Application.database.user_exists ()) {
-            var user = Application.database.get_user ();
-            get_repos (user.login, user.token, user.id);
-        }
-        
+        Timeout.add (250, () => {
+            if (Application.utils.check_internet_connection ()) {
+                if (Application.database.user_exists ()) {
+                    var user = Application.database.get_user ();
+    
+                    get_repos (user.login, user.token, user.id);
+                }
+            }
+                
+            return false;
+        });
+
         init_server ();
     }
 
     private void init_server () {
         Timeout.add_seconds (1 * 60 * 10, () => {
-            check_issues ();
+            if (Application.utils.check_internet_connection ()) {
+                check_issues ();
+            }
 
             return true;
         });
@@ -109,7 +118,6 @@ public class Services.Github : GLib.Object {
         } catch (Error e) {
             stderr.printf ("Failed to connect to Github service.\n");
         }
-
     }
 
     public bool issue_exists (string issues, int64 id) {

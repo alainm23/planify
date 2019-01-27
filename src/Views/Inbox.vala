@@ -136,6 +136,7 @@ public class Views.Inbox : Gtk.EventBox {
         add_task_button.width_request = 32;
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
+        add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         add_task_button.tooltip_text = _("Add new task");
  
         add_task_revealer = new Gtk.Revealer ();
@@ -259,8 +260,6 @@ public class Views.Inbox : Gtk.EventBox {
                         true);
                 }
             }
-
-            tasks_list.unselect_all ();
         });
 
         this.event.connect ((event) => {
@@ -290,7 +289,6 @@ public class Views.Inbox : Gtk.EventBox {
                 }
             }
 
-            tasks_list.unselect_all ();
             return false;
         });
 
@@ -444,7 +442,6 @@ public class Views.Inbox : Gtk.EventBox {
                     });
                 }
 
-                tasks_list.unselect_all ();
             });
 
             tasks_list.show_all ();
@@ -514,8 +511,6 @@ public class Views.Inbox : Gtk.EventBox {
                         });
                     }
                 }
-
-                tasks_list.unselect_all ();
             });
         }
 
@@ -539,7 +534,5 @@ public class Views.Inbox : Gtk.EventBox {
             add_task_revealer.reveal_child = false;
             task_new_revealer.name_entry.grab_focus ();
         }
-
-        tasks_list.unselect_all ();
     }
 }

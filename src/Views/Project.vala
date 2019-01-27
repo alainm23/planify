@@ -263,6 +263,7 @@ public class Views.Project : Gtk.EventBox {
         add_task_button.height_request = 32;
         add_task_button.margin = 12;
         add_task_button.width_request = 32;
+        add_task_button.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         add_task_button.get_style_context ().add_class ("button-circular");
         add_task_button.get_style_context ().add_class ("no-padding");
         add_task_button.tooltip_text = _("Add new task");
@@ -280,6 +281,7 @@ public class Views.Project : Gtk.EventBox {
         show_completed_button.halign = Gtk.Align.CENTER;
         show_completed_button.width_request = 36;
         show_completed_button.get_style_context ().add_class ("button-circular");
+        show_completed_button.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         show_completed_button.tooltip_text = _("Show completed tasks");
 
         var show_completed_icon = new Gtk.Image ();
@@ -573,8 +575,6 @@ public class Views.Project : Gtk.EventBox {
                     );
                 }
             }
-
-            tasks_list.unselect_all ();
         });
 
         this.event.connect ((event) => {
@@ -604,7 +604,6 @@ public class Views.Project : Gtk.EventBox {
                 }
             }
 
-            tasks_list.unselect_all ();
             return false;
         });
 
@@ -773,8 +772,6 @@ public class Views.Project : Gtk.EventBox {
                         return true;
                     });
                 }
-
-                tasks_list.unselect_all ();
             });
 
             tasks_list.show_all ();
@@ -838,8 +835,6 @@ public class Views.Project : Gtk.EventBox {
                         return true;
                     });
                 }
-
-                tasks_list.unselect_all ();
             });
 
             tasks_list.show_all ();
@@ -863,7 +858,5 @@ public class Views.Project : Gtk.EventBox {
 
             task_new_revealer.name_entry.grab_focus ();
         }
-
-        tasks_list.unselect_all ();
     }
 }
