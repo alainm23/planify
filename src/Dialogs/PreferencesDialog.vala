@@ -273,7 +273,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     
     private Gtk.Widget get_github_widget () {
         var user = Application.database.get_user ();
-        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%i.jpg").printf ((int) user.id));
+        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("profile-%i.jpg").printf ((int) user.id));
 
         profile_image = new Granite.Widgets.Avatar.from_file (image_path, 48);
         

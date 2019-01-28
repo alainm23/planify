@@ -47,6 +47,7 @@ public class Views.Project : Gtk.EventBox {
     private Widgets.Popovers.LabelsPopover labels_popover;
 
     private Gtk.Stack main_stack;
+    private bool first_init;
 
     public Project (Objects.Project _project, MainWindow parent) {
         Object (
@@ -57,6 +58,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     construct {
+        first_init = true;
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Widgets.AlertView (
@@ -389,21 +391,6 @@ public class Views.Project : Gtk.EventBox {
         main_overlay.add (eventbox);
 
         add (main_overlay);
-        update_tasks_list ();
-
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "alert";
-                return false;
-            });
-        } else {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "main";
-                return false;
-            });
-        }
-
-        show_all ();
 
         search_button.toggled.connect (() => {
             if (search_button.active) {
@@ -749,36 +736,49 @@ public class Views.Project : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_tasks_by_project (project.id);
+        if (first_init) {
+            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+            all_tasks = Application.database.get_all_tasks_by_project (project.id);
 
-        foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
-            row.project_preview_box.visible = false;
-            row.project_preview_box.no_show_all = true;
+            foreach (var task in all_tasks) {
+                var row = new Widgets.TaskRow (task);
+                row.project_preview_box.visible = false;
+                row.project_preview_box.no_show_all = true;
 
-            tasks_list.add (row);
+                tasks_list.add (row);
 
-            row.on_signal_update.connect ((_task) => {
-                if (_task.project_id != project.id) {
-                    Timeout.add (20, () => {
-                        row.opacity = row.opacity - 0.1;
+                row.on_signal_update.connect ((_task) => {
+                    if (_task.project_id != project.id) {
+                        Timeout.add (20, () => {
+                            row.opacity = row.opacity - 0.1;
 
-                        if (row.opacity <= 0) {
-                            row.destroy ();
-                            return false;
-                        }
+                            if (row.opacity <= 0) {
+                                row.destroy ();
+                                return false;
+                            }
 
-                        return true;
-                    });
-                }
-            });
+                            return true;
+                        });
+                    }
+                });
 
-            tasks_list.show_all ();
-        }
+                tasks_list.show_all ();
+            }
 
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            main_stack.visible_child_name = "alert";
+            if (Application.utils.is_listbox_empty (tasks_list)) {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "alert";
+                    return false;
+                });
+            } else {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "main";
+                    return false;
+                });
+            }
+            
+            first_init = false;
+            show_all ();
         }
     }
 

@@ -36,17 +36,17 @@ public class Utils : GLib.Object {
     }
 
     public void update_images_credits () {
-        new Thread<void*> ("scan_local_files", () => {
+        new Thread<void*> ("update_images_credits", () => {
             try {
                 var parser = new Json.Parser ();
                 parser.load_from_file ("/usr/share/com.github.alainm23.planner/credits.json");
     
                 var root = parser.get_root ().get_object ();
     
-                var developers = root.get_array_member ("developers");
-                var designers = root.get_array_member ("designers");
-                var translators = root.get_array_member ("translators");
-                var supports = root.get_array_member ("supports");
+                var developers = root.get_array_member ("developing");
+                var designers = root.get_array_member ("design");
+                var translators = root.get_array_member ("translation");
+                var supports = root.get_array_member ("support");
     
                 foreach (var _item in developers.get_elements ()) {
                     var item = _item.get_object ();
@@ -81,7 +81,7 @@ public class Utils : GLib.Object {
         
         var file_path = File.new_for_path (image_path);
         var file_from_uri = File.new_for_uri (avatar);
-        if (!file_path.query_exists ()) {
+        if (file_path.query_exists () == false) {
             MainLoop loop = new MainLoop ();
         
             file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {

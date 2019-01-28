@@ -179,17 +179,7 @@ public class Services.Weather : GLib.Object {
         try {
             var parser = new Json.Parser ();
             parser.load_from_data ((string) message.response_body.flatten ().data, -1);
-            /*
-            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-            "This is a primary text",
-            (string) message.response_body.flatten ().data,
-            "applications-development",
-            Gtk.ButtonsType.CLOSE
-            );
-
-            message_dialog.run ();
-            message_dialog.destroy ();
-            */
+            
             var root = parser.get_root ().get_object ();
             var list = root.get_array_member ("list");
 

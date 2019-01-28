@@ -30,7 +30,7 @@ public class Views.Today : Gtk.EventBox {
     private Widgets.Popovers.LabelsPopover labels_popover;
 
     private Gtk.Stack main_stack;
-
+    private bool first_init;
     public Today () {
         Object (
             expand: true
@@ -38,6 +38,7 @@ public class Views.Today : Gtk.EventBox {
     }
 
     construct {
+        first_init = true;
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Widgets.AlertView (
@@ -194,37 +195,7 @@ public class Views.Today : Gtk.EventBox {
         main_overlay.add (main_box);
 
         add (main_overlay);
-        update_tasks_list ();
-        check_visible_alertview ();
-
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "alert";
-                return false;
-            });
-        } else {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "main";
-                return false;
-            });
-        }
-
-        tasks_list.set_sort_func ((row1, row2) => {
-            var item1 = row1 as Widgets.TaskRow;
-            if (item1.task.checked == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        });
-
-        tasks_list.set_filter_func ((row) => {
-            var item = row as Widgets.TaskRow;
-            return item.task.checked == 0;
-        });
-
-        tasks_list.invalidate_sort ();
-
+        
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
@@ -512,50 +483,78 @@ public class Views.Today : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_today_tasks ();
+        if (first_init) {
+            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+            all_tasks = Application.database.get_all_today_tasks ();
 
-        foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
+            foreach (var task in all_tasks) {
+                var row = new Widgets.TaskRow (task);
 
-            tasks_list.add (row);
+                tasks_list.add (row);
 
-            row.on_signal_update.connect ((_task) => {
-                var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                row.on_signal_update.connect ((_task) => {
+                    var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                if (Application.utils.is_today (_when) == false) {
-                    // Send quick notification
-                    string view = "";
-                    if (_task.is_inbox == 1) {
-                        view = _("Inbox");
-                    } else {
-                        var project = new Objects.Project ();
-                        project = Application.database.get_project (_task.project_id);
-                        view = project.name;
+                    if (Application.utils.is_today (_when) == false) {
+                        // Send quick notification
+                        string view = "";
+                        if (_task.is_inbox == 1) {
+                            view = _("Inbox");
+                        } else {
+                            var project = new Objects.Project ();
+                            project = Application.database.get_project (_task.project_id);
+                            view = project.name;
+                        }
+
+                        Application.notification.send_local_notification (
+                            task.content,
+                            _("It was moved to %s").printf (view),
+                            "document-export",
+                            3,
+                            false
+                        );
+
+                        if (row is Gtk.Widget) {
+                            GLib.Timeout.add (250, () => {
+                                row.destroy ();
+                                return GLib.Source.REMOVE;
+                            });
+                        }
                     }
+                });
 
-                    Application.notification.send_local_notification (
-                        task.content,
-                        _("It was moved to %s").printf (view),
-                        "document-export",
-                        3,
-                        false
-                    );
+                tasks_list.show_all ();
+            }
 
-                    if (row is Gtk.Widget) {
-                        GLib.Timeout.add (250, () => {
-                            row.destroy ();
-                            return GLib.Source.REMOVE;
-                        });
-                    }
+            if (Application.utils.is_listbox_empty (tasks_list)) {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "alert";
+                    return false;
+                });
+            } else {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "main";
+                    return false;
+                });
+            }
+
+            tasks_list.set_sort_func ((row1, row2) => {
+                var item1 = row1 as Widgets.TaskRow;
+                if (item1.task.checked == 0) {
+                    return 0;
+                } else {
+                    return 1;
                 }
             });
 
-            tasks_list.show_all ();
-        }
+            tasks_list.set_filter_func ((row) => {
+                var item = row as Widgets.TaskRow;
+                return item.task.checked == 0;
+            });
 
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            main_stack.visible_child_name = "alert";
+            tasks_list.invalidate_sort ();
+
+            first_init = false;
         }
     }
 

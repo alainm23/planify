@@ -30,6 +30,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Widgets.Popovers.LabelsPopover labels_popover;
     private Gtk.Stack main_stack;
 
+    private bool first_init;
     public Inbox () {
         Object (
             expand: true
@@ -37,6 +38,7 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     construct {
+        first_init = true;
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
 
         alert_view = new Widgets.AlertView (
@@ -201,29 +203,9 @@ public class Views.Inbox : Gtk.EventBox {
         main_overlay.add (main_box);
 
         add (main_overlay);
-        update_tasks_list ();
-        check_visible_alertview ();
+        //update_tasks_list ();
 
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "alert";
-                return false;
-            });
-        } else {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "main";
-                return false;
-            });
-        }
-
-        tasks_list.set_sort_func ((row1, row2) => {
-            var item1 = row1 as Widgets.TaskRow;
-            if (item1.task.checked == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        });
+        
 
         // Events
 
@@ -473,51 +455,72 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_inbox_tasks ();
+        if (first_init) {
+            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+            all_tasks = Application.database.get_all_inbox_tasks ();
 
-        foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
-            row.project_preview_box.visible = false;
-            row.project_preview_box.no_show_all = true;
+            foreach (var task in all_tasks) {
+                var row = new Widgets.TaskRow (task);
+                row.project_preview_box.visible = false;
+                row.project_preview_box.no_show_all = true;
 
-            tasks_list.add (row);
+                tasks_list.add (row);
 
-            row.on_signal_update.connect ((_task) => {
-                if (_task.is_inbox == 0 || _task.when_date_utc != "") {
-                    if (_task.when_date_utc != "") {
-                        // Send a quick notification
-                        var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
-                        string view = "";
+                row.on_signal_update.connect ((_task) => {
+                    if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                        if (_task.when_date_utc != "") {
+                            // Send a quick notification
+                            var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                            string view = "";
 
-                        if (Application.utils.is_today (_when)) {
-                            view = _("Today");
-                        } else if (Application.utils.is_upcoming (_when)) {
-                            view = _("Upcoming");
+                            if (Application.utils.is_today (_when)) {
+                                view = _("Today");
+                            } else if (Application.utils.is_upcoming (_when)) {
+                                view = _("Upcoming");
+                            }
+
+                            Application.notification.send_local_notification (
+                                task.content,
+                                _("It was moved to %s").printf (view),
+                                "document-export",
+                                3,
+                                false);
                         }
 
-                        Application.notification.send_local_notification (
-                            task.content,
-                            _("It was moved to %s").printf (view),
-                            "document-export",
-                            3,
-                            false);
+                        if (row is Gtk.Widget) {
+                            GLib.Timeout.add (250, () => {
+                                row.destroy ();
+                                return GLib.Source.REMOVE;
+                            });
+                        }
                     }
+                });
+            }
 
-                    if (row is Gtk.Widget) {
-                        GLib.Timeout.add (250, () => {
-                            row.destroy ();
-                            return GLib.Source.REMOVE;
-                        });
-                    }
+            tasks_list.show_all ();
+
+            if (Application.utils.is_listbox_empty (tasks_list)) {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "alert";
+                    return false;
+                });
+            } else {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "main";
+                    return false;
+                });
+            }
+
+            tasks_list.set_sort_func ((row1, row2) => {
+                var item1 = row1 as Widgets.TaskRow;
+                if (item1.task.checked == 0) {
+                    return 0;
+                } else {
+                    return 1;
                 }
             });
-        }
 
-        tasks_list.show_all ();
-
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            main_stack.visible_child_name = "alert";
+            first_init = false;
         }
     }
 

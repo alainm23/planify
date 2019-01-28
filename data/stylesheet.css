@@ -19,6 +19,10 @@
     color: @fg_color;
 }
 
+.task {	
+    transition: all 250ms ease;	
+}
+
 .text-hover {
     color: @color_text
 }

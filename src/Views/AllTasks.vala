@@ -27,6 +27,7 @@ public class Views.AllTasks : Gtk.EventBox {
     private Widgets.Popovers.LabelsPopover labels_popover;
     private Gtk.Stack main_stack;
 
+    private bool first_init;
     public AllTasks () {
         Object (
             expand: true
@@ -35,6 +36,7 @@ public class Views.AllTasks : Gtk.EventBox {
 
     construct {
         get_style_context ().add_class (Granite.STYLE_CLASS_WELCOME);
+        first_init = true;
 
         alert_view = new Widgets.AlertView (
             _("All clear"),
@@ -170,29 +172,6 @@ public class Views.AllTasks : Gtk.EventBox {
         main_overlay.add (main_box);
 
         add (main_overlay);
-        update_tasks_list ();
-        check_visible_alertview ();
-
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "alert";
-                return false;
-            });
-        } else {
-            Timeout.add (200, () => {
-                main_stack.visible_child_name = "main";
-                return false;
-            });
-        }
-
-        tasks_list.set_sort_func ((row1, row2) => {
-            var item1 = row1 as Widgets.TaskRow;
-            if (item1.task.checked == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        });
 
         // Events
 
@@ -375,19 +354,40 @@ public class Views.AllTasks : Gtk.EventBox {
     }
 
     public void update_tasks_list () {
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_search_tasks ();
+        if (first_init) {
+            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+            all_tasks = Application.database.get_all_search_tasks ();
 
-        foreach (var task in all_tasks) {
-            var row = new Widgets.TaskRow (task);
+            foreach (var task in all_tasks) {
+                var row = new Widgets.TaskRow (task);
 
-            tasks_list.add (row);
-        }
+                tasks_list.add (row);
+            }
 
-        tasks_list.show_all ();
+            tasks_list.show_all ();
+            
+            if (Application.utils.is_listbox_empty (tasks_list)) {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "alert";
+                    return false;
+                });
+            } else {
+                Timeout.add (200, () => {
+                    main_stack.visible_child_name = "main";
+                    return false;
+                });
+            }
 
-        if (Application.utils.is_listbox_empty (tasks_list)) {
-            main_stack.visible_child_name = "alert";
+            tasks_list.set_sort_func ((row1, row2) => {
+                var item1 = row1 as Widgets.TaskRow;
+                if (item1.task.checked == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            });
+
+            first_init = false;
         }
     }
 }

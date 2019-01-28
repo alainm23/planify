@@ -102,7 +102,10 @@ public class MainWindow : Gtk.Window {
 
         Application.database.update_indicators ();
 
-        Application.utils.update_images_credits ();
+        Timeout.add (250, () => {
+            Application.utils.update_images_credits ();
+            return false;
+        });
     }
 
     private void check_badge_count () {

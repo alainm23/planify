@@ -45,7 +45,7 @@ public class Widgets.TimePicker : Gtk.EventBox {
             } else {
                 am_pm_modebutton.set_active (0);
             }
-
+            
             update_text (true);
             changing_time = false;
         }

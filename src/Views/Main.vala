@@ -74,6 +74,15 @@ public class Views.Main : Gtk.Paned {
 
         Timeout.add (200, () => {
             stack.visible_child_name = start_page_name;
+
+            if (start_page_name == "inbox_view") {
+                inbox_view.update_tasks_list ();
+            } else if (start_page_name == "today_view") {
+                today_view.update_tasks_list ();
+            } else {
+                upcoming_view.update_tasks_list ();
+            }
+            
             return false;
         });
 
@@ -84,19 +93,24 @@ public class Views.Main : Gtk.Paned {
             if (type == "item") {
                 if (index == 0) {
                     stack.visible_child_name = "inbox_view";
+                    inbox_view.update_tasks_list ();
                 } else if (index == 1) {
                     stack.visible_child_name = "today_view";
+                    today_view.update_tasks_list ();
                 } else if (index == 2) {
                     stack.visible_child_name = "upcoming_view";
+                    upcoming_view.update_tasks_list ();
                 } else if (index == 3) {
                     stack.visible_child_name = "all_tasks_view";
+                    all_tasks_view.update_tasks_list ();
                 } else {
                     stack.visible_child_name = "completed_tasks_view";
+                    completed_tasks_view.update_tasks_list ();
                 }
             } else {
                 stack.visible_child_name = "project_view-" + index.to_string ();
                 var project_view = stack.get_child_by_name ("project_view-" + index.to_string ()) as Views.Project;
-                //project_view.apply_remove ();
+                project_view.update_tasks_list ();
             }
         });
 
@@ -115,14 +129,19 @@ public class Views.Main : Gtk.Paned {
         Application.signals.go_action_page.connect ((index) => {
             if (index == 0) {
                 stack.visible_child_name = "inbox_view";
+                inbox_view.update_tasks_list ();
             } else if (index == 1) {
                 stack.visible_child_name = "today_view";
+                today_view.update_tasks_list ();
             } else if (index == 2) {
                 stack.visible_child_name = "upcoming_view";
+                upcoming_view.update_tasks_list ();
             } else if (index == 3) {
                 stack.visible_child_name = "all_tasks_view";
+                all_tasks_view.update_tasks_list ();
             } else if (index == 4) {
                 stack.visible_child_name = "completed_tasks_view";
+                completed_tasks_view.update_tasks_list ();
             }
         });
 

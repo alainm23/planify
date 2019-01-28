@@ -69,8 +69,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     }
 
     construct {
+        get_style_context ().add_class ("task");
         selectable = false;
         
+
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
 
@@ -459,7 +461,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         checked_button.toggled.connect (() => {
             check_task_completed ();
-            update_task ();
+
+            Timeout.add (200, () => {
+                update_task ();
+                return false;
+            });
         });
 
         name_eventbox.enter_notify_event.connect ((event) => {
@@ -854,9 +860,12 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.halign = Gtk.Align.END;
 
         if (name_entry.text != "") {
-            update_task ();
-            tooltip_text = name_entry.text;
-            has_tooltip = true;
+            Timeout.add (250, () => {
+                update_task ();
+                tooltip_text = name_entry.text;
+                has_tooltip = true;
+                return false;
+            });
         }
     }
 
