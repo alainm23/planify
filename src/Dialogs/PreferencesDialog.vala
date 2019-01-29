@@ -45,7 +45,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             deletable: false,
             resizable: false,
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
+            modal: true
         );
 	}
 
@@ -529,8 +530,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         notification_radio.margin_top = 3;
         notification_radio.margin_bottom = 6;
 
-        int index = Application.settings.get_enum ("start-page");
-
+        int index = Application.settings.get_enum ("badge-count");
+ 
         if (index == 0) {
             none_radio.active = true;
         } else if (index == 1) {

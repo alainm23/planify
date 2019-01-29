@@ -55,6 +55,7 @@ executable(
 
     'src/Dialogs/PreferencesDialog.vala',
     'src/Dialogs/ShareDialog.vala',
+    'src/Dialogs/Loading.vala',
 
     'src/Widgets/WhenButton.vala',
     'src/Widgets/LabelButton.vala',

@@ -355,39 +355,48 @@ public class Views.AllTasks : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_search_tasks ();
-
-            foreach (var task in all_tasks) {
-                var row = new Widgets.TaskRow (task);
-
-                tasks_list.add (row);
-            }
-
-            tasks_list.show_all ();
+            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
+            loading_dialog.destroy.connect (Gtk.main_quit);
+            loading_dialog.show_all ();
             
-            if (Application.utils.is_listbox_empty (tasks_list)) {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "alert";
-                    return false;
-                });
-            } else {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "main";
-                    return false;
-                });
-            }
+            Timeout.add (200, () => {
+                var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                all_tasks = Application.database.get_all_search_tasks ();
 
-            tasks_list.set_sort_func ((row1, row2) => {
-                var item1 = row1 as Widgets.TaskRow;
-                if (item1.task.checked == 0) {
-                    return 0;
-                } else {
-                    return 1;
+                foreach (var task in all_tasks) {
+                    var row = new Widgets.TaskRow (task);
+
+                    tasks_list.add (row);
                 }
-            });
 
-            first_init = false;
+                tasks_list.show_all ();
+                
+                if (Application.utils.is_listbox_empty (tasks_list)) {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "alert";
+                        return false;
+                    });
+                } else {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "main";
+                        return false;
+                    });
+                }
+
+                tasks_list.set_sort_func ((row1, row2) => {
+                    var item1 = row1 as Widgets.TaskRow;
+                    if (item1.task.checked == 0) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                });
+
+                first_init = false;
+                loading_dialog.destroy ();
+                
+                return false;
+            });
         }
     }
 }

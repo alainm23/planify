@@ -203,12 +203,8 @@ public class Views.Inbox : Gtk.EventBox {
         main_overlay.add (main_box);
 
         add (main_overlay);
-        //update_tasks_list ();
-
         
-
         // Events
-
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
@@ -456,71 +452,80 @@ public class Views.Inbox : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_inbox_tasks ();
+            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
+            loading_dialog.destroy.connect (Gtk.main_quit);
+            loading_dialog.show_all ();
 
-            foreach (var task in all_tasks) {
-                var row = new Widgets.TaskRow (task);
-                row.project_preview_box.visible = false;
-                row.project_preview_box.no_show_all = true;
+            Timeout.add (200, () => {
+                var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                all_tasks = Application.database.get_all_inbox_tasks ();
 
-                tasks_list.add (row);
+                foreach (var task in all_tasks) {
+                    var row = new Widgets.TaskRow (task);
+                    row.project_preview_box.visible = false;
+                    row.project_preview_box.no_show_all = true;
 
-                row.on_signal_update.connect ((_task) => {
-                    if (_task.is_inbox == 0 || _task.when_date_utc != "") {
-                        if (_task.when_date_utc != "") {
-                            // Send a quick notification
-                            var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
-                            string view = "";
+                    tasks_list.add (row);
 
-                            if (Application.utils.is_today (_when)) {
-                                view = _("Today");
-                            } else if (Application.utils.is_upcoming (_when)) {
-                                view = _("Upcoming");
+                    row.on_signal_update.connect ((_task) => {
+                        if (_task.is_inbox == 0 || _task.when_date_utc != "") {
+                            if (_task.when_date_utc != "") {
+                                // Send a quick notification
+                                var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                                string view = "";
+
+                                if (Application.utils.is_today (_when)) {
+                                    view = _("Today");
+                                } else if (Application.utils.is_upcoming (_when)) {
+                                    view = _("Upcoming");
+                                }
+
+                                Application.notification.send_local_notification (
+                                    task.content,
+                                    _("It was moved to %s").printf (view),
+                                    "document-export",
+                                    3,
+                                    false);
                             }
 
-                            Application.notification.send_local_notification (
-                                task.content,
-                                _("It was moved to %s").printf (view),
-                                "document-export",
-                                3,
-                                false);
+                            if (row is Gtk.Widget) {
+                                GLib.Timeout.add (250, () => {
+                                    row.destroy ();
+                                    return GLib.Source.REMOVE;
+                                });
+                            }
                         }
+                    });
+                }
 
-                        if (row is Gtk.Widget) {
-                            GLib.Timeout.add (250, () => {
-                                row.destroy ();
-                                return GLib.Source.REMOVE;
-                            });
-                        }
+                tasks_list.show_all ();
+
+                if (Application.utils.is_listbox_empty (tasks_list)) {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "alert";
+                        return false;
+                    });
+                } else {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "main";
+                        return false;
+                    });
+                }
+
+                tasks_list.set_sort_func ((row1, row2) => {
+                    var item1 = row1 as Widgets.TaskRow;
+                    if (item1.task.checked == 0) {
+                        return 0;
+                    } else {
+                        return 1;
                     }
                 });
-            }
 
-            tasks_list.show_all ();
+                first_init = false;
+                loading_dialog.destroy ();
 
-            if (Application.utils.is_listbox_empty (tasks_list)) {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "alert";
-                    return false;
-                });
-            } else {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "main";
-                    return false;
-                });
-            }
-
-            tasks_list.set_sort_func ((row1, row2) => {
-                var item1 = row1 as Widgets.TaskRow;
-                if (item1.task.checked == 0) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+                return false;
             });
-
-            first_init = false;
         }
     }
 

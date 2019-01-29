@@ -200,7 +200,6 @@ public class Views.Today : Gtk.EventBox {
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
 
         // Signals
-
         show_hide_all_button.toggled.connect (() => {
           if (show_hide_all_button.active) {
               show_hide_all_button.tooltip_text = _("Close all tasks");
@@ -484,77 +483,86 @@ public class Views.Today : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_today_tasks ();
+            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
+            loading_dialog.destroy.connect (Gtk.main_quit);
+            loading_dialog.show_all ();
 
-            foreach (var task in all_tasks) {
-                var row = new Widgets.TaskRow (task);
+            Timeout.add (200, () => {
+                var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                all_tasks = Application.database.get_all_today_tasks ();
 
-                tasks_list.add (row);
+                foreach (var task in all_tasks) {
+                    var row = new Widgets.TaskRow (task);
 
-                row.on_signal_update.connect ((_task) => {
-                    var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                    tasks_list.add (row);
 
-                    if (Application.utils.is_today (_when) == false) {
-                        // Send quick notification
-                        string view = "";
-                        if (_task.is_inbox == 1) {
-                            view = _("Inbox");
-                        } else {
-                            var project = new Objects.Project ();
-                            project = Application.database.get_project (_task.project_id);
-                            view = project.name;
+                    row.on_signal_update.connect ((_task) => {
+                        var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+
+                        if (Application.utils.is_today (_when) == false) {
+                            // Send quick notification
+                            string view = "";
+                            if (_task.is_inbox == 1) {
+                                view = _("Inbox");
+                            } else {
+                                var project = new Objects.Project ();
+                                project = Application.database.get_project (_task.project_id);
+                                view = project.name;
+                            }
+
+                            Application.notification.send_local_notification (
+                                task.content,
+                                _("It was moved to %s").printf (view),
+                                "document-export",
+                                3,
+                                false
+                            );
+
+                            if (row is Gtk.Widget) {
+                                GLib.Timeout.add (250, () => {
+                                    row.destroy ();
+                                    return GLib.Source.REMOVE;
+                                });
+                            }
                         }
+                    });
 
-                        Application.notification.send_local_notification (
-                            task.content,
-                            _("It was moved to %s").printf (view),
-                            "document-export",
-                            3,
-                            false
-                        );
+                    tasks_list.show_all ();
+                }
 
-                        if (row is Gtk.Widget) {
-                            GLib.Timeout.add (250, () => {
-                                row.destroy ();
-                                return GLib.Source.REMOVE;
-                            });
-                        }
+                if (Application.utils.is_listbox_empty (tasks_list)) {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "alert";
+                        return false;
+                    });
+                } else {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "main";
+                        return false;
+                    });
+                }
+
+                tasks_list.set_sort_func ((row1, row2) => {
+                    var item1 = row1 as Widgets.TaskRow;
+                    if (item1.task.checked == 0) {
+                        return 0;
+                    } else {
+                        return 1;
                     }
                 });
 
-                tasks_list.show_all ();
-            }
-
-            if (Application.utils.is_listbox_empty (tasks_list)) {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "alert";
-                    return false;
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
                 });
-            } else {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "main";
-                    return false;
-                });
-            }
 
-            tasks_list.set_sort_func ((row1, row2) => {
-                var item1 = row1 as Widgets.TaskRow;
-                if (item1.task.checked == 0) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+                tasks_list.invalidate_sort ();
+
+                first_init = false;
+                loading_dialog.destroy ();
+
+                return false;
             });
-
-            tasks_list.set_filter_func ((row) => {
-                var item = row as Widgets.TaskRow;
-                return item.task.checked == 0;
-            });
-
-            tasks_list.invalidate_sort ();
-
-            first_init = false;
         }
     }
 

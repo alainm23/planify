@@ -482,84 +482,93 @@ public class Views.Upcoming : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_upcoming_tasks ();
+            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
+            loading_dialog.destroy.connect (Gtk.main_quit);
+            loading_dialog.show_all ();
 
-            foreach (var task in all_tasks) {
-                var row = new Widgets.TaskRow (task);
+            Timeout.add (200, () => {
+                var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                all_tasks = Application.database.get_all_upcoming_tasks ();
 
-                tasks_list.add (row);
+                foreach (var task in all_tasks) {
+                    var row = new Widgets.TaskRow (task);
 
-                row.on_signal_update.connect ((_task) => {
-                    var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
+                    tasks_list.add (row);
 
-                    if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
-                        string view = "";
+                    row.on_signal_update.connect ((_task) => {
+                        var _when = new GLib.DateTime.from_iso8601 (_task.when_date_utc, new GLib.TimeZone.local ());
 
-                        if (_task.when_date_utc == "") {
-                            if (_task.is_inbox == 1) {
-                                view = _("Inbox");
-                            } else {
-                                var project = new Objects.Project ();
-                                project = Application.database.get_project (_task.project_id);
-                                view = project.name;
+                        if ((Application.utils.is_upcoming (_when) == false) || _task.when_date_utc == "") {
+                            string view = "";
+
+                            if (_task.when_date_utc == "") {
+                                if (_task.is_inbox == 1) {
+                                    view = _("Inbox");
+                                } else {
+                                    var project = new Objects.Project ();
+                                    project = Application.database.get_project (_task.project_id);
+                                    view = project.name;
+                                }
+                            } else if (Application.utils.is_today (_when)) {
+                                view = _("Today");
                             }
-                        } else if (Application.utils.is_today (_when)) {
-                            view = _("Today");
+
+                            Application.notification.send_local_notification (
+                                task.content,
+                                _("It was moved to %s").printf (view),
+                                "document-export",
+                                3,
+                                false
+                            );
+
+                            Timeout.add (20, () => {
+                                row.opacity = row.opacity - 0.1;
+
+                                if (row.opacity <= 0) {
+                                    row.destroy ();
+                                    return false;
+                                }
+
+                                return true;
+                            });
                         }
+                    });
 
-                        Application.notification.send_local_notification (
-                            task.content,
-                            _("It was moved to %s").printf (view),
-                            "document-export",
-                            3,
-                            false
-                        );
+                    tasks_list.show_all ();
+                }
 
-                        Timeout.add (20, () => {
-                            row.opacity = row.opacity - 0.1;
+                if (Application.utils.is_listbox_empty (tasks_list)) {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "alert";
+                        return false;
+                    });
+                } else {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "main";
+                        return false;
+                    });
+                }
 
-                            if (row.opacity <= 0) {
-                                row.destroy ();
-                                return false;
-                            }
-
-                            return true;
-                        });
-                    }
+                tasks_list.set_filter_func ((row) => {
+                    var item = row as Widgets.TaskRow;
+                    return item.task.checked == 0;
                 });
 
-                tasks_list.show_all ();
-            }
+                tasks_list.set_sort_func ((row1, row2) => {
+                    var item1 = row1 as Widgets.TaskRow;
+                    var item2 = row2 as Widgets.TaskRow;
 
-            if (Application.utils.is_listbox_empty (tasks_list)) {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "alert";
-                    return false;
-                });
-            } else {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "main";
-                    return false;
-                });
-            }
+                    var date1 = new GLib.DateTime.from_iso8601 (item1.task.when_date_utc, new GLib.TimeZone.local ());
+                    var date2 = new GLib.DateTime.from_iso8601 (item2.task.when_date_utc, new GLib.TimeZone.local ());
 
-            tasks_list.set_filter_func ((row) => {
-                var item = row as Widgets.TaskRow;
-                return item.task.checked == 0;
+                    return date1.compare (date2);
+                });
+
+                first_init = false;
+                loading_dialog.destroy ();
+                
+                return false;
             });
-
-            tasks_list.set_sort_func ((row1, row2) => {
-                var item1 = row1 as Widgets.TaskRow;
-                var item2 = row2 as Widgets.TaskRow;
-
-                var date1 = new GLib.DateTime.from_iso8601 (item1.task.when_date_utc, new GLib.TimeZone.local ());
-                var date2 = new GLib.DateTime.from_iso8601 (item2.task.when_date_utc, new GLib.TimeZone.local ());
-
-                return date1.compare (date2);
-            });
-
-            first_init = false;
         }
     }
 

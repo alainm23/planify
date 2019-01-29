@@ -244,6 +244,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         checklist_box.pack_start (checklist_entry, true, true, 6);
 
         var checklist_grid = new Gtk.Grid ();
+        checklist_grid.margin_top = 6;
         checklist_grid.margin_start = 36;
         checklist_grid.margin_end = 12;
         checklist_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -258,7 +259,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         labels_flowbox_revealer = new Gtk.Revealer ();
         labels_flowbox_revealer.margin_start = 22;
-        labels_flowbox_revealer.margin_top = 6;
         labels_flowbox_revealer.add (labels_flowbox);
         labels_flowbox_revealer.reveal_child = false;
 
@@ -299,7 +299,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var menu_popover = new Widgets.Popovers.TaskMenu (menu_button);
 
         var action_box =  new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_top = 6;
         action_box.margin_end = 3;
         action_box.margin_bottom = 6;
         action_box.margin_start = 28;
@@ -860,7 +859,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         close_revealer.halign = Gtk.Align.END;
 
         if (name_entry.text != "") {
-            Timeout.add (250, () => {
+            Timeout.add (305, () => {
                 update_task ();
                 tooltip_text = name_entry.text;
                 has_tooltip = true;

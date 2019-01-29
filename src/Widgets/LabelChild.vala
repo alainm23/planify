@@ -49,6 +49,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
     }
 
     construct {
+        valign = Gtk.Align.CENTER;
         get_style_context ().add_class ("label-child");
 
         var remove_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
@@ -67,7 +68,6 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
 
         var overlay = new Gtk.Overlay ();
         overlay.valign = Gtk.Align.START;
-        //overlay.halign = Gtk.Align.START;
         overlay.add_overlay (remove_revealer);
         overlay.add (name_label);
 

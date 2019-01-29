@@ -737,48 +737,56 @@ public class Views.Project : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-            all_tasks = Application.database.get_all_tasks_by_project (project.id);
+            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
+            loading_dialog.destroy.connect (Gtk.main_quit);
+            loading_dialog.show_all ();
 
-            foreach (var task in all_tasks) {
-                var row = new Widgets.TaskRow (task);
-                row.project_preview_box.visible = false;
-                row.project_preview_box.no_show_all = true;
+            Timeout.add (200, () => {
+                var all_tasks = new Gee.ArrayList<Objects.Task?> ();
+                all_tasks = Application.database.get_all_tasks_by_project (project.id);
 
-                tasks_list.add (row);
+                foreach (var task in all_tasks) {
+                    var row = new Widgets.TaskRow (task);
+                    row.project_preview_box.visible = false;
+                    row.project_preview_box.no_show_all = true;
 
-                row.on_signal_update.connect ((_task) => {
-                    if (_task.project_id != project.id) {
-                        Timeout.add (20, () => {
-                            row.opacity = row.opacity - 0.1;
+                    tasks_list.add (row);
 
-                            if (row.opacity <= 0) {
-                                row.destroy ();
-                                return false;
-                            }
+                    row.on_signal_update.connect ((_task) => {
+                        if (_task.project_id != project.id) {
+                            Timeout.add (20, () => {
+                                row.opacity = row.opacity - 0.1;
 
-                            return true;
-                        });
-                    }
-                });
+                                if (row.opacity <= 0) {
+                                    row.destroy ();
+                                    return false;
+                                }
 
-                tasks_list.show_all ();
-            }
+                                return true;
+                            });
+                        }
+                    });
 
-            if (Application.utils.is_listbox_empty (tasks_list)) {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "alert";
-                    return false;
-                });
-            } else {
-                Timeout.add (200, () => {
-                    main_stack.visible_child_name = "main";
-                    return false;
-                });
-            }
-            
-            first_init = false;
-            show_all ();
+                    tasks_list.show_all ();
+                }
+
+                if (Application.utils.is_listbox_empty (tasks_list)) {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "alert";
+                        return false;
+                    });
+                } else {
+                    Timeout.add (200, () => {
+                        main_stack.visible_child_name = "main";
+                        return false;
+                    });
+                }
+                
+                first_init = false;
+                loading_dialog.destroy ();
+
+                return false;
+            });
         }
     }
 

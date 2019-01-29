@@ -50,7 +50,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks");
         all_tasks_item.primary_text = Application.database.get_all_tasks_number ().to_string ();
-        all_tasks_item.reveal_child = true;
+        all_tasks_item.reveal_child = false;
 
         completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
         completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
