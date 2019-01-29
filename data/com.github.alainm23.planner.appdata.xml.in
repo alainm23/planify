@@ -29,6 +29,19 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="1.2.3" date="2019-01-29">
+      <description>
+        <p>New features:</p>
+        <ul>
+          <li>Labels preview</li>
+          <li>Weather forecast</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Lithuanian (welaq)</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.2" date="2019-01-19">
       <description>
         <p>Improvements:</p>

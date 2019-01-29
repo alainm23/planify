@@ -359,10 +359,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (listbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (s_1);
-        main_grid.add (repos_box);
-        main_grid.add (s_2);
-        main_grid.add (s_3);
+        //main_grid.add (s_1);
+        //main_grid.add (repos_box);
+        //main_grid.add (s_2);
+        //main_grid.add (s_3);
         main_grid.add (action_grid);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);

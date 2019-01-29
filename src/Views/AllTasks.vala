@@ -88,25 +88,21 @@ public class Views.AllTasks : Gtk.EventBox {
         labels_popover = new Widgets.Popovers.LabelsPopover (labels_button, true);
         labels_popover.position = Gtk.PositionType.BOTTOM;
 
-        var share_button = new Gtk.Button.from_icon_name ("planner-share-symbolic", Gtk.IconSize.MENU);
-        share_button.get_style_context ().add_class ("planner-share-menu");
-        share_button.tooltip_text = _("Share");
-        share_button.valign = Gtk.Align.CENTER;
-        share_button.halign = Gtk.Align.CENTER;
+        var search_button = new Gtk.ToggleButton ();
+        search_button.get_style_context ().add_class ("planner-search-menu");
+        search_button.tooltip_text = _("Search");
+        search_button.valign = Gtk.Align.CENTER;
+        search_button.halign = Gtk.Align.CENTER;
+        search_button.add (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU));
 
-        share_button.clicked.connect (() => {
-            var share_dialog = new Dialogs.ShareDialog (Application.instance.main_window);
-            share_dialog.inbox = true;
-            share_dialog.destroy.connect (Gtk.main_quit);
-            share_dialog.show_all ();
-        });
+        var search_popover = new Widgets.Popovers.SearchPopover (search_button);
 
         var action_grid = new Gtk.Grid ();
         action_grid.valign = Gtk.Align.CENTER;
         action_grid.column_spacing = 12;
 
         action_grid.add (labels_button);
-        action_grid.add (share_button);
+        action_grid.add (search_button);
         action_grid.add (show_hide_all_button);
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -172,7 +168,6 @@ public class Views.AllTasks : Gtk.EventBox {
         main_overlay.add (main_box);
 
         add (main_overlay);
-
         // Events
 
         Gdk.Display display = Gdk.Display.get_default ();
@@ -283,6 +278,23 @@ public class Views.AllTasks : Gtk.EventBox {
             }
         });
 
+        search_button.toggled.connect (() => {
+            if (search_button.active) {
+                search_popover.show_all ();
+            }
+        });
+  
+        search_popover.closed.connect (() => {
+            search_button.active = false;
+        });
+
+        search_popover.search_changed.connect ((text) => {
+            tasks_list.set_filter_func ((row) => {
+                var item = row as Widgets.TaskRow;
+                return text.down () in item.task.content.down ();
+            });
+        });
+        
         tasks_list.remove.connect ((widget) => {
             check_visible_alertview ();
         });
