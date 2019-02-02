@@ -202,8 +202,21 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         var source_buffer = new Gtk.SourceBuffer (null);
         source_buffer.highlight_syntax = true;
         source_buffer.language = Gtk.SourceLanguageManager.get_default ().get_language ("markdown");
-        source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
         source_buffer.text = task.note;
+
+        if (Application.settings.get_boolean ("prefer-dark-style")) {
+            source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
+        } else {
+            source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+        }
+
+        Application.signals.change_dark_theme.connect ((data) => {
+            if (data) {
+                source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
+            } else {
+                source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+            }
+        });
 
         note_view = new Gtk.SourceView ();
         note_view.expand = true;
@@ -248,8 +261,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         mode_button.halign = Gtk.Align.END;
         mode_button.valign = Gtk.Align.START;
 
-        mode_button.append_icon ("planner-markdown-symbolic", Gtk.IconSize.MENU);
         mode_button.append_icon ("planner-text-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("planner-markdown-symbolic", Gtk.IconSize.MENU);
 
         mode_button.selected = 0;
 

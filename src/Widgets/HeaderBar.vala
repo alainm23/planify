@@ -182,6 +182,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             } catch (GLib.Error e) {
                 return;
             }
+
+            Application.signals.change_dark_theme (mode_switch.active);
         });
 
         preferences_menuitem.clicked.connect (() => {
