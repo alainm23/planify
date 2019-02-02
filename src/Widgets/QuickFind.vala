@@ -20,7 +20,7 @@
 */
 
 public class Widgets.QuickFind : Gtk.Revealer {
-    private Gtk.SearchEntry entry;
+    private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
 
     public QuickFind () {
@@ -32,16 +32,16 @@ public class Widgets.QuickFind : Gtk.Revealer {
     }
 
     construct {
-        entry = new Gtk.SearchEntry ();
-        entry.margin = 9;
-        entry.width_request = 350;
-        entry.placeholder_text = _("Quick find");
+        search_entry = new Gtk.SearchEntry ();
+        search_entry.margin = 9;
+        search_entry.width_request = 350;
+        search_entry.placeholder_text = _("Quick find");
 
         var quick_find_grid = new Gtk.Grid ();
         quick_find_grid.margin = 6;
         quick_find_grid.get_style_context ().add_class ("card");
         quick_find_grid.get_style_context ().add_class ("planner-card-radius");
-        quick_find_grid.add (entry);
+        quick_find_grid.add (search_entry);
 
         listbox = new Gtk.ListBox ();
         listbox.selection_mode = Gtk.SelectionMode.BROWSE;
@@ -70,45 +70,24 @@ public class Widgets.QuickFind : Gtk.Revealer {
         main_grid.add (quick_find_grid);
         main_grid.add (revealer);
 
-        add (main_grid);
+        var event_box = new Gtk.EventBox ();
+        event_box.add (main_grid);
+
+        add (event_box);
         update_items ();
-
-        listbox.row_activated.connect ((row) => {
-            var item = row as Item;
-
-            if (item.is_inbox) {
-                Application.signals.go_action_page (0);
-            } else if (item.is_today) {
-                Application.signals.go_action_page (1);
-            } else if (item.is_upcoming) {
-                Application.signals.go_action_page (2);
-            } else if (item.is_all_tasks) {
-                Application.signals.go_action_page (3);
-            } else if (item.is_completed) {
-                Application.signals.go_action_page (4);
-            } else if (item.is_project) {
-                Application.signals.go_project_page (item.project_id);
-            } else if (item.is_task) {
-                Application.signals.go_task_page (item.task_id, item.project_id);
-            }
-
-            reveal_child = false;
-            entry.text = "";
-            listbox.unselect_all ();
-        });
 
         listbox.set_filter_func ((row) => {
             var item = row as Item;
 
-            if (entry.text.down () == _("all")) {
+            if (search_entry.text.down () == _("all")) {
                 return true;
             } else {
-                return entry.text.down () in item.title.down ();
+                return search_entry.text.down () in item.title.down ();
             }
         });
 
-        entry.search_changed.connect (() => {
-            if (entry.text != "") {
+        search_entry.search_changed.connect (() => {
+            if (search_entry.text != "") {
                 revealer.reveal_child = true;
             } else {
                 revealer.reveal_child = false;
@@ -117,8 +96,8 @@ public class Widgets.QuickFind : Gtk.Revealer {
             listbox.invalidate_filter ();
         });
 
-        entry.focus_out_event.connect (() => {
-            if (entry.text == "") {
+        search_entry.focus_out_event.connect (() => {
+            if (search_entry.text == "") {
                 reveal_child = false;
                 listbox.unselect_all ();
             }
@@ -126,9 +105,51 @@ public class Widgets.QuickFind : Gtk.Revealer {
             return false;
         });
 
+        event_box.key_press_event.connect ((event) => {
+            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                var item = listbox.get_selected_row () as Item;
+
+                if (item.is_inbox) {
+                    Application.signals.go_action_page (0);
+                } else if (item.is_today) {
+                    Application.signals.go_action_page (1);
+                } else if (item.is_upcoming) {
+                    Application.signals.go_action_page (2);
+                } else if (item.is_all_tasks) {
+                    Application.signals.go_action_page (3);
+                } else if (item.is_completed) {
+                    Application.signals.go_action_page (4);
+                } else if (item.is_project) {
+                    Application.signals.go_project_page (item.project_id);
+                } else if (item.is_task) {
+                    Application.signals.go_task_page (item.task_id, item.project_id);
+                }
+    
+                reveal_child = false;
+                search_entry.text = "";
+                listbox.unselect_all ();
+
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                    search_entry.key_press_event (event);
+                }
+
+                return false;
+            }
+
+            return true;
+        });
+
         this.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                entry.text = "";
+                search_entry.text = "";
                 reveal_child = false;
                 listbox.unselect_all ();
             }
@@ -138,12 +159,12 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
         Application.signals.on_signal_show_quick_find.connect (() => {
             if (reveal_child) {
-                entry.text = "";
+                search_entry.text = "";
                 reveal_child = false;
                 listbox.unselect_all ();
             } else {
                 reveal_child = true;
-                entry.grab_focus ();
+                search_entry.grab_focus ();
             }
         });
 

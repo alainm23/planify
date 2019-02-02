@@ -109,6 +109,7 @@ public class Views.Main : Gtk.Paned {
                 }
             } else {
                 stack.visible_child_name = "project_view-" + index.to_string ();
+                
                 var project_view = stack.get_child_by_name ("project_view-" + index.to_string ()) as Views.Project;
                 project_view.update_tasks_list ();
             }
@@ -147,6 +148,9 @@ public class Views.Main : Gtk.Paned {
 
         Application.signals.go_project_page.connect ((project_id) => {
             stack.visible_child_name = "project_view-%i".printf (project_id);
+
+            var project_view = stack.get_child_by_name ("project_view-%i".printf (project_id)) as Views.Project;
+            project_view.update_tasks_list ();
         });   
 
         Application.signals.go_task_page.connect ((task_id, project_id) => {
@@ -154,8 +158,12 @@ public class Views.Main : Gtk.Paned {
 
             if (task.is_inbox == 1) {
                 stack.visible_child_name = "inbox_view";
+                inbox_view.update_tasks_list ();
             } else {
                 stack.visible_child_name = "project_view-%i".printf (project_id);
+
+                var project_view = stack.get_child_by_name ("project_view-%i".printf (project_id)) as Views.Project;
+                project_view.update_tasks_list ();
             }
         });
 

@@ -29,6 +29,13 @@ public class Services.Signals : GLib.Object {
     public signal void go_task_page (int task_id, int project_id);
 
     public signal void check_project_import (int project_id);
+
+    public signal void start_loading_project (int project_id);
+    public signal void stop_loading_project (int project_id);
+
+    public signal void start_loading_item (string type);
+    public signal void stop_loading_item (string type);
+
     public Signals () {
 
     }

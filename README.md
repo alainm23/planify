@@ -31,6 +31,8 @@ You'll need the following dependencies:
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
 * meson
+* libwebkit2gtk-4.0-dev
+* libmarkdown2-dev
 * valac >= 0.40.3
 
 ## Building

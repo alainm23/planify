@@ -22,6 +22,7 @@
 public class Widgets.ItemRow : Gtk.ListBoxRow {
     public string icon_name  { get; construct; }
     public string item_name { get; construct; }
+    public string item_base_name { get; construct; }
 
     private Gtk.Label primary_label;
     private Gtk.Label secondary_label;
@@ -78,10 +79,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public ItemRow (string _name, string _icon) {
+    public ItemRow (string _name, string _icon, string _item_base_name) {
         Object (
             icon_name: _icon,
             item_name: _name,
+            item_base_name: _item_base_name,
             margin_left: 6,
             margin_top: 6,
             margin_right: 6
@@ -118,11 +120,21 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         secondary_revealer.add (secondary_label);
         secondary_revealer.reveal_child = false;
 
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.active = true;
+        loading_spinner.start ();
+
+        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        loading_revealer.add (loading_spinner);
+        loading_revealer.reveal_child = false;
+
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.margin = 6;
 
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 12);
+        main_box.pack_end (loading_revealer, false, false, 0);
         main_box.pack_end (primary_revealer, false, false, 0);
         main_box.pack_end (secondary_revealer, false, false, 6);
 
@@ -132,5 +144,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = true;
 
         add (main_revealer);
+
+        Application.signals.start_loading_item.connect ((type) => {
+            if (item_base_name == type) {
+                loading_revealer.reveal_child = true;
+            }
+        });
+
+        Application.signals.stop_loading_item.connect ((type) => {
+            if (item_base_name == type) {
+                loading_revealer.reveal_child = false;
+            }
+        });
     }
 }

@@ -482,9 +482,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
     public void update_tasks_list () {
         if (first_init) {
-            var loading_dialog = new Dialogs.Loading (Application.instance.main_window);
-            loading_dialog.destroy.connect (Gtk.main_quit);
-            loading_dialog.show_all ();
+            Application.signals.start_loading_item ("upcoming");
 
             Timeout.add (200, () => {
                 var all_tasks = new Gee.ArrayList<Objects.Task?> ();
@@ -565,7 +563,7 @@ public class Views.Upcoming : Gtk.EventBox {
                 });
 
                 first_init = false;
-                loading_dialog.destroy ();
+                Application.signals.stop_loading_item ("upcoming");
                 
                 return false;
             });

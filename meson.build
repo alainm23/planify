@@ -17,6 +17,13 @@ c_args = [
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
+# Find libMarkdown
+libmarkdown = dependency('libmarkdown', version: '>= 2.2.1', required: false)
+if libmarkdown.found() == false
+    cc = meson.get_compiler('c')
+    libmarkdown = cc.find_library('libmarkdown', required: true)
+endif
+
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
     source_dir: 'data',
@@ -55,7 +62,6 @@ executable(
 
     'src/Dialogs/PreferencesDialog.vala',
     'src/Dialogs/ShareDialog.vala',
-    'src/Dialogs/Loading.vala',
 
     'src/Widgets/WhenButton.vala',
     'src/Widgets/LabelButton.vala',
@@ -79,6 +85,7 @@ executable(
     'src/Widgets/QuickFind.vala',
     'src/Widgets/NoteChild.vala',
     'src/Widgets/RepositoryRow.vala',
+    'src/Widgets/WebView.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -119,6 +126,8 @@ executable(
         dependency('libedataserverui-1.2', version: '>=3.8.0'),
         dependency('libical'),
         dependency('gmodule-2.0'),
+        dependency('webkit2gtk-4.0'),
+        libmarkdown,
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

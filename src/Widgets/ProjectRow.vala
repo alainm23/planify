@@ -85,12 +85,22 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         number_label = new Gtk.Label (null);
         number_label.valign = Gtk.Align.CENTER;
 
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.active = true;
+        loading_spinner.start ();
+
+        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        loading_revealer.add (loading_spinner);
+        loading_revealer.reveal_child = false;
+
         main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
         main_box.margin = 3;
 
         main_box.pack_start (label_color, false, false, 0);
         main_box.pack_start (name_label, false, true, 0);
         main_box.pack_start (name_entry, false, true, 0);
+        main_box.pack_end (loading_revealer, false, false, 0);
         main_box.pack_end (menu_revealer, false, false, 0);
         main_box.pack_end (number_label, false, false, 0);
 
@@ -102,13 +112,24 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         apply_styles ();
         update_tooltip_text ();
         check_number_label ();
-        //build_drag_and_drop ();
 
         show_all ();
 
         // Signals
         Application.database.update_indicators.connect (() => {
             check_number_label ();
+        });
+
+        Application.signals.start_loading_project.connect ((project_id) => {
+            if (project.id == project_id) {
+                loading_revealer.reveal_child = true;
+            }
+        });
+
+        Application.signals.stop_loading_project.connect ((project_id) => {
+            if (project.id == project_id) {
+                loading_revealer.reveal_child = false;
+            }
         });
 
         menu_button.toggled.connect (() => {

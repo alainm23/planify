@@ -40,19 +40,19 @@ public class Widgets.ProjectsList : Gtk.Grid {
         
         orientation = Gtk.Orientation.VERTICAL;
 
-        inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox");
+        inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox", "inbox");
         inbox_item.primary_text = Application.database.get_inbox_number ().to_string ();
 
-        today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string ());
+        today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), "today");
         today_item.primary_text = Application.database.get_today_number ().to_string ();
 
-        upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming");
+        upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming", "upcoming");
 
-        all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks");
+        all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks", "all");
         all_tasks_item.primary_text = Application.database.get_all_tasks_number ().to_string ();
         all_tasks_item.reveal_child = false;
 
-        completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default");
+        completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default", "completed");
         completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
         completed_item.reveal_child = false;
 

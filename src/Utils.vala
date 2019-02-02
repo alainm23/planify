@@ -22,6 +22,146 @@
 public class Utils : GLib.Object {
     public string CACHE_FOLDER;
     public string PROFILE_FOLDER;
+    public string WEBVIEW_STYLESHEET = """
+        html {
+            font-size: 16px;
+        }
+        p {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            font-size: 1rem;
+            color: #232629;
+        }
+        h1,
+        h2,
+        h3,
+        h4, 
+        h5,
+        h6 {
+            font-weight: 600;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            margin-top: 12px;
+        }
+        h1 {
+            border-bottom: 1px solid #eaecef;
+            font-size: 2em;
+        }
+        h2 {
+            border-bottom: 1px solid #eaecef;
+            padding-bottom: .3em;
+            font-size: 1.5em;
+        }
+        h3 {
+            font-size: 1.25em;
+        }
+        h4 {
+            font-size: 1em;
+        }
+        h5 {
+            font-size: .875em;
+        }
+        h6 {
+            font-size: .85em;
+            color: #6a737d;
+        }
+        small {
+            font-size: .7em;
+        }
+        canvas,
+        iframe,
+        video,
+        svg,
+        select,
+        textarea {
+            display: block;
+            max-width: 50%;
+        }
+        body{
+            color: #232629;
+            background-color: #fff;
+            font-family: 'Open Sans', Helvetica, sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-left: 36px;
+            margin-right: 36px;
+            margin-top: 12px;
+            max-width: 100%;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+        table th {
+            font-weight: bold;
+            background-color: #E7E7E7;
+        }
+        table th,
+        table td {
+            padding: 8px 13px;
+            border: 1px solid #EAEAEA;
+        }
+        table tr {
+            border-top: 1px solid #EAEAEA;
+        }
+        img {
+            height: auto;
+            width:300px;
+            height:auto;
+            object-fit:cover;
+        }
+        img[src*='#image-src'] {
+            width:300px;
+            height:auto;
+            float:right;
+        }
+        a,
+        a:visited,
+        a:hover,
+        a:focus,
+        a:active {
+            color: #3daee9;
+        }
+        code {
+            border: 0;
+            display: inline;
+            line-height: inherit;
+            margin: 0;
+            max-width: auto;
+            overflow: visible;
+            padding: 0;
+            word-wrap: normal;
+        }
+        blockquote {
+            margin: 0;
+            border-left: 5px solid #3daee9;
+            font-style: italic;
+            padding-left: .8rem;
+            text-align: left;
+        }
+        pre {
+            background-color: #f6f8fa;
+            border-radius: 3px;
+            font-size: 85%;
+            line-height: 1.45;
+            overflow: auto;
+            padding: 16px;
+        }
+        ul,
+        ol,
+        li {
+            text-align: left;
+            color: #4d4d4d;
+        }
+    """;
+  
     public Utils () {
         CACHE_FOLDER = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
         PROFILE_FOLDER = GLib.Path.build_filename (CACHE_FOLDER, "profile");

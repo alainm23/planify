@@ -315,7 +315,7 @@
 }
 
 .format-bar {
-    background-color: @bg_color;
+    background-color: @base_color;
 }
 
 .checklist-preview {

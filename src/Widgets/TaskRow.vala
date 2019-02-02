@@ -44,7 +44,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer labels_flowbox_revealer;
 
-    private Gtk.TextView note_view;
+    private Gtk.SourceView note_view;
     private Gtk.Label note_view_placeholder_label;
     public Gtk.Revealer bottom_box_revealer;
     private Gtk.Grid main_grid;
@@ -198,15 +198,24 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         top_box.pack_start (name_eventbox, true, true, 0);
         top_box.pack_start (name_entry, true, true, 6);
 
-        note_view = new Gtk.TextView ();
-        note_view.opacity = 0.8;
+        /* Note */
+        var source_buffer = new Gtk.SourceBuffer (null);
+        source_buffer.highlight_syntax = true;
+        source_buffer.language = Gtk.SourceLanguageManager.get_default ().get_language ("markdown");
+        source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+        source_buffer.text = task.note;
+
+        note_view = new Gtk.SourceView ();
+        note_view.expand = true;
 		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
         note_view.height_request = 50;
-        note_view.margin_start = 36;
+        note_view.margin_start = 33;
+        note_view.margin_top = 6;
         note_view.margin_end = 12;
-		note_view.buffer.text = task.note;
-        note_view.get_style_context ().add_class ("note-view");
+        note_view.monospace = true;
+        note_view.buffer = source_buffer;
 
+        note_view.get_style_context ().add_class ("note-view");
         note_view_placeholder_label = new Gtk.Label (_("Note"));
         note_view_placeholder_label.opacity = 0.65;
         note_view.add (note_view_placeholder_label);
@@ -218,6 +227,46 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         var note_eventbox = new Gtk.EventBox ();
         note_eventbox.add (note_view);
+
+        var preview_view = new Gtk.ScrolledWindow (null, null);
+        preview_view.expand = true;
+
+        var preview_view_content = new Widgets.WebView (task);
+        preview_view.add (preview_view_content);
+
+        var note_stack = new Gtk.Stack ();
+        note_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        note_stack.expand = true;
+
+        note_stack.add_named (note_eventbox, "note_edit");
+        note_stack.add_named (preview_view, "note_view");
+
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.get_style_context ().add_class ("format-bar");
+        mode_button.hexpand = true;
+        mode_button.margin_end = 24;
+        mode_button.halign = Gtk.Align.END;
+        mode_button.valign = Gtk.Align.START;
+
+        mode_button.append_icon ("planner-markdown-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("planner-text-symbolic", Gtk.IconSize.MENU);
+
+        mode_button.selected = 0;
+
+        var note_view_overlay = new Gtk.Overlay ();
+        note_view_overlay.add_overlay (mode_button);
+        note_view_overlay.add (note_stack);
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                note_stack.visible_child_name = "note_edit";
+                preview_view.height_request = -1;
+            } else if (mode_button.selected == 1){
+                preview_view.height_request = 200;
+                preview_view_content.update_note (note_view.buffer.text);
+                note_stack.visible_child_name = "note_view";
+            }
+        });
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
@@ -310,7 +359,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         action_box.pack_end (move_button, false, false, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        bottom_box.pack_start (note_eventbox);
+        bottom_box.pack_start (note_view_overlay);
         bottom_box.pack_start (checklist_grid);
         bottom_box.pack_start (labels_flowbox_revealer);
         bottom_box.pack_start (action_box);
