@@ -71,7 +71,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     construct {
         get_style_context ().add_class ("task");
         selectable = false;
-        
+
 
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
@@ -220,7 +220,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         note_view = new Gtk.SourceView ();
         note_view.expand = true;
-		note_view.set_wrap_mode (Gtk.WrapMode.WORD);
+        note_view.wrap_mode = Gtk.WrapMode.WORD;
         note_view.height_request = 50;
         note_view.margin_start = 33;
         note_view.margin_top = 6;
@@ -532,7 +532,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         name_eventbox.enter_notify_event.connect ((event) => {
             var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND2);
             var window = Gdk.Screen.get_default ().get_root_window ();
-            
+
 
             window.cursor = select_cursor;
             return false;

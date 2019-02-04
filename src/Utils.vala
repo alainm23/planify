@@ -33,7 +33,7 @@ public class Utils : GLib.Object {
             margin-inline-start: 0px;
             margin-inline-end: 0px;
             font-size: 1rem;
-            color: #232629;
+            color: %s;
         }
         h1,
         h2,
@@ -66,7 +66,6 @@ public class Utils : GLib.Object {
         }
         h6 {
             font-size: .85em;
-            color: #6a737d;
         }
         small {
             font-size: .7em;
@@ -81,8 +80,8 @@ public class Utils : GLib.Object {
             max-width: 50%;
         }
         body{
-            color: #232629;
-            background-color: #fff;
+            color: %s;
+            background-color: %s;
             font-family: 'Open Sans', Helvetica, sans-serif;
             font-weight: 400;
             line-height: 1.5;
@@ -158,7 +157,7 @@ public class Utils : GLib.Object {
         ol,
         li {
             text-align: left;
-            color: #4d4d4d;
+            color: %s;
         }
     """;
   
