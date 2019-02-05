@@ -238,8 +238,14 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             note_view_placeholder_label.no_show_all = true;
         }
 
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.min_content_height  = 150;
+        scrolled.max_content_height  = 150;
+
+        scrolled.add (note_view);
+
         var note_eventbox = new Gtk.EventBox ();
-        note_eventbox.add (note_view);
+        note_eventbox.add (scrolled);
 
         var preview_view = new Gtk.ScrolledWindow (null, null);
         preview_view.expand = true;
