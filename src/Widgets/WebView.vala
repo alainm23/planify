@@ -6,7 +6,7 @@ public class Widgets.WebView : WebKit.WebView {
             task: _task,
             user_content_manager: new WebKit.UserContentManager ()
         );
-    
+
         expand = true;
 
         var settings_web = get_settings ();
@@ -18,8 +18,10 @@ public class Widgets.WebView : WebKit.WebView {
         update_html_view ();
         connect_signals ();
 
-        Application.signals.change_dark_theme.connect ((change) => {
-            update_note (task.note);
+        Application.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                update_note (task.note);
+            }
         });
     }
 
@@ -66,14 +68,14 @@ public class Widgets.WebView : WebKit.WebView {
             stop_loading ();
         }
     }
-    
+
     public void update_note (string note) {
         task.note = note;
         update_html_view ();
     }
 
     private string get_stylesheet () {
-        if (!Application.settings.get_boolean ("prefer-dark-style")) {
+        if (Application.settings.get_boolean ("prefer-dark-style")) {
             return Application.utils.WEBVIEW_STYLESHEET.printf (
                 "#fafafa",
                 "#fafafa",
@@ -160,7 +162,7 @@ public class Widgets.WebView : WebKit.WebView {
         html += "</head><body><div class=\"markdown-body\">";
         html += process ();
         html += "</div></body></html>";
-        
+
         load_html (html, "file:///");
     }
 }
