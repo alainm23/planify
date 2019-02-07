@@ -106,14 +106,14 @@ public class Widgets.WebView : WebKit.WebView {
             string line = "";
             while (true) {
                 next_newline = raw_mk.index_of_char ('\n', last_newline + 1);
-                if (next_newline == -1) { // End of file
+                if (next_newline == -1) {
                     valid_frontmatter = false;
                     break;
                 }
                 line = raw_mk[last_newline+1:next_newline];
                 last_newline = next_newline;
 
-                if (line == "---") { // End of frontmatter
+                if (line == "---") {
                     break;
                 }
 
@@ -121,7 +121,7 @@ public class Widgets.WebView : WebKit.WebView {
                 if (sep_index != -1) {
                     map += line[0:sep_index-1];
                     map += line[sep_index+1:line.length];
-                } else { // No colon, invalid frontmatter
+                } else {
                     valid_frontmatter = false;
                     break;
                 }
@@ -129,7 +129,7 @@ public class Widgets.WebView : WebKit.WebView {
                 i++;
             }
 
-            if (valid_frontmatter) { // Strip frontmatter if it's a valid one
+            if (valid_frontmatter) {
                 processed_mk = raw_mk[last_newline:raw_mk.length];
             }
         }
@@ -144,11 +144,8 @@ public class Widgets.WebView : WebKit.WebView {
     private string process () {
         string processed_mk;
         process_frontmatter (task.note, out processed_mk);
-        var mkd = new Markdown.Document (
-            processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000
-        );
-
-        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+        var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x04000000 + 0x00400000 + 0x10000000 + 0x40000000 + 0x00000008);
+        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x04000000 + 0x40000000 + 0x10000000 + 0x00000008);
 
         string result;
         mkd.get_document (out result);
@@ -160,7 +157,7 @@ public class Widgets.WebView : WebKit.WebView {
         string html = "<!doctype html><meta charset=utf-8><head>";
         html += "<style>" + get_stylesheet () + "</style>";
         html += "</head><body><div class=\"markdown-body\">";
-        html += process ();
+        html += process ().replace ("\n", "    ");
         html += "</div></body></html>";
 
         load_html (html, "file:///");

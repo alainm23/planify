@@ -90,7 +90,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         loading_spinner.start ();
 
         var loading_revealer = new Gtk.Revealer ();
-        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         loading_revealer.add (loading_spinner);
         loading_revealer.reveal_child = false;
 
@@ -100,9 +100,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_box.pack_start (label_color, false, false, 0);
         main_box.pack_start (name_label, false, true, 0);
         main_box.pack_start (name_entry, false, true, 0);
-        main_box.pack_end (loading_revealer, false, false, 0);
         main_box.pack_end (menu_revealer, false, false, 0);
         main_box.pack_end (number_label, false, false, 0);
+        main_box.pack_end (loading_revealer, false, false, 0);
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);

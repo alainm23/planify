@@ -36,7 +36,5 @@ public class Services.Signals : GLib.Object {
     public signal void start_loading_item (string type);
     public signal void stop_loading_item (string type);
 
-    public signal void change_dark_theme (bool data);
-
     public Signals () {}
 }

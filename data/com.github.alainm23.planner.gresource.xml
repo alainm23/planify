@@ -52,6 +52,7 @@
     <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
     <file alias="planner-github.svg">resources/planner-github.svg</file>
     <file alias="planner-repository.svg">resources/planner-repository.svg</file>
+    <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
 
     <file alias="planner-banana-theme.svg">resources/planner-banana-theme.svg</file>
     <file alias="planner-black-theme.svg">resources/planner-black-theme.svg</file>

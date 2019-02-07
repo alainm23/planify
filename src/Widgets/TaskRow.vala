@@ -210,11 +210,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
         }
 
-        Application.signals.change_dark_theme.connect ((data) => {
-            if (data) {
-                source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
-            } else {
-                source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+        Application.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                if (Application.settings.get_boolean ("prefer-dark-style")) {
+                    source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
+                } else {
+                    source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+                }
             }
         });
 
@@ -239,7 +241,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         var note_scrolled = new Gtk.ScrolledWindow (null, null);
-        note_scrolled.vscrollbar_policy = Gtk.PolicyType.NEVER;
+        note_scrolled.min_content_height  = 200;
+        note_scrolled.max_content_height  = 200;
         note_scrolled.add (note_view);
 
         var note_eventbox = new Gtk.EventBox ();

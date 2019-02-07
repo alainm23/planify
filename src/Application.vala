@@ -27,7 +27,7 @@ public class Application : Gtk.Application {
     public static Services.Signals signals;
     public static Services.Github github;
     public static Services.Share share;
-    
+
     public static string APP_VERSION;
 
     public static Utils utils;
@@ -60,7 +60,7 @@ public class Application : Gtk.Application {
 
         APP_VERSION =  "1.2.3";
     }
-  
+
     public static Application _instance = null;
 
     public static Application instance {
@@ -123,7 +123,7 @@ public class Application : Gtk.Application {
         var show_task = new SimpleAction ("show-task", VariantType.INT32);
         show_task.activate.connect ((parameter) => {
             var task = Application.database.get_task (parameter.get_int32 ());
-            
+
             activate ();
 
             Timeout.add (200, () => {
@@ -152,7 +152,6 @@ public class Application : Gtk.Application {
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         // Window Theme
-
         var theme_provider = new Gtk.CssProvider ();
         var colored_css = "";
 
@@ -172,7 +171,6 @@ public class Application : Gtk.Application {
 
         try {
             theme_provider.load_from_data (colored_css, colored_css.length);
-
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), theme_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         } catch (GLib.Error e) {
             debug ("Theme error");

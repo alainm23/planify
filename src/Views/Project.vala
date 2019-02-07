@@ -767,17 +767,10 @@ public class Views.Project : Gtk.EventBox {
 
                     tasks_list.show_all ();
                 }
-
                 if (Application.utils.is_listbox_empty (tasks_list)) {
-                    Timeout.add (200, () => {
-                        main_stack.visible_child_name = "alert";
-                        return false;
-                    });
+                    main_stack.visible_child_name = "alert";
                 } else {
-                    Timeout.add (200, () => {
-                        main_stack.visible_child_name = "main";
-                        return false;
-                    });
+                    main_stack.visible_child_name = "main";
                 }
                 
                 first_init = false;

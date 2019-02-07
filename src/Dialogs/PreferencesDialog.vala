@@ -33,6 +33,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Gtk.Label weather_preview_label;
     private Gtk.Label calendar_preview_label;
 
+    private Gtk.Label info_label;
+    private Gtk.Spinner spinner;
+    private WebKit.WebView webview;
+
     private Granite.Widgets.Avatar profile_image;
     private Gtk.Label username_label;
 
@@ -60,8 +64,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         mode_button.halign = Gtk.Align.CENTER;
 
         mode_button.append_text (_("General"));
+        mode_button.append_text (_("Accounts"));
         mode_button.append_text (_("Appearance"));
-        mode_button.append_text (_("Github"));
         mode_button.append_text (_("About"));
 
         mode_button.selected = 0;
@@ -72,10 +76,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
         main_stack.add_named (get_general_widget (), "general");
+        main_stack.add_named (get_accounts_widget (), "accounts");
         main_stack.add_named (get_themes_widget (), "themes");
-        main_stack.add_named (get_github_login_widget (), "github_login");
-        main_stack.add_named (get_github_widget (), "issues");
         main_stack.add_named (get_about_widget (), "about");
+        main_stack.add_named (get_github_widget (), "issues");
+        main_stack.add_named (get_github_login_widget (), "github_login");
         main_stack.add_named (get_badge_count_widget (), "badge_count");
         main_stack.add_named (get_start_page_widget (), "start_page");
         main_stack.add_named (get_quick_save_widget (), "quick_save");
@@ -83,6 +88,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_calendar_widget (), "calendar");
         main_stack.add_named (get_items_widget (), "items");
         main_stack.add_named (get_credist_widget (), "credits");
+        main_stack.add_named (get_todoist_login_widget (), "todoist_login");
 
         main_stack.visible_child_name = "general";
 
@@ -107,13 +113,9 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             if (mode_button.selected == 0) {
                 main_stack.visible_child_name = "general";
             } else if (mode_button.selected == 1){
-                main_stack.visible_child_name = "themes";
+                main_stack.visible_child_name = "accounts";
             } else if (mode_button.selected == 2) {
-                if (Application.database.user_exists ()) {
-                    main_stack.visible_child_name = "issues";
-                } else {
-                    main_stack.visible_child_name = "github_login";
-                }
+                main_stack.visible_child_name = "themes";
             } else {
                 main_stack.visible_child_name = "about";
             }
@@ -137,6 +139,209 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         add_action_widget (close_button, 0);
+    }
+
+    private Gtk.Widget get_accounts_widget () {
+        // Github
+        var github_icon = new Gtk.Image ();
+        github_icon.gicon = new ThemedIcon ("planner-github");
+        github_icon.pixel_size = 24;
+
+        var github_label = new Gtk.Label (_("Github"));
+        github_label.get_style_context ().add_class ("h3");
+
+        var github_end = new Gtk.Image ();
+        github_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        github_end.pixel_size = 16;
+
+        var github_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        github_box.margin = 6;
+        github_box.margin_end = 12;
+        github_box.hexpand = true;
+        github_box.pack_start (github_icon, false, false, 0);
+        github_box.pack_start (github_label, false, false, 6);
+        github_box.pack_end (github_end, false, false, 0);
+
+        var github_eventbox = new Gtk.EventBox ();
+        github_eventbox.add (github_box);
+
+        // Todoist
+        var todoist_icon = new Gtk.Image ();
+        todoist_icon.gicon = new ThemedIcon ("planner-todoist");
+        todoist_icon.pixel_size = 24;
+
+        var todoist_label = new Gtk.Label (_("Todoist"));
+        todoist_label.get_style_context ().add_class ("h3");
+
+        var todoist_end = new Gtk.Image ();
+        todoist_end.gicon = new ThemedIcon ("pan-end-symbolic");
+        todoist_end.pixel_size = 16;
+
+        var todoist_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        todoist_box.margin = 6;
+        todoist_box.margin_end = 12;
+        todoist_box.hexpand = true;
+        todoist_box.pack_start (todoist_icon, false, false, 0);
+        todoist_box.pack_start (todoist_label, false, false, 6);
+        todoist_box.pack_end (todoist_end, false, false, 0);
+
+        var todoist_eventbox = new Gtk.EventBox ();
+        todoist_eventbox.add (todoist_box);
+
+        var s_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        s_1.margin_start = 36;
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (github_eventbox);
+        main_grid.add (s_1);
+        main_grid.add (todoist_eventbox);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (main_grid);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (scrolled);
+
+        github_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (Application.database.user_exists ()) {
+                    main_stack.visible_child_name = "issues";
+                } else {
+                    main_stack.visible_child_name = "github_login";
+                }
+            }
+
+            return false;
+        });
+
+        todoist_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                main_stack.visible_child_name = "todoist_login";
+            }
+            
+            return false;
+        });
+
+        return main_frame;
+    }
+
+    private Gtk.Widget get_todoist_login_widget () {
+        info_label = new Gtk.Label (_("Loading…"));
+
+        spinner = new Gtk.Spinner ();
+        spinner.start ();
+
+        var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.halign = Gtk.Align.START;
+        back_button.margin = 6;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var container_grid = new Gtk.Grid ();
+        container_grid.column_spacing = 6;
+        container_grid.valign = Gtk.Align.CENTER;
+        container_grid.add (info_label);
+        container_grid.add (spinner);
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        header_box.hexpand = true;
+        header_box.add (back_button);
+        header_box.set_center_widget (container_grid);
+
+        webview = new WebKit.WebView ();
+        webview.expand = true;
+
+        webview.load_uri ("https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read&state=XE3K-4BBL-4XLG-UDS8");
+
+        WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
+
+        webview.load_changed.connect (on_webview_load);
+
+        /* 
+        webview.load_failed.connect ();
+        */
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.add (webview);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+
+        main_grid.add (header_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+    
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        back_button.clicked.connect (() => {
+            main_stack.visible_child_name = "accounts";
+        });
+
+        return main_frame;
+    }
+
+    private void on_webview_load (WebKit.LoadEvent load_event) {
+        var redirect_uri = webview.get_uri ();
+
+        
+        if (load_event == WebKit.LoadEvent.FINISHED) {
+            info_label.label = _("Please enter your credentials…");
+            spinner.stop ();
+            spinner.hide ();
+            
+            if (redirect_uri.has_prefix ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=")) {
+                get_todoist_token (redirect_uri);
+            }
+            
+            return;
+        }
+
+        if (load_event == WebKit.LoadEvent.STARTED) {
+            info_label.label = _("Loading…");
+            spinner.start ();
+            spinner.show ();
+
+            return;
+        }
+    
+        return;
+    }
+
+    private void get_todoist_token (string url) {
+        string code = url.split ("=") [2];
+        string response = "";
+
+        string command = "curl \"https://todoist.com/oauth/access_token\" ";
+        command = command + "-d \"client_id=b0dd7d3714314b1dbbdab9ee03b6b432\" ";
+        command = command + "-d \"client_secret=7de1fc35b5124b2285d7ddc07576c438\" ";
+        command = command + "-d \"code=" + code + "\"";
+
+        Process.spawn_command_line_sync (command, out response);
+
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_data (response, -1);
+            
+            var root_oa = parser.get_root ().get_object ();
+            var token = root_oa.get_string_member ("access_token");
+
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                "Access Token",
+                token,
+                "applications-development",
+                Gtk.ButtonsType.CLOSE
+            );
+            
+            message_dialog.run ();
+            message_dialog.destroy ();
+        } catch (Error e) {
+            debug (e.message);
+        }
     }
 
     private Gtk.Widget get_github_login_widget () {
