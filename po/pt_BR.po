@@ -542,7 +542,7 @@ msgstr "Etiquetas"
 #: src/Dialogs/PreferencesDialog.vala:409
 #, fuzzy
 msgid "Are you sure you want to delete your Github account?"
-msgstr "Você tem certeza que deseja excluir sua conta do GitHub?"
+msgstr "Você tem certeza que deseja remover sua conta do GitHub?"
 
 #: src/Dialogs/PreferencesDialog.vala:414
 #: src/Widgets/Popovers/ProjectMenu.vala:40
@@ -785,12 +785,12 @@ msgstr "Clima e eventos"
 #: src/Widgets/HeaderBar.vala:72
 #, fuzzy
 msgid "Light background"
-msgstr "Plano de fundo claro"
+msgstr "Fundo claro"
 
 #: src/Widgets/HeaderBar.vala:73
 #, fuzzy
 msgid "Dark background"
-msgstr "Plano de fundo escuro"
+msgstr "Fundo escuro"
 
 #: src/Widgets/HeaderBar.vala:76
 msgid "Night Mode"
