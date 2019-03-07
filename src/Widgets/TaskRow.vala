@@ -52,7 +52,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.ListBox checklist;
 
     private Gtk.Box top_box;
-    private Gtk.Revealer remove_revealer;
+    //private Gtk.Revealer remove_revealer;
     private Gtk.Revealer close_revealer;
 
     public Gtk.Box project_box;
@@ -342,11 +342,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         when_button = new Widgets.WhenButton ();
-        when_button.set_date (
-            new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ()),
-            has_reminder,
-            new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
-        );
+        if (task.when_date_utc.length != 0) {
+            when_button.set_date (
+                new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ()),
+                has_reminder,
+                new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
+            );
+        }
 
         var labels = new Widgets.LabelButton ();
 
@@ -512,7 +514,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         close_button.clicked.connect (() => {
             close_revealer.reveal_child = false;
-            remove_revealer.reveal_child = false;
+            //remove_revealer.reveal_child = false;
 
             check_task_completed ();
             hide_content ();
@@ -560,7 +562,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         remove_button.clicked.connect (() => {
             close_revealer.reveal_child = false;
-            remove_revealer.reveal_child = false;
+            //remove_revealer.reveal_child = false;
 
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Are you sure you want to delete this task?"),
@@ -640,7 +642,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_eventbox.enter_notify_event.connect ((event) => {
             if (bottom_box_revealer.reveal_child == true) {
                 close_revealer.reveal_child = true;
-                remove_revealer.reveal_child = true;
+                //remove_revealer.reveal_child = true;
             }
 
             return false;
@@ -652,7 +654,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
 
             close_revealer.reveal_child = false;
-            remove_revealer.reveal_child = false;
+            //remove_revealer.reveal_child = false;
 
             return false;
         });
@@ -757,18 +759,20 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         string[] checklist_array = task.checklist.split (";");
 
         foreach (string str in checklist_array) {
-            string check_name = str.substring (1, -1);
-            bool check_active = false;
+            if (str.length > 0) {
+                string check_name = str.substring (1, -1);
+                bool check_active = false;
 
-            if (str.substring (0, 1) == "0") {
-                check_active = false;
-            } else {
-                check_active = true;
+                if (str.length > 0 && str.substring (0, 1) == "0") {
+                    check_active = false;
+                } else {
+                    check_active = true;
+                }
+
+                var row = new Widgets.CheckRow (check_name, check_active);
+
+                checklist.add (row);
             }
-
-            var row = new Widgets.CheckRow (check_name, check_active);
-
-            checklist.add (row);
 	    }
 
         checklist.show_all ();
@@ -822,7 +826,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             int completed = 0;
 
             foreach (string str in checklist_array) {
-                if (str.substring (0, 1) == "1") {
+                if (str.length > 0 && str.substring (0, 1) == "1") {
                     completed = completed + 1;
                 }
 
@@ -899,7 +903,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_grid.margin_start = 5;
         top_box.margin_top = 6;
         top_box.margin_start = 12;
-        project_box.margin_end = 6;
+        //project_box.margin_end = 6;
 
         name_entry.visible = true;
         name_eventbox.visible = false;
@@ -918,7 +922,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_grid.margin_start = 0;
         top_box.margin_top = 0;
         top_box.margin_start = 0;
-        project_box.margin_end = 0;
+        //project_box.margin_end = 0;
 
         name_entry.visible = false;
         name_eventbox.visible = true;

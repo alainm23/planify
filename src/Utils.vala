@@ -464,7 +464,12 @@ public class Utils : GLib.Object {
         weather_icon_name.set ("50d", "weather-fog-symbolic");
         weather_icon_name.set ("50n", "weather-fog-symbolic");
 
-        return weather_icon_name.get (key);
+        var icon_name = weather_icon_name.get (key);
+        if (icon_name == null) {
+            return "weather-fog-symbolic";
+        } else {
+            return icon_name;
+        }
     }
 
     public string get_weaher_color (string key) {
@@ -477,7 +482,12 @@ public class Utils : GLib.Object {
         weather_colors.insert("weather-snow-symbolic", "#9ca7ba");
         weather_colors.insert("weather-fog-symbolic", "#a1a6af");
 
-        return weather_colors.get (key);
+        var color = weather_colors.get (key);
+        if (color == null) {
+            return "#68758e";
+        } else {
+            return color;
+        }
     }
 
     public string get_weather_description (string key) {
@@ -491,7 +501,12 @@ public class Utils : GLib.Object {
         weather_descriptions.insert("Drizzle", _("Drizzle"));
         weather_descriptions.insert("Thunderstorm", _("Thunderstorm"));
 
-        return weather_descriptions.get (key);
+        var description = weather_descriptions.get (key);
+        if (description == null) {
+            return _("Unknown");
+        } else {
+            return description;
+        }
     }
 
     public string get_weather_description_detail (string key) {
@@ -546,7 +561,12 @@ public class Utils : GLib.Object {
         details.insert("803", _("Broken clouds"));
         details.insert("804", _("Overcast clouds"));
 
-        return details.get (key);
+        var description_detail = details.get (key);
+        if (description_detail == null) {
+            return _("Unknown");
+        } else {
+            return description_detail;
+        }
     }
 
     public string get_default_date_format (string date_string) {

@@ -298,7 +298,11 @@ public class Services.Weather : GLib.Object {
     }
 
     public string get_symbolic_icon_name () {
-        return Application.utils.get_weather_icon_name (icon);
+        if (icon != null) {
+            return Application.utils.get_weather_icon_name (icon);
+        } else {
+            return "weather-fog-symbolic";
+        }
     }
 
     public string get_temperature () {
