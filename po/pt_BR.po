@@ -34,15 +34,15 @@ msgstr "Limpar"
 
 #: src/Utils.vala:349
 msgid "Atmosphere"
-msgstr ""
+msgstr "Atmosfera"
 
 #: src/Utils.vala:350 src/Utils.vala:394
 msgid "Snow"
-msgstr ""
+msgstr "Neve"
 
 #: src/Utils.vala:351
 msgid "Rain"
-msgstr ""
+msgstr "Chuva"
 
 #: src/Utils.vala:352 src/Utils.vala:373
 msgid "Drizzle"
@@ -200,11 +200,11 @@ msgstr ""
 #: src/Utils.vala:404
 #, fuzzy
 msgid "Clear sky"
-msgstr "Limpar"
+msgstr "Céu limpo"
 
 #: src/Utils.vala:405
 msgid "Few clouds"
-msgstr ""
+msgstr "Poucas nuvens"
 
 #: src/Utils.vala:406
 msgid "Scattered clouds"
@@ -270,26 +270,26 @@ msgstr "%i°"
 #: src/Services/Share.vala:107
 #, fuzzy
 msgid "Your project was exported correctly"
-msgstr "Seu projeto está pronto para ser compartilhado"
+msgstr "Seu projeto foi compartilhado corretamente"
 
 #: src/Services/Share.vala:161
 #, fuzzy
 msgid "Your project was imported correctly"
-msgstr "Seu projeto está pronto para ser compartilhado"
+msgstr "Seu projeto foi importado corretamente"
 
 #: src/Services/Share.vala:168
 #, fuzzy
 msgid "Import another project"
-msgstr "Converter para projeto"
+msgstr "Importar outro projeto"
 
 #: src/Services/Share.vala:169
 #, fuzzy
 msgid "This project was already imported"
-msgstr "Seu projeto está pronto para ser compartilhado"
+msgstr "Este projeto já foi importado"
 
 #: src/Services/Calendar/Utils.vala:591
 msgid "On this computer"
-msgstr "Nesse computador"
+msgstr "Neste computador"
 
 #: src/Services/Calendar/LanguagesFormat.vala:21
 msgid "%B %e, %Y"
@@ -356,7 +356,7 @@ msgstr "Área de transferência vazia"
 #: src/Views/Inbox.vala:223 src/Views/Today.vala:244
 #: src/Views/Upcoming.vala:229 src/Views/Project.vala:546
 msgid "Try copying some text and try again"
-msgstr "Copie algum texto e tente novamente"
+msgstr "Tente copiar algum texto e tente novamente"
 
 #. Notificacion Here ...
 #: src/Views/Inbox.vala:234 src/Views/Today.vala:257
@@ -426,7 +426,7 @@ msgstr "Prazo limite"
 
 #: src/Views/Project.vala:200 src/Widgets/Popovers/SearchPopover.vala:35
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: src/Views/Project.vala:250 src/Widgets/TaskRow.vala:210
 #: src/Widgets/TaskNew.vala:78
@@ -435,7 +435,7 @@ msgstr "Observação"
 
 #: src/Views/Project.vala:287 src/Views/Project.vala:454
 msgid "Show completed tasks"
-msgstr "Exibir tarefas concluidas"
+msgstr "Exibir tarefas concluídas"
 
 #: src/Views/Project.vala:308
 msgid "Notes"
@@ -451,7 +451,7 @@ msgstr "Selecione sua cor favorita"
 
 #: src/Views/AllTasks.vala:43
 msgid "Find all your tasks here."
-msgstr ""
+msgstr "Encontre todas as suas tarefas aqui."
 
 #: src/Views/AllTasks.vala:49 src/Dialogs/PreferencesDialog.vala:738
 #: src/Widgets/ProjectsList.vala:51 src/Widgets/QuickFind.vala:259
@@ -483,11 +483,11 @@ msgstr "Aparência"
 #: src/Dialogs/PreferencesDialog.vala:64 src/Dialogs/PreferencesDialog.vala:147
 #, fuzzy
 msgid "Github"
-msgstr "Ir ao GitHub"
+msgstr "GitHub"
 
 #: src/Dialogs/PreferencesDialog.vala:65
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: src/Dialogs/PreferencesDialog.vala:96 src/Dialogs/ShareDialog.vala:206
 msgid "Close"
@@ -499,31 +499,31 @@ msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:161
 msgid "Username"
-msgstr ""
+msgstr "Usuário"
 
 #: src/Dialogs/PreferencesDialog.vala:166
 msgid "Password"
-msgstr ""
+msgstr "Senha"
 
 #: src/Dialogs/PreferencesDialog.vala:177
 msgid "Enter a correct Username"
-msgstr ""
+msgstr "Entre com um usuário válido"
 
 #: src/Dialogs/PreferencesDialog.vala:187
 msgid "Connect"
-msgstr ""
+msgstr "Conectar"
 
 #: src/Dialogs/PreferencesDialog.vala:194
 msgid "Forgot password…"
-msgstr ""
+msgstr "Esquecer senha..."
 
 #: src/Dialogs/PreferencesDialog.vala:197
 msgid "Don't have an account? Sign Up"
-msgstr ""
+msgstr "Não tem uma conta? Registre-se"
 
 #: src/Dialogs/PreferencesDialog.vala:297
 msgid "Check which repositories you want to work with"
-msgstr ""
+msgstr "Marque com quais repositórios você quer trabalhar"
 
 #: src/Dialogs/PreferencesDialog.vala:308
 #, fuzzy
@@ -533,7 +533,7 @@ msgstr "Atualizar"
 #: src/Dialogs/PreferencesDialog.vala:314
 #, fuzzy
 msgid "Delete account"
-msgstr "Excluir projeto"
+msgstr "Excluir conta"
 
 #: src/Dialogs/PreferencesDialog.vala:325 src/Widgets/LabelButton.vala:34
 msgid "Labels"
@@ -542,7 +542,7 @@ msgstr "Etiquetas"
 #: src/Dialogs/PreferencesDialog.vala:409
 #, fuzzy
 msgid "Are you sure you want to delete your Github account?"
-msgstr "Você tem certeza que deseja excluir essa tarefa?"
+msgstr "Você tem certeza que deseja excluir sua conta do GitHub?"
 
 #: src/Dialogs/PreferencesDialog.vala:414
 #: src/Widgets/Popovers/ProjectMenu.vala:40
@@ -559,7 +559,7 @@ msgstr "Preto"
 
 #: src/Dialogs/PreferencesDialog.vala:448
 msgid "Blueberry"
-msgstr "Mirtilho"
+msgstr "Mirtilo"
 
 #: src/Dialogs/PreferencesDialog.vala:449
 msgid "Strawberry"
@@ -705,11 +705,11 @@ msgstr "Desativado"
 #: src/Dialogs/PreferencesDialog.vala:1190
 #: src/Dialogs/PreferencesDialog.vala:1381
 msgid "Credits"
-msgstr ""
+msgstr "Créditos"
 
 #: src/Dialogs/PreferencesDialog.vala:1232
 msgid "Developing"
-msgstr ""
+msgstr "Desenvolvendo"
 
 #: src/Dialogs/PreferencesDialog.vala:1239
 msgid "Design"
@@ -717,16 +717,16 @@ msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1246
 msgid "Translation"
-msgstr ""
+msgstr "Tradução"
 
 #: src/Dialogs/PreferencesDialog.vala:1253
 #: src/Dialogs/PreferencesDialog.vala:1359
 msgid "Support"
-msgstr ""
+msgstr "Suporte"
 
 #: src/Dialogs/PreferencesDialog.vala:1293
 msgid "Home Page"
-msgstr ""
+msgstr "Página Inicial"
 
 #: src/Dialogs/PreferencesDialog.vala:1315
 #, fuzzy
@@ -735,7 +735,7 @@ msgstr "Reporte um problema"
 
 #: src/Dialogs/PreferencesDialog.vala:1337
 msgid "Translations"
-msgstr ""
+msgstr "Traduções"
 
 #: src/Dialogs/PreferencesDialog.vala:1629
 msgid "Run in background"
@@ -751,7 +751,7 @@ msgstr "Executar ao inicar"
 
 #: src/Dialogs/PreferencesDialog.vala:2027
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: src/Dialogs/ShareDialog.vala:216 src/Dialogs/ShareDialog.vala:229
 msgid "Copy to clipboard"
@@ -763,7 +763,7 @@ msgstr "Seu projeto está pronto para ser compartilhado"
 
 #: src/Dialogs/Loading.vala:20
 msgid "Loading ..."
-msgstr ""
+msgstr "Carregando..."
 
 #: src/Widgets/WhenButton.vala:24
 msgid "When"
@@ -785,12 +785,12 @@ msgstr "Clima e eventos"
 #: src/Widgets/HeaderBar.vala:72
 #, fuzzy
 msgid "Light background"
-msgstr "Executar em segundo plano"
+msgstr "Plano de fundo claro"
 
 #: src/Widgets/HeaderBar.vala:73
 #, fuzzy
 msgid "Dark background"
-msgstr "Executar em segundo plano"
+msgstr "Plano de fundo escuro"
 
 #: src/Widgets/HeaderBar.vala:76
 msgid "Night Mode"
@@ -839,11 +839,8 @@ msgstr "Você tem certeza que deseja excluir esse projeto?"
 
 #: src/Widgets/ProjectRow.vala:176
 #, c-format
-msgid ""
-"It contains %i elements that are also deleted, this operation can't be undone"
-msgstr ""
-"Contém %i elementos que também serão excluídos, essa operação não pode ser "
-"desfeita"
+msgid "It contains %i elements that are also deleted, this operation can't be undone"
+msgstr "Contém %i elementos que também serão excluídos, essa operação não pode ser desfeita"
 
 #: src/Widgets/ProjectRow.vala:180
 msgid "Delete Project"
@@ -852,12 +849,12 @@ msgstr "Excluir projeto"
 #: src/Widgets/ProjectRow.vala:199 src/Widgets/Popovers/ProjectMenu.vala:37
 #, fuzzy
 msgid "Export project"
-msgstr "Converter para projeto"
+msgstr "Exportar projeto"
 
 #: src/Widgets/ProjectRow.vala:205 src/Widgets/Popovers/ProjectListMenu.vala:51
 #, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Arquivos do Planner"
 
 #: src/Widgets/ItemRow.vala:96
 #, c-format
@@ -1037,7 +1034,7 @@ msgstr "Alterar nome do projeto"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:37
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
@@ -1070,7 +1067,7 @@ msgstr "Compartilhar tarefa"
 #: src/Widgets/Popovers/LabelsPopover.vala:132
 #: src/Widgets/Popovers/LabelsPopover.vala:213
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/Widgets/Popovers/LabelsPopover.vala:160
 msgid "Update"
@@ -1090,17 +1087,17 @@ msgstr "Pré-visualizar"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:32
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:32
 #, fuzzy
 msgid "Import project"
-msgstr "Converter para projeto"
+msgstr "Importar projeto"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:45
 #, fuzzy
 msgid "Export Project"
-msgstr "Converter para projeto"
+msgstr "Exportar projeto"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
