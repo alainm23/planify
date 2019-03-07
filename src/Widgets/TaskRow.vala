@@ -998,11 +998,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             has_reminder = true;
         }
 
-        when_button.set_date (
-            new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ()),
-            has_reminder,
-            new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
-        );
+        if (task.when_date_utc.length != 0) {
+            when_button.set_date (
+                new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ()),
+                has_reminder,
+                new GLib.DateTime.from_iso8601 (task.reminder_time, new GLib.TimeZone.local ())
+            );
+        }
 
         check_note_preview_icon ();
         check_checklist_progress ();
@@ -1048,7 +1050,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             when_preview_label.no_show_all = true;
         }
 
-        if (when_button.reminder_datetime.to_string () != task.reminder_time) {
+        if (when_button.reminder_datetime != null && when_button.reminder_datetime.to_string () != task.reminder_time) {
             task.was_notified = 0;
 
             if (when_button.has_reminder) {
