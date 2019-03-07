@@ -88,8 +88,8 @@ public class Services.Weather : GLib.Object {
         if (member == null) {
             throw new JsonError.NOT_HAS_MEMBER ("Object not has a member named '%s'", name);
         } else if (member.get_node_type () != type) {
-		    throw new JsonError.INVALID_FORMAT ("Unexpected element type %s", member.type_name ());
-	    }
+            throw new JsonError.INVALID_FORMAT ("Unexpected element type %s", member.type_name ());
+        }
     }
 
     private static Json.Object? json_get_object_member (Json.Object obj, string name) throws JsonError {
