@@ -62,7 +62,6 @@ public class Widgets.TimePicker : Gtk.EventBox {
 
     construct {
         time_entry = new Gtk.Entry ();
-        time_entry.max_length = 8;
 
         am_pm_modebutton = new Granite.Widgets.ModeButton ();
         am_pm_modebutton.orientation = Gtk.Orientation.VERTICAL;

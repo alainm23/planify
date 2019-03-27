@@ -28,7 +28,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     public E.Source source { public get; private set; }
 
     private Gtk.Label calendar_name_label;
-    private Gtk.Label calendar_color_label;
+    //private Gtk.Label calendar_color_label;
     private Gtk.CheckButton visible_checkbutton;
 
     public SourceItem (E.Source source) {
@@ -68,7 +68,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
         calendar_grid.column_spacing = 6;
         calendar_grid.margin = 6;
         calendar_grid.attach (visible_checkbutton, 0, 0, 1, 1);
-        calendar_grid.attach (calendar_color_label, 1, 0, 1, 1);
+        //calendar_grid.attach (calendar_color_label, 1, 0, 1, 1);
         calendar_grid.attach (calendar_name_label, 2, 0, 1, 1);
 
         add (calendar_grid);

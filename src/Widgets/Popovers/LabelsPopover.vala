@@ -64,9 +64,9 @@ public class Widgets.Popovers.LabelsPopover : Gtk.Popover {
                 inset 0 -1px 0 0 alpha (#fff, 0.1),
                 0 1px 2px alpha (#000, 0.3);
             color: %s;
-            padding: 1 6px;
+            padding: 1px 6px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 700px;
             margin: 2px;
             min-width: 18px;
             min-height: 18px;

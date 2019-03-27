@@ -190,7 +190,7 @@ public class Widgets.CalendarEvents : Gtk.Revealer {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
         main_box.pack_start (weather_revealer, false, false, 0);
-        main_box.pack_start (events_label, false, false, 0);
+        //main_box.pack_start (events_label, false, false, 0);
         main_box.pack_start (events_list_revealer, false, false, 0);
         main_box.pack_end (calendar_revealer, false, false, 0);
         main_box.pack_end (action_bar, false, false, 0);

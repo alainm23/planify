@@ -19,6 +19,11 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
+errordomain JsonError {
+    NOT_HAS_MEMBER,
+    INVALID_FORMAT
+}
+
 public class Services.Weather : GLib.Object {
     public double latitude { get; set; }
     public double longitude { get; set; }
@@ -77,6 +82,41 @@ public class Services.Weather : GLib.Object {
         });
     }
 
+    private static void json_check_member (Json.Object obj, Json.NodeType type, string name) throws JsonError {
+        var member = obj.get_member (name);
+
+        if (member == null) {
+            throw new JsonError.NOT_HAS_MEMBER ("Object not has a member named '%s'", name);
+        } else if (member.get_node_type () != type) {
+            throw new JsonError.INVALID_FORMAT ("Unexpected element type %s", member.type_name ());
+        }
+    }
+
+    private static Json.Object? json_get_object_member (Json.Object obj, string name) throws JsonError {
+        json_check_member (obj, Json.NodeType.OBJECT, name);
+        return obj.get_object_member (name);
+    }
+
+    private static Json.Array json_get_array_member (Json.Object obj, string name) throws JsonError {
+        json_check_member (obj, Json.NodeType.ARRAY, name);
+        return obj.get_array_member (name);
+    }
+
+    private static int64 json_get_int_member (Json.Object obj, string name) throws JsonError {
+        json_check_member (obj, Json.NodeType.VALUE, name);
+        return obj.get_int_member (name);
+    }
+
+    private static double json_get_double_member (Json.Object obj, string name) throws JsonError {
+        json_check_member (obj, Json.NodeType.VALUE, name);
+        return obj.get_double_member (name);
+    }
+
+    private static string json_get_string_member (Json.Object obj, string name) throws JsonError {
+        json_check_member (obj, Json.NodeType.VALUE, name);
+        return obj.get_string_member (name);
+    }
+
     public void get_location_info (bool fetch_weather_info) {
       string APP_ID = "0c6dd6ac81b50705599a4d7e3cf02e89";
       string API_URL = "http://api.openweathermap.org/data/2.5/weather";
@@ -93,10 +133,10 @@ public class Services.Weather : GLib.Object {
           parser.load_from_data ((string) message.response_body.flatten ().data, -1);
 
           var root = parser.get_root ().get_object ();
-          var sys = root.get_object_member ("sys");
+          var sys = json_get_object_member (root, "sys");
 
-          geo_city = root.get_string_member ("name");
-          geo_country = sys.get_string_member ("country");
+          geo_city = json_get_string_member (root, "name");
+          geo_country = json_get_string_member (sys, "country");
 
           if (fetch_weather_info) {
               update_weather_info ();
@@ -128,9 +168,9 @@ public class Services.Weather : GLib.Object {
             parser.load_from_data ((string) message.response_body.flatten ().data, -1);
 
             var root = parser.get_root ().get_object ();
-            var weather = root.get_array_member ("weather");
-            var sys = root.get_object_member ("sys");
-            var main = root.get_object_member ("main");
+            var weather = json_get_array_member (root, "weather");
+            var sys = json_get_object_member (root, "sys");
+            var main = json_get_object_member (root, "main");
 
             string weather_description = "";
             string weather_description_detail = "";
@@ -140,15 +180,15 @@ public class Services.Weather : GLib.Object {
             foreach (var weather_details_item in weather.get_elements ()) {
                 var weather_details = weather_details_item.get_object ();
 
-                weather_id = weather_details.get_int_member ("id");
-                weather_description = weather_details.get_string_member ("main");
-                weather_description_detail = weather_details.get_string_member ("description");
-                weather_icon = weather_details.get_string_member ("icon");
+                weather_id = json_get_int_member (weather_details, "id");
+                weather_description = json_get_string_member (weather_details, "main");
+                weather_description_detail = json_get_string_member (weather_details, "description");
+                weather_icon = json_get_string_member (weather_details, "icon");
             }
 
-            city = root.get_string_member ("name");
-            country = sys.get_string_member ("country");
-            temperature = main.get_double_member ("temp");
+            city = json_get_string_member (root, "name");
+            country = json_get_string_member (sys, "country");
+            temperature = json_get_double_member (main, "temp");
             description = Application.utils.get_weather_description (weather_description);
             description_detail = Application.utils.get_weather_description_detail (weather_id.to_string ());
             icon = weather_icon;
@@ -181,7 +221,7 @@ public class Services.Weather : GLib.Object {
             parser.load_from_data ((string) message.response_body.flatten ().data, -1);
             
             var root = parser.get_root ().get_object ();
-            var list = root.get_array_member ("list");
+            var list = json_get_array_member (root, "list");
 
             forecast_list.clear ();
 
@@ -193,15 +233,15 @@ public class Services.Weather : GLib.Object {
                     string _icon = ""; 
                     string _temp = "";
 
-                    _date = item_details.get_int_member ("dt");
+                    _date = json_get_int_member (item_details, "dt");
 
-                    var main = item_details.get_object_member ("main");
-                    _temp = get_temperature_format (main.get_double_member ("temp"));
+                    var main = json_get_object_member (item_details, "main");
+                    _temp = get_temperature_format (json_get_double_member (main, "temp"));
 
-                    var weather = item_details.get_array_member ("weather");
+                    var weather = json_get_array_member (item_details, "weather");
                     foreach (var w in weather.get_elements ()) {
                         var weather_details = w.get_object (); 
-                        _icon = Application.utils.get_weather_icon_name (weather_details.get_string_member ("icon"));
+                        _icon = Application.utils.get_weather_icon_name (json_get_string_member (weather_details, "icon"));
                     }
 
                     var forecast = new Forecast (_date, _icon, _temp);
@@ -258,7 +298,11 @@ public class Services.Weather : GLib.Object {
     }
 
     public string get_symbolic_icon_name () {
-        return Application.utils.get_weather_icon_name (icon);
+        if (icon != null) {
+            return Application.utils.get_weather_icon_name (icon);
+        } else {
+            return "weather-fog-symbolic";
+        }
     }
 
     public string get_temperature () {

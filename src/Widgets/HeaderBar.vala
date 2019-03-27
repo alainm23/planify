@@ -118,7 +118,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         app_menu.image = menu_icon;
 
-        notification_menu.add (notification_icon);
+        //notification_menu.add (notification_icon);
 
         //pack_start (add_task_button);
         pack_end (app_menu);
@@ -186,7 +186,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         preferences_menuitem.clicked.connect (() => {
             var preferences_dialog = new Dialogs.PreferencesDialog (window);
-            preferences_dialog.destroy.connect (Gtk.main_quit);
+            //preferences_dialog.destroy.connect (Gtk.main_quit);
             preferences_dialog.show_all ();
         });
 
