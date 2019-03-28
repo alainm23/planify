@@ -42,19 +42,25 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
         inbox_item = new Widgets.ItemRow (_("Inbox"), "planner-inbox", "inbox");
         inbox_item.primary_text = Application.database.get_inbox_number ().to_string ();
+        inbox_item.reveal_child = Application.settings.get_boolean ("show-inbox");
 
         today_item = new Widgets.ItemRow (_("Today"), "planner-today-" + new GLib.DateTime.now_local ().get_day_of_month ().to_string (), "today");
         today_item.primary_text = Application.database.get_today_number ().to_string ();
+        today_item.reveal_child = Application.settings.get_boolean ("show-today");
 
         upcoming_item = new Widgets.ItemRow (_("Upcoming"), "planner-upcoming", "upcoming");
+        upcoming_item.primary_text = Application.database.get_upcoming_number ().to_string ();
+        upcoming_item.reveal_child = Application.settings.get_boolean ("show-upcoming");
 
         all_tasks_item = new Widgets.ItemRow (_("All Tasks"), "user-bookmarks", "all");
         all_tasks_item.primary_text = Application.database.get_all_tasks_number ().to_string ();
         all_tasks_item.reveal_child = false;
+        all_tasks_item.reveal_child = Application.settings.get_boolean ("show-all-tasks");
 
         completed_item = new Widgets.ItemRow (_("Completed Tasks"), "emblem-default", "completed");
         completed_item.primary_text = Application.database.get_completed_number ().to_string  ();
         completed_item.reveal_child = false;
+        completed_item.reveal_child = Application.settings.get_boolean ("show-completed-tasks");
 
         check_number_labels ();
 
@@ -211,6 +217,20 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
                 return true;
             });
+        });
+
+        Application.settings.changed.connect (key => {
+            if (key == "show-inbox") {
+                inbox_item.reveal_child = Application.settings.get_boolean ("show-inbox");
+            } else if (key == "show-today") {
+                today_item.reveal_child = Application.settings.get_boolean ("show-today");
+            } else if (key == "show-upcoming") {
+                upcoming_item.reveal_child = Application.settings.get_boolean ("show-upcoming");
+            } else if (key == "show-all-tasks") {
+                all_tasks_item.reveal_child = Application.settings.get_boolean ("show-all-tasks");
+            } else if (key == "show-completed-tasks") {
+                completed_item.reveal_child = Application.settings.get_boolean ("show-completed-tasks");
+            }
         });
     }
 

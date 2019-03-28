@@ -58,7 +58,7 @@ public class Application : Gtk.Application {
         github = new Services.Github ();
         share = new Services.Share ();
 
-        APP_VERSION =  "1.2.3";
+        APP_VERSION =  "1.2.4";
     }
 
     public static Application _instance = null;

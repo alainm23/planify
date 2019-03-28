@@ -40,6 +40,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     private Granite.Widgets.Avatar profile_image;
     private Gtk.Label username_label;
 
+    private string oauth_open_url;
+
     public signal void on_close ();
 
     public PreferencesDialog (Gtk.Window parent) {
@@ -56,8 +58,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
     construct {
         title = _("Preferences");
-        height_request = 550;
-        width_request = 650;
+        height_request = 500;
+        width_request = 600;
+
+        oauth_open_url = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read&state=XE3K-4BBL-4XLG-UDS8";
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
@@ -89,6 +93,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_stack.add_named (get_items_widget (), "items");
         main_stack.add_named (get_credist_widget (), "credits");
         main_stack.add_named (get_todoist_login_widget (), "todoist_login");
+        main_stack.add_named (get_support_widget (), "support");
 
         main_stack.visible_child_name = "general";
 
@@ -139,6 +144,65 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         });
 
         add_action_widget (close_button, 0);
+    }
+
+    private Gtk.Widget get_support_widget () {
+        var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Support")));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
+        var label = new Gtk.Label (_("Thank you very much for using Planner. At the moment the method of payment by AppCenter is not available in my country. If you like Planner and want to support their development, consider donating via:"));
+        label.get_style_context ().add_class ("h3");
+        label.wrap = true;
+
+        var paypal_button = new Gtk.Button.from_icon_name ("planner-paypal", Gtk.IconSize.DIALOG);
+        paypal_button.can_focus = false;
+
+        var grid = new Gtk.Grid ();
+        grid.margin = 12;
+        grid.row_spacing = 12;
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (label);
+        grid.add (paypal_button);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (grid);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_grid.add (scrolled);
+
+        var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.add (main_grid);
+
+        back_button.clicked.connect (() => {
+            check_quick_save_preview ();
+            main_stack.visible_child_name = "about";
+        });
+
+        paypal_button.clicked.connect (() => {
+            try {
+                Gtk.show_uri (null, "https://www.paypal.me/alainm23", 1000);
+            } catch (Error e) {
+                stderr.printf ("Error open the uri\n");
+            }
+        });
+
+        return main_frame;
     }
 
     private Gtk.Widget get_accounts_widget () {
@@ -195,8 +259,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (github_eventbox);
-        main_grid.add (s_1);
-        main_grid.add (todoist_eventbox);
+        //main_grid.add (s_1);
+        //main_grid.add (todoist_eventbox);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
@@ -221,6 +285,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         todoist_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 main_stack.visible_child_name = "todoist_login";
+                webview.load_uri (oauth_open_url);
             }
             
             return false;
@@ -254,25 +319,30 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         webview = new WebKit.WebView ();
         webview.expand = true;
 
-        webview.load_uri ("https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read&state=XE3K-4BBL-4XLG-UDS8");
-
         WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
-
-        webview.load_changed.connect (on_webview_load);
-
-        /* 
-        webview.load_failed.connect ();
-        */
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (webview);
+
+        var alert_view = new Granite.Widgets.AlertView (
+            _("Network Is Not Available"),
+            _("Connect to the Internet to connect with Todoist"),
+            "network-error"
+        );
+
+        var stack = new Gtk.Stack ();
+        stack.expand = true;
+        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+
+        stack.add_named (scrolled, "web_view");
+        stack.add_named (alert_view, "error_view");
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (header_box);
         main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        main_grid.add (scrolled);
+        main_grid.add (stack);
     
         var main_frame = new Gtk.Frame (null);
         main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
@@ -282,37 +352,62 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             main_stack.visible_child_name = "accounts";
         });
 
+        webview.load_changed.connect ((load_event) => {
+            var redirect_uri = webview.get_uri ();
+
+            //if (redirect_uri == null || !redirect_uri.has_prefix ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=")) {
+                if (load_event == WebKit.LoadEvent.FINISHED) {
+                    info_label.label = _("Please enter your credentials…");
+                    spinner.stop ();
+                    spinner.hide ();
+                    stack.visible_child_name = "web_view";
+                    
+                    return;
+                }
+            //}
+            
+            if (load_event == WebKit.LoadEvent.STARTED) {
+                info_label.label = _("Loading…");
+                spinner.start ();
+                spinner.show ();
+
+                return;
+            }
+            
+            /*
+            if (redirect_uri != null || redirect_uri.has_prefix ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=")) {
+                get_todoist_token (redirect_uri);
+            }
+            */
+
+            return;
+        });
+
+        webview.load_failed.connect ((load_event, failing_uri, _error) => {
+            var error = (GLib.Error)_error;
+            warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
+            if (GLib.strcmp (failing_uri, oauth_open_url) == 0) {
+                stack.visible_child_name = "error_view";
+            }
+
+            return true;
+        });
+
         return main_frame;
     }
 
-    private void on_webview_load (WebKit.LoadEvent load_event) {
-        var redirect_uri = webview.get_uri ();
-
-        
-        if (load_event == WebKit.LoadEvent.FINISHED) {
-            info_label.label = _("Please enter your credentials…");
-            spinner.stop ();
-            spinner.hide ();
-            
-            if (redirect_uri.has_prefix ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=")) {
-                get_todoist_token (redirect_uri);
-            }
-            
-            return;
-        }
-
-        if (load_event == WebKit.LoadEvent.STARTED) {
-            info_label.label = _("Loading…");
-            spinner.start ();
-            spinner.show ();
-
-            return;
-        }
-    
-        return;
-    }
-
     private void get_todoist_token (string url) {
+        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+            "URL",
+            url,
+            "applications-development",
+            Gtk.ButtonsType.CLOSE
+        );
+
+        message_dialog.run ();
+        message_dialog.destroy ();
+
+        /*
         string code = url.split ("=") [2];
         string response = "";
 
@@ -330,18 +425,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             var root_oa = parser.get_root ().get_object ();
             var token = root_oa.get_string_member ("access_token");
 
-            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                "Access Token",
-                token,
-                "applications-development",
-                Gtk.ButtonsType.CLOSE
-            );
-            
-            message_dialog.run ();
-            message_dialog.destroy ();
+            Application.todoist.get_user (token);
         } catch (Error e) {
             debug (e.message);
         }
+        */
     }
 
     private Gtk.Widget get_github_login_widget () {
@@ -478,6 +566,21 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
     }
     
     private Gtk.Widget get_github_widget () {
+        var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.margin = 6;
+        back_button.can_focus = false;
+        back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
+
+        var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Github Account")));
+        title_label.use_markup = true;
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        top_box.hexpand = true;
+        top_box.pack_start (back_button, false, false, 0);
+        top_box.set_center_widget (title_label);
+
         var user = Application.database.get_user ();
         var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("profile-%i.jpg").printf ((int) user.id));
 
@@ -558,6 +661,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
+        main_grid.add (top_box);
+        main_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_grid.add (profile_overlay);
         main_grid.add (username_label);
         main_grid.add (subtitle_label);
@@ -577,7 +682,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
-        //main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         main_frame.add (scrolled);
 
         Application.database.adden_new_repository.connect ((repo) => {
@@ -639,6 +744,10 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
             if (Application.utils.check_internet_connection ()) {
                 Application.github.check_issues ();
             }
+        });
+
+        back_button.clicked.connect (() => {
+            main_stack.visible_child_name = "accounts";
         });
 
         return main_frame;
@@ -929,27 +1038,32 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         inbox_check.get_style_context ().add_class ("h3");
         inbox_check.margin_start = 12;
         inbox_check.margin_top = 6;
+        inbox_check.active = Application.settings.get_boolean ("show-inbox");
 
         var today_check = new Gtk.CheckButton.with_label (_("Today"));
         today_check.get_style_context ().add_class ("h3");
         today_check.margin_start = 12;
         today_check.margin_top = 3;
+        today_check.active = Application.settings.get_boolean ("show-today");
 
         var upcoming_check = new Gtk.CheckButton.with_label (_("Upcoming"));
         upcoming_check.get_style_context ().add_class ("h3");
         upcoming_check.margin_start = 12;
         upcoming_check.margin_top = 3;
+        upcoming_check.active = Application.settings.get_boolean ("show-upcoming");
 
         var all_tasks_check = new Gtk.CheckButton.with_label (_("All Tasks"));
         all_tasks_check.get_style_context ().add_class ("h3");
         all_tasks_check.margin_start = 12;
         all_tasks_check.margin_top = 3;
+        all_tasks_check.active = Application.settings.get_boolean ("show-all-tasks");
 
         var completed_check = new Gtk.CheckButton.with_label (_("Completed Tasks"));
         completed_check.get_style_context ().add_class ("h3");
         completed_check.margin_start = 12;
         completed_check.margin_top = 3;
         completed_check.margin_bottom = 6;
+        completed_check.active = Application.settings.get_boolean ("show-completed-tasks");
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
@@ -977,6 +1091,26 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         back_button.clicked.connect (() => {
             check_start_page_preview ();
             main_stack.visible_child_name = "general";
+        });
+
+        inbox_check.toggled.connect (() => {
+            Application.settings.set_boolean ("show-inbox", inbox_check.active);
+        });
+
+        today_check.toggled.connect (() => {
+            Application.settings.set_boolean ("show-today", today_check.active);
+        });
+
+        upcoming_check.toggled.connect (() => {
+            Application.settings.set_boolean ("show-upcoming", upcoming_check.active);
+        });
+
+        all_tasks_check.toggled.connect (() => {
+            Application.settings.set_boolean ("show-all-tasks", all_tasks_check.active);
+        });
+
+        completed_check.toggled.connect (() => {
+            Application.settings.set_boolean ("show-completed-tasks", completed_check.active);
         });
 
         return main_frame;
@@ -1478,10 +1612,11 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         planner_icon.halign = Gtk.Align.CENTER;
         planner_icon.hexpand = true;
 
-        var planner_label = new Gtk.Label ("Planner %s".printf (Application.APP_VERSION));
+        var planner_label = new Gtk.Label ("Planner %s".printf ("<b>" + Application.APP_VERSION + "</b>"));
         planner_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         planner_label.halign = Gtk.Align.CENTER;
         planner_label.hexpand = true;
+        planner_label.use_markup = true;
 
         var planner_developer = new Gtk.Label ("Alain M.");
         planner_developer.margin_bottom = 12;
@@ -1492,7 +1627,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         // Home Button
         var home_icon = new Gtk.Image ();
-        home_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
+        home_icon.gicon = new ThemedIcon ("internet-web-browser");
         home_icon.pixel_size = 24;
         
         var home_label = new Gtk.Label (_("Home Page"));
@@ -1634,6 +1769,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         scrolled.add (main_grid);
 
         var main_frame = new Gtk.Frame (null);
+        main_frame.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         main_frame.add (scrolled);
 
         home_eventbox.event.connect ((event) => {
@@ -1674,11 +1810,7 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         donation_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                try {
-                    Gtk.show_uri (null, "https://www.paypal.me/alainm23", 1000);
-                } catch (Error e) {
-                    stderr.printf ("Error open the uri\n");
-                }
+                main_stack.visible_child_name = "support";
             }
 
             return false;
@@ -1912,8 +2044,8 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
         main_grid.add (s_4);
         main_grid.add (calendar_eventbox);
         main_grid.add (s_5);
-        //main_grid.add (items_eventbox);
-       //main_grid.add (s_6);
+        main_grid.add (items_eventbox);
+        main_grid.add (s_6);
         main_grid.add (run_background_eventbox);
         main_grid.add (s_7);
         main_grid.add (launch_eventbox);

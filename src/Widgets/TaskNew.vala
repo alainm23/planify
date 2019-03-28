@@ -29,6 +29,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
+
+    private Objects.Task task;
     public GLib.DateTime when_datetime {
         set {
             when_button.set_date (value, false, new GLib.DateTime.now_local ());
@@ -48,6 +50,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
     }
 
     construct {
+        task = new Objects.Task ();
+
         name_entry = new Gtk.Entry ();
         name_entry.margin_start = 12;
         name_entry.margin_end = 6;
@@ -67,17 +71,92 @@ public class Widgets.TaskNew : Gtk.Revealer {
         close_button.valign = Gtk.Align.START;
         close_button.halign = Gtk.Align.START;
 
-        note_view = new Gtk.TextView ();
-        note_view.opacity = 0.7;
-        note_view.margin_start = 15;
-        note_view.margin_end = 12;
-        note_view.height_request = 50;
-		note_view.set_wrap_mode (Gtk.WrapMode.WORD_CHAR);
-        note_view.get_style_context ().add_class ("note-view");
+        /* Note */
+        var source_buffer = new Gtk.SourceBuffer (null);
+        source_buffer.highlight_syntax = true;
+        source_buffer.language = Gtk.SourceLanguageManager.get_default ().get_language ("markdown");
 
+        if (Application.settings.get_boolean ("prefer-dark-style")) {
+            source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
+        } else {
+            source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+        }
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                if (Application.settings.get_boolean ("prefer-dark-style")) {
+                    source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-dark");
+                } else {
+                    source_buffer.style_scheme = new Gtk.SourceStyleSchemeManager ().get_scheme ("solarized-light");
+                }
+            }
+        });
+
+        note_view = new Gtk.SourceView ();
+        note_view.expand = true;
+        note_view.wrap_mode = Gtk.WrapMode.WORD;
+        note_view.height_request = 50;
+        note_view.margin_start = 12;
+        note_view.margin_top = 6;
+        note_view.margin_end = 12;
+        note_view.monospace = true;
+        note_view.buffer = source_buffer;
+
+        note_view.get_style_context ().add_class ("note-view");
+        
         var note_view_placeholder_label = new Gtk.Label (_("Note"));
         note_view_placeholder_label.opacity = 0.65;
         note_view.add (note_view_placeholder_label);
+
+        if (note_view.buffer.text != "") {
+            note_view_placeholder_label.visible = false;
+            note_view_placeholder_label.no_show_all = true;
+        }
+
+        var note_eventbox = new Gtk.EventBox ();
+        note_eventbox.add (note_view);
+
+        /*
+        var preview_view = new Gtk.ScrolledWindow (null, null);
+        preview_view.expand = true;
+
+        var preview_view_content = new Widgets.WebView (task);
+        preview_view.add (preview_view_content);
+
+        var note_stack = new Gtk.Stack ();
+        note_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+        note_stack.expand = true;
+
+        note_stack.add_named (note_eventbox, "note_edit");
+        note_stack.add_named (preview_view, "note_view");
+
+        var mode_button = new Granite.Widgets.ModeButton ();
+        mode_button.get_style_context ().add_class ("format-bar");
+        mode_button.hexpand = true;
+        mode_button.margin_end = 24;
+        mode_button.halign = Gtk.Align.END;
+        mode_button.valign = Gtk.Align.START;
+
+        mode_button.append_icon ("planner-text-symbolic", Gtk.IconSize.MENU);
+        mode_button.append_icon ("planner-markdown-symbolic", Gtk.IconSize.MENU);
+
+        mode_button.selected = 0;
+
+        var note_view_overlay = new Gtk.Overlay ();
+        note_view_overlay.add_overlay (mode_button);
+        note_view_overlay.add (note_stack);
+
+        mode_button.mode_changed.connect ((widget) => {
+            if (mode_button.selected == 0) {
+                note_stack.visible_child_name = "note_edit";
+                preview_view.height_request = -1;
+            } else if (mode_button.selected == 1){
+                preview_view.height_request = 200;
+                preview_view_content.update_note (note_view.buffer.text);
+                note_stack.visible_child_name = "note_view";
+            }
+        });
+        */
 
         checklist = new Gtk.ListBox  ();
         checklist.activate_on_single_click = true;
@@ -145,7 +224,7 @@ public class Widgets.TaskNew : Gtk.Revealer {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (name_entry);
-        main_grid.add (note_view);
+        main_grid.add (note_eventbox);
         main_grid.add (checklist_grid);
         main_grid.add (labels_flowbox_revealer);
         main_grid.add (bottom_box);
@@ -289,8 +368,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
     private void add_task () {
         if (name_entry.text != "") {
-            var task = new Objects.Task ();
-
             task.project_id = project_id;
             task.content = name_entry.text;
             task.note = note_view.buffer.text;
