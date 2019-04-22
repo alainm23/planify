@@ -14,6 +14,8 @@
 
 ![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-02.png)
 
+![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-03.png)
+
 ## Building and Installation
 
 You'll need the following dependencies:
