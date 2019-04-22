@@ -20,28 +20,43 @@
 */
 
 public class Objects.Project {
-    public int id;
+    public int64 id;
     public string name;
     public string note;
-    public string deadline;
-    public int item_order;
-    public int is_deleted;
     public string color;
+    public string icon;
+    public string labels;
+    public string duedate;
+    public int item_order;
+    public int is_todoist;
+    public int is_deleted;
+    public int is_archived;
+    public int is_favorite;
 
-    public Project (int id = 0,
-                    int item_order = 0,
-                    int is_deleted = 0,
+    public Project (int64 id = 0,
                     string name = "",
                     string note = "",
-                    string deadline = "",
-                    string color = "") {
+                    string color = "",
+                    string icon = "",
+                    string labels = "",
+                    string duedate = "",
+                    int item_order = 0,
+                    int is_todoist = 0,
+                    int is_deleted = 0,
+                    int is_archived = 0,
+                    int is_favorite = 0) {
 
         this.id = id;
         this.name = name;
         this.note = note;
-        this.deadline = deadline;
-        this.item_order = item_order;
-        this.is_deleted = is_deleted;
         this.color = color;
+        this.icon = icon;
+        this.labels = labels;
+        this.duedate = duedate;
+        this.item_order = item_order;
+        this.is_todoist = is_todoist;
+        this.is_deleted = is_deleted;
+        this.is_archived = is_archived;
+        this.is_favorite = is_favorite;
     }
 }

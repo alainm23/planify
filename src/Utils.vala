@@ -20,7 +20,7 @@
 */
 
 public class Utils : GLib.Object {
-    public string CACHE_FOLDER;
+    public string APP_FOLDER;
     public string PROFILE_FOLDER;
     public string WEBVIEW_STYLESHEET = """
         html {
@@ -160,11 +160,15 @@ public class Utils : GLib.Object {
             color: %s;
         }
     """;
-
+    
     public Utils () {
-        CACHE_FOLDER = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
-        PROFILE_FOLDER = GLib.Path.build_filename (CACHE_FOLDER, "profile");
+        APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
+        PROFILE_FOLDER = GLib.Path.build_filename (APP_FOLDER, "profile");
     }
+
+    public int32 generate_id () {
+        return GLib.Random.int_range (0, 999999999);
+    } 
 
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;
@@ -308,68 +312,35 @@ public class Utils : GLib.Object {
         return s;
     }
 
-    public bool is_label_repeted (Gtk.FlowBox flowbox, int id) {
-        foreach (Gtk.Widget element in flowbox.get_children ()) {
-            var child = element as Widgets.LabelChild;
-            if (child.label.id == id) {
-                return true;
-            }
-        }
+    public Gee.ArrayList <string> get_icons_list () {
+        var list = new Gee.ArrayList <string> ();
 
-        return false;
+        list.add ("planner-startup-symbolic");
+        list.add ("input-gaming-symbolic");
+        list.add ("applications-internet-symbolic");
+        list.add ("applications-science-symbolic");
+        list.add ("edit-flag-symbolic");
+        list.add ("emblem-default-symbolic");
+        list.add ("folder-saved-search-symbolic");
+        list.add ("go-home-symbolic");
+        list.add ("help-about-symbolic");
+        list.add ("internet-chat-symbolic");
+        list.add ("internet-mail-symbolic");
+        list.add ("mail-read-symbolic");
+        list.add ("office-calendar-symbolic");
+        list.add ("phone-symbolic");
+        list.add ("system-software-install-symbolic");
+        list.add ("system-users-symbolic");
+        list.add ("video-display-symbolic");
+
+        return list;
     }
 
-    public bool is_empty (Gtk.FlowBox flowbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in flowbox.get_children ()) {
-            l = l + 1;
-        }
-
-        if (l <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+    public string get_icon_by_index (int index) {
+        return get_icons_list () [index];
     }
-
-    public bool is_listbox_empty (Gtk.ListBox listbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            var item = element as Widgets.TaskRow;
-
-            if (item.task.checked == 0) {
-                l = l + 1;
-            }
-        }
-
-        if (l <= 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public bool is_listbox_all_empty (Gtk.ListBox listbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            l = l + 1;
-        }
-
-        return (l <= 0);
-    }
-
-    public bool is_task_repeted (Gtk.ListBox listbox, int id) {
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            var item = element as Widgets.TaskRow;
-
-            if (id == item.task.id) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
+    
+    /*
     public bool is_tomorrow (GLib.DateTime date_1) {
         var date_2 = new GLib.DateTime.now_local ().add_days (1);
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
@@ -464,12 +435,7 @@ public class Utils : GLib.Object {
         weather_icon_name.set ("50d", "weather-fog-symbolic");
         weather_icon_name.set ("50n", "weather-fog-symbolic");
 
-        var icon_name = weather_icon_name.get (key);
-        if (icon_name == null) {
-            return "weather-fog-symbolic";
-        } else {
-            return icon_name;
-        }
+        return weather_icon_name.get (key);
     }
 
     public string get_weaher_color (string key) {
@@ -482,12 +448,7 @@ public class Utils : GLib.Object {
         weather_colors.insert("weather-snow-symbolic", "#9ca7ba");
         weather_colors.insert("weather-fog-symbolic", "#a1a6af");
 
-        var color = weather_colors.get (key);
-        if (color == null) {
-            return "#68758e";
-        } else {
-            return color;
-        }
+        return weather_colors.get (key);
     }
 
     public string get_weather_description (string key) {
@@ -501,12 +462,7 @@ public class Utils : GLib.Object {
         weather_descriptions.insert("Drizzle", _("Drizzle"));
         weather_descriptions.insert("Thunderstorm", _("Thunderstorm"));
 
-        var description = weather_descriptions.get (key);
-        if (description == null) {
-            return _("Unknown");
-        } else {
-            return description;
-        }
+        return weather_descriptions.get (key);
     }
 
     public string get_weather_description_detail (string key) {
@@ -561,12 +517,7 @@ public class Utils : GLib.Object {
         details.insert("803", _("Broken clouds"));
         details.insert("804", _("Overcast clouds"));
 
-        var description_detail = details.get (key);
-        if (description_detail == null) {
-            return _("Unknown");
-        } else {
-            return description_detail;
-        }
+        return details.get (key);
     }
 
     public string get_default_date_format (string date_string) {
@@ -599,8 +550,7 @@ public class Utils : GLib.Object {
             return Application.utils.get_default_date_format_from_date (date);
         }
     }
-
-
+    */
     public string get_theme (int key) {
         var themes = new Gee.HashMap<int, string> ();
 
@@ -610,7 +560,21 @@ public class Utils : GLib.Object {
         themes.set (4, "#ed5353");
         themes.set (5, "#9bdb4d");
         themes.set (6, "#667885");
-        themes.set (7, "#FA0080");
+        themes.set (7, "#fa57c1");
+
+        return themes.get (key);
+    }
+
+    public string get_selected_theme (int key) {
+        var themes = new Gee.HashMap<int, string> ();
+
+        themes.set (1, "#ffe16b");
+        themes.set (2, "#3d4248");
+        themes.set (3, "#64baff");
+        themes.set (4, "#ff8c82");
+        themes.set (5, "#9bdb4d");
+        themes.set (6, "#667885");
+        themes.set (7, "#fa57c1");
 
         return themes.get (key);
     }

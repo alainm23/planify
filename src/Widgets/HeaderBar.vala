@@ -20,7 +20,11 @@
 */
 
 public class Widgets.HeaderBar : Gtk.HeaderBar {
-    public weak Gtk.Window window { get; construct; }
+    private Gtk.SearchEntry search_entry;
+    private Gtk.ToggleButton add_task_button;
+    private Gtk.ToggleButton calendar_button;
+    private Gtk.Button sync_button;
+    private Gtk.Button menu_button;
 
     public const string CSS = """
         @define-color color_header %s;
@@ -28,44 +32,31 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         @define-color color_text %s;
     """;
 
-    public HeaderBar (Gtk.Window parent) {
+    public bool visible_ui {
+        set {
+            search_entry.visible = value;
+            add_task_button.visible = value;
+            calendar_button.visible = value;
+            menu_button.visible = value;
+
+            if (value) {
+                custom_title = search_entry;
+            } else {
+                custom_title = null;
+            }
+        }
+    }
+
+    public HeaderBar () {
         Object (
-            window: parent,
             show_close_button: true
         );
     }
 
     construct {
         get_style_context ().add_class ("default-decoration");
-
-        var add_task_button = new Gtk.Button ();
-        add_task_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
-        add_task_button.border_width = 4;
-
-        var add_task_icon = new Gtk.Image ();
-        add_task_icon.gicon = new ThemedIcon ("list-add-symbolic");
-        add_task_icon.pixel_size = 24;
-        add_task_button.image = add_task_icon;
-
-        var quick_find_button = new Gtk.Button ();
-        quick_find_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
-        quick_find_button.border_width = 4;
-
-        var quick_find_icon = new Gtk.Image ();
-        quick_find_icon.gicon = new ThemedIcon ("edit-find-symbolic");
-        quick_find_icon.pixel_size = 24;
-        quick_find_button.image = quick_find_icon;
-
-        var notification_menu = new Gtk.Button ();
-        notification_menu.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>E"}, _("Weather and Events"));
-        notification_menu.border_width = 6;
-        notification_menu.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var notification_icon = new Gtk.Image ();
-        notification_icon.gicon = new ThemedIcon ("notification-symbolic");
-        notification_icon.pixel_size = 20;
-
-        notification_menu.add (notification_icon);
+        decoration_layout = "close:menu";
+        title = "Planner";
 
         var mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
         mode_switch.margin_start = 12;
@@ -86,11 +77,16 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         night_mode_eventbox.get_style_context ().add_class ("menuitem");
         night_mode_eventbox.add (night_mode_box);
 
-        var notifications_popover = new Widgets.Popovers.NotificationsPopover (notification_menu);
-        var notification_action = new  Widgets.Popovers.NotificationActionPopover (notification_menu);
-
         var preferences_menuitem = new Gtk.ModelButton ();
         preferences_menuitem.text = _("Preferences");
+
+        // Menu
+        var avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+
+        menu_button = new Gtk.Button ();
+        menu_button.get_style_context ().add_class ("headerbar-menu");
+        menu_button.tooltip_text = _("Menu");
+        menu_button.image = avatar;
 
         var menu_grid = new Gtk.Grid ();
         menu_grid.margin_bottom = 3;
@@ -102,59 +98,69 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         menu_grid.add (preferences_menuitem);
         menu_grid.show_all ();
 
-        var menu_popover = new Gtk.Popover (null);
-        //menu_popover.get_style_context ().add_class ("planner-popover");
+        var menu_popover = new Gtk.Popover (menu_button);
         menu_popover.add (menu_grid);
 
-        var app_menu = new Gtk.MenuButton ();
-        app_menu.border_width = 6;
-
-        app_menu.tooltip_text = _("Menu");
-        app_menu.popover = menu_popover;
-
-        var menu_icon = new Gtk.Image ();
-        menu_icon.gicon = new ThemedIcon ("open-menu-symbolic");
-        menu_icon.pixel_size = 20;
-
-        app_menu.image = menu_icon;
-
-        //notification_menu.add (notification_icon);
-
-        //pack_start (add_task_button);
-        pack_end (app_menu);
-        pack_end (notification_menu);
-        pack_end (quick_find_button);
-
-        quick_find_button.clicked.connect (() => {
-            Application.signals.on_signal_show_quick_find ();
+        menu_button.clicked.connect (() => {
+            menu_popover.show_all ();
         });
 
-        notification_menu.clicked.connect (() => {
-            Application.signals.on_signal_show_events ();
-        });
-        // Signals
-        /*
-        notification_menu.toggled.connect (() => {
-          if (notification_menu.active) {
-            notifications_popover.show_all ();
-          }
-        });
+        // Search Entry
+        search_entry = new Gtk.SearchEntry ();
+        search_entry.valign = Gtk.Align.CENTER;
+        search_entry.halign = Gtk.Align.CENTER;
+        search_entry.width_request = 250;
+        search_entry.get_style_context ().add_class ("headerbar-widget");
+        search_entry.placeholder_text = _("Quick find");
+        
+        // Add Task Button
+        add_task_button = new Gtk.ToggleButton ();
+        add_task_button.can_focus = false;
+        add_task_button.tooltip_text = _("Add new Inbox task");
+        add_task_button.width_request = 32;
+        add_task_button.valign = Gtk.Align.CENTER;
+        add_task_button.halign = Gtk.Align.CENTER;
+        add_task_button.get_style_context ().add_class ("headerbar-widget");
+        add_task_button.add (new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON));
 
-        notifications_popover.closed.connect (() => {
-            notification_menu.active = false;
-        });
-        */
+        // Calendar Button
+        calendar_button = new Gtk.ToggleButton ();
+        calendar_button.can_focus = false;
+        calendar_button.tooltip_text = _("See calendar of events");
+        calendar_button.width_request = 32;
+        calendar_button.valign = Gtk.Align.CENTER;
+        calendar_button.halign = Gtk.Align.CENTER;
+        calendar_button.get_style_context ().add_class ("headerbar-widget");
+        calendar_button.add (new Gtk.Image.from_icon_name ("office-calendar-symbolic", Gtk.IconSize.BUTTON));
 
-        Application.notification.send_local_notification.connect ((title, description, icon_name, time, remove) => {
-            notification_action.send_local_notification (title, description, icon_name, time, remove);
-        });
+        // Synchronizing Button
+        sync_button = new Gtk.Button ();
+        sync_button.can_focus = false;
+        sync_button.tooltip_text = _("Synchronizing");
+        sync_button.margin_start = 9;
+        sync_button.margin_end = 3;
+        sync_button.width_request = 32;
+        sync_button.valign = Gtk.Align.CENTER;
+        sync_button.halign = Gtk.Align.CENTER;
+        sync_button.get_style_context ().add_class ("headerbar-widget");
+        sync_button.add (new Gtk.Image.from_icon_name ("emblem-synchronizing-symbolic", Gtk.IconSize.BUTTON));
 
-        notification_action.show.connect (() => {
-            notification_icon.icon_name = "notification-new-symbolic";
-        });
+        pack_end (menu_button);
+        pack_end (sync_button);
+        pack_end (calendar_button);
+        pack_end (add_task_button);
+        custom_title = search_entry;
+        
+        Timeout.add (150, () => {
+            if (Application.user.is_todoist == 0) {
+                sync_button.no_show_all = true;
+                sync_button.visible = false;
+            } else {
+                sync_button.no_show_all = false;
+                sync_button.visible = true;
+            }
 
-        notification_action.closed.connect (() => {
-            notification_icon.icon_name = "notification-symbolic";
+            return false;
         });
 
         mode_switch.notify["active"].connect (() => {
@@ -170,8 +176,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             } else {
                 colored_css = CSS.printf (
                     Application.utils.get_theme (Application.settings.get_enum ("theme")),
-                    Application.utils.get_theme (Application.settings.get_enum ("theme")),
-                    Application.utils.convert_invert ( Application.utils.get_theme (Application.settings.get_enum ("theme")))
+                    Application.utils.get_selected_theme (Application.settings.get_enum ("theme")),
+                    Application.utils.convert_invert ( Application.utils.get_selected_theme (Application.settings.get_enum ("theme")))
                 );
             }
 
@@ -185,9 +191,11 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         });
 
         preferences_menuitem.clicked.connect (() => {
+            /*
             var preferences_dialog = new Dialogs.PreferencesDialog (window);
-            //preferences_dialog.destroy.connect (Gtk.main_quit);
+            preferences_dialog.destroy.connect (Gtk.main_quit);
             preferences_dialog.show_all ();
+            */
         });
 
         var gtk_settings = Gtk.Settings.get_default ();
@@ -216,6 +224,21 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
                     mode_switch.active = true;
                 }
             }
+
+            return false;
+        });
+
+        Application.database.user_added.connect ((user) => {
+            string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (user.id.to_string ());
+            var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);
+            avatar.pixbuf = pixbuf;
+        });
+
+        Timeout.add (150, () => {
+            string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (Application.user.id.to_string ());
+
+            var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);
+            avatar.pixbuf = pixbuf;
 
             return false;
         });
@@ -297,7 +320,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         overview_grid.add (username_label);
         overview_grid.add (overview_levelbar);
         overview_grid.add (grid);
-
+        
+        /*
         Application.database.update_indicators.connect (() => {
             int completed_tasks = Application.database.get_all_completed_tasks ();
             int todo_tasks = Application.database.get_all_todo_tasks ();
@@ -309,6 +333,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
             overview_levelbar.value = (double) completed_tasks / (double) all_tasks;
         });
+        */
 
         return overview_grid;
     }

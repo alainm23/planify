@@ -21,12 +21,11 @@
 
 public class Application : Gtk.Application {
     public MainWindow main_window;
+    
     public static GLib.Settings settings;
+
     public static Services.Database database;
-    public static Services.Notifications notification;
-    public static Services.Signals signals;
-    public static Services.Github github;
-    public static Services.Share share;
+    public static Services.Todoist todoist;
 
     public static string APP_VERSION;
 
@@ -37,6 +36,8 @@ public class Application : Gtk.Application {
         @define-color color_selected %s;
         @define-color color_text %s;
     """;
+
+    public static Objects.User user;
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",
@@ -47,18 +48,16 @@ public class Application : Gtk.Application {
     static construct {
         // Dir to Database
         utils = new Utils ();
-        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner");
-        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner/profile");
+        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
+        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/profile");
 
         settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
+        todoist = new Services.Todoist ();
 
-        notification = new Services.Notifications ();
-        signals = new Services.Signals ();
-        github = new Services.Github ();
-        share = new Services.Share ();
+        APP_VERSION =  "1.2.3";
 
-        APP_VERSION =  "1.2.4";
+        user = new Objects.User ();
     }
 
     public static Application _instance = null;
@@ -97,8 +96,6 @@ public class Application : Gtk.Application {
 
         // Actions
         var quit_action = new SimpleAction ("quit", null);
-
-        add_action (quit_action);
         set_accels_for_action ("app.quit", {"<Control>q"});
 
         quit_action.activate.connect (() => {
@@ -107,6 +104,7 @@ public class Application : Gtk.Application {
             }
         });
 
+        /*
         var quick_find_action = new SimpleAction ("quick_find", null);
         set_accels_for_action ("app.quick_find", {"<Control>f"});
 
@@ -136,11 +134,12 @@ public class Application : Gtk.Application {
         show_window.activate.connect (() => {
             activate ();
         });
-
-        add_action (quick_find_action);
-        add_action (calendar_events_action);
-        add_action (show_task);
-        add_action (show_window);
+        */
+        add_action (quit_action);
+        //add_action (quick_find_action);
+        //add_action (calendar_events_action);
+        //add_action (show_task);
+        //add_action (show_window);
 
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
@@ -164,8 +163,8 @@ public class Application : Gtk.Application {
         } else {
             colored_css = CSS.printf (
                 Application.utils.get_theme (Application.settings.get_enum ("theme")),
-                Application.utils.get_theme (Application.settings.get_enum ("theme")),
-                Application.utils.convert_invert ( Application.utils.get_theme (Application.settings.get_enum ("theme")))
+                Application.utils.get_selected_theme (Application.settings.get_enum ("theme")),
+                Application.utils.convert_invert ( Application.utils.get_selected_theme (Application.settings.get_enum ("theme")))
             );
         }
 

@@ -17,6 +17,7 @@
 ## Building and Installation
 
 You'll need the following dependencies:
+
 * libgtk-3-dev
 * libunity-dev
 * libecal1.2-dev
@@ -35,14 +36,16 @@ You'll need the following dependencies:
 * libmarkdown2-dev
 * valac >= 0.40.3
 
-## Building
+Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
 
-```
-meson build && cd build
-meson configure -Dprefix=/usr
-sudo ninja install
-com.github.alainm23.planner
-```
+    meson build --prefix=/usr
+    cd build
+    ninja
+
+To install, use `ninja install`, then execute with `com.github.alainm23.planner`
+
+    sudo ninja install
+    com.github.alainm23.planner
 
 ## Donations
 Stripe is not yet available in my country, If you like Planner and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alainm23)

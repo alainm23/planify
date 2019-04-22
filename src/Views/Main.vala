@@ -20,39 +20,38 @@
 */
 
 public class Views.Main : Gtk.Paned {
-    public weak MainWindow parent_window { get; construct; }
-
     public Widgets.ProjectsList projects_list;
     public Gtk.Stack stack;
-
     private Views.Inbox inbox_view;
-    private Views.Today today_view;
-    private Views.Upcoming upcoming_view;
-    private Views.AllTasks all_tasks_view;
-    private Views.CompletedTasks completed_tasks_view;
-    public Main (MainWindow parent) {
+    //private Views.Today today_view;
+    //private Views.Upcoming upcoming_view;
+    //private Views.AllTasks all_tasks_view;
+    //private Views.CompletedTasks completed_tasks_view;
+    public Main () {
         Object (
-            parent_window: parent,
             orientation: Gtk.Orientation.HORIZONTAL,
             position: Application.settings.get_int ("project-sidebar-width")
         );
     }
 
-    construct {
-        get_style_context ().add_class ("view");
-
+    construct {     
         projects_list = new Widgets.ProjectsList ();
-
+        
         inbox_view = new Views.Inbox ();
-        today_view = new Views.Today ();
-        upcoming_view = new Views.Upcoming ();
-        all_tasks_view = new Views.AllTasks ();
-        completed_tasks_view = new Views.CompletedTasks ();
+        //today_view = new Views.Today ();
+        //upcoming_view = new Views.Upcoming ();
+        //all_tasks_view = new Views.AllTasks ();
+        //completed_tasks_view = new Views.CompletedTasks ();
 
         stack = new Gtk.Stack ();
+        stack.margin_end = 3;
+        stack.margin_bottom = 3;
+        stack.get_style_context ().add_class ("view");   
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
 
+        stack.add_named (inbox_view, "inbox_view");
+        /*
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (upcoming_view, "upcoming_view");
@@ -85,10 +84,10 @@ public class Views.Main : Gtk.Paned {
             
             return false;
         });
-
+        */
         pack1 (projects_list, false, false);
         pack2 (stack, true, true);
-
+        /*
         projects_list.on_selected_item.connect ((type, index) => {
             if (type == "item") {
                 if (index == 0) {
@@ -117,7 +116,7 @@ public class Views.Main : Gtk.Paned {
 
         Application.database.on_add_project_signal.connect ((project) => {
             var project_view = new Views.Project (project, parent_window);
-            stack.add_named (project_view, "project_view-%i".printf (project.id));
+            stack.add_named (project_view, "project_view-%s".printf (project.id.to_string ()));
 
             stack.show_all ();
         });
@@ -147,9 +146,9 @@ public class Views.Main : Gtk.Paned {
         });
 
         Application.signals.go_project_page.connect ((project_id) => {
-            stack.visible_child_name = "project_view-%i".printf (project_id);
+            stack.visible_child_name = "project_view-%s".printf (project_id.to_string ());
 
-            var project_view = stack.get_child_by_name ("project_view-%i".printf (project_id)) as Views.Project;
+            var project_view = stack.get_child_by_name ("project_view-%s".printf (project_id.to_string ())) as Views.Project;
             project_view.update_tasks_list ();
         });   
 
@@ -160,15 +159,15 @@ public class Views.Main : Gtk.Paned {
                 stack.visible_child_name = "inbox_view";
                 inbox_view.update_tasks_list ();
             } else {
-                stack.visible_child_name = "project_view-%i".printf (project_id);
+                stack.visible_child_name = "project_view-%s".printf (project_id.to_string ());
 
-                var project_view = stack.get_child_by_name ("project_view-%i".printf (project_id)) as Views.Project;
+                var project_view = stack.get_child_by_name ("project_view-%s".printf (project_id.to_string ())) as Views.Project;
                 project_view.update_tasks_list ();
             }
         });
 
         Application.database.on_signal_remove_project.connect ((project) => {
-            string project_name = "project_view-%i".printf (project.id);
+            string project_name = "project_view-%s".printf (project.id.to_string ());
             var project_view = stack.get_child_by_name (project_name);
 
             if (stack.visible_child_name == project_name) {
@@ -179,7 +178,7 @@ public class Views.Main : Gtk.Paned {
         });
 
         Application.signals.check_project_import.connect ((id) => {
-            string project_name = "project_view-%i".printf (id);
+            string project_name = "project_view-%s".printf (id.to_string ());
             var project_view = stack.get_child_by_name (project_name) as Views.Project;
 
             Timeout.add (200, () => {
@@ -187,15 +186,18 @@ public class Views.Main : Gtk.Paned {
                 return false;
             });
         });
+        */
     }
 
     public void update_views () {
+        /*
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
         all_projects = Application.database.get_all_projects ();
 
         foreach (var project in all_projects) {
             var project_view = new Views.Project (project, parent_window);
-            stack.add_named (project_view, "project_view-%i".printf (project.id));
+            stack.add_named (project_view, "project_view-%s".printf (project.id.to_string ()));
         }
+        */
     }
 }

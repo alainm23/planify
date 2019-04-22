@@ -73,20 +73,6 @@
             "username": "",
             "avatar": "https://avatars0.githubusercontent.com/u/28876465?s=400&v=4",
             "profile_url": "https://github.com/welaq"
-        },
-        {
-            "id": "13441032",
-            "name": "Raphael Cabral",
-            "username": "brcmesquita",
-            "avatar": "https://avatars0.githubusercontent.com/u/13441032?s=400&v=4",
-            "profile_url": "https://github.com/brcmesquita"
-        },
-        {
-            "id": "1716229",
-            "name": "Heimen Stoffels",
-            "username": "Vistaus",
-            "avatar": "https://avatars0.githubusercontent.com/u/1716229?s=400&v=4",
-            "profile_url": "https://github.com/Vistaus"
         }
     ],
     "support" : [
@@ -124,13 +110,6 @@
             "username": "",
             "avatar": "https://avatars3.githubusercontent.com/u/33732772?s=400&v=4",
             "profile_url": "https://github.com/ArthurS1"
-        },
-        {
-            "id": "48254041",
-            "name": "Ilya Egorov",
-            "username": "ie900",
-            "avatar": "https://avatars2.githubusercontent.com/u/48254041?s=400&v=4",
-            "profile_url": "https://github.com/ie900"
         }
     ]
 }

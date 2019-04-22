@@ -13,15 +13,15 @@
    id="Capa_1"
    x="0px"
    y="0px"
-   viewBox="0 0 48 48"
+   viewBox="0 0 16 16"
    xml:space="preserve"
-   width="48"
-   height="48"
-   sodipodi:docname="planner-startup.svg"
+   width="16"
+   height="16"
+   sodipodi:docname="planner-startup-symbolic.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"><metadata
    id="metadata61"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
    id="defs59" /><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
@@ -35,9 +35,9 @@
    inkscape:window-height="705"
    id="namedview57"
    showgrid="false"
-   inkscape:zoom="10.875"
-   inkscape:cx="24"
-   inkscape:cy="24"
+   inkscape:zoom="7.6897862"
+   inkscape:cx="38.62211"
+   inkscape:cy="10.487848"
    inkscape:window-x="0"
    inkscape:window-y="30"
    inkscape:window-maximized="1"
@@ -47,7 +47,7 @@
 
 <g
    id="g883"
-   transform="matrix(-0.0859375,0,0,0.0859375,46,2)"><g
+   transform="matrix(-0.02929687,0,0,0.02929687,15.479826,0.52017307)"><g
      id="g6">
 	<g
    id="g4">
@@ -90,62 +90,62 @@
 </g></g>
 <g
    id="g26"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g28"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g30"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g32"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g34"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g36"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g38"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g40"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g42"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g44"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g46"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g48"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g50"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g52"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 <g
    id="g54"
-   transform="translate(0,-464)">
+   transform="translate(0,-496)">
 </g>
 </svg>

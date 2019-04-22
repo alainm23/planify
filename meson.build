@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '1.2.4')
+        version: '1.2.1')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -37,79 +37,26 @@ executable(
     'src/MainWindow.vala',
     'src/Utils.vala',
 
-    'src/Services/Database.vala',
-    'src/Services/Notifications.vala',
-    'src/Services/Weather.vala',
-    'src/Services/Signals.vala',
-    'src/Services/Github.vala',
-    'src/Services/Share.vala',
-    
-    'src/Services/Calendar/CalendarModel.vala',
-    'src/Services/Calendar/Utils.vala',
-    'src/Services/Calendar/GesturesUtils.vala',
-    'src/Services/Calendar/DateRange.vala',
-    'src/Services/Calendar/LanguagesFormat.vala',
-    'src/Services/Calendar/MayaSettings.vala',
-    'src/Services/Calendar/SavedState.vala',
-
-    'src/Views/Main.vala',
-    'src/Views/Inbox.vala',
-    'src/Views/Today.vala',
-    'src/Views/Upcoming.vala',
-    'src/Views/Project.vala',
-    'src/Views/AllTasks.vala',
-    'src/Views/CompletedTasks.vala',
-
-    'src/Dialogs/PreferencesDialog.vala',
-    'src/Dialogs/ShareDialog.vala',
-
-    'src/Widgets/WhenButton.vala',
-    'src/Widgets/LabelButton.vala',
-    'src/Widgets/MoveButton.vala',
     'src/Widgets/HeaderBar.vala',
     'src/Widgets/ProjectsList.vala',
-    'src/Widgets/ProjectRow.vala',
     'src/Widgets/ItemRow.vala',
-    'src/Widgets/CheckRow.vala',
-    'src/Widgets/TaskRow.vala',
-    'src/Widgets/LabelRow.vala',
-    'src/Widgets/LabelChild.vala',
-    'src/Widgets/TaskNew.vala',
-    'src/Widgets/ModelButton.vala',
-    'src/Widgets/AlertView.vala',
-    'src/Widgets/TimePicker.vala',
-    'src/Widgets/CalendarEvents.vala',
-    'src/Widgets/Weather.vala',
-    'src/Widgets/AgendaEventRow.vala',
-    'src/Widgets/SourceItem.vala',
-    'src/Widgets/QuickFind.vala',
-    'src/Widgets/NoteChild.vala',
-    'src/Widgets/RepositoryRow.vala',
-    'src/Widgets/WebView.vala',
+    'src/Widgets/NewProject.vala',
+    'src/Widgets/ProjectRow.vala',
 
-    'src/Widgets/Calendar/Calendar.vala',
-    'src/Widgets/Calendar/CalendarHeader.vala',
-    'src/Widgets/Calendar/CalendarView.vala',
-    'src/Widgets/Calendar/CalendarWeek.vala',
-    'src/Widgets/Calendar/CalendarDay.vala',
-
-    'src/Widgets/Popovers/NewProject.vala',
-    'src/Widgets/Popovers/ProjectMenu.vala',
-    'src/Widgets/Popovers/TaskMenu.vala',
-    'src/Widgets/Popovers/WhenPopover.vala',
-    'src/Widgets/Popovers/LabelsPopover.vala',
-    'src/Widgets/Popovers/MovePopover.vala',
-    'src/Widgets/Popovers/NotificationsPopover.vala',
-    'src/Widgets/Popovers/NotificationActionPopover.vala',
-    'src/Widgets/Popovers/DeadlinePopover.vala',
-    'src/Widgets/Popovers/SearchPopover.vala',
-    'src/Widgets/Popovers/ProjectListMenu.vala',
+    'src/Widgets/Popovers/IconPicker.vala',
+    'src/Widgets/Popovers/Tooltip.vala',
+    'src/Widgets/Popovers/MenuProject.vala',
+    
+    'src/Services/Database.vala',
+    'src/Services/Todoist.vala',
 
     'src/Objects/Project.vala',
-    'src/Objects/Task.vala',
-    'src/Objects/Label.vala',
-    'src/Objects/Repository.vala',
     'src/Objects/User.vala',
+
+    'src/Views/Main.vala',
+    'src/Views/Welcome.vala',
+    'src/Views/Inbox.vala',
+    'src/Views/TodoistAccess.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('glib-2.0'),
@@ -134,6 +81,6 @@ executable(
 )
 
 subdir('data')
-subdir('po')
+#subdir('po')
 
 meson.add_install_script('meson/post_install.py')

@@ -20,116 +20,171 @@
 */
 
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
-    private Gtk.Box main_box;
-    public bool menu_open = false;
+    private Gtk.Image project_icon;
+    private Gtk.Label project_name;
+    private Gtk.Entry project_entry;
+    private Gtk.Label archived_label;
+    private Gtk.Image is_favorite_image;
 
-    private Gtk.Label name_label;
-    private Gtk.Entry name_entry;
-    private Gtk.Label number_label;
     public Objects.Project project { get; construct; }
-
+    
     public const string COLOR_CSS = """
-        .proyect-%i {
-            background-color: %s;
+        .project-%i {
+            color: %s;
+            background-color: #fff;
+            padding: 3px;
+            border: 1px solid shade (%s, 0.9);
             border-radius: 50px;
-            box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
         }
     """;
-
-    public ProjectRow (Objects.Project _objec) {
+    public bool menu_open = false;
+    public signal void project_updated (Objects.Project project);
+    public ProjectRow (Objects.Project _project) {
         Object (
-            project: _objec,
-            margin_left: 6,
-            margin_top: 6,
-            margin_right: 6
+            project: _project,
+            margin_left: 0,
+            margin_top: 3,
+            margin_right: 0
         );
     }
 
     construct {
-        can_focus = true;
+        tooltip_text = project.name;
         get_style_context ().add_class ("item-row");
 
-        var label_color = new Gtk.Grid ();
-		label_color.get_style_context ().add_class ("proyect-%i".printf (project.id));
-		label_color.set_size_request (16, 16);
-		label_color.margin = 6;
+        project_icon = new Gtk.Image ();
+        project_icon.valign = Gtk.Align.CENTER;
+        project_icon.gicon = new ThemedIcon (project.icon);
+        project_icon.pixel_size = 10;
+        project_icon.get_style_context ().add_class ("project-%i".printf ((int32) project.id));
 
-        name_label = new Gtk.Label ("<b>%s</b>".printf(project.name));
-        name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.use_markup = true;
+        project_name = new Gtk.Label ("<b>" + project.name + "</b>");
+        project_name.valign = Gtk.Align.CENTER;
+        project_name.ellipsize = Pango.EllipsizeMode.END;
+        project_name.use_markup = true;
 
-        name_entry = new Gtk.Entry ();
-        name_entry.valign = Gtk.Align.CENTER;
-        name_entry.expand = true;
-        name_entry.max_length = 50;
-        name_entry.text = project.name;
-        name_entry.no_show_all = true;
-        name_entry.placeholder_text = _("Project name");
+        project_entry = new Gtk.Entry ();
+        project_entry.valign = Gtk.Align.CENTER;
+        project_entry.expand = true;
+        project_entry.max_length = 50;
+        project_entry.text = project.name;
+        project_entry.no_show_all = true;
+        project_entry.get_style_context ().add_class ("entry-project");
+        project_entry.placeholder_text = _("Project name");
+
+        is_favorite_image = new Gtk.Image ();
+        is_favorite_image.gicon = new ThemedIcon ("emblem-favorite");
+        is_favorite_image.pixel_size = 16;
+
+        if (project.is_favorite == 0) {
+            is_favorite_image.no_show_all = true;
+            is_favorite_image.visible = false;
+        }
+
+        archived_label = new Gtk.Label ("<small>%s</small>".printf (_("archived")));
+        archived_label.use_markup = true;
+        archived_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        if (project.is_archived == 0) {
+            archived_label.no_show_all = true;
+            archived_label.visible = false;
+        }
+
+        var menu_icon = new Gtk.Image ();
+        menu_icon.gicon = new ThemedIcon ("view-more-symbolic");
+        menu_icon.pixel_size = 13;
 
         var menu_button = new Gtk.ToggleButton ();
+        menu_button.margin_start = 6;
+        menu_button.valign = Gtk.Align.CENTER;
         menu_button.can_focus = false;
-        menu_button.add (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU));
+        menu_button.add (menu_icon);
         menu_button.tooltip_text = _("Menu");
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        menu_button.get_style_context ().add_class ("settings-button");
         menu_button.get_style_context ().add_class ("menu-button");
 
         var menu_revealer = new Gtk.Revealer ();
         menu_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        menu_revealer.valign = Gtk.Align.CENTER;
         menu_revealer.add (menu_button);
         menu_revealer.reveal_child = false;
 
-        var menu_popover = new Widgets.Popovers.ProjectMenu (menu_button);
+        var menu_popover = new Widgets.Popovers.MenuProject (menu_button);
 
-        number_label = new Gtk.Label (null);
-        number_label.valign = Gtk.Align.CENTER;
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        main_box.margin = 6;
 
-        var loading_spinner = new Gtk.Spinner ();
-        loading_spinner.active = true;
-        loading_spinner.start ();
-
-        var loading_revealer = new Gtk.Revealer ();
-        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
-        loading_revealer.add (loading_spinner);
-        loading_revealer.reveal_child = false;
-
-        main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-        main_box.margin = 3;
-
-        main_box.pack_start (label_color, false, false, 0);
-        main_box.pack_start (name_label, false, true, 0);
-        main_box.pack_start (name_entry, false, true, 0);
+        main_box.pack_start (project_icon, false, false, 0);
+        main_box.pack_start (project_name, false, false, 9);
+        main_box.pack_start (archived_label, false, false, 0);
+        main_box.pack_start (project_entry, false, true, 9);
         main_box.pack_end (menu_revealer, false, false, 0);
-        main_box.pack_end (number_label, false, false, 0);
-        main_box.pack_end (loading_revealer, false, false, 0);
-
+        main_box.pack_end (is_favorite_image, false, false, 0);
+        
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         eventbox.add (main_box);
 
         add (eventbox);
-        apply_styles ();
-        update_tooltip_text ();
-        check_number_label ();
+        apply_styles (project.color);
 
-        show_all ();
+        eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                project_name.visible = false;
+                project_entry.visible = true;
 
-        // Signals
-        Application.database.update_indicators.connect (() => {
-            check_number_label ();
+                if (project.is_archived == 1) {
+                    archived_label.visible = false;
+                }
+
+                if (project.is_favorite == 1) {
+                    is_favorite_image.visible = false;
+                }
+                
+                Timeout.add (200, () => {
+				    project_entry.grab_focus ();
+				    return false;
+			    });
+            }
+
+            return false;
         });
 
-        Application.signals.start_loading_project.connect ((project_id) => {
-            if (project.id == project_id) {
-                loading_revealer.reveal_child = true;
-            }
+        project_entry.activate.connect (() =>{
+            update_project ();
         });
 
-        Application.signals.stop_loading_project.connect ((project_id) => {
-            if (project.id == project_id) {
-                loading_revealer.reveal_child = false;
+        project_entry.focus_out_event.connect (() => {
+            update_project ();
+            return false;
+        });
+
+        project_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                update_project ();
             }
+
+            return false;
+        });
+
+        eventbox.enter_notify_event.connect ((event) => {
+            if (menu_open != true) {
+                menu_revealer.reveal_child = true;
+            }
+
+            return false;
+        });
+
+        eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            if (menu_open != true) {
+                menu_revealer.reveal_child = false;
+            }
+
+            return false;
         });
 
         menu_button.toggled.connect (() => {
@@ -144,8 +199,73 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             menu_button.active = false;
             menu_revealer.reveal_child = false;
         });
+        
+        menu_popover.closed.connect (() => {
+            menu_open = false;
+            menu_button.active = false;
+            menu_revealer.reveal_child = false;
+        });
 
         menu_popover.on_selected_menu.connect ((type) => {
+            if (type == "edit") {
+                project_name.visible = false;
+                project_entry.visible = true;
+
+                Timeout.add (200, () => {
+				    project_entry.grab_focus ();
+				    return false;
+			    });
+            } else if (type == "favorite") {
+                if (project.is_favorite == 0) {
+                    project.is_favorite = 1;
+
+                    is_favorite_image.no_show_all = false;
+                    is_favorite_image.visible = true;
+                } else {
+                    project.is_favorite = 0;
+
+                    is_favorite_image.no_show_all = true;
+                    is_favorite_image.visible = false;
+                }
+
+                if (Application.database.update_project (project) == Sqlite.DONE) {
+                    project_updated (project);
+                }   
+            } else if (type == "archived") {
+                var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                    "This is a primary text",
+                    "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
+                    "applications-development",
+                    Gtk.ButtonsType.CLOSE
+                );
+
+                var archived_button = new Gtk.Button.with_label (_("Archived project"));
+                archived_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+                message_dialog.add_action_widget (archived_button, Gtk.ResponseType.ACCEPT);
+
+                message_dialog.show_all ();
+
+                if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                    if (project.is_archived == 0) {
+                        project.is_archived = 1;
+    
+                        archived_label.no_show_all = false;
+                        archived_label.visible = true;
+                    } else {
+                        project.is_archived = 0;
+    
+                        archived_label.no_show_all = true;
+                        archived_label.visible = false;
+                    }
+
+                    if (Application.database.update_project (project) == Sqlite.DONE) {
+                        project_updated (project);
+                    }  
+                }
+
+                message_dialog.destroy ();
+            }
+            /*
             if (type == "finalize") {
                 int tasks_number = Application.database.get_project_no_completed_tasks_number (project.id);
 
@@ -237,76 +357,18 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 chooser.destroy();
             }
-        });
-
-        eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                name_label.visible = false;
-                name_entry.visible = true;
-
-                Timeout.add (200, () => {
-				    name_entry.grab_focus ();
-				    return false;
-			    });
-            }
-
-            return false;
-        });
-
-        name_entry.activate.connect (() =>{
-            update_project ();
-        });
-
-        name_entry.focus_out_event.connect (() => {
-            update_project ();
-            return false;
-        });
-
-        name_entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                update_project ();
-            }
-
-            return false;
-        });
-
-        eventbox.enter_notify_event.connect ((event) => {
-            if (menu_open != true) {
-                menu_revealer.reveal_child = true;
-            }
-
-            return false;
-        });
-
-        eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            if (menu_open != true) {
-                menu_revealer.reveal_child = false;
-            }
-
-            return false;
-        });
-
-        Application.database.update_project_signal.connect ((_project) => {
-            if (project.id == _project.id) {
-                name_label.label = "<b>%s</b>".printf(_project.name);
-                project.color = _project.color;
-
-                apply_styles ();
-            }
+            */
         });
     }
 
-    private void apply_styles () {
+    private void apply_styles (string color) {
         var provider = new Gtk.CssProvider ();
 
         try {
             var colored_css = COLOR_CSS.printf (
-                project.id,
-                project.color
+                (int32) project.id,
+                color,
+                color
             );
 
             provider.load_from_data (colored_css, colored_css.length);
@@ -318,39 +380,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void update_project () {
-        if (name_entry.text != "") {
-            project.name = name_entry.text;
+        if (project_entry.text != "") {
+            project.name = project_entry.text;
 
             if (Application.database.update_project (project) == Sqlite.DONE) {
-                name_label.label = "<b>%s</b>".printf(project.name);
-                update_tooltip_text ();
+                project_name.label = "<b>%s</b>".printf(project.name);
+                tooltip_text = project.name;
+                
+                project_name.visible = true;
+                project_entry.visible = false;
 
-                name_label.visible = true;
-                name_entry.visible = false;
+                if (project.is_archived == 1) {
+                    archived_label.visible = true;
+                }
+
+                if (project.is_favorite == 1) {
+                    is_favorite_image.visible = true;
+                }
+
+                project_updated (project);
             }
-        }
-    }
-
-    private void update_tooltip_text () {
-        int all_tasks = Application.database.get_project_tasks_number (project.id);
-        int completed_tasks = Application.database.get_project_completed_tasks_number (project.id);
-
-        set_tooltip_text (project.name + " %i/%i".printf (completed_tasks, all_tasks));
-        show_all ();
-    }
-
-    private void check_number_label () {
-        int number = Application.database.get_project_no_completed_tasks_number (project.id);
-        number_label.label = number.to_string ();
-
-        update_tooltip_text ();
-
-        if (number <= 0) {
-            number_label.visible = false;
-            number_label.no_show_all = true;
         } else {
-            number_label.visible = true;
-            number_label.no_show_all = false;
+
         }
     }
 }

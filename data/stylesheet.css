@@ -1,15 +1,168 @@
-@define-color color_header #ffe16b;
-@define-color color_selected #ffe16b;
-@define-color color_text #000;
+@define-color color_header #ed5353;
+@define-color color_selected #ed5353;
+@define-color color_text #fff;
 
 @define-color colorPrimary @color_header;
 @define-color textColorPrimary @color_text;
 
-
 .titlebar {
-    padding: 1px 6px;
+    padding: 0px 6px 0px 6px;
 }
 
+.item-row {
+    transition: all 240ms ease;
+}
+
+.item-row:selected {
+    background-color: @color_selected;
+    color: @color_text;
+}
+
+.item-row:selected image {
+    color: @color_text;
+}
+
+.item-row:hover {
+    color: @color_text;
+    background-color: @color_selected;
+}
+
+.item-row:selected:focus {
+    background-color: @color_selected;
+    color: @color_text;
+}
+
+.entry-project {
+    font-weight: bold;
+    padding: 0px 0px 0px 3px;
+}
+    
+.headerbar-widget {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+            @base_color,
+                1.3
+            ),
+            @base_color
+        );
+    border-radius: 3px;
+}
+
+.headerbar-widget image {
+    color: @text_color;
+}
+
+.headerbar-menu {
+    padding: 2px;
+}
+.no-padding {
+    padding: 0px;
+}
+
+.project-icon-preview {
+    padding:  3px;
+}
+
+.paned-right {
+    border-right: 1px solid @menu_separator;
+}
+
+.show-project-box {
+    background-color: @base_color;
+    border-top: 1px solid @menu_separator;
+    border-bottom: 1px solid @menu_separator;
+}
+.show-button {
+    transition: all 240ms ease-in-out;
+}
+
+.show-button.closed {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.button-circular {
+    border-radius: 50px;
+}
+.menu-button {
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.menu-button image {
+    color: @color_text;
+}
+
+.color-1 radio {
+    background: #c6262e;
+    border-color: @bg_color;
+    color: #FFFFFF;
+}
+  
+.color-2 radio {
+    background: #f37329;
+    border-color: @bg_color;
+    color: #FFFFFF;
+}
+  
+.color-3 radio {
+    background: #f9c440;
+    border-color: @bg_color;
+    color: #000000;
+}
+  
+.color-4 radio {
+    background: #68b723;
+    border-color: @bg_color;
+    color: #000000;
+}
+  
+.color-5 radio {
+    background: #3689e6;
+    border-color: @bg_color;
+    color: #FFFFFF;
+}
+  
+.color-6 radio {
+    background: #a56de2;
+    border-color: @bg_color;
+    color: #FFFFFF;
+}
+  
+.color-7 radio {
+    background: #1a1a1a;
+    border-color: @bg_color;
+    color: #FFFFFF;
+}
+  
+.color-n {
+    border-radius: 100px;
+    padding: 0px;
+}
+  
+.color_radio radio,
+.color_radio radio:checked {
+    border-color: alpha (#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        0 1px 0 0 alpha (@accentColor, 0.3);
+    padding: 3px;
+    -gtk-icon-shadow: none;
+}
+  
+.color_radio radio:focus {
+    border-color: @colorAccent;
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        inset 0 0 0 1px alpha (@accentColor, 0.05),
+        0 1px 0 0 alpha (@accentColor, 0.3),
+        0 0 0 1px alpha (@accentColor, 0.25);
+}
+
+/*
 .label-child {
     transition: all 150ms ease;
 }
@@ -36,9 +189,7 @@
     font-size: 14px;
 }
 
-.button-circular {
-    border-radius: 50px;
-}
+
 
 .circular {
     border-radius: 100px;
@@ -66,17 +217,7 @@
     -gtk-icon-transform: rotate(-90deg);
 }
 
-.planner-button-ani {
-    color: @fg_color;
-}
 
-.planner-button-ani image {
-    transition: all 240ms ease-in-out;
-}
-
-.planner-button-ani.closed image {
-    -gtk-icon-transform: rotate(-180deg);
-}
 
 .planner-actionbar {
     background-color: @base_color;
@@ -139,9 +280,7 @@
     background-color: transparent;
 }
 
-.paned-right {
-    border-right: 1px solid @menu_separator;
-}
+
 
 .show-settings-button image {
     transition: all 240ms ease-in-out;
@@ -151,28 +290,7 @@
     -gtk-icon-transform: rotate(-180deg);
 }
 
-.item-row {
-    border-radius: 3px;
-    color: @text_color;
-}
 
-.item-row:hover {
-    border-radius: 3px;
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.item-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
-}
-
-.item-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
 
 .layout-row {
     color: @text_color;
@@ -310,9 +428,7 @@
     padding: 3px
 }
 
-.no-padding {
-    padding: 0px;
-}
+
 
 .format-bar {
     background-color: @base_color;
@@ -456,47 +572,8 @@
 }
 
 .share-view {
-background-color: @bg_color;
-}
-
-.color-1 {
-  background-color: #c6262e;
-  border-radius: 100px;
-}
-
-.color-2 {
-  background-color: #f37329;
-  border-radius: 100px;
-}
-
-.color-3 {
-  background-color: #f9c440;
-  border-radius: 100px;
-}
-
-.color-4 {
-  background-color: #68b723;
-  border-radius: 100px;
-}
-
-.color-5 {
-  background-color: #3689e6;
-  border-radius: 100px;
-}
-
-.color-6 {
-  background-color: #a56de2;
-  border-radius: 100px;
+    background-color: @bg_color;
 }
 
 
-.color-7 {
-  background-color: #1a1a1a;
-  border-radius: 100px;
-}
-
-
-.color-n {
-    border-radius: 100px;
-    padding: 1px 1px;
-}
+*/

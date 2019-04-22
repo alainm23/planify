@@ -29,21 +29,6 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="1.2.4" date="2019-03-28">
-      <description>
-        <ul>
-          <li>Stability and performance improvements</li>
-          <li>New view "All tasks" and "Tasks completed"</li>
-          <li>Markdown support</li>
-          <li>Improved quick search</li>
-        </ul>
-        <p>Translations:</p>
-        <ul>
-          <li>Dutch (Heimen Stoffels)</li>
-          <li>Brazilian (Raphael Cabral)</li>
-        </ul>
-      </description>
-    </release>
     <release version="1.2.3" date="2019-01-29">
       <description>
         <p>New features:</p>
@@ -183,6 +168,6 @@
   <custom>
     <value key="x-appcenter-color-primary">#ffe16b</value>
     <value key="x-appcenter-color-primary-text">#000</value>
-    <value key="x-appcenter-suggested-price">9</value>
+    <value key="x-appcenter-suggested-price">15</value>
   </custom>
 </component>

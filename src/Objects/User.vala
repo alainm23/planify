@@ -21,20 +21,36 @@
 
 public class Objects.User {
     public int64 id;
-    public string name;
-    public string login;
+    public string full_name;
+    public string email;
     public string token;
-    public string avatar_url;
+    public string sync_token;
+    public int is_todoist;
+    public int is_premium;
+    public string avatar;
+    public string join_date;
+    public int64 inbox_project;
 
     public User (int64 id = 0,
-                  string name = "",
-                  string login = "",
-                  string token = "",
-                  string avatar_url = "") {
+                 string full_name = "",
+                 string email = "",
+                 string token = "",
+                 string sync_token = "",
+                 int is_todoist = 0,
+                 int is_premium = 0,
+                 string avatar = "",
+                 string join_date = "",
+                 int64 inbox_project = 0) {
+
         this.id = id;
-        this.name = name;
-        this.login = login;
+        this.full_name = full_name;
+        this.email = email;
         this.token = token;
-        this.avatar_url = avatar_url;
+        this.sync_token = sync_token;
+        this.is_todoist = is_todoist;
+        this.is_premium = is_premium;
+        this.avatar = avatar;
+        this.join_date = join_date;
+        this.inbox_project = inbox_project;
     }
 }
