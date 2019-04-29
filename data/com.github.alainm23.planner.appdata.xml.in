@@ -24,6 +24,7 @@
       <li>Quick Find</li>
       <li>Night mode</li>
     </ul>
+    <p>* Planner not created by, affiliated with, or supported by Doist</p>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>

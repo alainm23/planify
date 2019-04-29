@@ -81,7 +81,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         preferences_menuitem.text = _("Preferences");
 
         // Menu
-        var avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+        var avatar = new Granite.Widgets.Avatar.from_file (Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (Application.user.id.to_string ()), 24);
 
         menu_button = new Gtk.Button ();
         menu_button.get_style_context ().add_class ("headerbar-menu");
@@ -145,24 +145,17 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         sync_button.get_style_context ().add_class ("headerbar-widget");
         sync_button.add (new Gtk.Image.from_icon_name ("emblem-synchronizing-symbolic", Gtk.IconSize.BUTTON));
 
+        if (Application.user.is_todoist == false) {
+            sync_button.no_show_all = true;
+            sync_button.visible = false;
+        }
+
         pack_end (menu_button);
         pack_end (sync_button);
         pack_end (calendar_button);
         pack_end (add_task_button);
         custom_title = search_entry;
-        
-        Timeout.add (150, () => {
-            if (Application.user.is_todoist == 0) {
-                sync_button.no_show_all = true;
-                sync_button.visible = false;
-            } else {
-                sync_button.no_show_all = false;
-                sync_button.visible = true;
-            }
-
-            return false;
-        });
-
+    
         mode_switch.notify["active"].connect (() => {
             var provider = new Gtk.CssProvider ();
             var colored_css = "";
@@ -228,19 +221,14 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             return false;
         });
 
-        Application.database.user_added.connect ((user) => {
-            string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (user.id.to_string ());
-            var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);
-            avatar.pixbuf = pixbuf;
-        });
-
-        Timeout.add (150, () => {
-            string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (Application.user.id.to_string ());
-
-            var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);
-            avatar.pixbuf = pixbuf;
-
-            return false;
+        Application.database_v2.user_added.connect ((user) => {
+            try {
+                string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (user.id.to_string ());
+                var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);
+                avatar.pixbuf = pixbuf;
+            } catch (Error e) {
+                print ("Error: %s\n", e.message);
+            } 
         });
     }
 

@@ -23,12 +23,12 @@ public class Objects.Project {
     public int64 id;
     public string name;
     public string note;
-    public string color;
-    public string icon;
-    public string labels;
-    public string duedate;
-    public int item_order;
-    public int is_todoist;
+    public int color;
+    public string due;
+    public bool is_todoist;
+    public bool inbox_project;
+    public bool team_inbox;
+    public int child_order;
     public int is_deleted;
     public int is_archived;
     public int is_favorite;
@@ -36,12 +36,12 @@ public class Objects.Project {
     public Project (int64 id = 0,
                     string name = "",
                     string note = "",
-                    string color = "",
-                    string icon = "",
-                    string labels = "",
-                    string duedate = "",
-                    int item_order = 0,
-                    int is_todoist = 0,
+                    int color = 30,
+                    string due = "",
+                    int child_order = 0,
+                    bool is_todoist = false,
+                    bool inbox_project = false,
+                    bool team_inbox = false,
                     int is_deleted = 0,
                     int is_archived = 0,
                     int is_favorite = 0) {
@@ -50,11 +50,10 @@ public class Objects.Project {
         this.name = name;
         this.note = note;
         this.color = color;
-        this.icon = icon;
-        this.labels = labels;
-        this.duedate = duedate;
-        this.item_order = item_order;
+        this.due = due;
+        this.child_order = child_order;
         this.is_todoist = is_todoist;
+        this.inbox_project = inbox_project;
         this.is_deleted = is_deleted;
         this.is_archived = is_archived;
         this.is_favorite = is_favorite;

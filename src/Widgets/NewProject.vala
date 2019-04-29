@@ -23,22 +23,23 @@ public class Widgets.NewProject : Gtk.EventBox {
     private Gtk.Image add_image;
     private Gtk.Label add_label;
 
+    private Gtk.Spinner loading_spinner;
     private Gtk.Entry name_entry;
     private Gtk.ToggleButton icon_button;
-    private Gtk.Image icon_image;
-
+    
     private Gtk.Stack stack;
+    private Gtk.Grid project_grid;
     public const string COLOR_CSS = """
         .icon-preview {
-            color: %s;
-            background-color: @bg_color;
-            padding: 3px;
-            border: 1px solid shade (%s, 0.9);
+            background-color: %s;
             border-radius: 50px;
+            box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
         }
     """;
     
-    private string color_selected;
+    private bool is_todoist = false;
+
+    private int color_selected;
 
     public bool reveal_new_project {
         set {
@@ -68,7 +69,7 @@ public class Widgets.NewProject : Gtk.EventBox {
         add_label.use_markup = true;
 
         var add_grid = new Gtk.Grid ();
-        add_grid.column_spacing = 11;
+        add_grid.column_spacing = 9;
         add_grid.add (add_image);
         add_grid.add (add_label);
 
@@ -78,40 +79,56 @@ public class Widgets.NewProject : Gtk.EventBox {
         add_eventbox.add (add_grid);
         
         // New
+        loading_spinner = new Gtk.Spinner ();
+        loading_spinner.active = true;
+        loading_spinner.start ();
+        loading_spinner.no_show_all = true;
+        loading_spinner.visible = false;
+
         icon_button = new Gtk.ToggleButton ();
+        icon_button.width_request = 16;
+        icon_button.height_request = 16;
         icon_button.can_focus = false;
         icon_button.valign = Gtk.Align.CENTER;
         icon_button.halign = Gtk.Align.CENTER;
         icon_button.get_style_context ().add_class ("button-circular");
         icon_button.tooltip_text = _("Select an Icon and Color");
+        icon_button.get_style_context ().add_class ("icon-preview");
         icon_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        icon_button.get_style_context ().add_class ("project-icon-preview");
-
-        var icon_picker = new Widgets.Popovers.IconPicker (icon_button);
-
-        icon_image = new Gtk.Image ();
-        icon_image.get_style_context ().add_class ("icon-preview");
-        icon_image.gicon = new ThemedIcon ("planner-startup-symbolic");
-        icon_image.pixel_size = 10;
-        icon_button.add (icon_image);
 
         name_entry = new Gtk.Entry ();
         name_entry.valign = Gtk.Align.CENTER;
         name_entry.hexpand = true;
         name_entry.placeholder_text = _("Project name");
 
-        var source_button = new Gtk.Button.from_icon_name ("planner-todoist", Gtk.IconSize.MENU);
+        var icon_picker = new Widgets.Popovers.ColorPicker (icon_button);
+
+        var source_button = new Gtk.ToggleButton ();
         
+        var source_image = new Gtk.Image ();
+        source_image.gicon = new ThemedIcon ("computer-symbolic");
+        source_image.pixel_size = 16;
+        
+        source_button.add (source_image);
+
+        if (Application.user.is_todoist == false) {
+            source_button.no_show_all = true;
+            source_button.visible = false;
+        }
+
+        var source_popover = new Widgets.Popovers.SourceProject (source_button);
+
         var grid = new Gtk.Grid ();
         grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         grid.add (name_entry);
         grid.add (source_button);
 
-        var project_grid = new Gtk.Grid ();
-        project_grid.margin_start = 3;
+        project_grid = new Gtk.Grid ();
+        project_grid.margin_start = 6;
         project_grid.margin_top = 6;
-        project_grid.margin_end = 6;
-        project_grid.column_spacing = 5;
+        project_grid.margin_end = 3;
+        project_grid.column_spacing = 9;
+        project_grid.add (loading_spinner);
         project_grid.add (icon_button);
         project_grid.add (grid);
 
@@ -124,8 +141,8 @@ public class Widgets.NewProject : Gtk.EventBox {
         stack.add_named (project_grid, "project_grid");
 
         add (stack);
-        color_selected = "#333333";
-        apply_styles (color_selected);
+        color_selected = GLib.Random.int_range (30, 50);
+        apply_styles (Application.utils.get_color (color_selected));
         clear ();
 
         add_eventbox.event.connect ((event) => {
@@ -138,15 +155,28 @@ public class Widgets.NewProject : Gtk.EventBox {
         name_entry.activate.connect (() => {
             if (name_entry.text != "") {
                 var project = new Objects.Project ();
-                project.id = (int64) Application.utils.generate_id ();
-                project.icon = icon_image.icon_name;
                 project.color = color_selected;
                 project.name = name_entry.text;
 
-                if (Application.database.add_project (project) == Sqlite.DONE) {
-                    clear ();
+                if (is_todoist) {
+                    project_grid.sensitive = false;
+                    loading_spinner.no_show_all = false;
+                    loading_spinner.visible = true;
+                    icon_button.visible = false;
+
+                    project.is_todoist = true;
+                    Application.todoist.add_project (project);
+                } else {
+                    project.id = (int64) Application.utils.generate_id ();
+                    if (Application.database_v2.add_project (project)) {
+                        clear ();
+                    }
                 }
             }
+        });
+
+        Application.todoist.project_added.connect (() => {
+            clear ();
         });
 
         name_entry.key_release_event.connect ((key) => {
@@ -167,23 +197,38 @@ public class Widgets.NewProject : Gtk.EventBox {
             icon_button.active = false;
         });
 
-        icon_picker.on_selected.connect ((icon_name, color) => {
+        icon_picker.color_selected.connect ((color) => {
             color_selected = color;
-
-            icon_image.icon_name = icon_name;
-            apply_styles (color);
+            apply_styles (Application.utils.get_color (color));
         });
 
-        Timeout.add (150, () => {
-            if (Application.user.is_todoist == 0) {
-                source_button.no_show_all = true;
-                source_button.visible = false;
+        source_button.toggled.connect (() => {
+            if (source_button.active) {
+                source_popover.show_all ();
+            }
+        });
+  
+        source_popover.closed.connect (() => {
+            source_button.active = false;
+        });
+
+        source_popover.source_changed.connect ((is_computer) => {
+            if (is_computer) {
+                is_todoist = false;
+                source_image.icon_name = "computer-symbolic";
             } else {
+                is_todoist = true;
+                source_image.icon_name = "planner-todoist";
+            }
+        });
+
+        Application.database_v2.user_added.connect ((user) => {
+            if (user.is_todoist) {
                 source_button.no_show_all = false;
                 source_button.visible = true;
-            }
 
-            return false;
+                show_all ();
+            }
         });
     }  
 
@@ -192,7 +237,6 @@ public class Widgets.NewProject : Gtk.EventBox {
 
         try {
             var colored_css = COLOR_CSS.printf (
-                color,
                 color
             );
 
@@ -206,9 +250,12 @@ public class Widgets.NewProject : Gtk.EventBox {
 
     public void clear () {
         name_entry.text = "";
-        icon_image.icon_name = "planner-startup-symbolic";
-        color_selected = "#333333";
-        apply_styles (color_selected);
+        project_grid.sensitive = true;
+        icon_button.visible = true;
+        loading_spinner.visible = false;
+
+        color_selected = GLib.Random.int_range (30, 50);
+        apply_styles (Application.utils.get_color (color_selected));
 
         stack.visible_child_name = "add_eventbox";
     }

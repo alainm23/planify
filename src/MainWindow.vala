@@ -62,23 +62,18 @@ public class MainWindow : Gtk.Window {
         main_view = new Views.Main ();
         welcome_view = new Views.Welcome ();
         todoist_access_view = new Views.TodoistAccess ();
-
+        
+        stack.add_named (main_view, "main_view");
         stack.add_named (welcome_view, "welcome_view");
         stack.add_named (todoist_access_view, "todoist_access_view");
-        stack.add_named (main_view, "main_view");
         
         add (stack);
 
-        bool user_exists = Application.database.user_exists ();
-        
-        if (user_exists) {
-            Application.user = Application.database.get_user ();           
-        }
-        
-        Timeout.add (200, () => {
-            if (user_exists) {
+        Timeout.add (150, () => {
+            if (Application.database_v2.user_exists ()) {
                 stack.visible_child_name = "main_view";
                 headerbar.visible_ui = true;
+                Application.database_v2.start_create_projects ();
             } else {
                 stack.visible_child_name = "welcome_view";
                 headerbar.visible_ui = false;
@@ -151,17 +146,14 @@ public class MainWindow : Gtk.Window {
                 
                 // Create Inbox project
                 var inbox_project = new Objects.Project ();
-                inbox_project.icon = "planner-inbox";
+                inbox_project.inbox_project = true; 
                 inbox_project.id = user.inbox_project;
-                inbox_project.name = _("Inbox");
+                inbox_project.name = "Inbox";
                 
-                if (Application.database.create_user (user) == Sqlite.DONE) {
+                if (Application.database_v2.create_user (user)) {
                     Application.user = user;
-                    
-                    if (Application.database.add_project (inbox_project) == Sqlite.DONE) {
-                        stack.visible_child_name = "main_view";
-                        headerbar.visible_ui = true;
-                    }
+                    stack.visible_child_name = "main_view";
+                    headerbar.visible_ui = true;
                 }
             } else if (index == 1) {
 
@@ -175,10 +167,6 @@ public class MainWindow : Gtk.Window {
             stack.visible_child_name = "main_view";
             headerbar.visible_ui = true;
         });
-    }
-
-    private void check_badge_count () {
-
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

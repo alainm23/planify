@@ -18,6 +18,10 @@
     color: @color_text;
 }
 
+.item-row:selected button {
+    background-color: transparent;
+}
+
 .item-row:selected image {
     color: @color_text;
 }
@@ -33,7 +37,6 @@
 }
 
 .entry-project {
-    font-weight: bold;
     padding: 0px 0px 0px 3px;
 }
     
@@ -93,53 +96,6 @@
 .menu-button image {
     color: @color_text;
 }
-
-.color-1 radio {
-    background: #c6262e;
-    border-color: @bg_color;
-    color: #FFFFFF;
-}
-  
-.color-2 radio {
-    background: #f37329;
-    border-color: @bg_color;
-    color: #FFFFFF;
-}
-  
-.color-3 radio {
-    background: #f9c440;
-    border-color: @bg_color;
-    color: #000000;
-}
-  
-.color-4 radio {
-    background: #68b723;
-    border-color: @bg_color;
-    color: #000000;
-}
-  
-.color-5 radio {
-    background: #3689e6;
-    border-color: @bg_color;
-    color: #FFFFFF;
-}
-  
-.color-6 radio {
-    background: #a56de2;
-    border-color: @bg_color;
-    color: #FFFFFF;
-}
-  
-.color-7 radio {
-    background: #1a1a1a;
-    border-color: @bg_color;
-    color: #FFFFFF;
-}
-  
-.color-n {
-    border-radius: 100px;
-    padding: 0px;
-}
   
 .color_radio radio,
 .color_radio radio:checked {
@@ -148,7 +104,7 @@
         inset 0 1px 0 0 alpha (@shadowColor, 0.7),
         inset 0 0 0 1px alpha (@shadowColor, 0.3),
         0 1px 0 0 alpha (@accentColor, 0.3);
-    padding: 3px;
+    padding: 6px;
     -gtk-icon-shadow: none;
 }
   

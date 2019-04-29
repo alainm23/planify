@@ -85,18 +85,24 @@ public class Views.Inbox : Gtk.EventBox {
         completed_grid.add (completed_image);
         completed_grid.add (completed_label);
 
-        var mode_button = new Granite.Widgets.ModeButton ();
-        mode_button.margin_top = 3;
-        mode_button.margin_start = 3;
-        mode_button.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        mode_button.valign = Gtk.Align.CENTER;
-        mode_button.append (todo_grid);
-        mode_button.append (completed_grid);
-        mode_button.selected = 0;
+        var zoom_in = new Gtk.Image.from_icon_name ("zoom-in-symbolic", Gtk.IconSize.MENU);
+        var zoom_out = new Gtk.Image.from_icon_name ("zoom-out-symbolic", Gtk.IconSize.MENU);
+
+        var show_label = _("Show completed tasks");
+        var hide_label = _("Hide completed tasks");
+
+        var show_hide_button = new Gtk.Button ();
+        show_hide_button.can_focus = false;
+        show_hide_button.margin_bottom = 1;
+        show_hide_button.valign = Gtk.Align.END;
+        show_hide_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        show_hide_button.always_show_image = true;
+        show_hide_button.image = zoom_in;
+        show_hide_button.label = show_label;
 
         var actionbar = new Gtk.ActionBar ();
         actionbar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        actionbar.pack_start (mode_button);
+        actionbar.pack_start (show_hide_button);
         actionbar.pack_end (search_entry);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -113,5 +119,15 @@ public class Views.Inbox : Gtk.EventBox {
         main_grid.add (scrolled);
 
         add (main_grid);
+
+        show_hide_button.clicked.connect (() => {
+            if (show_hide_button.image == zoom_in) {
+                show_hide_button.image = zoom_out;
+                show_hide_button.label = hide_label;
+            } else {
+                show_hide_button.image = zoom_in;
+                show_hide_button.label = show_label;
+            }
+        });
     }
 }

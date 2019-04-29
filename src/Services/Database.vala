@@ -28,7 +28,7 @@ public class Services.Database : GLib.Object {
     public signal void project_updated (Objects.Project project);
 
     // User
-    public signal void user_added (Objects.User user);
+    //public signal void user_added (Objects.User user);
 
     public Database (bool skip_tables = false) {
         int rc = 0;
@@ -67,8 +67,9 @@ public class Services.Database : GLib.Object {
             "icon           VARCHAR, " +
             "labels         VARCHAR, " +
             "duedate        VARCHAR, " +
-            "item_order     INTEGER, " +
+            "child_order    INTEGER, " +
             "is_todoist     INTEGER, " +
+            "is_inbox       INTEGER, " +
             "is_deleted     INTEGER, " +
             "is_archived    INTEGER, " +
             "is_favorite    INTEGER)", null, null);
@@ -87,18 +88,39 @@ public class Services.Database : GLib.Object {
             "inbox_project  INTEGER)", null, null);
         debug ("Table USERS created");
 
+        rc = db.exec ("CREATE TABLE IF NOT EXISTS ITEMS (" +
+            "id              INTEGER PRIMARY KEY, " +
+            "content         VARCHAR, " +
+            "date_added      VARCHAR, " +
+            "date_completed  VARCHAR, " +
+            "labels          VARCHAR, " +
+            "due             VARCHAR, " +
+            "checked         INTEGER, " +
+            "child_order     INTEGER, " +
+            "day_order       INTEGER, " +
+            "assigned_by_uid INTEGER, " +
+            "user_id         INTEGER, " +
+            "parent_id       INTEGER, " +
+            "responsible_uid INTEGER, " +
+            "priority        INTEGER, " +
+            "is_deleted      INTEGER, " +
+            "collapsed       INTEGER, " +
+            "project_id      INTEGER)", null, null);
+        debug ("Table ITEMS created");
+
         return rc;
     }
     
     /*
         Projects 
     */
+    /*
     public int add_project (Objects.Project project) {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO PROJECTS (id, name, note, color, icon, " +
-            "labels, duedate, item_order, is_todoist, is_deleted, is_archived, is_favorite)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+            "labels, duedate, child_order, is_todoist, is_inbox, is_deleted, is_archived, is_favorite)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, project.id);
@@ -122,19 +144,22 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (7, project.duedate);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (8, project.item_order);
+        res = stmt.bind_int (8, project.child_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (9, project.is_todoist);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (10, project.is_deleted);
+        res = stmt.bind_int (10, project.is_inbox);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (11, project.is_deleted);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (11, project.is_archived);
+        res = stmt.bind_int (12, project.is_archived);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (12, project.is_favorite);
+        res = stmt.bind_int (13, project.is_favorite);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -165,11 +190,12 @@ public class Services.Database : GLib.Object {
             project.icon = stmt.column_text (4);
             project.labels = stmt.column_text (5);
             project.duedate = stmt.column_text (6);
-            project.item_order = stmt.column_int (7);
+            project.child_order = stmt.column_int (7);
             project.is_todoist = stmt.column_int (8);
-            project.is_deleted = stmt.column_int (9);
-            project.is_archived = stmt.column_int (10);
-            project.is_favorite = stmt.column_int (11);
+            project.is_inbox = stmt.column_int (9);
+            project.is_deleted = stmt.column_int (10);
+            project.is_archived = stmt.column_int (11);
+            project.is_favorite = stmt.column_int (12);
 
             all.add (project);
         }
@@ -181,7 +207,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("UPDATE PROJECTS SET name = ?, note = ?, color = ?, icon = ?, " +
-            "labels = ?, duedate = ?, item_order = ?, is_todoist = ?, is_deleted = ?, is_archived = ?, is_favorite = ? " +
+            "labels = ?, duedate = ?, child_order = ?, is_todoist = ?, is_inbox = ?, is_deleted = ?, is_archived = ?, is_favorite = ? " +
             "WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -203,22 +229,25 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (6, project.duedate);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (7, project.item_order);
+        res = stmt.bind_int (7, project.child_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (8, project.is_todoist);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (9, project.is_deleted);
+        res = stmt.bind_int (9, project.is_inbox);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (10, project.is_archived);
+        res = stmt.bind_int (10, project.is_deleted);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (11, project.is_favorite);
+        res = stmt.bind_int (11, project.is_archived);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (12, project.id);
+        res = stmt.bind_int (12, project.is_favorite);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (13, project.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -229,7 +258,7 @@ public class Services.Database : GLib.Object {
 
         return res;
     }
-
+    */
     /*
         User 
     */
@@ -246,7 +275,7 @@ public class Services.Database : GLib.Object {
 
         return exists;
     }
-        
+    /*
     public int create_user (Objects.User user) {
         Sqlite.Statement stmt;
 
@@ -294,7 +323,8 @@ public class Services.Database : GLib.Object {
 
         return res;
     }
-
+    */
+    /*
     public Objects.User get_user () {
         Sqlite.Statement stmt;
 
@@ -318,5 +348,28 @@ public class Services.Database : GLib.Object {
         user.inbox_project = stmt.column_int64 (9);
 
         return user;
+    }
+    */
+    public int update_sync_token (Objects.User user) {
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("UPDATE USERS SET sync_token = ? WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, user.sync_token);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, user.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        /*
+        if (res == Sqlite.DONE) {
+            project_updated (project);
+        }
+        */
+
+        return res;
     }
 }

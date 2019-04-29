@@ -24,7 +24,7 @@ public class Views.TodoistAccess : Gtk.EventBox {
     private Gtk.Spinner spinner;
     private WebKit.WebView webview;
 
-    private const string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read&state=XE3K-4BBL-4XLG-UDS8"; 
+    private const string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read_write,data:delete,project:delete&state=XE3K-4BBL-4XLG-UDS8"; 
     
     public signal void back ();
     

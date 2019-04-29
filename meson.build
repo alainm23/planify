@@ -43,11 +43,13 @@ executable(
     'src/Widgets/NewProject.vala',
     'src/Widgets/ProjectRow.vala',
 
-    'src/Widgets/Popovers/IconPicker.vala',
+    'src/Widgets/Popovers/ColorPicker.vala',
     'src/Widgets/Popovers/Tooltip.vala',
     'src/Widgets/Popovers/MenuProject.vala',
+    'src/Widgets/Popovers/SourceProject.vala',
     
     'src/Services/Database.vala',
+    'src/Services/Database_v2.vala',
     'src/Services/Todoist.vala',
 
     'src/Objects/Project.vala',

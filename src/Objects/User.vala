@@ -21,23 +21,25 @@
 
 public class Objects.User {
     public int64 id;
+    public int64 inbox_project;
+    public bool is_todoist;
+    public bool is_premium;
     public string full_name;
     public string email;
-    public string token;
+    public string todoist_token;
+    public string github_token;
     public string sync_token;
-    public int is_todoist;
-    public int is_premium;
     public string avatar;
     public string join_date;
-    public int64 inbox_project;
-
+    
     public User (int64 id = 0,
                  string full_name = "",
                  string email = "",
-                 string token = "",
+                 string todoist_token = "",
+                 string github_token = "",
                  string sync_token = "",
-                 int is_todoist = 0,
-                 int is_premium = 0,
+                 bool is_todoist = false,
+                 bool is_premium = false,
                  string avatar = "",
                  string join_date = "",
                  int64 inbox_project = 0) {
@@ -45,7 +47,8 @@ public class Objects.User {
         this.id = id;
         this.full_name = full_name;
         this.email = email;
-        this.token = token;
+        this.todoist_token = todoist_token;
+        this.github_token = github_token;
         this.sync_token = sync_token;
         this.is_todoist = is_todoist;
         this.is_premium = is_premium;

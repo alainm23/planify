@@ -108,7 +108,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         show_projects_box.margin_top = 3;
         show_projects_box.margin_bottom = 3;
         show_projects_box.pack_start (show_eventbox, true, true, 0);
-        show_projects_box.pack_end (add_projects_button, false, false, 0);
+        show_projects_box.pack_end (add_projects_button, false, false, 3);
         show_projects_box.get_style_context ().add_class ("show-project-box");
         // Projects List
         projects_listbox = new Gtk.ListBox ();
@@ -117,6 +117,17 @@ public class Widgets.ProjectsList : Gtk.Grid {
         projects_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         projects_listbox.hexpand = true;
         projects_listbox.valign = Gtk.Align.START;
+
+        projects_listbox.set_sort_func  ((row_1, row_2) => {
+            var item_1 = row_1 as Widgets.ProjectRow;
+            var item_2 = row_2 as Widgets.ProjectRow;
+
+            if (item_1.project.child_order > item_2.project.child_order) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
 
         var projects_list_revealer = new Gtk.Revealer ();
         projects_list_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -139,6 +150,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         main_grid.add (new_project);
 
         var scrolled_window = new Gtk.ScrolledWindow (null, null);
+        scrolled_window.margin_bottom = 6;
         scrolled_window.width_request = 250;
         scrolled_window.add (main_grid);
 
@@ -147,12 +159,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         eventbox.add (scrolled_window);
 
         add (eventbox);
-        
-        GLib.Timeout.add (250, () => {
-            update_project_list ();
-            return false;
-        });
-        
+            
         if (Application.settings.get_enum ("start-page") == 0) {
             projects_listbox.select_row (inbox_item);
         } else if (Application.settings.get_enum ("start-page") == 1) {
@@ -160,6 +167,10 @@ public class Widgets.ProjectsList : Gtk.Grid {
         } else {
             projects_listbox.select_row (upcoming_item);
         }
+
+        Application.database_v2.start_create_projects.connect (() => {
+            update_project_list ();
+        });
 
         projects_listbox.row_activated.connect ((row) => {
             items_listbox.unselect_all ();
@@ -186,29 +197,33 @@ public class Widgets.ProjectsList : Gtk.Grid {
             return false;
         });
 
-        Application.database.project_added.connect ((project) => {
-            if (project.id != Application.user.inbox_project) {
-                Widgets.ProjectRow row = new Widgets.ProjectRow (project);
+        Application.database_v2.project_added.connect ((project) => {
+            if (project.inbox_project == false) {
+                var row = new Widgets.ProjectRow (project);
                 projects_hashmap.set (project.id, row);
             
                 projects_listbox.add (row);
                 projects_listbox.show_all ();
+
+                projects_listbox.invalidate_sort ();
             }
         });
     }
     
     public void update_project_list () {
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects= Application.database.get_all_projects ();
-
+        all_projects= Application.database_v2.get_all_projects ();
+            
         foreach (Objects.Project project in all_projects) {
-            if (project.id != Application.user.inbox_project) {
-                Widgets.ProjectRow row = new Widgets.ProjectRow (project);
+            if (project.inbox_project == false) {
+                var row = new Widgets.ProjectRow (project);
                 projects_hashmap.set (project.id, row);
                 projects_listbox.add (row);
+                       
+                projects_listbox.show_all ();
             }
         }
 
-        projects_listbox.show_all ();
+        projects_listbox.invalidate_sort ();
     }
 }

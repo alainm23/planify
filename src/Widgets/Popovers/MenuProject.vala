@@ -39,9 +39,9 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
         var export_menu = new ModelButton (_("Export"), "document-export-symbolic", _("Export project"));
         var share_menu = new ModelButton (_("Share"), "emblem-shared-symbolic", _("Share project"));
 
-        var remove_menu = new ModelButton (_("Delete"), "user-trash-symbolic", _("Delete project"));
         var archived_menu = new ModelButton (_("Archived"), "package-x-generic-symbolic", _("Delete project"));
-
+        var remove_menu = new ModelButton (_("Delete"), "user-trash-symbolic", _("Delete project"));
+        
         var separator_1 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator_1.margin_top = 3;
         separator_1.margin_bottom = 3;
@@ -56,7 +56,7 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
         separator_3.margin_top = 3;
         separator_3.margin_bottom = 3;
         separator_3.expand = true;
-
+        
         var main_grid = new Gtk.Grid ();
         main_grid.margin_top = 6;
         main_grid.margin_bottom = 6;
@@ -73,7 +73,7 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
         main_grid.add (separator_3);
         main_grid.add (archived_menu);
         main_grid.add (remove_menu);
-        
+   
         add (main_grid);
 
         // Event
