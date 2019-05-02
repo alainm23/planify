@@ -23,6 +23,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
     private Gtk.SearchEntry search_entry;
     private Gtk.ToggleButton add_task_button;
     private Gtk.ToggleButton calendar_button;
+    private Gtk.ToggleButton notification_button;
     private Gtk.Button sync_button;
     private Gtk.Button menu_button;
 
@@ -78,7 +79,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         night_mode_eventbox.add (night_mode_box);
 
         var preferences_menuitem = new Gtk.ModelButton ();
-        preferences_menuitem.text = _("Preferences");
+        preferences_menuitem.text = _("Settings");
 
         // Menu
         var avatar = new Granite.Widgets.Avatar.from_file (Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (Application.user.id.to_string ()), 24);
@@ -107,9 +108,11 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
 
         // Search Entry
         search_entry = new Gtk.SearchEntry ();
+        search_entry.margin_top = 1;
         search_entry.valign = Gtk.Align.CENTER;
         search_entry.halign = Gtk.Align.CENTER;
-        search_entry.width_request = 250;
+        search_entry.width_request = 300;
+        search_entry.get_style_context ().add_class ("headerbar-search");
         search_entry.get_style_context ().add_class ("headerbar-widget");
         search_entry.placeholder_text = _("Quick find");
         
@@ -142,6 +145,8 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         sync_button.width_request = 32;
         sync_button.valign = Gtk.Align.CENTER;
         sync_button.halign = Gtk.Align.CENTER;
+        sync_button.get_style_context ().add_class ("sync");
+        sync_button.get_style_context ().add_class ("is_loading");
         sync_button.get_style_context ().add_class ("headerbar-widget");
         sync_button.add (new Gtk.Image.from_icon_name ("emblem-synchronizing-symbolic", Gtk.IconSize.BUTTON));
 
@@ -150,8 +155,20 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             sync_button.visible = false;
         }
 
+        // Notification Button
+        notification_button = new Gtk.ToggleButton ();
+        notification_button.can_focus = false;
+        notification_button.tooltip_text = _("See calendar of events");
+        notification_button.width_request = 32;
+        notification_button.margin_start = 9;
+        notification_button.valign = Gtk.Align.CENTER;
+        notification_button.halign = Gtk.Align.CENTER;
+        notification_button.get_style_context ().add_class ("headerbar-widget");
+        notification_button.add (new Gtk.Image.from_icon_name ("notification-symbolic", Gtk.IconSize.BUTTON));
+
         pack_end (menu_button);
         pack_end (sync_button);
+        pack_end (notification_button);
         pack_end (calendar_button);
         pack_end (add_task_button);
         custom_title = search_entry;
@@ -184,11 +201,9 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
         });
 
         preferences_menuitem.clicked.connect (() => {
-            /*
-            var preferences_dialog = new Dialogs.PreferencesDialog (window);
-            preferences_dialog.destroy.connect (Gtk.main_quit);
-            preferences_dialog.show_all ();
-            */
+            var settings_dialog = new Dialogs.Settings ();
+            settings_dialog.destroy.connect (Gtk.main_quit);
+            settings_dialog.show_all ();
         });
 
         var gtk_settings = Gtk.Settings.get_default ();
@@ -221,7 +236,7 @@ public class Widgets.HeaderBar : Gtk.HeaderBar {
             return false;
         });
 
-        Application.database_v2.user_added.connect ((user) => {
+        Application.database.user_added.connect ((user) => {
             try {
                 string file = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/profile/avatar-%s.jpg".printf (user.id.to_string ());
                 var pixbuf = new Gdk.Pixbuf.from_file_at_scale (file, 24, 24, true);

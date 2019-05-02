@@ -20,6 +20,7 @@
 */
 
 public class Widgets.Popovers.MenuProject : Gtk.Popover {
+    private ModelButton favorite_menu;
     public signal void on_selected_menu (string name);
 
     public MenuProject (Gtk.Widget relative) {
@@ -34,7 +35,7 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
         var finalize_menu = new ModelButton (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
         
         var edit_menu = new ModelButton (_("Edit"), "edit-symbolic", _("Change project name"));
-        var favorite_menu = new ModelButton (_("Favorite"), "emblem-favorite-symbolic", _("Favorite"));
+        //favorite_menu = new ModelButton (_("Favorite"), "emblem-favorite-symbolic", _("Favorite"));
 
         var export_menu = new ModelButton (_("Export"), "document-export-symbolic", _("Export project"));
         var share_menu = new ModelButton (_("Share"), "emblem-shared-symbolic", _("Share project"));
@@ -66,7 +67,7 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
         main_grid.add (finalize_menu);
         main_grid.add (separator_1);
         main_grid.add (edit_menu);
-        main_grid.add (favorite_menu);
+        //main_grid.add (favorite_menu);
         main_grid.add (separator_2);
         main_grid.add (export_menu);
         main_grid.add (share_menu);
@@ -87,10 +88,12 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
             on_selected_menu ("edit");
         });
 
+        /*
         favorite_menu.clicked.connect (() => {
             popdown ();
             on_selected_menu ("favorite");
         });
+        */
 
         share_menu.clicked.connect (() => {
             popdown ();
@@ -115,9 +118,25 @@ public class Widgets.Popovers.MenuProject : Gtk.Popover {
 }
 
 public class ModelButton : Gtk.Button {
-    public string icon { get; construct; }
-    public string text { get; construct; }
-    public string tooltip { get; construct; }
+    private Gtk.Label _label;
+    private Gtk.Image _image;
+
+    public string icon {
+        set {
+            _image.gicon = new ThemedIcon (value);
+        }
+    }
+    public string tooltip {
+        set {
+            tooltip_text = value;
+        }
+    }
+    public string text { 
+        set {
+            _label.label = value;
+        }
+    }
+    
 
     public ModelButton (string _text, string _icon, string _tooltip) {
         Object (
@@ -132,14 +151,15 @@ public class ModelButton : Gtk.Button {
         get_style_context ().remove_class ("button");
         get_style_context ().add_class ("menuitem");
 
-        tooltip_text = tooltip;
-        var label = new Gtk.Label (text);
-        var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.SMALL_TOOLBAR);
+        _label = new Gtk.Label (null);
 
+        _image = new Gtk.Image ();
+        _image.pixel_size = 16;
+        
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
-        grid.add (image);
-        grid.add (label);
+        grid.add (_image);
+        grid.add (_label);
 
         add (grid);
     }

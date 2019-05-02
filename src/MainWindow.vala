@@ -70,10 +70,10 @@ public class MainWindow : Gtk.Window {
         add (stack);
 
         Timeout.add (150, () => {
-            if (Application.database_v2.user_exists ()) {
+            if (Application.database.user_exists ()) {
                 stack.visible_child_name = "main_view";
                 headerbar.visible_ui = true;
-                Application.database_v2.start_create_projects ();
+                Application.database.start_create_projects ();
             } else {
                 stack.visible_child_name = "welcome_view";
                 headerbar.visible_ui = false;
@@ -150,7 +150,7 @@ public class MainWindow : Gtk.Window {
                 inbox_project.id = user.inbox_project;
                 inbox_project.name = "Inbox";
                 
-                if (Application.database_v2.create_user (user)) {
+                if (Application.database.create_user (user)) {
                     Application.user = user;
                     stack.visible_child_name = "main_view";
                     headerbar.visible_ui = true;

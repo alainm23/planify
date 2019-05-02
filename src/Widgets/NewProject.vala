@@ -168,7 +168,7 @@ public class Widgets.NewProject : Gtk.EventBox {
                     Application.todoist.add_project (project);
                 } else {
                     project.id = (int64) Application.utils.generate_id ();
-                    if (Application.database_v2.add_project (project)) {
+                    if (Application.database.add_project (project)) {
                         clear ();
                     }
                 }
@@ -222,7 +222,7 @@ public class Widgets.NewProject : Gtk.EventBox {
             }
         });
 
-        Application.database_v2.user_added.connect ((user) => {
+        Application.database.user_added.connect ((user) => {
             if (user.is_todoist) {
                 source_button.no_show_all = false;
                 source_button.visible = true;

@@ -13,6 +13,10 @@
     transition: all 240ms ease;
 }
 
+.item-row image {
+    color: @fg_color;
+}
+
 .item-row:selected {
     background-color: @color_selected;
     color: @color_text;
@@ -26,13 +30,17 @@
     color: @color_text;
 }
 
-.item-row:hover {
-    color: @color_text;
-    background-color: @color_selected;
-}
-
 .item-row:selected:focus {
     background-color: @color_selected;
+    color: @color_text;
+}
+
+.item-row:hover {
+    background-color: @color_selected;
+    color: @color_text;
+}
+
+.item-row:hover image {
     color: @color_text;
 }
 
@@ -57,6 +65,9 @@
     color: @text_color;
 }
 
+.headerbar-search {
+    border-radius: 6px;
+}
 .headerbar-menu {
     padding: 2px;
 }
@@ -118,6 +129,9 @@
         0 0 0 1px alpha (@accentColor, 0.25);
 }
 
+.sync.is_loading image {
+    animation: spin 1000ms linear infinite;
+}
 /*
 .label-child {
     transition: all 150ms ease;

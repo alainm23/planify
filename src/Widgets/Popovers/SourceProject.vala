@@ -128,7 +128,7 @@ public class Widgets.Popovers.SourceProject : Gtk.Popover {
         });
 
 
-        Application.database_v2.user_added.connect ((user) => {
+        Application.database.user_added.connect ((user) => {
             if (user.is_todoist) {
                 todoist_description.label = user.email;
             }

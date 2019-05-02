@@ -90,7 +90,7 @@ public class Services.Todoist : GLib.Object {
                     // Download Avatar
                     download_profile_image (user.id.to_string (), user.avatar);
                     
-                    if (Application.database_v2.create_user (user)) {
+                    if (Application.database.create_user (user)) {
                         Application.user = user;
                         
                         // Create projects
@@ -112,7 +112,7 @@ public class Services.Todoist : GLib.Object {
                             project.is_favorite = (int32) object.get_int_member ("is_favorite");
                             project.is_todoist = true;
 
-                            Application.database_v2.add_project (project);
+                            Application.database.add_project (project);
                         }
 
                         sync_finished ();
@@ -184,7 +184,7 @@ public class Services.Todoist : GLib.Object {
                         print ("sync_token:" + sync_token + "\n");
                         print ("Color:" + project.color.to_string () + "\n");
                         
-                        if (Application.database_v2.add_project (project)) {
+                        if (Application.database.add_project (project)) {
                             project_added ();
                         }
                         //Application.user.sync_token = sync_token;
@@ -261,7 +261,7 @@ public class Services.Todoist : GLib.Object {
 
                         string sync_token = node.get_string_member ("sync_token");
 
-                        if (Application.database_v2.update_project (project)) {
+                        if (Application.database.update_project (project)) {
                             project_updated (project);
                         }
                         //Application.user.sync_token = sync_token;
@@ -346,7 +346,7 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
 
-                            if (Application.database_v2.delete_project (project.id)) {
+                            if (Application.database.delete_project (project.id)) {
                                 project_deleted (project.id);
                             }
                         } else {
@@ -361,7 +361,7 @@ public class Services.Todoist : GLib.Object {
                         /*
                         string sync_token = node.get_string_member ("sync_token");
 
-                        if (Application.database_v2.delete_project (project.id)) {
+                        if (Application.database.delete_project (project.id)) {
                             project_deleted (project.id);
                         }
                         //Application.user.sync_token = sync_token;

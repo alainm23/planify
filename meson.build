@@ -49,7 +49,6 @@ executable(
     'src/Widgets/Popovers/SourceProject.vala',
     
     'src/Services/Database.vala',
-    'src/Services/Database_v2.vala',
     'src/Services/Todoist.vala',
 
     'src/Objects/Project.vala',
@@ -59,6 +58,8 @@ executable(
     'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/TodoistAccess.vala',
+
+    'src/Dialogs/Settings.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('glib-2.0'),

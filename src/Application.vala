@@ -24,7 +24,6 @@ public class Application : Gtk.Application {
     
     public static GLib.Settings settings;
 
-    public static Services.Database_v2 database_v2;
     public static Services.Database database;
     public static Services.Todoist todoist;
 
@@ -54,15 +53,14 @@ public class Application : Gtk.Application {
 
         settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
-        database_v2 = new Services.Database_v2 ();
         todoist = new Services.Todoist ();
 
         APP_VERSION =  "2.0.0";
 
         user = new Objects.User ();
         
-        if (database_v2.user_exists ()) {
-            user = database_v2.get_user ();
+        if (database.user_exists ()) {
+            user = database.get_user ();
         }
     }
 

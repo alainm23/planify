@@ -26,7 +26,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Label archived_label;
-    private Gtk.Image is_favorite_image;
 
     private Gtk.Box main_box;
 
@@ -88,16 +87,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_entry.placeholder_text = _("Project name");
         name_entry.no_show_all = true;
 
-        is_favorite_image = new Gtk.Image ();
-        is_favorite_image.gicon = new ThemedIcon ("emblem-favorite-symbolic");
-        is_favorite_image.pixel_size = 16;
-        is_favorite_image.margin_start = 6;
-
-        if (project.is_favorite == 0) {
-            is_favorite_image.no_show_all = true;
-            is_favorite_image.visible = false;
-        }
-
         archived_label = new Gtk.Label ("<small>%s</small>".printf (_("archived")));
         archived_label.use_markup = true;
         archived_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
@@ -134,9 +123,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_box.pack_start (grid_color, false, false, 0);
         main_box.pack_start (color_button, false, false, 0);
         main_box.pack_start (name_label, false, false, 12);
-        main_box.pack_start (name_entry, false, true, 12);
+        main_box.pack_start (name_entry, false, true, 9);
         main_box.pack_end (menu_button, false, false, 1);
-        main_box.pack_end (is_favorite_image, false, false, 0);
         
         var eventbox = new Gtk.EventBox ();
         eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -153,14 +141,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 grid_color.visible = false;
                 name_label.visible = false;
                 menu_button.visible = false;
-                is_favorite_image.visible = false;
     
                 if (project.is_archived == 1) {
                     archived_label.visible = false;
-                }
-
-                if (project.is_favorite == 1) {
-                    is_favorite_image.visible = false;
                 }
                 
                 Timeout.add (200, () => {
@@ -256,14 +239,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 grid_color.visible = false;
                 name_label.visible = false;
                 menu_button.visible = false;
-                is_favorite_image.visible = false;
     
                 if (project.is_archived == 1) {
                     archived_label.visible = false;
-                }
-
-                if (project.is_favorite == 1) {
-                    is_favorite_image.visible = false;
                 }
                 
                 Timeout.add (200, () => {
@@ -271,23 +249,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 				    return false;
 			    });
             } else if (type == "favorite") {
-                /*
-                if (project.is_favorite == 0) {
-                    project.is_favorite = 1;
-
-                    is_favorite_image.no_show_all = false;
-                    is_favorite_image.visible = true;
-                } else {
+                if (project.is_favorite == 1) {
                     project.is_favorite = 0;
-
-                    is_favorite_image.no_show_all = true;
-                    is_favorite_image.visible = false;
+                } else {
+                    project.is_favorite = 1;
                 }
 
-                if (Application.database.update_project (project) == Sqlite.DONE) {
+                if (Application.database.update_project (project)) {
                     project_updated (project);
                 }
-                */
             } else if (type == "archived") {
                 /*
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
@@ -379,23 +349,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                         main_box.sensitive = false;
                         Application.todoist.delete_project (project);
                     } else {
-                        if (Application.database_v2.delete_project (project.id)) {
+                        if (Application.database.delete_project (project.id)) {
                             GLib.Timeout.add (250, () => {
                                 destroy ();
                                 return GLib.Source.REMOVE;
                             });
                         }
                     }
-                    /*
-                    if (Application.database.remove_project (project.id) == Sqlite.DONE) {
-                        Application.database.on_signal_remove_project (project);
-
-                        GLib.Timeout.add (250, () => {
-                            destroy ();
-                            return GLib.Source.REMOVE;
-                        });
-                    }
-                    */
                 }
 
                 message_dialog.destroy ();
@@ -441,11 +401,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 if (_project.is_archived == 1) {
                     archived_label.visible = true;
                 }
-    
-                if (_project.is_favorite == 1) {
-                    is_favorite_image.visible = true;
-                }
-    
+
                 project_updated (_project);
             }
         });
@@ -485,7 +441,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 main_box.sensitive = false;
                 Application.todoist.update_project (project);
             } else {
-                if (Application.database_v2.update_project (project)) {
+                if (Application.database.update_project (project)) {
                     name_label.label = "<b>%s</b>".printf(project.name);
                     tooltip_text = project.name;
                     
@@ -499,11 +455,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                     if (project.is_archived == 1) {
                         archived_label.visible = true;
                     }
-    
-                    if (project.is_favorite == 1) {
-                        is_favorite_image.visible = true;
-                    }
-    
+        
                     project_updated (project);
                 }
             }

@@ -25,8 +25,9 @@ public class Widgets.ProjectsList : Gtk.Grid {
     private Widgets.ItemRow inbox_item;
     private Widgets.ItemRow today_item;
     private Widgets.ItemRow upcoming_item;
-    private Widgets.ItemRow all_tasks_item;
-    private Widgets.ItemRow completed_item;
+    private Widgets.ItemRow team_inbox_item;
+
+    private bool has_team_inbox = false;
 
     private Gee.HashMap <int64?, Widgets.ProjectRow> projects_hashmap;
 
@@ -58,17 +59,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
                                                "go-jump-symbolic", 
                                                "upcoming",
                                                _("Create new task"));
-        all_tasks_item = new Widgets.ItemRow (_("All Tasks"), 
-                                                "user-bookmarks", 
-                                                "all",
-                                                _("Create new task"));
-        completed_item = new Widgets.ItemRow (_("Completed Tasks"), 
-                                                "emblem-default", 
-                                                "completed", 
-                                                _("Create new task"));
-        //completed_item.revealer_primary_label = true;
-        //completed_item.primary_text = "5";
-
         items_listbox = new Gtk.ListBox  ();
         items_listbox.activate_on_single_click = true;
         items_listbox.get_style_context ().add_class (Gtk.STYLE_CLASS_BACKGROUND);
@@ -79,8 +69,6 @@ public class Widgets.ProjectsList : Gtk.Grid {
         items_listbox.add (inbox_item);
         items_listbox.add (today_item);
         items_listbox.add (upcoming_item);
-        //items_listbox.add (all_tasks_item);
-        //items_listbox.add (completed_item);
 
         var show_image = new Gtk.Image.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         show_image.get_style_context ().add_class ("show-button");
@@ -105,11 +93,17 @@ public class Widgets.ProjectsList : Gtk.Grid {
         add_projects_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var show_projects_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        show_projects_box.margin_top = 3;
-        show_projects_box.margin_bottom = 3;
+        show_projects_box.hexpand = true;
         show_projects_box.pack_start (show_eventbox, true, true, 0);
         show_projects_box.pack_end (add_projects_button, false, false, 3);
-        show_projects_box.get_style_context ().add_class ("show-project-box");
+
+        var main_show_projects = new Gtk.Grid ();
+        main_show_projects.orientation = Gtk.Orientation.VERTICAL;
+        main_show_projects.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        main_show_projects.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_show_projects.add (show_projects_box);
+        main_show_projects.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
         // Projects List
         projects_listbox = new Gtk.ListBox ();
         projects_listbox.activate_on_single_click = true;
@@ -145,7 +139,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
         main_grid.expand = true;
 
         main_grid.add (items_listbox);
-        main_grid.add (show_projects_box);
+        main_grid.add (main_show_projects);
         main_grid.add (projects_list_revealer);
         main_grid.add (new_project);
 
@@ -168,7 +162,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             projects_listbox.select_row (upcoming_item);
         }
 
-        Application.database_v2.start_create_projects.connect (() => {
+        Application.database.start_create_projects.connect (() => {
             update_project_list ();
         });
 
@@ -180,6 +174,12 @@ public class Widgets.ProjectsList : Gtk.Grid {
         items_listbox.row_activated.connect ((row) => {
             projects_listbox.unselect_all ();
             new_project.reveal_new_project = false;
+            
+            if (has_team_inbox) {
+
+            } else {
+
+            }
         });
 
         show_eventbox.event.connect ((event) => {
@@ -197,7 +197,7 @@ public class Widgets.ProjectsList : Gtk.Grid {
             return false;
         });
 
-        Application.database_v2.project_added.connect ((project) => {
+        Application.database.project_added.connect ((project) => {
             if (project.inbox_project == false) {
                 var row = new Widgets.ProjectRow (project);
                 projects_hashmap.set (project.id, row);
@@ -207,20 +207,38 @@ public class Widgets.ProjectsList : Gtk.Grid {
 
                 projects_listbox.invalidate_sort ();
             }
+
+            if (project.team_inbox) {
+                team_inbox_item = new Widgets.ItemRow (_("Team Inbox"), 
+                                               "mail-mailbox-symbolic", 
+                                               "team_inbox",
+                                               _("Create new task"));
+                items_listbox.add (team_inbox_item);
+                items_listbox.show_all ();
+            }
         });
     }
     
     public void update_project_list () {
         var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects= Application.database_v2.get_all_projects ();
+        all_projects= Application.database.get_all_projects ();
             
         foreach (Objects.Project project in all_projects) {
-            if (project.inbox_project == false) {
+            if (project.inbox_project == false && project.team_inbox == false && project.is_favorite == 0) {
                 var row = new Widgets.ProjectRow (project);
-                projects_hashmap.set (project.id, row);
                 projects_listbox.add (row);
-                       
                 projects_listbox.show_all ();
+            }
+
+            if (project.team_inbox) {
+                team_inbox_item = new Widgets.ItemRow (_("Team Inbox"), 
+                                               "mail-mailbox-symbolic", 
+                                               "team_inbox",
+                                               _("Create new task"));
+                items_listbox.insert (team_inbox_item, 0);
+                items_listbox.show_all ();
+
+                has_team_inbox = true;
             }
         }
 
