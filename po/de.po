@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-29 10:15-0500\n"
-"PO-Revision-Date: 2019-06-18 21:19+0200\n"
+"PO-Revision-Date: 2019-06-18 21:26+0200\n"
 "Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: src/Utils.vala:382
 msgid "Light rain"
-msgstr "leichter Regen"
+msgstr "Leichter Regen"
 
 #: src/Utils.vala:383
 msgid "Moderate rain"
@@ -161,9 +161,8 @@ msgid "Ragged shower rain"
 msgstr ""
 
 #: src/Utils.vala:393
-#, fuzzy
 msgid "Light snow"
-msgstr "Nachtmodus"
+msgstr "Leichter Schnee"
 
 #: src/Utils.vala:395
 msgid "Heavy snow"
@@ -198,9 +197,8 @@ msgid "Heavy shower snow"
 msgstr ""
 
 #: src/Utils.vala:404
-#, fuzzy
 msgid "Clear sky"
-msgstr "Leeren"
+msgstr "Klarer Himmel"
 
 #: src/Utils.vala:405
 msgid "Few clouds"
@@ -268,24 +266,20 @@ msgid "%i°"
 msgstr ""
 
 #: src/Services/Share.vala:107
-#, fuzzy
 msgid "Your project was exported correctly"
-msgstr "Dein Projekt ist bereit zum Teilen"
+msgstr "Dein Projekt wurde erfolgreich exportiert."
 
 #: src/Services/Share.vala:161
-#, fuzzy
 msgid "Your project was imported correctly"
-msgstr "Dein Projekt ist bereit zum Teilen"
+msgstr "Dein Projekt wurde erfolgreich importiert."
 
 #: src/Services/Share.vala:168
-#, fuzzy
 msgid "Import another project"
-msgstr "In Projekt umwandeln"
+msgstr "Ein weiteres Projekt importieren"
 
 #: src/Services/Share.vala:169
-#, fuzzy
 msgid "This project was already imported"
-msgstr "Dein Projekt ist bereit zum Teilen"
+msgstr "Das Projekt wurde bereits importiert."
 
 #: src/Services/Calendar/Utils.vala:591
 msgid "On this computer"
@@ -493,9 +487,8 @@ msgid "Close"
 msgstr "Schließen"
 
 #: src/Dialogs/PreferencesDialog.vala:152
-#, fuzzy
 msgid "Connect your account to work with Issues"
-msgstr "Verbinde Dein Konto, um mit Issues zu arbeiten"
+msgstr "Verbinde dein Konto, um mit Github Issues zu arbeiten"
 
 #: src/Dialogs/PreferencesDialog.vala:161
 msgid "Username"
@@ -515,7 +508,7 @@ msgstr "Verbinden"
 
 #: src/Dialogs/PreferencesDialog.vala:194
 msgid "Forgot password…"
-msgstr "Passwort vergessen..."
+msgstr "Passwort vergessen ..."
 
 #: src/Dialogs/PreferencesDialog.vala:197
 msgid "Don't have an account? Sign Up"
@@ -729,9 +722,8 @@ msgid "Home Page"
 msgstr "Startseite"
 
 #: src/Dialogs/PreferencesDialog.vala:1315
-#, fuzzy
 msgid "Report a Issue"
-msgstr "Melde ein Issue"
+msgstr "Einen Fehler melden"
 
 #: src/Dialogs/PreferencesDialog.vala:1337
 msgid "Translations"
@@ -783,14 +775,12 @@ msgid "Weather and Events"
 msgstr "Wetter und Ereignisse"
 
 #: src/Widgets/HeaderBar.vala:72
-#, fuzzy
 msgid "Light background"
-msgstr "Im Hintergrund ausführen"
+msgstr "Heller Hintergrund"
 
 #: src/Widgets/HeaderBar.vala:73
-#, fuzzy
 msgid "Dark background"
-msgstr "Im Hintergrund ausführen"
+msgstr "Dunkler Hintergrund"
 
 #: src/Widgets/HeaderBar.vala:76
 msgid "Night Mode"
@@ -851,14 +841,12 @@ msgid "Delete Project"
 msgstr "Projekt löschen"
 
 #: src/Widgets/ProjectRow.vala:199 src/Widgets/Popovers/ProjectMenu.vala:37
-#, fuzzy
 msgid "Export project"
-msgstr "In Projekt umwandeln"
+msgstr "Projekt exportieren"
 
 #: src/Widgets/ProjectRow.vala:205 src/Widgets/Popovers/ProjectListMenu.vala:51
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Planner Dateien"
 
 #: src/Widgets/ItemRow.vala:96
 #, c-format
@@ -1094,14 +1082,12 @@ msgid "Import"
 msgstr "Importieren"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:32
-#, fuzzy
 msgid "Import project"
-msgstr "In Projekt umwandeln"
+msgstr "Projekt importieren"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:45
-#, fuzzy
 msgid "Export Project"
-msgstr "In Projekt umwandeln"
+msgstr "Projekt exportieren"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
