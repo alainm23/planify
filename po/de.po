@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-29 10:15-0500\n"
-"PO-Revision-Date: 2019-06-18 20:54+0200\n"
+"PO-Revision-Date: 2019-06-18 21:19+0200\n"
 "Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -34,7 +34,7 @@ msgstr "Leeren"
 
 #: src/Utils.vala:349
 msgid "Atmosphere"
-msgstr ""
+msgstr "Atmosphere"
 
 #: src/Utils.vala:350 src/Utils.vala:394
 msgid "Snow"
@@ -302,7 +302,7 @@ msgstr ""
 #: src/Views/Inbox.vala:45 src/Views/AllTasks.vala:42
 #: src/Views/CompletedTasks.vala:42
 msgid "All clear"
-msgstr ""
+msgstr "Alles leer"
 
 #: src/Views/Inbox.vala:46
 msgid "Looks like everything's is organized. Tap + to add a task."
@@ -460,7 +460,7 @@ msgstr "Alle Aufgaben"
 
 #: src/Views/CompletedTasks.vala:43
 msgid "Start to complete tasks to fill this space."
-msgstr ""
+msgstr "Fangen Sie an, Aufgaben zu erledigen, um diesen Bereich zu füllen."
 
 #: src/Views/CompletedTasks.vala:49 src/Dialogs/PreferencesDialog.vala:743
 #: src/Widgets/ProjectsList.vala:55 src/Widgets/QuickFind.vala:263
@@ -535,7 +535,7 @@ msgstr "Konto löschen"
 
 #: src/Dialogs/PreferencesDialog.vala:325 src/Widgets/LabelButton.vala:34
 msgid "Labels"
-msgstr ""
+msgstr "Etiketten"
 
 #: src/Dialogs/PreferencesDialog.vala:409
 msgid "Are you sure you want to delete your Github account?"
@@ -630,11 +630,13 @@ msgstr ""
 #: src/Dialogs/PreferencesDialog.vala:786
 #: src/Dialogs/PreferencesDialog.vala:1563
 msgid "Quick Save"
-msgstr ""
+msgstr "Schnellspeichern"
 
 #: src/Dialogs/PreferencesDialog.vala:799
 msgid "Choose how many clicks to close and save all open tasks."
 msgstr ""
+"Wähle, mit wie vielen Klicks alle offenen Aufgaben geschlossen und "
+"gespeichert werden sollen."
 
 #: src/Dialogs/PreferencesDialog.vala:814
 #: src/Dialogs/PreferencesDialog.vala:1150
@@ -703,7 +705,7 @@ msgstr "Deaktiviert"
 #: src/Dialogs/PreferencesDialog.vala:1190
 #: src/Dialogs/PreferencesDialog.vala:1381
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 #: src/Dialogs/PreferencesDialog.vala:1232
 msgid "Developing"
@@ -711,7 +713,7 @@ msgstr "Entwicklung"
 
 #: src/Dialogs/PreferencesDialog.vala:1239
 msgid "Design"
-msgstr ""
+msgstr "Design"
 
 #: src/Dialogs/PreferencesDialog.vala:1246
 msgid "Translation"
@@ -1108,7 +1110,7 @@ msgstr "Sorge Dich nie wieder darum, Dinge zu vergessen"
 
 #: data/com.github.alainm23.planner.desktop.in:8
 msgid "com.github.alainm23.planner"
-msgstr ""
+msgstr "com.github.alainm23.planner"
 
 #: data/com.github.alainm23.planner.desktop.in:12
 msgid ""
@@ -1180,7 +1182,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 msgid "Other features"
-msgstr ""
+msgstr "Andere Eigenschaften"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
 #, fuzzy
@@ -1193,7 +1195,7 @@ msgstr "Importiere und exportiere deine Projekte"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 msgid "Different themes to choose"
-msgstr ""
+msgstr "Verschiedene Themen zur Auswahl"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
 #, fuzzy
@@ -1207,7 +1209,7 @@ msgstr "Nachtmodus"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:149
 msgid "Alain M."
-msgstr ""
+msgstr "Alain M."
 
 #~ msgid "Issues"
 #~ msgstr "Issues"
