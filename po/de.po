@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-29 10:15-0500\n"
-"PO-Revision-Date: 2019-01-18 14:45+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2019-06-18 20:54+0200\n"
+"Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Planner"
 
 #: src/Utils.vala:347
 msgid "Clouds"
-msgstr ""
+msgstr "Bewölkt"
 
 #: src/Utils.vala:348 src/Widgets/Popovers/WhenPopover.vala:59
 #: src/Widgets/Popovers/DeadlinePopover.vala:43
@@ -38,11 +38,11 @@ msgstr ""
 
 #: src/Utils.vala:350 src/Utils.vala:394
 msgid "Snow"
-msgstr ""
+msgstr "Schnee"
 
 #: src/Utils.vala:351
 msgid "Rain"
-msgstr ""
+msgstr "Regen"
 
 #: src/Utils.vala:352 src/Utils.vala:373
 msgid "Drizzle"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: src/Utils.vala:382
 msgid "Light rain"
-msgstr ""
+msgstr "leichter Regen"
 
 #: src/Utils.vala:383
 msgid "Moderate rain"
@@ -443,7 +443,7 @@ msgstr "Notizen"
 
 #: src/Views/Project.vala:444
 msgid "Hide completed tasks"
-msgstr ""
+msgstr "Verstecke abgeschlossene Aufgaben"
 
 #: src/Views/Project.vala:525
 msgid "Select Your Favorite Color"
@@ -451,12 +451,12 @@ msgstr "Wähle Deine Farbe"
 
 #: src/Views/AllTasks.vala:43
 msgid "Find all your tasks here."
-msgstr ""
+msgstr "Finde alle deine Aufgaben hier."
 
 #: src/Views/AllTasks.vala:49 src/Dialogs/PreferencesDialog.vala:738
 #: src/Widgets/ProjectsList.vala:51 src/Widgets/QuickFind.vala:259
 msgid "All Tasks"
-msgstr ""
+msgstr "Alle Aufgaben"
 
 #: src/Views/CompletedTasks.vala:43
 msgid "Start to complete tasks to fill this space."
@@ -465,7 +465,7 @@ msgstr ""
 #: src/Views/CompletedTasks.vala:49 src/Dialogs/PreferencesDialog.vala:743
 #: src/Widgets/ProjectsList.vala:55 src/Widgets/QuickFind.vala:263
 msgid "Completed Tasks"
-msgstr ""
+msgstr "Abgeschlossene Aufgaben"
 
 #: src/Dialogs/PreferencesDialog.vala:54 src/Widgets/HeaderBar.vala:93
 #: src/Widgets/NoteChild.vala:55
@@ -482,11 +482,11 @@ msgstr "Erscheinung"
 
 #: src/Dialogs/PreferencesDialog.vala:64 src/Dialogs/PreferencesDialog.vala:147
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/PreferencesDialog.vala:65
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: src/Dialogs/PreferencesDialog.vala:96 src/Dialogs/ShareDialog.vala:206
 msgid "Close"
@@ -707,7 +707,7 @@ msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1232
 msgid "Developing"
-msgstr ""
+msgstr "Entwicklung"
 
 #: src/Dialogs/PreferencesDialog.vala:1239
 msgid "Design"
@@ -715,16 +715,16 @@ msgstr ""
 
 #: src/Dialogs/PreferencesDialog.vala:1246
 msgid "Translation"
-msgstr ""
+msgstr "Übersetzung"
 
 #: src/Dialogs/PreferencesDialog.vala:1253
 #: src/Dialogs/PreferencesDialog.vala:1359
 msgid "Support"
-msgstr ""
+msgstr "Hilfe"
 
 #: src/Dialogs/PreferencesDialog.vala:1293
 msgid "Home Page"
-msgstr ""
+msgstr "Startseite"
 
 #: src/Dialogs/PreferencesDialog.vala:1315
 #, fuzzy
@@ -733,7 +733,7 @@ msgstr "Melde ein Issue"
 
 #: src/Dialogs/PreferencesDialog.vala:1337
 msgid "Translations"
-msgstr ""
+msgstr "Übersetzung"
 
 #: src/Dialogs/PreferencesDialog.vala:1629
 msgid "Run in background"
@@ -749,7 +749,7 @@ msgstr "Start mit Anmeldung"
 
 #: src/Dialogs/PreferencesDialog.vala:2027
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: src/Dialogs/ShareDialog.vala:216 src/Dialogs/ShareDialog.vala:229
 msgid "Copy to clipboard"
@@ -761,7 +761,7 @@ msgstr "Dein Projekt ist bereit zum Teilen"
 
 #: src/Dialogs/Loading.vala:20
 msgid "Loading ..."
-msgstr ""
+msgstr "Laden ..."
 
 #: src/Widgets/WhenButton.vala:24
 msgid "When"
@@ -1036,7 +1036,7 @@ msgstr "Ändere Projektname"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:37
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: src/Widgets/Popovers/ProjectMenu.vala:38
 msgid "Share project"
@@ -1069,7 +1069,7 @@ msgstr "Teile Aufgabe"
 #: src/Widgets/Popovers/LabelsPopover.vala:132
 #: src/Widgets/Popovers/LabelsPopover.vala:213
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: src/Widgets/Popovers/LabelsPopover.vala:160
 msgid "Update"
@@ -1089,7 +1089,7 @@ msgstr "Vorschau"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:32
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: src/Widgets/Popovers/ProjectListMenu.vala:32
 #, fuzzy
@@ -1189,7 +1189,7 @@ msgstr "Benachrichtigungen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 msgid "Import and export your projects"
-msgstr ""
+msgstr "Importiere und exportiere deine Projekte"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 msgid "Different themes to choose"
