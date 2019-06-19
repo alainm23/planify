@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-29 10:15-0500\n"
-"PO-Revision-Date: 2019-06-18 21:26+0200\n"
+"PO-Revision-Date: 2019-06-19 05:26+0200\n"
 "Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -1115,15 +1115,14 @@ msgid "How Planner works"
 msgstr "Wie Planner funktioniert"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:12
-#, fuzzy
 msgid ""
 "1. Collect your Ideas - The Inbox is your default task list in Planner. When "
 "you add a task, it goes straight to your Inbox unless you specify that the "
 "task goes into a project."
 msgstr ""
-"Die Inbox ist Deine Standard-Aufgabenliste in Planner. Wenn Du eine Aufgabe "
-"einfügst, kommt diese direkt in die Inbox, sofern Du sie nicht direkt in ein "
-"Projekt einfügst."
+"1. Sammel deine Ideen - Die Inbox ist Deine Standard-Aufgabenliste in "
+"Planner. Wenn Du eine Aufgabe einfügst, kommt diese direkt in die Inbox, "
+"sofern Du sie nicht direkt in ein Projekt einfügst."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 #, fuzzy
@@ -1165,15 +1164,16 @@ msgid ""
 "6. Support for Github Issues - Connect your account and start receiving "
 "notifications of every new issue in your repositories"
 msgstr ""
+"6. Support für Github Issues - Verbinden Sie Ihr Konto und erhalten Sie "
+"Benachrichtigungen über jedes neue Problem in Ihren Repositorys"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 msgid "Other features"
 msgstr "Andere Eigenschaften"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
-#, fuzzy
 msgid "Reminders notifications"
-msgstr "Benachrichtigungen"
+msgstr "Erinnerungsbenachrichtigungen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 msgid "Import and export your projects"
@@ -1184,14 +1184,12 @@ msgid "Different themes to choose"
 msgstr "Verschiedene Themen zur Auswahl"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
-#, fuzzy
 msgid "Weather forecast"
-msgstr "Wetter"
+msgstr "Wettervorhersage"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:25
-#, fuzzy
 msgid "Night mode"
-msgstr "Nachtmodus"
+msgstr "Nacht-Modus"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:149
 msgid "Alain M."
