@@ -1,549 +1,133 @@
-@define-color color_header #ed5353;
-@define-color color_selected #ed5353;
-@define-color color_text #fff;
-
-@define-color colorPrimary @color_header;
-@define-color textColorPrimary @color_text;
-
 .titlebar {
-    padding: 0px 6px 0px 6px;
+    padding: 0 2px;
 }
 
-.item-row {
-    transition: all 240ms ease;
+.sidebar-header {
+    background-color: @bg_color;
 }
 
-.item-row image {
-    color: @fg_color;
+.sidebar-header:dir(ltr) {
+    border-top-right-radius: 0;
 }
 
-.item-row:selected {
-    background-color: @color_selected;
-    color: @color_text;
+.sidebar-header:dir(rtl) {
+    border-top-left-radius: 0;
 }
 
-.item-row:selected button {
+.listview-header {
+    background-color: @base_color;
+}
+
+.listview-header:dir(ltr) {
+    border-top-left-radius: 0;
+}
+
+.listview-header:dir(rtl) {
+    border-top-right-radius: 0;
+}
+
+paned {
+    background-color: @base_color;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+paned > separator {
+    margin-right: 0;
+    min-width: 2px;
+    min-height: 2px;
+}
+
+.pane {
+    background-color: @bg_color;
+    border-bottom-left-radius: 4px;
+}
+
+.pane:dir(rtl) {
+    border-bottom-right-radius: 4px;
+}
+
+.pane .inline-toolbar {
+    background-color: @bg_color;
+    -gtk-icon-style: symbolic;
+}
+
+.pane .inline-toolbar button {
+    padding: 6px;
+}
+
+/*
+    Pane
+*/
+
+.pane-row {
+    transition: all 240ms ease-in-out;
     background-color: transparent;
 }
 
-.item-row:selected image {
-    color: @color_text;
+.pane-row:selected {
+    background-color: shade (@base_color, 0.92);
 }
 
-.item-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
+.inbox-row image {
+    color: #3689e6;	
 }
 
-.item-row:hover {
-    background-color: @color_selected;
-    color: @color_text;
+.inbox-row:selected {
+    color: #3689e6;	
 }
 
-.item-row:hover image {
-    color: @color_text;
+.today-row image {
+    color: #f9c440;
 }
 
-.entry-project {
-    padding: 0px 0px 0px 3px;
-}
-    
-.headerbar-widget {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            @base_color,
-                1.3
-            ),
-            @base_color
-        );
-    border-radius: 3px;
+.today-row:selected {
+    color: #f9c440;
 }
 
-.headerbar-widget image {
+.upcoming-row image {
+    color: #ed5353;
+}
+
+.upcoming-row:selected {
+    color: #ed5353;
+}
+
+.inbox {
+    color: #3689e6;	
+}
+
+.today {
+    color: #f9c440;
+}
+
+.upcoming {
+    color: #ed5353;
+}
+
+.text_color {
     color: @text_color;
-}
-
-.headerbar-search {
-    border-radius: 6px;
-}
-.headerbar-menu {
-    padding: 2px;
-}
-.no-padding {
-    padding: 0px;
-}
-
-.project-icon-preview {
-    padding:  3px;
-}
-
-.paned-right {
-    border-right: 1px solid @menu_separator;
-}
-
-.show-project-box {
-    background-color: @base_color;
-    border-top: 1px solid @menu_separator;
-    border-bottom: 1px solid @menu_separator;
-}
-.show-button {
-    transition: all 240ms ease-in-out;
-}
-
-.show-button.closed {
-    -gtk-icon-transform: rotate(90deg);
-}
-
-.button-circular {
-    border-radius: 50px;
-}
-.menu-button {
-    border-radius: 4px;
-    padding: 2px;
-}
-
-.menu-button image {
-    color: @color_text;
-}
-  
-.color_radio radio,
-.color_radio radio:checked {
-    border-color: alpha (#000, 0.3);
-    box-shadow:
-        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
-        inset 0 0 0 1px alpha (@shadowColor, 0.3),
-        0 1px 0 0 alpha (@accentColor, 0.3);
-    padding: 6px;
-    -gtk-icon-shadow: none;
-}
-  
-.color_radio radio:focus {
-    border-color: @colorAccent;
-    box-shadow:
-        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
-        inset 0 0 0 1px alpha (@shadowColor, 0.3),
-        inset 0 0 0 1px alpha (@accentColor, 0.05),
-        0 1px 0 0 alpha (@accentColor, 0.3),
-        0 0 0 1px alpha (@accentColor, 0.25);
-}
-
-.sync.is_loading image {
-    animation: spin 1000ms linear infinite;
 }
 /*
-.label-child {
-    transition: all 150ms ease;
-}
-
-.label-child:focus {
-    background-color: transparent;
-    color: @fg_color;
-}
-
-.task {	
-    transition: all 250ms ease;	
-}
-
-.text-hover {
-    color: @color_text
-}
-
-.note-view text {
-    background-color: @base_color;
-    font-size: 14px;
-}
-
-.note-view {
-    font-size: 14px;
-}
-
-
-
-.circular {
-    border-radius: 100px;
-    padding: 6px
-}
-
-.button-close {
-    border-radius: 50px;
-    padding: 0px;
-    background-color: @fg_color;
-    color: @bg_color;
-}
-
-.button-overlay-circular {
-    border-radius: 50px;
-    padding: 0px;
-    color: @bg_color;
-}
-
-.button-overlay-circular image {
-    transition: all 240ms ease-in-out;
-}
-
-.button-overlay-circular.closed image {
-    -gtk-icon-transform: rotate(-90deg);
-}
-
-
-
-.planner-actionbar {
-    background-color: @base_color;
-}
-
-.planner-button-issues {
-    color: #ffffff;
-    background: linear-gradient(#009f51, #008041);
-    border: 1px solid darker(#008f43);
-}
-
-.active-switch slider {
-    min-height: 16px;
-    min-width: 16px;
-}
-
-.settings-button {
-    border-radius: 4px;
-    padding: 2px;
-}
-
-.planner-calendar-today {
-    color: @colorAccent;
-    border-radius: 6px;
-    padding: 3px;
-    font-weight: bold;
-}
-
-.planner-calendar-selected {
-    background-color: @color_header;
-    color: @color_text;
-    border-radius: 6px;
-    padding: 3px;
-}
-
-.model-button:hover {
-    background-color: #d7d7d7;
-}
-
-.revealer-button {
-    padding: 0px 8px;
-    border-radius: 0px;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-}
-
-.revealer-button image {
-    transition: all 240ms ease-in-out;
-}
-
-.revealer-button.closed image {
-    -gtk-icon-transform: rotate(-180deg);
-}
-
-.show-settings-button {
-    border: 0.5px solid @fg_color;
-    box-shadow: none;
-    padding: 3px;
-    background-color: transparent;
-}
-
-
-
-.show-settings-button image {
-    transition: all 240ms ease-in-out;
-}
-
-.show-settings-button.closed image {
-    -gtk-icon-transform: rotate(-180deg);
-}
-
-
-
-.layout-row {
-    color: @text_color;
-}
-
-.layout-row:hover {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.layout-row:hover box > revealer > box image {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.layout-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
-}
-
-.layout-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.find-row {
-    border-radius: 3px;
-}
-
-.find-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
-}
-
-.find-row:selected image {
-    color: @color_text;
-}
-
-.find-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.find-row:selected:focus image {
-    color: @color_text;
-}
-
-.planner-radio check {
-    border-radius: 50%;
-}
-
-.planner-button-no-focus {
-    background-color: @fg_color;
-}
-
-.planner-card-radius {
-    border-radius: 6px;
-}
-
-.planner-add-button {
-    background-color: @color_header;
-    color: @color_text;
-}
-
-.menu-button image {
-    color: @color_text;
-}
-
-.planner-radio-disable check {
-    border-radius: 50%;
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-                @base_color,
-                1
-            ),
-            shade (
-                @base_color,
-                0.97
-            )
-        );
-}
-
-.planner-entry-bold {
-    font-weight: bold;
-}
-
-.planner-when-preview {
-    color: @bg_color;
-    padding: 0px 6px 0px 6px;
-    background-color: @fg_color;
-    border-radius: 4px;
-}
-
-.when-item {
-    transition: all 200ms ease;
-    background-color: alpha (@text_color, 0.15);
-}
-
-.calendar-selected:selected {
-    background-color: @colorAccent;
-    color: @selected_fg_color;
-
-    padding: 0px 8px;
-    border-radius: 3px;
-    border: none;
-    box-shadow: none;
-}
-
-.calendar-no-selected:selected {
-    background-color: transparent;
-    color: @color_text;
-}
-
-.planner-entry {
-    border: none;
-}
-
-.task-hover {
-    background-color: @color_selected;
-    border-radius: 3px;
-}
-
-.planner-checked label {
-    padding: 0px 0px 1px 0px;
-}
-
-.planner-events {
-    border-radius: 50px;
-    padding: 3px
-}
-
-
-
-.format-bar {
-    background-color: @base_color;
-}
-
-.checklist-preview {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #666666,
-                1.3
-            ),
-            #666666
-        );
-    border: 1px solid shade (#666666, 0.9);
-    border-radius: 3px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    margin: 2px;
-    padding: 2px 6px 2px 6px;
-}
-
-.badge {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #c6262e,
-                1.3
-            ),
-            #c6262e
-        );
-    border: 1px solid shade (#c6262e, 0.9);
-    border-radius: 50px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    margin: 2px;
-    padding: 0px 6px 0px 6px;
-}
-
-.color-button:hover {
-    border: 3px solid @bg_color;
-}
-
-.highlight {
-    border: 1px solid @BLUEBERRY_500;
-}
-
-.color-button:focus {
-    border: 3px solid @bg_color;
-}
-
-.planner-popover {
-    background-color: @base_color;
-}
-
-.planner-paste-menu {
-    color: #FF5600;
-    background-color: #FFF0D9;
-    border-radius: 6px;
-    border: 0.5px solid #FF5600;
-    padding: 3px;
-}
-
-.planner-label-menu {
-    color: #D8394B;
-    background-color: #FFE8EA;
-    border-radius: 6px;
-    border: 0.5px solid #D8394B;
-    padding: 3px;
-}
-
-.planner-share-menu {
-    color: #CA55E2;
-    background-color: #FCEDFF;
-    border-radius: 6px;
-    border: 0.5px solid #CA55E2;
-    padding: 3px;
-}
-
-.planner-search-menu {
-    color: #4A31CB;
-    background-color: #EAEFFC;
-    border-radius: 6px;
-    border: 0.5px solid #4A31CB;
-    padding: 3px;
-}
-
-.planner-zoom-in-menu {
-    color: #00CCA5;
-    background-color: #DAFDF4;
-    border-radius: 6px;
-    border: 0.5px solid #00CCA5;
-    padding: 3px;
-}
-
-.planner-zoom-out-menu {
-    color: #48C522;
-    background-color: #DBFCCE;
-    border-radius: 6px;
-    border: 0.5px solid #48C522;
-    padding: 3px;
-}
-
-.planner-spinner {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #fafafa,
-                1.3
-            ),
-            #fafafa
-        );
-    border: 1px solid shade (#fafafa, 0.9);
-    border-radius: 50px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #333;
-    padding: 4px;
-}
-
-.share-view text {
-    background-color: @bg_color;
-}
-
-.share-view {
-    background-color: @bg_color;
-}
-
-
+    Animations
 */
+
+@keyframes fancy-turn {
+    0%   { -gtk-icon-transform: rotate(0deg);   }
+    25%  { -gtk-icon-transform: rotate(-30deg); }
+    50%  { -gtk-icon-transform: rotate(0deg);   }
+    75%  { -gtk-icon-transform: rotate(30deg);  }
+    100% { -gtk-icon-transform: rotate(0deg);   }
+}
+
+.active {
+  animation-name: fancy-turn;
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in-out;
+}
+
+.font-size-small {
+    font-size: 10px;
+}

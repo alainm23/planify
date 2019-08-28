@@ -20,21 +20,15 @@
 */
 
 public class Views.Welcome : Gtk.EventBox {
-    Granite.Widgets.Welcome welcome;
-
     public signal void activated (int index);
 
-    public Welcome () {
-        Object (
-            margin: 3
-        );
-    }
-
     construct {
-        welcome = new Granite.Widgets.Welcome ("Planner", _("It helps you stay organized and focus on what matters most to you"));
-        welcome.append ("com.github.alainm23.planner", _("New"), "The canonical source for Vala API references.");
-        welcome.append ("document-import", _("Migrate"), _("Granite's source code is hosted on GitHub."));
-        welcome.append ("planner-todoist", _("Todoist"), _("The canonical source for Vala API references."));
+        var welcome = new Granite.Widgets.Welcome ("Planner", _("Don't worry about forgetting things again"));
+        
+        welcome.append ("com.github.alainm23.planner", _("Startup"), _("Start working locally."));
+        welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist account and start working."));
+
+        welcome.get_style_context ().remove_class (Gtk.STYLE_CLASS_VIEW);
 
         add (welcome);
 

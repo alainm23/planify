@@ -1,6 +1,6 @@
 Format: http://dep.debian.net/deps/dep5
 Upstream-Name: cmake-hello-world
-Source: https://github.com/alainm23/planner
+Source: https://github.com/alainm23/notable
 
 Files: src/* data/* debian/*
 Copyright: 2019 Alain M. <alain23@protonmail.com>

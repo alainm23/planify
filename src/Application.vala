@@ -1,4 +1,4 @@
-/*
+ /*
 * Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
 *
 * This program is free software; you can redistribute it and/or
@@ -21,47 +21,23 @@
 
 public class Application : Gtk.Application {
     public MainWindow main_window;
-    
-    public static GLib.Settings settings;
-
-    public static Services.Database database;
-    public static Services.Todoist todoist;
-
-    public static string APP_VERSION;
 
     public static Utils utils;
+    public static GLib.Settings settings;
+    public static Services.Database database;
 
-    public const string CSS = """
-        @define-color color_header %s;
-        @define-color color_selected %s;
-        @define-color color_text %s;
-    """;
-
-    public static Objects.User user;
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",
             flags: ApplicationFlags.FLAGS_NONE
-        );
-    }
+        ); 
 
-    static construct {
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
-        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/profile");
 
-        settings = new Settings ("com.github.alainm23.planner");
+        settings = new Settings ("com.github.alainm23.planner2");
         database = new Services.Database ();
-        todoist = new Services.Todoist ();
-
-        APP_VERSION =  "2.0.0";
-
-        user = new Objects.User ();
-        
-        if (database.user_exists ()) {
-            user = database.get_user ();
-        }
     }
 
     public static Application _instance = null;
@@ -108,77 +84,18 @@ public class Application : Gtk.Application {
             }
         });
 
-        /*
-        var quick_find_action = new SimpleAction ("quick_find", null);
-        set_accels_for_action ("app.quick_find", {"<Control>f"});
-
-        quick_find_action.activate.connect (() => {
-            signals.on_signal_show_quick_find ();
-        });
-
-        var calendar_events_action = new SimpleAction ("calendar_events", null);
-        set_accels_for_action ("app.calendar_events", {"<Control>e"});
-        calendar_events_action.activate.connect (() => {
-            signals.on_signal_show_events ();
-        });
-
-        var show_task = new SimpleAction ("show-task", VariantType.INT32);
-        show_task.activate.connect ((parameter) => {
-            var task = Application.database.get_task (parameter.get_int32 ());
-
-            activate ();
-
-            Timeout.add (200, () => {
-                Application.signals.go_task_page (task.id, task.project_id);
-                return false;
-            });
-        });
-
-        var show_window = new SimpleAction ("show-window", null);
-        show_window.activate.connect (() => {
-            activate ();
-        });
-        */
         add_action (quit_action);
-        //add_action (quick_find_action);
-        //add_action (calendar_events_action);
-        //add_action (show_task);
-        //add_action (show_window);
-
-        // Default Icon Theme
-        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/com/github/alainm23/planner");
 
         // Stylesheet
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
         Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-        // Window Theme
-        var theme_provider = new Gtk.CssProvider ();
-        var colored_css = "";
-
-        if (settings.get_boolean ("prefer-dark-style")) {
-            colored_css = CSS.printf (
-                "@base_color",
-                "@selected_bg_color",
-                "@text_color"
-            );
-        } else {
-            colored_css = CSS.printf (
-                Application.utils.get_theme (Application.settings.get_enum ("theme")),
-                Application.utils.get_selected_theme (Application.settings.get_enum ("theme")),
-                Application.utils.convert_invert ( Application.utils.get_selected_theme (Application.settings.get_enum ("theme")))
-            );
-        }
-
-        try {
-            theme_provider.load_from_data (colored_css, colored_css.length);
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), theme_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            debug ("Theme error");
-        }
+        // Default Icon Theme
+        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+        default_theme.add_resource_path ("/com/github/alainm23/planner");
     }
+
     public static int main (string[] args) {
         Application app = Application.instance;
         return app.run (args);

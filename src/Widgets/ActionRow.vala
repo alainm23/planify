@@ -19,13 +19,15 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Widgets.ItemRow : Gtk.ListBoxRow {
+public class Widgets.ActionRow : Gtk.ListBoxRow {
+    public Gtk.Image icon { get; set; }
+
     public string icon_name  { get; construct; }
     public string item_name { get; construct; }
     public string item_base_name { get; construct; }
 
     private Gtk.Label primary_label;
-    private Gtk.Label secondary_label;
+    public Gtk.Label secondary_label;
 
     private Gtk.Revealer secondary_revealer;
     private Gtk.Revealer primary_revealer;
@@ -34,14 +36,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     public bool reveal_child {
         set {
-            if (value) {
-                margin_start = 6;
-                margin_top = 6;
-                margin_end = 6;
-            } else {
-                margin = 0;
-            }
-
             main_revealer.reveal_child = value;
         }
         get {
@@ -79,24 +73,33 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public ItemRow (string _name, string _icon, string _item_base_name, string _tooltip_text) {
+    public ActionRow (string name, string icon, string item_base_name, string tooltip_text) {
         Object (
-            icon_name: _icon,
-            item_name: _name,
-            item_base_name: _item_base_name,
-            tooltip_text: _tooltip_text,
-            margin_left: 0,
-            margin_top: 6,
-            margin_right: 0
+            item_name: name,    
+            icon_name: icon,
+            item_base_name: item_base_name,
+            tooltip_text: tooltip_text
         );
     }
 
     construct {
-        get_style_context ().add_class ("item-row");
+        get_style_context ().add_class ("pane-row");
 
-        var icon = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.MENU);
+        if (item_base_name == "inbox") {
+            get_style_context ().add_class ("inbox-row");
+        } else if (item_base_name == "today") {
+            get_style_context ().add_class ("today-row");
+        } else if (item_base_name == "upcoming") {
+            get_style_context ().add_class ("upcoming-row");
+        }
+        
+        icon = new Gtk.Image ();
+        icon.valign = Gtk.Align.CENTER;
+        icon.gicon = new ThemedIcon (icon_name);
+        icon.pixel_size = 16;
 
-        var title_name = new Gtk.Label ("<b>" + item_name + "</b>");
+        var title_name = new Gtk.Label (item_name);
+        title_name.margin_bottom = 1;
         title_name.use_markup = true;
 
         primary_label = new Gtk.Label (null);
@@ -109,10 +112,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         primary_revealer.valign = Gtk.Align.CENTER;
         primary_revealer.halign = Gtk.Align.CENTER;
         primary_revealer.add (primary_label);
-        primary_revealer.reveal_child = false;
+        primary_revealer.reveal_child = true;
 
         secondary_label = new Gtk.Label (null);
-        secondary_label.get_style_context ().add_class ("badge");
+        secondary_label.get_style_context ().add_class ("dim-label");
         secondary_label.valign = Gtk.Align.CENTER;
 
         secondary_revealer = new Gtk.Revealer ();
@@ -120,25 +123,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         secondary_revealer.valign = Gtk.Align.CENTER;
         secondary_revealer.halign = Gtk.Align.CENTER;
         secondary_revealer.add (secondary_label);
-        secondary_revealer.reveal_child = false;
-
-        var loading_spinner = new Gtk.Spinner ();
-        loading_spinner.active = true;
-        loading_spinner.start ();
-
-        var loading_revealer = new Gtk.Revealer ();
-        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        loading_revealer.add (loading_spinner);
-        loading_revealer.reveal_child = false;
+        secondary_revealer.reveal_child = true;
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.margin = 6;
+        main_box.margin = 3;
+        main_box.margin_start = 6;
         
         main_box.pack_start (icon, false, false, 0);
-        main_box.pack_start (title_name, false, false, 11);
+        main_box.pack_start (title_name, false, false, 6);
         main_box.pack_end (primary_revealer, false, false, 0);
         main_box.pack_end (secondary_revealer, false, false, 0);
-        main_box.pack_end (loading_revealer, false, false, 6);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
