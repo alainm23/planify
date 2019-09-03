@@ -14,15 +14,15 @@
     border-top-left-radius: 0;
 }
 
-.listview-header {
+.projectview_header {
     background-color: @base_color;
 }
 
-.listview-header:dir(ltr) {
+.projectview_header:dir(ltr) {
     border-top-left-radius: 0;
 }
 
-.listview-header:dir(rtl) {
+.projectview_header:dir(rtl) {
     border-top-right-radius: 0;
 }
 
@@ -49,33 +49,57 @@ paned > separator {
     border-bottom-right-radius: 4px;
 }
 
-.pane .inline-toolbar {
-    background-color: @bg_color;
-    -gtk-icon-style: symbolic;
-}
-
-.pane .inline-toolbar button {
-    padding: 6px;
-}
-
 /*
     Pane
 */
 
-.pane-row {
+.pane-item {
+    font-weight: 600;
+}
+
+.action-row {
     transition: all 240ms ease-in-out;
     background-color: transparent;
 }
 
-.pane-row:selected {
+.action-row:selected {
     background-color: shade (@base_color, 0.92);
+    color: @text_color;
 }
 
-.inbox-row image {
+.project-row {
+    transition: all 240ms ease-in-out;
+    background-color: transparent;
+}
+
+.project-row:selected {
+    background-color: shade (@base_color, 0.92);
+    color: @text_color;
+}
+
+.project-row button {
+    background-color: transparent;
+}
+
+.project-row:selected:focus image {
+    color: @text_color;
+    opacity: 0.75;
+}
+
+/*
+.inbox-row:selected {
     color: #3689e6;	
 }
 
-.inbox-row:selected {
+.today-row:selected {
+    color: #f9c440;
+}
+
+.upcoming-row:selected {
+    color: #ed5353;
+}
+*/
+.inbox-row image {
     color: #3689e6;	
 }
 
@@ -83,15 +107,7 @@ paned > separator {
     color: #f9c440;
 }
 
-.today-row:selected {
-    color: #f9c440;
-}
-
 .upcoming-row image {
-    color: #ed5353;
-}
-
-.upcoming-row:selected {
     color: #ed5353;
 }
 
@@ -123,11 +139,89 @@ paned > separator {
 }
 
 .active {
-  animation-name: fancy-turn;
-  animation-duration: 0.7s;
-  animation-timing-function: ease-in-out;
+  animation: fancy-turn 0.7s ease-in-out;
+}
+
+@keyframes add-animation {
+    0% { -gtk-icon-transform: rotate(0deg); }
+    100% { -gtk-icon-transform: rotate(180deg); }
 }
 
 .font-size-small {
     font-size: 10px;
+}
+
+/*
+    OAuth Dialog
+*/
+
+.oauth-dialog {
+    background-color: @base_color;
+}
+
+.text-color {
+    color: @text_color;
+}
+
+.quick-find {
+    border-radius: 4px;
+}
+
+.settings-button {
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.add-project-image {
+    transition: all 240ms ease-in-out;
+}
+
+.add-project-label {
+    transition: all 240ms ease-in-out;
+}
+
+.add-project-label.active {
+    color: #3689e6;
+}
+
+.add-project-image.active {
+    animation: add-animation 0.5s ease-in-out;
+
+    background-color: #3689e6;
+    color: @color_text;
+    border-radius: 4px;
+}
+
+.add-project-widget {
+    border-radius: 6px;
+    border: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    text-shadow: none;
+    margin: 12px;
+    background-color: @bg_color;
+}
+
+.color-radio radio,
+.color-radio radio:checked {
+    border-color: alpha (#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        0 1px 0 0 alpha (@accentColor, 0.3);
+    padding: 3px;
+    -gtk-icon-shadow: none;
+}
+  
+.color-radio radio:focus {
+    border-color: @colorAccent;
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        inset 0 0 0 1px alpha (@accentColor, 0.05),
+        0 1px 0 0 alpha (@accentColor, 0.3),
+        0 0 0 1px alpha (@accentColor, 0.25);
+}
+
+.sync-image-rotate {
+    -gtk-icon-transform: rotate(45deg);
 }

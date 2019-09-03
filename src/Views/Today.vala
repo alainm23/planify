@@ -8,7 +8,7 @@ public class Views.Today : Gtk.EventBox {
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        title_label.get_style_context ().add_class ("today");
+        //title_label.get_style_context ().add_class ("today");
         title_label.use_markup = true;
 
         var date_label = new Gtk.Label (new GLib.DateTime.now_local ().format (Granite.DateTime.get_default_date_format (false, true, false)));

@@ -1,17 +1,20 @@
 public class Widgets.Pane : Gtk.EventBox {
+    private Gtk.Stack stack;
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
 
-    private Gtk.ListBox action_listbox;
-    private Gtk.ListBox project_listbox;
-    private Gtk.ListBox label_listbox;
+    private Gtk.ListBox listbox;
 
     public signal void activated (string type, int? id);
 
     public bool sensitive_ui {
         set {
-            
+            if (value) {
+                stack.visible_child_name = "scrolled";
+            } else {
+                stack.visible_child_name = "grid";
+            }
         }
     }
     public Pane () {
@@ -19,53 +22,80 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     construct {
-        get_style_context ().add_class ("welcome");
-
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Create new task"));
-        inbox_row.secondary_text = "3";
+        inbox_row.primary_text = "3";
 
         today_row = new Widgets.ActionRow (_("Today"), "user-bookmarks-symbolic", "today", _("Create new task"));
-        today_row.secondary_text = "8";
+        today_row.primary_text = "4";
         
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Create new task"));
-        upcoming_row.secondary_text = "10";
+        //upcoming_row.primary_text = "10";
+        upcoming_row.margin_bottom = 6;
 
         // Menu
         var username = GLib.Environment.get_user_name ();
         var iconfile = @"/var/lib/AccountsService/icons/$username";
-
         var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 16);
-        user_avatar.margin_start = 2;
 
-        var username_label = new Gtk.Label ("%s".printf (GLib.Environment.get_real_name ()));
+        var username_label = new Gtk.Label (Application.settings.get_string ("user-name"));
+        username_label.get_style_context ().add_class ("pane-item");
+        username_label.margin_top = 1;
         username_label.halign = Gtk.Align.CENTER;
         username_label.valign = Gtk.Align.CENTER;
-        username_label.margin_bottom = 1;
         username_label.use_markup = true;
 
         // Search Button
-        var search_button = new Gtk.Button.from_icon_name ("system-search-symbolic", Gtk.IconSize.MENU);
+        var search_button = new Gtk.Button ();
         search_button.can_focus = false;
-        //search_button.tooltip_text = _("See calendar of events");
+        search_button.tooltip_text = _("Quick Search");
         search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
+        search_button.get_style_context ().add_class ("settings-button");
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
-        // Search Button
-        var settings_button = new Gtk.Button.from_icon_name ("preferences-system-symbolic", Gtk.IconSize.MENU);
+        var search_image = new Gtk.Image ();
+        search_image.gicon = new ThemedIcon ("edit-find-symbolic");
+        search_image.pixel_size = 14;
+        search_button.image = search_image;
+
+        var settings_button = new Gtk.Button ();
         settings_button.can_focus = false;
-        //settings_button.tooltip_text = _("See calendar of events");
+        settings_button.tooltip_text = _("Preferences");
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.halign = Gtk.Align.CENTER;
+        settings_button.get_style_context ().add_class ("settings-button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("open-menu-symbolic");
+        settings_image.pixel_size = 14;
+        settings_button.image = settings_image;
+
+        var sync_button = new Gtk.Button ();
+        sync_button.can_focus = false;
+        sync_button.tooltip_text = _("Sync");
+        sync_button.valign = Gtk.Align.CENTER;
+        sync_button.halign = Gtk.Align.CENTER;
+        sync_button.get_style_context ().add_class ("settings-button");
+        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var sync_image = new Gtk.Image ();
+        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
+        sync_image.get_style_context ().add_class ("sync-image-rotate");
+        sync_image.pixel_size = 16;
+        sync_button.image = sync_image;
+
+        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+        profile_box.margin_start = 2;
+        profile_box.margin_end = 2;
         profile_box.get_style_context ().add_class ("pane");
         profile_box.pack_start (user_avatar, false, false, 0);
         profile_box.pack_start (username_label, false, false, 0);
         profile_box.pack_end (settings_button, false, false, 0);
+        profile_box.pack_end (sync_button, false, false, 0);
         profile_box.pack_end (search_button, false, false, 0);
 
         // Search Entry
@@ -74,6 +104,7 @@ public class Widgets.Pane : Gtk.EventBox {
         search_entry.valign = Gtk.Align.CENTER;
         search_entry.hexpand = true;
         search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        search_entry.get_style_context ().add_class ("quick-find");
         search_entry.placeholder_text = _("Quick find");
 
         var search_entry_grid = new Gtk.Grid ();
@@ -83,122 +114,154 @@ public class Widgets.Pane : Gtk.EventBox {
         search_entry_grid.add (search_entry);
         search_entry_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        var show_project_image = new Gtk.Image.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        show_project_image.get_style_context ().add_class ("show-button");
-        show_project_image.get_style_context ().add_class ("closed");
+        var HAND_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND1);
+        var ARROW_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.ARROW);
+        var window = Gdk.Screen.get_default ().get_root_window ();
 
-        var show_project_label = new Gtk.Label ("<b>%s</b>".printf (_("Projects")));
-        show_project_label.use_markup = true;
-    
-        var show_project_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        show_project_box.margin_start = 6;
-        show_project_box.pack_start (show_project_image, false, false, 0);
-        show_project_box.pack_start (show_project_label, false, false, 0);
+        var add_image = new Gtk.Image ();
+        add_image.valign = Gtk.Align.CENTER;
+        add_image.gicon = new ThemedIcon ("list-add-symbolic");
+        add_image.get_style_context ().add_class ("add-project-image");
+        add_image.pixel_size = 14;
 
-        var show_project_eventbox = new Gtk.EventBox ();
-        show_project_eventbox.add (show_project_box);
+        var add_label = new Gtk.Label (_("New Project"));
+        add_label.get_style_context ().add_class ("pane-item");
+        add_label.get_style_context ().add_class ("add-project-label");
+        add_label.margin_bottom = 1;
+        add_label.use_markup = true;
 
-        var add_projects_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        add_projects_button.can_focus = false;
-        add_projects_button.tooltip_text = _("Add new project");
-        add_projects_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        var add_grid = new Gtk.Grid ();
+        add_grid.margin_bottom = 6;
+        add_grid.margin_top = 6;
+        add_grid.margin_start = 8;
+        add_grid.column_spacing = 6;
+        add_grid.add (add_image);
+        add_grid.add (add_label);
 
-        var show_projects_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        show_projects_box.hexpand = true;
-        //show_projects_box.get_style_context ().add_class ("view");
-        show_projects_box.pack_start (show_project_eventbox, true, true, 0);
-        show_projects_box.pack_end (add_projects_button, false, false, 0);
+        var add_eventbox = new Gtk.EventBox ();
+        add_eventbox.valign = Gtk.Align.CENTER;
+        add_eventbox.add (add_grid);
 
-        /*
-            Labels
-        */
+        var add_revealer = new Gtk.Revealer ();
+        add_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        add_revealer.reveal_child = true;
+        add_revealer.add (add_eventbox);
 
-        var show_label_image = new Gtk.Image.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        show_label_image.get_style_context ().add_class ("show-button");
-        show_label_image.get_style_context ().add_class ("closed");
-
-        var show_label_label = new Gtk.Label ("<b>%s</b>".printf (_("Labels")));
-        show_label_label.use_markup = true;
-    
-        var show_label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        show_label_box.margin_start = 6;
-        show_label_box.pack_start (show_label_image, false, false, 0);
-        show_label_box.pack_start (show_label_label, false, false, 0);
-
-        var show_label_eventbox = new Gtk.EventBox ();
-        show_label_eventbox.add (show_label_box);
-
-        var add_label_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        add_label_button.can_focus = false;
-        add_label_button.tooltip_text = _("Add new project");
-        add_label_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        label_box.hexpand = true;
-        //label_box.get_style_context ().add_class ("view");
-        label_box.pack_start (show_label_eventbox, true, true, 0);
-        label_box.pack_end (add_label_button, false, false, 0);
-
-        action_listbox = new Gtk.ListBox  ();
-        action_listbox.margin_top = 6;
-        action_listbox.margin_bottom = 6;
-        action_listbox.get_style_context ().add_class ("pane");
-        action_listbox.activate_on_single_click = true;
-        action_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        action_listbox.hexpand = true;
+        listbox = new Gtk.ListBox  ();
+        listbox.margin_top = listbox.margin_bottom = 6;
+        listbox.get_style_context ().add_class ("pane");
+        //listbox.get_style_context ().add_class ("welcome");
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.hexpand = true;
         
-        action_listbox.add (inbox_row);
-        action_listbox.add (today_row);
-        action_listbox.add (upcoming_row);
+        listbox.add (inbox_row);
+        listbox.add (today_row);
+        listbox.add (upcoming_row);
 
-        project_listbox = new Gtk.ListBox  ();
-        project_listbox.get_style_context ().add_class ("pane");
-        project_listbox.activate_on_single_click = true;
-        project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        project_listbox.hexpand = true;
+        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled.width_request = 246;
+        listbox_scrolled.expand = true;
+        listbox_scrolled.add (listbox);
 
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        //separator.margin_start = 9;
-        //separator.margin_end = 9;
-
-        var separator_2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator_2.margin_start = 9;
-        separator_2.margin_end = 9;
+        var new_project = new Widgets.NewProject ();
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.get_style_context ().add_class ("pane");
         main_box.pack_start (profile_box, false, false, 0);
-        //main_box.pack_start (separator_2, false, false, 0);
         //main_box.pack_start (search_entry_grid, false, false, 0);
-        main_box.pack_start (action_listbox, false, false, 0);
-        //main_box.pack_start (separator, false, false, 0);
-        //main_box.pack_start (show_projects_box, false, false, 0);
-        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        //main_box.pack_start (project_listbox, false, false, 0);
+        main_box.pack_start (listbox_scrolled, true, true, 0);
+        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);     
+        main_box.pack_end (add_revealer, false, false, 0);  
 
-        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        //main_box.pack_start (label_box, false, false, 0);
-        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
+        var overlay = new Gtk.Overlay ();
+        overlay.add_overlay (new_project);
+        overlay.add (main_box); 
 
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.expand = true;
-        scrolled.add (main_box);
+        var grid = new Gtk.Grid ();
+        grid.get_style_context ().add_class ("pane");
+        grid.expand = true;
 
-        add (scrolled);
+        stack = new Gtk.Stack ();
+        stack.expand = true;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        action_listbox.row_selected.connect ((row) => {
-            var action = (ActionRow) row;
+        stack.add_named (overlay, "scrolled");
+        stack.add_named (grid, "grid");
 
-            activated ("action", row.get_index ());
+        add (stack);
+        add_all_projects ();
 
-            action.icon.get_style_context ().add_class ("active");
-            action.secondary_label.get_style_context ().add_class ("text_color");
+        listbox.row_selected.connect ((row) => {
+            if (row != null) {
+                if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2) {
+                    var action = (ActionRow) row;
 
-            Timeout.add (700, () => {
-                action.icon.get_style_context ().remove_class ("active");
+                    activated ("action", row.get_index ());
+
+                    action.icon.get_style_context ().add_class ("active");
+                    action.secondary_label.get_style_context ().add_class ("text_color");
+
+                    Timeout.add (700, () => {
+                        action.icon.get_style_context ().remove_class ("active");
+                        return false;
+                    });
+                }
+            }
+        });
+
+        add_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                new_project.reveal = true;
+            }
+
+            return false;
+        });
+
+        add_eventbox.enter_notify_event.connect ((event) => {
+            add_image.get_style_context ().add_class ("active");
+            add_label.get_style_context ().add_class ("active");
+            
+            window.cursor = HAND_cursor;
+            return true;
+        });
+
+        add_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
-            });
+            }
+
+            window.cursor = ARROW_cursor;
+            add_image.get_style_context ().remove_class ("active");
+            add_label.get_style_context ().remove_class ("active");
+
+            return true;
+        });
+
+        Application.database.project_added.connect ((project) => {
+            var row = new Widgets.ProjectRow (project);
+            listbox.add (row);
+            listbox.show_all ();
+        });
+
+        new_project.reveal_activated.connect ((val) => {
+            add_revealer.reveal_child = !val;
         });
     } 
+
+    public void add_all_projects () {
+        var all = new Gee.ArrayList<Objects.Project?> ();
+        all = Application.database.get_all_projects ();
+            
+        foreach (Objects.Project project in all) {
+            if (project.inbox_project == 0) {
+                var row = new Widgets.ProjectRow (project);
+                listbox.add (row);
+            }
+            
+        }
+
+        listbox.show_all ();
+    }
 }

@@ -25,6 +25,7 @@ public class Application : Gtk.Application {
     public static Utils utils;
     public static GLib.Settings settings;
     public static Services.Database database;
+    public static Services.Todoist todoist;
 
     public Application () {
         Object (
@@ -38,6 +39,7 @@ public class Application : Gtk.Application {
 
         settings = new Settings ("com.github.alainm23.planner2");
         database = new Services.Database ();
+        todoist = new Services.Todoist ();
     }
 
     public static Application _instance = null;

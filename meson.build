@@ -31,13 +31,20 @@ executable(
 
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
-
+    'src/Widgets/NewProject.vala',
+    'src/Widgets/ProjectRow.vala',
+    
     'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
     
     'src/Services/Database.vala',
+    'src/Services/Todoist.vala',
+
+    'src/Dialogs/TodoistOAuth.vala',
+
+    'src/Objects/Project.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('gobject-2.0'),
@@ -46,7 +53,7 @@ executable(
         dependency('sqlite3'),
         dependency('gtk+-3.0'),
         dependency('json-glib-1.0'),
-        dependency('gtksourceview-3.0'),
+        dependency('webkit2gtk-4.0'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

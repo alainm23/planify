@@ -8,7 +8,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Upcoming")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        title_label.get_style_context ().add_class ("upcoming");
+        //title_label.get_style_context ().add_class ("upcoming");
         title_label.use_markup = true;
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

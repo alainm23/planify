@@ -8,7 +8,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        title_label.get_style_context ().add_class ("inbox");
+        //title_label.get_style_context ().add_class ("inbox");
         title_label.use_markup = true;
 
         var settings_button = new Gtk.MenuButton ();

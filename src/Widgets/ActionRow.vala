@@ -83,7 +83,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("pane-row");
+        get_style_context ().add_class ("action-row");
 
         if (item_base_name == "inbox") {
             get_style_context ().add_class ("inbox-row");
@@ -99,10 +99,12 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         icon.pixel_size = 16;
 
         var title_name = new Gtk.Label (item_name);
+        title_name.get_style_context ().add_class ("pane-item");
         title_name.margin_bottom = 1;
         title_name.use_markup = true;
 
         primary_label = new Gtk.Label (null);
+        primary_label.get_style_context ().add_class ("dim-label");
         primary_label.valign = Gtk.Align.CENTER;
         primary_label.halign = Gtk.Align.CENTER;
 
@@ -117,6 +119,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         secondary_label = new Gtk.Label (null);
         secondary_label.get_style_context ().add_class ("dim-label");
         secondary_label.valign = Gtk.Align.CENTER;
+        secondary_label.halign = Gtk.Align.CENTER;
 
         secondary_revealer = new Gtk.Revealer ();
         secondary_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
@@ -126,9 +129,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         secondary_revealer.reveal_child = true;
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.margin = 3;
+        main_box.margin = 6;
         main_box.margin_start = 6;
-        
+
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);
         main_box.pack_end (primary_revealer, false, false, 0);

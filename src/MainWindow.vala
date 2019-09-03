@@ -39,63 +39,18 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var listview_header = new Gtk.HeaderBar ();
-        listview_header.has_subtitle = false;
-        listview_header.decoration_layout = ":";
-        listview_header.show_close_button = true;
-        listview_header.get_style_context ().add_class ("listview-header");
-        listview_header.get_style_context ().add_class ("titlebar");
-        listview_header.get_style_context ().add_class ("default-decoration");
-        listview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        
-        // Menu
-        var username = GLib.Environment.get_user_name ();
-        var iconfile = @"/var/lib/AccountsService/icons/$username";
-
-        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 16);
-        user_avatar.margin_start = 2;
-
-        var username_label = new Gtk.Label ("%s".printf (GLib.Environment.get_real_name ()));
-        username_label.halign = Gtk.Align.CENTER;
-        username_label.valign = Gtk.Align.CENTER;
-        username_label.margin_bottom = 1;
-        username_label.use_markup = true;
-
-        // Search Button
-        var search_button = new Gtk.Button.from_icon_name ("system-search-symbolic", Gtk.IconSize.MENU);
-        search_button.can_focus = false;
-        //search_button.tooltip_text = _("See calendar of events");
-        search_button.valign = Gtk.Align.CENTER;
-        search_button.halign = Gtk.Align.CENTER;
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-
-        // Search Button
-        var settings_button = new Gtk.Button.from_icon_name ("preferences-system-symbolic", Gtk.IconSize.MENU);
-        settings_button.can_focus = false;
-        //settings_button.tooltip_text = _("See calendar of events");
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.halign = Gtk.Align.CENTER;
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        profile_box.hexpand = true;
-        profile_box.get_style_context ().add_class ("pane");
-        profile_box.pack_start (user_avatar, false, false, 0);
-        profile_box.pack_start (username_label, false, false, 0);
-        profile_box.pack_end (settings_button, false, false, 0);
-        profile_box.pack_end (search_button, false, false, 0);
-
-        //sidebar_header.custom_title = profile_box;
-        //sidebar_header.pack_end (sync_button);
-        //sidebar_header.pack_end (notification_button);
-        //sidebar_header.pack_end (calendar_button);
-        //sidebar_header.pack_end (search_button);
+        var projectview_header = new Gtk.HeaderBar ();
+        projectview_header.has_subtitle = false;
+        projectview_header.decoration_layout = ":";
+        projectview_header.show_close_button = true;
+        projectview_header.get_style_context ().add_class ("projectview_header");
+        projectview_header.get_style_context ().add_class ("titlebar");
+        projectview_header.get_style_context ().add_class ("default-decoration");
+        projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
-        header_paned.pack2 (listview_header, true, false);
+        header_paned.pack2 (projectview_header, true, false);
 
         var listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("sidebar");
@@ -104,7 +59,7 @@ public class MainWindow : Gtk.Window {
         scrolledwindow.expand = true;
         scrolledwindow.add (listbox);
         
-        var pane = new Widgets.Pane ();
+        pane = new Widgets.Pane ();
         
         var welcome_view = new Views.Welcome ();
         var inbox_view = new Views.Inbox ();
@@ -113,7 +68,7 @@ public class MainWindow : Gtk.Window {
 
         var stack = new Gtk.Stack ();
         stack.expand = true;
-        stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+        stack.transition_type = Gtk.StackTransitionType.NONE;
         
         stack.add_named (welcome_view, "welcome_view");
         stack.add_named (inbox_view, "inbox_view");
@@ -133,6 +88,24 @@ public class MainWindow : Gtk.Window {
         Application.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Application.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
+        welcome_view.activated.connect ((index) => {
+            if (index == 0) {
+                // Save user name
+                Application.settings.set_string ("user-name", GLib.Environment.get_real_name ());
+
+                // Create Inbox Project
+                var inbox_project = Application.database.create_inbox_project ();
+                Application.settings.set_int ("inbox-project", inbox_project.id);
+
+                //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+                stack.visible_child_name = "inbox_view";
+                pane.sensitive_ui = true;
+            } else {
+                var todoistOAuth = new Dialogs.TodoistOAuth ();
+                todoistOAuth.show_all ();
+            }
+        });
+
         pane.activated.connect ((type, id) => {
             if (type == "action") {
                 if (id == 0) {
@@ -145,14 +118,15 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        Timeout.add (150, () => {
+        Timeout.add (125, () => {
             if (Application.database.is_database_empty ()) {
+                //stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "welcome_view";
-                //headerbar.visible_ui = true;
-                //Application.database.start_create_projects ();
+                pane.sensitive_ui = false;
             } else {
-                //stack.visible_child_name = "welcome_view";
-                //headerbar.visible_ui = false;
+                //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+                stack.visible_child_name = "inbox_view";
+                pane.sensitive_ui = true;
             }
              
             return false;
