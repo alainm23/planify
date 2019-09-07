@@ -23,11 +23,22 @@ public class Services.Todoist : GLib.Object {
     private Soup.Session session;
     private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v8/sync";
     
+    public signal void first_sync_started ();
+    public signal void first_sync_finished ();
+
+    public signal void project_added_started ();
+    public signal void project_added_completed ();
+    public signal void project_added_error (int error_code, string error_message);
+
+    public signal void avatar_downloaded ();
+
     public Todoist () {
         session = new Soup.Session ();
     }
 
     public void get_todoist_token (string url) {
+        first_sync_started ();
+
         try {
             string code = url.split ("=") [2];
             string response = "";
@@ -52,100 +63,91 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void first_sync (string token) {
-        string url = TODOIST_SYNC_URL;
-        url = url + "?token=" + token;
-        url = url + "&sync_token=" + "*";
-        url = url + "&resource_types=" + "[\"all\"]";
+        new Thread<void*> ("first_sync", () => {
+            string url = TODOIST_SYNC_URL;
+            url = url + "?token=" + token;
+            url = url + "&sync_token=" + "*";
+            url = url + "&resource_types=" + "[\"all\"]";
 
-        //Application.settings.set_string ("todoist-access-token", token);
-
-        var message = new Soup.Message ("POST", url);
-        session.queue_message (message, (sess, mess) => {
-            if (mess.status_code == 200) {
-                var parser = new Json.Parser ();
-                
-                try {
-                    parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+            var message = new Soup.Message ("POST", url);
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    var parser = new Json.Parser ();
                     
-                    var node = parser.get_root ().get_object ();
-
-                    // Create user
-                    var user_object = node.get_object_member ("user");
-         
-                    Application.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
-                    Application.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
-                    Application.settings.set_string ("todoist-access-token", token);
-
-                    Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                    Application.settings.set_int ("inbox-project", (int32) user_object.get_int_member ("inbox_project"));
-
-                    Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
-                    Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-                    Application.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
-
-                    Application.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
-                    Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-                    Application.settings.set_boolean ("todoist-account", true);
-                    /*
-                    // Update sync token
-                    Application.database.update_sync_token (sync_token, full_sync);
-                    
-                    // Download Avatar
-                    download_profile_image (user.id.to_string (), user.avatar);
-
-                    if (Application.database.create_user (user)) {
-                        Application.user = user;
+                    try {
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
                         
-                        
+                        var node = parser.get_root ().get_object ();
 
-                        sync_finished ();
-                        start_sync ();
-                    }
-                    */
+                        // Create user
+                        var user_object = node.get_object_member ("user");
+            
+                        Application.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
+                        Application.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
+                        Application.settings.set_string ("todoist-access-token", token);
 
-                    // Create projects
-                    unowned Json.Array array = node.get_array_member ("projects");
+                        Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+                        Application.settings.set_int ("inbox-project", (int32) user_object.get_int_member ("inbox_project"));
 
-                    foreach (unowned Json.Node item in array.get_elements ()) {
-                        var object = item.get_object();
+                        Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
+                        Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+                        Application.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
 
-                        var project = new Objects.Project ();
+                        Application.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
+                        Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+                        Application.settings.set_boolean ("todoist-account", true);
 
-                        project.id = (int32) object.get_int_member ("id");
-                        project.name = object.get_string_member ("name");
-                        project.color = (int32) object.get_int_member ("color");
+                        // Create projects
+                        unowned Json.Array array = node.get_array_member ("projects");
 
-                        if (object.get_boolean_member ("team_inbox")) {
-                            project.team_inbox = 1;
-                        } else {
-                            project.team_inbox = 0;
+                        foreach (unowned Json.Node item in array.get_elements ()) {
+                            var object = item.get_object();
+
+                            var project = new Objects.Project ();
+
+                            project.id = (int32) object.get_int_member ("id");
+                            project.name = object.get_string_member ("name");
+                            project.color = (int32) object.get_int_member ("color");
+
+                            if (object.get_boolean_member ("team_inbox")) {
+                                project.team_inbox = 1;
+                            } else {
+                                project.team_inbox = 0;
+                            }
+
+                            if (object.get_boolean_member ("inbox_project")) {
+                                project.inbox_project = 1;
+                            } else {
+                                project.inbox_project = 0;
+                            }
+
+                            project.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            project.is_archived = (int32) object.get_int_member ("is_archived");
+                            project.is_favorite = (int32) object.get_int_member ("is_favorite");
+                            project.is_todoist = 1;
+                            project.is_sync = 1;
+
+                            Application.database.insert_project (project);
                         }
 
-                        if (object.get_boolean_member ("inbox_project")) {
-                            project.inbox_project = 1;
-                        } else {
-                            project.inbox_project = 0;
-                        }
+                        // Download Profile Image
+                        Application.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
 
-                        project.child_order = (int32) object.get_int_member ("child_order");
-                        project.is_deleted = (int32) object.get_int_member ("is_deleted");
-                        project.is_archived = (int32) object.get_int_member ("is_archived");
-                        project.is_favorite = (int32) object.get_int_member ("is_favorite");
-                        project.is_todoist = 1;
-                        project.is_sync = 1;
-
-                        Application.database.insert_project (project);
+                        first_sync_finished ();
+                    } catch (Error e) {
+                        show_message("Request page fail", e.message, "dialog-error");
                     }
-                } catch (Error e) {
-                    show_message("Request page fail", e.message, "dialog-error");
+                } else {
+                    show_message("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
                 }
-            } else {
-                show_message("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
-            }
-        });
+            });
+
+            return null;
+        }); 
     }
 
     public void add_project (Objects.Project project) {
+        project_added_started ();
         new Thread<void*> ("todoist_add_project", () => {
             string temp_id = Application.utils.generate_string ();
             string uuid = Application.utils.generate_string ();
@@ -177,18 +179,19 @@ public class Services.Todoist : GLib.Object {
 
                             if (Application.database.insert_project (project)) {
                                 print ("Proyecto creado: %s\n".printf (project.name));
+                                project_added_completed ();
                             }
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            show_message("Error %i".printf (http_code), error_message, "dialog-error");
+                            project_added_error (http_code, error_message);
                         }
                     } catch (Error e) {
-                        show_message("Request page fail", e.message, "dialog-error");
+                        project_added_error ((int32) mess.status_code, e.message);
                     }
                 } else {
-                    show_message("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
+                    project_added_error ((int32) mess.status_code, _("Connection error"));
                 }
             });
             

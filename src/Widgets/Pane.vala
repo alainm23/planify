@@ -3,10 +3,14 @@ public class Widgets.Pane : Gtk.EventBox {
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
-
+    
     private Gtk.ListBox listbox;
 
     public signal void activated (string type, int? id);
+    
+    private const Gtk.TargetEntry[] targetEntries = {
+        {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
 
     public bool sensitive_ui {
         set {
@@ -35,6 +39,7 @@ public class Widgets.Pane : Gtk.EventBox {
         // Menu
         var username = GLib.Environment.get_user_name ();
         var iconfile = @"/var/lib/AccountsService/icons/$username";
+
         var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 16);
 
         var username_label = new Gtk.Label (Application.settings.get_string ("user-name"));
@@ -148,9 +153,8 @@ public class Widgets.Pane : Gtk.EventBox {
         add_revealer.add (add_eventbox);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_top = listbox.margin_bottom = 6;
+        listbox.margin_top = 6;
         listbox.get_style_context ().add_class ("pane");
-        //listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -193,6 +197,8 @@ public class Widgets.Pane : Gtk.EventBox {
         add (stack);
         add_all_projects ();
 
+        build_drag_and_drop ();
+
         listbox.row_selected.connect ((row) => {
             if (row != null) {
                 if (row.get_index () == 0 || row.get_index () == 1 || row.get_index () == 2) {
@@ -207,6 +213,9 @@ public class Widgets.Pane : Gtk.EventBox {
                         action.icon.get_style_context ().remove_class ("active");
                         return false;
                     });
+                } else {
+                    var project = ((ProjectRow) row).project;
+                    activated ("project", project.id);
                 }
             }
         });
@@ -240,14 +249,33 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         Application.database.project_added.connect ((project) => {
-            var row = new Widgets.ProjectRow (project);
-            listbox.add (row);
-            listbox.show_all ();
+            Idle.add (() => {
+                var row = new Widgets.ProjectRow (project);
+                listbox.add (row);
+                listbox.show_all ();
+
+                return false;
+            });
         });
 
         new_project.reveal_activated.connect ((val) => {
             add_revealer.reveal_child = !val;
         });
+
+        Application.todoist.first_sync_finished.connect (() => {
+            username_label.label = Application.settings.get_string ("user-name");
+        });
+
+        Application.todoist.avatar_downloaded.connect (() => {
+            try {
+                user_avatar.pixbuf = new Gdk.Pixbuf.from_file_at_size (
+                    GLib.Path.build_filename (Application.utils.AVATARS_FOLDER, ("avatar.jpg")),
+                    16,
+                    16);
+            } catch (Error e) {
+                stderr.printf ("Error setting default avatar icon: %s ", e.message);
+            }
+        }); 
     } 
 
     public void add_all_projects () {
@@ -263,5 +291,68 @@ public class Widgets.Pane : Gtk.EventBox {
         }
 
         listbox.show_all ();
+    }
+
+    private void build_drag_and_drop () {
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+
+        listbox.drag_data_received.connect (on_drag_data_received);
+        listbox.drag_motion.connect (on_drag_motion);
+        //listbox.drag_leave.connect (on_drag_leave);
+    }
+
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        ProjectRow target;
+        Gtk.Widget row;
+        ProjectRow source;
+        Gtk.Allocation alloc;
+
+        target = (ProjectRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+        
+        row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (ProjectRow) row;
+
+        if (target.get_index () != 0 && target.get_index () != 1 && target.get_index () != 2) {
+            //print ("RECIBE: %i\n".printf (target.get_index ()));
+            //print ("FUENTE: %i\n".printf (source.get_index ()));
+
+            if (target.get_index () != source.get_index ()) {
+                source.get_parent ().remove (source); 
+                listbox.insert (source, target.get_index ());
+                listbox.show_all ();
+
+                update_project_order ();
+            }            
+        }
+    }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        var row = (ProjectRow) listbox.get_row_at_y (y);
+        row.reveal_drag_motion = true;
+
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        //get_style_context ().remove_class ("highlight");
+        //window.main_window.right_sidebar.indicator.visible = false;
+    }
+
+    private void update_project_order () {
+        listbox.foreach ((widget) => {
+            var row = (Gtk.ListBoxRow) widget;
+            int index = row.get_index ();
+
+            if (index != 0 && index != 1 && index != 2) {
+                var project = ((ProjectRow) row).project;
+
+                new Thread<void*> ("update_project_order", () => {
+                    Application.database.update_project_child_order (project.id, index - 3);
+
+                    return null;
+                });
+            }
+        });
     }
 }

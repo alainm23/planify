@@ -2,6 +2,14 @@ public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "1234567890";
     
+    public string APP_FOLDER;
+    public string AVATARS_FOLDER;
+    
+    public Utils () {
+        APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
+        AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
+    }
+
     public void create_dir_with_parents (string dir) {
         string path = Environment.get_home_dir () + dir;
         File tmp = File.new_for_path (path);
@@ -56,5 +64,60 @@ public class Utils : GLib.Object {
         colors.set (49, "#ccac93");
 
         return colors.get (key);
-    }   
+    }
+
+    public void apply_styles (string id, string color, Gtk.RadioButton radio) {
+        string COLOR_CSS = """
+            .color-%s radio {
+                background: %s;
+                border-color: @bg_color;
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+        radio.get_style_context ().add_class ("color-%s".printf (id));
+        radio.get_style_context ().add_class ("color-radio");
+
+        try {
+            var colored_css = COLOR_CSS.printf (
+                id,
+                color
+            );
+
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
+
+    public void download_profile_image (string avatar) {
+        // Create file
+        var image_path = GLib.Path.build_filename (AVATARS_FOLDER, "avatar.jpg");
+
+        var file_path = File.new_for_path (image_path);
+        var file_from_uri = File.new_for_uri (avatar);
+        if (file_path.query_exists () == false) {
+            MainLoop loop = new MainLoop ();
+
+            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                // Report copy-status:
+                print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
+            }, (obj, res) => {
+                try {
+                    if (file_from_uri.copy_async.end (res)) {
+                        print ("Avatar Profile Downloaded\n");
+                        Application.todoist.avatar_downloaded ();
+                    }
+                } catch (Error e) {
+                    print ("Error: %s\n", e.message);
+                }
+
+                loop.quit ();
+            });
+
+            loop.run ();
+        }
+    }
 }

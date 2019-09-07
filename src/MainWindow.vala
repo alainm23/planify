@@ -65,6 +65,7 @@ public class MainWindow : Gtk.Window {
         var inbox_view = new Views.Inbox ();
         var today_view = new Views.Today ();
         var upcoming_view = new Views.Upcoming ();
+        var project_view = new Views.Project ();
 
         var stack = new Gtk.Stack ();
         stack.expand = true;
@@ -74,6 +75,7 @@ public class MainWindow : Gtk.Window {
         stack.add_named (inbox_view, "inbox_view");
         stack.add_named (today_view, "today_view");
         stack.add_named (upcoming_view, "upcoming_view");
+        stack.add_named (project_view, "project_view");
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.pack1 (pane, false, false);
@@ -115,22 +117,28 @@ public class MainWindow : Gtk.Window {
                 } else {
                     stack.visible_child_name = "upcoming_view";
                 }
+            } else {
+                stack.visible_child_name = "project_view";
+                project_view.project = Application.database.get_project_by_id (id);
             }
         });
 
         Timeout.add (125, () => {
             if (Application.database.is_database_empty ()) {
-                //stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "welcome_view";
                 pane.sensitive_ui = false;
             } else {
-                //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
                 stack.visible_child_name = "inbox_view";
                 pane.sensitive_ui = true;
             }
              
             return false;
-        }); 
+        });
+
+        Application.todoist.first_sync_finished.connect (() => {
+            stack.visible_child_name = "inbox_view";
+            pane.sensitive_ui = true;
+        });
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

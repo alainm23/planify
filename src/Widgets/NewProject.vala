@@ -26,13 +26,6 @@ public class Widgets.NewProject : Gtk.Revealer {
 
     public signal void reveal_activated (bool value);
 
-    public const string COLOR_CSS = """
-        .color-%s radio {
-            background: %s;
-            border-color: @bg_color;
-        }
-    """;
-
     public bool reveal {
         set {
             reveal_child = value;
@@ -65,16 +58,28 @@ public class Widgets.NewProject : Gtk.Revealer {
         var list_store = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
         source_combobox = new Gtk.ComboBox.with_model (list_store);
 
-        string local_text = " " + _("Local");
+        var error_icon = new Gtk.Image ();
+        error_icon.gicon = new ThemedIcon ("dialog-error-symbolic");
+        error_icon.pixel_size = 14;
 
+        var error_label = new Gtk.Label (null);
+        error_label.halign = Gtk.Align.START;
+        error_label.get_style_context ().add_class ("error_label");
+
+        var error_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        error_box.margin_top = 12;
+        error_box.pack_start (error_icon, false, false, 0);
+        error_box.pack_start (error_label, false, false, 3);
+
+        var error_revealer = new Gtk.Revealer ();
+        error_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        error_revealer.add (error_box);
+        error_revealer.reveal_child = false;
+
+        string local_text = " " + _("Local");        
         Gtk.TreeIter local_iter;
         list_store.append (out local_iter);
         list_store.@set (local_iter, 0, 0, 1, local_text, 2, "go-home");
-
-        string email_text = " " + Application.settings.get_string ("todoist-user-email");
-        Gtk.TreeIter todoist_iter;
-        list_store.append (out todoist_iter);
-        list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "preferences-desktop-online-accounts");
 
         var pixbuf_cell = new Gtk.CellRendererPixbuf ();
         source_combobox.pack_start (pixbuf_cell, false);
@@ -93,109 +98,117 @@ public class Widgets.NewProject : Gtk.Revealer {
         var source_revealer = new Gtk.Revealer ();
         source_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         source_revealer.add (source_box);
-        source_revealer.reveal_child = Application.settings.get_boolean ("todoist-account");
+
+        if (Application.settings.get_boolean ("todoist-account")) {
+            source_revealer.reveal_child = true;
+
+            string email_text = " " + Application.settings.get_string ("todoist-user-email");
+            Gtk.TreeIter todoist_iter;
+            list_store.append (out todoist_iter);
+            list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "preferences-desktop-online-accounts");
+        }
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
         var color_30 = new Gtk.RadioButton (null);
         color_30.valign = Gtk.Align.START;
         color_30.halign = Gtk.Align.START;
-        apply_styles ("30", "#b8255f", color_30);
+        Application.utils.apply_styles ("30", "#b8255f", color_30);
 
         var color_31 = new Gtk.RadioButton.from_widget (color_30);
         color_31.valign = Gtk.Align.START;
         color_31.halign = Gtk.Align.START;
-        apply_styles ("31", "#db4035", color_31);
+        Application.utils.apply_styles ("31", "#db4035", color_31);
 
         var color_32 = new Gtk.RadioButton.from_widget (color_30);
         color_32.valign = Gtk.Align.START;
         color_32.halign = Gtk.Align.START;
-        apply_styles ("32", "#ff9933", color_32);
+        Application.utils.apply_styles ("32", "#ff9933", color_32);
 
         var color_33 = new Gtk.RadioButton.from_widget (color_30);
         color_33.valign = Gtk.Align.START;
         color_33.halign = Gtk.Align.START;
-        apply_styles ("33", "#fad000", color_33);
+        Application.utils.apply_styles ("33", "#fad000", color_33);
 
         var color_34 = new Gtk.RadioButton.from_widget (color_30);
         color_34.valign = Gtk.Align.START;
         color_34.halign = Gtk.Align.START;
-        apply_styles ("34", "#afb83b", color_34);
+        Application.utils.apply_styles ("34", "#afb83b", color_34);
 
         var color_35 = new Gtk.RadioButton.from_widget (color_30);
         color_35.valign = Gtk.Align.START;
         color_35.halign = Gtk.Align.START;
-        apply_styles ("35", "#7ecc49", color_35);
+        Application.utils.apply_styles ("35", "#7ecc49", color_35);
 
         var color_36 = new Gtk.RadioButton.from_widget (color_30);
         color_36.valign = Gtk.Align.START;
         color_36.halign = Gtk.Align.START;
-        apply_styles ("36", "#299438", color_36);
+        Application.utils.apply_styles ("36", "#299438", color_36);
 
         var color_37 = new Gtk.RadioButton.from_widget (color_30);
         color_37.valign = Gtk.Align.START;
         color_37.halign = Gtk.Align.START;
-        apply_styles ("37", "#6accbc", color_37);
+        Application.utils.apply_styles ("37", "#6accbc", color_37);
 
         var color_38 = new Gtk.RadioButton.from_widget (color_30);
         color_38.valign = Gtk.Align.START;
         color_38.halign = Gtk.Align.START;
-        apply_styles ("38", "#158fad", color_38);
+        Application.utils.apply_styles ("38", "#158fad", color_38);
 
         var color_39 = new Gtk.RadioButton.from_widget (color_30);
         color_39.valign = Gtk.Align.START;
         color_39.halign = Gtk.Align.START;
-        apply_styles ("39", "#14aaf5", color_39);
+        Application.utils.apply_styles ("39", "#14aaf5", color_39);
 
         var color_40 = new Gtk.RadioButton.from_widget (color_30);
         color_40.valign = Gtk.Align.START;
         color_40.halign = Gtk.Align.START;
-        apply_styles ("40", "#96c3eb", color_40);
+        Application.utils.apply_styles ("40", "#96c3eb", color_40);
 
         var color_41 = new Gtk.RadioButton.from_widget (color_30);
         color_41.valign = Gtk.Align.START;
         color_41.halign = Gtk.Align.START;
-        apply_styles ("41", "#4073ff", color_41);
+        Application.utils.apply_styles ("41", "#4073ff", color_41);
 
         var color_42 = new Gtk.RadioButton.from_widget (color_30);
         color_42.valign = Gtk.Align.START;
         color_42.halign = Gtk.Align.START;
-        apply_styles ("42", "#884dff", color_42);
+        Application.utils.apply_styles ("42", "#884dff", color_42);
 
         var color_43 = new Gtk.RadioButton.from_widget (color_30);
         color_43.valign = Gtk.Align.START;
         color_43.halign = Gtk.Align.START;
-        apply_styles ("43", "#af38eb", color_43);
+        Application.utils.apply_styles ("43", "#af38eb", color_43);
 
         var color_44 = new Gtk.RadioButton.from_widget (color_30);
         color_44.valign = Gtk.Align.START;
         color_44.halign = Gtk.Align.START;
-        apply_styles ("44", "#eb96eb", color_44);
+        Application.utils.apply_styles ("44", "#eb96eb", color_44);
 
         var color_45 = new Gtk.RadioButton.from_widget (color_30);
         color_45.valign = Gtk.Align.START;
         color_45.halign = Gtk.Align.START;
-        apply_styles ("45", "#e05194", color_45);
+        Application.utils.apply_styles ("45", "#e05194", color_45);
         
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
-        apply_styles ("46", "#ff8d85", color_46);
+        Application.utils.apply_styles ("46", "#ff8d85", color_46);
 
         var color_47 = new Gtk.RadioButton.from_widget (color_30);
         color_47.valign = Gtk.Align.START;
         color_47.halign = Gtk.Align.START;
-        apply_styles ("47", "#808080", color_47);
+        Application.utils.apply_styles ("47", "#808080", color_47);
 
         var color_48 = new Gtk.RadioButton.from_widget (color_30);
         color_48.valign = Gtk.Align.START;
         color_48.halign = Gtk.Align.START;
-        apply_styles ("48", "#b8b8b8", color_48);
+        Application.utils.apply_styles ("48", "#b8b8b8", color_48);
 
         var color_49 = new Gtk.RadioButton.from_widget (color_30);
         color_49.valign = Gtk.Align.START;
         color_49.halign = Gtk.Align.START;
-        apply_styles ("49", "#ccac93", color_49);
+        Application.utils.apply_styles ("49", "#ccac93", color_49);
 
         var color_box = new Gtk.Grid ();
         color_box.column_homogeneous = true;
@@ -224,16 +237,28 @@ public class Widgets.NewProject : Gtk.Revealer {
         color_box.attach (color_48, 4, 2, 1, 1);
         color_box.attach (color_49, 5, 2, 1, 1);
 
-        var submit_button = new Gtk.Button.with_label (_("Create"));
+        var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var submit_spinner = new Gtk.Spinner ();
+        submit_spinner.start ();
+
+        var submit_stack = new Gtk.Stack ();
+        submit_stack.expand = true;
+        submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        
+        submit_stack.add_named (new Gtk.Label (_("Create")), "label");
+        submit_stack.add_named (submit_spinner, "spinner");
+
+        submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 9;
-        action_grid.margin_top = 24;
+        action_grid.margin_top = 12;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -246,13 +271,11 @@ public class Widgets.NewProject : Gtk.Revealer {
         box.pack_start (source_revealer, false, false, 0);
         box.pack_start (color_label, false, false, 0);
         box.pack_start (color_box, false, false, 0);
-        //box.pack_end (cancel_button, false, false, 0);
+        box.pack_start (error_revealer, false, false, 0);
         box.pack_end (action_grid, false, false, 0);
         
         var main_grid = new Gtk.Grid ();
         main_grid.expand = false;
-        //main_grid.height_request = 150;
-        //main_grid.width_request = 256;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
@@ -369,26 +392,42 @@ public class Widgets.NewProject : Gtk.Revealer {
 
             return false;
         });
+
+        Application.todoist.project_added_started.connect (() => {
+            submit_button.sensitive = false;
+            submit_stack.visible_child_name = "spinner";
+        }); 
+
+        Application.todoist.project_added_completed.connect (() => {
+            submit_button.sensitive = true;
+            submit_stack.visible_child_name = "label";
+
+            reveal = false;
+            name_entry.text = "";
+        });
+
+        Application.todoist.project_added_error.connect ((error_code, error_message) => {
+            submit_button.sensitive = true;
+            submit_stack.visible_child_name = "label";
+
+            error_label.label = error_message;
+            error_revealer.reveal_child = true;
+
+            Timeout.add (2500, () => {
+                error_revealer.reveal_child = false;
+                return false;
+            });
+        });
+
+        Application.todoist.first_sync_finished.connect (() => {
+            string email_text = " " + Application.settings.get_string ("todoist-user-email");
+            Gtk.TreeIter todoist_iter;
+            list_store.append (out todoist_iter);
+            list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "preferences-desktop-online-accounts");
+
+            source_revealer.reveal_child = Application.settings.get_boolean ("todoist-account");
+        });
     } 
-
-    private void apply_styles (string id, string color, Gtk.RadioButton radio) {
-        var provider = new Gtk.CssProvider ();
-        radio.get_style_context ().add_class ("color-%s".printf (id));
-        radio.get_style_context ().add_class ("color-radio");
-
-        try {
-            var colored_css = COLOR_CSS.printf (
-                id,
-                color
-            );
-
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
-        }
-    }
 
     public void create_project () {
         if (name_entry.text != "") {

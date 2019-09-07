@@ -22,12 +22,12 @@ public class Views.Inbox : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 24;
-        top_box.margin_end = 24;
+        top_box.margin_start = 30;
+        top_box.margin_end = 30;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 6);
-        top_box.pack_end (settings_button, false, false, 6);
+        top_box.pack_end (settings_button, false, false, 0);
 
         add (top_box);
     }

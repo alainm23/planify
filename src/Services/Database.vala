@@ -229,7 +229,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects;
+            SELECT * FROM Projects ORDER BY child_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -258,5 +258,67 @@ public class Services.Database : GLib.Object {
         }
 
         return all;
+    }
+
+    public Objects.Project? get_project_by_id (int id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Projects WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, id);
+        assert (res == Sqlite.OK);
+
+        var p = new Objects.Project ();
+
+        if (stmt.step () == Sqlite.ROW) {
+
+            p.id = stmt.column_int (0);
+            p.name = stmt.column_text (1);
+            p.note = stmt.column_text (2);
+            p.due = stmt.column_text (3);
+            p.color = stmt.column_int (4);
+            p.is_todoist = stmt.column_int (5);
+            p.inbox_project = stmt.column_int (6);
+            p.team_inbox = stmt.column_int (7);
+            p.child_order = stmt.column_int (8);
+            p.is_deleted = stmt.column_int (9);
+            p.is_archived = stmt.column_int (10);
+            p.is_favorite = stmt.column_int (11);
+            p.is_sync = stmt.column_int (12);
+        }
+
+        return p;
+    }
+
+    public void update_project_child_order (int project_id, int child_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Projects SET child_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, child_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            //updated_playlist (playlist);
+        }
     }
 }

@@ -36,6 +36,7 @@ public class Application : Gtk.Application {
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
+        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/avatars");
 
         settings = new Settings ("com.github.alainm23.planner2");
         database = new Services.Database ();

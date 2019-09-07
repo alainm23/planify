@@ -14,7 +14,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
         );
     }
     
-    construct {
+    construct { 
         height_request = 700;
         width_request = 600;
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
@@ -85,13 +85,11 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             var redirect_uri = webview.get_uri ();
 
             if ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=" in redirect_uri) {                
-                stack.visible_child_name = "spinner_loading";
-                webview.stop_loading ();
-
                 new Thread<void*> ("get_todoist_token", () => {
-                    print ("redirect_uri: %s\n".printf (redirect_uri));
-                    Application.todoist.get_todoist_token (redirect_uri);
+                    stack.visible_child_name = "spinner_loading";
+                    webview.stop_loading ();
 
+                    Application.todoist.get_todoist_token (redirect_uri);
                     return null;
                 }); 
             }
@@ -128,6 +126,10 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             }
 
             return true;
+        });
+
+        Application.todoist.first_sync_finished.connect (() => {
+            destroy ();
         });
     }
 }

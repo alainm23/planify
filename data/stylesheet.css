@@ -225,3 +225,33 @@ paned > separator {
 .sync-image-rotate {
     -gtk-icon-transform: rotate(45deg);
 }
+
+.error_label {
+    color: @error_color;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.mode-button button:checked {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @selected_bg_color,
+                1.05
+            ),
+            shade (
+                @selected_bg_color,
+                0.95
+            )
+        );
+    border-color: shade (@selected_bg_color, 0.8);
+    box-shadow:
+        inset 0 0 0 1px alpha (#000, 0.05),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+    color: @selected_fg_color;
+    text-shadow: 0 1px alpha (#000, 0.3);
+    -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
+}

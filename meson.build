@@ -33,11 +33,15 @@ executable(
     'src/Widgets/Pane.vala',
     'src/Widgets/NewProject.vala',
     'src/Widgets/ProjectRow.vala',
+    'src/Widgets/MenuItem.vala',
     
+    'src/Widgets/Popovers/ProjectSettings.vala',
+
     'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
+    'src/Views/Project.vala',
     
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
