@@ -1,6 +1,6 @@
 public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private const string NUMERIC_CHARS = "1234567890";
+    private const string NUMERIC_CHARS = "0123456789";
     
     public string APP_FOLDER;
     public string AVATARS_FOLDER;
@@ -18,24 +18,27 @@ public class Utils : GLib.Object {
         }
     }
 
-    public int32 generate_id () {
-        int32 id = GLib.Random.int_range (0, 999999999);
+    public int64 generate_id () {
+        string allowed_characters = NUMERIC_CHARS;
 
-        while (Application.database.is_project_id_valid (id) == false) {
-            id = GLib.Random.int_range (0, 999999999);
+        var password_builder = new StringBuilder ();
+        for (var i = 0; i < 10; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
         }
-
-        return id;
+        
+        return int64.parse (password_builder.str);
     }
 
     public string generate_string () {
         string allowed_characters = ALPHA_CHARS + NUMERIC_CHARS;
 
         var password_builder = new StringBuilder ();
-            for (var i = 0; i < 36; i++) {
-                var random_index = Random.int_range (0, allowed_characters.length);
-                password_builder.append_c (allowed_characters[random_index]);
-            }
+        for (var i = 0; i < 36; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
+        }
+
         return password_builder.str;
     }
 
@@ -69,8 +72,17 @@ public class Utils : GLib.Object {
     public void apply_styles (string id, string color, Gtk.RadioButton radio) {
         string COLOR_CSS = """
             .color-%s radio {
-                background: %s;
-                border-color: @bg_color;
+                background-image:
+                    linear-gradient(
+                        to bottom,
+                        shade (
+                        %s,
+                            1.3
+                        ),
+                        %s
+                    );
+                border: 1px solid shade (%s, 0.9);
+                box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
             }
         """;
 
@@ -81,6 +93,9 @@ public class Utils : GLib.Object {
         try {
             var colored_css = COLOR_CSS.printf (
                 id,
+                color,
+                color,
+                color,
                 color
             );
 

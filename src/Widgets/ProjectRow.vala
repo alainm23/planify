@@ -57,7 +57,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         grid_color = new Gtk.Grid ();
         grid_color.margin_start = 8;
-		grid_color.get_style_context ().add_class ("project-%i".printf ((int32) project.id));
+		grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
         grid_color.set_size_request (13, 13);
         grid_color.valign = Gtk.Align.CENTER;
         grid_color.halign = Gtk.Align.CENTER;
@@ -65,6 +65,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (project.name);
         name_label.margin_top = 6;
         name_label.margin_bottom = 6;
+        name_label.margin_start = 7;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -77,27 +78,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         count_label.margin_end = 12;
 
         var source_icon = new Gtk.Image ();
+        source_icon.valign = Gtk.Align.CENTER;
+        source_icon.margin_top = 0;
+        source_icon.margin_end = 12;
+        source_icon.margin_start = 12;
         source_icon.get_style_context ().add_class ("dim-label");
         source_icon.pixel_size = 16;
 
         if (project.is_todoist == 0) {
-            source_icon.icon_name = "network-offline-symbolic";
+            source_icon.icon_name = "planner-offline-symbolic";
         } else {
             source_icon.icon_name = "planner-online-symbolic";
         }
 
         handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        //handle_box.margin = 6;
-        //handle_box.margin_end = 12;
-        //handle_box.margin_start = 8;
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
-        handle_box.pack_start (name_label, false, false, 7);
+        handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_end (count_label, false, false, 0);
-        //main_box.pack_end (source_icon, false, false, 0);
+        handle_box.pack_end (source_icon, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
-        motion_grid.height_request = 12;
+        motion_grid.height_request = 16;
             
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -128,17 +130,43 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             return false;
         });
+
+        handle.event.connect ((event) => {
+            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                open_edit_dialog ();
+            }
+
+            return false;
+        });
+
+        Application.database.project_updated.connect ((p) => {
+            if (project != null && p.id == project.id) {
+                name_label.label = p.name;
+                apply_styles (Application.utils.get_color (project.color));
+            }
+        });
+
+        Application.database.project_deleted.connect ((p) => {
+            if (project != null && p.id == project.id) {
+                destroy ();
+            }
+        });
     }
 
     private void apply_styles (string color) {
         string COLOR_CSS = """
-            .project-%i {
-                background-color: %s;
+            .project-%s {
                 border-radius: 50%;
-                box-shadow:
-                    inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-                    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-                    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+                background-image:
+                    linear-gradient(
+                        to bottom,
+                        shade (
+                        %s,
+                            1.3
+                        ),
+                        %s
+                    );
+                border: 1px solid shade (%s, 0.9);
             }
         """;
 
@@ -146,7 +174,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         try {
             var colored_css = COLOR_CSS.printf (
-                (int32) project.id,
+                project.id.to_string (),
+                color,
+                color,
                 color
             );
 
@@ -221,6 +251,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public void clear_indicator (Gdk.DragContext context) {
         reveal_drag_motion = false;
+
+        visible = true;
+        show_all ();
     }
 
     private void activate_menu () {
@@ -234,19 +267,87 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private void build_context_menu (Objects.Project project) {
         menu = new Gtk.Menu ();
         menu.get_style_context ().add_class ("view");
-        menu.get_style_context ().add_class ("css");
 
+        var p_color = new Gtk.Grid ();
+		p_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
+        p_color.set_size_request (24, 24);
+        p_color.halign = Gtk.Align.START;
+        p_color.valign = Gtk.Align.CENTER;
+
+        var p_name = new Gtk.Label (project.name);
+        p_name.ellipsize = Pango.EllipsizeMode.END;
+        p_name.use_markup = true;
+
+        var p_grid = new Gtk.Grid ();
+        p_grid.width_request = 185;
+        p_grid.hexpand = false;
+        p_grid.halign = Gtk.Align.START;
+        p_grid.valign = Gtk.Align.CENTER;
+        p_grid.column_spacing = 6;
+        p_grid.attach (p_color, 0, 0, 1, 2);
+        p_grid.attach (p_name, 1, 0, 1, 1);
+        p_grid.attach (new Gtk.Label ("Alain"), 1, 1, 1, 1);
+
+        var project_menu = new Gtk.MenuItem ();
+        //project_menu.get_style_context ().add_class ("track-options");
+        //project_menu.get_style_context ().add_class ("css-item");
+        project_menu.right_justified = true;
+        project_menu.add (p_grid);
+
+        var finalize_menu = new Widgets.MenuItem (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
         var edit_menu = new Widgets.MenuItem (_("Edit project"), "edit-symbolic", _("Play"));
+
+        var export_menu = new Widgets.MenuItem (_("Export"), "document-export-symbolic", _("Export project"));
         var share_menu = new Widgets.MenuItem (_("Share project"), "emblem-shared-symbolic", _("Play Next"));
 
-        var archive_menu = new Widgets.MenuItem (_("Archive"), "folder-symbolic", _("Play"));
+        //var archive_menu = new Widgets.MenuItem (_("Archive"), "folder-symbolic", _("Play"));
         var delete_menu = new Widgets.MenuItem (_("Delete project"), "edit-delete-symbolic", _("Play Next"));
 
+        //menu.add (project_menu);
+        menu.add (finalize_menu);
         menu.add (edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (export_menu);
         menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (archive_menu);
         menu.add (delete_menu);
+
         menu.show_all ();
+
+        edit_menu.activate.connect (() => {
+            open_edit_dialog ();
+        }); 
+
+        delete_menu.activate.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Are you sure you want to delete %s?".printf (project.name)),
+                "",
+                "dialog-warning",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete Project"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                if (project.is_todoist == 0) {
+                    if (Application.database.delete_project (project)) {
+                        destroy ();
+                    }  
+                } else {
+                    Application.todoist.delete_project (project);
+                }
+            }
+
+            message_dialog.destroy ();
+        });
+    }
+
+    private void open_edit_dialog () {
+        var edit_dialog = new Dialogs.ProjectSettings (project);
+        edit_dialog.destroy.connect (Gtk.main_quit);
+        edit_dialog.show_all ();
     }
 }

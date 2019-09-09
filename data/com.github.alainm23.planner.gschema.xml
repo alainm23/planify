@@ -19,7 +19,7 @@
             <description>Most recent pane position</description>
         </key>
 
-        <key name="inbox-project" type="i">
+        <key name="inbox-project" type="x">
             <default>0</default>
             <summary>Inbox Project ID</summary>
             <description>Inbox Project ID</description>

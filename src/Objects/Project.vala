@@ -12,5 +12,5 @@ public class Objects.Project : GLib.Object {
     public int is_archived { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
     public int is_sync { get; set; default = 0; }
-    public int id { get; set; default = 0; }
+    public int64 id { get; set; default = 0; }
 }

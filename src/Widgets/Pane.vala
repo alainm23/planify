@@ -6,7 +6,7 @@ public class Widgets.Pane : Gtk.EventBox {
     
     private Gtk.ListBox listbox;
 
-    public signal void activated (string type, int? id);
+    public signal void activated (string type, int64 id);
     
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -250,9 +250,11 @@ public class Widgets.Pane : Gtk.EventBox {
 
         Application.database.project_added.connect ((project) => {
             Idle.add (() => {
-                var row = new Widgets.ProjectRow (project);
-                listbox.add (row);
-                listbox.show_all ();
+                if (project.inbox_project == 0) {
+                    var row = new Widgets.ProjectRow (project);
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
 
                 return false;
             });
@@ -313,17 +315,25 @@ public class Widgets.Pane : Gtk.EventBox {
         row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (ProjectRow) row;
 
-        if (target.get_index () != 0 && target.get_index () != 1 && target.get_index () != 2) {
-            //print ("RECIBE: %i\n".printf (target.get_index ()));
-            //print ("FUENTE: %i\n".printf (source.get_index ()));
-
-            if (target.get_index () != source.get_index ()) {
-                source.get_parent ().remove (source); 
-                listbox.insert (source, target.get_index ());
-                listbox.show_all ();
-
-                update_project_order ();
-            }            
+        if (target != null) {
+            if ( target.get_index () > 2) {
+                //print ("RECIBE: %i\n".printf (target.get_index ()));
+                //print ("FUENTE: %i\n".printf (source.get_index ()));
+    
+                if (target.get_index () != source.get_index ()) {
+                    source.get_parent ().remove (source); 
+                    listbox.insert (source, target.get_index ());
+                    listbox.show_all ();
+    
+                    update_project_order ();
+                }            
+            }
+        } else {
+            source.get_parent ().remove (source); 
+            listbox.insert (source, (int) listbox.get_children ().length - 4);
+            listbox.show_all ();
+    
+            update_project_order ();
         }
     }
 

@@ -30,6 +30,14 @@ public class Services.Todoist : GLib.Object {
     public signal void project_added_completed ();
     public signal void project_added_error (int error_code, string error_message);
 
+    public signal void project_updated_started ();
+    public signal void project_updated_completed ();
+    public signal void project_updated_error (int error_code, string error_message);
+
+    public signal void project_deleted_started ();
+    public signal void project_deleted_completed ();
+    public signal void project_deleted_error (int error_code, string error_message);
+
     public signal void avatar_downloaded ();
 
     public Todoist () {
@@ -87,7 +95,7 @@ public class Services.Todoist : GLib.Object {
                         Application.settings.set_string ("todoist-access-token", token);
 
                         Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                        Application.settings.set_int ("inbox-project", (int32) user_object.get_int_member ("inbox_project"));
+                        Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
                         Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
                         Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
@@ -105,7 +113,7 @@ public class Services.Todoist : GLib.Object {
 
                             var project = new Objects.Project ();
 
-                            project.id = (int32) object.get_int_member ("id");
+                            project.id = object.get_int_member ("id");
                             project.name = object.get_string_member ("name");
                             project.color = (int32) object.get_int_member ("color");
 
@@ -225,6 +233,183 @@ public class Services.Todoist : GLib.Object {
             builder.end_object ();        
         builder.end_object ();
         builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void update_project (Objects.Project project) {
+        project_updated_started ();
+
+        new Thread<void*> ("todoist_update_project", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_update_project_json (project, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.update_project (project)) { 
+                                print ("Actualizado: %s\n".printf (project.name));
+                                project_updated_completed ();
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            project_updated_error (http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        project_updated_error ((int32) mess.status_code, e.message);
+                    }
+                } else {
+                    project_updated_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_update_project_json (Objects.Project project, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("project_update");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (project.id);
+
+            builder.set_member_name ("name");
+            builder.add_string_value (project.name);
+
+            builder.set_member_name ("color");
+            builder.add_int_value (project.color);
+
+            /*
+            builder.set_member_name ("is_favorite");    
+            builder.add_int_value (project.is_favorite);    
+            */
+
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void delete_project (Objects.Project project) {
+        project_deleted_started ();
+
+        new Thread<void*> ("todoist_delete_project", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_delete_project_json (project, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.delete_project (project)) {
+                                print ("Eliminado: %s\n".printf (project.name));
+                                project_deleted_completed ();
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            project_updated_error (http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        project_updated_error ((int32) mess.status_code, e.message);
+                    }  
+                } else {
+                    project_updated_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    public string get_delete_project_json (Objects.Project project, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("project_delete");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (project.id);
+
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+
 
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();

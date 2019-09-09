@@ -436,13 +436,18 @@ public class Widgets.NewProject : Gtk.Revealer {
             project.color = color_selected;
 
             if (source_combobox.active == 0) {
-                project.id = Application.utils.generate_id ();
+                new Thread<void*> ("todoist_add_project", () => {
+                    project.id = Application.utils.generate_id ();
                 
-                if (Application.database.insert_project (project)) {
-                    reveal = false;
-                    name_entry.text = "";
-                }
-            } else {
+                    if (Application.database.insert_project (project)) {
+                        reveal = false;
+                        name_entry.text = "";
+                    }
+
+                    return null;
+                });
+            } else { 
+                project.is_todoist = 1;
                 Application.todoist.add_project (project);
             }
         }

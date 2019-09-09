@@ -3,7 +3,7 @@
 }
 
 .sidebar-header {
-    background-color: @bg_color;
+    background-color: shade (@base_color, 0.97);
 }
 
 .sidebar-header:dir(ltr) {
@@ -41,7 +41,7 @@ paned > separator {
 }
 
 .pane {
-    background-color: @bg_color;
+    background-color: shade (@base_color, 0.97);
     border-bottom-left-radius: 4px;
 }
 
@@ -63,7 +63,7 @@ paned > separator {
 }
 
 .action-row:selected {
-    background-color: shade (@base_color, 0.92);
+    background-color: shade (@base_color, 0.94);
     color: @text_color;
 }
 
@@ -73,7 +73,7 @@ paned > separator {
 }
 
 .project-row:selected {
-    background-color: shade (@base_color, 0.92);
+    background-color: shade (@base_color, 0.94);
     color: @text_color;
 }
 
@@ -222,6 +222,11 @@ paned > separator {
         0 0 0 1px alpha (@accentColor, 0.25);
 }
 
+.color-radio-dialog radio,
+.color-radio-dialog radio:checked {
+    padding: 6px;
+}
+
 .sync-image-rotate {
     -gtk-icon-transform: rotate(45deg);
 }
@@ -254,4 +259,12 @@ paned > separator {
     color: @selected_fg_color;
     text-shadow: 0 1px alpha (#000, 0.3);
     -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
+}
+
+.new-item-entry {
+    background: @base_color;
+}
+
+.no-padding-right {
+    padding-right: 0px;
 }

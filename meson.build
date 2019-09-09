@@ -47,6 +47,7 @@ executable(
     'src/Services/Todoist.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
+    'src/Dialogs/ProjectSettings.vala',
 
     'src/Objects/Project.vala',
     dependencies: [

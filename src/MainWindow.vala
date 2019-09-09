@@ -97,7 +97,7 @@ public class MainWindow : Gtk.Window {
 
                 // Create Inbox Project
                 var inbox_project = Application.database.create_inbox_project ();
-                Application.settings.set_int ("inbox-project", inbox_project.id);
+                Application.settings.set_int64 ("inbox-project", inbox_project.id);
 
                 //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
                 stack.visible_child_name = "inbox_view";

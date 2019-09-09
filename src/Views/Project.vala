@@ -1,10 +1,9 @@
 public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; set; }
-
     construct {
         var grid_color = new Gtk.Grid ();
-        grid_color.margin_start = 4;
-        grid_color.set_size_request (24, 24);
+        grid_color.margin_start = 3;
+        grid_color.set_size_request (16, 16);
         grid_color.valign = Gtk.Align.CENTER;
         grid_color.halign = Gtk.Align.CENTER;
 
@@ -18,17 +17,23 @@ public class Views.Project : Gtk.EventBox {
         var settings_button = new Gtk.MenuButton ();
         settings_button.can_focus = false;
         settings_button.valign = Gtk.Align.CENTER;
-        settings_button.width_request = 32;
         settings_button.tooltip_text = _("Edit Name and Appearance");
         settings_button.popover = project_settings_popover;
-        settings_button.add (new Gtk.Image.from_icon_name ("view-more-horizontal-symbolic", Gtk.IconSize.MENU));
+        settings_button.get_style_context ().add_class ("flat");
+        settings_button.get_style_context ().add_class ("dim-label");
 
-        var add_button = new Gtk.Button ();
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-horizontal-symbolic");
+        settings_image.pixel_size = 14;
+        settings_button.add (settings_image);
+
+        var add_button = new Gtk.Button (); 
         add_button.can_focus = false;
         //add_button.tooltip_text = _("Synchronizing");
         //add_button.margin_start = 9;
         //add_button.margin_end = 3;
         add_button.width_request = 32;
+        add_button.height_request = 32;
         add_button.valign = Gtk.Align.CENTER;
         add_button.halign = Gtk.Align.CENTER;
         add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
@@ -46,14 +51,14 @@ public class Views.Project : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 30;
-        top_box.margin_end = 30;
+        top_box.margin_start = 24;
+        top_box.margin_end = 24;
 
         top_box.pack_start (grid_color, false, false, 0);
-        top_box.pack_start (name_label, false, false, 6);
-        top_box.pack_end (settings_button, false, false, 0);
+        top_box.pack_start (name_label, false, false, 7);
+        //top_box.pack_start (settings_button, false, false, 0);
         //top_box.pack_end (mode_button, false, false, 6);
-        top_box.pack_end (add_button, false, false, 6);
+        //top_box.pack_end (add_button, false, false, 6);
 
         add (top_box);
 
@@ -66,39 +71,25 @@ public class Views.Project : Gtk.EventBox {
         notify["project"].connect (() => {
             if (project != null) {
                 name_label.label = project.name;
-                grid_color.get_style_context ().add_class ("project-view-%i".printf ((int32) project.id));
+            
+                grid_color.get_style_context ().list_classes ().foreach ((c) => {
+                    if (c != "horizontal") {
+                        grid_color.get_style_context ().remove_class (c);
+                    }
+                });
 
-                apply_styles (Application.utils.get_color (project.color));
+                grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
             } else {
                 name_label.label = "";
             }
 
             show_all ();
         });
-    }
 
-    private void apply_styles (string color) {
-        string COLOR_CSS = """
-            .project-view-%i {
-                background-color: %s;
-                border-radius: 50%;
-                box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+        Application.database.project_updated.connect ((p) => {
+            if (project != null && p.id == project.id) {
+                project = p;
             }
-        """;
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var colored_css = COLOR_CSS.printf (
-                (int32) project.id,
-                color
-            );
-
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
-        }
+        });
     }
 }
