@@ -22,6 +22,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var name_label = new Granite.HeaderLabel (_("Name:"));
 
         name_entry = new Gtk.Entry ();
+        name_entry.text = project.name;
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
@@ -209,76 +210,71 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var action_area = (Gtk.ButtonBox) get_action_area ();
         action_area.margin = 6;
         action_area.margin_top = 0;
-
-        notify["project"].connect (() => {
-            name_entry.text = project.name;
-            color_selected = project.color;
-
-            switch (project.color) {
-                case 30:
-                    color_30.active = true;
-                    break;
-                case 31:
-                    color_31.active = true;
-                    break;
-                case 32:
-                    color_32.active = true;
-                    break;
-                case 33:
-                    color_33.active = true;
-                    break;
-                case 34:
-                    color_34.active = true;
-                    break;
-                case 35:
-                    color_35.active = true;
-                    break;
-                case 36:
-                    color_36.active = true;
-                    break;
-                case 37:
-                    color_37.active = true;
-                    break;
-                case 38:
-                    color_39.active = true;
-                    break;
-                case 39:
-                    color_30.active = true;
-                    break;
-                case 40:
-                    color_40.active = true;
-                    break;
-                case 41:
-                    color_41.active = true;
-                    break;
-                case 42:
-                    color_42.active = true;
-                    break;
-                case 43:
-                    color_43.active = true;
-                    break;
-                case 44:
-                    color_44.active = true;
-                    break;
-                case 45:
-                    color_45.active = true;
-                    break;
-                case 46:
-                    color_46.active = true;
-                    break;
-                case 47:
-                    color_47.active = true;
-                    break;
-                case 48:
-                    color_48.active = true;
-                    break;
-                case 49:
-                    color_49.active = true;
-                    break;
-                default:
-                    break;
-            }
-        });
+        
+        switch (project.color) {
+            case 30:
+                color_30.active = true;
+                break;
+            case 31:
+                color_31.active = true;
+                break;
+            case 32:
+                color_32.active = true;
+                break;
+            case 33:
+                color_33.active = true;
+                break;
+            case 34:
+                color_34.active = true;
+                break;
+            case 35:
+                color_35.active = true;
+                break;
+            case 36:
+                color_36.active = true;
+                break;
+            case 37:
+                color_37.active = true;
+                break;
+            case 38:
+                color_39.active = true;
+                break;
+            case 39:
+                color_30.active = true;
+                break;
+            case 40:
+                color_40.active = true;
+                break;
+            case 41:
+                color_41.active = true;
+                break;
+            case 42:
+                color_42.active = true;
+                break;
+            case 43:
+                color_43.active = true;
+                break;
+            case 44:
+                color_44.active = true;
+                break;
+            case 45:
+                color_45.active = true;
+                break;
+            case 46:
+                color_46.active = true;
+                break;
+            case 47:
+                color_47.active = true;
+                break;
+            case 48:
+                color_48.active = true;
+                break;
+            case 49:
+                color_49.active = true;
+                break;
+            default:
+                break;
+        }
         
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
@@ -383,6 +379,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         response.connect ((response_id) => {
             if (response_id == Gtk.ResponseType.APPLY) {
                 save_and_exit ();
+            } else {
+                destroy ();
             }
         });
 

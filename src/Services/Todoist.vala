@@ -38,6 +38,10 @@ public class Services.Todoist : GLib.Object {
     public signal void project_deleted_completed ();
     public signal void project_deleted_error (int error_code, string error_message);
 
+    public signal void item_added_started (int64 id);
+    public signal void item_added_completed (int64 id);
+    public signal void item_added_error (int64 id, int error_code, string error_message);
+
     public signal void avatar_downloaded ();
 
     public Todoist () {
@@ -96,6 +100,7 @@ public class Services.Todoist : GLib.Object {
 
                         Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
                         Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+                        Application.settings.set_boolean ("inbox-project-sync", true);
 
                         Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
                         Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
@@ -106,9 +111,8 @@ public class Services.Todoist : GLib.Object {
                         Application.settings.set_boolean ("todoist-account", true);
 
                         // Create projects
-                        unowned Json.Array array = node.get_array_member ("projects");
-
-                        foreach (unowned Json.Node item in array.get_elements ()) {
+                        unowned Json.Array projects = node.get_array_member ("projects");
+                        foreach (unowned Json.Node item in projects.get_elements ()) {
                             var object = item.get_object();
 
                             var project = new Objects.Project ();
@@ -138,6 +142,24 @@ public class Services.Todoist : GLib.Object {
                             Application.database.insert_project (project);
                         }
 
+
+                        // Create items
+                        unowned Json.Array items = node.get_array_member ("items");
+                        foreach (unowned Json.Node item in items.get_elements ()) {
+                            var object = item.get_object();
+
+                            var i = new Objects.Item ();
+
+                            i.id = object.get_int_member ("id");
+                            i.project_id = object.get_int_member ("project_id");
+                            
+                            i.content = object.get_string_member ("content");
+                            i.checked = (int32) object.get_int_member ("checked");
+                            i.date_added = object.get_string_member ("date_added");
+                            
+                            Application.database.insert_item (i);
+                        }
+                        
                         // Download Profile Image
                         Application.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
 
@@ -183,7 +205,7 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Application.settings.set_string ("todoist-sync-token", sync_token);
 
-                            project.id = (int32) node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+                            project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                             if (Application.database.insert_project (project)) {
                                 print ("Proyecto creado: %s\n".printf (project.name));
@@ -410,6 +432,97 @@ public class Services.Todoist : GLib.Object {
         builder.end_object ();
         builder.end_array ();
 
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    /*
+        Items
+    */
+
+    public void add_item (Objects.Item item) {
+        item_added_started (item.project_id);
+        new Thread<void*> ("todoist_add_project", () => {
+            string temp_id = Application.utils.generate_string ();
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_add_item_json (item, temp_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+    
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+
+                            if (Application.database.insert_item (item)) {
+                                print ("Item creado: %s\n".printf (item.content));
+                                item_added_completed (item.project_id);
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            item_added_error (item.project_id, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        item_added_error (item.project_id, (int32) mess.status_code, e.message);
+                    }
+                } else {
+                    item_added_error (item.project_id, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+            
+            return null;
+        });
+    }
+
+    public string get_add_item_json (Objects.Item item, string temp_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_add");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("content");
+            builder.add_string_value (item.content);
+
+            builder.set_member_name ("project_id");
+            builder.add_int_value (item.project_id);
+
+            builder.end_object ();        
+        builder.end_object ();
+        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();

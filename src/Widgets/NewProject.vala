@@ -275,7 +275,7 @@ public class Widgets.NewProject : Gtk.Revealer {
         box.pack_end (action_grid, false, false, 0);
         
         var main_grid = new Gtk.Grid ();
-        main_grid.expand = false;
+        main_grid.expand = false; 
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
@@ -436,19 +436,20 @@ public class Widgets.NewProject : Gtk.Revealer {
             project.color = color_selected;
 
             if (source_combobox.active == 0) {
-                new Thread<void*> ("todoist_add_project", () => {
-                    project.id = Application.utils.generate_id ();
+                project.id = Application.utils.generate_id ();
                 
-                    if (Application.database.insert_project (project)) {
-                        reveal = false;
-                        name_entry.text = "";
-                    }
-
-                    return null;
-                });
+                if (Application.database.insert_project (project)) {
+                    reveal = false;
+                    name_entry.text = "";
+                }
             } else { 
                 project.is_todoist = 1;
-                Application.todoist.add_project (project);
+
+                if (Application.utils.check_connection ()) {
+                    Application.todoist.add_project (project);
+                } else {
+                    
+                }
             }
         }
     }

@@ -26,7 +26,7 @@ public class Application : Gtk.Application {
     public static GLib.Settings settings;
     public static Services.Database database;
     public static Services.Todoist todoist;
-
+    
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",

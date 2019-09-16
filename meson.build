@@ -34,6 +34,10 @@ executable(
     'src/Widgets/NewProject.vala',
     'src/Widgets/ProjectRow.vala',
     'src/Widgets/MenuItem.vala',
+    'src/Widgets/NewItem.vala',
+    'src/Widgets/ItemRow.vala',
+    'src/Widgets/NewCheck.vala',
+    'src/Widgets/CheckRow.vala',
     
     'src/Widgets/Popovers/ProjectSettings.vala',
 
@@ -50,6 +54,9 @@ executable(
     'src/Dialogs/ProjectSettings.vala',
 
     'src/Objects/Project.vala',
+    'src/Objects/Item.vala',
+    'src/Objects/Check.vala',
+
     dependencies: [
         dependency('gee-0.8'),
         dependency('gobject-2.0'),

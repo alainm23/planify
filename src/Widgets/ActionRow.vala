@@ -83,7 +83,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("action-row");
+        get_style_context ().add_class ("pane-row");
 
         if (item_base_name == "inbox") {
             get_style_context ().add_class ("inbox-row");

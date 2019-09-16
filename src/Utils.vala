@@ -4,7 +4,7 @@ public class Utils : GLib.Object {
     
     public string APP_FOLDER;
     public string AVATARS_FOLDER;
-    
+        
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -72,15 +72,7 @@ public class Utils : GLib.Object {
     public void apply_styles (string id, string color, Gtk.RadioButton radio) {
         string COLOR_CSS = """
             .color-%s radio {
-                background-image:
-                    linear-gradient(
-                        to bottom,
-                        shade (
-                        %s,
-                            1.3
-                        ),
-                        %s
-                    );
+                background: %s;
                 border: 1px solid shade (%s, 0.9);
                 box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
             }
@@ -93,8 +85,6 @@ public class Utils : GLib.Object {
         try {
             var colored_css = COLOR_CSS.printf (
                 id,
-                color,
-                color,
                 color,
                 color
             );
@@ -134,5 +124,23 @@ public class Utils : GLib.Object {
 
             loop.run ();
         }
+    }
+
+    public bool check_connection () {
+        var host = "www.google.com";
+
+        try {
+            var resolver = Resolver.get_default ();
+            var addresses = resolver.lookup_by_name (host, null);
+            var address = addresses.nth_data (0);
+            if (address == null) {
+                return false;
+            }
+        } catch (Error e) {
+            debug ("%s\n", e.message);
+            return false;
+        }
+        
+        return true;
     }
 }

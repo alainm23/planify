@@ -1,9 +1,24 @@
+@define-color projectview_color #fafafa;
+/*@define-color projectview_color #333333;*/
+
+entry {
+    caret-color: #3689e6;
+}
+
+/*
+    Dark theme
+*/
+
+textview {
+    caret-color: #3689e6;
+}
+
 .titlebar {
     padding: 0 2px;
 }
 
 .sidebar-header {
-    background-color: shade (@base_color, 0.97);
+    background-color: shade (@base_color, 0.96);
 }
 
 .sidebar-header:dir(ltr) {
@@ -14,20 +29,20 @@
     border-top-left-radius: 0;
 }
 
-.projectview_header {
-    background-color: @base_color;
+.projectview-header {
+    background-color: @projectview_color;
 }
 
-.projectview_header:dir(ltr) {
+.projectview-header:dir(ltr) {
     border-top-left-radius: 0;
 }
 
-.projectview_header:dir(rtl) {
+.projectview-header:dir(rtl) {
     border-top-right-radius: 0;
 }
 
 paned {
-    background-color: @base_color;
+    background-color: @projectview_color;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border-top-left-radius: 4px;
@@ -36,12 +51,12 @@ paned {
 
 paned > separator {
     margin-right: 0;
-    min-width: 2px;
-    min-height: 2px;
+    min-width: 1px;
+    min-height: 1px;
 }
 
 .pane {
-    background-color: shade (@base_color, 0.97);
+    background-color: shade (@base_color, 0.96);
     border-bottom-left-radius: 4px;
 }
 
@@ -57,33 +72,25 @@ paned > separator {
     font-weight: 600;
 }
 
-.action-row {
-    transition: all 240ms ease-in-out;
+.pane-row {
+    transition: all 140ms ease-in-out;
     background-color: transparent;
 }
 
-.action-row:selected {
-    background-color: shade (@base_color, 0.94);
+.pane-row:selected {
+    background-color: shade (@bg_color, 0.95);
     color: @text_color;
 }
 
-.project-row {
-    transition: all 240ms ease-in-out;
+.pane-row:selected label {
+    font-weight: 700;
+}
+
+.pane-row button {
     background-color: transparent;
 }
-
-.project-row:selected {
-    background-color: shade (@base_color, 0.94);
-    color: @text_color;
-}
-
-.project-row button {
-    background-color: transparent;
-}
-
 .project-row:selected:focus image {
     color: @text_color;
-    opacity: 0.75;
 }
 
 /*
@@ -126,6 +133,43 @@ paned > separator {
 .text_color {
     color: @text_color;
 }
+
+/*
+    Item Row
+*/
+
+.item-row {
+    transition: all 150ms ease-in-out;
+}
+
+.item-row:selected {
+    background-color: transparent;
+    color: @text_color;
+}
+
+.item-row:selected image {
+    color: @text_color;
+    opacity: 0.7;   
+}
+
+.item-row-selected {
+    padding-top: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background-color: @base_color;
+    border-top: 1px solid alpha (#000, 0.3);
+    border-bottom: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.pane-project-selected {
+    background-color: shade (@base_color, 0.98);
+}
+
+.pane-no-project-selected {
+    background-color: @base_color;
+}
+
 /*
     Animations
 */
@@ -262,9 +306,143 @@ paned > separator {
 }
 
 .new-item-entry {
-    background: @base_color;
+    border-width: 0px 0px 0px 0px;
+    background-color: @projectview_color;
+}
+
+.new-item-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.new-item-entry image.right {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                #3689e6,
+                1.3
+            ),
+                #3689e6
+        );
+    border-radius: 50%;
+    color: #fff;    
 }
 
 .no-padding-right {
     padding-right: 0px;
 }
+
+.itemview {
+    border-radius: 6px;
+    border: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    text-shadow: none;
+    margin: 12px;
+    background-color: shade (@base_color, 0.99);
+}
+
+.textview text {
+    background-color: @base_color;
+}
+
+.itemview-button {
+    padding-top: 0px;
+    padding-bottom: 2px;
+}
+
+.actionbar {
+    background-color: @base_color;
+}
+
+.new-item-textview text {
+    border-bottom: 1px solid @border_color;
+}
+
+.new-item-textview text:focus {
+   border-color: alpha (@colorAccent, 0.8);
+   box-shadow:
+       inset 0 0 0 1px alpha (@colorAccent, 0.23),
+       0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+   transition: all 200ms ease-in;
+
+   border-width: 0 0 1px;
+   border-radius: 0;
+   background-color: @base_color;
+   background-image: none;
+   box-shadow: none;
+}
+
+.checked-preview check:disabled {
+    background: @base_color;
+}
+
+.content-entry {
+    border-width: 0px 0px 0px 0px;
+    background-color: @base_color;
+}
+
+.content-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.listbox {
+    background-color: @projectview_color;
+}
+
+.cancel-add-button image {
+    transition: all 240ms ease-in-out;  
+}
+
+.cancel-add-button.active image {
+    -gtk-icon-transform: rotate(45deg);
+
+}
+
+.view-button {
+    transition: all 150ms ease-in-out;  
+}
+
+.view-button.opened {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.checked-button check {
+    border: 1px solid alpha (@BLUEBERRY_500, 0.7);
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+.grid-motion {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.check-button,
+.due-button,
+.label-button {
+    font-weight: 500;
+}
+
+.check-button image,
+.due-button image,
+.label-button image {
+    color: @text_color;
+    opacity: 0.7;
+}
+
+.delete-check-button {
+    background-color: transparent;
+}
+
+.delete-check-button image {
+    transition: all 240ms ease-in-out;
+}
+
+.delete-check-button.closed image {
+    -gtk-icon-transform: rotate(-90deg);
+}
+

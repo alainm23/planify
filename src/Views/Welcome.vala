@@ -26,7 +26,7 @@ public class Views.Welcome : Gtk.EventBox {
         var welcome = new Granite.Widgets.Welcome ("Planner", _("Don't worry about forgetting things again"));
         welcome.margin_bottom = 48;
         
-        welcome.append ("com.github.alainm23.planner", _("Startup"), _("Start working locally."));
+        welcome.append ("help-about", _("Startup"), _("Start working locally."));
         welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist account and start working."));
 
         welcome.get_style_context ().remove_class (Gtk.STYLE_CLASS_VIEW);

@@ -53,6 +53,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     construct {
         tooltip_text = project.name;
+        get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
         grid_color = new Gtk.Grid ();
@@ -99,7 +100,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.pack_end (source_icon, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
-        motion_grid.height_request = 16;
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
             
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -266,8 +268,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private void build_context_menu (Objects.Project project) {
         menu = new Gtk.Menu ();
-        menu.get_style_context ().add_class ("view");
-
+        
         var p_color = new Gtk.Grid ();
 		p_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
         p_color.set_size_request (24, 24);

@@ -4,7 +4,7 @@ public class Views.Today : Gtk.EventBox {
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("user-bookmarks-symbolic");
         icon_image.get_style_context ().add_class ("today");
-        icon_image.pixel_size = 24; 
+        icon_image.pixel_size = 32; 
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
@@ -16,16 +16,16 @@ public class Views.Today : Gtk.EventBox {
         date_label.margin_top = 6;
         date_label.use_markup = true;
 
-        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        title_box.hexpand = true;
-        title_box.valign = Gtk.Align.START;
-        title_box.margin_start = 24;
-        title_box.margin_end = 24;
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.hexpand = true;
+        top_box.valign = Gtk.Align.START;
+        top_box.margin_start = 33;
+        top_box.margin_end = 24;
 
-        title_box.pack_start (icon_image, false, false, 0);
-        title_box.pack_start (title_label, false, false, 6);
-        title_box.pack_start (date_label, false, false, 0);
+        top_box.pack_start (icon_image, false, false, 0);
+        top_box.pack_start (title_label, false, false, 6);
+        top_box.pack_start (date_label, false, false, 0);
 
-        add (title_box);
+        add (top_box);
     }
 }

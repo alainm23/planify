@@ -8,5 +8,6 @@
     <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
     <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
     <file alias="planner-return-symbolic.svg">resources/planner-return-symbolic.svg</file>
+    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
   </gresource>
 </gresources>

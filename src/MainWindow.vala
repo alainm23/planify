@@ -43,7 +43,7 @@ public class MainWindow : Gtk.Window {
         projectview_header.has_subtitle = false;
         projectview_header.decoration_layout = ":";
         projectview_header.show_close_button = true;
-        projectview_header.get_style_context ().add_class ("projectview_header");
+        projectview_header.get_style_context ().add_class ("projectview-header");
         projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -77,9 +77,13 @@ public class MainWindow : Gtk.Window {
         stack.add_named (upcoming_view, "upcoming_view");
         stack.add_named (project_view, "project_view");
 
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add (stack); 
+
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.pack1 (pane, false, false);
-        paned.pack2 (stack, true, false);
+        paned.pack2 (overlay, true, false);
 
         set_titlebar (header_paned);
         add (paned);
@@ -90,15 +94,31 @@ public class MainWindow : Gtk.Window {
         Application.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Application.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
+        Timeout.add (125, () => {
+            if (Application.database.is_database_empty ()) {
+                stack.visible_child_name = "welcome_view";
+                pane.sensitive_ui = false;
+            } else {
+                stack.visible_child_name = "inbox_view";
+                pane.sensitive_ui = true;
+            }
+             
+            return false;
+        });
+
         welcome_view.activated.connect ((index) => {
             if (index == 0) {
                 // Save user name
                 Application.settings.set_string ("user-name", GLib.Environment.get_real_name ());
 
+                // To do: Save user photo
+                // To do: Create a tutorial project
+
                 // Create Inbox Project
                 var inbox_project = Application.database.create_inbox_project ();
                 Application.settings.set_int64 ("inbox-project", inbox_project.id);
-
+                Application.settings.set_boolean ("inbox-project-sync", false);
+                
                 //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
                 stack.visible_child_name = "inbox_view";
                 pane.sensitive_ui = true;
@@ -121,18 +141,6 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "project_view";
                 project_view.project = Application.database.get_project_by_id (id);
             }
-        });
-
-        Timeout.add (125, () => {
-            if (Application.database.is_database_empty ()) {
-                stack.visible_child_name = "welcome_view";
-                pane.sensitive_ui = false;
-            } else {
-                stack.visible_child_name = "inbox_view";
-                pane.sensitive_ui = true;
-            }
-             
-            return false;
         });
 
         Application.todoist.first_sync_finished.connect (() => {

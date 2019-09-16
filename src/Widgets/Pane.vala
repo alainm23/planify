@@ -5,7 +5,8 @@ public class Widgets.Pane : Gtk.EventBox {
     private Widgets.ActionRow upcoming_row;
     
     private Gtk.ListBox listbox;
-
+    private Gtk.ScrolledWindow listbox_scrolled;
+    
     public signal void activated (string type, int64 id);
     
     private const Gtk.TargetEntry[] targetEntries = {
@@ -163,7 +164,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (today_row);
         listbox.add (upcoming_row);
 
-        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 246;
         listbox_scrolled.expand = true;
         listbox_scrolled.add (listbox);
@@ -299,21 +300,19 @@ public class Widgets.Pane : Gtk.EventBox {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
 
         listbox.drag_data_received.connect (on_drag_data_received);
-        listbox.drag_motion.connect (on_drag_motion);
-        //listbox.drag_leave.connect (on_drag_leave);
+        //listbox.drag_motion.connect (on_drag_motion);
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
-        ProjectRow target;
-        Gtk.Widget row;
-        ProjectRow source;
+        Widgets.ProjectRow  target;
+        Widgets.ProjectRow  source;
         Gtk.Allocation alloc;
 
-        target = (ProjectRow) listbox.get_row_at_y (y);
+        target = (Widgets.ProjectRow ) listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
         
-        row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-        source = (ProjectRow) row;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ProjectRow ) row;
 
         if (target != null) {
             if ( target.get_index () > 2) {
@@ -335,18 +334,16 @@ public class Widgets.Pane : Gtk.EventBox {
     
             update_project_order ();
         }
+
+
+        listbox.grab_focus ();
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        var row = (ProjectRow) listbox.get_row_at_y (y);
-        row.reveal_drag_motion = true;
+        //var row = (ProjectRow) listbox.get_row_at_y (y);
+        //row.reveal_drag_motion = true;
 
         return true;
-    }
-
-    public void on_drag_leave (Gdk.DragContext context, uint time) {
-        //get_style_context ().remove_class ("highlight");
-        //window.main_window.right_sidebar.indicator.visible = false;
     }
 
     private void update_project_order () {

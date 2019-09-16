@@ -25,6 +25,12 @@
             <description>Inbox Project ID</description>
         </key>
 
+        <key name="inbox-project-sync" type="b">
+            <default>false</default>
+            <summary>Inbox Project Sync</summary>
+            <description>Inbox Project Sync</description>
+        </key>
+
         <key name="user-name" type="s">
             <default>""</default>
             <summary>User name</summary>

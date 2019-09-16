@@ -34,7 +34,6 @@ public class Widgets.MenuItem : Gtk.MenuItem {
         _label = new Gtk.Label (null);
 
         _image = new Gtk.Image ();
-        _image.get_style_context ().add_class ("dim-label");
         _image.pixel_size = 16;
         
         var grid = new Gtk.Grid ();
