@@ -7,10 +7,10 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 16 16"
+   viewBox="0 0 22.4 22.4"
    version="1.1"
    id="svg4"
-   sodipodi:docname="planner-return-symbolic.svg"
+   sodipodi:docname="_ionicons_svg_ios-reorder.svg"
    width="16"
    height="16"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -41,9 +41,11 @@
      inkscape:window-height="705"
      id="namedview6"
      showgrid="false"
+     scale-x="1.4"
+     showguides="false"
      inkscape:zoom="14.75"
-     inkscape:cx="5.7655413"
-     inkscape:cy="9.4688874"
+     inkscape:cx="3.3684152"
+     inkscape:cy="7.2013207"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -51,9 +53,9 @@
   <g
      id="g818">
     <path
-       style="fill:#666666;fill-opacity:1;stroke-width:1.00000012"
+       style="fill:#666666;fill-opacity:1;stroke-width:0.99999994"
        inkscape:connector-curvature="0"
        id="path2"
-       d="M 1.2369676,8.3429095 3.4097824,6.1773868 c 0.094787,-0.094793 0.2223848,-0.149478 0.3609205,-0.149478 0.1348889,0 0.2661327,0.051011 0.3609204,0.149478 0.094787,0.094784 0.1494719,0.2223794 0.1494719,0.3609204 0,0.1385322 -0.054685,0.2661275 -0.1494719,0.3609205 l -0.00367,0.0035 -1.4983668,1.4619161 h 9.5261145 c 0.481227,0 0.94058,-0.1895773 1.286917,-0.5359123 0.346339,-0.3426951 0.535913,-0.7983999 0.535913,-1.2869242 V 4.7918896 c 0,-0.280713 0.229677,-0.5103896 0.510393,-0.5103896 0.280716,0 0.510393,0.2296766 0.510393,0.5103896 v 1.7499175 c 0,0.7583004 -0.295299,1.4692043 -0.834857,2.0087652 -0.539558,0.539552 -1.250462,0.8348506 -2.008759,0.8348506 H 2.6150277 l 1.4436818,1.4655561 c 0.094788,0.09479 0.1494728,0.222388 0.1494728,0.36092 0,0.134892 -0.051036,0.266136 -0.1494728,0.36092 l -0.00367,0.0035 c -0.098433,0.09115 -0.2260316,0.142181 -0.3572754,0.142181 -0.1421807,0 -0.2661326,-0.05101 -0.3609205,-0.149469 L 1.2369379,9.4764186 C 1.0838499,9.3235895 1,9.1194354 1,8.9043356 1,8.692893 1.0838473,8.4923788 1.2369676,8.3429095 Z" />
+       d="m 21.000002,8.52733 -19.600001,0 0,-0.89091 19.600001,0 z m 0,3.11818 -19.600001,0 v -0.8909 l 19.600001,0 z m 0,3.118191 -19.600001,0 v -0.89091 l 19.600001,0 z" />
   </g>
 </svg>

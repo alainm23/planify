@@ -298,9 +298,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
-
         listbox.drag_data_received.connect (on_drag_data_received);
-        //listbox.drag_motion.connect (on_drag_motion);
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -316,9 +314,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
         if (target != null) {
             if ( target.get_index () > 2) {
-                //print ("RECIBE: %i\n".printf (target.get_index ()));
-                //print ("FUENTE: %i\n".printf (source.get_index ()));
-    
                 if (target.get_index () != source.get_index ()) {
                     source.get_parent ().remove (source); 
                     listbox.insert (source, target.get_index ());
@@ -335,17 +330,9 @@ public class Widgets.Pane : Gtk.EventBox {
             update_project_order ();
         }
 
-
         listbox.grab_focus ();
     }
-
-    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        //var row = (ProjectRow) listbox.get_row_at_y (y);
-        //row.reveal_drag_motion = true;
-
-        return true;
-    }
-
+    
     private void update_project_order () {
         listbox.foreach ((widget) => {
             var row = (Gtk.ListBoxRow) widget;

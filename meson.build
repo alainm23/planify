@@ -38,6 +38,17 @@ executable(
     'src/Widgets/ItemRow.vala',
     'src/Widgets/NewCheck.vala',
     'src/Widgets/CheckRow.vala',
+    'src/Widgets/HeaderRow.vala',
+    'src/Widgets/DueButton.vala',
+    'src/Widgets/LabelButton.vala',
+    'src/Widgets/Toast.vala',
+    'src/Widgets/ModelButton.vala',
+
+    'src/Widgets/Calendar/Calendar.vala',
+    'src/Widgets/Calendar/CalendarDay.vala',
+    'src/Widgets/Calendar/CalendarHeader.vala',
+    'src/Widgets/Calendar/CalendarView.vala',
+    'src/Widgets/Calendar/CalendarWeek.vala',
     
     'src/Widgets/Popovers/ProjectSettings.vala',
 

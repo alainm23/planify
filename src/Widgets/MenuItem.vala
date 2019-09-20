@@ -1,10 +1,10 @@
 public class Widgets.MenuItem : Gtk.MenuItem {
-    private Gtk.Label _label;
-    private Gtk.Image _image;
+    private Gtk.Label item_label;
+    private Gtk.Image item_image;
 
     public string icon {
         set {
-            _image.gicon = new ThemedIcon (value);
+            item_image.gicon = new ThemedIcon (value);
         }
     }
     public string tooltip {
@@ -14,16 +14,16 @@ public class Widgets.MenuItem : Gtk.MenuItem {
     }
     public string text {
         set {
-            _label.label = value;
+            item_label.label = value;
         }
     }
     
 
-    public MenuItem (string _text, string _icon, string _tooltip) {
+    public MenuItem (string text, string icon, string tooltip) {
         Object (
-            icon: _icon,
-            text: _text,
-            tooltip: _tooltip,
+            icon: icon,
+            text: text,
+            tooltip: tooltip,
             expand: true
         );
     }
@@ -31,15 +31,17 @@ public class Widgets.MenuItem : Gtk.MenuItem {
     construct {
         get_style_context ().add_class ("track-options");
 
-        _label = new Gtk.Label (null);
+        item_image = new Gtk.Image ();
+        item_image.get_style_context ().add_class ("dim-label");
+        item_image.pixel_size = 16;
 
-        _image = new Gtk.Image ();
-        _image.pixel_size = 16;
-        
+        item_label = new Gtk.Label (null);
+
         var grid = new Gtk.Grid ();
+        grid.margin_start = 17;
         grid.column_spacing = 6;
-        grid.add (_image);
-        grid.add (_label);
+        grid.add (item_image);
+        grid.add (item_label);
 
         add (grid);
     }

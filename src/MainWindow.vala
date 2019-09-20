@@ -21,6 +21,8 @@
 
 public class MainWindow : Gtk.Window {
     private Widgets.Pane pane;
+
+    public Gee.HashMap<string, bool> loaded_projects;
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -30,6 +32,8 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
+        loaded_projects = new Gee.HashMap<string, bool> ();
+
         var sidebar_header = new Gtk.HeaderBar ();
         sidebar_header.decoration_layout = "close:";
         sidebar_header.has_subtitle = false;
@@ -48,10 +52,39 @@ public class MainWindow : Gtk.Window {
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var tag_1_button = new Gtk.Button.with_label ("All");
+        
+        tag_1_button.get_style_context ().add_class ("preview");
+        tag_1_button.valign = Gtk.Align.CENTER;
+
+        var tag_2_button = new Gtk.Button.with_label ("CSS");
+        tag_2_button.get_style_context ().add_class ("preview");
+        tag_2_button.valign = Gtk.Align.CENTER;
+
+        var tag_3_button = new Gtk.Button.with_label ("Alain");
+        tag_3_button.get_style_context ().add_class ("preview");
+        tag_3_button.valign = Gtk.Align.CENTER;
+
+        var tag_4_button = new Gtk.Button.with_label ("Juan Carlos");
+        tag_4_button.get_style_context ().add_class ("preview");
+        tag_4_button.valign = Gtk.Align.CENTER;
+
+        var tag_grid = new Gtk.Grid ();
+        tag_grid.valign = Gtk.Align.CENTER;
+        tag_grid.margin_start = 35;
+        tag_grid.margin_top = 6;
+        tag_grid.column_spacing = 6;
+        tag_grid.add (tag_1_button);
+        tag_grid.add (tag_2_button);
+        tag_grid.add (tag_3_button);
+        tag_grid.add (tag_4_button);
+
+        //projectview_header.pack_start (tag_grid);
+
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
-
+        
         var listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("sidebar");
 
@@ -65,25 +98,27 @@ public class MainWindow : Gtk.Window {
         var inbox_view = new Views.Inbox ();
         var today_view = new Views.Today ();
         var upcoming_view = new Views.Upcoming ();
-        var project_view = new Views.Project ();
+        //var project_view = new Views.Project ();
 
         var stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
-        stack.add_named (welcome_view, "welcome_view");
-        stack.add_named (inbox_view, "inbox_view");
-        stack.add_named (today_view, "today_view");
-        stack.add_named (upcoming_view, "upcoming_view");
-        stack.add_named (project_view, "project_view");
+        stack.add_named (welcome_view, "welcome-view");
+        stack.add_named (inbox_view, "inbox-view");
+        stack.add_named (today_view, "today-view");
+        stack.add_named (upcoming_view, "upcoming-view");
+        //stack.add_named (project_view, "project_view");
 
-        var overlay = new Gtk.Overlay ();
-        overlay.expand = true;
-        overlay.add (stack); 
+        var toast = new Widgets.Toast ();
+
+        var paned_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        paned_box.pack_start (stack, true, true, 0);
+        paned_box.pack_start (toast, false, false, 0);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.pack1 (pane, false, false);
-        paned.pack2 (overlay, true, false);
+        paned.pack2 (paned_box, true, true);
 
         set_titlebar (header_paned);
         add (paned);
@@ -96,10 +131,10 @@ public class MainWindow : Gtk.Window {
 
         Timeout.add (125, () => {
             if (Application.database.is_database_empty ()) {
-                stack.visible_child_name = "welcome_view";
+                stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
             } else {
-                stack.visible_child_name = "inbox_view";
+                stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
             }
              
@@ -131,21 +166,38 @@ public class MainWindow : Gtk.Window {
         pane.activated.connect ((type, id) => {
             if (type == "action") {
                 if (id == 0) {
-                    stack.visible_child_name = "inbox_view";
+                    stack.visible_child_name = "inbox-view";
                 } else if  (id == 1) {
-                    stack.visible_child_name = "today_view";
+                    stack.visible_child_name = "today-view";
                 } else {
-                    stack.visible_child_name = "upcoming_view";
+                    stack.visible_child_name = "upcoming-view";
                 }
             } else {
-                stack.visible_child_name = "project_view";
-                project_view.project = Application.database.get_project_by_id (id);
+                if (loaded_projects.has_key (id.to_string ())) {
+                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
+                } else {
+                    loaded_projects.set (id.to_string (), true);
+                    var project_view = new Views.Project (Application.database.get_project_by_id (id));
+                    stack.add_named (project_view, "project-view-%s".printf (id.to_string ()));
+                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
+                }
             }
         });
 
         Application.todoist.first_sync_finished.connect (() => {
             stack.visible_child_name = "inbox_view";
             pane.sensitive_ui = true;
+        });
+
+        Application.database.show_toast_delete.connect ((count) => {
+            string t = _("task");
+
+            if (count > 1) {
+                t = _("tasks");
+            }
+
+            toast.title = _("(%i) %s deleted".printf (count, t));
+            toast.send_notification ();
         });
     }
 

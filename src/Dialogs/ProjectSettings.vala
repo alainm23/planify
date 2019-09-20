@@ -12,7 +12,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: false
+            modal: true
         );
     }
 
@@ -23,6 +23,9 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         name_entry = new Gtk.Entry ();
         name_entry.text = project.name;
+
+        var due_label = new Granite.HeaderLabel (_("Due:"));
+        var due_datepicker = new Granite.Widgets.DatePicker ();
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
@@ -194,6 +197,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.expand = true;
         grid.add (name_label);
         grid.add (name_entry);
+        grid.add (due_label);
+        grid.add (due_datepicker);
         grid.add (color_label);
         grid.add (color_box);
         grid.add (loading_revealer);

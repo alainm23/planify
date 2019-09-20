@@ -28,12 +28,17 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Menu menu = null;
     public Gtk.Box handle_box;
+    private Gtk.EventBox handle;
 
     private Gtk.Revealer motion_revealer;
     public Gtk.Revealer main_revealer;
 
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    private const Gtk.TargetEntry[] targetEntriesItem = {
+        {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     public bool reveal_drag_motion {
@@ -91,7 +96,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         } else {
             source_icon.icon_name = "planner-online-symbolic";
         }
-
+        
         handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
@@ -113,8 +118,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         grid.add (motion_revealer);
         grid.add (handle_box);
     
-        var handle = new Gtk.EventBox ();
-        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        handle = new Gtk.EventBox ();
         handle.expand = true;
         handle.above_child = false;
         handle.add (grid);
@@ -154,7 +158,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
         });
     }
-
+ 
     private void apply_styles (string color) {
         string COLOR_CSS = """
             .project-%s {
@@ -192,16 +196,24 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private void build_drag_and_drop () {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
-
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
         
         Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntries, Gdk.DragAction.MOVE);
         drag_motion.connect (on_drag_motion);
         drag_leave.connect (on_drag_leave);
-
         drag_end.connect (clear_indicator);
     }
+
+    /*
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        print ("Name: %s\n".printf (source.item.content));
+    }
+    */
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
         var row = (ProjectRow) widget;
@@ -243,12 +255,20 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
         reveal_drag_motion = true;   
-
         return true;
     }
 
     public void on_drag_leave (Gdk.DragContext context, uint time) {
         reveal_drag_motion = false;
+    }
+
+    public bool on_drag_item_motion (Gdk.DragContext context, int x, int y, uint time) {
+        get_style_context ().add_class ("highlight");  
+        return true;
+    }
+
+    public void on_drag_item_leave (Gdk.DragContext context, uint time) {
+        get_style_context ().remove_class ("highlight");
     }
 
     public void clear_indicator (Gdk.DragContext context) {
@@ -271,7 +291,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         
         var p_color = new Gtk.Grid ();
 		p_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        p_color.set_size_request (24, 24);
+        p_color.set_size_request (16, 16);
         p_color.halign = Gtk.Align.START;
         p_color.valign = Gtk.Align.CENTER;
 
@@ -285,14 +305,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         p_grid.halign = Gtk.Align.START;
         p_grid.valign = Gtk.Align.CENTER;
         p_grid.column_spacing = 6;
-        p_grid.attach (p_color, 0, 0, 1, 2);
-        p_grid.attach (p_name, 1, 0, 1, 1);
-        p_grid.attach (new Gtk.Label ("Alain"), 1, 1, 1, 1);
+        p_grid.add (p_color);
+        p_grid.add (p_name);
 
         var project_menu = new Gtk.MenuItem ();
-        //project_menu.get_style_context ().add_class ("track-options");
-        //project_menu.get_style_context ().add_class ("css-item");
-        project_menu.right_justified = true;
         project_menu.add (p_grid);
 
         var finalize_menu = new Widgets.MenuItem (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
@@ -304,7 +320,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         //var archive_menu = new Widgets.MenuItem (_("Archive"), "folder-symbolic", _("Play"));
         var delete_menu = new Widgets.MenuItem (_("Delete project"), "edit-delete-symbolic", _("Play Next"));
 
-        //menu.add (project_menu);
+        menu.add (project_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (finalize_menu);
         menu.add (edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());

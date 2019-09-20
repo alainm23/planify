@@ -4,6 +4,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
 
+    public signal void hide_item ();
+
     public CheckRow (Objects.Check check) {
         Object (
             check: check
@@ -20,6 +22,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         if (check.checked == 1) {
             checked_button.active = true;
+            get_style_context ().add_class ("dim-label");
         } else {
             checked_button.active = false;
         }
@@ -28,7 +31,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_entry.margin_bottom = 1;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
-        content_entry.get_style_context ().add_class ("content-entry");
+        content_entry.get_style_context ().add_class ("check-entry");
         content_entry.text = check.content;
         content_entry.hexpand = true;
 
@@ -36,7 +39,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;
         delete_button.get_style_context ().add_class ("flat");
-        delete_button.get_style_context ().add_class ("dim-label");
+        //delete_button.get_style_context ().add_class ("dim-label");
         delete_button.get_style_context ().add_class ("delete-check-button");
 
         var delete_revealer = new Gtk.Revealer ();
@@ -49,7 +52,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         box.hexpand = true;
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_entry, false, true, 6);
-        box.pack_end (delete_revealer, false, true, 6);
+        box.pack_end (delete_revealer, false, true, 0);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
@@ -86,13 +89,25 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         content_entry.changed.connect (() => {
             save ();
+        }); 
+
+        content_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                hide_item ();
+            }
+
+            return false;
         });
 
         checked_button.toggled.connect (() => {
             if (checked_button.active) {
+                get_style_context ().add_class ("dim-label");
+
                 check.checked = 1;
                 check.date_completed = new GLib.DateTime.now_local ().to_string ();
             } else {
+                get_style_context ().remove_class ("dim-label");
+
                 check.checked = 0;
                 check.date_completed = "";
             }

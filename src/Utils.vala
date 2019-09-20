@@ -4,7 +4,7 @@ public class Utils : GLib.Object {
     
     public string APP_FOLDER;
     public string AVATARS_FOLDER;
-        
+    
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -142,5 +142,78 @@ public class Utils : GLib.Object {
         }
         
         return true;
+    }
+
+    /*
+        Calendar Utils
+    */
+    
+    public int get_days_of_month (int index) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
+            return 31;
+        } else if ((index == 2) || (index == 4) || (index == 6) || (index == 9) || (index == 11)) {
+            return 30;
+        } else {
+            var date = new GLib.DateTime.now_local ();
+            int year = date.get_year ();
+
+            if (year % 4 == 0) {
+                if (year % 100 == 0) {
+                    if (year % 400 == 0) {
+                        return 29;
+                    } else {
+                        return 28;
+                    }
+                } else {
+                    return 28;
+                }
+            } else {
+                return 28;
+            }
+        }
+    }
+
+    public bool is_current_month (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () == now.get_year ()) {
+            if (date.get_month () == now.get_month ()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public bool is_today (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ();
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+    
+    public bool is_tomorrow (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ().add_days (1);
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+    
+    public string get_default_date_format_from_date (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () == now.get_year ()) {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
+        } else {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
+        }
+    }
+
+    public string get_relative_date_from_date (GLib.DateTime date) {
+        if (Application.utils.is_today (date)) {
+            return _("Today");
+        } else if (Application.utils.is_tomorrow (date)) {
+            return _("Tomorrow");
+        } else {
+            return get_default_date_format_from_date (date);
+        }
     }
 }

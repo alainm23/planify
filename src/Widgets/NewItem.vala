@@ -26,8 +26,9 @@ public class Widgets.NewItem : Gtk.EventBox {
         cancel_add_button.get_style_context ().add_class ("cancel-add-button");
         cancel_add_button.get_style_context ().add_class ("flat");
         cancel_add_button.get_style_context ().add_class ("dim-label");
+        cancel_add_button.get_style_context ().add_class ("hidden-button");
         cancel_add_button.tooltip_text = _("Cancel");
-        
+
         var submit_spinner = new Gtk.Spinner ();
         submit_spinner.start ();
 
@@ -65,11 +66,13 @@ public class Widgets.NewItem : Gtk.EventBox {
         add_image.valign = Gtk.Align.CENTER;
         add_image.gicon = new ThemedIcon ("list-add-symbolic");
         add_image.get_style_context ().add_class ("add-project-image");
+        add_image.get_style_context ().add_class ("text-color");
         add_image.pixel_size = 14;
 
         var add_label = new Gtk.Label (_("Add task"));
         add_label.margin_bottom = 1;
         add_label.get_style_context ().add_class ("pane-item");
+        add_label.get_style_context ().add_class ("text-color");
         add_label.get_style_context ().add_class ("add-project-label");
         add_label.use_markup = true;
 
@@ -125,7 +128,7 @@ public class Widgets.NewItem : Gtk.EventBox {
         name_entry.activate.connect (() => {
             insert_item ();
         });
-
+ 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 stack.visible_child_name = "1_box";
@@ -144,6 +147,15 @@ public class Widgets.NewItem : Gtk.EventBox {
                 cancel_add_button.get_style_context ().add_class ("active");
             }
         }); 
+
+        name_entry.focus_out_event.connect (() => {
+            if (name_entry.text == "") {
+                stack.visible_child_name = "1_box";
+                name_entry.text = "";
+            }
+
+            return false;
+        });
 
         cancel_add_button.clicked.connect (() => {
             if (name_entry.text == "") {
@@ -175,6 +187,12 @@ public class Widgets.NewItem : Gtk.EventBox {
             if (project_id == id) {
                 print ("Message: %s\n".printf (error_message));
                 print ("Code: %i\n".printf (error_code));
+
+                stack.visible_child_name = "1_box";
+                submit_stack.visible_child_name = "button";
+
+                name_entry.text = "";  
+                name_entry.sensitive = true; 
             }
         });
     }

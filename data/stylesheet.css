@@ -1,13 +1,14 @@
 @define-color projectview_color #fafafa;
+
+/*
+    Dark theme
+*/
+
 /*@define-color projectview_color #333333;*/
 
 entry {
     caret-color: #3689e6;
 }
-
-/*
-    Dark theme
-*/
 
 textview {
     caret-color: #3689e6;
@@ -90,6 +91,20 @@ paned > separator {
     background-color: transparent;
 }
 .project-row:selected:focus image {
+    color: @text_color;
+}
+
+.header-row {
+    transition: all 140ms ease-in-out;
+    background-color: transparent;
+}
+
+.hidden-button {
+    background-color: transparent;
+    
+}
+
+.hidden-button image {
     color: @text_color;
 }
 
@@ -305,6 +320,10 @@ paned > separator {
     -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
 }
 
+.project-textview text {
+    background-color: @projectview_color;
+}
+
 .new-item-entry {
     border-width: 0px 0px 0px 0px;
     background-color: @projectview_color;
@@ -378,11 +397,23 @@ paned > separator {
 }
 
 .content-entry {
+    color: #3689e6;
+    font-weight: 700;
     border-width: 0px 0px 0px 0px;
     background-color: @base_color;
 }
 
 .content-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.check-entry {
+    border-width: 0px 0px 0px 0px;
+    background-color: @base_color;
+}
+
+.check-entry:focus {
     border-color: transparent;
     box-shadow: none;
 }
@@ -446,3 +477,87 @@ paned > separator {
     -gtk-icon-transform: rotate(-90deg);
 }
 
+.preview { 
+    padding: 0px 6px 0px 6px;
+    background-color: shade (@base_color, 0.96);
+    border: 1px solid shade (@base_color, 0.85);
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.preview image,
+.preview label {
+    color: @text_color;
+}
+
+.due-preview {
+    padding: 0px 6px 0px 6px;
+    border: 1px solid shade (#ff8c82, 0.96);
+    background-color: #ff8c82;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.due-preview label,
+.due-preview image {
+    color: #333;
+}
+
+.highlight {
+    box-shadow: 0px 0px 1px 1px #3689E6;
+    background-color: alpha (#3689e6, 0.25);
+    opacity: 1;
+    color: @text_color;
+}
+
+.item-action-button {
+    padding: 0px 3px 0px 3px;
+    background-color: transparent;
+}
+
+.due-no-date {
+    opacity: 0.7;
+}
+
+/*
+    Calendar Style
+*/
+
+.calendar-today {
+    color: @colorAccent;
+    border-radius: 6px;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.calendar-day-selected {
+    background-color: @colorAccent;
+    color: #fafafa;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.due-today {
+    background-color: #ffe16b;
+    color: #333;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.due-upcoming {
+    background-color: #ed5353;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.due-clear {
+    background-color: #333333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.due-label {
+    font-weight: 600;
+}

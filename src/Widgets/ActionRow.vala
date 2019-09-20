@@ -100,7 +100,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         var title_name = new Gtk.Label (item_name);
         title_name.get_style_context ().add_class ("pane-item");
-        title_name.margin_bottom = 1;
+        //title_name.margin_bottom = 1;
         title_name.use_markup = true;
 
         primary_label = new Gtk.Label (null);

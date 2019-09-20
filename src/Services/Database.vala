@@ -9,11 +9,16 @@ public class Services.Database : GLib.Object {
     public signal void item_added (Objects.Item item);
     public signal void item_updated (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
+    public signal void update_due_item (Objects.Item item);
 
     public signal void check_added (Objects.Check check);
     public signal void check_updated (Objects.Check check);
     public signal void check_deleted (Objects.Check check);
-    
+
+    public Gee.ArrayList<Objects.Item?> items_to_delete;
+    public signal void show_toast_delete (int count);
+    public signal void show_undo_item (int64 id);
+
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db";
@@ -32,6 +37,37 @@ public class Services.Database : GLib.Object {
             stderr.printf ("Can't open database: %d, %s\n", rc, db.errmsg ());
             Gtk.main_quit ();
         }
+
+        items_to_delete = new Gee.ArrayList<Objects.Item?> ();
+    }
+
+    public bool add_item_to_delete (Objects.Item item) {
+        if (items_to_delete.add (item)) {
+            show_toast_delete (items_to_delete.size);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void remove_item_to_delete () {
+        new Thread<void*> ("remove_item_to_delete", () => {
+            foreach (var item in items_to_delete) {
+                delete_item (item);
+            }
+
+            items_to_delete.clear ();
+            
+            return null;
+        });
+    } 
+
+    public void clear_item_to_delete () {
+        foreach (var item in items_to_delete) {
+            show_undo_item (item.id);   
+        }
+
+        items_to_delete.clear ();
     }
 
     private int create_tables () {
@@ -680,6 +716,39 @@ public class Services.Database : GLib.Object {
         if (res == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+    }
+
+    public bool set_due_item (Objects.Item item, GLib.DateTime? date) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        item.due = "";
+
+        if (date != null) {
+            item.due = date.to_string ();
+        }
+
+        sql = """
+            UPDATE Items SET due = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, item.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            update_due_item (item);
+            return true;
+        }
+
+        return false;
     }
 
     public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {

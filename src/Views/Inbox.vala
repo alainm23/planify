@@ -3,6 +3,8 @@ public class Views.Inbox : Gtk.EventBox {
     private int64 project_id;
     private bool is_todoist;
 
+    private Widgets.NewItem new_item_widget;
+
     private Gtk.Revealer motion_revealer;
 
     private const Gtk.TargetEntry[] targetEntries = {
@@ -43,7 +45,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         listbox = new Gtk.ListBox  ();
         listbox.valign = Gtk.Align.START;
-        listbox.margin_top = 12;
+        listbox.margin_top = 6;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
@@ -58,7 +60,7 @@ public class Views.Inbox : Gtk.EventBox {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
-        var new_item_widget = new Widgets.NewItem (
+        new_item_widget = new Widgets.NewItem (
             project_id, 
             is_todoist
         );
@@ -66,7 +68,8 @@ public class Views.Inbox : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (listbox, false, false, 3);
+        main_box.pack_start (listbox, false, false, 0);
+        main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (new_item_widget, false, false, 0);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -117,6 +120,11 @@ public class Views.Inbox : Gtk.EventBox {
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
+
+        Gtk.drag_dest_set (new_item_widget, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        new_item_widget.drag_motion.connect (on_drag_motion);
+        new_item_widget.drag_leave.connect (on_drag_leave);
+        new_item_widget.drag_data_received.connect (on_drag_item_received);
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -145,6 +153,27 @@ public class Views.Inbox : Gtk.EventBox {
     
             update_item_order ();
         }
+    }
+
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        source.get_parent ().remove (source); 
+        listbox.insert (source, (int) listbox.get_children ().length);
+        listbox.show_all ();
+    
+        update_item_order ();
+    }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_revealer.reveal_child = true;
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        motion_revealer.reveal_child = false;
     }
 
     private void update_item_order () {
