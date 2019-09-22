@@ -64,7 +64,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         grid_color = new Gtk.Grid ();
         grid_color.margin_start = 8;
 		grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        grid_color.set_size_request (13, 13);
+        grid_color.set_size_request (14, 14);
         grid_color.valign = Gtk.Align.CENTER;
         grid_color.halign = Gtk.Align.CENTER;
 

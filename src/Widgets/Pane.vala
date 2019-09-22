@@ -30,7 +30,12 @@ public class Widgets.Pane : Gtk.EventBox {
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Create new task"));
         inbox_row.primary_text = "3";
 
-        today_row = new Widgets.ActionRow (_("Today"), "user-bookmarks-symbolic", "today", _("Create new task"));
+        string today_icon = "planner-today-day-symbolic";
+        if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+            today_icon = "planner-today-night-symbolic";
+        }
+
+        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("Create new task"));
         today_row.primary_text = "4";
         
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Create new task"));
@@ -41,7 +46,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var username = GLib.Environment.get_user_name ();
         var iconfile = @"/var/lib/AccountsService/icons/$username";
 
-        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 16);
+        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 19);
 
         var username_label = new Gtk.Label (Application.settings.get_string ("user-name"));
         username_label.get_style_context ().add_class ("pane-item");
@@ -66,6 +71,7 @@ public class Widgets.Pane : Gtk.EventBox {
         search_button.image = search_image;
 
         var settings_button = new Gtk.Button ();
+        settings_button.margin_end = 1;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Preferences");
         settings_button.valign = Gtk.Align.CENTER;
@@ -94,7 +100,7 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_image.pixel_size = 16;
         sync_button.image = sync_image;
 
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         profile_box.margin_start = 2;
         profile_box.margin_end = 2;
         profile_box.get_style_context ().add_class ("pane");
@@ -154,7 +160,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_revealer.add (add_eventbox);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 6;
+        listbox.margin_top = 3;
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;

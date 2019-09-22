@@ -228,6 +228,7 @@ public class Views.Project : Gtk.EventBox {
         Application.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 project = p;
+                name_label.label = project.name;
             }
         });
     }
@@ -236,29 +237,6 @@ public class Views.Project : Gtk.EventBox {
         if (project != null) {
             project.note = note_textview.buffer.text;
             project.save ();
-        }
-    }
-
-    private void apply_styles (string color) {
-        string COLOR_CSS = """
-            .project-color-%s {
-                color: %s
-            }
-        """;
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var colored_css = COLOR_CSS.printf (
-                project.id.to_string (),
-                color
-            );
-
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
         }
     }
 

@@ -2,9 +2,15 @@ public class Views.Today : Gtk.EventBox {
     construct {
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.gicon = new ThemedIcon ("user-bookmarks-symbolic");
-        icon_image.get_style_context ().add_class ("today");
-        icon_image.pixel_size = 32; 
+        icon_image.pixel_size = 21; 
+
+        if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+            icon_image.gicon = new ThemedIcon ("planner-today-night-symbolic");
+            icon_image.get_style_context ().add_class ("today-night-icon");
+        } else {
+            icon_image.gicon = new ThemedIcon ("planner-today-day-symbolic");
+            icon_image.get_style_context ().add_class ("today-day-icon");
+        }
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

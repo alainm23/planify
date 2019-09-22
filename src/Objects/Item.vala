@@ -13,38 +13,24 @@ public class Objects.Item : GLib.Object {
     public int64 header_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
 
-    private uint save_timer = 0;
+    private uint timeout_id = 0;
 
     public void save () {
-        cancel_save_timeout ();
-        save_timeout ();
-    }
-
-    private void cancel_save_timeout () {
-        lock (save_timer) {
-            if (save_timer != 0) {
-                Source.remove (save_timer);
-                save_timer = 0;
-            }
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+            timeout_id = 0;
         }
-    }
 
-    private void save_timeout () {
-        lock (save_timer) {
-            cancel_save_timeout ();
+        timeout_id = Timeout.add (1000, () => {
+            this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
-            save_timer = Timeout.add (1000, () => {
-                this.date_updated = new GLib.DateTime.now_local ().to_string ();
-
-                new Thread<void*> ("save_timeout", () => {
-                    Application.database.update_item (this);
-                    cancel_save_timeout ();
-
-                    return null;
-                });
+            new Thread<void*> ("save_timeout", () => {
+                Application.database.update_item (this);
                 
-                return false;
+                return null;
             });
-        }
+            
+            return false;
+        });
     }
 }

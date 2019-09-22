@@ -3,8 +3,8 @@ public class Views.Upcoming : Gtk.EventBox {
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-        icon_image.get_style_context ().add_class ("upcoming");
-        icon_image.pixel_size = 32;
+        icon_image.get_style_context ().add_class ("upcoming-icon");
+        icon_image.pixel_size = 21;
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Upcoming")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

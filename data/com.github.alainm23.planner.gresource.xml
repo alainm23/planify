@@ -13,5 +13,8 @@
     <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
     <file alias="planner-calendar-symbolic.svg">resources/planner-calendar-symbolic.svg</file>
     <file alias="planner-alarm-symbolic.svg">resources/planner-alarm-symbolic.svg</file>
+
+    <file alias="planner-today-day-symbolic.svg">resources/planner-today-day-symbolic.svg</file>
+    <file alias="planner-today-night-symbolic.svg">resources/planner-today-night-symbolic.svg</file>
   </gresource>
 </gresources>

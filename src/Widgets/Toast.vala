@@ -64,7 +64,7 @@ public class Widgets.Toast : Gtk.Revealer {
             Source.remove (timeout_id);
             timeout_id = 0;
         }
-        
+         
         reveal_child = true;
 
         uint duration = 4500;

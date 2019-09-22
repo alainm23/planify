@@ -85,14 +85,6 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     construct {
         get_style_context ().add_class ("pane-row");
 
-        if (item_base_name == "inbox") {
-            get_style_context ().add_class ("inbox-row");
-        } else if (item_base_name == "today") {
-            get_style_context ().add_class ("today-row");
-        } else if (item_base_name == "upcoming") {
-            get_style_context ().add_class ("upcoming-row");
-        }
-        
         icon = new Gtk.Image ();
         icon.valign = Gtk.Align.CENTER;
         icon.gicon = new ThemedIcon (icon_name);
@@ -143,5 +135,17 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = true;
 
         add (main_revealer);
+
+        if (item_base_name == "inbox") {
+            icon.get_style_context ().add_class ("inbox-icon");
+        } else if (item_base_name == "today") {
+            if (icon_name == "planner-today-day-symbolic") {
+                icon.get_style_context ().add_class ("today-day-icon");
+            } else {    
+                icon.get_style_context ().add_class ("today-night-icon");
+            }
+        } else if (item_base_name == "upcoming") {
+            icon.get_style_context ().add_class ("upcoming-icon");
+        }
     }
 }

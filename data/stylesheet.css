@@ -108,31 +108,6 @@ paned > separator {
     color: @text_color;
 }
 
-/*
-.inbox-row:selected {
-    color: #3689e6;	
-}
-
-.today-row:selected {
-    color: #f9c440;
-}
-
-.upcoming-row:selected {
-    color: #ed5353;
-}
-*/
-.inbox-row image {
-    color: #3689e6;	
-}
-
-.today-row image {
-    color: #f9c440;
-}
-
-.upcoming-row image {
-    color: #ed5353;
-}
-
 .inbox {
     color: #3689e6;	
 }
@@ -537,14 +512,28 @@ paned > separator {
     padding: 3px;
 }
 
-.due-today {
+.inbox-icon {
+    background-color: #3689e6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.today-day-icon {
     background-color: #ffe16b;
     color: #333;
     border-radius: 4px;
     padding: 2px;
 }
 
-.due-upcoming {
+.today-night-icon {
+    background-color: #555c68;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.upcoming-icon {
     background-color: #ed5353;
     color: #fff;
     border-radius: 4px;

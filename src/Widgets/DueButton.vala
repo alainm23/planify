@@ -65,7 +65,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         popover = new Gtk.Popover (this);
         popover.position = Gtk.PositionType.LEFT;
 
-        today_button = new Widgets.ModelButton (_("Today"), "user-bookmarks-symbolic", "");
+        string today_icon = "planner-today-day-symbolic";
+        if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+            today_icon = "planner-today-night-symbolic";
+        }
+
+        today_button = new Widgets.ModelButton (_("Today"), today_icon, "");
         today_button.color = 0;
         today_button.due_label = true;
 

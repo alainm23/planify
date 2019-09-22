@@ -21,9 +21,13 @@ public class Widgets.ModelButton : Gtk.Button {
     public int color {
         set {
             if (value == 0) {
-                item_image.get_style_context ().add_class ("due-today");
+                if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+                    item_image.get_style_context ().add_class ("today-night-icon");
+                } else {
+                    item_image.get_style_context ().add_class ("today-day-icon");
+                }
             } else if (value == 1) {
-                item_image.get_style_context ().add_class ("due-upcoming");
+                item_image.get_style_context ().add_class ("upcoming-icon");
             } else {
                 item_image.get_style_context ().add_class ("due-clear");
             }
