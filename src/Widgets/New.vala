@@ -19,9 +19,15 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Widgets.NewProject : Gtk.Revealer {
+public class Widgets.New : Gtk.Revealer {
     private Gtk.Entry name_entry;
-    private Gtk.ComboBox source_combobox;
+    private Gtk.Button project_button;
+    private Gtk.Button area_button;
+
+    private Gtk.Stack stack;
+
+    private Gtk.ListStore areas_liststore;
+    private Gtk.ComboBox areas_combobox;   
     private int color_selected = 30;
 
     public signal void reveal_activated (bool value);
@@ -31,6 +37,24 @@ public class Widgets.NewProject : Gtk.Revealer {
             reveal_child = value;
 
             if (value) {
+                areas_liststore.clear ();
+                Gtk.TreeIter iter;
+                string name;
+                string icon;    
+                foreach (Objects.Area area in Application.database.get_all_areas ()) {
+                    if (area.defaul_area == 1) {
+                        name = _("No work area");
+                        icon = "window-close-symbolic";
+                    } else {
+                        name = area.name;
+                        icon = "planner-work-area-symbolic";
+                    }
+
+                    areas_liststore.append (out iter);
+                    areas_liststore.@set (iter, 0, area.id, 1, " " + name, 2, icon); 
+                }
+                areas_combobox.active = 0;
+
                 name_entry.grab_focus ();
             }
 
@@ -41,7 +65,7 @@ public class Widgets.NewProject : Gtk.Revealer {
         }
     }
 
-    public NewProject () {
+    public New () {
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         reveal_child = false;
         valign = Gtk.Align.END;
@@ -52,53 +76,31 @@ public class Widgets.NewProject : Gtk.Revealer {
         var name_label = new Granite.HeaderLabel (_("Name:"));
         
         name_entry = new Gtk.Entry ();
+        name_entry.secondary_icon_name = "planner-online-symbolic";
 
-        var source_label = new Granite.HeaderLabel (_("Source:"));
+        var area_label = new Granite.HeaderLabel (_("Work area:"));
 
-        var list_store = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
-        source_combobox = new Gtk.ComboBox.with_model (list_store);
-
-        var error_icon = new Gtk.Image ();
-        error_icon.gicon = new ThemedIcon ("dialog-error-symbolic");
-        error_icon.pixel_size = 14;
-
-        var error_label = new Gtk.Label (null);
-        error_label.halign = Gtk.Align.START;
-        error_label.get_style_context ().add_class ("error_label");
-
-        var error_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        error_box.margin_top = 12;
-        error_box.pack_start (error_icon, false, false, 0);
-        error_box.pack_start (error_label, false, false, 3);
-
-        var error_revealer = new Gtk.Revealer ();
-        error_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        error_revealer.add (error_box);
-        error_revealer.reveal_child = false;
-
-        string local_text = " " + _("Local");        
-        Gtk.TreeIter local_iter;
-        list_store.append (out local_iter);
-        list_store.@set (local_iter, 0, 0, 1, local_text, 2, "go-home");
+        areas_liststore = new Gtk.ListStore (3, typeof (int64), typeof (unowned string), typeof (string));
+        areas_combobox = new Gtk.ComboBox.with_model (areas_liststore);
 
         var pixbuf_cell = new Gtk.CellRendererPixbuf ();
-        source_combobox.pack_start (pixbuf_cell, false);
-        source_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
+        areas_combobox.pack_start (pixbuf_cell, false);
+        areas_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
 
         var text_cell = new Gtk.CellRendererText ();
-        source_combobox.pack_start (text_cell, true);
-        source_combobox.add_attribute (text_cell, "text", 1);
-
-        source_combobox.set_active_iter (local_iter);
+        areas_combobox.pack_start (text_cell, true);
+        areas_combobox.add_attribute (text_cell, "text", 1);
 
         var source_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        source_box.pack_start (source_label, false, false, 0);
-        source_box.pack_start (source_combobox, false, false, 0);
+        source_box.pack_start (area_label, false, false, 0);
+        source_box.pack_start (areas_combobox, false, false, 0);
 
         var source_revealer = new Gtk.Revealer ();
         source_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         source_revealer.add (source_box);
+        source_revealer.reveal_child = true;
 
+        /*
         if (Application.settings.get_boolean ("todoist-account")) {
             source_revealer.reveal_child = true;
 
@@ -107,6 +109,7 @@ public class Widgets.NewProject : Gtk.Revealer {
             list_store.append (out todoist_iter);
             list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "preferences-desktop-online-accounts");
         }
+        */
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
@@ -237,6 +240,24 @@ public class Widgets.NewProject : Gtk.Revealer {
         color_box.attach (color_48, 4, 2, 1, 1);
         color_box.attach (color_49, 5, 2, 1, 1);
 
+        var error_icon = new Gtk.Image ();
+        error_icon.gicon = new ThemedIcon ("dialog-error-symbolic");
+        error_icon.pixel_size = 14;
+
+        var error_label = new Gtk.Label (null);
+        error_label.halign = Gtk.Align.START;
+        error_label.get_style_context ().add_class ("error_label");
+
+        var error_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        error_box.margin_top = 12;
+        error_box.pack_start (error_icon, false, false, 0);
+        error_box.pack_start (error_label, false, false, 3);
+
+        var error_revealer = new Gtk.Revealer ();
+        error_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        error_revealer.add (error_box);
+        error_revealer.reveal_child = false;
+
         var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
@@ -274,15 +295,22 @@ public class Widgets.NewProject : Gtk.Revealer {
         box.pack_start (error_revealer, false, false, 0);
         box.pack_end (action_grid, false, false, 0);
         
+        stack = new Gtk.Stack ();
+        stack.expand = true;
+        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+
+        stack.add_named (create_chooser_widget (), "chooser");
+        stack.add_named (box, "box");
+
         var main_grid = new Gtk.Grid ();
         main_grid.expand = false; 
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        main_grid.add (box);
+        main_grid.add (stack);
 
         add (main_grid); 
-        
+
         color_30.toggled.connect (() => {
             color_selected = 30;
         });
@@ -379,15 +407,11 @@ public class Widgets.NewProject : Gtk.Revealer {
             }
         });
 
-        cancel_button.clicked.connect (() => {
-            reveal = false;
-            name_entry.text = "";
-        });
+        cancel_button.clicked.connect (cancel);
 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                reveal = false;
-                name_entry.text = "";
+                cancel ();
             }
 
             return false;
@@ -402,8 +426,7 @@ public class Widgets.NewProject : Gtk.Revealer {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
 
-            reveal = false;
-            name_entry.text = "";
+            cancel ();
         });
 
         Application.todoist.project_added_error.connect ((error_code, error_message) => {
@@ -419,6 +442,7 @@ public class Widgets.NewProject : Gtk.Revealer {
             });
         });
 
+        /*
         Application.todoist.first_sync_finished.connect (() => {
             string email_text = " " + Application.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
@@ -427,21 +451,112 @@ public class Widgets.NewProject : Gtk.Revealer {
 
             source_revealer.reveal_child = Application.settings.get_boolean ("todoist-account");
         });
+        */
     } 
 
-    public void create_project () {
+    private Gtk.Box create_chooser_widget () {
+        var project_image = new Gtk.Image ();
+        project_image.halign = Gtk.Align.START;
+        project_image.valign = Gtk.Align.CENTER;
+        project_image.gicon = new ThemedIcon ("planner-project-symbolic");
+        project_image.pixel_size = 14;
+        project_image.get_style_context ().add_class ("project-icon");
+
+        var project_label = new Gtk.Label (_("Project"));
+        project_label.get_style_context ().add_class ("welcome");
+        project_label.get_style_context ().add_class ("h3");
+        project_label.get_style_context ().add_class ("font-bold");
+        project_label.halign = Gtk.Align.START;
+
+        var project_detail_label = new Gtk.Label (_("Crea un proyecto donde hagas muchas cosas xdxd"));
+        project_detail_label.wrap = true;
+        project_detail_label.justify = Gtk.Justification.FILL;
+        //project_detail_label.get_style_context ().add_class ("dim-label");
+
+        var project_grid = new Gtk.Grid ();
+        project_grid.column_spacing = 3;
+        project_grid.attach (project_image, 0, 0, 1, 1);
+        project_grid.attach (project_label, 1, 0, 1, 1);
+        project_grid.attach (project_detail_label, 1, 1, 1, 1);
+
+        project_button = new Gtk.Button ();
+        project_button.add (project_grid);
+        project_button.get_style_context ().remove_class ("button");
+        project_button.get_style_context ().add_class ("flat");
+        project_button.get_style_context ().add_class ("menuitem");
+
+        var area_image = new Gtk.Image ();
+        area_image.halign = Gtk.Align.START;
+        area_image.valign = Gtk.Align.CENTER;
+        area_image.gicon = new ThemedIcon ("planner-work-area-symbolic");
+        area_image.pixel_size = 14;
+        area_image.get_style_context ().add_class ("area-icon");
+
+        var area_label = new Gtk.Label (_("Work area"));
+        area_label.get_style_context ().add_class ("h3");
+        area_label.get_style_context ().add_class ("welcome");
+        area_label.get_style_context ().add_class ("font-bold");
+        area_label.halign = Gtk.Align.START;
+
+        var area_detail_label = new Gtk.Label (_("Crea un proyecto donde hagas muchas cosas xdxd"));
+        area_detail_label.wrap = true;
+        area_detail_label.justify = Gtk.Justification.FILL;
+        //area_detail_label.get_style_context ().add_class ("dim-label");
+
+        var area_grid = new Gtk.Grid ();
+        area_grid.column_spacing = 3;
+        area_grid.attach (area_image, 0, 0, 1, 1);
+        area_grid.attach (area_label, 1, 0, 1, 1);
+        area_grid.attach (area_detail_label, 1, 1, 1, 1);
+
+        area_button = new Gtk.Button ();
+        area_button.add (area_grid);
+        area_button.get_style_context ().remove_class ("button");
+        area_button.get_style_context ().add_class ("flat");
+        area_button.get_style_context ().add_class ("menuitem");
+
+        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.margin = 6;
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.add (project_button);
+        box.pack_start (project_button, false, false, 0);
+        box.pack_start (area_button, false, false, 0);
+        box.pack_end (cancel_button, false, false, 0);
+
+        cancel_button.clicked.connect (cancel);
+
+        project_button.clicked.connect (() => {
+            stack.visible_child_name = "box";
+        });
+
+        area_button.clicked.connect (create_area);
+
+        return box;
+    }
+
+    private void cancel () {
+        reveal = false;
+        name_entry.text = "";
+        stack.visible_child_name = "chooser";
+    }
+
+    private void create_project () {
         if (name_entry.text != "") {
             var project = new Objects.Project ();
+            project.area_id = Application.settings.get_int64 ("default-area");
             project.name = name_entry.text;
             project.color = color_selected;
+            project.area_id = get_selected_area_id ();
 
-            if (source_combobox.active == 0) {
-                project.id = Application.utils.generate_id ();
+            project.id = Application.utils.generate_id ();
                 
-                if (Application.database.insert_project (project)) {
-                    reveal = false;
-                    name_entry.text = "";
-                }
+            if (Application.database.insert_project (project)) {
+                cancel ();
+            }
+            /*
+            if (areas_combobox.active == 0) {
+                
             } else { 
                 project.is_todoist = 1;
 
@@ -451,6 +566,29 @@ public class Widgets.NewProject : Gtk.Revealer {
                     
                 }
             }
+            */
         }
+    }
+
+    private void create_area () {
+        var area = new Objects.Area ();
+        area.name = _("New area");
+        area.id = Application.utils.generate_id ();
+
+        if (Application.database.insert_area (area)) {
+            cancel ();
+        }
+    }
+
+    public int64? get_selected_area_id () {
+        Gtk.TreeIter iter;
+        if (!areas_combobox.get_active_iter (out iter)) {
+            return null;
+        }
+
+        Value id;
+        areas_liststore.get_value (iter, 0, out id);
+
+        return (int64) id;
     }
 }

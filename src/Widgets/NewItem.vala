@@ -53,7 +53,7 @@ public class Widgets.NewItem : Gtk.EventBox {
         //name_entry.get_style_context ().add_class ("content-entry");
 
         var 1_box = new Gtk.Grid ();
-        1_box.margin_start = 7;
+        1_box.margin_start = 4;
         1_box.add (submit_stack);
         1_box.add (checked_button);
         1_box.add (name_entry);
@@ -77,7 +77,7 @@ public class Widgets.NewItem : Gtk.EventBox {
         add_label.use_markup = true;
 
         var add_grid = new Gtk.Grid ();
-        add_grid.margin_start = 37;
+        add_grid.margin_start = 34;
         add_grid.column_spacing = 9;
         add_grid.add (add_image);
         add_grid.add (add_label);

@@ -25,6 +25,12 @@
             <description>Inbox Project ID</description>
         </key>
 
+        <key name="default-area" type="x">
+            <default>0</default>
+            <summary>default area ID</summary>
+            <description>default area ID</description>
+        </key>
+
         <key name="inbox-project-sync" type="b">
             <default>false</default>
             <summary>Inbox Project Sync</summary>

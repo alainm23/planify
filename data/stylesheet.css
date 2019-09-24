@@ -73,6 +73,11 @@ paned > separator {
     font-weight: 600;
 }
 
+.pane-entry {
+    background-color: shade (@base_color, 0.96);
+    padding-left: 0px;
+}
+
 .pane-row {
     transition: all 140ms ease-in-out;
     background-color: transparent;
@@ -84,7 +89,7 @@ paned > separator {
 }
 
 .pane-row:selected label {
-    font-weight: 700;
+    /*font-weight: 700;*/
 }
 
 .pane-row button {
@@ -101,11 +106,18 @@ paned > separator {
 
 .hidden-button {
     background-color: transparent;
-    
+}
+
+.hidden-button image {
+    transition: all 150ms ease-in-out; 
 }
 
 .hidden-button image {
     color: @text_color;
+}
+
+.hidden-button.opened image {
+    -gtk-icon-transform: rotate(90deg);
 }
 
 .inbox {
@@ -158,6 +170,18 @@ paned > separator {
 
 .pane-no-project-selected {
     background-color: @base_color;
+}
+
+/*
+    Area Row
+*/
+
+.area-row {
+    background-color: transparent;
+}
+
+.area-row:selected {
+    color: @text_color;
 }
 
 /*
@@ -549,4 +573,54 @@ paned > separator {
 
 .due-label {
     font-weight: 600;
+}
+
+.add-button:hover {
+    color: #3689e6;
+}
+
+.add-button:hover image {
+    color: #3689e6;
+    animation: add-animation 0.5s ease-in-out;
+
+    background-color: #3689e6;
+    color: @color_text;
+    border-radius: 4px;
+}
+
+.project-icon {
+    background-color: #3689e6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;   
+}
+
+.area-icon {
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.css {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+            @fg_color,
+                1.3
+            ),
+            @fg_color
+        );
+    border: 1px solid shade (@fg_color, 0.9);
+    border-radius: 50px;
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 2px alpha (#000, 0.3);
+    color: @bg_color;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0px 4px 0px 4px;
 }

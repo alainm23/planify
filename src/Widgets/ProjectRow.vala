@@ -57,21 +57,21 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        tooltip_text = project.name;
+        //tooltip_text = project.name;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
         grid_color = new Gtk.Grid ();
         grid_color.margin_start = 8;
 		grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        grid_color.set_size_request (14, 14);
+        grid_color.set_size_request (13, 13);
         grid_color.valign = Gtk.Align.CENTER;
         grid_color.halign = Gtk.Align.CENTER;
 
         name_label = new Gtk.Label (project.name);
         name_label.margin_top = 6;
         name_label.margin_bottom = 6;
-        name_label.margin_start = 7;
+        name_label.margin_start = 8;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -85,11 +85,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
-        source_icon.margin_top = 0;
-        source_icon.margin_end = 12;
-        source_icon.margin_start = 12;
         source_icon.get_style_context ().add_class ("dim-label");
-        source_icon.pixel_size = 16;
+        source_icon.get_style_context ().add_class ("text-color");
+        source_icon.pixel_size = 14;
 
         if (project.is_todoist == 0) {
             source_icon.icon_name = "planner-offline-symbolic";
@@ -101,8 +99,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_end (count_label, false, false, 0);
-        handle_box.pack_end (source_icon, false, false, 0);
+        handle_box.pack_start (source_icon, false, false, 6);
+        //handle_box.pack_end (count_label, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");

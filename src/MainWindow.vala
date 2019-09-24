@@ -52,35 +52,6 @@ public class MainWindow : Gtk.Window {
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var tag_1_button = new Gtk.Button.with_label ("All");
-        
-        tag_1_button.get_style_context ().add_class ("preview");
-        tag_1_button.valign = Gtk.Align.CENTER;
-
-        var tag_2_button = new Gtk.Button.with_label ("CSS");
-        tag_2_button.get_style_context ().add_class ("preview");
-        tag_2_button.valign = Gtk.Align.CENTER;
-
-        var tag_3_button = new Gtk.Button.with_label ("Alain");
-        tag_3_button.get_style_context ().add_class ("preview");
-        tag_3_button.valign = Gtk.Align.CENTER;
-
-        var tag_4_button = new Gtk.Button.with_label ("Juan Carlos");
-        tag_4_button.get_style_context ().add_class ("preview");
-        tag_4_button.valign = Gtk.Align.CENTER;
-
-        var tag_grid = new Gtk.Grid ();
-        tag_grid.valign = Gtk.Align.CENTER;
-        tag_grid.margin_start = 35;
-        tag_grid.margin_top = 6;
-        tag_grid.column_spacing = 6;
-        tag_grid.add (tag_1_button);
-        tag_grid.add (tag_2_button);
-        tag_grid.add (tag_3_button);
-        tag_grid.add (tag_4_button);
-
-        //projectview_header.pack_start (tag_grid);
-
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
@@ -98,7 +69,6 @@ public class MainWindow : Gtk.Window {
         var inbox_view = new Views.Inbox ();
         var today_view = new Views.Today ();
         var upcoming_view = new Views.Upcoming ();
-        //var project_view = new Views.Project ();
 
         var stack = new Gtk.Stack ();
         stack.expand = true;
@@ -108,7 +78,6 @@ public class MainWindow : Gtk.Window {
         stack.add_named (inbox_view, "inbox-view");
         stack.add_named (today_view, "today-view");
         stack.add_named (upcoming_view, "upcoming-view");
-        //stack.add_named (project_view, "project_view");
 
         var toast = new Widgets.Toast ();
 
@@ -148,14 +117,20 @@ public class MainWindow : Gtk.Window {
 
                 // To do: Save user photo
                 // To do: Create a tutorial project
+ 
+                // Create Defaut Area
+                var default_area = Application.database.create_default_area ();
 
                 // Create Inbox Project
                 var inbox_project = Application.database.create_inbox_project ();
+                inbox_project.area_id = default_area.id;
+
                 Application.settings.set_int64 ("inbox-project", inbox_project.id);
+                Application.settings.set_int64 ("default-area", default_area.id);
                 Application.settings.set_boolean ("inbox-project-sync", false);
-                
+            
                 //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
-                stack.visible_child_name = "inbox_view";
+                stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
             } else {
                 var todoistOAuth = new Dialogs.TodoistOAuth ();
@@ -164,28 +139,28 @@ public class MainWindow : Gtk.Window {
         });
 
         pane.activated.connect ((type, id) => {
-            if (type == "action") {
-                if (id == 0) {
-                    stack.visible_child_name = "inbox-view";
-                } else if  (id == 1) {
-                    stack.visible_child_name = "today-view";
-                } else {
-                    stack.visible_child_name = "upcoming-view";
-                }
+            if (id == 0) {
+                stack.visible_child_name = "inbox-view";
+            } else if  (id == 1) {
+                stack.visible_child_name = "today-view";
             } else {
-                if (loaded_projects.has_key (id.to_string ())) {
-                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
-                } else {
-                    loaded_projects.set (id.to_string (), true);
-                    var project_view = new Views.Project (Application.database.get_project_by_id (id));
-                    stack.add_named (project_view, "project-view-%s".printf (id.to_string ()));
-                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
-                }
+                stack.visible_child_name = "upcoming-view";
+            }
+        });
+
+        Application.utils.pane_project_selected.connect ((project_id, area_id) => {
+            if (loaded_projects.has_key (project_id.to_string ())) {
+                stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+            } else {
+                loaded_projects.set (project_id.to_string (), true);
+                var project_view = new Views.Project (Application.database.get_project_by_id (project_id));
+                stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
+                stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
             }
         });
 
         Application.todoist.first_sync_finished.connect (() => {
-            stack.visible_child_name = "inbox_view";
+            stack.visible_child_name = "inbox-view";
             pane.sensitive_ui = true;
         });
 

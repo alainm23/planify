@@ -19,7 +19,7 @@ public class Views.Inbox : Gtk.EventBox {
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("mail-mailbox-symbolic");
         icon_image.get_style_context ().add_class ("inbox-icon");
-        icon_image.pixel_size = 19;
+        icon_image.pixel_size = 21;
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);

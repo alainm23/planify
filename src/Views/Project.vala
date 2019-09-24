@@ -275,7 +275,7 @@ public class Views.Project : Gtk.EventBox {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (target != null) {        
+        if (target != null) {         
             if (target.get_index () != source.get_index ()) {
                 source.get_parent ().remove (source); 
                 listbox.insert (source, target.get_index ());

@@ -12,6 +12,7 @@ public class Objects.Project : GLib.Object {
     public int is_archived { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
     public int is_sync { get; set; default = 0; }
+    public int64 area_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
 
     private uint timeout_id = 0;

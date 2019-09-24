@@ -110,6 +110,10 @@ public class Services.Todoist : GLib.Object {
                         Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
                         Application.settings.set_boolean ("todoist-account", true);
 
+                        // Create Defaut Area
+                        var default_area = Application.database.create_default_area ();
+                        Application.settings.set_int64 ("default-area", default_area.id);
+
                         // Create projects
                         unowned Json.Array projects = node.get_array_member ("projects");
                         foreach (unowned Json.Node item in projects.get_elements ()) {
@@ -118,6 +122,7 @@ public class Services.Todoist : GLib.Object {
                             var project = new Objects.Project ();
 
                             project.id = object.get_int_member ("id");
+                            project.area_id = default_area.id;
                             project.name = object.get_string_member ("name");
                             project.color = (int32) object.get_int_member ("color");
 

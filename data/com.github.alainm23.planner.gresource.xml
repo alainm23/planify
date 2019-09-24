@@ -16,5 +16,8 @@
 
     <file alias="planner-today-day-symbolic.svg">resources/planner-today-day-symbolic.svg</file>
     <file alias="planner-today-night-symbolic.svg">resources/planner-today-night-symbolic.svg</file>
+
+    <file alias="planner-work-area-symbolic.svg">resources/planner-work-area-symbolic.svg</file>
+    <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
   </gresource>
 </gresources>

@@ -42,7 +42,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         add_image.gicon = new ThemedIcon ("list-add-symbolic");
         add_image.get_style_context ().add_class ("add-project-image");
         add_image.get_style_context ().add_class ("text-color");
-        add_image.pixel_size = 14;
+        add_image.pixel_size = 16;
 
         var add_label = new Gtk.Label (_("Add subtask"));
         add_label.margin_bottom = 1;

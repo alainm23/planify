@@ -123,7 +123,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
         info_box.margin_start = 0;
         info_box.hexpand = true;
-        info_box.margin_start = 12;
+        info_box.margin_start = 9;
         info_box.pack_start (view_revealer, false, false, 0);
         info_box.pack_start (checked_button, false, false, 2);
         info_box.pack_start (content_stack, false, true, 0);
