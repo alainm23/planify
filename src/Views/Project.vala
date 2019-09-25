@@ -46,18 +46,46 @@ public class Views.Project : Gtk.EventBox {
 
         var settings_popover = new Widgets.Popovers.ProjectSettings ();
 
-        var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU);
-        search_button.valign = Gtk.Align.CENTER;
-        search_button.valign = Gtk.Align.CENTER;
-        search_button.can_focus = false;
-        search_button.margin_start = 6;
-        search_button.get_style_context ().add_class ("flat");
-        search_button.get_style_context ().add_class ("dim-label");
+        var add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        add_button.valign = Gtk.Align.CENTER;
+        add_button.valign = Gtk.Align.CENTER;
+        add_button.tooltip_text = _("Add Task");
+        add_button.can_focus = false;
+        add_button.margin_start = 6;
+        add_button.get_style_context ().add_class ("magic-button");
+        add_button.get_style_context ().add_class ("suggested-action");
+
+        var header_button = new Gtk.Button.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
+        header_button.valign = Gtk.Align.CENTER;
+        header_button.valign = Gtk.Align.CENTER;
+        header_button.tooltip_text = _("Add Header");
+        header_button.can_focus = false;
+        header_button.margin_start = 6;
+        header_button.get_style_context ().add_class ("flat");
+        header_button.get_style_context ().add_class ("dim-label");
+
+        var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
+        add_person_button.valign = Gtk.Align.CENTER;
+        add_person_button.valign = Gtk.Align.CENTER;
+        add_person_button.tooltip_text = _("Invite Person");
+        add_person_button.can_focus = false;
+        add_person_button.margin_start = 6;
+        add_person_button.get_style_context ().add_class ("flat");
+        add_person_button.get_style_context ().add_class ("dim-label");
+
+        var comment_button = new Gtk.Button.from_icon_name ("internet-chat-symbolic", Gtk.IconSize.MENU);
+        comment_button.valign = Gtk.Align.CENTER;
+        comment_button.valign = Gtk.Align.CENTER;
+        comment_button.can_focus = false;
+        comment_button.tooltip_text = _("Project Comments");
+        comment_button.margin_start = 6;
+        comment_button.get_style_context ().add_class ("flat");
+        comment_button.get_style_context ().add_class ("dim-label");
 
         var settings_button = new Gtk.MenuButton ();
         settings_button.can_focus = false;
         settings_button.valign = Gtk.Align.CENTER;
-        settings_button.tooltip_text = _("Project Options");
+        settings_button.tooltip_text = _("More");
         settings_button.popover = settings_popover;
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -71,9 +99,13 @@ public class Views.Project : Gtk.EventBox {
         top_box.pack_start (edit_revealer, false, false, 0);
         top_box.pack_start (grid_color, false, false, 0);
         top_box.pack_start (name_label, false, false, 12);
+        //top_box.pack_end (add_button, false, false, 0);
+        
         top_box.pack_end (settings_button, false, false, 0);
-        top_box.pack_end (search_button, false, false, 0);
-
+        top_box.pack_end (add_person_button, false, false, 0);
+        top_box.pack_end (comment_button, false, false, 0);
+        top_box.pack_end (header_button, false, false, 0);
+        
         var top_eventbox = new Gtk.EventBox ();
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.hexpand = true;
@@ -82,6 +114,7 @@ public class Views.Project : Gtk.EventBox {
         note_textview = new Gtk.TextView ();
         note_textview.hexpand = true;
         note_textview.margin_top = 6;
+        note_textview.height_request = 24;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
         note_textview.margin_start = 37;

@@ -25,7 +25,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Grid grid_color;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
-
+ 
     private Gtk.Menu menu = null;
     public Gtk.Box handle_box;
     private Gtk.EventBox handle;
@@ -88,6 +88,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_icon.get_style_context ().add_class ("dim-label");
         source_icon.get_style_context ().add_class ("text-color");
         source_icon.pixel_size = 14;
+        source_icon.margin_top = 3;
 
         if (project.is_todoist == 0) {
             source_icon.icon_name = "planner-offline-symbolic";
@@ -100,22 +101,22 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 6);
-        //handle_box.pack_end (count_label, false, false, 0);
+        handle_box.pack_end (count_label, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
             
         motion_revealer = new Gtk.Revealer ();
-        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
 
-        grid.add (motion_revealer);
         grid.add (handle_box);
-    
+        grid.add (motion_revealer);
+        
         handle = new Gtk.EventBox ();
         handle.expand = true;
         handle.above_child = false;
@@ -124,7 +125,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         add (handle);
         apply_styles (Application.utils.get_color (project.color));
 
-        build_drag_and_drop ();
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+
+        build_drag_and_drop (false);
 
         button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
@@ -154,6 +159,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             if (project != null && p.id == project.id) {
                 destroy ();
             }
+        });
+
+        Application.utils.drag_item_activated.connect ((active) => {
+            build_drag_and_drop (active);
         });
     }
  
@@ -192,18 +201,29 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
-    private void build_drag_and_drop () {
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
-        drag_begin.connect (on_drag_begin);
-        drag_data_get.connect (on_drag_data_get);
-        
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntries, Gdk.DragAction.MOVE);
-        drag_motion.connect (on_drag_motion);
-        drag_leave.connect (on_drag_leave);
-        drag_end.connect (clear_indicator);
+    private void build_drag_and_drop (bool value) {
+        if (value) {    
+            drag_motion.disconnect (on_drag_motion);
+            drag_leave.disconnect (on_drag_leave);
+            drag_end.disconnect (clear_indicator);
+
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
+            drag_data_received.connect (on_drag_item_received);
+            drag_motion.connect (on_drag_item_motion);
+            drag_leave.connect (on_drag_item_leave);
+
+        } else {
+            drag_data_received.disconnect (on_drag_item_received);
+            drag_motion.disconnect (on_drag_item_motion);
+            drag_leave.disconnect (on_drag_item_leave);
+
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntries, Gdk.DragAction.MOVE);
+            drag_motion.connect (on_drag_motion);
+            drag_leave.connect (on_drag_leave);
+            drag_end.connect (clear_indicator);
+        }
     }
 
-    /*
     private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
@@ -211,7 +231,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         print ("Name: %s\n".printf (source.item.content));
     }
-    */
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
         var row = (ProjectRow) widget;

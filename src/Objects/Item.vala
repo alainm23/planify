@@ -26,10 +26,11 @@ public class Objects.Item : GLib.Object {
 
             new Thread<void*> ("save_timeout", () => {
                 Application.database.update_item (this);
-                
                 return null;
             });
             
+            Source.remove (timeout_id);
+            timeout_id = 0;
             return false;
         });
     }

@@ -6,8 +6,14 @@ public class Widgets.Pane : Gtk.EventBox {
     
     private Gtk.ListBox listbox;
     private Gtk.ListBox area_listbox;
-    
+
+    private Gtk.Button add_button;
+
     public signal void activated (int id);
+
+    private const Gtk.TargetEntry[] targetEntries = {
+        {"PANE-MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
+    };
 
     public bool sensitive_ui {
         set {
@@ -122,14 +128,12 @@ public class Widgets.Pane : Gtk.EventBox {
         search_entry_grid.add (search_entry);
         search_entry_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        var HAND_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND1);
-        var ARROW_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.ARROW);
-        var window = Gdk.Screen.get_default ().get_root_window ();
-
-        var add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.valign = Gtk.Align.CENTER;
+        add_button.margin_bottom = 3;
         add_button.halign = Gtk.Align.START;
         add_button.always_show_image = true;
+        add_button.can_focus = false;
         add_button.label = _("Add");
         add_button.get_style_context ().add_class ("flat");
         add_button.get_style_context ().add_class ("font-bold");
@@ -196,6 +200,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         add (stack);
         add_all_areas ();
+        build_drag_and_drop ();
 
         listbox.row_selected.connect ((row) => {
             if (row != null) {
@@ -215,7 +220,7 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         add_button.clicked.connect (() => {
-            new_project.reveal = true;
+            new_project.reveal_child = true;
         });
         
         new_project.reveal_activated.connect ((val) => {
@@ -241,12 +246,58 @@ public class Widgets.Pane : Gtk.EventBox {
             var row = new Widgets.AreaRow (area);
             area_listbox.add (row);
             area_listbox.show_all ();
+
+            row.set_focus = true;
         });
 
         Application.utils.pane_project_selected.connect ((id, area) => {
             listbox.unselect_all ();
         });
     } 
+
+    private void build_drag_and_drop () {
+        //Gtk.drag_source_set (add_button, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
+        //add_button.drag_begin.connect (on_drag_begin);
+        //drag_data_get.connect (on_drag_data_get);
+        //add_button.drag_end.connect (clear_indicator);
+    }
+
+    /*
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var button_image = (Gtk.Image) ((Gtk.Button) widget);
+        button_image.get_style_context ().add_class ("add-button-image");
+        button_image.icon_size = 24;
+
+        Gtk.Allocation alloc;
+        button_image.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+  
+        cr.set_source_rgba (128,33, 55, 0);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        button_image.draw (cr);
+        Gtk.drag_set_icon_surface (context, surface);
+
+     //   button.visible = false;
+    }
+
+    public void clear_indicator (Gdk.DragContext context) {
+        add_button.image.get_style_context ().remove_class ("add-button-image");
+        add_button.visible = true;
+    }
+    */
 
     public void add_all_areas () {
         foreach (Objects.Area area in Application.database.get_all_areas ()) {

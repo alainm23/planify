@@ -25,6 +25,8 @@ public class Objects.Check : GLib.Object {
                 return null;
             });
             
+            Source.remove (timeout_id);
+            timeout_id = 0;
             return false;
         });
     }

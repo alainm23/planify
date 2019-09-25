@@ -73,6 +73,10 @@ paned > separator {
     font-weight: 600;
 }
 
+.pane-area {
+    font-weight: 700;
+}
+
 .pane-entry {
     background-color: shade (@base_color, 0.96);
     padding-left: 0px;
@@ -503,10 +507,11 @@ paned > separator {
 }
 
 .highlight {
-    box-shadow: 0px 0px 1px 1px #3689E6;
-    background-color: alpha (#3689e6, 0.25);
-    opacity: 1;
+    box-shadow: 
+        inset 0px 1px 8px -10px #3689e6,
+        inset 0px -1px 6px -15px #3689e6;
     color: @text_color;
+    background-color: alpha (#3689e6, 0.13);
 }
 
 .item-action-button {
@@ -588,6 +593,12 @@ paned > separator {
     border-radius: 4px;
 }
 
+.add-button-image {
+    background-color: #3689e6;
+    color: @color_text;
+    border-radius: 50%;   
+}
+
 .project-icon {
     background-color: #3689e6;
     color: #fff;
@@ -623,4 +634,9 @@ paned > separator {
     font-size: 10px;
     font-weight: 600;
     padding: 0px 4px 0px 4px;
+}
+
+.magic-button {
+    border-radius: 50%;
+    padding: 5px;
 }

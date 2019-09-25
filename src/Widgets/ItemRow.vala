@@ -496,6 +496,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Gtk.drag_set_icon_surface (context, surface);
 
         row.visible = false;
+
+        Application.utils.drag_item_activated (true);
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -522,6 +524,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         
         visible = true;
         show_all ();
+
+        Application.utils.drag_item_activated (false);
     }
 }
 

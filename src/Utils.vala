@@ -8,6 +8,8 @@ public class Utils : GLib.Object {
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void pane_action_selected ();
 
+    public signal void drag_item_activated (bool active);
+
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
