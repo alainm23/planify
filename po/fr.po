@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-29 10:15-0500\n"
-"PO-Revision-Date: 2019-01-25 10:41-0500\n"
-"Last-Translator: NathanBnm\n"
+"PO-Revision-Date: 2019-10-03 09:21-0500\n"
+"Last-Translator: Dabou\n"
 "Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -34,189 +34,189 @@ msgstr "Effacer"
 
 #: src/Utils.vala:349
 msgid "Atmosphere"
-msgstr ""
+msgstr "Atmosphère"
 
 #: src/Utils.vala:350 src/Utils.vala:394
 msgid "Snow"
-msgstr ""
+msgstr "Neige"
 
 #: src/Utils.vala:351
 msgid "Rain"
-msgstr ""
+msgstr "Pluie"
 
 #: src/Utils.vala:352 src/Utils.vala:373
 msgid "Drizzle"
-msgstr ""
+msgstr "Bruine"
 
 #: src/Utils.vala:353 src/Utils.vala:365
 msgid "Thunderstorm"
-msgstr ""
+msgstr "Orage"
 
 #: src/Utils.vala:361
 msgid "Thunderstorm with light rain"
-msgstr ""
+msgstr "Orage et pluie légère"
 
 #: src/Utils.vala:362
 msgid "Thunderstorm with rain"
-msgstr ""
+msgstr "Orage et pluie"
 
 #: src/Utils.vala:363
 msgid "Thunderstorm with heavy rain"
-msgstr ""
+msgstr "Orage et fortes pluies"
 
 #: src/Utils.vala:364
 msgid "Light thunderstorm"
-msgstr ""
+msgstr "Petit orage"
 
 #: src/Utils.vala:366
 msgid "Heavy thunderstorm"
-msgstr ""
+msgstr "Orage sévère"
 
 #: src/Utils.vala:367
 msgid "Ragged thunderstorm"
-msgstr ""
+msgstr "Orages isolés"
 
 #: src/Utils.vala:368
 msgid "Thunderstorm with light drizzle"
-msgstr ""
+msgstr "Orage avec bruine légère"
 
 #: src/Utils.vala:369
 msgid "Thunderstorm with drizzle"
-msgstr ""
+msgstr "Orage avec bruine"
 
 #: src/Utils.vala:370
 msgid "Thunderstorm with heavy drizzle"
-msgstr ""
+msgstr "Orage avec forte bruine"
 
 #: src/Utils.vala:372
 msgid "Light intensity drizzle"
-msgstr ""
+msgstr "Bruine légère"
 
 #: src/Utils.vala:374
 msgid "Heavy intensity drizzle"
-msgstr ""
+msgstr "Bruine forte"
 
 #: src/Utils.vala:375
 msgid "Light intensity drizzle rain"
-msgstr ""
+msgstr "Bruine légère"
 
 #: src/Utils.vala:376
 msgid "Drizzle rain"
-msgstr ""
+msgstr "Bruine"
 
 #: src/Utils.vala:377
 msgid "Heavy intensity drizzle rain"
-msgstr ""
+msgstr "Pluie forte"
 
 #: src/Utils.vala:378
 msgid "Shower rain and drizzle"
-msgstr ""
+msgstr "Averses"
 
 #: src/Utils.vala:379
 msgid "Heavy shower rain and drizzle"
-msgstr ""
+msgstr "Fortes averses"
 
 #: src/Utils.vala:380
 msgid "Shower drizzle"
-msgstr ""
+msgstr "Bruine"
 
 #: src/Utils.vala:382
 msgid "Light rain"
-msgstr ""
+msgstr "Légère pluie"
 
 #: src/Utils.vala:383
 msgid "Moderate rain"
-msgstr ""
+msgstr "Pluie modérée"
 
 #: src/Utils.vala:384
 msgid "Heavy intensity rain"
-msgstr ""
+msgstr "Pluie forte"
 
 #: src/Utils.vala:385
 msgid "Very heavy rain"
-msgstr ""
+msgstr "Pluie très forte"
 
 #: src/Utils.vala:386
 msgid "Extreme rain"
-msgstr ""
+msgstr "Pluie extrêmement forte"
 
 #: src/Utils.vala:387
 msgid "Freezing rain"
-msgstr ""
+msgstr "Pluie verglaçante"
 
 #: src/Utils.vala:388
 msgid "Light intensity shower rain"
-msgstr ""
+msgstr "Averses légères"
 
 #: src/Utils.vala:389
 msgid "Shower rain"
-msgstr ""
+msgstr "Averses"
 
 #: src/Utils.vala:390
 msgid "Heavy intensity shower rain"
-msgstr ""
+msgstr "Fortes averses"
 
 #: src/Utils.vala:391
 msgid "Ragged shower rain"
-msgstr ""
+msgstr "Averses isolées"
 
 #: src/Utils.vala:393
 #, fuzzy
 msgid "Light snow"
-msgstr "Mode nuit"
+msgstr "Faibles chutes de neige"
 
 #: src/Utils.vala:395
 msgid "Heavy snow"
-msgstr ""
+msgstr "Fortes chutes de neige"
 
 #: src/Utils.vala:396
 msgid "Sleet"
-msgstr ""
+msgstr "Grésil"
 
 #: src/Utils.vala:397
 msgid "Shower sleet"
-msgstr ""
+msgstr "Grésil"
 
 #: src/Utils.vala:398
 msgid "Light rain and snow"
-msgstr ""
+msgstr "Neige et pluie"
 
 #: src/Utils.vala:399
 msgid "Rain and snow"
-msgstr ""
+msgstr "Neige et pluie"
 
 #: src/Utils.vala:400
 msgid "Light shower snow"
-msgstr ""
+msgstr "Faibles averses de neige"
 
 #: src/Utils.vala:401
 msgid "Shower snow"
-msgstr ""
+msgstr "Averses"
 
 #: src/Utils.vala:402
 msgid "Heavy shower snow"
-msgstr ""
+msgstr "Fortes chutes de neige"
 
 #: src/Utils.vala:404
 #, fuzzy
 msgid "Clear sky"
-msgstr "Effacer"
+msgstr "Ciel dégagé"
 
 #: src/Utils.vala:405
 msgid "Few clouds"
-msgstr ""
+msgstr "Quelques nuages"
 
 #: src/Utils.vala:406
 msgid "Scattered clouds"
-msgstr ""
+msgstr "Nuages épars"
 
 #: src/Utils.vala:407
 msgid "Broken clouds"
-msgstr ""
+msgstr "Nuages fragmentés"
 
 #: src/Utils.vala:408
 msgid "Overcast clouds"
-msgstr ""
+msgstr "Couvert"
 
 #: src/Utils.vala:436 src/Views/Inbox.vala:398 src/Views/Inbox.vala:478
 #: src/Views/Today.vala:52 src/Views/Upcoming.vala:438
@@ -270,12 +270,12 @@ msgstr "%i°"
 #: src/Services/Share.vala:107
 #, fuzzy
 msgid "Your project was exported correctly"
-msgstr "Votre projet est prêt à être partagé"
+msgstr "Votre projet a été exporté avec succès"
 
 #: src/Services/Share.vala:161
 #, fuzzy
 msgid "Your project was imported correctly"
-msgstr "Votre projet est prêt à être partagé"
+msgstr "Votre projet a été importé avec succès"
 
 #: src/Services/Share.vala:168
 #, fuzzy
@@ -285,7 +285,7 @@ msgstr "Importez et exportez vos projets"
 #: src/Services/Share.vala:169
 #, fuzzy
 msgid "This project was already imported"
-msgstr "Votre projet est prêt à être partagé"
+msgstr "Ce projet a déjà été importé"
 
 #: src/Services/Calendar/Utils.vala:591
 msgid "On this computer"
@@ -451,7 +451,7 @@ msgstr "Séléctionnez votre couleur préférée"
 
 #: src/Views/AllTasks.vala:43
 msgid "Find all your tasks here."
-msgstr ""
+msgstr "Retrouvez toutes vos tâches ici."
 
 #: src/Views/AllTasks.vala:49 src/Dialogs/PreferencesDialog.vala:738
 #: src/Widgets/ProjectsList.vala:51 src/Widgets/QuickFind.vala:259
@@ -460,7 +460,7 @@ msgstr "Toutes les tâches"
 
 #: src/Views/CompletedTasks.vala:43
 msgid "Start to complete tasks to fill this space."
-msgstr ""
+msgstr "Commencez à compléter les tâches pour remplir cet espace."
 
 #: src/Views/CompletedTasks.vala:49 src/Dialogs/PreferencesDialog.vala:743
 #: src/Widgets/ProjectsList.vala:55 src/Widgets/QuickFind.vala:263
@@ -763,7 +763,7 @@ msgstr "Votre projet est prêt à être partagé"
 
 #: src/Dialogs/Loading.vala:20
 msgid "Loading ..."
-msgstr ""
+msgstr "Chargement…"
 
 #: src/Widgets/WhenButton.vala:24
 msgid "When"
