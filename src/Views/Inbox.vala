@@ -3,10 +3,7 @@ public class Views.Inbox : Gtk.EventBox {
     private int64 project_id;
     private bool is_todoist;
 
-    private Widgets.NewItem new_item_widget;
-
     private Gtk.Revealer motion_revealer;
-
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -33,14 +30,14 @@ public class Views.Inbox : Gtk.EventBox {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 33;
+        top_box.margin_start = 31;
         top_box.margin_end = 24;
 
         top_box.pack_start (icon_image, false, false, 0);
-        top_box.pack_start (title_label, false, false, 6);
+        top_box.pack_start (title_label, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
 
         listbox = new Gtk.ListBox  ();
@@ -52,6 +49,22 @@ public class Views.Inbox : Gtk.EventBox {
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
+        //var new_item = new Widgets.NewItem (0, 0, false);
+
+        //listbox.add (new_item);
+
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
+        icon.pixel_size = 96;
+        icon.get_style_context ().add_class ("dim-label");
+
+        var stack = new Gtk.Stack ();
+        stack.hexpand = true;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        //stack.add_named (icon, "icon");
+        stack.add_named (listbox, "listbox");
+    
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -60,17 +73,19 @@ public class Views.Inbox : Gtk.EventBox {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
+        /*
         new_item_widget = new Widgets.NewItem (
             project_id, 
             is_todoist
         );
+        */
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (listbox, false, false, 0);
-        main_box.pack_start (motion_revealer, false, false, 0);
-        main_box.pack_start (new_item_widget, false, false, 0);
+        main_box.pack_start (stack, false, false, 0);
+        //main_box.pack_start (motion_revealer, false, false, 0);
+        //main_box.pack_start (new_item_widget, false, false, 0);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -79,15 +94,18 @@ public class Views.Inbox : Gtk.EventBox {
         main_scrolled.add (main_box);
 
         add (main_scrolled);
-        add_all_items ();
+        add_all_headers (project_id);
   
-        build_drag_and_drop ();
+        //build_drag_and_drop ();
 
+        /*
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
         });
+        */
 
+        /*
         Application.database.item_added.connect (item => {
             if (item.project_id == project_id && item.header_id == 0) {
                 var row = new Widgets.ItemRow (item);
@@ -95,23 +113,25 @@ public class Views.Inbox : Gtk.EventBox {
                 listbox.show_all ();
             }
         });
+        */
 
         Application.settings.changed.connect (key => {
             if (key == "inbox-project") {
                 project_id = Application.settings.get_int64 ("inbox-project");
-                new_item_widget.project_id = project_id;
+                add_all_headers (project_id);
             } else if (key == "inbox-project-sync") {
                 is_todoist = Application.settings.get_boolean ("inbox-project-sync");
-                new_item_widget.is_todoist = is_todoist;
             }
         });
     }
-    
-    private void add_all_items () {
-        var all_items = Application.database.get_all_items_by_project (project_id);
 
-        foreach (var item in all_items) {
-            var row = new Widgets.ItemRow (item);
+    public void add_new_item () {
+        
+    }
+
+    private void add_all_headers (int64 id) {
+        foreach (var header in Application.database.get_all_headers_by_project (id)) {
+            var row = new Widgets.HeaderRow (header);
             listbox.add (row);
             listbox.show_all ();
         }
@@ -121,10 +141,12 @@ public class Views.Inbox : Gtk.EventBox {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
+        /*
         Gtk.drag_dest_set (new_item_widget, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
         new_item_widget.drag_motion.connect (on_drag_motion);
         new_item_widget.drag_leave.connect (on_drag_leave);
         new_item_widget.drag_data_received.connect (on_drag_item_received);
+        */
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -144,14 +166,14 @@ public class Views.Inbox : Gtk.EventBox {
                 listbox.insert (source, target.get_index ());
                 listbox.show_all ();
 
-                update_item_order ();
+                //update_item_order ();
             }   
         } else {
             source.get_parent ().remove (source); 
             listbox.insert (source, (int) listbox.get_children ().length);
             listbox.show_all ();
     
-            update_item_order ();
+            //update_item_order ();
         }
     }
 
@@ -164,7 +186,7 @@ public class Views.Inbox : Gtk.EventBox {
         listbox.insert (source, (int) listbox.get_children ().length);
         listbox.show_all ();
     
-        update_item_order ();
+        //update_item_order ();
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -184,7 +206,7 @@ public class Views.Inbox : Gtk.EventBox {
             var item = ((Widgets.ItemRow) row).item;
 
             new Thread<void*> ("update_item_order", () => {
-                Application.database.update_item_order (item.id, index);
+                //Application.database.update_item_order (item.id, index);
 
                 return null;
             });

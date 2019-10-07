@@ -7,6 +7,9 @@ public class Services.Database : GLib.Object {
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
+    public signal void project_moved (Objects.Project project);
+    
+    public signal void header_added (Objects.Header header);
 
     public signal void item_added (Objects.Item item);
     public signal void item_updated (Objects.Item item);
@@ -88,9 +91,9 @@ public class Services.Database : GLib.Object {
                 id              INTEGER PRIMARY KEY,
                 name            TEXT,
                 date_added      TEXT,
-                defaul_area     INTEGER,
+                default_area    INTEGER,
                 reveal          INTEGER,
-                child_order     INTEGER
+                item_order      INTEGER
             );
         """;
         rc = db.exec (sql, null, null);
@@ -98,37 +101,35 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Projects (
-                id            INTEGER PRIMARY KEY,
-                area_id       INTEGER,  
-                name          TEXT    NOT NULL,
-                note          TEXT,
-                due           TEXT,
-                color         INTEGER,
-                is_todoist    INTEGER,
-                inbox_project INTEGER,
-                team_inbox    INTEGER,
-                child_order   INTEGER,
-                is_deleted    INTEGER,
-                is_archived   INTEGER,
-                is_favorite   INTEGER,
-                is_sync       INTEGER,
-                FOREIGN KEY (area_id) REFERENCES Areas (id) ON DELETE CASCADE
+                id               INTEGER PRIMARY KEY,
+                area_id          INTEGER,
+                default_header   INTEGER,
+                name             TEXT NOT NULL,
+                note             TEXT,
+                due              TEXT,
+                color            INTEGER,
+                is_todoist       INTEGER,
+                inbox_project    INTEGER,
+                team_inbox       INTEGER,
+                item_order       INTEGER,
+                is_deleted       INTEGER,
+                is_archived      INTEGER,
+                is_favorite      INTEGER,
+                is_sync          INTEGER
             );
         """; 
         rc = db.exec (sql, null, null);
-        debug ("Table Projects created");
+        debug ("Table Projects created"); 
 
         sql = """
             CREATE TABLE IF NOT EXISTS Headers (
                 id              INTEGER PRIMARY KEY,
                 project_id      INTEGER,
-                defaul_header   INTEGER
+                default_header  INTEGER,
                 item_order      INTEGER,
+                reveal          INTEGER,
                 name            TEXT,
-                date_added      TEXT,
-                date_completed  TEXT,
-                date_updated    TEXT,
-                FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
+                date_added      TEXT
             );
         """;
         rc = db.exec (sql, null, null);
@@ -168,23 +169,6 @@ public class Services.Database : GLib.Object {
         """;
         rc = db.exec (sql, null, null);
         debug ("Table Checklist created");
-
-        /*
-        sql = """
-            CREATE TABLE IF NOT EXISTS Projects_To_Sync (
-                id              INTEGER PRIMARY KEY AUTOINCREMENT,
-                type            TEXT,
-                int64_01        INTEGER,
-                int64_02        INTEGER,
-                int64_03        INTEGER,
-                string_01       TEXT,
-                string_02       TEXT,
-                string_03       TEXT
-            );
-        """;
-        rc = db.exec (sql, null, null);
-        debug ("Table ToSync created");
-        */
 
         return rc;
     } 
@@ -232,11 +216,11 @@ public class Services.Database : GLib.Object {
         var area = new Objects.Area ();
         area.name = _("Default area");
         area.id = Application.utils.generate_id ();
-        area.defaul_area = 1;
-        area.child_order = 0;
+        area.default_area = 1;
+        area.item_order = 0;
 
         sql = """
-            INSERT OR IGNORE INTO Areas (id, name, date_added, defaul_area, reveal, child_order)
+            INSERT OR IGNORE INTO Areas (id, name, date_added, default_area, reveal, item_order)
             VALUES (?, ?, ?, ?, ?, ?);
         """;
 
@@ -252,13 +236,13 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (3, area.date_added);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (4, area.defaul_area);
+        res = stmt.bind_int (4, area.default_area);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (5, area.reveal);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (6, area.child_order);
+        res = stmt.bind_int (6, area.item_order);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -285,13 +269,13 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            area.child_order = stmt.column_int (0);
+            area.item_order = stmt.column_int (0);
         }
 
         stmt.reset ();
 
         sql = """
-            INSERT OR IGNORE INTO Areas (id, name, date_added, defaul_area, reveal, child_order)
+            INSERT OR IGNORE INTO Areas (id, name, date_added, default_area, reveal, item_order)
             VALUES (?, ?, ?, ?, ?, ?);
         """;
 
@@ -307,18 +291,14 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (3, area.date_added);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (4, area.defaul_area);
+        res = stmt.bind_int (4, area.default_area);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (5, area.reveal);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (6, area.child_order);
+        res = stmt.bind_int (6, area.item_order);
         assert (res == Sqlite.OK);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-        }
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -335,7 +315,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Areas ORDER BY child_order;
+            SELECT * FROM Areas ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -349,9 +329,9 @@ public class Services.Database : GLib.Object {
             a.id = stmt.column_int64 (0);
             a.name = stmt.column_text (1);
             a.date_added = stmt.column_text (2);
-            a.defaul_area = stmt.column_int (3);
+            a.default_area = stmt.column_int (3);
             a.reveal = stmt.column_int (4);
-            a.child_order = stmt.column_int (5);
+            a.item_order = stmt.column_int (5);
 
             all.add (a);
         }
@@ -365,7 +345,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Areas SET name = ?, reveal = ?, child_order = ? WHERE id = ?;
+            UPDATE Areas SET name = ?, reveal = ?, item_order = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -377,7 +357,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (2, area.reveal);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (3, area.child_order);
+        res = stmt.bind_int (3, area.item_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (4, area.id);
@@ -410,82 +390,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, note, due, color, is_todoist, inbox_project,
-                team_inbox, child_order, is_deleted, is_archived, is_favorite, is_sync)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, project.id);
-        assert (res == Sqlite.OK);
-        
-        res = stmt.bind_text (2, project.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, project.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (4, project.due);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, project.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (6, project.is_todoist);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (7, project.inbox_project);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (8, project.team_inbox);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (9, project.child_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (10, project.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (11, project.is_archived);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (12, project.is_favorite);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (13, project.is_sync);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-        }
-
-        stmt.reset ();
-
-        return project;
-    }
-
-    public bool insert_project (Objects.Project project) { 
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            SELECT COUNT (*) FROM Projects;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            project.child_order = stmt.column_int (0);
-        }
-
-        stmt.reset ();
-
-        sql = """
-            INSERT OR IGNORE INTO Projects (id, name, note, due, color, is_todoist, inbox_project,
-                team_inbox, child_order, is_deleted, is_archived, is_favorite, is_sync, area_id)
+                team_inbox, item_order, is_deleted, is_archived, is_favorite, is_sync, default_header)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
@@ -516,7 +421,88 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (8, project.team_inbox);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (9, project.child_order);
+        res = stmt.bind_int (9, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (10, project.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (11, project.is_archived);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (12, project.is_favorite);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (13, project.is_sync);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (14, project.default_header);
+        assert (res == Sqlite.OK);
+        
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+
+        return project;
+    }
+
+    public bool insert_project (Objects.Project project) { 
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Projects WHERE area_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, project.area_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            project.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            INSERT OR IGNORE INTO Projects (id, name, note, due, color, is_todoist, inbox_project,
+                team_inbox, item_order, is_deleted, is_archived, is_favorite, is_sync, area_id, default_header)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, project.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (2, project.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, project.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, project.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, project.color);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, project.is_todoist);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, project.inbox_project);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (8, project.team_inbox);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (9, project.item_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (10, project.is_deleted);
@@ -534,13 +520,26 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (14, project.area_id);
         assert (res == Sqlite.OK);
 
+        res = stmt.bind_int64 (15, project.default_header);
+        assert (res == Sqlite.OK);
+
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
-        } else {
-            project_added (project);
+        }
+
+        project_added (project);
+
+        var default_header = new Objects.Header ();
+        default_header.id = project.default_header;
+        default_header.project_id = project.id;
+        default_header.default_header = 1;
+
+        if (Application.database.insert_header (default_header)) {
             return true;
         }
+
+        return false;
     }
 
     public bool update_project (Objects.Project project) {
@@ -549,7 +548,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Projects SET name = ?, note = ?, due = ?, color = ?, child_order = ?, 
+            UPDATE Projects SET name = ?, note = ?, due = ?, color = ?, item_order = ?, 
             is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ? 
             WHERE id = ?;
         """;
@@ -569,7 +568,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (4, project.color);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_int (5, project.child_order);
+        res = stmt.bind_int (5, project.item_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (6, project.is_deleted);
@@ -624,13 +623,62 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public bool move_project (Objects.Project project, Objects.Area area) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        project.area_id = area.id;
+
+        sql = """
+            SELECT COUNT (*) FROM Projects WHERE area_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, area.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            project.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, area.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (2, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, project.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            project_moved (project);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Gee.ArrayList<Objects.Project?> get_all_projects_by_area (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE area_id = ? ORDER BY child_order;
+            SELECT * FROM Projects WHERE area_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -646,18 +694,19 @@ public class Services.Database : GLib.Object {
 
             p.id = stmt.column_int64 (0);
             p.area_id = stmt.column_int64 (1);
-            p.name = stmt.column_text (2);
-            p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
-            p.color = stmt.column_int (5);
-            p.is_todoist = stmt.column_int (6);
-            p.inbox_project = stmt.column_int (7);
-            p.team_inbox = stmt.column_int (8);
-            p.child_order = stmt.column_int (9);
-            p.is_deleted = stmt.column_int (10);
-            p.is_archived = stmt.column_int (11);
-            p.is_favorite = stmt.column_int (12);
-            p.is_sync = stmt.column_int (13);
+            p.default_header = stmt.column_int64 (2);
+            p.name = stmt.column_text (3);
+            p.note = stmt.column_text (4);
+            p.due = stmt.column_text (5);
+            p.color = stmt.column_int (6);
+            p.is_todoist = stmt.column_int (7);
+            p.inbox_project = stmt.column_int (8);
+            p.team_inbox = stmt.column_int (9);
+            p.item_order = stmt.column_int (10);
+            p.is_deleted = stmt.column_int (11);
+            p.is_archived = stmt.column_int (12);
+            p.is_favorite = stmt.column_int (13);
+            p.is_sync = stmt.column_int (14);
 
             all.add (p);
         }
@@ -683,33 +732,33 @@ public class Services.Database : GLib.Object {
         var p = new Objects.Project ();
 
         if (stmt.step () == Sqlite.ROW) {
-
             p.id = stmt.column_int64 (0);
             p.area_id = stmt.column_int64 (1);
-            p.name = stmt.column_text (2);
-            p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
-            p.color = stmt.column_int (5);
-            p.is_todoist = stmt.column_int (6);
-            p.inbox_project = stmt.column_int (7);
-            p.team_inbox = stmt.column_int (8);
-            p.child_order = stmt.column_int (9);
-            p.is_deleted = stmt.column_int (10);
-            p.is_archived = stmt.column_int (11);
-            p.is_favorite = stmt.column_int (12);
-            p.is_sync = stmt.column_int (13);
+            p.default_header = stmt.column_int64 (2);
+            p.name = stmt.column_text (3);
+            p.note = stmt.column_text (4);
+            p.due = stmt.column_text (5);
+            p.color = stmt.column_int (6);
+            p.is_todoist = stmt.column_int (7);
+            p.inbox_project = stmt.column_int (8);
+            p.team_inbox = stmt.column_int (9);
+            p.item_order = stmt.column_int (10);
+            p.is_deleted = stmt.column_int (11);
+            p.is_archived = stmt.column_int (12);
+            p.is_favorite = stmt.column_int (13);
+            p.is_sync = stmt.column_int (14);
         }
 
         return p;
     }
 
-    public void update_project_child_order (int64 project_id, int64 area_id, int child_order) {
+    public void update_project_item_order (int64 project_id, int64 area_id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            UPDATE Projects SET area_id = ?, child_order = ? WHERE id = ?;
+            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -718,7 +767,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, area_id);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_int (2, child_order);
+        res = stmt.bind_int (2, item_order);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (3, project_id);
@@ -730,7 +779,137 @@ public class Services.Database : GLib.Object {
             //updated_playlist (playlist);
         }
     }
-    
+
+    /*
+        Headers
+    */
+
+    public bool insert_header (Objects.Header header) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Headers WHERE project_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, header.project_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            header.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            INSERT OR IGNORE INTO Headers (id, project_id, name, date_added, default_header, item_order, reveal)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, header.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, header.project_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (3, header.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, header.date_added);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, header.default_header);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, header.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, header.reveal);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            header_added (header);
+            return true;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Header?> get_all_headers_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Headers WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Header?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var h = new Objects.Header ();
+
+            h.id = stmt.column_int64 (0);
+            h.project_id = stmt.column_int64 (1);
+            h.default_header = stmt.column_int (2);
+            h.item_order = stmt.column_int (3);
+            h.reveal = stmt.column_int (4);
+            h.name = stmt.column_text (5);
+            h.date_added = stmt.column_text (6);
+
+            all.add (h);
+        }
+
+        return all;
+    }
+
+    public bool update_header (Objects.Header header) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Headers SET name = ?, reveal = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, header.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, header.reveal);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, header.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, header.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
         Item
     */
@@ -741,21 +920,39 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT COUNT (*) FROM Items WHERE project_id = ?;
+            SELECT COUNT (*) FROM Items WHERE header_id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, item.project_id);
+        res = stmt.bind_int64 (1, item.header_id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
             item.item_order = stmt.column_int (0);
         }
 
-        stmt.reset ();
+        if (item.header_id == 0) { 
+            stmt.reset ();
+            
+            sql = """
+                SELECT default_header FROM Projects WHERE id = ?;
+            """;
 
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, item.project_id);
+            assert (res == Sqlite.OK);
+
+            if (stmt.step () == Sqlite.ROW) {
+                item.header_id = stmt.column_int64 (0);
+            }
+        }
+
+        stmt.reset ();
+        
         sql = """
             INSERT OR IGNORE INTO Items (id, content, note, due, is_deleted, checked,
             item_order, project_id, header_id, date_added, date_completed, date_updated)
@@ -894,13 +1091,13 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public void update_item_order (int64 item_id, int item_order) {
+    public void update_item_order (int64 item_id, int64 header_id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            UPDATE Items SET item_order = ? WHERE id = ?;
+            UPDATE Items SET item_order = ?, header_id = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -909,7 +1106,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (1, item_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, item_id);
+        res = stmt.bind_int64 (2, header_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item_id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -959,6 +1159,45 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT * FROM Items WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.header_id = stmt.column_int64 (1);
+            i.project_id = stmt.column_int64 (2);
+            i.item_order = stmt.column_int (3);
+            i.checked = stmt.column_int (4);
+            i.is_deleted = stmt.column_int (5);
+            i.content = stmt.column_text (6);
+            i.note = stmt.column_text (7);
+            i.due = stmt.column_text (8);
+            i.date_added = stmt.column_text (9);
+            i.date_completed = stmt.column_text (10);
+            i.date_updated = stmt.column_text (11);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_header (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE header_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

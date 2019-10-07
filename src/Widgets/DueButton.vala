@@ -1,9 +1,21 @@
 public class Widgets.DueButton : Gtk.ToggleButton {
-    private Objects.Item _item;
-    public Objects.Item item {
+    private GLib.DateTime? _datetime;
+    public GLib.DateTime? datetime {
+        set {
+            _datetime = value;
+        }
+        get {
+            return _datetime;
+        }
+    }
+
+    private Objects.Item _item = null;
+    public Objects.Item? item {
         set {
             _item = value;
-            set_due (new GLib.DateTime.from_iso8601 (_item.due, new GLib.TimeZone.local ()));
+            set_due (
+                new GLib.DateTime.from_iso8601 (_item.due, new GLib.TimeZone.local ())
+            );
         }
     }
 
@@ -18,11 +30,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Widgets.ModelButton undated_button;
     private Widgets.Calendar.Calendar calendar;
 
-    public DueButton (Objects.Item item) {
-        Object (
-            item: item
-        );
-    }
+    public signal void date_changed (string? date);
 
     construct {
         get_style_context ().add_class ("flat");
@@ -31,22 +39,19 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+        due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
         due_image.pixel_size = 16;
 
-        due_label = new Gtk.Label (null);
+        due_label = new Gtk.Label ("Due");
         due_label.get_style_context ().add_class ("pane-item");
         due_label.margin_bottom = 1;
         due_label.use_markup = true;
 
-        label_revealer = new Gtk.Revealer ();
-        label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        label_revealer.add (due_label);
-
         var main_grid = new Gtk.Grid ();
+        main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (due_image);
-        main_grid.add (label_revealer);
+        main_grid.add (due_label);
 
         add (main_grid);
 
@@ -63,7 +68,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.LEFT;
+        popover.position = Gtk.PositionType.RIGHT;
 
         string today_icon = "planner-today-day-symbolic";
         if (new GLib.DateTime.now_local ().get_hour () >= 18) {
@@ -119,20 +124,26 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     private void set_due (GLib.DateTime? date) {
+        _datetime = date;
+
         if (date != null) {
             due_label.label = Application.utils.get_relative_date_from_date (date);
-            label_revealer.reveal_child = true;
             get_style_context ().remove_class ("due-no-date");
             due_image.get_style_context ().add_class ("upcoming");
+            date_changed (due_label.label);
         } else {
-            due_label.label = "";
-            label_revealer.reveal_child = false;
+            due_label.label = "Due";
             get_style_context ().add_class ("due-no-date");
             due_image.get_style_context ().remove_class ("upcoming");
+            date_changed (null);
         }
 
         if (popover != null) {
-            if (Application.database.set_due_item (_item, date)) {
+            if (_item != null) {
+                if (Application.database.set_due_item (_item, date)) {
+                    popover.popdown ();
+                }
+            } else {
                 popover.popdown ();
             }
         }

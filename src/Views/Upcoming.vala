@@ -14,7 +14,7 @@ public class Views.Upcoming : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 33;
+        top_box.margin_start = 31;
         top_box.margin_end = 24;
 
         top_box.pack_start (icon_image, false, false, 0);

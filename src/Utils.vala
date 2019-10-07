@@ -7,9 +7,11 @@ public class Utils : GLib.Object {
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void pane_action_selected ();
-
+    
     public signal void drag_item_activated (bool active);
-
+    public signal void drag_magic_button_activated (bool active);
+    public signal void magic_button_activated (int64 project_id, int64 header_id, int is_todoist, bool last, int index = 0);
+    
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -210,6 +212,11 @@ public class Utils : GLib.Object {
         } else {
             return date.format (Granite.DateTime.get_default_date_format (false, true, true));
         }
+    }
+
+    public string get_relative_date_from_string (string due) {
+        var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+        return get_relative_date_from_date (date);
     }
 
     public string get_relative_date_from_date (GLib.DateTime date) {

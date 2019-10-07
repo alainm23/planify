@@ -25,7 +25,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Grid grid_color;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
- 
+    
+    private Gtk.Menu work_areas;
     private Gtk.Menu menu = null;
     public Gtk.Box handle_box;
     private Gtk.EventBox handle;
@@ -229,7 +230,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        print ("Name: %s\n".printf (source.item.content));
+        //print ("Name: %s\n".printf (source.item.content));
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -298,49 +299,77 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private void activate_menu () {
         if (menu == null) {
             build_context_menu (project);
+        } 
+
+        foreach (var child in work_areas.get_children ()) {
+            child.destroy ();
         }
 
+        foreach (Objects.Area area in Application.database.get_all_areas ()) {
+            if (area.id != project.area_id) {
+                var name = area.name;
+                var icon = "planner-work-area-symbolic";
+                if (area.default_area == 1) {
+                    name = _("No Work Area");
+                    icon = "window-close-symbolic";
+                }
+
+                var item = new Gtk.ImageMenuItem.with_label (name);
+                item.always_show_image = true;
+                item.image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+                item.activate.connect (() => {
+                    print ("Area_ID: %s\n".printf (area.id.to_string ()));
+                    if (Application.database.move_project (project, area)) {
+                        destroy ();
+                    }
+                });
+
+                work_areas.add (item);
+            }
+        }
+
+        work_areas.show_all ();
         menu.popup_at_pointer (null);
     }
 
     private void build_context_menu (Objects.Project project) {
         menu = new Gtk.Menu ();
-        
-        var p_color = new Gtk.Grid ();
-		p_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        p_color.set_size_request (16, 16);
-        p_color.halign = Gtk.Align.START;
-        p_color.valign = Gtk.Align.CENTER;
 
-        var p_name = new Gtk.Label (project.name);
-        p_name.ellipsize = Pango.EllipsizeMode.END;
-        p_name.use_markup = true;
+        var project_menu = new Gtk.ImageMenuItem.with_label (project.name);
+        project_menu.always_show_image = true;
+        project_menu.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
 
-        var p_grid = new Gtk.Grid ();
-        p_grid.width_request = 185;
-        p_grid.hexpand = false;
-        p_grid.halign = Gtk.Align.START;
-        p_grid.valign = Gtk.Align.CENTER;
-        p_grid.column_spacing = 6;
-        p_grid.add (p_color);
-        p_grid.add (p_name);
+        var finalize_menu = new Gtk.ImageMenuItem.with_label (_("Mark as Completed"));
+        finalize_menu.always_show_image = true;
+        finalize_menu.image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.MENU);
 
-        var project_menu = new Gtk.MenuItem ();
-        project_menu.add (p_grid);
+        var edit_menu = new Gtk.ImageMenuItem.with_label (_("Edit project"));
+        edit_menu.always_show_image = true;
+        edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
 
-        var finalize_menu = new Widgets.MenuItem (_("Mark as Completed"), "emblem-default-symbolic", _("Finalize project"));
-        var edit_menu = new Widgets.MenuItem (_("Edit project"), "edit-symbolic", _("Play"));
+        var move_menu = new Gtk.ImageMenuItem.with_label (_("Work Area"));
+        move_menu.always_show_image = true;
+        move_menu.image = new Gtk.Image.from_icon_name ("planner-work-area-symbolic", Gtk.IconSize.MENU);
+        work_areas = new Gtk.Menu ();
+        move_menu.set_submenu (work_areas);
 
-        var export_menu = new Widgets.MenuItem (_("Export"), "document-export-symbolic", _("Export project"));
-        var share_menu = new Widgets.MenuItem (_("Share project"), "emblem-shared-symbolic", _("Play Next"));
+        var export_menu = new Gtk.ImageMenuItem.with_label (_("Export"));
+        export_menu.always_show_image = true;
+        export_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.MENU);
 
-        //var archive_menu = new Widgets.MenuItem (_("Archive"), "folder-symbolic", _("Play"));
-        var delete_menu = new Widgets.MenuItem (_("Delete project"), "edit-delete-symbolic", _("Play Next"));
+        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share project"));
+        share_menu.always_show_image = true;
+        share_menu.image = new Gtk.Image.from_icon_name ("emblem-shared-symbolic", Gtk.IconSize.MENU);
+ 
+        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete project"));
+        delete_menu.always_show_image = true;
+        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
 
         menu.add (project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (finalize_menu);
         menu.add (edit_menu);
+        menu.add (move_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (export_menu);
         menu.add (share_menu);

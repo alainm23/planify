@@ -28,9 +28,7 @@ public class Widgets.New : Gtk.Revealer {
 
     private Gtk.ComboBox source_combobox;   
     private int color_selected = 30;
-
-    public signal void reveal_activated (bool value);
-
+    
     public New () {
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         reveal_child = false;
@@ -535,8 +533,7 @@ public class Widgets.New : Gtk.Revealer {
     private void create_area () {
         var area = new Objects.Area ();
         area.name = _("New Work Area");
-        area.id = Application.utils.generate_id ();
-
+        
         if (Application.database.insert_area (area)) {
             cancel ();
         }

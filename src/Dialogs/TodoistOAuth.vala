@@ -84,11 +84,12 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
         webview.load_changed.connect ((load_event) => {
             var redirect_uri = webview.get_uri ();
 
-            if ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=" in redirect_uri) {                
-                new Thread<void*> ("get_todoist_token", () => {
-                    stack.visible_child_name = "spinner_loading";
-                    webview.stop_loading ();
+            if ("https://github.com/alainm23/planner?state=XE3K-4BBL-4XLG-UDS8&code=" in redirect_uri) {
+                info_label.label = _("Synchronizing… Wait a moment please.");
+                stack.visible_child_name = "spinner_loading";
+                webview.stop_loading ();
 
+                new Thread<void*> ("get_todoist_token", () => {
                     Application.todoist.get_todoist_token (redirect_uri);
                     return null;
                 }); 

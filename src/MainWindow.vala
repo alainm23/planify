@@ -21,8 +21,9 @@
 
 public class MainWindow : Gtk.Window {
     private Widgets.Pane pane;
-
     public Gee.HashMap<string, bool> loaded_projects;
+    private string visible_child_name = "";
+
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -80,14 +81,17 @@ public class MainWindow : Gtk.Window {
         stack.add_named (upcoming_view, "upcoming-view");
 
         var toast = new Widgets.Toast ();
+        var magic_button = new Widgets.MagicButton ();
 
-        var paned_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        paned_box.pack_start (stack, true, true, 0);
-        paned_box.pack_start (toast, false, false, 0);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add_overlay (toast);
+        overlay.add (stack); 
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.pack1 (pane, false, false);
-        paned.pack2 (paned_box, true, true);
+        paned.pack2 (overlay, true, true);
 
         set_titlebar (header_paned);
         add (paned);
@@ -102,9 +106,11 @@ public class MainWindow : Gtk.Window {
             if (Application.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
+                magic_button.reveal_child = false;
             } else {
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
+                magic_button.reveal_child = true;
             }
              
             return false;
@@ -123,15 +129,25 @@ public class MainWindow : Gtk.Window {
 
                 // Create Inbox Project
                 var inbox_project = Application.database.create_inbox_project ();
-                inbox_project.area_id = default_area.id;
+                //inbox_project.area_id = default_area.id;
 
+                // Crate default header
+                var default_header = new Objects.Header ();
+                default_header.id = inbox_project.default_header;
+                default_header.project_id = inbox_project.id;
+                default_header.default_header = 1;
+                Application.database.insert_header (default_header);
+
+                // Set settings
                 Application.settings.set_int64 ("inbox-project", inbox_project.id);
                 Application.settings.set_int64 ("default-area", default_area.id);
                 Application.settings.set_boolean ("inbox-project-sync", false);
-            
-                //stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+                
+                stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
+                magic_button.reveal_child = true;
+                stack.transition_type = Gtk.StackTransitionType.NONE;
             } else {
                 var todoistOAuth = new Dialogs.TodoistOAuth ();
                 todoistOAuth.show_all ();
@@ -160,8 +176,11 @@ public class MainWindow : Gtk.Window {
         });
 
         Application.todoist.first_sync_finished.connect (() => {
+            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             stack.visible_child_name = "inbox-view";
             pane.sensitive_ui = true;
+            magic_button.reveal_child = true;
+            stack.transition_type = Gtk.StackTransitionType.NONE;
         });
 
         Application.database.show_toast_delete.connect ((count) => {
@@ -173,6 +192,26 @@ public class MainWindow : Gtk.Window {
 
             toast.title = _("(%i) %s deleted".printf (count, t));
             toast.send_notification ();
+        });
+
+        magic_button.clicked.connect (() => {
+            visible_child_name = stack.visible_child_name;
+            
+            if (visible_child_name == "inbox-view") {
+                
+            } else if (visible_child_name == "today-view") {
+
+            } else if (visible_child_name == "upcoming-view") {
+
+            } else {
+                var project = ((Views.Project) stack.get_child_by_name (visible_child_name)).project;
+                Application.utils.magic_button_activated (
+                    project.id,
+                    project.default_header,
+                    project.is_todoist,
+                    true
+                );
+            }
         });
     }
 

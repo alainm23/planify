@@ -19,7 +19,7 @@ textview {
 }
 
 .sidebar-header {
-    background-color: shade (@base_color, 0.96);
+    background-color: @bg_color;
 }
 
 .sidebar-header:dir(ltr) {
@@ -57,7 +57,7 @@ paned > separator {
 }
 
 .pane {
-    background-color: shade (@base_color, 0.96);
+    background-color: @bg_color;
     border-bottom-left-radius: 4px;
 }
 
@@ -78,7 +78,7 @@ paned > separator {
 }
 
 .pane-entry {
-    background-color: shade (@base_color, 0.96);
+    background-color: @bg_color;
     padding-left: 0px;
 }
 
@@ -88,12 +88,8 @@ paned > separator {
 }
 
 .pane-row:selected {
-    background-color: shade (@bg_color, 0.95);
+    background-color: shade (@bg_color, 0.93);
     color: @text_color;
-}
-
-.pane-row:selected label {
-    /*font-weight: 700;*/
 }
 
 .pane-row button {
@@ -160,6 +156,8 @@ paned > separator {
 
 .item-row-selected {
     padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 6px;
     margin-top: 6px;
     margin-bottom: 6px;
     background-color: @base_color;
@@ -250,7 +248,7 @@ paned > separator {
     animation: add-animation 0.5s ease-in-out;
 
     background-color: #3689e6;
-    color: @color_text;
+    color: @text_color;
     border-radius: 4px;
 }
 
@@ -400,23 +398,13 @@ paned > separator {
 }
 
 .content-entry {
-    color: #3689e6;
-    font-weight: 700;
+    color: @text_color;
+    font-weight: 600;
     border-width: 0px 0px 0px 0px;
     background-color: @base_color;
 }
 
 .content-entry:focus {
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.check-entry {
-    border-width: 0px 0px 0px 0px;
-    background-color: @base_color;
-}
-
-.check-entry:focus {
     border-color: transparent;
     box-shadow: none;
 }
@@ -440,12 +428,6 @@ paned > separator {
 
 .view-button.opened {
     -gtk-icon-transform: rotate(90deg);
-}
-
-.checked-button check {
-    border: 1px solid alpha (@BLUEBERRY_500, 0.7);
-    border-radius: 4px;
-    box-shadow: none;
 }
 
 .grid-motion {
@@ -491,19 +473,6 @@ paned > separator {
 .preview image,
 .preview label {
     color: @text_color;
-}
-
-.due-preview {
-    padding: 0px 6px 0px 6px;
-    border: 1px solid shade (#ff8c82, 0.96);
-    background-color: #ff8c82;
-    border-radius: 4px;
-    font-size: 11px;
-}
-
-.due-preview label,
-.due-preview image {
-    color: #333;
 }
 
 .highlight {
@@ -589,13 +558,13 @@ paned > separator {
     animation: add-animation 0.5s ease-in-out;
 
     background-color: #3689e6;
-    color: @color_text;
+    color: #fff;
     border-radius: 4px;
 }
 
 .add-button-image {
     background-color: #3689e6;
-    color: @color_text;
+    color: @text_color;
     border-radius: 50%;   
 }
 
@@ -640,3 +609,69 @@ paned > separator {
     border-radius: 50%;
     padding: 5px;
 }
+
+.label-button {
+    background-color: alpha (@text_color, 0.08);
+    border-radius: 12px;
+    padding: 0px 6px 0px 6px;
+    color: @text_color;
+    opacity: 0.7;
+}
+
+.magic-button {
+    border-radius: 50%;
+}
+
+.new-item-action-button {
+    padding: 0px 6px 2px 6px;
+}
+
+.check-eventbox {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    border: 0px solid alpha (#3689e6, 0.35);
+}
+
+.check-entry {
+    border-width: 0 0 1px;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    border-bottom: none;
+}
+
+.transition {
+    transition: all 160ms ease-in-out;
+}
+
+.header-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.header-entry {
+    background-color: @projectview_color;
+    padding-left: 0px;
+    border-bottom: none;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.due-preview {
+    background-color: #ed5353;
+    padding: 0px 6px 0px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fafafa;
+    border-radius: 3px;
+    border: 1px solid alpha (#ed5353, 0.8);
+}
+
+.checklist-button check {
+    border-radius: 4px;
+    border: 1.3px solid #3689e6;
+}
+

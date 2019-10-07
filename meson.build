@@ -33,7 +33,6 @@ executable(
     'src/Widgets/Pane.vala',
     'src/Widgets/New.vala',
     'src/Widgets/ProjectRow.vala',
-    'src/Widgets/MenuItem.vala',
     'src/Widgets/NewItem.vala',
     'src/Widgets/ItemRow.vala',
     'src/Widgets/NewCheck.vala',
@@ -44,7 +43,8 @@ executable(
     'src/Widgets/Toast.vala',
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AreaRow.vala',
-
+    'src/Widgets/MagicButton.vala',
+    
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -64,11 +64,13 @@ executable(
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
+    'src/Dialogs/Preferences.vala',
 
     'src/Objects/Project.vala',
     'src/Objects/Item.vala',
     'src/Objects/Check.vala',
     'src/Objects/Area.vala',
+    'src/Objects/Header.vala',
 
     dependencies: [
         dependency('gee-0.8'),

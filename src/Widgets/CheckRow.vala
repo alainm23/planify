@@ -17,8 +17,11 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("item-row");
 
         checked_button = new Gtk.CheckButton ();
+        checked_button.margin_start = 6;
+        checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
+        checked_button.get_style_context ().add_class ("checklist-button");
 
         if (check.checked == 1) {
             checked_button.active = true;
@@ -39,7 +42,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;
         delete_button.get_style_context ().add_class ("flat");
-        //delete_button.get_style_context ().add_class ("dim-label");
         delete_button.get_style_context ().add_class ("delete-check-button");
 
         var delete_revealer = new Gtk.Revealer ();
@@ -47,9 +49,10 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         delete_revealer.add (delete_button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.margin_top = 3;
-        box.margin_bottom = 3;
+        box.get_style_context ().add_class ("transition");
         box.hexpand = true;
+        box.margin_top = 3;
+        box.margin_bottom = 2;
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_entry, false, true, 6);
         box.pack_end (delete_revealer, false, true, 0);
@@ -96,6 +99,16 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
                 hide_item ();
             }
 
+            return false;
+        });
+
+        content_entry.focus_out_event.connect (() => {
+            box.get_style_context ().remove_class ("check-eventbox");
+            return false;
+        });
+
+        content_entry.focus_in_event.connect (() => {
+            box.get_style_context ().add_class ("check-eventbox");
             return false;
         });
 

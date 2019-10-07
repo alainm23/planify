@@ -109,7 +109,7 @@ public class Widgets.Pane : Gtk.EventBox {
         profile_box.pack_start (user_avatar, false, false, 0);
         profile_box.pack_start (username_label, false, false, 0);
         profile_box.pack_end (settings_button, false, false, 0);
-        profile_box.pack_end (sync_button, false, false, 0);
+        //profile_box.pack_end (sync_button, false, false, 0);
         profile_box.pack_end (search_button, false, false, 0);
 
         // Search Entry
@@ -128,7 +128,13 @@ public class Widgets.Pane : Gtk.EventBox {
         search_entry_grid.add (search_entry);
         search_entry_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        var add_icon = new Gtk.Image ();
+        add_icon.valign = Gtk.Align.CENTER;
+        add_icon.gicon = new ThemedIcon ("list-add-symbolic");
+        add_icon.pixel_size = 16;
+
+        add_button = new Gtk.Button ();
+        add_button.image = add_icon;
         add_button.valign = Gtk.Align.CENTER;
         add_button.margin_bottom = 3;
         add_button.halign = Gtk.Align.START;
@@ -157,6 +163,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (upcoming_row);
     
         area_listbox = new Gtk.ListBox  ();
+        area_listbox.margin_top = 6;
         area_listbox.get_style_context ().add_class ("pane");
         area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
@@ -222,9 +229,11 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.clicked.connect (() => {
             new_project.reveal_child = true;
         });
-        
-        new_project.reveal_activated.connect ((val) => {
-            add_revealer.reveal_child = !val;
+
+        settings_button.clicked.connect (() => {
+            var dialog = new Dialogs.Preferences ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
         });
 
         Application.todoist.first_sync_finished.connect (() => {

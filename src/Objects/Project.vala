@@ -7,11 +7,12 @@ public class Objects.Project : GLib.Object {
     public int is_todoist { get; set; default = 0; }
     public int inbox_project { get; set; default = 0; }
     public int team_inbox { get; set; default = 0; }
-    public int child_order { get; set; default = 0; }
+    public int item_order { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }
     public int is_archived { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
     public int is_sync { get; set; default = 0; }
+    public int64 default_header { get; set; default = Application.utils.generate_id (); }
     public int64 area_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
 

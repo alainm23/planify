@@ -38,6 +38,7 @@ public class Application : Gtk.Application {
         utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
         utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/avatars");
 
+        // Services
         settings = new Settings ("com.github.alainm23.planner2");
         database = new Services.Database ();
         todoist = new Services.Todoist ();
