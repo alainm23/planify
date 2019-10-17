@@ -508,7 +508,6 @@ public class Widgets.New : Gtk.Revealer {
     private void create_project () {
         if (name_entry.text != "") {
             var project = new Objects.Project ();
-            project.area_id = Application.settings.get_int64 ("default-area");
             project.name = name_entry.text;
             project.color = color_selected;
 

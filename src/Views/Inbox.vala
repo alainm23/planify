@@ -33,8 +33,8 @@ public class Views.Inbox : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 31;
-        top_box.margin_end = 24;
+        top_box.margin_start = 41;
+        top_box.margin_end = 16; 
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
@@ -42,29 +42,29 @@ public class Views.Inbox : Gtk.EventBox {
 
         listbox = new Gtk.ListBox  ();
         listbox.valign = Gtk.Align.START;
-        listbox.margin_top = 6;
+        listbox.margin_top = 12;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
-        //var new_item = new Widgets.NewItem (0, 0, false);
-
-        //listbox.add (new_item);
-
-        var icon = new Gtk.Image ();
-        icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
-        icon.pixel_size = 96;
-        icon.get_style_context ().add_class ("dim-label");
+        var placeholder_image = new Gtk.Image ();
+        placeholder_image.margin_bottom = 96;
+        placeholder_image.expand = true;
+        placeholder_image.valign = Gtk.Align.CENTER;
+        placeholder_image.halign = Gtk.Align.CENTER;
+        placeholder_image.gicon = new ThemedIcon ("mail-mailbox-symbolic");
+        placeholder_image.pixel_size = 96;
+        placeholder_image.opacity = 0.3;
 
         var stack = new Gtk.Stack ();
         stack.hexpand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        //stack.add_named (icon, "icon");
-        stack.add_named (listbox, "listbox");
-    
+        //stack.add_named (listbox, "listbox");
+        stack.add_named (placeholder_image, "placeholder");
+        
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -73,19 +73,10 @@ public class Views.Inbox : Gtk.EventBox {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
-        /*
-        new_item_widget = new Widgets.NewItem (
-            project_id, 
-            is_todoist
-        );
-        */
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (stack, false, false, 0);
-        //main_box.pack_start (motion_revealer, false, false, 0);
-        //main_box.pack_start (new_item_widget, false, false, 0);
+        main_box.pack_start (listbox, false, false, 0);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -94,31 +85,53 @@ public class Views.Inbox : Gtk.EventBox {
         main_scrolled.add (main_box);
 
         add (main_scrolled);
-        add_all_headers (project_id);
-  
-        //build_drag_and_drop ();
+        add_all_projects (project_id);
+        build_drag_and_drop ();
 
-        /*
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
         });
-        */
 
-        /*
-        Application.database.item_added.connect (item => {
-            if (item.project_id == project_id && item.header_id == 0) {
+        Application.database.item_added.connect ((item) => {
+            if (item.project_id == project_id) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
                 listbox.show_all ();
             }
         });
-        */
+
+        Application.database.item_added_with_index.connect ((item, index) => {
+            if (item.project_id == project_id) {
+                var row = new Widgets.ItemRow (item);
+                listbox.insert (row, index);
+                listbox.show_all ();
+            }
+        });
+
+        Application.utils.magic_button_activated.connect ((id, section_id, is_todoist, last, index) => {
+            if (project_id == id && section_id == 0) {
+                var new_item = new Widgets.NewItem (
+                    project_id,
+                    section_id, 
+                    is_todoist
+                );
+
+                if (last) {
+                    listbox.add (new_item);
+                } else {
+                    new_item.index = index;
+                    listbox.insert (new_item, index);
+                }
+
+                listbox.show_all ();
+            }
+        });
 
         Application.settings.changed.connect (key => {
             if (key == "inbox-project") {
                 project_id = Application.settings.get_int64 ("inbox-project");
-                add_all_headers (project_id);
+                add_all_projects (project_id);
             } else if (key == "inbox-project-sync") {
                 is_todoist = Application.settings.get_boolean ("inbox-project-sync");
             }
@@ -129,9 +142,9 @@ public class Views.Inbox : Gtk.EventBox {
         
     }
 
-    private void add_all_headers (int64 id) {
-        foreach (var header in Application.database.get_all_headers_by_project (id)) {
-            var row = new Widgets.HeaderRow (header);
+    private void add_all_projects (int64 id) {
+        foreach (var item in Application.database.get_all_items_by_project_no_section (id)) {
+            var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
         }
@@ -206,7 +219,7 @@ public class Views.Inbox : Gtk.EventBox {
             var item = ((Widgets.ItemRow) row).item;
 
             new Thread<void*> ("update_item_order", () => {
-                //Application.database.update_item_order (item.id, index);
+                Application.database.update_item_order (item.id, 0, index);
 
                 return null;
             });

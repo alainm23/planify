@@ -15,7 +15,7 @@ textview {
 }
 
 .titlebar {
-    padding: 0 2px;
+    /*padding: 0 2px;*/
 }
 
 .sidebar-header {
@@ -661,13 +661,13 @@ paned > separator {
 }
 
 .due-preview {
-    background-color: #ed5353;
-    padding: 0px 6px 0px 6px;
-    font-size: 11px;
-    font-weight: 600;
+    background-color: #273445;
+    padding: 0px 6px 1px 6px;
+    font-size: 9px;
+    font-weight: 700;
     color: #fafafa;
     border-radius: 3px;
-    border: 1px solid alpha (#ed5353, 0.8);
+    border: 1px solid shade (#273445, 0.75);
 }
 
 .checklist-button check {
@@ -675,3 +675,36 @@ paned > separator {
     border: 1.3px solid #3689e6;
 }
 
+.label-row {
+    background-color: transparent;
+}
+
+.label-row label {
+    color: @text_color;
+}
+
+.planner-dialog headerbar {
+    padding: 0px;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.label-item {
+    border-radius: 12px;
+    border: 1px solid alpha (@fg_color, 0.45);
+    padding: 0px 9px 0px 3px;
+    font-size: 12px;
+    font-weight: 600;
+    color: @text_color;
+}
+
+.no-padding {
+    padding: 0px;
+}
+
+
+.label-item-button {
+    background-color: @base_color;;
+}

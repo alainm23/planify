@@ -1,14 +1,14 @@
 public class Widgets.CheckRow : Gtk.ListBoxRow {
-    public Objects.Check check { get; construct; }
+    public Objects.Item item { get; construct; }
 
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
 
     public signal void hide_item ();
 
-    public CheckRow (Objects.Check check) {
+    public CheckRow (Objects.Item item) {
         Object (
-            check: check
+            item: item
         );
     }
 
@@ -23,7 +23,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.halign = Gtk.Align.CENTER;
         checked_button.get_style_context ().add_class ("checklist-button");
 
-        if (check.checked == 1) {
+        if (item.checked == 1) {
             checked_button.active = true;
             get_style_context ().add_class ("dim-label");
         } else {
@@ -35,7 +35,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("check-entry");
-        content_entry.text = check.content;
+        content_entry.text = item.content;
         content_entry.hexpand = true;
 
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
@@ -116,31 +116,31 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             if (checked_button.active) {
                 get_style_context ().add_class ("dim-label");
 
-                check.checked = 1;
-                check.date_completed = new GLib.DateTime.now_local ().to_string ();
+                item.checked = 1;
+                item.date_completed = new GLib.DateTime.now_local ().to_string ();
             } else {
                 get_style_context ().remove_class ("dim-label");
 
-                check.checked = 0;
-                check.date_completed = "";
+                item.checked = 0;
+                item.date_completed = "";
             }
 
             save ();
         });
 
         delete_button.clicked.connect (() => {
-            Application.database.delete_check (check);
+            Application.database.delete_item (item);
         });
 
-        Application.database.check_deleted.connect ((c) => {
-            if (check.id == c.id) {
+        Application.database.item_deleted.connect ((i) => {
+            if (item.id == i.id) {
                 destroy ();
             }
         });
     }
 
     private void save () {
-        check.content = content_entry.text;
-        check.save ();
+        item.content = content_entry.text;
+        item.save ();
     }
 }

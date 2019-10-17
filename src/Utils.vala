@@ -10,7 +10,7 @@ public class Utils : GLib.Object {
     
     public signal void drag_item_activated (bool active);
     public signal void drag_magic_button_activated (bool active);
-    public signal void magic_button_activated (int64 project_id, int64 header_id, int is_todoist, bool last, int index = 0);
+    public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
     
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
@@ -49,6 +49,9 @@ public class Utils : GLib.Object {
         return password_builder.str;
     }
 
+    /*
+        Colors Utils
+    */
     public string get_color (int key) {
         var colors = new Gee.HashMap<int, string> ();
         
@@ -76,6 +79,64 @@ public class Utils : GLib.Object {
         return colors.get (key);
     }
 
+    public string get_contrast (string hex) {
+        var gdk_white = Gdk.RGBA ();
+        gdk_white.parse ("#fff");
+
+        var gdk_black = Gdk.RGBA ();
+        gdk_black.parse ("#000");
+
+        var gdk_bg = Gdk.RGBA ();
+        gdk_bg.parse (hex);
+
+        var contrast_white = contrast_ratio (
+            gdk_bg,
+            gdk_white
+        );
+
+        var contrast_black = contrast_ratio (
+            gdk_bg,
+            gdk_black
+        );
+
+        var fg_color = "#fff";
+
+        // NOTE: We cheat and add 3 to contrast when checking against black,
+        // because white generally looks better on a colored background
+        if (contrast_black > (contrast_white + 3)) {
+            fg_color = "#000";
+        }
+
+        return fg_color;
+    }
+
+    private double contrast_ratio (Gdk.RGBA bg_color, Gdk.RGBA fg_color) {
+        var bg_luminance = get_luminance (bg_color);
+        var fg_luminance = get_luminance (fg_color);
+
+        if (bg_luminance > fg_luminance) {
+            return (bg_luminance + 0.05) / (fg_luminance + 0.05);
+        }
+
+        return (fg_luminance + 0.05) / (bg_luminance + 0.05);
+    }
+
+    private double get_luminance (Gdk.RGBA color) {
+        var red = sanitize_color (color.red) * 0.2126;
+        var green = sanitize_color (color.green) * 0.7152;
+        var blue = sanitize_color (color.blue) * 0.0722;
+
+        return (red + green + blue);
+    }
+
+    private double sanitize_color (double color) {
+        if (color <= 0.03928) {
+            return color / 12.92;
+        }
+
+        return Math.pow ((color + 0.055) / 1.055, 2.4);
+    }
+    
     public void apply_styles (string id, string color, Gtk.RadioButton radio) {
         string COLOR_CSS = """
             .color-%s radio {

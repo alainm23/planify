@@ -17,8 +17,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
     }
 
     construct {
-        get_style_context ().add_class ("editor-titlebar");
-        
+        get_style_context ().add_class ("planner-dialog");
+
         var name_label = new Granite.HeaderLabel (_("Name:"));
 
         name_entry = new Gtk.Entry ();

@@ -46,6 +46,16 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
+        var count_label = new Gtk.Label ("<small>%s</small>".printf ("8"));
+        count_label.valign = Gtk.Align.CENTER;
+        count_label.margin_top = 3;
+        count_label.get_style_context ().add_class ("dim-label");
+        count_label.use_markup = true;
+
+        var info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        info_box.pack_start (name_label, false, false, 0);
+        info_box.pack_start (count_label, false, true, 0);
+
         name_entry = new Gtk.Entry (); 
         name_entry.placeholder_text = _("Task name");
         name_entry.get_style_context ().add_class ("flat");
@@ -57,7 +67,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         name_stack = new Gtk.Stack ();
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
-        name_stack.add_named (name_label, "name_label");
+        name_stack.add_named (info_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
@@ -66,24 +76,28 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
         hidden_button.get_style_context ().add_class ("dim-label");
-        if (area.reveal == 1) {
+
+        if (area.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
         }
 
+        var hidden_revealer = new Gtk.Revealer ();
+        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        hidden_revealer.add (hidden_button);
+        hidden_revealer.reveal_child = false;
+
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        top_box.margin_start = 7;
+        top_box.margin_start = 6;
+        top_box.margin_end = 2;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (hidden_button, false, false, 0);
+        top_box.pack_end (hidden_revealer, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
+        top_eventbox.margin_start = 6;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
-        if (area.default_area == 1) {
-            top_eventbox.visible = false;
-            top_eventbox.no_show_all = true;
-        }
-
+ 
         listbox = new Gtk.ListBox  ();
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("pane");
@@ -119,7 +133,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         add_all_projects ();
         build_drag_and_drop ();
 
-        if (area.reveal == 1) {
+        if (area.collapsed == 1) {
             listbox_revealer.reveal_child = true;
         }
 
@@ -169,6 +183,21 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             toggle_hidden ();
         });
 
+        top_eventbox.enter_notify_event.connect ((event) => {
+            hidden_revealer.reveal_child = true;
+            return true;
+        });
+
+        top_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            hidden_revealer.reveal_child = false;
+            
+            return true;
+        });
+
         Application.database.project_added.connect ((project) => {
             Idle.add (() => {
                 if (project.inbox_project == 0 && project.area_id == area.id) {
@@ -177,7 +206,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                     listbox.show_all ();
 
                     listbox_revealer.reveal_child = true;
-                    area.reveal = 1;
+                    area.collapsed = 1;
 
                     save_area ();
                 }
@@ -194,7 +223,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                     listbox.show_all ();
 
                     listbox_revealer.reveal_child = true;
-                    area.reveal = 1;
+                    area.collapsed = 1;
 
                     save_area ();
                 }
@@ -204,7 +233,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         Application.utils.pane_project_selected.connect ((project_id, area_id) => {
-            if (area.id != area_id) {
+            if (area.id != area_id || area_id == 0) {
                 listbox.unselect_all ();
             }
         });
@@ -218,11 +247,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         if (listbox_revealer.reveal_child) {
             listbox_revealer.reveal_child = false;
             hidden_button.get_style_context ().remove_class ("opened");
-            area.reveal = 0;
+            area.collapsed = 0;
         } else {
             listbox_revealer.reveal_child = true;
             hidden_button.get_style_context ().add_class ("opened");
-            area.reveal = 1;
+            area.collapsed = 1;
         }
 
         save_area ();
@@ -257,7 +286,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_eventbox.drag_motion.connect (on_drag_motion);
         top_eventbox.drag_leave.connect (on_drag_leave);
     }
-
+    
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ProjectRow target;
         Widgets.ProjectRow source;
@@ -276,6 +305,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         if (target != null) {
             source.get_parent ().remove (source); 
+
+            source.project.area_id = area.id;
+
             listbox.insert (source, target.get_index () + 1);
             listbox.show_all ();
 
@@ -295,7 +327,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         update_project_order ();
 
         listbox_revealer.reveal_child = true;
-        area.reveal = 1;
+        area.collapsed = 1;
 
         save_area ();
     }

@@ -1,24 +1,24 @@
 public class Widgets.NewItem : Gtk.ListBoxRow {
     public int64 project_id { get; set; }
-    public int64 header_id { get; set; }
+    public int64 section_id { get; set; }
     public int is_todoist { get; set; }
+    public int? index { get; set; default = null; }
 
-    private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
 
-    public NewItem (int64 project_id, int64 header_id, int is_todoist) {
+    public NewItem (int64 project_id, int64 section_id, int is_todoist) {
         Object (
             project_id: project_id,
-            header_id: header_id,
+            section_id: section_id,
             is_todoist: is_todoist
         );
     }
 
     construct {
+        can_focus = false;
         activatable = false;
         selectable = false;
         get_style_context ().add_class ("item-row");
-        //margin_start = 35;
         margin_end = 35;
         margin_top = 3;
         margin_bottom = 3;
@@ -68,7 +68,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 41;
+        action_grid.margin_start = 36;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -78,20 +78,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.add (grid);
         main_grid.add (action_grid);
 
-        var main_revealer = new Gtk.Revealer ();
-        main_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        main_revealer.add (main_grid);
-        main_revealer.reveal_child = false;
+        add (main_grid);
 
-        add (main_revealer);
-
-        Timeout.add (140, () => {
-            main_revealer.reveal_child = true;
+        Timeout.add (150, () => {
             content_entry.grab_focus ();
-
             return false;
         });
-
+        
         content_entry.activate.connect (insert_item);
         submit_button.clicked.connect (insert_item);
 
@@ -135,7 +128,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.id = Application.utils.generate_id ();
             item.content = content_entry.text;
             item.project_id = project_id;
-            item.header_id = header_id;
+            item.section_id = section_id;
 
             if (is_todoist == 1) {
                 if (Application.utils.check_connection ()) {
@@ -144,10 +137,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
                 }
             } else {
-                if (Application.database.insert_item (item)) {
+                if (Application.database.insert_check (item, index)) {
                     content_entry.text = "";
                     destroy ();
-                }
+                } 
             }
         }
     }

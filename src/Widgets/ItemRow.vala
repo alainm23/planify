@@ -10,15 +10,26 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Box top_box;
     private Gtk.TextView note_textview;
     private Gtk.Label note_placeholder;
+    private Gtk.Revealer note_revealer;
     private Gtk.Revealer bottom_revealer;
     private Gtk.Revealer row_revealer;
     private Gtk.Grid main_grid;
 
     private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer labels_box_revealer;
+    private Gtk.Box labels_box;
+    private Gtk.Box labels_edit_box;
     
+    private Widgets.NewCheck new_checklist;
+    private Gtk.Revealer checklist_revealer;
     private Gtk.ListBox check_listbox;
     private Gtk.Revealer separator_revealer;
 
+    private Gtk.Menu projects_menu;
+    private Gtk.Menu menu = null;
+
+    public Gee.HashMap<string, bool> labels_hashmap;
+    
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -56,6 +67,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         get_style_context ().add_class ("item-row");
+        labels_hashmap = new Gee.HashMap<string, bool> ();
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
@@ -81,7 +93,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var due_label = new Gtk.Label (null);
-        due_label.margin_end = 6;
+        //due_label.margin_end = 6;
         due_label.halign = Gtk.Align.START;
         due_label.valign = Gtk.Align.CENTER;
         due_label.margin_bottom = 1;
@@ -105,13 +117,43 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
         var checklist_image = new Gtk.Image ();
+        checklist_image.margin_end = 32;
         checklist_image.gicon = new ThemedIcon ("planner-checklist-symbolic");
-        checklist_image.pixel_size = 16;
+        checklist_image.pixel_size = 14;
+        checklist_image.get_style_context ().add_class ("dim-label");
 
-        var due_content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        due_content_box.pack_start (due_label_revealer, false, false, 0);
-        due_content_box.pack_start (content_label, false, false, 0);
-        //due_content_box.pack_start (checklist_image, false, false, 6);
+        checklist_revealer = new Gtk.Revealer ();
+        checklist_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        checklist_revealer.add (checklist_image);
+
+        var note_image = new Gtk.Image ();
+        note_image.margin_end = 6;
+        note_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
+        note_image.pixel_size = 13;
+        note_image.get_style_context ().add_class ("dim-label");
+
+        note_revealer = new Gtk.Revealer ();
+        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        note_revealer.add (note_image);
+
+        var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        1_box.pack_start (content_label, false, false, 0);
+        1_box.pack_start (due_label_revealer, false, false, 6);
+        1_box.pack_end (checklist_revealer, false, false, 0);
+        1_box.pack_end (note_revealer, false, false, 0);
+        
+        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_box.margin_start = 1;
+
+        labels_box_revealer = new Gtk.Revealer ();
+        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        labels_box_revealer.add (labels_box);
+
+        var 2_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        2_box.valign = Gtk.Align.CENTER;
+        2_box.margin_top = 3;
+        2_box.pack_start (1_box, false, false, 0);
+        2_box.pack_start (labels_box_revealer, false, false, 0);
 
         content_entry = new Gtk.Entry ();
         content_entry.margin_bottom = 1;
@@ -126,7 +168,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.margin_start = 6;
         content_stack.hexpand = true;
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
-        content_stack.add_named (due_content_box, "content_label");
+        content_stack.add_named (2_box, "content_label");
         content_stack.add_named (content_entry, "content_entry");
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -157,7 +199,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_listbox.margin_start = 59;
         check_listbox.get_style_context ().add_class ("check-listbox");
 
-        var new_checklist = new Widgets.NewCheck (item.id);
+        new_checklist = new Widgets.NewCheck (item.id, item.project_id);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 59;
@@ -183,28 +225,40 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        var label_button = new Widgets.LabelButton ();
+        var label_button = new Widgets.LabelButton (item.id);
 
         var checklist_button = new Gtk.Button.from_icon_name ("planner-checklist-symbolic");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
 
-        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
+        delete_button.can_focus = false; 
+        delete_button.valign = Gtk.Align.CENTER;
+        delete_button.get_style_context ().add_class ("flat");
+        delete_button.get_style_context ().add_class ("item-action-button");
+
+        var settings_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        settings_button.valign = Gtk.Align.CENTER;
+        settings_button.can_focus = false;
+        settings_button.tooltip_text = _("Task settings");
+        settings_button.get_style_context ().add_class ("item-action-button");
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_start = 60;
         action_box.pack_start (due_button, false, true, 0);
-        action_box.pack_start (label_button, false, true, 0);
-        action_box.pack_start (checklist_button, false, true, 0);
-        /*
-        action_box.pack_start (new_checklist, false, true, 0);
-        action_box.pack_end (settings_button, false, false, 3);
-        action_box.pack_end (delete_button, false, false, 3);
-        action_box.pack_end (label_button, false, false, 3);
-        action_box.pack_end (alarm_button, false, false, 3);
-        action_box.pack_end (due_button, false, false, 3);
-        */
+        action_box.pack_start (label_button, false, true, 3);
+        action_box.pack_start (checklist_button, false, true, 6);
+        action_box.pack_end (settings_button, false, false, 0);
+        action_box.pack_end (delete_button, false, false, 6);
+
+
+        labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_edit_box.margin_start = 59;
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (note_textview, false, true, 0);
+        bottom_box.pack_start (labels_edit_box, false, false, 0);
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
@@ -218,6 +272,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checklist_button.clicked.connect (() => {
             new_checklist.reveal_child = true;
         });
+
         /*
             Motion Revealer
         */
@@ -238,6 +293,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.add (bottom_revealer);
 
         var grid = new Gtk.Grid ();
+        grid.margin_bottom = 3;
         grid.hexpand = true;
         grid.orientation = Gtk.Orientation.VERTICAL;
 
@@ -257,6 +313,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         row_revealer.add (handle);
 
         add (row_revealer);
+
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
@@ -265,6 +322,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         build_drag_and_drop (false);
 
         add_all_checks ();
+        add_all_labels ();
 
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
@@ -339,172 +397,73 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.check_added.connect ((check) => {
-            if (item.id == check.item_id) {
-                var row = new Widgets.CheckRow (check);
+        Application.database.item_added.connect ((i) => {
+            if (item.id == i.parent_id) {
+                var row = new Widgets.CheckRow (i);
+                
                 row.hide_item.connect (hide_item);
-
+   
                 check_listbox.add (row);
                 check_listbox.show_all ();
 
                 check_checklist_separator ();
             }
         });
-        /*
-        var HAND_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND1);
-        var ARROW_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.ARROW);
-        var window = Gdk.Screen.get_default ().get_root_window ();
 
-        can_focus = false;
-        
+        Application.database.item_label_added.connect ((id, item_id, label) => {
+            if (item.id == item_id && labels_hashmap.has_key (label.id.to_string ()) == false) {
+                var l = new Widgets.LabelPreview (id, item_id, label);
+                var g = new Widgets.LabelItem (label.item_label_id, item.id, label);
 
-        view_image = new Gtk.Image ();
-        view_image.valign = Gtk.Align.CENTER;
-        //view_image.get_style_context ().add_class ("dim-label");
-        view_image.get_style_context ().add_class ("view-button");
-        view_image.pixel_size = 16;
-        view_image.icon_name = "pan-end-symbolic";
+                labels_box.add (l);
+                labels_edit_box.add (g);
+                
+                labels_box.show_all ();
+                labels_edit_box.show_all ();
 
-        var view_eventbox = new Gtk.EventBox ();
-        view_eventbox.add (view_image);
+                labels_box_revealer.reveal_child = true;
+                labels_hashmap.set (label.id.to_string (), true);
+            }
+        });
 
-        
+        Application.database.item_label_deleted.connect ((id, item_id, label) => {
+            if (item.id == item_id) {
+                labels_hashmap.unset (label.id.to_string ());
+            }
+        });
 
-        
+        delete_button.clicked.connect (() => {
+            if (Application.database.add_item_to_delete (item)) {
+                get_style_context ().remove_class ("item-row-selected");
+                row_revealer.reveal_child = false;
+            }
+        });
 
-        
-
-        
-
-        var tag_due_button = new Gtk.Button.from_icon_name ("office-calendar-symbolic");
-        tag_due_button.always_show_image = true;
-        tag_due_button.label = _("Today");
-        tag_due_button.halign = Gtk.Align.START;
-        tag_due_button.get_style_context ().add_class ("flat");
-        tag_due_button.get_style_context ().add_class ("due-button");
-        tag_due_button.get_style_context ().add_class ("xxx");
-        
-        var due_preview = new DuePreview (item.due);
-
-        var preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        preview_box.margin_start = 60;
-        preview_box.margin_bottom  = 6;
-
-        preview_box.add (due_preview);
-
-        preview_revealer = new Gtk.Revealer ();
-        preview_revealer.transition_type = Gtk.RevealerTransitionType.NONE;
-        preview_revealer.add (preview_box);
-
-        if (item.due != "") {
-            preview_revealer.reveal_child = true;
-        }
-        
-        var top_grid = new Gtk.Grid ();
-        top_grid.orientation = Gtk.Orientation.VERTICAL;
-        top_grid.add (info_box);
-        top_grid.add (preview_revealer);
-
-        
-            
-        
-
-        var due_button = new Widgets.DueButton ();
-        due_button.item = item;
-
-        var label_button = new Widgets.LabelButton ();
-
-        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
-        delete_button.can_focus = false; 
-        //delete_button.valign = Gtk.Align.CENTER;
-        delete_button.get_style_context ().add_class ("flat");
-        delete_button.get_style_context ().add_class ("item-action-button");
-        //delete_button.get_style_context ().add_class ("dim-label");
-
-        var settings_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
-        //settings_button.valign = Gtk.Align.CENTER;
-        settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Task settings");
-        settings_button.get_style_context ().add_class ("item-action-button");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //settings_button.get_style_context ().add_class ("dim-label");
-
-        var alarm_button = new Gtk.Button.from_icon_name ("planner-alarm-symbolic");
-        alarm_button.can_focus = false;
-        //alarm_button.valign = Gtk.Align.CENTER;
-        alarm_button.get_style_context ().add_class ("item-action-button");
-        alarm_button.get_style_context ().add_class ("flat");
-        //alarm_button.get_style_context ().add_class ("dim-label");
-
-        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_top = 3;
-        action_box.margin_start = 64;
-        action_box.pack_start (new_checklist, false, true, 0);
-        action_box.pack_end (settings_button, false, false, 3);
-        action_box.pack_end (delete_button, false, false, 3);
-        action_box.pack_end (label_button, false, false, 3);
-        action_box.pack_end (alarm_button, false, false, 3);
-        action_box.pack_end (due_button, false, false, 3);
-        
-        
-        
-        
-
-        
-
-        var main_grid = new Gtk.Grid ();
-        main_grid.hexpand = true;
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.add (motion_revealer);
-        main_grid.add (top_grid);
-        main_grid.add (bottom_revealer);
-
-        var handle = new Gtk.EventBox ();
-        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        handle.expand = true;
-        handle.above_child = false;
-        handle.add (main_grid);
-
-        row_revealer = new Gtk.Revealer ();
-        row_revealer.reveal_child = true;
-        row_revealer.transition_duration = 125;
-        row_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        row_revealer.add (handle);
-
-        add (row_revealer);
-        add_all_checks ();
-        
-        build_drag_and_drop ();
-
-        view_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                if (bottom_revealer.reveal_child) {
-                    hide_item ();
+        Application.database.item_deleted.connect ((i) => {
+            Idle.add (() => {
+                if (item.id == i.id) {
+                    destroy ();
                 }
+
+                return false;
+            });
+        });
+
+        Application.database.show_undo_item.connect ((id) => {
+            if (item.id == id) {
+                hide_item ();
+                hidden_revealer.reveal_child = false;
+                row_revealer.reveal_child = true;
+            }
+        });
+
+        button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                activate_menu ();
+                return true;
             }
 
             return false;
-        });
-        
-        handle.enter_notify_event.connect ((event) => {
-            view_revealer.reveal_child = true;
-            window.cursor = HAND_cursor;
-
-            return true;
-        });
-
-        handle.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            if (bottom_revealer.reveal_child == false) {
-                view_revealer.reveal_child = false;
-            }
-
-            window.cursor = ARROW_cursor;
-            
-            return true;
         });
 
         content_entry.activate.connect (() => {
@@ -531,41 +490,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             save ();
         });
 
-        
-
-        
-
         check_listbox.remove.connect (() => {
             check_checklist_separator ();
         });
 
-        delete_button.clicked.connect (() => {
-            if (Application.database.add_item_to_delete (item)) {
-                get_style_context ().remove_class ("item-row-selected");
-                row_revealer.reveal_child = false;
-            }
-        });
-
-        
-
-        Application.database.item_deleted.connect ((i) => {
-            Idle.add (() => {
-                if (item.id == i.id) {
-                    destroy ();
-                }
-
-                return false;
-            });
-        });
-
-        Application.database.show_undo_item.connect ((id) => {
-            if (item.id == id) {
-                hide_item ();
-                view_revealer.reveal_child = false;
-                row_revealer.reveal_child = true;
-            }
-        });
-
+        /*
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
                 item.due = i.due;
@@ -626,39 +555,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         print ("Index: %i\n".printf (this.get_index ()));
         Application.utils.magic_button_activated (
             item.project_id,
-            item.header_id,
+            item.section_id,
             0,//project.is_todoist,
             false,
             this.get_index () + 1
         );
     }
-
-    /*
-    private void build_drag_and_drop (bool value) {
-        if ()
-        /*
-        if (value) {    
-            drag_motion.disconnect (on_drag_motion);
-            drag_leave.disconnect (on_drag_leave);
-            drag_end.disconnect (clear_indicator);
-
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
-            drag_data_received.connect (on_drag_item_received);
-            drag_motion.connect (on_drag_item_motion);
-            drag_leave.connect (on_drag_item_leave);
-
-        } else {
-            drag_data_received.disconnect (on_drag_item_received);
-            drag_motion.disconnect (on_drag_item_motion);
-            drag_leave.disconnect (on_drag_item_leave);
-
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntries, Gdk.DragAction.MOVE);
-            drag_motion.connect (on_drag_motion);
-            drag_leave.connect (on_drag_leave);
-            drag_end.connect (clear_indicator);
-        }
-    }
-    */
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
         var row = (ItemRow) widget;
@@ -682,7 +584,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
-        row.top_box.draw (cr);
+        row.draw (cr);
 
         Gtk.drag_set_icon_surface (context, surface);
 
@@ -728,12 +630,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
     
     private void add_all_checks () {
-        var all_checks = Application.database.get_all_cheks_by_item (item.id);
-
-        foreach (var check in all_checks) {
+        foreach (var check in Application.database.get_all_cheks_by_item (item.id)) {
             var row = new Widgets.CheckRow (check);
+
             row.hide_item.connect (hide_item);
-            
+
             check_listbox.add (row);
             check_listbox.show_all ();
         }
@@ -741,69 +642,111 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_checklist_separator ();
     }
 
+    private void add_all_labels () {
+        foreach (var label in Application.database.get_labels_by_item (item.id)) {
+            var l = new Widgets.LabelPreview (label.item_label_id, item.id, label);
+            var g = new Widgets.LabelItem (label.item_label_id, item.id, label);
+
+            labels_box.add (l);
+            labels_edit_box.add (g);
+
+            labels_box.show_all ();
+            labels_edit_box.show_all ();
+
+            labels_box_revealer.reveal_child = true;
+            labels_hashmap.set (label.id.to_string (), true);
+        }
+    }
+
     private void check_checklist_separator () {
         if (check_listbox.get_children ().length () > 0) {
+            checklist_revealer.reveal_child = true;
             separator_revealer.reveal_child = true;
         } else {
+            checklist_revealer.reveal_child = false;
             separator_revealer.reveal_child = false;
         }
     }
-}
 
-/*
-public class LabelPreview : Gtk.Grid {
-    public string label {get; construct; }
-
-    public LabelPreview (string label) {
-        Object (
-            label: label
-        );
-    }
-
-    construct {
-        var label = new Gtk.Label (label);
-
-        get_style_context ().add_class ("preview");
-        valign = Gtk.Align.CENTER;
-        add (label);
-    }
-} 
-
-public class DuePreview : Gtk.Grid {
-    private Gtk.Label label;
-
-    public string due {
-        set {
-            if (value != "") {
-                label.label = Application.utils.get_relative_date_from_date (
-                    new GLib.DateTime.from_iso8601 (value, new GLib.TimeZone.local ())
-                );
-            } else {
-                label.label = "";
+    private void activate_menu () {
+        if (bottom_revealer.reveal_child == false) {
+            if (menu == null) {
+                build_context_menu (item);
+            } 
+    
+            foreach (var child in projects_menu.get_children ()) {
+                child.destroy ();
             }
+    
+            foreach (var project in Application.database.get_all_projects ()) {
+                var item = new Gtk.ImageMenuItem.with_label (project.name);
+                item.always_show_image = true;
+                item.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+                projects_menu.add (item);
+            }
+    
+            projects_menu.show_all ();
+
+            menu.popup_at_pointer (null);
+            //menu.popup_at_widget (content_entry, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER);
         }
     }
 
-    public DuePreview (string due) {
-        Object (
-            due: due
-        );
-    }
+    private void build_context_menu (Objects.Item item) {
+        menu = new Gtk.Menu ();
 
-    construct {
-        var icon = new Gtk.Image ();
-        icon.get_style_context ().add_class ("dim-label");
-        icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-        icon.pixel_size = 12;
+        var complete_menu = new Gtk.ImageMenuItem.with_label (_("Complete"));
+        complete_menu.always_show_image = true;
+        complete_menu.image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.MENU);
 
-        label = new Gtk.Label (null);
+        var view_edit_menu = new Gtk.ImageMenuItem.with_label (_("Edit / View"));
+        view_edit_menu.always_show_image = true;
+        view_edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
 
-        get_style_context ().add_class ("due-preview");
-        valign = Gtk.Align.CENTER;
-        column_spacing = 3;
+        var move_project_menu = new Gtk.ImageMenuItem.with_label (_("Move To Project"));
+        move_project_menu.always_show_image = true;
+        move_project_menu.image = new Gtk.Image.from_icon_name ("go-jump-symbolic", Gtk.IconSize.MENU);
+        projects_menu = new Gtk.Menu ();
+        move_project_menu.set_submenu (projects_menu);
 
-        add (icon);
-        add (label);
+        var duplicate_menu = new Gtk.ImageMenuItem.with_label (_("Duplicate"));
+        duplicate_menu.always_show_image = true;
+        duplicate_menu.image = new Gtk.Image.from_icon_name ("view-paged-symbolic", Gtk.IconSize.MENU);
+
+        var convert_menu = new Gtk.ImageMenuItem.with_label (_("Convert to Project"));
+        convert_menu.always_show_image = true;
+        convert_menu.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+
+        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share"));
+        share_menu.always_show_image = true;
+        share_menu.image = new Gtk.Image.from_icon_name ("emblem-shared-symbolic", Gtk.IconSize.MENU);
+ 
+        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete"));
+        delete_menu.always_show_image = true;
+        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+
+        menu.add (complete_menu);
+        menu.add (view_edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (move_project_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (convert_menu);
+        menu.add (duplicate_menu);
+        menu.add (share_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (delete_menu);
+
+        menu.show_all ();
+
+        view_edit_menu.activate.connect (() => {
+            show_item ();
+        });
+
+        delete_menu.activate.connect (() => {
+            if (Application.database.add_item_to_delete (item)) {
+                get_style_context ().remove_class ("item-row-selected");
+                row_revealer.reveal_child = false;
+            }
+        });
     }
 }
-*/

@@ -21,7 +21,8 @@ public class Widgets.ModelButton : Gtk.Button {
     public int color {
         set {
             if (value == 0) {
-                if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+                var hour = new GLib.DateTime.now_local ().get_hour ();
+                if (hour >= 18 || hour <= 6) {
                     item_image.get_style_context ().add_class ("today-night-icon");
                 } else {
                     item_image.get_style_context ().add_class ("today-day-icon");

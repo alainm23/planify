@@ -20,7 +20,8 @@ public class Widgets.Toast : Gtk.Revealer {
     construct {
         margin = 3;
         halign = Gtk.Align.CENTER;
-        valign = Gtk.Align.START;
+        valign = Gtk.Align.END;
+        transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
 
         var close_button = new Gtk.Button.from_icon_name ("close-symbolic", Gtk.IconSize.MENU);
         close_button.get_style_context ().add_class ("close-button");

@@ -42,16 +42,20 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
         due_image.pixel_size = 16;
 
-        due_label = new Gtk.Label ("Due");
+        due_label = new Gtk.Label (null);
         due_label.get_style_context ().add_class ("pane-item");
         due_label.margin_bottom = 1;
         due_label.use_markup = true;
+
+        label_revealer = new Gtk.Revealer ();
+        label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        label_revealer.add (due_label);
 
         var main_grid = new Gtk.Grid ();
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (due_image);
-        main_grid.add (due_label);
+        main_grid.add (label_revealer);
 
         add (main_grid);
 
@@ -71,7 +75,8 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         popover.position = Gtk.PositionType.RIGHT;
 
         string today_icon = "planner-today-day-symbolic";
-        if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+        var hour = new GLib.DateTime.now_local ().get_hour ();
+        if (hour >= 18 || hour <= 6) {
             today_icon = "planner-today-night-symbolic";
         }
 
@@ -130,11 +135,13 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             due_label.label = Application.utils.get_relative_date_from_date (date);
             get_style_context ().remove_class ("due-no-date");
             due_image.get_style_context ().add_class ("upcoming");
+            label_revealer.reveal_child = true;
             date_changed (due_label.label);
         } else {
-            due_label.label = "Due";
+            due_label.label = null;
             get_style_context ().add_class ("due-no-date");
             due_image.get_style_context ().remove_class ("upcoming");
+            label_revealer.reveal_child = false;
             date_changed (null);
         }
 

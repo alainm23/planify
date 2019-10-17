@@ -89,8 +89,12 @@ public class Services.Todoist : GLib.Object {
                 var parser = new Json.Parser ();
                 
                 try {
+                    print ("----------------------\n");
+                    print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                    print ("----------------------\n");
+
                     parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-                    
+
                     var node = parser.get_root ().get_object ();
 
                     // Create user
@@ -112,19 +116,14 @@ public class Services.Todoist : GLib.Object {
                     Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
                     Application.settings.set_boolean ("todoist-account", true);
 
-                    // Create Defaut Area
-                    var default_area = Application.database.create_default_area ();
-                    Application.settings.set_int64 ("default-area", default_area.id);
-
                     // Create projects
                     unowned Json.Array projects = node.get_array_member ("projects");
                     foreach (unowned Json.Node item in projects.get_elements ()) {
-                        var object = item.get_object();
+                        var object = item.get_object ();
 
                         var project = new Objects.Project ();
 
-                        project.id = object.get_int_member ("id");
-                        project.area_id = default_area.id;
+                        project.id = object.get_int_member ("id"); 
                         project.name = object.get_string_member ("name");
                         project.color = (int32) object.get_int_member ("color");
 
@@ -140,6 +139,12 @@ public class Services.Todoist : GLib.Object {
                             project.inbox_project = 0;
                         }
 
+                        if (object.get_boolean_member ("shared")) {
+                            project.shared = 1;
+                        } else {
+                            project.shared = 0;
+                        }
+
                         project.is_deleted = (int32) object.get_int_member ("is_deleted");
                         project.is_archived = (int32) object.get_int_member ("is_archived");
                         project.is_favorite = (int32) object.get_int_member ("is_favorite");
@@ -149,20 +154,59 @@ public class Services.Todoist : GLib.Object {
                         Application.database.insert_project (project);
                     }
 
+                    // Create Sections 
+                    unowned Json.Array sections = node.get_array_member ("sections");
+                    foreach (unowned Json.Node item in sections.get_elements ()) {
+                        var object = item.get_object ();
+
+                        var s = new Objects.Section ();
+
+                        s.id = object.get_int_member ("id");
+                        s.project_id = object.get_int_member ("project_id");
+                        s.sync_id = object.get_int_member ("sync_id");
+                        s.name = object.get_string_member ("name");
+                        s.date_added = object.get_string_member ("date_added");
+                        s.date_archived = object.get_string_member ("date_archived");
+                        s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                        s.is_archived = (int32) object.get_int_member ("is_archived");
+
+                        if (object.get_boolean_member ("collapsed")) {
+                            s.collapsed = 1;
+                        } else {
+                            s.collapsed = 0;
+                        }
+
+                        Application.database.insert_section (s);
+                    }
 
                     // Create items
                     unowned Json.Array items = node.get_array_member ("items");
                     foreach (unowned Json.Node item in items.get_elements ()) {
-                        var object = item.get_object();
+                        var object = item.get_object ();
 
                         var i = new Objects.Item ();
 
                         i.id = object.get_int_member ("id");
                         i.project_id = object.get_int_member ("project_id");
+                        i.user_id = object.get_int_member ("user_id");
+                        i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                        i.responsible_uid = object.get_int_member ("responsible_uid");
+                        i.sync_id = object.get_int_member ("sync_id");
                         
+                        if (object.get_null_member ("section_id") == false) {
+                            i.section_id = object.get_int_member ("section_id");
+                        }
+
+                        if (object.get_null_member ("parent_id") == false) {
+                            i.parent_id = object.get_int_member ("parent_id");
+                        }
+        
                         i.content = object.get_string_member ("content");
                         i.checked = (int32) object.get_int_member ("checked");
+                        i.priority = (int32) object.get_int_member ("priority");
+                        i.is_deleted = (int32) object.get_int_member ("is_deleted");
                         i.date_added = object.get_string_member ("date_added");
+                        i.date_completed = object.get_string_member ("date_completed");
                         
                         Application.database.insert_item (i);
                     }

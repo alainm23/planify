@@ -1,5 +1,6 @@
 public class Widgets.NewCheck : Gtk.EventBox {
     public int64 item_id { get; construct; }
+    public int64 project_id { get; construct; }
 
     private Gtk.Entry name_entry;
     private Gtk.Stack stack;
@@ -20,9 +21,10 @@ public class Widgets.NewCheck : Gtk.EventBox {
         }
     }
 
-    public NewCheck (int64 item_id) {
+    public NewCheck (int64 item_id, int64 project_id) {
         Object (
-            item_id: item_id
+            item_id: item_id,
+            project_id: project_id
         );
     }
 
@@ -81,86 +83,17 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
             return false;
         });
-
-        /*
-        var add_image = new Gtk.Image ();
-        add_image.valign = Gtk.Align.CENTER;
-        add_image.gicon = new ThemedIcon ("list-add-symbolic");
-        add_image.get_style_context ().add_class ("add-project-image");
-        add_image.get_style_context ().add_class ("text-color");
-        add_image.pixel_size = 16;
-
-        var add_label = new Gtk.Label (_("Add subtask"));
-        add_label.margin_bottom = 1;
-        add_label.get_style_context ().add_class ("pane-item");
-        add_label.get_style_context ().add_class ("text-color");
-        add_label.get_style_context ().add_class ("add-project-label");
-        add_label.use_markup = true;
-
-        var add_grid = new Gtk.Grid ();
-        add_grid.column_spacing = 9;
-        add_grid.add (add_image);
-        add_grid.add (add_label);
-
-        var add_eventbox = new Gtk.EventBox ();
-        add_eventbox.valign = Gtk.Align.CENTER;
-        add_eventbox.add (add_grid);
-
-        stack = new Gtk.Stack ();
-        stack.margin_end = 30;
-        stack.hexpand = true;
-        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-        stack.add_named (add_eventbox, "1_box");
-        stack.add_named (box, "2_box");
-        */
-
-        
-
-        /*
-        
-
-        
-
-        add_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                stack.visible_child_name = "2_box";
-                name_entry.grab_focus ();
-            }
-
-            return false;
-        });
-
-        add_eventbox.enter_notify_event.connect ((event) => {
-            add_image.get_style_context ().add_class ("active");
-            add_label.get_style_context ().add_class ("active");
-            
-            window.cursor = HAND_cursor;
-            return true;
-        });
-
-        add_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            window.cursor = ARROW_cursor;
-            add_image.get_style_context ().remove_class ("active");
-            add_label.get_style_context ().remove_class ("active");
-
-            return true;
-        });
-        */
     }
 
     private void insert_item () {
         if (name_entry.text != "") {
-            var check = new Objects.Check ();
-            check.content = name_entry.text;
-            check.id = Application.utils.generate_id ();
-            check.item_id = item_id;
+            var item = new Objects.Item ();
+            item.id = Application.utils.generate_id ();
+            item.content = name_entry.text;
+            item.parent_id = item_id;
+            item.project_id = project_id;
 
-            if (Application.database.insert_check (check)) {
+            if (Application.database.insert_item (item)) {
                 name_entry.text = "";
             }
         }

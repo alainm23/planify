@@ -14,5 +14,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         height_request = 700;
         width_request = 600;
         //get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+
+        
     }
 }

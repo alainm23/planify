@@ -8,6 +8,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
     };
  
     construct {
+        tooltip_text = _("Add Task");
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         reveal_child = true;
         margin_bottom = 12;
@@ -62,8 +63,9 @@ public class Widgets.MagicButton : Gtk.Revealer {
         magic_button.draw (cr);
 
         Gtk.drag_set_icon_surface (context, surface);
-        Application.utils.drag_magic_button_activated (true);
         reveal_child = false;
+
+        Application.utils.drag_magic_button_activated (true);
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {

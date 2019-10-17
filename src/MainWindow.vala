@@ -123,24 +123,12 @@ public class MainWindow : Gtk.Window {
 
                 // To do: Save user photo
                 // To do: Create a tutorial project
- 
-                // Create Defaut Area
-                var default_area = Application.database.create_default_area ();
-
+                
                 // Create Inbox Project
                 var inbox_project = Application.database.create_inbox_project ();
-                //inbox_project.area_id = default_area.id;
-
-                // Crate default header
-                var default_header = new Objects.Header ();
-                default_header.id = inbox_project.default_header;
-                default_header.project_id = inbox_project.id;
-                default_header.default_header = 1;
-                Application.database.insert_header (default_header);
 
                 // Set settings
                 Application.settings.set_int64 ("inbox-project", inbox_project.id);
-                Application.settings.set_int64 ("default-area", default_area.id);
                 Application.settings.set_boolean ("inbox-project-sync", false);
                 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
@@ -198,7 +186,17 @@ public class MainWindow : Gtk.Window {
             visible_child_name = stack.visible_child_name;
             
             if (visible_child_name == "inbox-view") {
-                
+                int is_todoist = 0;
+                if (Application.settings.get_boolean ("inbox-project-sync")) {
+                    is_todoist = 1;
+                }
+
+                Application.utils.magic_button_activated (
+                    Application.settings.get_int64 ("inbox-project"),
+                    0,
+                    is_todoist,
+                    true
+                );
             } else if (visible_child_name == "today-view") {
 
             } else if (visible_child_name == "upcoming-view") {
@@ -207,12 +205,31 @@ public class MainWindow : Gtk.Window {
                 var project = ((Views.Project) stack.get_child_by_name (visible_child_name)).project;
                 Application.utils.magic_button_activated (
                     project.id,
-                    project.default_header,
+                    0,
                     project.is_todoist,
                     true
                 );
             }
         });
+
+        // Label Controller
+        var labels_controller = new Services.LabelsController ();
+
+        Application.database.label_added.connect_after ((label) => {
+            Idle.add (() => {
+                labels_controller.add_label (label);
+
+                return false;
+            });
+        });
+
+        Application.database.label_updated.connect ((label) => {
+            Idle.add (() => {
+                labels_controller.update_label (label);
+
+                return false;
+            });
+        });  
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

@@ -29,22 +29,29 @@ executable(
     'src/MainWindow.vala',
     'src/Utils.vala',
 
+    'src/Services/Database.vala',
+    'src/Services/Todoist.vala',
+    'src/Services/LabelsController.vala',
+
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
     'src/Widgets/New.vala',
     'src/Widgets/ProjectRow.vala',
     'src/Widgets/NewItem.vala',
     'src/Widgets/ItemRow.vala',
-    'src/Widgets/NewCheck.vala',
-    'src/Widgets/CheckRow.vala',
-    'src/Widgets/HeaderRow.vala',
+    'src/Widgets/SectionRow.vala',
     'src/Widgets/DueButton.vala',
     'src/Widgets/LabelButton.vala',
     'src/Widgets/Toast.vala',
     'src/Widgets/ModelButton.vala',
     'src/Widgets/AreaRow.vala',
     'src/Widgets/MagicButton.vala',
-    
+    'src/Widgets/LabelRow.vala',
+    'src/Widgets/NewCheck.vala',
+    'src/Widgets/CheckRow.vala',
+    'src/Widgets/LabelPreview.vala',
+    'src/Widgets/LabelItem.vala',
+
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -58,19 +65,17 @@ executable(
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
-    
-    'src/Services/Database.vala',
-    'src/Services/Todoist.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
     'src/Dialogs/Preferences.vala',
-
+    'src/Dialogs/Labels.vala',
+    
     'src/Objects/Project.vala',
     'src/Objects/Item.vala',
-    'src/Objects/Check.vala',
     'src/Objects/Area.vala',
-    'src/Objects/Header.vala',
+    'src/Objects/Section.vala',
+    'src/Objects/Label.vala',
 
     dependencies: [
         dependency('gee-0.8'),

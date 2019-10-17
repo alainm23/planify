@@ -4,7 +4,8 @@ public class Views.Today : Gtk.EventBox {
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.pixel_size = 21; 
 
-        if (new GLib.DateTime.now_local ().get_hour () >= 18) {
+        var hour = new GLib.DateTime.now_local ().get_hour ();
+        if (hour >= 18 || hour <= 6) {
             icon_image.gicon = new ThemedIcon ("planner-today-night-symbolic");
             icon_image.get_style_context ().add_class ("today-night-icon");
         } else {
@@ -26,7 +27,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.margin_start = 31;
-        top_box.margin_end = 24;
+        top_box.margin_end = 16;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 6);

@@ -78,11 +78,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
 
-        count_label = new Gtk.Label ("4");
-        count_label.get_style_context ().add_class ("dim-label");
+        var count_label = new Gtk.Label ("<small>%s</small>".printf ("8"));
         count_label.valign = Gtk.Align.CENTER;
-        count_label.halign = Gtk.Align.CENTER;
-        count_label.margin_end = 12;
+        count_label.margin_top = 3;
+        count_label.get_style_context ().add_class ("dim-label");
+        count_label.use_markup = true;
 
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
@@ -101,8 +101,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (source_icon, false, false, 6);
-        handle_box.pack_end (count_label, false, false, 0);
+        handle_box.pack_start (count_label, false, false, 6);
+        //handle_box.pack_end (source_icon, false, false, 6);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -113,6 +113,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         var grid = new Gtk.Grid ();
+        grid.margin_start = 6;
         grid.orientation = Gtk.Orientation.VERTICAL;
 
         grid.add (handle_box);
@@ -305,21 +306,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             child.destroy ();
         }
 
+        Gtk.ImageMenuItem item;
+        
+        if (project.area_id != 0) {
+            item = new Gtk.ImageMenuItem.with_label ("No Work Area");
+            item.always_show_image = true;
+            item.image = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
+            item.activate.connect (() => {
+                if (Application.database.move_project (project, 0)) {
+                    destroy ();
+                }
+            });
+
+            work_areas.add (item);
+        }
+
         foreach (Objects.Area area in Application.database.get_all_areas ()) {
             if (area.id != project.area_id) {
-                var name = area.name;
-                var icon = "planner-work-area-symbolic";
-                if (area.default_area == 1) {
-                    name = _("No Work Area");
-                    icon = "window-close-symbolic";
-                }
-
-                var item = new Gtk.ImageMenuItem.with_label (name);
+                item = new Gtk.ImageMenuItem.with_label (area.name);
                 item.always_show_image = true;
-                item.image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.MENU);
+                item.image = new Gtk.Image.from_icon_name ("planner-work-area-symbolic", Gtk.IconSize.MENU);
                 item.activate.connect (() => {
-                    print ("Area_ID: %s\n".printf (area.id.to_string ()));
-                    if (Application.database.move_project (project, area)) {
+                    if (Application.database.move_project (project, area.id)) {
                         destroy ();
                     }
                 });
@@ -357,23 +365,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         export_menu.always_show_image = true;
         export_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.MENU);
 
-        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share project"));
+        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share"));
         share_menu.always_show_image = true;
         share_menu.image = new Gtk.Image.from_icon_name ("emblem-shared-symbolic", Gtk.IconSize.MENU);
- 
-        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete project"));
+        
+        var archive_menu = new Gtk.ImageMenuItem.with_label (_("Archive"));
+        archive_menu.always_show_image = true;
+        archive_menu.image = new Gtk.Image.from_icon_name ("planner-archive-symbolic", Gtk.IconSize.MENU);
+
+        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete"));
         delete_menu.always_show_image = true;
-        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+        delete_menu.image = new Gtk.Image.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
 
         menu.add (project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (finalize_menu);
+        //menu.add (finalize_menu);
         menu.add (edit_menu);
         menu.add (move_menu);
+        //menu.add (new Gtk.SeparatorMenuItem ());
+        //menu.add (export_menu);
+        //menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (export_menu);
-        menu.add (share_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (archive_menu);
         menu.add (delete_menu);
 
         menu.show_all ();
