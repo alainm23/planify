@@ -16,22 +16,13 @@
 
 You'll need the following dependencies:
 
-* libgtk-3-dev
-* libunity-dev
-* libecal1.2-dev
-* libedataserver1.2-dev
-* libedataserverui1.2-dev
-* libgtksourceview-3.0-dev >= 3.24
-* libical-dev
+* libgtk-3-devd
 * libgee-0.8-dev
 * libjson-glib-dev
-* libgeoclue-2-dev
 * libsqlite3-dev
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
 * meson
-* libwebkit2gtk-4.0-dev
-* libmarkdown2-dev
 * valac >= 0.40.3
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
