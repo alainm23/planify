@@ -4,63 +4,23 @@
   <gresource prefix="/com/github/alainm23/planner">
     <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
 
-    <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
-    <file alias="planner-today-1.svg">resources/planner-today-1.svg</file>
-    <file alias="planner-today-2.svg">resources/planner-today-2.svg</file>
-    <file alias="planner-today-3.svg">resources/planner-today-3.svg</file>
-    <file alias="planner-today-4.svg">resources/planner-today-4.svg</file>
-    <file alias="planner-today-5.svg">resources/planner-today-5.svg</file>
-    <file alias="planner-today-6.svg">resources/planner-today-6.svg</file>
-    <file alias="planner-today-7.svg">resources/planner-today-7.svg</file>
-    <file alias="planner-today-8.svg">resources/planner-today-8.svg</file>
-    <file alias="planner-today-9.svg">resources/planner-today-9.svg</file>
-    <file alias="planner-today-10.svg">resources/planner-today-10.svg</file>
-    <file alias="planner-today-11.svg">resources/planner-today-11.svg</file>
-    <file alias="planner-today-12.svg">resources/planner-today-12.svg</file>
-    <file alias="planner-today-13.svg">resources/planner-today-13.svg</file>
-    <file alias="planner-today-14.svg">resources/planner-today-14.svg</file>
-    <file alias="planner-today-15.svg">resources/planner-today-15.svg</file>
-    <file alias="planner-today-16.svg">resources/planner-today-16.svg</file>
-    <file alias="planner-today-17.svg">resources/planner-today-17.svg</file>
-    <file alias="planner-today-18.svg">resources/planner-today-18.svg</file>
-    <file alias="planner-today-19.svg">resources/planner-today-19.svg</file>
-    <file alias="planner-today-20.svg">resources/planner-today-20.svg</file>
-    <file alias="planner-today-21.svg">resources/planner-today-21.svg</file>
-    <file alias="planner-today-22.svg">resources/planner-today-22.svg</file>
-    <file alias="planner-today-23.svg">resources/planner-today-23.svg</file>
-    <file alias="planner-today-24.svg">resources/planner-today-24.svg</file>
-    <file alias="planner-today-25.svg">resources/planner-today-25.svg</file>
-    <file alias="planner-today-26.svg">resources/planner-today-26.svg</file>
-    <file alias="planner-today-27.svg">resources/planner-today-27.svg</file>
-    <file alias="planner-today-28.svg">resources/planner-today-28.svg</file>
-    <file alias="planner-today-29.svg">resources/planner-today-29.svg</file>
-    <file alias="planner-today-30.svg">resources/planner-today-30.svg</file>
-    <file alias="planner-today-31.svg">resources/planner-today-31.svg</file>
-    <file alias="planner-upcoming.svg">resources/planner-upcoming.svg</file>
-    <file alias="planner-startup-symbolic.svg">resources/planner-startup-symbolic.svg</file>
-
-    <file alias="planner-text-symbolic.svg">resources/planner-text-symbolic.svg</file>
-    <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
-    <file alias="planner-notification-symbolic.svg">resources/planner-notification-symbolic.svg</file>
-    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
-    <file alias="planner-note-symbolic.svg">resources/planner-note-symbolic.svg</file>
-    <file alias="planner-share-symbolic.svg">resources/planner-share-symbolic.svg</file>
-    <file alias="planner-copy-symbolic.svg">resources/planner-copy-symbolic.svg</file>
-    <file alias="planner-paste-symbolic.svg">resources/planner-paste-symbolic.svg</file>
-    <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
-    <file alias="planner-when.svg">resources/planner-when.svg</file>
-    <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
-    <file alias="planner-github.svg">resources/planner-github.svg</file>
-    <file alias="planner-repository.svg">resources/planner-repository.svg</file>
     <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
-    <file alias="planner-paypal.svg">resources/planner-paypal.svg</file>
-    
-    <file alias="planner-banana-theme.svg">resources/planner-banana-theme.svg</file>
-    <file alias="planner-black-theme.svg">resources/planner-black-theme.svg</file>
-    <file alias="planner-blueberry-theme.svg">resources/planner-blueberry-theme.svg</file>
-    <file alias="planner-lemon-theme.svg">resources/planner-lemon-theme.svg</file>
-    <file alias="planner-slate-theme.svg">resources/planner-slate-theme.svg</file>
-    <file alias="planner-strawberry-theme.svg">resources/planner-strawberry-theme.svg</file>
-    <file alias="planner-pink-theme.svg">resources/planner-pink-theme.svg</file>
+    <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
+    <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
+    <file alias="planner-return-symbolic.svg">resources/planner-return-symbolic.svg</file>
+    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
+    <file alias="planner-reorder-symbolic.svg">resources/planner-reorder-symbolic.svg</file>
+    <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
+    <file alias="planner-calendar-symbolic.svg">resources/planner-calendar-symbolic.svg</file>
+    <file alias="planner-alarm-symbolic.svg">resources/planner-alarm-symbolic.svg</file>
+    <file alias="planner-archive-symbolic.svg">resources/planner-archive-symbolic.svg</file>
+
+    <file alias="planner-header-symbolic.svg">resources/planner-header-symbolic.svg</file>
+
+    <file alias="planner-today-day-symbolic.svg">resources/planner-today-day-symbolic.svg</file>
+    <file alias="planner-today-night-symbolic.svg">resources/planner-today-night-symbolic.svg</file>
+
+    <file alias="planner-work-area-symbolic.svg">resources/planner-work-area-symbolic.svg</file>
+    <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
   </gresource>
 </gresources>

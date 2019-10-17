@@ -1,11 +1,5 @@
-com.github.lainsce.notejot (1.0.2) xenial; urgency=low
-
-  * Agregando traducciones al español.
-
- -- Alain M. <alain@laptop>  Wed, 02 Jan 2019 12:45:52 -0500
-
-com.github.alainm23.planner (1.0) xenial; urgency=low
+com.github.alainm23.notable (1.0) xenial; urgency=low
 
     * Initial Release.
 
- -- Alain M. <alain23@protonmail.com>  Tue, 01 Jan 2019 21:33:25 -0500
+ -- Alain M. <alainmh23@gmail.com>  Tue, 01 Jan 2019 21:33:25 -0500

@@ -31,10 +31,6 @@ public class Widgets.Calendar.CalendarDay : Gtk.EventBox {
 
     private Gtk.Label label;
     public signal void day_selected (int day);
-    public signal void day_double_selected (int day);
-    public CalendarDay () {
-
-    }
 
     construct {
         label = new Gtk.Label (null);
@@ -51,17 +47,13 @@ public class Widgets.Calendar.CalendarDay : Gtk.EventBox {
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (label);
-        //main_grid.add (image);
 
         add (main_grid);
 
         event.connect ((event) => {
             if (event.type == Gdk.EventType.BUTTON_PRESS) {
                 day_selected (int.parse (label.label));
-                get_style_context ().add_class ("planner-calendar-selected");
-            } else if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                day_double_selected (int.parse (label.label));
-                get_style_context ().add_class ("planner-calendar-selected");
+                get_style_context ().add_class ("calendar-day-selected");
             }
 
             return false;

@@ -1,47 +1,39 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
+public class Objects.Project : GLib.Object {
+    public int64 area_id { get; set; default = 0; }
+    public int64 id { get; set; default = 0; }
+    
+    public string name { get; set; default = ""; }
+    public string note { get; set; default = ""; }
+    public string due { get; set; default = ""; }
 
-public class Objects.Project {
-    public int id;
-    public string name;
-    public string note;
-    public string deadline;
-    public int item_order;
-    public int is_deleted;
-    public string color;
+    public int color { get; set; default = 0; }
+    public int is_todoist { get; set; default = 0; }
+    public int inbox_project { get; set; default = 0; }
+    public int team_inbox { get; set; default = 0; }
+    public int item_order { get; set; default = 0; }
+    public int is_deleted { get; set; default = 0; }
+    public int is_archived { get; set; default = 0; }
+    public int is_favorite { get; set; default = 0; }
+    public int64 is_sync { get; set; default = 0; }
+    public int shared { get; set; default = 0; }  
 
-    public Project (int id = 0,
-                    int item_order = 0,
-                    int is_deleted = 0,
-                    string name = "",
-                    string note = "",
-                    string deadline = "",
-                    string color = "") {
+    private uint timeout_id = 0;
 
-        this.id = id;
-        this.name = name;
-        this.note = note;
-        this.deadline = deadline;
-        this.item_order = item_order;
-        this.is_deleted = is_deleted;
-        this.color = color;
+    public void save () {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+            timeout_id = 0;
+        }
+
+        timeout_id = Timeout.add (1000, () => {
+            new Thread<void*> ("save_timeout", () => {
+                Application.database.update_project (this);
+                return null;
+            });
+            
+            Source.remove (timeout_id);
+            timeout_id = 0;
+            return false;
+        });
     }
 }

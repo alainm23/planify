@@ -1,150 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <enum id="com.github.alainm23.planner.badge-count">
-        <value nick="None" value="0" />
-        <value nick="Inbox" value="1" />
-        <value nick="Today" value="2" />
-        <value nick="Today + Inbox" value="3" />
-        <value nick="Notifications" value="4" />
-    </enum>
-
-    <enum id="com.github.alainm23.planner.start-page">
-        <value nick="Inbox" value="0" />
-        <value nick="Today" value="1" />
-        <value nick="Upcoming" value="2" />
-    </enum>
-
-    <enum id="com.github.alainm23.planner.quick-save">
-        <value nick="None" value="0" />
-        <value nick="Double click" value="1" />
-        <value nick="Triple click" value="2" />
-    </enum>
-
-    <enum id="com.github.alainm23.planner.weather-unit-format">
-        <value nick="Fahrenheit" value="0" />
-        <value nick="Celsius" value="1" />
-    </enum>
-
-    <enum id="com.github.alainm23.planner.theme">
-        <value nick="Banana" value="1" />
-        <value nick="Black" value="2" />
-        <value nick="Blueberry" value="3" />
-        <value nick="Strawberry" value="4" />
-        <value nick="Lemon" value="5" />
-        <value nick="Slate" value="6" />
-        <value nick="Pink" value="7" />
-    </enum>
-
-    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">
-        <key name="prefer-dark-style" type="b">
-            <default>false</default>
-            <summary>If the dark Gtk stylesheet should be used</summary>
-            <description>If the dark Gtk stylesheet should be used</description>
-        </key>
-
-        <key name="run-background" type="b">
-            <default>false</default>
-            <summary>Let Planner run in background and send notifications.</summary>
-            <description>Let Planner run in background and send notifications.</description>
-        </key>
-
-        <key name="launch-login" type="b">
-            <default>false</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="show-calendar-events" type="b">
-            <default>false</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="location-automatic" type="b">
-            <default>true</default>
-            <summary>Location type</summary>
-            <description>Location type used by the program (Automatic/Manual)</description>
-        </key>
-
-        <key name="show-inbox" type="b">
-            <default>true</default>
-            <summary>Show Inbox item</summary>
-            <description>Show Inbox item</description>
-        </key>
-
-        <key name="show-today" type="b">
-            <default>true</default>
-            <summary>Show Today item</summary>
-            <description>Show Today item</description>
-        </key>
-
-        <key name="show-upcoming" type="b">
-            <default>true</default>
-            <summary>Show Upcoming item</summary>
-            <description>Show Upcoming item</description>
-        </key>
-
-        <key name="show-all-tasks" type="b">
-            <default>false</default>
-            <summary>Show All Tasks item</summary>
-            <description>Show All Tasks item</description>
-        </key>
-
-        <key name="show-completed-tasks" type="b">
-            <default>false</default>
-            <summary>Show Completed Tasks item</summary>
-            <description>Show Completed Tasks item</description>
-        </key>
-
-        <key name="location-manual-value" type="s">
-          <default>"Seattle, US"</default>
-          <summary>Manual location stored value</summary>
-          <description>
-            The user can specify exact location manually in the format "City, Country code"
-            Example: London, UK
-          </description>
-        </key>
-
-        <key name="labels-repository" type="s">
-          <default>"none"</default>
-          <summary>Labels Repository</summary>
-          <description>
-            Labels Repository
-          </description>
-        </key>
-
-        <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
-            <default>"None"</default>
-            <summary>Choose which items should be counted for the badge on the application icon</summary>
-            <description>Choose which items should be counted for the badge on the application icon</description>
-        </key>
-
-        <key name="weather-unit-format" enum="com.github.alainm23.planner.weather-unit-format">
-            <default>"Fahrenheit"</default>
-            <summary>Temperature is available in Fahrenheit, Celsius and Kelvin units</summary>
-            <description>Temperature is available in Fahrenheit, Celsius and Kelvin units</description>
-        </key>
-
-        <key name="theme" enum="com.github.alainm23.planner.theme">
-            <default>"Banana"</default>
-            <summary>Theme</summary>
-            <description>Theme</description>
-        </key>
-
-        <key name="quick-save" enum="com.github.alainm23.planner.quick-save">
-            <default>"None"</default>
-            <summary>Choose which items should be counted for the badge on the application icon</summary>
-            <description>Choose which items should be counted for the badge on the application icon</description>
-        </key>
-
-        <key name="start-page" enum="com.github.alainm23.planner.start-page">
-            <default>"Today"</default>
-            <summary>Choose which items should be counted for the badge on the application icon</summary>
-            <description>Choose which items should be counted for the badge on the application icon</description>
-        </key>
-
+    <schema path="/com/github/alainm23/planner2/" id="com.github.alainm23.planner2" gettext-domain="com.github.alainm23.planner2">
         <key name="window-size" type="ai">
-            <default>[-1, -1]</default>
+            <default>[821, 1237]</default>
             <summary>Most recent window size (height, width)</summary>
             <description>Most recent window size (height, width)</description>
         </key>
@@ -155,10 +13,82 @@
             <description>Most recent window position (x, y)</description>
         </key>
 
-        <key name="project-sidebar-width" type="i">
-            <default>280</default>
-            <summary>Project Sidebar Width</summary>
-            <description>Save the width of the sidebar in the Project List</description>
+        <key name="pane-position" type="i">
+            <default>275</default>
+            <summary>Most recent pane position</summary>
+            <description>Most recent pane position</description>
+        </key>
+
+        <key name="inbox-project" type="x">
+            <default>0</default>
+            <summary>Inbox Project ID</summary>
+            <description>Inbox Project ID</description>
+        </key>
+
+        <key name="inbox-project-sync" type="b">
+            <default>false</default>
+            <summary>Inbox Project Sync</summary>
+            <description>Inbox Project Sync</description>
+        </key>
+
+        <key name="user-name" type="s">
+            <default>""</default>
+            <summary>User name</summary>
+            <description>User name</description>
+        </key>
+
+        <key name="todoist-account" type="b">
+            <default>false</default>
+            <summary>User name</summary>
+            <description>User name</description>
+        </key>
+
+        <key name="todoist-access-token" type="s">
+            <default>""</default>
+            <summary>Todoist access token</summary>
+            <description>Todoist access token</description>
+        </key>
+
+        <key name="todoist-sync-token" type="s">
+            <default>""</default>
+            <summary>Todoist sync token</summary>
+            <description>Todoist sync token</description>
+        </key>
+
+        <key name="todoist-user-id" type="i">
+            <default>0</default>
+            <summary>Todoist sync token</summary>
+            <description>Todoist sync token</description>
+        </key>
+
+        <key name="todoist-user-email" type="s">
+            <default>""</default>
+            <summary>Todoist email account</summary>
+            <description>Todoist email account</description>
+        </key>
+
+        <key name="todoist-user-join-date" type="s">
+            <default>""</default>
+            <summary>Todoist user join date</summary>
+            <description>Todoist user join date</description>
+        </key>
+
+        <key name="todoist-user-avatar" type="s">
+            <default>""</default>
+            <summary>Todoist user avatar</summary>
+            <description>Todoist user avatar</description>
+        </key>
+
+        <key name="todoist-user-is-premium" type="b">
+            <default>false</default>
+            <summary>Todoist user is premium</summary>
+            <description>Todoist user is premium</description>
+        </key>
+
+        <key name="todoist-full-sync" type="b">
+            <default>false</default>
+            <summary>Todoist full sync</summary>
+            <description>Todoist full sync</description>
         </key>
     </schema>
 </schemalist>

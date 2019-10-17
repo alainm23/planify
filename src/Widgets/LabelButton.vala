@@ -1,62 +1,174 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
-
 public class Widgets.LabelButton : Gtk.ToggleButton {
-    public signal void on_selected_label (Objects.Label label);
-    public LabelButton () {
+    public int64 item_id { get; construct; }
+
+    private Gtk.Popover popover = null;
+    private Gtk.ListBox listbox;
+
+    public LabelButton (int64 item_id) {
         Object (
-            valign: Gtk.Align.CENTER
+            item_id: item_id
         );
     }
 
     construct {
-        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        get_style_context ().add_class ("flat");
+        get_style_context ().add_class ("item-action-button");
+        get_style_context ().add_class ("due-no-date");
 
-        var label_icon = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
-        var label_name = new Gtk.Label (_("Labels"));
-        label_name.margin_bottom = 1;
+        var label_icon = new Gtk.Image ();
+        label_icon.valign = Gtk.Align.CENTER;
+        label_icon.gicon = new ThemedIcon ("tag-symbolic");
+        label_icon.pixel_size = 16;
 
-        var labels_popover = new Widgets.Popovers.LabelsPopover (this, false);
+        var label = new Gtk.Label (_("labels"));
+        label.get_style_context ().add_class ("pane-item");
+        label.margin_bottom = 1;
+        label.use_markup = true;
 
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.pack_start (label_icon, false, false, 0);
-        main_box.pack_start (label_name, false, false, 0);
+        var main_grid = new Gtk.Grid ();
+        main_grid.halign = Gtk.Align.CENTER;
+        main_grid.valign = Gtk.Align.CENTER;
+        main_grid.add (label_icon);
+        //main_grid.add (label);
 
-        add (main_box);
+        add (main_grid);
 
         this.toggled.connect (() => {
             if (this.active) {
-                labels_popover.update_label_list ();
-                labels_popover.show_all ();
-                labels_popover.labels_listbox.unselect_all ();
+                if (popover == null) {
+                    create_popover ();
+
+                    Application.database.label_added.connect ((label) => {
+                        if (popover != null) {
+                            var row = new Widgets.LabelPopoverRow (label);
+                            listbox.add (row);
+                        }
+                    });
+                }
+
+                foreach (Gtk.Widget element in listbox.get_children ()) {
+                    listbox.remove (element);
+                }
+
+                foreach (Objects.Label l in Application.database.get_all_labels ()) {
+                    var row = new Widgets.LabelPopoverRow (l);
+                    listbox.add (row);
+                }
+
+                popover.show_all ();
             }
         });
+    }
 
-        labels_popover.closed.connect (() => {
+    private void create_popover () {
+        popover = new Gtk.Popover (this);
+        popover.position = Gtk.PositionType.RIGHT;
+
+        listbox = new Gtk.ListBox ();
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.expand = true;
+        listbox.get_style_context ().add_class ("background");
+
+        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled.expand = true;
+        listbox_scrolled.add (listbox);
+
+        var edit_icon = new Gtk.Image ();
+        edit_icon.valign = Gtk.Align.CENTER;
+        edit_icon.gicon = new ThemedIcon ("edit-symbolic");
+        edit_icon.pixel_size = 14;
+
+        var edit_labels = new Gtk.Button ();
+        edit_labels.margin_bottom = 6;
+        edit_labels.image = edit_icon;
+        edit_labels.valign = Gtk.Align.CENTER;
+        edit_labels.halign = Gtk.Align.START;
+        edit_labels.always_show_image = true;
+        edit_labels.can_focus = false;
+        edit_labels.label = _("Edit Labels");
+        edit_labels.get_style_context ().add_class ("flat");
+        edit_labels.get_style_context ().add_class ("font-bold");
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.margin_start = 3;
+        popover_grid.margin_end = 3;
+        popover_grid.margin_top = 6;
+        popover_grid.width_request = 235;
+        popover_grid.height_request = 250;
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.add (listbox_scrolled);
+        popover_grid.add (edit_labels);
+
+        popover.add (popover_grid);
+
+        popover.closed.connect (() => {
             this.active = false;
         });
 
-        labels_popover.on_selected_label.connect ((label) => {
-            on_selected_label (label);
-            labels_popover.popdown ();
+        edit_labels.clicked.connect (() => {
+            var dialog = new Dialogs.Labels ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+
+            popover.popdown ();
+        });
+
+        listbox.row_activated.connect ((row) => {
+            var label = ((Widgets.LabelPopoverRow) row).label;
+            if (Application.database.add_item_label (item_id, label)) {
+                popover.popdown ();
+            }
+        });
+    }
+}
+
+public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
+    public Objects.Label label { get; construct; }
+
+    public LabelPopoverRow (Objects.Label label) {
+        Object (
+            label: label
+        );
+    }
+
+    construct {
+        get_style_context ().add_class ("label-row");
+
+        var label_image = new Gtk.Button.from_icon_name ("tag-symbolic");
+        label_image.valign = Gtk.Align.CENTER;
+        label_image.halign = Gtk.Align.CENTER;
+        label_image.can_focus = false;
+        label_image.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
+
+        var name_label = new Gtk.Label (label.name);
+        name_label.get_style_context ().add_class ("h3");
+        name_label.get_style_context ().add_class ("font-weight-600");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.use_markup = true;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.margin = 3;
+        box.pack_start (label_image, false, false, 0);
+        box.pack_start (name_label, false, true, 0);
+
+        add (box);
+
+        Application.database.label_updated.connect ((l) => {
+            Idle.add (() => {
+                if (label.id == l.id) {
+                    name_label.label = l.name;
+                }
+
+                return false;
+            });
+        });
+
+        Application.database.label_deleted.connect ((l) => {
+            if (label.id == l.id) {
+                destroy ();
+            }
         });
     }
 }

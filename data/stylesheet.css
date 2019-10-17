@@ -1,499 +1,710 @@
-@define-color color_header #ffe16b;
-@define-color color_selected #ffe16b;
-@define-color color_text #000;
+@define-color projectview_color #fafafa;
 
-@define-color colorPrimary @color_header;
-@define-color textColorPrimary @color_text;
+/*
+    Dark theme
+*/
 
+/*@define-color projectview_color #333333;*/
+
+entry {
+    caret-color: #3689e6;
+}
+
+textview {
+    caret-color: #3689e6;
+}
 
 .titlebar {
-    padding: 1px 6px;
+    /*padding: 0 2px;*/
 }
 
-.label-child {
-    transition: all 150ms ease;
+.sidebar-header {
+    background-color: @bg_color;
 }
 
-.label-child:focus {
+.sidebar-header:dir(ltr) {
+    border-top-right-radius: 0;
+}
+
+.sidebar-header:dir(rtl) {
+    border-top-left-radius: 0;
+}
+
+.projectview-header {
+    background-color: @projectview_color;
+}
+
+.projectview-header:dir(ltr) {
+    border-top-left-radius: 0;
+}
+
+.projectview-header:dir(rtl) {
+    border-top-right-radius: 0;
+}
+
+paned {
+    background-color: @projectview_color;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+paned > separator {
+    margin-right: 0;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+.pane {
+    background-color: @bg_color;
+    border-bottom-left-radius: 4px;
+}
+
+.pane:dir(rtl) {
+    border-bottom-right-radius: 4px;
+}
+
+/*
+    Pane
+*/
+
+.pane-item {
+    font-weight: 600;
+}
+
+.pane-area {
+    font-weight: 700;
+}
+
+.pane-entry {
+    background-color: @bg_color;
+    padding-left: 0px;
+}
+
+.pane-row {
+    transition: all 140ms ease-in-out;
     background-color: transparent;
-    color: @fg_color;
 }
 
-.task {	
-    transition: all 250ms ease;	
+.pane-row:selected {
+    background-color: shade (@bg_color, 0.93);
+    color: @text_color;
 }
 
-.text-hover {
-    color: @color_text
+.pane-row button {
+    background-color: transparent;
+}
+.project-row:selected:focus image {
+    color: @text_color;
 }
 
-.note-view text {
+.header-row {
+    transition: all 140ms ease-in-out;
+    background-color: transparent;
+}
+
+.hidden-button {
+    background-color: transparent;
+}
+
+.hidden-button image {
+    transition: all 150ms ease-in-out; 
+}
+
+.hidden-button image {
+    color: @text_color;
+}
+
+.hidden-button.opened image {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.inbox {
+    color: #3689e6;	
+}
+
+.today {
+    color: #f9c440;
+}
+
+.upcoming {
+    color: #ed5353;
+}
+
+.text_color {
+    color: @text_color;
+}
+
+/*
+    Item Row
+*/
+
+.item-row {
+    transition: all 150ms ease-in-out;
+}
+
+.item-row:selected {
+    background-color: transparent;
+    color: @text_color;
+}
+
+.item-row:selected image {
+    color: @text_color;
+    opacity: 0.7;   
+}
+
+.item-row-selected {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     background-color: @base_color;
-    font-size: 14px;
+    border-top: 1px solid alpha (#000, 0.3);
+    border-bottom: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-.note-view {
-    font-size: 14px;
+.pane-project-selected {
+    background-color: shade (@base_color, 0.98);
 }
 
-.button-circular {
-    border-radius: 50px;
-}
-
-.circular {
-    border-radius: 100px;
-    padding: 6px
-}
-
-.button-close {
-    border-radius: 50px;
-    padding: 0px;
-    background-color: @fg_color;
-    color: @bg_color;
-}
-
-.button-overlay-circular {
-    border-radius: 50px;
-    padding: 0px;
-    color: @bg_color;
-}
-
-.button-overlay-circular image {
-    transition: all 240ms ease-in-out;
-}
-
-.button-overlay-circular.closed image {
-    -gtk-icon-transform: rotate(-90deg);
-}
-
-.planner-button-ani {
-    color: @fg_color;
-}
-
-.planner-button-ani image {
-    transition: all 240ms ease-in-out;
-}
-
-.planner-button-ani.closed image {
-    -gtk-icon-transform: rotate(-180deg);
-}
-
-.planner-actionbar {
+.pane-no-project-selected {
     background-color: @base_color;
 }
 
-.planner-button-issues {
-    color: #ffffff;
-    background: linear-gradient(#009f51, #008041);
-    border: 1px solid darker(#008f43);
+/*
+    Area Row
+*/
+
+.area-row {
+    background-color: transparent;
 }
 
-.active-switch slider {
-    min-height: 16px;
-    min-width: 16px;
+.area-row:selected {
+    color: @text_color;
+}
+
+/*
+    Animations
+*/
+
+@keyframes fancy-turn {
+    0%   { -gtk-icon-transform: rotate(0deg);   }
+    25%  { -gtk-icon-transform: rotate(-30deg); }
+    50%  { -gtk-icon-transform: rotate(0deg);   }
+    75%  { -gtk-icon-transform: rotate(30deg);  }
+    100% { -gtk-icon-transform: rotate(0deg);   }
+}
+
+.active {
+  animation: fancy-turn 0.7s ease-in-out;
+}
+
+@keyframes add-animation {
+    0% { -gtk-icon-transform: rotate(0deg); }
+    100% { -gtk-icon-transform: rotate(180deg); }
+}
+
+.font-size-small {
+    font-size: 10px;
+}
+
+/*
+    OAuth Dialog
+*/
+
+.oauth-dialog {
+    background-color: @base_color;
+}
+
+.text-color {
+    color: @text_color;
+}
+
+.quick-find {
+    border-radius: 4px;
 }
 
 .settings-button {
-    border-radius: 4px;
-    padding: 2px;
+    border-radius: 50%;
+    padding: 4px;
 }
 
-.planner-calendar-today {
+.add-project-image {
+    transition: all 240ms ease-in-out;
+}
+
+.add-project-label {
+    transition: all 240ms ease-in-out;
+}
+
+.add-project-label.active {
+    color: #3689e6;
+}
+
+.add-project-image.active {
+    animation: add-animation 0.5s ease-in-out;
+
+    background-color: #3689e6;
+    color: @text_color;
+    border-radius: 4px;
+}
+
+.add-project-widget {
+    border-radius: 6px;
+    border: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    text-shadow: none;
+    margin: 12px;
+    background-color: @bg_color;
+}
+
+.color-radio radio,
+.color-radio radio:checked {
+    border-color: alpha (#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        0 1px 0 0 alpha (@accentColor, 0.3);
+    padding: 3px;
+    -gtk-icon-shadow: none;
+}
+  
+.color-radio radio:focus {
+    border-color: @colorAccent;
+    box-shadow:
+        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
+        inset 0 0 0 1px alpha (@shadowColor, 0.3),
+        inset 0 0 0 1px alpha (@accentColor, 0.05),
+        0 1px 0 0 alpha (@accentColor, 0.3),
+        0 0 0 1px alpha (@accentColor, 0.25);
+}
+
+.color-radio-dialog radio,
+.color-radio-dialog radio:checked {
+    padding: 6px;
+}
+
+.sync-image-rotate {
+    -gtk-icon-transform: rotate(45deg);
+}
+
+.error_label {
+    color: @error_color;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.mode-button button:checked {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @selected_bg_color,
+                1.05
+            ),
+            shade (
+                @selected_bg_color,
+                0.95
+            )
+        );
+    border-color: shade (@selected_bg_color, 0.8);
+    box-shadow:
+        inset 0 0 0 1px alpha (#000, 0.05),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+    color: @selected_fg_color;
+    text-shadow: 0 1px alpha (#000, 0.3);
+    -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
+}
+
+.project-textview text {
+    background-color: @projectview_color;
+}
+
+.new-item-entry {
+    border-width: 0px 0px 0px 0px;
+    background-color: @projectview_color;
+}
+
+.new-item-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.new-item-entry image.right {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                #3689e6,
+                1.3
+            ),
+                #3689e6
+        );
+    border-radius: 50%;
+    color: #fff;    
+}
+
+.no-padding-right {
+    padding-right: 0px;
+}
+
+.itemview {
+    border-radius: 6px;
+    border: 1px solid alpha (#000, 0.3);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    text-shadow: none;
+    margin: 12px;
+    background-color: shade (@base_color, 0.99);
+}
+
+.textview text {
+    background-color: @base_color;
+}
+
+.itemview-button {
+    padding-top: 0px;
+    padding-bottom: 2px;
+}
+
+.actionbar {
+    background-color: @base_color;
+}
+
+.new-item-textview text {
+    border-bottom: 1px solid @border_color;
+}
+
+.new-item-textview text:focus {
+   border-color: alpha (@colorAccent, 0.8);
+   box-shadow:
+       inset 0 0 0 1px alpha (@colorAccent, 0.23),
+       0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+   transition: all 200ms ease-in;
+
+   border-width: 0 0 1px;
+   border-radius: 0;
+   background-color: @base_color;
+   background-image: none;
+   box-shadow: none;
+}
+
+.checked-preview check:disabled {
+    background: @base_color;
+}
+
+.content-entry {
+    color: @text_color;
+    font-weight: 600;
+    border-width: 0px 0px 0px 0px;
+    background-color: @base_color;
+}
+
+.content-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.listbox {
+    background-color: @projectview_color;
+}
+
+.cancel-add-button image {
+    transition: all 240ms ease-in-out;  
+}
+
+.cancel-add-button.active image {
+    -gtk-icon-transform: rotate(45deg);
+
+}
+
+.view-button {
+    transition: all 150ms ease-in-out;  
+}
+
+.view-button.opened {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.grid-motion {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.check-button,
+.due-button,
+.label-button {
+    font-weight: 500;
+}
+
+.check-button image,
+.due-button image,
+.label-button image {
+    color: @text_color;
+    opacity: 0.7;
+}
+
+.delete-check-button {
+    background-color: transparent;
+}
+
+.delete-check-button image {
+    transition: all 240ms ease-in-out;
+}
+
+.delete-check-button.closed image {
+    -gtk-icon-transform: rotate(-90deg);
+}
+
+.preview { 
+    padding: 0px 6px 0px 6px;
+    background-color: shade (@base_color, 0.96);
+    border: 1px solid shade (@base_color, 0.85);
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+.preview image,
+.preview label {
+    color: @text_color;
+}
+
+.highlight {
+    box-shadow: 
+        inset 0px 1px 8px -10px #3689e6,
+        inset 0px -1px 6px -15px #3689e6;
+    color: @text_color;
+    background-color: alpha (#3689e6, 0.13);
+}
+
+.item-action-button {
+    padding: 0px 3px 0px 3px;
+    background-color: transparent;
+}
+
+.due-no-date {
+    opacity: 0.7;
+}
+
+/*
+    Calendar Style
+*/
+
+.calendar-today {
     color: @colorAccent;
     border-radius: 6px;
     padding: 3px;
     font-weight: bold;
 }
 
-.planner-calendar-selected {
-    background-color: @color_header;
-    color: @color_text;
+.calendar-day-selected {
+    background-color: @colorAccent;
+    color: #fafafa;
     border-radius: 6px;
     padding: 3px;
 }
 
-.model-button:hover {
-    background-color: #d7d7d7;
+.inbox-icon {
+    background-color: #3689e6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.revealer-button {
-    padding: 0px 8px;
-    border-radius: 0px;
-    border: none;
-    box-shadow: none;
-    background: transparent;
+.today-day-icon {
+    background-color: #ffe16b;
+    color: #333;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.revealer-button image {
-    transition: all 240ms ease-in-out;
+.today-night-icon {
+    background-color: #555c68;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.revealer-button.closed image {
-    -gtk-icon-transform: rotate(-180deg);
+.upcoming-icon {
+    background-color: #ed5353;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.show-settings-button {
-    border: 0.5px solid @fg_color;
-    box-shadow: none;
-    padding: 3px;
-    background-color: transparent;
+.due-clear {
+    background-color: #333333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.paned-right {
-    border-right: 1px solid @menu_separator;
+.due-label {
+    font-weight: 600;
 }
 
-.show-settings-button image {
-    transition: all 240ms ease-in-out;
+.add-button:hover {
+    color: #3689e6;
 }
 
-.show-settings-button.closed image {
-    -gtk-icon-transform: rotate(-180deg);
+.add-button:hover image {
+    color: #3689e6;
+    animation: add-animation 0.5s ease-in-out;
+
+    background-color: #3689e6;
+    color: #fff;
+    border-radius: 4px;
 }
 
-.item-row {
+.add-button-image {
+    background-color: #3689e6;
     color: @text_color;
+    border-radius: 50%;   
 }
 
-.item-row:hover {
-    background-color: @color_selected;
-    color: @color_text;
+.project-icon {
+    background-color: #3689e6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;   
 }
 
-.item-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
+.area-icon {
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
-.item-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.layout-row {
-    color: @text_color;
-}
-
-.layout-row:hover {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.layout-row:hover box > revealer > box image {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.layout-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
-}
-
-.layout-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.find-row {
-    border-radius: 3px;
-}
-
-.find-row:selected {
-    background-color: @color_selected;
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-    color: @color_text;
-}
-
-.find-row:selected image {
-    color: @color_text;
-}
-
-.find-row:selected:focus {
-    background-color: @color_selected;
-    color: @color_text;
-}
-
-.find-row:selected:focus image {
-    color: @color_text;
-}
-
-.planner-radio check {
-    border-radius: 50%;
-}
-
-.planner-button-no-focus {
-    background-color: @fg_color;
-}
-
-.planner-card-radius {
-    border-radius: 6px;
-}
-
-.planner-add-button {
-    background-color: @color_header;
-    color: @color_text;
-}
-
-.menu-button image {
-    color: @color_text;
-}
-
-.planner-radio-disable check {
+.css {
     background-image:
         linear-gradient(
             to bottom,
             shade (
-                @base_color,
-                1
+            @fg_color,
+                1.3
             ),
-            shade (
-                @base_color,
-                0.97
-            )
+            @fg_color
         );
-}
-
-.planner-entry-bold {
-    font-weight: bold;
-}
-
-.planner-when-preview {
-    color: @bg_color;
-    padding: 0px 6px 0px 6px;
-    background-color: @fg_color;
-    border-radius: 4px;
-}
-
-.when-item {
-    transition: all 200ms ease;
-    background-color: alpha (@text_color, 0.15);
-}
-
-.calendar-selected:selected {
-    background-color: @colorAccent;
-    color: @selected_fg_color;
-
-    padding: 0px 8px;
-    border-radius: 3px;
-    border: none;
-    box-shadow: none;
-}
-
-.calendar-no-selected:selected {
-    background-color: transparent;
-    color: @color_text;
-}
-
-.planner-entry {
-    border: none;
-}
-
-.task-hover {
-    background-color: @color_selected;
-    border-radius: 3px;
-}
-
-.planner-checked label {
-    padding: 0px 0px 1px 0px;
-}
-
-.planner-events {
+    border: 1px solid shade (@fg_color, 0.9);
     border-radius: 50px;
-    padding: 3px
+    box-shadow:
+        inset 0 0 0 1px alpha (#fff, 0.05),
+        inset 0 1px 0 0 alpha (#fff, 0.25),
+        inset 0 -1px 0 0 alpha (#fff, 0.1),
+        0 1px 2px alpha (#000, 0.3);
+    color: @bg_color;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0px 4px 0px 4px;
+}
+
+.magic-button {
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.label-button {
+    background-color: alpha (@text_color, 0.08);
+    border-radius: 12px;
+    padding: 0px 6px 0px 6px;
+    color: @text_color;
+    opacity: 0.7;
+}
+
+.magic-button {
+    border-radius: 50%;
+}
+
+.new-item-action-button {
+    padding: 0px 6px 2px 6px;
+}
+
+.check-eventbox {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    border: 0px solid alpha (#3689e6, 0.35);
+}
+
+.check-entry {
+    border-width: 0 0 1px;
+    border-radius: 0;
+    background-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    border-bottom: none;
+}
+
+.transition {
+    transition: all 160ms ease-in-out;
+}
+
+.header-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.header-entry {
+    background-color: @projectview_color;
+    padding-left: 0px;
+    border-bottom: none;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.due-preview {
+    background-color: #273445;
+    padding: 0px 6px 1px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fafafa;
+    border-radius: 3px;
+    border: 1px solid shade (#273445, 0.75);
+}
+
+.checklist-button check {
+    border-radius: 4px;
+    border: 1.3px solid #3689e6;
+}
+
+.label-row {
+    background-color: transparent;
+}
+
+.label-row label {
+    color: @text_color;
+}
+
+.planner-dialog headerbar {
+    padding: 0px;
+}
+
+.font-weight-600 {
+    font-weight: 600;
+}
+
+.label-item {
+    border-radius: 12px;
+    border: 1px solid alpha (@fg_color, 0.45);
+    padding: 0px 9px 0px 3px;
+    font-size: 12px;
+    font-weight: 600;
+    color: @text_color;
 }
 
 .no-padding {
     padding: 0px;
 }
 
-.format-bar {
-    background-color: @base_color;
-}
 
-.checklist-preview {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #666666,
-                1.3
-            ),
-            #666666
-        );
-    border: 1px solid shade (#666666, 0.9);
-    border-radius: 3px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    margin: 2px;
-    padding: 2px 6px 2px 6px;
-}
-
-.badge {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #c6262e,
-                1.3
-            ),
-            #c6262e
-        );
-    border: 1px solid shade (#c6262e, 0.9);
-    border-radius: 50px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 500;
-    margin: 2px;
-    padding: 0px 6px 0px 6px;
-}
-
-.color-button:hover {
-    border: 3px solid @bg_color;
-}
-
-.highlight {
-    border: 1px solid @BLUEBERRY_500;
-}
-
-.color-button:focus {
-    border: 3px solid @bg_color;
-}
-
-.planner-popover {
-    background-color: @base_color;
-}
-
-.planner-paste-menu {
-    color: #FF5600;
-    background-color: #FFF0D9;
-    border-radius: 6px;
-    border: 0.5px solid #FF5600;
-    padding: 3px;
-}
-
-.planner-label-menu {
-    color: #D8394B;
-    background-color: #FFE8EA;
-    border-radius: 6px;
-    border: 0.5px solid #D8394B;
-    padding: 3px;
-}
-
-.planner-share-menu {
-    color: #CA55E2;
-    background-color: #FCEDFF;
-    border-radius: 6px;
-    border: 0.5px solid #CA55E2;
-    padding: 3px;
-}
-
-.planner-search-menu {
-    color: #4A31CB;
-    background-color: #EAEFFC;
-    border-radius: 6px;
-    border: 0.5px solid #4A31CB;
-    padding: 3px;
-}
-
-.planner-zoom-in-menu {
-    color: #00CCA5;
-    background-color: #DAFDF4;
-    border-radius: 6px;
-    border: 0.5px solid #00CCA5;
-    padding: 3px;
-}
-
-.planner-zoom-out-menu {
-    color: #48C522;
-    background-color: #DBFCCE;
-    border-radius: 6px;
-    border: 0.5px solid #48C522;
-    padding: 3px;
-}
-
-.planner-spinner {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-            #fafafa,
-                1.3
-            ),
-            #fafafa
-        );
-    border: 1px solid shade (#fafafa, 0.9);
-    border-radius: 50px;
-    box-shadow:
-        inset 0 0 0 1px alpha (#fff, 0.05),
-        inset 0 1px 0 0 alpha (#fff, 0.25),
-        inset 0 -1px 0 0 alpha (#fff, 0.1),
-        0 1px 2px alpha (#000, 0.3);
-    color: #333;
-    padding: 4px;
-}
-
-.share-view text {
-    background-color: @bg_color;
-}
-
-.share-view {
-background-color: @bg_color;
-}
-
-.color-1 {
-  background-color: #c6262e;
-  border-radius: 100px;
-}
-
-.color-2 {
-  background-color: #f37329;
-  border-radius: 100px;
-}
-
-.color-3 {
-  background-color: #f9c440;
-  border-radius: 100px;
-}
-
-.color-4 {
-  background-color: #68b723;
-  border-radius: 100px;
-}
-
-.color-5 {
-  background-color: #3689e6;
-  border-radius: 100px;
-}
-
-.color-6 {
-  background-color: #a56de2;
-  border-radius: 100px;
-}
-
-
-.color-7 {
-  background-color: #1a1a1a;
-  border-radius: 100px;
-}
-
-
-.color-n {
-    border-radius: 100px;
-    padding: 1px 1px;
+.label-item-button {
+    background-color: @base_color;;
 }

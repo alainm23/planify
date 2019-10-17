@@ -1,50 +1,74 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
-
 public class Widgets.ModelButton : Gtk.Button {
-    public string icon { get; construct; }
-    public string text { get; construct; }
-    public string tooltip { get; construct; }
+    private Gtk.Label item_label;
+    private Gtk.Image item_image;
 
-    public ModelButton (string _text, string _icon, string _tooltip) {
+    public string icon {
+        set {
+            item_image.gicon = new ThemedIcon (value);
+        }
+    }
+    public string tooltip {
+        set {
+            tooltip_text = value;
+        }
+    }
+    public string text {
+        set {
+            item_label.label = value;
+        }
+    }
+    
+    public int color {
+        set {
+            if (value == 0) {
+                var hour = new GLib.DateTime.now_local ().get_hour ();
+                if (hour >= 18 || hour <= 6) {
+                    item_image.get_style_context ().add_class ("today-night-icon");
+                } else {
+                    item_image.get_style_context ().add_class ("today-day-icon");
+                }
+            } else if (value == 1) {
+                item_image.get_style_context ().add_class ("upcoming-icon");
+            } else {
+                item_image.get_style_context ().add_class ("due-clear");
+            }
+        }
+    }
+
+    public bool due_label {
+        set {
+            if (value) {
+                item_label.get_style_context ().add_class ("due-label");
+            }
+        }
+    }
+
+    public ModelButton (string text, string icon, string tooltip = "") {
         Object (
-            icon: _icon,
-            text: _text,
-            tooltip: _tooltip,
+            icon: icon,
+            text: text,
+            tooltip: tooltip,
             expand: true
         );
     }
 
     construct {
         get_style_context ().remove_class ("button");
+        get_style_context ().add_class ("flat");
         get_style_context ().add_class ("menuitem");
+        can_focus = false;
 
-        tooltip_text = tooltip;
-        var label = new Gtk.Label (text);
-        var image = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.SMALL_TOOLBAR);
+        item_image = new Gtk.Image ();
+        item_image.valign = Gtk.Align.CENTER;
+        item_image.halign = Gtk.Align.CENTER;
+        item_image.pixel_size = 16;
+
+        item_label = new Gtk.Label (null);
 
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
-        grid.add (image);
-        grid.add (label);
+        grid.add (item_image);
+        grid.add (item_label);
 
         add (grid);
     }

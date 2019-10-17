@@ -1,40 +1,32 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
-
 public class Services.Database : GLib.Object {
-    private Sqlite.Database db;
+    private Sqlite.Database db; 
     private string db_path;
 
-    public signal void update_project_signal (Objects.Project project);
-    public signal void on_add_project_signal (Objects.Project project);
-    public signal void on_signal_remove_project (Objects.Project project);
+    public signal void area_added (Objects.Area area);
 
-    public signal void add_task_signal (Objects.Task task);
-    public signal void on_signal_remove_task (Objects.Task task);
-    public signal void update_task_signal (Objects.Task task);
+    public signal void project_added (Objects.Project project);
+    public signal void project_updated (Objects.Project project);
+    public signal void project_deleted (Objects.Project project);
+    public signal void project_moved (Objects.Project project);
+    
+    public signal void section_added (Objects.Section header);
 
-    public signal void update_indicators ();
+    public signal void item_added (Objects.Item item);
+    public signal void item_added_with_index (Objects.Item item, int index);
+    public signal void item_updated (Objects.Item item);
+    public signal void item_deleted (Objects.Item item);
+    public signal void update_due_item (Objects.Item item);
+    public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
+    public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
+    
+    public signal void label_added (Objects.Label label);
+    public signal void label_deleted (Objects.Label label);
+    public signal void label_updated (Objects.Label label);
+    
+    public Gee.ArrayList<Objects.Item?> items_to_delete;
+    public signal void show_toast_delete (int count);
+    public signal void show_undo_item (int64 id);
 
-    public signal void adden_new_repository (Objects.Repository repository);
-    public signal void adden_new_user (Objects.User user);
     public Database (bool skip_tables = false) {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db";
@@ -47,15 +39,48 @@ public class Services.Database : GLib.Object {
         }
 
         rc = Sqlite.Database.open (db_path, out db);
-
+        rc = db.exec ("PRAGMA foreign_keys = ON;");
+        
         if (rc != Sqlite.OK) {
             stderr.printf ("Can't open database: %d, %s\n", rc, db.errmsg ());
             Gtk.main_quit ();
         }
+
+        items_to_delete = new Gee.ArrayList<Objects.Item?> ();
+    }
+
+    public bool add_item_to_delete (Objects.Item item) {
+        if (items_to_delete.add (item)) {
+            show_toast_delete (items_to_delete.size);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void remove_item_to_delete () {
+        new Thread<void*> ("remove_item_to_delete", () => {
+            foreach (var item in items_to_delete) {
+                delete_item (item);
+            }
+
+            items_to_delete.clear ();
+            
+            return null;
+        });
+    } 
+
+    public void clear_item_to_delete () {
+        foreach (var item in items_to_delete) {
+            show_undo_item (item.id);   
+        }
+
+        items_to_delete.clear ();
     }
 
     private int create_tables () {
         int rc;
+        string sql;
 
         rc = Sqlite.Database.open (db_path, out db);
 
@@ -64,1362 +89,1735 @@ public class Services.Database : GLib.Object {
             Gtk.main_quit ();
         }
 
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS PROJECTS (" +
-            "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "name           VARCHAR," +
-            "note           VARCHAR," +
-            "deadline       VARCHAR," +
-            "item_order     INTEGER," +
-            "is_deleted     INTEGER," +
-            "color          VARCHAR)", null, null);
-        debug ("Table PROJECTS created");
+        sql = """
+            CREATE TABLE IF NOT EXISTS Areas (
+                id              INTEGER PRIMARY KEY,
+                name            TEXT,
+                date_added      TEXT,
+                collapsed       INTEGER,
+                item_order      INTEGER
+            );
+        """;
+        rc = db.exec (sql, null, null);
+        debug ("Table Areas created");
 
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS TASKS (" +
-            "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "checked        INTEGER," +
-            "project_id     INTEGER," +
-            "list_id        INTEGER," +
-            "task_order     INTEGER," +
-            "is_inbox       INTEGER," +
-            "has_reminder   INTEGER," +
-            "sidebar_width  INTEGER," +
-            "was_notified   INTEGER," +
-            "content        VARCHAR," +
-            "note           VARCHAR," +
-            "when_date_utc  VARCHAR," +
-            "reminder_time  VARCHAR," +
-            "checklist      VARCHAR," +
-            "date_added     VARCHAR," +
-            "labels         VARCHAR)", null, null);
-        debug ("Table TASKS created");
+        sql = """
+            CREATE TABLE IF NOT EXISTS Projects (
+                id               INTEGER PRIMARY KEY,
+                area_id          INTEGER,
+                name             TEXT    NOT NULL,
+                note             TEXT,
+                due              TEXT,
+                color            INTEGER,
+                is_todoist       INTEGER,
+                inbox_project    INTEGER,
+                team_inbox       INTEGER,
+                item_order       INTEGER,
+                is_deleted       INTEGER,
+                is_archived      INTEGER,
+                is_favorite      INTEGER,
+                is_sync          INTEGER,
+                shared           INTEGER
+            );
+        """; 
+        rc = db.exec (sql, null, null);
+        debug ("Table Projects created"); 
 
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS LABELS (" +
-            "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "name           VARCHAR," +
-            "color          VARCHAR)", null, null);
-        debug ("Table TASKS created");
+        sql = """
+            CREATE TABLE IF NOT EXISTS Sections (
+                id              INTEGER PRIMARY KEY,
+                name            TEXT,
+                project_id      INTEGER,
+                item_order      INTEGER,
+                collapsed       INTEGER,
+                sync_id         INTEGER,
+                is_deleted      INTEGER,
+                is_archived     INTEGER,
+                date_archived   TEXT,
+                date_added      TEXT
+            );
+        """;
+        rc = db.exec (sql, null, null);
+        debug ("Table Sections created");
 
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS USERS (" +
-            "id         INTEGER," +
-            "name       VARCHAR," +
-            "login      VARCHAR," +
-            "token      VARCHAR," +
-            "avatar_url VARCHAR)", null, null);
-        debug ("Table GITHUB_USER created");
-        
-        rc = db.exec ("CREATE TABLE IF NOT EXISTS REPOSITORIES (" +
-            "id         INTEGER," +
-            "name       VARCHAR," +
-            "sensitive  INTEGER," +
-            "issues     VARCHAR," +
-            "user_id    INTEGER)", null, null);
-        debug ("Table REPOSITORY created");
+        sql = """
+            CREATE TABLE IF NOT EXISTS Items (
+                id              INTEGER PRIMARY KEY,
+                project_id      INTEGER,
+                section_id      INTEGER,
+                user_id         INTEGER,
+                assigned_by_uid INTEGER,
+                responsible_uid INTEGER,
+                sync_id         INTEGER,
+                parent_id       INTEGER,
+                priority        INTEGER,
+                item_order      INTEGER,
+                checked         INTEGER,
+                is_deleted      INTEGER,
+                content         TEXT NOT NULL,
+                note            TEXT,
+                due             TEXT,
+                date_added      TEXT,
+                date_completed  TEXT,
+                date_updated    TEXT 
+            );
+        """;
+        rc = db.exec (sql, null, null);
+        debug ("Table Items created");
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Labels (
+                id              INTEGER PRIMARY KEY,
+                name            TEXT,
+                color           INTEGER,
+                item_order      INTEGER,
+                is_deleted      INTEGER,
+                is_favorite     INTEGER
+            );
+        """;
+        rc = db.exec (sql, null, null);
+        debug ("Table Labels created");
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Items_Labels (
+                id              INTEGER PRIMARY KEY,
+                item_id         INTEGER,
+                label_id        INTEGER,
+                CONSTRAINT unique_track UNIQUE (item_id, label_id),
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE,
+                FOREIGN KEY (label_id) REFERENCES Labels (id) ON DELETE CASCADE
+            );
+        """;
+        rc = db.exec (sql, null, null);
+        debug ("Table Labels created");
 
         return rc;
-    }
+    } 
 
-    public int add_user (Objects.User user) {
+    public bool is_database_empty () {
+        bool returned = false;
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("INSERT INTO USERS (id, name, login, token, avatar_url)" +
-            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, user.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, user.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, user.login);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (4, user.token);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (5, user.avatar_url);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
-            adden_new_user (user);
-        }
-
-        return res;
-    }
-
-    public bool user_exists () {
-        bool exists = false;
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM USERS", -1, out stmt);
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Projects", -1, out stmt);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            exists = stmt.column_int (0) > 0;
+            returned = stmt.column_int (0) <= 0;
         }
 
-        return exists;
+        return returned;
     }
 
-    public bool project_exists (string name) {
-        bool exists = false;
+    public bool is_project_id_valid (int64 id) {
+        bool returned = false;
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM PROJECTS WHERE name LIKE ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, name);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            exists = stmt.column_int (0) > 0;
-        }
-
-        return exists;
-    }
-
-    public bool repo_exists () {
-        bool exists = false;
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            exists = stmt.column_int (0) > 0;
-        }
-
-        return exists;
-    }
-
-    public Objects.User get_user () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM USERS ORDER BY id ASC LIMIT 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        var user = new Objects.User ();
-
-        user.id = stmt.column_int64 (0);
-        user.name = stmt.column_text (1);
-        user.login = stmt.column_text (2);
-        user.token = stmt.column_text (3);
-        user.avatar_url = stmt.column_text (4);
-
-        return user;
-    }
-
-    public bool repository_exists (int64 id) {
-        bool exists = false;
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM REPOSITORIES WHERE id = ?", -1, out stmt);
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Projects WHERE id = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            exists = stmt.column_int (0) > 0;
+            returned = stmt.column_int (0) <= 0;
         }
 
-        return exists;
+        return returned;
     }
 
-    public int add_repository (Objects.Repository repository) {
+    /*
+        Areas
+    */
+
+    public bool insert_area (Objects.Area area) {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("INSERT INTO REPOSITORIES (id, name, sensitive, issues, user_id)" +
-            "VALUES (?, ?, ?, ?, ?)", -1, out stmt);
+        sql = """
+            SELECT COUNT (*) FROM Areas;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, repository.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, repository.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, repository.sensitive);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (4, repository.issues);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (5, repository.user_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
-            adden_new_repository (repository);
+        if (stmt.step () == Sqlite.ROW) {
+            area.item_order = stmt.column_int (0);
         }
 
-        return res;
-    }
+        stmt.reset ();
 
-    public int update_repository (Objects.Repository repository) {
-        Sqlite.Statement stmt;
+        sql = """
+            INSERT OR IGNORE INTO Areas (id, name, date_added, collapsed, item_order)
+            VALUES (?, ?, ?, ?, ?);
+        """;
 
-        int res = db.prepare_v2 ("UPDATE REPOSITORIES SET name = ?, " +
-            "sensitive = ?, issues = ?, user_id = ? " +
-            "WHERE id = ?", -1, out stmt);
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (1, repository.name);
+        res = stmt.bind_int64 (1, area.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (2, area.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (2, repository.sensitive);
+        res = stmt.bind_text (3, area.date_added);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (3, repository.issues);
+        res = stmt.bind_int (5, area.collapsed);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (4, repository.user_id);
+        res = stmt.bind_int (5, area.item_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (5, repository.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
-            
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            area_added (area);
+            return true;
         }
-
-        return res;
     }
 
-    public Gee.ArrayList<Objects.Repository?> get_all_repos () {
+    public Gee.ArrayList<Objects.Area?> get_all_areas () {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("SELECT * FROM REPOSITORIES",
-            -1, out stmt);
+        sql = """
+            SELECT * FROM Areas ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        var all = new Gee.ArrayList<Objects.Repository?> ();
+        var all = new Gee.ArrayList<Objects.Area?> ();
 
         while ((res = stmt.step()) == Sqlite.ROW) {
-            var repo = new Objects.Repository ();
+            var a = new Objects.Area ();
 
-            repo.id = stmt.column_int (0);
-            repo.name = stmt.column_text (1);
-            repo.sensitive = stmt.column_int (2);
-            repo.issues = stmt.column_text (3);
-            repo.user_id = stmt.column_int (4);
+            a.id = stmt.column_int64 (0);
+            a.name = stmt.column_text (1);
+            a.date_added = stmt.column_text (2);
+            a.collapsed = stmt.column_int (3);
+            a.item_order = stmt.column_int (4);
 
-            all.add (repo);
+            all.add (a);
         }
 
         return all;
     }
 
-    public int remove_all_users () {
+    public bool update_area (Objects.Area area) {
         Sqlite.Statement stmt;
-        
-        int res = db.prepare_v2 ("DELETE FROM USERS;",
-            -1, out stmt);
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Areas SET name = ?, collapsed = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        return res;
-    }
-
-    public int remove_all_repos () {
-        Sqlite.Statement stmt;
-        
-        int res = db.prepare_v2 ("DELETE FROM REPOSITORIES;",
-            -1, out stmt);
+        res = stmt.bind_text (1, area.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-        
-        return res;
-    }
-
-    public int add_project_return (Objects.Project project) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("INSERT INTO PROJECTS (name," +
-            "note, deadline, item_order, is_deleted, color)" +
-            "VALUES (?, ?, ?, ?, ?, ?)", -1, out stmt);
+        res = stmt.bind_int (2, area.collapsed);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (1, project.name);
+        res = stmt.bind_int (3, area.item_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, project.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, project.deadline);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, project.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, project.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (6, project.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        stmt.reset ();
-
-        res = db.prepare_v2 ("SELECT id FROM PROJECTS WHERE name = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, project.name);
-        assert (res == Sqlite.OK);
-        
-        if (stmt.step () == Sqlite.ROW) {
-            project.id = stmt.column_int (0);
-
-            // Add track to list
-            on_add_project_signal (project);
-
-            return project.id;
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return project.id;
-        }
-    }
-
-    public int add_project (Objects.Project project) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("INSERT INTO PROJECTS (name," +
-            "note, deadline, item_order, is_deleted, color)" +
-            "VALUES (?, ?, ?, ?, ?, ?)", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, project.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, project.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, project.deadline);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, project.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, project.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (6, project.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        stmt.reset ();
-
-        res = db.prepare_v2 ("SELECT id FROM PROJECTS WHERE name = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, project.name);
-        assert (res == Sqlite.OK);
-        
-        if (stmt.step () == Sqlite.ROW) {
-            project.id = stmt.column_int (0);
-
-            // Add track to list
-            on_add_project_signal (project);
-
-            return Sqlite.DONE;
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return Sqlite.ERROR;
-        }
-    }
-
-    public int update_project (Objects.Project project) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("UPDATE PROJECTS SET name = ?, " +
-            "note = ?, deadline = ?, item_order = ?, is_deleted = ?, color = ? " +
-            "WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, project.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, project.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, project.deadline);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, project.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, project.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (6, project.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (7, project.id);
+        res = stmt.bind_int64 (4, area.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            update_project_signal (project);
+            return true;
+        } else {
+            return false;
         }
-
-        return res;
     }
 
-    public int remove_project (int id) {   
+    public Objects.Project create_inbox_project () {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("DELETE FROM PROJECTS WHERE id = ?", -1, out stmt);
+        var project = new Objects.Project ();
+        project.name = _("Inbox");
+        project.id = Application.utils.generate_id ();
+        project.inbox_project = 1;
+    
+        sql = """  
+            INSERT OR IGNORE INTO Projects (id, name, inbox_project, area_id)
+            VALUES (?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, id);
+        res = stmt.bind_int64 (1, project.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, project.name);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (3, project.inbox_project);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, project.area_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+
+        return project;
+    }
+
+    public void update_area_item_order (int64 area_id, int item_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Areas SET item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, area_id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            stmt.reset ();
-
-            res = db.prepare_v2 ("DELETE FROM TASKS WHERE project_id = ?", -1, out stmt);
-            assert (res == Sqlite.OK);
-
-            res = stmt.bind_int (1, id);
-            assert (res == Sqlite.OK);
-
-            res = stmt.step ();
+            //updated_playlist (playlist);
         }
-
-        return res;
     }
 
-    public Gee.ArrayList<Objects.Project?> get_all_projects () {
-        Sqlite.Statement stmt;
+    /*
+        Projects
+    */
 
-        int res = db.prepare_v2 ("SELECT * FROM PROJECTS WHERE is_deleted = 0 ORDER BY id",
-            -1, out stmt);
+    public bool insert_project (Objects.Project project) { 
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        
+        sql = """
+            SELECT COUNT (*) FROM Projects WHERE area_id = 0;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            project.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            INSERT OR IGNORE INTO Projects (id, area_id, name, note, due, color, 
+                is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived, 
+                is_favorite, is_sync, shared)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, project.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int64 (2, project.area_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, project.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, project.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, project.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, project.color);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, project.is_todoist);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (8, project.inbox_project);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (9, project.team_inbox);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (10, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (11, project.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (12, project.is_archived);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (13, project.is_favorite);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (14, project.is_sync);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (15, project.shared);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            project_added (project);
+            return true;
+        }        
+    }
+
+    public bool update_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Projects SET name = ?, note = ?, due = ?, color = ?, item_order = ?, 
+            is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ?, shared = ?
+            WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, project.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, project.note);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (3, project.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, project.color);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (5, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, project.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, project.is_archived);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (8, project.is_favorite);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (9, project.is_sync);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (10, project.shared);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (11, project.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            project_updated (project);
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public bool delete_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Projects WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, project.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } 
+
+        project_deleted (project);
+        
+        return true;
+    }
+
+    public bool move_project (Objects.Project project, int64 area_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        project.area_id = area_id;
+
+        sql = """
+            SELECT COUNT (*) FROM Projects WHERE area_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, area_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            project.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, area_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (2, project.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, project.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            project_moved (project);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Project?> get_all_projects_by_area (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Projects WHERE area_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Project?> ();
 
         while ((res = stmt.step()) == Sqlite.ROW) {
-            var project = new Objects.Project ();
+            var p = new Objects.Project ();
 
-            project.id = stmt.column_int (0);
-            project.name = stmt.column_text (1);
-            project.note = stmt.column_text (2);
-            project.deadline = stmt.column_text (3);
-            project.item_order = stmt.column_int (4);
-            project.is_deleted = stmt.column_int (5);
-            project.color = stmt.column_text (6);
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
 
-            all.add (project);
+            all.add (p);
         }
 
         return all;
     }
 
-    public Objects.Project get_project (int id) {
+    public Gee.ArrayList<Objects.Project?> get_all_projects () {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("SELECT * FROM PROJECTS WHERE id = ?",
-            -1, out stmt);
+        sql = """
+            SELECT * FROM Projects ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, id);
-        assert (res == Sqlite.OK);
+        var all = new Gee.ArrayList<Objects.Project?> ();
 
-        stmt.step ();
-
-        var project = new Objects.Project ();
-
-        project.id = stmt.column_int (0);
-        project.name = stmt.column_text (1);
-        project.note = stmt.column_text (2);
-        project.deadline = stmt.column_text (3);
-        project.item_order = stmt.column_int (4);
-        project.is_deleted = stmt.column_int (5);
-        project.color = stmt.column_text (6);
-
-        return project;
-    }
-
-    public Objects.Project get_last_project () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM PROJECTS ORDER BY id DESC LIMIT 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        var project = new Objects.Project ();
-
-        project.id = stmt.column_int (0);
-        project.name = stmt.column_text (1);
-        project.note = stmt.column_text (2);
-        project.deadline = stmt.column_text (3);
-        project.item_order = stmt.column_int (4);
-        project.is_deleted = stmt.column_int (5);
-        project.color = stmt.column_text (6);
-
-        return project;
-    }
-
-    public int get_project_no_completed_tasks_number (int id) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ? AND checked = 0",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, id);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
         while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
+            var p = new Objects.Project ();
+
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
+
+            all.add (p);
         }
 
-        return count;
+        return all;
     }
 
-    public int get_project_completed_tasks_number (int id) {
+    public Gee.ArrayList<Objects.Project?> get_all_projects_no_area () {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ? AND checked = 1",
-            -1, out stmt);
+        sql = """
+        SELECT * FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, id);
-        assert (res == Sqlite.OK);
+        var all = new Gee.ArrayList<Objects.Project?> ();
 
-        int count = 0;
         while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
+            var p = new Objects.Project ();
+
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
+
+            all.add (p);
         }
 
-        return count;
+        return all;
     }
 
-    public int get_project_tasks_number (int id) {
+    public Objects.Project? get_project_by_id (int64 id) {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
-            -1, out stmt);
+        sql = """
+            SELECT * FROM Projects WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, id);
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
+        var p = new Objects.Project ();
+
+        if (stmt.step () == Sqlite.ROW) {
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
         }
 
-        return count;
+        return p;
     }
 
-    public int add_task (Objects.Task task) {
+    public void update_project_item_order (int64 project_id, int64 area_id, int item_order) {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist, date_added)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+        sql = """
+            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, task.checked);
-        assert (res == Sqlite.OK);
-        res = stmt.bind_int (2, task.project_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, task.list_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, task.task_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, task.is_inbox);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (6, task.has_reminder);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (7, task.sidebar_width);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (8, task.was_notified);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (9, task.content);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (10, task.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (11, task.when_date_utc);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (12, task.reminder_time);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (13, task.labels);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (14, task.checklist);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (15, task.date_added);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        stmt.reset ();
-
-        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE date_added = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, task.date_added);
+        res = stmt.bind_int64 (1, area_id);
         assert (res == Sqlite.OK);
         
-        if (stmt.step () == Sqlite.ROW) {
-            task.id = stmt.column_int (0);
-
-            // Add track to list
-            add_task_signal (task);
-            update_indicators ();
-
-            return Sqlite.DONE;
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return Sqlite.ERROR;
-        }
-    }
-
-    public int add_task_return_id (Objects.Task task) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist, date_added)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+        res = stmt.bind_int (2, item_order);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, task.checked);
-        assert (res == Sqlite.OK);
-        res = stmt.bind_int (2, task.project_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, task.list_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, task.task_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, task.is_inbox);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (6, task.has_reminder);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (7, task.sidebar_width);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (8, task.was_notified);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (9, task.content);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (10, task.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (11, task.when_date_utc);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (12, task.reminder_time);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (13, task.labels);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (14, task.checklist);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (15, task.date_added);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        stmt.reset ();
-
-        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE date_added = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, task.date_added);
-        assert (res == Sqlite.OK);
-        
-        if (stmt.step () == Sqlite.ROW) {
-            task.id = stmt.column_int (0);
-
-            // Add track to list
-            add_task_signal (task);
-            update_indicators ();
-
-            return task.id;
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return task.id;
-        }
-    }
-
-    public Objects.Task get_last_task () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS ORDER BY id DESC LIMIT 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        var task = new Objects.Task ();
-
-        task.id = stmt.column_int (0);
-        task.checked = stmt.column_int (1);
-        task.project_id = stmt.column_int (2);
-        task.list_id = stmt.column_int (3);
-        task.task_order = stmt.column_int (4);
-        task.is_inbox = stmt.column_int (5);
-        task.has_reminder = stmt.column_int (6);
-        task.sidebar_width = stmt.column_int (7);
-        task.was_notified = stmt.column_int (8);
-        task.content = stmt.column_text (9);
-        task.note = stmt.column_text (10);
-        task.when_date_utc = stmt.column_text (11);
-        task.reminder_time = stmt.column_text (12);
-        task.checklist = stmt.column_text (13);
-        task.labels = stmt.column_text (14);
-
-        return task;
-    }
-
-    public Objects.Task get_task (int id) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE id = ?",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, id);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        var task = new Objects.Task ();
-
-        task.id = stmt.column_int (0);
-        task.checked = stmt.column_int (1);
-        task.project_id = stmt.column_int (2);
-        task.list_id = stmt.column_int (3);
-        task.task_order = stmt.column_int (4);
-        task.is_inbox = stmt.column_int (5);
-        task.has_reminder = stmt.column_int (6);
-        task.sidebar_width = stmt.column_int (7);
-        task.was_notified = stmt.column_int (8);
-        task.content = stmt.column_text (9);
-        task.note = stmt.column_text (10);
-        task.when_date_utc = stmt.column_text (11);
-        task.reminder_time = stmt.column_text (12);
-        task.checklist = stmt.column_text (13);
-        task.labels = stmt.column_text (14);
-
-        return task;
-    }
-
-    public int update_task (Objects.Task task) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("UPDATE TASKS SET checked = ?, " +
-            "project_id = ?, list_id = ?, task_order = ?, is_inbox = ?, has_reminder = ?, sidebar_width = ?, was_notified = ?, content = ?, note = ?, " +
-            "when_date_utc = ?, reminder_time = ?, checklist = ?, labels = ? WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, task.checked);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (2, task.project_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, task.list_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, task.task_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, task.is_inbox);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (6, task.has_reminder);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (7, task.sidebar_width);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (8, task.was_notified);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (9, task.content);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (10, task.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (11, task.when_date_utc);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (12, task.reminder_time);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (13, task.checklist);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (14, task.labels);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (15, task.id);
+        res = stmt.bind_int64 (3, project_id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            update_indicators ();
+            //updated_playlist (playlist);
         }
-
-        return res;
     }
 
-    public int remove_task (Objects.Task task) {
+    /* 
+        Labels
+    */
+    
+    public bool insert_label (Objects.Label label) {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("DELETE FROM TASKS WHERE id = ?", -1, out stmt);
+        sql = """
+            SELECT COUNT (*) FROM Labels;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int (1, task.id);
+        if (stmt.step () == Sqlite.ROW) {
+            label.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite)
+            VALUES (?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, label.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (2, label.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, label.color);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, label.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, label.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, label.is_favorite);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            on_signal_remove_task (task);
-            update_indicators ();
+            label_added (label);
+            return true;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
         }
-
-        return res;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_search_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            all.add (task);
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_inbox_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 AND when_date_utc = ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            all.add (task);
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_completed_tasks_2 () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            all.add (task);
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_tasks_by_project (int id) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE project_id = ?",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, id);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            all.add (task);
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_today_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE when_date_utc != ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (when) || Application.utils.is_before_today (when)) {
-                if (task.checked == 0) {
-                    all.add (task);
-                }
-            }
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_upcoming_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE when_date_utc != ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            var when = new GLib.DateTime.from_iso8601 (task.when_date_utc, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_upcoming (when)) {
-                all.add (task);
-            }
-        }
-
-        return all;
-    }
-
-    public Gee.ArrayList<Objects.Task?> get_all_reminder_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE has_reminder = 1 AND was_notified = 0",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Task?> ();
-
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var task = new Objects.Task ();
-
-            task.id = stmt.column_int (0);
-            task.checked = stmt.column_int (1);
-            task.project_id = stmt.column_int (2);
-            task.list_id = stmt.column_int (3);
-            task.task_order = stmt.column_int (4);
-            task.is_inbox = stmt.column_int (5);
-            task.has_reminder = stmt.column_int (6);
-            task.sidebar_width = stmt.column_int (7);
-            task.was_notified = stmt.column_int (8);
-            task.content = stmt.column_text (9);
-            task.note = stmt.column_text (10);
-            task.when_date_utc = stmt.column_text (11);
-            task.reminder_time = stmt.column_text (12);
-            task.checklist = stmt.column_text (13);
-            task.labels = stmt.column_text (14);
-
-            all.add (task);
-        }
-
-        return all;
-
-    }
-
-    public int get_all_completed_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
-        }
-
-        return count;
-    }
-
-    public int get_all_todo_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
-        }
-
-        return count;
-    }
-
-    public int get_all_tasks () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
-        }
-
-        return count;
-    }
-
-    public int get_inbox_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE is_inbox = 1 and checked = 0 AND when_date_utc = ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            count++;
-        }
-
-        return count;
-    }
-
-    public int get_today_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0 AND when_date_utc != ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (when)) {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    public int get_before_today_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0 AND when_date_utc != ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
-
-            if (Application.utils.is_before_today (when) && Application.utils.is_today (when) == false && stmt.column_int (1) == 0) {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    public int get_upcoming_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM TASKS WHERE checked = 0 AND when_date_utc != ''",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        int count = 0;
-        while ((res = stmt.step()) == Sqlite.ROW) {
-            var when = new GLib.DateTime.from_iso8601 (stmt.column_text (11), new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (when) == false && Application.utils.is_before_today (when) == false) {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    public int get_all_tasks_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM TASKS",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        int count = 0;
-        count = stmt.column_int (0);
-
-        return count;
-    }
-
-    public int get_completed_number () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM TASKS WHERE checked = 1",
-            -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        int count = 0;
-        count = stmt.column_int (0);
-
-        return count;
-    }
-
-    public int add_label (Objects.Label label) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("INSERT INTO LABELS (name," +
-            "color)" +
-            "VALUES (?, ?)", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, label.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, label.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        return res;
-    }
-
-    public int update_label (Objects.Label label) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("UPDATE LABELS SET name = ?, " +
-            "color = ? WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, label.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, label.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, label.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        return res;
-    }
-
-    public int remove_label (Objects.Label label) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("DELETE FROM LABELS " +
-            "WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, label.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
-        return res;
-    }
-
-    public Objects.Label get_label (string id) {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT * FROM LABELS WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, id);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-
-        var label = new Objects.Label ();
-
-        label.id = stmt.column_int (0);
-        label.name = stmt.column_text (1);
-        label.color = stmt.column_text (2);
-
-        return label;
     }
 
     public Gee.ArrayList<Objects.Label?> get_all_labels () {
         Sqlite.Statement stmt;
+        string sql;
+        int res;
 
-        int res = db.prepare_v2 ("SELECT * FROM LABELS",
-            -1, out stmt);
+        sql = """
+            SELECT * FROM Labels ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Label?> ();
 
         while ((res = stmt.step()) == Sqlite.ROW) {
-            var label = new Objects.Label ();
+            var l = new Objects.Label ();
 
-            label.id = stmt.column_int (0);
-            label.name = stmt.column_text (1);
-            label.color = stmt.column_text (2);
+            l.id = stmt.column_int64 (0);
+            l.name = stmt.column_text (1);
+            l.color = stmt.column_int (2);
+            l.item_order = stmt.column_int (3);
+            l.is_deleted = stmt.column_int (4);
+            l.is_favorite = stmt.column_int (5);
 
-            all.add (label);
+            all.add (l);
         }
 
         return all;
+    }
+
+    public bool delete_label (Objects.Label label) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Labels WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, label.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            label_deleted (label);
+            return true;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+    }
+
+    public bool update_label (Objects.Label label) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Labels SET name = ?, color = ?, item_order = ?, is_deleted = ?, 
+            is_favorite = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, label.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, label.color);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (3, label.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, label.is_deleted);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (5, label.is_favorite);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (6, label.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            label_updated (label);
+            return true;
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+    }
+
+    /*
+        Sections
+    */
+
+    public bool insert_section (Objects.Section section) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Sections WHERE project_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section.project_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            section.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+
+        sql = """
+            INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed, 
+            sync_id, is_deleted, is_archived, date_archived, date_added)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, section.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, section.project_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (4, section.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (5, section.collapsed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (6, section.sync_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (7, section.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (8, section.is_archived);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (9, section.date_archived);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (10, section.date_added);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            section_added (section);
+            return true;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Section?> get_all_sections_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Sections WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Section?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var s = new Objects.Section ();
+
+            s.id = stmt.column_int64 (0);
+            s.name = stmt.column_text (1);
+            s.project_id = stmt.column_int64 (2);
+            s.item_order = stmt.column_int (3);
+            s.collapsed = stmt.column_int (4);
+            s.sync_id = stmt.column_int64 (5);
+            s.is_deleted = stmt.column_int (6);
+            s.is_archived = stmt.column_int (7);
+            s.date_archived = stmt.column_text (8);
+            s.date_added = stmt.column_text (9);
+
+            all.add (s);
+        }
+
+        return all;
+    }
+
+    public bool update_section (Objects.Section section) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Sections SET name = ?, collapsed = ?, item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, section.name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (2, section.collapsed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (3, section.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, section.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+        Item
+    */
+
+    public bool insert_item (Objects.Item item, int? index=null) { 
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Items WHERE section_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.section_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            item.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+        
+        sql = """
+            INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
+            responsible_uid, sync_id, parent_id, priority, item_order, checked,
+            is_deleted, content, note, due, date_added, date_completed, date_updated)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int64 (2, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, item.user_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, item.assigned_by_uid);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (6, item.responsible_uid);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (7, item.sync_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (8, item.parent_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (9, item.priority);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (10, item.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (11, item.checked);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (12, item.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (13, item.content);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (14, item.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (15, item.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (16, item.date_added);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (17, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (18, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            if (index == null) {
+                item_added (item);
+            } else {
+                item_added_with_index (item, index);
+            }
+
+            return true;
+        }
+    }
+
+    public bool insert_check (Objects.Item item, int? index=null) { 
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Items WHERE parent_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.parent_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            item.item_order = stmt.column_int (0);
+        }
+
+        stmt.reset ();
+        
+        sql = """
+            INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
+            responsible_uid, sync_id, parent_id, priority, item_order, checked,
+            is_deleted, content, note, due, date_added, date_completed, date_updated)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int64 (2, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, item.user_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, item.assigned_by_uid);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (6, item.responsible_uid);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (7, item.sync_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (8, item.parent_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (9, item.priority);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (10, item.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (11, item.checked);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (12, item.is_deleted);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (13, item.content);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (14, item.note);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (15, item.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (16, item.date_added);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (17, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (18, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            if (index == null) {
+                item_added (item);
+            } else {
+                item_added_with_index (item, index);
+            }
+
+            return true;
+        }
+    }
+
+    public bool update_item (Objects.Item item) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET content = ?, note = ?, due = ?, is_deleted = ?, checked = ?, 
+            item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?
+            WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, item.content);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, item.note);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (3, item.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, item.is_deleted);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (5, item.checked);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (6, item.item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (7, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (8, item.section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (9, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (10, item.date_updated);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (11, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            item_updated (item);
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool delete_item (Objects.Item item) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Items WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            item_deleted (item);
+            return true;
+        }
+    }
+
+    public void update_item_order (int64 item_id, int64 section_id, int item_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET item_order = ?, section_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            //updated_playlist (playlist);
+        }
+    }
+
+    public bool set_due_item (Objects.Item item, GLib.DateTime? date) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        item.due = "";
+
+        if (date != null) {
+            item.due = date.to_string ();
+        }
+
+        sql = """
+            UPDATE Items SET due = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, item.due);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            update_due_item (item);
+            return true;
+        }
+
+        return false;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section_no_parent (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND section_id = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_section_no_parent (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE section_id = ? AND parent_id = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_section (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE section_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_cheks_by_item (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE parent_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    } 
+
+    public bool add_item_label (int64 item_id, Objects.Label label) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        int64 id = Application.utils.generate_id ();
+
+        sql = """
+            INSERT OR IGNORE INTO Items_Labels (id, item_id, label_id)
+            VALUES (?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, label.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            item_label_added (id, item_id, label);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Label?> get_labels_by_item (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res; 
+
+        sql = """
+            SELECT Items_Labels.id, Items_Labels.label_id, Labels.name, Labels.color FROM Items_Labels
+            INNER JOIN Labels ON Items_Labels.label_id = labels.id
+            WHERE item_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Label?> ();
+ 
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var l = new Objects.Label ();
+
+            l.item_label_id = stmt.column_int64 (0);
+            l.id = stmt.column_int64 (1);
+            l.name = stmt.column_text (2);
+            l.color = stmt.column_int (3);
+
+            all.add (l);
+        }
+
+        return all;
+    }
+
+    public bool delete_item_label (int64 id, int64 item_id, Objects.Label label) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Items_Labels WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            item_label_deleted (id, item_id, label);
+            return true;
+        }
     }
 }

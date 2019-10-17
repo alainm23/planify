@@ -24,7 +24,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     private Gtk.Grid days_grid;
 
     public signal void day_selected (int day);
-    public signal void day_double_selected (int day);
+
     public CalendarView () {
         orientation = Gtk.Orientation.VERTICAL;
 
@@ -40,10 +40,6 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         for (int i = 0; i < 42; i++) {
             var day = new Widgets.Calendar.CalendarDay ();
             day.day_selected.connect (day_selected_style);
-            day.day_double_selected.connect ((day) => {
-                day_double_selected (day);
-            });
-
             days_grid.attach (day, col, row, 1, 1);
             col = col + 1;
 
@@ -59,8 +55,11 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         pack_end (days_grid);
     }
 
-    public void fill_grid_days (int start_day, int max_day, int current_day,
-                                bool is_current_month, bool sensitive_past_days = false,
+    public void fill_grid_days (int start_day, 
+                                int max_day, 
+                                int current_day,
+                                bool is_current_month, 
+                                bool sensitive_past_days = false,
                                 GLib.DateTime month = new GLib.DateTime.now_local ()) {
         var day_number = 1;
 
@@ -76,7 +75,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
             item.visible = true;
             item.no_show_all = false;
 
-            item.get_style_context ().remove_class ("planner-calendar-today");
+            item.get_style_context ().remove_class ("calendar-today");
 
             if (sensitive_past_days) {
                 if (is_current_month == false) {
@@ -102,7 +101,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
                 if (_current_day != -1 && (i+1) == _current_day + start_day ) {
                     if (is_current_month) {
-                        item.get_style_context ().add_class ("planner-calendar-today");
+                        item.get_style_context ().add_class ("calendar-today");
                     }
                 }
 
@@ -118,7 +117,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     private void clear_style () {
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
-            item.get_style_context ().remove_class ("planner-calendar-selected");
+            item.get_style_context ().remove_class ("calendar-day-selected");
         }
     }
     private void day_selected_style (int day) {
@@ -126,7 +125,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
         for (int i = 0; i < 42; i++) {
             var day_item = days_arraylist [i];
-            day_item.get_style_context ().remove_class ("planner-calendar-selected");
+            day_item.get_style_context ().remove_class ("calendar-day-selected");
         }
     }
 }
