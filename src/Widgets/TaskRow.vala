@@ -62,16 +62,15 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public signal void on_signal_update (Objects.Task task);
     public signal void on_signal_remove (Objects.Task task);
 
-    public TaskRow (Objects.Task _task) {
+    public TaskRow (Objects.Task task) {
         Object (
-            task: _task
+            task: task
         );
     }
 
     construct {
         get_style_context ().add_class ("task");
         selectable = false;
-
 
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
@@ -84,7 +83,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
         tooltip_text = task.content;
 
-        name_label = new Gtk.Label (task.content);
+        name_label = new Gtk.Label ("hOLA mUNDO");
         name_label.margin_start = 6;
         name_label.halign = Gtk.Align.START;
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -533,7 +532,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 update_task ();
                 return false;
             });
-        });
+        }); 
 
         name_eventbox.enter_notify_event.connect ((event) => {
             var select_cursor = new Gdk.Cursor.for_display (Gdk.Display.get_default (), Gdk.CursorType.HAND2);

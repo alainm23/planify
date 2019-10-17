@@ -35,6 +35,7 @@ public class Objects.Task {
     public string reminder_time;
     public string labels;
     public string checklist;
+    public string date_added;
 
     public Task (int id = 0,
                  int checked = 0,
@@ -50,6 +51,7 @@ public class Objects.Task {
                  string when_date_utc = "",
                  string reminder_time = "",
                  string labels = "",
+                 string date_added = new GLib.DateTime.now_local ().to_string (),
                  string checklist = "") {
         this.id = id;
         this.checked = checked;
@@ -66,5 +68,6 @@ public class Objects.Task {
         this.reminder_time = reminder_time;
         this.labels = labels;
         this.checklist = checklist;
+        this.date_added = date_added;
     }
 }

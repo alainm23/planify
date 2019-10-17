@@ -65,13 +65,12 @@ public class Dialogs.PreferencesDialog : Gtk.Dialog {
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;
-        mode_button.halign = Gtk.Align.CENTER;
-
+        mode_button.margin_start = 12;
+        mode_button.margin_end = 12;
         mode_button.append_text (_("General"));
         mode_button.append_text (_("Accounts"));
         mode_button.append_text (_("Appearance"));
         mode_button.append_text (_("About"));
-
         mode_button.selected = 0;
 
         main_stack = new Gtk.Stack ();

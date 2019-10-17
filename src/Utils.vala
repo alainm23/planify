@@ -161,8 +161,9 @@ public class Utils : GLib.Object {
         }
     """;
 
-    public Utils () {
-        CACHE_FOLDER = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
+    public Utils () { 
+        //Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db"
+        CACHE_FOLDER = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner";
         PROFILE_FOLDER = GLib.Path.build_filename (CACHE_FOLDER, "profile");
     }
 

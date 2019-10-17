@@ -35,9 +35,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     public bool reveal_child {
         set {
             if (value) {
-                margin_start = 6;
-                margin_top = 6;
-                margin_end = 6;
+                margin_top = 3;
             } else {
                 margin = 0;
             }
@@ -83,10 +81,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Object (
             icon_name: _icon,
             item_name: _name,
-            item_base_name: _item_base_name,
-            margin_left: 6,
-            margin_top: 6,
-            margin_right: 6
+            item_base_name: _item_base_name
         );
     }
 
@@ -130,7 +125,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         loading_revealer.reveal_child = false;
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        main_box.margin = 6;
+        main_box.margin = 3;
 
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 12);

@@ -39,9 +39,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public ProjectRow (Objects.Project _objec) {
         Object (
             project: _objec,
-            margin_left: 6,
-            margin_top: 6,
-            margin_right: 6
+            margin_top: 3
         );
     }
 

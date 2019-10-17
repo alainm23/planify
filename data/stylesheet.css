@@ -152,12 +152,10 @@
 }
 
 .item-row {
-    border-radius: 3px;
     color: @text_color;
 }
 
 .item-row:hover {
-    border-radius: 3px;
     background-color: @color_selected;
     color: @color_text;
 }
@@ -246,7 +244,6 @@
 }
 
 .planner-radio-disable check {
-    border-radius: 50%;
     background-image:
         linear-gradient(
             to bottom,

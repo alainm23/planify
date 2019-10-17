@@ -37,7 +37,7 @@ public class Services.Database : GLib.Object {
     public signal void adden_new_user (Objects.User user);
     public Database (bool skip_tables = false) {
         int rc = 0;
-        db_path = Environment.get_home_dir () + "/.cache/com.github.alainm23.planner/database.db";
+        db_path = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db";
 
         if (!skip_tables) {
             if (create_tables () != Sqlite.OK) {
@@ -67,7 +67,7 @@ public class Services.Database : GLib.Object {
         rc = db.exec ("CREATE TABLE IF NOT EXISTS PROJECTS (" +
             "id             INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name           VARCHAR," +
-            "note    VARCHAR," +
+            "note           VARCHAR," +
             "deadline       VARCHAR," +
             "item_order     INTEGER," +
             "is_deleted     INTEGER," +
@@ -89,6 +89,7 @@ public class Services.Database : GLib.Object {
             "when_date_utc  VARCHAR," +
             "reminder_time  VARCHAR," +
             "checklist      VARCHAR," +
+            "date_added     VARCHAR," +
             "labels         VARCHAR)", null, null);
         debug ("Table TASKS created");
 
@@ -634,8 +635,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist, date_added)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (1, task.checked);
@@ -679,14 +680,17 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (14, task.checklist);
         assert (res == Sqlite.OK);
 
+        res = stmt.bind_text (15, task.date_added);
+        assert (res == Sqlite.OK);
+
         res = stmt.step ();
 
         stmt.reset ();
 
-        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE content = ?", -1, out stmt);
+        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE date_added = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (1, task.content);
+        res = stmt.bind_text (1, task.date_added);
         assert (res == Sqlite.OK);
         
         if (stmt.step () == Sqlite.ROW) {
@@ -707,8 +711,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         int res = db.prepare_v2 ("INSERT INTO TASKS (checked," +
-            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist)" +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
+            "project_id, list_id, task_order, is_inbox, has_reminder, sidebar_width, was_notified, content, note, when_date_utc, reminder_time, labels, checklist, date_added)" +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (1, task.checked);
@@ -752,14 +756,17 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (14, task.checklist);
         assert (res == Sqlite.OK);
 
+        res = stmt.bind_text (15, task.date_added);
+        assert (res == Sqlite.OK);
+
         res = stmt.step ();
 
         stmt.reset ();
 
-        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE content = ?", -1, out stmt);
+        res = db.prepare_v2 ("SELECT id FROM TASKS WHERE date_added = ?", -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (1, task.content);
+        res = stmt.bind_text (1, task.date_added);
         assert (res == Sqlite.OK);
         
         if (stmt.step () == Sqlite.ROW) {

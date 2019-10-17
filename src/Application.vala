@@ -47,8 +47,8 @@ public class Application : Gtk.Application {
     static construct {
         // Dir to Database
         utils = new Utils ();
-        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner");
-        utils.create_dir_with_parents ("/.cache/com.github.alainm23.planner/profile");
+        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
+        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/profile");
 
         settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();

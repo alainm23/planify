@@ -30,7 +30,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
     public bool is_inbox { get; construct; }
     public int project_id { get; construct; }
 
-    private Objects.Task task;
     public GLib.DateTime when_datetime {
         set {
             when_button.set_date (value, false, new GLib.DateTime.now_local ());
@@ -50,8 +49,6 @@ public class Widgets.TaskNew : Gtk.Revealer {
     }
 
     construct {
-        task = new Objects.Task ();
-
         name_entry = new Gtk.Entry ();
         name_entry.margin_start = 12;
         name_entry.margin_end = 6;
@@ -368,6 +365,8 @@ public class Widgets.TaskNew : Gtk.Revealer {
 
     private void add_task () {
         if (name_entry.text != "") {
+            var task = new Objects.Task ();
+
             task.project_id = project_id;
             task.content = name_entry.text;
             task.note = note_view.buffer.text;
@@ -419,13 +418,16 @@ public class Widgets.TaskNew : Gtk.Revealer {
                 var row = element as Widgets.CheckRow;
                 task.checklist = task.checklist + row.get_check ();
             }
-
+            
             if (Application.database.add_task (task) == Sqlite.DONE) {
                 on_signal_close ();
-
+ 
                 name_entry.text = "";
                 note_view.buffer.text = "";
                 when_button.clear ();
+                
+                task.checklist = "";
+                task.id = 0;
 
                 foreach (Gtk.Widget element in labels_flowbox.get_children ()) {
                     labels_flowbox.remove (element);

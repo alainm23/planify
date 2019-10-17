@@ -54,7 +54,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
         checked_button.active = checked;
-        checked_button.get_style_context ().add_class ("planner-radio");
+        //checked_button.get_style_context ().add_class ("planner-radio");
 
         name_entry = new Gtk.Entry ();
         name_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);

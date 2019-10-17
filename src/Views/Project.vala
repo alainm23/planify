@@ -462,27 +462,6 @@ public class Views.Project : Gtk.EventBox {
                 check_visible_alertview ();
             }
         });
-        /*
-        eventbox.enter_notify_event.connect ((event) => {
-            deadline_project_revealer.reveal_child = true;
-
-            return false;
-        });
-
-        eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            if (deadline_project_button.active == false) {
-                if (project.deadline == "") {
-                    deadline_project_revealer.reveal_child = false;
-                }
-            }
-
-            return false;
-        });
-        */
 
         show_hide_all_button.toggled.connect (() => {
           if (show_hide_all_button.active) {

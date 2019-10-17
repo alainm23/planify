@@ -292,8 +292,8 @@ public class Widgets.ProjectsList : Gtk.Grid {
         listbox.insert (completed_item, 4);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 12;
-        separator.margin_bottom = 6;
+        separator.margin_top = 6;
+        separator.margin_bottom = 3;
 
         var separator_row = new Gtk.ListBoxRow ();
         separator_row.selectable = false;
