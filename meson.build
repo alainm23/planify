@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '0.1')
+        version: '2.0.0')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -92,4 +92,5 @@ executable(
 )
 
 subdir('data')
+#subdir('po')
 meson.add_install_script('meson/post_install.py')

@@ -17,6 +17,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
+    private Gtk.Revealer labels_edit_box_revealer;
     private Gtk.Box labels_box;
     private Gtk.Box labels_edit_box;
     
@@ -76,6 +77,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class ("hidden-button");
 
         var hidden_revealer = new Gtk.Revealer ();
+        hidden_revealer.valign = Gtk.Align.START;
         hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         hidden_revealer.add (hidden_button);
         hidden_revealer.reveal_child = false;
@@ -83,8 +85,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
         checked_button.margin_start = 6;
-        checked_button.valign = Gtk.Align.BASELINE;
+        checked_button.margin_top = 6;
+        checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.BASELINE;
+        checked_button.get_style_context ().add_class ("checklist-button");
 
         if (item.checked == 1) {
             checked_button.active = true;
@@ -93,7 +97,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var due_label = new Gtk.Label (null);
-        //due_label.margin_end = 6;
+        due_label.margin_start = 6;
         due_label.halign = Gtk.Align.START;
         due_label.valign = Gtk.Align.CENTER;
         due_label.margin_bottom = 1;
@@ -111,38 +115,40 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label = new Gtk.Label (item.content);
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
+        content_label.xalign = 0;
         content_label.use_markup = true;
-        content_label.margin_bottom = 1;
+        content_label.margin_bottom = 2;
         content_label.get_style_context ().add_class ("label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
         var checklist_image = new Gtk.Image ();
-        checklist_image.margin_end = 32;
+        checklist_image.margin_start = 6;
         checklist_image.gicon = new ThemedIcon ("planner-checklist-symbolic");
-        checklist_image.pixel_size = 14;
+        checklist_image.pixel_size = 16;
         checklist_image.get_style_context ().add_class ("dim-label");
 
         checklist_revealer = new Gtk.Revealer ();
-        checklist_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        checklist_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         checklist_revealer.add (checklist_image);
 
         var note_image = new Gtk.Image ();
-        note_image.margin_end = 6;
+        note_image.margin_start = 6;
         note_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_image.pixel_size = 13;
         note_image.get_style_context ().add_class ("dim-label");
 
         note_revealer = new Gtk.Revealer ();
-        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         note_revealer.add (note_image);
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         1_box.pack_start (content_label, false, false, 0);
         1_box.pack_start (due_label_revealer, false, false, 6);
-        1_box.pack_end (checklist_revealer, false, false, 0);
-        1_box.pack_end (note_revealer, false, false, 0);
-        
+        1_box.pack_start (checklist_revealer, false, false, 0);
+        1_box.pack_start (note_revealer, false, false, 0);
+
         labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_box.height_request = 2;
         labels_box.margin_start = 1;
 
         labels_box_revealer = new Gtk.Revealer ();
@@ -252,13 +258,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (settings_button, false, false, 0);
         action_box.pack_end (delete_button, false, false, 6);
 
-
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_edit_box.margin_start = 59;
 
+        labels_edit_box_revealer = new Gtk.Revealer ();
+        labels_edit_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        labels_edit_box_revealer.add (labels_edit_box);
+
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (note_textview, false, true, 0);
-        bottom_box.pack_start (labels_edit_box, false, false, 0);
+        bottom_box.pack_start (labels_edit_box_revealer, false, false, 0);
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
@@ -342,6 +351,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         note_textview.buffer.changed.connect (() => {
             save ();
+
+            if (note_textview.buffer.text == "") {
+                note_revealer.reveal_child = false;
+            } else {
+                note_revealer.reveal_child = true;
+            }
         });
 
         note_textview.focus_in_event.connect (() => {
@@ -413,7 +428,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Application.database.item_label_added.connect ((id, item_id, label) => {
             if (item.id == item_id && labels_hashmap.has_key (label.id.to_string ()) == false) {
                 var l = new Widgets.LabelPreview (id, item_id, label);
-                var g = new Widgets.LabelItem (label.item_label_id, item.id, label);
+                var g = new Widgets.LabelItem (id, item.id, label);
 
                 labels_box.add (l);
                 labels_edit_box.add (g);
@@ -422,6 +437,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 labels_edit_box.show_all ();
 
                 labels_box_revealer.reveal_child = true;
+                labels_edit_box_revealer.reveal_child = true;
                 labels_hashmap.set (label.id.to_string (), true);
             }
         });
@@ -653,6 +669,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             labels_box.show_all ();
             labels_edit_box.show_all ();
 
+            labels_edit_box_revealer.reveal_child = true;
             labels_box_revealer.reveal_child = true;
             labels_hashmap.set (label.id.to_string (), true);
         }
