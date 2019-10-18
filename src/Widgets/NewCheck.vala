@@ -30,7 +30,6 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
     construct {
         margin_start = 59;
-        margin_top = 6;
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
@@ -47,7 +46,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         name_entry.get_style_context ().add_class ("check-entry");
 
         var box = new Gtk.Grid ();
-        box.margin_bottom = 12;
+        box.margin_bottom = 6;
         box.get_style_context ().add_class ("check-eventbox");
         box.add (checked_button);
         box.add (name_entry);

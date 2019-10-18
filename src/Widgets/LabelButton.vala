@@ -11,6 +11,8 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
     }
 
     construct {
+        tooltip_text = _("Labels");
+
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
         get_style_context ().add_class ("due-no-date");

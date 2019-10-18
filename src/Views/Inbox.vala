@@ -94,7 +94,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         Application.database.item_added.connect ((item) => {
-            if (item.project_id == project_id) {
+            if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
                 listbox.show_all ();
@@ -102,7 +102,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         Application.database.item_added_with_index.connect ((item, index) => {
-            if (item.project_id == project_id) {
+            if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.insert (row, index);
                 listbox.show_all ();
@@ -142,8 +142,8 @@ public class Views.Inbox : Gtk.EventBox {
         
     }
 
-    private void add_all_projects (int64 id) {
-        foreach (var item in Application.database.get_all_items_by_project_no_section (id)) {
+    private void add_all_projects (int64 id) { 
+        foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (id)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();

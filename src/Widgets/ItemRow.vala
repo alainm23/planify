@@ -122,7 +122,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
         var checklist_image = new Gtk.Image ();
-        checklist_image.margin_start = 6;
+        checklist_image.margin_start = 3;
         checklist_image.gicon = new ThemedIcon ("planner-checklist-symbolic");
         checklist_image.pixel_size = 16;
         checklist_image.get_style_context ().add_class ("dim-label");
@@ -140,6 +140,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_revealer = new Gtk.Revealer ();
         note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         note_revealer.add (note_image);
+
+        if (item.note != "") {
+            note_revealer.reveal_child = true;
+        }
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         1_box.pack_start (content_label, false, false, 0);
@@ -209,6 +213,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 59;
+        separator.margin_bottom = 6;
 
         separator_revealer = new Gtk.Revealer ();
         separator_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -234,12 +239,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var label_button = new Widgets.LabelButton (item.id);
 
         var checklist_button = new Gtk.Button.from_icon_name ("planner-checklist-symbolic");
+        checklist_button.tooltip_text = _("Add Checklist");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
 
         var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
         delete_button.can_focus = false; 
         delete_button.valign = Gtk.Align.CENTER;
+        delete_button.tooltip_text = _("Delete Task");
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
 
@@ -259,6 +266,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (delete_button, false, false, 6);
 
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_edit_box.margin_top = 12;
         labels_edit_box.margin_start = 59;
 
         labels_edit_box_revealer = new Gtk.Revealer ();

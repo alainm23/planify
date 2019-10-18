@@ -33,6 +33,8 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     public signal void date_changed (string? date);
 
     construct {
+        tooltip_text = _("Due Date");
+        
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
         get_style_context ().add_class ("due-no-date");
