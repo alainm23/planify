@@ -230,6 +230,12 @@ public class MainWindow : Gtk.Window {
                 return false;
             });
         });  
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                Application.utils.apply_theme_changed ();
+            }
+        });
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

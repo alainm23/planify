@@ -289,4 +289,36 @@ public class Utils : GLib.Object {
             return get_default_date_format_from_date (date);
         }
     }
+
+    /*  
+        Settigns Theme 
+    */
+
+    public void apply_theme_changed () {
+        string CSS = """
+            @define-color projectview_color %s;
+        """;
+
+        bool dark_mode = Application.settings.get_boolean ("prefer-dark-style");
+        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = dark_mode;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            string _color = "#fafafa";
+            if (dark_mode) {
+                _color = "#333333";
+            }
+            
+            var css = CSS.printf (
+                _color
+            );
+
+            provider.load_from_data (css, css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
 }

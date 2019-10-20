@@ -26,7 +26,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     public string item_name { get; construct; }
     public string item_base_name { get; construct; }
 
-    private Gtk.Label primary_label;
+    private Gtk.Label count_label;
     public Gtk.Label secondary_label;
 
     private Gtk.Revealer secondary_revealer;
@@ -56,11 +56,11 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         title_name.get_style_context ().add_class ("pane-item");
         title_name.use_markup = true;
 
-        primary_label = new Gtk.Label ("<small>%s</small>".printf ("8"));
-        primary_label.valign = Gtk.Align.CENTER;
-        primary_label.margin_top = 3;
-        primary_label.get_style_context ().add_class ("dim-label");
-        primary_label.use_markup = true;
+        count_label = new Gtk.Label ("<small>%s</small>".printf (""));
+        count_label.valign = Gtk.Align.CENTER;
+        count_label.margin_top = 3;
+        count_label.use_markup = true;
+        count_label.opacity = 0.7;
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.margin = 6;
@@ -68,7 +68,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);
-        main_box.pack_start (primary_label, false, false, 0);
+        main_box.pack_start (count_label, false, false, 0);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;

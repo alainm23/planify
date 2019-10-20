@@ -712,7 +712,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-        SELECT * FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
+            SELECT * FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

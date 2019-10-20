@@ -706,5 +706,9 @@ paned > separator {
 
 
 .label-item-button {
-    background-color: @base_color;;
+    background-color: @base_color;
+}
+
+.description-label {
+    font-weight: 600;
 }

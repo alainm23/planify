@@ -97,7 +97,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var due_label = new Gtk.Label (null);
-        due_label.margin_start = 6;
         due_label.halign = Gtk.Align.START;
         due_label.valign = Gtk.Align.CENTER;
         due_label.margin_bottom = 1;
@@ -123,6 +122,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var checklist_image = new Gtk.Image ();
         checklist_image.margin_start = 3;
+        checklist_image.margin_end = 9;
         checklist_image.gicon = new ThemedIcon ("planner-checklist-symbolic");
         checklist_image.pixel_size = 16;
         checklist_image.get_style_context ().add_class ("dim-label");
@@ -132,7 +132,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checklist_revealer.add (checklist_image);
 
         var note_image = new Gtk.Image ();
-        note_image.margin_start = 6;
         note_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_image.pixel_size = 13;
         note_image.get_style_context ().add_class ("dim-label");
@@ -483,11 +482,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
-                activate_menu ();
+                if (bottom_revealer.reveal_child == false) {
+                    activate_menu ();
+                }
+
                 return true;
             }
 
             return false;
+        });
+
+        settings_button.clicked.connect (() => {
+            activate_menu ();
         });
 
         content_entry.activate.connect (() => {
@@ -694,27 +700,24 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void activate_menu () {
-        if (bottom_revealer.reveal_child == false) {
-            if (menu == null) {
-                build_context_menu (item);
-            } 
-    
-            foreach (var child in projects_menu.get_children ()) {
-                child.destroy ();
-            }
-    
-            foreach (var project in Application.database.get_all_projects ()) {
-                var item = new Gtk.ImageMenuItem.with_label (project.name);
-                item.always_show_image = true;
-                item.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
-                projects_menu.add (item);
-            }
-    
-            projects_menu.show_all ();
+        if (menu == null) {
+            build_context_menu (item);
+        } 
 
-            menu.popup_at_pointer (null);
-            //menu.popup_at_widget (content_entry, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER);
+        foreach (var child in projects_menu.get_children ()) {
+            child.destroy ();
         }
+
+        foreach (var project in Application.database.get_all_projects ()) {
+            var item = new Gtk.ImageMenuItem.with_label (project.name);
+            item.always_show_image = true;
+            item.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+            projects_menu.add (item);
+        }
+
+        projects_menu.show_all ();
+
+        menu.popup_at_pointer (null);
     }
 
     private void build_context_menu (Objects.Item item) {
@@ -724,7 +727,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         complete_menu.always_show_image = true;
         complete_menu.image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.MENU);
 
-        var view_edit_menu = new Gtk.ImageMenuItem.with_label (_("Edit / View"));
+        var view_edit_menu = new Gtk.ImageMenuItem.with_label (_("View / Hide Task"));
         view_edit_menu.always_show_image = true;
         view_edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
 
@@ -764,7 +767,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.show_all ();
 
         view_edit_menu.activate.connect (() => {
-            show_item ();
+            if (bottom_revealer.reveal_child) {
+                hide_item ();
+            } else {
+                show_item ();
+            }
         });
 
         delete_menu.activate.connect (() => {

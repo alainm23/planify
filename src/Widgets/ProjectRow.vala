@@ -34,6 +34,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Revealer motion_revealer;
     public Gtk.Revealer main_revealer;
 
+    private int count = 0;
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -58,7 +60,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        //tooltip_text = project.name;
+        count = Application.database.get_all_items_by_project (project.id).size;
+
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
@@ -73,15 +76,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.margin_top = 6;
         name_label.margin_bottom = 6;
         name_label.margin_start = 8;
+        name_label.tooltip_text = project.name;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
 
-        var count_label = new Gtk.Label ("<small>%s</small>".printf ("8"));
+        var count_label = new Gtk.Label ("<small>%i</small>".printf (count));
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
-        count_label.get_style_context ().add_class ("dim-label");
+        count_label.opacity = 0.7;
         count_label.use_markup = true;
 
         var source_icon = new Gtk.Image ();
@@ -92,17 +96,19 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_icon.margin_top = 3;
 
         if (project.is_todoist == 0) {
+            source_icon.tooltip_text = _("Local Project");
             source_icon.icon_name = "planner-offline-symbolic";
         } else {
             source_icon.icon_name = "planner-online-symbolic";
+            source_icon.tooltip_text = _("Todoist Project");
         }
         
         handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (count_label, false, false, 6);
-        //handle_box.pack_end (source_icon, false, false, 6);
+        handle_box.pack_start (source_icon, false, false, 6);
+        handle_box.pack_start (count_label, false, false, 3);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -165,6 +171,32 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Application.utils.drag_item_activated.connect ((active) => {
             build_drag_and_drop (active);
+        });
+
+        Application.database.item_added.connect ((item) => {
+            if (project.id == item.project_id) {
+                count++;
+                count_label.label = "<small>%i</small>".printf (count);
+
+                if (count <= 0) {
+                    count_label.visible = false;
+                } else {
+                    count_label.visible = true;
+                }
+            }
+        });
+
+        Application.database.item_deleted.connect ((item) => {
+            if (project.id == item.project_id) {
+                count--;
+                count_label.label = "<small>%i</small>".printf (count);
+
+                if (count <= 0) {
+                    count_label.visible = false;
+                } else {
+                    count_label.visible = true;
+                }
+            }
         });
     }
  

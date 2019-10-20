@@ -97,6 +97,8 @@ public class Application : Gtk.Application {
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");
+
+        utils.apply_theme_changed ();
     }
 
     public static int main (string[] args) {

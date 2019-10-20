@@ -19,6 +19,12 @@
             <description>Most recent pane position</description>
         </key>
 
+        <key name="prefer-dark-style" type="b">
+            <default>false</default>
+            <summary>If the dark Gtk stylesheet should be used</summary>
+            <description>If the dark Gtk stylesheet should be used</description>
+        </key>
+
         <key name="inbox-project" type="x">
             <default>0</default>
             <summary>Inbox Project ID</summary>

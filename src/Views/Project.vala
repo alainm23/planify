@@ -40,7 +40,7 @@ public class Views.Project : Gtk.EventBox {
         grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
 
         var name_label = new Gtk.Label (project.name);
-        name_label.margin_start = 3;
+        //name_label.margin_start = 3;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         name_label.get_style_context ().add_class ("font-bold");
         name_label.use_markup = true;
@@ -102,7 +102,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_end = 24;
 
         top_box.pack_start (edit_revealer, false, false, 0);
-        top_box.pack_start (grid_color, false, false, 0);
+        //top_box.pack_start (grid_color, false, false, 0);
         top_box.pack_start (name_label, false, false, 0);
         
         top_box.pack_end (settings_button, false, false, 0);
