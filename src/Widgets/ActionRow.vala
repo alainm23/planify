@@ -27,7 +27,6 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     public string item_base_name { get; construct; }
 
     private Gtk.Label count_label;
-    public Gtk.Label secondary_label;
 
     private Gtk.Revealer secondary_revealer;
     private Gtk.Revealer primary_revealer;

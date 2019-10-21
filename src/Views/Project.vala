@@ -9,6 +9,12 @@ public class Views.Project : Gtk.EventBox {
     private Widgets.NewItem new_item_widget;
     private Gtk.Revealer motion_revealer;
 
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
+
+    private Gtk.Popover popover = null;
+    private Gtk.ToggleButton settings_button;
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -44,8 +50,6 @@ public class Views.Project : Gtk.EventBox {
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         name_label.get_style_context ().add_class ("font-bold");
         name_label.use_markup = true;
-
-        var settings_popover = new Widgets.Popovers.ProjectSettings ();
 
         var add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.valign = Gtk.Align.CENTER;
@@ -87,14 +91,12 @@ public class Views.Project : Gtk.EventBox {
         comment_button.get_style_context ().add_class ("flat");
         //comment_button.get_style_context ().add_class ("dim-label");
 
-        var settings_button = new Gtk.MenuButton ();
-        settings_button.can_focus = false;
+        settings_button = new Gtk.ToggleButton ();
         settings_button.valign = Gtk.Align.CENTER;
-        settings_button.tooltip_text = _("More");
-        settings_button.popover = settings_popover;
+        settings_button.can_focus = false;
+        settings_button.tooltip_text = _("");
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
         top_box.hexpand = true;
@@ -171,13 +173,35 @@ public class Views.Project : Gtk.EventBox {
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         section_listbox.hexpand = true;
         
+        var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
+        completed_label.margin_top = 12;
+        completed_label.margin_start = 42;
+
+        completed_listbox = new Gtk.ListBox  ();
+        completed_listbox.valign = Gtk.Align.START;
+        completed_listbox.get_style_context ().add_class ("welcome");
+        completed_listbox.get_style_context ().add_class ("listbox");
+        completed_listbox.activate_on_single_click = true;
+        completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        completed_listbox.hexpand = true;
+
+        var completed_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        completed_box.hexpand = true;
+        completed_box.pack_start (completed_label, false, false, 0);
+        completed_box.pack_start (completed_listbox, false, false, 0);
+
+        completed_revealer = new Gtk.Revealer ();
+        completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        completed_revealer.add (completed_box);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_eventbox, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
-        main_box.pack_start (motion_revealer, false, false, 0);
+        main_box.pack_start (completed_revealer, false, false, 0);
+        //main_box.pack_start (motion_revealer, false, false, 0);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -197,6 +221,16 @@ public class Views.Project : Gtk.EventBox {
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
+        });
+
+        settings_button.toggled.connect (() => {
+            if (settings_button.active) {
+                if (popover == null) {
+                    create_popover ();
+                }
+
+                popover.show_all ();
+            }
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
@@ -296,6 +330,24 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
+        Application.database.item_completed.connect ((item) => {
+            if (project.id == item.project_id) {
+                if (item.checked == 1) {
+                    if (completed_revealer.reveal_child) {
+                        var row = new Widgets.ItemCompletedRow (item);
+                        completed_listbox.add (row);
+                        completed_listbox.show_all ();
+                    }
+                } else {
+                    if (item.section_id == 0 && item.parent_id == 0) {
+                        var row = new Widgets.ItemRow (item);
+                        listbox.add (row);
+                        listbox.show_all ();
+                    } 
+                }
+            }
+        });
+
         Application.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
             if (project.id == project_id && section_id == 0) {
                 var new_item = new Widgets.NewItem (
@@ -329,6 +381,20 @@ public class Views.Project : Gtk.EventBox {
             listbox.add (row);
             listbox.show_all ();
         }
+    }
+
+    private void add_completed_items (int64 id) { 
+        foreach (var child in completed_listbox.get_children ()) {
+            child.destroy ();
+        }
+
+        foreach (var item in Application.database.get_all_completed_items_by_project (id)) {
+            var row = new Widgets.ItemCompletedRow (item);
+            completed_listbox.add (row);
+            completed_listbox.show_all ();
+        }
+
+        completed_revealer.reveal_child = true;
     }
 
     private void add_all_sections () {
@@ -386,6 +452,38 @@ public class Views.Project : Gtk.EventBox {
 
                 return null;
             });
+        });
+    }
+
+    private void create_popover () {
+        popover = new Gtk.Popover (settings_button);
+        popover.position = Gtk.PositionType.BOTTOM;
+
+        var show_button = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+ 
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.width_request = 200;
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.margin_top = 6;
+        popover_grid.margin_bottom = 6;
+        popover_grid.add (show_button);
+  
+        popover.add (popover_grid);
+
+        popover.closed.connect (() => {
+            settings_button.active = false;
+        });
+
+        show_button.clicked.connect (() => {
+            if (completed_revealer.reveal_child) {
+                show_button.text = _("Show completed task");
+                completed_revealer.reveal_child = false;
+            } else {
+                show_button.text = _("Hide completed task");
+                add_completed_items (project.id);
+            }
+
+            popover.popdown ();
         });
     }
 

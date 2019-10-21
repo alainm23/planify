@@ -44,7 +44,7 @@ public class Dialogs.Labels : Gtk.Dialog {
 
         var close_button = new Gtk.Button.with_label (_("Close"));
         close_button.margin_bottom = 6;
-        close_button.margin_right = 6;
+        close_button.margin_end = 6;
         close_button.valign = Gtk.Align.CENTER;
         close_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 

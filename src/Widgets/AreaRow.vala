@@ -366,14 +366,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     private void build_context_menu (Objects.Area area) {
         menu = new Gtk.Menu ();
-        
-        var edit_menu = new Gtk.ImageMenuItem.with_label (_("Edit Work Area"));
-        edit_menu.always_show_image = true;
-        edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
+        menu.width_request = 200;
 
-        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete Work Area"));
-        delete_menu.always_show_image = true;
-        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit Work Area"), "edit-symbolic");
+
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete Work Area"), "edit-delete-symbolic");
 
         menu.add (edit_menu);
         menu.add (delete_menu);

@@ -19,7 +19,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         }
     }
 
-    private Gtk.Label due_label;
+    private Gtk.Label due_label; 
     private Gtk.Image due_image;
     private Gtk.Revealer label_revealer;
 

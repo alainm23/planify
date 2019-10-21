@@ -29,6 +29,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
 
+    private uint checked_timeout = 0;
+
     public Gee.HashMap<string, bool> labels_hashmap;
     
     private const Gtk.TargetEntry[] targetEntries = {
@@ -145,7 +147,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        1_box.pack_start (content_label, false, false, 0);
+        1_box.pack_start (content_label, false, false, 3);
         1_box.pack_start (due_label_revealer, false, false, 6);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
@@ -508,17 +510,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             save ();
         });
 
-        checked_button.toggled.connect (() => {
-            if (checked_button.active) {
-                item.checked = 1;
-                item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            } else {
-                item.checked = 0;
-                item.date_completed = "";
-            }
-
-            save ();
-        });
+        checked_button.toggled.connect (checked_toggled);
 
         check_listbox.remove.connect (() => {
             check_checklist_separator ();
@@ -532,6 +524,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
         */
+    }
+
+    private void checked_toggled () {
+        if (checked_button.active) { 
+            item.checked = 1;
+            item.date_completed = new GLib.DateTime.now_local ().to_string ();
+
+            if (Application.database.update_item_completed (item)) {
+                destroy ();
+            }
+        }
     }
 
     private void show_item () {
@@ -709,9 +712,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         foreach (var project in Application.database.get_all_projects ()) {
-            var item = new Gtk.ImageMenuItem.with_label (project.name);
-            item.always_show_image = true;
-            item.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+            var item = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
             projects_menu.add (item);
         }
 
@@ -722,36 +723,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void build_context_menu (Objects.Item item) {
         menu = new Gtk.Menu ();
+        menu.width_request = 200;
+        
+        var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");   
 
-        var complete_menu = new Gtk.ImageMenuItem.with_label (_("Complete"));
-        complete_menu.always_show_image = true;
-        complete_menu.image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.MENU);
+        var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide Task"), "edit-symbolic");
 
-        var view_edit_menu = new Gtk.ImageMenuItem.with_label (_("View / Hide Task"));
-        view_edit_menu.always_show_image = true;
-        view_edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
-
-        var move_project_menu = new Gtk.ImageMenuItem.with_label (_("Move To Project"));
-        move_project_menu.always_show_image = true;
-        move_project_menu.image = new Gtk.Image.from_icon_name ("go-jump-symbolic", Gtk.IconSize.MENU);
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move To Project"), "go-jump-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
-        var duplicate_menu = new Gtk.ImageMenuItem.with_label (_("Duplicate"));
-        duplicate_menu.always_show_image = true;
-        duplicate_menu.image = new Gtk.Image.from_icon_name ("view-paged-symbolic", Gtk.IconSize.MENU);
+        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "view-paged-symbolic");
 
-        var convert_menu = new Gtk.ImageMenuItem.with_label (_("Convert to Project"));
-        convert_menu.always_show_image = true;
-        convert_menu.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+        var convert_menu = new Widgets.ImageMenuItem (_("Convert to Project"), "planner-project-symbolic");
 
-        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share"));
-        share_menu.always_show_image = true;
-        share_menu.image = new Gtk.Image.from_icon_name ("emblem-shared-symbolic", Gtk.IconSize.MENU);
- 
-        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete"));
-        delete_menu.always_show_image = true;
-        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "edit-delete-symbolic");
 
         menu.add (complete_menu);
         menu.add (view_edit_menu);
@@ -765,6 +753,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (delete_menu);
 
         menu.show_all ();
+
+        complete_menu.activate.connect (() => {
+            checked_button.active = !checked_button.active;
+            checked_toggled ();
+        });
 
         view_edit_menu.activate.connect (() => {
             if (bottom_revealer.reveal_child) {

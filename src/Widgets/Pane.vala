@@ -31,7 +31,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
     construct {
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Create new task"));
-        //inbox_row.primary_text = "3";
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
@@ -40,10 +39,8 @@ public class Widgets.Pane : Gtk.EventBox {
         }
 
         today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("Create new task"));
-        //today_row.primary_text = "4";
-        
+                
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Create new task"));
-        //upcoming_row.primary_text = "10";
 
         // Menu
         var username = GLib.Environment.get_user_name ();
@@ -234,7 +231,6 @@ public class Widgets.Pane : Gtk.EventBox {
                 var action = (ActionRow) row;
 
                 action.icon.get_style_context ().add_class ("active");
-                action.secondary_label.get_style_context ().add_class ("text_color");
 
                 Timeout.add (700, () => {
                     action.icon.get_style_context ().remove_class ("active");

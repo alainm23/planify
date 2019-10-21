@@ -5,9 +5,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
     private Gtk.Entry name_entry;
     private Gtk.Stack stack;
     private Gtk.Revealer revealer;
-
-    public signal void activate ();
-
+    
     public bool reveal_child {
         set {
             revealer.reveal_child = value;

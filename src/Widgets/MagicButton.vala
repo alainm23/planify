@@ -12,7 +12,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         reveal_child = true;
         margin_bottom = 12;
-        margin_right = 12;
+        margin_end = 12;
         valign = Gtk.Align.END;
         halign = Gtk.Align.END;
 

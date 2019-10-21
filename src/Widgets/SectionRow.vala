@@ -167,6 +167,16 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
+        Application.database.item_completed.connect ((item) => {
+            if (item.checked == 0) {
+                if (section.id == item.section_id && item.parent_id == 0) {
+                    var row = new Widgets.ItemRow (item);
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+            }
+        });
+
         Application.database.item_added_with_index.connect ((item, index) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
@@ -250,10 +260,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     private void build_context_menu (Objects.Section section) {
         menu = new Gtk.Menu ();
-        
-        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete Header"));
-        delete_menu.always_show_image = true;
-        delete_menu.image = new Gtk.Image.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+        menu.width_request = 200;
+
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete Section"), "edit-delete-symbolic");
 
         menu.add (delete_menu);
 

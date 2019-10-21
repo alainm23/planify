@@ -60,7 +60,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        count = Application.database.get_all_items_by_project (project.id).size;
+        count = Application.database.get_count_items_by_project (project.id);
 
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
@@ -338,12 +338,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             child.destroy ();
         }
 
-        Gtk.ImageMenuItem item;
-        
+        Widgets.ImageMenuItem item;
         if (project.area_id != 0) {
-            item = new Gtk.ImageMenuItem.with_label ("No Work Area");
-            item.always_show_image = true;
-            item.image = new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.MENU);
+            item = new Widgets.ImageMenuItem (_("No Work Area"), "window-close-symbolic");
             item.activate.connect (() => {
                 if (Application.database.move_project (project, 0)) {
                     destroy ();
@@ -355,9 +352,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         foreach (Objects.Area area in Application.database.get_all_areas ()) {
             if (area.id != project.area_id) {
-                item = new Gtk.ImageMenuItem.with_label (area.name);
-                item.always_show_image = true;
-                item.image = new Gtk.Image.from_icon_name ("planner-work-area-symbolic", Gtk.IconSize.MENU);
+                item = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
                 item.activate.connect (() => {
                     if (Application.database.move_project (project, area.id)) {
                         destroy ();
@@ -371,44 +366,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         work_areas.show_all ();
         menu.popup_at_pointer (null);
     }
-
+ 
     private void build_context_menu (Objects.Project project) {
         menu = new Gtk.Menu ();
+        menu.width_request = 200;
 
-        var project_menu = new Gtk.ImageMenuItem.with_label (project.name);
-        project_menu.always_show_image = true;
-        project_menu.image = new Gtk.Image.from_icon_name ("planner-project-symbolic", Gtk.IconSize.MENU);
+        var project_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
 
-        var finalize_menu = new Gtk.ImageMenuItem.with_label (_("Mark as Completed"));
-        finalize_menu.always_show_image = true;
-        finalize_menu.image = new Gtk.Image.from_icon_name ("emblem-default-symbolic", Gtk.IconSize.MENU);
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit Project"), "edit-symbolic");
 
-        var edit_menu = new Gtk.ImageMenuItem.with_label (_("Edit project"));
-        edit_menu.always_show_image = true;
-        edit_menu.image = new Gtk.Image.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
-
-        var move_menu = new Gtk.ImageMenuItem.with_label (_("Work Area"));
-        move_menu.always_show_image = true;
-        move_menu.image = new Gtk.Image.from_icon_name ("planner-work-area-symbolic", Gtk.IconSize.MENU);
+        var move_menu = new Widgets.ImageMenuItem (_("Work Area"), "planner-work-area-symbolic");
         work_areas = new Gtk.Menu ();
         move_menu.set_submenu (work_areas);
 
-        var export_menu = new Gtk.ImageMenuItem.with_label (_("Export"));
-        export_menu.always_show_image = true;
-        export_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.MENU);
+        var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
 
-        var share_menu = new Gtk.ImageMenuItem.with_label (_("Share"));
-        share_menu.always_show_image = true;
-        share_menu.image = new Gtk.Image.from_icon_name ("emblem-shared-symbolic", Gtk.IconSize.MENU);
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+
+        var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
+
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+
         
-        var archive_menu = new Gtk.ImageMenuItem.with_label (_("Archive"));
-        archive_menu.always_show_image = true;
-        archive_menu.image = new Gtk.Image.from_icon_name ("planner-archive-symbolic", Gtk.IconSize.MENU);
-
-        var delete_menu = new Gtk.ImageMenuItem.with_label (_("Delete"));
-        delete_menu.always_show_image = true;
-        delete_menu.image = new Gtk.Image.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
-
         menu.add (project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         //menu.add (finalize_menu);

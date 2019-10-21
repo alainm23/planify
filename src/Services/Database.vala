@@ -18,6 +18,7 @@ public class Services.Database : GLib.Object {
     public signal void update_due_item (Objects.Item item);
     public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
+    public signal void item_completed (Objects.Item item);
     
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
@@ -1371,6 +1372,38 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public bool update_item_completed (Objects.Item item) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET checked = ?, date_completed = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item.checked);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (2, item.date_completed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            item_completed (item);
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public bool delete_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
@@ -1458,6 +1491,75 @@ public class Services.Database : GLib.Object {
         return false;
     }
 
+    public int get_count_items_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND checked = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var size = 0;
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            size++;
+        }
+
+        return size;
+    }
+    
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND checked = 1 ORDER BY date_completed;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -1509,7 +1611,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 ORDER BY item_order;
+            SELECT * FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1599,7 +1701,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Items WHERE section_id = ? AND parent_id = 0 ORDER BY item_order;
+            SELECT * FROM Items WHERE section_id = ? AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
