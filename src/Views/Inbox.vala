@@ -66,7 +66,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
         completed_label.margin_top = 12;
-        completed_label.margin_start = 42;
+        completed_label.margin_start = 41;
 
         completed_listbox = new Gtk.ListBox  ();
         completed_listbox.valign = Gtk.Align.START;
@@ -204,11 +204,13 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     private void add_items (int64 id) { 
+        /*
         foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (id)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
         }
+        */
     }
 
     private void add_completed_items (int64 id) { 
@@ -216,11 +218,13 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
+        /*
         foreach (var item in Application.database.get_all_completed_items_by_project (id)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
         }
+        */
 
         completed_revealer.reveal_child = true;
     }

@@ -1,6 +1,5 @@
 public class Widgets.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
-    public int is_todoist { get; construct; }
 
     private Gtk.Button hidden_button;
     private Gtk.Entry name_entry;
@@ -28,10 +27,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    public SectionRow (Objects.Section section, int is_todoist) {
+    public SectionRow (Objects.Section section) {
         Object (
-            section: section,
-            is_todoist: is_todoist
+            section: section
         );
     }
 
@@ -127,7 +125,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         main_box.pack_start (listbox_revealer, false, false, 0);
 
         add (main_box);
-        add_all_projects ();
+        add_all_items ();
         
         build_drag_and_drop (false);
 
@@ -289,8 +287,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
     }
 
-    public void add_all_projects () {            
-        foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section.id)) {
+    public void add_all_items () {            
+        foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
         }
@@ -358,7 +356,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             var new_item = new Widgets.NewItem (
                 section.project_id,
                 section.id, 
-                is_todoist
+                section.is_todoist
             );
 
             new_item.destroy.connect (() => {

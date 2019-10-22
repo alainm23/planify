@@ -12,7 +12,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Label note_placeholder;
     private Gtk.Revealer note_revealer;
     private Gtk.Revealer bottom_revealer;
-    private Gtk.Revealer row_revealer;
+    private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
 
     private Gtk.Revealer motion_revealer;
@@ -30,6 +30,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Menu menu = null;
 
     private uint checked_timeout = 0;
+    private uint timeout_id = 0;
 
     public Gee.HashMap<string, bool> labels_hashmap;
     
@@ -324,13 +325,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         handle.above_child = false;
         handle.add (grid);
 
-        row_revealer = new Gtk.Revealer ();
-        row_revealer.reveal_child = true;
-        row_revealer.transition_duration = 125;
-        row_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        row_revealer.add (handle);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_duration = 125;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        main_revealer.add (handle);
 
-        add (row_revealer);
+        add (main_revealer);
 
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
@@ -460,7 +461,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_button.clicked.connect (() => {
             if (Application.database.add_item_to_delete (item)) {
                 get_style_context ().remove_class ("item-row-selected");
-                row_revealer.reveal_child = false;
+                main_revealer.reveal_child = false;
             }
         });
 
@@ -478,7 +479,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.id == id) {
                 hide_item ();
                 hidden_revealer.reveal_child = false;
-                row_revealer.reveal_child = true;
+                main_revealer.reveal_child = true;
             }
         });
 
@@ -530,9 +531,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (checked_button.active) { 
             item.checked = 1;
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
+            opacity = 0.4;
 
-            if (Application.database.update_item_completed (item)) {
-                destroy ();
+            checked_timeout = Timeout.add (2500, () => {
+                if (Application.database.update_item_completed (item)) {
+                    main_revealer.reveal_child = false;
+                }
+
+                return false;
+            });
+        } else {
+            if (checked_timeout != 0) {
+                item.checked = 1;
+                item.date_completed = "";
+                opacity = 1;
+
+                Source.remove (checked_timeout);
+                checked_timeout = 0;
             }
         }
     }
@@ -563,10 +578,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         hidden_button.get_style_context ().remove_class ("opened");
 
-        Timeout.add (250, () => {
+        timeout_id = Timeout.add (250, () => {
             activatable = true;
             selectable = true;
-                
+            
+            Source.remove (timeout_id);
+            
             return false;
         });
     }
@@ -589,7 +606,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Application.utils.magic_button_activated (
             item.project_id,
             item.section_id,
-            0,//project.is_todoist,
+            item.is_todoist,
             false,
             this.get_index () + 1
         );
@@ -756,7 +773,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         complete_menu.activate.connect (() => {
             checked_button.active = !checked_button.active;
-            checked_toggled ();
         });
 
         view_edit_menu.activate.connect (() => {
@@ -770,7 +786,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             if (Application.database.add_item_to_delete (item)) {
                 get_style_context ().remove_class ("item-row-selected");
-                row_revealer.reveal_child = false;
+                main_revealer.reveal_child = false;
             }
         });
     }

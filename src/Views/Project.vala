@@ -26,19 +26,6 @@ public class Views.Project : Gtk.EventBox {
     }
 
     construct {
-        var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.MENU);
-        edit_button.valign = Gtk.Align.CENTER;
-        edit_button.valign = Gtk.Align.CENTER;
-        edit_button.can_focus = false;
-        edit_button.margin_start = 6;
-        edit_button.get_style_context ().add_class ("flat");
-        edit_button.get_style_context ().add_class ("dim-label");
-        
-        var edit_revealer = new Gtk.Revealer ();
-        edit_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        edit_revealer.add (edit_button);
-        edit_revealer.reveal_child = false;
-
         var grid_color = new Gtk.Grid ();
         grid_color.set_size_request (16, 16);
         grid_color.valign = Gtk.Align.CENTER;
@@ -102,8 +89,9 @@ public class Views.Project : Gtk.EventBox {
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 24;
+        top_box.margin_start = 41;
 
-        top_box.pack_start (edit_revealer, false, false, 0);
+        //top_box.pack_start (edit_revealer, false, false, 0);
         //top_box.pack_start (grid_color, false, false, 0);
         top_box.pack_start (name_label, false, false, 0);
         
@@ -157,13 +145,6 @@ public class Views.Project : Gtk.EventBox {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         motion_revealer.add (motion_grid);
 
-        bool is_todoist = false;
-        if (project.is_todoist == 1) {
-            is_todoist = true;
-        }
-
-        //new_item_widget = new Widgets.NewItem (project.id, is_todoist);
-
         section_listbox = new Gtk.ListBox  ();
         section_listbox.margin_top = 6;
         section_listbox.valign = Gtk.Align.START;
@@ -175,7 +156,7 @@ public class Views.Project : Gtk.EventBox {
         
         var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
         completed_label.margin_top = 12;
-        completed_label.margin_start = 42;
+        completed_label.margin_start = 41;
 
         completed_listbox = new Gtk.ListBox  ();
         completed_listbox.valign = Gtk.Align.START;
@@ -213,7 +194,7 @@ public class Views.Project : Gtk.EventBox {
 
         build_drag_and_drop (false);
 
-        add_all_projects ();
+        add_all_items ();
         add_all_sections ();
         
         show_all ();
@@ -233,22 +214,6 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        top_eventbox.enter_notify_event.connect ((event) => {
-            edit_revealer.reveal_child = true;
-
-            return true;
-        });
-
-        top_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-            
-            edit_revealer.reveal_child = false;
-
-            return true;
-        });
-
         top_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 var edit_dialog = new Dialogs.ProjectSettings (project);
@@ -257,14 +222,6 @@ public class Views.Project : Gtk.EventBox {
             }
 
             return false;
-        });
-
-        edit_button.clicked.connect (() => {
-            if (project != null) {
-                var edit_dialog = new Dialogs.ProjectSettings (project);
-                edit_dialog.destroy.connect (Gtk.main_quit);
-                edit_dialog.show_all ();
-            }
         });
 
         note_textview.focus_in_event.connect (() => {
@@ -306,7 +263,7 @@ public class Views.Project : Gtk.EventBox {
 
         Application.database.section_added.connect ((section) => {
             if (project.id == section.project_id) {
-                var row = new Widgets.SectionRow (section, project.is_todoist);
+                var row = new Widgets.SectionRow (section);
                 section_listbox.add (row);
                 section_listbox.show_all ();
 
@@ -375,8 +332,8 @@ public class Views.Project : Gtk.EventBox {
         }
     }
 
-    private void add_all_projects () {
-        foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (project.id)) {
+    private void add_all_items () {
+        foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (project)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -388,7 +345,7 @@ public class Views.Project : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Application.database.get_all_completed_items_by_project (id)) {
+        foreach (var item in Application.database.get_all_completed_items_by_project (project)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
@@ -398,8 +355,8 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_sections () {
-        foreach (var section in Application.database.get_all_sections_by_project (project.id)) {
-            var row = new Widgets.SectionRow (section, project.is_todoist);
+        foreach (var section in Application.database.get_all_sections_by_project (project)) {
+            var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();
         }
@@ -459,14 +416,28 @@ public class Views.Project : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var show_button = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
- 
+        var edit_menu = new Widgets.ModelButton (_("Edit Project"), "edit-symbolic", "");
+
+        var archive_menu = new Widgets.ModelButton (_("Archive Project"), "planner-archive-symbolic");
+        
+        var delete_menu = new Widgets.ModelButton (_("Delete Project"), "user-trash-symbolic");
+        
+        var show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+
+        var separator_01 = new Gtk.Separator (Gtk.Align.HORIZONTAL);
+        separator_01.margin_top = 3;
+        separator_01.margin_bottom = 3;
+
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 200;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
-        popover_grid.add (show_button);
+        popover_grid.add (edit_menu);
+        popover_grid.add (archive_menu);
+        popover_grid.add (delete_menu);
+        popover_grid.add (separator_01);
+        popover_grid.add (show_menu);
   
         popover.add (popover_grid);
 
@@ -474,12 +445,22 @@ public class Views.Project : Gtk.EventBox {
             settings_button.active = false;
         });
 
-        show_button.clicked.connect (() => {
+        edit_menu.clicked.connect (() => {
+            if (project != null) {
+                var edit_dialog = new Dialogs.ProjectSettings (project);
+                edit_dialog.destroy.connect (Gtk.main_quit);
+                edit_dialog.show_all ();
+            }
+
+            popover.popdown ();
+        });
+
+        show_menu.clicked.connect (() => {
             if (completed_revealer.reveal_child) {
-                show_button.text = _("Show completed task");
+                show_menu.text = _("Show completed task");
                 completed_revealer.reveal_child = false;
             } else {
-                show_button.text = _("Hide completed task");
+                show_menu.text = _("Hide completed task");
                 add_completed_items (project.id);
             }
 

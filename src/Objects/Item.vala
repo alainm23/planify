@@ -11,6 +11,7 @@ public class Objects.Item : GLib.Object {
     public int item_order { get; set; default = 0; }
     public int checked { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }
+    public int is_todoist { get; set; default = 0; }
     public string content { get; set; default = ""; }
     public string note { get; set; default = ""; }
     public string due { get; set; default = ""; }
@@ -26,11 +27,16 @@ public class Objects.Item : GLib.Object {
             timeout_id = 0;
         }
 
-        timeout_id = Timeout.add (1000, () => {
+        timeout_id = Timeout.add (2500, () => {
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_item (this);
+                if (this.is_todoist == 0) {
+                    Application.database.update_item (this);
+                } else {
+                    Application.todoist.update_item (this);
+                }
+
                 return null;
             });
             

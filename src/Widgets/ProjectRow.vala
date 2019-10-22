@@ -173,6 +173,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_drag_and_drop (active);
         });
 
+        /*
         Application.database.item_added.connect ((item) => {
             if (project.id == item.project_id) {
                 count++;
@@ -198,6 +199,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 }
             }
         });
+        */
     }
  
     private void apply_styles (string color) {

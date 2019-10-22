@@ -24,6 +24,8 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> loaded_projects;
     private string visible_child_name = "";
 
+    private uint timeout_id = 0;
+
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -102,7 +104,7 @@ public class MainWindow : Gtk.Window {
         Application.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Application.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
-        Timeout.add (125, () => {
+        timeout_id = Timeout.add (125, () => {
             if (Application.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
@@ -111,8 +113,10 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
-            }
-             
+            }   
+            
+            Source.remove (timeout_id);
+            
             return false;
         });
 

@@ -4,6 +4,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int is_todoist { get; set; }
     public int? index { get; set; default = null; }
 
+    private uint timeout_id = 0;
+    
     private Gtk.Entry content_entry;
 
     public NewItem (int64 project_id, int64 section_id, int is_todoist) {
@@ -32,7 +34,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
-        //checked_button.get_style_context ().add_class ("checked-button");
+        checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.valign = Gtk.Align.CENTER;
 
         content_entry = new Gtk.Entry ();
@@ -44,8 +46,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("check-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
+        content_entry.get_style_context ().add_class ("label");
  
         var content_grid = new Gtk.Grid ();
+        content_grid.column_spacing = 3;
         content_grid.get_style_context ().add_class ("check-eventbox");
         content_grid.add (checked_button);
         content_grid.add (content_entry);
@@ -80,8 +84,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         add (main_grid);
 
-        Timeout.add (150, () => {
+        timeout_id = Timeout.add (150, () => {
             content_entry.grab_focus ();
+
+            Source.remove (timeout_id);
+
             return false;
         });
         
@@ -129,15 +136,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.content = content_entry.text;
             item.project_id = project_id;
             item.section_id = section_id;
+            item.is_todoist = is_todoist;
 
             if (is_todoist == 1) {
                 if (Application.utils.check_connection ()) {
-                    Application.todoist.add_item (item);
+                    Application.todoist.add_item (item, index);
                 } else {
 
                 }
             } else {
-                if (Application.database.insert_check (item, index)) {
+                if (Application.database.insert_item (item, index)) {
                     content_entry.text = "";
                     destroy ();
                 } 

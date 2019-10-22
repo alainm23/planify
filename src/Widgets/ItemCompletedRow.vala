@@ -36,7 +36,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.margin = 3;
-        box.margin_start = 42;
+        box.margin_start = 41;
         box.opacity = 0.4;
         box.pack_start (checked_button, false, false, 0);
         //box.pack_start (completed_label, false, false, 0);

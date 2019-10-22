@@ -19,6 +19,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
     construct {
         margin = 3;
+        margin_bottom = 12;
         halign = Gtk.Align.CENTER;
         valign = Gtk.Align.END;
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -68,14 +69,11 @@ public class Widgets.Toast : Gtk.Revealer {
          
         reveal_child = true;
 
-        uint duration = 4500;
-
-        timeout_id = GLib.Timeout.add (duration, () => {
+        timeout_id = GLib.Timeout.add (4500, () => {
             reveal_child = false;
             timeout_id = 0;
             title = "";
 
-            print ("Es tiempo de eliminar todas las tareas...\n");
             Application.database.remove_item_to_delete ();
 
             return false;

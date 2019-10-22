@@ -13,7 +13,7 @@ public class Objects.Area : GLib.Object {
             timeout_id = 0;
         }
 
-        timeout_id = Timeout.add (1000, () => {
+        timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
                 Application.database.update_area (this);
                 return null;

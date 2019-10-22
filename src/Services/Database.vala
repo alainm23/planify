@@ -1042,7 +1042,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Section?> get_all_sections_by_project (int64 id) {
+    public Gee.ArrayList<Objects.Section?> get_all_sections_by_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1054,7 +1054,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, project.id);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Section?> ();
@@ -1072,6 +1072,7 @@ public class Services.Database : GLib.Object {
             s.is_archived = stmt.column_int (7);
             s.date_archived = stmt.column_text (8);
             s.date_added = stmt.column_text (9);
+            s.is_todoist = project.is_todoist;
 
             all.add (s);
         }
@@ -1215,6 +1216,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    /*
     public bool insert_check (Objects.Item item, int? index=null) { 
         Sqlite.Statement stmt;
         string sql;
@@ -1313,6 +1315,7 @@ public class Services.Database : GLib.Object {
             return true;
         }
     }
+    */
 
     public bool update_item (Objects.Item item) {
         Sqlite.Statement stmt;
@@ -1515,7 +1518,7 @@ public class Services.Database : GLib.Object {
         return size;
     }
     
-    public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_project (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1527,7 +1530,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, project.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1553,6 +1556,7 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = project.is_todoist;
 
             all.add (i);
         }
@@ -1560,7 +1564,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1572,7 +1576,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, project.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1598,6 +1602,7 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = project.is_todoist;
 
             all.add (i);
         }
@@ -1605,7 +1610,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section_no_parent (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section_no_parent (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1617,7 +1622,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, project.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1643,14 +1648,15 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
-
+            i.is_todoist = project.is_todoist;
+            
             all.add (i);
         }
 
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_project_no_section (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1662,7 +1668,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, project.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1688,6 +1694,7 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = project.is_todoist;
 
             all.add (i);
         }
@@ -1695,7 +1702,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_items_by_section_no_parent (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_section_no_parent (Objects.Section section) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1707,7 +1714,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, section.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1733,6 +1740,7 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = section.is_todoist;
 
             all.add (i);
         }

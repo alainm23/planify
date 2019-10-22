@@ -492,7 +492,7 @@ public class Services.Todoist : GLib.Object {
         Items
     */
 
-    public void add_item (Objects.Item item) {
+    public void add_item (Objects.Item item, int? index=null) {
         item_added_started (item.project_id);
         new Thread<void*> ("todoist_add_project", () => {
             string temp_id = Application.utils.generate_string ();
@@ -523,7 +523,7 @@ public class Services.Todoist : GLib.Object {
 
                             item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Application.database.insert_item (item)) {
+                            if (Application.database.insert_item (item, index)) {
                                 print ("Item creado: %s\n".printf (item.content));
                                 item_added_completed (item.project_id);
                             }
@@ -571,6 +571,89 @@ public class Services.Todoist : GLib.Object {
             builder.end_object ();        
         builder.end_object ();
         builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void update_item (Objects.Item item) {
+        new Thread<void*> ("todoist_update_item", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_update_item_json (item, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.update_item (item)) { 
+                                print ("Actualizado: %s\n".printf (item.content));
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                            //project_updated_error (http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        //project_updated_error ((int32) mess.status_code, e.message);
+                    }
+                } else {
+                    //project_updated_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_update_item_json (Objects.Item item, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_update");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (item.id);
+
+            builder.set_member_name ("content");
+            builder.add_string_value (item.content);
+
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+
 
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();

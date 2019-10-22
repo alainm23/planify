@@ -29,6 +29,8 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.ComboBox source_combobox;   
     private int color_selected = 30;
     
+    private uint timeout_id = 0;
+
     public New () {
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         reveal_child = false;
@@ -404,8 +406,11 @@ public class Widgets.New : Gtk.Revealer {
             error_label.label = error_message;
             error_revealer.reveal_child = true;
 
-            Timeout.add (2500, () => {
+            timeout_id = Timeout.add (2500, () => {
                 error_revealer.reveal_child = false;
+
+                Source.remove (timeout_id);
+                
                 return false;
             });
         });
