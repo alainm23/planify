@@ -14,6 +14,13 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("item-row");
         
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.start ();
+
+        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        loading_revealer.add (loading_spinner);
+    
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
@@ -36,9 +43,10 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.margin = 3;
-        box.margin_start = 41;
-        box.opacity = 0.4;
-        box.pack_start (checked_button, false, false, 0);
+        box.margin_start = 14;
+        box.opacity = 0.7;
+        box.pack_start (loading_revealer, false, false, 0);
+        box.pack_start (checked_button, false, false, 6);
         //box.pack_start (completed_label, false, false, 0);
         box.pack_start (content_label, false, false, 0);
 
@@ -50,13 +58,25 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                 item.date_completed = "";
 
                 if (item.is_todoist == 1) {
-                    //destroy ();
-                    //Application.todoist.complete_item (item);
+                    Application.todoist.item_uncomplete (item);
                 } else {
                     if (Application.database.update_item_completed (item)) {
                         destroy ();
                     }
                 }
+            }
+        });
+
+        Application.todoist.item_uncompleted_started.connect ((i) => {
+            if (item.id == i.id) {
+                sensitive = false;
+                loading_revealer.reveal_child = true;
+            }
+        });
+
+        Application.todoist.item_uncompleted_completed.connect ((i) => {
+            if (item.id == i.id) {
+                destroy ();
             }
         });
     }

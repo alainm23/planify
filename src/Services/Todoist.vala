@@ -42,9 +42,13 @@ public class Services.Todoist : GLib.Object {
     public signal void item_added_completed (int64 id);
     public signal void item_added_error (int64 id, int error_code, string error_message);
 
-    public signal void item_completed_started (int64 id);
+    public signal void item_completed_started (Objects.Item item);
     public signal void item_completed_completed (Objects.Item item);
-    public signal void item_completed_error (int64 id, int error_code, string error_message);
+    public signal void item_completed_error (Objects.Item item, int error_code, string error_message);
+
+    public signal void item_uncompleted_started (Objects.Item item);
+    public signal void item_uncompleted_completed (Objects.Item item);
+    public signal void item_uncompleted_error (Objects.Item item, int error_code, string error_message);
 
     public signal void avatar_downloaded ();
 
@@ -740,6 +744,89 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void item_uncomplete (Objects.Item item) {
+        item_uncompleted_started (item);
+
+        new Thread<void*> ("todoist_item_uncomplete", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_uncomplete_item_json (item, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.update_item_completed (item)) { 
+                                print ("Actualizado: %s\n".printf (item.content));
+                                item_uncompleted_completed (item);
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                            item_uncompleted_error (item, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        item_uncompleted_error (item, (int32) mess.status_code, e.message);
+                    }
+                } else {
+                    item_uncompleted_error (item, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+    
+    private string get_uncomplete_item_json (Objects.Item item, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_uncomplete");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (item.id);
+
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+    
     private string get_complete_items_json () {
         var builder = new Json.Builder ();
         builder.begin_array ();

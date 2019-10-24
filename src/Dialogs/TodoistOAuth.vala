@@ -41,19 +41,14 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
 
         webview.load_uri (oauth_open_url);
 
-        /*
-            Alert 
-        */
+        // Alert 
         var alert_view = new Granite.Widgets.AlertView (
             _("Network Is Not Available"),
             _("Connect to the Internet to connect with Todoist"),
             "network-error"
         );
 
-        /*
-            Spinner 
-        */
-
+        // Spinner 
         var spinner_loading = new Gtk.Spinner ();
         spinner_loading.valign = Gtk.Align.CENTER;
         spinner_loading.halign = Gtk.Align.CENTER;

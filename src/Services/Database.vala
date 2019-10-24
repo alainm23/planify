@@ -1337,7 +1337,7 @@ public class Services.Database : GLib.Object {
             return false;
         }
     }
-
+    
     public bool delete_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
