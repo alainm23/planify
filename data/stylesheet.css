@@ -79,7 +79,14 @@ paned > separator {
 
 .pane-entry {
     background-color: @bg_color;
+    color: @text_color;
+    border-width: 0px 0px 0px 0px;
     padding-left: 0px;
+}
+
+.pane-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .pane-row {
@@ -639,6 +646,7 @@ paned > separator {
     background-image: none;
     box-shadow: none;
     border-bottom: none;
+    font-weight: 600;
 }
 
 .transition {

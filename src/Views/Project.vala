@@ -6,7 +6,6 @@ public class Views.Project : Gtk.EventBox {
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
-    private Widgets.NewItem new_item_widget;
     private Gtk.Revealer motion_revealer;
 
     private Gtk.ListBox completed_listbox;
@@ -288,6 +287,13 @@ public class Views.Project : Gtk.EventBox {
         });
 
         Application.database.item_completed.connect ((item) => {
+            print ("Actualizado: %s\n".printf (item.content));
+            print ("project.id: %s\n".printf (project.id.to_string ()));
+            print ("item.project_id: %s\n".printf (item.project_id.to_string ()));
+            print ("item.checked: %i\n".printf (item.checked));
+            print ("item.section_id: %s\n".printf (item.section_id.to_string ()));
+            print ("item.parent_id: %s\n".printf (item.parent_id.to_string ()));
+
             if (project.id == item.project_id) {
                 if (item.checked == 1) {
                     if (completed_revealer.reveal_child) {
@@ -316,6 +322,7 @@ public class Views.Project : Gtk.EventBox {
                 if (last) {
                     listbox.add (new_item);
                 } else {
+                    new_item.has_index = true;
                     new_item.index = index;
                     listbox.insert (new_item, index);
                 }
@@ -323,6 +330,15 @@ public class Views.Project : Gtk.EventBox {
                 listbox.show_all ();
             }
         });
+
+        Application.database.item_moved.connect ((item) => {
+            if (project.id == item.project_id) {
+                var row = new Widgets.ItemRow (item);
+                listbox.add (row);
+                listbox.show_all ();
+            }
+        });
+        
     }
 
     private void save () {

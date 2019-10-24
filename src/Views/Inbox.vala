@@ -232,13 +232,6 @@ public class Views.Inbox : Gtk.EventBox {
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
-
-        /*
-        Gtk.drag_dest_set (new_item_widget, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
-        new_item_widget.drag_motion.connect (on_drag_motion);
-        new_item_widget.drag_leave.connect (on_drag_leave);
-        new_item_widget.drag_data_received.connect (on_drag_item_received);
-        */
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -258,36 +251,15 @@ public class Views.Inbox : Gtk.EventBox {
                 listbox.insert (source, target.get_index ());
                 listbox.show_all ();
 
-                //update_item_order ();
+                update_item_order ();
             }   
         } else {
             source.get_parent ().remove (source); 
             listbox.insert (source, (int) listbox.get_children ().length);
             listbox.show_all ();
     
-            //update_item_order ();
+            update_item_order ();
         }
-    }
-
-    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
-        Widgets.ItemRow source;
-        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-        source = (Widgets.ItemRow) row;
-
-        source.get_parent ().remove (source); 
-        listbox.insert (source, (int) listbox.get_children ().length);
-        listbox.show_all ();
-    
-        //update_item_order ();
-    }
-
-    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        motion_revealer.reveal_child = true;
-        return true;
-    }
-
-    public void on_drag_leave (Gdk.DragContext context, uint time) {
-        motion_revealer.reveal_child = false;
     }
 
     private void update_item_order () {

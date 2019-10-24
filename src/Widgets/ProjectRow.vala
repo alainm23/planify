@@ -24,8 +24,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Grid grid_color;
     private Gtk.Label name_label;
-    private Gtk.Label count_label;
-    
+  
     private Gtk.Menu work_areas;
     private Gtk.Menu menu = null;
     public Gtk.Box handle_box;
@@ -173,7 +172,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_drag_and_drop (active);
         });
 
-        /*
         Application.database.item_added.connect ((item) => {
             if (project.id == item.project_id) {
                 count++;
@@ -188,7 +186,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         Application.database.item_deleted.connect ((item) => {
-            if (project.id == item.project_id) {
+            if (project.id == item.project_id && item.checked == 0) {
                 count--;
                 count_label.label = "<small>%i</small>".printf (count);
 
@@ -199,7 +197,24 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 }
             }
         });
-        */
+
+        Application.database.item_completed.connect ((item) => {
+            if (project.id == item.project_id) {
+                if (item.checked == 0) {
+                    count++;
+                } else {
+                    count--;
+                }
+
+                count_label.label = "<small>%i</small>".printf (count);
+
+                if (count <= 0) {
+                    count_label.visible = false;
+                } else {
+                    count_label.visible = true;
+                }
+            }
+        });
     }
  
     private void apply_styles (string color) {
@@ -265,7 +280,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        //print ("Name: %s\n".printf (source.item.content));
+        if (Application.database.move_item (source.item, project.id)) {
+            source.get_parent ().remove (source);
+        }
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -399,7 +416,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         //menu.add (export_menu);
         //menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (archive_menu);
+        //menu.add (archive_menu);
         menu.add (delete_menu);
 
         menu.show_all ();

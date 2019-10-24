@@ -144,6 +144,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 if (last) {
                     listbox.add (new_item);
                 } else {
+                    new_item.has_index = true;
                     new_item.index = index;
                     listbox.insert (new_item, index);
                 }
@@ -363,6 +364,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 has_new_item = false;
             });
 
+            new_item.has_index = true;
             new_item.index = 0;
             listbox.insert (new_item, 0);
             listbox.show_all ();

@@ -211,7 +211,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_listbox.margin_start = 59;
         check_listbox.get_style_context ().add_class ("check-listbox");
 
-        new_checklist = new Widgets.NewCheck (item.id, item.project_id);
+        new_checklist = new Widgets.NewCheck (item.id, item.project_id, item.is_todoist);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 59;
@@ -517,6 +517,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_checklist_separator ();
         });
 
+        Application.todoist.item_completed_completed.connect ((i) => {
+            if (item.id == i.id) {
+                main_revealer.reveal_child = false;
+            }
+        });
         /*
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
@@ -533,9 +538,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
             opacity = 0.4;
 
-            checked_timeout = Timeout.add (2500, () => {
-                if (Application.database.update_item_completed (item)) {
-                    main_revealer.reveal_child = false;
+            checked_timeout = Timeout.add (3000, () => {
+                if (item.is_todoist == 1) {
+                    if (Application.todoist.add_complete_item (item)) {
+                        main_revealer.reveal_child = false;
+                    }
+                } else {
+                    if (Application.database.update_item_completed (item)) {
+                        main_revealer.reveal_child = false;
+                    }
                 }
 
                 return false;
@@ -728,9 +739,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             child.destroy ();
         }
 
+        var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+        item_menu.activate.connect (() => {
+            
+        });
+
+        projects_menu.add (item_menu);
+        
         foreach (var project in Application.database.get_all_projects ()) {
-            var item = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
-            projects_menu.add (item);
+            item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
+            item_menu.activate.connect (() => {
+                if (Application.database.move_item (item, project.id)) {
+                    destroy ();
+                }
+            });
+
+            projects_menu.add (item_menu);
         }
 
         projects_menu.show_all ();
@@ -746,7 +770,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide Task"), "edit-symbolic");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move To Project"), "go-jump-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move"), "go-jump-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 

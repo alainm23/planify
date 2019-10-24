@@ -49,8 +49,13 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                 item.checked = 0;
                 item.date_completed = "";
 
-                if (Application.database.update_item_completed (item)) {
-                    destroy ();
+                if (item.is_todoist == 1) {
+                    //destroy ();
+                    //Application.todoist.complete_item (item);
+                } else {
+                    if (Application.database.update_item_completed (item)) {
+                        destroy ();
+                    }
                 }
             }
         });

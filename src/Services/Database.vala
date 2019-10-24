@@ -3,6 +3,7 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void area_added (Objects.Area area);
+    public signal void area_deleted (Objects.Area area);
 
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
@@ -19,6 +20,7 @@ public class Services.Database : GLib.Object {
     public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
     public signal void item_completed (Objects.Item item);
+    public signal void item_moved (Objects.Item item);
     
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
@@ -340,6 +342,33 @@ public class Services.Database : GLib.Object {
         } else {
             return false;
         }
+    }
+
+    public bool delete_area (Objects.Area area) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Areas WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, area.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } 
+
+        area_deleted (area);
+        
+        return true;
     }
 
     public Objects.Project create_inbox_project () {
@@ -1117,19 +1146,22 @@ public class Services.Database : GLib.Object {
         Item
     */
 
-    public bool insert_item (Objects.Item item, int? index=null) { 
+    public bool insert_item (Objects.Item item, int index=0, bool has_index=false) { 
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            SELECT COUNT (*) FROM Items WHERE section_id = ?;
+            SELECT COUNT (*) FROM Items WHERE project_id = ? AND section_id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, item.section_id);
+        res = stmt.bind_int64 (1, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.section_id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
@@ -1206,116 +1238,15 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
         } else {
-            if (index == null) {
-                item_added (item);
-            } else {
+            if (has_index) {
                 item_added_with_index (item, index);
+            } else {
+                item_added (item);
             }
 
             return true;
         }
     }
-
-    /*
-    public bool insert_check (Objects.Item item, int? index=null) { 
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            SELECT COUNT (*) FROM Items WHERE parent_id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, item.parent_id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            item.item_order = stmt.column_int (0);
-        }
-
-        stmt.reset ();
-        
-        sql = """
-            INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
-            responsible_uid, sync_id, parent_id, priority, item_order, checked,
-            is_deleted, content, note, due, date_added, date_completed, date_updated)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, item.id);
-        assert (res == Sqlite.OK);
-        
-        res = stmt.bind_int64 (2, item.project_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (3, item.section_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (4, item.user_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (5, item.assigned_by_uid);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (6, item.responsible_uid);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (7, item.sync_id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (8, item.parent_id);
-        assert (res == Sqlite.OK);
-        
-        res = stmt.bind_int (9, item.priority);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (10, item.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (11, item.checked);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (12, item.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (13, item.content);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (14, item.note);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (15, item.due);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (16, item.date_added);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (17, item.date_completed);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (18, item.date_completed);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return false;
-        } else {
-            if (index == null) {
-                item_added (item);
-            } else {
-                item_added_with_index (item, index);
-            }
-
-            return true;
-        }
-    }
-    */
 
     public bool update_item (Objects.Item item) {
         Sqlite.Statement stmt;
@@ -1429,6 +1360,40 @@ public class Services.Database : GLib.Object {
             return false;
         } else {
             item_deleted (item);
+            return true;
+        }
+    }
+
+    public bool move_item (Objects.Item item, int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        item.project_id = id;
+
+        sql = """
+            UPDATE Items SET project_id = ?, section_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, 0);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            item_moved (item);
             return true;
         }
     }

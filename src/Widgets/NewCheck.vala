@@ -1,9 +1,9 @@
 public class Widgets.NewCheck : Gtk.EventBox {
     public int64 item_id { get; construct; }
     public int64 project_id { get; construct; }
+    public int is_todoist { get; construct; }
 
     private Gtk.Entry name_entry;
-    private Gtk.Stack stack;
     private Gtk.Revealer revealer;
     
     public bool reveal_child {
@@ -19,10 +19,11 @@ public class Widgets.NewCheck : Gtk.EventBox {
         }
     }
 
-    public NewCheck (int64 item_id, int64 project_id) {
+    public NewCheck (int64 item_id, int64 project_id, int is_todoist=0) {
         Object (
             item_id: item_id,
-            project_id: project_id
+            project_id: project_id,
+            is_todoist: is_todoist
         );
     }
 

@@ -42,10 +42,19 @@ public class Services.Todoist : GLib.Object {
     public signal void item_added_completed (int64 id);
     public signal void item_added_error (int64 id, int error_code, string error_message);
 
+    public signal void item_completed_started (int64 id);
+    public signal void item_completed_completed (Objects.Item item);
+    public signal void item_completed_error (int64 id, int error_code, string error_message);
+
     public signal void avatar_downloaded ();
+
+    public Gee.ArrayList<Objects.Item?> items_to_complete;
+    private uint comple_timeout = 0;
 
     public Todoist () {
         session = new Soup.Session ();
+
+        items_to_complete = new Gee.ArrayList<Objects.Item?> ();
     }
 
     public void get_todoist_token (string url) {
@@ -78,149 +87,153 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void first_sync (string token) {
-        string url = TODOIST_SYNC_URL;
-        url = url + "?token=" + token;
-        url = url + "&sync_token=" + "*";
-        url = url + "&resource_types=" + "[\"all\"]";
+        new Thread<void*> ("first_sync", () => {
+            string url = TODOIST_SYNC_URL;
+            url = url + "?token=" + token;
+            url = url + "&sync_token=" + "*";
+            url = url + "&resource_types=" + "[\"all\"]";
 
-        var message = new Soup.Message ("POST", url);
-        session.queue_message (message, (sess, mess) => {
-            if (mess.status_code == 200) {
-                var parser = new Json.Parser ();
-                
-                try {
-                    print ("----------------------\n");
-                    print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-                    print ("----------------------\n");
-
-                    parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-
-                    var node = parser.get_root ().get_object ();
-
-                    // Create user
-                    var user_object = node.get_object_member ("user");
-        
-                    Application.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
-                    Application.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
-                    Application.settings.set_string ("todoist-access-token", token);
-
-                    Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                    Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
-                    Application.settings.set_boolean ("inbox-project-sync", true);
-
-                    Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
-                    Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-                    Application.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
-
-                    Application.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
-                    Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-                    Application.settings.set_boolean ("todoist-account", true);
-
-                    // Create projects
-                    unowned Json.Array projects = node.get_array_member ("projects");
-                    foreach (unowned Json.Node item in projects.get_elements ()) {
-                        var object = item.get_object ();
-
-                        var project = new Objects.Project ();
-
-                        project.id = object.get_int_member ("id"); 
-                        project.name = object.get_string_member ("name");
-                        project.color = (int32) object.get_int_member ("color");
-
-                        if (object.get_boolean_member ("team_inbox")) {
-                            project.team_inbox = 1;
-                        } else {
-                            project.team_inbox = 0;
-                        }
-
-                        if (object.get_boolean_member ("inbox_project")) {
-                            project.inbox_project = 1;
-                        } else {
-                            project.inbox_project = 0;
-                        }
-
-                        if (object.get_boolean_member ("shared")) {
-                            project.shared = 1;
-                        } else {
-                            project.shared = 0;
-                        }
-
-                        project.is_deleted = (int32) object.get_int_member ("is_deleted");
-                        project.is_archived = (int32) object.get_int_member ("is_archived");
-                        project.is_favorite = (int32) object.get_int_member ("is_favorite");
-                        project.is_todoist = 1;
-                        project.is_sync = 1;
-
-                        Application.database.insert_project (project);
-                    }
-
-                    // Create Sections 
-                    unowned Json.Array sections = node.get_array_member ("sections");
-                    foreach (unowned Json.Node item in sections.get_elements ()) {
-                        var object = item.get_object ();
-
-                        var s = new Objects.Section ();
-
-                        s.id = object.get_int_member ("id");
-                        s.project_id = object.get_int_member ("project_id");
-                        s.sync_id = object.get_int_member ("sync_id");
-                        s.name = object.get_string_member ("name");
-                        s.date_added = object.get_string_member ("date_added");
-                        s.date_archived = object.get_string_member ("date_archived");
-                        s.is_deleted = (int32) object.get_int_member ("is_deleted");
-                        s.is_archived = (int32) object.get_int_member ("is_archived");
-
-                        if (object.get_boolean_member ("collapsed")) {
-                            s.collapsed = 1;
-                        } else {
-                            s.collapsed = 0;
-                        }
-
-                        Application.database.insert_section (s);
-                    }
-
-                    // Create items
-                    unowned Json.Array items = node.get_array_member ("items");
-                    foreach (unowned Json.Node item in items.get_elements ()) {
-                        var object = item.get_object ();
-
-                        var i = new Objects.Item ();
-
-                        i.id = object.get_int_member ("id");
-                        i.project_id = object.get_int_member ("project_id");
-                        i.user_id = object.get_int_member ("user_id");
-                        i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                        i.responsible_uid = object.get_int_member ("responsible_uid");
-                        i.sync_id = object.get_int_member ("sync_id");
-                        
-                        if (object.get_null_member ("section_id") == false) {
-                            i.section_id = object.get_int_member ("section_id");
-                        }
-
-                        if (object.get_null_member ("parent_id") == false) {
-                            i.parent_id = object.get_int_member ("parent_id");
-                        }
-        
-                        i.content = object.get_string_member ("content");
-                        i.checked = (int32) object.get_int_member ("checked");
-                        i.priority = (int32) object.get_int_member ("priority");
-                        i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                        i.date_added = object.get_string_member ("date_added");
-                        i.date_completed = object.get_string_member ("date_completed");
-                        
-                        Application.database.insert_item (i);
-                    }
+            var message = new Soup.Message ("POST", url);
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    var parser = new Json.Parser ();
                     
-                    // Download Profile Image
-                    Application.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
+                    try {
+                        print ("----------------------\n");
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        print ("----------------------\n");
 
-                    first_sync_finished ();
-                } catch (Error e) {
-                    show_message("Request page fail", e.message, "dialog-error");
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        // Create user
+                        var user_object = node.get_object_member ("user");
+            
+                        Application.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
+                        Application.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
+                        Application.settings.set_string ("todoist-access-token", token);
+
+                        Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+                        Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+                        Application.settings.set_boolean ("inbox-project-sync", true);
+
+                        Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
+                        Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+                        Application.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
+
+                        Application.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
+                        Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+                        Application.settings.set_boolean ("todoist-account", true);
+
+                        // Create projects
+                        unowned Json.Array projects = node.get_array_member ("projects");
+                        foreach (unowned Json.Node item in projects.get_elements ()) {
+                            var object = item.get_object ();
+
+                            var project = new Objects.Project ();
+
+                            project.id = object.get_int_member ("id"); 
+                            project.name = object.get_string_member ("name");
+                            project.color = (int32) object.get_int_member ("color");
+
+                            if (object.get_boolean_member ("team_inbox")) {
+                                project.team_inbox = 1;
+                            } else {
+                                project.team_inbox = 0;
+                            }
+
+                            if (object.get_boolean_member ("inbox_project")) {
+                                project.inbox_project = 1;
+                            } else {
+                                project.inbox_project = 0;
+                            }
+
+                            if (object.get_boolean_member ("shared")) {
+                                project.shared = 1;
+                            } else {
+                                project.shared = 0;
+                            }
+
+                            project.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            project.is_archived = (int32) object.get_int_member ("is_archived");
+                            project.is_favorite = (int32) object.get_int_member ("is_favorite");
+                            project.is_todoist = 1;
+                            project.is_sync = 1;
+
+                            Application.database.insert_project (project);
+                        }
+
+                        // Create Sections 
+                        unowned Json.Array sections = node.get_array_member ("sections");
+                        foreach (unowned Json.Node item in sections.get_elements ()) {
+                            var object = item.get_object ();
+
+                            var s = new Objects.Section ();
+
+                            s.id = object.get_int_member ("id");
+                            s.project_id = object.get_int_member ("project_id");
+                            s.sync_id = object.get_int_member ("sync_id");
+                            s.name = object.get_string_member ("name");
+                            s.date_added = object.get_string_member ("date_added");
+                            s.date_archived = object.get_string_member ("date_archived");
+                            s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            s.is_archived = (int32) object.get_int_member ("is_archived");
+
+                            if (object.get_boolean_member ("collapsed")) {
+                                s.collapsed = 1;
+                            } else {
+                                s.collapsed = 0;
+                            }
+
+                            Application.database.insert_section (s);
+                        }
+
+                        // Create items
+                        unowned Json.Array items = node.get_array_member ("items");
+                        foreach (unowned Json.Node item in items.get_elements ()) {
+                            var object = item.get_object ();
+
+                            var i = new Objects.Item ();
+
+                            i.id = object.get_int_member ("id");
+                            i.project_id = object.get_int_member ("project_id");
+                            i.user_id = object.get_int_member ("user_id");
+                            i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                            i.responsible_uid = object.get_int_member ("responsible_uid");
+                            i.sync_id = object.get_int_member ("sync_id");
+                            
+                            if (object.get_null_member ("section_id") == false) {
+                                i.section_id = object.get_int_member ("section_id");
+                            }
+
+                            if (object.get_null_member ("parent_id") == false) {
+                                i.parent_id = object.get_int_member ("parent_id");
+                            }
+            
+                            i.content = object.get_string_member ("content");
+                            i.checked = (int32) object.get_int_member ("checked");
+                            i.priority = (int32) object.get_int_member ("priority");
+                            i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            i.date_added = object.get_string_member ("date_added");
+                            i.date_completed = object.get_string_member ("date_completed");
+                            
+                            Application.database.insert_item (i);
+                        }
+                        
+                        // Download Profile Image
+                        Application.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
+
+                        first_sync_finished ();
+                    } catch (Error e) {
+                        show_message("Request page fail", e.message, "dialog-error");
+                    }
+                } else {
+                    show_message("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
                 }
-            } else {
-                show_message("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
-            }
+            });
+
+            return null;
         });
     }
 
@@ -479,8 +492,7 @@ public class Services.Todoist : GLib.Object {
         
         builder.end_object ();
         builder.end_array ();
-
-
+        
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();
         generator.set_root (root);
@@ -492,7 +504,7 @@ public class Services.Todoist : GLib.Object {
         Items
     */
 
-    public void add_item (Objects.Item item, int? index=null) {
+    public void add_item (Objects.Item item, int index, bool has_index) {
         item_added_started (item.project_id);
         new Thread<void*> ("todoist_add_project", () => {
             string temp_id = Application.utils.generate_string ();
@@ -523,7 +535,7 @@ public class Services.Todoist : GLib.Object {
 
                             item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Application.database.insert_item (item, index)) {
+                            if (Application.database.insert_item (item, index, has_index)) {
                                 print ("Item creado: %s\n".printf (item.content));
                                 item_added_completed (item.project_id);
                             }
@@ -654,6 +666,103 @@ public class Services.Todoist : GLib.Object {
         builder.end_object ();
         builder.end_array ();
 
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public bool add_complete_item (Objects.Item item) {
+        if (comple_timeout != 0) {
+            Source.remove (comple_timeout);
+            comple_timeout = 0;
+        }
+
+        comple_timeout = Timeout.add (3000, () => {
+            new Thread<void*> ("complete_items", () => {
+                complete_items ();
+
+                return null;
+            });
+            
+            Source.remove (comple_timeout);
+            comple_timeout = 0;
+            return false;
+        });
+
+        return items_to_complete.add (item);
+    }
+
+    private void complete_items () {
+        new Thread<void*> ("todoist_complete_item", () => {
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_complete_items_json ()
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+
+                        string sync_token = node.get_string_member ("sync_token");
+                        Application.settings.set_string ("todoist-sync-token", sync_token);
+                        
+
+                        foreach (var i in items_to_complete) {
+                            if (Application.database.update_item_completed (i)) { 
+                                print ("Actualizado: %s\n".printf (i.content));
+                            }
+                        }
+
+                        items_to_complete.clear ();
+                    } catch (Error e) {
+                        //project_updated_error ((int32) mess.status_code, e.message);
+                    }
+                } else {
+                    //project_updated_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_complete_items_json () {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        foreach (var i in items_to_complete) {
+            builder.begin_object ();
+            builder.set_member_name ("type");
+            builder.add_string_value ("item_complete");
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (Application.utils.generate_string ());
+
+            builder.set_member_name ("args");
+                builder.begin_object ();
+
+                builder.set_member_name ("id");
+                builder.add_int_value (i.id);
+
+                builder.end_object ();
+            builder.end_object ();   
+        }
+
+        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();

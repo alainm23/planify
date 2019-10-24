@@ -46,7 +46,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
-        var count_label = new Gtk.Label ("<small>%s</small>".printf ("8"));
+        var count_label = new Gtk.Label ("<small>%s</small>".printf (""));
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.get_style_context ().add_class ("dim-label");
@@ -55,8 +55,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         var info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         info_box.pack_start (name_label, false, false, 0);
         info_box.pack_start (count_label, false, true, 0);
-
-        name_entry = new Gtk.Entry (); 
+ 
+        name_entry = new Gtk.Entry ();  
         name_entry.placeholder_text = _("Task name");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("pane-area");
@@ -384,22 +384,51 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure to eliminate this Work Area"),
-                "",
-                "dialog-warning",
-            Gtk.ButtonsType.CANCEL);
+                "This is a primary text",
+                "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
+                "applications-development",
+                Gtk.ButtonsType.CLOSE
+            );
 
-            var remove_button = new Gtk.Button.with_label (_("Delete Project"));
+            var custom_widget = new Gtk.CheckButton.with_label (_("Delete Projects Too"));
+            custom_widget.show ();
+            message_dialog.custom_bin.add (custom_widget);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete Work Area"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                
+                if (Application.database.delete_area (area)) {
+                    if (custom_widget.active) {
+                        delete_projects ();
+                    } else {
+                        move_projects ();
+                    }
+                }
             }
 
             message_dialog.destroy ();
         });
+    }
+
+    private void move_projects () {
+        foreach (Objects.Project project in Application.database.get_all_projects_by_area (area.id)) {
+            Application.database.move_project (project, 0);
+        }
+
+        destroy ();
+    }
+
+    private void delete_projects () {
+        foreach (Objects.Project project in Application.database.get_all_projects_by_area (area.id)) {
+            if (project.is_todoist == 0) {
+                Application.database.delete_project (project);
+            }
+        }
+
+        destroy ();
     }
 }

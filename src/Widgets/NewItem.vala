@@ -2,7 +2,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int64 project_id { get; set; }
     public int64 section_id { get; set; }
     public int is_todoist { get; set; }
-    public int? index { get; set; default = null; }
+    public int index { get; set; default = 0; }
+    public bool has_index { get; set; default = false; }
 
     private uint timeout_id = 0;
     
@@ -73,6 +74,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
         action_grid.margin_start = 36;
+        action_grid.margin_bottom = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -140,12 +142,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
             if (is_todoist == 1) {
                 if (Application.utils.check_connection ()) {
-                    Application.todoist.add_item (item, index);
+                    Application.todoist.add_item (item, index, has_index);
                 } else {
 
                 }
             } else {
-                if (Application.database.insert_item (item, index)) {
+                if (Application.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
                     destroy ();
                 } 

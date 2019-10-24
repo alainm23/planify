@@ -89,10 +89,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
                 stack.visible_child_name = "spinner_loading";
                 webview.stop_loading ();
 
-                new Thread<void*> ("get_todoist_token", () => {
-                    Application.todoist.get_todoist_token (redirect_uri);
-                    return null;
-                }); 
+                Application.todoist.get_todoist_token (redirect_uri);
             }
             
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {

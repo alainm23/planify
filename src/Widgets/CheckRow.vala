@@ -25,7 +25,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         if (item.checked == 1) {
             checked_button.active = true;
-            get_style_context ().add_class ("dim-label");
+            opacity = 0.4;
         } else {
             checked_button.active = false;
         }
@@ -114,12 +114,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         checked_button.toggled.connect (() => {
             if (checked_button.active) {
-                get_style_context ().add_class ("dim-label");
+                opacity = 0.4;
 
                 item.checked = 1;
                 item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            } else {
-                get_style_context ().remove_class ("dim-label");
+            } else {              
+                opacity = 1;
 
                 item.checked = 0;
                 item.date_completed = "";
