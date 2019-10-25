@@ -143,6 +143,7 @@ public class Widgets.ImageMenuItem : Gtk.MenuItem {
         item_label = new Gtk.Label (null);
 
         var grid = new Gtk.Grid ();
+        grid.margin_start = 3;
         grid.column_spacing = 6;
         grid.add (item_image);
         grid.add (item_label);

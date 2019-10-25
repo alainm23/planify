@@ -2,7 +2,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
 
     private Gtk.Button hidden_button;
+    private Gtk.Label name_label; 
     private Gtk.Entry name_entry;
+    private Gtk.Stack name_stack;
 
     private Gtk.Separator separator;
     private Gtk.Revealer motion_revealer;
@@ -53,6 +55,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         hidden_revealer.add (hidden_button);
         hidden_revealer.reveal_child = false;
 
+        name_label =  new Gtk.Label (section.name);
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("pane-area");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+
         name_entry = new Gtk.Entry ();
         name_entry.text = section.name;
         name_entry.hexpand = true;
@@ -63,6 +71,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("header-entry");
         name_entry.get_style_context ().add_class ("content-entry");
         
+        name_stack = new Gtk.Stack ();
+        name_stack.transition_type = Gtk.StackTransitionType.NONE;
+        name_stack.add_named (name_label, "name_label");
+        name_stack.add_named (name_entry, "name_entry");
+
         var settings_button = new Gtk.Button ();
         settings_button.can_focus = false;
         settings_button.valign = Gtk.Align.CENTER;
@@ -70,7 +83,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().remove_class ("button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        //settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         settings_button.get_style_context ().add_class ("hidden-button");
 
         var settings_revealer = new Gtk.Revealer ();
@@ -80,7 +93,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.pack_start (hidden_revealer, false, false, 0);
-        top_box.pack_start (name_entry, false, true, 0);
+        top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, true, 0);
 
         var top_eventbox = new Gtk.EventBox ();
@@ -208,9 +221,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             return true;
         });
         
-        /*
-        name_stack.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+        top_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 name_stack.visible_child_name = "name_entry";
                 name_entry.grab_focus ();
             }
@@ -221,13 +233,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.activate.connect (() =>{
             save_section ();
         });
-        */
 
-        name_entry.changed.connect (() => {
-            save_section ();
-        });
-
-        /*
         name_entry.focus_out_event.connect (() => {
             save_section ();
             return false;
@@ -240,8 +246,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             return false;
         });
-        */
-
+        
         settings_button.clicked.connect (() => {
             activate_menu ();
         });
@@ -259,11 +264,21 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete Section"), "edit-delete-symbolic");
+        var add_menu = new Widgets.ImageMenuItem (_("Add task"), "list-add-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
 
+        menu.add (add_menu);
+        menu.add (edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
         menu.show_all (); 
+
+        edit_menu.activate.connect (() => {
+            name_stack.visible_child_name = "name_entry";
+            name_entry.grab_focus ();
+        });
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
@@ -310,8 +325,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public void save_section () {
+        name_label.label = name_entry.text;
         section.name = name_entry.text;
+
         section.save ();
+
+        name_stack.visible_child_name = "name_label";
     }
 
     private void build_drag_and_drop (bool value) {

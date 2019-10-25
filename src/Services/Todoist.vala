@@ -53,12 +53,16 @@ public class Services.Todoist : GLib.Object {
     public signal void avatar_downloaded ();
 
     public Gee.ArrayList<Objects.Item?> items_to_complete;
+    public Gee.ArrayList<Objects.Item?> items_to_delete;
+
     private uint comple_timeout = 0;
+    private uint delete_timeout = 0;
 
     public Todoist () {
         session = new Soup.Session ();
 
         items_to_complete = new Gee.ArrayList<Objects.Item?> ();
+        items_to_delete = new Gee.ArrayList<Objects.Item?> ();
     }
 
     public void get_todoist_token (string url) {
@@ -685,11 +689,7 @@ public class Services.Todoist : GLib.Object {
         }
 
         comple_timeout = Timeout.add (3000, () => {
-            new Thread<void*> ("complete_items", () => {
-                complete_items ();
-
-                return null;
-            });
+            complete_items ();
             
             Source.remove (comple_timeout);
             comple_timeout = 0;
@@ -742,6 +742,129 @@ public class Services.Todoist : GLib.Object {
 
             return null;
         });
+    }
+
+    private string get_complete_items_json () {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        foreach (var i in items_to_complete) {
+            builder.begin_object ();
+            builder.set_member_name ("type");
+            builder.add_string_value ("item_complete");
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (Application.utils.generate_string ());
+
+            builder.set_member_name ("args");
+                builder.begin_object ();
+
+                builder.set_member_name ("id");
+                builder.add_int_value (i.id);
+
+                builder.end_object ();
+            builder.end_object ();   
+        }
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void add_delete_item (Objects.Item item) {
+        items_to_delete.add (item);
+        
+        if (delete_timeout != 0) {
+            Source.remove (delete_timeout);
+            delete_timeout = 0;
+        }
+
+        delete_timeout = Timeout.add (1000, () => {
+            delete_items ();
+            
+            Source.remove (delete_timeout);
+            delete_timeout = 0;
+            return false;
+        });
+    }
+
+    private void delete_items () {
+        new Thread<void*> ("todoist_delete_items", () => {
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_delete_items_json ()
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("delete_items: %s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+
+                        string sync_token = node.get_string_member ("sync_token");
+                        Application.settings.set_string ("todoist-sync-token", sync_token);
+                         
+                        foreach (var i in items_to_delete) {
+                            if (Application.database.delete_item (i)) { 
+                                print ("Eliminado: %s\n".printf (i.content));
+                            }
+                        }
+
+                        items_to_delete.clear ();
+                    } catch (Error e) {
+                        //project_updated_error ((int32) mess.status_code, e.message);
+                    }
+                } else {
+                    //project_updated_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_delete_items_json () {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        foreach (var i in items_to_delete) {
+            builder.begin_object ();
+            builder.set_member_name ("type");
+            builder.add_string_value ("item_delete");
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (Application.utils.generate_string ());
+
+            builder.set_member_name ("args");
+                builder.begin_object ();
+
+                builder.set_member_name ("id");
+                builder.add_int_value (i.id);
+
+                builder.end_object ();
+            builder.end_object ();   
+        }
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 
     public void item_uncomplete (Objects.Item item) {
@@ -827,37 +950,6 @@ public class Services.Todoist : GLib.Object {
         return generator.to_data (null);
     }
     
-    private string get_complete_items_json () {
-        var builder = new Json.Builder ();
-        builder.begin_array ();
-
-        foreach (var i in items_to_complete) {
-            builder.begin_object ();
-            builder.set_member_name ("type");
-            builder.add_string_value ("item_complete");
-
-            builder.set_member_name ("uuid");
-            builder.add_string_value (Application.utils.generate_string ());
-
-            builder.set_member_name ("args");
-                builder.begin_object ();
-
-                builder.set_member_name ("id");
-                builder.add_int_value (i.id);
-
-                builder.end_object ();
-            builder.end_object ();   
-        }
-
-        builder.end_array ();
-
-        Json.Generator generator = new Json.Generator ();
-	    Json.Node root = builder.get_root ();
-        generator.set_root (root);
-
-        return generator.to_data (null);
-    }
-
     private void show_message (string txt_primary, string txt_secondary, string icon) {
         var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
             txt_primary,

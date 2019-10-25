@@ -2,8 +2,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
 
     private Gtk.Button hidden_button;
-    private Gtk.Label name_label; 
     private Gtk.Label count_label;
+    private Gtk.Label name_label; 
     private Gtk.Entry name_entry;
     private Gtk.Stack name_stack;
     private Gtk.EventBox top_eventbox;
@@ -161,7 +161,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             return false;
         });
 
-        event.connect ((event) => {
+        top_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 name_stack.visible_child_name = "name_entry";
                 name_entry.grab_focus ();

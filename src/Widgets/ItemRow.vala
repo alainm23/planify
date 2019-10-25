@@ -360,7 +360,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         note_textview.buffer.changed.connect (() => {
-            save ();
+            save (false);
 
             if (note_textview.buffer.text == "") {
                 note_revealer.reveal_child = false;
@@ -497,18 +497,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         settings_button.clicked.connect (() => {
             activate_menu ();
-        });
-
-        content_entry.activate.connect (() => {
-            hide_item ();
-        });
-
-        content_entry.changed.connect (() => {
-            save ();
-        });
-
-        note_textview.buffer.changed.connect (() => {
-            save ();
         });
 
         checked_button.toggled.connect (checked_toggled);
@@ -681,13 +669,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reveal_drag_motion = false;
     }
 
-    private void save () {
+    private void save (bool online=true) {
         content_label.label = content_entry.text;
 
         item.content = content_entry.text;
         item.note = note_textview.buffer.text;
 
-        item.save ();
+        if (online) {
+            item.save ();
+        } else {
+            item.save_local ();
+        }
     }
     
     private void add_all_checks () {

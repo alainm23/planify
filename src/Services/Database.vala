@@ -52,7 +52,7 @@ public class Services.Database : GLib.Object {
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
     }
 
-    public bool add_item_to_delete (Objects.Item item) {
+    public bool add_item_to_delete (Objects.Item item) { 
         if (items_to_delete.add (item)) {
             show_toast_delete (items_to_delete.size);
             return true;
@@ -64,7 +64,11 @@ public class Services.Database : GLib.Object {
     public void remove_item_to_delete () {
         new Thread<void*> ("remove_item_to_delete", () => {
             foreach (var item in items_to_delete) {
-                delete_item (item);
+                if (item.is_todoist == 0) {
+                    delete_item (item);
+                } else {
+                    Application.todoist.add_delete_item (item);
+                }
             }
 
             items_to_delete.clear ();

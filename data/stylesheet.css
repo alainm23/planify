@@ -80,12 +80,11 @@ paned > separator {
 .pane-entry {
     background-color: @bg_color;
     color: @text_color;
-    border-width: 0px 0px 0px 0px;
     padding-left: 0px;
 }
 
 .pane-entry:focus {
-    border-color: transparent;
+    border-bottom: 1px solid alpha (@colorAccent, 0.8);
     box-shadow: none;
 }
 

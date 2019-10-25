@@ -71,10 +71,12 @@ public class Widgets.Toast : Gtk.Revealer {
 
         timeout_id = GLib.Timeout.add (4500, () => {
             reveal_child = false;
-            timeout_id = 0;
             title = "";
 
             Application.database.remove_item_to_delete ();
+
+            Source.remove (timeout_id);
+            timeout_id = 0;
 
             return false;
         });
