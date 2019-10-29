@@ -26,6 +26,10 @@ public class Services.Todoist : GLib.Object {
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
 
+    /*
+        Project Signals
+    */
+
     public signal void project_added_started ();
     public signal void project_added_completed ();
     public signal void project_added_error (int error_code, string error_message);
@@ -37,6 +41,22 @@ public class Services.Todoist : GLib.Object {
     public signal void project_deleted_started ();
     public signal void project_deleted_completed ();
     public signal void project_deleted_error (int error_code, string error_message);
+
+    /*
+        Section Signals
+    */
+
+    public signal void section_added_started (int64 id);
+    public signal void section_added_completed (int64 id);
+    public signal void section_added_error (int64 id, int error_code, string error_message);
+
+    public signal void section_updated_started (int64 id);
+    public signal void section_updated_completed (int64 id);
+    public signal void section_updated_error (int64 id, int error_code, string error_message);
+
+    /*
+        Section Signals
+    */
 
     public signal void item_added_started (int64 id);
     public signal void item_added_completed (int64 id);
@@ -509,11 +529,190 @@ public class Services.Todoist : GLib.Object {
     }
 
     /*
+        Sections
+    */
+
+    public void add_section (Objects.Section section, int64 temp_id_mapping) {
+        section_added_started (temp_id_mapping);
+        new Thread<void*> ("todoist_add_section", () => {
+            string temp_id = Application.utils.generate_string ();
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_add_section_json (section, temp_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+    
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+
+                            if (Application.database.insert_section (section)) {
+                                print ("Section creado: %s\n".printf (section.name));
+                                section_added_completed (temp_id_mapping);
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            section_added_error (temp_id_mapping, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        section_added_error (temp_id_mapping, (int32) mess.status_code, e.message);
+                    }
+                } else {
+                    section_added_error (temp_id_mapping, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+            
+            return null;
+        });
+    }
+
+    public string get_add_section_json (Objects.Section section, string temp_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("type");
+        builder.add_string_value ("section_add");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("name");
+            builder.add_string_value (section.name);
+
+            builder.set_member_name ("project_id");
+            builder.add_int_value (section.project_id);
+
+            builder.end_object ();        
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void update_section (Objects.Section section) {
+        section_updated_started (section.id);
+
+        new Thread<void*> ("todoist_update_project", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_update_section_json (section, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.update_section (section)) { 
+                                print ("Section Actualizado: %s\n".printf (section.name));
+                                section_updated_completed (section.id);
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            section_updated_error (section.id, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        section_updated_error (section.id, (int32) mess.status_code, e.message);
+                    }
+                } else {
+                    section_updated_error (section.id, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_update_section_json (Objects.Section section, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("section_update");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (section.id);
+
+            builder.set_member_name ("name");
+            builder.add_string_value (section.name);
+
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+    /*
         Items
     */
 
-    public void add_item (Objects.Item item, int index, bool has_index) {
-        item_added_started (item.project_id);
+    public void add_item (Objects.Item item, int index, bool has_index, int64 id) {
+        item_added_started (id);
         new Thread<void*> ("todoist_add_project", () => {
             string temp_id = Application.utils.generate_string ();
             string uuid = Application.utils.generate_string ();
@@ -545,19 +744,19 @@ public class Services.Todoist : GLib.Object {
 
                             if (Application.database.insert_item (item, index, has_index)) {
                                 print ("Item creado: %s\n".printf (item.content));
-                                item_added_completed (item.project_id);
+                                item_added_completed (id);
                             }
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            item_added_error (item.project_id, http_code, error_message);
+                            item_added_error (id, http_code, error_message);
                         }
                     } catch (Error e) {
-                        item_added_error (item.project_id, (int32) mess.status_code, e.message);
+                        item_added_error (id, (int32) mess.status_code, e.message);
                     }
                 } else {
-                    item_added_error (item.project_id, (int32) mess.status_code, _("Connection error"));
+                    item_added_error (id, (int32) mess.status_code, _("Connection error"));
                 }
             });
             
@@ -587,6 +786,16 @@ public class Services.Todoist : GLib.Object {
 
             builder.set_member_name ("project_id");
             builder.add_int_value (item.project_id);
+
+            if (item.parent_id != 0) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (item.parent_id);
+            }
+
+            if (item.section_id != 0) {
+                builder.set_member_name ("section_id");
+                builder.add_int_value (item.section_id);
+            }
 
             builder.end_object ();        
         builder.end_object ();
@@ -775,9 +984,7 @@ public class Services.Todoist : GLib.Object {
         return generator.to_data (null);
     }
 
-    public void add_delete_item (Objects.Item item) {
-        items_to_delete.add (item);
-        
+    public bool add_delete_item (Objects.Item item) {
         if (delete_timeout != 0) {
             Source.remove (delete_timeout);
             delete_timeout = 0;
@@ -790,6 +997,8 @@ public class Services.Todoist : GLib.Object {
             delete_timeout = 0;
             return false;
         });
+
+        return items_to_delete.add (item);
     }
 
     private void delete_items () {

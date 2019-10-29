@@ -57,7 +57,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         name_label =  new Gtk.Label (section.name);
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("pane-area");
+        name_label.get_style_context ().add_class ("header-title");
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
@@ -334,19 +334,19 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop (bool value) {
-        name_entry.drag_data_received.disconnect (on_drag_item_received);
-        name_entry.drag_data_received.disconnect (on_drag_magic_button_received);
+        name_stack.drag_data_received.disconnect (on_drag_item_received);
+        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
         if (value) {
-            Gtk.drag_dest_set (name_entry, Gtk.DestDefaults.ALL, targetEntriesMagicButton, Gdk.DragAction.MOVE);
-            name_entry.drag_data_received.connect (on_drag_magic_button_received);
+            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntriesMagicButton, Gdk.DragAction.MOVE);
+            name_stack.drag_data_received.connect (on_drag_magic_button_received);
         } else {
-            Gtk.drag_dest_set (name_entry, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
-            name_entry.drag_data_received.connect (on_drag_item_received);
+            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+            name_stack.drag_data_received.connect (on_drag_item_received);
         }
 
-        name_entry.drag_motion.connect (on_drag_motion);
-        name_entry.drag_leave.connect (on_drag_leave);
+        name_stack.drag_motion.connect (on_drag_motion);
+        name_stack.drag_leave.connect (on_drag_leave);
     }   
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {

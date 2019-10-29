@@ -4,6 +4,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int is_todoist { get; set; }
     public int index { get; set; default = 0; }
     public bool has_index { get; set; default = false; }
+    
+    public int64 temp_id_mapping {get; set; default = 0; }
 
     private uint timeout_id = 0;
     
@@ -45,7 +47,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.placeholder_text = _("Add a new subtask");
         content_entry.get_style_context ().add_class ("welcome");
         content_entry.get_style_context ().add_class ("flat");
-        content_entry.get_style_context ().add_class ("check-entry");
+        content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
         content_entry.get_style_context ().add_class ("label");
  
@@ -118,35 +120,44 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         Application.todoist.item_added_started.connect ((id) => {
-            loading_revealer.reveal_child = true;
-            sensitive = false;
+            if (temp_id_mapping == id) {
+                loading_revealer.reveal_child = true;
+                sensitive = false;
+            }
         });
 
         Application.todoist.item_added_completed.connect ((id) => {
-            destroy ();
+            if (temp_id_mapping == id) {
+                destroy ();
+            }
         });
 
         Application.todoist.item_added_error.connect ((id) => {
+            if (temp_id_mapping == id) {
 
+            }
         });
     }
     
     private void insert_item () {
         if (content_entry.text != "") {
             var item = new Objects.Item ();
-            item.id = Application.utils.generate_id ();
             item.content = content_entry.text;
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
 
+            temp_id_mapping = Application.utils.generate_id ();
+
             if (is_todoist == 1) {
                 if (Application.utils.check_connection ()) {
-                    Application.todoist.add_item (item, index, has_index);
+                    Application.todoist.add_item (item, index, has_index, temp_id_mapping);
                 } else {
 
                 }
             } else {
+                item.id = Application.utils.generate_id ();
+
                 if (Application.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
                     destroy ();

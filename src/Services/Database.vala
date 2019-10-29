@@ -1762,7 +1762,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_cheks_by_item (int64 id) {
+    public Gee.ArrayList<Objects.Item?> get_all_cheks_by_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1774,7 +1774,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, item.id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();
@@ -1800,6 +1800,7 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = item.is_todoist;
 
             all.add (i);
         }

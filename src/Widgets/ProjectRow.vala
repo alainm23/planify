@@ -87,6 +87,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         count_label.opacity = 0.7;
         count_label.use_markup = true;
 
+        var count_revealer = new Gtk.Revealer ();
+        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.add (count_label);
+
+        if (count > 0) {
+            count_revealer.reveal_child = true;
+        }
+
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
@@ -107,7 +115,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 6);
-        handle_box.pack_start (count_label, false, false, 3);
+        handle_box.pack_start (count_revealer, false, false, 3);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -178,9 +186,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 count_label.label = "<small>%i</small>".printf (count);
 
                 if (count <= 0) {
-                    count_label.visible = false;
+                    count_revealer.reveal_child = false;
                 } else {
-                    count_label.visible = true;
+                    count_revealer.reveal_child = true;
                 }
             }
         });
@@ -191,9 +199,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 count_label.label = "<small>%i</small>".printf (count);
 
                 if (count <= 0) {
-                    count_label.visible = false;
+                    count_revealer.reveal_child = false;
                 } else {
-                    count_label.visible = true;
+                    count_revealer.reveal_child = true;
                 }
             }
         });
@@ -209,9 +217,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 count_label.label = "<small>%i</small>".printf (count);
 
                 if (count <= 0) {
-                    count_label.visible = false;
+                    count_revealer.reveal_child = false;
                 } else {
-                    count_label.visible = true;
+                    count_revealer.reveal_child = true;
                 }
             }
         });
@@ -392,9 +400,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var project_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
 
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit Project"), "edit-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
 
-        var move_menu = new Widgets.ImageMenuItem (_("Work Area"), "planner-work-area-symbolic");
+        var move_menu = new Widgets.ImageMenuItem (_("Move to Work Area"), "planner-work-area-symbolic");
         work_areas = new Gtk.Menu ();
         move_menu.set_submenu (work_areas);
 

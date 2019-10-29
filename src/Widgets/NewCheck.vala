@@ -2,6 +2,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
     public int64 item_id { get; construct; }
     public int64 project_id { get; construct; }
     public int is_todoist { get; construct; }
+    public int64 temp_id_mapping {get; set; default = 0; }
 
     private Gtk.Entry name_entry;
     private Gtk.Revealer revealer;
@@ -28,7 +29,14 @@ public class Widgets.NewCheck : Gtk.EventBox {
     }
 
     construct {
-        margin_start = 59;
+        margin_start = 31;
+
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.start ();
+
+        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        loading_revealer.add (loading_spinner);
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
@@ -45,14 +53,19 @@ public class Widgets.NewCheck : Gtk.EventBox {
         name_entry.get_style_context ().add_class ("check-entry");
 
         var box = new Gtk.Grid ();
-        box.margin_bottom = 6;
         box.get_style_context ().add_class ("check-eventbox");
         box.add (checked_button);
         box.add (name_entry);
 
+        var main_box = new Gtk.Grid ();
+        main_box.column_spacing = 12;
+        main_box.margin_bottom = 6;
+        main_box.add (loading_revealer);
+        main_box.add (box);
+
         revealer = new Gtk.Revealer ();
         revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        revealer.add (box);
+        revealer.add (main_box);
 
         add (revealer);
 
@@ -69,6 +82,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
             return false;
         });
 
+        /*
         name_entry.focus_out_event.connect (() => {
             if (name_entry.text != "") {
                 insert_item ();
@@ -81,18 +95,49 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
             return false;
         });
+        */
+
+        Application.todoist.item_added_started.connect ((id) => {
+            if (temp_id_mapping == id) {
+                loading_revealer.reveal_child = true;
+                sensitive = false;
+            }
+        });
+
+        Application.todoist.item_added_completed.connect ((id) => {
+            if (temp_id_mapping == id) {
+                loading_revealer.reveal_child = false;
+                sensitive = true;
+
+                name_entry.text = "";
+                name_entry.grab_focus ();
+            }
+        });
+
+        Application.todoist.item_added_error.connect ((id) => {
+            if (temp_id_mapping == id) {
+
+            }
+        });
     }
 
     private void insert_item () {
         if (name_entry.text != "") {
             var item = new Objects.Item ();
-            item.id = Application.utils.generate_id ();
             item.content = name_entry.text;
             item.parent_id = item_id;
             item.project_id = project_id;
 
-            if (Application.database.insert_item (item)) {
-                name_entry.text = "";
+            temp_id_mapping = Application.utils.generate_id ();
+
+            if (is_todoist == 0) {
+                item.id = Application.utils.generate_id ();
+
+                if (Application.database.insert_item (item)) {
+                    name_entry.text = "";
+                }
+            } else {
+                Application.todoist.add_item (item, 0, false, temp_id_mapping);
             }
         }
     }

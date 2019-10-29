@@ -70,7 +70,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         handle.above_child = false;
         handle.add (main_box);
 
-        add (handle);
+        var main_revealer = new Gtk.Revealer ();
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        main_revealer.reveal_child = true;
+        main_revealer.add (handle);
+
+        add (main_revealer);
 
         handle.enter_notify_event.connect ((event) => {
             delete_revealer.reveal_child = true;
@@ -129,7 +134,13 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         });
 
         delete_button.clicked.connect (() => {
-            Application.database.delete_item (item);
+            if (item.is_todoist == 1) {
+                if (Application.todoist.add_delete_item (item)) {
+                    main_revealer.reveal_child = false;
+                }
+            } else {
+                Application.database.delete_item (item);
+            }
         });
 
         Application.database.item_deleted.connect ((i) => {

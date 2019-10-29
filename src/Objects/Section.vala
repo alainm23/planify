@@ -21,7 +21,12 @@ public class Objects.Section : GLib.Object {
 
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_section (this);
+                if (this.is_todoist == 0) {
+                    Application.database.update_section (this);
+                } else {
+                    Application.todoist.update_section (this);
+                }
+                
                 return null;
             });
             

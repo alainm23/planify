@@ -239,6 +239,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         var label_button = new Widgets.LabelButton (item.id);
+        label_button.margin_start = 6;
 
         var checklist_button = new Gtk.Button.from_icon_name ("planner-checklist-symbolic");
         checklist_button.tooltip_text = _("Add Checklist");
@@ -262,10 +263,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_start = 60;
         action_box.pack_start (due_button, false, true, 0);
-        action_box.pack_start (label_button, false, true, 3);
-        action_box.pack_start (checklist_button, false, true, 6);
+        action_box.pack_start (label_button, false, true, 0);
+        action_box.pack_start (checklist_button, false, true, 0);
         action_box.pack_end (settings_button, false, false, 0);
-        action_box.pack_end (delete_button, false, false, 6);
+        action_box.pack_end (delete_button, false, false, 0);
 
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_edit_box.margin_top = 12;
@@ -683,7 +684,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
     
     private void add_all_checks () {
-        foreach (var check in Application.database.get_all_cheks_by_item (item.id)) {
+        foreach (var check in Application.database.get_all_cheks_by_item (item)) {
             var row = new Widgets.CheckRow (check);
 
             row.hide_item.connect (hide_item);
@@ -760,24 +761,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         
         var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");   
 
-        var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide Task"), "edit-symbolic");
+        var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide task"), "edit-symbolic");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move"), "go-jump-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "go-jump-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
-        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "view-paged-symbolic");
+        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 
-        var convert_menu = new Widgets.ImageMenuItem (_("Convert to Project"), "planner-project-symbolic");
+        var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");
 
-        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
         
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "edit-delete-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete task"), "user-trash-symbolic");
 
         menu.add (complete_menu);
         menu.add (view_edit_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (move_project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (convert_menu);
         menu.add (duplicate_menu);

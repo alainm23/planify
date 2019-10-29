@@ -14,6 +14,8 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton settings_button;
 
+    public int64 temp_id_mapping {get; set; default = 0; }
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -55,9 +57,20 @@ public class Views.Project : Gtk.EventBox {
         section_button.valign = Gtk.Align.CENTER;
         section_button.tooltip_text = _("Add Section");
         section_button.can_focus = false;
-        section_button.margin_start = 6;
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);
+
+        var section_loading = new Gtk.Spinner ();
+        section_loading.valign = Gtk.Align.CENTER;
+        section_loading.halign = Gtk.Align.CENTER;
+        section_loading.start ();
+
+        var section_stack = new Gtk.Stack ();
+        section_stack.margin_start = 6;
+        section_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        
+        section_stack.add_named (section_button, "section_button");
+        section_stack.add_named (section_loading, "section_loading");
 
         var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
         add_person_button.valign = Gtk.Align.CENTER;
@@ -97,7 +110,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.pack_end (settings_button, false, false, 0);
         top_box.pack_end (add_person_button, false, false, 0);
         top_box.pack_end (comment_button, false, false, 0);
-        top_box.pack_end (section_button, false, false, 0);
+        top_box.pack_end (section_stack, false, false, 0);
         
         var top_eventbox = new Gtk.EventBox ();
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -158,6 +171,7 @@ public class Views.Project : Gtk.EventBox {
         completed_label.margin_start = 41;
 
         completed_listbox = new Gtk.ListBox  ();
+        completed_listbox.margin_bottom = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("welcome");
         completed_listbox.get_style_context ().add_class ("listbox");
@@ -245,11 +259,37 @@ public class Views.Project : Gtk.EventBox {
 
         section_button.clicked.connect (() => {
             var section = new Objects.Section ();
-            section.name = _("New Header");
+            section.name = _("New Section");
             section.project_id = project.id;
 
-            if (Application.database.insert_section (section)) {
+            if (project.is_todoist == 0) {
+                Application.database.insert_section (section);
+            } else {
+                temp_id_mapping = Application.utils.generate_id ();
+                section.is_todoist = 1;
 
+                Application.todoist.add_section (section, temp_id_mapping);
+            }
+        });
+
+        Application.todoist.section_added_started.connect ((id) => {
+            if (temp_id_mapping == id) {
+                section_stack.visible_child_name = "section_loading";
+            }
+        });
+
+        Application.todoist.section_added_completed.connect ((id) => {
+            if (temp_id_mapping == id) {
+                section_stack.visible_child_name = "section_button";
+                temp_id_mapping = 0;
+            }
+        });
+
+        Application.todoist.section_added_error.connect ((id) => {
+            if (temp_id_mapping == id) {
+                section_stack.visible_child_name = "section_button";
+                temp_id_mapping = 0;
+                print ("Add Section Error\n");
             }
         });
 
@@ -450,7 +490,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
         popover_grid.add (edit_menu);
-        popover_grid.add (archive_menu);
+        //popover_grid.add (archive_menu);
         popover_grid.add (delete_menu);
         popover_grid.add (separator_01);
         popover_grid.add (show_menu);
