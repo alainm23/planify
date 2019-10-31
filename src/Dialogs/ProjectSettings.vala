@@ -2,7 +2,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
     public Objects.Project project { get; construct; }
     private Gtk.Entry name_entry;
     
-    private int color_selected = 30;
+    private int color_selected;
 
     public ProjectSettings (Objects.Project project) {
         Object (
@@ -12,11 +12,12 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: true
+            modal: false
         );
     }
 
     construct {
+        color_selected = project.color;
         get_style_context ().add_class ("planner-dialog");
 
         var name_label = new Granite.HeaderLabel (_("Name:"));
@@ -242,10 +243,10 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
                 color_37.active = true;
                 break;
             case 38:
-                color_39.active = true;
+                color_38.active = true;
                 break;
             case 39:
-                color_30.active = true;
+                color_39.active = true;
                 break;
             case 40:
                 color_40.active = true;
@@ -389,16 +390,22 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             }
         });
 
-        Application.todoist.project_updated_started.connect (() => {
-            loading_revealer.reveal_child = true;
+        Application.todoist.project_updated_started.connect ((id) => {
+            if (project.id == id) {
+                loading_revealer.reveal_child = true;
+            }
         }); 
 
-        Application.todoist.project_updated_completed.connect (() => {
-            destroy ();
+        Application.todoist.project_updated_completed.connect ((id) => {
+            if (project.id == id) {
+                destroy ();
+            } 
         });
 
-        Application.todoist.project_updated_error.connect ((error_code, error_message) => {
-            print ("Error: %s\n".printf (error_message));
+        Application.todoist.project_updated_error.connect ((id, error_code, error_message) => {
+            if (project.id == id) {
+                print ("Error: %s\n".printf (error_message));
+            } 
         });
     }
 

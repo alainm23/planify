@@ -479,11 +479,11 @@ public class Views.Project : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var edit_menu = new Widgets.ModelButton (_("Edit Project"), "edit-symbolic", "");
+        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
 
-        var archive_menu = new Widgets.ModelButton (_("Archive Project"), "planner-archive-symbolic");
+        var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
         
-        var delete_menu = new Widgets.ModelButton (_("Delete Project"), "user-trash-symbolic");
+        var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
         
         var show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
 

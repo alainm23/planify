@@ -34,13 +34,13 @@ public class Services.Todoist : GLib.Object {
     public signal void project_added_completed ();
     public signal void project_added_error (int error_code, string error_message);
 
-    public signal void project_updated_started ();
-    public signal void project_updated_completed ();
-    public signal void project_updated_error (int error_code, string error_message);
+    public signal void project_updated_started (int64 id);
+    public signal void project_updated_completed (int64 id);
+    public signal void project_updated_error (int64 id, int error_code, string error_message);
 
-    public signal void project_deleted_started ();
-    public signal void project_deleted_completed ();
-    public signal void project_deleted_error (int error_code, string error_message);
+    public signal void project_deleted_started (int64 id);
+    public signal void project_deleted_completed (int64 id);
+    public signal void project_deleted_error (int64 id, int error_code, string error_message);
 
     /*
         Section Signals
@@ -360,7 +360,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void update_project (Objects.Project project) {
-        project_updated_started ();
+        project_updated_started (project.id);
 
         new Thread<void*> ("todoist_update_project", () => {
             string uuid = Application.utils.generate_string ();
@@ -392,19 +392,19 @@ public class Services.Todoist : GLib.Object {
 
                             if (Application.database.update_project (project)) { 
                                 print ("Actualizado: %s\n".printf (project.name));
-                                project_updated_completed ();
+                                project_updated_completed (project.id);
                             }
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            project_updated_error (http_code, error_message);
+                            project_updated_error (project.id, http_code, error_message);
                         }
                     } catch (Error e) {
-                        project_updated_error ((int32) mess.status_code, e.message);
+                        project_updated_error (project.id, (int32) mess.status_code, e.message);
                     }
                 } else {
-                    project_updated_error ((int32) mess.status_code, _("Connection error"));
+                    project_updated_error (project.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -455,7 +455,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void delete_project (Objects.Project project) {
-        project_deleted_started ();
+        project_deleted_started (project.id);
 
         new Thread<void*> ("todoist_delete_project", () => {
             string uuid = Application.utils.generate_string ();
@@ -485,19 +485,19 @@ public class Services.Todoist : GLib.Object {
 
                             if (Application.database.delete_project (project)) {
                                 print ("Eliminado: %s\n".printf (project.name));
-                                project_deleted_completed ();
+                                project_deleted_completed (project.id);
                             }
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            project_updated_error (http_code, error_message);
+                            project_deleted_error (project.id, http_code, error_message);
                         }
                     } catch (Error e) {
-                        project_updated_error ((int32) mess.status_code, e.message);
+                        project_deleted_error (project.id, (int32) mess.status_code, e.message);
                     }  
                 } else {
-                    project_updated_error ((int32) mess.status_code, _("Connection error"));
+                    project_deleted_error (project.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 

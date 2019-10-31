@@ -462,7 +462,7 @@ public class Widgets.New : Gtk.Revealer {
         area_image.pixel_size = 14;
         area_image.get_style_context ().add_class ("area-icon");
 
-        var source_label = new Gtk.Label (_("Work Area"));
+        var source_label = new Gtk.Label (_("Area"));
         source_label.get_style_context ().add_class ("h3");
         source_label.get_style_context ().add_class ("welcome");
         source_label.get_style_context ().add_class ("font-bold");
@@ -536,7 +536,7 @@ public class Widgets.New : Gtk.Revealer {
 
     private void create_area () {
         var area = new Objects.Area ();
-        area.name = _("New Work Area");
+        area.name = _("New area");
         
         if (Application.database.insert_area (area)) {
             cancel ();

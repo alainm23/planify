@@ -368,9 +368,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit Work Area"), "edit-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit area"), "edit-symbolic");
 
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete Work Area"), "edit-delete-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete area"), "edit-delete-symbolic");
 
         menu.add (edit_menu);
         menu.add (delete_menu);
@@ -384,17 +384,17 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                "This is a primary text",
-                "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
-                "applications-development",
+                _("Delete area"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (area.name)),
+                "user-trash-full",
                 Gtk.ButtonsType.CLOSE
             );
 
-            var custom_widget = new Gtk.CheckButton.with_label (_("Delete Projects Too"));
+            var custom_widget = new Gtk.CheckButton.with_label (_("Delete projects"));
             custom_widget.show ();
             message_dialog.custom_bin.add (custom_widget);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete Work Area"));
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 

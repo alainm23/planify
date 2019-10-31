@@ -778,6 +778,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (complete_menu);
         menu.add (view_edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (move_project_menu);
         menu.add (convert_menu);
         menu.add (duplicate_menu);
         menu.add (share_menu);

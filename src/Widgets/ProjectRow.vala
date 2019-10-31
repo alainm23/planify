@@ -176,6 +176,18 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
         });
 
+        Application.todoist.project_deleted_started.connect ((id) => {
+            if (project.id == id) {
+                sensitive = false;
+            }
+        });
+
+        Application.todoist.project_deleted_error.connect ((id, http_code, error_message) => {
+            if (project.id == id) {
+                sensitive = true;
+            }
+        });
+
         Application.utils.drag_item_activated.connect ((active) => {
             build_drag_and_drop (active);
         });
@@ -402,7 +414,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
 
-        var move_menu = new Widgets.ImageMenuItem (_("Move to Work Area"), "planner-work-area-symbolic");
+        var move_menu = new Widgets.ImageMenuItem (_("Move project"), "planner-work-area-symbolic");
         work_areas = new Gtk.Menu ();
         move_menu.set_submenu (work_areas);
 
@@ -412,7 +424,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
 
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete project"), "user-trash-symbolic");
 
         
         menu.add (project_menu);

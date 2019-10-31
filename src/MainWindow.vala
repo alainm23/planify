@@ -186,6 +186,13 @@ public class MainWindow : Gtk.Window {
             toast.send_notification ();
         });
 
+        Application.database.project_deleted.connect ((p) => {
+            if ("project-view-%s".printf (p.id.to_string ()) == stack.visible_child_name) {
+                stack.visible_child.destroy ();
+                stack.visible_child_name = "inbox-view";
+            }
+        });
+
         magic_button.clicked.connect (() => {
             visible_child_name = stack.visible_child_name;
             
