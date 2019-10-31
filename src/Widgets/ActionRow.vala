@@ -61,7 +61,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_label.use_markup = true;
         count_label.opacity = 0.7;
 
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         main_box.margin = 6;
         main_box.margin_start = 12;
 

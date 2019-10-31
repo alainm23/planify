@@ -26,7 +26,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.ListBox check_listbox;
     private Gtk.Revealer separator_revealer;
 
-    private Gtk.Menu projects_menu;
+    private Gtk.Menu projects_menu; 
     private Gtk.Menu menu = null;
 
     private uint checked_timeout = 0;

@@ -110,12 +110,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             source_icon.tooltip_text = _("Todoist Project");
         }
         
-        handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         handle_box.hexpand = true;
         handle_box.pack_start (grid_color, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 6);
-        handle_box.pack_start (count_revealer, false, false, 3);
+        handle_box.pack_start (count_revealer, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -435,12 +435,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure you want to delete %s?".printf (project.name)),
-                "",
-                "dialog-warning",
+                _("Delete project"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
+                "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete Project"));
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 

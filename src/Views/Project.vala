@@ -378,7 +378,14 @@ public class Views.Project : Gtk.EventBox {
                 listbox.show_all ();
             }
         });
-        
+
+        Application.database.section_moved.connect ((section) => {
+            if (project.id == section.project_id) {
+                var row = new Widgets.SectionRow (section);
+                section_listbox.add (row);
+                section_listbox.show_all ();
+            }
+        });
     }
 
     private void save () {

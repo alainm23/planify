@@ -10,7 +10,9 @@ public class Services.Database : GLib.Object {
     public signal void project_deleted (Objects.Project project);
     public signal void project_moved (Objects.Project project);
     
-    public signal void section_added (Objects.Section header);
+    public signal void section_added (Objects.Section section);
+    public signal void section_deleted (Objects.Section section);
+    public signal void section_moved (Objects.Section section);
 
     public signal void item_added (Objects.Item item);
     public signal void item_added_with_index (Objects.Item item, int index);
@@ -166,7 +168,7 @@ public class Services.Database : GLib.Object {
                 due             TEXT,
                 date_added      TEXT,
                 date_completed  TEXT,
-                date_updated    TEXT 
+                date_updated    TEXT
             );
         """;
         rc = db.exec (sql, null, null);
@@ -1146,6 +1148,74 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public bool delete_section (Objects.Section section) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Sections WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            section_deleted (section);
+
+            foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
+                delete_item (item);
+            }
+
+            return true;
+        }
+    }
+
+    public bool move_section (Objects.Section section, int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        section.project_id = id;
+
+        sql = """
+            UPDATE Sections SET project_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, section.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            section_moved (section);
+
+            foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
+                item.project_id = section.project_id;
+                update_item (item);
+            }
+
+            return true;
+        }
+    }
+
     /*
         Item
     */
@@ -1487,6 +1557,52 @@ public class Services.Database : GLib.Object {
         return size;
     }
     
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_inbox (int64 id, int is_todoist) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND checked = 1 ORDER BY date_completed;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+            i.is_todoist = is_todoist;
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
@@ -1573,6 +1689,52 @@ public class Services.Database : GLib.Object {
             i.date_updated = stmt.column_text (17);
             i.is_todoist = project.is_todoist;
 
+            all.add (i);
+        }
+
+        return all;
+    }
+    
+    public Gee.ArrayList<Objects.Item?> get_all_items_by_inbox (int64 id, int is_todoist) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 0 ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+            i.is_todoist = is_todoist;
+            
             all.add (i);
         }
 

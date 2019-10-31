@@ -11,6 +11,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
+    private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
 
     private bool has_new_item = false;
@@ -230,6 +231,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             return false;
         });
 
+        top_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                activate_menu ();
+                return true;
+            }
+
+            return false;
+        });
+
         name_entry.activate.connect (() =>{
             save_section ();
         });
@@ -250,12 +260,76 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_button.clicked.connect (() => {
             activate_menu ();
         });
+
+        Application.database.section_deleted.connect ((s) => {
+            if (section.id == s.id) {
+                destroy ();
+            }
+        });
+
+        Application.todoist.section_deleted_started.connect ((id) => {
+            if (section.id == id) {
+                sensitive = false;
+            }
+        });
+
+        Application.todoist.section_deleted_error.connect ((id, http_code, error_message) => {
+            if (section.id == id) {
+                sensitive = true;
+            }
+        });
+
+        Application.todoist.section_moved_started.connect ((id) => {
+            if (section.id == id) {
+                sensitive = false;
+            }
+        });
+
+        Application.todoist.section_moved_completed.connect ((id) => {
+            if (section.id == id) {
+                destroy ();
+            }
+        });
+
+        Application.todoist.section_moved_error.connect ((id, http_code, error_message) => {
+            if (section.id == id) {
+                sensitive = true;
+            }
+        });
     }
 
     private void activate_menu () {
         if (menu == null) {
             build_context_menu (section);
         }
+
+        foreach (var child in projects_menu.get_children ()) {
+            child.destroy ();
+        }
+        
+        var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+        item_menu.activate.connect (() => {
+            
+        });
+        
+        projects_menu.add (item_menu);
+
+        foreach (var project in Application.database.get_all_projects ()) {
+            item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
+            item_menu.activate.connect (() => {
+                if (section.is_todoist == 0) {
+                    if (Application.database.move_section (section, project.id)) {
+                        destroy ();
+                    }
+                } else {
+                    Application.todoist.move_section (section, project.id);
+                }
+            });
+
+            projects_menu.add (item_menu);
+        }
+
+        projects_menu.show_all ();
 
         menu.popup_at_pointer (null);
     }
@@ -265,15 +339,25 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         var add_menu = new Widgets.ImageMenuItem (_("Add task"), "list-add-symbolic");
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit section"), "edit-symbolic");
+
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move section"), "go-jump-symbolic");
+        projects_menu = new Gtk.Menu ();
+        move_project_menu.set_submenu (projects_menu);
+
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete section"), "user-trash-symbolic");
 
         menu.add (add_menu);
         menu.add (edit_menu);
+        menu.add (move_project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
         menu.show_all (); 
+
+        add_menu.activate.connect (() => {
+            add_new_item ();
+        });
 
         edit_menu.activate.connect (() => {
             name_stack.visible_child_name = "name_entry";
@@ -282,19 +366,23 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Are you sure to eliminate this Work Area"),
-                "",
-                "dialog-warning",
+                _("Delete section"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (section.name)),
+                "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete Project"));
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                
+                if (section.is_todoist == 0) {
+                    Application.database.delete_section (section);
+                } else {
+                    Application.todoist.delete_section (section);
+                }
             }
 
             message_dialog.destroy ();
@@ -370,6 +458,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        add_new_item ();
+    }
+
+    private void add_new_item () {
         if (has_new_item == false) {
             var new_item = new Widgets.NewItem (
                 section.project_id,

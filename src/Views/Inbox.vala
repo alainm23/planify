@@ -1,6 +1,6 @@
 public class Views.Inbox : Gtk.EventBox {    
     private int64 project_id;
-    private bool is_todoist;
+    private int is_todoist = 0;
 
     private Gtk.Revealer motion_revealer;
     
@@ -17,7 +17,10 @@ public class Views.Inbox : Gtk.EventBox {
 
     construct {
         project_id = Application.settings.get_int64 ("inbox-project");
-        is_todoist = Application.settings.get_boolean ("inbox-project-sync");
+
+        if (Application.settings.get_boolean ("inbox-project-sync")) {
+            is_todoist = 1;
+        }
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -198,19 +201,19 @@ public class Views.Inbox : Gtk.EventBox {
                 project_id = Application.settings.get_int64 ("inbox-project");
                 add_items (project_id);
             } else if (key == "inbox-project-sync") {
-                is_todoist = Application.settings.get_boolean ("inbox-project-sync");
+                if (Application.settings.get_boolean ("inbox-project-sync")) {
+                    is_todoist = 1;
+                }
             }
         });
     }
 
     private void add_items (int64 id) { 
-        /*
-        foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (id)) {
+        foreach (var item in Application.database.get_all_items_by_inbox (id, is_todoist)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
         }
-        */
     }
 
     private void add_completed_items (int64 id) { 
@@ -218,13 +221,11 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
-        /*
-        foreach (var item in Application.database.get_all_completed_items_by_project (id)) {
+        foreach (var item in Application.database.get_all_completed_items_by_inbox (id, is_todoist)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
         }
-        */
 
         completed_revealer.reveal_child = true;
     }

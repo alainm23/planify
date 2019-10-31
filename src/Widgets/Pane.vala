@@ -100,7 +100,7 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_image.pixel_size = 16;
         sync_button.image = sync_image;
 
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
         profile_box.margin_start = 8;
         profile_box.margin_end = 6;
         profile_box.get_style_context ().add_class ("pane");

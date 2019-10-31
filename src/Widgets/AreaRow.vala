@@ -86,7 +86,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_revealer.add (hidden_button);
         hidden_revealer.reveal_child = false;
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
         top_box.margin_start = 6;
         top_box.margin_end = 2;
         top_box.pack_start (area_image, false, false, 0);
