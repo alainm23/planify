@@ -82,11 +82,10 @@ public class Widgets.NewCheck : Gtk.EventBox {
             return false;
         });
 
-        /*
         name_entry.focus_out_event.connect (() => {
             if (name_entry.text != "") {
-                insert_item ();
-                reveal_child = false;
+                //insert_item ();
+                //reveal_child = false;
                 
             } else {
                 name_entry.text = "";
@@ -95,7 +94,6 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
             return false;
         });
-        */
 
         Application.todoist.item_added_started.connect ((id) => {
             if (temp_id_mapping == id) {

@@ -155,7 +155,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_box.height_request = 2;
-        labels_box.margin_start = 1;
+        labels_box.margin_start = 3;
 
         labels_box_revealer = new Gtk.Revealer ();
         labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -519,6 +519,24 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
         */
+
+        Application.todoist.item_moved_started.connect ((id) => {
+            if (item.id == id) {
+                sensitive = false;
+            }
+        });
+
+        Application.todoist.item_moved_completed.connect ((id) => {
+            if (item.id == id) {
+                destroy ();
+            }
+        });
+
+        Application.todoist.item_moved_error.connect ((id, error_code, error_message) => {
+            if (item.id == id) {
+                sensitive = true;
+            }
+        });        
     }
 
     private void checked_toggled () {
@@ -734,20 +752,34 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
-            
+            int64 inbox_id = Application.settings.get_int64 ("inbox-project");
+
+            if (item.is_todoist == 0) {
+                if (Application.database.move_item (item, inbox_id)) {
+                    destroy ();
+                }
+            } else {
+                Application.todoist.move_item (item, inbox_id);
+            }
         });
 
         projects_menu.add (item_menu);
         
         foreach (var project in Application.database.get_all_projects ()) {
-            item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
-            item_menu.activate.connect (() => {
-                if (Application.database.move_item (item, project.id)) {
-                    destroy ();
-                }
-            });
+            if (item.is_todoist == project.is_todoist && item.project_id != project.id) {
+                item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
+                item_menu.activate.connect (() => {
+                    if (item.is_todoist == 0) {
+                        if (Application.database.move_item (item, project.id)) {
+                            destroy ();
+                        }
+                    } else {
+                        Application.todoist.move_item (item, project.id);
+                    }
+                });
 
-            projects_menu.add (item_menu);
+                projects_menu.add (item_menu);
+            }
         }
 
         projects_menu.show_all ();

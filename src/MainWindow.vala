@@ -132,8 +132,8 @@ public class MainWindow : Gtk.Window {
                 var inbox_project = Application.database.create_inbox_project ();
 
                 // Set settings
-                Application.settings.set_int64 ("inbox-project", inbox_project.id);
                 Application.settings.set_boolean ("inbox-project-sync", false);
+                Application.settings.set_int64 ("inbox-project", inbox_project.id);
                 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "inbox-view";
@@ -174,18 +174,7 @@ public class MainWindow : Gtk.Window {
             magic_button.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
         });
-
-        Application.database.show_toast_delete.connect ((count) => {
-            string t = _("task");
-
-            if (count > 1) {
-                t = _("tasks");
-            }
-
-            toast.title = _("(%i) %s deleted".printf (count, t));
-            toast.send_notification ();
-        });
-
+        
         Application.database.project_deleted.connect ((p) => {
             if ("project-view-%s".printf (p.id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();

@@ -25,6 +25,12 @@
             <description>If the dark Gtk stylesheet should be used</description>
         </key>
 
+        <key name="source-selected" type="i">
+            <default>0</default>
+            <summary>Source selected</summary>
+            <description>Source selected</description>
+        </key>
+
         <key name="inbox-project" type="x">
             <default>0</default>
             <summary>Inbox Project ID</summary>

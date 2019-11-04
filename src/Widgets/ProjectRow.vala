@@ -24,6 +24,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Grid grid_color;
     private Gtk.Label name_label;
+    private Gtk.Label count_label;
+    private Gtk.Revealer count_revealer;
   
     private Gtk.Menu work_areas;
     private Gtk.Menu menu = null;
@@ -81,13 +83,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
 
-        var count_label = new Gtk.Label ("<small>%i</small>".printf (count));
+        count_label = new Gtk.Label ("<small>%i</small>".printf (count));
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.opacity = 0.7;
         count_label.use_markup = true;
 
-        var count_revealer = new Gtk.Revealer ();
+        count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         count_revealer.add (count_label);
 
@@ -208,13 +210,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Application.database.item_deleted.connect ((item) => {
             if (project.id == item.project_id && item.checked == 0) {
                 count--;
-                count_label.label = "<small>%i</small>".printf (count);
-
-                if (count <= 0) {
-                    count_revealer.reveal_child = false;
-                } else {
-                    count_revealer.reveal_child = true;
-                }
+                check_count_label ();
             }
         });
 
@@ -226,17 +222,43 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                     count--;
                 }
 
-                count_label.label = "<small>%i</small>".printf (count);
-
-                if (count <= 0) {
-                    count_revealer.reveal_child = false;
-                } else {
-                    count_revealer.reveal_child = true;
-                }
+                check_count_label ();
             }
         });
+        
+        Application.database.item_moved.connect ((item) => {
+            Idle.add (() => {
+                if (project.id == item.project_id) {
+                    count++;
+                    check_count_label ();
+                }
+
+                return false;
+            });
+        });
+
+        Application.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                if (project.id == id) {
+                    count--;
+                    check_count_label ();
+                }
+
+                return false;
+            });
+        });
     }
- 
+
+    private void check_count_label () {
+        count_label.label = "<small>%i</small>".printf (count);
+
+        if (count <= 0) {
+            count_revealer.reveal_child = false;
+        } else {
+            count_revealer.reveal_child = true;
+        }
+    }
+
     private void apply_styles (string color) {
         string COLOR_CSS = """
             .project-%s {
@@ -300,8 +322,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (Application.database.move_item (source.item, project.id)) {
-            source.get_parent ().remove (source);
+        if (source.item.is_todoist == 0) {
+            if (Application.database.move_item (source.item, project.id)) {
+                source.get_parent ().remove (source);
+            }
+        } else {
+            Application.todoist.move_item (source.item, project.id);
         }
     }
 
@@ -379,7 +405,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Widgets.ImageMenuItem item;
         if (project.area_id != 0) {
-            item = new Widgets.ImageMenuItem (_("No Work Area"), "window-close-symbolic");
+            item = new Widgets.ImageMenuItem (_("No Area"), "window-close-symbolic");
             item.activate.connect (() => {
                 if (Application.database.move_project (project, 0)) {
                     destroy ();

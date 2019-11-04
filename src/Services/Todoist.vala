@@ -61,8 +61,9 @@ public class Services.Todoist : GLib.Object {
     public signal void section_moved_started (int64 id);
     public signal void section_moved_completed (int64 id);
     public signal void section_moved_error (int64 id, int error_code, string error_message);
+
     /*
-        Section Signals
+        Item Signals
     */
 
     public signal void item_added_started (int64 id);
@@ -76,6 +77,10 @@ public class Services.Todoist : GLib.Object {
     public signal void item_uncompleted_started (Objects.Item item);
     public signal void item_uncompleted_completed (Objects.Item item);
     public signal void item_uncompleted_error (Objects.Item item, int error_code, string error_message);
+
+    public signal void item_moved_started (int64 id);
+    public signal void item_moved_completed (int64 id);
+    public signal void item_moved_error (int64 id, int error_code, string error_message);
 
     public signal void avatar_downloaded ();
 
@@ -150,8 +155,8 @@ public class Services.Todoist : GLib.Object {
                         Application.settings.set_string ("todoist-access-token", token);
 
                         Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                        Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
                         Application.settings.set_boolean ("inbox-project-sync", true);
+                        Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
                         Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
                         Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
@@ -270,6 +275,95 @@ public class Services.Todoist : GLib.Object {
 
             return null;
         });
+    }
+
+    /*
+        Collaborators
+    */
+
+    public void share_project (int64 project_id, string email) {
+        new Thread<void*> ("todoist_share_project", () => {
+            string temp_id = Application.utils.generate_string ();
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_share_project_json (project_id, email, temp_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        print ("----------------------\n");
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        print ("----------------------\n");
+                        
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+    
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            //project_added_error (http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        //project_added_error ((int32) mess.status_code, e.message);
+                    }
+                } else {
+                    //project_added_error ((int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    private string get_share_project_json (int64 project_id, string email, string temp_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("type");
+        builder.add_string_value ("share_project");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("project_id");
+            builder.add_int_value (project_id);
+
+            builder.set_member_name ("email");
+            builder.add_string_value (email);
+
+            builder.end_object ();        
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 
     public void add_project (Objects.Project project) {
@@ -775,7 +869,7 @@ public class Services.Todoist : GLib.Object {
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
                 Application.settings.get_string ("todoist-access-token"),
-                get_section_move_json (section.id, id, uuid)
+                get_move_json (section.id, "section_move", id, uuid)
             );
 
             var message = new Soup.Message ("POST", url);
@@ -817,14 +911,14 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
-    public string get_section_move_json (int64 id, int64 project_id, string uuid) {
+    public string get_move_json (int64 id, string type, int64 project_id, string uuid) {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();
         
         // Set type
         builder.set_member_name ("type");
-        builder.add_string_value ("section_move");
+        builder.add_string_value (type);
 
         builder.set_member_name ("uuid");
         builder.add_string_value (uuid);
@@ -849,6 +943,7 @@ public class Services.Todoist : GLib.Object {
 
         return generator.to_data (null);
     }
+
     /*
         Items
     */
@@ -999,6 +1094,57 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void move_item (Objects.Item item, int64 project_id) {
+        item_moved_started (item.id);
+
+        new Thread<void*> ("todoist_move_item", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_move_json (item.id, "item_move", project_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Application.settings.set_string ("todoist-sync-token", sync_token);
+
+                            if (Application.database.move_item (item, project_id)) {
+                                //print ("Movido: %s\n".printf (item.content));
+                                item_moved_completed (item.id);
+                            }
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            item_moved_error (item.id, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        item_moved_error (item.id, (int32) mess.status_code, e.message);
+                    }  
+                } else {
+                    item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
     private string get_update_item_json (Objects.Item item, string uuid) {
         var builder = new Json.Builder ();
         builder.begin_array ();
@@ -1026,6 +1172,98 @@ public class Services.Todoist : GLib.Object {
         builder.end_array ();
 
 
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void move_item_to_section (Objects.Item item, int64 section_id) {
+        //item_moved_started (item.id);
+
+        new Thread<void*> ("todoist_move_item_to_section", () => {
+            string uuid = Application.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL, 
+                Application.settings.get_string ("todoist-access-token"),
+                get_move_section_json (item, section_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {                 
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            Application.settings.set_string (
+                                "todoist-sync-token", 
+                                node.get_string_member ("sync_token")
+                            );
+
+                            print ("Movido: %s\n".printf (item.content));
+                            //if (Application.database.move_item (item, project_id)) {
+                                //
+                            //    item_moved_completed (item.id);
+                            //}
+                        } else {
+                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            //item_moved_error (item.id, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
+                    }  
+                } else {
+                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    public string get_move_section_json (Objects.Item item, int64 section_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+        
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_move");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (item.id);
+
+            if (section_id == 0) {
+                builder.set_member_name ("project_id");
+                builder.add_int_value (item.project_id);
+            } else {
+                builder.set_member_name ("section_id");
+                builder.add_int_value (section_id);
+            }
+            
+            builder.end_object ();
+        
+        builder.end_object ();
+        builder.end_array ();
+        
         Json.Generator generator = new Json.Generator ();
 	    Json.Node root = builder.get_root ();
         generator.set_root (root);

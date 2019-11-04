@@ -9,6 +9,8 @@ public class Services.Database : GLib.Object {
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
     public signal void project_moved (Objects.Project project);
+
+    public signal void subtract_task_counter (int64 id);
     
     public signal void section_added (Objects.Section section);
     public signal void section_deleted (Objects.Section section);
@@ -107,6 +109,7 @@ public class Services.Database : GLib.Object {
                 item_order      INTEGER
             );
         """;
+        
         rc = db.exec (sql, null, null);
         debug ("Table Areas created");
 
@@ -129,6 +132,7 @@ public class Services.Database : GLib.Object {
                 shared           INTEGER
             );
         """; 
+        
         rc = db.exec (sql, null, null);
         debug ("Table Projects created"); 
 
@@ -146,6 +150,7 @@ public class Services.Database : GLib.Object {
                 date_added      TEXT
             );
         """;
+        
         rc = db.exec (sql, null, null);
         debug ("Table Sections created");
 
@@ -171,6 +176,7 @@ public class Services.Database : GLib.Object {
                 date_updated    TEXT
             );
         """;
+        
         rc = db.exec (sql, null, null);
         debug ("Table Items created");
 
@@ -184,6 +190,7 @@ public class Services.Database : GLib.Object {
                 is_favorite     INTEGER
             );
         """;
+        
         rc = db.exec (sql, null, null);
         debug ("Table Labels created");
 
@@ -197,8 +204,37 @@ public class Services.Database : GLib.Object {
                 FOREIGN KEY (label_id) REFERENCES Labels (id) ON DELETE CASCADE
             );
         """;
+        
         rc = db.exec (sql, null, null);
         debug ("Table Labels created");
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Collaborators (
+                id          INTEGER PRIMARY KEY,
+                email       TEXT,
+                full_name   TEXT,
+                timezone    TEXT,
+                image_id    TEXT
+            );
+        """;
+
+        rc = db.exec (sql, null, null);
+        debug ("Table Collaborators created");
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Collaborator_States (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                collaborators_id    INTEGER
+                state               TEXT,
+                user_id             INTEGER,
+                is_deleted          INTEGER,
+                project_id          INTEGER,
+                FOREIGN KEY (collaborators_id) REFERENCES Collaborators (id) ON DELETE CASCADE
+            );
+        """;
+        
+        rc = db.exec (sql, null, null);
+        debug ("Table Collaborator_States created");
 
         return rc;
     } 
@@ -232,6 +268,47 @@ public class Services.Database : GLib.Object {
         }
 
         return returned;
+    }
+
+    /*
+        Collaborators
+    */
+
+    public bool insert_collaborator (Objects.Collaborator collaborator) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            INSERT OR IGNORE INTO Collaborators (id, email, full_name, timezone, image_id)
+            VALUES (?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, collaborator.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (2, collaborator.email);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, collaborator.full_name);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, collaborator.timezone);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, collaborator.image_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            //area_added (area);
+            return true;
+        }
     }
 
     /*
@@ -1077,6 +1154,44 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Section?> get_all_sections_by_inbox (int64 id, int is_todoist) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Sections WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Section?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var s = new Objects.Section ();
+
+            s.id = stmt.column_int64 (0);
+            s.name = stmt.column_text (1);
+            s.project_id = stmt.column_int64 (2);
+            s.item_order = stmt.column_int (3);
+            s.collapsed = stmt.column_int (4);
+            s.sync_id = stmt.column_int64 (5);
+            s.is_deleted = stmt.column_int (6);
+            s.is_archived = stmt.column_int (7);
+            s.date_archived = stmt.column_text (8);
+            s.date_added = stmt.column_text (9);
+            s.is_todoist = is_todoist;
+
+            all.add (s);
+        }
+
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Section?> get_all_sections_by_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
@@ -1443,6 +1558,8 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
+        subtract_task_counter (item.project_id);
+
         item.project_id = id;
 
         sql = """
@@ -1472,7 +1589,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public void update_item_order (int64 item_id, int64 section_id, int item_order) {
+    public void update_item_order (Objects.Item item, int64 section_id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1490,7 +1607,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, section_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (3, item_id);
+        res = stmt.bind_int64 (3, item.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -1498,6 +1615,8 @@ public class Services.Database : GLib.Object {
         if (res == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        //if ()
     }
 
     public bool set_due_item (Objects.Item item, GLib.DateTime? date) {

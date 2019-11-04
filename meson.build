@@ -32,7 +32,8 @@ executable(
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
     'src/Services/LabelsController.vala',
-
+    'src/Services/Notification.vala',
+    
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
     'src/Widgets/New.vala',
@@ -77,6 +78,7 @@ executable(
     'src/Objects/Area.vala',
     'src/Objects/Section.vala',
     'src/Objects/Label.vala',
+    'src/Objects/Collaborator.vala',
 
     dependencies: [
         dependency('gee-0.8'),

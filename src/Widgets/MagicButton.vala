@@ -8,7 +8,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
     };
  
     construct {
-        tooltip_text = _("Add Task");
+        tooltip_text = _("Add task");
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         reveal_child = true;
         margin_bottom = 12;

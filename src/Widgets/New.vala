@@ -79,6 +79,10 @@ public class Widgets.New : Gtk.Revealer {
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);
             list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
+
+            if (Application.settings.get_int ("source-selected") == 1) {
+                source_combobox.set_active_iter (todoist_iter);
+            }
         }
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
@@ -377,6 +381,10 @@ public class Widgets.New : Gtk.Revealer {
             }
         });
 
+        source_combobox.changed.connect (() => {
+            Application.settings.set_int ("source-selected", source_combobox.active);
+        });
+
         cancel_button.clicked.connect (cancel);
 
         name_entry.key_release_event.connect ((key) => {
@@ -497,6 +505,7 @@ public class Widgets.New : Gtk.Revealer {
 
         project_button.clicked.connect (() => {
             stack.visible_child_name = "box";
+            name_entry.grab_focus ();
         });
 
         area_button.clicked.connect (create_area);

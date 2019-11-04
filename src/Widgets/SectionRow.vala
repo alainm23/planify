@@ -18,6 +18,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     public bool set_focus {
         set {
+            name_stack.visible_child_name = "name_entry";
             name_entry.grab_focus ();
         }
     }
@@ -128,7 +129,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox_revealer = new Gtk.Revealer ();
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.add (listbox);
-        listbox_revealer.reveal_child = true;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_bottom = 6;
@@ -309,7 +309,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         
         var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
-            
+            int64 inbox_id = Application.settings.get_int64 ("inbox-project");
+
+            if (section.is_todoist == 0) {
+                if (Application.database.move_section (section, inbox_id)) {
+                    destroy ();
+                }
+            } else {
+                Application.todoist.move_section (section, inbox_id);
+            }
         });
         
         projects_menu.add (item_menu);
@@ -448,7 +456,16 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (target != null) {         
+        if (target != null) {
+            if (source.item.section_id != section.id) {
+                source.item.section_id = section.id;
+    
+                if (source.item.is_todoist == 1) {
+                    print ("Item para actualizar: %s\n".printf (source.item.content));
+                    Application.todoist.move_item_to_section (source.item, section.id);
+                }
+            }
+               
             source.get_parent ().remove (source); 
             listbox.insert (source, target.get_index () + 1);
             listbox.show_all ();
@@ -477,7 +494,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             new_item.index = 0;
             listbox.insert (new_item, 0);
             listbox.show_all ();
-
+            
+            listbox_revealer.reveal_child = true;
             has_new_item = true;
         }
     }
@@ -487,7 +505,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        source.item.section_id = section.id;
+        if (source.item.section_id != section.id) {
+            source.item.section_id = section.id;
+
+            if (source.item.is_todoist == 1) {
+                print ("Item para actualizar: %s\n".printf (source.item.content));
+                Application.todoist.move_item_to_section (source.item, section.id);
+            }
+        }
 
         source.get_parent ().remove (source); 
         listbox.insert (source, 0);
@@ -520,7 +545,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             var item = ((Widgets.ItemRow) row).item;
 
             new Thread<void*> ("update_item_order", () => {
-                Application.database.update_item_order (item.id, section.id, index);
+                Application.database.update_item_order (item, section.id, index);
 
                 return null;
             });
