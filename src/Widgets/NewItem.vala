@@ -159,11 +159,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 item.id = Application.utils.generate_id ();
 
                 if (Application.database.insert_item (item, index, has_index)) {
+                    /*
                     if (Application.instance.main_window.shift_pressed) {
-                        content_entry.text = "";
+                        
                     } else {
-                        destroy ();
+                        
                     }
+                    */
+                    content_entry.text = "";
+                    destroy ();
                 } 
             }
         }

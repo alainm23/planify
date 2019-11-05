@@ -68,7 +68,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var pbar = new Widgets.ProjectProgress ();
         pbar.percentage = GLib.Random.double_range (0, 1);
-        pbar.margin_start = 7;
+        pbar.margin_start = 6;
         pbar.line_cap =  Cairo.LineCap.ROUND;
         pbar.radius_filled = true;
         pbar.line_width = 2;
@@ -102,7 +102,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (project.name);
         name_label.margin_top = 6;
         name_label.margin_bottom = 6;
-        name_label.margin_start = 5;
+        name_label.margin_start = 6;
         name_label.tooltip_text = project.name;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
