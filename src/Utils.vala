@@ -79,6 +79,29 @@ public class Utils : GLib.Object {
         return colors.get (key);
     }
 
+    public string calculate_tint (string hex) {
+        Gdk.RGBA rgba = Gdk.RGBA ();
+        rgba.parse (hex);
+
+        //102 + ((255 - 102) x .1)
+        double r = (rgba.red * 255) + ((255 - rgba.red * 255) * 0.7); 
+        double g = (rgba.green * 255) + ((255 - rgba.green * 255) * 0.7); 
+        double b = (rgba.blue * 255) + ((255 - rgba.blue * 255) * 0.7); 
+
+        Gdk.RGBA new_rgba = Gdk.RGBA ();
+        new_rgba.parse ("rgb (%s, %s, %s)".printf (r.to_string (), g.to_string (), b.to_string ()));
+
+        return rgb_to_hex_string (new_rgba);
+    }
+    
+    private string rgb_to_hex_string (Gdk.RGBA rgba) {
+        string s = "#%02x%02x%02x".printf(
+            (uint) (rgba.red * 255),
+            (uint) (rgba.green * 255),
+            (uint) (rgba.blue * 255));
+        return s;
+    }
+
     public string get_contrast (string hex) {
         var gdk_white = Gdk.RGBA ();
         gdk_white.parse ("#fff");

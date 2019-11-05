@@ -31,6 +31,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    private const Gtk.TargetEntry[] targetEntriesSection = {
+        {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public SectionRow (Objects.Section section) {
         Object (
             section: section
@@ -141,6 +145,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         add (main_box);
         add_all_items ();
         
+        /* 
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesSection, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+        */
+
         build_drag_and_drop (false);
 
         if (section.collapsed == 1) {
@@ -347,6 +357,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         var add_menu = new Widgets.ImageMenuItem (_("Add task"), "list-add-symbolic");
+
+        var go_up_menu = new Widgets.ImageMenuItem (_("Go up"), "view-sort-ascending-symbolic");
+        var go_down_menu = new Widgets.ImageMenuItem (_("Go down"), "view-sort-descending-symbolic");
+
         var edit_menu = new Widgets.ImageMenuItem (_("Edit section"), "edit-symbolic");
 
         var move_project_menu = new Widgets.ImageMenuItem (_("Move section"), "go-jump-symbolic");
@@ -356,6 +370,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var delete_menu = new Widgets.ImageMenuItem (_("Delete section"), "user-trash-symbolic");
 
         menu.add (add_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        //menu.add (go_up_menu);
+        //menu.add (go_down_menu);
         menu.add (edit_menu);
         menu.add (move_project_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
@@ -395,6 +412,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
+
+        go_up_menu.activate.connect (() => {
+
+        });
+
+        go_down_menu.activate.connect (() => {
+
+        });
     }
 
     public void add_all_items () {            
@@ -417,7 +442,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             section.collapsed = 1;
         }
 
-        save_section ();
+        section.save_local ();
     }
 
     public void save_section () {
@@ -551,4 +576,41 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             });
         });
     }
+
+    /*
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var row = (Widgets.SectionRow) widget;
+
+        Gtk.Allocation alloc;
+        row.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+  
+        cr.set_source_rgba (255, 255, 255, 0.5);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        row.draw (cr);
+        Gtk.drag_set_icon_surface (context, surface);
+    }
+
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        uchar[] data = new uchar[(sizeof (Widgets.SectionRow))];
+        ((Gtk.Widget[])data)[0] = widget;
+
+        selection_data.set (
+            Gdk.Atom.intern_static_string ("SECTIONROW"), 32, data
+        );
+    }
+    */
 }

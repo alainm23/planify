@@ -28,6 +28,8 @@ public class Application : Gtk.Application {
     public static Services.Todoist todoist;
     public static Services.Notification notification;
 
+    public bool is_shift_active = false;
+
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",
@@ -88,7 +90,7 @@ public class Application : Gtk.Application {
                 main_window.destroy ();
             }
         });
-
+        
         add_action (quit_action);
 
         // Stylesheet

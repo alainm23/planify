@@ -30,7 +30,7 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     construct {
-        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Create new task"));
+        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Inbox"));
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
@@ -38,9 +38,9 @@ public class Widgets.Pane : Gtk.EventBox {
             today_icon = "planner-today-night-symbolic";
         }
 
-        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("Create new task"));
+        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("Today"));
                 
-        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Create new task"));
+        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Upcoming"));
 
         // Menu
         var username = GLib.Environment.get_user_name ();
@@ -320,11 +320,11 @@ public class Widgets.Pane : Gtk.EventBox {
         Widgets.ProjectRow source;
         Gtk.Allocation alloc;
 
-        target = (Widgets.ProjectRow ) project_listbox.get_row_at_y (y);
+        target = (Widgets.ProjectRow) project_listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
         
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-        source = (Widgets.ProjectRow ) row;
+        source = (Widgets.ProjectRow) row;
         
         if (target != null) {
             source.get_parent ().remove (source); 

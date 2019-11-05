@@ -66,6 +66,32 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
+        var pbar = new Widgets.ProjectProgress ();
+        pbar.percentage = GLib.Random.double_range (0, 1);
+        pbar.margin_start = 7;
+        pbar.line_cap =  Cairo.LineCap.ROUND;
+        pbar.radius_filled = true;
+        pbar.line_width = 2;
+        pbar.valign = Gtk.Align.CENTER;
+        pbar.halign = Gtk.Align.CENTER;
+        pbar.margin_top = 1;
+        pbar.progress_fill_color = Application.utils.get_color (project.color);
+        pbar.radius_fill_color = "#d3d3d3";
+
+        if (Application.settings.get_boolean ("prefer-dark-style")) {
+            pbar.radius_fill_color = "#666666";
+        }
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                if (Application.settings.get_boolean ("prefer-dark-style")) {
+                    pbar.radius_fill_color = "#666666";
+                } else {
+                    pbar.radius_fill_color = "#d3d3d3";
+                }
+            }
+        });
+
         grid_color = new Gtk.Grid ();
         grid_color.margin_start = 8;
 		grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
@@ -76,7 +102,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label = new Gtk.Label (project.name);
         name_label.margin_top = 6;
         name_label.margin_bottom = 6;
-        name_label.margin_start = 8;
+        name_label.margin_start = 5;
         name_label.tooltip_text = project.name;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
@@ -114,7 +140,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         
         handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         handle_box.hexpand = true;
-        handle_box.pack_start (grid_color, false, false, 0);
+        handle_box.pack_start (pbar, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 6);
         handle_box.pack_start (count_revealer, false, false, 0);
@@ -140,7 +166,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle.add (grid);
 
         add (handle);
-        apply_styles (Application.utils.get_color (project.color));
+        //apply_styles (Application.utils.get_color (project.color));
 
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
@@ -168,7 +194,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Application.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 name_label.label = p.name;
-                apply_styles (Application.utils.get_color (project.color));
+                //apply_styles (Application.utils.get_color (project.color));
+                pbar.progress_fill_color = Application.utils.get_color (p.color);
+                pbar.radius_fill_color = Application.utils.calculate_tint (Application.utils.get_color (p.color));
             }
         });
 

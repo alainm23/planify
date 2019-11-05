@@ -69,6 +69,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     construct {
+        tooltip_text = item.content;
         can_focus = false;
         get_style_context ().add_class ("item-row");
         labels_hashmap = new Gee.HashMap<string, bool> ();
@@ -102,6 +103,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var due_label = new Gtk.Label (null);
         due_label.halign = Gtk.Align.START;
         due_label.valign = Gtk.Align.CENTER;
+        due_label.margin_end = 6;
         due_label.margin_bottom = 1;
         due_label.get_style_context ().add_class ("due-preview");
 
@@ -123,9 +125,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.get_style_context ().add_class ("label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
+        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_box.height_request = 2;
+
+        labels_box_revealer = new Gtk.Revealer ();
+        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        labels_box_revealer.add (labels_box);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.valign = Gtk.Align.CENTER;
+        content_box.margin_top = 3;
+        content_box.pack_start (content_label, false, false, 0);
+        content_box.pack_start (labels_box_revealer, false, false, 0);
+
         var checklist_image = new Gtk.Image ();
-        checklist_image.margin_start = 3;
-        checklist_image.margin_end = 9;
+        checklist_image.margin_start = 6;
+        //checklist_image.margin_end = 9;
         checklist_image.gicon = new ThemedIcon ("planner-checklist-symbolic");
         checklist_image.pixel_size = 16;
         checklist_image.get_style_context ().add_class ("dim-label");
@@ -137,6 +152,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var note_image = new Gtk.Image ();
         note_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_image.pixel_size = 13;
+        note_image.margin_start = 6;
         note_image.get_style_context ().add_class ("dim-label");
 
         note_revealer = new Gtk.Revealer ();
@@ -148,24 +164,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        1_box.pack_start (content_label, false, false, 3);
-        1_box.pack_start (due_label_revealer, false, false, 6);
+        1_box.pack_start (due_label_revealer, false, false, 0);
+        1_box.pack_start (content_box, false, false, 0);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
-
-        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        labels_box.height_request = 2;
-        labels_box.margin_start = 3;
-
-        labels_box_revealer = new Gtk.Revealer ();
-        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        labels_box_revealer.add (labels_box);
-
-        var 2_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        2_box.valign = Gtk.Align.CENTER;
-        2_box.margin_top = 3;
-        2_box.pack_start (1_box, false, false, 0);
-        2_box.pack_start (labels_box_revealer, false, false, 0);
 
         content_entry = new Gtk.Entry ();
         content_entry.margin_bottom = 1;
@@ -180,7 +182,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.margin_start = 6;
         content_stack.hexpand = true;
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
-        content_stack.add_named (2_box, "content_label");
+        content_stack.add_named (1_box, "content_label");
         content_stack.add_named (content_entry, "content_entry");
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -692,6 +694,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.label = content_entry.text;
 
         item.content = content_entry.text;
+        tooltip_text = item.content;
         item.note = note_textview.buffer.text;
 
         if (online) {

@@ -152,6 +152,16 @@ public class Widgets.DueButton : Gtk.ToggleButton {
                 if (Application.database.set_due_item (_item, date)) {
                     popover.popdown ();
                 }
+
+                if (_item.is_todoist == 1) {
+                    if (date != null) {
+                        _item.due = date.to_string ();
+                    } else {
+                        _item.due = "";
+                    }
+
+                    Application.todoist.update_item (_item);
+                }
             } else {
                 popover.popdown ();
             }

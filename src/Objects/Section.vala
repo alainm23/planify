@@ -12,6 +12,7 @@ public class Objects.Section : GLib.Object {
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     
     private uint timeout_id = 0;
+    private uint timeout_id_2 = 0;
 
     public void save () {
         if (timeout_id != 0) {
@@ -32,6 +33,25 @@ public class Objects.Section : GLib.Object {
             
             Source.remove (timeout_id);
             timeout_id = 0;
+            return false;
+        });
+    }
+
+    public void save_local () {
+        if (timeout_id_2 != 0) {
+            Source.remove (timeout_id_2);
+            timeout_id_2 = 0;
+        }
+
+        timeout_id_2 = Timeout.add (2500, () => {
+            new Thread<void*> ("save_local_timeout", () => {
+                Application.database.update_section (this);
+
+                return null;
+            });
+            
+            Source.remove (timeout_id_2);
+            timeout_id_2 = 0;
             return false;
         });
     }

@@ -219,13 +219,8 @@ public class Services.Todoist : GLib.Object {
                             s.date_archived = object.get_string_member ("date_archived");
                             s.is_deleted = (int32) object.get_int_member ("is_deleted");
                             s.is_archived = (int32) object.get_int_member ("is_archived");
-
-                            if (object.get_boolean_member ("collapsed")) {
-                                s.collapsed = 1;
-                            } else {
-                                s.collapsed = 0;
-                            }
-
+                            s.collapsed = 1;
+                            
                             Application.database.insert_section (s);
                         }
 
@@ -1165,6 +1160,19 @@ public class Services.Todoist : GLib.Object {
 
             builder.set_member_name ("content");
             builder.add_string_value (item.content);
+
+            if (item.due != "") {
+                builder.set_member_name ("due");
+                builder.begin_object ();
+
+                builder.set_member_name ("date");
+                builder.add_string_value (new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()).format ("%F"));
+
+                builder.end_object ();
+            } else {
+                builder.set_member_name ("due");
+                builder.add_null_value ();
+            }
 
             builder.end_object ();
         

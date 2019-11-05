@@ -13,6 +13,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     }
 
     construct {
+        tooltip_text = item.content;
         can_focus = false;
         get_style_context ().add_class ("item-row");
 
@@ -152,6 +153,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private void save () {
         item.content = content_entry.text;
+        tooltip_text = item.content;
+        
         item.save ();
     }
 }

@@ -162,7 +162,7 @@ public class Views.Inbox : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (motion_revealer, false, false, 0);
+        main_box.pack_start (motion_revealer, false, false, 0);        
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
         main_box.pack_start (completed_revealer, false, false, 0);

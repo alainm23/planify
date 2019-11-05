@@ -21,6 +21,10 @@ public class Views.Project : Gtk.EventBox {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    private const Gtk.TargetEntry[] targetEntriesSection = {
+        {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public Project (Objects.Project project) {
         Object (
             project: project
@@ -169,6 +173,9 @@ public class Views.Project : Gtk.EventBox {
         section_listbox.activate_on_single_click = true;
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         section_listbox.hexpand = true;
+
+        Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
+        section_listbox.drag_data_received.connect (on_drag_section_received);
         
         var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
         completed_label.margin_top = 12;
@@ -517,7 +524,7 @@ public class Views.Project : Gtk.EventBox {
             int index = row.get_index ();
 
             var item = ((Widgets.ItemRow) row).item;
-
+            
             new Thread<void*> ("update_item_order", () => {
                 Application.database.update_item_order (item, 0, index);
                 return null;
@@ -579,5 +586,28 @@ public class Views.Project : Gtk.EventBox {
 
             popover.popdown ();
         });
+    }
+
+    private void on_drag_section_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.SectionRow target;
+        Widgets.SectionRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.SectionRow) section_listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+        
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.SectionRow) row;
+        
+        if (target != null) {
+            source.get_parent ().remove (source); 
+
+            //source.project.area_id = 0;
+
+            section_listbox.insert (source, target.get_index () + 1);
+            section_listbox.show_all ();
+
+            //update_project_order ();         
+        }
     }
 }
