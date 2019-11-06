@@ -664,7 +664,7 @@ paned > separator {
 
 .checklist-button check {
     border-radius: 4px;
-    border: 1px solid #3689e6;
+    /*border: 1px solid #3689e6;*/
 }
 
 .label-row {
