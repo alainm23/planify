@@ -16,12 +16,13 @@
 
 You'll need the following dependencies:
 
-* libgtk-3-devd
+* libgtk-3-dev
 * libgee-0.8-dev
 * libjson-glib-dev
 * libsqlite3-dev
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
+* libwebkit2gtk-4.0-dev
 * meson
 * valac >= 0.40.3
 
