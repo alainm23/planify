@@ -9,6 +9,7 @@ public class Services.Database : GLib.Object {
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
     public signal void project_moved (Objects.Project project);
+    public signal void update_project_count (int64 id, int items_0, int items_1);
 
     public signal void subtract_task_counter (int64 id);
     
@@ -833,7 +834,7 @@ public class Services.Database : GLib.Object {
 
         var all = new Gee.ArrayList<Objects.Project?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var p = new Objects.Project ();
 
             p.id = stmt.column_int64 (0);
@@ -922,6 +923,34 @@ public class Services.Database : GLib.Object {
         if (res == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+    }
+
+    public void get_project_count (Objects.Project project) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int items_0 = 0;
+        int items_1 = 0;
+
+        sql = """
+            SELECT checked, count(checked) FROM Items WHERE project_id = ? GROUP BY checked ORDER BY count(checked);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, project.id);
+        assert (res == Sqlite.OK);
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            if (stmt.column_int (0) == 0) {
+                items_0 = stmt.column_int (1);
+            } else {
+                items_1 = stmt.column_int (1);
+            }
+        }
+
+        update_project_count (project.id, items_0, items_1);
     }
 
     /* 
@@ -1322,10 +1351,22 @@ public class Services.Database : GLib.Object {
         } else {
             section_moved (section);
 
-            foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
-                item.project_id = section.project_id;
-                update_item (item);
-            }
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET project_id = ? WHERE section_id = ?;
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (2, section.id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
 
             return true;
         }
@@ -1585,6 +1626,24 @@ public class Services.Database : GLib.Object {
             return false;
         } else {
             item_moved (item);
+
+            stmt.reset ();
+            
+            sql = """
+                UPDATE Items SET project_id = ? WHERE parent_id = ?;
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, item.project_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (2, item.id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
+
             return true;
         }
     }

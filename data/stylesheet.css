@@ -622,7 +622,6 @@ paned > separator {
     background-image: none;
     box-shadow: none;
     border-bottom: none;
-    font-weight: 600;
 }
 
 .new-entry {

@@ -61,33 +61,32 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        count = Application.database.get_count_items_by_project (project.id);
+        //count = Application.database.get_count_items_by_project (project.id);
 
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
-        var pbar = new Widgets.ProjectProgress ();
-        pbar.percentage = GLib.Random.double_range (0, 1);
-        pbar.margin_start = 6;
-        pbar.line_cap =  Cairo.LineCap.ROUND;
-        pbar.radius_filled = true;
-        pbar.line_width = 2;
-        pbar.valign = Gtk.Align.CENTER;
-        pbar.halign = Gtk.Align.CENTER;
-        pbar.margin_top = 1;
-        pbar.progress_fill_color = Application.utils.get_color (project.color);
-        pbar.radius_fill_color = "#d3d3d3";
-
+        var project_progress = new Widgets.ProjectProgress ();
+        project_progress.margin_start = 6;
+        project_progress.line_cap =  Cairo.LineCap.ROUND;
+        project_progress.radius_filled = true;
+        project_progress.line_width = 2;
+        project_progress.valign = Gtk.Align.CENTER;
+        project_progress.halign = Gtk.Align.CENTER;
+        project_progress.margin_top = 1;
+        project_progress.progress_fill_color = Application.utils.get_color (project.color);
+        
+        project_progress.radius_fill_color = "#d3d3d3";
         if (Application.settings.get_boolean ("prefer-dark-style")) {
-            pbar.radius_fill_color = "#666666";
+            project_progress.radius_fill_color = "#666666";
         }
 
         Application.settings.changed.connect ((key) => {
             if (key == "prefer-dark-style") {
                 if (Application.settings.get_boolean ("prefer-dark-style")) {
-                    pbar.radius_fill_color = "#666666";
+                    project_progress.radius_fill_color = "#666666";
                 } else {
-                    pbar.radius_fill_color = "#d3d3d3";
+                    project_progress.radius_fill_color = "#d3d3d3";
                 }
             }
         });
@@ -109,7 +108,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.use_markup = true;
 
-        count_label = new Gtk.Label ("<small>%i</small>".printf (count));
+        count_label = new Gtk.Label (null);
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.opacity = 0.7;
@@ -118,10 +117,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         count_revealer.add (count_label);
-
-        if (count > 0) {
-            count_revealer.reveal_child = true;
-        }
 
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
@@ -140,7 +135,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         
         handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         handle_box.hexpand = true;
-        handle_box.pack_start (pbar, false, false, 0);
+        handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 6);
         handle_box.pack_start (count_revealer, false, false, 0);
@@ -166,7 +161,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle.add (grid);
 
         add (handle);
-        //apply_styles (Application.utils.get_color (project.color));
+
+        Timeout.add (125, () => {
+            Application.database.get_project_count (project);
+            return false;
+        });
+        
 
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
@@ -194,9 +194,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Application.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 name_label.label = p.name;
-                //apply_styles (Application.utils.get_color (project.color));
-                pbar.progress_fill_color = Application.utils.get_color (p.color);
-                pbar.radius_fill_color = Application.utils.calculate_tint (Application.utils.get_color (p.color));
+                project_progress.progress_fill_color = Application.utils.get_color (p.color);
             }
         });
 
@@ -224,42 +222,25 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Application.database.item_added.connect ((item) => {
             if (project.id == item.project_id) {
-                count++;
-                count_label.label = "<small>%i</small>".printf (count);
-
-                if (count <= 0) {
-                    count_revealer.reveal_child = false;
-                } else {
-                    count_revealer.reveal_child = true;
-                }
+                Application.database.get_project_count (project);
             }
         });
 
         Application.database.item_deleted.connect ((item) => {
             if (project.id == item.project_id && item.checked == 0) {
-                count--;
-                check_count_label ();
+                Application.database.get_project_count (project);
             }
         });
 
         Application.database.item_completed.connect ((item) => {
             if (project.id == item.project_id) {
-                if (item.checked == 0) {
-                    count++;
-                } else {
-                    count--;
-                }
-
-                check_count_label ();
+                Application.database.get_project_count (project);
             }
         });
         
         Application.database.item_moved.connect ((item) => {
             Idle.add (() => {
-                if (project.id == item.project_id) {
-                    count++;
-                    check_count_label ();
-                }
+                Application.database.get_project_count (project);
 
                 return false;
             });
@@ -267,14 +248,23 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Application.database.subtract_task_counter.connect ((id) => {
             Idle.add (() => {
-                if (project.id == id) {
-                    count--;
-                    check_count_label ();
-                }
+                Application.database.get_project_count (project);
 
                 return false;
             });
         });
+
+        Application.database.update_project_count.connect ((id, items_0, items_1) => {
+            if (project.id == id) {
+                project_progress.percentage = ((double) items_1 / ((double) items_0 + (double) items_1));
+                count = items_0;
+                check_count_label ();
+            }
+        });
+    }
+
+    private void update_count () {
+
     }
 
     private void check_count_label () {
@@ -284,41 +274,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             count_revealer.reveal_child = false;
         } else {
             count_revealer.reveal_child = true;
-        }
-    }
-
-    private void apply_styles (string color) {
-        string COLOR_CSS = """
-            .project-%s {
-                border-radius: 50%;
-                background-image:
-                    linear-gradient(
-                        to bottom,
-                        shade (
-                        %s,
-                            1.3
-                        ),
-                        %s
-                    );
-                border: 1px solid shade (%s, 0.9);
-            }
-        """;
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var colored_css = COLOR_CSS.printf (
-                project.id.to_string (),
-                color,
-                color,
-                color
-            );
-
-            provider.load_from_data (colored_css, colored_css.length);
-
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (GLib.Error e) {
-            return;
         }
     }
 
