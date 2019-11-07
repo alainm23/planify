@@ -1,5 +1,7 @@
 public class Widgets.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
+    public bool is_today { get; set; default = false; }
+    public bool is_upcoming { get; set; default = false; }
 
     private Gtk.Button hidden_button;
     private Gtk.CheckButton checked_button;
@@ -31,6 +33,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private uint checked_timeout = 0;
     private uint timeout_id = 0;
+    private bool save_off = false;
 
     public Gee.HashMap<string, bool> labels_hashmap;
     
@@ -165,6 +168,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         1_box.pack_start (due_label_revealer, false, false, 0);
+        if (is_today == false) {
+            
+        }
+
         1_box.pack_start (content_box, false, false, 0);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
@@ -230,16 +237,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var due_button = new Widgets.DueButton ();
         due_button.item = item;
 
-        due_button.date_changed.connect ((date) => {
-            if (date == null) {
-                due_label.label = "";
-                due_label_revealer.reveal_child = false;
-            } else {
-                due_label.label = date;
-                due_label_revealer.reveal_child = true;
-            }
-        });
-
         var label_button = new Widgets.LabelButton (item.id);
         label_button.margin_start = 6;
 
@@ -263,6 +260,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        action_box.margin_top = 3;
         action_box.margin_start = 60;
         action_box.pack_start (due_button, false, true, 0);
         action_box.pack_start (label_button, false, true, 0);
@@ -513,14 +511,53 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 main_revealer.reveal_child = false;
             }
         });
-        /*
+
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
-                item.due = i.due;
-                due_preview.due = item.due;
+                due_label.label = Application.utils.get_relative_date_from_date (
+                    new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ())
+                );
+                due_label_revealer.reveal_child = true;
+                
+                if (is_today) {
+                    hide_item ();
+
+                    Timeout.add (1500, () => {
+                        print ("Se elimino update_due_item\n"); 
+                        destroy ();
+            
+                        return false;
+                    });
+                }
             }
         });
-        */
+
+        Application.database.add_due_item.connect ((i) => {
+            if (item.id == i.id) {
+                due_label.label = Application.utils.get_relative_date_from_date (
+                    new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ())
+                );
+                due_label_revealer.reveal_child = true;
+            }
+        });
+
+        Application.database.remove_due_item.connect ((i) => {
+            if (item.id == i.id) {
+                due_label.label = "";
+                due_label_revealer.reveal_child = false;
+
+                if (is_today) {
+                    hide_item ();
+
+                    Timeout.add (1500, () => {
+                        print ("Se elimino update_due_item\n"); 
+                        destroy ();
+            
+                        return false;
+                    });
+                }
+            }
+        });
 
         Application.todoist.item_moved_started.connect ((id) => {
             if (item.id == id) {
@@ -538,7 +575,38 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.id == id) {
                 sensitive = true;
             }
-        });        
+        });
+
+        Application.database.item_updated.connect ((i) => {
+            Idle.add (() => {
+                if (item.id == i.id) {
+                    save_off = true;
+
+                    item.content = i.content;
+                    item.note = i.note;
+
+                    content_entry.text = item.content;
+                    content_label.label = item.content;
+                    note_textview.buffer.text = item.note;
+                    
+                    if (note_textview.buffer.text == "") {
+                        note_placeholder.visible = true;
+                        note_placeholder.no_show_all = false;
+                    } else {
+                        note_placeholder.visible = false;
+                        note_placeholder.no_show_all = true;
+                    }
+
+                    Timeout.add (250, () => {
+                        save_off = false;
+        
+                        return false;
+                    });
+                }
+
+                return false;
+            });
+        });
     }
 
     private void checked_toggled () {
@@ -691,17 +759,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void save (bool online=true) {
-        content_label.label = content_entry.text;
+        if (save_off == false) {
+            content_label.label = content_entry.text;
 
-        item.content = content_entry.text;
-        tooltip_text = item.content;
-        item.note = note_textview.buffer.text;
+            item.content = content_entry.text;
+            tooltip_text = item.content;
+            item.note = note_textview.buffer.text;
 
-        if (online) {
-            item.save ();
-        } else {
-            item.save_local ();
-        }
+            if (online) {
+                item.save ();
+            } else {
+                item.save_local ();
+            }
+        }   
     }
     
     private void add_all_checks () {

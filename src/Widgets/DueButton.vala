@@ -1,23 +1,5 @@
 public class Widgets.DueButton : Gtk.ToggleButton {
-    private GLib.DateTime? _datetime;
-    public GLib.DateTime? datetime {
-        set {
-            _datetime = value;
-        }
-        get {
-            return _datetime;
-        }
-    }
-
-    private Objects.Item _item = null;
-    public Objects.Item? item {
-        set {
-            _item = value;
-            set_due (
-                new GLib.DateTime.from_iso8601 (_item.due, new GLib.TimeZone.local ())
-            );
-        }
-    }
+    public Objects.Item item { get; set; }
 
     private Gtk.Label due_label; 
     private Gtk.Image due_image;
@@ -29,8 +11,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Widgets.ModelButton tomorrow_button;
     private Widgets.ModelButton undated_button;
     private Widgets.Calendar.Calendar calendar;
-
-    public signal void date_changed (string? date);
 
     construct {
         tooltip_text = _("Due Date");
@@ -70,6 +50,27 @@ public class Widgets.DueButton : Gtk.ToggleButton {
                 popover.show_all ();
             }
         });
+
+        notify["item"].connect (() => {
+            update_date_text (item.due);
+        });
+
+    }
+
+    public void update_date_text (string due) {
+        if (due != "") {
+            var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+
+            due_label.label = Application.utils.get_relative_date_from_date (date);
+            get_style_context ().remove_class ("due-no-date");
+            due_image.get_style_context ().add_class ("upcoming");
+            label_revealer.reveal_child = true;
+        } else {
+            due_label.label = "";
+            get_style_context ().add_class ("due-no-date");
+            due_image.get_style_context ().remove_class ("upcoming");
+            label_revealer.reveal_child = false;
+        }
     }
 
     private void create_popover () {
@@ -129,30 +130,49 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             set_due (date);
         });
     }
-
+    
     private void set_due (GLib.DateTime? date) {
-        _datetime = date;
+        bool new_date = false;
+        if (date != null) {
+            update_date_text (date.to_string ());
+
+            if (item.due == "") {
+                new_date = true;
+            }
+
+            item.due = date.to_string ();
+        } else {
+            update_date_text ("");
+            item.due = "";
+        }
+
+        if (Application.database.set_due_item (item, new_date)) {
+            popover.popdown ();
+        }
+        /*
+         = date;
 
         if (date != null) {
             due_label.label = Application.utils.get_relative_date_from_date (date);
             get_style_context ().remove_class ("due-no-date");
             due_image.get_style_context ().add_class ("upcoming");
             label_revealer.reveal_child = true;
-            date_changed (due_label.label);
+            //date_changed (date, due_label.label);
         } else {
-            due_label.label = null;
+            due_label.label = "";
             get_style_context ().add_class ("due-no-date");
             due_image.get_style_context ().remove_class ("upcoming");
             label_revealer.reveal_child = false;
-            date_changed (null);
+            //date_changed (null, null);
         }
 
         if (popover != null) {
-            if (_item != null) {
+            if (_item != null && save == true) {
                 if (Application.database.set_due_item (_item, date)) {
                     popover.popdown ();
                 }
 
+                /* 
                 if (_item.is_todoist == 1) {
                     if (date != null) {
                         _item.due = date.to_string ();
@@ -166,5 +186,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
                 popover.popdown ();
             }
         }
+        */
     }
 }

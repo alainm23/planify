@@ -21,7 +21,9 @@ public class Services.Database : GLib.Object {
     public signal void item_added_with_index (Objects.Item item, int index);
     public signal void item_updated (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
+    public signal void add_due_item (Objects.Item item);
     public signal void update_due_item (Objects.Item item);
+    public signal void remove_due_item (Objects.Item item);
     public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
     public signal void item_completed (Objects.Item item);
@@ -1678,15 +1680,10 @@ public class Services.Database : GLib.Object {
         //if ()
     }
 
-    public bool set_due_item (Objects.Item item, GLib.DateTime? date) {
+    public bool set_due_item (Objects.Item item, bool new_date) {
         Sqlite.Statement stmt;
         string sql;
         int res;
-        item.due = "";
-
-        if (date != null) {
-            item.due = date.to_string ();
-        }
 
         sql = """
             UPDATE Items SET due = ? WHERE id = ?;
@@ -1704,7 +1701,16 @@ public class Services.Database : GLib.Object {
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            update_due_item (item);
+            if (new_date) {
+                add_due_item (item);
+            } else {
+                if (item.due == "") {
+                    remove_due_item (item);
+                } else {
+                    update_due_item (item);
+                }  
+            }
+
             return true;
         }
 
@@ -2148,6 +2154,69 @@ public class Services.Database : GLib.Object {
         return all;
     } 
 
+    public Gee.ArrayList<Objects.Item?> get_all_today_items () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Items WHERE checked = 0;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due = stmt.column_text (14);
+            i.date_added = stmt.column_text (15);
+            i.date_completed = stmt.column_text (16);
+            i.date_updated = stmt.column_text (17);
+            /*
+            stmt.reset ();
+
+            sql = """
+                SELECT is_todoist FROM Projects WHERE id = ?;
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, i.project_id);
+            assert (res == Sqlite.OK);
+
+            if (stmt.step () == Sqlite.ROW) {
+                i.is_todoist = stmt.column_int (0);
+            }
+            */
+
+            var due = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
+
+            if (Application.utils.is_today (due)) {
+                all.add (i);
+            }
+        }
+
+        return all;
+    }
+
     public bool add_item_label (int64 item_id, Objects.Label label) {
         Sqlite.Statement stmt;
         string sql;
@@ -2189,7 +2258,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT Items_Labels.id, Items_Labels.label_id, Labels.name, Labels.color FROM Items_Labels
-            INNER JOIN Labels ON Items_Labels.label_id = labels.id
+            INNER JOIN Labels ON Items_Labels.label_id = Labels.id
             WHERE item_id = ?;
         """;
 

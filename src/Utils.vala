@@ -320,6 +320,7 @@ public class Utils : GLib.Object {
     public void apply_theme_changed () {
         string CSS = """
             @define-color projectview_color %s;
+            @define-color border_color alpha (@BLACK_900, %s);
         """;
 
         bool dark_mode = Application.settings.get_boolean ("prefer-dark-style");
@@ -329,12 +330,15 @@ public class Utils : GLib.Object {
 
         try {
             string _color = "#fafafa";
+            string _border_color = "0.25";
             if (dark_mode) {
                 _color = "#333333";
+                _border_color = "0.55";
             }
             
             var css = CSS.printf (
-                _color
+                _color,
+                _border_color
             );
 
             provider.load_from_data (css, css.length);

@@ -21,7 +21,7 @@
 
 public class MainWindow : Gtk.Window {
     private Widgets.Pane pane;
-    public Gee.HashMap<string, bool> loaded_projects;
+    public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
     public signal void shift_press ();
@@ -40,7 +40,7 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
-        loaded_projects = new Gee.HashMap<string, bool> ();
+        projects_loaded = new Gee.HashMap<string, bool> ();
 
         var sidebar_header = new Gtk.HeaderBar ();
         sidebar_header.decoration_layout = "close:";
@@ -162,10 +162,10 @@ public class MainWindow : Gtk.Window {
         });
 
         Application.utils.pane_project_selected.connect ((project_id, area_id) => {
-            if (loaded_projects.has_key (project_id.to_string ())) {
+            if (projects_loaded.has_key (project_id.to_string ())) {
                 stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
             } else {
-                loaded_projects.set (project_id.to_string (), true);
+                projects_loaded.set (project_id.to_string (), true);
                 var project_view = new Views.Project (Application.database.get_project_by_id (project_id));
                 stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                 stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());

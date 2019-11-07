@@ -109,6 +109,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.use_markup = true;
 
         count_label = new Gtk.Label (null);
+        count_label.margin_start = 3;
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.opacity = 0.7;
@@ -124,6 +125,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_icon.get_style_context ().add_class ("text-color");
         source_icon.pixel_size = 14;
         source_icon.margin_top = 3;
+        source_icon.margin_end = 12;
+
+        var source_revealer = new Gtk.Revealer ();
+        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        source_revealer.add (source_icon);
 
         if (project.is_todoist == 0) {
             source_icon.tooltip_text = _("Local Project");
@@ -137,8 +143,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.hexpand = true;
         handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (source_icon, false, false, 6);
         handle_box.pack_start (count_revealer, false, false, 0);
+        handle_box.pack_end (source_revealer, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -189,6 +195,21 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             return false;
+        });
+
+        handle.enter_notify_event.connect ((event) => {
+            source_revealer.reveal_child = true;
+            return true;
+        });
+
+        handle.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            source_revealer.reveal_child = false;
+
+            return true;
         });
 
         Application.database.project_updated.connect ((p) => {

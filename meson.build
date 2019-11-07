@@ -61,8 +61,6 @@ executable(
     'src/Widgets/Calendar/CalendarView.vala',
     'src/Widgets/Calendar/CalendarWeek.vala',
     
-    'src/Widgets/Popovers/ProjectSettings.vala',
-
     'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
