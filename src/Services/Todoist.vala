@@ -245,7 +245,7 @@ public class Services.Todoist : GLib.Object {
                             if (object.get_null_member ("parent_id") == false) {
                                 i.parent_id = object.get_int_member ("parent_id");
                             }
-            
+                            
                             i.content = object.get_string_member ("content");
                             i.checked = (int32) object.get_int_member ("checked");
                             i.priority = (int32) object.get_int_member ("priority");
@@ -253,6 +253,21 @@ public class Services.Todoist : GLib.Object {
                             i.date_added = object.get_string_member ("date_added");
                             i.date_completed = object.get_string_member ("date_completed");
                             
+                            if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                                var due_object = object.get_object_member ("due");
+                                var datetime = new Planner.DateTime.from_string (due_object.get_string_member ("date"));
+
+                                print ("Task: %s\n".printf (i.content));
+                                print ("Parse: %s\n".printf (due_object.get_string_member ("date")));
+                                
+                                if (datetime.valid ()) {
+                                    i.due = datetime.to_string ();
+                                    print ("Due: %s\n".printf (datetime.to_string ()));
+                                }
+
+                                print ("------------------------\n");
+                            }
+
                             Application.database.insert_item (i);
                         }
                         
@@ -1285,7 +1300,7 @@ public class Services.Todoist : GLib.Object {
             comple_timeout = 0;
         }
 
-        comple_timeout = Timeout.add (3000, () => {
+        comple_timeout = Timeout.add (1500, () => {
             complete_items ();
             
             Source.remove (comple_timeout);
@@ -1325,6 +1340,7 @@ public class Services.Todoist : GLib.Object {
                         foreach (var i in items_to_complete) {
                             if (Application.database.update_item_completed (i)) { 
                                 print ("Actualizado: %s\n".printf (i.content));
+                                item_completed_completed (i);
                             }
                         }
 

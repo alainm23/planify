@@ -14,6 +14,13 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("item-row");
         
+        tooltip_markup =  "<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s".printf (
+            _("Content"), item.content,
+            _("Note"), item.note,
+            _("Due date"), Application.utils.get_relative_date_from_string (item.due),
+            _("Date completed"), Application.utils.get_relative_date_from_string (item.date_completed)
+        );
+
         var loading_spinner = new Gtk.Spinner ();
         loading_spinner.margin_start = 17;
         loading_spinner.start ();
@@ -43,6 +50,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         content_label.xalign = 0;
         content_label.use_markup = true;
         content_label.get_style_context ().add_class ("label");
+        content_label.get_style_context ().add_class ("dim-label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

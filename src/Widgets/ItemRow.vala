@@ -530,7 +530,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Application.todoist.item_completed_completed.connect ((i) => {
             if (item.id == i.id) {
-                main_revealer.reveal_child = false;
+                destroy ();
             }
         });
 

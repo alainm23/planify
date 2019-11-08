@@ -65,9 +65,20 @@ public class Views.Today : Gtk.EventBox {
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         new_item_revealer.add (new_item);
 
+        var entry = new Gtk.Entry ();
+
+        entry.changed.connect (() => {
+            var datetime = new Planner.DateTime.from_string (entry.text);
+
+            if (datetime.valid ()) {
+                print ("Fecha: %s\n".printf (datetime.to_string ()));
+            }
+        });
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
+        //main_box.pack_start (entry, false, false, 0);
         main_box.pack_start (new_item_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
@@ -135,6 +146,25 @@ public class Views.Today : Gtk.EventBox {
         
                     listbox.add (row);
                     listbox.show_all ();
+                }
+            }
+        });
+
+        Application.database.item_completed.connect ((item) => {
+            if (item.checked == 0 && item.due != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+                if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+                    if (items_loaded.has_key (item.id.to_string ()) == false) {
+                        var row = new Widgets.ItemRow (item);
+            
+                        row.is_today = true;
+                        items_loaded.set (item.id.to_string (), true);
+            
+                        listbox.add (row);
+                        listbox.show_all ();
+                    } else {
+                        items_loaded.unset (item.id.to_string ());
+                    }
                 }
             }
         });
