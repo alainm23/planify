@@ -1,6 +1,9 @@
 public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gee.HashMap<string, bool> items_loaded;
+    private Gtk.Revealer new_item_revealer;
+    private Widgets.NewItem new_item;
+
     construct {
         items_loaded = new Gee.HashMap<string, bool> ();
 
@@ -38,17 +41,34 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (date_label, false, false, 0);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 12;
+        listbox.margin_top = 6;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        
+        int is_todoist = 0;
+        if (Application.settings.get_boolean ("inbox-project-sync")) {
+            is_todoist = 1;
+        }
+
+        new_item = new Widgets.NewItem (
+            Application.settings.get_int64 ("inbox-project"),
+            0, 
+            is_todoist
+        );
+        new_item.margin_top = 12;
+
+        new_item_revealer = new Gtk.Revealer ();
+        new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        new_item_revealer.add (new_item);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (new_item_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -67,7 +87,7 @@ public class Views.Today : Gtk.EventBox {
 
         Application.database.add_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
-            if (Application.utils.is_today (datetime)) {
+            if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var row = new Widgets.ItemRow (item);
             
@@ -88,7 +108,25 @@ public class Views.Today : Gtk.EventBox {
 
         Application.database.update_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
-            if (items_loaded.has_key (item.id.to_string ()) == false) {
+
+            if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+                if (items_loaded.has_key (item.id.to_string ()) == false) {
+                    var row = new Widgets.ItemRow (item);
+        
+                    row.is_today = true;
+                    items_loaded.set (item.id.to_string (), true);
+        
+                    listbox.add (row);
+                    listbox.show_all ();
+                } else {
+                    items_loaded.unset (item.id.to_string ());
+                }
+            }
+        });
+
+        Application.database.item_added.connect ((item) => {
+            if (item.due != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
                 if (Application.utils.is_today (datetime)) {
                     var row = new Widgets.ItemRow (item);
         
@@ -98,9 +136,11 @@ public class Views.Today : Gtk.EventBox {
                     listbox.add (row);
                     listbox.show_all ();
                 }
-            } else {
-                items_loaded.unset (item.id.to_string ());
             }
+        });
+
+        new_item.new_item_hide.connect (() => {
+            new_item_revealer.reveal_child = false;
         });
     }
 
@@ -114,5 +154,73 @@ public class Views.Today : Gtk.EventBox {
             listbox.add (row);
             listbox.show_all ();
         }
+
+        listbox.set_sort_func (sort_function);
+        listbox.set_header_func (update_headers);
     }
-}
+
+    private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {
+        var i1 = ((Widgets.ItemRow) row1).item;
+        var i2 = ((Widgets.ItemRow) row2).item;
+        
+        if (i1.project_id < i2.project_id) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+    
+    private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
+        var item = ((Widgets.ItemRow) row).item;
+        if (before != null) {
+            var item_before = ((Widgets.ItemRow) before).item;
+
+            if (item.project_id == item_before.project_id) {
+                row.set_header (null);
+                return;
+            }
+
+            if (item.project_id != item_before.project_id) {
+                row.set_header (get_header_project (item.project_id));
+            }
+        } else {
+            print ("Task: %s\n".printf (item.content));
+            row.set_header (get_header_project (item.project_id));
+        }
+    }
+
+    private Gtk.Widget get_header_project (int64 id) {
+        var project = Application.database.get_project_by_id (id);
+
+        var name_label =  new Gtk.Label (project.name);
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("header-title");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_top = 3;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.margin_top = 12;
+        main_box.margin_start = 41;
+        main_box.margin_bottom = 6;
+        main_box.margin_end = 32;
+        main_box.hexpand = true;
+        main_box.pack_start (name_label, false, false, 0);
+        main_box.pack_start (separator, false, false, 0);
+        main_box.show_all ();
+
+        return main_box;
+    }
+
+    public void toggle_new_item () {
+        if (new_item_revealer.reveal_child) {
+            new_item_revealer.reveal_child = false;
+        } else {
+            new_item.due = new GLib.DateTime.now_local ().to_string ();
+            new_item_revealer.reveal_child = true;
+            new_item.entry_grab_focus ();
+        }
+    }
+} 

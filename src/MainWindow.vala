@@ -203,7 +203,7 @@ public class MainWindow : Gtk.Window {
                     true
                 );
             } else if (visible_child_name == "today-view") {
-
+                today_view.toggle_new_item ();
             } else if (visible_child_name == "upcoming-view") {
 
             } else {

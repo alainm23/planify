@@ -149,43 +149,9 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         if (Application.database.set_due_item (item, new_date)) {
             popover.popdown ();
         }
-        /*
-         = date;
 
-        if (date != null) {
-            due_label.label = Application.utils.get_relative_date_from_date (date);
-            get_style_context ().remove_class ("due-no-date");
-            due_image.get_style_context ().add_class ("upcoming");
-            label_revealer.reveal_child = true;
-            //date_changed (date, due_label.label);
-        } else {
-            due_label.label = "";
-            get_style_context ().add_class ("due-no-date");
-            due_image.get_style_context ().remove_class ("upcoming");
-            label_revealer.reveal_child = false;
-            //date_changed (null, null);
+        if (item.is_todoist == 1) {
+            Application.todoist.update_item (item);
         }
-
-        if (popover != null) {
-            if (_item != null && save == true) {
-                if (Application.database.set_due_item (_item, date)) {
-                    popover.popdown ();
-                }
-
-                /* 
-                if (_item.is_todoist == 1) {
-                    if (date != null) {
-                        _item.due = date.to_string ();
-                    } else {
-                        _item.due = "";
-                    }
-
-                    Application.todoist.update_item (_item);
-                }
-            } else {
-                popover.popdown ();
-            }
-        }
-        */
     }
 }

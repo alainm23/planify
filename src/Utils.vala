@@ -278,6 +278,17 @@ public class Utils : GLib.Object {
         }
     }
 
+    public bool is_before_today (GLib.DateTime date) {
+        var date_1 = date.add_days (1);
+        var date_2 = new GLib.DateTime.now_local ();
+
+        if (date_1.compare (date_2) == -1) {
+            return true;
+        }
+
+        return false;
+    }
+
     public bool is_today (GLib.DateTime date_1) {
         var date_2 = new GLib.DateTime.now_local ();
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
@@ -288,6 +299,14 @@ public class Utils : GLib.Object {
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
     }
     
+    public bool is_upcoming (GLib.DateTime date) {
+        if (is_today (date) == false && is_before_today (date) == false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public string get_default_date_format_from_date (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
 

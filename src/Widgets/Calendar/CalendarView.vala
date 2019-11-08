@@ -77,16 +77,6 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
             item.get_style_context ().remove_class ("calendar-today");
 
-            if (sensitive_past_days) {
-                if (is_current_month == false) {
-                    var now = new GLib.DateTime.now_local ();
-                    if (month.compare (now) == -1) {
-                        item.sensitive = false;
-                    }
-                }
-            }
-
-
             if (i < start_day || i >= max_day + start_day) {
                 item.visible = false;
                 item.no_show_all = true;
@@ -107,6 +97,15 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
                 item.day = day_number;
                 day_number =  day_number + 1;
+            }
+
+            if (sensitive_past_days) {
+                if (is_current_month == false) {
+                    var now = new GLib.DateTime.now_local ();
+                    if (month.compare (now) == -1) {
+                        item.sensitive = false;
+                    }
+                }
             }
         }
 

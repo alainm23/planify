@@ -2189,27 +2189,10 @@ public class Services.Database : GLib.Object {
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
-            /*
-            stmt.reset ();
-
-            sql = """
-                SELECT is_todoist FROM Projects WHERE id = ?;
-            """;
-
-            res = db.prepare_v2 (sql, -1, out stmt);
-            assert (res == Sqlite.OK);
-
-            res = stmt.bind_int64 (1, i.project_id);
-            assert (res == Sqlite.OK);
-
-            if (stmt.step () == Sqlite.ROW) {
-                i.is_todoist = stmt.column_int (0);
-            }
-            */
 
             var due = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
 
-            if (Application.utils.is_today (due)) {
+            if (Application.utils.is_today (due) || Application.utils.is_before_today (due)) {
                 all.add (i);
             }
         }

@@ -4,12 +4,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int is_todoist { get; set; }
     public int index { get; set; default = 0; }
     public bool has_index { get; set; default = false; }
+    public string due { get; set; default = ""; }
     
     public int64 temp_id_mapping {get; set; default = 0; }
 
     private uint timeout_id = 0;
     
     private Gtk.Entry content_entry;
+
+    public signal void new_item_hide ();
 
     public NewItem (int64 project_id, int64 section_id, int is_todoist) {
         Object (
@@ -116,7 +119,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         cancel_button.clicked.connect (() => {
-            destroy ();
+            if (due == "") {
+                destroy ();
+            } else {
+                new_item_hide ();
+            }
         });
 
         Application.todoist.item_added_started.connect ((id) => {
@@ -128,7 +135,17 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Application.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
-                destroy ();
+                if (due == "") {
+                    destroy ();
+                } else {
+                    loading_revealer.reveal_child = false;
+                    sensitive = true;
+
+                    content_entry.text = "";
+                    new_item_hide ();
+                }
+
+                due = "";
             }
         });
 
@@ -139,6 +156,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
     }
     
+    public void entry_grab_focus () {
+        content_entry.grab_focus ();
+    }
+
     private void insert_item () {
         if (content_entry.text != "") {
             var item = new Objects.Item ();
@@ -146,6 +167,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
+            item.due = due;
 
             temp_id_mapping = Application.utils.generate_id ();
 
@@ -167,7 +189,14 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     }
                     */
                     content_entry.text = "";
-                    destroy ();
+
+                    if (due == "") {
+                        destroy ();
+                    } else {
+                        new_item_hide ();
+                    }
+                    
+                    due = "";
                 } 
             }
         }

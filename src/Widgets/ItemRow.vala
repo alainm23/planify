@@ -1,6 +1,24 @@
 public class Widgets.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
-    public bool is_today { get; set; default = false; }
+    
+    public bool _is_today;
+    public bool is_today {
+        get {
+            return _is_today;
+        }
+
+        set {
+            _is_today = value;
+            date_label_revealer.reveal_child = !value;
+
+            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()); 
+            if (Application.utils.is_before_today (datetime)) {
+                due_label.get_style_context ().add_class ("duedate-expired");
+                date_label_revealer.reveal_child = true;
+            }
+        }
+    }
+
     public bool is_upcoming { get; set; default = false; }
 
     private Gtk.Button hidden_button;
@@ -16,10 +34,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer bottom_revealer;
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
+    private Gtk.Label due_label;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
     private Gtk.Revealer labels_edit_box_revealer;
+    private Gtk.Revealer date_label_revealer;
     private Gtk.Box labels_box;
     private Gtk.Box labels_edit_box;
     
@@ -103,16 +123,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             checked_button.active = false;
         }
 
-        var due_label = new Gtk.Label (null);
+        due_label = new Gtk.Label (null);
         due_label.halign = Gtk.Align.START;
         due_label.valign = Gtk.Align.CENTER;
         due_label.margin_end = 6;
         due_label.margin_bottom = 1;
-        due_label.get_style_context ().add_class ("due-preview");
 
+        check_due_style ();
+        
         var due_label_revealer = new Gtk.Revealer ();
         due_label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         due_label_revealer.add (due_label);
+
+        date_label_revealer = new Gtk.Revealer ();
+        date_label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        date_label_revealer.add (due_label_revealer);
+        date_label_revealer.reveal_child = true;
 
         if (item.due != "") {
             due_label.label = Application.utils.get_relative_date_from_string (item.due);
@@ -167,11 +193,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        1_box.pack_start (due_label_revealer, false, false, 0);
-        if (is_today == false) {
-            
-        }
-
+        1_box.pack_start (date_label_revealer, false, false, 0); 
         1_box.pack_start (content_box, false, false, 0);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
@@ -343,7 +365,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         add_all_checks ();
         add_all_labels ();
-
+        
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 hide_item ();
@@ -514,20 +536,26 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
-                due_label.label = Application.utils.get_relative_date_from_date (
-                    new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ())
-                );
+                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+
+                due_label.label = Application.utils.get_relative_date_from_date (datetime);
                 due_label_revealer.reveal_child = true;
                 
-                if (is_today) {
-                    hide_item ();
+                check_due_style ();
 
-                    Timeout.add (1500, () => {
-                        print ("Se elimino update_due_item\n"); 
-                        destroy ();
-            
-                        return false;
-                    });
+                if (is_today) {
+                    date_label_revealer.reveal_child = false;
+                    
+                    if (Application.utils.is_today (datetime) == false && Application.utils.is_before_today (datetime) == false) {
+                        hide_item ();
+
+                        Timeout.add (1500, () => {
+                            print ("Se elimino update_due_item\n"); 
+                            destroy ();
+                
+                            return false;
+                        });
+                    }
                 }
             }
         });
@@ -538,6 +566,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ())
                 );
                 due_label_revealer.reveal_child = true;
+
+                check_due_style ();
             }
         });
 
@@ -545,6 +575,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.id == i.id) {
                 due_label.label = "";
                 due_label_revealer.reveal_child = false;
+
+                check_due_style ();
 
                 if (is_today) {
                     hide_item ();
@@ -804,6 +836,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
+    private void check_due_style () {
+        if (item.due != "") {
+            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());            
+            
+            due_label.get_style_context ().remove_class ("duedate-today");
+            due_label.get_style_context ().remove_class ("duedate-expired");
+            due_label.get_style_context ().remove_class ("duedate-upcoming");
+            
+            if (Application.utils.is_today (datetime)) {
+                due_label.get_style_context ().add_class ("duedate-today");
+            } else if (Application.utils.is_before_today (datetime)) {
+                due_label.get_style_context ().add_class ("duedate-expired");
+            } else {
+                due_label.get_style_context ().add_class ("duedate-upcoming");
+            }
+        }
+    }
     private void check_checklist_separator () {
         if (check_listbox.get_children ().length () > 0) {
             checklist_revealer.reveal_child = true;

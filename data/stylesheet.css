@@ -652,7 +652,7 @@ paned > separator {
     font-size: 14px;
 }
 
-.due-preview {
+.duedate-upcoming {
     background-color: #273445;
     padding: 0px 6px 1px 6px;
     font-size: 9px;
@@ -660,6 +660,26 @@ paned > separator {
     color: #fafafa;
     border-radius: 3px;
     border: 1px solid shade (#273445, 0.75);
+}
+
+.duedate-expired {
+    background-color: shade (#ed5353, 0.85);
+    padding: 0px 6px 1px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fafafa;
+    border-radius: 3px;
+    border: 1px solid #a10705;
+}
+
+.duedate-today {
+    background-color: #ffe16b;
+    padding: 0px 6px 1px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #333;
+    border-radius: 3px;
+    border: 1px solid #f9c440;
 }
 
 .checklist-button check {
