@@ -253,6 +253,7 @@ public class Services.Todoist : GLib.Object {
                             i.date_added = object.get_string_member ("date_added");
                             i.date_completed = object.get_string_member ("date_completed");
                             
+                            /*
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
                                 var datetime = new Planner.DateTime.from_string (due_object.get_string_member ("date"));
@@ -267,6 +268,7 @@ public class Services.Todoist : GLib.Object {
 
                                 print ("------------------------\n");
                             }
+                            */
 
                             Application.database.insert_item (i);
                         }
