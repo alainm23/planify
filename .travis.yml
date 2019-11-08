@@ -3,7 +3,7 @@
 language: node_js
 
 node_js:
-  - lts/*
+  - 10/*
 
 sudo: required
 
@@ -17,12 +17,9 @@ addons:
     packages:
       - libstdc++-5-dev
 
-cache:
-  directories:
-    - /tmp/liftoff
-
 install:
   - npm i -g @elementaryos/houston
 
 script:
   - houston ci
+    
