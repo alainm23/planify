@@ -82,13 +82,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    var row = new Widgets.ItemRow (item);
-            
-                    row.upcoming = date;
-                    items_loaded.set (item.id.to_string (), true);
-
-                    listbox.add (row);
-                    listbox.show_all ();   
+                    add_item (item);  
                 }
             }
         });
@@ -122,6 +116,31 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                 }
             }
         });
+
+        Application.database.item_completed.connect ((item) => {
+            if (item.checked == 0 && item.due != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+                if (Granite.DateTime.is_same_day (datetime, date)) {
+                    if (items_loaded.has_key (item.id.to_string ()) == false) {
+                        add_item (item);
+                    }
+                }
+            } else {
+                if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.unset (item.id.to_string ());
+                }
+            }
+        });
+    }
+
+    private void add_item (Objects.Item item) {
+        var row = new Widgets.ItemRow (item);
+            
+        row.upcoming = date;
+        items_loaded.set (item.id.to_string (), true);
+
+        listbox.add (row);
+        listbox.show_all ();
     }
 
     private void add_all_items () {

@@ -121,13 +121,7 @@ public class Views.Today : Gtk.EventBox {
 
             if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    var row = new Widgets.ItemRow (item);
-        
-                    row.is_today = true;
-                    items_loaded.set (item.id.to_string (), true);
-        
-                    listbox.add (row);
-                    listbox.show_all ();
+                    add_item (item);
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
@@ -140,13 +134,7 @@ public class Views.Today : Gtk.EventBox {
             if (item.due != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
                 if (Application.utils.is_today (datetime)) {
-                    var row = new Widgets.ItemRow (item);
-        
-                    row.is_today = true;
-                    items_loaded.set (item.id.to_string (), true);
-        
-                    listbox.add (row);
-                    listbox.show_all ();
+                    add_item (item);
                 }
             }
         });
@@ -156,16 +144,12 @@ public class Views.Today : Gtk.EventBox {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
                 if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                     if (items_loaded.has_key (item.id.to_string ()) == false) {
-                        var row = new Widgets.ItemRow (item);
-            
-                        row.is_today = true;
-                        items_loaded.set (item.id.to_string (), true);
-            
-                        listbox.add (row);
-                        listbox.show_all ();
-                    } else {
-                        items_loaded.unset (item.id.to_string ());
+                        add_item (item);
                     }
+                }
+            } else {
+                if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.unset (item.id.to_string ());
                 }
             }
         });
@@ -173,6 +157,16 @@ public class Views.Today : Gtk.EventBox {
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;
         });
+    }
+
+    private void add_item (Objects.Item item) {
+        var row = new Widgets.ItemRow (item);
+            
+        row.is_today = true;
+        items_loaded.set (item.id.to_string (), true);
+
+        listbox.add (row);
+        listbox.show_all ();
     }
 
     private void add_all_items () {
