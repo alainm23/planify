@@ -47,7 +47,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
                     create_popover ();
                 }
 
-                popover.show_all ();
+                popover.popup ();
             }
         });
 
@@ -107,6 +107,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         popover_grid.add (tomorrow_button);
         popover_grid.add (undated_button);
         popover_grid.add (calendar);
+        popover_grid.show_all ();
 
         popover.add (popover_grid);
 

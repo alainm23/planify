@@ -55,7 +55,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("label");
  
         var content_grid = new Gtk.Grid ();
-        content_grid.column_spacing = 3;
         content_grid.get_style_context ().add_class ("check-eventbox");
         content_grid.add (checked_button);
         content_grid.add (content_entry);

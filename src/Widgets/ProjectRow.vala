@@ -162,6 +162,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         grid.add (motion_revealer);
         
         handle = new Gtk.EventBox ();
+        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         handle.expand = true;
         handle.above_child = false;
         handle.add (grid);

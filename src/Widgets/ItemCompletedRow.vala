@@ -43,14 +43,13 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         
         completed_label.get_style_context ().add_class ("due-preview");
 
-        content_label = new Gtk.Label (item.content);
+        content_label = new Gtk.Label ("<s>%s</s>".printf (item.content));
         content_label.margin_start = 9;
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
         content_label.use_markup = true;
         content_label.get_style_context ().add_class ("label");
-        content_label.get_style_context ().add_class ("dim-label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

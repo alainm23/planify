@@ -724,3 +724,7 @@ paned > separator {
 .description-label {
     font-weight: 600;
 }
+
+.primary-label {
+    color: #ed5353;
+}

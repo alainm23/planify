@@ -331,7 +331,6 @@ public class Utils : GLib.Object {
             return get_default_date_format_from_date (date);
         }
     }
-
     /*  
         Settigns Theme 
     */

@@ -84,7 +84,6 @@ public class Views.Today : Gtk.EventBox {
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        main_scrolled.width_request = 246;
         main_scrolled.expand = true;
         main_scrolled.add (main_box);
 
@@ -129,7 +128,9 @@ public class Views.Today : Gtk.EventBox {
         
                     listbox.add (row);
                     listbox.show_all ();
-                } else {
+                }
+            } else {
+                if (items_loaded.has_key (item.id.to_string ())) {
                     items_loaded.unset (item.id.to_string ());
                 }
             }

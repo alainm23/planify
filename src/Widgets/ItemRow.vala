@@ -1,7 +1,7 @@
 public class Widgets.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
     
-    public bool _is_today;
+    public bool _is_today = false;
     public bool is_today {
         get {
             return _is_today;
@@ -19,7 +19,25 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public bool is_upcoming { get; set; default = false; }
+    public GLib.DateTime? _upcoming = null;
+    public GLib.DateTime? upcoming {
+        get {
+            return _upcoming;
+        }
+
+        set {
+            _upcoming = value;
+            date_label_revealer.reveal_child = false;
+
+            /*
+            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()); 
+            if (Application.utils.is_before_today (datetime)) {
+                due_label.get_style_context ().add_class ("duedate-expired");
+                date_label_revealer.reveal_child = true;
+            }
+            */
+        }
+    }
 
     private Gtk.Button hidden_button;
     private Gtk.CheckButton checked_button;
@@ -536,7 +554,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+                var datetime = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
 
                 due_label.label = Application.utils.get_relative_date_from_date (datetime);
                 due_label_revealer.reveal_child = true;
@@ -549,7 +567,25 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     if (Application.utils.is_today (datetime) == false && Application.utils.is_before_today (datetime) == false) {
                         hide_item ();
 
-                        Timeout.add (1500, () => {
+                        Timeout.add (1000, () => {
+                            destroy ();
+                
+                            return false;
+                        });
+                    }
+                }
+
+                if (upcoming != null) {
+                    print ("Entro aqui\n"); 
+                    date_label_revealer.reveal_child = false;
+
+                    print ("Nueva fecha: %s\n".printf (datetime.to_string ())); 
+                    print ("Upcoming: %s\n".printf (upcoming.to_string ())); 
+                    
+                    if (Granite.DateTime.is_same_day (datetime, upcoming) == false) {
+                        hide_item ();
+
+                        Timeout.add (1000, () => {
                             print ("Se elimino update_due_item\n"); 
                             destroy ();
                 
@@ -578,7 +614,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 check_due_style ();
 
-                if (is_today) {
+                if (is_today || upcoming != null) {
                     hide_item ();
 
                     Timeout.add (1500, () => {
@@ -645,7 +681,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (checked_button.active) { 
             item.checked = 1;
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            opacity = 0.4;
+            
+            content_label.label = "<s>%s</s>".printf (item.content);
 
             checked_timeout = Timeout.add (3000, () => {
                 if (item.is_todoist == 1) {
@@ -664,7 +701,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (checked_timeout != 0) {
                 item.checked = 1;
                 item.date_completed = "";
-                opacity = 1;
+
+                content_label.label = item.content;
 
                 Source.remove (checked_timeout);
                 checked_timeout = 0;
@@ -782,7 +820,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        reveal_drag_motion = true;   
+        reveal_drag_motion = true;
         return true;
     }
 

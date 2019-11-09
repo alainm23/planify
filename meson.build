@@ -55,6 +55,7 @@ executable(
     'src/Widgets/LabelPreview.vala',
     'src/Widgets/LabelItem.vala',
     'src/Widgets/ProjectProgress.vala',
+    'src/Widgets/UpcomingRow.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
