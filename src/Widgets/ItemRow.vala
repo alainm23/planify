@@ -29,15 +29,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             _upcoming = value;
             date_label_revealer.reveal_child = false;
 
-            /*
-            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()); 
-            if (Application.utils.is_before_today (datetime)) {
-                due_label.get_style_context ().add_class ("duedate-expired");
-                date_label_revealer.reveal_child = true;
-            }
-            */
+            project = Application.database.get_project_by_id (item.project_id);
+            project_name_label.label = project.name;
+            project_name_revealer.reveal_child = true;
         }
     }
+
+    private Objects.Project project { get; set; }
 
     private Gtk.Button hidden_button;
     private Gtk.CheckButton checked_button;
@@ -53,6 +51,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Label due_label;
+    private Gtk.Label project_name_label;
+    private Gtk.Revealer project_name_revealer;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
@@ -210,11 +210,20 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             note_revealer.reveal_child = true;
         }
 
+        project_name_label = new Gtk.Label (null);
+        project_name_label.get_style_context ().add_class ("dim-label");
+
+        project_name_revealer = new Gtk.Revealer ();
+        project_name_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        project_name_revealer.add (project_name_label);
+
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        1_box.margin_end = 32;
         1_box.pack_start (date_label_revealer, false, false, 0); 
         1_box.pack_start (content_box, false, false, 0);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
+        1_box.pack_end (project_name_revealer, false, false, 0);
 
         content_entry = new Gtk.Entry ();
         content_entry.margin_bottom = 1;

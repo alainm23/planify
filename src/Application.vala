@@ -27,9 +27,7 @@ public class Application : Gtk.Application {
     public static Services.Database database;
     public static Services.Todoist todoist;
     public static Services.Notification notification;
-
-    public bool is_shift_active = false;
-
+    
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",

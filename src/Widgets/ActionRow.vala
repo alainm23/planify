@@ -33,6 +33,10 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer main_revealer;
 
+    private const Gtk.TargetEntry[] targetEntriesItem = {
+        {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public ActionRow (string name, string icon, string item_base_name, string tooltip_text) {
         Object (
             item_name: name,    
@@ -76,6 +80,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = true;
 
         add (main_revealer);
+        build_drag_and_drop ();
 
         if (item_base_name == "inbox") {
             icon.get_style_context ().add_class ("inbox-icon");
@@ -88,5 +93,39 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         } else if (item_base_name == "upcoming") {
             icon.get_style_context ().add_class ("upcoming-icon");
         }
+    }
+
+    private void build_drag_and_drop () {
+        if (item_base_name == "inbox") {
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
+            drag_data_received.connect (on_drag_item_received);
+            drag_motion.connect (on_drag_item_motion);
+            drag_leave.connect (on_drag_item_leave);
+        }
+    }
+
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+        if (item_base_name == "inbox") {
+            Widgets.ItemRow source;
+            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+            source = (Widgets.ItemRow) row;
+
+            if (source.item.is_todoist == 0) {
+                if (Application.database.move_item (source.item, Application.settings.get_int64 ("inbox-project"))) {
+                    source.get_parent ().remove (source);
+                }
+            } else {
+                Application.todoist.move_item (source.item, Application.settings.get_int64 ("inbox-project"));
+            }
+        }
+    }
+
+    public bool on_drag_item_motion (Gdk.DragContext context, int x, int y, uint time) {
+        get_style_context ().add_class ("highlight");  
+        return true;
+    }
+
+    public void on_drag_item_leave (Gdk.DragContext context, uint time) {
+        get_style_context ().remove_class ("highlight");
     }
 }

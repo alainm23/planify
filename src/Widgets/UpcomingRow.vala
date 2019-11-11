@@ -33,6 +33,16 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         date_label.valign = Gtk.Align.CENTER;
         date_label.use_markup = true;
 
+        var add_button = new Gtk.Button ();
+        add_button.can_focus = false;
+        add_button.valign = Gtk.Align.CENTER;
+        add_button.tooltip_text = _("Add task");
+        add_button.image = new Gtk.Image.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        add_button.get_style_context ().remove_class ("button");
+        add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        add_button.get_style_context ().add_class ("hidden-button");
+
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_start = 41;
         top_box.margin_end = 32;
@@ -40,6 +50,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         top_box.valign = Gtk.Align.START;
         top_box.pack_start (day_label, false, false, 0);
         top_box.pack_start (date_label, false, false, 6);
+        //top_box.pack_end (add_button, false, false, 0);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_top = 3;

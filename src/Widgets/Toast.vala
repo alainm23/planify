@@ -5,26 +5,6 @@ public class Widgets.Toast : Gtk.Revealer {
     private Gtk.Label delete_message_label;
 
     private uint timeout_id;
-    /*
-    private Gtk.Label notification_label;
-
-    private string _title;
-    
-    
-    public string title {
-        get {
-            return _title;
-        }
-
-        construct set {
-            if (notification_label != null) {
-                notification_label.label = value;
-            }
-
-            _title = value;
-        }
-    }
-    */
 
     construct {
         margin = 3;
@@ -61,8 +41,6 @@ public class Widgets.Toast : Gtk.Revealer {
 
         simple_message_label = new Gtk.Label (null);
         simple_message_label.use_markup = true;
-        //title_label.max_width_chars = ;
-        //title_label.ellipsize = Pango.EllipsizeMode.END;
 
         var notification_box = new Gtk.Grid ();
         notification_box.margin_end = 12;

@@ -15,6 +15,7 @@ c_args = [
 ]
 
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
+add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
@@ -34,6 +35,8 @@ executable(
     'src/Services/Todoist.vala',
     'src/Services/LabelsController.vala',
     'src/Services/Notification.vala',
+    'src/Services/Calendar/Util.vala',
+    'src/Services/Calendar/CalendarModel.vala',
     
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
@@ -90,6 +93,9 @@ executable(
         dependency('gtk+-3.0'),
         dependency('json-glib-1.0'),
         dependency('webkit2gtk-4.0'),
+        dependency('libecal-1.2'),
+        dependency('libedataserver-1.2'),
+        dependency('libical'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

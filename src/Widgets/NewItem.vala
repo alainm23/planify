@@ -7,6 +7,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public string due { get; set; default = ""; }
     
     public int64 temp_id_mapping {get; set; default = 0; }
+    public bool shift_pressed { get; private set; default = false; }
+    public bool shift_activated { get; private set; default = false; }
 
     private uint timeout_id = 0;
     
@@ -97,24 +99,46 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
             return false;
         });
-        
-        content_entry.activate.connect (insert_item);
+
+        content_entry.key_press_event.connect ((event) => {
+            if (event.keyval == Gdk.Key.Shift_L) {
+                shift_pressed = true;
+            } else if (event.keyval == Gdk.Key.Return) {
+                insert_item ();
+
+            } else if (event.keyval == 65307) {
+                if (due == "") {
+                    destroy ();
+                } else {
+                    loading_revealer.reveal_child = false;
+                    sensitive = true;
+
+                    content_entry.text = "";
+                    new_item_hide ();
+                }
+
+                due = "";
+            }
+            
+            return false;
+        });
+
+        content_entry.key_release_event.connect ((event) => {
+            if (event.keyval == Gdk.Key.Shift_L) {
+                shift_pressed = false;
+            }
+
+            return true;
+        });
+
         submit_button.clicked.connect (insert_item);
 
-        content_entry.changed.connect (() => {
+        content_entry.changed.connect (() => {  
             if (content_entry.text != "") {
                 submit_button.sensitive = true;
             } else {
                 submit_button.sensitive = false;
             }
-        });
-
-        content_entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                destroy ();
-            }
-
-            return false;
         });
 
         cancel_button.clicked.connect (() => {
@@ -134,6 +158,21 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Application.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
+                if (shift_activated) {
+                    bool is_last = true;
+                    if (has_index) {
+                        is_last = false;
+                    }
+
+                    Application.utils.magic_button_activated (
+                        project_id,
+                        section_id,
+                        is_todoist,
+                        is_last,
+                        index + 1
+                    );
+                }
+
                 if (due == "") {
                     destroy ();
                 } else {
@@ -169,24 +208,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.due = due;
 
             temp_id_mapping = Application.utils.generate_id ();
+            shift_activated = shift_pressed;
+
+            print ("Se creo la tarea con %s\n".printf (shift_activated.to_string ()));
 
             if (is_todoist == 1) {
-                if (Application.utils.check_connection ()) {
-                    Application.todoist.add_item (item, index, has_index, temp_id_mapping);
-                } else {
-
-                }
+                Application.todoist.add_item (item, index, has_index, temp_id_mapping);
             } else {
                 item.id = Application.utils.generate_id ();
 
                 if (Application.database.insert_item (item, index, has_index)) {
-                    /*
-                    if (Application.instance.main_window.shift_pressed) {
-                        
-                    } else {
-                        
-                    }
-                    */
                     content_entry.text = "";
 
                     if (due == "") {

@@ -24,11 +24,6 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
-    public signal void shift_press ();
-    public signal void shift_release ();
-    public bool shift_pressed { get; private set; default = false; }
-
-
     private uint timeout_id = 0;
 
     public MainWindow (Application application) {
@@ -242,23 +237,7 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        this.key_press_event.connect ((event) => {
-            if (event.keyval == Gdk.Key.Shift_L) {
-                shift_pressed = true;
-                shift_press ();
-                print ("Se apreto\n");
-            }
-            return false;
-        });
-
-        this.key_release_event.connect ((event) => {
-            if (event.keyval == Gdk.Key.Shift_L) {
-                shift_pressed = false;
-                shift_release ();
-                print ("Se dejo de apretar\n");
-            }
-            return true;
-        });
+        var model = Services.Calendar.CalendarModel.get_default ();
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {
