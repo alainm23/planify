@@ -331,6 +331,38 @@ public class Utils : GLib.Object {
             return get_default_date_format_from_date (date);
         }
     }
+
+    public GLib.DateTime get_todoist_datetime (string date) {
+        if (is_full_day_date (date)) {
+            var _date = date.split ("-");
+
+            return new GLib.DateTime.local (
+                int.parse (_date [0]),
+                int.parse (_date [1]),
+                int.parse (_date [2]),
+                0,
+                0,
+                0
+            );
+        } else {
+            var _date = date.split ("T") [0].split ("-");
+            var _time = date.split ("T") [1].split (":");
+
+            return new GLib.DateTime.local (
+                int.parse (_date [0]),
+                int.parse (_date [1]),
+                int.parse (_date [2]),
+                int.parse (_time [0]),
+                int.parse (_time [1]),
+                int.parse (_time [2])
+            );
+        }
+    }
+
+    public bool is_full_day_date (string datetime) {
+        return datetime.length <= 10;
+    }
+
     /*  
         Settigns Theme 
     */

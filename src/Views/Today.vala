@@ -154,6 +154,21 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
+        Application.database.item_moved.connect ((item) => {
+            if (item.checked == 0 && item.due != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+                if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+                    if (items_loaded.has_key (item.id.to_string ()) == false) {
+                        add_item (item);
+                    }
+                }
+            } else {
+                if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.unset (item.id.to_string ());
+                }
+            }
+        });
+
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;
         });

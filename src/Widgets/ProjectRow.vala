@@ -61,8 +61,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        //count = Application.database.get_count_items_by_project (project.id);
-
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 

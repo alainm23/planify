@@ -184,6 +184,27 @@ public class Services.Database : GLib.Object {
         debug ("Table Items created");
 
         sql = """
+            CREATE TABLE IF NOT EXISTS Reminders (
+                id                  INTEGER PRIMARY KEY,
+                notify_uid          INTEGER,
+                item_id             INTEGER,
+                service             TEXT,
+                type                TEXT,
+                due_date            TEXT,
+                due_timezone        TEXT,
+                due_is_recurring    TEXT,
+                due_string          TEXT,
+                due_lang            TEXT,
+                mm_offset           INTEGER,
+                is_deleted          INTEGER,
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE,
+            );
+        """;
+        
+        rc = db.exec (sql, null, null);
+        debug ("Table Reminders created");
+        
+        sql = """
             CREATE TABLE IF NOT EXISTS Labels (
                 id              INTEGER PRIMARY KEY,
                 name            TEXT,

@@ -105,7 +105,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 shift_pressed = true;
             } else if (event.keyval == Gdk.Key.Return) {
                 insert_item ();
-
             } else if (event.keyval == 65307) {
                 if (due == "") {
                     destroy ();
@@ -159,16 +158,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         Application.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
                 if (shift_activated) {
-                    bool is_last = true;
+                    bool last = true;
                     if (has_index) {
-                        is_last = false;
+                        last = false;
                     }
 
                     Application.utils.magic_button_activated (
                         project_id,
                         section_id,
                         is_todoist,
-                        is_last,
+                        last,
                         index + 1
                     );
                 }
@@ -176,13 +175,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 if (due == "") {
                     destroy ();
                 } else {
-                    loading_revealer.reveal_child = false;
-                    sensitive = true;
-
-                    content_entry.text = "";
                     new_item_hide ();
                 }
-
+                
                 due = "";
             }
         });
@@ -219,6 +214,21 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
                 if (Application.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
+
+                    if (shift_activated) {
+                        bool last = true;
+                        if (has_index) {
+                            last = false;
+                        }
+
+                        Application.utils.magic_button_activated (
+                            project_id,
+                            section_id,
+                            is_todoist,
+                            last,
+                            index + 1
+                        );
+                    }
 
                     if (due == "") {
                         destroy ();

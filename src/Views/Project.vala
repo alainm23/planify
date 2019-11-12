@@ -15,7 +15,6 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
 
     private int64 temp_id_mapping { get; set; default = 0; }
-    private bool has_new_item { get; set; default = false; }
 
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -362,29 +361,22 @@ public class Views.Project : Gtk.EventBox {
         });
 
         Application.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
-            if (has_new_item == false) {
-                if (project.id == project_id && section_id == 0) {
-                    var new_item = new Widgets.NewItem (
-                        project_id,
-                        section_id, 
-                        is_todoist
-                    );
-                    
-                    new_item.destroy.connect (() => {
-                        has_new_item = false;
-                    });
-
-                    if (last) {
-                        listbox.add (new_item);
-                    } else {
-                        new_item.has_index = true;
-                        new_item.index = index;
-                        listbox.insert (new_item, index);
-                    }
-                    
-                    has_new_item = true;
-                    listbox.show_all ();
+            if (project.id == project_id && section_id == 0) {
+                var new_item = new Widgets.NewItem (
+                    project_id,
+                    section_id, 
+                    is_todoist
+                );
+                
+                if (last) {
+                    listbox.add (new_item);
+                } else {
+                    new_item.has_index = true;
+                    new_item.index = index;
+                    listbox.insert (new_item, index);
                 }
+                
+                listbox.show_all ();
             }
         });
 

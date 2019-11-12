@@ -303,10 +303,11 @@ public class Views.Inbox : Gtk.EventBox {
                     section_id, 
                     is_todoist
                 );
-
+                 
                 if (last) {
                     listbox.add (new_item);
                 } else {
+                    new_item.has_index = true;
                     new_item.index = index;
                     listbox.insert (new_item, index);
                 }
@@ -318,16 +319,21 @@ public class Views.Inbox : Gtk.EventBox {
         Application.settings.changed.connect (key => {
             if (key == "inbox-project") {
                 project_id = Application.settings.get_int64 ("inbox-project");
-                add_items (project_id);
             } else if (key == "inbox-project-sync") {
                 if (Application.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
+
+                    add_items (project_id);
                 }
             }
         });
     }
 
-    private void add_items (int64 id) { 
+    private void add_items (int64 id) {
+        foreach (var child in completed_listbox.get_children ()) {
+            child.destroy ();
+        }
+
         foreach (var item in Application.database.get_all_items_by_inbox (id, is_todoist)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
@@ -369,7 +375,7 @@ public class Views.Inbox : Gtk.EventBox {
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ItemRow target;
-        Widgets.ItemRow source;
+        Widgets.ItemRow source; 
         Gtk.Allocation alloc;
 
         target = (Widgets.ItemRow) listbox.get_row_at_y (y);
@@ -379,13 +385,19 @@ public class Views.Inbox : Gtk.EventBox {
         source = (Widgets.ItemRow) row;
 
         if (target != null) {        
-            if (target.get_index () != source.get_index ()) {
-                source.get_parent ().remove (source); 
-                listbox.insert (source, target.get_index ());
-                listbox.show_all ();
+            if (source.item.section_id != 0) {
+                source.item.section_id = 0;
 
-                update_item_order ();
-            }   
+                if (source.item.is_todoist == 1) {
+                    Application.todoist.move_item_to_section (source.item, 0);
+                }
+            }
+
+            source.get_parent ().remove (source); 
+            listbox.insert (source, target.get_index () + 1);
+            listbox.show_all ();
+
+            update_item_order ();
         }
     }
 

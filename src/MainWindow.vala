@@ -237,7 +237,7 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        var model = Services.Calendar.CalendarModel.get_default ();
+        //var model = Services.Calendar.CalendarModel.get_default ();
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

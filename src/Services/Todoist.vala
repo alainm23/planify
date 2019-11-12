@@ -253,22 +253,11 @@ public class Services.Todoist : GLib.Object {
                             i.date_added = object.get_string_member ("date_added");
                             i.date_completed = object.get_string_member ("date_completed");
                             
-                            /*
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
-                                var datetime = new Planner.DateTime.from_string (due_object.get_string_member ("date"));
-
-                                print ("Task: %s\n".printf (i.content));
-                                print ("Parse: %s\n".printf (due_object.get_string_member ("date")));
-                                
-                                if (datetime.valid ()) {
-                                    i.due = datetime.to_string ();
-                                    print ("Due: %s\n".printf (datetime.to_string ()));
-                                }
-
-                                print ("------------------------\n");
+                                var datetime = Application.utils.get_todoist_datetime (due_object.get_string_member ("date"));
+                                i.due = datetime.to_string ();
                             }
-                            */
 
                             Application.database.insert_item (i);
                         }

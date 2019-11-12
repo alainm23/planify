@@ -30,7 +30,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             date_label_revealer.reveal_child = false;
 
             project = Application.database.get_project_by_id (item.project_id);
-            project_name_label.label = project.name;
+            project_name_label.label = "<small>%s</small>".printf (project.name);
             project_name_revealer.reveal_child = true;
         }
     }
@@ -82,6 +82,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private const Gtk.TargetEntry[] targetEntriesMagicButton = {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
     };
+
+    public signal void update_headers ();
 
     public bool reveal_child {
         set {
@@ -211,7 +213,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         project_name_label = new Gtk.Label (null);
-        project_name_label.get_style_context ().add_class ("dim-label");
+        project_name_label.use_markup = true;
 
         project_name_revealer = new Gtk.Revealer ();
         project_name_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -644,7 +646,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Application.todoist.item_moved_completed.connect ((id) => {
             if (item.id == id) {
-                destroy ();
+                if (upcoming == null) {
+                    destroy ();
+                } else if (is_today) {
+                    destroy ();
+                } else {
+                    sensitive = true;
+                }
             }
         });
 
@@ -683,6 +691,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 return false;
             });
+        });
+
+        Application.database.item_moved.connect ((i) => {
+            if (item.id == i.id) {
+                item.project_id = i.project_id;
+
+                if (upcoming != null) {
+                    project = Application.database.get_project_by_id (item.project_id);
+                    project_name_label.label = "<small>%s</small>".printf (project.name);
+                    project_name_revealer.reveal_child = true;
+                }
+            }
         });
     }
 
