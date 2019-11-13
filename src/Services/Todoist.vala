@@ -256,7 +256,14 @@ public class Services.Todoist : GLib.Object {
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
                                 var datetime = Application.utils.get_todoist_datetime (due_object.get_string_member ("date"));
-                                i.due = datetime.to_string ();
+                                i.due_date = datetime.to_string ();
+
+                                i.due_timezone = due_object.get_string_member ("timezone");
+                                i.due_string = due_object.get_string_member ("string");
+                                i.due_lang = due_object.get_string_member ("lang");
+                                if (due_object.get_boolean_member ("is_recurring")) {
+                                    i.due_is_recurring = 1;
+                                }
                             }
 
                             Application.database.insert_item (i);
@@ -1167,12 +1174,12 @@ public class Services.Todoist : GLib.Object {
             builder.set_member_name ("content");
             builder.add_string_value (item.content);
 
-            if (item.due != "") {
+            if (item.due_date != "") {
                 builder.set_member_name ("due");
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()).format ("%F"));
+                builder.add_string_value (new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ()).format ("%F"));
 
                 builder.end_object ();
             } else {

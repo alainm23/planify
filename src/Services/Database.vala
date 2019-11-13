@@ -159,24 +159,28 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Items (
-                id              INTEGER PRIMARY KEY,
-                project_id      INTEGER,
-                section_id      INTEGER,
-                user_id         INTEGER,
-                assigned_by_uid INTEGER,
-                responsible_uid INTEGER,
-                sync_id         INTEGER,
-                parent_id       INTEGER,
-                priority        INTEGER,
-                item_order      INTEGER,
-                checked         INTEGER,
-                is_deleted      INTEGER,
-                content         TEXT NOT NULL,
-                note            TEXT,
-                due             TEXT,
-                date_added      TEXT,
-                date_completed  TEXT,
-                date_updated    TEXT
+                id                  INTEGER PRIMARY KEY,
+                project_id          INTEGER,
+                section_id          INTEGER,
+                user_id             INTEGER,
+                assigned_by_uid     INTEGER,
+                responsible_uid     INTEGER,
+                sync_id             INTEGER,
+                parent_id           INTEGER,
+                priority            INTEGER,
+                item_order          INTEGER,
+                checked             INTEGER,
+                is_deleted          INTEGER,
+                content             TEXT NOT NULL,
+                note                TEXT,
+                due_date            TEXT,
+                due_timezone        TEXT,
+                due_string          TEXT,
+                due_lang            TEXT,
+                due_is_recurring    INTEGER,
+                date_added          TEXT,
+                date_completed      TEXT,
+                date_updated        TEXT
             );
         """;
         
@@ -1395,6 +1399,31 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_section_item_order (int64 section_id, int item_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Sections SET item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item_order);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int64 (2, section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            //updated_playlist (playlist);
+        }
+    }
+
     /*
         Item
     */
@@ -1426,8 +1455,9 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
             responsible_uid, sync_id, parent_id, priority, item_order, checked,
-            is_deleted, content, note, due, date_added, date_completed, date_updated)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            is_deleted, content, note, due_date, date_added, date_completed, date_updated, 
+            due_timezone, due_string, due_lang, due_is_recurring)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1475,7 +1505,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (14, item.note);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (15, item.due);
+        res = stmt.bind_text (15, item.due_date);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (16, item.date_added);
@@ -1484,7 +1514,19 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (17, item.date_completed);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (18, item.date_completed);
+        res = stmt.bind_text (18, item.date_updated);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (19, item.due_timezone);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (20, item.due_string);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (21, item.due_lang);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (22, item.due_is_recurring);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1507,7 +1549,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Items SET content = ?, note = ?, due = ?, is_deleted = ?, checked = ?, 
+            UPDATE Items SET content = ?, note = ?, due_date = ?, is_deleted = ?, checked = ?, 
             item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?
             WHERE id = ?;
         """;
@@ -1521,7 +1563,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (2, item.note);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_text (3, item.due);
+        res = stmt.bind_text (3, item.due_date);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (4, item.is_deleted);
@@ -1707,13 +1749,13 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Items SET due = ? WHERE id = ?;
+            UPDATE Items SET due_date = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (1, item.due);
+        res = stmt.bind_text (1, item.due_date);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (2, item.id);
@@ -1725,7 +1767,7 @@ public class Services.Database : GLib.Object {
             if (new_date) {
                 add_due_item (item);
             } else {
-                if (item.due == "") {
+                if (item.due_date == "") {
                     remove_due_item (item);
                 } else {
                     update_due_item (item);
@@ -1796,7 +1838,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -1842,7 +1884,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -1888,7 +1930,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -1934,7 +1976,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -1980,7 +2022,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -2026,7 +2068,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -2072,7 +2114,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -2118,7 +2160,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -2163,7 +2205,7 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
@@ -2206,12 +2248,13 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = is_item_todoist (i);
 
-            var due = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
+            var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (due) || Application.utils.is_before_today (due)) {
                 all.add (i);
@@ -2252,18 +2295,42 @@ public class Services.Database : GLib.Object {
             i.is_deleted = stmt.column_int (11);
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
-            i.due = stmt.column_text (14);
+            i.due_date = stmt.column_text (14);
             i.date_added = stmt.column_text (15);
             i.date_completed = stmt.column_text (16);
             i.date_updated = stmt.column_text (17);
+            i.is_todoist = is_item_todoist (i);
 
-            var due = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
+            var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
             if (Granite.DateTime.is_same_day (due, date)) {
                 all.add (i);
             }
         }
 
         return all;
+    }
+
+    private int is_item_todoist (Objects.Item item) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int returned = 0;
+        
+        sql = """
+            SELECT is_todoist FROM Projects WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.project_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0);
+        }
+
+        return returned;
     }
 
     public bool add_item_label (int64 item_id, Objects.Label label) {

@@ -11,7 +11,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             _is_today = value;
             date_label_revealer.reveal_child = !value;
 
-            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ()); 
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ()); 
             if (Application.utils.is_before_today (datetime)) {
                 due_label.get_style_context ().add_class ("duedate-expired");
                 date_label_revealer.reveal_child = true;
@@ -160,8 +160,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         date_label_revealer.add (due_label_revealer);
         date_label_revealer.reveal_child = true;
 
-        if (item.due != "") {
-            due_label.label = Application.utils.get_relative_date_from_string (item.due);
+        if (item.due_date != "") {
+            due_label.label = Application.utils.get_relative_date_from_string (item.due_date);
             due_label_revealer.reveal_child = true;
         }
 
@@ -380,7 +380,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
         main_revealer.transition_duration = 125;
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (handle);
 
         add (main_revealer);
@@ -565,7 +565,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Application.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
-                var datetime = new GLib.DateTime.from_iso8601 (i.due, new GLib.TimeZone.local ());
+                var datetime = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
 
                 due_label.label = Application.utils.get_relative_date_from_date (datetime);
                 due_label_revealer.reveal_child = true;
@@ -610,7 +610,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Application.database.add_due_item.connect ((i) => {
             if (item.id == i.id) {
                 due_label.label = Application.utils.get_relative_date_from_date (
-                    new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ())
+                    new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ())
                 );
                 due_label_revealer.reveal_child = true;
 
@@ -824,9 +824,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         row.draw (cr);
 
         Gtk.drag_set_icon_surface (context, surface);
-
-        row.visible = false;
-
+        main_revealer.reveal_child = false;
         Application.utils.drag_item_activated (true);
     }
 
@@ -842,8 +840,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     public void clear_indicator (Gdk.DragContext context) {
         reveal_drag_motion = false;
         
-        visible = true;
-        show_all ();
+        main_revealer.reveal_child = true;
 
         Application.utils.drag_item_activated (false);
     }
@@ -904,8 +901,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void check_due_style () {
-        if (item.due != "") {
-            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());            
+        if (item.due_date != "") {
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());            
             
             due_label.get_style_context ().remove_class ("duedate-today");
             due_label.get_style_context ().remove_class ("duedate-expired");

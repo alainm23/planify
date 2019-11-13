@@ -165,7 +165,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle.above_child = false;
         handle.add (grid);
 
-        add (handle);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_duration = 125;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (handle);
+
+        add (main_revealer);
 
         Timeout.add (125, () => {
             Application.database.get_project_count (project);
@@ -357,10 +363,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.fill ();
 
         row.handle_box.draw (cr);
-
         Gtk.drag_set_icon_surface (context, surface);
-
-        row.visible = false;
+        main_revealer.reveal_child = false;
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -392,9 +396,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public void clear_indicator (Gdk.DragContext context) {
         reveal_drag_motion = false;
-
-        visible = true;
-        show_all ();
+        main_revealer.reveal_child = true;
     }
 
     private void activate_menu () {

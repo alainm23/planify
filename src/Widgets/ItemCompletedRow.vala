@@ -17,7 +17,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         tooltip_markup =  "<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s".printf (
             _("Content"), item.content,
             _("Note"), item.note,
-            _("Due date"), Application.utils.get_relative_date_from_string (item.due),
+            _("Due date"), Application.utils.get_relative_date_from_string (item.due_date),
             _("Date completed"), Application.utils.get_relative_date_from_string (item.date_completed)
         );
 

@@ -52,7 +52,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         });
 
         notify["item"].connect (() => {
-            update_date_text (item.due);
+            update_date_text (item.due_date);
         });
 
     }
@@ -137,14 +137,14 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         if (date != null) {
             update_date_text (date.to_string ());
 
-            if (item.due == "") {
+            if (item.due_date == "") {
                 new_date = true;
             }
 
-            item.due = date.to_string ();
+            item.due_date = date.to_string ();
         } else {
             update_date_text ("");
-            item.due = "";
+            item.due_date = "";
         }
 
         if (Application.database.set_due_item (item, new_date)) {

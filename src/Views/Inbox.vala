@@ -104,11 +104,7 @@ public class Views.Inbox : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-
-        var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
-        completed_label.margin_top = 12;
-        completed_label.margin_start = 41;
-
+        
         completed_listbox = new Gtk.ListBox  ();
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("welcome");
@@ -119,7 +115,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         var completed_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         completed_box.hexpand = true;
-        completed_box.pack_start (completed_label, false, false, 0);
+        completed_box.pack_start (get_completed_header (), false, false, 0);
         completed_box.pack_start (completed_listbox, false, false, 0);
 
         completed_revealer = new Gtk.Revealer ();
@@ -165,7 +161,7 @@ public class Views.Inbox : Gtk.EventBox {
         main_box.pack_start (motion_revealer, false, false, 0);        
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
-        main_box.pack_start (completed_revealer, false, false, 0);
+        main_box.pack_start (completed_revealer, false, false, 12);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -475,5 +471,28 @@ public class Views.Inbox : Gtk.EventBox {
 
             popover.popdown ();
         });
+    }
+
+    private Gtk.Widget get_completed_header () {
+        var name_label =  new Gtk.Label ("Task completed");
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("header-title");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_top = 3;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.margin_top = 12;
+        main_box.margin_start = 41;
+        main_box.margin_bottom = 6;
+        main_box.margin_end = 32;
+        main_box.hexpand = true;
+        main_box.pack_start (name_label, false, false, 0);
+        main_box.pack_start (separator, false, false, 0);
+        main_box.show_all ();
+
+        return main_box;
     }
 }

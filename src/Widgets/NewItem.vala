@@ -200,7 +200,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
-            item.due = due;
+            item.due_date = due;
 
             temp_id_mapping = Application.utils.generate_id ();
             shift_activated = shift_pressed;

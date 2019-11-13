@@ -176,10 +176,6 @@ public class Views.Project : Gtk.EventBox {
         Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
         section_listbox.drag_data_received.connect (on_drag_section_received);
         
-        var completed_label = new Granite.HeaderLabel (_("Tasks Completed"));
-        completed_label.margin_top = 12;
-        completed_label.margin_start = 41;
-
         completed_listbox = new Gtk.ListBox  ();
         completed_listbox.margin_bottom = 32;
         completed_listbox.valign = Gtk.Align.START;
@@ -191,20 +187,17 @@ public class Views.Project : Gtk.EventBox {
 
         var completed_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         completed_box.hexpand = true;
-        completed_box.pack_start (completed_label, false, false, 0);
+        completed_box.pack_start (get_completed_header (), false, false, 0);
         completed_box.pack_start (completed_listbox, false, false, 0);
 
         completed_revealer = new Gtk.Revealer ();
         completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         completed_revealer.add (completed_box);
-
-        /*
-        var share_entry = new Gtk.Entry ();
-        share_entry.activate.connect (() => {
-            Application.todoist.share_project (project.id, share_entry.text);
-        });
-        */
         
+        var motion_last_grid = new Gtk.Grid ();
+        //motion_last_grid.get_style_context ().add_class ("grid-motion");
+        motion_last_grid.height_request = 24;
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_eventbox, false, false, 0);
@@ -212,7 +205,8 @@ public class Views.Project : Gtk.EventBox {
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
-        main_box.pack_start (completed_revealer, false, false, 0);
+        //main_box.pack_start (motion_last_grid, false, false, 0);
+        main_box.pack_start (completed_revealer, false, false, 12);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -593,12 +587,48 @@ public class Views.Project : Gtk.EventBox {
         if (target != null) {
             source.get_parent ().remove (source); 
 
-            //source.project.area_id = 0;
-
-            section_listbox.insert (source, target.get_index () + 1);
+            section_listbox.insert (source, target.get_index ());
             section_listbox.show_all ();
 
-            //update_project_order ();         
+            update_section_order ();         
         }
+    }
+
+    private void update_section_order () {
+        section_listbox.foreach ((widget) => {
+            var row = (Gtk.ListBoxRow) widget;
+            int index = row.get_index ();
+
+            var section = ((Widgets.SectionRow) row).section;
+
+            new Thread<void*> ("update_section_order", () => {
+                Application.database.update_section_item_order (section.id, index);
+
+                return null;
+            });
+        });
+    }
+
+    private Gtk.Widget get_completed_header () {
+        var name_label =  new Gtk.Label ("Task completed");
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("header-title");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_top = 3;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.margin_top = 12;
+        main_box.margin_start = 41;
+        main_box.margin_bottom = 6;
+        main_box.margin_end = 32;
+        main_box.hexpand = true;
+        main_box.pack_start (name_label, false, false, 0);
+        main_box.pack_start (separator, false, false, 0);
+        main_box.show_all ();
+
+        return main_box;
     }
 }

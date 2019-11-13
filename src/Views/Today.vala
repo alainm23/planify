@@ -96,7 +96,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         Application.database.add_due_item.connect ((item) => {
-            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var row = new Widgets.ItemRow (item);
@@ -117,7 +117,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         Application.database.update_due_item.connect ((item) => {
-            var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
             if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
@@ -131,8 +131,8 @@ public class Views.Today : Gtk.EventBox {
         });
 
         Application.database.item_added.connect ((item) => {
-            if (item.due != "") {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+            if (item.due_date != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Application.utils.is_today (datetime)) {
                     add_item (item);
                 }
@@ -140,23 +140,8 @@ public class Views.Today : Gtk.EventBox {
         });
 
         Application.database.item_completed.connect ((item) => {
-            if (item.checked == 0 && item.due != "") {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
-                if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
-                    if (items_loaded.has_key (item.id.to_string ()) == false) {
-                        add_item (item);
-                    }
-                }
-            } else {
-                if (items_loaded.has_key (item.id.to_string ())) {
-                    items_loaded.unset (item.id.to_string ());
-                }
-            }
-        });
-
-        Application.database.item_moved.connect ((item) => {
-            if (item.checked == 0 && item.due != "") {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due, new GLib.TimeZone.local ());
+            if (item.checked == 0 && item.due_date != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
                     if (items_loaded.has_key (item.id.to_string ()) == false) {
                         add_item (item);
