@@ -65,20 +65,9 @@ public class Views.Today : Gtk.EventBox {
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         new_item_revealer.add (new_item);
 
-        var entry = new Gtk.Entry ();
-
-        entry.changed.connect (() => {
-            var datetime = new Planner.DateTime.from_string (entry.text);
-
-            if (datetime.valid ()) {
-                print ("Fecha: %s\n".printf (datetime.to_string ()));
-            }
-        });
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        //main_box.pack_start (entry, false, false, 0);
         main_box.pack_start (new_item_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
@@ -90,6 +79,8 @@ public class Views.Today : Gtk.EventBox {
         add (main_scrolled);
         add_all_items ();
 
+        show_all ();
+        
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;

@@ -25,6 +25,12 @@
             <description>If the dark Gtk stylesheet should be used</description>
         </key>
 
+        <key name="is-star-page-project" type="b">
+            <default>false</default>
+            <summary>If the dark Gtk stylesheet should be used</summary>
+            <description>If the dark Gtk stylesheet should be used</description>
+        </key>
+
         <key name="source-selected" type="i">
             <default>0</default>
             <summary>Source selected</summary>

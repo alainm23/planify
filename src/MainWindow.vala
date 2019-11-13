@@ -24,6 +24,14 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
+    private Views.Inbox inbox_view;
+    private Views.Today today_view;
+    private Views.Upcoming upcoming_view;
+
+    private bool was_inbox_created { get; set; default = false; }
+    private bool was_today_created { get; set; default = false; }
+    private bool was_upcoming_created { get; set; default = false; }
+
     private uint timeout_id = 0;
 
     public MainWindow (Application application) {
@@ -69,18 +77,15 @@ public class MainWindow : Gtk.Window {
         pane = new Widgets.Pane ();
         
         var welcome_view = new Views.Welcome ();
-        var inbox_view = new Views.Inbox ();
-        var today_view = new Views.Today ();
-        var upcoming_view = new Views.Upcoming ();
 
         var stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
         stack.add_named (welcome_view, "welcome-view");
-        stack.add_named (inbox_view, "inbox-view");
-        stack.add_named (today_view, "today-view");
-        stack.add_named (upcoming_view, "upcoming-view");
+        //
+        //stack.add_named (today_view, "today-view");
+        //stack.add_named (upcoming_view, "upcoming-view");
 
         var toast = new Widgets.Toast ();
         var magic_button = new Widgets.MagicButton ();
@@ -110,6 +115,12 @@ public class MainWindow : Gtk.Window {
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
+                if (was_inbox_created == false) {
+                    inbox_view = new Views.Inbox ();
+                    stack.add_named (inbox_view, "inbox-view");
+                    was_inbox_created = true;
+                }
+
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
@@ -148,10 +159,28 @@ public class MainWindow : Gtk.Window {
 
         pane.activated.connect ((type, id) => {
             if (id == 0) {
+                if (was_inbox_created == false) {
+                    inbox_view = new Views.Inbox ();
+                    stack.add_named (inbox_view, "inbox-view");
+                    was_inbox_created = true;
+                }
+
                 stack.visible_child_name = "inbox-view";
             } else if  (id == 1) {
+                if (was_today_created == false) {
+                    today_view = new Views.Today ();
+                    stack.add_named (today_view, "today-view");
+                    was_today_created = true;
+                }
+
                 stack.visible_child_name = "today-view";
             } else {
+                if (was_upcoming_created == false) {
+                    upcoming_view = new Views.Upcoming ();
+                    stack.add_named (upcoming_view, "upcoming-view");
+                    was_upcoming_created = true;
+                }
+
                 stack.visible_child_name = "upcoming-view";
             }
         });

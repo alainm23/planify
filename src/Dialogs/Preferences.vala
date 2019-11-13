@@ -20,6 +20,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
         stack.add_named (get_home_widget (), "get_home_widget");
+        stack.add_named (get_start_page_widget (), "get_start_page_widget");
         stack.add_named (get_theme_widget (), "get_theme_widget");
 
         var stack_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -35,9 +36,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_home_widget () {
-        var start_page_item = new PreferenceItem ("go-home", "Start Page", "Inbox");
-        var badge_item = new PreferenceItem ("planner-badge-count", "Badge Count", "Today");
-        var theme_item = new PreferenceItem ("night-light", "Theme", "Light", true);
+        var start_page_item = new PreferenceItem ("go-home", _("Start page"));
+        var badge_item = new PreferenceItem ("planner-badge-count", _("Badge count"));
+        var theme_item = new PreferenceItem ("night-light", _("Theme"));
 
         var general_label = new Granite.HeaderLabel (_("General"));
         general_label.margin_start = 6;
@@ -58,6 +59,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_grid.add (general_label);
         main_grid.add (general_grid);
 
+        start_page_item.activate_item.connect (() => {
+            stack.visible_child_name = "get_start_page_widget";
+        });
+
         theme_item.activate_item.connect (() => {
             stack.visible_child_name = "get_theme_widget";
         });
@@ -65,16 +70,67 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_grid;
     }
 
+    private Gtk.Widget get_start_page_widget () {
+        var info_box = new PreferenceInfo ("go-home", _("Start page"), _("When you open up Planner, make sure you see the tasks that are most important. The default start page is your Inbox view, but you can change it to whatever you'd like:"));
+        
+        var inbox_radio = new Gtk.RadioButton.with_label (null, _("Inbox"));
+        inbox_radio.margin_start = 12;
+        
+        var today_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, _("Today"));
+        today_radio.margin_start = 12;
+
+        var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, _("Upcoming"));
+        upcoming_radio.margin_start = 12;
+
+        var project_header = new Granite.HeaderLabel (_("Projects"));
+        project_header.margin_start = 12;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.get_style_context ().add_class ("view");
+        main_box.expand = true;
+
+        main_box.pack_start (info_box, false, false, 0);
+        main_box.pack_start (inbox_radio, false, false, 0);
+        main_box.pack_start (today_radio, false, false, 0);
+        main_box.pack_start (upcoming_radio, false, false, 0);
+        main_box.pack_start (project_header, false, false, 0);
+        
+        foreach (var project in Application.database.get_all_projects ()) {
+            var project_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, project.name);
+            project_radio.margin_start = 12;
+            main_box.pack_start (project_radio, false, false, 0);
+
+            project_radio.toggled.connect (() => {
+                Application.settings.set_boolean ("is-star-page-project", true);
+            });
+        }
+
+        info_box.activate_back.connect (() => {
+            stack.visible_child_name = "get_home_widget";
+        });
+
+        inbox_radio.toggled.connect (() => {
+            Application.settings.set_boolean ("is-star-page-project", false);
+        });
+
+        today_radio.toggled.connect (() => {
+            Application.settings.set_boolean ("is-star-page-project", false);
+        });
+
+        upcoming_radio.toggled.connect (() => {
+            Application.settings.set_boolean ("is-star-page-project", false);
+        });
+        return main_box;
+    }
+
     private Gtk.Widget get_theme_widget () {
-        var info_box = new PreferenceInfo ("night-light", "Theme", "Aascas ascasc ascasc asc");
+        var info_box = new PreferenceInfo ("night-light", "Theme", _("Personalize the look and feel of your Planner by choosing the theme that best suits you."));
 
         var light_radio = new Gtk.RadioButton.with_label (null, _("Light"));
         light_radio.margin_start = 12;
-        light_radio.get_style_context ().add_class ("h3");
         
         var night_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Night"));
         night_radio.margin_start = 12;
-        night_radio.get_style_context ().add_class ("h3");
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         main_box.get_style_context ().add_class ("view");
@@ -107,7 +163,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
 public class PreferenceItem : Gtk.EventBox {
     private Gtk.Image icon_image;
     private Gtk.Label title_label;
-    private Gtk.Label selected_label;
 
     public string _title;
     public string title {
@@ -118,18 +173,6 @@ public class PreferenceItem : Gtk.EventBox {
         set {
             _title = value;
             title_label.label = _title;
-        }
-    }
-
-    public string _selected;
-    public string selected {
-        get {
-            return _selected;
-        }
-
-        set {
-            _selected = value;
-            selected_label.label = _selected;
         }
     }
 
@@ -149,11 +192,10 @@ public class PreferenceItem : Gtk.EventBox {
 
     public signal void activate_item ();
 
-    public PreferenceItem (string icon, string title, string selected, bool last=false) {
+    public PreferenceItem (string icon, string title, bool last=false) {
         Object (
             icon: icon,
             title: title,
-            selected: selected,
             last: last
         );
     }
@@ -168,13 +210,6 @@ public class PreferenceItem : Gtk.EventBox {
         title_label.halign = Gtk.Align.START;
         title_label.valign = Gtk.Align.CENTER;
 
-        selected_label = new Gtk.Label (null);
-        selected_label.get_style_context ().add_class ("dim-label");
-        selected_label.hexpand = true;
-        selected_label.halign = Gtk.Align.END;
-        selected_label.valign = Gtk.Align.CENTER;
-        selected_label.ellipsize = Pango.EllipsizeMode.END;
-
         var button_icon = new Gtk.Image ();
         button_icon.gicon = new ThemedIcon ("pan-end-symbolic");
         button_icon.valign = Gtk.Align.CENTER;
@@ -186,7 +221,6 @@ public class PreferenceItem : Gtk.EventBox {
         box.pack_start (icon_image, false, false, 0);
         box.pack_start (title_label, false, false, 0);
         box.pack_end (button_icon, false, true, 0);
-        //box.pack_end (selected_label, false, true, 0);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 32;
@@ -219,20 +253,26 @@ public class PreferenceInfo : Gtk.Box {
 
     public PreferenceInfo (string icon, string title, string description) {
         var back_button = new Gtk.Button.with_label (_("Back"));
+        back_button.margin_start = 6;
+        back_button.margin_top = 3;
+        back_button.margin_bottom = 3;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class (Granite.STYLE_CLASS_BACK_BUTTON);
 
         var title_button = new Gtk.Label (title);
+        title_button.valign = Gtk.Align.CENTER;
         title_button.get_style_context ().add_class ("font-bold");
 
         var image = new Gtk.Image ();
+        image.margin_end = 6;
+        image.margin_top = 3;
+        image.margin_bottom = 3;
+        image.valign = Gtk.Align.CENTER;
         image.gicon = new ThemedIcon (icon);
         image.pixel_size = 24;
         
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        header_box.margin = 6;
-        header_box.margin_top = 3;
-        header_box.margin_bottom = 3;
+        header_box.get_style_context ().add_class ("view");
         header_box.pack_start (back_button, false, false, 0);
         header_box.set_center_widget (title_button);
         header_box.pack_end (image, false, false, 0);
@@ -240,14 +280,12 @@ public class PreferenceInfo : Gtk.Box {
         var description_label = new Gtk.Label (description);
         description_label.margin = 12;
         description_label.margin_bottom = 6;
-        description_label.get_style_context ().add_class ("h3");
-        description_label.get_style_context ().add_class ("description-label");
+        description_label.justify = Gtk.Justification.FILL;
         description_label.wrap = true;
         description_label.xalign = 0;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.hexpand = true;
-        main_box.get_style_context ().add_class ("view");
         main_box.valign = Gtk.Align.START;
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         main_box.pack_start (header_box);

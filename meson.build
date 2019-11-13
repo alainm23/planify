@@ -29,7 +29,6 @@ executable(
     'src/Application.vala',
     'src/MainWindow.vala',
     'src/Utils.vala',
-    'src/Datetime.vala',
 
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',

@@ -175,6 +175,8 @@ public class Views.Inbox : Gtk.EventBox {
 
         build_drag_and_drop ();
 
+        show_all ();
+        
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;

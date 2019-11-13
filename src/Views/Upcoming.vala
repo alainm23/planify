@@ -83,6 +83,8 @@ public class Views.Upcoming : Gtk.EventBox {
         add (main_scrolled);
         add_dates ();
 
+        show_all ();
+        
         load_button.clicked.connect (()=> {
             add_dates ();
         });
