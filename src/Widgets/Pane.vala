@@ -11,6 +11,7 @@ public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Button add_button;
 
     public signal void activated (int id);
+    private uint timeout;
 
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -342,6 +343,17 @@ public class Widgets.Pane : Gtk.EventBox {
         foreach (var project in Application.database.get_all_projects_no_area ()) {
             var row = new Widgets.ProjectRow (project);
             project_listbox.add (row);
+
+            if (Application.settings.get_boolean ("homepage-project")) {
+                if (Application.settings.get_int64 ("homepage-project-id") == project.id) {
+                    timeout = Timeout.add (125, () => {
+                        project_listbox.select_row (row);
+
+                        Source.remove (timeout);
+                        return false;
+                    });
+                }
+            }
         }
 
         project_listbox.show_all ();
@@ -369,5 +381,15 @@ public class Widgets.Pane : Gtk.EventBox {
                 return null;
             });
         });
+    }
+
+    public void select_item (int id) {
+        if (id == 0) {
+            listbox.select_row (inbox_row);
+        } else if (id == 1) {
+            listbox.select_row (today_row);
+        } else {
+            listbox.select_row (upcoming_row);
+        }
     }
 }

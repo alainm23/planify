@@ -292,7 +292,7 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
-            returned = stmt.column_int (0) <= 0;
+            returned = stmt.column_int (0) > 0;
         }
 
         return returned;

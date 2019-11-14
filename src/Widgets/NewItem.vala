@@ -96,7 +96,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             content_entry.grab_focus ();
 
             Source.remove (timeout_id);
-
             return false;
         });
 

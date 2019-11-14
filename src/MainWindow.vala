@@ -24,6 +24,7 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
+    private Gtk.Stack stack;
     private Views.Inbox inbox_view;
     private Views.Today today_view;
     private Views.Upcoming upcoming_view;
@@ -31,8 +32,6 @@ public class MainWindow : Gtk.Window {
     private bool was_inbox_created { get; set; default = false; }
     private bool was_today_created { get; set; default = false; }
     private bool was_upcoming_created { get; set; default = false; }
-
-    private uint timeout_id = 0;
 
     public MainWindow (Application application) {
         Object (
@@ -66,19 +65,12 @@ public class MainWindow : Gtk.Window {
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
-        
-        var listbox = new Gtk.ListBox ();
-        listbox.get_style_context ().add_class ("sidebar");
 
-        var scrolledwindow = new Gtk.ScrolledWindow (null, null);
-        scrolledwindow.expand = true;
-        scrolledwindow.add (listbox);
-        
         pane = new Widgets.Pane ();
         
         var welcome_view = new Views.Welcome ();
 
-        var stack = new Gtk.Stack ();
+        stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
@@ -109,25 +101,31 @@ public class MainWindow : Gtk.Window {
         Application.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Application.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
-        timeout_id = Timeout.add (125, () => {
+        Timeout.add (125, () => {
             if (Application.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
-                if (was_inbox_created == false) {
-                    inbox_view = new Views.Inbox ();
-                    stack.add_named (inbox_view, "inbox-view");
-                    was_inbox_created = true;
+                if (Application.settings.get_boolean ("homepage-project")) {
+                    int64 project_id = Application.settings.get_int64 ("homepage-project-id");
+                    if (Application.database.is_project_id_valid (project_id)) {
+                        projects_loaded.set (project_id.to_string (), true);
+                        var project_view = new Views.Project (Application.database.get_project_by_id (project_id));
+                        stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
+                        stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+                    } else {
+                        go_view (0);
+                    }
+                } else {
+                    go_view (Application.settings.get_int ("homepage-item"));
+                    pane.select_item (Application.settings.get_int ("homepage-item"));
                 }
 
-                stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }   
-            
-            Source.remove (timeout_id);
-            
+        
             return false;
         });
 
@@ -157,32 +155,8 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        pane.activated.connect ((type, id) => {
-            if (id == 0) {
-                if (was_inbox_created == false) {
-                    inbox_view = new Views.Inbox ();
-                    stack.add_named (inbox_view, "inbox-view");
-                    was_inbox_created = true;
-                }
-
-                stack.visible_child_name = "inbox-view";
-            } else if  (id == 1) {
-                if (was_today_created == false) {
-                    today_view = new Views.Today ();
-                    stack.add_named (today_view, "today-view");
-                    was_today_created = true;
-                }
-
-                stack.visible_child_name = "today-view";
-            } else {
-                if (was_upcoming_created == false) {
-                    upcoming_view = new Views.Upcoming ();
-                    stack.add_named (upcoming_view, "upcoming-view");
-                    was_upcoming_created = true;
-                }
-
-                stack.visible_child_name = "upcoming-view";
-            }
+        pane.activated.connect ((id) => {
+            go_view (id);
         });
 
         Application.utils.pane_project_selected.connect ((project_id, area_id) => {
@@ -266,7 +240,35 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        //var model = Services.Calendar.CalendarModel.get_default ();
+        var model = Services.Calendar.CalendarModel.get_default ();
+    }
+
+    private void go_view (int id) {
+        if (id == 0) {
+            if (was_inbox_created == false) {
+                inbox_view = new Views.Inbox ();
+                stack.add_named (inbox_view, "inbox-view");
+                was_inbox_created = true;
+            }
+
+            stack.visible_child_name = "inbox-view";
+        } else if  (id == 1) {
+            if (was_today_created == false) {
+                today_view = new Views.Today ();
+                stack.add_named (today_view, "today-view");
+                was_today_created = true;
+            }
+
+            stack.visible_child_name = "today-view";
+        } else {
+            if (was_upcoming_created == false) {
+                upcoming_view = new Views.Upcoming ();
+                stack.add_named (upcoming_view, "upcoming-view");
+                was_upcoming_created = true;
+            }
+
+            stack.visible_child_name = "upcoming-view";
+        }
     }
 
     public override bool configure_event (Gdk.EventConfigure event) {

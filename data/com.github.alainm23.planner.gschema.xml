@@ -25,12 +25,6 @@
             <description>If the dark Gtk stylesheet should be used</description>
         </key>
 
-        <key name="is-star-page-project" type="b">
-            <default>false</default>
-            <summary>If the dark Gtk stylesheet should be used</summary>
-            <description>If the dark Gtk stylesheet should be used</description>
-        </key>
-
         <key name="source-selected" type="i">
             <default>0</default>
             <summary>Source selected</summary>
@@ -41,6 +35,24 @@
             <default>0</default>
             <summary>Inbox Project ID</summary>
             <description>Inbox Project ID</description>
+        </key>
+
+        <key name="homepage-project" type="b">
+            <default>false</default>
+            <summary>homepage-project</summary>
+            <description>homepage-project</description>
+        </key>
+
+        <key name="homepage-project-id" type="x">
+            <default>0</default>
+            <summary>homepage-project</summary>
+            <description>homepage-project</description>
+        </key>
+
+        <key name="homepage-item" type="i">
+            <default>0</default>
+            <summary>homepage-item</summary>
+            <description>homepage-item</description>
         </key>
 
         <key name="inbox-project-sync" type="b">

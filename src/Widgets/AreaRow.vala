@@ -12,6 +12,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Revealer motion_revealer;
     private Gtk.Menu menu = null;
 
+    private uint timeout;
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -262,6 +264,17 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             if (project.inbox_project == 0) {
                 var row = new Widgets.ProjectRow (project);
                 listbox.add (row);
+
+                if (Application.settings.get_boolean ("homepage-project")) {
+                    if (Application.settings.get_int64 ("homepage-project-id") == project.id) {
+                        timeout = Timeout.add (125, () => {
+                            listbox.select_row (row);
+    
+                            Source.remove (timeout);
+                            return false;
+                        });
+                    }
+                }
             }
             
         }
@@ -298,11 +311,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ProjectRow ) row;
         
-        print ("-----------\n");
-        print ("TARGET: %s\n".printf (target.project.name));
-        print ("SOURCE: %s\n".printf (source.project.name));
-        print ("-----------\n");
-
         if (target != null) {
             source.get_parent ().remove (source); 
 
