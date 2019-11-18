@@ -35,7 +35,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
-        if (hour >= 18 || hour <= 6) {
+        if (hour >= 18 || hour <= 5) {
             today_icon = "planner-today-night-symbolic";
         }
 

@@ -45,8 +45,8 @@ public class Services.Calendar.CalendarModel : Object {
     private HashTable<string, ECal.Client> source_client;
     private HashTable<string, ECal.ClientView> source_view;
 
+    /*
     private static CalendarModel? calendar_model = null;
-
     public static CalendarModel get_default () {
         lock (calendar_model) {
             if (calendar_model == null) {
@@ -56,6 +56,7 @@ public class Services.Calendar.CalendarModel : Object {
 
         return calendar_model;
     }
+    */
 
     construct {
         open.begin ();

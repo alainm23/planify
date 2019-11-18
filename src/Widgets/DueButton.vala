@@ -17,7 +17,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
-        get_style_context ().add_class ("due-no-date");
+        opacity = 0.7;
         
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
@@ -62,14 +62,14 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
 
             due_label.label = Application.utils.get_relative_date_from_date (date);
-            get_style_context ().remove_class ("due-no-date");
             due_image.get_style_context ().add_class ("upcoming");
             label_revealer.reveal_child = true;
+            opacity = 1;
         } else {
             due_label.label = "";
-            get_style_context ().add_class ("due-no-date");
             due_image.get_style_context ().remove_class ("upcoming");
             label_revealer.reveal_child = false;
+            opacity = 0.7;
         }
     }
 
@@ -79,7 +79,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
-        if (hour >= 18 || hour <= 6) {
+        if (hour >= 18 || hour <= 5) {
             today_icon = "planner-today-night-symbolic";
         }
 

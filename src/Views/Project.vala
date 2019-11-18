@@ -335,10 +335,10 @@ public class Views.Project : Gtk.EventBox {
                 listbox.show_all ();
             }
         });
-
+        
         Application.database.item_completed.connect ((item) => {
             if (project.id == item.project_id) {
-                if (item.checked == 1) {
+                if (item.checked == 1 && item.parent_id == 0) {
                     if (completed_revealer.reveal_child) {
                         var row = new Widgets.ItemCompletedRow (item);
                         completed_listbox.add (row);

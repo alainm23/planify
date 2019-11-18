@@ -263,7 +263,7 @@ paned > separator {
     border: 1px solid alpha (#000, 0.3);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     text-shadow: none;
-    margin: 12px;
+    margin: 8px;
     background-color: @bg_color;
 }
 
@@ -624,6 +624,10 @@ paned > separator {
     border-bottom: none;
 }
 
+.check-entry.active {
+    padding-left: 0px;
+}
+
 .new-entry {
     border-width: 0 0 1px;
     border-radius: 0;
@@ -684,7 +688,10 @@ paned > separator {
 
 .checklist-button check {
     border-radius: 4px;
-    /*border: 1px solid #3689e6;*/
+}
+
+.checklist-check check {
+    border: 1px solid #3689e6;
 }
 
 .label-row {

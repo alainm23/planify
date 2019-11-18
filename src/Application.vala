@@ -27,6 +27,7 @@ public class Application : Gtk.Application {
     public static Services.Database database;
     public static Services.Todoist todoist;
     public static Services.Notification notification;
+    public static Services.Calendar.CalendarModel calendar_model;
     
     public Application () {
         Object (
@@ -44,6 +45,7 @@ public class Application : Gtk.Application {
         database = new Services.Database ();
         todoist = new Services.Todoist ();
         notification = new Services.Notification ();
+        calendar_model = new Services.Calendar.CalendarModel ();
     }
 
     public static Application _instance = null;

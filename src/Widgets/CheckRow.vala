@@ -4,6 +4,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
 
+    private uint checked_timeout = 0;
+
     public signal void hide_item ();
 
     public CheckRow (Objects.Item item) {
@@ -23,19 +25,14 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
         checked_button.get_style_context ().add_class ("checklist-button");
-
-        if (item.checked == 1) {
-            checked_button.active = true;
-            opacity = 0.4;
-        } else {
-            checked_button.active = false;
-        }
+        checked_button.get_style_context ().add_class ("checklist-check");
 
         content_entry = new Gtk.Entry ();
-        content_entry.margin_bottom = 1;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("check-entry");
+        content_entry.get_style_context ().add_class ("active");
+        content_entry.get_style_context ().add_class ("label");
         content_entry.text = item.content;
         content_entry.hexpand = true;
 
@@ -78,6 +75,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         add (main_revealer);
 
+        if (item.checked == 1) {
+            checked_button.active = true;
+        } else {
+            checked_button.active = false;
+        }
+
         handle.enter_notify_event.connect ((event) => {
             delete_revealer.reveal_child = true;
             delete_button.get_style_context ().add_class ("closed");
@@ -109,29 +112,36 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         });
 
         content_entry.focus_out_event.connect (() => {
-            box.get_style_context ().remove_class ("check-eventbox");
             return false;
         });
 
         content_entry.focus_in_event.connect (() => {
-            box.get_style_context ().add_class ("check-eventbox");
             return false;
         });
 
         checked_button.toggled.connect (() => {
             if (checked_button.active) {
-                opacity = 0.4;
-
                 item.checked = 1;
                 item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            } else {              
-                opacity = 1;
-
+            } else {
                 item.checked = 0;
                 item.date_completed = "";
             }
 
-            save ();
+            if (checked_timeout != 0) {
+                Source.remove (checked_timeout);
+                checked_timeout = 0;
+            }
+
+            checked_timeout = Timeout.add (1000, () => {
+                if (item.is_todoist == 1) {
+                    Application.todoist.add_complete_item (item);
+                } else {
+                    Application.database.update_item_completed (item);
+                }
+
+                return false;
+            });
         });
 
         delete_button.clicked.connect (() => {

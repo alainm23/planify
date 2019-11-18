@@ -1,8 +1,15 @@
 public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
+    private Gtk.ListBox event_listbox;
     private Gee.HashMap<string, bool> items_loaded;
     private Gtk.Revealer new_item_revealer;
     private Widgets.NewItem new_item;
+
+    private Gtk.Box main_box;
+
+    private Gee.HashMap<string, Gtk.Widget> event_hashmap;
+    private uint update_events_idle_source = 0;
+    private GLib.DateTime date;
 
     construct {
         items_loaded = new Gee.HashMap<string, bool> ();
@@ -65,9 +72,35 @@ public class Views.Today : Gtk.EventBox {
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         new_item_revealer.add (new_item);
 
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var placeholder_label = new Gtk.Label (_("No Events on This Day"));
+        placeholder_label.wrap = true;
+        placeholder_label.wrap_mode = Pango.WrapMode.WORD;
+        placeholder_label.margin_start = 12;
+        placeholder_label.margin_end = 12;
+        placeholder_label.max_width_chars = 20;
+        placeholder_label.halign = Gtk.Align.START;
+        placeholder_label.margin_start = 43;
+        placeholder_label.show_all ();
+
+        var placeholder_style_context = placeholder_label.get_style_context ();
+        placeholder_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        placeholder_style_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
+
+        event_listbox = new Gtk.ListBox ();
+        event_listbox.margin_top = 12;
+        event_listbox.valign = Gtk.Align.START;
+        event_listbox.get_style_context ().add_class ("welcome");
+        event_listbox.get_style_context ().add_class ("listbox");
+        event_listbox.activate_on_single_click = true;
+        event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        event_listbox.hexpand = true;
+        event_listbox.set_placeholder (placeholder_label);
+        event_listbox.set_sort_func (sort_event_function);
+
+        main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (event_listbox, false, false, 0);
         main_box.pack_start (new_item_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
@@ -148,6 +181,75 @@ public class Views.Today : Gtk.EventBox {
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;
         });
+
+        date = new GLib.DateTime.now_local ();
+        event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();
+
+        Application.calendar_model.events_added.connect (add_event_model);
+        Application.calendar_model.events_removed.connect (remove_event_model);
+
+        idle_update_events ();
+    }
+
+    private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {
+        foreach (var component in events) {
+            if (Util.calcomp_is_on_day (component, date)) {
+                unowned ICal.Component ical = component.get_icalcomponent ();
+
+                var event_uid = ical.get_uid ();
+                if (!event_hashmap.has_key (event_uid)) {
+                    event_hashmap [event_uid] = new Widgets.EventRow (date, ical, source);
+                    event_listbox.add (event_hashmap [event_uid]);
+                }
+            }
+        }
+
+        event_listbox.show_all ();
+    }
+
+    private void idle_update_events () {
+        if (update_events_idle_source > 0) {
+            GLib.Source.remove (update_events_idle_source);
+        }
+
+        update_events_idle_source = GLib.Idle.add (update_events);
+    }
+
+    private bool update_events () {
+        foreach (unowned Gtk.Widget widget in event_listbox.get_children ()) {
+            widget.destroy ();
+        }
+
+        var events_on_day = new Gee.TreeMap<string, Widgets.EventRow> ();
+
+        Application.calendar_model.source_events.@foreach ((source, component_map) => {
+            foreach (var comp in component_map.get_values ()) {
+                if (Util.calcomp_is_on_day (comp, date)) {
+                    unowned ICal.Component ical = comp.get_icalcomponent ();
+                    var event_uid = ical.get_uid ();
+                    if (!events_on_day.has_key (event_uid)) {
+                        events_on_day [event_uid] = new Widgets.EventRow (date, ical, source);
+                        event_listbox.add (events_on_day[event_uid]);
+                    }
+                }
+            }
+        });
+
+        event_listbox.show_all ();
+        update_events_idle_source = 0;
+        return GLib.Source.REMOVE;
+    }
+
+    private void remove_event_model (E.Source source, Gee.Collection<ECal.Component> events) {
+        foreach (var component in events) {
+            unowned ICal.Component ical = component.get_icalcomponent ();
+            var event_uid = ical.get_uid ();
+            var dot = event_hashmap[event_uid];
+            if (dot != null) {
+                dot.destroy ();
+                event_hashmap.remove (event_uid);
+            }
+        }
     }
 
     private void add_item (Objects.Item item) {
@@ -184,6 +286,24 @@ public class Views.Today : Gtk.EventBox {
         } else {
             return 1;
         }
+    }
+
+    private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
+        var e1 = (Widgets.EventRow) child1;
+        var e2 = (Widgets.EventRow) child2;
+
+        if (e1.start_time.compare (e2.start_time) != 0) {
+            return e1.start_time.compare (e2.start_time);
+        }
+
+        // If they have the same date, sort them wholeday first
+        if (e1.is_allday) {
+            return -1;
+        } else if (e2.is_allday) {
+            return 1;
+        }
+
+        return 0;
     }
     
     private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {

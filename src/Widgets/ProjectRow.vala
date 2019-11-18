@@ -36,6 +36,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Gtk.Revealer main_revealer;
 
     private int count = 0;
+    private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -246,27 +247,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_drag_and_drop (active);
         });
 
+        // Project count
         Application.database.item_added.connect ((item) => {
             if (project.id == item.project_id) {
-                Application.database.get_project_count (project);
+                update_count ();
             }
         });
 
         Application.database.item_deleted.connect ((item) => {
             if (project.id == item.project_id && item.checked == 0) {
-                Application.database.get_project_count (project);
+                update_count ();
             }
         });
 
         Application.database.item_completed.connect ((item) => {
             if (project.id == item.project_id) {
-                Application.database.get_project_count (project);
+                update_count ();
             }
         });
         
         Application.database.item_moved.connect ((item) => {
             Idle.add (() => {
-                Application.database.get_project_count (project);
+                update_count ();
 
                 return false;
             });
@@ -274,7 +276,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Application.database.subtract_task_counter.connect ((id) => {
             Idle.add (() => {
-                Application.database.get_project_count (project);
+                update_count ();
 
                 return false;
             });
@@ -290,7 +292,18 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void update_count () {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+            timeout_id = 0;
+        }
 
+        timeout_id = Timeout.add (250, () => {
+            Application.database.get_project_count (project);
+            
+            Source.remove (timeout_id);
+            timeout_id = 0;
+            return false;
+        });
     }
 
     private void check_count_label () {

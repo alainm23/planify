@@ -41,6 +41,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
         checked_button.get_style_context ().add_class ("checklist-button");
+        checked_button.get_style_context ().add_class ("checklist-check");
         checked_button.valign = Gtk.Align.CENTER;
 
         name_entry = new Gtk.Entry ();

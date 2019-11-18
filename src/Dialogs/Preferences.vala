@@ -36,12 +36,13 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_home_widget () {
-        var start_page_item = new PreferenceItem ("go-home", _("Homepage"));
-        var badge_item = new PreferenceItem ("planner-badge-count", _("Badge count"));
-        var theme_item = new PreferenceItem ("night-light", _("Theme"));
-
+        /* General */
         var general_label = new Granite.HeaderLabel (_("General"));
         general_label.margin_start = 6;
+
+        var start_page_item = new PreferenceItem ("go-home", _("Homepage"));
+        var badge_item = new PreferenceItem ("planner-badge-count", _("Badge count"));
+        var theme_item = new PreferenceItem ("night-light", _("Theme"), true);
 
         var general_grid = new Gtk.Grid ();
         general_grid.valign = Gtk.Align.START;
@@ -53,11 +54,27 @@ public class Dialogs.Preferences : Gtk.Dialog {
         general_grid.add (theme_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
+        /* Addons */
+        var addons_label = new Granite.HeaderLabel (_("Addons"));
+        addons_label.margin_start = 6;
+
+        var calendar_item = new PreferenceItem ("office-calendar", _("Calendar"), true);
+
+        var addons_grid = new Gtk.Grid ();
+        addons_grid.valign = Gtk.Align.START;
+        addons_grid.get_style_context ().add_class ("view");
+        addons_grid.orientation = Gtk.Orientation.VERTICAL;
+        addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        addons_grid.add (calendar_item);
+        addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.valign = Gtk.Align.START;
         main_grid.add (general_label);
         main_grid.add (general_grid);
+        main_grid.add (addons_label);
+        main_grid.add (addons_grid);
 
         start_page_item.activate_item.connect (() => {
             stack.visible_child_name = "get_start_page_widget";
@@ -304,7 +321,7 @@ public class PreferenceInfo : Gtk.Box {
         header_box.get_style_context ().add_class ("view");
         header_box.pack_start (back_button, false, false, 0);
         header_box.set_center_widget (title_button);
-        header_box.pack_end (image, false, false, 0);
+        //header_box.pack_end (image, false, false, 0);
 
         var description_label = new Gtk.Label (description);
         description_label.get_style_context ().add_class ("welcome");

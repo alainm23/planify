@@ -292,17 +292,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_button.margin_start = 6;
 
         var checklist_button = new Gtk.Button.from_icon_name ("planner-checklist-symbolic");
-        checklist_button.tooltip_text = _("Add Checklist");
+        checklist_button.tooltip_text = _("Add checklist");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
+        checklist_button.opacity = 0.7;
 
         var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
         delete_button.can_focus = false; 
         delete_button.valign = Gtk.Align.CENTER;
-        delete_button.tooltip_text = _("Delete Task");
+        delete_button.tooltip_text = _("Delete task");
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
-
+        
         var settings_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
@@ -486,7 +487,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 check_checklist_separator ();
             }
         });
-
+        
         Application.database.item_label_added.connect ((id, item_id, label) => {
             if (item.id == item_id && labels_hashmap.has_key (label.id.to_string ()) == false) {
                 var l = new Widgets.LabelPreview (id, item_id, label);
@@ -713,7 +714,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             
             content_label.label = "<s>%s</s>".printf (item.content);
 
-            checked_timeout = Timeout.add (3000, () => {
+            checked_timeout = Timeout.add (1500, () => {
                 if (item.is_todoist == 1) {
                     if (Application.todoist.add_complete_item (item)) {
                         main_revealer.reveal_child = false;

@@ -75,9 +75,6 @@ public class MainWindow : Gtk.Window {
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
         stack.add_named (welcome_view, "welcome-view");
-        //
-        //stack.add_named (today_view, "today-view");
-        //stack.add_named (upcoming_view, "upcoming-view");
 
         var toast = new Widgets.Toast ();
         var magic_button = new Widgets.MagicButton ();
@@ -239,8 +236,6 @@ public class MainWindow : Gtk.Window {
                 Application.utils.apply_theme_changed ();
             }
         });
-
-        var model = Services.Calendar.CalendarModel.get_default ();
     }
 
     private void go_view (int id) {

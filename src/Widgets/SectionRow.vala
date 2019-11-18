@@ -89,17 +89,17 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().remove_class ("button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         settings_button.get_style_context ().add_class ("hidden-button");
-
+        
         var settings_revealer = new Gtk.Revealer ();
         settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         settings_revealer.add (settings_button);
         settings_revealer.reveal_child = false;
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.pack_start (hidden_revealer, false, false, 0);
-        top_box.pack_start (name_stack, false, true, 0);
+        top_box.pack_start (name_stack, false, true, 6);
         top_box.pack_end (settings_revealer, false, true, 0);
 
         var top_eventbox = new Gtk.EventBox ();
@@ -239,8 +239,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            hidden_revealer.reveal_child = false;
             settings_revealer.reveal_child = false;
+            hidden_revealer.reveal_child = false;
             
             return true;
         });
@@ -319,6 +319,19 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 sensitive = true;
             }
         });
+
+        /*
+        Application.utils.drag_item_activated.connect ((value) => {
+            if (value) {
+                Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+                name_stack.drag_data_received.connect (on_drag_item_received);
+                name_stack.drag_motion.connect (on_drag_motion);
+                name_stack.drag_leave.connect (on_drag_leave);
+            } else {
+                build_drag_and_drop (false);
+            }
+        });
+        */
     }
 
     private void activate_menu () {
@@ -457,20 +470,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop (bool value) {
-        /*
         name_stack.drag_data_received.disconnect (on_drag_item_received);
         name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
-        if (value) {
-            
-        } else {
-            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
-            name_stack.drag_data_received.connect (on_drag_item_received);
-        }
-
-        name_stack.drag_motion.connect (on_drag_motion);
-        name_stack.drag_leave.connect (on_drag_leave);
-        */
         if (value) {
             Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntriesMagicButton, Gdk.DragAction.MOVE);
             name_stack.drag_data_received.connect (on_drag_magic_button_received);

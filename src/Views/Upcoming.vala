@@ -108,6 +108,10 @@ public class Views.Upcoming : Gtk.EventBox {
 
     private void add_dates () {
         for (int i = 0; i < 7; i++) {
+            if (date.add_days (1).get_month () > date.get_month ()) {
+                Application.calendar_model.change_month (1);
+            }
+
             date = date.add_days (1);
 
             var row = new Widgets.UpcomingRow (date);

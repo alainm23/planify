@@ -1856,7 +1856,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Items WHERE project_id = ? AND checked = 1 ORDER BY date_completed;
+            SELECT * FROM Items WHERE project_id = ? AND checked = 1 AND parent_id = 0 ORDER BY date_completed;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2254,10 +2254,11 @@ public class Services.Database : GLib.Object {
             i.date_updated = stmt.column_text (17);
             i.is_todoist = is_item_todoist (i);
 
-            var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
-
-            if (Application.utils.is_today (due) || Application.utils.is_before_today (due)) {
-                all.add (i);
+            if (i.due_date != "") {
+                var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
+                if (Application.utils.is_today (due) || Application.utils.is_before_today (due)) {
+                    all.add (i);
+                }   
             }
         }
 
@@ -2301,9 +2302,11 @@ public class Services.Database : GLib.Object {
             i.date_updated = stmt.column_text (17);
             i.is_todoist = is_item_todoist (i);
 
-            var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
-            if (Granite.DateTime.is_same_day (due, date)) {
-                all.add (i);
+            if (i.due_date != "") {
+                var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
+                if (Granite.DateTime.is_same_day (due, date)) {
+                    all.add (i);
+                }
             }
         }
 
