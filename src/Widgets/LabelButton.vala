@@ -109,7 +109,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         });
 
         edit_labels.clicked.connect (() => {
-            var dialog = new Dialogs.Labels ();
+            var dialog = new Dialogs.Preferences ("labels");
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
 

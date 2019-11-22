@@ -88,6 +88,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         event_listbox.hexpand = true;
+        event_listbox.set_sort_func (sort_event_function);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_bottom = 12;
@@ -193,20 +194,14 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     }
 
     private bool update_events () {
-        foreach (unowned Gtk.Widget widget in event_listbox.get_children ()) {
-            widget.destroy ();
-        }
-
-        var events_on_day = new Gee.TreeMap<string, Widgets.EventRow> ();
-
         Application.calendar_model.source_events.@foreach ((source, component_map) => {
             foreach (var comp in component_map.get_values ()) {
                 if (Util.calcomp_is_on_day (comp, date)) {
                     unowned ICal.Component ical = comp.get_icalcomponent ();
                     var event_uid = ical.get_uid ();
-                    if (!events_on_day.has_key (event_uid)) {
-                        events_on_day [event_uid] = new Widgets.EventRow (date, ical, source);
-                        event_listbox.add (events_on_day[event_uid]);
+                    if (!event_hashmap.has_key (event_uid)) {
+                        event_hashmap [event_uid] = new Widgets.EventRow (date, ical, source);
+                        event_listbox.add (event_hashmap[event_uid]);
                     }
                 }
             }
@@ -229,6 +224,24 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         }
     }
 
+    private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
+        var e1 = (Widgets.EventRow) child1;
+        var e2 = (Widgets.EventRow) child2;
+
+        if (e1.start_time.compare (e2.start_time) != 0) {
+            return e1.start_time.compare (e2.start_time);
+        }
+
+        // If they have the same date, sort them wholeday first
+        if (e1.is_allday) {
+            return -1;
+        } else if (e2.is_allday) {
+            return 1;
+        }
+
+        return 0;
+    }
+    
     private void add_item (Objects.Item item) {
         var row = new Widgets.ItemRow (item);
             

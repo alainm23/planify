@@ -285,8 +285,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             Actions
         */
 
-        var due_button = new Widgets.DueButton ();
-        due_button.item = item;
+        var due_button = new Widgets.DueButton (item);
 
         var label_button = new Widgets.LabelButton (item.id);
         label_button.margin_start = 6;
@@ -572,6 +571,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 due_label_revealer.reveal_child = true;
                 
                 check_due_style ();
+                due_button.update_date_text (i.due_date);
 
                 if (is_today) {
                     date_label_revealer.reveal_child = false;
@@ -616,6 +616,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 due_label_revealer.reveal_child = true;
 
                 check_due_style ();
+                due_button.update_date_text (i.due_date);
             }
         });
 
@@ -625,6 +626,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 due_label_revealer.reveal_child = false;
 
                 check_due_style ();
+                due_button.update_date_text (i.due_date);
 
                 if (is_today || upcoming != null) {
                     hide_item ();
@@ -714,7 +716,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             
             content_label.label = "<s>%s</s>".printf (item.content);
 
-            checked_timeout = Timeout.add (1500, () => {
+            checked_timeout = Timeout.add (2500, () => {
                 if (item.is_todoist == 1) {
                     if (Application.todoist.add_complete_item (item)) {
                         main_revealer.reveal_child = false;
@@ -953,8 +955,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         projects_menu.add (item_menu);
         
         foreach (var project in Application.database.get_all_projects ()) {
-            if (item.is_todoist == project.is_todoist && item.project_id != project.id) {
-                item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
+            if (item.project_id != project.id) {
+                item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {
                     if (item.is_todoist == 0) {
                         if (Application.database.move_item (item, project.id)) {

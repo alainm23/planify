@@ -7,7 +7,7 @@ public class Views.Today : Gtk.EventBox {
 
     private Gtk.Box main_box;
 
-    private Gee.HashMap<string, Gtk.Widget> event_hashmap;
+    private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     private uint update_events_idle_source = 0;
     private GLib.DateTime date;
 
@@ -72,20 +72,6 @@ public class Views.Today : Gtk.EventBox {
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         new_item_revealer.add (new_item);
 
-        var placeholder_label = new Gtk.Label (_("No Events on This Day"));
-        placeholder_label.wrap = true;
-        placeholder_label.wrap_mode = Pango.WrapMode.WORD;
-        placeholder_label.margin_start = 12;
-        placeholder_label.margin_end = 12;
-        placeholder_label.max_width_chars = 20;
-        placeholder_label.halign = Gtk.Align.START;
-        placeholder_label.margin_start = 43;
-        placeholder_label.show_all ();
-
-        var placeholder_style_context = placeholder_label.get_style_context ();
-        placeholder_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        placeholder_style_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
-
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_top = 12;
         event_listbox.valign = Gtk.Align.START;
@@ -94,7 +80,6 @@ public class Views.Today : Gtk.EventBox {
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         event_listbox.hexpand = true;
-        event_listbox.set_placeholder (placeholder_label);
         event_listbox.set_sort_func (sort_event_function);
 
         main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -111,7 +96,7 @@ public class Views.Today : Gtk.EventBox {
 
         add (main_scrolled);
         add_all_items ();
-
+        
         show_all ();
         
         listbox.row_activated.connect ((row) => {
@@ -183,7 +168,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         date = new GLib.DateTime.now_local ();
-        event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();
+        event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
 
         Application.calendar_model.events_added.connect (add_event_model);
         Application.calendar_model.events_removed.connect (remove_event_model);
@@ -198,8 +183,8 @@ public class Views.Today : Gtk.EventBox {
 
                 var event_uid = ical.get_uid ();
                 if (!event_hashmap.has_key (event_uid)) {
-                    event_hashmap [event_uid] = new Widgets.EventRow (date, ical, source);
-                    event_listbox.add (event_hashmap [event_uid]);
+                    event_hashmap[event_uid] = new Widgets.EventRow (date, ical, source);
+                    event_listbox.add (event_hashmap[event_uid]);
                 }
             }
         }
@@ -216,20 +201,14 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private bool update_events () {
-        foreach (unowned Gtk.Widget widget in event_listbox.get_children ()) {
-            widget.destroy ();
-        }
-
-        var events_on_day = new Gee.TreeMap<string, Widgets.EventRow> ();
-
         Application.calendar_model.source_events.@foreach ((source, component_map) => {
             foreach (var comp in component_map.get_values ()) {
                 if (Util.calcomp_is_on_day (comp, date)) {
                     unowned ICal.Component ical = comp.get_icalcomponent ();
                     var event_uid = ical.get_uid ();
-                    if (!events_on_day.has_key (event_uid)) {
-                        events_on_day [event_uid] = new Widgets.EventRow (date, ical, source);
-                        event_listbox.add (events_on_day[event_uid]);
+                    if (!event_hashmap.has_key (event_uid)) {
+                        event_hashmap[event_uid] = new Widgets.EventRow (date, ical, source);
+                        event_listbox.add (event_hashmap[event_uid]);
                     }
                 }
             }
@@ -244,9 +223,9 @@ public class Views.Today : Gtk.EventBox {
         foreach (var component in events) {
             unowned ICal.Component ical = component.get_icalcomponent ();
             var event_uid = ical.get_uid ();
-            var dot = event_hashmap[event_uid];
-            if (dot != null) {
-                dot.destroy ();
+            var event_row = event_hashmap[event_uid];
+            if (event_row != null) {
+                event_row.destroy ();
                 event_hashmap.remove (event_uid);
             }
         }

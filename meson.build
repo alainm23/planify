@@ -59,6 +59,7 @@ executable(
     'src/Widgets/ProjectProgress.vala',
     'src/Widgets/UpcomingRow.vala',
     'src/Widgets/EventRow.vala',
+    'src/Widgets/QuickSearch.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -75,7 +76,6 @@ executable(
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
     'src/Dialogs/Preferences.vala',
-    'src/Dialogs/Labels.vala',
     
     'src/Objects/Project.vala',
     'src/Objects/Item.vala',

@@ -31,49 +31,10 @@ public class Views.Upcoming : Gtk.EventBox {
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
-        var left_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        left_separator.hexpand = true;
-        left_separator.valign = Gtk.Align.CENTER;
-
-        var load_label = new Gtk.Label (_("Load the next 7 days"));
-        load_label.margin_start = 12;
-        load_label.margin_end = 12;
-        load_label.get_style_context ().add_class ("font-bold");
-        load_label.get_style_context ().add_class ("primary-label");
-
-        var right_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        right_separator.hexpand = true;
-        right_separator.valign = Gtk.Align.CENTER;
-    
-        var load_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        load_box.pack_start (left_separator, false, true, 0);
-        load_box.set_center_widget (load_label);
-        load_box.pack_end (right_separator, false, true, 0);
-
-        var load_button = new Gtk.Button ();
-        load_button.margin_start = 34;
-        load_button.margin_end = 25;
-        load_button.can_focus = false;
-        load_button.get_style_context ().add_class ("flat");
-        load_button.add (load_box);
-
-        var load_revealer = new Gtk.Revealer ();
-        load_revealer.transition_duration = 500;
-        load_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        load_revealer.add (load_button);
-
-        var load_eventbox = new Gtk.EventBox ();
-        load_eventbox.margin_bottom = 18;
-        load_eventbox.height_request = 44;
-        load_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        load_eventbox.hexpand = true;
-        load_eventbox.add (load_revealer);
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
-        main_box.pack_start (load_eventbox, false, true, 0);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -83,36 +44,20 @@ public class Views.Upcoming : Gtk.EventBox {
         add (main_scrolled);
         add_dates ();
 
-        show_all ();
-        
-        load_button.clicked.connect (()=> {
-            add_dates ();
-        });
-
-        load_eventbox.enter_notify_event.connect ((event) => {
-            load_revealer.reveal_child = true;
-
-            return true;
-        });
-
-        load_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
+        main_scrolled.edge_reached.connect((pos)=> {
+            if (pos == Gtk.PositionType.BOTTOM) {
+                add_dates ();
             }
-
-            load_revealer.reveal_child = false;
-
-            return true;
         });
+
+        show_all ();
     }
 
     private void add_dates () {
-        for (int i = 0; i < 7; i++) {
-            if (date.add_days (1).get_month () > date.get_month ()) {
-                Application.calendar_model.change_month (1);
-            }
-
+        for (int i = 0; i < 14; i++) {
             date = date.add_days (1);
+
+            Application.calendar_model.change_day (1);
 
             var row = new Widgets.UpcomingRow (date);
 

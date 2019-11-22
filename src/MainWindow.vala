@@ -30,7 +30,7 @@ public class MainWindow : Gtk.Window {
     private Views.Upcoming upcoming_view;
 
     private bool was_inbox_created { get; set; default = false; }
-    private bool was_today_created { get; set; default = false; }
+    private bool was_today_created { get; set; default = true; }
     private bool was_upcoming_created { get; set; default = false; }
 
     public MainWindow (Application application) {
@@ -69,12 +69,14 @@ public class MainWindow : Gtk.Window {
         pane = new Widgets.Pane ();
         
         var welcome_view = new Views.Welcome ();
+        today_view = new Views.Today ();
 
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
         stack.add_named (welcome_view, "welcome-view");
+        stack.add_named (today_view, "today-view");
 
         var toast = new Widgets.Toast ();
         var magic_button = new Widgets.MagicButton ();

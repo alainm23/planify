@@ -1298,7 +1298,7 @@ public class Services.Todoist : GLib.Object {
             comple_timeout = 0;
         }
 
-        comple_timeout = Timeout.add (1000, () => {
+        comple_timeout = Timeout.add (500, () => {
             complete_items ();
             
             Source.remove (comple_timeout);

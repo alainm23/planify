@@ -255,7 +255,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         Application.database.item_deleted.connect ((item) => {
-            if (project.id == item.project_id && item.checked == 0) {
+            if (project.id == item.project_id) {
                 update_count ();
             }
         });

@@ -1,5 +1,5 @@
 public class Widgets.DueButton : Gtk.ToggleButton {
-    public Objects.Item item { get; set; }
+    public Objects.Item item { get; construct; }
 
     private Gtk.Label due_label; 
     private Gtk.Image due_image;
@@ -11,6 +11,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Widgets.ModelButton tomorrow_button;
     private Widgets.ModelButton undated_button;
     private Widgets.Calendar.Calendar calendar;
+
+    public DueButton (Objects.Item item) {
+        Object (
+            item: item
+        );
+    }
 
     construct {
         tooltip_text = _("Due Date");
@@ -51,10 +57,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             }
         });
 
-        notify["item"].connect (() => {
-            update_date_text (item.due_date);
-        });
-
+        update_date_text (item.due_date);
     }
 
     public void update_date_text (string due) {
@@ -135,15 +138,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private void set_due (GLib.DateTime? date) {
         bool new_date = false;
         if (date != null) {
-            update_date_text (date.to_string ());
-
             if (item.due_date == "") {
                 new_date = true;
             }
 
             item.due_date = date.to_string ();
         } else {
-            update_date_text ("");
             item.due_date = "";
         }
 

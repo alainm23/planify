@@ -1607,7 +1607,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Items SET checked = ?, date_completed = ? WHERE id = ?;
+            UPDATE Items SET checked = ?, date_completed = ? WHERE id = ? OR parent_id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1622,11 +1622,13 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, item.id);
         assert (res == Sqlite.OK);
 
+        res = stmt.bind_int64 (4, item.id);
+        assert (res == Sqlite.OK);
+
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
             item_completed (item);
-            
             return true;
         } else {
             return false;

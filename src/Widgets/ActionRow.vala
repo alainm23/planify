@@ -96,27 +96,48 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
+        drag_motion.connect (on_drag_item_motion);
+        drag_leave.connect (on_drag_item_leave);
+        
         if (item_base_name == "inbox") {
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
-            drag_data_received.connect (on_drag_item_received);
-            drag_motion.connect (on_drag_item_motion);
-            drag_leave.connect (on_drag_item_leave);
+            drag_data_received.connect (on_drag_imbox_item_received);
+        } else if (item_base_name == "today") {
+            drag_data_received.connect (on_drag_today_item_received);
         }
     }
 
-    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
-        if (item_base_name == "inbox") {
-            Widgets.ItemRow source;
-            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-            source = (Widgets.ItemRow) row;
+    private void on_drag_imbox_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
 
-            if (source.item.is_todoist == 0) {
-                if (Application.database.move_item (source.item, Application.settings.get_int64 ("inbox-project"))) {
-                    source.get_parent ().remove (source);
-                }
-            } else {
-                Application.todoist.move_item (source.item, Application.settings.get_int64 ("inbox-project"));
+        if (source.item.is_todoist == 0) {
+            if (Application.database.move_item (source.item, Application.settings.get_int64 ("inbox-project"))) {
+                source.get_parent ().remove (source);
             }
+        } else {
+            Application.todoist.move_item (source.item, Application.settings.get_int64 ("inbox-project"));
+        }
+    }
+
+    private void on_drag_today_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        bool new_date = false;
+        var date = new GLib.DateTime.now_local ();
+        if (source.item.due_date == "") {
+            new_date = true;
+        }
+
+        source.item.due_date = date.to_string ();
+
+        Application.database.set_due_item (source.item, new_date);
+
+        if (source.item.is_todoist == 1) {
+            Application.todoist.update_item (source.item);
         }
     }
 

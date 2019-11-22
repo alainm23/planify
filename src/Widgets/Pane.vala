@@ -229,7 +229,7 @@ public class Widgets.Pane : Gtk.EventBox {
                 Application.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
 
-                var action = (ActionRow) row;
+                var action = (Widgets.ActionRow) row;
 
                 action.icon.get_style_context ().add_class ("active");
 

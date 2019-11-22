@@ -42,7 +42,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         color_button.add (color_image);
 
-        var delete_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic");
+        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;
         delete_button.get_style_context ().add_class ("flat");
@@ -57,15 +57,21 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         buttons_revealer.add (buttons_box);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.margin_start = 6;
+        box.margin_start = 12;
+        box.margin_end = 12;
+        box.margin_top = 3;
         box.margin_bottom = 3;
         box.pack_start (button_image, false, false, 0);
         box.pack_start (name_entry, false, true, 0);
         box.pack_end (buttons_revealer, false, true, 0);
 
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.pack_start (box, false, false, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+
         var handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        handle.add (box);
+        handle.add (main_box);
 
         add (handle);
 

@@ -134,8 +134,8 @@ public class Services.Calendar.CalendarModel : Object {
         source_events.remove (source);
     }
 
-    public void change_month (int relative) {
-        month_start = month_start.add_months (relative);
+    public void change_day (int relative) {
+        month_start = month_start.add_days (relative);
     }
 
     public void change_year (int relative) {

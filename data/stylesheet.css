@@ -735,3 +735,12 @@ paned > separator {
 .primary-label {
     color: #ed5353;
 }
+
+.preference-item-radio {
+    border-top: 1px solid @menu_separator;
+    border-bottom: 1px solid @menu_separator_shadow;
+    margin-bottom: -1px;	
+    padding: 7px 6px 6px 12px;
+    background-color: @base_color;   
+    font-weight: 600;
+}
