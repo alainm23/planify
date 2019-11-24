@@ -41,7 +41,7 @@ public class Services.Calendar.CalendarModel : Object {
     public signal void events_updated (E.Source source, Gee.Collection<ECal.Component> events);
     public signal void events_removed (E.Source source, Gee.Collection<ECal.Component> events);
 
-    private E.SourceRegistry registry { get; private set; }
+    public E.SourceRegistry registry { get; private set; }
     private HashTable<string, ECal.Client> source_client;
     private HashTable<string, ECal.ClientView> source_view;
 
@@ -133,15 +133,7 @@ public class Services.Calendar.CalendarModel : Object {
         events_removed (source, events);
         source_events.remove (source);
     }
-
-    public void change_day (int relative) {
-        month_start = month_start.add_days (relative);
-    }
-
-    public void change_year (int relative) {
-        month_start = month_start.add_years (relative);
-    }
-
+    
     /* --- Helper Methods ---// */
 
     private void compute_ranges () {
@@ -312,6 +304,44 @@ public class Services.Calendar.CalendarModel : Object {
         });
 
         events_removed (source, removed_events.read_only_view);
+    }
+
+    // Preferences
+    public async void get_all_sources (Gtk.ListBox listbox) {
+        try {
+            var registry = yield new E.SourceRegistry (null);
+
+            // Add sources
+            registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
+                add_source_to_view (source, listbox);
+            });
+        } catch (GLib.Error error) {
+            critical (error.message);
+        }
+    }
+
+    private void add_source_to_view (E.Source source, Gtk.ListBox listbox) {
+        if (source.enabled == false)
+            return;
+
+        var source_item = new Widgets.SourceItem (source);
+
+        source_item.visible_changed.connect (() => {
+            string[] sources_disabled = {};
+
+            foreach (var row in listbox.get_children ()) {
+                var _source = ((Widgets.SourceItem) row).source;
+
+                if (((Widgets.SourceItem) row).visible == false) {
+                    sources_disabled += _source.dup_uid ();
+                }
+            }
+
+            Application.settings.set_strv ("calendar-sources-disabled", sources_disabled);
+        });
+
+        listbox.add (source_item);
+        listbox.show_all ();
     }
 }
 

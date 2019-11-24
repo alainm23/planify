@@ -82,10 +82,15 @@ public class Views.Today : Gtk.EventBox {
         event_listbox.hexpand = true;
         event_listbox.set_sort_func (sort_event_function);
 
+        var event_revealer = new Gtk.Revealer ();
+        event_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        event_revealer.add (event_listbox);
+        event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+
         main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (event_listbox, false, false, 0);
+        main_box.pack_start (event_revealer, false, false, 0);
         main_box.pack_start (new_item_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
@@ -169,11 +174,18 @@ public class Views.Today : Gtk.EventBox {
 
         date = new GLib.DateTime.now_local ();
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
+        Application.calendar_model.month_start = Util.get_start_of_month ();
 
         Application.calendar_model.events_added.connect (add_event_model);
         Application.calendar_model.events_removed.connect (remove_event_model);
 
         idle_update_events ();
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "calendar-enabled") {
+                event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+            }
+        });
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {

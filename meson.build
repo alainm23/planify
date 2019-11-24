@@ -60,6 +60,7 @@ executable(
     'src/Widgets/UpcomingRow.vala',
     'src/Widgets/EventRow.vala',
     'src/Widgets/QuickSearch.vala',
+    'src/Widgets/SourceItem.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',

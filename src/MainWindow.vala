@@ -25,13 +25,9 @@ public class MainWindow : Gtk.Window {
     private string visible_child_name = "";
 
     private Gtk.Stack stack;
-    private Views.Inbox inbox_view;
-    private Views.Today today_view;
-    private Views.Upcoming upcoming_view;
-
-    private bool was_inbox_created { get; set; default = false; }
-    private bool was_today_created { get; set; default = true; }
-    private bool was_upcoming_created { get; set; default = false; }
+    private Views.Inbox inbox_view = null;
+    private Views.Today today_view = null;
+    private Views.Upcoming upcoming_view = null;
 
     public MainWindow (Application application) {
         Object (
@@ -69,15 +65,13 @@ public class MainWindow : Gtk.Window {
         pane = new Widgets.Pane ();
         
         var welcome_view = new Views.Welcome ();
-        today_view = new Views.Today ();
 
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         
         stack.add_named (welcome_view, "welcome-view");
-        stack.add_named (today_view, "today-view");
-
+        
         var toast = new Widgets.Toast ();
         var magic_button = new Widgets.MagicButton ();
 
@@ -242,26 +236,23 @@ public class MainWindow : Gtk.Window {
 
     private void go_view (int id) {
         if (id == 0) {
-            if (was_inbox_created == false) {
+            if (inbox_view == null) {
                 inbox_view = new Views.Inbox ();
                 stack.add_named (inbox_view, "inbox-view");
-                was_inbox_created = true;
             }
 
             stack.visible_child_name = "inbox-view";
         } else if  (id == 1) {
-            if (was_today_created == false) {
+            if (today_view == null) {
                 today_view = new Views.Today ();
                 stack.add_named (today_view, "today-view");
-                was_today_created = true;
             }
 
             stack.visible_child_name = "today-view";
         } else {
-            if (was_upcoming_created == false) {
+            if (upcoming_view == null) {
                 upcoming_view = new Views.Upcoming ();
                 stack.add_named (upcoming_view, "upcoming-view");
-                was_upcoming_created = true;
             }
 
             stack.visible_child_name = "upcoming-view";

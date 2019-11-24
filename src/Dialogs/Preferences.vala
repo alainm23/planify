@@ -26,6 +26,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_theme_widget (), "theme");
         stack.add_named (get_labels_widget (), "labels");
+        stack.add_named (get_calendar_widget (), "calendar");
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
@@ -105,6 +106,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         labels_item.activate_item.connect (() => {
             stack.visible_child_name = "labels";
+        });
+        
+        calendar_item.activate_item.connect (() => {
+            stack.visible_child_name = "calendar";
         });
 
         return main_grid;
@@ -323,6 +328,83 @@ public class Dialogs.Preferences : Gtk.Dialog {
         
         return main_box;
     }
+
+    private Gtk.Widget get_calendar_widget () {
+        var top_box = new PreferenceTopBox ("office-calendar", _("Calendar"));
+        //top_box.action_button = "list-add-symbolic";
+
+        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your Inbox view, but you can change it to whatever you'd like:"));
+        description_label.margin = 6;
+        description_label.margin_bottom = 12;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+
+        var enabled_switch = new PreferenceItemSwitch ("Enabled", Application.settings.get_boolean ("calendar-enabled"));
+
+        var listbox = new Gtk.ListBox ();
+        listbox.margin_top = 12;
+        listbox.valign = Gtk.Align.START;
+        listbox.selection_mode = Gtk.SelectionMode.NONE;
+        listbox.hexpand = true;
+        listbox.get_style_context ().add_class ("background");
+        listbox.set_sort_func ((child1, child2) => {
+            var comparison = ((Widgets.SourceItem)child1).location.collate (((Widgets.SourceItem)child2).location);
+            if (comparison == 0)
+                return ((Widgets.SourceItem)child1).label.collate (((Widgets.SourceItem)child2).label);
+            else
+                return comparison;
+        }); 
+
+        var listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        listbox_box.hexpand = true;
+        listbox_box.pack_start (listbox, false, false, 0);
+        listbox_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+
+        var revealer = new Gtk.Revealer ();
+        revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        revealer.add (listbox_box);
+        revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.hexpand = true;
+        
+        box.pack_start (description_label, false, false, 0);
+        box.pack_start (enabled_switch, false, true, 0);
+        box.pack_start (revealer, false, true, 0);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        Application.calendar_model.get_all_sources.begin (listbox);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        enabled_switch.activate.connect ((val) => {
+            Application.settings.set_boolean ("calendar-enabled", val);
+        });
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "calendar-enabled") {
+                revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+            }
+        });
+
+        return main_box;
+    }
     
     private void add_all_labels (Gtk.ListBox listbox)  {           
         foreach (Objects.Label label in Application.database.get_all_labels ()) {
@@ -482,6 +564,42 @@ public class PreferenceTopBox : Gtk.Box {
 
         default_button.clicked.connect (() => {
             action_activated ();
+        });
+
+        add (main_box);
+    }
+}
+
+public class PreferenceItemSwitch : Gtk.EventBox {
+    public signal void activate (bool active);
+
+    public PreferenceItemSwitch (string title, bool active=false) {
+        var title_label = new Gtk.Label (title);
+        title_label.get_style_context ().add_class ("font-weight-600");
+
+        var button_switch = new Gtk.Switch ();
+        button_switch.valign = Gtk.Align.CENTER;
+        button_switch.get_style_context ().add_class ("active-switch");
+        button_switch.active = active;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin_start = 12;
+        box.margin_end = 12;
+        box.margin_top = 6;
+        box.margin_bottom = 6;
+        box.hexpand = true;
+        box.pack_start (title_label, false, true, 0);
+        box.pack_end (button_switch, false, true, 0);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.get_style_context ().add_class ("view");
+        main_box.hexpand = true;
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (box, false, true, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+
+        button_switch.notify["active"].connect (() => {
+            activate (button_switch.active);
         });
 
         add (main_box);

@@ -25,6 +25,18 @@
             <description>If the dark Gtk stylesheet should be used</description>
         </key>
 
+        <key name="calendar-enabled" type="b">
+            <default>true</default>
+            <summary>enabled enabled</summary>
+            <description>enabled enabled</description>
+        </key>
+
+        <key name="calendar-sources-disabled" type="as">
+            <default>[]</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="source-selected" type="i">
             <default>0</default>
             <summary>Source selected</summary>

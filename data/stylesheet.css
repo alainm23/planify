@@ -744,3 +744,8 @@ paned > separator {
     background-color: @base_color;   
     font-weight: 600;
 }
+
+.active-switch slider {
+    min-height: 16px;
+    min-width: 16px;
+}

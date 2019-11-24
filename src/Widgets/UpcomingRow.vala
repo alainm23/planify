@@ -28,12 +28,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         day_label.valign = Gtk.Align.CENTER;
         day_label.use_markup = true;
 
-        string month = date.format ("%B");
+        string day = date.format ("%A");
         if (Application.utils.is_tomorrow (date)) {
-            month = _("Tomorrow");
+            day = _("Tomorrow");
         }
 
-        var date_label = new Gtk.Label ("<small>%s</small>".printf (month));
+        var date_label = new Gtk.Label ("<small>%s, %s</small>".printf (day, date.format ("%b")));
         date_label.halign = Gtk.Align.START;
         date_label.valign = Gtk.Align.END;
         date_label.get_style_context ().add_class ("h3");
@@ -90,13 +90,18 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         event_listbox.hexpand = true;
         event_listbox.set_sort_func (sort_event_function);
 
+        var event_revealer = new Gtk.Revealer ();
+        event_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        event_revealer.add (event_listbox);
+        event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_bottom = 12;
         main_box.hexpand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
-        main_box.pack_start (event_listbox, false, false, 0);
+        main_box.pack_start (event_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
         add (main_box);
@@ -167,6 +172,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         Application.calendar_model.events_removed.connect (remove_event_model);
 
         idle_update_events ();
+
+        Application.settings.changed.connect ((key) => {
+            if (key == "calendar-enabled") {
+                event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+            }
+        });
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {

@@ -42,27 +42,30 @@ public class Views.Upcoming : Gtk.EventBox {
         main_scrolled.add (main_box);
 
         add (main_scrolled);
-        add_dates ();
+
+        Application.calendar_model.month_start = Util.get_start_of_month ();
+
+        add_upcomings ();
 
         main_scrolled.edge_reached.connect((pos)=> {
             if (pos == Gtk.PositionType.BOTTOM) {
-                add_dates ();
+                add_upcomings ();
             }
         });
 
         show_all ();
     }
 
-    private void add_dates () {
+    private void add_upcomings () {
         for (int i = 0; i < 14; i++) {
             date = date.add_days (1);
-
-            Application.calendar_model.change_day (1);
-
+        
             var row = new Widgets.UpcomingRow (date);
 
             listbox.add (row);
             listbox.show_all ();
+
+            Application.calendar_model.month_start = Util.get_start_of_month (date);
         }
     }
 }
