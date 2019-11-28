@@ -17,5 +17,10 @@
     <file alias="planner-work-area-symbolic.svg">resources/planner-work-area-symbolic.svg</file>
     <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
     <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
+
+    <file alias="planner-alarm-symbolic.svg">resources/planner-alarm-symbolic.svg</file>
+    <file alias="planner-calendar-symbolic.svg">resources/planner-calendar-symbolic.svg</file>
+    <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
+    <file alias="planner-list-symbolic.svg">resources/planner-list-symbolic.svg</file>
   </gresource>
 </gresources>

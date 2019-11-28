@@ -33,7 +33,7 @@ executable(
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
     'src/Services/LabelsController.vala',
-    'src/Services/Notification.vala',
+    'src/Services/Notifications.vala',
     'src/Services/Calendar/Util.vala',
     'src/Services/Calendar/CalendarModel.vala',
     
@@ -61,6 +61,8 @@ executable(
     'src/Widgets/EventRow.vala',
     'src/Widgets/QuickSearch.vala',
     'src/Widgets/SourceItem.vala',
+    'src/Widgets/ReminderButton.vala',
+    'src/Widgets/ReminderRow.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -84,6 +86,7 @@ executable(
     'src/Objects/Section.vala',
     'src/Objects/Label.vala',
     'src/Objects/Collaborator.vala',
+    'src/Objects/Reminder.vala',
 
     dependencies: [
         dependency('gee-0.8'),

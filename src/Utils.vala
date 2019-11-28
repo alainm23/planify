@@ -235,31 +235,48 @@ public class Utils : GLib.Object {
         return true;
     }
 
+    public void set_autostart (bool active) {
+        var desktop_file_name = "com.github.alainm23.planner.desktop";
+        var desktop_file_path = new DesktopAppInfo (desktop_file_name).filename;
+        var desktop_file = File.new_for_path (desktop_file_path);
+        var dest_path = Path.build_path (Path.DIR_SEPARATOR_S,
+                                         Environment.get_user_config_dir (),
+                                         "autostart",
+                                         desktop_file_name);
+        var dest_file = File.new_for_path (dest_path);
+        try {
+            desktop_file.copy (dest_file, FileCopyFlags.OVERWRITE);
+        } catch (Error e) {
+            warning ("Error making copy of desktop file for autostart: %s", e.message);
+        }
+
+        var keyfile = new KeyFile ();
+        try {
+            keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
+            keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
+            keyfile.set_string("Desktop Entry", "Exec", "com.github.alainm23.planner.desktop --s");
+            keyfile.save_to_file (dest_path);
+        } catch (Error e) {
+            warning ("Error enabling autostart: %s", e.message);
+        }
+    }
+
     /*
         Calendar Utils
     */
     
-    public int get_days_of_month (int index) {
+    public int get_days_of_month (int index, int year_nav) {
         if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
             return 31;
-        } else if ((index == 2) || (index == 4) || (index == 6) || (index == 9) || (index == 11)) {
-            return 30;
         } else {
-            var date = new GLib.DateTime.now_local ();
-            int year = date.get_year ();
-
-            if (year % 4 == 0) {
-                if (year % 100 == 0) {
-                    if (year % 400 == 0) {
-                        return 29;
-                    } else {
-                        return 28;
-                    }
+            if (index == 2) {
+                if (year_nav % 4 == 0) {
+                    return 29;
                 } else {
                     return 28;
                 }
             } else {
-                return 28;
+                return 30;
             }
         }
     }
@@ -320,6 +337,16 @@ public class Utils : GLib.Object {
     public string get_relative_date_from_string (string due) {
         var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
         return get_relative_date_from_date (date);
+    }
+
+    public string get_relative_time_from_string (string due) {
+        bool is_12h = true;
+        if (Application.settings.get_enum ("time-format") == 1) {
+            is_12h = false;
+        }
+
+        var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+        return date.format (Granite.DateTime.get_default_time_format (is_12h, false));
     }
 
     public string get_relative_date_from_date (GLib.DateTime date) {

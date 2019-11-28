@@ -109,11 +109,11 @@ public class Views.Project : Gtk.EventBox {
         top_box.pack_start (name_label, false, false, 0);
         
         top_box.pack_end (settings_button, false, false, 0);
-        top_box.pack_end (search_button, false, false, 0);
+        //top_box.pack_end (search_button, false, false, 0);
 
         if (project.is_todoist == 1) {
             //top_box.pack_end (add_person_button, false, false, 0);
-            top_box.pack_end (comment_button, false, false, 0);
+            //top_box.pack_end (comment_button, false, false, 0);
         }
         
         top_box.pack_end (section_stack, false, false, 0);

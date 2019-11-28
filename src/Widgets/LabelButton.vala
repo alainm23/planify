@@ -19,7 +19,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         var label_icon = new Gtk.Image ();
         label_icon.valign = Gtk.Align.CENTER;
-        label_icon.gicon = new ThemedIcon ("tag-symbolic");
+        label_icon.gicon = new ThemedIcon ("planner-label-symbolic");
         label_icon.pixel_size = 16;
 
         var label = new Gtk.Label (_("labels"));
@@ -88,7 +88,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         edit_labels.halign = Gtk.Align.START;
         edit_labels.always_show_image = true;
         edit_labels.can_focus = false;
-        edit_labels.label = _("Edit Labels");
+        edit_labels.label = _("Edit labels");
         edit_labels.get_style_context ().add_class ("flat");
         edit_labels.get_style_context ().add_class ("font-bold");
 

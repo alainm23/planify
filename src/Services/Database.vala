@@ -32,7 +32,10 @@ public class Services.Database : GLib.Object {
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
     public signal void label_updated (Objects.Label label);
-    
+
+    public signal void reminder_added (Objects.Reminder reminder);
+    public signal void reminder_deleted (int64 id);
+
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (int64 id);
@@ -196,12 +199,12 @@ public class Services.Database : GLib.Object {
                 type                TEXT,
                 due_date            TEXT,
                 due_timezone        TEXT,
-                due_is_recurring    TEXT,
+                due_is_recurring    INTEGER,
                 due_string          TEXT,
                 due_lang            TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE,
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
             );
         """;
         
@@ -2427,6 +2430,151 @@ public class Services.Database : GLib.Object {
             return false;
         } else {
             item_label_deleted (id, item_id, label);
+            return true;
+        }
+    }
+
+    // Reminders
+    public bool insert_reminder (Objects.Reminder reminder) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            INSERT OR IGNORE INTO Reminders (id, item_id, due_date)
+            VALUES (?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, reminder.id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int64 (2, reminder.item_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, reminder.due_date);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            reminder_added (reminder);
+            return true;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Reminder?> get_reminders_by_item (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res; 
+
+        sql = """
+            SELECT id, item_id, due_date FROM Reminders WHERE item_id = ? ORDER BY due_date;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var all = new Gee.ArrayList<Objects.Reminder?> ();
+ 
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var r = new Objects.Reminder ();
+
+            r.id = stmt.column_int64 (0);
+            r.item_id = stmt.column_int64 (1);
+            r.due_date = stmt.column_text (2);
+
+            all.add (r);
+        }
+
+        return all;
+    }
+
+    public Objects.Reminder? get_first_reminders_by_item (int64 id) {
+        Objects.Reminder? returned = null;
+        Sqlite.Statement stmt;
+        string sql;
+        int res; 
+
+        sql = """
+            SELECT id, item_id, due_date FROM Reminders WHERE item_id = ? ORDER BY due_date LIMIT 1;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        while (stmt.step () == Sqlite.ROW) {
+            returned = new Objects.Reminder ();
+
+            returned.id = stmt.column_int64 (0);
+            returned.item_id = stmt.column_int64 (1);
+            returned.due_date = stmt.column_text (2);
+        }
+
+        return returned;
+    }
+
+    public Gee.ArrayList<Objects.Reminder?> get_reminders () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res; 
+
+        sql = """
+            SELECT Reminders.id, Reminders.item_id, Reminders.due_date, Items.content, Items.project_id FROM Reminders
+            INNER JOIN Items ON Reminders.item_id = Items.id ORDER BY Reminders.due_date;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+                
+        var all = new Gee.ArrayList<Objects.Reminder?> ();
+ 
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var r = new Objects.Reminder ();
+
+            r.id = stmt.column_int64 (0);
+            r.item_id = stmt.column_int64 (1);
+            r.due_date = stmt.column_text (2);
+            r.content = stmt.column_text (3);
+            r.project_id = stmt.column_int64 (4);
+
+            all.add (r);
+        }
+
+        return all;
+    }
+
+    public bool delete_reminder (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Reminders WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            reminder_deleted (id);
             return true;
         }
     }

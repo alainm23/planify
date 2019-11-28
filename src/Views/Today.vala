@@ -48,7 +48,6 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (date_label, false, false, 0);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 6;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
@@ -73,7 +72,7 @@ public class Views.Today : Gtk.EventBox {
         new_item_revealer.add (new_item);
 
         event_listbox = new Gtk.ListBox ();
-        event_listbox.margin_top = 12;
+        event_listbox.margin_top = 6;
         event_listbox.valign = Gtk.Align.START;
         event_listbox.get_style_context ().add_class ("welcome");
         event_listbox.get_style_context ().add_class ("listbox");
@@ -311,7 +310,6 @@ public class Views.Today : Gtk.EventBox {
                 row.set_header (get_header_project (item.project_id));
             }
         } else {
-            print ("Task: %s\n".printf (item.content));
             row.set_header (get_header_project (item.project_id));
         }
     }

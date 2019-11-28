@@ -57,7 +57,7 @@ public class MainWindow : Gtk.Window {
         projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
+        
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
@@ -230,6 +230,14 @@ public class MainWindow : Gtk.Window {
         Application.settings.changed.connect ((key) => {
             if (key == "prefer-dark-style") {
                 Application.utils.apply_theme_changed ();
+            }
+        });
+
+        delete_event.connect (() => {
+            if (Application.settings.get_boolean ("run-in-background")) {
+                return hide_on_delete ();
+            } else {
+                return false;
             }
         });
     }

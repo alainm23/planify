@@ -26,13 +26,15 @@ public class Application : Gtk.Application {
     public static GLib.Settings settings;
     public static Services.Database database;
     public static Services.Todoist todoist;
-    public static Services.Notification notification;
+    public static Services.Notifications notifications;
     public static Services.Calendar.CalendarModel calendar_model;
     
+    private bool silence = false;
+
     public Application () {
         Object (
             application_id: "com.github.alainm23.planner",
-            flags: ApplicationFlags.FLAGS_NONE
+            flags: ApplicationFlags.HANDLES_COMMAND_LINE
         ); 
 
         // Dir to Database
@@ -44,7 +46,7 @@ public class Application : Gtk.Application {
         settings = new Settings ("com.github.alainm23.planner2");
         database = new Services.Database ();
         todoist = new Services.Todoist ();
-        notification = new Services.Notification ();
+        notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
     }
 
@@ -79,7 +81,11 @@ public class Application : Gtk.Application {
         }
 
         main_window.set_allocation (rect);
-        main_window.show_all ();
+
+        if (silence == false) {
+            main_window.show_all ();
+            main_window.present();
+        }
 
         // Actions
         var quit_action = new SimpleAction ("quit", null);
@@ -105,8 +111,44 @@ public class Application : Gtk.Application {
         utils.apply_theme_changed ();
     }
 
+    public override int command_line (ApplicationCommandLine command_line) {
+        bool silence_mode = false;
+        OptionEntry[] options = new OptionEntry [1];
+        options[0] = {
+            "s", 0, 0, OptionArg.NONE,
+            ref silence_mode, "Run without window", null
+        };
+
+        string[] args = command_line.get_arguments ();
+        string[] _args = new string[args.length];
+        for(int i = 0; i < args.length; i++) {
+            _args[i] = args[i];
+        }
+
+        try {
+            var ctx = new OptionContext ();
+            ctx.set_help_enabled (true);
+            ctx.add_main_entries (options, null);
+            unowned string[] tmp = _args;
+            ctx.parse (ref tmp);
+        } catch(OptionError e) {
+            command_line.print ("error: %s\n", e.message);
+            return 0;
+        }
+
+        silence = silence_mode;
+        activate ();
+
+        return 0;
+    }
+    
     public static int main (string[] args) {
         Application app = Application.instance;
+
+        if (args.length > 1 && args[1] == "--s") {
+            app.silence = true;
+        }
+
         return app.run (args);
     }
 }

@@ -26,7 +26,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
         add (notification_frame);
 
-        Application.notification.send_notification.connect ((type, message) => {
+        Application.notifications.send_notification.connect ((type, message) => {
             if (type == 0) {
                 send_simple_notification (message);
             } else if (type == 1) {

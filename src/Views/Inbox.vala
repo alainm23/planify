@@ -91,10 +91,10 @@ public class Views.Inbox : Gtk.EventBox {
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
-        top_box.pack_end (settings_button, false, false, 0);
-        top_box.pack_end (search_button, false, false, 0);
-        top_box.pack_end (comment_button, false, false, 0);
-        top_box.pack_end (section_stack, false, false, 0);
+        //top_box.pack_end (settings_button, false, false, 0);
+        //top_box.pack_end (search_button, false, false, 0);
+        //top_box.pack_end (comment_button, false, false, 0);
+        //top_box.pack_end (section_stack, false, false, 0);
 
         listbox = new Gtk.ListBox  ();
         listbox.valign = Gtk.Align.START;

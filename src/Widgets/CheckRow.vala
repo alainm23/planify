@@ -32,7 +32,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("check-entry");
         content_entry.get_style_context ().add_class ("active");
-        content_entry.get_style_context ().add_class ("label");
+        //content_entry.get_style_context ().add_class ("label");
+        content_entry.margin_bottom = 2;
         content_entry.text = item.content;
         content_entry.hexpand = true;
 

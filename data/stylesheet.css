@@ -147,7 +147,7 @@ paned > separator {
 */
 
 .item-row {
-    transition: all 150ms ease-in-out;
+    transition: all 220ms ease-in-out;
 }
 
 .item-row:selected {
@@ -657,13 +657,13 @@ paned > separator {
 }
 
 .duedate-upcoming {
-    background-color: #273445;
+    background-color: lightgray;
     padding: 0px 6px 1px 6px;
     font-size: 9px;
     font-weight: 700;
-    color: #fafafa;
+    color: #333;
     border-radius: 3px;
-    border: 1px solid shade (#273445, 0.75);
+    border: 1px solid shade (lightgray, 0.94);
 }
 
 .duedate-expired {
@@ -691,7 +691,7 @@ paned > separator {
 }
 
 .checklist-check check {
-    border: 1px solid #3689e6;
+    border: 1.7px solid #3689e6;
 }
 
 .label-row {

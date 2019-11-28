@@ -25,6 +25,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_home_widget (), "home");
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_theme_widget (), "theme");
+        stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
 
@@ -77,7 +78,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var addons_label = new Granite.HeaderLabel (_("Add-ons"));
         addons_label.margin_start = 6;
 
-        var calendar_item = new PreferenceItem ("office-calendar", _("Calendar"));
+        var calendar_item = new PreferenceItem ("office-calendar", _("Calendar events"));
         var labels_item = new PreferenceItem ("tag", _("Labels"), true);
 
         var addons_grid = new Gtk.Grid ();
@@ -102,6 +103,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         theme_item.activate_item.connect (() => {
             stack.visible_child_name = "theme";
+        });
+
+        general_item.activate_item.connect (() => {
+            stack.visible_child_name = "general";
         });
 
         labels_item.activate_item.connect (() => {
@@ -230,21 +235,20 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.xalign = 0;
 
         var light_radio = new Gtk.RadioButton.with_label (null, _("Light"));
-        light_radio.get_style_context ().add_class ("welcome");
-        light_radio.margin_start = 12;
+        light_radio.margin_top = 12;
+        light_radio.get_style_context ().add_class ("preference-item-radio");
         
         var night_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Night"));
-        night_radio.get_style_context ().add_class ("welcome");
-        night_radio.margin_start = 12;
-        
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        main_box.get_style_context ().add_class ("view");
+        night_radio.get_style_context ().add_class ("preference-item-radio");
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
         if (Application.settings.get_boolean ("prefer-dark-style")) {
             night_radio.active = true;
@@ -264,6 +268,56 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         return main_box;
     }
+
+    private Gtk.Widget get_general_widget () {
+        var top_box = new PreferenceTopBox ("night-light", _("General"));
+        top_box.margin_bottom = 12;
+
+        var de_header = new Granite.HeaderLabel (_("DE Integration"));
+        de_header.margin_start = 12;
+
+        var run_background_switch = new PreferenceItemSwitch ("Run in background", Application.settings.get_boolean ("run-in-background"), false);
+        var run_startup_switch = new PreferenceItemSwitch ("Run on startup", Application.settings.get_boolean ("run-on-startup"));
+
+        var datetime_header = new Granite.HeaderLabel (_("Date & Time"));
+        datetime_header.margin_start = 12;
+        datetime_header.margin_top = 12;
+
+        List<string> items = new List<string> ();
+        items.append (_("AM/PM"));
+        items.append (_("24 h"));
+
+        var time_select = new PreferenceItemSelect (_("Time format"), Application.settings.get_enum ("time-format"), items);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (de_header, false, false, 0);
+        main_box.pack_start (run_background_switch, false, false, 0);
+        main_box.pack_start (run_startup_switch, false, false, 0);
+        main_box.pack_start (datetime_header, false, false, 0);
+        main_box.pack_start (time_select, false, false, 0);
+
+        run_startup_switch.activate.connect ((val) => {
+            Application.settings.set_boolean ("run-on-startup", val);
+            Application.utils.set_autostart (val);
+        });
+
+        run_background_switch.activate.connect ((val) => {
+            Application.settings.set_boolean ("run-in-background", val);
+        });
+
+        time_select.activate.connect ((val) => {
+            Application.settings.set_enum ("time-format", val);
+        });
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        return main_box;
+    } 
 
     private Gtk.Widget get_labels_widget () {
         var top_box = new PreferenceTopBox ("tag", _("Labels"));
@@ -330,7 +384,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_calendar_widget () {
-        var top_box = new PreferenceTopBox ("office-calendar", _("Calendar"));
+        var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));
         //top_box.action_button = "list-add-symbolic";
 
         var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your Inbox view, but you can change it to whatever you'd like:"));
@@ -573,7 +627,7 @@ public class PreferenceTopBox : Gtk.Box {
 public class PreferenceItemSwitch : Gtk.EventBox {
     public signal void activate (bool active);
 
-    public PreferenceItemSwitch (string title, bool active=false) {
+    public PreferenceItemSwitch (string title, bool active=false, bool visible_separator=true) {
         var title_label = new Gtk.Label (title);
         title_label.get_style_context ().add_class ("font-weight-600");
 
@@ -596,10 +650,57 @@ public class PreferenceItemSwitch : Gtk.EventBox {
         main_box.hexpand = true;
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (box, false, true, 0);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+
+        if (visible_separator == true) {
+            main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        }
 
         button_switch.notify["active"].connect (() => {
             activate (button_switch.active);
+        });
+
+        add (main_box);
+    }
+}
+
+public class PreferenceItemSelect : Gtk.EventBox {
+    public signal void activate (int active);
+
+    public PreferenceItemSelect (string title, int active, List<string> items, bool visible_separator=true) {
+        var title_label = new Gtk.Label (title);
+        title_label.get_style_context ().add_class ("font-weight-600");
+
+        var combobox = new Gtk.ComboBoxText ();
+        combobox.can_focus =  false;
+        combobox.valign = Gtk.Align.CENTER;
+
+        foreach (var item in items) {
+            combobox.append_text (item);
+        }
+
+        combobox.active = active;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin_start = 12;
+        box.margin_end = 12;
+        box.margin_top = 6;
+        box.margin_bottom = 6;
+        box.hexpand = true;
+        box.pack_start (title_label, false, true, 0);
+        box.pack_end (combobox, false, true, 0);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.get_style_context ().add_class ("view");
+        main_box.hexpand = true;
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (box, false, true, 0);
+
+        if (visible_separator == true) {
+            main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        }
+
+        combobox.changed.connect (() => {
+            activate (combobox.active);
         });
 
         add (main_box);

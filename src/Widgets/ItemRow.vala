@@ -287,10 +287,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var due_button = new Widgets.DueButton (item);
 
-        var label_button = new Widgets.LabelButton (item.id);
-        label_button.margin_start = 6;
+        var reminder_button = new Widgets.ReminderButton (item);
 
-        var checklist_button = new Gtk.Button.from_icon_name ("planner-checklist-symbolic");
+        var label_button = new Widgets.LabelButton (item.id);
+        label_button.margin_start = 12;
+
+        var checklist_button = new Gtk.Button.from_icon_name ("planner-list-symbolic");
+        checklist_button.margin_end = 12;
         checklist_button.tooltip_text = _("Add checklist");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
@@ -302,23 +305,31 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_button.tooltip_text = _("Delete task");
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
-        
-        var settings_button = new Gtk.Button.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        delete_button.opacity = 0.7;
+
+        var settings_icon = new Gtk.Image ();
+        settings_icon.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_icon.pixel_size = 14;
+
+        var settings_button = new Gtk.Button ();
+        settings_button.image = settings_icon;
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Task settings");
         settings_button.get_style_context ().add_class ("item-action-button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        settings_button.opacity = 0.7;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
         action_box.margin_start = 60;
-        action_box.pack_start (due_button, false, true, 0);
-        action_box.pack_start (label_button, false, true, 0);
-        action_box.pack_start (checklist_button, false, true, 0);
         action_box.pack_end (settings_button, false, false, 0);
         action_box.pack_end (delete_button, false, false, 0);
-
+        action_box.pack_end (checklist_button, false, true, 0);
+        action_box.pack_end (label_button, false, true, 0);
+        action_box.pack_end (reminder_button, false, true, 0);
+        action_box.pack_end (due_button, false, true, 0);
+        
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_edit_box.margin_top = 12;
         labels_edit_box.margin_start = 59;
@@ -912,9 +923,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             due_label.get_style_context ().remove_class ("duedate-upcoming");
             
             if (Application.utils.is_today (datetime)) {
-                due_label.get_style_context ().add_class ("duedate-today");
+                due_label.get_style_context ().add_class ("duedate-upcoming");
             } else if (Application.utils.is_before_today (datetime)) {
-                due_label.get_style_context ().add_class ("duedate-expired");
+                due_label.get_style_context ().add_class ("duedate-upcoming");
             } else {
                 due_label.get_style_context ().add_class ("duedate-upcoming");
             }
