@@ -27,11 +27,11 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     public string item_base_name { get; construct; }
 
     private Gtk.Label count_label;
-
-    private Gtk.Revealer secondary_revealer;
-    private Gtk.Revealer primary_revealer;
-
+    private Gtk.Revealer count_revealer;
     private Gtk.Revealer main_revealer;
+
+    private int count = 0;
+    private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] targetEntriesItem = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -53,26 +53,32 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         icon.halign = Gtk.Align.CENTER;
         icon.valign = Gtk.Align.CENTER;
         icon.gicon = new ThemedIcon (icon_name);
-        icon.pixel_size = 14;
+        icon.pixel_size = 16;
 
         var title_name = new Gtk.Label (item_name);
         title_name.margin_bottom = 1;
         title_name.get_style_context ().add_class ("pane-item");
         title_name.use_markup = true;
 
-        count_label = new Gtk.Label ("<small>%s</small>".printf (""));
+        count_label = new Gtk.Label (null);
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.use_markup = true;
         count_label.opacity = 0.7;
+        count_label.width_chars = 4;
 
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        count_revealer = new Gtk.Revealer ();
+        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.add (count_label);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
         main_box.margin = 6;
-        main_box.margin_start = 12;
+        main_box.margin_end = 0;
+        main_box.margin_start = 11;
 
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);
-        main_box.pack_start (count_label, false, false, 0);
+        main_box.pack_end (count_revealer, false, false, 0);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -84,14 +90,149 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         if (item_base_name == "inbox") {
             icon.get_style_context ().add_class ("inbox-icon");
+
+            check_inbox_count_update ();
         } else if (item_base_name == "today") {
             if (icon_name == "planner-today-day-symbolic") {
                 icon.get_style_context ().add_class ("today-day-icon");
             } else {    
                 icon.get_style_context ().add_class ("today-night-icon");
             }
+
+            check_today_count_update ();
         } else if (item_base_name == "upcoming") {
             icon.get_style_context ().add_class ("upcoming-icon");
+        }
+    }
+
+    private void check_inbox_count_update () {
+        Timeout.add (125, () => {
+            Application.database.get_project_count (Application.settings.get_int64 ("inbox-project"));
+            return false;
+        });
+
+        Application.database.update_project_count.connect ((id, items_0, items_1) => {
+            if (Application.settings.get_int64 ("inbox-project") == id) {
+                count = items_0;
+                check_count_label ();
+            }
+        });
+
+        Application.database.item_added.connect ((item) => {
+            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+                update_count ();
+            }
+        });
+
+        Application.database.item_deleted.connect ((item) => {
+            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+                update_count ();
+            }
+        });
+
+        Application.database.item_completed.connect ((item) => {
+            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+                update_count ();
+            }
+        });
+        
+        Application.database.item_moved.connect ((item) => {
+            Idle.add (() => {
+                update_count ();
+
+                return false;
+            });
+        });
+
+        Application.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                update_count ();
+
+                return false;
+            });
+        });
+    }
+
+    private void check_today_count_update () {
+        Timeout.add (125, () => {
+            Application.database.get_today_count ();
+            return false;
+        });
+
+        Application.database.update_today_count.connect ((past, today) => {
+            count = past + today;
+            check_count_label ();
+        });
+
+        Application.database.item_added.connect ((item) => {
+            update_count (true);
+        });
+
+        Application.database.item_added_with_index.connect (() => {
+            update_count (true);
+        });
+
+        Application.database.item_deleted.connect ((item) => {
+            update_count (true);
+        });
+
+        Application.database.item_completed.connect ((item) => {
+            update_count (true);
+        });
+
+        Application.database.add_due_item.connect (() => {
+            update_count (true);
+        });
+
+        Application.database.update_due_item.connect (() => {
+            update_count (true);
+        });
+
+        Application.database.remove_due_item.connect (() => {
+            update_count (true);
+        });
+
+        Application.database.item_moved.connect ((item) => {
+            Idle.add (() => {
+                update_count (true);
+
+                return false;
+            });
+        });
+
+        Application.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                update_count (true);
+
+                return false;
+            });
+        });
+    }
+
+    private void update_count (bool today=false) {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+            timeout_id = 0;
+        }
+
+        timeout_id = Timeout.add (250, () => {
+            if (today == false) {
+                Application.database.get_project_count (Application.settings.get_int64 ("inbox-project"));
+            } else {
+                Application.database.get_today_count ();
+            }
+            
+            return false;
+        });
+    }
+
+    private void check_count_label () {
+        count_label.label = "<small>%i</small>".printf (count);
+
+        if (count <= 0) {
+            count_revealer.reveal_child = false;
+        } else {
+            count_revealer.reveal_child = true;
         }
     }
 

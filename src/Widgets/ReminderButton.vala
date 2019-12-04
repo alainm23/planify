@@ -175,7 +175,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         var time_header = new Granite.HeaderLabel (_("Time:"));
         time_header.margin_start = 9;
 
-        var time_picker = new Granite.Widgets.TimePicker ();
+        var time_picker = new Widgets.TimePicker ();
         time_picker.margin_start = 9;
         time_picker.margin_end = 9;
 

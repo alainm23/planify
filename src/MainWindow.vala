@@ -29,6 +29,8 @@ public class MainWindow : Gtk.Window {
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
 
+    private Widgets.QuickFind quick_find;
+
     public MainWindow (Application application) {
         Object (
             application: application,
@@ -63,6 +65,9 @@ public class MainWindow : Gtk.Window {
         header_paned.pack2 (projectview_header, true, false);
 
         pane = new Widgets.Pane ();
+        pane.show_quick_find.connect (() => {
+            show_quick_find ();
+        });
         
         var welcome_view = new Views.Welcome ();
 
@@ -75,18 +80,25 @@ public class MainWindow : Gtk.Window {
         var toast = new Widgets.Toast ();
         var magic_button = new Widgets.MagicButton ();
 
-        var overlay = new Gtk.Overlay ();
-        overlay.expand = true;
-        overlay.add_overlay (magic_button);
-        overlay.add_overlay (toast);
-        overlay.add (stack); 
+        quick_find = new Widgets.QuickFind ();
+
+        var projectview_overlay = new Gtk.Overlay ();
+        projectview_overlay.expand = true;
+        projectview_overlay.add_overlay (magic_button);
+        projectview_overlay.add_overlay (toast);
+        projectview_overlay.add (stack);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         paned.pack1 (pane, false, false);
-        paned.pack2 (overlay, true, true);
+        paned.pack2 (projectview_overlay, true, true);
+
+        var paned_overlay = new Gtk.Overlay ();
+        paned_overlay.expand = true;
+        paned_overlay.add_overlay (quick_find);
+        paned_overlay.add (paned);
 
         set_titlebar (header_paned);
-        add (paned);
+        add (paned_overlay);
 
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
@@ -240,6 +252,32 @@ public class MainWindow : Gtk.Window {
                 return false;
             }
         });
+
+        Application.instance.go_view.connect ((type, id, id2) => {
+            if (type == "project") {
+                if (projects_loaded.has_key (id.to_string ())) {
+                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
+                } else {
+                    projects_loaded.set (id.to_string (), true);
+                    var project_view = new Views.Project (Application.database.get_project_by_id (id));
+                    stack.add_named (project_view, "project-view-%s".printf (id.to_string ()));
+                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
+                }
+            } else if (type == "item") {
+                if (projects_loaded.has_key (id2.to_string ())) {
+                    stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
+                } else {
+                    projects_loaded.set (id2.to_string (), true);
+                    var project_view = new Views.Project (Application.database.get_project_by_id (id2));
+                    stack.add_named (project_view, "project-view-%s".printf (id2.to_string ()));
+                    stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
+                }
+            }
+        });
+    }
+
+    public void show_quick_find () {
+        quick_find.reveal_toggled ();
     }
 
     private void go_view (int id) {

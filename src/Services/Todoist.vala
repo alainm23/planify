@@ -323,8 +323,8 @@ public class Services.Todoist : GLib.Object {
 
 
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
                             //project_added_error (http_code, error_message);
                         }

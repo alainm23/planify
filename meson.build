@@ -59,10 +59,11 @@ executable(
     'src/Widgets/ProjectProgress.vala',
     'src/Widgets/UpcomingRow.vala',
     'src/Widgets/EventRow.vala',
-    'src/Widgets/QuickSearch.vala',
+    'src/Widgets/QuickFind.vala',
     'src/Widgets/SourceItem.vala',
     'src/Widgets/ReminderButton.vala',
     'src/Widgets/ReminderRow.vala',
+    'src/Widgets/TimePicker.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',

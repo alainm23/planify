@@ -108,11 +108,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.use_markup = true;
 
         count_label = new Gtk.Label (null);
-        count_label.margin_start = 3;
         count_label.valign = Gtk.Align.CENTER;
         count_label.margin_top = 3;
         count_label.opacity = 0.7;
         count_label.use_markup = true;
+        count_label.width_chars = 4;
 
         count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -124,11 +124,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_icon.get_style_context ().add_class ("text-color");
         source_icon.pixel_size = 14;
         source_icon.margin_top = 3;
-        source_icon.margin_end = 12;
-
-        var source_revealer = new Gtk.Revealer ();
-        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        source_revealer.add (source_icon);
+        source_icon.margin_start = 3;
 
         if (project.is_todoist == 0) {
             source_icon.tooltip_text = _("Local Project");
@@ -142,8 +138,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.hexpand = true;
         handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (count_revealer, false, false, 0);
-        handle_box.pack_end (source_revealer, false, false, 0);
+        handle_box.pack_start (source_icon, false, false, 0);
+        handle_box.pack_end (count_revealer, false, false, 0);
         
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -175,7 +171,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         add (main_revealer);
 
         Timeout.add (125, () => {
-            Application.database.get_project_count (project);
+            Application.database.get_project_count (project.id);
             return false;
         });
         
@@ -201,21 +197,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             return false;
-        });
-
-        handle.enter_notify_event.connect ((event) => {
-            source_revealer.reveal_child = true;
-            return true;
-        });
-
-        handle.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            source_revealer.reveal_child = false;
-
-            return true;
         });
 
         Application.database.project_updated.connect ((p) => {
@@ -298,7 +279,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
 
         timeout_id = Timeout.add (250, () => {
-            Application.database.get_project_count (project);
+            Application.database.get_project_count (project.id);
             
             Source.remove (timeout_id);
             timeout_id = 0;
@@ -462,11 +443,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         work_areas = new Gtk.Menu ();
         move_menu.set_submenu (work_areas);
 
-        var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
-
-        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
-
-        var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
+        //var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
+        //var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        //var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete project"), "user-trash-symbolic");
 

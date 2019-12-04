@@ -2,7 +2,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
 
     private Gtk.Button hidden_button;
-    private Gtk.Label count_label;
+    //private Gtk.Label count_label;
     private Gtk.Label name_label; 
     private Gtk.Entry name_entry;
     private Gtk.Stack name_stack;
@@ -90,7 +90,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
         top_box.margin_start = 6;
-        top_box.margin_end = 2;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (hidden_revealer, false, false, 0);

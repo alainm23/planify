@@ -8,7 +8,6 @@
     <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
     <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
     <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
-    <file alias="planner-checklist-symbolic.svg">resources/planner-checklist-symbolic.svg</file>
     <file alias="planner-archive-symbolic.svg">resources/planner-archive-symbolic.svg</file>
     <file alias="planner-header-symbolic.svg">resources/planner-header-symbolic.svg</file>
     <file alias="planner-today-day-symbolic.svg">resources/planner-today-day-symbolic.svg</file>

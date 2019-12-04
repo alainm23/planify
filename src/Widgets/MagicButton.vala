@@ -1,5 +1,5 @@
 public class Widgets.MagicButton : Gtk.Revealer {
-    public Gtk.Button button;
+    public Gtk.Button magic_button;
 
     public signal void clicked ();
 
@@ -11,31 +11,30 @@ public class Widgets.MagicButton : Gtk.Revealer {
         tooltip_text = _("Add task");
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         reveal_child = true;
-        margin_bottom = 12;
-        margin_end = 12;
+        margin = 16;
         valign = Gtk.Align.END;
         halign = Gtk.Align.END;
 
-        button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        button.height_request = 32;
-        button.width_request = 32;
-        button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        button.get_style_context ().add_class ("magic-button");
+        magic_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        magic_button.height_request = 32;
+        magic_button.width_request = 32;
+        magic_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        magic_button.get_style_context ().add_class ("magic-button");
         
-        add (button);
+        add (magic_button);
 
         build_drag_and_drop ();
 
-        button.clicked.connect (() => {
+        magic_button.clicked.connect (() => {
             clicked ();
         });
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_source_set (button, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
-        button.drag_data_get.connect (on_drag_data_get);
-        button.drag_begin.connect (on_drag_begin);
-        button.drag_end.connect (on_drag_end);
+        Gtk.drag_source_set (magic_button, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
+        magic_button.drag_data_get.connect (on_drag_data_get);
+        magic_button.drag_begin.connect (on_drag_begin);
+        magic_button.drag_end.connect (on_drag_end);
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {

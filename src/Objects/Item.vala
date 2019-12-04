@@ -73,4 +73,42 @@ public class Objects.Item : GLib.Object {
             return false;
         });
     }
+
+    public Objects.Item get_duplicate () {
+        var item = new Objects.Item ();
+        
+        item.id = Application.utils.generate_id ();
+        item.project_id = project_id;
+        item.section_id = section_id;
+        item.user_id = user_id;
+        item.assigned_by_uid = assigned_by_uid;
+        item.responsible_uid = responsible_uid;
+        item.sync_id = sync_id;
+        item.parent_id = parent_id;
+        item.priority = priority;
+        item.is_todoist = is_todoist;
+        item.content = content;
+        item.note = note;
+        item.due_date = due_date;
+        item.due_timezone = due_timezone;
+        item.due_string = due_string;
+        item.due_lang = due_lang;
+        item.due_is_recurring = due_is_recurring;
+
+        return item;
+    }
+
+    public void convert_to_project () {
+        var project = new Objects.Project ();
+        project.id = Application.utils.generate_id ();
+        project.name = content;
+
+        if (Application.database.insert_project (project)) {
+            foreach (var check in Application.database.get_all_cheks_by_item (this)) {
+                Application.database.move_item (check, project.id);
+            }
+
+            //Application.database.delete_item (this);
+        }
+    }
 }

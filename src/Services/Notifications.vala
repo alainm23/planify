@@ -57,6 +57,11 @@ public class Services.Notifications : GLib.Object {
                     notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
                     notification.set_priority (GLib.NotificationPriority.URGENT);
 
+                    notification.set_default_action_and_target_value (
+                        "app.show-item", 
+                        new Variant.int64 (reminder.item_id)
+                    );
+
                     Application.instance.send_notification ("com.github.alainm23.planner", notification);
                     Application.database.delete_reminder (reminder.id);
                 }

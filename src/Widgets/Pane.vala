@@ -13,6 +13,8 @@ public class Widgets.Pane : Gtk.EventBox {
     public signal void activated (int id);
     private uint timeout;
 
+    public signal void show_quick_find ();
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -47,7 +49,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var username = GLib.Environment.get_user_name ();
         var iconfile = @"/var/lib/AccountsService/icons/$username";
 
-        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 19);
+        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 21);
 
         var username_label = new Gtk.Label (Application.settings.get_string ("user-name"));
         username_label.get_style_context ().add_class ("pane-item");
@@ -59,7 +61,7 @@ public class Widgets.Pane : Gtk.EventBox {
         // Search Button
         var search_button = new Gtk.Button ();
         search_button.can_focus = false;
-        search_button.tooltip_text = _("Quick Search");
+        search_button.tooltip_text = _("Quick Find");
         search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
         search_button.get_style_context ().add_class ("settings-button");
@@ -71,6 +73,10 @@ public class Widgets.Pane : Gtk.EventBox {
         search_image.pixel_size = 14;
         search_button.image = search_image;
 
+        search_button.clicked.connect (() => {
+            show_quick_find ();
+        });
+        
         var settings_button = new Gtk.Button ();
         settings_button.margin_end = 1;
         settings_button.can_focus = false;
@@ -101,9 +107,9 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_image.pixel_size = 16;
         sync_button.image = sync_image;
 
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
-        profile_box.margin_start = 8;
-        profile_box.margin_end = 6;
+        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        profile_box.margin_start = 6;
+        profile_box.margin_end = 3;
         profile_box.get_style_context ().add_class ("pane");
         profile_box.get_style_context ().add_class ("welcome");
         profile_box.pack_start (user_avatar, false, false, 0);
@@ -111,22 +117,6 @@ public class Widgets.Pane : Gtk.EventBox {
         profile_box.pack_end (settings_button, false, false, 0);
         //profile_box.pack_end (sync_button, false, false, 0);
         profile_box.pack_end (search_button, false, false, 0);
-
-        // Search Entry
-        var search_entry = new Gtk.SearchEntry ();
-        search_entry.margin = 6;
-        search_entry.valign = Gtk.Align.CENTER;
-        search_entry.hexpand = true;
-        search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        search_entry.get_style_context ().add_class ("quick-find");
-        search_entry.placeholder_text = _("Quick find");
-
-        var search_entry_grid = new Gtk.Grid ();
-        search_entry_grid.orientation = Gtk.Orientation.VERTICAL;
-        search_entry_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-        search_entry_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-        search_entry_grid.add (search_entry);
-        search_entry_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var add_icon = new Gtk.Image ();
         add_icon.valign = Gtk.Align.CENTER;
@@ -141,7 +131,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.halign = Gtk.Align.START;
         add_button.always_show_image = true;
         add_button.can_focus = false;
-        add_button.label = _("Add List");
+        add_button.label = _("Add list");
         add_button.get_style_context ().add_class ("flat");
         add_button.get_style_context ().add_class ("font-bold");
         add_button.get_style_context ().add_class ("add-button");

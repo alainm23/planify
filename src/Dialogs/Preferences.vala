@@ -24,6 +24,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         stack.add_named (get_home_widget (), "home");
         stack.add_named (get_homepage_widget (), "homepage");
+        stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
@@ -78,7 +79,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var addons_label = new Granite.HeaderLabel (_("Add-ons"));
         addons_label.margin_start = 6;
 
-        var calendar_item = new PreferenceItem ("office-calendar", _("Calendar events"));
+        var calendar_item = new PreferenceItem ("x-office-calendar", _("Calendar events"));
         var labels_item = new PreferenceItem ("tag", _("Labels"), true);
 
         var addons_grid = new Gtk.Grid ();
@@ -91,29 +92,49 @@ public class Dialogs.Preferences : Gtk.Dialog {
         addons_grid.add (labels_item);
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
+        /* Others */
+        var about_item = new PreferenceItem ("help-about", _("About"));
+        var tutorial_item = new PreferenceItem ("system-help", _("Create tutorial project"), true);
+        //var _item = new PreferenceItem ("tag", _("Labels"), true);
+
+        var others_grid = new Gtk.Grid ();
+        others_grid.margin_top = 18;
+        others_grid.valign = Gtk.Align.START;
+        others_grid.get_style_context ().add_class ("view");
+        others_grid.orientation = Gtk.Orientation.VERTICAL;
+        others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        others_grid.add (about_item);
+        others_grid.add (tutorial_item);
+        others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.valign = Gtk.Align.START;
         main_grid.add (general_grid);
         main_grid.add (addons_grid);
+        main_grid.add (others_grid);
 
-        start_page_item.activate_item.connect (() => {
+        start_page_item.activated.connect (() => {
             stack.visible_child_name = "homepage";
         });
 
-        theme_item.activate_item.connect (() => {
+        badge_item.activated.connect (() => {
+            stack.visible_child_name = "badge-count";
+        });
+
+        theme_item.activated.connect (() => {
             stack.visible_child_name = "theme";
         });
 
-        general_item.activate_item.connect (() => {
+        general_item.activated.connect (() => {
             stack.visible_child_name = "general";
         });
 
-        labels_item.activate_item.connect (() => {
+        labels_item.activated.connect (() => {
             stack.visible_child_name = "labels";
         });
         
-        calendar_item.activate_item.connect (() => {
+        calendar_item.activated.connect (() => {
             stack.visible_child_name = "calendar";
         });
 
@@ -222,6 +243,77 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
+    private Gtk.Widget get_badge_count_widget () {
+        var top_box = new PreferenceTopBox ("planner-badge-count", _("Badge count"));
+        
+        var description_label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+        description_label.margin_bottom = 6;
+        description_label.margin_top = 6;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+
+        var none_radio = new Gtk.RadioButton.with_label (null, _("None"));
+        none_radio.margin_top = 12;
+        none_radio.get_style_context ().add_class ("preference-item-radio");
+
+        var inbox_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Inbox"));
+        inbox_radio.get_style_context ().add_class ("preference-item-radio");
+
+        var today_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Today"));
+        today_radio.get_style_context ().add_class ("preference-item-radio");
+
+        var today_inbox_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Today + Inbox"));
+        today_inbox_radio.get_style_context ().add_class ("preference-item-radio");
+
+        int type = Application.settings.get_enum ("badge-count");
+        if (type == 0) {
+            none_radio.active = true;
+        } else if (type == 1) {
+            inbox_radio.active = true;
+        } else if (type == 2) {
+            today_radio.active = true;
+        } else {
+            today_inbox_radio.active = true;
+        }
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.margin_top = 6;
+        main_box.valign = Gtk.Align.START;
+        main_box.hexpand = true;
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (description_label, false, true, 0);
+        main_box.pack_start (none_radio, false, true, 0);
+        main_box.pack_start (inbox_radio, false, true, 0);
+        main_box.pack_start (today_radio, false, true, 0);
+        main_box.pack_start (today_inbox_radio, false, true, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        none_radio.toggled.connect (() => {
+            Application.settings.set_enum ("badge-count", 0);
+        });
+
+        inbox_radio.toggled.connect (() => {
+            Application.settings.set_enum ("badge-count", 1);
+        });
+
+        today_radio.toggled.connect (() => {
+            Application.settings.set_enum ("badge-count", 2);
+        });
+
+        today_inbox_radio.toggled.connect (() => {
+            Application.settings.set_enum ("badge-count", 3);
+        });
+
+        return main_box;
+    }
+
     private Gtk.Widget get_theme_widget () {
         var info_box = new PreferenceTopBox ("night-light", _("Theme"));
 
@@ -299,16 +391,16 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (datetime_header, false, false, 0);
         main_box.pack_start (time_select, false, false, 0);
 
-        run_startup_switch.activate.connect ((val) => {
+        run_startup_switch.activated.connect ((val) => {
             Application.settings.set_boolean ("run-on-startup", val);
             Application.utils.set_autostart (val);
         });
 
-        run_background_switch.activate.connect ((val) => {
+        run_background_switch.activated.connect ((val) => {
             Application.settings.set_boolean ("run-in-background", val);
         });
 
-        time_select.activate.connect ((val) => {
+        time_select.activated.connect ((val) => {
             Application.settings.set_enum ("time-format", val);
         });
 
@@ -387,7 +479,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));
         //top_box.action_button = "list-add-symbolic";
 
-        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your Inbox view, but you can change it to whatever you'd like:"));
+        var description_label = new Gtk.Label (_("Events from your personal and shared calendars can be displayed."));
         description_label.margin = 6;
         description_label.margin_bottom = 12;
         description_label.margin_start = 12;
@@ -447,7 +539,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
             stack.visible_child_name = "home";
         });
 
-        enabled_switch.activate.connect ((val) => {
+        enabled_switch.activated.connect ((val) => {
             Application.settings.set_boolean ("calendar-enabled", val);
         });
 
@@ -506,7 +598,7 @@ public class PreferenceItem : Gtk.EventBox {
 
     public bool last { get; construct; }
 
-    public signal void activate_item ();
+    public signal void activated ();
 
     public PreferenceItem (string icon, string title, bool last=false) {
         Object (
@@ -555,7 +647,7 @@ public class PreferenceItem : Gtk.EventBox {
 
         button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
-                activate_item ();
+                activated ();
 
                 return true;
             }
@@ -625,7 +717,7 @@ public class PreferenceTopBox : Gtk.Box {
 }
 
 public class PreferenceItemSwitch : Gtk.EventBox {
-    public signal void activate (bool active);
+    public signal void activated (bool active);
 
     public PreferenceItemSwitch (string title, bool active=false, bool visible_separator=true) {
         var title_label = new Gtk.Label (title);
@@ -656,7 +748,7 @@ public class PreferenceItemSwitch : Gtk.EventBox {
         }
 
         button_switch.notify["active"].connect (() => {
-            activate (button_switch.active);
+            activated (button_switch.active);
         });
 
         add (main_box);
@@ -664,7 +756,7 @@ public class PreferenceItemSwitch : Gtk.EventBox {
 }
 
 public class PreferenceItemSelect : Gtk.EventBox {
-    public signal void activate (int active);
+    public signal void activated (int active);
 
     public PreferenceItemSelect (string title, int active, List<string> items, bool visible_separator=true) {
         var title_label = new Gtk.Label (title);
@@ -700,7 +792,7 @@ public class PreferenceItemSelect : Gtk.EventBox {
         }
 
         combobox.changed.connect (() => {
-            activate (combobox.active);
+            activated (combobox.active);
         });
 
         add (main_box);

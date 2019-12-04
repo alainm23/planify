@@ -4,11 +4,25 @@
         <value nick="12h" value="0" />
         <value nick="24h" value="1" />
     </enum>
+
+    <enum id="com.github.alainm23.planner.badge-count">
+        <value nick="None" value="0" />
+        <value nick="Inbox" value="1" />
+        <value nick="Today" value="2" />
+        <value nick="Today + Inbox" value="3" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner2/" id="com.github.alainm23.planner2" gettext-domain="com.github.alainm23.planner2">
         <key name="time-format" enum="com.github.alainm23.planner.time-format">
             <default>"12h"</default>
             <summary>Time format</summary>
             <description>Whether the time is shown in 24h or 12h format</description>
+        </key>
+        
+        <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
+            <default>"None"</default>
+            <summary>Choose which items should be counted for the badge on the application icon</summary>
+            <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
         
         <key name="window-size" type="ai">

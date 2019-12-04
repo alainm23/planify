@@ -20,7 +20,7 @@
 */
 
 public class Application : Gtk.Application {
-    public MainWindow main_window;
+    public MainWindow? main_window = null;
 
     public static Utils utils;
     public static GLib.Settings settings;
@@ -29,6 +29,8 @@ public class Application : Gtk.Application {
     public static Services.Notifications notifications;
     public static Services.Calendar.CalendarModel calendar_model;
     
+    public signal void go_view (string type, int64 id, int64 id_2);
+
     private bool silence = false;
 
     public Application () {
@@ -61,8 +63,8 @@ public class Application : Gtk.Application {
     }
 
     protected override void activate () {
-        if (get_windows ().length () > 0) {
-            get_windows ().data.present ();
+        if (main_window != null) {
+            main_window.present ();
             return;
         }
 
@@ -84,7 +86,7 @@ public class Application : Gtk.Application {
 
         if (silence == false) {
             main_window.show_all ();
-            main_window.present();
+            main_window.present ();
         }
 
         // Actions
@@ -96,8 +98,23 @@ public class Application : Gtk.Application {
                 main_window.destroy ();
             }
         });
+
+        var show_item = new SimpleAction ("show-item", VariantType.INT64);
+        show_item.activate.connect ((parameter) => {
+            //var item = Application.database.get_item_by_id (parameter.get_int64 ());
+            activate ();
+        });
+
+        var quick_find_action = new SimpleAction ("quick-find", null);
+        set_accels_for_action ("app.quick-find", {"<Control>f"});
+
+        quick_find_action.activate.connect (() => {
+            main_window.show_quick_find ();
+        });
         
         add_action (quit_action);
+        add_action (show_item);
+        add_action (quick_find_action);
 
         // Stylesheet
         var provider = new Gtk.CssProvider ();

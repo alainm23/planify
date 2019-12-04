@@ -169,6 +169,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         return grid;
     }
 
+    /*
     private Gtk.Widget get_repeat_widget () {
         var enabled_label = new Gtk.Label (_("Enabled"));
         enabled_label.get_style_context ().add_class ("font-weight-600");
@@ -202,6 +203,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         return grid;
     }
+    */
 
     private void set_due (GLib.DateTime? date) {
         bool new_date = false;

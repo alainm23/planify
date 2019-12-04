@@ -198,8 +198,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.expand = true;
         grid.add (name_label);
         grid.add (name_entry);
-        grid.add (due_label);
-        grid.add (due_datepicker);
+        //grid.add (due_label);
+        //grid.add (due_datepicker);
         grid.add (color_label);
         grid.add (color_box);
         grid.add (loading_revealer);

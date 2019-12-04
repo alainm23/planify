@@ -230,6 +230,15 @@ paned > separator {
 }
 
 .quick-find {
+    border-radius: 6px;
+    border: 1px solid alpha (#000, 0.3);
+    background-color: @bg_color;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    margin: 12px;
+    text-shadow: none;
+}
+
+.quick-find entry {
     border-radius: 4px;
 }
 
@@ -660,10 +669,10 @@ paned > separator {
     background-color: lightgray;
     padding: 0px 6px 1px 6px;
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 600;
     color: #333;
     border-radius: 3px;
-    border: 1px solid shade (lightgray, 0.94);
+    border: 1px solid shade (lightgray, 0.95);
 }
 
 .duedate-expired {
@@ -691,7 +700,7 @@ paned > separator {
 }
 
 .checklist-check check {
-    border: 1.7px solid #3689e6;
+    border: 1.3px solid #3689e6;
 }
 
 .label-row {
@@ -721,6 +730,11 @@ paned > separator {
 
 .no-padding {
     padding: 0px;
+}
+
+.item-hover {
+    background-color: #3689e6;
+    border-radius: 3px;
 }
 
 

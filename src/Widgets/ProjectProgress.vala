@@ -157,9 +157,7 @@ public class Widgets.ProjectProgress : Gtk.Bin {
     public override bool draw (Cairo.Context cr) {
         int delta;
         Gdk.RGBA color;
-        Pango.Layout layout;
-        Pango.FontDescription desc;
-        
+                
         cr.save ();
 
         color = Gdk.RGBA ();

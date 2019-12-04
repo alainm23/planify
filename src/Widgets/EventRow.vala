@@ -32,8 +32,14 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
         color_grid = new Gtk.Grid ();
         color_grid.width_request = 3;
+        color_grid.height_request = 29;
+        color_grid.valign = Gtk.Align.CENTER;
         color_grid.get_style_context ().add_class ("event-%s".printf (component.get_uid ()));
-        
+
+        if (is_allday) {
+            color_grid.height_request = 19;
+        }
+
         time_label = new Gtk.Label (null);
         time_label.use_markup = true;
         time_label.xalign = 0;

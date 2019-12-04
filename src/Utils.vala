@@ -33,6 +33,10 @@ public class Utils : GLib.Object {
             var random_index = Random.int_range (0, allowed_characters.length);
             password_builder.append_c (allowed_characters[random_index]);
         }
+
+        if (int64.parse (password_builder.str) <= 0) {
+            return generate_id ();
+        }
         
         return int64.parse (password_builder.str);
     }

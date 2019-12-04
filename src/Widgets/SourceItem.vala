@@ -26,16 +26,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     public string location { public get; private set; }
     public string label { public get; private set; }
     public E.Source source { public get; private set; }
-    public bool visible { 
-        get {
-            return visible_checkbutton.active;
-        }
-
-        set {
-            visible_checkbutton.active = value;
-        }
-    }
-
+    
     private Gtk.Label calendar_name_label;
     private Gtk.CheckButton visible_checkbutton;
 
