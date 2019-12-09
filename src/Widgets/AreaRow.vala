@@ -141,7 +141,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         listbox.row_selected.connect ((row) => {
             if (row != null) {
                 var project = ((Widgets.ProjectRow) row).project;
-                Application.utils.pane_project_selected (project.id, area.id);
+                Planner.utils.pane_project_selected (project.id, area.id);
             }
         });
 
@@ -199,7 +199,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             return true;
         });
 
-        Application.database.project_added.connect ((project) => {
+        Planner.database.project_added.connect ((project) => {
             Idle.add (() => {
                 if (project.inbox_project == 0 && project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
@@ -216,7 +216,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.project_moved.connect ((project) => {
+        Planner.database.project_moved.connect ((project) => {
             Idle.add (() => {
                 if (project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
@@ -233,13 +233,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.utils.pane_project_selected.connect ((project_id, area_id) => {
+        Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
             if (area.id != area_id || area_id == 0) {
                 listbox.unselect_all ();
             }
         });
 
-        Application.utils.pane_action_selected.connect (() => {
+        Planner.utils.pane_action_selected.connect (() => {
             listbox.unselect_all ();
         });
     }
@@ -259,13 +259,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     public void add_all_projects () {            
-        foreach (Objects.Project project in Application.database.get_all_projects_by_area (area.id)) {
+        foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
             if (project.inbox_project == 0) {
                 var row = new Widgets.ProjectRow (project);
                 listbox.add (row);
 
-                if (Application.settings.get_boolean ("homepage-project")) {
-                    if (Application.settings.get_int64 ("homepage-project-id") == project.id) {
+                if (Planner.settings.get_boolean ("homepage-project")) {
+                    if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
                         timeout = Timeout.add (125, () => {
                             listbox.select_row (row);
     
@@ -356,7 +356,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             var project = ((ProjectRow) row).project;
 
             new Thread<void*> ("update_project_order", () => {
-                Application.database.update_project_item_order (project.id, area.id, index);
+                Planner.database.update_project_item_order (project.id, area.id, index);
 
                 return null;
             });
@@ -408,7 +408,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                if (Application.database.delete_area (area)) {
+                if (Planner.database.delete_area (area)) {
                     if (custom_widget.active) {
                         delete_projects ();
                     } else {
@@ -422,17 +422,17 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void move_projects () {
-        foreach (Objects.Project project in Application.database.get_all_projects_by_area (area.id)) {
-            Application.database.move_project (project, 0);
+        foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
+            Planner.database.move_project (project, 0);
         }
 
         destroy ();
     }
 
     private void delete_projects () {
-        foreach (Objects.Project project in Application.database.get_all_projects_by_area (area.id)) {
+        foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
             if (project.is_todoist == 0) {
-                Application.database.delete_project (project);
+                Planner.database.delete_project (project.id);
             }
         }
 

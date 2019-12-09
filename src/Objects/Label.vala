@@ -1,5 +1,5 @@
 public class Objects.Label : GLib.Object {
-    public int64 id { get; set; default = Application.utils.generate_id (); }
+    public int64 id { get; set; default = Planner.utils.generate_id (); }
     public int64 item_label_id { get; set; default = 0; }
     public string name { get; set; default = ""; }
     public int color { get; set; default = GLib.Random.int_range (39, 50); }
@@ -17,7 +17,7 @@ public class Objects.Label : GLib.Object {
 
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_label (this);
+                Planner.database.update_label (this);
                 return null;
             });
             

@@ -96,14 +96,14 @@ public class Widgets.NewCheck : Gtk.EventBox {
             return false;
         });
 
-        Application.todoist.item_added_started.connect ((id) => {
+        Planner.todoist.item_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
                 loading_revealer.reveal_child = true;
                 sensitive = false;
             }
         });
 
-        Application.todoist.item_added_completed.connect ((id) => {
+        Planner.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
                 loading_revealer.reveal_child = false;
                 sensitive = true;
@@ -113,7 +113,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
             }
         });
 
-        Application.todoist.item_added_error.connect ((id) => {
+        Planner.todoist.item_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
 
             }
@@ -127,16 +127,16 @@ public class Widgets.NewCheck : Gtk.EventBox {
             item.parent_id = item_id;
             item.project_id = project_id;
 
-            temp_id_mapping = Application.utils.generate_id ();
+            temp_id_mapping = Planner.utils.generate_id ();
 
             if (is_todoist == 0) {
-                item.id = Application.utils.generate_id ();
+                item.id = Planner.utils.generate_id ();
 
-                if (Application.database.insert_item (item)) {
+                if (Planner.database.insert_item (item)) {
                     name_entry.text = "";
                 }
             } else {
-                Application.todoist.add_item (item, 0, false, temp_id_mapping);
+                Planner.todoist.add_item (item, 0, false, temp_id_mapping);
             }
         }
     }

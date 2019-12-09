@@ -88,7 +88,6 @@ executable(
     'src/Objects/Label.vala',
     'src/Objects/Collaborator.vala',
     'src/Objects/Reminder.vala',
-
     dependencies: [
         dependency('gee-0.8'),
         dependency('gobject-2.0'),
@@ -107,5 +106,5 @@ executable(
 )
 
 subdir('data')
-#subdir('po')
+subdir('po')
 meson.add_install_script('meson/post_install.py')

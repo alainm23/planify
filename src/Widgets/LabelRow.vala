@@ -94,7 +94,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         });
 
         delete_button.clicked.connect (() => {
-            Application.database.delete_label (label);
+            Planner.database.delete_label (label);
         });
 
         color_button.toggled.connect (() => {
@@ -111,7 +111,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             save ();
         }); 
         
-        Application.database.label_deleted.connect ((l) => {
+        Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
                 destroy ();
             }
@@ -297,82 +297,82 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         color_30.toggled.connect (() => {
             color_selected = 30;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_31.toggled.connect (() => {
             color_selected = 31;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_32.toggled.connect (() => {
             color_selected = 32;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_33.toggled.connect (() => {
             color_selected = 33;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_34.toggled.connect (() => {
             color_selected = 34;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_35.toggled.connect (() => {
             color_selected = 35;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_36.toggled.connect (() => {
             color_selected = 36;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_37.toggled.connect (() => {
             color_selected = 37;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_38.toggled.connect (() => {
             color_selected = 38;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_39.toggled.connect (() => {
             color_selected = 39;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_40.toggled.connect (() => {
             color_selected = 40;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_41.toggled.connect (() => {
             color_selected = 41;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_42.toggled.connect (() => {
             color_selected = 42;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_43.toggled.connect (() => {
             color_selected = 43;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_44.toggled.connect (() => {
             color_selected = 44;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_45.toggled.connect (() => {
             color_selected = 45;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_46.toggled.connect (() => {
@@ -381,17 +381,17 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         color_47.toggled.connect (() => {
             color_selected = 47;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_48.toggled.connect (() => {
             color_selected = 48;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_49.toggled.connect (() => {
             color_selected = 49;
-            apply_styles (Application.utils.get_color (color_selected));
+            apply_styles (Planner.utils.get_color (color_selected));
         });
     }
 
@@ -422,7 +422,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
                 color,
                 color,
                 color,
-                Application.utils.get_contrast (color)
+                Planner.utils.get_contrast (color)
             );
             
             provider.load_from_data (colored_css, colored_css.length);

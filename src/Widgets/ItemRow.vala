@@ -12,7 +12,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             date_label_revealer.reveal_child = !value;
 
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ()); 
-            if (Application.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_before_today (datetime)) {
                 due_label.get_style_context ().add_class ("duedate-expired");
                 date_label_revealer.reveal_child = true;
             }
@@ -29,7 +29,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             _upcoming = value;
             date_label_revealer.reveal_child = false;
 
-            project = Application.database.get_project_by_id (item.project_id);
+            project = Planner.database.get_project_by_id (item.project_id);
             project_name_label.label = "<small>%s</small>".printf (project.name);
             project_name_revealer.reveal_child = true;
         }
@@ -165,7 +165,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         date_label_revealer.reveal_child = true;
 
         if (item.due_date != "") {
-            due_label.label = Application.utils.get_relative_date_from_string (item.due_date);
+            due_label.label = Planner.utils.get_relative_date_from_string (item.due_date);
             due_label_revealer.reveal_child = true;
         }
 
@@ -223,7 +223,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         project_name_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         project_name_revealer.add (project_name_label);
 
-        reminder = Application.database.get_first_reminders_by_item (item.id);
+        reminder = Planner.database.get_first_reminders_by_item (item.id);
 
         var reminder_image = new Gtk.Image ();
         reminder_image.valign = Gtk.Align.CENTER;
@@ -329,7 +329,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checklist_button.get_style_context ().add_class ("item-action-button");
         checklist_button.opacity = 0.7;
 
-        var delete_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.MENU);
+        var delete_button = new Gtk.Button.from_icon_name ("planner-trash-symbolic", Gtk.IconSize.MENU);
         delete_button.can_focus = false; 
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.tooltip_text = _("Delete task");
@@ -486,7 +486,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             return false;
         });
 
-        Application.utils.drag_magic_button_activated.connect ((value) => {
+        Planner.utils.drag_magic_button_activated.connect ((value) => {
             build_drag_and_drop (value);
         });
 
@@ -515,7 +515,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.item_added.connect ((i) => {
+        Planner.database.item_added.connect ((i) => {
             if (item.id == i.parent_id) {
                 var row = new Widgets.CheckRow (i);
                 
@@ -528,7 +528,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
         
-        Application.database.item_label_added.connect ((id, item_id, label) => {
+        Planner.database.item_label_added.connect ((id, item_id, label) => {
             if (item.id == item_id && labels_hashmap.has_key (label.id.to_string ()) == false) {
                 var l = new Widgets.LabelPreview (id, item_id, label);
                 var g = new Widgets.LabelItem (id, item.id, label);
@@ -545,20 +545,20 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.item_label_deleted.connect ((id, item_id, label) => {
+        Planner.database.item_label_deleted.connect ((id, item_id, label) => {
             if (item.id == item_id) {
                 labels_hashmap.unset (label.id.to_string ());
             }
         });
 
         delete_button.clicked.connect (() => {
-            if (Application.database.add_item_to_delete (item)) {
+            if (Planner.database.add_item_to_delete (item)) {
                 get_style_context ().remove_class ("item-row-selected");
                 main_revealer.reveal_child = false;
             }
         });
 
-        Application.database.item_deleted.connect ((i) => {
+        Planner.database.item_deleted.connect ((i) => {
             Idle.add (() => {
                 if (item.id == i.id) {
                     destroy ();
@@ -568,7 +568,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.show_undo_item.connect ((id) => {
+        Planner.database.show_undo_item.connect ((id) => {
             if (item.id == id) {
                 hide_item ();
                 hidden_revealer.reveal_child = false;
@@ -598,17 +598,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_checklist_separator ();
         });
 
-        Application.todoist.item_completed_completed.connect ((i) => {
+        Planner.todoist.item_completed_completed.connect ((i) => {
             if (item.id == i.id) {
                 destroy ();
             }
         });
 
-        Application.database.update_due_item.connect ((i) => {
+        Planner.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
                 var datetime = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
 
-                due_label.label = Application.utils.get_relative_date_from_date (datetime);
+                due_label.label = Planner.utils.get_relative_date_from_date (datetime);
                 due_label_revealer.reveal_child = true;
                 
                 check_due_style ();
@@ -617,7 +617,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 if (is_today) {
                     date_label_revealer.reveal_child = false;
                     
-                    if (Application.utils.is_today (datetime) == false && Application.utils.is_before_today (datetime) == false) {
+                    if (Planner.utils.is_today (datetime) == false && Planner.utils.is_before_today (datetime) == false) {
                         hide_item ();
 
                         Timeout.add (1000, () => {
@@ -649,9 +649,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.add_due_item.connect ((i) => {
+        Planner.database.add_due_item.connect ((i) => {
             if (item.id == i.id) {
-                due_label.label = Application.utils.get_relative_date_from_date (
+                due_label.label = Planner.utils.get_relative_date_from_date (
                     new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ())
                 );
                 due_label_revealer.reveal_child = true;
@@ -661,7 +661,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.remove_due_item.connect ((i) => {
+        Planner.database.remove_due_item.connect ((i) => {
             if (item.id == i.id) {
                 due_label.label = "";
                 due_label_revealer.reveal_child = false;
@@ -682,13 +682,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.todoist.item_moved_started.connect ((id) => {
+        Planner.todoist.item_moved_started.connect ((id) => {
             if (item.id == id) {
                 sensitive = false;
             }
         });
 
-        Application.todoist.item_moved_completed.connect ((id) => {
+        Planner.todoist.item_moved_completed.connect ((id) => {
             if (item.id == id) {
                 if (upcoming == null) {
                     destroy ();
@@ -700,13 +700,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.todoist.item_moved_error.connect ((id, error_code, error_message) => {
+        Planner.todoist.item_moved_error.connect ((id, error_code, error_message) => {
             if (item.id == id) {
                 sensitive = true;
             }
         });
 
-        Application.database.item_updated.connect ((i) => {
+        Planner.database.item_updated.connect ((i) => {
             Idle.add (() => {
                 if (item.id == i.id) {
                     save_off = true;
@@ -737,32 +737,32 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.item_moved.connect ((i) => {
+        Planner.database.item_moved.connect ((i) => {
             if (item.id == i.id) {
                 item.project_id = i.project_id;
 
                 if (upcoming != null) {
-                    project = Application.database.get_project_by_id (item.project_id);
+                    project = Planner.database.get_project_by_id (item.project_id);
                     project_name_label.label = "<small>%s</small>".printf (project.name);
                     project_name_revealer.reveal_child = true;
                 }
             }
         });
 
-        Application.database.reminder_deleted.connect ((id) => {
+        Planner.database.reminder_deleted.connect ((id) => {
             if (reminder != null && reminder.id == id) {
-                reminder = Application.database.get_first_reminders_by_item (item.id);
+                reminder = Planner.database.get_first_reminders_by_item (item.id);
                 check_reminder_label (reminder);
             }
         });
 
-        Application.database.reminder_added.connect (() => {
-            reminder = Application.database.get_first_reminders_by_item (item.id);
+        Planner.database.reminder_added.connect (() => {
+            reminder = Planner.database.get_first_reminders_by_item (item.id);
             check_reminder_label (reminder);
         });
 
         /* 
-        Application.instance.go_view.connect ((type, id, id2) => {
+        Planner.instance.go_view.connect ((type, id, id2) => {
             if (item.id == id) {
                 bool b = false;
                 int c = 0;
@@ -793,7 +793,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
         */
 
-        Application.database.item_completed.connect ((i) => {
+        Planner.database.item_completed.connect ((i) => {
             if (item.id == i.id) {
                 if (i.checked == 1) {
                     main_revealer.reveal_child = false;
@@ -810,10 +810,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             content_label.label = "<s>%s</s>".printf (item.content);
 
             checked_timeout = Timeout.add (1500, () => {
-                Application.database.update_item_completed (item);
+                Planner.database.update_item_completed (item);
 
                 if (item.is_todoist == 1) {
-                    Application.todoist.add_complete_item (item);
+                    Planner.todoist.add_complete_item (item);
                 }
 
                 return false;
@@ -882,7 +882,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
         print ("Index: %i\n".printf (this.get_index ()));
-        Application.utils.magic_button_activated (
+        Planner.utils.magic_button_activated (
             item.project_id,
             item.section_id,
             item.is_todoist,
@@ -917,7 +917,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
-        Application.utils.drag_item_activated (true);
+        Planner.utils.drag_item_activated (true);
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -934,7 +934,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         
         main_revealer.reveal_child = true;
 
-        Application.utils.drag_item_activated (false);
+        Planner.utils.drag_item_activated (false);
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -963,7 +963,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
     
     private void add_all_checks () {
-        foreach (var check in Application.database.get_all_cheks_by_item (item)) {
+        foreach (var check in Planner.database.get_all_cheks_by_item (item)) {
             var row = new Widgets.CheckRow (check);
 
             row.hide_item.connect (hide_item);
@@ -976,7 +976,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void add_all_labels () {
-        foreach (var label in Application.database.get_labels_by_item (item.id)) {
+        foreach (var label in Planner.database.get_labels_by_item (item.id)) {
             var l = new Widgets.LabelPreview (label.item_label_id, item.id, label);
             var g = new Widgets.LabelItem (label.item_label_id, item.id, label);
 
@@ -1000,9 +1000,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             due_label.get_style_context ().remove_class ("duedate-expired");
             due_label.get_style_context ().remove_class ("duedate-upcoming");
             
-            if (Application.utils.is_today (datetime)) {
+            if (Planner.utils.is_today (datetime)) {
                 due_label.get_style_context ().add_class ("duedate-upcoming");
-            } else if (Application.utils.is_before_today (datetime)) {
+            } else if (Planner.utils.is_before_today (datetime)) {
                 due_label.get_style_context ().add_class ("duedate-upcoming");
             } else {
                 due_label.get_style_context ().add_class ("duedate-upcoming");
@@ -1030,29 +1030,29 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
-            int64 inbox_id = Application.settings.get_int64 ("inbox-project");
+            int64 inbox_id = Planner.settings.get_int64 ("inbox-project");
 
             if (item.is_todoist == 0) {
-                if (Application.database.move_item (item, inbox_id)) {
+                if (Planner.database.move_item (item, inbox_id)) {
                     destroy ();
                 }
             } else {
-                Application.todoist.move_item (item, inbox_id);
+                Planner.todoist.move_item (item, inbox_id);
             }
         });
 
         projects_menu.add (item_menu);
         
-        foreach (var project in Application.database.get_all_projects ()) {
+        foreach (var project in Planner.database.get_all_projects ()) {
             if (item.project_id != project.id) {
                 item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {
                     if (item.is_todoist == 0) {
-                        if (Application.database.move_item (item, project.id)) {
+                        if (Planner.database.move_item (item, project.id)) {
                             destroy ();
                         }
                     } else {
-                        Application.todoist.move_item (item, project.id);
+                        Planner.todoist.move_item (item, project.id);
                     }
                 });
 
@@ -1107,14 +1107,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         delete_menu.activate.connect (() => {
-            if (Application.database.add_item_to_delete (item)) {
+            if (Planner.database.add_item_to_delete (item)) {
                 get_style_context ().remove_class ("item-row-selected");
                 main_revealer.reveal_child = false;
             }
         });
 
         duplicate_menu.activate.connect (() => {
-            Application.database.insert_item (item.get_duplicate ());
+            Planner.database.insert_item (item.get_duplicate ());
         });
 
         /*
@@ -1143,8 +1143,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     public void check_reminder_label (Objects.Reminder? reminder) {
         if (reminder != null) {
             reminder_label.label = "%s %s".printf (
-                Application.utils.get_relative_date_from_string (reminder.due_date),
-                Application.utils.get_relative_time_from_string (reminder.due_date)
+                Planner.utils.get_relative_date_from_string (reminder.due_date),
+                Planner.utils.get_relative_time_from_string (reminder.due_date)
             );
             reminder_revealer.reveal_child = true;
         } else {

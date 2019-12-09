@@ -1,4 +1,5 @@
 @define-color projectview_color #fafafa;
+@define-color pane_color @bg_color;
 
 /*
     Dark theme
@@ -19,7 +20,7 @@ textview {
 }
 
 .sidebar-header {
-    background-color: @bg_color;
+    background-color: @pane_color;
 }
 
 .sidebar-header:dir(ltr) {
@@ -57,7 +58,7 @@ paned > separator {
 }
 
 .pane {
-    background-color: @bg_color;
+    background-color: @pane_color;
     border-bottom-left-radius: 4px;
 }
 
@@ -167,8 +168,8 @@ paned > separator {
     margin-top: 6px;
     margin-bottom: 6px;
     background-color: @base_color;
-    border-top: 1px solid alpha (#000, 0.3);
-    border-bottom: 1px solid alpha (#000, 0.3);
+    border-top: 1px solid shade (@base_color, 0.6);
+    border-bottom: 1px solid shade (@bg_color, 0.6);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
@@ -211,6 +212,10 @@ paned > separator {
 @keyframes add-animation {
     0% { -gtk-icon-transform: rotate(0deg); }
     100% { -gtk-icon-transform: rotate(180deg); }
+}
+
+.sync.is_loading image {
+    animation: spin 1000ms linear infinite;
 }
 
 .font-size-small {

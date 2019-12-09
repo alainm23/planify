@@ -121,7 +121,7 @@ public class Widgets.TimePicker : Gtk.Entry {
         });
         am_pm_modebutton.hexpand = true;
 
-        if (Application.settings.get_enum ("time-format") == 0) {
+        if (Planner.settings.get_enum ("time-format") == 0) {
             hours_spinbutton = new Gtk.SpinButton.with_range (1, 12, 1);
         } else {
             hours_spinbutton = new Gtk.SpinButton.with_range (0, 23, 1);
@@ -200,7 +200,7 @@ public class Widgets.TimePicker : Gtk.Entry {
         if (is_hour) {
             var new_hour = hours_spinbutton.get_value_as_int () - time.get_hour ();
 
-            if (Application.settings.get_enum ("time-format") == 0) {
+            if (Planner.settings.get_enum ("time-format") == 0) {
                 if (hours_spinbutton.get_value_as_int () == 12 && am_pm_modebutton.selected == 0) {
                     _time = _time.add_hours (-_time.get_hour ());
                 } else if (hours_spinbutton.get_value_as_int () < 12 && am_pm_modebutton.selected == 0) {
@@ -229,13 +229,13 @@ public class Widgets.TimePicker : Gtk.Entry {
         update_text ();
         changing_time = true;
 
-        if (Application.settings.get_enum ("time-format") == 0 && time.get_hour () > 12) {
+        if (Planner.settings.get_enum ("time-format") == 0 && time.get_hour () > 12) {
             hours_spinbutton.set_value (time.get_hour () - 12);
         } else {
             hours_spinbutton.set_value (time.get_hour ());
         }
 
-        if (Application.settings.get_enum ("time-format") == 0) {
+        if (Planner.settings.get_enum ("time-format") == 0) {
             am_pm_modebutton.no_show_all = false;
             am_pm_modebutton.show_all ();
 
@@ -357,7 +357,7 @@ public class Widgets.TimePicker : Gtk.Entry {
     }
 
     private void update_text (bool no_signal = false) {
-        if (Application.settings.get_enum ("time-format") == 0) {
+        if (Planner.settings.get_enum ("time-format") == 0) {
             set_text (time.format (format_12));
         } else {
             set_text (time.format (format_24));

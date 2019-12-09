@@ -73,16 +73,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.margin_top = 1;
-        project_progress.progress_fill_color = Application.utils.get_color (project.color);
+        project_progress.progress_fill_color = Planner.utils.get_color (project.color);
         
         project_progress.radius_fill_color = "#d3d3d3";
-        if (Application.settings.get_boolean ("prefer-dark-style")) {
+        if (Planner.settings.get_boolean ("prefer-dark-style")) {
             project_progress.radius_fill_color = "#666666";
         }
 
-        Application.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "prefer-dark-style") {
-                if (Application.settings.get_boolean ("prefer-dark-style")) {
+                if (Planner.settings.get_boolean ("prefer-dark-style")) {
                     project_progress.radius_fill_color = "#666666";
                 } else {
                     project_progress.radius_fill_color = "#d3d3d3";
@@ -171,7 +171,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         add (main_revealer);
 
         Timeout.add (125, () => {
-            Application.database.get_project_count (project.id);
+            Planner.database.get_project_count (project.id);
             return false;
         });
         
@@ -199,55 +199,55 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             return false;
         });
 
-        Application.database.project_updated.connect ((p) => {
+        Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 name_label.label = p.name;
-                project_progress.progress_fill_color = Application.utils.get_color (p.color);
+                project_progress.progress_fill_color = Planner.utils.get_color (p.color);
             }
         });
 
-        Application.database.project_deleted.connect ((p) => {
-            if (project != null && p.id == project.id) {
+        Planner.database.project_deleted.connect ((id) => {
+            if (project != null && id == project.id) {
                 destroy ();
             }
         });
 
-        Application.todoist.project_deleted_started.connect ((id) => {
+        Planner.todoist.project_deleted_started.connect ((id) => {
             if (project.id == id) {
                 sensitive = false;
             }
         });
 
-        Application.todoist.project_deleted_error.connect ((id, http_code, error_message) => {
+        Planner.todoist.project_deleted_error.connect ((id, http_code, error_message) => {
             if (project.id == id) {
                 sensitive = true;
             }
         });
 
-        Application.utils.drag_item_activated.connect ((active) => {
+        Planner.utils.drag_item_activated.connect ((active) => {
             build_drag_and_drop (active);
         });
 
         // Project count
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             if (project.id == item.project_id) {
                 update_count ();
             }
         });
 
-        Application.database.item_deleted.connect ((item) => {
+        Planner.database.item_deleted.connect ((item) => {
             if (project.id == item.project_id) {
                 update_count ();
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (project.id == item.project_id) {
                 update_count ();
             }
         });
         
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 update_count ();
 
@@ -255,7 +255,17 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.subtract_task_counter.connect ((id) => {
+        Planner.database.section_moved.connect ((section, id, old_project_id) => {
+            Idle.add (() => {
+                if (project.id == id || project.id == old_project_id) {
+                    update_count ();
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.subtract_task_counter.connect ((id) => {
             Idle.add (() => {
                 update_count ();
 
@@ -263,7 +273,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.update_project_count.connect ((id, items_0, items_1) => {
+        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
             if (project.id == id) {
                 project_progress.percentage = ((double) items_1 / ((double) items_0 + (double) items_1));
                 count = items_0;
@@ -279,7 +289,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
 
         timeout_id = Timeout.add (250, () => {
-            Application.database.get_project_count (project.id);
+            Planner.database.get_project_count (project.id);
             
             Source.remove (timeout_id);
             timeout_id = 0;
@@ -326,11 +336,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (source.item.is_todoist == 0) {
-            if (Application.database.move_item (source.item, project.id)) {
+            if (Planner.database.move_item (source.item, project.id)) {
                 source.get_parent ().remove (source);
             }
         } else {
-            Application.todoist.move_item (source.item, project.id);
+            Planner.todoist.move_item (source.item, project.id);
         }
     }
 
@@ -406,7 +416,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         if (project.area_id != 0) {
             item = new Widgets.ImageMenuItem (_("No Area"), "window-close-symbolic");
             item.activate.connect (() => {
-                if (Application.database.move_project (project, 0)) {
+                if (Planner.database.move_project (project, 0)) {
                     destroy ();
                 }
             });
@@ -414,11 +424,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             work_areas.add (item);
         }
 
-        foreach (Objects.Area area in Application.database.get_all_areas ()) {
+        foreach (Objects.Area area in Planner.database.get_all_areas ()) {
             if (area.id != project.area_id) {
                 item = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
                 item.activate.connect (() => {
-                    if (Application.database.move_project (project, area.id)) {
+                    if (Planner.database.move_project (project, area.id)) {
                         destroy ();
                     }
                 });
@@ -483,11 +493,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (project.is_todoist == 0) {
-                    if (Application.database.delete_project (project)) {
+                    if (Planner.database.delete_project (project.id)) {
                         destroy ();
                     }  
                 } else {
-                    Application.todoist.delete_project (project);
+                    Planner.todoist.delete_project (project);
                 }
             }
 

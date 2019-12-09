@@ -1,5 +1,5 @@
 public class Objects.Reminder : GLib.Object {
-    public int64 id { get; set; default = Application.utils.generate_id (); }
+    public int64 id { get; set; default = Planner.utils.generate_id (); }
     public int64 notify_uid { get; set; default = 0; }
     public int64 item_id { get; set; default = 0; }
     public int64 project_id { get; set; default = 0; }
@@ -27,7 +27,7 @@ public class Objects.Reminder : GLib.Object {
     public string _project_name;
     public string project_name {
         get {
-            _project_name = Application.database.get_project_by_id (project_id).name;
+            _project_name = Planner.database.get_project_by_id (project_id).name;
             return _project_name;
         }
     }

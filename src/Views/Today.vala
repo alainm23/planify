@@ -56,12 +56,12 @@ public class Views.Today : Gtk.EventBox {
         listbox.hexpand = true;
         
         int is_todoist = 0;
-        if (Application.settings.get_boolean ("inbox-project-sync")) {
+        if (Planner.settings.get_boolean ("inbox-project-sync")) {
             is_todoist = 1;
         }
 
         new_item = new Widgets.NewItem (
-            Application.settings.get_int64 ("inbox-project"),
+            Planner.settings.get_int64 ("inbox-project"),
             0, 
             is_todoist
         );
@@ -84,7 +84,7 @@ public class Views.Today : Gtk.EventBox {
         var event_revealer = new Gtk.Revealer ();
         event_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         event_revealer.add (event_listbox);
-        event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+        event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
 
         main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -108,9 +108,9 @@ public class Views.Today : Gtk.EventBox {
             item.reveal_child = true;
         });
 
-        Application.database.add_due_item.connect ((item) => {
+        Planner.database.add_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var row = new Widgets.ItemRow (item);
             
@@ -123,16 +123,16 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        Application.database.remove_due_item.connect ((item) => {
+        Planner.database.remove_due_item.connect ((item) => {
             if (items_loaded.has_key (item.id.to_string ())) {
                 items_loaded.unset (item.id.to_string ());
             }
         });
 
-        Application.database.update_due_item.connect ((item) => {
+        Planner.database.update_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
-            if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     add_item (item);
                 }
@@ -143,19 +143,19 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             if (item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                if (Application.utils.is_today (datetime)) {
+                if (Planner.utils.is_today (datetime)) {
                     add_item (item);
                 }
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (item.checked == 0 && item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                if (Application.utils.is_today (datetime) || Application.utils.is_before_today (datetime)) {
+                if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                     if (items_loaded.has_key (item.id.to_string ()) == false) {
                         add_item (item);
                     }
@@ -173,16 +173,16 @@ public class Views.Today : Gtk.EventBox {
 
         date = new GLib.DateTime.now_local ();
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
-        Application.calendar_model.month_start = Util.get_start_of_month ();
+        Planner.calendar_model.month_start = Util.get_start_of_month ();
 
-        Application.calendar_model.events_added.connect (add_event_model);
-        Application.calendar_model.events_removed.connect (remove_event_model);
+        Planner.calendar_model.events_added.connect (add_event_model);
+        Planner.calendar_model.events_removed.connect (remove_event_model);
 
         idle_update_events ();
 
-        Application.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "calendar-enabled") {
-                event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+                event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
     }
@@ -212,7 +212,7 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private bool update_events () {
-        Application.calendar_model.source_events.@foreach ((source, component_map) => {
+        Planner.calendar_model.source_events.@foreach ((source, component_map) => {
             foreach (var comp in component_map.get_values ()) {
                 if (Util.calcomp_is_on_day (comp, date)) {
                     unowned ICal.Component ical = comp.get_icalcomponent ();
@@ -253,7 +253,7 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void add_all_items () {
-        foreach (var item in Application.database.get_all_today_items ()) {
+        foreach (var item in Planner.database.get_all_today_items ()) {
             var row = new Widgets.ItemRow (item);
             
             row.is_today = true;
@@ -315,7 +315,7 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private Gtk.Widget get_header_project (int64 id) {
-        var project = Application.database.get_project_by_id (id);
+        var project = Planner.database.get_project_by_id (id);
 
         var name_label =  new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;

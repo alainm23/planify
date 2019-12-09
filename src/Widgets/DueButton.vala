@@ -27,8 +27,8 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
-        due_image.pixel_size = 18;
+        due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+        due_image.pixel_size = 16;
 
         due_label = new Gtk.Label (null);
         due_label.get_style_context ().add_class ("pane-item");
@@ -64,7 +64,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         if (due != "") {
             var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
 
-            due_label.label = Application.utils.get_relative_date_from_date (date);
+            due_label.label = Planner.utils.get_relative_date_from_date (date);
             due_image.get_style_context ().add_class ("upcoming");
             label_revealer.reveal_child = true;
             opacity = 1;
@@ -217,12 +217,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             item.due_date = "";
         }
 
-        if (Application.database.set_due_item (item, new_date)) {
+        if (Planner.database.set_due_item (item, new_date)) {
             popover.popdown ();
         }
 
         if (item.is_todoist == 1) {
-            Application.todoist.update_item (item);
+            Planner.todoist.update_item (item);
         }
     }
 }

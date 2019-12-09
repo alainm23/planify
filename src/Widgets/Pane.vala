@@ -51,7 +51,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 21);
 
-        var username_label = new Gtk.Label (Application.settings.get_string ("user-name"));
+        var username_label = new Gtk.Label (Planner.settings.get_string ("user-name"));
         username_label.get_style_context ().add_class ("pane-item");
         username_label.margin_top = 1;
         username_label.halign = Gtk.Align.CENTER;
@@ -97,6 +97,7 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.tooltip_text = _("Sync");
         sync_button.valign = Gtk.Align.CENTER;
         sync_button.halign = Gtk.Align.CENTER;
+        sync_button.get_style_context ().add_class ("sync");
         sync_button.get_style_context ().add_class ("settings-button");
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
@@ -115,7 +116,7 @@ public class Widgets.Pane : Gtk.EventBox {
         profile_box.pack_start (user_avatar, false, false, 0);
         profile_box.pack_start (username_label, false, false, 0);
         profile_box.pack_end (settings_button, false, false, 0);
-        //profile_box.pack_end (sync_button, false, false, 0);
+        profile_box.pack_end (sync_button, false, false, 0);
         profile_box.pack_end (search_button, false, false, 0);
 
         var add_icon = new Gtk.Image ();
@@ -216,7 +217,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.row_selected.connect ((row) => {
             if (row != null) {
                 activated (row.get_index ());
-                Application.utils.pane_action_selected ();
+                Planner.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
 
                 var action = (Widgets.ActionRow) row;
@@ -233,7 +234,7 @@ public class Widgets.Pane : Gtk.EventBox {
         project_listbox.row_selected.connect ((row) => {
             if (row != null) {
                 var project = ((Widgets.ProjectRow) row).project;
-                Application.utils.pane_project_selected (project.id, 0);
+                Planner.utils.pane_project_selected (project.id, 0);
             }
         });
 
@@ -247,14 +248,31 @@ public class Widgets.Pane : Gtk.EventBox {
             dialog.show_all ();
         });
 
-        Application.todoist.first_sync_finished.connect (() => {
-            username_label.label = Application.settings.get_string ("user-name");
+        sync_button.clicked.connect (() => {
+            Planner.todoist.sync ();
         });
 
-        Application.todoist.avatar_downloaded.connect (() => {
+        Planner.todoist.sync_started.connect (() => {
+            sync_button.sensitive = false;
+            sync_button.get_style_context ().add_class ("is_loading");
+        });
+
+        Planner.todoist.sync_finished.connect (() => {
+            sync_button.sensitive = true;
+            sync_button.get_style_context ().remove_class ("is_loading");
+        });
+
+        Planner.todoist.first_sync_finished.connect (() => {
+            username_label.label = Planner.settings.get_string ("user-name");
+            
+            sync_button.sensitive = true;
+            sync_button.get_style_context ().remove_class ("is_loading");
+        });
+
+        Planner.todoist.avatar_downloaded.connect (() => {
             try {
                 user_avatar.pixbuf = new Gdk.Pixbuf.from_file_at_size (
-                    GLib.Path.build_filename (Application.utils.AVATARS_FOLDER, ("avatar.jpg")),
+                    GLib.Path.build_filename (Planner.utils.AVATARS_FOLDER, ("avatar.jpg")),
                     19,
                     19);
             } catch (Error e) {
@@ -262,7 +280,7 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         });
 
-        Application.database.area_added.connect ((area) => {
+        Planner.database.area_added.connect ((area) => {
             var row = new Widgets.AreaRow (area);
             area_listbox.add (row);
             area_listbox.show_all ();
@@ -270,17 +288,17 @@ public class Widgets.Pane : Gtk.EventBox {
             row.set_focus = true;
         });
 
-        Application.utils.pane_project_selected.connect ((id, area) => {
+        Planner.utils.pane_project_selected.connect ((id, area) => {
             listbox.unselect_all ();
         });
 
-        Application.utils.pane_project_selected.connect ((project_id, area_id) => {
+        Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
             if (area_id != 0) {
                 project_listbox.unselect_all ();
             }
         });
 
-        Application.database.project_added.connect ((project) => {
+        Planner.database.project_added.connect ((project) => {
             if (project.inbox_project == 0 && project.area_id == 0) {
                 var row = new Widgets.ProjectRow (project);
                 project_listbox.add (row);
@@ -288,7 +306,7 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         });
 
-        Application.database.project_moved.connect ((project) => {
+        Planner.database.project_moved.connect ((project) => {
             Idle.add (() => {
                 if (project.area_id == 0) {
                     var row = new Widgets.ProjectRow (project);
@@ -330,12 +348,12 @@ public class Widgets.Pane : Gtk.EventBox {
     }
     
     public void add_all_projects () {
-        foreach (var project in Application.database.get_all_projects_no_area ()) {
+        foreach (var project in Planner.database.get_all_projects_no_area ()) {
             var row = new Widgets.ProjectRow (project);
             project_listbox.add (row);
 
-            if (Application.settings.get_boolean ("homepage-project")) {
-                if (Application.settings.get_int64 ("homepage-project-id") == project.id) {
+            if (Planner.settings.get_boolean ("homepage-project")) {
+                if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
                     timeout = Timeout.add (125, () => {
                         project_listbox.select_row (row);
 
@@ -350,7 +368,7 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     public void add_all_areas () {
-        foreach (var area in Application.database.get_all_areas ()) {
+        foreach (var area in Planner.database.get_all_areas ()) {
             var row = new Widgets.AreaRow (area);
             area_listbox.add (row);
         }
@@ -366,7 +384,7 @@ public class Widgets.Pane : Gtk.EventBox {
             var project = ((ProjectRow) row).project;
 
             new Thread<void*> ("update_project_order", () => {
-                Application.database.update_project_item_order (project.id, 0, index);
+                Planner.database.update_project_item_order (project.id, 0, index);
 
                 return null;
             });

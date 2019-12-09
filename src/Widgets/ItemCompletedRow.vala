@@ -17,8 +17,8 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         tooltip_markup =  "<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s".printf (
             _("Content"), item.content,
             _("Note"), item.note,
-            _("Due date"), Application.utils.get_relative_date_from_string (item.due_date),
-            _("Date completed"), Application.utils.get_relative_date_from_string (item.date_completed)
+            _("Due date"), Planner.utils.get_relative_date_from_string (item.due_date),
+            _("Date completed"), Planner.utils.get_relative_date_from_string (item.date_completed)
         );
 
         var loading_spinner = new Gtk.Spinner ();
@@ -37,7 +37,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.active = true;
 
-        var completed_label = new Gtk.Label (Application.utils.get_relative_date_from_string (item.date_completed));
+        var completed_label = new Gtk.Label (Planner.utils.get_relative_date_from_string (item.date_completed));
         completed_label.halign = Gtk.Align.START;
         completed_label.valign = Gtk.Align.CENTER;
         
@@ -67,9 +67,9 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                 item.checked = 0;
                 item.date_completed = "";
 
-                if (Application.database.update_item_completed (item)) {
+                if (Planner.database.update_item_completed (item)) {
                     if (item.is_todoist == 1) {
-                        Application.todoist.item_uncomplete (item);
+                        Planner.todoist.item_uncomplete (item);
                     }
 
                     destroy ();
@@ -77,14 +77,14 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.todoist.item_uncompleted_started.connect ((i) => {
+        Planner.todoist.item_uncompleted_started.connect ((i) => {
             if (item.id == i.id) {
                 sensitive = false;
                 loading_revealer.reveal_child = true;
             }
         });
 
-        Application.todoist.item_uncompleted_completed.connect ((i) => {
+        Planner.todoist.item_uncompleted_completed.connect ((i) => {
             if (item.id == i.id) {
                 destroy ();
             }

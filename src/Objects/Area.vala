@@ -1,5 +1,5 @@
 public class Objects.Area : GLib.Object {
-    public int64 id { get; set; default = Application.utils.generate_id (); }
+    public int64 id { get; set; default = Planner.utils.generate_id (); }
     public string name { get; set; default = ""; }
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public int collapsed { get; set; default = 1; }
@@ -15,7 +15,7 @@ public class Objects.Area : GLib.Object {
 
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_area (this);
+                Planner.database.update_area (this);
                 return null;
             });
             

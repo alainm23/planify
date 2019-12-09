@@ -90,7 +90,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     private bool get_source_visible () {
         bool _visible = true;
 
-        foreach (var uid in Application.settings.get_strv ("calendar-sources-disabled")) {
+        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
             if (source.dup_uid () == uid) {
                 _visible = false;
             }

@@ -64,7 +64,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         Gtk.drag_set_icon_surface (context, surface);
         reveal_child = false;
 
-        Application.utils.drag_magic_button_activated (true);
+        Planner.utils.drag_magic_button_activated (true);
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
@@ -78,6 +78,6 @@ public class Widgets.MagicButton : Gtk.Revealer {
 
     public void on_drag_end (Gdk.DragContext context) {
         reveal_child = true;
-        Application.utils.drag_magic_button_activated (false);
+        Planner.utils.drag_magic_button_activated (false);
     }
 }

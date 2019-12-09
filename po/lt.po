@@ -1,0 +1,1300 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.alainm23.planner package.
+# Moo, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.alainm23.planner\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-09 13:11-0500\n"
+"PO-Revision-Date: 2019-01-29 16:32+0200\n"
+"Last-Translator: Moo\n"
+"Language-Team: \n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/MainWindow.vala:41 data/com.github.alainm23.planner.desktop.in:3
+#: data/com.github.alainm23.planner.desktop.in:4
+#: data/com.github.alainm23.planner.appdata.xml.in:7
+msgid "Planner"
+msgstr "Planner"
+
+#: src/Utils.vala:58 src/Utils.vala:65
+#, fuzzy
+msgid "Home"
+msgstr "Internetinė svetainė"
+
+#: src/Utils.vala:59 src/Utils.vala:69
+msgid "Office"
+msgstr ""
+
+#: src/Utils.vala:60 src/Utils.vala:73
+msgid "Errand"
+msgstr ""
+
+#: src/Utils.vala:61 src/Utils.vala:77
+#, fuzzy
+msgid "Important"
+msgstr "Eksportuoti"
+
+#: src/Utils.vala:62 src/Utils.vala:81
+msgid "Pending"
+msgstr ""
+
+#: src/Utils.vala:393 src/Widgets/Pane.vala:44 src/Widgets/DueButton.vala:130
+#: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:161
+#: src/Dialogs/Preferences.vala:266
+msgid "Today"
+msgstr "Šiandien"
+
+#: src/Utils.vala:395 src/Widgets/DueButton.vala:134
+#: src/Widgets/UpcomingRow.vala:33
+msgid "Tomorrow"
+msgstr "Rytoj"
+
+#: src/Services/Database.vala:496 src/Widgets/Pane.vala:36
+#: src/Widgets/ItemRow.vala:1031 src/Widgets/SectionRow.vala:346
+#: src/Views/Inbox.vala:35 src/Dialogs/Preferences.vala:157
+#: src/Dialogs/Preferences.vala:263
+msgid "Inbox"
+msgstr "Gauta"
+
+#: src/Services/Todoist.vala:566 src/Services/Todoist.vala:653
+#: src/Services/Todoist.vala:746 src/Services/Todoist.vala:805
+#: src/Services/Todoist.vala:892 src/Services/Todoist.vala:977
+#: src/Services/Todoist.vala:1058 src/Services/Todoist.vala:1148
+#: src/Services/Todoist.vala:1292 src/Services/Todoist.vala:1669
+#, fuzzy
+msgid "Connection error"
+msgstr "Prisijungti"
+
+#: src/Services/Notifications.vala:11
+#, fuzzy
+msgid "task"
+msgstr "Nauja užduotis"
+
+#: src/Services/Notifications.vala:13
+#, fuzzy
+msgid "tasks"
+msgstr "Visos užduotys"
+
+#: src/Services/Calendar/Util.vala:216 src/Widgets/New.vala:51
+msgid "On this computer"
+msgstr "Šiame kompiuteryje"
+
+#: src/Widgets/Pane.vala:46 src/Views/Upcoming.vala:12
+#: src/Dialogs/Preferences.vala:164
+msgid "Upcoming"
+msgstr "Artėjantys"
+
+#: src/Widgets/Pane.vala:64 data/com.github.alainm23.planner.appdata.xml.in:24
+msgid "Quick Find"
+msgstr "Sparti paieška"
+
+#: src/Widgets/Pane.vala:83
+msgid "Preferences"
+msgstr "Nuostatos"
+
+#: src/Widgets/Pane.vala:97
+msgid "Sync"
+msgstr ""
+
+#: src/Widgets/Pane.vala:135
+msgid "Add list"
+msgstr ""
+
+#: src/Widgets/New.vala:42 src/Dialogs/ProjectSettings.vala:23
+#, fuzzy
+msgid "Name:"
+msgstr "Pavadinimas"
+
+#: src/Widgets/New.vala:46
+msgid "Source:"
+msgstr ""
+
+#: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:31
+#, fuzzy
+msgid "Color:"
+msgstr "Spalva"
+
+#: src/Widgets/New.vala:246
+msgid "Create"
+msgstr "Sukurti"
+
+#: src/Widgets/New.vala:251 src/Widgets/New.vala:495
+#: src/Widgets/NewItem.vala:75 src/Widgets/ReminderButton.vala:182
+msgid "Cancel"
+msgstr ""
+
+#: src/Widgets/New.vala:444
+#, fuzzy
+msgid "Project"
+msgstr "Naujas projektas"
+
+#: src/Widgets/New.vala:450
+msgid "Lorem is a ascaa acs casca sca sca sca scascascas sac asca s"
+msgstr ""
+
+#: src/Widgets/New.vala:473
+msgid "Area"
+msgstr ""
+
+#: src/Widgets/New.vala:479
+msgid "Organize your projects in groups and keep your panel clean."
+msgstr ""
+
+#: src/Widgets/New.vala:548
+#, fuzzy
+msgid "New area"
+msgstr "Naujas projektas"
+
+#: src/Widgets/ProjectRow.vala:130
+#, fuzzy
+msgid "Local Project"
+msgstr "Ištrinti projektą"
+
+#: src/Widgets/ProjectRow.vala:134
+#, fuzzy
+msgid "Todoist Project"
+msgstr "Eksportuoti projektą"
+
+#: src/Widgets/ProjectRow.vala:417
+msgid "No Area"
+msgstr ""
+
+#: src/Widgets/ProjectRow.vala:450 src/Views/Project.vala:536
+#, fuzzy
+msgid "Edit project"
+msgstr "Eksportuoti projektą"
+
+#: src/Widgets/ProjectRow.vala:452
+#, fuzzy
+msgid "Move project"
+msgstr "Bendrinti projektą"
+
+#. var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
+#. var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+#. var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:460 src/Widgets/ProjectRow.vala:483
+#: src/Views/Project.vala:538
+msgid "Delete project"
+msgstr "Ištrinti projektą"
+
+#: src/Widgets/ProjectRow.vala:484 src/Widgets/SectionRow.vala:418
+#: src/Widgets/AreaRow.vala:395
+#, fuzzy, c-format
+msgid "Are you sure you want to delete <b>%s</b>?"
+msgstr "Ar tikrai norite ištrinti šią etiketę?"
+
+#: src/Widgets/ProjectRow.vala:488 src/Widgets/SectionRow.vala:422
+#: src/Widgets/AreaRow.vala:404
+msgid "Delete"
+msgstr "Ištrinti"
+
+#: src/Widgets/NewItem.vala:52 src/Widgets/NewCheck.vala:51
+#, fuzzy
+msgid "Add a new subtask"
+msgstr "Pridėti naują užduotį"
+
+#: src/Widgets/NewItem.vala:70 src/Widgets/ReminderButton.vala:184
+msgid "Add"
+msgstr "Pridėti"
+
+#: src/Widgets/ItemRow.vala:262 src/Widgets/AreaRow.vala:62
+#: src/Widgets/CheckRow.vala:31
+msgid "Task name"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:290 src/Views/Project.vala:136
+#, fuzzy
+msgid "Add note"
+msgstr "Pridėti naują projektą"
+
+#: src/Widgets/ItemRow.vala:327
+#, fuzzy
+msgid "Add checklist"
+msgstr "Kontrolinis sąrašas"
+
+#. var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
+#. var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
+#: src/Widgets/ItemRow.vala:335 src/Widgets/ItemRow.vala:1083
+msgid "Delete task"
+msgstr "Ištrinti užduotį"
+
+#: src/Widgets/ItemRow.vala:348
+#, fuzzy
+msgid "Task settings"
+msgstr "Nustatymai"
+
+#: src/Widgets/ItemRow.vala:1072
+#, fuzzy
+msgid "Complete"
+msgstr "Užbaigtos užduotys"
+
+#: src/Widgets/ItemRow.vala:1074
+msgid "View / Hide task"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:1076
+#, fuzzy
+msgid "Move to project"
+msgstr "Konvertuoti projektą"
+
+#: src/Widgets/ItemRow.vala:1080
+msgid "Duplicate"
+msgstr "Dubliuoti"
+
+#: src/Widgets/ItemCompletedRow.vala:18
+msgid "Content"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:19
+msgid "Note"
+msgstr "Pastaba"
+
+#: src/Widgets/ItemCompletedRow.vala:20
+msgid "Due date"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:21
+#, fuzzy
+msgid "Date completed"
+msgstr "Slėpti užbaigtas užduotis"
+
+#: src/Widgets/SectionRow.vala:74
+#, fuzzy
+msgid "Section name"
+msgstr "Projekto pavadinimas"
+
+#: src/Widgets/SectionRow.vala:88
+msgid "More"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:387 src/Widgets/MagicButton.vala:11
+#: src/Widgets/UpcomingRow.vala:46
+#, fuzzy
+msgid "Add task"
+msgstr "Pridėti naują užduotį"
+
+#: src/Widgets/SectionRow.vala:389
+msgid "Edit section"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:391
+#, fuzzy
+msgid "Move section"
+msgstr "Vieta"
+
+#: src/Widgets/SectionRow.vala:395 src/Widgets/SectionRow.vala:417
+#, fuzzy
+msgid "Delete section"
+msgstr "Ištrinti paskyrą"
+
+#: src/Widgets/DueButton.vala:22
+msgid "Due Date"
+msgstr ""
+
+#: src/Widgets/DueButton.vala:138
+#, fuzzy
+msgid "Undated"
+msgstr "Atnaujinti"
+
+#: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:83
+#: src/Dialogs/Preferences.vala:416
+msgid "Labels"
+msgstr "Etiketės"
+
+#: src/Widgets/LabelButton.vala:25
+#, fuzzy
+msgid "labels"
+msgstr "Etiketės"
+
+#: src/Widgets/LabelButton.vala:91
+#, fuzzy
+msgid "Edit labels"
+msgstr "Taisyti etiketę"
+
+#: src/Widgets/Toast.vala:67
+msgid "Undo"
+msgstr ""
+
+#: src/Widgets/AreaRow.vala:378
+#, fuzzy
+msgid "Edit area"
+msgstr "Taisyti etiketę"
+
+#: src/Widgets/AreaRow.vala:380 src/Widgets/AreaRow.vala:394
+#, fuzzy
+msgid "Delete area"
+msgstr "Ištrinti etiketę"
+
+#: src/Widgets/AreaRow.vala:400
+#, fuzzy
+msgid "Delete projects"
+msgstr "Ištrinti projektą"
+
+#: src/Widgets/LabelRow.vala:27
+msgid "Priority: Low"
+msgstr "Pirmenybė: Žema"
+
+#. get_action_area ().visible = false;
+#. get_action_area ().no_show_all = true;
+#: src/Widgets/QuickFind.vala:27 src/Dialogs/ProjectSettings.vala:210
+#: src/Dialogs/Preferences.vala:50
+msgid "Close"
+msgstr "Užverti"
+
+#: src/Widgets/ReminderButton.vala:19
+msgid "Reminders"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:140
+msgid "Add reminder"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:175
+msgid "Time:"
+msgstr ""
+
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:104
+msgid "AM"
+msgstr "Priešpiet (AM)"
+
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:106
+msgid "PM"
+msgstr "Popiet (PM)"
+
+#. / TRANSLATORS: separates hours from minutes.
+#: src/Widgets/TimePicker.vala:151
+msgid ":"
+msgstr ""
+
+#: src/Widgets/Calendar/CalendarHeader.vala:34
+#, fuzzy
+msgid "%OB, %Y"
+msgstr "%Y, %B %e"
+
+#: src/Widgets/Calendar/CalendarHeader.vala:42
+msgid "%OB %Y"
+msgstr "%Y %OB"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:26
+msgid "Mon"
+msgstr "Pir"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:29
+msgid "Tue"
+msgstr "Ant"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:32
+msgid "Wed"
+msgstr "Tre"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:35
+msgid "Thu"
+msgstr "Ket"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:38
+msgid "Fri"
+msgstr "Pen"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:41
+msgid "Sat"
+msgstr "Šeš"
+
+#: src/Widgets/Calendar/CalendarWeek.vala:44
+msgid "Sun"
+msgstr "Sek"
+
+#: src/Views/Welcome.vala:26
+#, fuzzy
+msgid "Don't worry about forgetting things again"
+msgstr "Daugiau niekada nebepamirškite dalykų"
+
+#: src/Views/Welcome.vala:29
+msgid "Startup"
+msgstr ""
+
+#: src/Views/Welcome.vala:29
+msgid "Start working locally."
+msgstr ""
+
+#: src/Views/Welcome.vala:30
+msgid "Todoist"
+msgstr ""
+
+#: src/Views/Welcome.vala:30
+msgid "Synchronize with your Todoist account and start working."
+msgstr ""
+
+#: src/Views/Inbox.vala:46 src/Views/Project.vala:53
+msgid "Add section"
+msgstr ""
+
+#: src/Views/Inbox.vala:67
+msgid "Inbox comments"
+msgstr ""
+
+#: src/Views/Inbox.vala:75 src/Views/Project.vala:92
+#, fuzzy
+msgid "Search task"
+msgstr "Bendrinti užduotį"
+
+#: src/Views/Inbox.vala:82 src/Views/Project.vala:99
+msgid "Options"
+msgstr ""
+
+#: src/Views/Inbox.vala:197 src/Views/Project.vala:272
+#, fuzzy
+msgid "New Section"
+msgstr "Naujas projektas"
+
+#: src/Views/Inbox.vala:462 src/Views/Inbox.vala:479 src/Views/Project.vala:539
+#: src/Views/Project.vala:574
+#, fuzzy
+msgid "Show completed task"
+msgstr "Rodyti užbaigtas užduotis"
+
+#: src/Views/Inbox.vala:482 src/Views/Project.vala:577
+#, fuzzy
+msgid "Hide completed task"
+msgstr "Slėpti užbaigtas užduotis"
+
+#: src/Views/Project.vala:73
+msgid "Invite person"
+msgstr ""
+
+#: src/Views/Project.vala:83
+#, fuzzy
+msgid "Project comments"
+msgstr "Projekto pavadinimas"
+
+#: src/Views/Project.vala:127
+msgid "Add a note"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:103
+msgid "Loading…"
+msgstr ""
+
+#. Alert
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:117
+msgid "Network Is Not Available"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:47
+msgid "Connect to the Internet to connect with Todoist"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:83
+msgid "Synchronizing… Wait a moment please."
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:95
+msgid "Please enter your credentials…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:28
+msgid "Due:"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:183
+msgid "Uploading changes…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:212
+msgid "Save"
+msgstr ""
+
+#. General
+#: src/Dialogs/Preferences.vala:59 src/Dialogs/Preferences.vala:65
+#: src/Dialogs/Preferences.vala:366
+msgid "General"
+msgstr "Bendra"
+
+#: src/Dialogs/Preferences.vala:62 src/Dialogs/Preferences.vala:145
+#, fuzzy
+msgid "Homepage"
+msgstr "Internetinė svetainė"
+
+#: src/Dialogs/Preferences.vala:63 src/Dialogs/Preferences.vala:248
+#, fuzzy
+msgid "Badge count"
+msgstr "Ženklelių skaičius"
+
+#: src/Dialogs/Preferences.vala:64 src/Dialogs/Preferences.vala:319
+msgid "Theme"
+msgstr ""
+
+#. Addons
+#: src/Dialogs/Preferences.vala:79
+msgid "Add-ons"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:82 src/Dialogs/Preferences.vala:480
+#, fuzzy
+msgid "Calendar events"
+msgstr "Kalendoriaus įvykiai"
+
+#. Others
+#: src/Dialogs/Preferences.vala:96
+msgid "About"
+msgstr "Apie"
+
+#: src/Dialogs/Preferences.vala:97
+#, fuzzy
+msgid "Create tutorial project"
+msgstr "Sukurti naują projektą"
+
+#: src/Dialogs/Preferences.vala:147
+msgid ""
+"When you open up Planner, make sure you see the tasks that are most "
+"important. The default homepage is your <b>Inbox</b> view, but you can "
+"change it to whatever you'd like."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:178
+#, fuzzy
+msgid "Projects"
+msgstr "Naujas projektas"
+
+#: src/Dialogs/Preferences.vala:250
+msgid ""
+"Choose which items should be counted for the badge on the application icon."
+msgstr ""
+"Pasirinkite kurių elementų skaičius turėtų būti rodomas ženklelyje ant "
+"programos piktogramos."
+
+#: src/Dialogs/Preferences.vala:259
+msgid "None"
+msgstr "Nėra"
+
+#: src/Dialogs/Preferences.vala:269
+msgid "Today + Inbox"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:321
+msgid ""
+"Personalize the look and feel of your Planner by choosing the theme that "
+"best suits you."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:330
+#, fuzzy
+msgid "Light"
+msgstr "Naktinė veiksena"
+
+#: src/Dialogs/Preferences.vala:334
+#, fuzzy
+msgid "Night"
+msgstr "Naktinė veiksena"
+
+#: src/Dialogs/Preferences.vala:369
+msgid "DE Integration"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:375
+msgid "Date & Time"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:380
+msgid "AM/PM"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:381
+msgid "24 h"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:383
+msgid "Time format"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:419
+msgid ""
+"Save time by batching similar tasks together using labels. You’ll be able to "
+"pull up a list of all tasks with any given label in a matter of seconds."
+msgstr ""
+
+#. top_box.action_button = "list-add-symbolic";
+#: src/Dialogs/Preferences.vala:483
+msgid ""
+"You can connect your <b>Calendar</b> app to Planner to see your events and "
+"to-dos together in one place. You’ll see events from both personal and "
+"shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
+"you’re managing your day, and as you plan the week ahead."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:682
+msgid "Back"
+msgstr "Atgal"
+
+#: data/com.github.alainm23.planner.desktop.in:5
+#: data/com.github.alainm23.planner.appdata.xml.in:8
+msgid "Never worry about forgetting things again"
+msgstr "Daugiau niekada nebepamirškite dalykų"
+
+#: data/com.github.alainm23.planner.desktop.in:8
+msgid "com.github.alainm23.planner"
+msgstr "com.github.alainm23.planner"
+
+#: data/com.github.alainm23.planner.desktop.in:12
+msgid ""
+"development;task;tasks;project;todo;event;events;weather;calendar;github,"
+"issue;issues;"
+msgstr ""
+"plėtojimas;kūrimas;užduotis;užduotys;projektas;atlikti;įvykis;įvykiai;orai;"
+"kalendorius;github,klaida;klaidos;problema;problemos;"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:10
+msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
+msgstr ""
+"Visiems reikia užduočių tvarkytuvės ir Planner prisitaiko prie kiekvieno "
+"poreikių"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:11
+msgid "How Planner works"
+msgstr "Kaip Planner veikia"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:12
+msgid ""
+"1. Collect your Ideas - The Inbox is your default task list in Planner. When "
+"you add a task, it goes straight to your Inbox unless you specify that the "
+"task goes into a project."
+msgstr ""
+"1. Surinkite savo idėjas - Aplankas Gauta yra jūsų numatytasis užduočių "
+"sąrašas programoje Planner. Pridėjus užduotį, ji keliaus tiesiai į aplanką "
+"Gauta, nebent nurodysite, kad užduotis priklauso projektui."
+
+#: data/com.github.alainm23.planner.appdata.xml.in:13
+msgid ""
+"2. Get Organized - Create a project for each of your goals, then add the "
+"steps to reach them. Review these regularly to stay on top of things."
+msgstr ""
+"2. Susikaupkite - Kiekvienam savo tikslui sukurkite projektą, o tuomet "
+"pridėkite žingsnius tuos tikslus pasiekti. Reguliariai peržiūrėkite "
+"žingsniu, kad išliktumėte įvykių sukūryje."
+
+#: data/com.github.alainm23.planner.appdata.xml.in:14
+msgid ""
+"3. Calendar and Events - See your calendar events and plan your time "
+"effectively. Planner will remind you on the right day."
+msgstr ""
+"3. Kalendorius ir įvykiai - Matykite savo kalendoriaus įvykius ir efektyviai "
+"planuokite laiką. Reikiamą dieną Planner jums apie juos primins."
+
+#: data/com.github.alainm23.planner.appdata.xml.in:15
+msgid ""
+"4. Be even more organized - Add a deadline to your tasks, create labels, use "
+"checklists."
+msgstr ""
+"4. Būkite dar labiau susikaupę - Pridėkite savo užduotims galutinius "
+"terminus, kurkite etiketes bei naudokite kontrolinius sąrašus."
+
+#: data/com.github.alainm23.planner.appdata.xml.in:16
+msgid ""
+"5. Share your progress - Share all the progress of your project or some "
+"special task, all this in Markdown."
+msgstr ""
+"5. Bendrinkite savo darbų eigą - Bendrinkite visą savo projekto ar tam tikrų "
+"užduočių eigą, visa tai Markdown kalba."
+
+#: data/com.github.alainm23.planner.appdata.xml.in:17
+msgid ""
+"6. Support for Github Issues - Connect your account and start receiving "
+"notifications of every new issue in your repositories"
+msgstr ""
+"6. Github klaidų palaikymas - Prijunkite savo paskyrą ir pradėkite gauti "
+"pranešimus apie kiekvieną naują klaidą jūsų saugyklose"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:18
+msgid "Other features"
+msgstr "Kitos ypatybės"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:20
+msgid "Reminders notifications"
+msgstr "Priminimų pranešimai"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:21
+msgid "Import and export your projects"
+msgstr "Projektų importavimas ir eksportavimas"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:22
+msgid "Different themes to choose"
+msgstr "Įvairių temų pasirinkimas"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:23
+#: data/com.github.alainm23.planner.appdata.xml.in:38
+msgid "Weather forecast"
+msgstr "Orų prognozė"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:25
+msgid "Night mode"
+msgstr "Naktinė veiksena"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:27
+msgid "* Planner not created by, affiliated with, or supported by Doist"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:35
+#, fuzzy
+msgid "New features:"
+msgstr "Kitos ypatybės"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:37
+#, fuzzy
+msgid "Labels preview"
+msgstr "Etiketės"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:40
+#: data/com.github.alainm23.planner.appdata.xml.in:53
+#: data/com.github.alainm23.planner.appdata.xml.in:72
+#: data/com.github.alainm23.planner.appdata.xml.in:88
+#, fuzzy
+msgid "Translations:"
+msgstr "Vertimai"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:42
+msgid "Lithuanian (welaq)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:48
+#: data/com.github.alainm23.planner.appdata.xml.in:61
+msgid "Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:50
+msgid "Redesign 'Labels' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:51
+#, fuzzy
+msgid "Fix Notification error"
+msgstr "Pranešimai"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:55
+msgid "Updating French translations 🇫🇷 (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:63
+#, fuzzy
+msgid "Better reminder notifications"
+msgstr "Priminimų pranešimai"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:64
+msgid "Improvement default theme"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:65
+msgid "Redesign 'When' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:66
+msgid "New 'About' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:67
+msgid "New 'Credits' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:68
+msgid "Redesign 'Issues' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:69
+#, fuzzy
+msgid "New task search"
+msgstr "Nauja užduotis"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:70
+#, fuzzy
+msgid "Adding support to import and export projects"
+msgstr "Projektų importavimas ir eksportavimas"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:74
+msgid "German (kr428)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:75
+msgid "French (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:76
+msgid "Update Spanish translation"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:82
+msgid "New feature: Support for Github Issues"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:84
+msgid "Connect with your Github account"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:85
+msgid "Receive all your issue as tasks in Inbox"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:86
+msgid "Planner will notify you if any new issue was posted"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:90
+msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:91
+msgid "Romanian (Prongs Dark)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:93
+msgid "Bugs and Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:95
+msgid "Performance improvement"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:96
+msgid "Design improvements"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:97
+msgid "Fix #22"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:98
+msgid "Fix #21"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:99
+msgid "Fix #11"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:105
+msgid "Improved stability and some bug fixes"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:107
+#, fuzzy
+msgid "Fixing critical bug with creating tasks from the clipboard #19"
+msgstr "Užduotis buvo sukurta iš iškarpinės"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:108
+#, fuzzy
+msgid "Adding new tooltips"
+msgstr "Pridėti naują užduotį"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:114
+#, fuzzy
+msgid "Hola Planner !!!"
+msgstr "Kaip Planner veikia"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:116
+msgid "Adding Spanish translations"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:122
+msgid "Initial release"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:163
+msgid "Alain M."
+msgstr "Alain M."
+
+#~ msgid "Clear"
+#~ msgstr "Išvalyti"
+
+#, fuzzy
+#~ msgid "Clear sky"
+#~ msgstr "Išvalyti"
+
+#~ msgid "%i°"
+#~ msgstr "%i°"
+
+#, fuzzy
+#~ msgid "Your project was exported correctly"
+#~ msgstr "Jūsų projektas yra paruoštas bendrinimui"
+
+#, fuzzy
+#~ msgid "Your project was imported correctly"
+#~ msgstr "Jūsų projektas yra paruoštas bendrinimui"
+
+#, fuzzy
+#~ msgid "Import another project"
+#~ msgstr "Projektų importavimas ir eksportavimas"
+
+#, fuzzy
+#~ msgid "This project was already imported"
+#~ msgstr "Jūsų projektas yra paruoštas bendrinimui"
+
+#~ msgid "%A, %b %d"
+#~ msgstr "%A, %b %d"
+
+#~ msgid "All clear"
+#~ msgstr "Viskas tuščia"
+
+#~ msgid "Looks like everything's is organized. Tap + to add a task."
+#~ msgstr ""
+#~ "Atrodo, kad viskas sutvarkyta. Spustelėkite + norėdami pridėti užduotį."
+
+#~ msgid "Open all tasks"
+#~ msgstr "Atverti visas užduotis"
+
+#~ msgid "Close all tasks"
+#~ msgstr "Užverti visas užduotis"
+
+#~ msgid "Paste"
+#~ msgstr "Įdėti"
+
+#~ msgid "Filter by Label"
+#~ msgstr "Filtruoti pagal etiketę"
+
+#~ msgid "Share"
+#~ msgstr "Bendrinti"
+
+#~ msgid "Empty clipboard"
+#~ msgstr "Tuščia iškarpinė"
+
+#~ msgid "Try copying some text and try again"
+#~ msgstr "Pabandykite nukopijuoti kokį nors tekstą ir bandykite dar kartą"
+
+#~ msgid "Tap to undo"
+#~ msgstr "Spustelėkite, norėdami atšaukti"
+
+#~ msgid "It was moved to %s"
+#~ msgstr "Buvo perkelta į %s"
+
+#~ msgid "You're all done for today!"
+#~ msgstr "Šiandien viskas atlikta!"
+
+#~ msgid "Enjoy your day."
+#~ msgstr "Mėgaukitės savo diena."
+
+#~ msgid "Get a bird's eye view of yours upcoming tasks"
+#~ msgstr "Pamatykite visų jūsų artėjančių užduočių apžvalgą"
+
+#~ msgid "This is your timeline for the next tasks."
+#~ msgstr "Tai yra jūsų kitų užduočių laiko juosta."
+
+#~ msgid "keep your tasks organized in projects"
+#~ msgstr "išlaikykite savo užduotis sutvarkytus projektuose"
+
+#~ msgid "Tap + to add a task."
+#~ msgstr "Spustelėkite + norėdami pridėti užduotį."
+
+#~ msgid "Deadline"
+#~ msgstr "Galutinis terminas"
+
+#~ msgid "Search"
+#~ msgstr "Paieška"
+
+#~ msgid "Notes"
+#~ msgstr "Pastabos"
+
+#~ msgid "Select Your Favorite Color"
+#~ msgstr "Pasirinkite savo mėgstamą spalvą"
+
+#~ msgid "All Tasks"
+#~ msgstr "Visos užduotys"
+
+#~ msgid "Appearance"
+#~ msgstr "Išvaizda"
+
+#~ msgid "Github"
+#~ msgstr "Github"
+
+#~ msgid "Connect your account to work with Issues"
+#~ msgstr "Prijunkite savo paskyrą, norėdami dirbti su klaidomis"
+
+#~ msgid "Username"
+#~ msgstr "Naudotojo vardas"
+
+#~ msgid "Password"
+#~ msgstr "Slaptažodis"
+
+#~ msgid "Enter a correct Username"
+#~ msgstr "Įveskite teisingą naudotojo vardą"
+
+#~ msgid "Forgot password…"
+#~ msgstr "Pamiršau slaptažodį…"
+
+#~ msgid "Don't have an account? Sign Up"
+#~ msgstr "Neturite paskyros? Užsiregistruokite"
+
+#~ msgid "Check which repositories you want to work with"
+#~ msgstr "Pažymėkite su kokiomis saugyklomis norėtumėte dirbti"
+
+#~ msgid "Update issues"
+#~ msgstr "Atnaujinti klaidas"
+
+#~ msgid "Are you sure you want to delete your Github account?"
+#~ msgstr "Ar tikrai norite ištrinti savo Github paskyrą?"
+
+#~ msgid "Banana"
+#~ msgstr "Bananas"
+
+#~ msgid "Black"
+#~ msgstr "Juoda"
+
+#~ msgid "Blueberry"
+#~ msgstr "Šilauogė"
+
+#~ msgid "Strawberry"
+#~ msgstr "Braškė"
+
+#~ msgid "Lemon"
+#~ msgstr "Citrina"
+
+#~ msgid "Slate"
+#~ msgstr "Pilkai melsva"
+
+#~ msgid "Pink"
+#~ msgstr "Rožinė"
+
+#~ msgid "Start Page"
+#~ msgstr "Pradinis puslapis"
+
+#~ msgid "Choose that page should be first initial when Planner is open."
+#~ msgstr "Pasirinkite kuris puslapis turėtų būti atveriamas paleidus Planner."
+
+#~ msgid "Items"
+#~ msgstr "Elementai"
+
+#~ msgid "Choose which items should be displayed in the left side panel."
+#~ msgstr ""
+#~ "Pasirinkite kurie elementai turėtų būti rodomi kairiajame skydelyje."
+
+#~ msgid "Quick Save"
+#~ msgstr "Spartusis įrašymas"
+
+#~ msgid "Choose how many clicks to close and save all open tasks."
+#~ msgstr ""
+#~ "Pasirinkite kiek kartų spustelėti, kad būtų įrašytos ir užvertos visos "
+#~ "atvertos užduotys."
+
+#~ msgid "Double Click"
+#~ msgstr "Du kartus spustelėti"
+
+#~ msgid "Triple Click"
+#~ msgstr "Tris kartus spustelėti"
+
+#~ msgid "Weather"
+#~ msgstr "Orai"
+
+#~ msgid "Get the weather forecast in a simple and beautiful widget."
+#~ msgstr "Gaukite orų prognozę paprastame ir patraukliame valdiklyje."
+
+#~ msgid "Temperature"
+#~ msgstr "Temperatūra"
+
+#~ msgid "°F"
+#~ msgstr "°F"
+
+#~ msgid "°C"
+#~ msgstr "°C"
+
+#~ msgid "Automatic:"
+#~ msgstr "Automatiškai:"
+
+#~ msgid "Automatic Location"
+#~ msgstr "Automatinė vieta"
+
+#~ msgid "Events from your personal and shared calendars can be displayed."
+#~ msgstr ""
+#~ "Gali būti rodomi įvykiai iš jūsų asmeninių ir bendrinamų kalendorių."
+
+#~ msgid "Enabled"
+#~ msgstr "Įjungta"
+
+#~ msgid "Disabled"
+#~ msgstr "Išjungta"
+
+#~ msgid "Credits"
+#~ msgstr "Padėkos"
+
+#~ msgid "Developing"
+#~ msgstr "Plėtojimas"
+
+#~ msgid "Design"
+#~ msgstr "Dizainas"
+
+#~ msgid "Translation"
+#~ msgstr "Vertimas"
+
+#~ msgid "Support"
+#~ msgstr "Palaikymas"
+
+#~ msgid "Report a Issue"
+#~ msgstr "Pranešti apie klaidą"
+
+#~ msgid "Run in background"
+#~ msgstr "Paleisti fone"
+
+#~ msgid "Let Planner run in background and send notifications."
+#~ msgstr "Leisti, kad Planner būtų paleista fone ir siųstų pranešimus."
+
+#~ msgid "Launch at Login"
+#~ msgstr "Paleisti įjungus kompiuterį"
+
+#~ msgid "Profile"
+#~ msgstr "Profilis"
+
+#~ msgid "Copy to clipboard"
+#~ msgstr "Kopijuoti į iškarpinę"
+
+#~ msgid "Your project is ready to share"
+#~ msgstr "Jūsų projektas yra paruoštas bendrinimui"
+
+#~ msgid "When"
+#~ msgstr "Kada"
+
+#~ msgid "Move"
+#~ msgstr "Perkelti"
+
+#~ msgid "Weather and Events"
+#~ msgstr "Orai ir įvykiai"
+
+#, fuzzy
+#~ msgid "Light background"
+#~ msgstr "Paleisti fone"
+
+#, fuzzy
+#~ msgid "Dark background"
+#~ msgstr "Paleisti fone"
+
+#~ msgid "Menu"
+#~ msgstr "Meniu"
+
+#~ msgid "Completed tasks"
+#~ msgstr "Užbaigtos užduotys"
+
+#~ msgid "To do tasks"
+#~ msgstr "Laukiančios užduotys"
+
+#~ msgid "Are you sure you want to mark as completed this project?"
+#~ msgstr "Ar tikrai norite pažymėti šį projektą kaip užbaigtą?"
+
+#~ msgid "This project contains %i incomplete tasks"
+#~ msgstr "Šiame projekte yra %i neužbaigtų užduočių"
+
+#~ msgid "Mark as Completed"
+#~ msgstr "Pažymėti kaip užbaigtą"
+
+#~ msgid "Are you sure you want to delete this project?"
+#~ msgstr "Ar tikrai norite ištrinti šį projektą?"
+
+#~ msgid ""
+#~ "It contains %i elements that are also deleted, this operation can't be "
+#~ "undone"
+#~ msgstr ""
+#~ "Jame yra %i elementų, kurie taip pat yra ištrinti, šios operacijos "
+#~ "neįmanoma bus atšaukti"
+
+#~ msgid "Planner files"
+#~ msgstr "Planner failai"
+
+#~ msgid "<b>%s</b>"
+#~ msgstr "<b>%s</b>"
+
+#~ msgid "Move task"
+#~ msgstr "Perkelti užduotį"
+
+#~ msgid "It was moved to <b>%s</b>"
+#~ msgstr "Buvo perkelta į <b>%s</b>"
+
+#~ msgid "Are you sure you want to delete this task?"
+#~ msgstr "Ar tikrai norite ištrinti šią užduotį?"
+
+#~ msgid "Delete Task"
+#~ msgstr "Ištrinti užduotį"
+
+#~ msgid "You'll be notified %s at %s"
+#~ msgstr "Jums bus pranešta %s ties %s"
+
+#~ msgid "Create Task"
+#~ msgstr "Sukurti užduotį"
+
+#~ msgid "Events"
+#~ msgstr "Įvykiai"
+
+#~ msgid "Calendar"
+#~ msgstr "Kalendorius"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+#~ msgstr ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid ""
+#~ "%s, %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s, %s\n"
+#~ "%s"
+
+#~ msgid "Quick find"
+#~ msgstr "Sparti paieška"
+
+#~ msgid "all"
+#~ msgstr "visos"
+
+#~ msgid "Title"
+#~ msgstr "Pavadinimas"
+
+#~ msgid "Personal"
+#~ msgstr "Asmeninis"
+
+#~ msgid "Finalize project"
+#~ msgstr "Užbaigti projektą"
+
+#~ msgid "Edit"
+#~ msgstr "Taisyti"
+
+#~ msgid "Change project name"
+#~ msgstr "Keisti projekto pavadinimą"
+
+#~ msgid "Export"
+#~ msgstr "Eksportuoti"
+
+#~ msgid "Convert"
+#~ msgstr "Konvertuoti"
+
+#~ msgid "Duplicate task"
+#~ msgstr "Dubliuoti užduotį"
+
+#~ msgid "Add new label"
+#~ msgstr "Pridėti naują etiketę"
+
+#~ msgid "Preview"
+#~ msgstr "Peržiūra"
+
+#, fuzzy
+#~ msgid "Import project"
+#~ msgstr "Eksportuoti projektą"
+
+#~ msgid "Issues"
+#~ msgstr "Klaidos"
+
+#~ msgid "Update repositories"
+#~ msgstr "Atnaujinti saugyklas"

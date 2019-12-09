@@ -53,6 +53,41 @@ public class Utils : GLib.Object {
         return password_builder.str;
     }
 
+    public void create_default_labels () {
+        var labels = new Gee.HashMap<int, string> ();
+        labels.set (41, _("Home"));
+        labels.set (42, _("Office"));
+        labels.set (32, _("Errand"));
+        labels.set (31, _("Important"));
+        labels.set (33, _("Pending"));
+
+        var home = new Objects.Label ();
+        home.name = _("Home");
+        home.color = 41;
+
+        var office = new Objects.Label ();
+        office.name = _("Office");
+        office.color = 42;
+
+        var errand = new Objects.Label ();
+        errand.name = _("Errand");
+        errand.color = 32;
+
+        var important = new Objects.Label ();
+        important.name = _("Important");
+        important.color = 31;
+
+        var pending = new Objects.Label ();
+        pending.name = _("Pending");
+        pending.color = 33;
+
+        Planner.database.insert_label (home);
+        Planner.database.insert_label (office);
+        Planner.database.insert_label (errand);
+        Planner.database.insert_label (important);
+        Planner.database.insert_label (pending);
+    }
+
     /*
         Colors Utils
     */
@@ -208,7 +243,7 @@ public class Utils : GLib.Object {
                 try {
                     if (file_from_uri.copy_async.end (res)) {
                         print ("Avatar Profile Downloaded\n");
-                        Application.todoist.avatar_downloaded ();
+                        Planner.todoist.avatar_downloaded ();
                     }
                 } catch (Error e) {
                     print ("Error: %s\n", e.message);
@@ -345,7 +380,7 @@ public class Utils : GLib.Object {
 
     public string get_relative_time_from_string (string due) {
         bool is_12h = true;
-        if (Application.settings.get_enum ("time-format") == 1) {
+        if (Planner.settings.get_enum ("time-format") == 1) {
             is_12h = false;
         }
 
@@ -354,9 +389,9 @@ public class Utils : GLib.Object {
     }
 
     public string get_relative_date_from_date (GLib.DateTime date) {
-        if (Application.utils.is_today (date)) {
+        if (Planner.utils.is_today (date)) {
             return _("Today");
-        } else if (Application.utils.is_tomorrow (date)) {
+        } else if (Planner.utils.is_tomorrow (date)) {
             return _("Tomorrow");
         } else {
             return get_default_date_format_from_date (date);
@@ -402,24 +437,28 @@ public class Utils : GLib.Object {
         string CSS = """
             @define-color projectview_color %s;
             @define-color border_color alpha (@BLACK_900, %s);
+            @define-color pane_color %s;
         """;
 
-        bool dark_mode = Application.settings.get_boolean ("prefer-dark-style");
+        bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
         Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = dark_mode;
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            string _color = "#fafafa";
-            string _border_color = "0.25";
+            string projectview_color = "#fafafa";
+            string border_color = "0.25";
+            string pane_color = "@bg_color";
             if (dark_mode) {
-                _color = "#333333";
-                _border_color = "0.55";
+                projectview_color = "#333333";
+                border_color = "0.55";
+                pane_color = "shade (@bg_color, 0.7)";
             }
             
             var css = CSS.printf (
-                _color,
-                _border_color
+                projectview_color,
+                border_color,
+                pane_color
             );
 
             provider.load_from_data (css, css.length);

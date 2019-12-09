@@ -16,7 +16,7 @@ public class Objects.Collaborator : GLib.Object {
 
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_area (this);
+                Planner.database.update_area (this);
                 return null;
             });
             

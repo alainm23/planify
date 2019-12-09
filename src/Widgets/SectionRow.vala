@@ -170,7 +170,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             listbox_revealer.reveal_child = true;
         }
 
-        Application.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
+        Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
             if (section.project_id == project_id && section.id == section_id) {
                 var new_item = new Widgets.NewItem (
                     project_id,
@@ -195,7 +195,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             item.reveal_child = true;
         });
         
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
@@ -203,7 +203,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (item.checked == 0 && section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
@@ -211,7 +211,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.item_added_with_index.connect ((item, index) => {
+        Planner.database.item_added_with_index.connect ((item, index) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.insert (row, index);
@@ -219,7 +219,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.utils.drag_magic_button_activated.connect ((value) => {
+        Planner.utils.drag_magic_button_activated.connect ((value) => {
             build_drag_and_drop (value);
         });
 
@@ -284,44 +284,44 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             activate_menu ();
         });
 
-        Application.database.section_deleted.connect ((s) => {
-            if (section.id == s.id) {
+        Planner.database.section_deleted.connect ((id) => {
+            if (section.id == id) {
                 destroy ();
             }
         });
 
-        Application.todoist.section_deleted_started.connect ((id) => {
+        Planner.todoist.section_deleted_started.connect ((id) => {
             if (section.id == id) {
                 sensitive = false;
             }
         });
 
-        Application.todoist.section_deleted_error.connect ((id, http_code, error_message) => {
+        Planner.todoist.section_deleted_error.connect ((id, http_code, error_message) => {
             if (section.id == id) {
                 sensitive = true;
             }
         });
 
-        Application.todoist.section_moved_started.connect ((id) => {
+        Planner.todoist.section_moved_started.connect ((id) => {
             if (section.id == id) {
                 sensitive = false;
             }
         });
 
-        Application.todoist.section_moved_completed.connect ((id) => {
+        Planner.todoist.section_moved_completed.connect ((id) => {
             if (section.id == id) {
                 destroy ();
             }
         });
 
-        Application.todoist.section_moved_error.connect ((id, http_code, error_message) => {
+        Planner.todoist.section_moved_error.connect ((id, http_code, error_message) => {
             if (section.id == id) {
                 sensitive = true;
             }
         });
 
         /*
-        Application.utils.drag_item_activated.connect ((value) => {
+        Planner.utils.drag_item_activated.connect ((value) => {
             if (value) {
                 Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
                 name_stack.drag_data_received.connect (on_drag_item_received);
@@ -345,29 +345,29 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         
         var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
-            int64 inbox_id = Application.settings.get_int64 ("inbox-project");
-
-            if (section.is_todoist == 0) {
-                if (Application.database.move_section (section, inbox_id)) {
-                    destroy ();
-                }
-            } else {
-                Application.todoist.move_section (section, inbox_id);
-            }
+            Planner.database.move_section (section, Planner.settings.get_int64 ("inbox-project"));
         });
         
         projects_menu.add (item_menu);
 
-        foreach (var project in Application.database.get_all_projects ()) {
-            if (section.is_todoist == project.is_todoist) {
+        foreach (var project in Planner.database.get_all_projects ()) {
+            if (project.inbox_project == 0 && section.project_id != project.id) {
                 item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
                 item_menu.activate.connect (() => {
+                    /*
                     if (section.is_todoist == 0) {
-                        if (Application.database.move_section (section, project.id)) {
+                        if (Planner.database.move_section (section, project.id)) {
                             destroy ();
                         }
                     } else {
-                        Application.todoist.move_section (section, project.id);
+                        Planner.todoist.move_section (section, project.id);
+                    }
+                    */
+
+                    Planner.database.move_section (section, project.id);
+
+                    if (section.is_todoist == 1) {
+                        Planner.todoist.move_section (section, project.id);
                     }
                 });
 
@@ -427,9 +427,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (section.is_todoist == 0) {
-                    Application.database.delete_section (section);
+                    Planner.database.delete_section (section.id);
                 } else {
-                    Application.todoist.delete_section (section);
+                    Planner.todoist.delete_section (section);
                 }
             }
 
@@ -438,7 +438,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public void add_all_items () {            
-        foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
+        foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
         }
@@ -502,7 +502,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     
                 if (source.item.is_todoist == 1) {
                     print ("Item para actualizar: %s\n".printf (source.item.content));
-                    Application.todoist.move_item_to_section (source.item, section.id);
+                    Planner.todoist.move_item_to_section (source.item, section.id);
                 }
             }
                
@@ -547,7 +547,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             if (source.item.is_todoist == 1) {
                 print ("Item para actualizar: %s\n".printf (source.item.content));
-                Application.todoist.move_item_to_section (source.item, section.id);
+                Planner.todoist.move_item_to_section (source.item, section.id);
             }
         }
 
@@ -591,7 +591,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             var item = ((Widgets.ItemRow) row).item;
 
             new Thread<void*> ("update_item_order", () => {
-                Application.database.update_item_order (item, section.id, index);
+                Planner.database.update_item_order (item, section.id, index);
 
                 return null;
             });

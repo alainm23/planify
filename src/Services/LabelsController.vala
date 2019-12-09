@@ -1,7 +1,7 @@
 public class Services.LabelsController : GLib.Object {
     construct {
-        foreach (Objects.Label label in Application.database.get_all_labels ()) {
-            apply_styles (label.id, Application.utils.get_color (label.color));
+        foreach (Objects.Label label in Planner.database.get_all_labels ()) {
+            apply_styles (label.id, Planner.utils.get_color (label.color));
         }
     }
 
@@ -48,7 +48,7 @@ public class Services.LabelsController : GLib.Object {
                 color,
                 color,
                 color,
-                Application.utils.get_contrast (color)
+                Planner.utils.get_contrast (color)
             );
             
             provider.load_from_data (colored_css, colored_css.length);
@@ -60,10 +60,10 @@ public class Services.LabelsController : GLib.Object {
     }
 
     public void add_label (Objects.Label label) {
-        apply_styles (label.id, Application.utils.get_color (label.color));
+        apply_styles (label.id, Planner.utils.get_color (label.color));
     }
 
     public void update_label (Objects.Label label) {
-        apply_styles (label.id, Application.utils.get_color (label.color));
+        apply_styles (label.id, Planner.utils.get_color (label.color));
     }
 }

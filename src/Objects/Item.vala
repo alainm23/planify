@@ -39,9 +39,9 @@ public class Objects.Item : GLib.Object {
 
             new Thread<void*> ("save_timeout", () => {
                 if (this.is_todoist == 0) {
-                    Application.database.update_item (this);
+                    Planner.database.update_item (this);
                 } else {
-                    Application.todoist.update_item (this);
+                    Planner.todoist.update_item (this);
                 }
 
                 return null;
@@ -63,7 +63,7 @@ public class Objects.Item : GLib.Object {
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
             new Thread<void*> ("save_local_timeout", () => {
-                Application.database.update_item (this);
+                Planner.database.update_item (this);
 
                 return null;
             });
@@ -77,7 +77,7 @@ public class Objects.Item : GLib.Object {
     public Objects.Item get_duplicate () {
         var item = new Objects.Item ();
         
-        item.id = Application.utils.generate_id ();
+        item.id = Planner.utils.generate_id ();
         item.project_id = project_id;
         item.section_id = section_id;
         item.user_id = user_id;
@@ -100,15 +100,15 @@ public class Objects.Item : GLib.Object {
 
     public void convert_to_project () {
         var project = new Objects.Project ();
-        project.id = Application.utils.generate_id ();
+        project.id = Planner.utils.generate_id ();
         project.name = content;
 
-        if (Application.database.insert_project (project)) {
-            foreach (var check in Application.database.get_all_cheks_by_item (this)) {
-                Application.database.move_item (check, project.id);
+        if (Planner.database.insert_project (project)) {
+            foreach (var check in Planner.database.get_all_cheks_by_item (this)) {
+                Planner.database.move_item (check, project.id);
             }
 
-            //Application.database.delete_item (this);
+            //Planner.database.delete_item (this);
         }
     }
 }

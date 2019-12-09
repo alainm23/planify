@@ -7,7 +7,7 @@ public class Services.Notifications : GLib.Object {
     construct {
         init_server ();
 
-        Application.database.show_toast_delete.connect ((count) => {
+        Planner.database.show_toast_delete.connect ((count) => {
             string t = _("task");
             if (count > 1) {
                 t = _("tasks");
@@ -19,13 +19,13 @@ public class Services.Notifications : GLib.Object {
             );
         });
 
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 send_notification (
                     0, 
                     MOVE_TEMPLATE.printf (
                         item.content, 
-                        Application.database.get_project_by_id (item.project_id).name
+                        Planner.database.get_project_by_id (item.project_id).name
                     )
                 );
 
@@ -33,13 +33,13 @@ public class Services.Notifications : GLib.Object {
             });
         });
 
-        Application.database.section_moved.connect ((section) => {
+        Planner.database.section_moved.connect ((section) => {
             Idle.add (() => {
                 send_notification (
                     0, 
                     MOVE_TEMPLATE.printf (
                         section.name, 
-                        Application.database.get_project_by_id (section.project_id).name
+                        Planner.database.get_project_by_id (section.project_id).name
                     )
                 );
 
@@ -50,7 +50,7 @@ public class Services.Notifications : GLib.Object {
 
     private void init_server () {
         Timeout.add_seconds (1 * 60, () => {
-            foreach (var reminder in Application.database.get_reminders ()) {
+            foreach (var reminder in Planner.database.get_reminders ()) {
                 if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
                     var notification = new Notification (reminder.project_name);
                     notification.set_body (reminder.content);
@@ -62,8 +62,8 @@ public class Services.Notifications : GLib.Object {
                         new Variant.int64 (reminder.item_id)
                     );
 
-                    Application.instance.send_notification ("com.github.alainm23.planner", notification);
-                    Application.database.delete_reminder (reminder.id);
+                    Planner.instance.send_notification ("com.github.alainm23.planner", notification);
+                    Planner.database.delete_reminder (reminder.id);
                 }
             }
 

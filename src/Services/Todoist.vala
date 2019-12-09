@@ -23,7 +23,9 @@ public class Services.Todoist : GLib.Object {
     private Soup.Session session;
     private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v8/sync";
     
-    public signal void first_sync_started ();
+    public signal void sync_started ();
+    public signal void sync_finished ();
+
     public signal void first_sync_finished ();
 
     /*
@@ -98,7 +100,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void get_todoist_token (string url) {
-        first_sync_started ();
+        sync_started ();
         new Thread<void*> ("get_todoist_token", () => {
             try {
                 string code = url.split ("=") [2];
@@ -127,6 +129,8 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void first_sync (string token) {
+        sync_started ();
+
         new Thread<void*> ("first_sync", () => {
             string url = TODOIST_SYNC_URL;
             url = url + "?token=" + token;
@@ -139,9 +143,11 @@ public class Services.Todoist : GLib.Object {
                     var parser = new Json.Parser ();
                     
                     try {
+                        /*
                         print ("----------------------\n");
                         print ("%s\n".printf ((string) mess.response_body.flatten ().data));
                         print ("----------------------\n");
+                        */
 
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
@@ -150,21 +156,24 @@ public class Services.Todoist : GLib.Object {
                         // Create user
                         var user_object = node.get_object_member ("user");
             
-                        Application.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
-                        Application.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
-                        Application.settings.set_string ("todoist-access-token", token);
+                        Planner.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
+                        Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
+                        Planner.settings.set_string ("todoist-access-token", token);
 
-                        Application.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                        Application.settings.set_boolean ("inbox-project-sync", true);
-                        Application.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+                        Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+                        Planner.settings.set_boolean ("inbox-project-sync", true);
+                        Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
-                        Application.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
-                        Application.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-                        Application.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
+                        Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
+                        Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+                        Planner.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
 
-                        Application.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
-                        Application.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-                        Application.settings.set_boolean ("todoist-account", true);
+                        Planner.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
+                        Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+                        Planner.settings.set_boolean ("todoist-account", true);
+
+                        // Cretae Default Labels
+                        Planner.utils.create_default_labels ();
 
                         // Create projects
                         unowned Json.Array projects = node.get_array_member ("projects");
@@ -201,7 +210,7 @@ public class Services.Todoist : GLib.Object {
                             project.is_todoist = 1;
                             project.is_sync = 1;
 
-                            Application.database.insert_project (project);
+                            Planner.database.insert_project (project);
                         }
 
                         // Create Sections 
@@ -221,7 +230,7 @@ public class Services.Todoist : GLib.Object {
                             s.is_archived = (int32) object.get_int_member ("is_archived");
                             s.collapsed = 1;
                             
-                            Application.database.insert_section (s);
+                            Planner.database.insert_section (s);
                         }
 
                         // Create items
@@ -255,7 +264,7 @@ public class Services.Todoist : GLib.Object {
                             
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
-                                var datetime = Application.utils.get_todoist_datetime (due_object.get_string_member ("date"));
+                                var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
                                 i.due_date = datetime.to_string ();
 
                                 i.due_timezone = due_object.get_string_member ("timezone");
@@ -266,11 +275,11 @@ public class Services.Todoist : GLib.Object {
                                 }
                             }
 
-                            Application.database.insert_item (i);
+                            Planner.database.insert_item (i);
                         }
                         
                         // Download Profile Image
-                        Application.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
+                        Planner.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
 
                         first_sync_finished ();
                     } catch (Error e) {
@@ -286,17 +295,148 @@ public class Services.Todoist : GLib.Object {
     }
 
     /*
-        Collaborators
+    *   Sync
+    */
+
+    public void sync () {
+        sync_started ();
+
+        new Thread<void*> ("todoist_share_project", () => {
+            string url = TODOIST_SYNC_URL;
+            url = url + "?token=" + Planner.settings.get_string ("todoist-access-token");
+            url = url + "&sync_token=" + Planner.settings.get_string ("todoist-sync-token");
+            url = url + "&resource_types=" + "[\"all\"]";
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    var parser = new Json.Parser ();
+                    
+                    try {
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+
+                        var node = parser.get_root ().get_object ();
+                        var full_sync = node.get_boolean_member ("full_sync");
+                        var sync_token = node.get_string_member ("sync_token");
+
+                        // Update sync token
+                        Planner.settings.set_boolean ("todoist-full-sync", full_sync);
+                        Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+                        // Projects
+                        unowned Json.Array projects_array = node.get_array_member ("projects");
+                        foreach (unowned Json.Node item in projects_array.get_elements ()) {
+                            var object = item.get_object ();
+
+                            if (Planner.database.project_exists (object.get_int_member ("id"))) {
+                                if (object.get_int_member ("is_deleted") == 1) {
+                                    Planner.database.delete_project (object.get_int_member ("id"));
+                                } else {
+                                    var project = Planner.database.get_project_by_id (object.get_int_member ("id"));
+
+                                    project.name = object.get_string_member ("name");
+                                    project.color = (int32) object.get_int_member ("color");
+                                    project.is_favorite = (int32) object.get_int_member ("is_favorite");
+                                    
+                                    if (object.get_null_member ("shared") == false && object.get_boolean_member ("shared")) {
+                                        project.shared = 1;
+                                    } else {
+                                        project.shared = 0;
+                                    }
+                                    
+                                    Planner.database.update_project (project);
+                                }
+                            } else {
+                                var project = new Objects.Project ();
+
+                                project.id = object.get_int_member ("id"); 
+                                project.name = object.get_string_member ("name");
+                                project.color = (int32) object.get_int_member ("color");
+
+                                if (object.get_boolean_member ("team_inbox")) {
+                                    project.team_inbox = 1;
+                                } else {
+                                    project.team_inbox = 0;
+                                }
+
+                                if (object.get_boolean_member ("inbox_project")) {
+                                    project.inbox_project = 1;
+                                } else {
+                                    project.inbox_project = 0;
+                                }
+
+                                if (object.get_null_member ("shared") == false && object.get_boolean_member ("shared")) {
+                                    project.shared = 1;
+                                } else {
+                                    project.shared = 0;
+                                }
+
+                                project.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                project.is_archived = (int32) object.get_int_member ("is_archived");
+                                project.is_favorite = (int32) object.get_int_member ("is_favorite");
+                                project.is_todoist = 1;
+                                project.is_sync = 1;
+
+                                Planner.database.insert_project (project);
+                            }
+                        }
+
+                        // Sections
+                        unowned Json.Array sections_array = node.get_array_member ("sections");
+                        foreach (unowned Json.Node item in sections_array.get_elements ()) {
+                            var object = item.get_object ();
+                            /*
+                            if (Planner.database.section_exists (object.get_int_member ("id"))) {
+                                if (object.get_boolean_member ("is_deleted") == true) {
+                                    //Planner.database.delete_section (object.get_int_member ("id"));
+                                }
+                            } else {
+
+                            }
+                            */
+                        }
+
+                        sync_finished ();
+                    } catch (Error e) {
+                        sync_finished ();
+
+                        string msg = """
+                            Request todoist fail
+                            status code: %i
+                        """;
+                        print (msg.printf (e.message));
+                    }
+                } else {
+                    sync_finished ();
+
+                    string msg = """
+                        Request todoist fail
+                        status code: %i
+                    """;
+                    
+                    print (msg.printf (mess.status_code));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    /*
+    *   Collaborators
     */
 
     public void share_project (int64 project_id, string email) {
         new Thread<void*> ("todoist_share_project", () => {
-            string temp_id = Application.utils.generate_string ();
-            string uuid = Application.utils.generate_string ();
+            string temp_id = Planner.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_share_project_json (project_id, email, temp_id, uuid)
             );
 
@@ -319,7 +459,7 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
 
                         } else {
@@ -374,15 +514,19 @@ public class Services.Todoist : GLib.Object {
         return generator.to_data (null);
     }
 
+    /* 
+    *   Projects
+    */
+
     public void add_project (Objects.Project project) {
         project_added_started ();
         new Thread<void*> ("todoist_add_project", () => {
-            string temp_id = Application.utils.generate_string ();
-            string uuid = Application.utils.generate_string ();
+            string temp_id = Planner.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_add_project_json (project, temp_id, uuid)
             );
 
@@ -401,11 +545,11 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
                             project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Application.database.insert_project (project)) {
+                            if (Planner.database.insert_project (project)) {
                                 print ("Proyecto creado: %s\n".printf (project.name));
                                 project_added_completed ();
                             }
@@ -465,11 +609,11 @@ public class Services.Todoist : GLib.Object {
         project_updated_started (project.id);
 
         new Thread<void*> ("todoist_update_project", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_update_project_json (project, uuid)
             );
 
@@ -490,9 +634,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.update_project (project)) { 
+                            if (Planner.database.update_project (project)) { 
                                 print ("Actualizado: %s\n".printf (project.name));
                                 project_updated_completed (project.id);
                             }
@@ -560,11 +704,11 @@ public class Services.Todoist : GLib.Object {
         project_deleted_started (project.id);
 
         new Thread<void*> ("todoist_delete_project", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_delete_json (project.id, "project_delete", uuid)
             );
 
@@ -583,9 +727,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.delete_project (project)) {
+                            if (Planner.database.delete_project (project.id)) {
                                 print ("Eliminado: %s\n".printf (project.name));
                                 project_deleted_completed (project.id);
                             }
@@ -614,12 +758,12 @@ public class Services.Todoist : GLib.Object {
     public void add_section (Objects.Section section, int64 temp_id_mapping) {
         section_added_started (temp_id_mapping);
         new Thread<void*> ("todoist_add_section", () => {
-            string temp_id = Application.utils.generate_string ();
-            string uuid = Application.utils.generate_string ();
+            string temp_id = Planner.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_add_section_json (section, temp_id, uuid)
             );
 
@@ -640,11 +784,11 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
                             section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Application.database.insert_section (section)) {
+                            if (Planner.database.insert_section (section)) {
                                 print ("Section creado: %s\n".printf (section.name));
                                 section_added_completed (temp_id_mapping);
                             }
@@ -704,11 +848,11 @@ public class Services.Todoist : GLib.Object {
         section_updated_started (section.id);
 
         new Thread<void*> ("todoist_update_project", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_update_section_json (section, uuid)
             );
 
@@ -729,9 +873,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.update_section (section)) { 
+                            if (Planner.database.update_section (section)) { 
                                 print ("Section Actualizado: %s\n".printf (section.name));
                                 section_updated_completed (section.id);
                             }
@@ -791,11 +935,11 @@ public class Services.Todoist : GLib.Object {
         section_deleted_started (section.id);
 
         new Thread<void*> ("todoist_delete_section", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_delete_json (section.id, "section_delete", uuid)
             );
 
@@ -814,9 +958,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.delete_section (section)) {
+                            if (Planner.database.delete_section (section.id)) {
                                 print ("Eliminado: %s\n".printf (section.name));
                                 section_deleted_completed (section.id);
                             }
@@ -872,11 +1016,11 @@ public class Services.Todoist : GLib.Object {
         section_moved_started (section.id);
 
         new Thread<void*> ("todoist_move_section", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_move_json (section.id, "section_move", id, uuid)
             );
 
@@ -895,9 +1039,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.move_section (section, id)) {
+                            if (Planner.database.move_section (section, id)) {
                                 print ("Movido: %s\n".printf (section.name));
                                 section_moved_completed (section.id);
                             }
@@ -959,12 +1103,12 @@ public class Services.Todoist : GLib.Object {
     public void add_item (Objects.Item item, int index, bool has_index, int64 id) {
         item_added_started (id);
         new Thread<void*> ("todoist_add_project", () => {
-            string temp_id = Application.utils.generate_string ();
-            string uuid = Application.utils.generate_string ();
+            string temp_id = Planner.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_add_item_json (item, temp_id, uuid)
             );
 
@@ -983,11 +1127,11 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
                             item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Application.database.insert_item (item, index, has_index)) {
+                            if (Planner.database.insert_item (item, index, has_index)) {
                                 print ("Item creado: %s\n".printf (item.content));
                                 item_added_completed (id);
                             }
@@ -1055,11 +1199,11 @@ public class Services.Todoist : GLib.Object {
 
     public void update_item (Objects.Item item) {
         new Thread<void*> ("todoist_update_item", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_update_item_json (item, uuid)
             );
 
@@ -1080,9 +1224,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.update_item (item)) { 
+                            if (Planner.database.update_item (item)) { 
                                 print ("Actualizado: %s\n".printf (item.content));
                             }
                         } else {
@@ -1106,11 +1250,11 @@ public class Services.Todoist : GLib.Object {
         item_moved_started (item.id);
 
         new Thread<void*> ("todoist_move_item", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_move_json (item.id, "item_move", project_id, uuid)
             );
 
@@ -1129,9 +1273,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.move_item (item, project_id)) {
+                            if (Planner.database.move_item (item, project_id)) {
                                 //print ("Movido: %s\n".printf (item.content));
                                 item_moved_completed (item.id);
                             }
@@ -1204,11 +1348,11 @@ public class Services.Todoist : GLib.Object {
         //item_moved_started (item.id);
 
         new Thread<void*> ("todoist_move_item_to_section", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_move_section_json (item, section_id, uuid)
             );
 
@@ -1226,13 +1370,13 @@ public class Services.Todoist : GLib.Object {
                         var uuid_member = sync_status.get_member (uuid);
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            Application.settings.set_string (
+                            Planner.settings.set_string (
                                 "todoist-sync-token", 
                                 node.get_string_member ("sync_token")
                             );
 
                             print ("Movido: %s\n".printf (item.content));
-                            //if (Application.database.move_item (item, project_id)) {
+                            //if (Planner.database.move_item (item, project_id)) {
                                 //
                             //    item_moved_completed (item.id);
                             //}
@@ -1313,7 +1457,7 @@ public class Services.Todoist : GLib.Object {
         new Thread<void*> ("todoist_complete_item", () => {
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_complete_items_json ()
             );
 
@@ -1332,11 +1476,11 @@ public class Services.Todoist : GLib.Object {
                         var sync_status = node.get_object_member ("sync_status");
 
                         string sync_token = node.get_string_member ("sync_token");
-                        Application.settings.set_string ("todoist-sync-token", sync_token);
+                        Planner.settings.set_string ("todoist-sync-token", sync_token);
                         
 
                         foreach (var i in items_to_complete) {
-                            if (Application.database.update_item_completed (i)) { 
+                            if (Planner.database.update_item_completed (i)) { 
                                 print ("Actualizado: %s\n".printf (i.content));
                                 item_completed_completed (i);
                             }
@@ -1365,7 +1509,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_string_value ("item_complete");
 
             builder.set_member_name ("uuid");
-            builder.add_string_value (Application.utils.generate_string ());
+            builder.add_string_value (Planner.utils.generate_string ());
 
             builder.set_member_name ("args");
                 builder.begin_object ();
@@ -1407,7 +1551,7 @@ public class Services.Todoist : GLib.Object {
         new Thread<void*> ("todoist_delete_items", () => {
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_delete_items_json ()
             );
 
@@ -1426,10 +1570,10 @@ public class Services.Todoist : GLib.Object {
                         var sync_status = node.get_object_member ("sync_status");
 
                         string sync_token = node.get_string_member ("sync_token");
-                        Application.settings.set_string ("todoist-sync-token", sync_token);
+                        Planner.settings.set_string ("todoist-sync-token", sync_token);
                          
                         foreach (var i in items_to_delete) {
-                            if (Application.database.delete_item (i)) { 
+                            if (Planner.database.delete_item (i)) { 
                                 print ("Eliminado: %s\n".printf (i.content));
                             }
                         }
@@ -1457,7 +1601,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_string_value ("item_delete");
 
             builder.set_member_name ("uuid");
-            builder.add_string_value (Application.utils.generate_string ());
+            builder.add_string_value (Planner.utils.generate_string ());
 
             builder.set_member_name ("args");
                 builder.begin_object ();
@@ -1482,11 +1626,11 @@ public class Services.Todoist : GLib.Object {
         item_uncompleted_started (item);
 
         new Thread<void*> ("todoist_item_uncomplete", () => {
-            string uuid = Application.utils.generate_string ();
+            string uuid = Planner.utils.generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL, 
-                Application.settings.get_string ("todoist-access-token"),
+                Planner.settings.get_string ("todoist-access-token"),
                 get_uncomplete_item_json (item, uuid)
             );
 
@@ -1507,9 +1651,9 @@ public class Services.Todoist : GLib.Object {
 
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
-                            Application.settings.set_string ("todoist-sync-token", sync_token);
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Application.database.update_item_completed (item)) { 
+                            if (Planner.database.update_item_completed (item)) { 
                                 print ("Actualizado: %s\n".printf (item.content));
                                 item_uncompleted_completed (item);
                             }

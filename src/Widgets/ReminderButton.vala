@@ -15,7 +15,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     }
 
     construct {
-        first_reminder = Application.database.get_first_reminders_by_item (item.id);
+        first_reminder = Planner.database.get_first_reminders_by_item (item.id);
         tooltip_text = _("Reminders");
 
         get_style_context ().add_class ("flat");
@@ -56,9 +56,9 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
             }
         });
 
-        Application.database.reminder_deleted.connect ((id) => {
+        Planner.database.reminder_deleted.connect ((id) => {
             if (first_reminder != null && first_reminder.id == id) {
-                first_reminder = Application.database.get_first_reminders_by_item (item.id);
+                first_reminder = Planner.database.get_first_reminders_by_item (item.id);
                 check_reminder_label (first_reminder);
             }
         });
@@ -67,8 +67,8 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     public void check_reminder_label (Objects.Reminder? first_reminder) {
         if (first_reminder != null) {
             reminder_label.label = "%s %s".printf (
-                Application.utils.get_relative_date_from_string (first_reminder.due_date),
-                Application.utils.get_relative_time_from_string (first_reminder.due_date)
+                Planner.utils.get_relative_date_from_string (first_reminder.due_date),
+                Planner.utils.get_relative_time_from_string (first_reminder.due_date)
             );
             label_revealer.reveal_child = true;
             opacity = 1;
@@ -153,12 +153,12 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
             stack.visible_child_name = "new";
         });
 
-        Application.database.reminder_added.connect ((reminder) => {
+        Planner.database.reminder_added.connect ((reminder) => {
             var row = new Widgets.ReminderRow (reminder);
             listbox.add (row);
             listbox.show_all ();
 
-            first_reminder = Application.database.get_first_reminders_by_item (item.id);
+            first_reminder = Planner.database.get_first_reminders_by_item (item.id);
             check_reminder_label (first_reminder);
         });
 
@@ -231,7 +231,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
             reminder.due_date = date.to_string ();
             reminder.item_id = item.id;
 
-            if (Application.database.insert_reminder (reminder)) {
+            if (Planner.database.insert_reminder (reminder)) {
                 stack.visible_child_name = "list";
             }
         });
@@ -240,7 +240,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     }
 
     private void add_reminders (Gtk.ListBox listbox) {
-        foreach (var item in Application.database.get_reminders_by_item (item.id)) {
+        foreach (var item in Planner.database.get_reminders_by_item (item.id)) {
             var row = new Widgets.ReminderRow (item);
 
             listbox.add (row);

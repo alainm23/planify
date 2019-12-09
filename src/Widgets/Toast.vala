@@ -26,7 +26,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
         add (notification_frame);
 
-        Application.notifications.send_notification.connect ((type, message) => {
+        Planner.notifications.send_notification.connect ((type, message) => {
             if (type == 0) {
                 send_simple_notification (message);
             } else if (type == 1) {
@@ -74,7 +74,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
         close_button.clicked.connect (() => {
             reveal_child = false;
-            Application.database.remove_item_to_delete ();
+            Planner.database.remove_item_to_delete ();
         });
 
         undo_button.clicked.connect (() => {
@@ -85,7 +85,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
             reveal_child = false;
             
-            Application.database.clear_item_to_delete ();
+            Planner.database.clear_item_to_delete ();
         });
 
         return notification_box;
@@ -126,7 +126,7 @@ public class Widgets.Toast : Gtk.Revealer {
             reveal_child = false;
             delete_message_label.label = "";
 
-            Application.database.remove_item_to_delete ();
+            Planner.database.remove_item_to_delete ();
 
             Source.remove (timeout_id);
             timeout_id = 0;

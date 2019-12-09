@@ -5,7 +5,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     public Preferences (string view="home") {
         Object (
             view: view,
-            transient_for: Application.instance.main_window,
+            transient_for: Planner.instance.main_window,
             deletable: false, 
             resizable: true,
             destroy_with_parent: true,
@@ -144,8 +144,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
     private Gtk.Widget get_homepage_widget () {
         var top_box = new PreferenceTopBox ("go-home", _("Homepage"));
         
-        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your Inbox view, but you can change it to whatever you'd like:"));
+        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like."));
         description_label.justify = Gtk.Justification.FILL;
+        description_label.use_markup = true;
         description_label.wrap = true;
         description_label.xalign = 0;
         description_label.margin_bottom = 6;
@@ -163,8 +164,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var upcoming_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, _("Upcoming"));
         upcoming_radio.get_style_context ().add_class ("preference-item-radio");
 
-        if (!Application.settings.get_boolean ("homepage-project")) {
-            int type = Application.settings.get_int ("homepage-item");
+        if (!Planner.settings.get_boolean ("homepage-project")) {
+            int type = Planner.settings.get_int ("homepage-item");
             if (type == 0) {
                 inbox_radio.active = true;
             } else if (type == 1) {
@@ -188,19 +189,19 @@ public class Dialogs.Preferences : Gtk.Dialog {
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         box.pack_start (project_header, false, true, 0);
 
-        foreach (var project in Application.database.get_all_projects ()) {
+        foreach (var project in Planner.database.get_all_projects ()) {
             if (project.inbox_project == 0) {
                 var project_radio = new Gtk.RadioButton.with_label_from_widget (inbox_radio, project.name);
                 project_radio.get_style_context ().add_class ("preference-item-radio");
                 box.pack_start (project_radio, false, false, 0);
 
                 project_radio.toggled.connect (() => {
-                    Application.settings.set_boolean ("homepage-project", true);
-                    Application.settings.set_int64 ("homepage-project-id", project.id);
+                    Planner.settings.set_boolean ("homepage-project", true);
+                    Planner.settings.set_int64 ("homepage-project-id", project.id);
                 });
 
-                if (Application.settings.get_boolean ("homepage-project")) {
-                    if (Application.settings.get_int64 ("homepage-project-id") == project.id) {
+                if (Planner.settings.get_boolean ("homepage-project")) {
+                    if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
                         project_radio.active = true;
                     }
                 }
@@ -226,18 +227,18 @@ public class Dialogs.Preferences : Gtk.Dialog {
         });
 
         inbox_radio.toggled.connect (() => {
-            Application.settings.set_boolean ("homepage-project", false);
-            Application.settings.set_int ("homepage-item", 0);
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_int ("homepage-item", 0);
         });
 
         today_radio.toggled.connect (() => {
-            Application.settings.set_boolean ("homepage-project", false);
-            Application.settings.set_int ("homepage-item", 1);
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_int ("homepage-item", 1);
         });
 
         upcoming_radio.toggled.connect (() => {
-            Application.settings.set_boolean ("homepage-project", false);
-            Application.settings.set_int ("homepage-item", 2);
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_int ("homepage-item", 2);
         });
 
         return main_box;
@@ -268,7 +269,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var today_inbox_radio = new Gtk.RadioButton.with_label_from_widget (none_radio, _("Today + Inbox"));
         today_inbox_radio.get_style_context ().add_class ("preference-item-radio");
 
-        int type = Application.settings.get_enum ("badge-count");
+        int type = Planner.settings.get_enum ("badge-count");
         if (type == 0) {
             none_radio.active = true;
         } else if (type == 1) {
@@ -296,19 +297,19 @@ public class Dialogs.Preferences : Gtk.Dialog {
         });
 
         none_radio.toggled.connect (() => {
-            Application.settings.set_enum ("badge-count", 0);
+            Planner.settings.set_enum ("badge-count", 0);
         });
 
         inbox_radio.toggled.connect (() => {
-            Application.settings.set_enum ("badge-count", 1);
+            Planner.settings.set_enum ("badge-count", 1);
         });
 
         today_radio.toggled.connect (() => {
-            Application.settings.set_enum ("badge-count", 2);
+            Planner.settings.set_enum ("badge-count", 2);
         });
 
         today_inbox_radio.toggled.connect (() => {
-            Application.settings.set_enum ("badge-count", 3);
+            Planner.settings.set_enum ("badge-count", 3);
         });
 
         return main_box;
@@ -342,7 +343,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (night_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
-        if (Application.settings.get_boolean ("prefer-dark-style")) {
+        if (Planner.settings.get_boolean ("prefer-dark-style")) {
             night_radio.active = true;
         }
 
@@ -351,11 +352,11 @@ public class Dialogs.Preferences : Gtk.Dialog {
         });
 
         light_radio.toggled.connect (() => {
-            Application.settings.set_boolean ("prefer-dark-style", false);
+            Planner.settings.set_boolean ("prefer-dark-style", false);
         });
 
         night_radio.toggled.connect (() => {
-            Application.settings.set_boolean ("prefer-dark-style", true);
+            Planner.settings.set_boolean ("prefer-dark-style", true);
         });
 
         return main_box;
@@ -368,8 +369,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var de_header = new Granite.HeaderLabel (_("DE Integration"));
         de_header.margin_start = 12;
 
-        var run_background_switch = new PreferenceItemSwitch ("Run in background", Application.settings.get_boolean ("run-in-background"), false);
-        var run_startup_switch = new PreferenceItemSwitch ("Run on startup", Application.settings.get_boolean ("run-on-startup"));
+        var run_background_switch = new PreferenceItemSwitch ("Run in background", Planner.settings.get_boolean ("run-in-background"), false);
+        var run_startup_switch = new PreferenceItemSwitch ("Run on startup", Planner.settings.get_boolean ("run-on-startup"));
 
         var datetime_header = new Granite.HeaderLabel (_("Date & Time"));
         datetime_header.margin_start = 12;
@@ -379,7 +380,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         items.append (_("AM/PM"));
         items.append (_("24 h"));
 
-        var time_select = new PreferenceItemSelect (_("Time format"), Application.settings.get_enum ("time-format"), items);
+        var time_select = new PreferenceItemSelect (_("Time format"), Planner.settings.get_enum ("time-format"), items);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -392,16 +393,16 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (time_select, false, false, 0);
 
         run_startup_switch.activated.connect ((val) => {
-            Application.settings.set_boolean ("run-on-startup", val);
-            Application.utils.set_autostart (val);
+            Planner.settings.set_boolean ("run-on-startup", val);
+            Planner.utils.set_autostart (val);
         });
 
         run_background_switch.activated.connect ((val) => {
-            Application.settings.set_boolean ("run-in-background", val);
+            Planner.settings.set_boolean ("run-in-background", val);
         });
 
         time_select.activated.connect ((val) => {
-            Application.settings.set_enum ("time-format", val);
+            Planner.settings.set_enum ("time-format", val);
         });
 
         top_box.back_activated.connect (() => {
@@ -415,7 +416,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("tag", _("Labels"));
         top_box.action_button = "list-add-symbolic";
 
-        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your Inbox view, but you can change it to whatever you'd like:"));
+        var description_label = new Gtk.Label (_("Save time by batching similar tasks together using labels. You’ll be able to pull up a list of all tasks with any given label in a matter of seconds."));
         description_label.margin = 6;
         description_label.margin_bottom = 12;
         description_label.margin_start = 12;
@@ -454,7 +455,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         add_all_labels (listbox);
 
-        Application.database.label_added.connect ((label) => {
+        Planner.database.label_added.connect ((label) => {
             var row = new Widgets.LabelRow (label);
             
             listbox.add (row);
@@ -469,7 +470,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         top_box.action_activated.connect (() => {
             var label = new Objects.Label ();
-            Application.database.insert_label (label);
+            Planner.database.insert_label (label);
         });
         
         return main_box;
@@ -479,8 +480,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));
         //top_box.action_button = "list-add-symbolic";
 
-        var description_label = new Gtk.Label (_("Events from your personal and shared calendars can be displayed."));
+        var description_label = new Gtk.Label (_("You can connect your <b>Calendar</b> app to Planner to see your events and to-dos together in one place. You’ll see events from both personal and shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when you’re managing your day, and as you plan the week ahead."));
         description_label.margin = 6;
+        description_label.use_markup = true;
         description_label.margin_bottom = 12;
         description_label.margin_start = 12;
         description_label.margin_end = 12;
@@ -488,7 +490,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
-        var enabled_switch = new PreferenceItemSwitch ("Enabled", Application.settings.get_boolean ("calendar-enabled"));
+        var enabled_switch = new PreferenceItemSwitch ("Enabled", Planner.settings.get_boolean ("calendar-enabled"));
 
         var listbox = new Gtk.ListBox ();
         listbox.margin_top = 12;
@@ -512,7 +514,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var revealer = new Gtk.Revealer ();
         revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         revealer.add (listbox_box);
-        revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+        revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.hexpand = true;
@@ -533,19 +535,19 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (box_scrolled, false, true, 0);
 
-        Application.calendar_model.get_all_sources.begin (listbox);
+        Planner.calendar_model.get_all_sources.begin (listbox);
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
         });
 
         enabled_switch.activated.connect ((val) => {
-            Application.settings.set_boolean ("calendar-enabled", val);
+            Planner.settings.set_boolean ("calendar-enabled", val);
         });
 
-        Application.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "calendar-enabled") {
-                revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+                revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
 
@@ -553,7 +555,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
     
     private void add_all_labels (Gtk.ListBox listbox)  {           
-        foreach (Objects.Label label in Application.database.get_all_labels ()) {
+        foreach (Objects.Label label in Planner.database.get_all_labels ()) {
             var row = new Widgets.LabelRow (label);
             listbox.add (row);
         }
@@ -676,6 +678,8 @@ public class PreferenceTopBox : Gtk.Box {
 
     public PreferenceTopBox (string icon, string title) {
         var back_button = new Gtk.Button.from_icon_name ("arrow-back-symbolic", Gtk.IconSize.MENU);
+        back_button.always_show_image = true;
+        back_button.label = _("Back");
         back_button.margin = 3;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class ("flat");

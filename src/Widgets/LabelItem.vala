@@ -58,7 +58,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
         add (box);
 
-        Application.database.label_updated.connect ((l) => {
+        Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {
                 if (label.id == l.id) {
                     name_label.label = l.name;
@@ -84,18 +84,18 @@ public class Widgets.LabelItem : Gtk.EventBox {
         });
 
         delete_button.clicked.connect (() => {
-            if (Application.database.delete_item_label (id, item_id, label)) {
+            if (Planner.database.delete_item_label (id, item_id, label)) {
 
             }   
         });
 
-        Application.database.item_label_deleted.connect ((i, item_id, label) => {
+        Planner.database.item_label_deleted.connect ((i, item_id, label) => {
             if (id == i) {
                 destroy ();
             }
         });
 
-        Application.database.label_deleted.connect ((l) => {
+        Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
                 destroy ();
             }

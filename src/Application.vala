@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Application : Gtk.Application {
+public class Planner : Gtk.Application {
     public MainWindow? main_window = null;
 
     public static Utils utils;
@@ -33,7 +33,7 @@ public class Application : Gtk.Application {
 
     private bool silence = false;
 
-    public Application () {
+    public Planner () {
         Object (
             application_id: "com.github.alainm23.planner",
             flags: ApplicationFlags.HANDLES_COMMAND_LINE
@@ -52,38 +52,36 @@ public class Application : Gtk.Application {
         calendar_model = new Services.Calendar.CalendarModel ();
     }
 
-    public static Application _instance = null;
-    public static Application instance {
+    public static Planner _instance = null;
+    public static Planner instance {
         get {
             if (_instance == null) {
-                _instance = new Application ();
+                _instance = new Planner ();
             }
             return _instance;
         }
     }
 
     protected override void activate () {
-        if (main_window != null) {
-            main_window.present ();
+        if (get_windows ().length () > 0) {
+            get_windows ().data.present ();
             return;
         }
 
-        var window_size = settings.get_value ("window-size");
-        var rect = Gtk.Allocation ();
-        rect.height = (int32) window_size.get_child_value (0);
-        rect.width =  (int32) window_size.get_child_value (1);
-
-        var window_position = settings.get_value ("window-position");
-        var window_x = (int32) window_position.get_child_value (0);
-        var window_y = (int32) window_position.get_child_value (1);
-
         main_window = new MainWindow (this);
-        if (window_x != -1 ||  window_y != -1) {
+
+        int window_x, window_y;
+        var rect = Gtk.Allocation ();
+
+        settings.get ("window-position", "(ii)", out window_x, out window_y);
+        settings.get ("window-size", "(ii)", out rect.width, out rect.height);
+
+        if (window_x != -1 || window_y != -1) {
             main_window.move (window_x, window_y);
         }
 
         main_window.set_allocation (rect);
-
+        
         if (silence == false) {
             main_window.show_all ();
             main_window.present ();
@@ -160,7 +158,7 @@ public class Application : Gtk.Application {
     }
     
     public static int main (string[] args) {
-        Application app = Application.instance;
+        Planner app = Planner.instance;
 
         if (args.length > 1 && args[1] == "--s") {
             app.silence = true;

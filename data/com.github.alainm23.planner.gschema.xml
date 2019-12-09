@@ -25,20 +25,20 @@
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
         
-        <key name="window-size" type="ai">
-            <default>[821, 1237]</default>
-            <summary>Most recent window size (height, width)</summary>
-            <description>Most recent window size (height, width)</description>
-        </key>
-
-        <key name="window-position" type="ai">
-            <default>[-1, -1]</default>
-            <summary>Most recent window position (x, y)</summary>
-            <description>Most recent window position (x, y)</description>
-        </key>
+        <key name="window-position" type="(ii)">
+			<default>(-1, -1)</default>
+			<summary>Window position</summary>
+			<description>Most recent window position (x, y)</description>
+		</key>
+		
+		<key name="window-size" type="(ii)">
+			<default>(1160, 795)</default>
+			<summary>Most recent window size</summary>
+			<description>Most recent window size (width, height)</description>
+		</key>
 
         <key name="pane-position" type="i">
-            <default>275</default>
+            <default>255</default>
             <summary>Most recent pane position</summary>
             <description>Most recent pane position</description>
         </key>

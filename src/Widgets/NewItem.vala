@@ -147,14 +147,14 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             }
         });
 
-        Application.todoist.item_added_started.connect ((id) => {
+        Planner.todoist.item_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
                 loading_revealer.reveal_child = true;
                 sensitive = false;
             }
         });
 
-        Application.todoist.item_added_completed.connect ((id) => {
+        Planner.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
                 if (shift_activated) {
                     bool last = true;
@@ -162,7 +162,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                         last = false;
                     }
 
-                    Application.utils.magic_button_activated (
+                    Planner.utils.magic_button_activated (
                         project_id,
                         section_id,
                         is_todoist,
@@ -181,7 +181,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             }
         });
 
-        Application.todoist.item_added_error.connect ((id) => {
+        Planner.todoist.item_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
 
             }
@@ -201,17 +201,17 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.is_todoist = is_todoist;
             item.due_date = due;
 
-            temp_id_mapping = Application.utils.generate_id ();
+            temp_id_mapping = Planner.utils.generate_id ();
             shift_activated = shift_pressed;
 
             print ("Se creo la tarea con %s\n".printf (shift_activated.to_string ()));
 
             if (is_todoist == 1) {
-                Application.todoist.add_item (item, index, has_index, temp_id_mapping);
+                Planner.todoist.add_item (item, index, has_index, temp_id_mapping);
             } else {
-                item.id = Application.utils.generate_id ();
+                item.id = Planner.utils.generate_id ();
 
-                if (Application.database.insert_item (item, index, has_index)) {
+                if (Planner.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
 
                     if (shift_activated) {
@@ -220,7 +220,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                             last = false;
                         }
 
-                        Application.utils.magic_button_activated (
+                        Planner.utils.magic_button_activated (
                             project_id,
                             section_id,
                             is_todoist,

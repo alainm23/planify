@@ -5,7 +5,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
     
     public TodoistOAuth () {
         Object (
-            transient_for: Application.instance.main_window,
+            transient_for: Planner.instance.main_window,
             deletable: true, 
             resizable: true,
             destroy_with_parent: true,
@@ -84,7 +84,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
                 stack.visible_child_name = "spinner_loading";
                 webview.stop_loading ();
 
-                Application.todoist.get_todoist_token (redirect_uri);
+                Planner.todoist.get_todoist_token (redirect_uri);
             }
             
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
@@ -121,7 +121,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             return true;
         });
 
-        Application.todoist.first_sync_finished.connect (() => {
+        Planner.todoist.first_sync_finished.connect (() => {
             destroy ();
         });
     }

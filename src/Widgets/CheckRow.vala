@@ -136,9 +136,9 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
             checked_timeout = Timeout.add (1000, () => {
                 if (item.is_todoist == 1) {
-                    Application.todoist.add_complete_item (item);
+                    Planner.todoist.add_complete_item (item);
                 } else {
-                    Application.database.update_item_completed (item);
+                    Planner.database.update_item_completed (item);
                 }
 
                 return false;
@@ -147,15 +147,15 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         delete_button.clicked.connect (() => {
             if (item.is_todoist == 1) {
-                if (Application.todoist.add_delete_item (item)) {
+                if (Planner.todoist.add_delete_item (item)) {
                     main_revealer.reveal_child = false;
                 }
             } else {
-                Application.database.delete_item (item);
+                Planner.database.delete_item (item);
             }
         });
 
-        Application.database.item_deleted.connect ((i) => {
+        Planner.database.item_deleted.connect ((i) => {
             if (item.id == i.id) {
                 destroy ();
             }

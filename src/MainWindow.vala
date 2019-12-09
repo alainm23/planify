@@ -30,8 +30,11 @@ public class MainWindow : Gtk.Window {
     private Views.Upcoming upcoming_view = null;
 
     private Widgets.QuickFind quick_find;
+    
+    private uint timeout_id = 0;
+    private uint configure_id;
 
-    public MainWindow (Application application) {
+    public MainWindow (Planner application) {
         Object (
             application: application,
             icon_name: "com.github.alainm23.planner",
@@ -103,28 +106,28 @@ public class MainWindow : Gtk.Window {
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
         get_style_context ().add_class ("rounded");
-        Application.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
-        Application.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
+        Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
+        Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
         Timeout.add (125, () => {
-            if (Application.database.is_database_empty ()) {
+            if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
-                if (Application.settings.get_boolean ("homepage-project")) {
-                    int64 project_id = Application.settings.get_int64 ("homepage-project-id");
-                    if (Application.database.is_project_id_valid (project_id)) {
+                if (Planner.settings.get_boolean ("homepage-project")) {
+                    int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
+                    if (Planner.database.project_exists (project_id)) {
                         projects_loaded.set (project_id.to_string (), true);
-                        var project_view = new Views.Project (Application.database.get_project_by_id (project_id));
+                        var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
                         stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                         stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
                     } else {
                         go_view (0);
                     }
                 } else {
-                    go_view (Application.settings.get_int ("homepage-item"));
-                    pane.select_item (Application.settings.get_int ("homepage-item"));
+                    go_view (Planner.settings.get_int ("homepage-item"));
+                    pane.select_item (Planner.settings.get_int ("homepage-item"));
                 }
 
                 pane.sensitive_ui = true;
@@ -137,17 +140,20 @@ public class MainWindow : Gtk.Window {
         welcome_view.activated.connect ((index) => {
             if (index == 0) {
                 // Save user name
-                Application.settings.set_string ("user-name", GLib.Environment.get_real_name ());
+                Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
 
                 // To do: Save user photo
                 // To do: Create a tutorial project
                 
                 // Create Inbox Project
-                var inbox_project = Application.database.create_inbox_project ();
+                var inbox_project = Planner.database.create_inbox_project ();
+
+                // Cretae Default Labels
+                Planner.utils.create_default_labels ();
 
                 // Set settings
-                Application.settings.set_boolean ("inbox-project-sync", false);
-                Application.settings.set_int64 ("inbox-project", inbox_project.id);
+                Planner.settings.set_boolean ("inbox-project-sync", false);
+                Planner.settings.set_int64 ("inbox-project", inbox_project.id);
                 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "inbox-view";
@@ -164,18 +170,18 @@ public class MainWindow : Gtk.Window {
             go_view (id);
         });
 
-        Application.utils.pane_project_selected.connect ((project_id, area_id) => {
+        Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
             if (projects_loaded.has_key (project_id.to_string ())) {
                 stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
             } else {
                 projects_loaded.set (project_id.to_string (), true);
-                var project_view = new Views.Project (Application.database.get_project_by_id (project_id));
+                var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
                 stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                 stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
             }
         });
 
-        Application.todoist.first_sync_finished.connect (() => {
+        Planner.todoist.first_sync_finished.connect (() => {
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             stack.visible_child_name = "inbox-view";
             pane.sensitive_ui = true;
@@ -183,8 +189,8 @@ public class MainWindow : Gtk.Window {
             stack.transition_type = Gtk.StackTransitionType.NONE;
         });
         
-        Application.database.project_deleted.connect ((p) => {
-            if ("project-view-%s".printf (p.id.to_string ()) == stack.visible_child_name) {
+        Planner.database.project_deleted.connect ((id) => {
+            if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
             }
@@ -195,12 +201,12 @@ public class MainWindow : Gtk.Window {
             
             if (visible_child_name == "inbox-view") {
                 int is_todoist = 0;
-                if (Application.settings.get_boolean ("inbox-project-sync")) {
+                if (Planner.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
                 }
 
-                Application.utils.magic_button_activated (
-                    Application.settings.get_int64 ("inbox-project"),
+                Planner.utils.magic_button_activated (
+                    Planner.settings.get_int64 ("inbox-project"),
                     0,
                     is_todoist,
                     true
@@ -211,7 +217,7 @@ public class MainWindow : Gtk.Window {
 
             } else {
                 var project = ((Views.Project) stack.get_child_by_name (visible_child_name)).project;
-                Application.utils.magic_button_activated (
+                Planner.utils.magic_button_activated (
                     project.id,
                     0,
                     project.is_todoist,
@@ -223,7 +229,7 @@ public class MainWindow : Gtk.Window {
         // Label Controller
         var labels_controller = new Services.LabelsController ();
 
-        Application.database.label_added.connect_after ((label) => {
+        Planner.database.label_added.connect_after ((label) => {
             Idle.add (() => {
                 labels_controller.add_label (label);
 
@@ -231,7 +237,7 @@ public class MainWindow : Gtk.Window {
             });
         });
 
-        Application.database.label_updated.connect ((label) => {
+        Planner.database.label_updated.connect ((label) => {
             Idle.add (() => {
                 labels_controller.update_label (label);
 
@@ -239,27 +245,21 @@ public class MainWindow : Gtk.Window {
             });
         });  
 
-        Application.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
-                Application.utils.apply_theme_changed ();
-            }
-        });
-
         delete_event.connect (() => {
-            if (Application.settings.get_boolean ("run-in-background")) {
+            if (Planner.settings.get_boolean ("run-in-background")) {
                 return hide_on_delete ();
             } else {
                 return false;
             }
         });
 
-        Application.instance.go_view.connect ((type, id, id2) => {
+        Planner.instance.go_view.connect ((type, id, id2) => {
             if (type == "project") {
                 if (projects_loaded.has_key (id.to_string ())) {
                     stack.visible_child_name = "project-view-%s".printf (id.to_string ());
                 } else {
                     projects_loaded.set (id.to_string (), true);
-                    var project_view = new Views.Project (Application.database.get_project_by_id (id));
+                    var project_view = new Views.Project (Planner.database.get_project_by_id (id));
                     stack.add_named (project_view, "project-view-%s".printf (id.to_string ()));
                     stack.visible_child_name = "project-view-%s".printf (id.to_string ());
                 }
@@ -268,12 +268,22 @@ public class MainWindow : Gtk.Window {
                     stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
                 } else {
                     projects_loaded.set (id2.to_string (), true);
-                    var project_view = new Views.Project (Application.database.get_project_by_id (id2));
+                    var project_view = new Views.Project (Planner.database.get_project_by_id (id2));
                     stack.add_named (project_view, "project-view-%s".printf (id2.to_string ()));
                     stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
                 }
             }
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "prefer-dark-style") {
+                Planner.utils.apply_theme_changed ();
+            } else if (key == "badge-count") {
+                set_badge_visible ();
+            }
+        });
+
+        init_badge_count ();
     }
 
     public void show_quick_find () {
@@ -305,14 +315,128 @@ public class MainWindow : Gtk.Window {
         }
     }
 
-    public override bool configure_event (Gdk.EventConfigure event) {
-        Gtk.Allocation rect;
-        get_allocation (out rect);
-        Application.settings.set_value ("window-size",  new int[] { rect.height, rect.width });
+    private void init_badge_count () {
+        set_badge_visible ();
+        
+        Planner.database.item_added.connect ((item) => {
+            set_badge_visible ();
+        });
 
-        int root_x, root_y;
-        get_position (out root_x, out root_y);
-        Application.settings.set_value ("window-position",  new int[] { root_x, root_y });
+        Planner.database.item_added_with_index.connect (() => {
+            set_badge_visible ();
+        });
+
+        Planner.database.item_deleted.connect ((item) => {
+            set_badge_visible ();
+        });
+
+        Planner.database.item_completed.connect ((item) => {
+            set_badge_visible ();
+        });
+
+        Planner.database.add_due_item.connect (() => {
+            set_badge_visible ();
+        });
+
+        Planner.database.update_due_item.connect (() => {
+            set_badge_visible ();
+        });
+
+        Planner.database.remove_due_item.connect (() => {
+            set_badge_visible ();
+        });
+
+        Planner.database.item_moved.connect ((item) => {
+            Idle.add (() => {
+                set_badge_visible ();
+
+                return false;
+            });
+        });
+
+        Planner.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                set_badge_visible ();
+
+                return false;
+            });
+        });
+    }
+
+    private void set_badge_visible () {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+            timeout_id = 0;
+        }
+
+        timeout_id = Timeout.add (300, () => {
+            Granite.Services.Application.set_badge_visible.begin (Planner.settings.get_enum ("badge-count") != 0, (obj, res) => {
+                try {
+                    Granite.Services.Application.set_badge_visible.end (res);
+                    update_badge_count ();
+                } catch (GLib.Error e) {
+                    critical (e.message);
+                }
+            });
+
+            return false;
+        });
+    }
+
+    private void update_badge_count () {
+        int badge_count = Planner.settings.get_enum ("badge-count");
+        int count = 0;
+
+        if (badge_count == 1) {
+            count = Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
+        } else if (badge_count == 2) {
+            count = Planner.database.get_today_count ();
+        } else if (badge_count == 3) {
+            count = (Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project")) + Planner.database.get_today_count ()) - Planner.database.get_today_project_count (Planner.settings.get_int64 ("inbox-project"));
+        }
+
+        bool badge_visible = false;
+        if (count > 0) {
+            badge_visible = true;
+        }
+
+        Granite.Services.Application.set_badge.begin (count, (obj, res) => {
+            try {
+                Granite.Services.Application.set_badge.end (res);
+
+                if (badge_visible == false) {
+                    Granite.Services.Application.set_badge_visible.begin (badge_visible, (obj, res) => {
+                        try {
+                            Granite.Services.Application.set_badge_visible.end (res);
+                        } catch (GLib.Error e) {
+                            critical (e.message);
+                        }
+                    });
+                }
+            } catch (GLib.Error e) {
+                critical (e.message);
+            }
+        });
+    }
+
+    public override bool configure_event (Gdk.EventConfigure event) {
+        if (configure_id != 0) {
+            GLib.Source.remove (configure_id);
+        }
+
+        configure_id = Timeout.add (100, () => {
+            configure_id = 0;
+
+            Gdk.Rectangle rect;
+            get_allocation (out rect);
+            Planner.settings.set ("window-size", "(ii)", rect.width, rect.height);
+
+            int root_x, root_y;
+            get_position (out root_x, out root_y);
+            Planner.settings.set ("window-position", "(ii)", root_x, root_y);
+
+            return false;
+        });
 
         return base.configure_event (event);
     }

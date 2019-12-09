@@ -15,7 +15,7 @@ public class Objects.Project : GLib.Object {
     public int is_archived { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
     public int64 is_sync { get; set; default = 0; }
-    public int shared { get; set; default = 0; }  
+    public int shared { get; set; default = 0; } 
 
     private uint timeout_id = 0;
 
@@ -27,7 +27,7 @@ public class Objects.Project : GLib.Object {
 
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
-                Application.database.update_project (this);
+                Planner.database.update_project (this);
                 return null;
             });
             

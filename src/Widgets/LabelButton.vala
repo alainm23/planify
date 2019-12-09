@@ -40,7 +40,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 if (popover == null) {
                     create_popover ();
 
-                    Application.database.label_added.connect ((label) => {
+                    Planner.database.label_added.connect ((label) => {
                         if (popover != null) {
                             var row = new Widgets.LabelPopoverRow (label);
                             listbox.add (row);
@@ -52,7 +52,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                     listbox.remove (element);
                 }
 
-                foreach (Objects.Label l in Application.database.get_all_labels ()) {
+                foreach (Objects.Label l in Planner.database.get_all_labels ()) {
                     var row = new Widgets.LabelPopoverRow (l);
                     listbox.add (row);
                 }
@@ -118,7 +118,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         listbox.row_activated.connect ((row) => {
             var label = ((Widgets.LabelPopoverRow) row).label;
-            if (Application.database.add_item_label (item_id, label)) {
+            if (Planner.database.add_item_label (item_id, label)) {
                 popover.popdown ();
             }
         });
@@ -157,7 +157,7 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
 
         add (box);
 
-        Application.database.label_updated.connect ((l) => {
+        Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {
                 if (label.id == l.id) {
                     name_label.label = l.name;
@@ -167,7 +167,7 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.label_deleted.connect ((l) => {
+        Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
                 destroy ();
             }

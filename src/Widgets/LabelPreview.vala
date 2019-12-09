@@ -16,13 +16,13 @@ public class Widgets.LabelPreview : Gtk.Grid {
         height_request = 3;
         width_request = 24;
 
-        Application.database.item_label_deleted.connect ((i) => {
+        Planner.database.item_label_deleted.connect ((i) => {
             if (id == i) {
                 destroy ();
             }
         });
 
-        Application.database.label_deleted.connect ((l) => {
+        Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
                 destroy ();
             }

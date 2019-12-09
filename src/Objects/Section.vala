@@ -1,5 +1,5 @@
 public class Objects.Section : GLib.Object {
-    public int64 id { get; set; default = Application.utils.generate_id (); }
+    public int64 id { get; set; default = Planner.utils.generate_id (); }
     public int64 project_id { get; set; default = 0; }
     public int64 sync_id { get; set; default = 1; }
     public string name { get; set; default = ""; }
@@ -23,9 +23,9 @@ public class Objects.Section : GLib.Object {
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
                 if (this.is_todoist == 0) {
-                    Application.database.update_section (this);
+                    Planner.database.update_section (this);
                 } else {
-                    Application.todoist.update_section (this);
+                    Planner.todoist.update_section (this);
                 }
                 
                 return null;
@@ -45,7 +45,7 @@ public class Objects.Section : GLib.Object {
 
         timeout_id_2 = Timeout.add (2500, () => {
             new Thread<void*> ("save_local_timeout", () => {
-                Application.database.update_section (this);
+                Planner.database.update_section (this);
 
                 return null;
             });

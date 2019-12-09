@@ -43,7 +43,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         add (main_scrolled);
 
-        Application.calendar_model.month_start = Util.get_start_of_month ();
+        Planner.calendar_model.month_start = Util.get_start_of_month ();
 
         add_upcomings ();
 
@@ -65,7 +65,7 @@ public class Views.Upcoming : Gtk.EventBox {
             listbox.add (row);
             listbox.show_all ();
 
-            Application.calendar_model.month_start = Util.get_start_of_month (date);
+            Planner.calendar_model.month_start = Util.get_start_of_month (date);
         }
     }
 }

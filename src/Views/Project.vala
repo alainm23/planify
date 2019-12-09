@@ -273,29 +273,29 @@ public class Views.Project : Gtk.EventBox {
             section.project_id = project.id;
 
             if (project.is_todoist == 0) {
-                Application.database.insert_section (section);
+                Planner.database.insert_section (section);
             } else {
-                temp_id_mapping = Application.utils.generate_id ();
+                temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Application.todoist.add_section (section, temp_id_mapping);
+                Planner.todoist.add_section (section, temp_id_mapping);
             }
         });
 
-        Application.todoist.section_added_started.connect ((id) => {
+        Planner.todoist.section_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_loading";
             }
         });
 
-        Application.todoist.section_added_completed.connect ((id) => {
+        Planner.todoist.section_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_button";
                 temp_id_mapping = 0;
             }
         });
 
-        Application.todoist.section_added_error.connect ((id) => {
+        Planner.todoist.section_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_button";
                 temp_id_mapping = 0;
@@ -303,14 +303,14 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.project_updated.connect ((p) => {
+        Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 project = p;
                 name_label.label = project.name;
             }
         });
 
-        Application.database.section_added.connect ((section) => {
+        Planner.database.section_added.connect ((section) => {
             if (project.id == section.project_id) {
                 var row = new Widgets.SectionRow (section);
                 section_listbox.add (row);
@@ -320,7 +320,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             if (project.id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
@@ -328,7 +328,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.item_added_with_index.connect ((item, index) => {
+        Planner.database.item_added_with_index.connect ((item, index) => {
             if (project.id == item.project_id && item.section_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.insert (row, index);
@@ -336,7 +336,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
         
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (project.id == item.project_id) {
                 if (item.checked == 1 && item.parent_id == 0) {
                     if (completed_revealer.reveal_child) {
@@ -354,7 +354,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
+        Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
             if (project.id == project_id && section_id == 0) {
                 var new_item = new Widgets.NewItem (
                     project_id,
@@ -374,7 +374,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 if (project.id == item.project_id) {
                     var row = new Widgets.ItemRow (item);
@@ -386,9 +386,21 @@ public class Views.Project : Gtk.EventBox {
             });
         });
 
-        Application.database.section_moved.connect ((section) => {
+        Planner.database.section_moved.connect ((section, project_id, old_project_id) => {
             Idle.add (() => {
-                if (project.id == section.project_id) {
+                if (project.id == old_project_id) {
+                    section_listbox.foreach ((widget) => {
+                        var row = (Widgets.SectionRow) widget;
+                        
+                        if (row.section.id == section.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (project.id == project_id) {
+                    section.project_id = project_id;
+
                     var row = new Widgets.SectionRow (section);
                     section_listbox.add (row);
                     section_listbox.show_all ();
@@ -407,7 +419,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_items () {
-        foreach (var item in Application.database.get_all_items_by_project_no_section_no_parent (project)) {
+        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -419,7 +431,7 @@ public class Views.Project : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Application.database.get_all_completed_items_by_project (project)) {
+        foreach (var item in Planner.database.get_all_completed_items_by_project (project)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
@@ -429,7 +441,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_sections () {
-        foreach (var section in Application.database.get_all_sections_by_project (project)) {
+        foreach (var section in Planner.database.get_all_sections_by_project (project)) {
             var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();
@@ -462,7 +474,7 @@ public class Views.Project : Gtk.EventBox {
                 source.item.section_id = 0;
 
                 if (source.item.is_todoist == 1) {
-                    Application.todoist.move_item_to_section (source.item, 0);
+                    Planner.todoist.move_item_to_section (source.item, 0);
                 }
             }
 
@@ -483,7 +495,7 @@ public class Views.Project : Gtk.EventBox {
             source.item.section_id = 0;
 
             if (source.item.is_todoist == 1) {
-                Application.todoist.move_item_to_section (source.item, 0);
+                Planner.todoist.move_item_to_section (source.item, 0);
             }
         }
 
@@ -511,7 +523,7 @@ public class Views.Project : Gtk.EventBox {
             var item = ((Widgets.ItemRow) row).item;
             
             new Thread<void*> ("update_item_order", () => {
-                Application.database.update_item_order (item, 0, index);
+                Planner.database.update_item_order (item, 0, index);
                 return null;
             });
         });
@@ -599,7 +611,7 @@ public class Views.Project : Gtk.EventBox {
             var section = ((Widgets.SectionRow) row).section;
 
             new Thread<void*> ("update_section_order", () => {
-                Application.database.update_section_item_order (section.id, index);
+                Planner.database.update_section_item_order (section.id, index);
 
                 return null;
             });

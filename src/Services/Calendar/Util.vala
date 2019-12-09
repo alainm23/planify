@@ -187,7 +187,7 @@ namespace Util {
     }
 
     public string get_source_location (E.Source source) {
-        var registry = Application.calendar_model.registry;
+        var registry = Planner.calendar_model.registry;
         string parent_uid = source.parent;
         E.Source parent_source = source;
         while (parent_source != null) {

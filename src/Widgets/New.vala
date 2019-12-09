@@ -72,15 +72,15 @@ public class Widgets.New : Gtk.Revealer {
         source_revealer.add (source_box);
         source_revealer.reveal_child = true;
 
-        if (Application.settings.get_boolean ("todoist-account")) {
+        if (Planner.settings.get_boolean ("todoist-account")) {
             source_revealer.reveal_child = true;
 
-            string email_text = " " + Application.settings.get_string ("todoist-user-email");
+            string email_text = " " + Planner.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);
             list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
 
-            if (Application.settings.get_int ("source-selected") == 1) {
+            if (Planner.settings.get_int ("source-selected") == 1) {
                 source_combobox.set_active_iter (todoist_iter);
             }
         }
@@ -90,102 +90,102 @@ public class Widgets.New : Gtk.Revealer {
         var color_30 = new Gtk.RadioButton (null);
         color_30.valign = Gtk.Align.START;
         color_30.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("30", "#b8255f", color_30);
+        Planner.utils.apply_styles ("30", "#b8255f", color_30);
 
         var color_31 = new Gtk.RadioButton.from_widget (color_30);
         color_31.valign = Gtk.Align.START;
         color_31.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("31", "#db4035", color_31);
+        Planner.utils.apply_styles ("31", "#db4035", color_31);
 
         var color_32 = new Gtk.RadioButton.from_widget (color_30);
         color_32.valign = Gtk.Align.START;
         color_32.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("32", "#ff9933", color_32);
+        Planner.utils.apply_styles ("32", "#ff9933", color_32);
 
         var color_33 = new Gtk.RadioButton.from_widget (color_30);
         color_33.valign = Gtk.Align.START;
         color_33.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("33", "#fad000", color_33);
+        Planner.utils.apply_styles ("33", "#fad000", color_33);
 
         var color_34 = new Gtk.RadioButton.from_widget (color_30);
         color_34.valign = Gtk.Align.START;
         color_34.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("34", "#afb83b", color_34);
+        Planner.utils.apply_styles ("34", "#afb83b", color_34);
 
         var color_35 = new Gtk.RadioButton.from_widget (color_30);
         color_35.valign = Gtk.Align.START;
         color_35.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("35", "#7ecc49", color_35);
+        Planner.utils.apply_styles ("35", "#7ecc49", color_35);
 
         var color_36 = new Gtk.RadioButton.from_widget (color_30);
         color_36.valign = Gtk.Align.START;
         color_36.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("36", "#299438", color_36);
+        Planner.utils.apply_styles ("36", "#299438", color_36);
 
         var color_37 = new Gtk.RadioButton.from_widget (color_30);
         color_37.valign = Gtk.Align.START;
         color_37.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("37", "#6accbc", color_37);
+        Planner.utils.apply_styles ("37", "#6accbc", color_37);
 
         var color_38 = new Gtk.RadioButton.from_widget (color_30);
         color_38.valign = Gtk.Align.START;
         color_38.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("38", "#158fad", color_38);
+        Planner.utils.apply_styles ("38", "#158fad", color_38);
 
         var color_39 = new Gtk.RadioButton.from_widget (color_30);
         color_39.valign = Gtk.Align.START;
         color_39.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("39", "#14aaf5", color_39);
+        Planner.utils.apply_styles ("39", "#14aaf5", color_39);
 
         var color_40 = new Gtk.RadioButton.from_widget (color_30);
         color_40.valign = Gtk.Align.START;
         color_40.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("40", "#96c3eb", color_40);
+        Planner.utils.apply_styles ("40", "#96c3eb", color_40);
 
         var color_41 = new Gtk.RadioButton.from_widget (color_30);
         color_41.valign = Gtk.Align.START;
         color_41.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("41", "#4073ff", color_41);
+        Planner.utils.apply_styles ("41", "#4073ff", color_41);
 
         var color_42 = new Gtk.RadioButton.from_widget (color_30);
         color_42.valign = Gtk.Align.START;
         color_42.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("42", "#884dff", color_42);
+        Planner.utils.apply_styles ("42", "#884dff", color_42);
 
         var color_43 = new Gtk.RadioButton.from_widget (color_30);
         color_43.valign = Gtk.Align.START;
         color_43.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("43", "#af38eb", color_43);
+        Planner.utils.apply_styles ("43", "#af38eb", color_43);
 
         var color_44 = new Gtk.RadioButton.from_widget (color_30);
         color_44.valign = Gtk.Align.START;
         color_44.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("44", "#eb96eb", color_44);
+        Planner.utils.apply_styles ("44", "#eb96eb", color_44);
 
         var color_45 = new Gtk.RadioButton.from_widget (color_30);
         color_45.valign = Gtk.Align.START;
         color_45.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("45", "#e05194", color_45);
+        Planner.utils.apply_styles ("45", "#e05194", color_45);
         
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("46", "#ff8d85", color_46);
+        Planner.utils.apply_styles ("46", "#ff8d85", color_46);
 
         var color_47 = new Gtk.RadioButton.from_widget (color_30);
         color_47.valign = Gtk.Align.START;
         color_47.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("47", "#808080", color_47);
+        Planner.utils.apply_styles ("47", "#808080", color_47);
 
         var color_48 = new Gtk.RadioButton.from_widget (color_30);
         color_48.valign = Gtk.Align.START;
         color_48.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("48", "#b8b8b8", color_48);
+        Planner.utils.apply_styles ("48", "#b8b8b8", color_48);
 
         var color_49 = new Gtk.RadioButton.from_widget (color_30);
         color_49.valign = Gtk.Align.START;
         color_49.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("49", "#ccac93", color_49);
+        Planner.utils.apply_styles ("49", "#ccac93", color_49);
 
         var color_box = new Gtk.Grid ();
         color_box.column_homogeneous = true;
@@ -382,7 +382,7 @@ public class Widgets.New : Gtk.Revealer {
         });
 
         source_combobox.changed.connect (() => {
-            Application.settings.set_int ("source-selected", source_combobox.active);
+            Planner.settings.set_int ("source-selected", source_combobox.active);
         });
 
         cancel_button.clicked.connect (cancel);
@@ -395,19 +395,19 @@ public class Widgets.New : Gtk.Revealer {
             return false;
         });
 
-        Application.todoist.project_added_started.connect (() => {
+        Planner.todoist.project_added_started.connect (() => {
             submit_button.sensitive = false;
             submit_stack.visible_child_name = "spinner";
         }); 
 
-        Application.todoist.project_added_completed.connect (() => {
+        Planner.todoist.project_added_completed.connect (() => {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
 
             cancel ();
         });
 
-        Application.todoist.project_added_error.connect ((error_code, error_message) => {
+        Planner.todoist.project_added_error.connect ((error_code, error_message) => {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
 
@@ -423,13 +423,13 @@ public class Widgets.New : Gtk.Revealer {
             });
         });
 
-        Application.todoist.first_sync_finished.connect (() => {
-            string email_text = " " + Application.settings.get_string ("todoist-user-email");
+        Planner.todoist.sync_finished.connect (() => {
+            string email_text = " " + Planner.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);
             list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
 
-            source_revealer.reveal_child = Application.settings.get_boolean ("todoist-account");
+            source_revealer.reveal_child = Planner.settings.get_boolean ("todoist-account");
         });
     } 
 
@@ -525,17 +525,17 @@ public class Widgets.New : Gtk.Revealer {
             project.name = name_entry.text;
             project.color = color_selected;
 
-            project.id = Application.utils.generate_id ();
+            project.id = Planner.utils.generate_id ();
                 
             if (source_combobox.active == 0) {
-                if (Application.database.insert_project (project)) {
+                if (Planner.database.insert_project (project)) {
                     cancel ();
                 }
             } else { 
                 project.is_todoist = 1;
 
-                if (Application.utils.check_connection ()) {
-                    Application.todoist.add_project (project);
+                if (Planner.utils.check_connection ()) {
+                    Planner.todoist.add_project (project);
                 } else {
                     
                 }
@@ -547,7 +547,7 @@ public class Widgets.New : Gtk.Revealer {
         var area = new Objects.Area ();
         area.name = _("New area");
         
-        if (Application.database.insert_area (area)) {
+        if (Planner.database.insert_area (area)) {
             cancel ();
         }
     }

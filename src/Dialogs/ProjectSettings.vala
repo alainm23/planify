@@ -7,7 +7,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
     public ProjectSettings (Objects.Project project) {
         Object (
             project: project,
-            transient_for: Application.instance.main_window,
+            transient_for: Planner.instance.main_window,
             deletable: false, 
             resizable: true,
             destroy_with_parent: true,
@@ -33,121 +33,121 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var color_30 = new Gtk.RadioButton (null);
         color_30.valign = Gtk.Align.START;
         color_30.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("30", "#b8255f", color_30);
+        Planner.utils.apply_styles ("30", "#b8255f", color_30);
         color_30.get_style_context ().add_class ("color-radio-dialog");
 
         var color_31 = new Gtk.RadioButton.from_widget (color_30);
         color_31.valign = Gtk.Align.START;
         color_31.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("31", "#db4035", color_31);
+        Planner.utils.apply_styles ("31", "#db4035", color_31);
         color_31.get_style_context ().add_class ("color-radio-dialog");
 
         var color_32 = new Gtk.RadioButton.from_widget (color_30);
         color_32.valign = Gtk.Align.START;
         color_32.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("32", "#ff9933", color_32);
+        Planner.utils.apply_styles ("32", "#ff9933", color_32);
         color_32.get_style_context ().add_class ("color-radio-dialog");
         
         var color_33 = new Gtk.RadioButton.from_widget (color_30);
         color_33.valign = Gtk.Align.START;
         color_33.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("33", "#fad000", color_33);
+        Planner.utils.apply_styles ("33", "#fad000", color_33);
         color_33.get_style_context ().add_class ("color-radio-dialog");
         
         var color_34 = new Gtk.RadioButton.from_widget (color_30);
         color_34.valign = Gtk.Align.START;
         color_34.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("34", "#afb83b", color_34);
+        Planner.utils.apply_styles ("34", "#afb83b", color_34);
         color_34.get_style_context ().add_class ("color-radio-dialog");
 
         var color_35 = new Gtk.RadioButton.from_widget (color_30);
         color_35.valign = Gtk.Align.START;
         color_35.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("35", "#7ecc49", color_35);
+        Planner.utils.apply_styles ("35", "#7ecc49", color_35);
         color_35.get_style_context ().add_class ("color-radio-dialog");
 
         var color_36 = new Gtk.RadioButton.from_widget (color_30);
         color_36.valign = Gtk.Align.START;
         color_36.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("36", "#299438", color_36);
+        Planner.utils.apply_styles ("36", "#299438", color_36);
         color_36.get_style_context ().add_class ("color-radio-dialog");
         
         var color_37 = new Gtk.RadioButton.from_widget (color_30);
         color_37.valign = Gtk.Align.START;
         color_37.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("37", "#6accbc", color_37);
+        Planner.utils.apply_styles ("37", "#6accbc", color_37);
         color_37.get_style_context ().add_class ("color-radio-dialog");
 
         var color_38 = new Gtk.RadioButton.from_widget (color_30);
         color_38.valign = Gtk.Align.START;
         color_38.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("38", "#158fad", color_38);
+        Planner.utils.apply_styles ("38", "#158fad", color_38);
         color_38.get_style_context ().add_class ("color-radio-dialog");
 
         var color_39 = new Gtk.RadioButton.from_widget (color_30);
         color_39.valign = Gtk.Align.START;
         color_39.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("39", "#14aaf5", color_39);
+        Planner.utils.apply_styles ("39", "#14aaf5", color_39);
         color_39.get_style_context ().add_class ("color-radio-dialog");
 
         var color_40 = new Gtk.RadioButton.from_widget (color_30);
         color_40.valign = Gtk.Align.START;
         color_40.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("40", "#96c3eb", color_40);
+        Planner.utils.apply_styles ("40", "#96c3eb", color_40);
         color_40.get_style_context ().add_class ("color-radio-dialog");
 
         var color_41 = new Gtk.RadioButton.from_widget (color_30);
         color_41.valign = Gtk.Align.START;
         color_41.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("41", "#4073ff", color_41);
+        Planner.utils.apply_styles ("41", "#4073ff", color_41);
         color_41.get_style_context ().add_class ("color-radio-dialog");
 
         var color_42 = new Gtk.RadioButton.from_widget (color_30);
         color_42.valign = Gtk.Align.START;
         color_42.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("42", "#884dff", color_42);
+        Planner.utils.apply_styles ("42", "#884dff", color_42);
         color_42.get_style_context ().add_class ("color-radio-dialog");
 
         var color_43 = new Gtk.RadioButton.from_widget (color_30);
         color_43.valign = Gtk.Align.START;
         color_43.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("43", "#af38eb", color_43);
+        Planner.utils.apply_styles ("43", "#af38eb", color_43);
         color_43.get_style_context ().add_class ("color-radio-dialog");
 
         var color_44 = new Gtk.RadioButton.from_widget (color_30);
         color_44.valign = Gtk.Align.START;
         color_44.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("44", "#eb96eb", color_44);
+        Planner.utils.apply_styles ("44", "#eb96eb", color_44);
         color_44.get_style_context ().add_class ("color-radio-dialog");
 
         var color_45 = new Gtk.RadioButton.from_widget (color_30);
         color_45.valign = Gtk.Align.START;
         color_45.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("45", "#e05194", color_45);
+        Planner.utils.apply_styles ("45", "#e05194", color_45);
         color_45.get_style_context ().add_class ("color-radio-dialog");
 
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("46", "#ff8d85", color_46);
+        Planner.utils.apply_styles ("46", "#ff8d85", color_46);
         color_46.get_style_context ().add_class ("color-radio-dialog");
 
         var color_47 = new Gtk.RadioButton.from_widget (color_30);
         color_47.valign = Gtk.Align.START;
         color_47.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("47", "#808080", color_47);
+        Planner.utils.apply_styles ("47", "#808080", color_47);
         color_47.get_style_context ().add_class ("color-radio-dialog");
 
         var color_48 = new Gtk.RadioButton.from_widget (color_30);
         color_48.valign = Gtk.Align.START;
         color_48.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("48", "#b8b8b8", color_48);
+        Planner.utils.apply_styles ("48", "#b8b8b8", color_48);
         color_48.get_style_context ().add_class ("color-radio-dialog");
 
         var color_49 = new Gtk.RadioButton.from_widget (color_30);
         color_49.valign = Gtk.Align.START;
         color_49.halign = Gtk.Align.START;
-        Application.utils.apply_styles ("49", "#ccac93", color_49);
+        Planner.utils.apply_styles ("49", "#ccac93", color_49);
         color_49.get_style_context ().add_class ("color-radio-dialog");
 
         var color_box = new Gtk.Grid ();
@@ -390,19 +390,19 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             }
         });
 
-        Application.todoist.project_updated_started.connect ((id) => {
+        Planner.todoist.project_updated_started.connect ((id) => {
             if (project.id == id) {
                 loading_revealer.reveal_child = true;
             }
         }); 
 
-        Application.todoist.project_updated_completed.connect ((id) => {
+        Planner.todoist.project_updated_completed.connect ((id) => {
             if (project.id == id) {
                 destroy ();
             } 
         });
 
-        Application.todoist.project_updated_error.connect ((id, error_code, error_message) => {
+        Planner.todoist.project_updated_error.connect ((id, error_code, error_message) => {
             if (project.id == id) {
                 print ("Error: %s\n".printf (error_message));
             } 
@@ -415,11 +415,11 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             project.color = color_selected;
 
             if (project.is_todoist == 0) {
-                if (Application.database.update_project (project)) {
+                if (Planner.database.update_project (project)) {
                     destroy ();
                 }
             } else {
-                Application.todoist.update_project (project);
+                Planner.todoist.update_project (project);
             }
         }
     }

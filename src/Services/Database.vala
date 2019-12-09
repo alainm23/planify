@@ -9,15 +9,15 @@ public class Services.Database : GLib.Object {
 
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
-    public signal void project_deleted (Objects.Project project);
+    public signal void project_deleted (int64 id);
     public signal void project_moved (Objects.Project project);
     public signal void update_project_count (int64 id, int items_0, int items_1);
 
     public signal void subtract_task_counter (int64 id);
     
     public signal void section_added (Objects.Section section);
-    public signal void section_deleted (Objects.Section section);
-    public signal void section_moved (Objects.Section section);
+    public signal void section_deleted (int64 id);
+    public signal void section_moved (Objects.Section section, int64 project_id, int64 old_project_id);
 
     public signal void item_added (Objects.Item item);
     public signal void item_added_with_index (Objects.Item item, int index);
@@ -79,7 +79,7 @@ public class Services.Database : GLib.Object {
                 if (item.is_todoist == 0) {
                     delete_item (item);
                 } else {
-                    Application.todoist.add_delete_item (item);
+                    Planner.todoist.add_delete_item (item);
                 }
             }
 
@@ -286,7 +286,7 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public bool is_project_id_valid (int64 id) {
+    public bool project_exists (int64 id) {
         bool returned = false;
         Sqlite.Statement stmt;
 
@@ -494,7 +494,7 @@ public class Services.Database : GLib.Object {
 
         var project = new Objects.Project ();
         project.name = _("Inbox");
-        project.id = Application.utils.generate_id ();
+        project.id = Planner.utils.generate_id ();
         project.inbox_project = 1;
     
         sql = """  
@@ -695,7 +695,7 @@ public class Services.Database : GLib.Object {
         }
     }
     
-    public bool delete_project (Objects.Project project) {
+    public bool delete_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -707,7 +707,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, project.id);
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -717,7 +717,7 @@ public class Services.Database : GLib.Object {
             return false;
         } 
 
-        project_deleted (project);
+        project_deleted (id);
         
         return true;
     }
@@ -997,7 +997,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public void get_project_count (int64 id) {
+    public int get_project_count (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1023,9 +1023,34 @@ public class Services.Database : GLib.Object {
         }
 
         update_project_count (id, items_0, items_1);
+
+        return items_0;
     }
 
-    public void get_today_count () {
+    public int get_today_project_count (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int returned = 0;
+
+        sql = """
+            SELECT COUNT (*) FROM Items WHERE project_id = ? AND due_date != '';
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0);
+        }
+
+        return returned;
+    }
+
+    public int get_today_count () {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1041,14 +1066,16 @@ public class Services.Database : GLib.Object {
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
             var due = new GLib.DateTime.from_iso8601 (stmt.column_text (0), new GLib.TimeZone.local ());
-            if (Application.utils.is_before_today (due)) {
+            if (Planner.utils.is_before_today (due)) {
                 items_past++;
-            } else if (Application.utils.is_today (due)) {
+            } else if (Planner.utils.is_today (due)) {
                 items_today++;
             }
         }
 
         update_today_count (items_past, items_today);
+
+        return items_today + items_past;
     }
 
     /* 
@@ -1211,6 +1238,23 @@ public class Services.Database : GLib.Object {
     /*
         Sections
     */
+
+    public bool section_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Sections WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        return returned;
+    }
 
     public bool insert_section (Objects.Section section) {
         Sqlite.Statement stmt;
@@ -1390,7 +1434,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool delete_section (Objects.Section section) {
+    public bool delete_section (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1402,7 +1446,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, section.id);
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -1411,22 +1455,22 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
         } else {
-            section_deleted (section);
+            section_deleted (id);
 
-            foreach (Objects.Item item in Application.database.get_all_items_by_section_no_parent (section)) {
-                delete_item (item);
-            }
+            // To Do: Delete all tasks
+            //foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
+            //    delete_item (item);
+            //}
 
             return true;
         }
     }
 
-    public bool move_section (Objects.Section section, int64 id) {
+    public bool move_section (Objects.Section section, int64 project_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
-
-        section.project_id = id;
+        int64 old_project_id = section.project_id;
 
         sql = """
             UPDATE Sections SET project_id = ? WHERE id = ?;
@@ -1435,7 +1479,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, section.project_id);
+        res = stmt.bind_int64 (1, project_id);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (2, section.id);
@@ -1447,7 +1491,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
         } else {
-            section_moved (section);
+            section_moved (section, project_id, old_project_id);
 
             stmt.reset ();
 
@@ -1458,7 +1502,7 @@ public class Services.Database : GLib.Object {
             res = db.prepare_v2 (sql, -1, out stmt);
             assert (res == Sqlite.OK);
 
-            res = stmt.bind_int64 (1, id);
+            res = stmt.bind_int64 (1, project_id);
             assert (res == Sqlite.OK);
 
             res = stmt.bind_int64 (2, section.id);
@@ -2369,7 +2413,7 @@ public class Services.Database : GLib.Object {
             i.is_todoist = is_item_todoist (i);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
-            if (Application.utils.is_today (due) || Application.utils.is_before_today (due)) {
+            if (Planner.utils.is_today (due) || Planner.utils.is_before_today (due)) {
                 all.add (i);
             }   
         }
@@ -2497,7 +2541,7 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
-        int64 id = Application.utils.generate_id ();
+        int64 id = Planner.utils.generate_id ();
 
         sql = """
             INSERT OR IGNORE INTO Items_Labels (id, item_id, label_id)

@@ -337,7 +337,7 @@ public class Services.Calendar.CalendarModel : Object {
                 }
             }
 
-            Application.settings.set_strv ("calendar-sources-disabled", sources_disabled);
+            Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
         });
 
         listbox.add (source_item);

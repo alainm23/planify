@@ -107,36 +107,36 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
     private void check_inbox_count_update () {
         Timeout.add (125, () => {
-            Application.database.get_project_count (Application.settings.get_int64 ("inbox-project"));
+            Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
             return false;
         });
 
-        Application.database.update_project_count.connect ((id, items_0, items_1) => {
-            if (Application.settings.get_int64 ("inbox-project") == id) {
+        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
+            if (Planner.settings.get_int64 ("inbox-project") == id) {
                 count = items_0;
                 check_count_label ();
             }
         });
 
-        Application.database.item_added.connect ((item) => {
-            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+        Planner.database.item_added.connect ((item) => {
+            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
                 update_count ();
             }
         });
 
-        Application.database.item_deleted.connect ((item) => {
-            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+        Planner.database.item_deleted.connect ((item) => {
+            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
                 update_count ();
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
-            if (Application.settings.get_int64 ("inbox-project") == item.project_id) {
+        Planner.database.item_completed.connect ((item) => {
+            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
                 update_count ();
             }
         });
         
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 update_count ();
 
@@ -144,7 +144,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.subtract_task_counter.connect ((id) => {
+        Planner.database.subtract_task_counter.connect ((id) => {
             Idle.add (() => {
                 update_count ();
 
@@ -155,44 +155,44 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
     private void check_today_count_update () {
         Timeout.add (125, () => {
-            Application.database.get_today_count ();
+            Planner.database.get_today_count ();
             return false;
         });
 
-        Application.database.update_today_count.connect ((past, today) => {
+        Planner.database.update_today_count.connect ((past, today) => {
             count = past + today;
             check_count_label ();
         });
 
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             update_count (true);
         });
 
-        Application.database.item_added_with_index.connect (() => {
+        Planner.database.item_added_with_index.connect (() => {
             update_count (true);
         });
 
-        Application.database.item_deleted.connect ((item) => {
+        Planner.database.item_deleted.connect ((item) => {
             update_count (true);
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             update_count (true);
         });
 
-        Application.database.add_due_item.connect (() => {
+        Planner.database.add_due_item.connect (() => {
             update_count (true);
         });
 
-        Application.database.update_due_item.connect (() => {
+        Planner.database.update_due_item.connect (() => {
             update_count (true);
         });
 
-        Application.database.remove_due_item.connect (() => {
+        Planner.database.remove_due_item.connect (() => {
             update_count (true);
         });
 
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 update_count (true);
 
@@ -200,7 +200,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             });
         });
 
-        Application.database.subtract_task_counter.connect ((id) => {
+        Planner.database.subtract_task_counter.connect ((id) => {
             Idle.add (() => {
                 update_count (true);
 
@@ -217,9 +217,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         timeout_id = Timeout.add (250, () => {
             if (today == false) {
-                Application.database.get_project_count (Application.settings.get_int64 ("inbox-project"));
+                Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
             } else {
-                Application.database.get_today_count ();
+                Planner.database.get_today_count ();
             }
             
             return false;
@@ -254,11 +254,11 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (source.item.is_todoist == 0) {
-            if (Application.database.move_item (source.item, Application.settings.get_int64 ("inbox-project"))) {
+            if (Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"))) {
                 source.get_parent ().remove (source);
             }
         } else {
-            Application.todoist.move_item (source.item, Application.settings.get_int64 ("inbox-project"));
+            Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
         }
     }
 
@@ -275,10 +275,10 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         source.item.due_date = date.to_string ();
 
-        Application.database.set_due_item (source.item, new_date);
+        Planner.database.set_due_item (source.item, new_date);
 
         if (source.item.is_todoist == 1) {
-            Application.todoist.update_item (source.item);
+            Planner.todoist.update_item (source.item);
         }
     }
 

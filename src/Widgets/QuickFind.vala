@@ -71,7 +71,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
             if (search_entry.text != "") {
                 cancel_revealer.reveal_child = true;
-                foreach (var item in Application.database.get_items_by_search (search_entry.text)) {
+                foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
                     var row = new Widgets.SearchItem (
                         item.content,
                         "emblem-default-symbolic",
@@ -84,7 +84,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
                     listbox.show_all ();
                 }
 
-                foreach (var project in Application.database.get_all_projects_by_search (search_entry.text)) {
+                foreach (var project in Planner.database.get_all_projects_by_search (search_entry.text)) {
                     var row = new Widgets.SearchItem (
                         project.name,
                         "planner-project-symbolic",
@@ -129,9 +129,9 @@ public class Widgets.QuickFind : Gtk.Revealer {
                 var item = (Widgets.SearchItem) listbox.get_selected_row ();
 
                 if (item.element == "item") {
-                    Application.instance.go_view ("item", item.id, item.project_id);
+                    Planner.instance.go_view ("item", item.id, item.project_id);
                 } else if (item.element == "project") {
-                    Application.instance.go_view ("project", item.id, 0);
+                    Planner.instance.go_view ("project", item.id, 0);
                 }
 
                 cancel ();

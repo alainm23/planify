@@ -77,7 +77,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         update_timelabel ();
         check_visible ();
 
-        Application.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "calendar-sources-disabled") {
                 check_visible ();
             }
@@ -87,7 +87,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     private void check_visible () {
         bool _visible = true;
 
-        foreach (var uid in Application.settings.get_strv ("calendar-sources-disabled")) {
+        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
             if (cal.get_source ().uid == uid) {
                 _visible = false;
             }

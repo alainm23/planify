@@ -29,7 +29,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         day_label.use_markup = true;
 
         string day = date.format ("%A");
-        if (Application.utils.is_tomorrow (date)) {
+        if (Planner.utils.is_tomorrow (date)) {
             day = _("Tomorrow");
         }
 
@@ -94,7 +94,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         var event_revealer = new Gtk.Revealer ();
         event_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         event_revealer.add (event_listbox);
-        event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+        event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_bottom = 12;
@@ -113,7 +113,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             item.reveal_child = true;
         });
 
-        Application.database.add_due_item.connect ((item) => {
+        Planner.database.add_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
@@ -122,13 +122,13 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.remove_due_item.connect ((item) => {
+        Planner.database.remove_due_item.connect ((item) => {
             if (items_loaded.has_key (item.id.to_string ())) {
                 items_loaded.unset (item.id.to_string ());
             }
         });
 
-        Application.database.update_due_item.connect ((item) => {
+        Planner.database.update_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
             if (Granite.DateTime.is_same_day (datetime, date)) {
@@ -152,7 +152,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (item.checked == 0 && item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Granite.DateTime.is_same_day (datetime, date)) {
@@ -169,14 +169,14 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();
 
-        Application.calendar_model.events_added.connect (add_event_model);
-        Application.calendar_model.events_removed.connect (remove_event_model);
+        Planner.calendar_model.events_added.connect (add_event_model);
+        Planner.calendar_model.events_removed.connect (remove_event_model);
 
         idle_update_events ();
 
-        Application.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "calendar-enabled") {
-                event_revealer.reveal_child = Application.settings.get_boolean ("calendar-enabled");
+                event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
     }
@@ -206,7 +206,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     }
 
     private bool update_events () {
-        Application.calendar_model.source_events.@foreach ((source, component_map) => {
+        Planner.calendar_model.source_events.@foreach ((source, component_map) => {
             foreach (var comp in component_map.get_values ()) {
                 if (Util.calcomp_is_on_day (comp, date)) {
                     unowned ICal.Component ical = comp.get_icalcomponent ();
@@ -265,7 +265,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     }
 
     private void add_all_items () {
-        foreach (var item in Application.database.get_items_by_date (date)) {
+        foreach (var item in Planner.database.get_items_by_date (date)) {
             var row = new Widgets.ItemRow (item);
 
             row.upcoming = date;

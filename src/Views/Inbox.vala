@@ -20,9 +20,9 @@ public class Views.Inbox : Gtk.EventBox {
     };
 
     construct {
-        project_id = Application.settings.get_int64 ("inbox-project");
+        project_id = Planner.settings.get_int64 ("inbox-project");
 
-        if (Application.settings.get_boolean ("inbox-project-sync")) {
+        if (Planner.settings.get_boolean ("inbox-project-sync")) {
             is_todoist = 1;
         }
 
@@ -198,29 +198,29 @@ public class Views.Inbox : Gtk.EventBox {
             section.project_id = project_id;
 
             if (is_todoist == 0) {
-                Application.database.insert_section (section);
+                Planner.database.insert_section (section);
             } else {
-                temp_id_mapping = Application.utils.generate_id ();
+                temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Application.todoist.add_section (section, temp_id_mapping);
+                Planner.todoist.add_section (section, temp_id_mapping);
             }
         });
 
-        Application.todoist.section_added_started.connect ((id) => {
+        Planner.todoist.section_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_loading";
             }
         });
 
-        Application.todoist.section_added_completed.connect ((id) => {
+        Planner.todoist.section_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_button";
                 temp_id_mapping = 0;
             }
         });
 
-        Application.todoist.section_added_error.connect ((id) => {
+        Planner.todoist.section_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
                 section_stack.visible_child_name = "section_button";
                 temp_id_mapping = 0;
@@ -228,7 +228,7 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.database.section_added.connect ((section) => {
+        Planner.database.section_added.connect ((section) => {
             if (project_id == section.project_id) {
                 var row = new Widgets.SectionRow (section);
                 section_listbox.add (row);
@@ -238,9 +238,21 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.database.section_moved.connect ((section) => {
+        Planner.database.section_moved.connect ((section, id, old_project_id) => {
             Idle.add (() => {
-                if (project_id == section.project_id) {
+                if (project_id == old_project_id) {
+                    section_listbox.foreach ((widget) => {
+                        var row = (Widgets.SectionRow) widget;
+                        
+                        if (row.section.id == section.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (project_id == id) {
+                    section.project_id = id;
+
                     var row = new Widgets.SectionRow (section);
                     section_listbox.add (row);
                     section_listbox.show_all ();
@@ -250,7 +262,7 @@ public class Views.Inbox : Gtk.EventBox {
             });
         });
 
-        Application.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 if (project_id == item.project_id) {
                     var row = new Widgets.ItemRow (item);
@@ -262,7 +274,7 @@ public class Views.Inbox : Gtk.EventBox {
             });
         });
 
-        Application.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
@@ -270,7 +282,7 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.database.item_added_with_index.connect ((item, index) => {
+        Planner.database.item_added_with_index.connect ((item, index) => {
             if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 listbox.insert (row, index);
@@ -278,7 +290,7 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.database.item_completed.connect ((item) => {
+        Planner.database.item_completed.connect ((item) => {
             if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 if (item.checked == 1) {
                     if (completed_revealer.reveal_child) {
@@ -294,7 +306,7 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.utils.magic_button_activated.connect ((id, section_id, is_todoist, last, index) => {
+        Planner.utils.magic_button_activated.connect ((id, section_id, is_todoist, last, index) => {
             if (project_id == id && section_id == 0) {
                 var new_item = new Widgets.NewItem (
                     project_id,
@@ -314,11 +326,11 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Application.settings.changed.connect (key => {
+        Planner.settings.changed.connect (key => {
             if (key == "inbox-project") {
-                project_id = Application.settings.get_int64 ("inbox-project");
+                project_id = Planner.settings.get_int64 ("inbox-project");
             } else if (key == "inbox-project-sync") {
-                if (Application.settings.get_boolean ("inbox-project-sync")) {
+                if (Planner.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
 
                     add_items (project_id);
@@ -332,7 +344,7 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Application.database.get_all_items_by_inbox (id, is_todoist)) {
+        foreach (var item in Planner.database.get_all_items_by_inbox (id, is_todoist)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -340,7 +352,7 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     private void add_all_sections (int64 id) {
-        foreach (var section in Application.database.get_all_sections_by_inbox (id, is_todoist)) {
+        foreach (var section in Planner.database.get_all_sections_by_inbox (id, is_todoist)) {
             var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();
@@ -352,7 +364,7 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Application.database.get_all_completed_items_by_inbox (id, is_todoist)) {
+        foreach (var item in Planner.database.get_all_completed_items_by_inbox (id, is_todoist)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
@@ -387,7 +399,7 @@ public class Views.Inbox : Gtk.EventBox {
                 source.item.section_id = 0;
 
                 if (source.item.is_todoist == 1) {
-                    Application.todoist.move_item_to_section (source.item, 0);
+                    Planner.todoist.move_item_to_section (source.item, 0);
                 }
             }
 
@@ -408,7 +420,7 @@ public class Views.Inbox : Gtk.EventBox {
             source.item.section_id = 0;
 
             if (source.item.is_todoist == 1) {
-                Application.todoist.move_item_to_section (source.item, 0);
+                Planner.todoist.move_item_to_section (source.item, 0);
             }
         }
 
@@ -436,7 +448,7 @@ public class Views.Inbox : Gtk.EventBox {
             var item = ((Widgets.ItemRow) row).item;
 
             new Thread<void*> ("update_item_order", () => {
-                Application.database.update_item_order (item, 0, index);
+                Planner.database.update_item_order (item, 0, index);
 
                 return null;
             });
