@@ -20,6 +20,7 @@
 */
 
 public class Widgets.Calendar.CalendarHeader : Gtk.Box {
+    private Gtk.Label date_label;
     private Gtk.Button left_button;
     private Gtk.Button right_button;
     private Gtk.Button center_button;
@@ -30,30 +31,34 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
 
     public GLib.DateTime date {
         set {
-            center_button.label = value.format (_("%OB %Y"));
+            date_label.label = value.format (_("%OB, %Y"));
         }
     }
 
-    public CalendarHeader () {
-        orientation = Gtk.Orientation.HORIZONTAL;
-        margin_bottom = 4;
-        get_style_context ().add_class ("linked");
-        set_size_request (-1, 30);
-    }
-
     construct {
-        center_button = new Gtk.Button.with_label (new GLib.DateTime.now_local ().format (_("%OB %Y")));
+        margin_start = 3;
+        orientation = Gtk.Orientation.HORIZONTAL;
+
+        date_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB %Y")));
+        date_label.get_style_context ().add_class ("due-label");
+
+        center_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
+        center_button.get_style_context ().add_class ("flat");
         center_button.can_focus = false;
 
         left_button = new Gtk.Button.from_icon_name ("pan-start-symbolic", Gtk.IconSize.MENU);
+        left_button.get_style_context ().add_class ("flat");
         left_button.can_focus = false;
 
         right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
+        right_button.get_style_context ().add_class ("flat");
+        right_button.get_style_context ().add_class ("no-padding-right");
         right_button.can_focus = false;
-
-        add (left_button);
+        
+        pack_start (date_label, false, false, 0);
         pack_end (right_button, false, false, 0);
-        pack_end (center_button, true, true, 0);
+        pack_end (center_button, false, false, 0);
+        pack_end (left_button, false, false, 0);
 
         left_button.clicked.connect (() => {
             left_clicked ();

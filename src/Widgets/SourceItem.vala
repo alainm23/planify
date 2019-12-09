@@ -26,89 +26,100 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     public string location { public get; private set; }
     public string label { public get; private set; }
     public E.Source source { public get; private set; }
-
+    
     private Gtk.Label calendar_name_label;
-    //private Gtk.Label calendar_color_label;
     private Gtk.CheckButton visible_checkbutton;
+
+    public signal void visible_changed ();
 
     public SourceItem (E.Source source) {
         this.source = source;
 
-        // Source widget
         E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
 
         calendar_name_label = new Gtk.Label (source.dup_display_name ());
+        calendar_name_label.get_style_context ().add_class ("font-weight-600");
         calendar_name_label.xalign = 0;
         calendar_name_label.hexpand = true;
 
         label = source.dup_display_name ();
-        location = Maya.Util.get_source_location (source);
+        location = Util.get_source_location (source);
 
         visible_checkbutton = new Gtk.CheckButton ();
-        visible_checkbutton.active = cal.selected;
-        visible_checkbutton.toggled.connect (() => {
-            var calmodel = Maya.Model.CalendarModel.get_default ();
-            if (visible_checkbutton.active == true) {
-                calmodel.add_source (source);
-            } else {
-                calmodel.remove_source (source);
-            }
+        visible_checkbutton.can_focus = false;
+        visible_checkbutton.get_style_context ().add_class ("checklist-button");
+        visible_checkbutton.active = get_source_visible ();
+        
+        var location_label = new Gtk.Label ("<small>%s</small>".printf (location));
+        location_label.xalign = 0;
+        location_label.hexpand = true;
+        location_label.use_markup = true;
 
-            cal.set_selected (visible_checkbutton.active);
-            try {
-                source.write_sync ();
-            } catch (GLib.Error error) {
-                critical (error.message);
-            }
-        });
+        var color_grid = new Gtk.Grid ();
+        color_grid.height_request = 24;
+        color_grid.width_request = 3;
+        color_grid.valign = Gtk.Align.CENTER;
+        color_grid.get_style_context ().add_class ("source-%s".printf (source.dup_uid ()));
+
+        var grid = new Gtk.Grid ();
+        grid.column_spacing = 6;
+        grid.margin_start = 12;
+        grid.margin_end = 12;
+        grid.margin_top = 3;
+        grid.margin_bottom = 3;
+
+        grid.attach (visible_checkbutton, 0, 0, 1, 2);
+        grid.attach (color_grid,          1, 0, 1, 2);
+        grid.attach (calendar_name_label, 2, 0, 1, 1);
+        grid.attach (location_label,      2, 1, 1, 1);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.get_style_context ().add_class ("view");
+        main_box.hexpand = true;
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (grid, false, true, 0);
+
+        add (main_box);
 
         style_calendar_color (cal.dup_color ());
+        visible_checkbutton.toggled.connect (() => {
+            visible_changed ();
+        });
+    }
 
-        var calendar_grid = new Gtk.Grid ();
-        calendar_grid.column_spacing = 6;
-        calendar_grid.margin = 6;
-        calendar_grid.attach (visible_checkbutton, 0, 0, 1, 1);
-        //calendar_grid.attach (calendar_color_label, 1, 0, 1, 1);
-        calendar_grid.attach (calendar_name_label, 2, 0, 1, 1);
+    private bool get_source_visible () {
+        bool _visible = true;
 
-        add (calendar_grid);
+        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
+            if (source.dup_uid () == uid) {
+                _visible = false;
+            }
+        }
 
-        source.changed.connect (source_has_changed);
+        return _visible;
     }
 
     private void style_calendar_color (string color) {
-        var css_color = "@define-color colorAccent %s;".printf (color);
+        string COLOR_CSS = """
+            .source-%s {
+                background-color: %s;
+                border-radius: 4px; 
+            }
+        """;
 
-        var style_provider = new Gtk.CssProvider ();
+        var provider = new Gtk.CssProvider ();
 
         try {
-            style_provider.load_from_data (css_color, css_color.length);
-            visible_checkbutton.get_style_context ().add_provider (style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (Error e) {
-            warning ("Could not create CSS Provider: %s\nStylesheet:\n%s", e.message, css_color);
+            var colored_css = COLOR_CSS.printf (
+                source.dup_uid (),
+                color
+            );
+            
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
         }
-    }
-
-    public void source_has_changed () {
-        calendar_name_label.label = source.dup_display_name ();
-
-        E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
-
-        style_calendar_color (cal.dup_color ());
-
-        visible_checkbutton.active = cal.selected;
-    }
-}
-
-public class Widgets.SourceItemHeader : Gtk.ListBoxRow {
-    public string label { public get; private set; }
-    public uint children = 1;
-    public SourceItemHeader (string label) {
-        this.label = label;
-        var header_label = new Gtk.Label (label);
-        header_label.get_style_context ().add_class ("h4");
-        header_label.xalign = 0.0f;
-        header_label.hexpand = true;
-        add (header_label);
     }
 }

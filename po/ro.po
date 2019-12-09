@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-29 10:15-0500\n"
+"POT-Creation-Date: 2019-12-09 13:11-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,963 +17,369 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:35 data/com.github.alainm23.planner.desktop.in:3
+#: src/MainWindow.vala:41 data/com.github.alainm23.planner.desktop.in:3
 #: data/com.github.alainm23.planner.desktop.in:4
 #: data/com.github.alainm23.planner.appdata.xml.in:7
 msgid "Planner"
 msgstr "Planner"
 
-#: src/Utils.vala:347
-msgid "Clouds"
+#: src/Utils.vala:58 src/Utils.vala:65
+msgid "Home"
 msgstr ""
 
-#: src/Utils.vala:348 src/Widgets/Popovers/WhenPopover.vala:59
-#: src/Widgets/Popovers/DeadlinePopover.vala:43
-msgid "Clear"
-msgstr "Golește"
-
-#: src/Utils.vala:349
-msgid "Atmosphere"
+#: src/Utils.vala:59 src/Utils.vala:69
+msgid "Office"
 msgstr ""
 
-#: src/Utils.vala:350 src/Utils.vala:394
-msgid "Snow"
+#: src/Utils.vala:60 src/Utils.vala:73
+msgid "Errand"
 msgstr ""
 
-#: src/Utils.vala:351
-msgid "Rain"
-msgstr ""
-
-#: src/Utils.vala:352 src/Utils.vala:373
-msgid "Drizzle"
-msgstr ""
-
-#: src/Utils.vala:353 src/Utils.vala:365
-msgid "Thunderstorm"
-msgstr ""
-
-#: src/Utils.vala:361
-msgid "Thunderstorm with light rain"
-msgstr ""
-
-#: src/Utils.vala:362
-msgid "Thunderstorm with rain"
-msgstr ""
-
-#: src/Utils.vala:363
-msgid "Thunderstorm with heavy rain"
-msgstr ""
-
-#: src/Utils.vala:364
-msgid "Light thunderstorm"
-msgstr ""
-
-#: src/Utils.vala:366
-msgid "Heavy thunderstorm"
-msgstr ""
-
-#: src/Utils.vala:367
-msgid "Ragged thunderstorm"
-msgstr ""
-
-#: src/Utils.vala:368
-msgid "Thunderstorm with light drizzle"
-msgstr ""
-
-#: src/Utils.vala:369
-msgid "Thunderstorm with drizzle"
-msgstr ""
-
-#: src/Utils.vala:370
-msgid "Thunderstorm with heavy drizzle"
-msgstr ""
-
-#: src/Utils.vala:372
-msgid "Light intensity drizzle"
-msgstr ""
-
-#: src/Utils.vala:374
-msgid "Heavy intensity drizzle"
-msgstr ""
-
-#: src/Utils.vala:375
-msgid "Light intensity drizzle rain"
-msgstr ""
-
-#: src/Utils.vala:376
-msgid "Drizzle rain"
-msgstr ""
-
-#: src/Utils.vala:377
-msgid "Heavy intensity drizzle rain"
-msgstr ""
-
-#: src/Utils.vala:378
-msgid "Shower rain and drizzle"
-msgstr ""
-
-#: src/Utils.vala:379
-msgid "Heavy shower rain and drizzle"
-msgstr ""
-
-#: src/Utils.vala:380
-msgid "Shower drizzle"
-msgstr ""
-
-#: src/Utils.vala:382
-msgid "Light rain"
-msgstr ""
-
-#: src/Utils.vala:383
-msgid "Moderate rain"
-msgstr ""
-
-#: src/Utils.vala:384
-msgid "Heavy intensity rain"
-msgstr ""
-
-#: src/Utils.vala:385
-msgid "Very heavy rain"
-msgstr ""
-
-#: src/Utils.vala:386
-msgid "Extreme rain"
-msgstr ""
-
-#: src/Utils.vala:387
-msgid "Freezing rain"
-msgstr ""
-
-#: src/Utils.vala:388
-msgid "Light intensity shower rain"
-msgstr ""
-
-#: src/Utils.vala:389
-msgid "Shower rain"
-msgstr ""
-
-#: src/Utils.vala:390
-msgid "Heavy intensity shower rain"
-msgstr ""
-
-#: src/Utils.vala:391
-msgid "Ragged shower rain"
-msgstr ""
-
-#: src/Utils.vala:393
+#: src/Utils.vala:61 src/Utils.vala:77
 #, fuzzy
-msgid "Light snow"
-msgstr "Mod noapte"
+msgid "Important"
+msgstr "Convertește la Proiect"
 
-#: src/Utils.vala:395
-msgid "Heavy snow"
+#: src/Utils.vala:62 src/Utils.vala:81
+msgid "Pending"
 msgstr ""
 
-#: src/Utils.vala:396
-msgid "Sleet"
-msgstr ""
-
-#: src/Utils.vala:397
-msgid "Shower sleet"
-msgstr ""
-
-#: src/Utils.vala:398
-msgid "Light rain and snow"
-msgstr ""
-
-#: src/Utils.vala:399
-msgid "Rain and snow"
-msgstr ""
-
-#: src/Utils.vala:400
-msgid "Light shower snow"
-msgstr ""
-
-#: src/Utils.vala:401
-msgid "Shower snow"
-msgstr ""
-
-#: src/Utils.vala:402
-msgid "Heavy shower snow"
-msgstr ""
-
-#: src/Utils.vala:404
-#, fuzzy
-msgid "Clear sky"
-msgstr "Golește"
-
-#: src/Utils.vala:405
-msgid "Few clouds"
-msgstr ""
-
-#: src/Utils.vala:406
-msgid "Scattered clouds"
-msgstr ""
-
-#: src/Utils.vala:407
-msgid "Broken clouds"
-msgstr ""
-
-#: src/Utils.vala:408
-msgid "Overcast clouds"
-msgstr ""
-
-#: src/Utils.vala:436 src/Views/Inbox.vala:398 src/Views/Inbox.vala:478
-#: src/Views/Today.vala:52 src/Views/Upcoming.vala:438
-#: src/Views/Upcoming.vala:513 src/Views/Project.vala:132
-#: src/Views/Project.vala:156 src/Views/Project.vala:168
-#: src/Dialogs/PreferencesDialog.vala:517
-#: src/Dialogs/PreferencesDialog.vala:522
-#: src/Dialogs/PreferencesDialog.vala:632
-#: src/Dialogs/PreferencesDialog.vala:728
-#: src/Dialogs/PreferencesDialog.vala:1122
-#: src/Dialogs/PreferencesDialog.vala:1136
-#: src/Dialogs/PreferencesDialog.vala:1138 src/Dialogs/ShareDialog.vala:80
-#: src/Widgets/WhenButton.vala:119 src/Widgets/ProjectsList.vala:46
-#: src/Widgets/TaskRow.vala:779 src/Widgets/TaskRow.vala:961
-#: src/Widgets/TaskRow.vala:990 src/Widgets/TaskNew.vala:320
-#: src/Widgets/CalendarEvents.vala:136 src/Widgets/QuickFind.vala:251
-#: src/Widgets/Popovers/WhenPopover.vala:99
+#: src/Utils.vala:393 src/Widgets/Pane.vala:44 src/Widgets/DueButton.vala:130
+#: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:161
+#: src/Dialogs/Preferences.vala:266
 msgid "Today"
 msgstr "Astăzi"
 
-#: src/Utils.vala:438 src/Views/Project.vala:134 src/Views/Project.vala:158
-#: src/Views/Project.vala:170 src/Widgets/WhenButton.vala:122
-#: src/Widgets/TaskRow.vala:781 src/Widgets/TaskRow.vala:963
-#: src/Widgets/TaskRow.vala:992 src/Widgets/TaskNew.vala:322
-#: src/Widgets/Popovers/WhenPopover.vala:113
+#: src/Utils.vala:395 src/Widgets/DueButton.vala:134
+#: src/Widgets/UpcomingRow.vala:33
 msgid "Tomorrow"
 msgstr "Mâine"
 
-#. Items
-#: src/Services/Notifications.vala:83 src/Views/Inbox.vala:52
-#: src/Views/Today.vala:453 src/Views/Today.vala:506
-#: src/Views/Upcoming.vala:431 src/Views/Upcoming.vala:506
-#: src/Dialogs/PreferencesDialog.vala:512
-#: src/Dialogs/PreferencesDialog.vala:522
-#: src/Dialogs/PreferencesDialog.vala:627
-#: src/Dialogs/PreferencesDialog.vala:723
-#: src/Dialogs/PreferencesDialog.vala:1120
-#: src/Dialogs/PreferencesDialog.vala:1134
-#: src/Dialogs/PreferencesDialog.vala:1138 src/Dialogs/ShareDialog.vala:57
-#: src/Widgets/ProjectsList.vala:43 src/Widgets/TaskRow.vala:168
-#: src/Widgets/TaskRow.vala:381 src/Widgets/TaskRow.vala:908
-#: src/Widgets/QuickFind.vala:247 src/Widgets/Popovers/MovePopover.vala:93
+#: src/Services/Database.vala:496 src/Widgets/Pane.vala:36
+#: src/Widgets/ItemRow.vala:1031 src/Widgets/SectionRow.vala:346
+#: src/Views/Inbox.vala:35 src/Dialogs/Preferences.vala:157
+#: src/Dialogs/Preferences.vala:263
 msgid "Inbox"
 msgstr "Intrări"
 
-#: src/Services/Weather.vala:265 src/Services/Weather.vala:270
-#, c-format
-msgid "%i°"
-msgstr "%i°"
+#: src/Services/Todoist.vala:566 src/Services/Todoist.vala:653
+#: src/Services/Todoist.vala:746 src/Services/Todoist.vala:805
+#: src/Services/Todoist.vala:892 src/Services/Todoist.vala:977
+#: src/Services/Todoist.vala:1058 src/Services/Todoist.vala:1148
+#: src/Services/Todoist.vala:1292 src/Services/Todoist.vala:1669
+msgid "Connection error"
+msgstr ""
 
-#: src/Services/Share.vala:107
+#: src/Services/Notifications.vala:11
 #, fuzzy
-msgid "Your project was exported correctly"
-msgstr "Proiectul tău e gata să fie partajat"
+msgid "task"
+msgstr "Sarcină Nouă"
 
-#: src/Services/Share.vala:161
+#: src/Services/Notifications.vala:13
 #, fuzzy
-msgid "Your project was imported correctly"
-msgstr "Proiectul tău e gata să fie partajat"
+msgid "tasks"
+msgstr "Toate sarcinile"
 
-#: src/Services/Share.vala:168
-#, fuzzy
-msgid "Import another project"
-msgstr "Convertește la Proiect"
-
-#: src/Services/Share.vala:169
-#, fuzzy
-msgid "This project was already imported"
-msgstr "Proiectul tău e gata să fie partajat"
-
-#: src/Services/Calendar/Utils.vala:591
+#: src/Services/Calendar/Util.vala:216 src/Widgets/New.vala:51
 msgid "On this computer"
 msgstr "Pe acest calculator"
 
-#: src/Services/Calendar/LanguagesFormat.vala:21
-msgid "%B %e, %Y"
-msgstr "%B %e, %Y"
-
-#: src/Services/Calendar/LanguagesFormat.vala:25
-msgid "%A, %b %d"
-msgstr "%A, %b %d"
-
-#: src/Views/Inbox.vala:45 src/Views/AllTasks.vala:42
-#: src/Views/CompletedTasks.vala:42
-msgid "All clear"
-msgstr "Liber"
-
-#: src/Views/Inbox.vala:46
-msgid "Looks like everything's is organized. Tap + to add a task."
-msgstr "Totul pare în ordine. Apăsați + pentru a adăuga o sarcină."
-
-#: src/Views/Inbox.vala:60 src/Views/Inbox.vala:75 src/Views/Today.vala:65
-#: src/Views/Today.vala:213 src/Views/Upcoming.vala:60
-#: src/Views/Upcoming.vala:75 src/Views/Project.vala:217
-#: src/Views/Project.vala:497 src/Views/AllTasks.vala:57
-#: src/Views/AllTasks.vala:72 src/Views/CompletedTasks.vala:57
-#: src/Views/CompletedTasks.vala:72
-msgid "Open all tasks"
-msgstr "Deschideți toate sarcinile"
-
-#: src/Views/Inbox.vala:67 src/Views/Today.vala:205 src/Views/Upcoming.vala:67
-#: src/Views/Project.vala:489 src/Views/AllTasks.vala:64
-#: src/Views/CompletedTasks.vala:64
-msgid "Close all tasks"
-msgstr "Închideți toate sarcinile"
-
-#: src/Views/Inbox.vala:87 src/Views/Today.vala:72 src/Views/Upcoming.vala:87
-#: src/Views/Project.vala:185
-msgid "Paste"
-msgstr "Lipește"
-
-#: src/Views/Inbox.vala:93 src/Views/Today.vala:78 src/Views/Upcoming.vala:93
-#: src/Views/Project.vala:191 src/Views/AllTasks.vala:84
-#: src/Views/CompletedTasks.vala:84
-msgid "Filter by Label"
-msgstr "Filtrează după etichetă"
-
-#: src/Views/Inbox.vala:102 src/Views/Today.vala:87 src/Views/Upcoming.vala:102
-#: src/Views/Project.vala:209 src/Views/AllTasks.vala:93
-#: src/Views/CompletedTasks.vala:93 src/Dialogs/ShareDialog.vala:165
-#: src/Widgets/Popovers/ProjectMenu.vala:38
-#: src/Widgets/Popovers/TaskMenu.vala:36
-msgid "Share"
-msgstr "Împartășește"
-
-#: src/Views/Inbox.vala:142 src/Views/Today.vala:129
-#: src/Views/Upcoming.vala:143 src/Views/Project.vala:271
-msgid "Add new task"
-msgstr "Adaugă o sarcină nouă"
-
-#. Notificacion Here ...
-#: src/Views/Inbox.vala:222 src/Views/Today.vala:243
-#: src/Views/Upcoming.vala:228 src/Views/Project.vala:545
-msgid "Empty clipboard"
-msgstr "Golește memoria temporară"
-
-#: src/Views/Inbox.vala:223 src/Views/Today.vala:244
-#: src/Views/Upcoming.vala:229 src/Views/Project.vala:546
-msgid "Try copying some text and try again"
-msgstr "Încearcă să copiezi un text și apoi încearcă iar"
-
-#. Notificacion Here ...
-#: src/Views/Inbox.vala:234 src/Views/Today.vala:257
-#: src/Views/Upcoming.vala:243 src/Views/Project.vala:557
-msgid "His task was created from the clipboard"
-msgstr "Această sarcină a fost creată din memoria temporară"
-
-#: src/Views/Inbox.vala:235 src/Views/Today.vala:258
-#: src/Views/Upcoming.vala:244 src/Views/Project.vala:558
-msgid "Tap to undo"
-msgstr "Apasă pentru a reveni"
-
-#: src/Views/Inbox.vala:400 src/Views/Inbox.vala:480 src/Views/Today.vala:451
-#: src/Views/Upcoming.vala:52 src/Dialogs/PreferencesDialog.vala:637
-#: src/Dialogs/PreferencesDialog.vala:733
-#: src/Dialogs/PreferencesDialog.vala:1124 src/Dialogs/ShareDialog.vala:99
-#: src/Widgets/ProjectsList.vala:49 src/Widgets/QuickFind.vala:255
+#: src/Widgets/Pane.vala:46 src/Views/Upcoming.vala:12
+#: src/Dialogs/Preferences.vala:164
 msgid "Upcoming"
 msgstr "Urmează"
 
-#: src/Views/Inbox.vala:405 src/Views/Inbox.vala:485 src/Views/Today.vala:462
-#: src/Views/Today.vala:515 src/Views/Upcoming.vala:443
-#: src/Views/Upcoming.vala:518
-#, c-format
-msgid "It was moved to %s"
-msgstr "A fost mutată la %s"
-
-#: src/Views/Today.vala:45
-msgid "You're all done for today!"
-msgstr "Ai îndeplinit tot pe ziua de azi!"
-
-#: src/Views/Today.vala:46
-msgid "Enjoy your day."
-msgstr "Bucură-te de zi în continuare."
-
-#: src/Views/Upcoming.vala:45
-msgid "Get a bird's eye view of yours upcoming tasks"
-msgstr "Vezi în ansamblu următoarele sarcini"
-
-#: src/Views/Upcoming.vala:46
-msgid "This is your timeline for the next tasks."
-msgstr "Aceasta este cronologia ta pentru următoarele sarcini."
-
-#: src/Views/Project.vala:65
-msgid "keep your tasks organized in projects"
-msgstr "pastreaza-ți sarcinile organizate în proiecte"
-
-#: src/Views/Project.vala:66
-msgid "Tap + to add a task."
-msgstr "Apasă + pentru a adăuga o sarcină"
-
-#: src/Views/Project.vala:81 src/Widgets/ProjectsList.vala:74
-#: src/Widgets/CalendarEvents.vala:181
-msgid "Add new project"
-msgstr "Adaugă un proiect nou"
-
-#: src/Views/Project.vala:92 src/Widgets/Popovers/NewProject.vala:191
-#: src/Widgets/Popovers/LabelsPopover.vala:229
-msgid "Name"
-msgstr "Nume"
-
-#: src/Views/Project.vala:104 src/Views/Project.vala:179
-#: src/Widgets/Popovers/NewProject.vala:159
-#: src/Widgets/Popovers/DeadlinePopover.vala:35
-msgid "Deadline"
-msgstr "Termen limita"
-
-#: src/Views/Project.vala:200 src/Widgets/Popovers/SearchPopover.vala:35
-msgid "Search"
-msgstr ""
-
-#: src/Views/Project.vala:250 src/Widgets/TaskRow.vala:210
-#: src/Widgets/TaskNew.vala:78
-msgid "Note"
-msgstr "Notiță"
-
-#: src/Views/Project.vala:287 src/Views/Project.vala:454
-msgid "Show completed tasks"
-msgstr "Arată sarcinile completate"
-
-#: src/Views/Project.vala:308
-msgid "Notes"
-msgstr "Notițe"
-
-#: src/Views/Project.vala:444
-msgid "Hide completed tasks"
-msgstr "Ascunde sarcinile completate"
-
-#: src/Views/Project.vala:525
-msgid "Select Your Favorite Color"
-msgstr "Alege culoarea favorită"
-
-#: src/Views/AllTasks.vala:43
-msgid "Find all your tasks here."
-msgstr ""
-
-#: src/Views/AllTasks.vala:49 src/Dialogs/PreferencesDialog.vala:738
-#: src/Widgets/ProjectsList.vala:51 src/Widgets/QuickFind.vala:259
-msgid "All Tasks"
-msgstr "Toate Sarcinile"
-
-#: src/Views/CompletedTasks.vala:43
-msgid "Start to complete tasks to fill this space."
-msgstr ""
-
-#: src/Views/CompletedTasks.vala:49 src/Dialogs/PreferencesDialog.vala:743
-#: src/Widgets/ProjectsList.vala:55 src/Widgets/QuickFind.vala:263
-msgid "Completed Tasks"
-msgstr "Sarcini Completate"
-
-#: src/Dialogs/PreferencesDialog.vala:54 src/Widgets/HeaderBar.vala:93
-#: src/Widgets/NoteChild.vala:55
-msgid "Preferences"
-msgstr "Preferințe"
-
-#: src/Dialogs/PreferencesDialog.vala:62
-msgid "General"
-msgstr "General"
-
-#: src/Dialogs/PreferencesDialog.vala:63
-msgid "Appearance"
-msgstr "Aspect"
-
-#: src/Dialogs/PreferencesDialog.vala:64 src/Dialogs/PreferencesDialog.vala:147
-#, fuzzy
-msgid "Github"
-msgstr "Mergi pe Gtihub"
-
-#: src/Dialogs/PreferencesDialog.vala:65
-msgid "About"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:96 src/Dialogs/ShareDialog.vala:206
-msgid "Close"
-msgstr "Închide"
-
-#: src/Dialogs/PreferencesDialog.vala:152
-msgid "Connect your account to work with Issues"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:161
-msgid "Username"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:166
-msgid "Password"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:177
-msgid "Enter a correct Username"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:187
-msgid "Connect"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:194
-msgid "Forgot password…"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:197
-msgid "Don't have an account? Sign Up"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:297
-msgid "Check which repositories you want to work with"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:308
-#, fuzzy
-msgid "Update issues"
-msgstr "Actualizează"
-
-#: src/Dialogs/PreferencesDialog.vala:314
-#, fuzzy
-msgid "Delete account"
-msgstr "Șterge Proiectul"
-
-#: src/Dialogs/PreferencesDialog.vala:325 src/Widgets/LabelButton.vala:34
-msgid "Labels"
-msgstr "Etichete"
-
-#: src/Dialogs/PreferencesDialog.vala:409
-#, fuzzy
-msgid "Are you sure you want to delete your Github account?"
-msgstr "Sigur vrei sa ștergi această sarcină?"
-
-#: src/Dialogs/PreferencesDialog.vala:414
-#: src/Widgets/Popovers/ProjectMenu.vala:40
-msgid "Delete"
-msgstr "Șterge"
-
-#: src/Dialogs/PreferencesDialog.vala:446
-msgid "Banana"
-msgstr "Banană"
-
-#: src/Dialogs/PreferencesDialog.vala:447
-msgid "Black"
-msgstr "Negru"
-
-#: src/Dialogs/PreferencesDialog.vala:448
-msgid "Blueberry"
-msgstr "Afine"
-
-#: src/Dialogs/PreferencesDialog.vala:449
-msgid "Strawberry"
-msgstr "Căpșuni"
-
-#: src/Dialogs/PreferencesDialog.vala:450
-msgid "Lemon"
-msgstr "Lămâie"
-
-#: src/Dialogs/PreferencesDialog.vala:451
-msgid "Slate"
-msgstr "Tablă"
-
-#: src/Dialogs/PreferencesDialog.vala:452
-msgid "Pink"
-msgstr "Roz"
-
-#: src/Dialogs/PreferencesDialog.vala:479
-#: src/Dialogs/PreferencesDialog.vala:599
-#: src/Dialogs/PreferencesDialog.vala:695
-#: src/Dialogs/PreferencesDialog.vala:781
-#: src/Dialogs/PreferencesDialog.vala:877
-#: src/Dialogs/PreferencesDialog.vala:1013
-#: src/Dialogs/PreferencesDialog.vala:1184
-msgid "Back"
-msgstr "Negru"
-
-#: src/Dialogs/PreferencesDialog.vala:484
-#: src/Dialogs/PreferencesDialog.vala:1501
-msgid "Badge Count"
-msgstr "Afișarea numărului de notificări"
-
-#: src/Dialogs/PreferencesDialog.vala:497
-msgid ""
-"Choose which items should be counted for the badge on the application icon."
-msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
-
-#: src/Dialogs/PreferencesDialog.vala:507
-#: src/Dialogs/PreferencesDialog.vala:809
-#: src/Dialogs/PreferencesDialog.vala:1132
-#: src/Dialogs/PreferencesDialog.vala:1148
-msgid "None"
-msgstr "Niciuna"
-
-#: src/Dialogs/PreferencesDialog.vala:527
-#: src/Dialogs/PreferencesDialog.vala:1140 src/Widgets/CalendarEvents.vala:76
-msgid "Notifications"
-msgstr "Notificări"
-
-#: src/Dialogs/PreferencesDialog.vala:604
-#: src/Dialogs/PreferencesDialog.vala:1541
-msgid "Start Page"
-msgstr "Pagina de start"
-
-#: src/Dialogs/PreferencesDialog.vala:617
-msgid "Choose that page should be first initial when Planner is open."
-msgstr "Alege pagina ce ar trebui afișată când deschizi Planner"
-
-#: src/Dialogs/PreferencesDialog.vala:700
-#: src/Dialogs/PreferencesDialog.vala:1523
-msgid "Items"
-msgstr "Obiecte"
-
-#: src/Dialogs/PreferencesDialog.vala:713
-#, fuzzy
-msgid "Choose which items should be displayed in the left side panel."
-msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
-
-#: src/Dialogs/PreferencesDialog.vala:786
-#: src/Dialogs/PreferencesDialog.vala:1563
-msgid "Quick Save"
-msgstr "Salvare rapidă"
-
-#: src/Dialogs/PreferencesDialog.vala:799
-msgid "Choose how many clicks to close and save all open tasks."
-msgstr ""
-"Alege câte click-uri să apeși pentru a închide și salva toate sarcinile "
-"deschise."
-
-#: src/Dialogs/PreferencesDialog.vala:814
-#: src/Dialogs/PreferencesDialog.vala:1150
-msgid "Double Click"
-msgstr "Dublu-click"
-
-#: src/Dialogs/PreferencesDialog.vala:819
-#: src/Dialogs/PreferencesDialog.vala:1152
-msgid "Triple Click"
-msgstr "Triplu-click"
-
-#: src/Dialogs/PreferencesDialog.vala:882
-#: src/Dialogs/PreferencesDialog.vala:1585
-msgid "Weather"
-msgstr "Vreme"
-
-#: src/Dialogs/PreferencesDialog.vala:895
-msgid "Get the weather forecast in a simple and beautiful widget."
-msgstr "Primește previziunile meteo într-un widget frumos."
-
-#: src/Dialogs/PreferencesDialog.vala:905
-msgid "Temperature"
-msgstr "Temperatură"
-
-#: src/Dialogs/PreferencesDialog.vala:912
-msgid "°F"
-msgstr "°F"
-
-#: src/Dialogs/PreferencesDialog.vala:913
-msgid "°C"
-msgstr "°C"
-
-#: src/Dialogs/PreferencesDialog.vala:916
-msgid "Location"
-msgstr "Locație"
-
-#: src/Dialogs/PreferencesDialog.vala:931
-msgid "Automatic:"
-msgstr "Automat"
-
-#: src/Dialogs/PreferencesDialog.vala:934
-#: src/Dialogs/PreferencesDialog.vala:1161
-msgid "Automatic Location"
-msgstr "Locație automată"
-
-#: src/Dialogs/PreferencesDialog.vala:1018
-#: src/Dialogs/PreferencesDialog.vala:1607
-msgid "Calendar Events"
-msgstr "Evenimente din calendar"
-
-#: src/Dialogs/PreferencesDialog.vala:1031
-msgid "Events from your personal and shared calendars can be displayed."
-msgstr "Poți vedea evenimente din calendarul personal și cele partajate."
-
-#: src/Dialogs/PreferencesDialog.vala:1041
-#: src/Dialogs/PreferencesDialog.vala:1177
-msgid "Enabled"
-msgstr "Activat"
-
-#: src/Dialogs/PreferencesDialog.vala:1179
-msgid "Disabled"
-msgstr "Dezactivat"
-
-#: src/Dialogs/PreferencesDialog.vala:1190
-#: src/Dialogs/PreferencesDialog.vala:1381
-msgid "Credits"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1232
-msgid "Developing"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1239
-msgid "Design"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1246
-msgid "Translation"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1253
-#: src/Dialogs/PreferencesDialog.vala:1359
-msgid "Support"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1293
-msgid "Home Page"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1315
-#, fuzzy
-msgid "Report a Issue"
-msgstr "Raportează o problemă"
-
-#: src/Dialogs/PreferencesDialog.vala:1337
-msgid "Translations"
-msgstr ""
-
-#: src/Dialogs/PreferencesDialog.vala:1629
-msgid "Run in background"
-msgstr "Rulează în fundal"
-
-#: src/Dialogs/PreferencesDialog.vala:1641
-msgid "Let Planner run in background and send notifications."
-msgstr "Permite-i lui Planner să ruleze în fundal și să trimită notificări."
-
-#: src/Dialogs/PreferencesDialog.vala:1654
-msgid "Launch at Login"
-msgstr "Pornește la Login"
-
-#: src/Dialogs/PreferencesDialog.vala:2027
-msgid "Profile"
-msgstr ""
-
-#: src/Dialogs/ShareDialog.vala:216 src/Dialogs/ShareDialog.vala:229
-msgid "Copy to clipboard"
-msgstr "Copiază in memoria temporară"
-
-#: src/Dialogs/ShareDialog.vala:228
-msgid "Your project is ready to share"
-msgstr "Proiectul tău e gata să fie partajat"
-
-#: src/Dialogs/Loading.vala:20
-msgid "Loading ..."
-msgstr ""
-
-#: src/Widgets/WhenButton.vala:24
-msgid "When"
-msgstr "Când"
-
-#: src/Widgets/MoveButton.vala:35 src/Widgets/Popovers/MovePopover.vala:35
-msgid "Move"
-msgstr "Mută"
-
-#: src/Widgets/HeaderBar.vala:42 src/Widgets/HeaderBar.vala:51
-#: data/com.github.alainm23.planner.appdata.xml.in:24
+#: src/Widgets/Pane.vala:64 data/com.github.alainm23.planner.appdata.xml.in:24
 msgid "Quick Find"
 msgstr "Găsire rapidă"
 
-#: src/Widgets/HeaderBar.vala:60
-msgid "Weather and Events"
-msgstr "Vreme si evenimente"
+#: src/Widgets/Pane.vala:83
+msgid "Preferences"
+msgstr "Preferințe"
 
-#: src/Widgets/HeaderBar.vala:72
-#, fuzzy
-msgid "Light background"
-msgstr "Rulează în fundal"
-
-#: src/Widgets/HeaderBar.vala:73
-#, fuzzy
-msgid "Dark background"
-msgstr "Rulează în fundal"
-
-#: src/Widgets/HeaderBar.vala:76
-msgid "Night Mode"
-msgstr "Mod noapte"
-
-#: src/Widgets/HeaderBar.vala:112 src/Widgets/ProjectRow.vala:73
-msgid "Menu"
-msgstr "Meniu"
-
-#: src/Widgets/HeaderBar.vala:241
-msgid "Completed tasks"
-msgstr "Sarcini completate"
-
-#: src/Widgets/HeaderBar.vala:256
-msgid "To do tasks"
-msgstr "Sarcini de îndeplinit"
-
-#: src/Widgets/HeaderBar.vala:271
-msgid "All tasks"
-msgstr "Toate sarcinile"
-
-#: src/Widgets/ProjectsList.vala:80
-msgid "Settings"
-msgstr "Setări"
-
-#: src/Widgets/ProjectRow.vala:68
-msgid "Project name"
-msgstr "Numele proiectului"
-
-#: src/Widgets/ProjectRow.vala:132
-msgid "Are you sure you want to mark as completed this project?"
-msgstr "Sigur vrei să marchezi acest proiect drept completat?"
-
-#: src/Widgets/ProjectRow.vala:133
-#, c-format
-msgid "This project contains %i incomplete tasks"
-msgstr "Acest proiect contine %i sarcini necompletate"
-
-#: src/Widgets/ProjectRow.vala:137 src/Widgets/Popovers/ProjectMenu.vala:34
-msgid "Mark as Completed"
-msgstr "Marchează drept Completat"
-
-#: src/Widgets/ProjectRow.vala:175
-msgid "Are you sure you want to delete this project?"
-msgstr "Sigur vrei să ștergi acest proiect?"
-
-#: src/Widgets/ProjectRow.vala:176
-#, c-format
-msgid ""
-"It contains %i elements that are also deleted, this operation can't be undone"
+#: src/Widgets/Pane.vala:97
+msgid "Sync"
 msgstr ""
-"Conține și %i elemente ce vor fi șterse, nu puteți reveni după această "
-"operațiune"
 
-#: src/Widgets/ProjectRow.vala:180
-msgid "Delete Project"
+#: src/Widgets/Pane.vala:135
+msgid "Add list"
+msgstr ""
+
+#: src/Widgets/New.vala:42 src/Dialogs/ProjectSettings.vala:23
+#, fuzzy
+msgid "Name:"
+msgstr "Nume"
+
+#: src/Widgets/New.vala:46
+msgid "Source:"
+msgstr ""
+
+#: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:31
+#, fuzzy
+msgid "Color:"
+msgstr "Culoare"
+
+#: src/Widgets/New.vala:246
+msgid "Create"
+msgstr "Creaza"
+
+#: src/Widgets/New.vala:251 src/Widgets/New.vala:495
+#: src/Widgets/NewItem.vala:75 src/Widgets/ReminderButton.vala:182
+msgid "Cancel"
+msgstr "Oprește"
+
+#: src/Widgets/New.vala:444
+#, fuzzy
+msgid "Project"
+msgstr "Proiect Nou"
+
+#: src/Widgets/New.vala:450
+msgid "Lorem is a ascaa acs casca sca sca sca scascascas sac asca s"
+msgstr ""
+
+#: src/Widgets/New.vala:473
+msgid "Area"
+msgstr ""
+
+#: src/Widgets/New.vala:479
+msgid "Organize your projects in groups and keep your panel clean."
+msgstr ""
+
+#: src/Widgets/New.vala:548
+#, fuzzy
+msgid "New area"
+msgstr "Etichetă nouă"
+
+#: src/Widgets/ProjectRow.vala:130
+#, fuzzy
+msgid "Local Project"
 msgstr "Șterge Proiectul"
 
-#: src/Widgets/ProjectRow.vala:199 src/Widgets/Popovers/ProjectMenu.vala:37
+#: src/Widgets/ProjectRow.vala:134
 #, fuzzy
-msgid "Export project"
+msgid "Todoist Project"
 msgstr "Convertește la Proiect"
 
-#: src/Widgets/ProjectRow.vala:205 src/Widgets/Popovers/ProjectListMenu.vala:51
+#: src/Widgets/ProjectRow.vala:417
+msgid "No Area"
+msgstr ""
+
+#: src/Widgets/ProjectRow.vala:450 src/Views/Project.vala:536
 #, fuzzy
-msgid "Planner files"
-msgstr "Planner"
+msgid "Edit project"
+msgstr "Convertește la Proiect"
 
-#: src/Widgets/ItemRow.vala:96
-#, c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
+#: src/Widgets/ProjectRow.vala:452
+#, fuzzy
+msgid "Move project"
+msgstr "Partajează proiectul"
 
-#: src/Widgets/CheckRow.vala:69 src/Widgets/TaskRow.vala:236
-#: src/Widgets/TaskNew.vala:94
-msgid "Checklist"
+#. var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
+#. var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+#. var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:460 src/Widgets/ProjectRow.vala:483
+#: src/Views/Project.vala:538
+msgid "Delete project"
+msgstr "Șterge proiectul"
+
+#: src/Widgets/ProjectRow.vala:484 src/Widgets/SectionRow.vala:418
+#: src/Widgets/AreaRow.vala:395
+#, fuzzy, c-format
+msgid "Are you sure you want to delete <b>%s</b>?"
+msgstr "Sigur vrei să ștergi eticheta?"
+
+#: src/Widgets/ProjectRow.vala:488 src/Widgets/SectionRow.vala:422
+#: src/Widgets/AreaRow.vala:404
+msgid "Delete"
+msgstr "Șterge"
+
+#: src/Widgets/NewItem.vala:52 src/Widgets/NewCheck.vala:51
+#, fuzzy
+msgid "Add a new subtask"
+msgstr "Adaugă o sarcină nouă"
+
+#: src/Widgets/NewItem.vala:70 src/Widgets/ReminderButton.vala:184
+msgid "Add"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:262 src/Widgets/AreaRow.vala:62
+#: src/Widgets/CheckRow.vala:31
+msgid "Task name"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:290 src/Views/Project.vala:136
+#, fuzzy
+msgid "Add note"
+msgstr "Adaugă un proiect nou"
+
+#: src/Widgets/ItemRow.vala:327
+#, fuzzy
+msgid "Add checklist"
 msgstr "Listă cu sarcini"
 
-#: src/Widgets/TaskRow.vala:285
-msgid "Move task"
-msgstr "Mută sarcina"
-
-#: src/Widgets/TaskRow.vala:288
+#. var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
+#. var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
+#: src/Widgets/ItemRow.vala:335 src/Widgets/ItemRow.vala:1083
 msgid "Delete task"
 msgstr "Șterge sarcina"
 
-#: src/Widgets/TaskRow.vala:397
-#, c-format
-msgid "It was moved to <b>%s</b>"
-msgstr "A fost mutată la <b>%s</b>"
+#: src/Widgets/ItemRow.vala:348
+#, fuzzy
+msgid "Task settings"
+msgstr "Setări"
 
-#: src/Widgets/TaskRow.vala:497
-msgid "Are you sure you want to delete this task?"
-msgstr "Sigur vrei sa ștergi această sarcină?"
+#: src/Widgets/ItemRow.vala:1072
+#, fuzzy
+msgid "Complete"
+msgstr "Sarcini Completate"
 
-#: src/Widgets/TaskRow.vala:502
-msgid "Delete Task"
-msgstr "Șterge Sarcina"
+#: src/Widgets/ItemRow.vala:1074
+msgid "View / Hide task"
+msgstr ""
 
-#: src/Widgets/TaskRow.vala:1000 src/Widgets/TaskNew.vala:330
-#, c-format
-msgid "You'll be notified %s at %s"
-msgstr "Vei fi notificat"
+#: src/Widgets/ItemRow.vala:1076
+#, fuzzy
+msgid "Move to project"
+msgstr "Convertește la Proiect"
 
-#: src/Widgets/LabelRow.vala:56
-msgid "Edit Label"
+#: src/Widgets/ItemRow.vala:1080
+msgid "Duplicate"
+msgstr "Crează duplicat"
+
+#: src/Widgets/ItemCompletedRow.vala:18
+msgid "Content"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:19
+msgid "Note"
+msgstr "Notiță"
+
+#: src/Widgets/ItemCompletedRow.vala:20
+msgid "Due date"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:21
+#, fuzzy
+msgid "Date completed"
+msgstr "Ascunde sarcinile completate"
+
+#: src/Widgets/SectionRow.vala:74
+#, fuzzy
+msgid "Section name"
+msgstr "Numele proiectului"
+
+#: src/Widgets/SectionRow.vala:88
+msgid "More"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:387 src/Widgets/MagicButton.vala:11
+#: src/Widgets/UpcomingRow.vala:46
+#, fuzzy
+msgid "Add task"
+msgstr "Adaugă o sarcină nouă"
+
+#: src/Widgets/SectionRow.vala:389
+msgid "Edit section"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:391
+#, fuzzy
+msgid "Move section"
+msgstr "Locație"
+
+#: src/Widgets/SectionRow.vala:395 src/Widgets/SectionRow.vala:417
+#, fuzzy
+msgid "Delete section"
+msgstr "Șterge Proiectul"
+
+#: src/Widgets/DueButton.vala:22
+msgid "Due Date"
+msgstr ""
+
+#: src/Widgets/DueButton.vala:138
+#, fuzzy
+msgid "Undated"
+msgstr "Actualizează"
+
+#: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:83
+#: src/Dialogs/Preferences.vala:416
+msgid "Labels"
+msgstr "Etichete"
+
+#: src/Widgets/LabelButton.vala:25
+#, fuzzy
+msgid "labels"
+msgstr "Etichete"
+
+#: src/Widgets/LabelButton.vala:91
+#, fuzzy
+msgid "Edit labels"
 msgstr "Modifică Eticheta"
 
-#: src/Widgets/LabelRow.vala:62 src/Widgets/LabelRow.vala:127
-msgid "Delete Label"
+#: src/Widgets/Toast.vala:67
+msgid "Undo"
+msgstr ""
+
+#: src/Widgets/AreaRow.vala:378
+#, fuzzy
+msgid "Edit area"
+msgstr "Modifică Eticheta"
+
+#: src/Widgets/AreaRow.vala:380 src/Widgets/AreaRow.vala:394
+#, fuzzy
+msgid "Delete area"
 msgstr "Șterge Eticheta"
 
-#: src/Widgets/LabelRow.vala:122
-msgid "Are you sure you want to delete this Label?"
-msgstr "Sigur vrei să ștergi eticheta?"
+#: src/Widgets/AreaRow.vala:400
+#, fuzzy
+msgid "Delete projects"
+msgstr "Șterge proiectul"
 
-#: src/Widgets/TaskNew.vala:56
-msgid "New task"
-msgstr "Sarcină Nouă"
+#: src/Widgets/LabelRow.vala:27
+msgid "Priority: Low"
+msgstr "Prioritate: Scăzută"
 
-#: src/Widgets/TaskNew.vala:124
-msgid "Create Task"
-msgstr "Crează Sarcina"
+#. get_action_area ().visible = false;
+#. get_action_area ().no_show_all = true;
+#: src/Widgets/QuickFind.vala:27 src/Dialogs/ProjectSettings.vala:210
+#: src/Dialogs/Preferences.vala:50
+msgid "Close"
+msgstr "Închide"
 
-#: src/Widgets/TimePicker.vala:69
+#: src/Widgets/ReminderButton.vala:19
+msgid "Reminders"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:140
+msgid "Add reminder"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:175
+msgid "Time:"
+msgstr ""
+
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:104
 msgid "AM"
 msgstr "AM"
 
-#: src/Widgets/TimePicker.vala:70
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:106
 msgid "PM"
 msgstr "PM"
 
-#: src/Widgets/CalendarEvents.vala:75
-msgid "Events"
-msgstr "Evenimente"
-
-#: src/Widgets/CalendarEvents.vala:167
-msgid "Calendar"
-msgstr "Calendar"
-
-#: src/Widgets/AgendaEventRow.vala:169 src/Widgets/AgendaEventRow.vala:179
-#, c-format
-msgid ""
-"%s\n"
-"%s"
-msgstr ""
-"%s\n"
-"%s"
-
-#: src/Widgets/AgendaEventRow.vala:171
-#, c-format
-msgid ""
-"%s, %s\n"
-"%s, %s"
-msgstr ""
-"%s, %s\n"
-"%s, %s"
-
-#: src/Widgets/AgendaEventRow.vala:183
-#, c-format
-msgid "%s"
+#. / TRANSLATORS: separates hours from minutes.
+#: src/Widgets/TimePicker.vala:151
+msgid ":"
 msgstr ""
 
-#: src/Widgets/AgendaEventRow.vala:185
-#, c-format
-msgid ""
-"%s, %s\n"
-"%s"
-msgstr ""
+#: src/Widgets/Calendar/CalendarHeader.vala:34
+#, fuzzy
+msgid "%OB, %Y"
+msgstr "%B %e, %Y"
 
-#: src/Widgets/QuickFind.vala:38
-msgid "Quick find"
-msgstr "Găsire rapidă"
-
-#: src/Widgets/QuickFind.vala:103
-msgid "all"
-msgstr "toate"
-
-#: src/Widgets/NoteChild.vala:46
-msgid "Title"
-msgstr "Titlu"
-
-#: src/Widgets/Calendar/CalendarHeader.vala:33
-#: src/Widgets/Calendar/CalendarHeader.vala:45
+#: src/Widgets/Calendar/CalendarHeader.vala:42
 msgid "%OB %Y"
 msgstr ""
 
@@ -1005,105 +411,224 @@ msgstr "Sâ"
 msgid "Sun"
 msgstr "Du"
 
-#: src/Widgets/Popovers/NewProject.vala:44
-msgid "New Project"
-msgstr "Proiect Nou"
+#: src/Views/Welcome.vala:26
+#, fuzzy
+msgid "Don't worry about forgetting things again"
+msgstr "Nu te mai teme vreodată că vei uita lucruri"
 
-#: src/Widgets/Popovers/NewProject.vala:52
-msgid "Personal"
-msgstr "Personal"
-
-#: src/Widgets/Popovers/NewProject.vala:177
-msgid "Create"
-msgstr "Creaza"
-
-#: src/Widgets/Popovers/NewProject.vala:178
-msgid "Create a new project"
-msgstr "Creaza un proiect nou"
-
-#: src/Widgets/Popovers/NewProject.vala:193
-#: src/Widgets/Popovers/LabelsPopover.vala:231
-msgid "Color"
-msgstr "Culoare"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:34
-msgid "Finalize project"
-msgstr "Finalizează proiect"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:35
-msgid "Edit"
-msgstr "Editează"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:35
-msgid "Change project name"
-msgstr "Schimbă numele proiectului"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:37
-msgid "Export"
+#: src/Views/Welcome.vala:29
+msgid "Startup"
 msgstr ""
 
-#: src/Widgets/Popovers/ProjectMenu.vala:38
-msgid "Share project"
-msgstr "Partajează proiectul"
+#: src/Views/Welcome.vala:29
+msgid "Start working locally."
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectMenu.vala:40
-msgid "Delete project"
-msgstr "Șterge proiectul"
+#: src/Views/Welcome.vala:30
+msgid "Todoist"
+msgstr ""
 
-#: src/Widgets/Popovers/TaskMenu.vala:34
-msgid "Convert"
-msgstr "Convertește"
+#: src/Views/Welcome.vala:30
+msgid "Synchronize with your Todoist account and start working."
+msgstr ""
 
-#: src/Widgets/Popovers/TaskMenu.vala:34
-msgid "Convert to Project"
-msgstr "Convertește la Proiect"
+#: src/Views/Inbox.vala:46 src/Views/Project.vala:53
+msgid "Add section"
+msgstr ""
 
-#: src/Widgets/Popovers/TaskMenu.vala:35
-msgid "Duplicate"
-msgstr "Crează duplicat"
+#: src/Views/Inbox.vala:67
+msgid "Inbox comments"
+msgstr ""
 
-#: src/Widgets/Popovers/TaskMenu.vala:35
-msgid "Duplicate task"
-msgstr "Duplichează sarcina"
-
-#: src/Widgets/Popovers/TaskMenu.vala:36
-msgid "Share task"
+#: src/Views/Inbox.vala:75 src/Views/Project.vala:92
+#, fuzzy
+msgid "Search task"
 msgstr "Împărtășește sarcina"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:132
-#: src/Widgets/Popovers/LabelsPopover.vala:213
-msgid "Add"
+#: src/Views/Inbox.vala:82 src/Views/Project.vala:99
+msgid "Options"
 msgstr ""
 
-#: src/Widgets/Popovers/LabelsPopover.vala:160
-msgid "Update"
-msgstr "Actualizează"
+#: src/Views/Inbox.vala:197 src/Views/Project.vala:272
+#, fuzzy
+msgid "New Section"
+msgstr "Proiect Nou"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:194
-msgid "Priority: Low"
-msgstr "Prioritate: Scăzută"
+#: src/Views/Inbox.vala:462 src/Views/Inbox.vala:479 src/Views/Project.vala:539
+#: src/Views/Project.vala:574
+#, fuzzy
+msgid "Show completed task"
+msgstr "Arată sarcinile completate"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:218
-msgid "Add new label"
-msgstr "Adaugă o etichetă nouă"
+#: src/Views/Inbox.vala:482 src/Views/Project.vala:577
+#, fuzzy
+msgid "Hide completed task"
+msgstr "Ascunde sarcinile completate"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:227
-msgid "Preview"
-msgstr "Previzualizează"
-
-#: src/Widgets/Popovers/ProjectListMenu.vala:32
-msgid "Import"
+#: src/Views/Project.vala:73
+msgid "Invite person"
 msgstr ""
 
-#: src/Widgets/Popovers/ProjectListMenu.vala:32
+#: src/Views/Project.vala:83
 #, fuzzy
-msgid "Import project"
-msgstr "Convertește la Proiect"
+msgid "Project comments"
+msgstr "Numele proiectului"
 
-#: src/Widgets/Popovers/ProjectListMenu.vala:45
+#: src/Views/Project.vala:127
+msgid "Add a note"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:103
+msgid "Loading…"
+msgstr ""
+
+#. Alert
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:117
+msgid "Network Is Not Available"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:47
+msgid "Connect to the Internet to connect with Todoist"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:83
+msgid "Synchronizing… Wait a moment please."
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:95
+msgid "Please enter your credentials…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:28
+msgid "Due:"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:183
+msgid "Uploading changes…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:212
+msgid "Save"
+msgstr ""
+
+#. General
+#: src/Dialogs/Preferences.vala:59 src/Dialogs/Preferences.vala:65
+#: src/Dialogs/Preferences.vala:366
+msgid "General"
+msgstr "General"
+
+#: src/Dialogs/Preferences.vala:62 src/Dialogs/Preferences.vala:145
+msgid "Homepage"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:63 src/Dialogs/Preferences.vala:248
 #, fuzzy
-msgid "Export Project"
-msgstr "Convertește la Proiect"
+msgid "Badge count"
+msgstr "Afișarea numărului de notificări"
+
+#: src/Dialogs/Preferences.vala:64 src/Dialogs/Preferences.vala:319
+msgid "Theme"
+msgstr ""
+
+#. Addons
+#: src/Dialogs/Preferences.vala:79
+msgid "Add-ons"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:82 src/Dialogs/Preferences.vala:480
+#, fuzzy
+msgid "Calendar events"
+msgstr "Evenimente din calendar"
+
+#. Others
+#: src/Dialogs/Preferences.vala:96
+msgid "About"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:97
+#, fuzzy
+msgid "Create tutorial project"
+msgstr "Creaza un proiect de tip Tutorial"
+
+#: src/Dialogs/Preferences.vala:147
+msgid ""
+"When you open up Planner, make sure you see the tasks that are most "
+"important. The default homepage is your <b>Inbox</b> view, but you can "
+"change it to whatever you'd like."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:178
+#, fuzzy
+msgid "Projects"
+msgstr "Proiect Nou"
+
+#: src/Dialogs/Preferences.vala:250
+msgid ""
+"Choose which items should be counted for the badge on the application icon."
+msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
+
+#: src/Dialogs/Preferences.vala:259
+msgid "None"
+msgstr "Niciuna"
+
+#: src/Dialogs/Preferences.vala:269
+msgid "Today + Inbox"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:321
+msgid ""
+"Personalize the look and feel of your Planner by choosing the theme that "
+"best suits you."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:330
+#, fuzzy
+msgid "Light"
+msgstr "Mod noapte"
+
+#: src/Dialogs/Preferences.vala:334
+#, fuzzy
+msgid "Night"
+msgstr "Mod noapte"
+
+#: src/Dialogs/Preferences.vala:369
+msgid "DE Integration"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:375
+msgid "Date & Time"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:380
+msgid "AM/PM"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:381
+msgid "24 h"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:383
+msgid "Time format"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:419
+msgid ""
+"Save time by batching similar tasks together using labels. You’ll be able to "
+"pull up a list of all tasks with any given label in a matter of seconds."
+msgstr ""
+
+#. top_box.action_button = "list-add-symbolic";
+#: src/Dialogs/Preferences.vala:483
+msgid ""
+"You can connect your <b>Calendar</b> app to Planner to see your events and "
+"to-dos together in one place. You’ll see events from both personal and "
+"shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
+"you’re managing your day, and as you plan the week ahead."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:682
+msgid "Back"
+msgstr "Negru"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
@@ -1202,6 +727,7 @@ msgid "Different themes to choose"
 msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
+#: data/com.github.alainm23.planner.appdata.xml.in:38
 #, fuzzy
 msgid "Weather forecast"
 msgstr "Vreme"
@@ -1211,24 +737,508 @@ msgstr "Vreme"
 msgid "Night mode"
 msgstr "Mod noapte"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:149
+#: data/com.github.alainm23.planner.appdata.xml.in:27
+msgid "* Planner not created by, affiliated with, or supported by Doist"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:35
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:37
+#, fuzzy
+msgid "Labels preview"
+msgstr "Etichete"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:40
+#: data/com.github.alainm23.planner.appdata.xml.in:53
+#: data/com.github.alainm23.planner.appdata.xml.in:72
+#: data/com.github.alainm23.planner.appdata.xml.in:88
+msgid "Translations:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:42
+msgid "Lithuanian (welaq)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:48
+#: data/com.github.alainm23.planner.appdata.xml.in:61
+msgid "Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:50
+msgid "Redesign 'Labels' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:51
+#, fuzzy
+msgid "Fix Notification error"
+msgstr "Notificări"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:55
+msgid "Updating French translations 🇫🇷 (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:63
+#, fuzzy
+msgid "Better reminder notifications"
+msgstr "Notificări"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:64
+msgid "Improvement default theme"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:65
+msgid "Redesign 'When' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:66
+msgid "New 'About' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:67
+msgid "New 'Credits' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:68
+msgid "Redesign 'Issues' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:69
+#, fuzzy
+msgid "New task search"
+msgstr "Sarcină Nouă"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:70
+msgid "Adding support to import and export projects"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:74
+msgid "German (kr428)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:75
+msgid "French (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:76
+msgid "Update Spanish translation"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:82
+msgid "New feature: Support for Github Issues"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:84
+msgid "Connect with your Github account"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:85
+msgid "Receive all your issue as tasks in Inbox"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:86
+msgid "Planner will notify you if any new issue was posted"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:90
+msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:91
+msgid "Romanian (Prongs Dark)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:93
+msgid "Bugs and Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:95
+msgid "Performance improvement"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:96
+msgid "Design improvements"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:97
+msgid "Fix #22"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:98
+msgid "Fix #21"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:99
+msgid "Fix #11"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:105
+msgid "Improved stability and some bug fixes"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:107
+#, fuzzy
+msgid "Fixing critical bug with creating tasks from the clipboard #19"
+msgstr "Această sarcină a fost creată din memoria temporară"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:108
+#, fuzzy
+msgid "Adding new tooltips"
+msgstr "Adaugă o sarcină nouă"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:114
+#, fuzzy
+msgid "Hola Planner !!!"
+msgstr "Cum funcționează Planner"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:116
+msgid "Adding Spanish translations"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:122
+msgid "Initial release"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:163
 msgid "Alain M."
 msgstr "Alain M."
 
-#~ msgid "New Label"
-#~ msgstr "Etichetă nouă"
+#~ msgid "Clear"
+#~ msgstr "Golește"
 
-#~ msgid "Cancel"
-#~ msgstr "Oprește"
+#, fuzzy
+#~ msgid "Clear sky"
+#~ msgstr "Golește"
+
+#~ msgid "%i°"
+#~ msgstr "%i°"
+
+#, fuzzy
+#~ msgid "Your project was exported correctly"
+#~ msgstr "Proiectul tău e gata să fie partajat"
+
+#, fuzzy
+#~ msgid "Your project was imported correctly"
+#~ msgstr "Proiectul tău e gata să fie partajat"
+
+#, fuzzy
+#~ msgid "Import another project"
+#~ msgstr "Convertește la Proiect"
+
+#, fuzzy
+#~ msgid "This project was already imported"
+#~ msgstr "Proiectul tău e gata să fie partajat"
+
+#~ msgid "%A, %b %d"
+#~ msgstr "%A, %b %d"
+
+#~ msgid "All clear"
+#~ msgstr "Liber"
+
+#~ msgid "Looks like everything's is organized. Tap + to add a task."
+#~ msgstr "Totul pare în ordine. Apăsați + pentru a adăuga o sarcină."
+
+#~ msgid "Open all tasks"
+#~ msgstr "Deschideți toate sarcinile"
+
+#~ msgid "Close all tasks"
+#~ msgstr "Închideți toate sarcinile"
+
+#~ msgid "Paste"
+#~ msgstr "Lipește"
+
+#~ msgid "Filter by Label"
+#~ msgstr "Filtrează după etichetă"
+
+#~ msgid "Share"
+#~ msgstr "Împartășește"
+
+#~ msgid "Empty clipboard"
+#~ msgstr "Golește memoria temporară"
+
+#~ msgid "Try copying some text and try again"
+#~ msgstr "Încearcă să copiezi un text și apoi încearcă iar"
+
+#~ msgid "Tap to undo"
+#~ msgstr "Apasă pentru a reveni"
+
+#~ msgid "It was moved to %s"
+#~ msgstr "A fost mutată la %s"
+
+#~ msgid "You're all done for today!"
+#~ msgstr "Ai îndeplinit tot pe ziua de azi!"
+
+#~ msgid "Enjoy your day."
+#~ msgstr "Bucură-te de zi în continuare."
+
+#~ msgid "Get a bird's eye view of yours upcoming tasks"
+#~ msgstr "Vezi în ansamblu următoarele sarcini"
+
+#~ msgid "This is your timeline for the next tasks."
+#~ msgstr "Aceasta este cronologia ta pentru următoarele sarcini."
+
+#~ msgid "keep your tasks organized in projects"
+#~ msgstr "pastreaza-ți sarcinile organizate în proiecte"
+
+#~ msgid "Tap + to add a task."
+#~ msgstr "Apasă + pentru a adăuga o sarcină"
+
+#~ msgid "Deadline"
+#~ msgstr "Termen limita"
+
+#~ msgid "Notes"
+#~ msgstr "Notițe"
+
+#~ msgid "Select Your Favorite Color"
+#~ msgstr "Alege culoarea favorită"
+
+#~ msgid "All Tasks"
+#~ msgstr "Toate Sarcinile"
+
+#~ msgid "Appearance"
+#~ msgstr "Aspect"
+
+#, fuzzy
+#~ msgid "Github"
+#~ msgstr "Mergi pe Gtihub"
+
+#, fuzzy
+#~ msgid "Update issues"
+#~ msgstr "Actualizează"
+
+#, fuzzy
+#~ msgid "Are you sure you want to delete your Github account?"
+#~ msgstr "Sigur vrei sa ștergi această sarcină?"
+
+#~ msgid "Banana"
+#~ msgstr "Banană"
+
+#~ msgid "Black"
+#~ msgstr "Negru"
+
+#~ msgid "Blueberry"
+#~ msgstr "Afine"
+
+#~ msgid "Strawberry"
+#~ msgstr "Căpșuni"
+
+#~ msgid "Lemon"
+#~ msgstr "Lămâie"
+
+#~ msgid "Slate"
+#~ msgstr "Tablă"
+
+#~ msgid "Pink"
+#~ msgstr "Roz"
+
+#~ msgid "Start Page"
+#~ msgstr "Pagina de start"
+
+#~ msgid "Choose that page should be first initial when Planner is open."
+#~ msgstr "Alege pagina ce ar trebui afișată când deschizi Planner"
+
+#~ msgid "Items"
+#~ msgstr "Obiecte"
+
+#, fuzzy
+#~ msgid "Choose which items should be displayed in the left side panel."
+#~ msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
+
+#~ msgid "Quick Save"
+#~ msgstr "Salvare rapidă"
+
+#~ msgid "Choose how many clicks to close and save all open tasks."
+#~ msgstr ""
+#~ "Alege câte click-uri să apeși pentru a închide și salva toate sarcinile "
+#~ "deschise."
+
+#~ msgid "Double Click"
+#~ msgstr "Dublu-click"
+
+#~ msgid "Triple Click"
+#~ msgstr "Triplu-click"
+
+#~ msgid "Weather"
+#~ msgstr "Vreme"
+
+#~ msgid "Get the weather forecast in a simple and beautiful widget."
+#~ msgstr "Primește previziunile meteo într-un widget frumos."
+
+#~ msgid "Temperature"
+#~ msgstr "Temperatură"
+
+#~ msgid "°F"
+#~ msgstr "°F"
+
+#~ msgid "°C"
+#~ msgstr "°C"
+
+#~ msgid "Automatic:"
+#~ msgstr "Automat"
+
+#~ msgid "Automatic Location"
+#~ msgstr "Locație automată"
+
+#~ msgid "Events from your personal and shared calendars can be displayed."
+#~ msgstr "Poți vedea evenimente din calendarul personal și cele partajate."
+
+#~ msgid "Enabled"
+#~ msgstr "Activat"
+
+#~ msgid "Disabled"
+#~ msgstr "Dezactivat"
+
+#, fuzzy
+#~ msgid "Report a Issue"
+#~ msgstr "Raportează o problemă"
+
+#~ msgid "Run in background"
+#~ msgstr "Rulează în fundal"
+
+#~ msgid "Let Planner run in background and send notifications."
+#~ msgstr "Permite-i lui Planner să ruleze în fundal și să trimită notificări."
+
+#~ msgid "Launch at Login"
+#~ msgstr "Pornește la Login"
+
+#~ msgid "Copy to clipboard"
+#~ msgstr "Copiază in memoria temporară"
+
+#~ msgid "Your project is ready to share"
+#~ msgstr "Proiectul tău e gata să fie partajat"
+
+#~ msgid "When"
+#~ msgstr "Când"
+
+#~ msgid "Move"
+#~ msgstr "Mută"
+
+#~ msgid "Weather and Events"
+#~ msgstr "Vreme si evenimente"
+
+#, fuzzy
+#~ msgid "Light background"
+#~ msgstr "Rulează în fundal"
+
+#, fuzzy
+#~ msgid "Dark background"
+#~ msgstr "Rulează în fundal"
+
+#~ msgid "Menu"
+#~ msgstr "Meniu"
+
+#~ msgid "Completed tasks"
+#~ msgstr "Sarcini completate"
+
+#~ msgid "To do tasks"
+#~ msgstr "Sarcini de îndeplinit"
+
+#~ msgid "Are you sure you want to mark as completed this project?"
+#~ msgstr "Sigur vrei să marchezi acest proiect drept completat?"
+
+#~ msgid "This project contains %i incomplete tasks"
+#~ msgstr "Acest proiect contine %i sarcini necompletate"
+
+#~ msgid "Mark as Completed"
+#~ msgstr "Marchează drept Completat"
+
+#~ msgid "Are you sure you want to delete this project?"
+#~ msgstr "Sigur vrei să ștergi acest proiect?"
+
+#~ msgid ""
+#~ "It contains %i elements that are also deleted, this operation can't be "
+#~ "undone"
+#~ msgstr ""
+#~ "Conține și %i elemente ce vor fi șterse, nu puteți reveni după această "
+#~ "operațiune"
+
+#, fuzzy
+#~ msgid "Planner files"
+#~ msgstr "Planner"
+
+#~ msgid "<b>%s</b>"
+#~ msgstr "<b>%s</b>"
+
+#~ msgid "Move task"
+#~ msgstr "Mută sarcina"
+
+#~ msgid "It was moved to <b>%s</b>"
+#~ msgstr "A fost mutată la <b>%s</b>"
+
+#~ msgid "Are you sure you want to delete this task?"
+#~ msgstr "Sigur vrei sa ștergi această sarcină?"
+
+#~ msgid "Delete Task"
+#~ msgstr "Șterge Sarcina"
+
+#~ msgid "You'll be notified %s at %s"
+#~ msgstr "Vei fi notificat"
+
+#~ msgid "Create Task"
+#~ msgstr "Crează Sarcina"
+
+#~ msgid "Events"
+#~ msgstr "Evenimente"
+
+#~ msgid "Calendar"
+#~ msgstr "Calendar"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+#~ msgstr ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+
+#~ msgid "Quick find"
+#~ msgstr "Găsire rapidă"
+
+#~ msgid "all"
+#~ msgstr "toate"
+
+#~ msgid "Title"
+#~ msgstr "Titlu"
+
+#~ msgid "Personal"
+#~ msgstr "Personal"
+
+#~ msgid "Create a new project"
+#~ msgstr "Creaza un proiect nou"
+
+#~ msgid "Finalize project"
+#~ msgstr "Finalizează proiect"
+
+#~ msgid "Edit"
+#~ msgstr "Editează"
+
+#~ msgid "Change project name"
+#~ msgstr "Schimbă numele proiectului"
+
+#~ msgid "Convert"
+#~ msgstr "Convertește"
+
+#~ msgid "Duplicate task"
+#~ msgstr "Duplichează sarcina"
+
+#~ msgid "Add new label"
+#~ msgstr "Adaugă o etichetă nouă"
+
+#~ msgid "Preview"
+#~ msgstr "Previzualizează"
 
 #~ msgid "Create label"
 #~ msgstr "Crează eticheta"
 
 #~ msgid "Help"
 #~ msgstr "Ajutor"
-
-#~ msgid "Create Tutorial Project"
-#~ msgstr "Creaza un proiect de tip Tutorial"
 
 #~ msgid "Learn the app step by step with a short tutorial project."
 #~ msgstr ""

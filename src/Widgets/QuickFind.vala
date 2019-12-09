@@ -1,137 +1,140 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
-
 public class Widgets.QuickFind : Gtk.Revealer {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
 
+    public bool reveal {
+        set {
+            if (value) {
+                reveal_child = true;
+                search_entry.grab_focus ();
+            } else {
+                reveal_child = false;
+            }
+        }
+    }
+
     public QuickFind () {
-        transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
-        margin_top = 75;
+        transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        //transition_duration = 125;
         valign = Gtk.Align.START;
         halign = Gtk.Align.CENTER;
-        reveal_child = false;
     }
 
     construct {
         search_entry = new Gtk.SearchEntry ();
-        search_entry.margin = 9;
-        search_entry.width_request = 350;
-        search_entry.placeholder_text = _("Quick find");
+        search_entry.hexpand = true;
 
-        var quick_find_grid = new Gtk.Grid ();
-        quick_find_grid.margin = 6;
-        quick_find_grid.get_style_context ().add_class ("card");
-        quick_find_grid.get_style_context ().add_class ("planner-card-radius");
-        quick_find_grid.add (search_entry);
+        var cancel_button = new Gtk.Button.with_label (_("Close"));
+        cancel_button.margin_start = 6;
+        cancel_button.get_style_context ().add_class ("flat");
+        cancel_button.get_style_context ().add_class ("font-bold");
+        cancel_button.get_style_context ().add_class ("no-padding");
+
+        var cancel_revealer = new Gtk.Revealer ();
+        cancel_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        cancel_revealer.add (cancel_button);
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin = 6;
+        top_box.hexpand = true;
+        top_box.pack_start (search_entry, false, true, 0);
+        top_box.pack_start (cancel_revealer, false, false, 0);
 
         listbox = new Gtk.ListBox ();
-        listbox.selection_mode = Gtk.SelectionMode.BROWSE;
-        listbox.expand = true;
+        listbox.get_style_context ().add_class ("background");
+        listbox.hexpand = true;
 
-        var search_scroll = new Gtk.ScrolledWindow (null, null);
-        search_scroll.margin = 6;
-        search_scroll.height_request = 250;
-        search_scroll.expand = true;
-        search_scroll.add (listbox);
+        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled.margin_bottom = 6;
+        listbox_scrolled.height_request = 250;
+        listbox_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        listbox_scrolled.expand = true;
+        listbox_scrolled.add (listbox);
 
-        var search_grid = new Gtk.Grid ();
-        search_grid.margin = 6;
-        search_grid.get_style_context ().add_class ("card");
-        search_grid.get_style_context ().add_class ("planner-card-radius");
-        search_grid.orientation = Gtk.Orientation.VERTICAL;
-        search_grid.add (search_scroll);
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        //box.margin_top = 24;
+        box.width_request = 350;
+        box.get_style_context ().add_class ("quick-find");
+        box.pack_start (top_box, false, false, 0);
+        //box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        box.pack_start (listbox_scrolled, false, false, 0);
+        
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add (box);
 
-        var revealer = new Gtk.Revealer ();
-        revealer.add (search_grid);
-        revealer.reveal_child = false;
-
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-
-        main_grid.add (quick_find_grid);
-        main_grid.add (revealer);
-
-        var event_box = new Gtk.EventBox ();
-        event_box.add (main_grid);
-
-        add (event_box);
-        update_items ();
-
-        listbox.set_filter_func ((row) => {
-            var item = row as Item;
-
-            if (search_entry.text.down () == _("all")) {
-                return true;
-            } else {
-                return search_entry.text.down () in item.title.down ();
-            }
-        });
+        add (eventbox);
 
         search_entry.search_changed.connect (() => {
-            if (search_entry.text != "") {
-                revealer.reveal_child = true;
-            } else {
-                revealer.reveal_child = false;
-            }
+            listbox.foreach ((widget) => {
+                widget.destroy ();
+            });
 
-            listbox.invalidate_filter ();
+            if (search_entry.text != "") {
+                cancel_revealer.reveal_child = true;
+                foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
+                    var row = new Widgets.SearchItem (
+                        item.content,
+                        "emblem-default-symbolic",
+                        "item",
+                        item.id,
+                        item.project_id
+                    );
+                    
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+
+                foreach (var project in Planner.database.get_all_projects_by_search (search_entry.text)) {
+                    var row = new Widgets.SearchItem (
+                        project.name,
+                        "planner-project-symbolic",
+                        "project",
+                        project.id
+                    );
+                    
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+            } else {
+                cancel_revealer.reveal_child = false;
+            }
         });
 
         search_entry.focus_out_event.connect (() => {
             if (search_entry.text == "") {
-                reveal_child = false;
-                listbox.unselect_all ();
+                cancel ();
             }
 
             return false;
         });
 
-        event_box.key_press_event.connect ((event) => {
+        search_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                cancel ();
+            }
+
+            return false;
+        });
+
+        cancel_button.clicked.connect (() => {
+            cancel ();
+        });
+
+        eventbox.key_press_event.connect ((event) => {
             var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {
                 return false;
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-                var item = listbox.get_selected_row () as Item;
+                var item = (Widgets.SearchItem) listbox.get_selected_row ();
 
-                if (item.is_inbox) {
-                    Application.signals.go_action_page (0);
-                } else if (item.is_today) {
-                    Application.signals.go_action_page (1);
-                } else if (item.is_upcoming) {
-                    Application.signals.go_action_page (2);
-                } else if (item.is_all_tasks) {
-                    Application.signals.go_action_page (3);
-                } else if (item.is_completed) {
-                    Application.signals.go_action_page (4);
-                } else if (item.is_project) {
-                    Application.signals.go_project_page (item.project_id);
-                } else if (item.is_task) {
-                    Application.signals.go_task_page (item.task_id, item.project_id);
+                if (item.element == "item") {
+                    Planner.instance.go_view ("item", item.id, item.project_id);
+                } else if (item.element == "project") {
+                    Planner.instance.go_view ("project", item.id, 0);
                 }
-    
-                reveal_child = false;
-                search_entry.text = "";
-                listbox.unselect_all ();
+
+                cancel ();
 
                 return false;
             } else {
@@ -146,228 +149,60 @@ public class Widgets.QuickFind : Gtk.Revealer {
 
             return true;
         });
-
-        this.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                search_entry.text = "";
-                reveal_child = false;
-                listbox.unselect_all ();
-            }
-
-            return false;
-        });
-
-        Application.signals.on_signal_show_quick_find.connect (() => {
-            if (reveal_child) {
-                search_entry.text = "";
-                reveal_child = false;
-                listbox.unselect_all ();
-            } else {
-                reveal_child = true;
-                search_entry.grab_focus ();
-            }
-        });
-
-        Application.database.add_task_signal.connect (() => {
-            var task = Application.database.get_last_task ();
-
-            var row = new Item (task.content, "emblem-default-symbolic");
-            row.is_task = true;
-            row.task_id = task.id;
-            row.project_id = task.project_id;
-
-            listbox.add (row);
-
-            listbox.show_all ();
-        });
-
-        Application.database.on_signal_remove_task.connect ((task) => {
-            foreach (Gtk.Widget element in listbox.get_children ()) {
-                var row = element as Item;
-
-                if (row.is_task && row.task_id == task.id) {
-                    GLib.Timeout.add (250, () => {
-                        row.destroy ();
-                        return GLib.Source.REMOVE;
-                    });
-                }
-            }
-        });
-
-        Application.database.update_task_signal.connect ((task) => {
-            foreach (Gtk.Widget element in listbox.get_children ()) {
-                var row = element as Item;
-
-                if (row.is_task && row.task_id == task.id) {
-                    row.title = task.content;
-                }
-            }
-        });
-
-        Application.database.on_add_project_signal.connect ((project) => {
-            var row = new Item (project.name, "planner-startup-symbolic");
-            row.is_project = true;
-            row.project_id = project.id;
-
-            listbox.add (row);
-
-            listbox.show_all ();
-        });
-
-        Application.database.update_project_signal.connect ((project) => {
-            foreach (Gtk.Widget element in listbox.get_children ()) {
-                var row = element as Item;
-
-                if (row.is_project && row.project_id == project.id) {
-                    row.title = project.name;
-                }
-            }
-        });
-
-        Application.database.on_signal_remove_project.connect ((project) => {
-            foreach (Gtk.Widget element in listbox.get_children ()) {
-                var row = element as Item;
-
-                if (row.is_project && row.project_id == project.id) {
-                    GLib.Timeout.add (250, () => {
-                        row.destroy ();
-                        return GLib.Source.REMOVE;
-                    });
-                }
-            }
-        });
     }
 
-    private void update_items () {
-        // Tasks
-        var all_tasks = new Gee.ArrayList<Objects.Task?> ();
-        all_tasks = Application.database.get_all_search_tasks ();
-
-        foreach (var task in all_tasks) {
-            var row = new Item (task.content, "emblem-default-symbolic");
-            row.is_task = true;
-            row.task_id = task.id;
-            row.project_id = task.project_id;
-
-            listbox.add (row);
+    public void reveal_toggled () {
+        if (reveal_child) {
+            cancel ();
+        } else {
+            reveal_child = true;
+            search_entry.grab_focus ();
         }
+    }
 
-        // Projects
-        var all_projects = new Gee.ArrayList<Objects.Project?> ();
-        all_projects= Application.database.get_all_projects ();
+    public void cancel () {
+        search_entry.text = "";
 
-        foreach (var project in all_projects) {
-            var row = new Item (project.name, "planner-startup-symbolic");
-            row.is_project = true;
-            row.project_id = project.id;
-
-            listbox.add (row);
-        }
-
-        // Items
-        var inbox_row = new Item (_("Inbox"), "mail-mailbox-symbolic");
-        inbox_row.is_inbox = true;
-        listbox.add (inbox_row);
-
-        var today_row = new Item (_("Today"), "help-about-symbolic");
-        today_row.is_today = true;
-        listbox.add (today_row);
-
-        var upcoming_row = new Item (_("Upcoming"), "x-office-calendar-symbolic");
-        upcoming_row.is_upcoming = true;
-        listbox.add (upcoming_row);
-
-        var all_tasks_row = new Item (_("All Tasks"), "user-bookmarks-symbolic");
-        all_tasks_row.is_all_tasks = true;
-        listbox.add (all_tasks_row);
-
-        var completed_tasks_row = new Item (_("Completed Tasks"), "process-completed-symbolic");
-        completed_tasks_row.is_completed = true;
-        listbox.add (completed_tasks_row);
-
-        listbox.show_all ();
+        reveal_child = false;
+        listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
     }
 }
 
-public class Item : Gtk.ListBoxRow {
+public class Widgets.SearchItem : Gtk.ListBoxRow {
+    public string title { get; construct; }
+    public int64 id { get; construct; }
+    public int64 project_id { get; construct; }
+    public string icon { get; construct; }
+    public string element { get; construct; }
 
-    public string title {
-        get {
-            return name_label.label;
-        }
-        set {
-            name_label.label = value;
-            tooltip_text = value;
-        }
-    }
-
-    public string icon_name {
-        owned get {
-            return image.icon_name ?? "";
-        }
-        set {
-            if (value != null && value != "") {
-                image.gicon = new ThemedIcon (value);
-                image.pixel_size = 16;
-                image.no_show_all = false;
-                image.show ();
-            } else {
-                image.no_show_all = true;
-                image.hide ();
-            }
-        }
-    }
-
-    public Gtk.Label name_label;
-    public Gtk.Image image;
-
-    public bool is_inbox;
-    public bool is_today;
-    public bool is_upcoming;
-    public bool is_project;
-    public bool is_task;
-    public bool is_all_tasks;
-    public bool is_completed;
-
-    public int project_id;
-    public int task_id;
-
-    public Item (string _name, string _icon_name) {
+    public SearchItem (string title, string icon, string element, int64 id, int64 project_id=0) {
         Object (
-            title: _name,
-            icon_name: _icon_name
+            title: title,
+            icon: icon,
+            element: element,
+            id: id,
+            project_id: project_id
         );
-
-        is_inbox = false;
-        is_today = false;
-        is_upcoming = false;
-        is_project = false;
-        is_task = false;
-        is_all_tasks = false;
-        is_completed = false;
-
-        project_id = 0;
-        task_id = 0;
     }
 
     construct {
-        //can_focus = false;
-        get_style_context ().add_class ("find-row");
+        var image = new Gtk.Image ();
+        image.gicon = new ThemedIcon (icon);
+        image.pixel_size = 16;
 
-        name_label = new Gtk.Label (null);
-        name_label.get_style_context ().add_class ("h3");
-        name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.use_markup = true;
+        var title_label = new Gtk.Label (title);
+        //title_label.get_style_context ().add_class ("h3");
+        title_label.ellipsize = Pango.EllipsizeMode.END;
+        //title_label.use_markup = true;
 
-        image = new Gtk.Image ();
-        image.margin_top = 1;
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.hexpand = true;
+        box.margin = 6;
+        box.pack_start (image, false, false, 0);
+        box.pack_start (title_label, false, false, 0);
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.margin = 6;
-        main_grid.column_spacing = 6;
-        main_grid.add (image);
-        main_grid.add (name_label);
-
-        add (main_grid);
+        add (box);
     }
 }

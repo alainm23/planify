@@ -7,961 +7,381 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-29 10:15-0500\n"
+"POT-Creation-Date: 2019-12-09 13:11-0500\n"
 "PO-Revision-Date: 2019-03-27 12:04+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch <vistausss@outlook.com>\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: src/MainWindow.vala:35 data/com.github.alainm23.planner.desktop.in:3
+#: src/MainWindow.vala:41 data/com.github.alainm23.planner.desktop.in:3
 #: data/com.github.alainm23.planner.desktop.in:4
 #: data/com.github.alainm23.planner.appdata.xml.in:7
 msgid "Planner"
 msgstr "Planner"
 
-#: src/Utils.vala:347
-msgid "Clouds"
-msgstr "Bewolking"
+#: src/Utils.vala:58 src/Utils.vala:65
+#, fuzzy
+msgid "Home"
+msgstr "Website"
 
-#: src/Utils.vala:348 src/Widgets/Popovers/WhenPopover.vala:59
-#: src/Widgets/Popovers/DeadlinePopover.vala:43
-msgid "Clear"
-msgstr "Helder"
+#: src/Utils.vala:59 src/Utils.vala:69
+msgid "Office"
+msgstr ""
 
-#: src/Utils.vala:349
-msgid "Atmosphere"
-msgstr "Atmosfeer"
+#: src/Utils.vala:60 src/Utils.vala:73
+msgid "Errand"
+msgstr ""
 
-#: src/Utils.vala:350 src/Utils.vala:394
-msgid "Snow"
-msgstr "Sneeuw"
+#: src/Utils.vala:61 src/Utils.vala:77
+#, fuzzy
+msgid "Important"
+msgstr "Importeren"
 
-#: src/Utils.vala:351
-msgid "Rain"
-msgstr "Regen"
+#: src/Utils.vala:62 src/Utils.vala:81
+msgid "Pending"
+msgstr ""
 
-#: src/Utils.vala:352 src/Utils.vala:373
-msgid "Drizzle"
-msgstr "Motregen"
-
-#: src/Utils.vala:353 src/Utils.vala:365
-msgid "Thunderstorm"
-msgstr "Onweer"
-
-#: src/Utils.vala:361
-msgid "Thunderstorm with light rain"
-msgstr "Onweer met lichte regen"
-
-#: src/Utils.vala:362
-msgid "Thunderstorm with rain"
-msgstr "Onweer met regen"
-
-#: src/Utils.vala:363
-msgid "Thunderstorm with heavy rain"
-msgstr "Onweer met hevige regen"
-
-#: src/Utils.vala:364
-msgid "Light thunderstorm"
-msgstr "Licht onweer"
-
-#: src/Utils.vala:366
-msgid "Heavy thunderstorm"
-msgstr "Zwaar onweer"
-
-#: src/Utils.vala:367
-msgid "Ragged thunderstorm"
-msgstr "Extreem onweer"
-
-#: src/Utils.vala:368
-msgid "Thunderstorm with light drizzle"
-msgstr "Onweer met lichte motregen"
-
-#: src/Utils.vala:369
-msgid "Thunderstorm with drizzle"
-msgstr "Onweer met motregen"
-
-#: src/Utils.vala:370
-msgid "Thunderstorm with heavy drizzle"
-msgstr "Onweer met zware motregen"
-
-#: src/Utils.vala:372
-msgid "Light intensity drizzle"
-msgstr "Lichte motregen"
-
-#: src/Utils.vala:374
-msgid "Heavy intensity drizzle"
-msgstr "Zware motregen"
-
-#: src/Utils.vala:375
-msgid "Light intensity drizzle rain"
-msgstr "Lichte (mot)regen"
-
-#: src/Utils.vala:376
-msgid "Drizzle rain"
-msgstr "(Mot)regen"
-
-#: src/Utils.vala:377
-msgid "Heavy intensity drizzle rain"
-msgstr "Zware (mot)regen"
-
-#: src/Utils.vala:378
-msgid "Shower rain and drizzle"
-msgstr "Zware motregen en regen"
-
-#: src/Utils.vala:379
-msgid "Heavy shower rain and drizzle"
-msgstr "Zware motregen en regen"
-
-#: src/Utils.vala:380
-msgid "Shower drizzle"
-msgstr "Extreme motregen"
-
-#: src/Utils.vala:382
-msgid "Light rain"
-msgstr "Lichte regenbui"
-
-#: src/Utils.vala:383
-msgid "Moderate rain"
-msgstr "Normale regenbui"
-
-#: src/Utils.vala:384
-msgid "Heavy intensity rain"
-msgstr "Zware regenbui"
-
-#: src/Utils.vala:385
-msgid "Very heavy rain"
-msgstr "Hele zware regenbui"
-
-#: src/Utils.vala:386
-msgid "Extreme rain"
-msgstr "Extreme regenbui"
-
-#: src/Utils.vala:387
-msgid "Freezing rain"
-msgstr "IJsregen"
-
-#: src/Utils.vala:388
-msgid "Light intensity shower rain"
-msgstr "Lichte (mot)regen"
-
-#: src/Utils.vala:389
-msgid "Shower rain"
-msgstr "Zware regenbui"
-
-#: src/Utils.vala:390
-msgid "Heavy intensity shower rain"
-msgstr "Zeer zware regenbui"
-
-#: src/Utils.vala:391
-msgid "Ragged shower rain"
-msgstr "Extreme regenbui"
-
-#: src/Utils.vala:393
-msgid "Light snow"
-msgstr "Lichte sneeuwval"
-
-#: src/Utils.vala:395
-msgid "Heavy snow"
-msgstr "Hevige sneeuwval"
-
-#: src/Utils.vala:396
-msgid "Sleet"
-msgstr "IJzel"
-
-#: src/Utils.vala:397
-msgid "Shower sleet"
-msgstr "IJzel en regen"
-
-#: src/Utils.vala:398
-msgid "Light rain and snow"
-msgstr "Licht regenbui en sneeuwval"
-
-#: src/Utils.vala:399
-msgid "Rain and snow"
-msgstr "Regen en sneeuw"
-
-#: src/Utils.vala:400
-msgid "Light shower snow"
-msgstr "Lichte sneeuwbui"
-
-#: src/Utils.vala:401
-msgid "Shower snow"
-msgstr "Zware sneeuwbui"
-
-#: src/Utils.vala:402
-msgid "Heavy shower snow"
-msgstr "Zeer zware sneeuwbui"
-
-#: src/Utils.vala:404
-msgid "Clear sky"
-msgstr "Heldere lucht"
-
-#: src/Utils.vala:405
-msgid "Few clouds"
-msgstr "Licht bewolkt"
-
-#: src/Utils.vala:406
-msgid "Scattered clouds"
-msgstr "Verspreide wolken"
-
-#: src/Utils.vala:407
-msgid "Broken clouds"
-msgstr "Gebroken wolken"
-
-#: src/Utils.vala:408
-msgid "Overcast clouds"
-msgstr "Bewolkt"
-
-#: src/Utils.vala:436 src/Views/Inbox.vala:398 src/Views/Inbox.vala:478
-#: src/Views/Today.vala:52 src/Views/Upcoming.vala:438
-#: src/Views/Upcoming.vala:513 src/Views/Project.vala:132
-#: src/Views/Project.vala:156 src/Views/Project.vala:168
-#: src/Dialogs/PreferencesDialog.vala:517
-#: src/Dialogs/PreferencesDialog.vala:522
-#: src/Dialogs/PreferencesDialog.vala:632
-#: src/Dialogs/PreferencesDialog.vala:728
-#: src/Dialogs/PreferencesDialog.vala:1122
-#: src/Dialogs/PreferencesDialog.vala:1136
-#: src/Dialogs/PreferencesDialog.vala:1138 src/Dialogs/ShareDialog.vala:80
-#: src/Widgets/WhenButton.vala:119 src/Widgets/ProjectsList.vala:46
-#: src/Widgets/TaskRow.vala:779 src/Widgets/TaskRow.vala:961
-#: src/Widgets/TaskRow.vala:990 src/Widgets/TaskNew.vala:320
-#: src/Widgets/CalendarEvents.vala:136 src/Widgets/QuickFind.vala:251
-#: src/Widgets/Popovers/WhenPopover.vala:99
+#: src/Utils.vala:393 src/Widgets/Pane.vala:44 src/Widgets/DueButton.vala:130
+#: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:161
+#: src/Dialogs/Preferences.vala:266
 msgid "Today"
 msgstr "Vandaag"
 
-#: src/Utils.vala:438 src/Views/Project.vala:134 src/Views/Project.vala:158
-#: src/Views/Project.vala:170 src/Widgets/WhenButton.vala:122
-#: src/Widgets/TaskRow.vala:781 src/Widgets/TaskRow.vala:963
-#: src/Widgets/TaskRow.vala:992 src/Widgets/TaskNew.vala:322
-#: src/Widgets/Popovers/WhenPopover.vala:113
+#: src/Utils.vala:395 src/Widgets/DueButton.vala:134
+#: src/Widgets/UpcomingRow.vala:33
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#. Items
-#: src/Services/Notifications.vala:83 src/Views/Inbox.vala:52
-#: src/Views/Today.vala:453 src/Views/Today.vala:506
-#: src/Views/Upcoming.vala:431 src/Views/Upcoming.vala:506
-#: src/Dialogs/PreferencesDialog.vala:512
-#: src/Dialogs/PreferencesDialog.vala:522
-#: src/Dialogs/PreferencesDialog.vala:627
-#: src/Dialogs/PreferencesDialog.vala:723
-#: src/Dialogs/PreferencesDialog.vala:1120
-#: src/Dialogs/PreferencesDialog.vala:1134
-#: src/Dialogs/PreferencesDialog.vala:1138 src/Dialogs/ShareDialog.vala:57
-#: src/Widgets/ProjectsList.vala:43 src/Widgets/TaskRow.vala:168
-#: src/Widgets/TaskRow.vala:381 src/Widgets/TaskRow.vala:908
-#: src/Widgets/QuickFind.vala:247 src/Widgets/Popovers/MovePopover.vala:93
+#: src/Services/Database.vala:496 src/Widgets/Pane.vala:36
+#: src/Widgets/ItemRow.vala:1031 src/Widgets/SectionRow.vala:346
+#: src/Views/Inbox.vala:35 src/Dialogs/Preferences.vala:157
+#: src/Dialogs/Preferences.vala:263
 msgid "Inbox"
 msgstr "Postvak IN"
 
-#: src/Services/Weather.vala:265 src/Services/Weather.vala:270
-#, c-format
-msgid "%i°"
-msgstr "%i°"
+#: src/Services/Todoist.vala:566 src/Services/Todoist.vala:653
+#: src/Services/Todoist.vala:746 src/Services/Todoist.vala:805
+#: src/Services/Todoist.vala:892 src/Services/Todoist.vala:977
+#: src/Services/Todoist.vala:1058 src/Services/Todoist.vala:1148
+#: src/Services/Todoist.vala:1292 src/Services/Todoist.vala:1669
+#, fuzzy
+msgid "Connection error"
+msgstr "Koppelen"
 
-#: src/Services/Share.vala:107
-msgid "Your project was exported correctly"
-msgstr "Je project is geëxporteerd"
+#: src/Services/Notifications.vala:11
+#, fuzzy
+msgid "task"
+msgstr "Nieuwe taak"
 
-#: src/Services/Share.vala:161
-msgid "Your project was imported correctly"
-msgstr "Je project is geïmporteerd"
+#: src/Services/Notifications.vala:13
+#, fuzzy
+msgid "tasks"
+msgstr "Alle taken"
 
-#: src/Services/Share.vala:168
-msgid "Import another project"
-msgstr "Nog een project importeren"
-
-#: src/Services/Share.vala:169
-msgid "This project was already imported"
-msgstr "Dit project is al geïmporteerd"
-
-#: src/Services/Calendar/Utils.vala:591
+#: src/Services/Calendar/Util.vala:216 src/Widgets/New.vala:51
 msgid "On this computer"
 msgstr "Op deze computer"
 
-#: src/Services/Calendar/LanguagesFormat.vala:21
-msgid "%B %e, %Y"
-msgstr "%B %e, %Y"
-
-#: src/Services/Calendar/LanguagesFormat.vala:25
-msgid "%A, %b %d"
-msgstr "%A, %b %d"
-
-#: src/Views/Inbox.vala:45 src/Views/AllTasks.vala:42
-#: src/Views/CompletedTasks.vala:42
-msgid "All clear"
-msgstr "Opgeruimd staat netjes"
-
-#: src/Views/Inbox.vala:46
-msgid "Looks like everything's is organized. Tap + to add a task."
-msgstr ""
-"Het lijkt erop dat alles goed georganiseerd is. Druk op + om een taak toe te "
-"voegen."
-
-#: src/Views/Inbox.vala:60 src/Views/Inbox.vala:75 src/Views/Today.vala:65
-#: src/Views/Today.vala:213 src/Views/Upcoming.vala:60
-#: src/Views/Upcoming.vala:75 src/Views/Project.vala:217
-#: src/Views/Project.vala:497 src/Views/AllTasks.vala:57
-#: src/Views/AllTasks.vala:72 src/Views/CompletedTasks.vala:57
-#: src/Views/CompletedTasks.vala:72
-msgid "Open all tasks"
-msgstr "Alle taken openen"
-
-#: src/Views/Inbox.vala:67 src/Views/Today.vala:205 src/Views/Upcoming.vala:67
-#: src/Views/Project.vala:489 src/Views/AllTasks.vala:64
-#: src/Views/CompletedTasks.vala:64
-msgid "Close all tasks"
-msgstr "Alle taken sluiten"
-
-#: src/Views/Inbox.vala:87 src/Views/Today.vala:72 src/Views/Upcoming.vala:87
-#: src/Views/Project.vala:185
-msgid "Paste"
-msgstr "Plakken"
-
-#: src/Views/Inbox.vala:93 src/Views/Today.vala:78 src/Views/Upcoming.vala:93
-#: src/Views/Project.vala:191 src/Views/AllTasks.vala:84
-#: src/Views/CompletedTasks.vala:84
-msgid "Filter by Label"
-msgstr "Filteren op label"
-
-#: src/Views/Inbox.vala:102 src/Views/Today.vala:87 src/Views/Upcoming.vala:102
-#: src/Views/Project.vala:209 src/Views/AllTasks.vala:93
-#: src/Views/CompletedTasks.vala:93 src/Dialogs/ShareDialog.vala:165
-#: src/Widgets/Popovers/ProjectMenu.vala:38
-#: src/Widgets/Popovers/TaskMenu.vala:36
-msgid "Share"
-msgstr "Delen"
-
-#: src/Views/Inbox.vala:142 src/Views/Today.vala:129
-#: src/Views/Upcoming.vala:143 src/Views/Project.vala:271
-msgid "Add new task"
-msgstr "Nieuwe taak toevoegen"
-
-#. Notificacion Here ...
-#: src/Views/Inbox.vala:222 src/Views/Today.vala:243
-#: src/Views/Upcoming.vala:228 src/Views/Project.vala:545
-msgid "Empty clipboard"
-msgstr "Klembord is leeg"
-
-#: src/Views/Inbox.vala:223 src/Views/Today.vala:244
-#: src/Views/Upcoming.vala:229 src/Views/Project.vala:546
-msgid "Try copying some text and try again"
-msgstr "Kopieer tekst en probeer het opnieuw"
-
-#. Notificacion Here ...
-#: src/Views/Inbox.vala:234 src/Views/Today.vala:257
-#: src/Views/Upcoming.vala:243 src/Views/Project.vala:557
-msgid "His task was created from the clipboard"
-msgstr "De taak is gecreëerd via het klembord"
-
-#: src/Views/Inbox.vala:235 src/Views/Today.vala:258
-#: src/Views/Upcoming.vala:244 src/Views/Project.vala:558
-msgid "Tap to undo"
-msgstr "Klik om ongedaan te maken"
-
-#: src/Views/Inbox.vala:400 src/Views/Inbox.vala:480 src/Views/Today.vala:451
-#: src/Views/Upcoming.vala:52 src/Dialogs/PreferencesDialog.vala:637
-#: src/Dialogs/PreferencesDialog.vala:733
-#: src/Dialogs/PreferencesDialog.vala:1124 src/Dialogs/ShareDialog.vala:99
-#: src/Widgets/ProjectsList.vala:49 src/Widgets/QuickFind.vala:255
+#: src/Widgets/Pane.vala:46 src/Views/Upcoming.vala:12
+#: src/Dialogs/Preferences.vala:164
 msgid "Upcoming"
 msgstr "Aankomend"
 
-#: src/Views/Inbox.vala:405 src/Views/Inbox.vala:485 src/Views/Today.vala:462
-#: src/Views/Today.vala:515 src/Views/Upcoming.vala:443
-#: src/Views/Upcoming.vala:518
-#, c-format
-msgid "It was moved to %s"
-msgstr "Het is verplaatst naar %s"
-
-#: src/Views/Today.vala:45
-msgid "You're all done for today!"
-msgstr "Je bent helemaal bij!"
-
-#: src/Views/Today.vala:46
-msgid "Enjoy your day."
-msgstr "Geniet van je dag."
-
-#: src/Views/Upcoming.vala:45
-msgid "Get a bird's eye view of yours upcoming tasks"
-msgstr "Zie al je aankomende taken in één oogopslag"
-
-#: src/Views/Upcoming.vala:46
-msgid "This is your timeline for the next tasks."
-msgstr "Hier zie je je tijdlijn met al je aankomende taken."
-
-#: src/Views/Project.vala:65
-msgid "keep your tasks organized in projects"
-msgstr "houd je taken geordend middels projecten"
-
-#: src/Views/Project.vala:66
-msgid "Tap + to add a task."
-msgstr "Klik op + om een taak toe te voegen."
-
-#: src/Views/Project.vala:81 src/Widgets/ProjectsList.vala:74
-#: src/Widgets/CalendarEvents.vala:181
-msgid "Add new project"
-msgstr "Nieuw project toevoegen"
-
-#: src/Views/Project.vala:92 src/Widgets/Popovers/NewProject.vala:191
-#: src/Widgets/Popovers/LabelsPopover.vala:229
-msgid "Name"
-msgstr "Naam"
-
-#: src/Views/Project.vala:104 src/Views/Project.vala:179
-#: src/Widgets/Popovers/NewProject.vala:159
-#: src/Widgets/Popovers/DeadlinePopover.vala:35
-msgid "Deadline"
-msgstr "Deadline"
-
-#: src/Views/Project.vala:200 src/Widgets/Popovers/SearchPopover.vala:35
-msgid "Search"
-msgstr "Zoeken"
-
-#: src/Views/Project.vala:250 src/Widgets/TaskRow.vala:210
-#: src/Widgets/TaskNew.vala:78
-msgid "Note"
-msgstr "Notitie"
-
-#: src/Views/Project.vala:287 src/Views/Project.vala:454
-msgid "Show completed tasks"
-msgstr "Afgeronde taken tonen"
-
-#: src/Views/Project.vala:308
-msgid "Notes"
-msgstr "Notities"
-
-#: src/Views/Project.vala:444
-msgid "Hide completed tasks"
-msgstr "Afgeronde taken verbergen"
-
-#: src/Views/Project.vala:525
-msgid "Select Your Favorite Color"
-msgstr "Kies je favoriete kleur"
-
-#: src/Views/AllTasks.vala:43
-msgid "Find all your tasks here."
-msgstr "Hier vind je al je taken."
-
-#: src/Views/AllTasks.vala:49 src/Dialogs/PreferencesDialog.vala:738
-#: src/Widgets/ProjectsList.vala:51 src/Widgets/QuickFind.vala:259
-msgid "All Tasks"
-msgstr "Alle taken"
-
-#: src/Views/CompletedTasks.vala:43
-msgid "Start to complete tasks to fill this space."
-msgstr "Rond taken af om deze ruimte op te vullen."
-
-#: src/Views/CompletedTasks.vala:49 src/Dialogs/PreferencesDialog.vala:743
-#: src/Widgets/ProjectsList.vala:55 src/Widgets/QuickFind.vala:263
-msgid "Completed Tasks"
-msgstr "Afgeronde taken"
-
-#: src/Dialogs/PreferencesDialog.vala:54 src/Widgets/HeaderBar.vala:93
-#: src/Widgets/NoteChild.vala:55
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: src/Dialogs/PreferencesDialog.vala:62
-msgid "General"
-msgstr "Algemeen"
-
-#: src/Dialogs/PreferencesDialog.vala:63
-msgid "Appearance"
-msgstr "Uiterlijk"
-
-#: src/Dialogs/PreferencesDialog.vala:64 src/Dialogs/PreferencesDialog.vala:147
-msgid "Github"
-msgstr "GitHub"
-
-#: src/Dialogs/PreferencesDialog.vala:65
-msgid "About"
-msgstr "Over"
-
-#: src/Dialogs/PreferencesDialog.vala:96 src/Dialogs/ShareDialog.vala:206
-msgid "Close"
-msgstr "Sluiten"
-
-#: src/Dialogs/PreferencesDialog.vala:152
-msgid "Connect your account to work with Issues"
-msgstr "Koppel je account om te werken met 'Issues'"
-
-#: src/Dialogs/PreferencesDialog.vala:161
-msgid "Username"
-msgstr "Gebruikersnaam"
-
-#: src/Dialogs/PreferencesDialog.vala:166
-msgid "Password"
-msgstr "Wachtwoord"
-
-#: src/Dialogs/PreferencesDialog.vala:177
-msgid "Enter a correct Username"
-msgstr "Voer een geldige gebruikersnaam in"
-
-#: src/Dialogs/PreferencesDialog.vala:187
-msgid "Connect"
-msgstr "Koppelen"
-
-#: src/Dialogs/PreferencesDialog.vala:194
-msgid "Forgot password…"
-msgstr "Wachtwoord vergeten…"
-
-#: src/Dialogs/PreferencesDialog.vala:197
-msgid "Don't have an account? Sign Up"
-msgstr "Heb je nog geen account? Registreer er dan één"
-
-#: src/Dialogs/PreferencesDialog.vala:297
-msgid "Check which repositories you want to work with"
-msgstr "Vink aan met welke repo's je aan de slag wilt"
-
-#: src/Dialogs/PreferencesDialog.vala:308
-msgid "Update issues"
-msgstr "Issues bijwerken"
-
-#: src/Dialogs/PreferencesDialog.vala:314
-msgid "Delete account"
-msgstr "Account verwijderen"
-
-#: src/Dialogs/PreferencesDialog.vala:325 src/Widgets/LabelButton.vala:34
-msgid "Labels"
-msgstr "Labels"
-
-#: src/Dialogs/PreferencesDialog.vala:409
-msgid "Are you sure you want to delete your Github account?"
-msgstr "Weet je zeker dat je je GitHub-account wilt verwijderen?"
-
-#: src/Dialogs/PreferencesDialog.vala:414
-#: src/Widgets/Popovers/ProjectMenu.vala:40
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: src/Dialogs/PreferencesDialog.vala:446
-msgid "Banana"
-msgstr "Banaan"
-
-#: src/Dialogs/PreferencesDialog.vala:447
-msgid "Black"
-msgstr "Zwart"
-
-#: src/Dialogs/PreferencesDialog.vala:448
-msgid "Blueberry"
-msgstr "Blauwe bes"
-
-#: src/Dialogs/PreferencesDialog.vala:449
-msgid "Strawberry"
-msgstr "Aardbei"
-
-#: src/Dialogs/PreferencesDialog.vala:450
-msgid "Lemon"
-msgstr "Limoen"
-
-#: src/Dialogs/PreferencesDialog.vala:451
-msgid "Slate"
-msgstr "Leisteen"
-
-#: src/Dialogs/PreferencesDialog.vala:452
-msgid "Pink"
-msgstr "Roze"
-
-#: src/Dialogs/PreferencesDialog.vala:479
-#: src/Dialogs/PreferencesDialog.vala:599
-#: src/Dialogs/PreferencesDialog.vala:695
-#: src/Dialogs/PreferencesDialog.vala:781
-#: src/Dialogs/PreferencesDialog.vala:877
-#: src/Dialogs/PreferencesDialog.vala:1013
-#: src/Dialogs/PreferencesDialog.vala:1184
-msgid "Back"
-msgstr "Terug"
-
-#: src/Dialogs/PreferencesDialog.vala:484
-#: src/Dialogs/PreferencesDialog.vala:1501
-msgid "Badge Count"
-msgstr "Meldingsteller"
-
-#: src/Dialogs/PreferencesDialog.vala:497
-msgid ""
-"Choose which items should be counted for the badge on the application icon."
-msgstr ""
-"KIes welke items moeten worden geteld op de badge van het "
-"toepassingspictogram."
-
-#: src/Dialogs/PreferencesDialog.vala:507
-#: src/Dialogs/PreferencesDialog.vala:809
-#: src/Dialogs/PreferencesDialog.vala:1132
-#: src/Dialogs/PreferencesDialog.vala:1148
-msgid "None"
-msgstr "Geen"
-
-#: src/Dialogs/PreferencesDialog.vala:527
-#: src/Dialogs/PreferencesDialog.vala:1140 src/Widgets/CalendarEvents.vala:76
-msgid "Notifications"
-msgstr "Meldingen"
-
-#: src/Dialogs/PreferencesDialog.vala:604
-#: src/Dialogs/PreferencesDialog.vala:1541
-msgid "Start Page"
-msgstr "Startpagina"
-
-#: src/Dialogs/PreferencesDialog.vala:617
-msgid "Choose that page should be first initial when Planner is open."
-msgstr "Kies de pagina die moet worden getoond als je Planner opent."
-
-#: src/Dialogs/PreferencesDialog.vala:700
-#: src/Dialogs/PreferencesDialog.vala:1523
-msgid "Items"
-msgstr "Items"
-
-#: src/Dialogs/PreferencesDialog.vala:713
-msgid "Choose which items should be displayed in the left side panel."
-msgstr "Kies welke items moeten worden getoond in het linker zijpaneel."
-
-#: src/Dialogs/PreferencesDialog.vala:786
-#: src/Dialogs/PreferencesDialog.vala:1563
-msgid "Quick Save"
-msgstr "Snel opslaan"
-
-#: src/Dialogs/PreferencesDialog.vala:799
-msgid "Choose how many clicks to close and save all open tasks."
-msgstr "Kies met hoeveel muisklikken je taken wilt sluiten en opslaan."
-
-#: src/Dialogs/PreferencesDialog.vala:814
-#: src/Dialogs/PreferencesDialog.vala:1150
-msgid "Double Click"
-msgstr "Dubbelklikken"
-
-#: src/Dialogs/PreferencesDialog.vala:819
-#: src/Dialogs/PreferencesDialog.vala:1152
-msgid "Triple Click"
-msgstr "Driemaal klikken"
-
-#: src/Dialogs/PreferencesDialog.vala:882
-#: src/Dialogs/PreferencesDialog.vala:1585
-msgid "Weather"
-msgstr "Weer"
-
-#: src/Dialogs/PreferencesDialog.vala:895
-msgid "Get the weather forecast in a simple and beautiful widget."
-msgstr "Toon de weersverwachting op een mooie, eenvoudige widget."
-
-#: src/Dialogs/PreferencesDialog.vala:905
-msgid "Temperature"
-msgstr "Temperatuur"
-
-#: src/Dialogs/PreferencesDialog.vala:912
-msgid "°F"
-msgstr "°F"
-
-#: src/Dialogs/PreferencesDialog.vala:913
-msgid "°C"
-msgstr "°C"
-
-#: src/Dialogs/PreferencesDialog.vala:916
-msgid "Location"
-msgstr "Locatie"
-
-#: src/Dialogs/PreferencesDialog.vala:931
-msgid "Automatic:"
-msgstr "Automatisch"
-
-#: src/Dialogs/PreferencesDialog.vala:934
-#: src/Dialogs/PreferencesDialog.vala:1161
-msgid "Automatic Location"
-msgstr "Automatische locatie"
-
-#: src/Dialogs/PreferencesDialog.vala:1018
-#: src/Dialogs/PreferencesDialog.vala:1607
-msgid "Calendar Events"
-msgstr "Kalendergebeurtenissen"
-
-#: src/Dialogs/PreferencesDialog.vala:1031
-msgid "Events from your personal and shared calendars can be displayed."
-msgstr "Je kunt gebeurtenissen uit je persoonlijke en gedeelde agenda's tonen."
-
-#: src/Dialogs/PreferencesDialog.vala:1041
-#: src/Dialogs/PreferencesDialog.vala:1177
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/Dialogs/PreferencesDialog.vala:1179
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/Dialogs/PreferencesDialog.vala:1190
-#: src/Dialogs/PreferencesDialog.vala:1381
-msgid "Credits"
-msgstr "Met dank aan"
-
-#: src/Dialogs/PreferencesDialog.vala:1232
-msgid "Developing"
-msgstr "Ontwikkeling"
-
-#: src/Dialogs/PreferencesDialog.vala:1239
-msgid "Design"
-msgstr "Ontwerp"
-
-#: src/Dialogs/PreferencesDialog.vala:1246
-msgid "Translation"
-msgstr "Vertaling"
-
-#: src/Dialogs/PreferencesDialog.vala:1253
-#: src/Dialogs/PreferencesDialog.vala:1359
-msgid "Support"
-msgstr "Ondersteuning"
-
-#: src/Dialogs/PreferencesDialog.vala:1293
-msgid "Home Page"
-msgstr "Website"
-
-#: src/Dialogs/PreferencesDialog.vala:1315
-msgid "Report a Issue"
-msgstr "Meld een probleem"
-
-#: src/Dialogs/PreferencesDialog.vala:1337
-msgid "Translations"
-msgstr "Vertalingen"
-
-#: src/Dialogs/PreferencesDialog.vala:1629
-msgid "Run in background"
-msgstr "Uitvoeren op achtergrond"
-
-#: src/Dialogs/PreferencesDialog.vala:1641
-msgid "Let Planner run in background and send notifications."
-msgstr "Voer Planner uit op de achtergrond en toon meldingen."
-
-#: src/Dialogs/PreferencesDialog.vala:1654
-msgid "Launch at Login"
-msgstr "Automatisch opstarten"
-
-#: src/Dialogs/PreferencesDialog.vala:2027
-msgid "Profile"
-msgstr "Profiel"
-
-#: src/Dialogs/ShareDialog.vala:216 src/Dialogs/ShareDialog.vala:229
-msgid "Copy to clipboard"
-msgstr "Kopiëren naar klembord"
-
-#: src/Dialogs/ShareDialog.vala:228
-msgid "Your project is ready to share"
-msgstr "Je project kan worden gedeeld"
-
-#: src/Dialogs/Loading.vala:20
-msgid "Loading ..."
-msgstr "Bezig met laden..."
-
-#: src/Widgets/WhenButton.vala:24
-msgid "When"
-msgstr "Wanneer"
-
-#: src/Widgets/MoveButton.vala:35 src/Widgets/Popovers/MovePopover.vala:35
-msgid "Move"
-msgstr "Verplaatsen"
-
-#: src/Widgets/HeaderBar.vala:42 src/Widgets/HeaderBar.vala:51
-#: data/com.github.alainm23.planner.appdata.xml.in:24
+#: src/Widgets/Pane.vala:64 data/com.github.alainm23.planner.appdata.xml.in:24
 msgid "Quick Find"
 msgstr "Snel zoeken"
 
-#: src/Widgets/HeaderBar.vala:60
-msgid "Weather and Events"
-msgstr "Weer en gebeurtenissen"
+#: src/Widgets/Pane.vala:83
+msgid "Preferences"
+msgstr "Voorkeuren"
 
-#: src/Widgets/HeaderBar.vala:72
-msgid "Light background"
-msgstr "Lichte achtergrond"
-
-#: src/Widgets/HeaderBar.vala:73
-msgid "Dark background"
-msgstr "Donkere achtergrond"
-
-#: src/Widgets/HeaderBar.vala:76
-msgid "Night Mode"
-msgstr "Nachtmodus"
-
-#: src/Widgets/HeaderBar.vala:112 src/Widgets/ProjectRow.vala:73
-msgid "Menu"
-msgstr "Menu"
-
-#: src/Widgets/HeaderBar.vala:241
-msgid "Completed tasks"
-msgstr "Afgeronde taken"
-
-#: src/Widgets/HeaderBar.vala:256
-msgid "To do tasks"
-msgstr "Onafgeronde taken"
-
-#: src/Widgets/HeaderBar.vala:271
-msgid "All tasks"
-msgstr "Alle taken"
-
-#: src/Widgets/ProjectsList.vala:80
-msgid "Settings"
-msgstr "Instellingen"
-
-#: src/Widgets/ProjectRow.vala:68
-msgid "Project name"
-msgstr "Projectnaam"
-
-#: src/Widgets/ProjectRow.vala:132
-msgid "Are you sure you want to mark as completed this project?"
-msgstr "Weet je zeker dat je dit project wilt markeren als afgerond?"
-
-#: src/Widgets/ProjectRow.vala:133
-#, c-format
-msgid "This project contains %i incomplete tasks"
-msgstr "Dit project bevat %i onafgeronde taken"
-
-#: src/Widgets/ProjectRow.vala:137 src/Widgets/Popovers/ProjectMenu.vala:34
-msgid "Mark as Completed"
-msgstr "Markeren als afgerond"
-
-#: src/Widgets/ProjectRow.vala:175
-msgid "Are you sure you want to delete this project?"
-msgstr "Weet je zeker dat je dit project wilt verwijderen?"
-
-#: src/Widgets/ProjectRow.vala:176
-#, c-format
-msgid ""
-"It contains %i elements that are also deleted, this operation can't be undone"
+#: src/Widgets/Pane.vala:97
+msgid "Sync"
 msgstr ""
-"Het bevat %i elementen die ook worden verwijderd - deze handeling kan niet "
-"ongedaan worden gemaakt"
 
-#: src/Widgets/ProjectRow.vala:180
-msgid "Delete Project"
+#: src/Widgets/Pane.vala:135
+msgid "Add list"
+msgstr ""
+
+#: src/Widgets/New.vala:42 src/Dialogs/ProjectSettings.vala:23
+#, fuzzy
+msgid "Name:"
+msgstr "Naam"
+
+#: src/Widgets/New.vala:46
+msgid "Source:"
+msgstr ""
+
+#: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:31
+#, fuzzy
+msgid "Color:"
+msgstr "Kleur"
+
+#: src/Widgets/New.vala:246
+msgid "Create"
+msgstr "Creëren"
+
+#: src/Widgets/New.vala:251 src/Widgets/New.vala:495
+#: src/Widgets/NewItem.vala:75 src/Widgets/ReminderButton.vala:182
+msgid "Cancel"
+msgstr ""
+
+#: src/Widgets/New.vala:444
+#, fuzzy
+msgid "Project"
+msgstr "Nieuw project"
+
+#: src/Widgets/New.vala:450
+msgid "Lorem is a ascaa acs casca sca sca sca scascascas sac asca s"
+msgstr ""
+
+#: src/Widgets/New.vala:473
+msgid "Area"
+msgstr ""
+
+#: src/Widgets/New.vala:479
+msgid "Organize your projects in groups and keep your panel clean."
+msgstr ""
+
+#: src/Widgets/New.vala:548
+#, fuzzy
+msgid "New area"
+msgstr "Nieuw project"
+
+#: src/Widgets/ProjectRow.vala:130
+#, fuzzy
+msgid "Local Project"
 msgstr "Project verwijderen"
 
-#: src/Widgets/ProjectRow.vala:199 src/Widgets/Popovers/ProjectMenu.vala:37
-msgid "Export project"
+#: src/Widgets/ProjectRow.vala:134
+#, fuzzy
+msgid "Todoist Project"
 msgstr "Project exporteren"
 
-#: src/Widgets/ProjectRow.vala:205 src/Widgets/Popovers/ProjectListMenu.vala:51
-msgid "Planner files"
-msgstr "Planner-bestanden"
+#: src/Widgets/ProjectRow.vala:417
+msgid "No Area"
+msgstr ""
 
-#: src/Widgets/ItemRow.vala:96
-#, c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
+#: src/Widgets/ProjectRow.vala:450 src/Views/Project.vala:536
+#, fuzzy
+msgid "Edit project"
+msgstr "Project exporteren"
 
-#: src/Widgets/CheckRow.vala:69 src/Widgets/TaskRow.vala:236
-#: src/Widgets/TaskNew.vala:94
-msgid "Checklist"
+#: src/Widgets/ProjectRow.vala:452
+#, fuzzy
+msgid "Move project"
+msgstr "Project delen"
+
+#. var export_menu = new Widgets.ImageMenuItem (_("Export"), "document-export-symbolic");
+#. var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+#. var archive_menu = new Widgets.ImageMenuItem (_("Archive"), "planner-archive-symbolic");
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:460 src/Widgets/ProjectRow.vala:483
+#: src/Views/Project.vala:538
+msgid "Delete project"
+msgstr "Project verwijderen"
+
+#: src/Widgets/ProjectRow.vala:484 src/Widgets/SectionRow.vala:418
+#: src/Widgets/AreaRow.vala:395
+#, fuzzy, c-format
+msgid "Are you sure you want to delete <b>%s</b>?"
+msgstr "Weet je zeker dat je dit label wilt verwijderen?"
+
+#: src/Widgets/ProjectRow.vala:488 src/Widgets/SectionRow.vala:422
+#: src/Widgets/AreaRow.vala:404
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/Widgets/NewItem.vala:52 src/Widgets/NewCheck.vala:51
+#, fuzzy
+msgid "Add a new subtask"
+msgstr "Nieuwe taak toevoegen"
+
+#: src/Widgets/NewItem.vala:70 src/Widgets/ReminderButton.vala:184
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/Widgets/ItemRow.vala:262 src/Widgets/AreaRow.vala:62
+#: src/Widgets/CheckRow.vala:31
+msgid "Task name"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:290 src/Views/Project.vala:136
+#, fuzzy
+msgid "Add note"
+msgstr "Nieuw project toevoegen"
+
+#: src/Widgets/ItemRow.vala:327
+#, fuzzy
+msgid "Add checklist"
 msgstr "Controlelijst"
 
-#: src/Widgets/TaskRow.vala:285
-msgid "Move task"
-msgstr "Taak verplaatsen"
-
-#: src/Widgets/TaskRow.vala:288
+#. var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
+#. var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
+#: src/Widgets/ItemRow.vala:335 src/Widgets/ItemRow.vala:1083
 msgid "Delete task"
 msgstr "Taak verwijderen"
 
-#: src/Widgets/TaskRow.vala:397
-#, c-format
-msgid "It was moved to <b>%s</b>"
-msgstr "Het is verplaatst naar <b>%s>"
+#: src/Widgets/ItemRow.vala:348
+#, fuzzy
+msgid "Task settings"
+msgstr "Instellingen"
 
-#: src/Widgets/TaskRow.vala:497
-msgid "Are you sure you want to delete this task?"
-msgstr "Weet je zeker dat je deze taak wilt verwijderen?"
+#: src/Widgets/ItemRow.vala:1072
+#, fuzzy
+msgid "Complete"
+msgstr "Afgeronde taken"
 
-#: src/Widgets/TaskRow.vala:502
-msgid "Delete Task"
-msgstr "Taak verwijderen"
+#: src/Widgets/ItemRow.vala:1074
+msgid "View / Hide task"
+msgstr ""
 
-#: src/Widgets/TaskRow.vala:1000 src/Widgets/TaskNew.vala:330
-#, c-format
-msgid "You'll be notified %s at %s"
-msgstr "Je krijgt een melding over %s op %s"
+#: src/Widgets/ItemRow.vala:1076
+#, fuzzy
+msgid "Move to project"
+msgstr "Omzetten naar project"
 
-#: src/Widgets/LabelRow.vala:56
-msgid "Edit Label"
+#: src/Widgets/ItemRow.vala:1080
+msgid "Duplicate"
+msgstr "Klonen"
+
+#: src/Widgets/ItemCompletedRow.vala:18
+msgid "Content"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:19
+msgid "Note"
+msgstr "Notitie"
+
+#: src/Widgets/ItemCompletedRow.vala:20
+msgid "Due date"
+msgstr ""
+
+#: src/Widgets/ItemCompletedRow.vala:21
+#, fuzzy
+msgid "Date completed"
+msgstr "Afgeronde taken verbergen"
+
+#: src/Widgets/SectionRow.vala:74
+#, fuzzy
+msgid "Section name"
+msgstr "Projectnaam"
+
+#: src/Widgets/SectionRow.vala:88
+msgid "More"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:387 src/Widgets/MagicButton.vala:11
+#: src/Widgets/UpcomingRow.vala:46
+#, fuzzy
+msgid "Add task"
+msgstr "Nieuwe taak toevoegen"
+
+#: src/Widgets/SectionRow.vala:389
+msgid "Edit section"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:391
+#, fuzzy
+msgid "Move section"
+msgstr "Locatie"
+
+#: src/Widgets/SectionRow.vala:395 src/Widgets/SectionRow.vala:417
+#, fuzzy
+msgid "Delete section"
+msgstr "Account verwijderen"
+
+#: src/Widgets/DueButton.vala:22
+msgid "Due Date"
+msgstr ""
+
+#: src/Widgets/DueButton.vala:138
+#, fuzzy
+msgid "Undated"
+msgstr "Bijwerken"
+
+#: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:83
+#: src/Dialogs/Preferences.vala:416
+msgid "Labels"
+msgstr "Labels"
+
+#: src/Widgets/LabelButton.vala:25
+#, fuzzy
+msgid "labels"
+msgstr "Labels"
+
+#: src/Widgets/LabelButton.vala:91
+#, fuzzy
+msgid "Edit labels"
 msgstr "Label bewerken"
 
-#: src/Widgets/LabelRow.vala:62 src/Widgets/LabelRow.vala:127
-msgid "Delete Label"
+#: src/Widgets/Toast.vala:67
+msgid "Undo"
+msgstr ""
+
+#: src/Widgets/AreaRow.vala:378
+#, fuzzy
+msgid "Edit area"
+msgstr "Label bewerken"
+
+#: src/Widgets/AreaRow.vala:380 src/Widgets/AreaRow.vala:394
+#, fuzzy
+msgid "Delete area"
 msgstr "Label verwijderen"
 
-#: src/Widgets/LabelRow.vala:122
-msgid "Are you sure you want to delete this Label?"
-msgstr "Weet je zeker dat je dit label wilt verwijderen?"
+#: src/Widgets/AreaRow.vala:400
+#, fuzzy
+msgid "Delete projects"
+msgstr "Project verwijderen"
 
-#: src/Widgets/TaskNew.vala:56
-msgid "New task"
-msgstr "Nieuwe taak"
+#: src/Widgets/LabelRow.vala:27
+msgid "Priority: Low"
+msgstr "Prioriteit: laag"
 
-#: src/Widgets/TaskNew.vala:124
-msgid "Create Task"
-msgstr "Taak creëren"
+#. get_action_area ().visible = false;
+#. get_action_area ().no_show_all = true;
+#: src/Widgets/QuickFind.vala:27 src/Dialogs/ProjectSettings.vala:210
+#: src/Dialogs/Preferences.vala:50
+msgid "Close"
+msgstr "Sluiten"
 
-#: src/Widgets/TimePicker.vala:69
+#: src/Widgets/ReminderButton.vala:19
+msgid "Reminders"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:140
+msgid "Add reminder"
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:175
+msgid "Time:"
+msgstr ""
+
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:104
 msgid "AM"
 msgstr "AM"
 
-#: src/Widgets/TimePicker.vala:70
+#. / TRANSLATORS: this will only show up when 12-hours clock is in use
+#: src/Widgets/TimePicker.vala:106
 msgid "PM"
 msgstr "PM"
 
-#: src/Widgets/CalendarEvents.vala:75
-msgid "Events"
-msgstr "Gebeurtenissen"
-
-#: src/Widgets/CalendarEvents.vala:167
-msgid "Calendar"
-msgstr "Agenda"
-
-#: src/Widgets/AgendaEventRow.vala:169 src/Widgets/AgendaEventRow.vala:179
-#, c-format
-msgid ""
-"%s\n"
-"%s"
+#. / TRANSLATORS: separates hours from minutes.
+#: src/Widgets/TimePicker.vala:151
+msgid ":"
 msgstr ""
-"%s\n"
-"%s"
 
-#: src/Widgets/AgendaEventRow.vala:171
-#, c-format
-msgid ""
-"%s, %s\n"
-"%s, %s"
-msgstr ""
-"%s, %s\n"
-"%s, %s"
+#: src/Widgets/Calendar/CalendarHeader.vala:34
+#, fuzzy
+msgid "%OB, %Y"
+msgstr "%B %e, %Y"
 
-#: src/Widgets/AgendaEventRow.vala:183
-#, c-format
-msgid "%s"
-msgstr "%s"
-
-#: src/Widgets/AgendaEventRow.vala:185
-#, c-format
-msgid ""
-"%s, %s\n"
-"%s"
-msgstr ""
-"%s, %s\n"
-"%s"
-
-#: src/Widgets/QuickFind.vala:38
-msgid "Quick find"
-msgstr "Snel zoeken"
-
-#: src/Widgets/QuickFind.vala:103
-msgid "all"
-msgstr "alles"
-
-#: src/Widgets/NoteChild.vala:46
-msgid "Title"
-msgstr "Titel"
-
-#: src/Widgets/Calendar/CalendarHeader.vala:33
-#: src/Widgets/Calendar/CalendarHeader.vala:45
+#: src/Widgets/Calendar/CalendarHeader.vala:42
 msgid "%OB %Y"
 msgstr "%0B %Y"
 
@@ -993,103 +413,228 @@ msgstr "za"
 msgid "Sun"
 msgstr "zo"
 
-#: src/Widgets/Popovers/NewProject.vala:44
-msgid "New Project"
-msgstr "Nieuw project"
+#: src/Views/Welcome.vala:26
+#, fuzzy
+msgid "Don't worry about forgetting things again"
+msgstr "Nooit meer zorgen over dingen vergeten"
 
-#: src/Widgets/Popovers/NewProject.vala:52
-msgid "Personal"
-msgstr "Persoonlijk"
+#: src/Views/Welcome.vala:29
+msgid "Startup"
+msgstr ""
 
-#: src/Widgets/Popovers/NewProject.vala:177
-msgid "Create"
-msgstr "Creëren"
+#: src/Views/Welcome.vala:29
+msgid "Start working locally."
+msgstr ""
 
-#: src/Widgets/Popovers/NewProject.vala:178
-msgid "Create a new project"
-msgstr "Nieuw project creëren"
+#: src/Views/Welcome.vala:30
+msgid "Todoist"
+msgstr ""
 
-#: src/Widgets/Popovers/NewProject.vala:193
-#: src/Widgets/Popovers/LabelsPopover.vala:231
-msgid "Color"
-msgstr "Kleur"
+#: src/Views/Welcome.vala:30
+msgid "Synchronize with your Todoist account and start working."
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectMenu.vala:34
-msgid "Finalize project"
-msgstr "Project afronden"
+#: src/Views/Inbox.vala:46 src/Views/Project.vala:53
+msgid "Add section"
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectMenu.vala:35
-msgid "Edit"
-msgstr "Bewerken"
+#: src/Views/Inbox.vala:67
+msgid "Inbox comments"
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectMenu.vala:35
-msgid "Change project name"
-msgstr "Projectnaam wijzigen"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:37
-msgid "Export"
-msgstr "Exporteren"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:38
-msgid "Share project"
-msgstr "Project delen"
-
-#: src/Widgets/Popovers/ProjectMenu.vala:40
-msgid "Delete project"
-msgstr "Project verwijderen"
-
-#: src/Widgets/Popovers/TaskMenu.vala:34
-msgid "Convert"
-msgstr "Omzetten"
-
-#: src/Widgets/Popovers/TaskMenu.vala:34
-msgid "Convert to Project"
-msgstr "Omzetten naar project"
-
-#: src/Widgets/Popovers/TaskMenu.vala:35
-msgid "Duplicate"
-msgstr "Klonen"
-
-#: src/Widgets/Popovers/TaskMenu.vala:35
-msgid "Duplicate task"
-msgstr "Taak klonen"
-
-#: src/Widgets/Popovers/TaskMenu.vala:36
-msgid "Share task"
+#: src/Views/Inbox.vala:75 src/Views/Project.vala:92
+#, fuzzy
+msgid "Search task"
 msgstr "Taak delen"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:132
-#: src/Widgets/Popovers/LabelsPopover.vala:213
-msgid "Add"
-msgstr "Toevoegen"
+#: src/Views/Inbox.vala:82 src/Views/Project.vala:99
+msgid "Options"
+msgstr ""
 
-#: src/Widgets/Popovers/LabelsPopover.vala:160
-msgid "Update"
-msgstr "Bijwerken"
+#: src/Views/Inbox.vala:197 src/Views/Project.vala:272
+#, fuzzy
+msgid "New Section"
+msgstr "Nieuw project"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:194
-msgid "Priority: Low"
-msgstr "Prioriteit: laag"
+#: src/Views/Inbox.vala:462 src/Views/Inbox.vala:479 src/Views/Project.vala:539
+#: src/Views/Project.vala:574
+#, fuzzy
+msgid "Show completed task"
+msgstr "Afgeronde taken tonen"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:218
-msgid "Add new label"
-msgstr "Nieuw label toevoegen"
+#: src/Views/Inbox.vala:482 src/Views/Project.vala:577
+#, fuzzy
+msgid "Hide completed task"
+msgstr "Afgeronde taken verbergen"
 
-#: src/Widgets/Popovers/LabelsPopover.vala:227
-msgid "Preview"
-msgstr "Voorbeeld"
+#: src/Views/Project.vala:73
+msgid "Invite person"
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectListMenu.vala:32
-msgid "Import"
-msgstr "Importeren"
+#: src/Views/Project.vala:83
+#, fuzzy
+msgid "Project comments"
+msgstr "Projectnaam"
 
-#: src/Widgets/Popovers/ProjectListMenu.vala:32
-msgid "Import project"
-msgstr "Project importeren"
+#: src/Views/Project.vala:127
+msgid "Add a note"
+msgstr ""
 
-#: src/Widgets/Popovers/ProjectListMenu.vala:45
-msgid "Export Project"
-msgstr "Project exporteren"
+#: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:103
+#, fuzzy
+msgid "Loading…"
+msgstr "Bezig met laden..."
+
+#. Alert
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:117
+msgid "Network Is Not Available"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:47
+msgid "Connect to the Internet to connect with Todoist"
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:83
+msgid "Synchronizing… Wait a moment please."
+msgstr ""
+
+#: src/Dialogs/TodoistOAuth.vala:95
+msgid "Please enter your credentials…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:28
+msgid "Due:"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:183
+msgid "Uploading changes…"
+msgstr ""
+
+#: src/Dialogs/ProjectSettings.vala:212
+msgid "Save"
+msgstr ""
+
+#. General
+#: src/Dialogs/Preferences.vala:59 src/Dialogs/Preferences.vala:65
+#: src/Dialogs/Preferences.vala:366
+msgid "General"
+msgstr "Algemeen"
+
+#: src/Dialogs/Preferences.vala:62 src/Dialogs/Preferences.vala:145
+#, fuzzy
+msgid "Homepage"
+msgstr "Website"
+
+#: src/Dialogs/Preferences.vala:63 src/Dialogs/Preferences.vala:248
+#, fuzzy
+msgid "Badge count"
+msgstr "Meldingsteller"
+
+#: src/Dialogs/Preferences.vala:64 src/Dialogs/Preferences.vala:319
+msgid "Theme"
+msgstr ""
+
+#. Addons
+#: src/Dialogs/Preferences.vala:79
+msgid "Add-ons"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:82 src/Dialogs/Preferences.vala:480
+#, fuzzy
+msgid "Calendar events"
+msgstr "Kalendergebeurtenissen"
+
+#. Others
+#: src/Dialogs/Preferences.vala:96
+msgid "About"
+msgstr "Over"
+
+#: src/Dialogs/Preferences.vala:97
+#, fuzzy
+msgid "Create tutorial project"
+msgstr "Nieuw project creëren"
+
+#: src/Dialogs/Preferences.vala:147
+msgid ""
+"When you open up Planner, make sure you see the tasks that are most "
+"important. The default homepage is your <b>Inbox</b> view, but you can "
+"change it to whatever you'd like."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:178
+#, fuzzy
+msgid "Projects"
+msgstr "Nieuw project"
+
+#: src/Dialogs/Preferences.vala:250
+msgid ""
+"Choose which items should be counted for the badge on the application icon."
+msgstr ""
+"KIes welke items moeten worden geteld op de badge van het "
+"toepassingspictogram."
+
+#: src/Dialogs/Preferences.vala:259
+msgid "None"
+msgstr "Geen"
+
+#: src/Dialogs/Preferences.vala:269
+msgid "Today + Inbox"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:321
+msgid ""
+"Personalize the look and feel of your Planner by choosing the theme that "
+"best suits you."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:330
+#, fuzzy
+msgid "Light"
+msgstr "Lichte regenbui"
+
+#: src/Dialogs/Preferences.vala:334
+#, fuzzy
+msgid "Night"
+msgstr "Nachtmodus"
+
+#: src/Dialogs/Preferences.vala:369
+msgid "DE Integration"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:375
+msgid "Date & Time"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:380
+msgid "AM/PM"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:381
+msgid "24 h"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:383
+msgid "Time format"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:419
+msgid ""
+"Save time by batching similar tasks together using labels. You’ll be able to "
+"pull up a list of all tasks with any given label in a matter of seconds."
+msgstr ""
+
+#. top_box.action_button = "list-add-symbolic";
+#: src/Dialogs/Preferences.vala:483
+msgid ""
+"You can connect your <b>Calendar</b> app to Planner to see your events and "
+"to-dos together in one place. You’ll see events from both personal and "
+"shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
+"you’re managing your day, and as you plan the week ahead."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:682
+msgid "Back"
+msgstr "Terug"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
@@ -1184,6 +729,7 @@ msgid "Different themes to choose"
 msgstr "Verschillende thema's om uit te kiezen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
+#: data/com.github.alainm23.planner.appdata.xml.in:38
 msgid "Weather forecast"
 msgstr "Weersverwachting"
 
@@ -1191,6 +737,686 @@ msgstr "Weersverwachting"
 msgid "Night mode"
 msgstr "Nachtmodus"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:149
+#: data/com.github.alainm23.planner.appdata.xml.in:27
+msgid "* Planner not created by, affiliated with, or supported by Doist"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:35
+#, fuzzy
+msgid "New features:"
+msgstr "Overige mogelijkheden"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:37
+#, fuzzy
+msgid "Labels preview"
+msgstr "Labels"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:40
+#: data/com.github.alainm23.planner.appdata.xml.in:53
+#: data/com.github.alainm23.planner.appdata.xml.in:72
+#: data/com.github.alainm23.planner.appdata.xml.in:88
+#, fuzzy
+msgid "Translations:"
+msgstr "Vertalingen"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:42
+msgid "Lithuanian (welaq)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:48
+#: data/com.github.alainm23.planner.appdata.xml.in:61
+msgid "Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:50
+msgid "Redesign 'Labels' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:51
+#, fuzzy
+msgid "Fix Notification error"
+msgstr "Meldingen"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:55
+msgid "Updating French translations 🇫🇷 (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:63
+#, fuzzy
+msgid "Better reminder notifications"
+msgstr "Herinneringsmeldingen"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:64
+msgid "Improvement default theme"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:65
+msgid "Redesign 'When' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:66
+msgid "New 'About' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:67
+msgid "New 'Credits' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:68
+msgid "Redesign 'Issues' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:69
+#, fuzzy
+msgid "New task search"
+msgstr "Nieuwe taak"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:70
+#, fuzzy
+msgid "Adding support to import and export projects"
+msgstr "Im- en exporteer je projecten"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:74
+msgid "German (kr428)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:75
+msgid "French (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:76
+msgid "Update Spanish translation"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:82
+msgid "New feature: Support for Github Issues"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:84
+msgid "Connect with your Github account"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:85
+msgid "Receive all your issue as tasks in Inbox"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:86
+msgid "Planner will notify you if any new issue was posted"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:90
+msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:91
+msgid "Romanian (Prongs Dark)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:93
+msgid "Bugs and Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:95
+msgid "Performance improvement"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:96
+msgid "Design improvements"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:97
+msgid "Fix #22"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:98
+msgid "Fix #21"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:99
+msgid "Fix #11"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:105
+msgid "Improved stability and some bug fixes"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:107
+#, fuzzy
+msgid "Fixing critical bug with creating tasks from the clipboard #19"
+msgstr "De taak is gecreëerd via het klembord"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:108
+#, fuzzy
+msgid "Adding new tooltips"
+msgstr "Nieuwe taak toevoegen"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:114
+#, fuzzy
+msgid "Hola Planner !!!"
+msgstr "Hoe werkt Planner?"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:116
+msgid "Adding Spanish translations"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:122
+msgid "Initial release"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:163
 msgid "Alain M."
 msgstr "Alain M."
+
+#~ msgid "Clouds"
+#~ msgstr "Bewolking"
+
+#~ msgid "Clear"
+#~ msgstr "Helder"
+
+#~ msgid "Atmosphere"
+#~ msgstr "Atmosfeer"
+
+#~ msgid "Snow"
+#~ msgstr "Sneeuw"
+
+#~ msgid "Rain"
+#~ msgstr "Regen"
+
+#~ msgid "Drizzle"
+#~ msgstr "Motregen"
+
+#~ msgid "Thunderstorm"
+#~ msgstr "Onweer"
+
+#~ msgid "Thunderstorm with light rain"
+#~ msgstr "Onweer met lichte regen"
+
+#~ msgid "Thunderstorm with rain"
+#~ msgstr "Onweer met regen"
+
+#~ msgid "Thunderstorm with heavy rain"
+#~ msgstr "Onweer met hevige regen"
+
+#~ msgid "Light thunderstorm"
+#~ msgstr "Licht onweer"
+
+#~ msgid "Heavy thunderstorm"
+#~ msgstr "Zwaar onweer"
+
+#~ msgid "Ragged thunderstorm"
+#~ msgstr "Extreem onweer"
+
+#~ msgid "Thunderstorm with light drizzle"
+#~ msgstr "Onweer met lichte motregen"
+
+#~ msgid "Thunderstorm with drizzle"
+#~ msgstr "Onweer met motregen"
+
+#~ msgid "Thunderstorm with heavy drizzle"
+#~ msgstr "Onweer met zware motregen"
+
+#~ msgid "Light intensity drizzle"
+#~ msgstr "Lichte motregen"
+
+#~ msgid "Heavy intensity drizzle"
+#~ msgstr "Zware motregen"
+
+#~ msgid "Light intensity drizzle rain"
+#~ msgstr "Lichte (mot)regen"
+
+#~ msgid "Drizzle rain"
+#~ msgstr "(Mot)regen"
+
+#~ msgid "Heavy intensity drizzle rain"
+#~ msgstr "Zware (mot)regen"
+
+#~ msgid "Shower rain and drizzle"
+#~ msgstr "Zware motregen en regen"
+
+#~ msgid "Heavy shower rain and drizzle"
+#~ msgstr "Zware motregen en regen"
+
+#~ msgid "Shower drizzle"
+#~ msgstr "Extreme motregen"
+
+#~ msgid "Moderate rain"
+#~ msgstr "Normale regenbui"
+
+#~ msgid "Heavy intensity rain"
+#~ msgstr "Zware regenbui"
+
+#~ msgid "Very heavy rain"
+#~ msgstr "Hele zware regenbui"
+
+#~ msgid "Extreme rain"
+#~ msgstr "Extreme regenbui"
+
+#~ msgid "Freezing rain"
+#~ msgstr "IJsregen"
+
+#~ msgid "Light intensity shower rain"
+#~ msgstr "Lichte (mot)regen"
+
+#~ msgid "Shower rain"
+#~ msgstr "Zware regenbui"
+
+#~ msgid "Heavy intensity shower rain"
+#~ msgstr "Zeer zware regenbui"
+
+#~ msgid "Ragged shower rain"
+#~ msgstr "Extreme regenbui"
+
+#~ msgid "Light snow"
+#~ msgstr "Lichte sneeuwval"
+
+#~ msgid "Heavy snow"
+#~ msgstr "Hevige sneeuwval"
+
+#~ msgid "Sleet"
+#~ msgstr "IJzel"
+
+#~ msgid "Shower sleet"
+#~ msgstr "IJzel en regen"
+
+#~ msgid "Light rain and snow"
+#~ msgstr "Licht regenbui en sneeuwval"
+
+#~ msgid "Rain and snow"
+#~ msgstr "Regen en sneeuw"
+
+#~ msgid "Light shower snow"
+#~ msgstr "Lichte sneeuwbui"
+
+#~ msgid "Shower snow"
+#~ msgstr "Zware sneeuwbui"
+
+#~ msgid "Heavy shower snow"
+#~ msgstr "Zeer zware sneeuwbui"
+
+#~ msgid "Clear sky"
+#~ msgstr "Heldere lucht"
+
+#~ msgid "Few clouds"
+#~ msgstr "Licht bewolkt"
+
+#~ msgid "Scattered clouds"
+#~ msgstr "Verspreide wolken"
+
+#~ msgid "Broken clouds"
+#~ msgstr "Gebroken wolken"
+
+#~ msgid "Overcast clouds"
+#~ msgstr "Bewolkt"
+
+#~ msgid "%i°"
+#~ msgstr "%i°"
+
+#~ msgid "Your project was exported correctly"
+#~ msgstr "Je project is geëxporteerd"
+
+#~ msgid "Your project was imported correctly"
+#~ msgstr "Je project is geïmporteerd"
+
+#~ msgid "Import another project"
+#~ msgstr "Nog een project importeren"
+
+#~ msgid "This project was already imported"
+#~ msgstr "Dit project is al geïmporteerd"
+
+#~ msgid "%A, %b %d"
+#~ msgstr "%A, %b %d"
+
+#~ msgid "All clear"
+#~ msgstr "Opgeruimd staat netjes"
+
+#~ msgid "Looks like everything's is organized. Tap + to add a task."
+#~ msgstr ""
+#~ "Het lijkt erop dat alles goed georganiseerd is. Druk op + om een taak toe "
+#~ "te voegen."
+
+#~ msgid "Open all tasks"
+#~ msgstr "Alle taken openen"
+
+#~ msgid "Close all tasks"
+#~ msgstr "Alle taken sluiten"
+
+#~ msgid "Paste"
+#~ msgstr "Plakken"
+
+#~ msgid "Filter by Label"
+#~ msgstr "Filteren op label"
+
+#~ msgid "Share"
+#~ msgstr "Delen"
+
+#~ msgid "Empty clipboard"
+#~ msgstr "Klembord is leeg"
+
+#~ msgid "Try copying some text and try again"
+#~ msgstr "Kopieer tekst en probeer het opnieuw"
+
+#~ msgid "Tap to undo"
+#~ msgstr "Klik om ongedaan te maken"
+
+#~ msgid "It was moved to %s"
+#~ msgstr "Het is verplaatst naar %s"
+
+#~ msgid "You're all done for today!"
+#~ msgstr "Je bent helemaal bij!"
+
+#~ msgid "Enjoy your day."
+#~ msgstr "Geniet van je dag."
+
+#~ msgid "Get a bird's eye view of yours upcoming tasks"
+#~ msgstr "Zie al je aankomende taken in één oogopslag"
+
+#~ msgid "This is your timeline for the next tasks."
+#~ msgstr "Hier zie je je tijdlijn met al je aankomende taken."
+
+#~ msgid "keep your tasks organized in projects"
+#~ msgstr "houd je taken geordend middels projecten"
+
+#~ msgid "Tap + to add a task."
+#~ msgstr "Klik op + om een taak toe te voegen."
+
+#~ msgid "Deadline"
+#~ msgstr "Deadline"
+
+#~ msgid "Search"
+#~ msgstr "Zoeken"
+
+#~ msgid "Notes"
+#~ msgstr "Notities"
+
+#~ msgid "Select Your Favorite Color"
+#~ msgstr "Kies je favoriete kleur"
+
+#~ msgid "Find all your tasks here."
+#~ msgstr "Hier vind je al je taken."
+
+#~ msgid "All Tasks"
+#~ msgstr "Alle taken"
+
+#~ msgid "Start to complete tasks to fill this space."
+#~ msgstr "Rond taken af om deze ruimte op te vullen."
+
+#~ msgid "Appearance"
+#~ msgstr "Uiterlijk"
+
+#~ msgid "Github"
+#~ msgstr "GitHub"
+
+#~ msgid "Connect your account to work with Issues"
+#~ msgstr "Koppel je account om te werken met 'Issues'"
+
+#~ msgid "Username"
+#~ msgstr "Gebruikersnaam"
+
+#~ msgid "Password"
+#~ msgstr "Wachtwoord"
+
+#~ msgid "Enter a correct Username"
+#~ msgstr "Voer een geldige gebruikersnaam in"
+
+#~ msgid "Forgot password…"
+#~ msgstr "Wachtwoord vergeten…"
+
+#~ msgid "Don't have an account? Sign Up"
+#~ msgstr "Heb je nog geen account? Registreer er dan één"
+
+#~ msgid "Check which repositories you want to work with"
+#~ msgstr "Vink aan met welke repo's je aan de slag wilt"
+
+#~ msgid "Update issues"
+#~ msgstr "Issues bijwerken"
+
+#~ msgid "Are you sure you want to delete your Github account?"
+#~ msgstr "Weet je zeker dat je je GitHub-account wilt verwijderen?"
+
+#~ msgid "Banana"
+#~ msgstr "Banaan"
+
+#~ msgid "Black"
+#~ msgstr "Zwart"
+
+#~ msgid "Blueberry"
+#~ msgstr "Blauwe bes"
+
+#~ msgid "Strawberry"
+#~ msgstr "Aardbei"
+
+#~ msgid "Lemon"
+#~ msgstr "Limoen"
+
+#~ msgid "Slate"
+#~ msgstr "Leisteen"
+
+#~ msgid "Pink"
+#~ msgstr "Roze"
+
+#~ msgid "Start Page"
+#~ msgstr "Startpagina"
+
+#~ msgid "Choose that page should be first initial when Planner is open."
+#~ msgstr "Kies de pagina die moet worden getoond als je Planner opent."
+
+#~ msgid "Items"
+#~ msgstr "Items"
+
+#~ msgid "Choose which items should be displayed in the left side panel."
+#~ msgstr "Kies welke items moeten worden getoond in het linker zijpaneel."
+
+#~ msgid "Quick Save"
+#~ msgstr "Snel opslaan"
+
+#~ msgid "Choose how many clicks to close and save all open tasks."
+#~ msgstr "Kies met hoeveel muisklikken je taken wilt sluiten en opslaan."
+
+#~ msgid "Double Click"
+#~ msgstr "Dubbelklikken"
+
+#~ msgid "Triple Click"
+#~ msgstr "Driemaal klikken"
+
+#~ msgid "Weather"
+#~ msgstr "Weer"
+
+#~ msgid "Get the weather forecast in a simple and beautiful widget."
+#~ msgstr "Toon de weersverwachting op een mooie, eenvoudige widget."
+
+#~ msgid "Temperature"
+#~ msgstr "Temperatuur"
+
+#~ msgid "°F"
+#~ msgstr "°F"
+
+#~ msgid "°C"
+#~ msgstr "°C"
+
+#~ msgid "Automatic:"
+#~ msgstr "Automatisch"
+
+#~ msgid "Automatic Location"
+#~ msgstr "Automatische locatie"
+
+#~ msgid "Events from your personal and shared calendars can be displayed."
+#~ msgstr ""
+#~ "Je kunt gebeurtenissen uit je persoonlijke en gedeelde agenda's tonen."
+
+#~ msgid "Enabled"
+#~ msgstr "Ingeschakeld"
+
+#~ msgid "Disabled"
+#~ msgstr "Uitgeschakeld"
+
+#~ msgid "Credits"
+#~ msgstr "Met dank aan"
+
+#~ msgid "Developing"
+#~ msgstr "Ontwikkeling"
+
+#~ msgid "Design"
+#~ msgstr "Ontwerp"
+
+#~ msgid "Translation"
+#~ msgstr "Vertaling"
+
+#~ msgid "Support"
+#~ msgstr "Ondersteuning"
+
+#~ msgid "Report a Issue"
+#~ msgstr "Meld een probleem"
+
+#~ msgid "Run in background"
+#~ msgstr "Uitvoeren op achtergrond"
+
+#~ msgid "Let Planner run in background and send notifications."
+#~ msgstr "Voer Planner uit op de achtergrond en toon meldingen."
+
+#~ msgid "Launch at Login"
+#~ msgstr "Automatisch opstarten"
+
+#~ msgid "Profile"
+#~ msgstr "Profiel"
+
+#~ msgid "Copy to clipboard"
+#~ msgstr "Kopiëren naar klembord"
+
+#~ msgid "Your project is ready to share"
+#~ msgstr "Je project kan worden gedeeld"
+
+#~ msgid "When"
+#~ msgstr "Wanneer"
+
+#~ msgid "Move"
+#~ msgstr "Verplaatsen"
+
+#~ msgid "Weather and Events"
+#~ msgstr "Weer en gebeurtenissen"
+
+#~ msgid "Light background"
+#~ msgstr "Lichte achtergrond"
+
+#~ msgid "Dark background"
+#~ msgstr "Donkere achtergrond"
+
+#~ msgid "Menu"
+#~ msgstr "Menu"
+
+#~ msgid "Completed tasks"
+#~ msgstr "Afgeronde taken"
+
+#~ msgid "To do tasks"
+#~ msgstr "Onafgeronde taken"
+
+#~ msgid "Are you sure you want to mark as completed this project?"
+#~ msgstr "Weet je zeker dat je dit project wilt markeren als afgerond?"
+
+#~ msgid "This project contains %i incomplete tasks"
+#~ msgstr "Dit project bevat %i onafgeronde taken"
+
+#~ msgid "Mark as Completed"
+#~ msgstr "Markeren als afgerond"
+
+#~ msgid "Are you sure you want to delete this project?"
+#~ msgstr "Weet je zeker dat je dit project wilt verwijderen?"
+
+#~ msgid ""
+#~ "It contains %i elements that are also deleted, this operation can't be "
+#~ "undone"
+#~ msgstr ""
+#~ "Het bevat %i elementen die ook worden verwijderd - deze handeling kan "
+#~ "niet ongedaan worden gemaakt"
+
+#~ msgid "Planner files"
+#~ msgstr "Planner-bestanden"
+
+#~ msgid "<b>%s</b>"
+#~ msgstr "<b>%s</b>"
+
+#~ msgid "Move task"
+#~ msgstr "Taak verplaatsen"
+
+#~ msgid "It was moved to <b>%s</b>"
+#~ msgstr "Het is verplaatst naar <b>%s>"
+
+#~ msgid "Are you sure you want to delete this task?"
+#~ msgstr "Weet je zeker dat je deze taak wilt verwijderen?"
+
+#~ msgid "Delete Task"
+#~ msgstr "Taak verwijderen"
+
+#~ msgid "You'll be notified %s at %s"
+#~ msgstr "Je krijgt een melding over %s op %s"
+
+#~ msgid "Create Task"
+#~ msgstr "Taak creëren"
+
+#~ msgid "Events"
+#~ msgstr "Gebeurtenissen"
+
+#~ msgid "Calendar"
+#~ msgstr "Agenda"
+
+#~ msgid ""
+#~ "%s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+#~ msgstr ""
+#~ "%s, %s\n"
+#~ "%s, %s"
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid ""
+#~ "%s, %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s, %s\n"
+#~ "%s"
+
+#~ msgid "Quick find"
+#~ msgstr "Snel zoeken"
+
+#~ msgid "all"
+#~ msgstr "alles"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Personal"
+#~ msgstr "Persoonlijk"
+
+#~ msgid "Finalize project"
+#~ msgstr "Project afronden"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#~ msgid "Change project name"
+#~ msgstr "Projectnaam wijzigen"
+
+#~ msgid "Export"
+#~ msgstr "Exporteren"
+
+#~ msgid "Convert"
+#~ msgstr "Omzetten"
+
+#~ msgid "Duplicate task"
+#~ msgstr "Taak klonen"
+
+#~ msgid "Add new label"
+#~ msgstr "Nieuw label toevoegen"
+
+#~ msgid "Preview"
+#~ msgstr "Voorbeeld"
+
+#~ msgid "Import project"
+#~ msgstr "Project importeren"

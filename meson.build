@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '1.2.4')
+        version: '2.0.0')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -17,13 +17,6 @@ c_args = [
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
-# Find libMarkdown
-libmarkdown = dependency('libmarkdown', version: '>= 2.2.1', required: false)
-if libmarkdown.found() == false
-    cc = meson.get_compiler('c')
-    libmarkdown = cc.find_library('libmarkdown', required: true)
-endif
-
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
     source_dir: 'data',
@@ -38,96 +31,75 @@ executable(
     'src/Utils.vala',
 
     'src/Services/Database.vala',
+    'src/Services/Todoist.vala',
+    'src/Services/LabelsController.vala',
     'src/Services/Notifications.vala',
-    'src/Services/Weather.vala',
-    'src/Services/Signals.vala',
-    'src/Services/Github.vala',
-    'src/Services/Share.vala',
-    
+    'src/Services/Calendar/Util.vala',
     'src/Services/Calendar/CalendarModel.vala',
-    'src/Services/Calendar/Utils.vala',
-    'src/Services/Calendar/GesturesUtils.vala',
-    'src/Services/Calendar/DateRange.vala',
-    'src/Services/Calendar/LanguagesFormat.vala',
-    'src/Services/Calendar/MayaSettings.vala',
-    'src/Services/Calendar/SavedState.vala',
-
-    'src/Views/Main.vala',
+    
+    'src/Widgets/ActionRow.vala',
+    'src/Widgets/Pane.vala',
+    'src/Widgets/New.vala',
+    'src/Widgets/ProjectRow.vala',
+    'src/Widgets/NewItem.vala',
+    'src/Widgets/ItemRow.vala',
+    'src/Widgets/ItemCompletedRow.vala',
+    'src/Widgets/SectionRow.vala',
+    'src/Widgets/DueButton.vala',
+    'src/Widgets/LabelButton.vala',
+    'src/Widgets/Toast.vala',
+    'src/Widgets/MenuButtons.vala',
+    'src/Widgets/AreaRow.vala',
+    'src/Widgets/MagicButton.vala',
+    'src/Widgets/LabelRow.vala',
+    'src/Widgets/NewCheck.vala',
+    'src/Widgets/CheckRow.vala',
+    'src/Widgets/LabelPreview.vala',
+    'src/Widgets/LabelItem.vala',
+    'src/Widgets/ProjectProgress.vala',
+    'src/Widgets/UpcomingRow.vala',
+    'src/Widgets/EventRow.vala',
+    'src/Widgets/QuickFind.vala',
+    'src/Widgets/SourceItem.vala',
+    'src/Widgets/ReminderButton.vala',
+    'src/Widgets/ReminderRow.vala',
+    'src/Widgets/TimePicker.vala',
+    
+    'src/Widgets/Calendar/Calendar.vala',
+    'src/Widgets/Calendar/CalendarDay.vala',
+    'src/Widgets/Calendar/CalendarHeader.vala',
+    'src/Widgets/Calendar/CalendarView.vala',
+    'src/Widgets/Calendar/CalendarWeek.vala',
+    
+    'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
-    'src/Views/AllTasks.vala',
-    'src/Views/CompletedTasks.vala',
 
-    'src/Dialogs/PreferencesDialog.vala',
-    'src/Dialogs/ShareDialog.vala',
-
-    'src/Widgets/WhenButton.vala',
-    'src/Widgets/LabelButton.vala',
-    'src/Widgets/MoveButton.vala',
-    'src/Widgets/HeaderBar.vala',
-    'src/Widgets/ProjectsList.vala',
-    'src/Widgets/ProjectRow.vala',
-    'src/Widgets/ItemRow.vala',
-    'src/Widgets/CheckRow.vala',
-    'src/Widgets/TaskRow.vala',
-    'src/Widgets/LabelRow.vala',
-    'src/Widgets/LabelChild.vala',
-    'src/Widgets/TaskNew.vala',
-    'src/Widgets/ModelButton.vala',
-    'src/Widgets/AlertView.vala',
-    'src/Widgets/TimePicker.vala',
-    'src/Widgets/CalendarEvents.vala',
-    'src/Widgets/Weather.vala',
-    'src/Widgets/AgendaEventRow.vala',
-    'src/Widgets/SourceItem.vala',
-    'src/Widgets/QuickFind.vala',
-    'src/Widgets/NoteChild.vala',
-    'src/Widgets/RepositoryRow.vala',
-    'src/Widgets/WebView.vala',
-
-    'src/Widgets/Calendar/Calendar.vala',
-    'src/Widgets/Calendar/CalendarHeader.vala',
-    'src/Widgets/Calendar/CalendarView.vala',
-    'src/Widgets/Calendar/CalendarWeek.vala',
-    'src/Widgets/Calendar/CalendarDay.vala',
-
-    'src/Widgets/Popovers/NewProject.vala',
-    'src/Widgets/Popovers/ProjectMenu.vala',
-    'src/Widgets/Popovers/TaskMenu.vala',
-    'src/Widgets/Popovers/WhenPopover.vala',
-    'src/Widgets/Popovers/LabelsPopover.vala',
-    'src/Widgets/Popovers/MovePopover.vala',
-    'src/Widgets/Popovers/NotificationsPopover.vala',
-    'src/Widgets/Popovers/NotificationActionPopover.vala',
-    'src/Widgets/Popovers/DeadlinePopover.vala',
-    'src/Widgets/Popovers/SearchPopover.vala',
-    'src/Widgets/Popovers/ProjectListMenu.vala',
-
+    'src/Dialogs/TodoistOAuth.vala',
+    'src/Dialogs/ProjectSettings.vala',
+    'src/Dialogs/Preferences.vala',
+    
     'src/Objects/Project.vala',
-    'src/Objects/Task.vala',
+    'src/Objects/Item.vala',
+    'src/Objects/Area.vala',
+    'src/Objects/Section.vala',
     'src/Objects/Label.vala',
-    'src/Objects/Repository.vala',
-    'src/Objects/User.vala',
+    'src/Objects/Collaborator.vala',
+    'src/Objects/Reminder.vala',
     dependencies: [
         dependency('gee-0.8'),
+        dependency('gobject-2.0'),
         dependency('glib-2.0'),
         dependency('granite'),
-        dependency('gtk+-3.0'),
         dependency('sqlite3'),
-        dependency('unity'),
-        dependency('libgeoclue-2.0'),
-        dependency('libsoup-2.4'),
+        dependency('gtk+-3.0'),
         dependency('json-glib-1.0'),
-        dependency('gtksourceview-3.0'),
-        dependency('libecal-1.2', version: '>=3.8.0'),
-        dependency('libedataserver-1.2', version: '>=3.8.0'),
-        dependency('libedataserverui-1.2', version: '>=3.8.0'),
-        dependency('libical'),
-        dependency('gmodule-2.0'),
         dependency('webkit2gtk-4.0'),
-        libmarkdown,
+        dependency('libecal-1.2'),
+        dependency('libedataserver-1.2'),
+        dependency('libical'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true
@@ -135,5 +107,4 @@ executable(
 
 subdir('data')
 subdir('po')
-
 meson.add_install_script('meson/post_install.py')

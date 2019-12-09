@@ -12,37 +12,33 @@
 
 ![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-01.png)
 
-![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-02.png)
-
 ## Building and Installation
 
 You'll need the following dependencies:
+
 * libgtk-3-dev
-* libunity-dev
-* libecal1.2-dev
-* libedataserver1.2-dev
-* libedataserverui1.2-dev
-* libgtksourceview-3.0-dev >= 3.24
-* libical-dev
 * libgee-0.8-dev
 * libjson-glib-dev
-* libgeoclue-2-dev
 * libsqlite3-dev
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
-* meson
 * libwebkit2gtk-4.0-dev
-* libmarkdown2-dev
+* libecal1.2-dev
+* libedataserver1.2-dev
+* libical-dev
+* meson
 * valac >= 0.40.3
 
-## Building
+Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
 
-```
-meson build && cd build
-meson configure -Dprefix=/usr
-sudo ninja install
-com.github.alainm23.planner
-```
+    meson build --prefix=/usr
+    cd build
+    ninja
+
+To install, use `ninja install`, then execute with `com.github.alainm23.planner`
+
+    sudo ninja install
+    com.github.alainm23.planner
 
 ## Donations
 Stripe is not yet available in my country, If you like Planner and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alainm23)

@@ -1,169 +1,20 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alain23@protonmail.com>
-*/
-
 public class Utils : GLib.Object {
-    public string CACHE_FOLDER;
-    public string PROFILE_FOLDER;
-    public string WEBVIEW_STYLESHEET = """
-        html {
-            font-size: 16px;
-        }
-        p {
-            display: block;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            font-size: 1rem;
-            color: %s;
-        }
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-weight: 600;
-            line-height: 1.25;
-            margin-bottom: 16px;
-            margin-top: 12px;
-        }
-        h1 {
-            border-bottom: 1px solid #eaecef;
-            font-size: 2em;
-        }
-        h2 {
-            border-bottom: 1px solid #eaecef;
-            padding-bottom: .3em;
-            font-size: 1.5em;
-        }
-        h3 {
-            font-size: 1.25em;
-        }
-        h4 {
-            font-size: 1em;
-        }
-        h5 {
-            font-size: .875em;
-        }
-        h6 {
-            font-size: .85em;
-        }
-        small {
-            font-size: .7em;
-        }
-        canvas,
-        iframe,
-        video,
-        svg,
-        select,
-        textarea {
-            display: block;
-            max-width: 50%;
-        }
-        body{
-            color: %s;
-            background-color: %s;
-            font-family: 'Open Sans', Helvetica, sans-serif;
-            font-weight: 400;
-            line-height: 1.5;
-            margin-left: 36px;
-            margin-right: 36px;
-            margin-top: 12px;
-            max-width: 100%;
-            text-align: left;
-            word-wrap: break-word;
-            /*white-space: pre-line;*/
-        }
-        table {
-            border-spacing: 0;
-            border-collapse: collapse;
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-        table th {
-            font-weight: bold;
-            background-color: #E7E7E7;
-        }
-        table th,
-        table td {
-            padding: 8px 13px;
-            border: 1px solid #EAEAEA;
-        }
-        table tr {
-            border-top: 1px solid #EAEAEA;
-        }
-        img {
-            height:auto;
-            width: 300px;
-            object-fit:cover;
-        }
-        img[src*='#image-src'] {
-            float:center;
-            height:auto;
-            width: 300px;
-        }
-        a,
-        a:visited,
-        a:hover,
-        a:focus,
-        a:active {
-            color: #3daee9;
-        }
-        code {
-            border: 0;
-            display: inline;
-            line-height: inherit;
-            margin: 0;
-            max-width: auto;
-            overflow: visible;
-            padding: 0;
-            word-wrap: normal;
-        }
-        blockquote {
-            margin: 0;
-            border-left: 5px solid #3daee9;
-            font-style: italic;
-            padding-left: .8rem;
-            text-align: left;
-        }
-        pre {
-            background-color: #f6f8fa;
-            border-radius: 3px;
-            font-size: 85%;
-            line-height: 1.45;
-            overflow: auto;
-            padding: 16px;
-        }
-        ul,
-        ol,
-        li {
-            text-align: left;
-            color: %s;
-        }
-    """;
+    private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private const string NUMERIC_CHARS = "0123456789";
+    
+    public string APP_FOLDER;
+    public string AVATARS_FOLDER;
 
+    public signal void pane_project_selected (int64 project_id, int64 area_id);
+    public signal void pane_action_selected ();
+    
+    public signal void drag_item_activated (bool active);
+    public signal void drag_magic_button_activated (bool active);
+    public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
+    
     public Utils () {
-        CACHE_FOLDER = GLib.Path.build_filename (GLib.Environment.get_user_cache_dir (), "com.github.alainm23.planner");
-        PROFILE_FOLDER = GLib.Path.build_filename (CACHE_FOLDER, "profile");
+        APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
+        AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
     }
 
     public void create_dir_with_parents (string dir) {
@@ -174,75 +25,123 @@ public class Utils : GLib.Object {
         }
     }
 
-    public void update_images_credits () {
-        new Thread<void*> ("update_images_credits", () => {
-            try {
-                var parser = new Json.Parser ();
-                parser.load_from_file ("/usr/share/com.github.alainm23.planner/credits.json");
+    public int64 generate_id () {
+        string allowed_characters = NUMERIC_CHARS;
 
-                var root = parser.get_root ().get_object ();
-
-                var developers = root.get_array_member ("developing");
-                var designers = root.get_array_member ("design");
-                var translators = root.get_array_member ("translation");
-                var supports = root.get_array_member ("support");
-
-                foreach (var _item in developers.get_elements ()) {
-                    var item = _item.get_object ();
-                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
-                }
-
-                foreach (var _item in designers.get_elements ()) {
-                    var item = _item.get_object ();
-                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
-                }
-
-                foreach (var _item in translators.get_elements ()) {
-                    var item = _item.get_object ();
-                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
-                }
-
-                foreach (var _item in supports.get_elements ()) {
-                    var item = _item.get_object ();
-                    download_profile_image (item.get_string_member ("id"), item.get_string_member ("avatar"));
-                }
-            } catch (Error e) {
-                print ("Error: %s\n", e.message);
-            }
-
-            return null;
-        });
-    }
-
-    public void download_profile_image (string id, string avatar) {
-        // Create file
-        var image_path = GLib.Path.build_filename (Application.utils.PROFILE_FOLDER, ("%s.jpg").printf (id));
-
-        var file_path = File.new_for_path (image_path);
-        var file_from_uri = File.new_for_uri (avatar);
-        if (file_path.query_exists () == false) {
-            MainLoop loop = new MainLoop ();
-
-            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
-                // Report copy-status:
-                print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
-            }, (obj, res) => {
-                try {
-                    if (file_from_uri.copy_async.end (res)) {
-                        print ("Avatar Profile Downloaded\n");
-                    }
-                } catch (Error e) {
-                    print ("Error: %s\n", e.message);
-                }
-
-                loop.quit ();
-            });
-
-            loop.run ();
+        var password_builder = new StringBuilder ();
+        for (var i = 0; i < 10; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
         }
+
+        if (int64.parse (password_builder.str) <= 0) {
+            return generate_id ();
+        }
+        
+        return int64.parse (password_builder.str);
     }
 
-    public string convert_invert (string hex) {
+    public string generate_string () {
+        string allowed_characters = ALPHA_CHARS + NUMERIC_CHARS;
+
+        var password_builder = new StringBuilder ();
+        for (var i = 0; i < 36; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
+        }
+
+        return password_builder.str;
+    }
+
+    public void create_default_labels () {
+        var labels = new Gee.HashMap<int, string> ();
+        labels.set (41, _("Home"));
+        labels.set (42, _("Office"));
+        labels.set (32, _("Errand"));
+        labels.set (31, _("Important"));
+        labels.set (33, _("Pending"));
+
+        var home = new Objects.Label ();
+        home.name = _("Home");
+        home.color = 41;
+
+        var office = new Objects.Label ();
+        office.name = _("Office");
+        office.color = 42;
+
+        var errand = new Objects.Label ();
+        errand.name = _("Errand");
+        errand.color = 32;
+
+        var important = new Objects.Label ();
+        important.name = _("Important");
+        important.color = 31;
+
+        var pending = new Objects.Label ();
+        pending.name = _("Pending");
+        pending.color = 33;
+
+        Planner.database.insert_label (home);
+        Planner.database.insert_label (office);
+        Planner.database.insert_label (errand);
+        Planner.database.insert_label (important);
+        Planner.database.insert_label (pending);
+    }
+
+    /*
+        Colors Utils
+    */
+    public string get_color (int key) {
+        var colors = new Gee.HashMap<int, string> ();
+        
+        colors.set (30, "#b8256f");
+        colors.set (31, "#db4035");
+        colors.set (32, "#ff9933");
+        colors.set (33, "#fad000");
+        colors.set (34, "#afb83b");
+        colors.set (35, "#7ecc49");
+        colors.set (36, "#299438");
+        colors.set (37, "#6accbc");
+        colors.set (38, "#158fad");
+        colors.set (39, "#14aaf5");
+        colors.set (40, "#96c3eb");
+        colors.set (41, "#4073ff");
+        colors.set (42, "#884dff");
+        colors.set (43, "#af38eb");
+        colors.set (44, "#eb96eb");
+        colors.set (45, "#e05194");
+        colors.set (46, "#ff8d85");
+        colors.set (47, "#808080");
+        colors.set (48, "#b8b8b8");
+        colors.set (49, "#ccac93");
+
+        return colors.get (key);
+    }
+
+    public string calculate_tint (string hex) {
+        Gdk.RGBA rgba = Gdk.RGBA ();
+        rgba.parse (hex);
+
+        //102 + ((255 - 102) x .1)
+        double r = (rgba.red * 255) + ((255 - rgba.red * 255) * 0.7); 
+        double g = (rgba.green * 255) + ((255 - rgba.green * 255) * 0.7); 
+        double b = (rgba.blue * 255) + ((255 - rgba.blue * 255) * 0.7); 
+
+        Gdk.RGBA new_rgba = Gdk.RGBA ();
+        new_rgba.parse ("rgb (%s, %s, %s)".printf (r.to_string (), g.to_string (), b.to_string ()));
+
+        return rgb_to_hex_string (new_rgba);
+    }
+    
+    private string rgb_to_hex_string (Gdk.RGBA rgba) {
+        string s = "#%02x%02x%02x".printf(
+            (uint) (rgba.red * 255),
+            (uint) (rgba.green * 255),
+            (uint) (rgba.blue * 255));
+        return s;
+    }
+
+    public string get_contrast (string hex) {
         var gdk_white = Gdk.RGBA ();
         gdk_white.parse ("#fff");
 
@@ -299,95 +198,126 @@ public class Utils : GLib.Object {
 
         return Math.pow ((color + 0.055) / 1.055, 2.4);
     }
-
-    public string rgb_to_hex_string (Gdk.RGBA rgba) {
-        string s = "#%02x%02x%02x".printf(
-            (uint) (rgba.red * 255),
-            (uint) (rgba.green * 255),
-            (uint) (rgba.blue * 255));
-        return s;
-    }
-
-    public bool is_label_repeted (Gtk.FlowBox flowbox, int id) {
-        foreach (Gtk.Widget element in flowbox.get_children ()) {
-            var child = element as Widgets.LabelChild;
-            if (child.label.id == id) {
-                return true;
+    
+    public void apply_styles (string id, string color, Gtk.RadioButton radio) {
+        string COLOR_CSS = """
+            .color-%s radio {
+                background: %s;
+                border: 1px solid shade (%s, 0.9);
+                box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
             }
-        }
+        """;
 
-        return false;
+        var provider = new Gtk.CssProvider ();
+        radio.get_style_context ().add_class ("color-%s".printf (id));
+        radio.get_style_context ().add_class ("color-radio");
+
+        try {
+            var colored_css = COLOR_CSS.printf (
+                id,
+                color,
+                color
+            );
+
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
     }
 
-    public bool is_empty (Gtk.FlowBox flowbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in flowbox.get_children ()) {
-            l = l + 1;
-        }
+    public void download_profile_image (string avatar) {
+        // Create file
+        var image_path = GLib.Path.build_filename (AVATARS_FOLDER, "avatar.jpg");
 
-        if (l <= 0) {
-            return true;
-        } else {
+        var file_path = File.new_for_path (image_path);
+        var file_from_uri = File.new_for_uri (avatar);
+        if (file_path.query_exists () == false) {
+            MainLoop loop = new MainLoop ();
+
+            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                // Report copy-status:
+                print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
+            }, (obj, res) => {
+                try {
+                    if (file_from_uri.copy_async.end (res)) {
+                        print ("Avatar Profile Downloaded\n");
+                        Planner.todoist.avatar_downloaded ();
+                    }
+                } catch (Error e) {
+                    print ("Error: %s\n", e.message);
+                }
+
+                loop.quit ();
+            });
+
+            loop.run ();
+        }
+    }
+
+    public bool check_connection () {
+        var host = "www.google.com";
+
+        try {
+            var resolver = Resolver.get_default ();
+            var addresses = resolver.lookup_by_name (host, null);
+            var address = addresses.nth_data (0);
+            if (address == null) {
+                return false;
+            }
+        } catch (Error e) {
+            debug ("%s\n", e.message);
             return false;
         }
+        
+        return true;
     }
 
-    public bool is_listbox_empty (Gtk.ListBox listbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            var item = element as Widgets.TaskRow;
-
-            if (item.task.checked == 0) {
-                l = l + 1;
-            }
+    public void set_autostart (bool active) {
+        var desktop_file_name = "com.github.alainm23.planner.desktop";
+        var desktop_file_path = new DesktopAppInfo (desktop_file_name).filename;
+        var desktop_file = File.new_for_path (desktop_file_path);
+        var dest_path = Path.build_path (Path.DIR_SEPARATOR_S,
+                                         Environment.get_user_config_dir (),
+                                         "autostart",
+                                         desktop_file_name);
+        var dest_file = File.new_for_path (dest_path);
+        try {
+            desktop_file.copy (dest_file, FileCopyFlags.OVERWRITE);
+        } catch (Error e) {
+            warning ("Error making copy of desktop file for autostart: %s", e.message);
         }
 
-        if (l <= 0) {
-            return true;
+        var keyfile = new KeyFile ();
+        try {
+            keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
+            keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
+            keyfile.set_string("Desktop Entry", "Exec", "com.github.alainm23.planner.desktop --s");
+            keyfile.save_to_file (dest_path);
+        } catch (Error e) {
+            warning ("Error enabling autostart: %s", e.message);
+        }
+    }
+
+    /*
+        Calendar Utils
+    */
+    
+    public int get_days_of_month (int index, int year_nav) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
+            return 31;
         } else {
-            return false;
-        }
-    }
-
-    public bool is_listbox_all_empty (Gtk.ListBox listbox) {
-        int l = 0;
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            l = l + 1;
-        }
-
-        return (l <= 0);
-    }
-
-    public bool is_task_repeted (Gtk.ListBox listbox, int id) {
-        foreach (Gtk.Widget element in listbox.get_children ()) {
-            var item = element as Widgets.TaskRow;
-
-            if (id == item.task.id) {
-                return true;
+            if (index == 2) {
+                if (year_nav % 4 == 0) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            } else {
+                return 30;
             }
         }
-
-        return false;
-    }
-
-    public bool is_tomorrow (GLib.DateTime date_1) {
-        var date_2 = new GLib.DateTime.now_local ().add_days (1);
-        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
-    }
-
-    public bool is_today (GLib.DateTime date_1) {
-        var date_2 = new GLib.DateTime.now_local ();
-        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
-    }
-
-    public bool is_before_today (GLib.DateTime date_1) {
-        var date_2 = new GLib.DateTime.now_local ();
-
-        if (date_1.compare(date_2) == -1) {
-            return true;
-        }
-
-        return false;
     }
 
     public bool is_current_month (GLib.DateTime date) {
@@ -404,179 +334,32 @@ public class Utils : GLib.Object {
         }
     }
 
+    public bool is_before_today (GLib.DateTime date) {
+        var date_1 = date.add_days (1);
+        var date_2 = new GLib.DateTime.now_local ();
+
+        if (date_1.compare (date_2) == -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool is_today (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ();
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+    
+    public bool is_tomorrow (GLib.DateTime date_1) {
+        var date_2 = new GLib.DateTime.now_local ().add_days (1);
+        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    }
+    
     public bool is_upcoming (GLib.DateTime date) {
         if (is_today (date) == false && is_before_today (date) == false) {
             return true;
         } else {
             return false;
-        }
-    }
-
-    public string first_letter_to_up (string text) {
-        string l = text.substring (0, 1);
-        return l.up () + text.substring (1);
-    }
-
-    public int get_days_of_month (int index) {
-        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
-            return 31;
-        } else if ((index == 2) || (index == 4) || (index == 6) || (index == 9) || (index == 11)) {
-            return 30;
-        } else {
-            var date = new GLib.DateTime.now_local ();
-            int year = date.get_year ();
-
-            if (year % 4 == 0) {
-                if (year % 100 == 0) {
-                    if (year % 400 == 0) {
-                        return 29;
-                    } else {
-                        return 28;
-                    }
-                } else {
-                    return 28;
-                }
-            } else {
-                return 28;
-            }
-        }
-    }
-
-    public string get_weather_icon_name (string key) {
-        var weather_icon_name = new Gee.HashMap<string, string> ();
-
-        weather_icon_name.set ("01d", "weather-clear-symbolic");
-        weather_icon_name.set ("01n", "weather-clear-night-symbolic");
-        weather_icon_name.set ("02d", "weather-few-clouds-symbolic");
-        weather_icon_name.set ("02n", "weather-few-clouds-night-symbolic");
-        weather_icon_name.set ("03d", "weather-overcast-symbolic");
-        weather_icon_name.set ("03n", "weather-overcast-symbolic");
-        weather_icon_name.set ("04d", "weather-overcast-symbolic");
-        weather_icon_name.set ("04n", "weather-overcast-symbolic");
-        weather_icon_name.set ("09d", "weather-showers-symbolic");
-        weather_icon_name.set ("09n", "weather-showers-symbolic");
-        weather_icon_name.set ("10d", "weather-showers-scattered-symbolic");
-        weather_icon_name.set ("10n", "weather-showers-scattered-symbolic");
-        weather_icon_name.set ("11d", "weather-storm-symbolic");
-        weather_icon_name.set ("11n", "weather-storm-symbolic");
-        weather_icon_name.set ("13d", "weather-snow-symbolic");
-        weather_icon_name.set ("13n", "weather-snow-symbolic");
-        weather_icon_name.set ("50d", "weather-fog-symbolic");
-        weather_icon_name.set ("50n", "weather-fog-symbolic");
-
-        var icon_name = weather_icon_name.get (key);
-        if (icon_name == null) {
-            return "weather-fog-symbolic";
-        } else {
-            return icon_name;
-        }
-    }
-
-    public string get_weaher_color (string key) {
-        var weather_colors = new GLib.HashTable<string, string> (str_hash, str_equal);
-
-        weather_colors.insert("weather-overcast-symbolic", "#68758e");
-        weather_colors.insert("weather-showers-symbolic", "#68758e");
-        weather_colors.insert("weather-showers-scattered-symbolic", "#68758e");
-        weather_colors.insert("weather-storm-symbolic", "#555c68");
-        weather_colors.insert("weather-snow-symbolic", "#9ca7ba");
-        weather_colors.insert("weather-fog-symbolic", "#a1a6af");
-
-        var color = weather_colors.get (key);
-        if (color == null) {
-            return "#68758e";
-        } else {
-            return color;
-        }
-    }
-
-    public string get_weather_description (string key) {
-        var weather_descriptions = new GLib.HashTable<string, string> (str_hash, str_equal);
-
-        weather_descriptions.insert("Clouds", _("Clouds"));
-        weather_descriptions.insert("Clear", _("Clear"));
-        weather_descriptions.insert("Atmosphere", _("Atmosphere"));
-        weather_descriptions.insert("Snow", _("Snow"));
-        weather_descriptions.insert("Rain", _("Rain"));
-        weather_descriptions.insert("Drizzle", _("Drizzle"));
-        weather_descriptions.insert("Thunderstorm", _("Thunderstorm"));
-
-        var description = weather_descriptions.get (key);
-        if (description == null) {
-            return _("Unknown");
-        } else {
-            return description;
-        }
-    }
-
-    public string get_weather_description_detail (string key) {
-        var details = new GLib.HashTable<string, string> (str_hash, str_equal);
-
-        details.insert("200", _("Thunderstorm with light rain"));
-        details.insert("201", _("Thunderstorm with rain"));
-        details.insert("202", _("Thunderstorm with heavy rain"));
-        details.insert("210", _("Light thunderstorm"));
-        details.insert("211", _("Thunderstorm"));
-        details.insert("212", _("Heavy thunderstorm"));
-        details.insert("221", _("Ragged thunderstorm"));
-        details.insert("230", _("Thunderstorm with light drizzle"));
-        details.insert("231", _("Thunderstorm with drizzle"));
-        details.insert("232", _("Thunderstorm with heavy drizzle"));
-
-        details.insert("300", _("Light intensity drizzle"));
-        details.insert("301", _("Drizzle"));
-        details.insert("302", _("Heavy intensity drizzle"));
-        details.insert("310", _("Light intensity drizzle rain"));
-        details.insert("311", _("Drizzle rain"));
-        details.insert("312", _("Heavy intensity drizzle rain"));
-        details.insert("313", _("Shower rain and drizzle"));
-        details.insert("314", _("Heavy shower rain and drizzle"));
-        details.insert("321", _("Shower drizzle"));
-
-        details.insert("500", _("Light rain"));
-        details.insert("501", _("Moderate rain"));
-        details.insert("502", _("Heavy intensity rain"));
-        details.insert("503", _("Very heavy rain"));
-        details.insert("504", _("Extreme rain"));
-        details.insert("511", _("Freezing rain"));
-        details.insert("520", _("Light intensity shower rain"));
-        details.insert("521", _("Shower rain"));
-        details.insert("522", _("Heavy intensity shower rain"));
-        details.insert("531", _("Ragged shower rain"));
-
-        details.insert("600", _("Light snow"));
-        details.insert("601", _("Snow"));
-        details.insert("602", _("Heavy snow"));
-        details.insert("611", _("Sleet"));
-        details.insert("612", _("Shower sleet"));
-        details.insert("615", _("Light rain and snow"));
-        details.insert("616", _("Rain and snow"));
-        details.insert("620", _("Light shower snow"));
-        details.insert("621", _("Shower snow"));
-        details.insert("622", _("Heavy shower snow"));
-
-        details.insert("800", _("Clear sky"));
-        details.insert("801", _("Few clouds"));
-        details.insert("802", _("Scattered clouds"));
-        details.insert("803", _("Broken clouds"));
-        details.insert("804", _("Overcast clouds"));
-
-        var description_detail = details.get (key);
-        if (description_detail == null) {
-            return _("Unknown");
-        } else {
-            return description_detail;
-        }
-    }
-
-    public string get_default_date_format (string date_string) {
-        var now = new GLib.DateTime.now_local ();
-        var date = new GLib.DateTime.from_iso8601 (date_string, new GLib.TimeZone.local ());
-
-        if (date.get_year () == now.get_year ()) {
-            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
-        } else {
-            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
         }
     }
 
@@ -590,117 +373,99 @@ public class Utils : GLib.Object {
         }
     }
 
-    public string get_relative_default_date_format_from_date (GLib.DateTime date) {
-        if (Application.utils.is_today (date)) {
+    public string get_relative_date_from_string (string due) {
+        var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+        return get_relative_date_from_date (date);
+    }
+
+    public string get_relative_time_from_string (string due) {
+        bool is_12h = true;
+        if (Planner.settings.get_enum ("time-format") == 1) {
+            is_12h = false;
+        }
+
+        var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+        return date.format (Granite.DateTime.get_default_time_format (is_12h, false));
+    }
+
+    public string get_relative_date_from_date (GLib.DateTime date) {
+        if (Planner.utils.is_today (date)) {
             return _("Today");
-        } else if (Application.utils.is_tomorrow (date)) {
+        } else if (Planner.utils.is_tomorrow (date)) {
             return _("Tomorrow");
         } else {
-            return Application.utils.get_default_date_format_from_date (date);
+            return get_default_date_format_from_date (date);
         }
     }
 
+    public GLib.DateTime get_todoist_datetime (string date) {
+        if (is_full_day_date (date)) {
+            var _date = date.split ("-");
 
-    public string get_theme (int key) {
-        var themes = new Gee.HashMap<int, string> ();
+            return new GLib.DateTime.local (
+                int.parse (_date [0]),
+                int.parse (_date [1]),
+                int.parse (_date [2]),
+                0,
+                0,
+                0
+            );
+        } else {
+            var _date = date.split ("T") [0].split ("-");
+            var _time = date.split ("T") [1].split (":");
 
-        themes.set (1, "#ffe16b");
-        themes.set (2, "#3d4248");
-        themes.set (3, "#64baff");
-        themes.set (4, "#ed5353");
-        themes.set (5, "#9bdb4d");
-        themes.set (6, "#667885");
-        themes.set (7, "#FA0080");
-
-        return themes.get (key);
+            return new GLib.DateTime.local (
+                int.parse (_date [0]),
+                int.parse (_date [1]),
+                int.parse (_date [2]),
+                int.parse (_time [0]),
+                int.parse (_time [1]),
+                int.parse (_time [2])
+            );
+        }
     }
 
-    public void apply_theme (string hex) {
-        string THEME_CLASS = """
-            @define-color color_header %s;
-            @define-color color_selected %s;
-            @define-color color_text %s;
+    public bool is_full_day_date (string datetime) {
+        return datetime.length <= 10;
+    }
+
+    /*  
+        Settigns Theme 
+    */
+
+    public void apply_theme_changed () {
+        string CSS = """
+            @define-color projectview_color %s;
+            @define-color border_color alpha (@BLACK_900, %s);
+            @define-color pane_color %s;
         """;
+
+        bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
+        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = dark_mode;
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = THEME_CLASS.printf (
-                hex,
-                hex,
-                convert_invert (hex)
+            string projectview_color = "#fafafa";
+            string border_color = "0.25";
+            string pane_color = "@bg_color";
+            if (dark_mode) {
+                projectview_color = "#333333";
+                border_color = "0.55";
+                pane_color = "shade (@bg_color, 0.7)";
+            }
+            
+            var css = CSS.printf (
+                projectview_color,
+                border_color,
+                pane_color
             );
 
-            provider.load_from_data (colored_css, colored_css.length);
+            provider.load_from_data (css, css.length);
 
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         } catch (GLib.Error e) {
             return;
         }
     }
-
-    public GLib.DateTime strip_time (GLib.DateTime datetime) {
-        return datetime.add_full (0, 0, 0, -datetime.get_hour (), -datetime.get_minute (), -datetime.get_second ());
-    }
-
-    public bool check_internet_connection () {
-        var host = "www.google.com";
-
-        try {
-            // Resolve hostname to IP address
-            var resolver = Resolver.get_default ();
-            var addresses = resolver.lookup_by_name (host, null);
-            var address = addresses.nth_data (0);
-            if (address == null) {
-                return false;
-            }
-        } catch (Error e) {
-            debug ("%s\n", e.message);
-            return false;
-        }
-        return true;
-    }
-
-    /*
-    public void create_tutorial_project () {
-        var tutorial = new Objects.Project ();
-        tutorial.name = _("Meet Planner !!!");
-        tutorial.note = _("This project shows you everything you need to know use Planner.\nDon't hesitateto play arount in it - you can always create a new one in 'Preferences > Help'");
-        tutorial.color = "#f9c440";
-
-        if (Application.database.add_project (tutorial) == Sqlite.DONE) {
-            var last_project = Application.database.get_last_project ();
-
-            var task_1 = new Objects.Task ();
-            task_1.project_id = last_project.id;
-            task_1.content = _("Complete this task");
-            task_1.note = _("Complete it by taping the checkbox on the left.");
-            Application.database.add_task (task_1);
-
-            var task_2 = new Objects.Task ();
-            task_2.project_id = last_project.id;
-            task_2.content = _("Create a new task");
-            task_2.note = _("Tap the '+' button down on the right to create a new task.");
-            Application.database.add_task (task_2);
-
-            var task_3 = new Objects.Task ();
-            task_3.project_id = last_project.id;
-            task_3.content = _("Put this task in Today");
-            task_3.note = _("Tap the calendar button below to decide when you'll do this task. Choose Today with a double click.");
-            Application.database.add_task (task_3);
-
-            var task_4 = new Objects.Task ();
-            task_4.project_id = last_project.id;
-            task_4.content = _("Plan this task for later");
-            task_4.note = _("Tap the calendar button again, but now, choose a date in the calendar. It will appear on your Today list when the day comes. While the day comes, this task appear in the Upcoming list.");
-            Application.database.add_task (task_4);
-
-            var task_5 = new Objects.Task ();
-            task_5.project_id = last_project.id;
-            task_5.content = _("Create a project");
-            task_5.note = _("Do you want to group your tasks? On the left side, tap the '+' button to create a project.");
-            Application.database.add_task (task_5);
-        }
-    }
-    */
 }
