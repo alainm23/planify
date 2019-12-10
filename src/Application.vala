@@ -45,7 +45,7 @@ public class Planner : Gtk.Application {
         utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/avatars");
 
         // Services
-        settings = new Settings ("com.github.alainm23.planner2");
+        settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
         todoist = new Services.Todoist ();
         notifications = new Services.Notifications ();

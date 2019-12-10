@@ -12,7 +12,7 @@
         <value nick="Today + Inbox" value="3" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner2/" id="com.github.alainm23.planner2" gettext-domain="com.github.alainm23.planner2">
+    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">
         <key name="time-format" enum="com.github.alainm23.planner.time-format">
             <default>"12h"</default>
             <summary>Time format</summary>
