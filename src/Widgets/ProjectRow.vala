@@ -246,7 +246,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 update_count ();
             }
         });
-        
+
+        Planner.database.section_deleted.connect ((section) => {
+            if (project.id == section.project_id) {
+                update_count ();
+            }
+        });
+
         Planner.database.item_moved.connect ((item) => {
             Idle.add (() => {
                 update_count ();

@@ -284,8 +284,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             activate_menu ();
         });
 
-        Planner.database.section_deleted.connect ((id) => {
-            if (section.id == id) {
+        Planner.database.section_deleted.connect ((s) => {
+            if (section.id == s.id) {
                 destroy ();
             }
         });
@@ -332,6 +332,19 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
         */
+
+        Planner.database.section_updated.connect ((s) => {
+            Idle.add (() => {
+                if (section.id == s.id) {
+                    section.name = s.name;
+
+                    name_entry.text = s.name;
+                    name_label.label = s.name;
+                }
+
+                return false;
+            });
+        });
     }
 
     private void activate_menu () {
@@ -346,6 +359,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
             Planner.database.move_section (section, Planner.settings.get_int64 ("inbox-project"));
+
+            if (section.is_todoist == 1) {
+                Planner.todoist.move_section (section, Planner.settings.get_int64 ("inbox-project"));
+            }
         });
         
         projects_menu.add (item_menu);
@@ -354,19 +371,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             if (project.inbox_project == 0 && section.project_id != project.id) {
                 item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
                 item_menu.activate.connect (() => {
-                    /*
-                    if (section.is_todoist == 0) {
-                        if (Planner.database.move_section (section, project.id)) {
-                            destroy ();
-                        }
-                    } else {
-                        Planner.todoist.move_section (section, project.id);
-                    }
-                    */
-
                     Planner.database.move_section (section, project.id);
 
                     if (section.is_todoist == 1) {
+                        print ("Se ejecuta aqui tambien\n");
                         Planner.todoist.move_section (section, project.id);
                     }
                 });
@@ -427,7 +435,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (section.is_todoist == 0) {
-                    Planner.database.delete_section (section.id);
+                    Planner.database.delete_section (section);
                 } else {
                     Planner.todoist.delete_section (section);
                 }

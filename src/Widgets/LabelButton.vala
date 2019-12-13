@@ -15,11 +15,10 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
-        opacity = 0.7;
 
         var label_icon = new Gtk.Image ();
         label_icon.valign = Gtk.Align.CENTER;
-        label_icon.gicon = new ThemedIcon ("planner-label-symbolic");
+        label_icon.gicon = new ThemedIcon ("tag-new-symbolic");
         label_icon.pixel_size = 16;
 
         var label = new Gtk.Label (_("labels"));

@@ -56,7 +56,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
-    private Gtk.Revealer labels_edit_box_revealer;
     private Gtk.Revealer date_label_revealer;
     private Gtk.Box labels_box;
     private Gtk.Box labels_edit_box;
@@ -178,23 +177,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.get_style_context ().add_class ("label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
-        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        labels_box.height_request = 2;
-
-        labels_box_revealer = new Gtk.Revealer ();
-        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        labels_box_revealer.add (labels_box);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        content_box.valign = Gtk.Align.CENTER;
-        content_box.margin_top = 3;
-        content_box.pack_start (content_label, false, false, 0);
-        content_box.pack_start (labels_box_revealer, false, false, 0);
-
         var checklist_image = new Gtk.Image ();
         checklist_image.margin_start = 6;
-        //checklist_image.margin_end = 9;
-        checklist_image.gicon = new ThemedIcon ("planner-list-symbolic");
+        checklist_image.gicon = new ThemedIcon ("view-list-compact-symbolic");
         checklist_image.pixel_size = 16;
         checklist_image.get_style_context ().add_class ("dim-label");
 
@@ -248,14 +233,29 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         check_reminder_label (reminder);
 
+        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         1_box.margin_end = 32;
         1_box.pack_start (date_label_revealer, false, false, 0); 
-        1_box.pack_start (content_box, false, false, 0);
+        1_box.pack_start (content_label, false, false, 0);
         1_box.pack_start (checklist_revealer, false, false, 0);
         1_box.pack_start (note_revealer, false, false, 0);
-        1_box.pack_end (project_name_revealer, false, false, 0);
+        1_box.pack_start (labels_box, false, false, 0);
         1_box.pack_end (reminder_revealer, false, false, 0);
+        
+        /*
+        
+
+        labels_box_revealer = new Gtk.Revealer ();
+        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        labels_box_revealer.add (labels_box);
+        */
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.valign = Gtk.Align.CENTER;
+        content_box.margin_top = 3;
+        content_box.pack_start (1_box, false, false, 0);
 
         content_entry = new Gtk.Entry ();
         content_entry.margin_bottom = 1;
@@ -270,7 +270,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.margin_start = 6;
         content_stack.hexpand = true;
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
-        content_stack.add_named (1_box, "content_label");
+        content_stack.add_named (content_box, "content_label");
         content_stack.add_named (content_entry, "content_entry");
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -297,7 +297,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         check_listbox = new Gtk.ListBox  ();
-        check_listbox.margin_top = 12;
+        check_listbox.margin_top = 6;
         check_listbox.margin_start = 59;
         check_listbox.get_style_context ().add_class ("check-listbox");
 
@@ -315,6 +315,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             Actions
         */
 
+        labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+
         var due_button = new Widgets.DueButton (item);
 
         var reminder_button = new Widgets.ReminderButton (item);
@@ -322,20 +324,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var label_button = new Widgets.LabelButton (item.id);
         label_button.margin_start = 12;
 
-        var checklist_button = new Gtk.Button.from_icon_name ("planner-list-symbolic");
+        var checklist_button = new Gtk.Button.from_icon_name ("view-list-compact-symbolic");
         checklist_button.margin_end = 12;
         checklist_button.tooltip_text = _("Add checklist");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
-        checklist_button.opacity = 0.7;
-
-        var delete_button = new Gtk.Button.from_icon_name ("planner-trash-symbolic", Gtk.IconSize.MENU);
+        
+        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
         delete_button.can_focus = false; 
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.tooltip_text = _("Delete task");
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
-        delete_button.opacity = 0.7;
 
         var settings_icon = new Gtk.Image ();
         settings_icon.gicon = new ThemedIcon ("view-more-symbolic");
@@ -348,11 +348,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         settings_button.tooltip_text = _("Task settings");
         settings_button.get_style_context ().add_class ("item-action-button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.opacity = 0.7;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
         action_box.margin_start = 60;
+        action_box.pack_start (labels_edit_box, false, true, 0);
         action_box.pack_end (settings_button, false, false, 0);
         action_box.pack_end (delete_button, false, false, 0);
         action_box.pack_end (checklist_button, false, true, 0);
@@ -360,17 +360,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (reminder_button, false, true, 0);
         action_box.pack_end (due_button, false, true, 0);
         
-        labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        labels_edit_box.margin_top = 12;
-        labels_edit_box.margin_start = 59;
-
-        labels_edit_box_revealer = new Gtk.Revealer ();
-        labels_edit_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        labels_edit_box_revealer.add (labels_edit_box);
-
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (note_textview, false, true, 0);
-        bottom_box.pack_start (labels_edit_box_revealer, false, false, 0);
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
@@ -540,7 +531,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 labels_edit_box.show_all ();
 
                 labels_box_revealer.reveal_child = true;
-                labels_edit_box_revealer.reveal_child = true;
                 labels_hashmap.set (label.id.to_string (), true);
             }
         });
@@ -950,8 +940,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (save_off == false) {
             content_label.label = content_entry.text;
 
-            item.content = content_entry.text;
             tooltip_text = item.content;
+            item.content = content_entry.text;
             item.note = note_textview.buffer.text;
 
             if (online) {
@@ -986,7 +976,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             labels_box.show_all ();
             labels_edit_box.show_all ();
 
-            labels_edit_box_revealer.reveal_child = true;
             labels_box_revealer.reveal_child = true;
             labels_hashmap.set (label.id.to_string (), true);
         }

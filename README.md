@@ -40,8 +40,8 @@ To install, use `ninja install`, then execute with `com.github.alainm23.planner`
     sudo ninja install
     com.github.alainm23.planner
 
-## Donations
-Stripe is not yet available in my country, If you like Planner and you want to support its development, consider donating via [PayPal](https://www.paypal.me/alainm23)
+## Support
+If you like Planner and you want to support its development,consider supporting via [Patreon](https://www.patreon.com/alainm23) or [PayPal](https://www.paypal.me/alainm23)
 
-Made with ❤ in Perú
+Made with 💗 in Perú
 

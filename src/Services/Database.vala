@@ -16,7 +16,8 @@ public class Services.Database : GLib.Object {
     public signal void subtract_task_counter (int64 id);
     
     public signal void section_added (Objects.Section section);
-    public signal void section_deleted (int64 id);
+    public signal void section_deleted (Objects.Section section);
+    public signal void section_updated (Objects.Section section);
     public signal void section_moved (Objects.Section section, int64 project_id, int64 old_project_id);
 
     public signal void item_added (Objects.Item item);
@@ -1325,6 +1326,39 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Objects.Section get_section_by_id (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Sections WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var s = new Objects.Section ();
+
+        if (stmt.step () == Sqlite.ROW) {
+            s.id = stmt.column_int64 (0);
+            s.name = stmt.column_text (1);
+            s.project_id = stmt.column_int64 (2);
+            s.item_order = stmt.column_int (3);
+            s.collapsed = stmt.column_int (4);
+            s.sync_id = stmt.column_int64 (5);
+            s.is_deleted = stmt.column_int (6);
+            s.is_archived = stmt.column_int (7);
+            s.date_archived = stmt.column_text (8);
+            s.date_added = stmt.column_text (9);
+        }
+
+        return s;
+    }
+
     public Gee.ArrayList<Objects.Section?> get_all_sections_by_inbox (int64 id, int is_todoist) {
         Sqlite.Statement stmt;
         string sql;
@@ -1401,7 +1435,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public bool update_section (Objects.Section section) {
+    public void update_section (Objects.Section section) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1428,13 +1462,13 @@ public class Services.Database : GLib.Object {
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            return true;
+            section_updated (section);
         } else {
-            return false;
+            print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
         }
     }
 
-    public bool delete_section (int64 id) {
+    public void delete_section (Objects.Section section) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1446,23 +1480,37 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_int64 (1, section.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
 
         if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return false;
+            print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
         } else {
-            section_deleted (id);
+            stmt.reset ();
 
-            // To Do: Delete all tasks
-            //foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
-            //    delete_item (item);
-            //}
+            sql = """
+                DELETE FROM Items WHERE section_id = ?;
+            """;
 
-            return true;
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, section.id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
+
+            if (stmt.step () != Sqlite.DONE) {
+                print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
+            } else {
+                print ("Se elinino todo xdxd\n");
+                print ("Section: %s\n".printf (section.name));
+                print ("Section id: %s\n".printf (section.id.to_string ()));
+
+                section_deleted (section);
+            }
         }
     }
 

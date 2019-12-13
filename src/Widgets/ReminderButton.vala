@@ -20,12 +20,12 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
-        opacity = 0.7;
 
         var reminder_image = new Gtk.Image ();
         reminder_image.valign = Gtk.Align.CENTER;
-        reminder_image.gicon = new ThemedIcon ("planner-alarm-symbolic");
+        reminder_image.gicon = new ThemedIcon ("alarm-symbolic");
         reminder_image.pixel_size = 16;
+        reminder_image.margin_bottom = 1;
 
         reminder_label = new Gtk.Label (null);
         reminder_label.get_style_context ().add_class ("pane-item");
@@ -71,11 +71,9 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
                 Planner.utils.get_relative_time_from_string (first_reminder.due_date)
             );
             label_revealer.reveal_child = true;
-            opacity = 1;
         } else {
             reminder_label.label = "";
             label_revealer.reveal_child = false;
-            opacity = 0.7;
         }
     }
 

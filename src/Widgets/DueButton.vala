@@ -23,12 +23,11 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
-        opacity = 0.7;
         
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
-        due_image.pixel_size = 16;
+        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+        due_image.pixel_size = 18;
 
         due_label = new Gtk.Label (null);
         due_label.get_style_context ().add_class ("pane-item");
@@ -67,12 +66,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             due_label.label = Planner.utils.get_relative_date_from_date (date);
             due_image.get_style_context ().add_class ("upcoming");
             label_revealer.reveal_child = true;
-            opacity = 1;
         } else {
             due_label.label = "";
             due_image.get_style_context ().remove_class ("upcoming");
             label_revealer.reveal_child = false;
-            opacity = 0.7;
         }
     }
 

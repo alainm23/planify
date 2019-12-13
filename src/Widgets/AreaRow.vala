@@ -36,11 +36,29 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("area-row");
 
         var area_image = new Gtk.Image ();
-        area_image.halign = Gtk.Align.START;
+        area_image.halign = Gtk.Align.CENTER;
         area_image.valign = Gtk.Align.CENTER;
         area_image.gicon = new ThemedIcon ("planner-work-area-symbolic");
         area_image.get_style_context ().add_class ("text-color");
+        area_image.get_style_context ().add_class ("dim-label");
         area_image.pixel_size = 16;
+
+        hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
+        hidden_button.can_focus = false;
+        hidden_button.halign = Gtk.Align.CENTER;
+        hidden_button.valign = Gtk.Align.CENTER;
+        hidden_button.get_style_context ().remove_class ("button");
+        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        hidden_button.get_style_context ().add_class ("hidden-button");
+        hidden_button.get_style_context ().add_class ("dim-label");
+
+        var stack = new Gtk.Stack ();
+        stack.margin_start = 6;
+        stack.halign = Gtk.Align.CENTER;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        stack.add_named (area_image, "area_image");
+        stack.add_named (hidden_button, "hidden_button");
 
         name_label =  new Gtk.Label (area.name);
         name_label.halign = Gtk.Align.START;
@@ -72,30 +90,23 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_stack.add_named (info_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        hidden_button.can_focus = false;
-        hidden_button.get_style_context ().remove_class ("button");
-        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        hidden_button.get_style_context ().add_class ("hidden-button");
-        hidden_button.get_style_context ().add_class ("dim-label");
-
         if (area.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
         }
 
+        /*
         var hidden_revealer = new Gtk.Revealer ();
         hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         hidden_revealer.add (hidden_button);
         hidden_revealer.reveal_child = false;
+        */
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
-        top_box.margin_start = 6;
-        top_box.pack_start (area_image, false, false, 0);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        top_box.pack_start (stack, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (hidden_revealer, false, false, 0);
+        //top_box.pack_end (hidden_revealer, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 6;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
  
@@ -185,7 +196,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            hidden_revealer.reveal_child = true;
+            stack.visible_child_name = "hidden_button";
             return true;
         });
 
@@ -194,7 +205,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            hidden_revealer.reveal_child = false;
+            stack.visible_child_name = "area_image";
             
             return true;
         });

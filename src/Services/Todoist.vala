@@ -388,15 +388,36 @@ public class Services.Todoist : GLib.Object {
                         unowned Json.Array sections_array = node.get_array_member ("sections");
                         foreach (unowned Json.Node item in sections_array.get_elements ()) {
                             var object = item.get_object ();
-                            /*
+                            
                             if (Planner.database.section_exists (object.get_int_member ("id"))) {
+                                var section = Planner.database.get_section_by_id (object.get_int_member ("id"));
+
                                 if (object.get_boolean_member ("is_deleted") == true) {
-                                    //Planner.database.delete_section (object.get_int_member ("id"));
+                                    Planner.database.delete_section (section);
+                                } else {
+                                    if (object.get_int_member ("project_id") != section.project_id) {
+                                        Planner.database.move_section (section, object.get_int_member ("project_id"));
+                                    }
+
+                                    section.name = object.get_string_member ("name");
+
+                                    Planner.database.update_section (section);
                                 }
                             } else {
+                                var section = new Objects.Section ();
 
+                                section.id = object.get_int_member ("id");
+                                section.project_id = object.get_int_member ("project_id");
+                                section.sync_id = object.get_int_member ("sync_id");
+                                section.name = object.get_string_member ("name");
+                                section.date_added = object.get_string_member ("date_added");
+                                section.date_archived = object.get_string_member ("date_archived");
+                                section.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                section.is_archived = (int32) object.get_int_member ("is_archived");
+                                section.collapsed = 1;
+                                
+                                Planner.database.insert_section (section);
                             }
-                            */
                         }
 
                         sync_finished ();
@@ -875,10 +896,9 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Planner.database.update_section (section)) { 
-                                print ("Section Actualizado: %s\n".printf (section.name));
-                                section_updated_completed (section.id);
-                            }
+                            Planner.database.update_section (section);
+                            print ("Section Actualizado: %s\n".printf (section.name));
+                            section_updated_completed (section.id);
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
@@ -960,10 +980,9 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Planner.database.delete_section (section.id)) {
-                                print ("Eliminado: %s\n".printf (section.name));
-                                section_deleted_completed (section.id);
-                            }
+                            Planner.database.delete_section (section);
+                            print ("Eliminado: %s\n".printf (section.name));
+                            section_deleted_completed (section.id);
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");

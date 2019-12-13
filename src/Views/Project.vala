@@ -38,7 +38,6 @@ public class Views.Project : Gtk.EventBox {
         grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
 
         var name_label = new Gtk.Label (project.name);
-        //name_label.margin_start = 3;
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         name_label.get_style_context ().add_class ("font-bold");
         name_label.use_markup = true;
@@ -538,7 +537,7 @@ public class Views.Project : Gtk.EventBox {
         var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
         var show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
 
-        var separator_01 = new Gtk.Separator (Gtk.Align.HORIZONTAL);
+        var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator_01.margin_top = 3;
         separator_01.margin_bottom = 3;
 
@@ -607,7 +606,7 @@ public class Views.Project : Gtk.EventBox {
         section_listbox.foreach ((widget) => {
             var row = (Gtk.ListBoxRow) widget;
             int index = row.get_index ();
-
+            
             var section = ((Widgets.SectionRow) row).section;
 
             new Thread<void*> ("update_section_order", () => {
