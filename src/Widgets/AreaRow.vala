@@ -10,6 +10,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
     private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer action_revealer;
     private Gtk.Menu menu = null;
 
     private uint timeout;
@@ -20,6 +21,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     public bool set_focus {
         set {
+            action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
             name_entry.grab_focus ();
         }
@@ -106,6 +108,28 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.pack_start (name_stack, false, true, 0);
         //top_box.pack_end (hidden_revealer, false, false, 0);
 
+        var submit_button = new Gtk.Button.with_label (_("Save"));
+        submit_button.sensitive = false;
+        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.get_style_context ().add_class ("new-item-action-button");
+
+        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("new-item-action-button");
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.halign = Gtk.Align.START;
+        action_grid.column_homogeneous = true;
+        action_grid.column_spacing = 6;
+        action_grid.margin_start = 39;
+        action_grid.margin_top = 6;
+        action_grid.add (cancel_button);
+        action_grid.add (submit_button);
+
+        action_revealer = new Gtk.Revealer ();
+        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        action_revealer.add (action_grid);
+        action_revealer.reveal_child = false;
+
         top_eventbox = new Gtk.EventBox ();
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
@@ -138,6 +162,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         main_box.hexpand = true;
         main_box.margin_bottom = 6;
         main_box.pack_start (top_eventbox, false, false, 0);
+        main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox_revealer, false, false, 0);
 
@@ -160,11 +185,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             save_area ();
         });
 
-        name_entry.focus_out_event.connect (() => {
-            save_area ();
-            return false;
+        name_entry.changed.connect (() => {
+            if (name_entry.text != "") {
+                submit_button.sensitive = true;
+            } else {
+                submit_button.sensitive = false;
+            }
         });
-
+        
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 save_area ();
@@ -173,10 +201,25 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             return false;
         });
 
+        submit_button.clicked.connect (() => {
+            save_area ();
+        });
+        
+        cancel_button.clicked.connect (() => {
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
+        });
+
         top_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
-                name_entry.grab_focus ();
+
+                name_entry.grab_focus_without_selecting ();
+
+                if (name_entry.cursor_position < name_entry.text.length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
             }
 
             return false;
@@ -297,6 +340,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_label.label = area.name;
 
         area.save ();
+        action_revealer.reveal_child = false;
         name_stack.visible_child_name = "name_label";
     }
 
@@ -396,8 +440,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu.show_all ();
 
         edit_menu.activate.connect (() => {
+            action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
-            name_entry.grab_focus ();
+            
+            name_entry.grab_focus_without_selecting ();
+
+            if (name_entry.cursor_position < name_entry.text.length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+            }
         }); 
 
         delete_menu.activate.connect (() => {

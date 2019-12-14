@@ -408,6 +408,30 @@ public class Views.Project : Gtk.EventBox {
                 return false;
             });
         });
+        
+        Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
+            Idle.add (() => {
+                if (0 == old_section_id) {
+                    listbox.foreach ((widget) => {
+                        var row = (Widgets.ItemRow) widget;
+                        
+                        if (row.item.id == i.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (0 == section_id) {
+                    i.section_id = 0;
+
+                    var row = new Widgets.ItemRow (i);
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+
+                return false;
+            });
+        });
     }
 
     private void save () {

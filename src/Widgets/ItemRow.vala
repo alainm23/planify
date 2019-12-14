@@ -70,6 +70,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer separator_revealer;
 
     private Gtk.Menu projects_menu; 
+    private Gtk.Menu sections_menu;
     private Gtk.Menu menu = null;
 
     private uint checked_timeout = 0;
@@ -324,7 +325,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var label_button = new Widgets.LabelButton (item.id);
         label_button.margin_start = 12;
 
-        var checklist_button = new Gtk.Button.from_icon_name ("view-list-compact-symbolic");
+        var checklist_icon = new Gtk.Image ();
+        checklist_icon.gicon = new ThemedIcon ("view-list-compact-symbolic");
+        checklist_icon.pixel_size = 18;
+
+        var checklist_button = new Gtk.Button ();
+        checklist_button.image = checklist_icon;
         checklist_button.margin_end = 12;
         checklist_button.tooltip_text = _("Add checklist");
         checklist_button.get_style_context ().add_class ("flat");
@@ -337,12 +343,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
 
-        var settings_icon = new Gtk.Image ();
-        settings_icon.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_icon.pixel_size = 14;
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
 
         var settings_button = new Gtk.Button ();
-        settings_button.image = settings_icon;
+        settings_button.image = settings_image;
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Task settings");
@@ -1017,7 +1023,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             child.destroy ();
         }
 
-        var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+        foreach (var child in sections_menu.get_children ()) {
+            child.destroy ();
+        }
+
+        Widgets.ImageMenuItem item_menu;
+
+        item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
         item_menu.activate.connect (() => {
             int64 inbox_id = Planner.settings.get_int64 ("inbox-project");
 
@@ -1049,7 +1061,35 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         }
 
+        if (item.section_id != 0) {
+            item_menu = new Widgets.ImageMenuItem (_("No Section"), "window-close-symbolic");
+            item_menu.activate.connect (() => {
+                Planner.database.move_item_section (item, 0);
+
+                if (item.is_todoist == 1) {
+                    Planner.todoist.move_item_to_section (item, 0);
+                }
+            });
+
+            sections_menu.add (item_menu);
+        }
+        foreach (var section in Planner.database.get_all_sections_by_project_id (item.project_id, item.is_todoist)) {
+            if (item.section_id != section.id) {
+                item_menu = new Widgets.ImageMenuItem (section.name, "planner-project-symbolic");
+                item_menu.activate.connect (() => {
+                    Planner.database.move_item_section (item, section.id);
+
+                    if (item.is_todoist == 1) {
+                        Planner.todoist.move_item_to_section (item, section.id);
+                    }
+                });
+
+                sections_menu.add (item_menu);
+            }
+        }
+
         projects_menu.show_all ();
+        sections_menu.show_all ();
 
         menu.popup_at_pointer (null);
     }
@@ -1062,9 +1102,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide task"), "edit-symbolic");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "go-jump-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "planner-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
+
+        var move_section_menu = new Widgets.ImageMenuItem (_("Move to section"), "go-jump-symbolic");
+        sections_menu = new Gtk.Menu ();
+        move_section_menu.set_submenu (sections_menu);
 
         var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
         //var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
@@ -1075,7 +1119,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (view_edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (move_project_menu);
-        //menu.add (convert_menu);
+        menu.add (move_section_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (duplicate_menu);
         //menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());

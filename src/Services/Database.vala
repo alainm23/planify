@@ -31,6 +31,7 @@ public class Services.Database : GLib.Object {
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
     public signal void item_completed (Objects.Item item);
     public signal void item_moved (Objects.Item item);
+    public signal void item_section_moved (Objects.Item item, int64 section_id, int64 old_section_id);
     
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
@@ -1035,7 +1036,7 @@ public class Services.Database : GLib.Object {
         int returned = 0;
 
         sql = """
-            SELECT COUNT (*) FROM Items WHERE project_id = ? AND due_date != '';
+            SELECT id, due_date FROM Items WHERE project_id = ? AND due_date != '';
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1044,10 +1045,13 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
-        if (stmt.step () == Sqlite.ROW) {
-            returned = stmt.column_int (0);
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var due = new GLib.DateTime.from_iso8601 (stmt.column_text (1), new GLib.TimeZone.local ());
+            if (Planner.utils.is_today (due)) {
+                returned++;
+            }
         }
-
+        
         return returned;
     }
 
@@ -1435,6 +1439,44 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Gee.ArrayList<Objects.Section?> get_all_sections_by_project_id (int64 id, int is_todoist) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Sections WHERE project_id = ? ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Section?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var s = new Objects.Section ();
+
+            s.id = stmt.column_int64 (0);
+            s.name = stmt.column_text (1);
+            s.project_id = stmt.column_int64 (2);
+            s.item_order = stmt.column_int (3);
+            s.collapsed = stmt.column_int (4);
+            s.sync_id = stmt.column_int64 (5);
+            s.is_deleted = stmt.column_int (6);
+            s.is_archived = stmt.column_int (7);
+            s.date_archived = stmt.column_text (8);
+            s.date_added = stmt.column_text (9);
+            s.is_todoist = is_todoist;
+
+            all.add (s);
+        }
+
+        return all;
+    }
+
     public void update_section (Objects.Section section) {
         Sqlite.Statement stmt;
         string sql;
@@ -1591,6 +1633,23 @@ public class Services.Database : GLib.Object {
         Items
     */
 
+    public bool item_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Items WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        return returned;
+    }
+
     public bool insert_item (Objects.Item item, int index=0, bool has_index=false) { 
         Sqlite.Statement stmt;
         string sql;
@@ -1705,7 +1764,7 @@ public class Services.Database : GLib.Object {
             return true;
         }
     }
-
+    
     public bool update_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
@@ -2674,6 +2733,34 @@ public class Services.Database : GLib.Object {
         } else {
             item_label_deleted (id, item_id, label);
             return true;
+        }
+    }
+
+    public void move_item_section (Objects.Item item, int64 section_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int64 old_section_id = item.section_id;
+
+        sql = """
+            UPDATE Items SET section_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            item_section_moved (item, section_id, old_section_id);
         }
     }
 

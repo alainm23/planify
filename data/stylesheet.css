@@ -79,7 +79,7 @@ paned > separator {
 }
 
 .pane-entry {
-    background-color: @bg_color;
+    background-color: @pane_color;
     color: @text_color;
     padding-left: 0px;
 }
