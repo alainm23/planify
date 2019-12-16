@@ -446,9 +446,9 @@ public class Utils : GLib.Object {
         var provider = new Gtk.CssProvider ();
 
         try {
-            string projectview_color = "#fafafa";
+            string projectview_color = "#ffffff";
             string border_color = "0.25";
-            string pane_color = "@bg_color";
+            string pane_color = "#F9FAFA";
             if (dark_mode) {
                 projectview_color = "#333333";
                 border_color = "0.55";

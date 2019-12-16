@@ -447,17 +447,19 @@ public class Widgets.New : Gtk.Revealer {
         project_label.get_style_context ().add_class ("font-bold");
         project_label.halign = Gtk.Align.START;
 
-        var project_detail_label = new Gtk.Label (_("Lorem is a ascaa acs casca sca sca sca scascascas sac asca s"));
+        var project_detail_label = new Gtk.Label (_("Start a new project, create a to do list, organize your notes."));
         project_detail_label.wrap = true;
         project_detail_label.justify = Gtk.Justification.FILL;
 
         var project_grid = new Gtk.Grid ();
+        project_grid.margin_start = 6;
         project_grid.column_spacing = 3;
         project_grid.attach (project_image, 0, 0, 1, 1);
         project_grid.attach (project_label, 1, 0, 1, 1);
         project_grid.attach (project_detail_label, 1, 1, 1, 1);
 
         project_button = new Gtk.Button ();
+        project_button.margin_top = 6;
         project_button.add (project_grid);
         project_button.get_style_context ().remove_class ("button");
         project_button.get_style_context ().add_class ("flat");
@@ -481,6 +483,7 @@ public class Widgets.New : Gtk.Revealer {
         area_detail_label.justify = Gtk.Justification.FILL;
 
         var area_grid = new Gtk.Grid ();
+        area_grid.margin_start = 6;
         area_grid.column_spacing = 3;
         area_grid.attach (area_image, 0, 0, 1, 1);
         area_grid.attach (source_label, 1, 0, 1, 1);

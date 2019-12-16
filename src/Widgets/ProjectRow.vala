@@ -121,7 +121,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
-        source_icon.get_style_context ().add_class ("text-color");
+        //source_icon.get_style_context ().add_class ("text-color");
         source_icon.pixel_size = 14;
         source_icon.margin_top = 3;
         source_icon.margin_start = 3;

@@ -1,5 +1,5 @@
-@define-color projectview_color #fafafa;
-@define-color pane_color @bg_color;
+@define-color projectview_color #ffffff;
+@define-color pane_color f9fafa;
 
 /*
     Dark theme
@@ -14,6 +14,23 @@ entry {
 textview {
     caret-color: #3689e6;
 }
+
+menuitem:active,
+menuitem:hover,
+modelbutton:active,
+modelbutton:hover,
+.menuitem:active,
+.menuitem:focus:active,
+.menuitem:hover {
+    color: #333333;
+    box-shadow: none;
+    background-color: #D1DFFE;
+}
+
+.popover-menuitem:hover image {
+    color: #333333;
+}
+
 
 .titlebar {
     /*padding: 0 2px;*/
@@ -95,15 +112,16 @@ paned > separator {
 }
 
 .pane-row:selected {
-    background-color: shade (@bg_color, 0.93);
-    color: @text_color;
+    background-color: #D1DFFE;
+    color: #333333;
 }
 
 .pane-row button {
     background-color: transparent;
 }
+
 .project-row:selected:focus image {
-    color: @text_color;
+    color: #333333;
 }
 
 .header-row {
@@ -671,13 +689,13 @@ paned > separator {
 }
 
 .duedate-upcoming {
-    background-color:lightgray;
+    background-color: #f7f7f7;
     padding: 0px 6px 1px 6px;
     font-size: 9px;
     font-weight: 600;
     color: #333;
     border-radius: 3px;
-    border: 1px solid shade (lightgray, 0.95);
+    border: 1px solid shade (#f7f7f7, 0.95);
 }
 
 .duedate-expired {

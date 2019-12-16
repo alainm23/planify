@@ -261,6 +261,7 @@ public class Services.Todoist : GLib.Object {
                             i.is_deleted = (int32) object.get_int_member ("is_deleted");
                             i.date_added = object.get_string_member ("date_added");
                             i.date_completed = object.get_string_member ("date_completed");
+                            i.is_todoist = 1;
                             
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
@@ -464,7 +465,8 @@ public class Services.Todoist : GLib.Object {
                                 i.is_deleted = (int32) object.get_int_member ("is_deleted");
                                 i.date_added = object.get_string_member ("date_added");
                                 i.date_completed = object.get_string_member ("date_completed");
-                                
+                                i.is_todoist = 1;
+
                                 if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                     var due_object = object.get_object_member ("due");
                                     var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
@@ -1732,7 +1734,7 @@ public class Services.Todoist : GLib.Object {
 
                             if (Planner.database.update_item_completed (item)) { 
                                 print ("Actualizado: %s\n".printf (item.content));
-                                item_uncompleted_completed (item);
+                                //item_uncompleted_completed (item);
                             }
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
