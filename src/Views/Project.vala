@@ -197,11 +197,14 @@ public class Views.Project : Gtk.EventBox {
         //motion_last_grid.get_style_context ().add_class ("grid-motion");
         motion_last_grid.height_request = 24;
 
+        var infobar = new Widgets.InfoBar ();
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_eventbox, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
+        //main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
         //main_box.pack_start (motion_last_grid, false, false, 0);

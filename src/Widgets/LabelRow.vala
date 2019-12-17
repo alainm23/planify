@@ -16,7 +16,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("label-row");
 
-        var button_image = new Gtk.Button.from_icon_name ("tag-symbolic");
+        var button_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
         button_image.valign = Gtk.Align.CENTER;
         button_image.halign = Gtk.Align.CENTER;
         button_image.can_focus = false;
@@ -24,7 +24,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         name_entry = new Gtk.Entry ();
         name_entry.text = label.name;
-        name_entry.placeholder_text = _("Priority: Low");
+        name_entry.placeholder_text = _("Home");
         name_entry.get_style_context ().add_class ("h3");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("check-entry");
@@ -291,88 +291,117 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         popover.closed.connect (() => {
             buttons_revealer.reveal_child = false;
             color_button.active = false;
-
-            save ();
         });
 
         color_30.toggled.connect (() => {
             color_selected = 30;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_31.toggled.connect (() => {
             color_selected = 31;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_32.toggled.connect (() => {
             color_selected = 32;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_33.toggled.connect (() => {
             color_selected = 33;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_34.toggled.connect (() => {
             color_selected = 34;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_35.toggled.connect (() => {
             color_selected = 35;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_36.toggled.connect (() => {
             color_selected = 36;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_37.toggled.connect (() => {
             color_selected = 37;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_38.toggled.connect (() => {
             color_selected = 38;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_39.toggled.connect (() => {
             color_selected = 39;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_40.toggled.connect (() => {
             color_selected = 40;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_41.toggled.connect (() => {
             color_selected = 41;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_42.toggled.connect (() => {
             color_selected = 42;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_43.toggled.connect (() => {
             color_selected = 43;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_44.toggled.connect (() => {
             color_selected = 44;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_45.toggled.connect (() => {
             color_selected = 45;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_46.toggled.connect (() => {
@@ -381,35 +410,29 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         color_47.toggled.connect (() => {
             color_selected = 47;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_48.toggled.connect (() => {
             color_selected = 48;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_49.toggled.connect (() => {
             color_selected = 49;
-            apply_styles (Planner.utils.get_color (color_selected));
+            save ();
+            //apply_styles (Planner.utils.get_color (color_selected));
+            //apply_styles (Planner.utils.get_color (color_selected));
         });
     }
 
     private void apply_styles (string color) {
         string COLOR_CSS = """
             .label-%s {
-                border-radius: 4px;
-                padding: 2px 2px 1px 1px;
-                background-image:
-                    linear-gradient(
-                        to bottom,
-                        shade (
-                        %s,
-                            1
-                        ),
-                        %s
-                    );
-                border: 1px solid shade (%s, 0.9);
                 color: %s
             }
         """;
@@ -419,10 +442,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         try {
             var colored_css = COLOR_CSS.printf (
                 label.id.to_string (),
-                color,
-                color,
-                color,
-                Planner.utils.get_contrast (color)
+                color
             );
             
             provider.load_from_data (colored_css, colored_css.length);

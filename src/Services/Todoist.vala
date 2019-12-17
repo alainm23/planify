@@ -1556,13 +1556,12 @@ public class Services.Todoist : GLib.Object {
 
                         string sync_token = node.get_string_member ("sync_token");
                         Planner.settings.set_string ("todoist-sync-token", sync_token);
-                        
 
                         foreach (var i in items_to_complete) {
-                            if (Planner.database.update_item_completed (i)) { 
+                            //if (Planner.database.update_item_completed (i)) { 
                                 print ("Actualizado: %s\n".printf (i.content));
-                                item_completed_completed (i);
-                            }
+                            //    item_completed_completed (i);
+                            //}
                         }
 
                         items_to_complete.clear ();
@@ -1732,10 +1731,10 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Planner.database.update_item_completed (item)) { 
+                            //if (Planner.database.update_item_completed (item)) { 
                                 print ("Actualizado: %s\n".printf (item.content));
                                 //item_uncompleted_completed (item);
-                            }
+                            //}
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");

@@ -136,7 +136,7 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
     construct {
         get_style_context ().add_class ("label-row");
 
-        var label_image = new Gtk.Button.from_icon_name ("tag-symbolic");
+        var label_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
         label_image.valign = Gtk.Align.CENTER;
         label_image.halign = Gtk.Align.CENTER;
         label_image.can_focus = false;
@@ -147,6 +147,7 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
         name_label.get_style_context ().add_class ("font-weight-600");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.margin_bottom = 1;
         name_label.use_markup = true;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

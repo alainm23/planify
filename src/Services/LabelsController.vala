@@ -8,8 +8,13 @@ public class Services.LabelsController : GLib.Object {
     private void apply_styles (int64 id, string color) {
         string COLOR_CSS = """
             .label-preview-%s {
-                background-color: %s;
-                border-radius: 4px; 
+                background-color: alpha (%s, 0.25);
+                color: @text_color;
+                padding : 0px 6px 1px 6px;
+                border-radius: 50px;
+                font-size: 9px;
+                font-weight: 700;
+                border: 1px solid shade (%s, 0.95)
             }
 
             .label-item-%s {
@@ -17,18 +22,6 @@ public class Services.LabelsController : GLib.Object {
             }
 
             .label-%s {
-                border-radius: 4px;
-                padding: 2px 2px 1px 1px;
-                background-image:
-                    linear-gradient(
-                        to bottom,
-                        shade (
-                        %s,
-                            1
-                        ),
-                        %s
-                    );
-                border: 1px solid shade (%s, 0.9);
                 color: %s
             }
         """;
@@ -40,15 +33,13 @@ public class Services.LabelsController : GLib.Object {
                 // Label preview
                 id.to_string (),
                 color,
+                color,
                 // Label Item
                 id.to_string (),
                 color,
                 // Label Row
                 id.to_string (),
-                color,
-                color,
-                color,
-                Planner.utils.get_contrast (color)
+                color
             );
             
             provider.load_from_data (colored_css, colored_css.length);

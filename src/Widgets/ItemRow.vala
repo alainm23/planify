@@ -234,7 +234,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         check_reminder_label (reminder);
 
-        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_box.margin_start = 6;
         
         var 1_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         1_box.margin_end = 32;
@@ -802,28 +803,21 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (checked_button.active) { 
             item.checked = 1;
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            
             content_label.label = "<s>%s</s>".printf (item.content);
 
-            checked_timeout = Timeout.add (1500, () => {
-                Planner.database.update_item_completed (item);
-
-                if (item.is_todoist == 1) {
-                    Planner.todoist.add_complete_item (item);
-                }
-
-                return false;
-            });
-        } else {
-            if (checked_timeout != 0) {
-                item.checked = 0;
-                item.date_completed = "";
-
-                content_label.label = item.content;
-
-                Source.remove (checked_timeout);
-                checked_timeout = 0;
+            Planner.database.update_item_completed (item);
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_complete_item (item);
             }
+        } else {
+            item.checked = 0;
+            item.date_completed = "";
+            content_label.label = item.content;
+
+            Planner.database.update_item_completed (item);
+            if (item.is_todoist == 1) {
+                Planner.todoist.item_uncomplete (item);
+            }  
         }
     }
 

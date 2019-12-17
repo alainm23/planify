@@ -1,5 +1,5 @@
 @define-color projectview_color #ffffff;
-@define-color pane_color f9fafa;
+@define-color pane_color #f9fafa;
 
 /*
     Dark theme
@@ -771,7 +771,7 @@ paned > separator {
 
 
 .label-item-button {
-    background-color: @base_color;
+    background-color: transparent;
 }
 
 .description-label {
@@ -794,4 +794,36 @@ paned > separator {
 .active-switch slider {
     min-height: 16px;
     min-width: 16px;
+}
+
+.infor-bar {
+    background-color: #D1DFFE;
+    border: 1px solid shade (#D1DFFE, 0.93);
+    color: #333;
+    padding: 6px 6px 6px 6px;
+    border-radius: 5px;
+}
+
+.infor-bar label {
+    color: #000;
+    font-weight: 500;
+    font-size: 13px;
+    color: #000;
+}
+
+.infor-bar image {
+    padding: 0px;
+    background-color: #3689e6;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.infor-bar button {
+    border-radius: 4px;
+    padding: 0px 0px 1px 0px;
+    color: #fff;
+}
+
+.info-bar-button {
+    color: #fff;
 }

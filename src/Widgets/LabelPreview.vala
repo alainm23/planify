@@ -17,7 +17,7 @@ public class Widgets.LabelPreview : Gtk.EventBox {
         var color_image = new Gtk.Image ();
         color_image.valign = Gtk.Align.CENTER;
         color_image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        color_image.get_style_context ().add_class ("label-item-%s".printf (label.id.to_string ()));
+        //color_image.get_style_context ().add_class ("label-item-%s".printf (label.id.to_string ()));
         color_image.pixel_size = 13;
 
         var name_label = new Gtk.Label (label.name);
@@ -25,8 +25,8 @@ public class Widgets.LabelPreview : Gtk.EventBox {
         name_label.valign = Gtk.Align.CENTER;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        box.get_style_context ().add_class ("label-preview");
-        box.add (color_image);
+        box.get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));
+        //box.add (color_image);
         box.add (name_label);
 
         add (box);

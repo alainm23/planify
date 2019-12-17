@@ -15,7 +15,7 @@ public class Objects.Label : GLib.Object {
             timeout_id = 0;
         }
 
-        timeout_id = Timeout.add (2500, () => {
+        timeout_id = Timeout.add (500, () => {
             new Thread<void*> ("save_timeout", () => {
                 Planner.database.update_label (this);
                 return null;

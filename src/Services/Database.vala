@@ -1891,7 +1891,7 @@ public class Services.Database : GLib.Object {
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
-            item_completed (item);
+            //item_completed (item);
             return true;
         } else {
             return false;
