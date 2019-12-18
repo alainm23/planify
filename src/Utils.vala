@@ -227,32 +227,34 @@ public class Utils : GLib.Object {
         }
     }
 
-    public void download_profile_image (string avatar) {
-        // Create file
-        var image_path = GLib.Path.build_filename (AVATARS_FOLDER, "avatar.jpg");
+    public void download_profile_image (string? id, string avatar) {
+        if (id != null) {
+            // Create file
+            var image_path = GLib.Path.build_filename (AVATARS_FOLDER, id + ".jpg");
 
-        var file_path = File.new_for_path (image_path);
-        var file_from_uri = File.new_for_uri (avatar);
-        if (file_path.query_exists () == false) {
-            MainLoop loop = new MainLoop ();
+            var file_path = File.new_for_path (image_path);
+            var file_from_uri = File.new_for_uri (avatar);
+            if (file_path.query_exists () == false) {
+                MainLoop loop = new MainLoop ();
 
-            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
-                // Report copy-status:
-                print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
-            }, (obj, res) => {
-                try {
-                    if (file_from_uri.copy_async.end (res)) {
-                        print ("Avatar Profile Downloaded\n");
-                        Planner.todoist.avatar_downloaded ();
+                file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                    // Report copy-status:
+                    print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
+                }, (obj, res) => {
+                    try {
+                        if (file_from_uri.copy_async.end (res)) {
+                            print ("Avatar Profile Downloaded\n");
+                            Planner.todoist.avatar_downloaded (id);
+                        }
+                    } catch (Error e) {
+                        print ("Error: %s\n", e.message);
                     }
-                } catch (Error e) {
-                    print ("Error: %s\n", e.message);
-                }
 
-                loop.quit ();
-            });
+                    loop.quit ();
+                });
 
-            loop.run ();
+                loop.run ();
+            }
         }
     }
 
@@ -438,6 +440,8 @@ public class Utils : GLib.Object {
             @define-color projectview_color %s;
             @define-color border_color alpha (@BLACK_900, %s);
             @define-color pane_color %s;
+            @define-color pane_selected_color %s;
+            @define-color pane_text_color %s;
         """;
 
         bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
@@ -449,16 +453,22 @@ public class Utils : GLib.Object {
             string projectview_color = "#ffffff";
             string border_color = "0.25";
             string pane_color = "#F9FAFA";
+            string pane_selected_color = "#D1DFFE";
+            string pane_text_color = "#333333";
             if (dark_mode) {
                 projectview_color = "#333333";
                 border_color = "0.55";
                 pane_color = "shade (@bg_color, 0.7)";
+                pane_selected_color = "shade (#D1DFFE, 0.30)";
+                pane_text_color = "#ffffff";
             }
             
             var css = CSS.printf (
                 projectview_color,
                 border_color,
-                pane_color
+                pane_color,
+                pane_selected_color,
+                pane_text_color
             );
 
             provider.load_from_data (css, css.length);

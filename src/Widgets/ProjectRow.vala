@@ -62,6 +62,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
+        margin_start = margin_end = 6;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
@@ -150,7 +151,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         var grid = new Gtk.Grid ();
-        grid.margin_start = 6;
+        grid.margin_start = 3;
         grid.orientation = Gtk.Orientation.VERTICAL;
 
         grid.add (handle_box);

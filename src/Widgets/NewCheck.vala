@@ -126,6 +126,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
             item.content = name_entry.text;
             item.parent_id = item_id;
             item.project_id = project_id;
+            item.is_todoist = is_todoist;
 
             temp_id_mapping = Planner.utils.generate_id ();
 

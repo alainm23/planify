@@ -273,6 +273,7 @@ public class Views.Project : Gtk.EventBox {
             var section = new Objects.Section ();
             section.name = _("New Section");
             section.project_id = project.id;
+            section.is_todoist = project.is_todoist;
 
             if (project.is_todoist == 0) {
                 Planner.database.insert_section (section);
@@ -445,7 +446,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_items () {
-        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project)) {
+        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project.id)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -457,7 +458,7 @@ public class Views.Project : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Planner.database.get_all_completed_items_by_project (project)) {
+        foreach (var item in Planner.database.get_all_completed_items_by_project (project.id)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();
@@ -467,7 +468,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_sections () {
-        foreach (var section in Planner.database.get_all_sections_by_project (project)) {
+        foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
             var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();

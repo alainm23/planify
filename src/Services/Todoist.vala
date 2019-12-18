@@ -84,7 +84,7 @@ public class Services.Todoist : GLib.Object {
     public signal void item_moved_completed (int64 id);
     public signal void item_moved_error (int64 id, int error_code, string error_message);
 
-    public signal void avatar_downloaded ();
+    public signal void avatar_downloaded (string id);
 
     public Gee.ArrayList<Objects.Item?> items_to_complete;
     public Gee.ArrayList<Objects.Item?> items_to_delete;
@@ -143,11 +143,9 @@ public class Services.Todoist : GLib.Object {
                     var parser = new Json.Parser ();
                     
                     try {
-                        /*
                         print ("----------------------\n");
                         print ("%s\n".printf ((string) mess.response_body.flatten ().data));
                         print ("----------------------\n");
-                        */
 
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
@@ -156,11 +154,14 @@ public class Services.Todoist : GLib.Object {
                         // Create user
                         var user_object = node.get_object_member ("user");
             
-                        Planner.settings.set_boolean ("todoist-full-sync", node.get_boolean_member ("full_sync"));
                         Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
                         Planner.settings.set_string ("todoist-access-token", token);
 
+                        // User
                         Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+                        Planner.settings.set_string ("todoist-user-image-id", user_object.get_string_member ("image_id"));
+                        Planner.settings.set_boolean ("todoist-account", true);
+
                         Planner.settings.set_boolean ("inbox-project-sync", true);
                         Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
@@ -170,7 +171,7 @@ public class Services.Todoist : GLib.Object {
 
                         Planner.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
                         Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-                        Planner.settings.set_boolean ("todoist-account", true);
+                        
 
                         // Cretae Default Labels
                         Planner.utils.create_default_labels ();
@@ -180,37 +181,36 @@ public class Services.Todoist : GLib.Object {
                         foreach (unowned Json.Node item in projects.get_elements ()) {
                             var object = item.get_object ();
 
-                            var project = new Objects.Project ();
+                            var p = new Objects.Project ();
 
-                            project.id = object.get_int_member ("id"); 
-                            project.name = object.get_string_member ("name");
-                            project.color = (int32) object.get_int_member ("color");
+                            p.id = object.get_int_member ("id"); 
+                            p.name = object.get_string_member ("name");
+                            p.color = (int32) object.get_int_member ("color");
+                            p.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            p.is_archived = (int32) object.get_int_member ("is_archived");
+                            p.is_favorite = (int32) object.get_int_member ("is_favorite");
+                            p.is_todoist = 1;
+                            p.is_sync = 1;
 
                             if (object.get_boolean_member ("team_inbox")) {
-                                project.team_inbox = 1;
+                                p.team_inbox = 1;
                             } else {
-                                project.team_inbox = 0;
+                                p.team_inbox = 0;
                             }
 
                             if (object.get_boolean_member ("inbox_project")) {
-                                project.inbox_project = 1;
+                                p.inbox_project = 1;
                             } else {
-                                project.inbox_project = 0;
+                                p.inbox_project = 0;
                             }
 
                             if (object.get_boolean_member ("shared")) {
-                                project.shared = 1;
+                                p.shared = 1;
                             } else {
-                                project.shared = 0;
+                                p.shared = 0;
                             }
 
-                            project.is_deleted = (int32) object.get_int_member ("is_deleted");
-                            project.is_archived = (int32) object.get_int_member ("is_archived");
-                            project.is_favorite = (int32) object.get_int_member ("is_favorite");
-                            project.is_todoist = 1;
-                            project.is_sync = 1;
-
-                            Planner.database.insert_project (project);
+                            Planner.database.insert_project (p);
                         }
 
                         // Create Sections 
@@ -222,14 +222,21 @@ public class Services.Todoist : GLib.Object {
 
                             s.id = object.get_int_member ("id");
                             s.project_id = object.get_int_member ("project_id");
-                            s.sync_id = object.get_int_member ("sync_id");
                             s.name = object.get_string_member ("name");
                             s.date_added = object.get_string_member ("date_added");
-                            s.date_archived = object.get_string_member ("date_archived");
                             s.is_deleted = (int32) object.get_int_member ("is_deleted");
                             s.is_archived = (int32) object.get_int_member ("is_archived");
                             s.collapsed = 1;
-                            
+                            s.is_todoist = 1;
+
+                            if (object.get_null_member ("date_archived") == false) {
+                                s.date_archived = object.get_string_member ("date_archived");
+                            }
+
+                            if (object.get_null_member ("sync_id") == false) {
+                                s.sync_id = object.get_int_member ("sync_id");
+                            }
+
                             Planner.database.insert_section (s);
                         }
 
@@ -244,9 +251,21 @@ public class Services.Todoist : GLib.Object {
                             i.project_id = object.get_int_member ("project_id");
                             i.user_id = object.get_int_member ("user_id");
                             i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                            i.responsible_uid = object.get_int_member ("responsible_uid");
-                            i.sync_id = object.get_int_member ("sync_id");
-                            
+                            i.content = object.get_string_member ("content");
+                            i.checked = (int32) object.get_int_member ("checked");
+                            i.priority = (int32) object.get_int_member ("priority");
+                            i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                            i.date_added = object.get_string_member ("date_added");
+                            i.is_todoist = 1;
+
+                            if (object.get_null_member ("sync_id") == false) {
+                                i.sync_id = object.get_int_member ("sync_id");
+                            }
+
+                            if (object.get_null_member ("responsible_uid") == false) {
+                                i.responsible_uid = object.get_int_member ("responsible_uid");
+                            }
+
                             if (object.get_null_member ("section_id") == false) {
                                 i.section_id = object.get_int_member ("section_id");
                             }
@@ -255,20 +274,19 @@ public class Services.Todoist : GLib.Object {
                                 i.parent_id = object.get_int_member ("parent_id");
                             }
                             
-                            i.content = object.get_string_member ("content");
-                            i.checked = (int32) object.get_int_member ("checked");
-                            i.priority = (int32) object.get_int_member ("priority");
-                            i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                            i.date_added = object.get_string_member ("date_added");
-                            i.date_completed = object.get_string_member ("date_completed");
-                            i.is_todoist = 1;
-                            
+                            if (object.get_null_member ("date_completed") == false) {
+                                i.date_completed = object.get_string_member ("date_completed");
+                            }
+
                             if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                 var due_object = object.get_object_member ("due");
                                 var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
                                 i.due_date = datetime.to_string ();
 
-                                i.due_timezone = due_object.get_string_member ("timezone");
+                                if (object.get_null_member ("timezone") == false) {
+                                    i.due_timezone = due_object.get_string_member ("timezone");
+                                }
+
                                 i.due_string = due_object.get_string_member ("string");
                                 i.due_lang = due_object.get_string_member ("lang");
                                 if (due_object.get_boolean_member ("is_recurring")) {
@@ -280,7 +298,7 @@ public class Services.Todoist : GLib.Object {
                         }
                         
                         // Download Profile Image
-                        Planner.utils.download_profile_image (user_object.get_string_member ("avatar_s640"));
+                        Planner.utils.download_profile_image (user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640"));
 
                         first_sync_finished ();
                     } catch (Error e) {
@@ -320,11 +338,9 @@ public class Services.Todoist : GLib.Object {
                         print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
                         var node = parser.get_root ().get_object ();
-                        var full_sync = node.get_boolean_member ("full_sync");
                         var sync_token = node.get_string_member ("sync_token");
 
                         // Update sync token
-                        Planner.settings.set_boolean ("todoist-full-sync", full_sync);
                         Planner.settings.set_string ("todoist-sync-token", sync_token);
 
                         // Projects
@@ -351,37 +367,36 @@ public class Services.Todoist : GLib.Object {
                                     Planner.database.update_project (project);
                                 }
                             } else {
-                                var project = new Objects.Project ();
+                                var p = new Objects.Project ();
 
-                                project.id = object.get_int_member ("id"); 
-                                project.name = object.get_string_member ("name");
-                                project.color = (int32) object.get_int_member ("color");
-
+                                p.id = object.get_int_member ("id"); 
+                                p.name = object.get_string_member ("name");
+                                p.color = (int32) object.get_int_member ("color");
+                                p.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                p.is_archived = (int32) object.get_int_member ("is_archived");
+                                p.is_favorite = (int32) object.get_int_member ("is_favorite");
+                                p.is_todoist = 1;
+                                p.is_sync = 1;
+                                
                                 if (object.get_boolean_member ("team_inbox")) {
-                                    project.team_inbox = 1;
+                                    p.team_inbox = 1;
                                 } else {
-                                    project.team_inbox = 0;
+                                    p.team_inbox = 0;
                                 }
 
                                 if (object.get_boolean_member ("inbox_project")) {
-                                    project.inbox_project = 1;
+                                    p.inbox_project = 1;
                                 } else {
-                                    project.inbox_project = 0;
+                                    p.inbox_project = 0;
                                 }
 
-                                if (object.get_null_member ("shared") == false && object.get_boolean_member ("shared")) {
-                                    project.shared = 1;
+                                if (object.get_boolean_member ("shared")) {
+                                    p.shared = 1;
                                 } else {
-                                    project.shared = 0;
+                                    p.shared = 0;
                                 }
 
-                                project.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                project.is_archived = (int32) object.get_int_member ("is_archived");
-                                project.is_favorite = (int32) object.get_int_member ("is_favorite");
-                                project.is_todoist = 1;
-                                project.is_sync = 1;
-
-                                Planner.database.insert_project (project);
+                                Planner.database.insert_project (p);
                             }
                         }
 
@@ -405,19 +420,26 @@ public class Services.Todoist : GLib.Object {
                                     Planner.database.update_section (section);
                                 }
                             } else {
-                                var section = new Objects.Section ();
+                                var s = new Objects.Section ();
 
-                                section.id = object.get_int_member ("id");
-                                section.project_id = object.get_int_member ("project_id");
-                                section.sync_id = object.get_int_member ("sync_id");
-                                section.name = object.get_string_member ("name");
-                                section.date_added = object.get_string_member ("date_added");
-                                section.date_archived = object.get_string_member ("date_archived");
-                                section.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                section.is_archived = (int32) object.get_int_member ("is_archived");
-                                section.collapsed = 1;
-                                
-                                Planner.database.insert_section (section);
+                                s.id = object.get_int_member ("id");
+                                s.project_id = object.get_int_member ("project_id");
+                                s.name = object.get_string_member ("name");
+                                s.date_added = object.get_string_member ("date_added");
+                                s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                s.is_archived = (int32) object.get_int_member ("is_archived");
+                                s.collapsed = 1;
+                                s.is_todoist = 1;
+
+                                if (object.get_null_member ("date_archived") == false) {
+                                    s.date_archived = object.get_string_member ("date_archived");
+                                }
+
+                                if (object.get_null_member ("sync_id") == false) {
+                                    s.sync_id = object.get_int_member ("sync_id");
+                                }
+
+                                Planner.database.insert_section (s);
                             }
                         }
 
@@ -448,9 +470,21 @@ public class Services.Todoist : GLib.Object {
                                 i.project_id = object.get_int_member ("project_id");
                                 i.user_id = object.get_int_member ("user_id");
                                 i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                                i.responsible_uid = object.get_int_member ("responsible_uid");
-                                i.sync_id = object.get_int_member ("sync_id");
+                                i.content = object.get_string_member ("content");
+                                i.checked = (int32) object.get_int_member ("checked");
+                                i.priority = (int32) object.get_int_member ("priority");
+                                i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                i.date_added = object.get_string_member ("date_added");
+                                i.is_todoist = 1;
                                 
+                                if (object.get_null_member ("sync_id") == false) {
+                                    i.sync_id = object.get_int_member ("sync_id");
+                                }
+
+                                if (object.get_null_member ("responsible_uid") == false) {
+                                    i.responsible_uid = object.get_int_member ("responsible_uid");
+                                }
+
                                 if (object.get_null_member ("section_id") == false) {
                                     i.section_id = object.get_int_member ("section_id");
                                 }
@@ -459,20 +493,19 @@ public class Services.Todoist : GLib.Object {
                                     i.parent_id = object.get_int_member ("parent_id");
                                 }
                                 
-                                i.content = object.get_string_member ("content");
-                                i.checked = (int32) object.get_int_member ("checked");
-                                i.priority = (int32) object.get_int_member ("priority");
-                                i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                i.date_added = object.get_string_member ("date_added");
-                                i.date_completed = object.get_string_member ("date_completed");
-                                i.is_todoist = 1;
+                                if (object.get_null_member ("date_completed") == false) {
+                                    i.date_completed = object.get_string_member ("date_completed");
+                                }
 
                                 if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
                                     var due_object = object.get_object_member ("due");
                                     var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
                                     i.due_date = datetime.to_string ();
 
-                                    i.due_timezone = due_object.get_string_member ("timezone");
+                                    if (object.get_null_member ("timezone") == false) {
+                                        i.due_timezone = due_object.get_string_member ("timezone");
+                                    }
+
                                     i.due_string = due_object.get_string_member ("string");
                                     i.due_lang = due_object.get_string_member ("lang");
                                     if (due_object.get_boolean_member ("is_recurring")) {

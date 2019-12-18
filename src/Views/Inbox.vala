@@ -340,11 +340,11 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     private void add_items (int64 id) {
-        foreach (var child in completed_listbox.get_children ()) {
+        foreach (var child in listbox.get_children ()) {
             child.destroy ();
         }
 
-        foreach (var item in Planner.database.get_all_items_by_inbox (id, is_todoist)) {
+        foreach (var item in Planner.database.get_all_items_by_project (id)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -352,7 +352,7 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     private void add_all_sections (int64 id) {
-        foreach (var section in Planner.database.get_all_sections_by_inbox (id, is_todoist)) {
+        foreach (var section in Planner.database.get_all_sections_by_project (id)) {
             var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();
@@ -364,7 +364,7 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Planner.database.get_all_completed_items_by_inbox (id, is_todoist)) {
+        foreach (var item in Planner.database.get_all_completed_items_by_inbox (id)) {
             var row = new Widgets.ItemCompletedRow (item);
             completed_listbox.add (row);
             completed_listbox.show_all ();

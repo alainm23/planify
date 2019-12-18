@@ -74,7 +74,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
                 foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
                     var row = new Widgets.SearchItem (
                         item.content,
-                        "emblem-default-symbolic",
+                        "checkbox-symbolic",
                         "item",
                         item.id,
                         item.project_id
@@ -188,6 +188,9 @@ public class Widgets.SearchItem : Gtk.ListBoxRow {
     }
 
     construct {
+        margin_start = margin_end = 6;
+        get_style_context ().add_class ("pane-row");
+        
         var image = new Gtk.Image ();
         image.gicon = new ThemedIcon (icon);
         image.pixel_size = 16;

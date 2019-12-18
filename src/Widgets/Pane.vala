@@ -45,16 +45,36 @@ public class Widgets.Pane : Gtk.EventBox {
                 
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Upcoming"));
 
-        // Menu
-        var username = GLib.Environment.get_user_name ();
-        var iconfile = @"/var/lib/AccountsService/icons/$username";
-
-        var user_avatar = new Granite.Widgets.Avatar.from_file (iconfile, 21);
+        // Avatar
+        Granite.Widgets.Avatar user_avatar;
+        if (Planner.settings.get_boolean ("todoist-account")) {
+            if (Planner.settings.get_string ("todoist-user-image-id") != "") {
+                user_avatar = new Granite.Widgets.Avatar.from_file (
+                    GLib.Path.build_filename (
+                        Planner.utils.AVATARS_FOLDER, 
+                        Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
+                    ),
+                    20
+                );
+            } else {
+                user_avatar = new Granite.Widgets.Avatar.with_default_icon (20);
+            }
+        } else {
+            if (File.new_for_path ("/var/lib/AccountsService/icons/" + GLib.Environment.get_user_name ()).query_exists ()) {
+                user_avatar = new Granite.Widgets.Avatar.from_file (
+                    "/var/lib/AccountsService/icons/" + GLib.Environment.get_user_name (),
+                    20
+                );
+            } else {
+                user_avatar = new Granite.Widgets.Avatar.with_default_icon (20);
+            }
+        }
 
         var username_label = new Gtk.Label (Planner.settings.get_string ("user-name"));
         username_label.get_style_context ().add_class ("pane-item");
         username_label.margin_top = 1;
         username_label.halign = Gtk.Align.CENTER;
+        username_label.ellipsize = Pango.EllipsizeMode.END;
         username_label.valign = Gtk.Align.CENTER;
         username_label.use_markup = true;
 
@@ -109,7 +129,7 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.image = sync_image;
 
         var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        profile_box.margin_start = 6;
+        profile_box.margin_start = 10;
         profile_box.margin_end = 3;
         profile_box.get_style_context ().add_class ("pane");
         profile_box.get_style_context ().add_class ("welcome");
@@ -269,12 +289,12 @@ public class Widgets.Pane : Gtk.EventBox {
             sync_button.get_style_context ().remove_class ("is_loading");
         });
 
-        Planner.todoist.avatar_downloaded.connect (() => {
+        Planner.todoist.avatar_downloaded.connect ((id) => {
             try {
                 user_avatar.pixbuf = new Gdk.Pixbuf.from_file_at_size (
-                    GLib.Path.build_filename (Planner.utils.AVATARS_FOLDER, ("avatar.jpg")),
-                    19,
-                    19);
+                    GLib.Path.build_filename (Planner.utils.AVATARS_FOLDER, (id + ".jpg")),
+                    20,
+                    20);
             } catch (Error e) {
                 stderr.printf ("Error setting default avatar icon: %s ", e.message);
             }

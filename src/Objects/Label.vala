@@ -6,7 +6,8 @@ public class Objects.Label : GLib.Object {
     public int item_order { get; set; default = 1; }
     public int is_deleted { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
-
+    public int is_todoist { get; set; default = 0; }
+    
     private uint timeout_id = 0;
     
     public void save () {

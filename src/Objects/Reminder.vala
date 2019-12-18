@@ -15,6 +15,7 @@ public class Objects.Reminder : GLib.Object {
     public int due_is_recurring { get; set; default = 0; }
     public int mm_offset { get; set; default = 180; }
     public int is_deleted { get; set; default = 0; }
+    public int is_todoist { get; set; default = 0; }
 
     private GLib.DateTime _datetime;
     public GLib.DateTime datetime {

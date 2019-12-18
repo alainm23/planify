@@ -139,6 +139,12 @@
             <description>Todoist sync token</description>
         </key>
 
+        <key name="todoist-user-image-id" type="s">
+            <default>""</default>
+            <summary>Todoist sync token</summary>
+            <description>Todoist sync token</description>
+        </key>
+
         <key name="todoist-user-email" type="s">
             <default>""</default>
             <summary>Todoist email account</summary>
@@ -161,12 +167,6 @@
             <default>false</default>
             <summary>Todoist user is premium</summary>
             <description>Todoist user is premium</description>
-        </key>
-
-        <key name="todoist-full-sync" type="b">
-            <default>false</default>
-            <summary>Todoist full sync</summary>
-            <description>Todoist full sync</description>
         </key>
     </schema>
 </schemalist>

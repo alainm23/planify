@@ -1039,7 +1039,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         projects_menu.add (item_menu);
         
         foreach (var project in Planner.database.get_all_projects ()) {
-            if (item.project_id != project.id) {
+            if (item.project_id != project.id && project.inbox_project == 0) {
                 item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {
                     if (item.is_todoist == 0) {
@@ -1067,7 +1067,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
             sections_menu.add (item_menu);
         }
-        foreach (var section in Planner.database.get_all_sections_by_project_id (item.project_id, item.is_todoist)) {
+        
+        foreach (var section in Planner.database.get_all_sections_by_project (item.project_id)) {
             if (item.section_id != section.id) {
                 item_menu = new Widgets.ImageMenuItem (section.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {

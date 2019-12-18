@@ -47,6 +47,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     construct {
+        margin_start = margin_end = 6;
         get_style_context ().add_class ("pane-row");
 
         icon = new Gtk.Image ();
@@ -74,7 +75,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
         main_box.margin = 6;
         main_box.margin_end = 0;
-        main_box.margin_start = 11;
+        main_box.margin_start = 8;
 
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);

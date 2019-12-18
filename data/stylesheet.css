@@ -1,5 +1,8 @@
 @define-color projectview_color #ffffff;
 @define-color pane_color #f9fafa;
+@define-color pane_selected_color #D1DFFE;
+@define-color pane_text_color #333333;
+
 
 /*
     Dark theme
@@ -22,13 +25,13 @@ modelbutton:hover,
 .menuitem:active,
 .menuitem:focus:active,
 .menuitem:hover {
-    color: #333333;
+    color: @pane_text_color;
     box-shadow: none;
-    background-color: #D1DFFE;
+    background-color: @pane_selected_color;
 }
 
 .popover-menuitem:hover image {
-    color: #333333;
+    color: @pane_text_color;
 }
 
 
@@ -107,13 +110,14 @@ paned > separator {
 }
 
 .pane-row {
-    transition: all 140ms ease-in-out;
+    transition: all 210ms ease-in-out;
     background-color: transparent;
 }
 
 .pane-row:selected {
-    background-color: #D1DFFE;
-    color: #333333;
+    background-color: @pane_selected_color;
+    color: @pane_text_color;
+    border-radius: 6px;
 }
 
 .pane-row button {
@@ -121,7 +125,7 @@ paned > separator {
 }
 
 .project-row:selected:focus image {
-    color: #333333;
+    color: @pane_text_color;
 }
 
 .header-row {

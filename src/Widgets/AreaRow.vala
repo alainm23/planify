@@ -55,7 +55,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class ("dim-label");
 
         var stack = new Gtk.Stack ();
-        stack.margin_start = 6;
+        stack.margin_start = 9;
         stack.halign = Gtk.Align.CENTER;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
@@ -120,7 +120,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 39;
+        action_grid.margin_start = 38;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
