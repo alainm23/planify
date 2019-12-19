@@ -1,18 +1,25 @@
-Source: com.github.alainm23.notable
+Source: com.github.alainm23.planner
 Section: x11
 Priority: extra
 Maintainer: Alain M. <alainmh23@gmail.com>
 Build-Depends: appstream,
                debhelper (>= 9),
                desktop-file-utils,
-               libgranite-dev,
+               libgee-0.8-dev,
                libgtk-3-dev,
+               libecal1.2-dev,
+               libedataserver1.2-dev,
+               libical-dev,
+               libjson-glib-dev,
+               libsqlite3-dev,
+               libsoup2.4-dev,
+               libgranite-dev (>=0.5),
+               libwebkit2gtk-4.0-dev,
                meson,
-               libgtksourceview-3.0-dev,
-               valac (>= 0.26)
+               valac (>= 0.40.3)
 Standards-Version: 3.9.3
 
-Package: com.github.alainm23.notable
+Package: com.github.alainm23.planner
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, 
 Description: Hey young world

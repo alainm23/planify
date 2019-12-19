@@ -101,6 +101,7 @@ executable(
         dependency('libecal-1.2'),
         dependency('libedataserver-1.2'),
         dependency('libical'),
+        dependency('libsoup-2.4'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true

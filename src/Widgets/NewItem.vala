@@ -56,6 +56,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
  
         var content_grid = new Gtk.Grid ();
         content_grid.get_style_context ().add_class ("check-eventbox");
+        content_grid.get_style_context ().add_class ("check-eventbox-border");
         content_grid.add (checked_button);
         content_grid.add (content_entry);
         
@@ -101,6 +102,18 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         content_entry.activate.connect (() => {
             insert_item ();
+        });
+
+        content_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                if (due == "") {
+                    destroy ();
+                } else {
+                    new_item_hide ();
+                }
+            }
+
+            return false;
         });
 
         content_entry.changed.connect (() => {  

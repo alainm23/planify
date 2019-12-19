@@ -793,7 +793,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Planner.database.item_completed.connect ((i) => {
             if (item.id == i.id) {
                 if (i.checked == 1) {
-                    main_revealer.reveal_child = false;
+                    content_label.label = "<s>%s</s>".printf (item.content);
+                    //main_revealer.reveal_child = false;
+                } else {
+                    content_label.label = item.content;
                 }
             }
         });
@@ -803,21 +806,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (checked_button.active) { 
             item.checked = 1;
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
-            content_label.label = "<s>%s</s>".printf (item.content);
 
             Planner.database.update_item_completed (item);
-            if (item.is_todoist == 1) {
-                Planner.todoist.add_complete_item (item);
-            }
+            //if (item.is_todoist == 1) {
+            //    Planner.todoist.add_complete_item (item);
+            //}
         } else {
             item.checked = 0;
             item.date_completed = "";
-            content_label.label = item.content;
 
             Planner.database.update_item_completed (item);
-            if (item.is_todoist == 1) {
-                Planner.todoist.item_uncomplete (item);
-            }  
+            //if (item.is_todoist == 1) {
+            //    Planner.todoist.item_uncomplete (item);
+            //}  
         }
     }
 

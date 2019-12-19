@@ -198,6 +198,11 @@ public class Views.Project : Gtk.EventBox {
         motion_last_grid.height_request = 24;
 
         var infobar = new Widgets.InfoBar ();
+        /*
+        var infobar = new Gtk.InfoBar ();
+        infobar.show_close_button = true;
+        infobar.message_type = Gtk.MessageType.QUESTION;
+        */
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -340,6 +345,7 @@ public class Views.Project : Gtk.EventBox {
         });
         
         Planner.database.item_completed.connect ((item) => {
+            /*
             if (project.id == item.project_id) {
                 if (item.checked == 1 && item.parent_id == 0) {
                     if (completed_revealer.reveal_child) {
@@ -355,6 +361,7 @@ public class Views.Project : Gtk.EventBox {
                     } 
                 }
             }
+            */
         });
 
         Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {

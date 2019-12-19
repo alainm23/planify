@@ -540,13 +540,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public void save_section () {
-        name_label.label = name_entry.text;
-        section.name = name_entry.text;
+        if (name_entry.text != "") {
+            name_label.label = name_entry.text;
+            section.name = name_entry.text;
 
-        section.save ();
+            section.save ();
 
-        action_revealer.reveal_child = false;
-        name_stack.visible_child_name = "name_label";
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
+        }
     }
 
     private void build_drag_and_drop (bool value) {

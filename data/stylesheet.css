@@ -647,8 +647,11 @@ paned > separator {
 
 .check-eventbox { 
     background-color: alpha (#3689e6, 0.25);
-    border-radius: 4px;
-    border: 0px solid alpha (#3689e6, 0.35);
+    border-radius: 4px
+}
+
+.check-eventbox-border {
+    border: 1px solid alpha (#3689e6, 0.45);
 }
 
 .check-entry {

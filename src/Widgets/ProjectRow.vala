@@ -76,7 +76,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         project_progress.margin_top = 1;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
         
-        project_progress.radius_fill_color = "#d4d4d4";
+        project_progress.radius_fill_color = "#a7b2cb";
         if (Planner.settings.get_boolean ("prefer-dark-style")) {
             project_progress.radius_fill_color = "#666666";
         }
@@ -86,7 +86,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 if (Planner.settings.get_boolean ("prefer-dark-style")) {
                     project_progress.radius_fill_color = "#666666";
                 } else {
-                    project_progress.radius_fill_color = "#d4d4d4";
+                    project_progress.radius_fill_color = "#a7b2cb";
                 }
             }
         });

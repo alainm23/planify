@@ -22,4 +22,7 @@ install:
 
 script:
   - houston ci
+  
+notifications:
+  slack: ele:1X5dUSiN3YGr69a5rAZVn5Ra
     

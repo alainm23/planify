@@ -3,12 +3,13 @@ public class Widgets.Toast : Gtk.Revealer {
 
     private Gtk.Label simple_message_label;
     private Gtk.Label delete_message_label;
+    private Gtk.Label clear_message_label;
 
     private uint timeout_id;
 
     construct {
         margin = 3;
-        margin_bottom = 12;
+        margin_bottom = 15;
         halign = Gtk.Align.CENTER;
         valign = Gtk.Align.END;
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -16,7 +17,7 @@ public class Widgets.Toast : Gtk.Revealer {
         main_stack = new Gtk.Stack ();
         main_stack.hexpand = true;
         main_stack.transition_type = Gtk.StackTransitionType.NONE;
-        
+
         main_stack.add_named (get_simple_toast (), "simple_toast");
         main_stack.add_named (get_delete_toast (), "delete_toast");
 

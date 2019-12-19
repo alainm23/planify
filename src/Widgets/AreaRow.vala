@@ -336,12 +336,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     public void save_area () {
-        area.name = name_entry.text;
-        name_label.label = area.name;
+        if (name_entry.text != "") {
+            area.name = name_entry.text;
+            name_label.label = area.name;
 
-        area.save ();
-        action_revealer.reveal_child = false;
-        name_stack.visible_child_name = "name_label";
+            area.save ();
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
+        }
     }
 
     private void build_drag_and_drop () {
