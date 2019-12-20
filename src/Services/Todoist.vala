@@ -451,17 +451,26 @@ public class Services.Todoist : GLib.Object {
                             if (Planner.database.item_exists (object.get_int_member ("id"))) {
                                 var i = Planner.database.get_item_by_id (object.get_int_member ("id"));
 
+                                if ((int32) object.get_int_member ("checked") != i.checked) {
+                                    i.checked = (int32) object.get_int_member ("checked");
+                                    Planner.database.update_item_completed (i);
+                                }
+
                                 // Update Item
                                 i.content = object.get_string_member ("content");
                                 i.is_todoist = 1;
-
+                                i.checked = (int32) object.get_int_member ("checked");
                                 Planner.database.update_item (i);
 
-                                // Move item section
+                                int64 section_id;
                                 if (object.get_null_member ("section_id")) {
-                                    Planner.database.move_item_section (i, 0);
+                                    section_id = 0;
                                 } else {
-                                    Planner.database.move_item_section (i, object.get_int_member ("section_id"));
+                                    section_id = object.get_int_member ("section_id");
+                                }
+
+                                if (section_id != i.section_id) {
+                                    Planner.database.move_item_section (i, section_id);
                                 }
                             } else {
                                 var i = new Objects.Item ();
@@ -1391,10 +1400,10 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            if (Planner.database.move_item (item, project_id)) {
-                                //print ("Movido: %s\n".printf (item.content));
-                                item_moved_completed (item.id);
-                            }
+                            //if (Planner.database.move_item (item, project_id)) {
+                                print ("Movido: %s\n".printf (item.content));
+                                //item_moved_completed (item.id);
+                            //}
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");

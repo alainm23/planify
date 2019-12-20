@@ -124,25 +124,20 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             if (checked_button.active) {
                 item.checked = 1;
                 item.date_completed = new GLib.DateTime.now_local ().to_string ();
+
+                Planner.database.update_item_completed (item);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.add_complete_item (item);
+                }
             } else {
                 item.checked = 0;
                 item.date_completed = "";
-            }
 
-            if (checked_timeout != 0) {
-                Source.remove (checked_timeout);
-                checked_timeout = 0;
-            }
-
-            checked_timeout = Timeout.add (1000, () => {
+                Planner.database.update_item_completed (item);
                 if (item.is_todoist == 1) {
-                    Planner.todoist.add_complete_item (item);
-                } else {
-                    Planner.database.update_item_completed (item);
+                    Planner.todoist.item_uncomplete (item);
                 }
-
-                return false;
-            });
+            }
         });
 
         delete_button.clicked.connect (() => {

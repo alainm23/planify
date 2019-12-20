@@ -793,10 +793,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Planner.database.item_completed.connect ((i) => {
             if (item.id == i.id) {
                 if (i.checked == 1) {
+                    checked_button.active = true;
+
                     content_label.label = "<s>%s</s>".printf (item.content);
-                    //main_revealer.reveal_child = false;
+                    
+                    checked_timeout = Timeout.add (700, () => {
+                        main_revealer.reveal_child = false;
+                        return false;
+                    });
                 } else {
-                    content_label.label = item.content;
                 }
             }
         });
@@ -808,17 +813,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
 
             Planner.database.update_item_completed (item);
-            //if (item.is_todoist == 1) {
-            //    Planner.todoist.add_complete_item (item);
-            //}
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_complete_item (item);
+            }
         } else {
             item.checked = 0;
             item.date_completed = "";
 
             Planner.database.update_item_completed (item);
-            //if (item.is_todoist == 1) {
-            //    Planner.todoist.item_uncomplete (item);
-            //}  
+            if (item.is_todoist == 1) {
+                Planner.todoist.item_uncomplete (item);
+            }
         }
     }
 
@@ -1028,11 +1033,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         item_menu.activate.connect (() => {
             int64 inbox_id = Planner.settings.get_int64 ("inbox-project");
 
-            if (item.is_todoist == 0) {
-                if (Planner.database.move_item (item, inbox_id)) {
-                    destroy ();
-                }
-            } else {
+            Planner.database.move_item (item, inbox_id);
+            if (item.is_todoist == 1) {
                 Planner.todoist.move_item (item, inbox_id);
             }
         });
@@ -1043,11 +1045,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.project_id != project.id && project.inbox_project == 0) {
                 item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {
-                    if (item.is_todoist == 0) {
-                        if (Planner.database.move_item (item, project.id)) {
-                            destroy ();
-                        }
-                    } else {
+                    Planner.database.move_item (item, project.id);
+                    if (item.is_todoist == 1) {
                         Planner.todoist.move_item (item, project.id);
                     }
                 });
@@ -1060,7 +1059,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item_menu = new Widgets.ImageMenuItem (_("No Section"), "window-close-symbolic");
             item_menu.activate.connect (() => {
                 Planner.database.move_item_section (item, 0);
-
                 if (item.is_todoist == 1) {
                     Planner.todoist.move_item_to_section (item, 0);
                 }
@@ -1074,7 +1072,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item_menu = new Widgets.ImageMenuItem (section.name, "planner-project-symbolic");
                 item_menu.activate.connect (() => {
                     Planner.database.move_item_section (item, section.id);
-
                     if (item.is_todoist == 1) {
                         Planner.todoist.move_item_to_section (item, section.id);
                     }

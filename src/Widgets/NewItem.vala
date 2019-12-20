@@ -39,7 +39,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         loading_revealer.add (loading_spinner);
 
         var checked_button = new Gtk.CheckButton ();
-        checked_button.margin_start = 6;
+        checked_button.margin_start = 5;
         checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.valign = Gtk.Align.CENTER;
 

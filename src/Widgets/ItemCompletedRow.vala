@@ -62,18 +62,23 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
         add (box);
 
+        Planner.database.item_completed.connect ((i) => {
+            if (item.id == i.id) {
+                if (i.checked == 0) {
+                    destroy ();
+                }
+            }
+        });
+
         checked_button.toggled.connect (() => {
             if (checked_button.active == false) { 
                 item.checked = 0;
                 item.date_completed = "";
 
-                if (Planner.database.update_item_completed (item)) {
-                    if (item.is_todoist == 1) {
-                        Planner.todoist.item_uncomplete (item);
-                    }
-
-                    destroy ();
-                }   
+                Planner.database.update_item_completed (item);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.item_uncomplete (item);
+                }  
             }
         });
 
