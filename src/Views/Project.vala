@@ -1,6 +1,7 @@
 public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Entry name_entry;
     private Gtk.TextView note_textview;
     private Gtk.Label note_placeholder;
 
@@ -41,10 +42,13 @@ public class Views.Project : Gtk.EventBox {
         grid_color.halign = Gtk.Align.CENTER;
         grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
 
-        var name_label = new Gtk.Label (project.name);
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-        name_label.get_style_context ().add_class ("font-bold");
-        name_label.use_markup = true;
+        name_entry = new Gtk.Entry ();
+        name_entry.text = project.name;
+        name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        name_entry.get_style_context ().add_class ("font-bold");
+        name_entry.get_style_context ().add_class ("flat");
+        name_entry.get_style_context ().add_class ("project-name-entry");
+        name_entry.hexpand = true;
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("planner-header-symbolic");
@@ -109,8 +113,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_end = 24;
         top_box.margin_start = 41;
 
-        top_box.pack_start (name_label, false, false, 0);
-        
+        top_box.pack_start (name_entry, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
         //top_box.pack_end (search_button, false, false, 0);
 
@@ -275,6 +278,10 @@ public class Views.Project : Gtk.EventBox {
         });
 
         note_textview.buffer.changed.connect (() => {
+            save (false);
+        });
+
+        name_entry.changed.connect (() => {
             save ();
         });
 
@@ -318,7 +325,8 @@ public class Views.Project : Gtk.EventBox {
         Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 project = p;
-                name_label.label = project.name;
+
+                name_entry.text = p.name;
             }
         });
 
@@ -390,14 +398,26 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
             Idle.add (() => {
-                if (project.id == item.project_id) {
+                if (project.id == old_project_id) {
+                    listbox.foreach ((widget) => {
+                        var row = (Widgets.ItemRow) widget;
+                        
+                        if (row.item.id == item.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (project.id == project_id && item.section_id == 0) {
+                    item.project_id = project_id;
+
                     var row = new Widgets.ItemRow (item);
                     listbox.add (row);
                     listbox.show_all ();
                 }
-
+                
                 return false;
             });
         });
@@ -451,10 +471,16 @@ public class Views.Project : Gtk.EventBox {
         });
     }
 
-    private void save () {
+    private void save (bool online=true) {
         if (project != null) {
             project.note = note_textview.buffer.text;
-            project.save (); 
+            project.name = name_entry.text;
+
+            if (online) {
+                project.save ();
+            } else {
+                project.save_local ();
+            }
         }
     }
 
@@ -573,8 +599,9 @@ public class Views.Project : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
+        //var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+
         var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
         var show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
 
@@ -587,7 +614,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
-        popover_grid.add (edit_menu);
+        //popover_grid.add (edit_menu);
         //popover_grid.add (archive_menu);
         popover_grid.add (delete_menu);
         popover_grid.add (separator_01);
@@ -599,6 +626,7 @@ public class Views.Project : Gtk.EventBox {
             settings_button.active = false;
         });
 
+        /*
         edit_menu.clicked.connect (() => {
             if (project != null) {
                 var edit_dialog = new Dialogs.ProjectSettings (project);
@@ -608,6 +636,7 @@ public class Views.Project : Gtk.EventBox {
 
             popover.popdown ();
         });
+        */
 
         show_menu.clicked.connect (() => {
             if (completed_revealer.reveal_child) {

@@ -26,6 +26,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
+        //stack_add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
@@ -79,6 +80,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var addons_label = new Granite.HeaderLabel (_("Add-ons"));
         addons_label.margin_start = 6;
 
+        var todoist_item = new PreferenceItem ("planner-todoist", "Todoist");
         var calendar_item = new PreferenceItem ("x-office-calendar", _("Calendar events"));
         var labels_item = new PreferenceItem ("tag", _("Labels"), true);
 
@@ -88,6 +90,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         addons_grid.get_style_context ().add_class ("view");
         addons_grid.orientation = Gtk.Orientation.VERTICAL;
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        addons_grid.add (todoist_item);
         addons_grid.add (calendar_item);
         addons_grid.add (labels_item);
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -128,6 +131,15 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         general_item.activated.connect (() => {
             stack.visible_child_name = "general";
+        });
+
+        todoist_item.activated.connect (() => {
+            if (Planner.settings.get_boolean ("todoist-account")) {
+                stack.visible_child_name = "general";
+            } else {
+                var todoistOAuth = new Dialogs.TodoistOAuth ();
+                todoistOAuth.show_all ();
+            }
         });
 
         labels_item.activated.connect (() => {
@@ -475,6 +487,12 @@ public class Dialogs.Preferences : Gtk.Dialog {
         
         return main_box;
     }
+
+    /*
+    private Gtk.Widget get_todoist_widget () {
+
+    }
+    */
 
     private Gtk.Widget get_calendar_widget () {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));

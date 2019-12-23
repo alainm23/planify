@@ -18,6 +18,7 @@ public class Objects.Project : GLib.Object {
     public int shared { get; set; default = 0; } 
 
     private uint timeout_id = 0;
+    private uint timeout_id_2 = 0;
 
     public void save () {
         if (timeout_id != 0) {
@@ -28,11 +29,30 @@ public class Objects.Project : GLib.Object {
         timeout_id = Timeout.add (2500, () => {
             new Thread<void*> ("save_timeout", () => {
                 Planner.database.update_project (this);
+                if (is_todoist == 1) {
+                    Planner.todoist.update_project (this);
+                }
+
                 return null;
             });
-            
-            Source.remove (timeout_id);
-            timeout_id = 0;
+
+            return false;
+        });
+    }
+
+    public void save_local () {
+        if (timeout_id_2 != 0) {
+            Source.remove (timeout_id_2);
+            timeout_id_2 = 0;
+        }
+
+        timeout_id_2 = Timeout.add (2500, () => {
+            new Thread<void*> ("save_local_timeout", () => {
+                Planner.database.update_project (this);
+
+                return null;
+            });
+
             return false;
         });
     }

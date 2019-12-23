@@ -91,7 +91,7 @@ public class Utils : GLib.Object {
     /*
         Colors Utils
     */
-    public string get_color (int key) {
+    public Gee.HashMap<int, string> color () {
         var colors = new Gee.HashMap<int, string> ();
         
         colors.set (30, "#ed5353"); // b8256f
@@ -115,7 +115,42 @@ public class Utils : GLib.Object {
         colors.set (48, "#b8b8b8"); // b8b8b8
         colors.set (49, "#ccac93"); // ccac93
 
-        return colors.get (key);
+        return colors;
+    }
+
+    public Gee.HashMap<int, string> color_name () {
+        var colors = new Gee.HashMap<int, string> ();
+        
+        colors.set (30, _("Berry Red"));
+        colors.set (31, _("Red"));
+        colors.set (32, _("Orange"));
+        colors.set (33, _("Yellow"));
+        colors.set (34, _("Olive Green"));
+        colors.set (35, _("Lima Green"));
+        colors.set (36, _("Green"));
+        colors.set (37, _("Mint Green"));
+        colors.set (38, _("Teal"));
+        colors.set (39, _("Sky Blue"));
+        colors.set (40, _("Light Blue"));
+        colors.set (41, _("Blue"));
+        colors.set (42, _("Grape"));
+        colors.set (43, _("Violet"));
+        colors.set (44, _("Lavander"));
+        colors.set (45, _("Magenta"));
+        colors.set (46, _("Salmon"));
+        colors.set (47, _("Charcoal"));
+        colors.set (48, _("Grey"));
+        colors.set (49, _("Taupe"));
+
+        return colors;
+    }
+
+    public string get_color_name (int key) {
+        return color_name ().get (key);
+    }
+
+    public string get_color (int key) {
+        return color ().get (key);
     }
 
     public string calculate_tint (string hex) {

@@ -679,6 +679,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         });
 
+        /*
         Planner.todoist.item_moved_started.connect ((id) => {
             if (item.id == id) {
                 sensitive = false;
@@ -702,6 +703,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 sensitive = true;
             }
         });
+        */
 
         Planner.database.item_updated.connect ((i) => {
             Idle.add (() => {
@@ -734,9 +736,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             });
         });
 
-        Planner.database.item_moved.connect ((i) => {
+        Planner.database.item_moved.connect ((i, project_id, old_project_id) => {
             if (item.id == i.id) {
-                item.project_id = i.project_id;
+                item.project_id = project_id;
 
                 if (upcoming != null) {
                     project = Planner.database.get_project_by_id (item.project_id);

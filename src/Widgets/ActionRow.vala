@@ -137,7 +137,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             }
         });
         
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect (() => {
             Idle.add (() => {
                 update_count ();
 
@@ -193,7 +193,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             update_count (true);
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect (() => {
             Idle.add (() => {
                 update_count (true);
 
@@ -254,11 +254,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
+        Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
         if (source.item.is_todoist == 0) {
-            if (Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"))) {
-                source.get_parent ().remove (source);
-            }
-        } else {
             Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
         }
     }

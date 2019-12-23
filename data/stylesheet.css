@@ -522,7 +522,8 @@ paned > separator {
         inset 0px 1px 8px -10px #3689e6,
         inset 0px -1px 6px -15px #3689e6;
     color: @text_color;
-    background-color: alpha (#3689e6, 0.13);
+    background-color: @pane_selected_color;
+    border-radius: 6px;
 }
 
 .item-action-button {
@@ -690,6 +691,18 @@ paned > separator {
     padding-left: 0px;
     border-bottom: none;
 }
+
+.project-name-entry {
+    padding-left: 0px;
+    border: none;
+    background-color: @projectview_color;
+}
+
+.project-name-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
 
 .label {
     font-size: 14px;

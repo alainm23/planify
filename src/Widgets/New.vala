@@ -423,7 +423,7 @@ public class Widgets.New : Gtk.Revealer {
             });
         });
 
-        Planner.todoist.sync_finished.connect (() => {
+        Planner.todoist.first_sync_finished.connect (() => {
             string email_text = " " + Planner.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);

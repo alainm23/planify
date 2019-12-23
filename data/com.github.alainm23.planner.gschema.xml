@@ -133,6 +133,12 @@
             <description>Todoist sync token</description>
         </key>
 
+        <key name="todoist-last-sync" type="s">
+            <default>""</default>
+            <summary>Todoist last sync</summary>
+            <description>Todoist last sync</description>
+        </key>
+
         <key name="todoist-user-id" type="i">
             <default>0</default>
             <summary>Todoist sync token</summary>

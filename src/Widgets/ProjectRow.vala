@@ -254,7 +254,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect (() => {
             Idle.add (() => {
                 update_count ();
 
@@ -342,11 +342,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
+        Planner.database.move_item (source.item, project.id);
         if (source.item.is_todoist == 0) {
-            if (Planner.database.move_item (source.item, project.id)) {
-                source.get_parent ().remove (source);
-            }
-        } else {
             Planner.todoist.move_item (source.item, project.id);
         }
     }
@@ -452,9 +449,21 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
-        var project_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
+        //var project_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
 
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
+        //var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
+
+        var color_list_menu = new Gtk.Menu ();
+
+        var color_menu = new Widgets.ImageMenuItem (_("Color"), "preferences-color-symbolic");
+        color_menu.set_submenu (color_list_menu);
+        
+        Widgets.ImageMenuItem item;
+        for (int i = 30; i <= 49; i++) {
+            item = new Widgets.ImageMenuItem (Planner.utils.get_color_name (i), "mail-unread-symbolic");
+            color_list_menu.add (item);
+        }
+        color_list_menu.show_all ();
 
         var move_menu = new Widgets.ImageMenuItem (_("Move project"), "planner-work-area-symbolic");
         work_areas = new Gtk.Menu ();
@@ -467,10 +476,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var delete_menu = new Widgets.ImageMenuItem (_("Delete project"), "user-trash-symbolic");
 
         
-        menu.add (project_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (color_menu);
+        //menu.add (new Gtk.SeparatorMenuItem ());
         //menu.add (finalize_menu);
-        menu.add (edit_menu);
+        //menu.add (edit_menu);
         menu.add (move_menu);
         //menu.add (new Gtk.SeparatorMenuItem ());
         //menu.add (export_menu);
@@ -481,9 +490,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu.show_all ();
 
+        /*
         edit_menu.activate.connect (() => {
             open_edit_dialog ();
-        }); 
+        });
+        */
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (

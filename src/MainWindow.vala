@@ -346,7 +346,7 @@ public class MainWindow : Gtk.Window {
             set_badge_visible ();
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect (() => {
             Idle.add (() => {
                 set_badge_visible ();
 

@@ -201,7 +201,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (area_listbox);
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
-        listbox_scrolled.width_request = 246;
+        //listbox_scrolled.width_request = 246;
         listbox_scrolled.hexpand = true;
         listbox_scrolled.add (listbox_grid);
 
@@ -229,6 +229,10 @@ public class Widgets.Pane : Gtk.EventBox {
         stack.add_named (overlay, "scrolled");
         stack.add_named (grid, "grid");
 
+        //var main_revealer = new Gtk.Revealer ();
+        //main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        //main_revealer.add (stack);
+        
         add (stack);
         add_all_areas ();
         add_all_projects ();

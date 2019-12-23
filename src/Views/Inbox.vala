@@ -19,6 +19,10 @@ public class Views.Inbox : Gtk.EventBox {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    private const Gtk.TargetEntry[] targetEntriesSection = {
+        {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     construct {
         project_id = Planner.settings.get_int64 ("inbox-project");
 
@@ -155,6 +159,9 @@ public class Views.Inbox : Gtk.EventBox {
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         section_listbox.hexpand = true;
 
+        Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
+        section_listbox.drag_data_received.connect (on_drag_section_received);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
@@ -173,7 +180,7 @@ public class Views.Inbox : Gtk.EventBox {
         add_items (project_id);
         add_all_sections (project_id);
 
-        build_drag_and_drop ();
+        build_drag_and_drop (false);
 
         show_all ();
         
@@ -262,10 +269,46 @@ public class Views.Inbox : Gtk.EventBox {
             });
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item, id, old_id) => {
             Idle.add (() => {
-                if (project_id == item.project_id) {
+                if (project_id == old_id) {
+                    listbox.foreach ((widget) => {
+                        var row = (Widgets.ItemRow) widget;
+                        
+                        if (row.item.id == item.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (project_id == id) {
+                    item.project_id = id;
+
                     var row = new Widgets.ItemRow (item);
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
+            Idle.add (() => {
+                if (0 == old_section_id) {
+                    listbox.foreach ((widget) => {
+                        var row = (Widgets.ItemRow) widget;
+                        
+                        if (row.item.id == i.id) {
+                            row.destroy ();
+                        }
+                    });
+                }
+
+                if (0 == section_id) {
+                    i.section_id = 0;
+
+                    var row = new Widgets.ItemRow (i);
                     listbox.add (row);
                     listbox.show_all ();
                 }
@@ -344,7 +387,7 @@ public class Views.Inbox : Gtk.EventBox {
             child.destroy ();
         }
 
-        foreach (var item in Planner.database.get_all_items_by_project (id)) {
+        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (id)) {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
@@ -373,7 +416,7 @@ public class Views.Inbox : Gtk.EventBox {
         completed_revealer.reveal_child = true;
     }
 
-    private void build_drag_and_drop () {
+    private void build_drag_and_drop (bool is_magic_button_active) {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
@@ -455,6 +498,42 @@ public class Views.Inbox : Gtk.EventBox {
         });
     }
 
+    private void on_drag_section_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.SectionRow target;
+        Widgets.SectionRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.SectionRow) section_listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+        
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.SectionRow) row;
+        
+        if (target != null) {
+            source.get_parent ().remove (source); 
+
+            section_listbox.insert (source, target.get_index ());
+            section_listbox.show_all ();
+
+            update_section_order ();         
+        }
+    }
+
+    private void update_section_order () {
+        section_listbox.foreach ((widget) => {
+            var row = (Gtk.ListBoxRow) widget;
+            int index = row.get_index ();
+            
+            var section = ((Widgets.SectionRow) row).section;
+
+            new Thread<void*> ("update_section_order", () => {
+                Planner.database.update_section_item_order (section.id, index);
+
+                return null;
+            });
+        });
+    }
+    
     private void create_popover () {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;

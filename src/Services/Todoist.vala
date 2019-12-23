@@ -343,6 +343,179 @@ public class Services.Todoist : GLib.Object {
                         // Update sync token
                         Planner.settings.set_string ("todoist-sync-token", sync_token);
 
+                        // Items
+                        unowned Json.Array items = node.get_array_member ("items");
+                        foreach (unowned Json.Node item in items.get_elements ()) {
+                            var object = item.get_object ();
+
+                            if (Planner.database.item_exists (object.get_int_member ("id"))) {
+                                var i = Planner.database.get_item_by_id (object.get_int_member ("id"));
+
+                                if (object.get_boolean_member ("is_deleted") == true) {
+                                    Planner.database.delete_item (i);
+                                } else {
+                                    if ((int32) object.get_int_member ("checked") != i.checked) {
+                                        i.checked = (int32) object.get_int_member ("checked");
+                                        Planner.database.update_item_completed (i);
+                                    }
+
+                                    // Update data
+                                    i.content = object.get_string_member ("content");
+                                    i.is_todoist = 1;
+                                    i.checked = (int32) object.get_int_member ("checked");
+                                    Planner.database.update_item (i);
+
+                                    // Update duedate
+                                    string due_date = "";
+                                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                                        due_date = Planner.utils.get_todoist_datetime (object.get_object_member ("due").get_string_member ("date")).to_string ();
+                                    }
+
+                                    if (due_date != i.due_date) {
+                                        bool new_date = false;
+
+                                        if (due_date != "") {
+                                            if (i.due_date == "") {
+                                                new_date = true;
+                                            }
+                                        }
+
+                                        i.due_date = due_date;
+                                        Planner.database.set_due_item (i, new_date);
+                                    }
+
+
+                                    /*
+                                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                                        var due_object = object.get_object_member ("due");
+                                        var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
+                                        i.due_date = datetime.to_string ();
+        
+                                        if (object.get_null_member ("timezone") == false) {
+                                            i.due_timezone = due_object.get_string_member ("timezone");
+                                        }
+        
+                                        i.due_string = due_object.get_string_member ("string");
+                                        i.due_lang = due_object.get_string_member ("lang");
+                                        if (due_object.get_boolean_member ("is_recurring")) {
+                                            i.due_is_recurring = 1;
+                                        }
+                                    }
+                                    */
+
+                                    if (object.get_int_member ("project_id") != i.project_id) {
+                                        Planner.database.move_item (i, object.get_int_member ("project_id"));
+                                    }
+                                    
+                                    int64 section_id;
+                                    if (object.get_null_member ("section_id")) {
+                                        section_id = 0;
+                                    } else {
+                                        section_id = object.get_int_member ("section_id");
+                                    }
+
+                                    if (section_id != i.section_id) {
+                                        Planner.database.move_item_section (i, section_id);
+                                    }
+                                }
+                            } else {
+                                var i = new Objects.Item ();
+
+                                i.id = object.get_int_member ("id");
+                                i.project_id = object.get_int_member ("project_id");
+                                i.user_id = object.get_int_member ("user_id");
+                                i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                                i.content = object.get_string_member ("content");
+                                i.checked = (int32) object.get_int_member ("checked");
+                                i.priority = (int32) object.get_int_member ("priority");
+                                i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                i.date_added = object.get_string_member ("date_added");
+                                i.is_todoist = 1;
+                                
+                                if (object.get_null_member ("sync_id") == false) {
+                                    i.sync_id = object.get_int_member ("sync_id");
+                                }
+
+                                if (object.get_null_member ("responsible_uid") == false) {
+                                    i.responsible_uid = object.get_int_member ("responsible_uid");
+                                }
+
+                                if (object.get_null_member ("section_id") == false) {
+                                    i.section_id = object.get_int_member ("section_id");
+                                }
+
+                                if (object.get_null_member ("parent_id") == false) {
+                                    i.parent_id = object.get_int_member ("parent_id");
+                                }
+                                
+                                if (object.get_null_member ("date_completed") == false) {
+                                    i.date_completed = object.get_string_member ("date_completed");
+                                }
+
+                                if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                                    var due_object = object.get_object_member ("due");
+                                    var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
+                                    i.due_date = datetime.to_string ();
+
+                                    if (object.get_null_member ("timezone") == false) {
+                                        i.due_timezone = due_object.get_string_member ("timezone");
+                                    }
+
+                                    i.due_string = due_object.get_string_member ("string");
+                                    i.due_lang = due_object.get_string_member ("lang");
+                                    if (due_object.get_boolean_member ("is_recurring")) {
+                                        i.due_is_recurring = 1;
+                                    }
+                                }
+
+                                Planner.database.insert_item (i);
+                            }
+                        }
+
+
+                        // Sections
+                        unowned Json.Array sections_array = node.get_array_member ("sections");
+                        foreach (unowned Json.Node item in sections_array.get_elements ()) {
+                            var object = item.get_object ();
+                            
+                            if (Planner.database.section_exists (object.get_int_member ("id"))) {
+                                var section = Planner.database.get_section_by_id (object.get_int_member ("id"));
+
+                                if (object.get_boolean_member ("is_deleted") == true) {
+                                    Planner.database.delete_section (section);
+                                } else {
+                                    if (object.get_int_member ("project_id") != section.project_id) {
+                                        Planner.database.move_section (section, object.get_int_member ("project_id"));
+                                    }
+
+                                    section.name = object.get_string_member ("name");
+
+                                    Planner.database.update_section (section);
+                                }
+                            } else {
+                                var s = new Objects.Section ();
+
+                                s.id = object.get_int_member ("id");
+                                s.project_id = object.get_int_member ("project_id");
+                                s.name = object.get_string_member ("name");
+                                s.date_added = object.get_string_member ("date_added");
+                                s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                                s.is_archived = (int32) object.get_int_member ("is_archived");
+                                s.collapsed = 1;
+                                s.is_todoist = 1;
+
+                                if (object.get_null_member ("date_archived") == false) {
+                                    s.date_archived = object.get_string_member ("date_archived");
+                                }
+
+                                if (object.get_null_member ("sync_id") == false) {
+                                    s.sync_id = object.get_int_member ("sync_id");
+                                }
+
+                                Planner.database.insert_section (s);
+                            }
+                        }
+
                         // Projects
                         unowned Json.Array projects_array = node.get_array_member ("projects");
                         foreach (unowned Json.Node item in projects_array.get_elements ()) {
@@ -397,132 +570,6 @@ public class Services.Todoist : GLib.Object {
                                 }
 
                                 Planner.database.insert_project (p);
-                            }
-                        }
-
-                        // Sections
-                        unowned Json.Array sections_array = node.get_array_member ("sections");
-                        foreach (unowned Json.Node item in sections_array.get_elements ()) {
-                            var object = item.get_object ();
-                            
-                            if (Planner.database.section_exists (object.get_int_member ("id"))) {
-                                var section = Planner.database.get_section_by_id (object.get_int_member ("id"));
-
-                                if (object.get_boolean_member ("is_deleted") == true) {
-                                    Planner.database.delete_section (section);
-                                } else {
-                                    if (object.get_int_member ("project_id") != section.project_id) {
-                                        Planner.database.move_section (section, object.get_int_member ("project_id"));
-                                    }
-
-                                    section.name = object.get_string_member ("name");
-
-                                    Planner.database.update_section (section);
-                                }
-                            } else {
-                                var s = new Objects.Section ();
-
-                                s.id = object.get_int_member ("id");
-                                s.project_id = object.get_int_member ("project_id");
-                                s.name = object.get_string_member ("name");
-                                s.date_added = object.get_string_member ("date_added");
-                                s.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                s.is_archived = (int32) object.get_int_member ("is_archived");
-                                s.collapsed = 1;
-                                s.is_todoist = 1;
-
-                                if (object.get_null_member ("date_archived") == false) {
-                                    s.date_archived = object.get_string_member ("date_archived");
-                                }
-
-                                if (object.get_null_member ("sync_id") == false) {
-                                    s.sync_id = object.get_int_member ("sync_id");
-                                }
-
-                                Planner.database.insert_section (s);
-                            }
-                        }
-
-                        // Items
-                        unowned Json.Array items = node.get_array_member ("items");
-                        foreach (unowned Json.Node item in items.get_elements ()) {
-                            var object = item.get_object ();
-
-                            if (Planner.database.item_exists (object.get_int_member ("id"))) {
-                                var i = Planner.database.get_item_by_id (object.get_int_member ("id"));
-
-                                if ((int32) object.get_int_member ("checked") != i.checked) {
-                                    i.checked = (int32) object.get_int_member ("checked");
-                                    Planner.database.update_item_completed (i);
-                                }
-
-                                // Update Item
-                                i.content = object.get_string_member ("content");
-                                i.is_todoist = 1;
-                                i.checked = (int32) object.get_int_member ("checked");
-                                Planner.database.update_item (i);
-
-                                int64 section_id;
-                                if (object.get_null_member ("section_id")) {
-                                    section_id = 0;
-                                } else {
-                                    section_id = object.get_int_member ("section_id");
-                                }
-
-                                if (section_id != i.section_id) {
-                                    Planner.database.move_item_section (i, section_id);
-                                }
-                            } else {
-                                var i = new Objects.Item ();
-
-                                i.id = object.get_int_member ("id");
-                                i.project_id = object.get_int_member ("project_id");
-                                i.user_id = object.get_int_member ("user_id");
-                                i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                                i.content = object.get_string_member ("content");
-                                i.checked = (int32) object.get_int_member ("checked");
-                                i.priority = (int32) object.get_int_member ("priority");
-                                i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                i.date_added = object.get_string_member ("date_added");
-                                i.is_todoist = 1;
-                                
-                                if (object.get_null_member ("sync_id") == false) {
-                                    i.sync_id = object.get_int_member ("sync_id");
-                                }
-
-                                if (object.get_null_member ("responsible_uid") == false) {
-                                    i.responsible_uid = object.get_int_member ("responsible_uid");
-                                }
-
-                                if (object.get_null_member ("section_id") == false) {
-                                    i.section_id = object.get_int_member ("section_id");
-                                }
-
-                                if (object.get_null_member ("parent_id") == false) {
-                                    i.parent_id = object.get_int_member ("parent_id");
-                                }
-                                
-                                if (object.get_null_member ("date_completed") == false) {
-                                    i.date_completed = object.get_string_member ("date_completed");
-                                }
-
-                                if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
-                                    var due_object = object.get_object_member ("due");
-                                    var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
-                                    i.due_date = datetime.to_string ();
-
-                                    if (object.get_null_member ("timezone") == false) {
-                                        i.due_timezone = due_object.get_string_member ("timezone");
-                                    }
-
-                                    i.due_string = due_object.get_string_member ("string");
-                                    i.due_lang = due_object.get_string_member ("lang");
-                                    if (due_object.get_boolean_member ("is_recurring")) {
-                                        i.due_is_recurring = 1;
-                                    }
-                                }
-
-                                Planner.database.insert_item (i);
                             }
                         }
 
@@ -1372,7 +1419,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void move_item (Objects.Item item, int64 project_id) {
-        item_moved_started (item.id);
+        //item_moved_started (item.id);
 
         new Thread<void*> ("todoist_move_item", () => {
             string uuid = Planner.utils.generate_string ();
@@ -1408,13 +1455,13 @@ public class Services.Todoist : GLib.Object {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            item_moved_error (item.id, http_code, error_message);
+                            //item_moved_error (item.id, http_code, error_message);
                         }
                     } catch (Error e) {
-                        item_moved_error (item.id, (int32) mess.status_code, e.message);
+                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
                     }  
                 } else {
-                    item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
+                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 

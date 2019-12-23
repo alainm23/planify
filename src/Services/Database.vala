@@ -30,7 +30,7 @@ public class Services.Database : GLib.Object {
     public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
     public signal void item_completed (Objects.Item item);
-    public signal void item_moved (Objects.Item item);
+    public signal void item_moved (Objects.Item item, int64 project_id, int64 old_project_id);
     public signal void item_section_moved (Objects.Item item, int64 section_id, int64 old_section_id);
     
     public signal void label_added (Objects.Label label);
@@ -1864,14 +1864,12 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool move_item (Objects.Item item, int64 id) {
+    public bool move_item (Objects.Item item, int64 project_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
-
-        subtract_task_counter (item.project_id);
-
-        item.project_id = id;
+        int64 old_project_id = item.project_id;
+        subtract_task_counter (old_project_id);
 
         sql = """
             UPDATE Items SET project_id = ?, section_id = ? WHERE id = ?;
@@ -1880,7 +1878,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, item.project_id);
+        res = stmt.bind_int64 (1, project_id);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (2, 0);
@@ -1895,7 +1893,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
         } else {
-            item_moved (item);
+            item_moved (item, project_id, old_project_id);
 
             stmt.reset ();
             
@@ -1906,7 +1904,7 @@ public class Services.Database : GLib.Object {
             res = db.prepare_v2 (sql, -1, out stmt);
             assert (res == Sqlite.OK);
 
-            res = stmt.bind_int64 (1, item.project_id);
+            res = stmt.bind_int64 (1, project_id);
             assert (res == Sqlite.OK);
 
             res = stmt.bind_int64 (2, item.id);

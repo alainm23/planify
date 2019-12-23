@@ -19,13 +19,13 @@ public class Services.Notifications : GLib.Object {
             );
         });
 
-        Planner.database.item_moved.connect ((item) => {
+        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
             Idle.add (() => {
                 send_notification (
                     0, 
                     MOVE_TEMPLATE.printf (
                         item.content, 
-                        Planner.database.get_project_by_id (item.project_id).name
+                        Planner.database.get_project_by_id (project_id).name
                     )
                 );
 
