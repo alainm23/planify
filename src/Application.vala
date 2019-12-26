@@ -50,6 +50,8 @@ public class Planner : Gtk.Application {
         todoist = new Services.Todoist ();
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
+
+        database.patch_database ();
     }
 
     public static Planner _instance = null;

@@ -213,6 +213,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
         });
 
+        /*
         Planner.todoist.project_deleted_started.connect ((id) => {
             if (project.id == id) {
                 sensitive = false;
@@ -224,6 +225,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 sensitive = true;
             }
         });
+        */
 
         Planner.utils.drag_item_activated.connect ((active) => {
             build_drag_and_drop (active);
@@ -286,6 +288,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 count = items_0;
                 check_count_label ();
             }
+        });
+
+        Planner.database.project_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (project.id == current_id) {
+                    project.id = new_id;
+                }
+
+                return false;
+            });
         });
     }
 
@@ -453,17 +465,23 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         //var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
 
-        var color_list_menu = new Gtk.Menu ();
+        //var color_list_menu = new Gtk.Menu ();
 
         var color_menu = new Widgets.ImageMenuItem (_("Color"), "preferences-color-symbolic");
-        color_menu.set_submenu (color_list_menu);
+        //color_menu.set_submenu (color_list_menu);
         
-        Widgets.ImageMenuItem item;
-        for (int i = 30; i <= 49; i++) {
-            item = new Widgets.ImageMenuItem (Planner.utils.get_color_name (i), "mail-unread-symbolic");
-            color_list_menu.add (item);
-        }
-        color_list_menu.show_all ();
+        //  Widgets.ImageMenuItem item;
+        //  for (int i = 30; i <= 49; i++) {
+        //      item = new Widgets.ImageMenuItem (Planner.utils.get_color_name (i), "mail-unread-symbolic");
+        //      color_list_menu.add (item);
+        //  }
+        //  var icon_01 = new Gtk.Image ();
+        //  icon_01.gicon = new ThemedIcon ("mail-unread-symbolic");
+        //  icon_01.pixel_size = 16;
+
+        //  var color_1 = new
+
+        //  color_list_menu.show_all ();
 
         var move_menu = new Widgets.ImageMenuItem (_("Move project"), "planner-work-area-symbolic");
         work_areas = new Gtk.Menu ();
@@ -510,11 +528,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                if (project.is_todoist == 0) {
-                    if (Planner.database.delete_project (project.id)) {
-                        destroy ();
-                    }  
-                } else {
+                Planner.database.delete_project (project.id);
+                if (project.is_todoist == 1) {
                     Planner.todoist.delete_project (project);
                 }
             }
@@ -524,8 +539,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void open_edit_dialog () {
+        /*
         var edit_dialog = new Dialogs.ProjectSettings (project);
         edit_dialog.destroy.connect (Gtk.main_quit);
         edit_dialog.show_all ();
+        */
     }
 }

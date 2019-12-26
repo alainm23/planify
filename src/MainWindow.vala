@@ -129,11 +129,11 @@ public class MainWindow : Gtk.Window {
                     go_view (Planner.settings.get_int ("homepage-item"));
                     pane.select_item (Planner.settings.get_int ("homepage-item"));
                 }
-
+                
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
-            }   
-        
+            }
+            
             return false;
         });
 

@@ -293,7 +293,7 @@ public class Utils : GLib.Object {
         }
     }
 
-    public bool check_connection () {
+    public bool is_disconnected () {
         var host = "www.google.com";
 
         try {
@@ -305,10 +305,10 @@ public class Utils : GLib.Object {
             }
         } catch (Error e) {
             debug ("%s\n", e.message);
-            return false;
+            return true;
         }
         
-        return true;
+        return false;
     }
 
     public void set_autostart (bool active) {

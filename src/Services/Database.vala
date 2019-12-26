@@ -12,6 +12,7 @@ public class Services.Database : GLib.Object {
     public signal void project_deleted (int64 id);
     public signal void project_moved (Objects.Project project);
     public signal void update_project_count (int64 id, int items_0, int items_1);
+    public signal void project_id_updated (int64 current_id, int64 new_id);
 
     public signal void subtract_task_counter (int64 id);
     
@@ -44,26 +45,38 @@ public class Services.Database : GLib.Object {
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (int64 id);
 
-    public Database (bool skip_tables = false) {
+    public Database () {
         int rc = 0;
         db_path = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db";
 
-        if (!skip_tables) {
-            if (create_tables () != Sqlite.OK) {
-                stderr.printf ("Error creating db table: %d, %s\n", rc, db.errmsg ());
-                Gtk.main_quit ();
-            }
+        if (create_tables () != Sqlite.OK) {
+            stderr.printf ("Error creating db table: %d, %s\n", rc, db.errmsg ());
+            Gtk.main_quit ();
         }
 
         rc = Sqlite.Database.open (db_path, out db);
         rc = db.exec ("PRAGMA foreign_keys = ON;");
-        
+
         if (rc != Sqlite.OK) {
             stderr.printf ("Can't open database: %d, %s\n", rc, db.errmsg ());
             Gtk.main_quit ();
         }
-
+        
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
+    }
+
+    public void patch_database () {
+        //  if (Planner.database.column_exists ("Areas", "abc") == false) {
+        //      Planner.database.add_text_column ("Areas", "abc", "hola mundo");
+        //  }
+
+        //  if (Planner.database.column_exists ("Areas", "aaaa") == false) {
+        //      Planner.database.add_int_column ("Areas", "aaaa", 123);
+        //  }
+
+        //  if (Planner.database.column_exists ("Areas", "ascascascas") == false) {
+        //      Planner.database.add_int64_column ("Areas", "ascascascas", 1234567890);
+        //  }
     }
 
     public bool add_item_to_delete (Objects.Item item) { 
@@ -271,9 +284,23 @@ public class Services.Database : GLib.Object {
                 FOREIGN KEY (collaborators_id) REFERENCES Collaborators (id) ON DELETE CASCADE
             );
         """;
-        
+
         rc = db.exec (sql, null, null);
         debug ("Table Collaborator_States created");
+        
+        sql = """
+            CREATE TABLE IF NOT EXISTS Queue (
+                key      INTEGER PRIMARY KEY AUTOINCREMENT,
+                id       INTEGER,
+                type     TEXT,
+                temp_id  TEXT,
+                args     TEXT,
+                uuid     TEXT 
+            );
+        """;
+            
+        rc = db.exec (sql, null, null);
+        debug ("Table CurTempIds created");
 
         return rc;
     } 
@@ -309,6 +336,180 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
+    /*
+        Queue
+    */
+
+    public bool insert_queue (int64 id, string type, string temp_id, string args, string uuid) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            INSERT OR IGNORE INTO Queue (id, type, temp_id, args, uuid)
+            VALUES (?, ?, ?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, type);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (3, temp_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, args);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, uuid);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Queue?> get_all_queue () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Queue ORDER BY key;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Queue?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var a = new Objects.Queue ();
+
+            a.key = stmt.column_int (0);
+            a.id = stmt.column_int64 (1);
+            a._type = stmt.column_text (2);
+            a.temp_id = stmt.column_text (3);
+            a.args = stmt.column_text (4);
+            a.uuid = stmt.column_text (5);
+
+            all.add (a);
+        }
+
+        return all;
+    }
+
+    public void remove_queue (int key) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Queue WHERE key = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, key);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } 
+    }
+    
+    /*
+        Utils
+    */
+
+    public bool column_exists (string table, string col) {
+        Sqlite.Statement stmt;
+
+        string sql = """
+            SELECT * FROM %s LIMIT 1;
+        """.printf (table);
+
+        int res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            for (int i = 0; i < stmt.column_count (); i++) {
+                print ("column_name: %s\n".printf (stmt.column_name (i)));
+                if (stmt.column_name (i) == col) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    public void add_int_column (string table, string col, int default_value) {
+        Sqlite.Statement stmt;
+        int res;
+        string sql;
+
+        sql = """
+            ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %i;
+        """.printf (table, col, default_value);
+
+        print ("%s\n".printf (sql));
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
+    public void add_int64_column (string table, string col, int64 default_value) {
+        Sqlite.Statement stmt;
+        int res;
+        string sql;
+
+        sql = """
+            ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %s;
+        """.printf (table, col, default_value.to_string ());
+
+        print ("%s\n".printf (sql));
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
+    public void add_text_column (string table, string col, string default_value) {
+        Sqlite.Statement stmt;
+        int res;
+        string sql;
+
+        sql = """
+            ALTER TABLE %s ADD COLUMN %s TEXT DEFAULT '%s';
+        """.printf (table, col, default_value);
+
+        print ("%s\n".printf (sql));
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
     /*
         Collaborators
     */
@@ -700,7 +901,35 @@ public class Services.Database : GLib.Object {
             return false;
         }
     }
-    
+
+    public bool update_project_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Projects SET id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, new_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, current_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            project_id_updated (current_id, new_id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public bool delete_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;

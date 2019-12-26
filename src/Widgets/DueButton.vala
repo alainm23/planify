@@ -75,7 +75,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.RIGHT;
+        popover.position = Gtk.PositionType.BOTTOM;
 
         var mode_button = new Granite.Widgets.ModeButton ();
         mode_button.hexpand = true;

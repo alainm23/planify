@@ -1,9 +1,11 @@
 public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.TextView note_textview;
     private Gtk.Label note_placeholder;
+    private Gtk.Stack name_stack;
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
@@ -42,6 +44,17 @@ public class Views.Project : Gtk.EventBox {
         grid_color.halign = Gtk.Align.CENTER;
         grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
 
+        name_label = new Gtk.Label (project.name);
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        name_label.get_style_context ().add_class ("font-bold");
+        name_label.use_markup = true;
+
+        var name_eventbox = new Gtk.EventBox ();
+        name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        name_eventbox.hexpand = true;
+        name_eventbox.add (name_label);
+
         name_entry = new Gtk.Entry ();
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
@@ -49,6 +62,12 @@ public class Views.Project : Gtk.EventBox {
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("project-name-entry");
         name_entry.hexpand = true;
+
+        name_stack = new Gtk.Stack ();
+        name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        
+        name_stack.add_named (name_eventbox, "name_label");
+        name_stack.add_named (name_entry, "name_entry");
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("planner-header-symbolic");
@@ -113,21 +132,14 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_end = 24;
         top_box.margin_start = 41;
 
-        top_box.pack_start (name_entry, false, true, 0);
+        top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
         //top_box.pack_end (search_button, false, false, 0);
-
         if (project.is_todoist == 1) {
             //top_box.pack_end (add_person_button, false, false, 0);
             //top_box.pack_end (comment_button, false, false, 0);
         }
-        
         top_box.pack_end (section_stack, false, false, 0);
-        
-        var top_eventbox = new Gtk.EventBox ();
-        top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        top_eventbox.hexpand = true;
-        top_eventbox.add (top_box);
 
         note_textview = new Gtk.TextView ();
         note_textview.tooltip_text = _("Add a note");
@@ -213,7 +225,7 @@ public class Views.Project : Gtk.EventBox {
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-        main_box.pack_start (top_eventbox, false, false, 0);
+        main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         //main_box.pack_start (infobar, false, false, 0);
@@ -241,6 +253,34 @@ public class Views.Project : Gtk.EventBox {
             item.reveal_child = true;
         });
 
+        name_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                name_stack.visible_child_name = "name_entry";
+
+                name_entry.grab_focus_without_selecting ();
+
+                if (name_entry.cursor_position < name_entry.text.length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
+            }
+
+            return false;
+        });
+
+        name_entry.changed.connect (() => {
+            save ();
+        });
+
+        name_entry.activate.connect (() => {
+            name_stack.visible_child_name = "name_label";
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            name_stack.visible_child_name = "name_label";
+
+            return false;
+        });
+        
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 if (popover == null) {
@@ -249,16 +289,6 @@ public class Views.Project : Gtk.EventBox {
 
                 popover.show_all ();
             }
-        });
-
-        top_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                var edit_dialog = new Dialogs.ProjectSettings (project);
-                edit_dialog.destroy.connect (Gtk.main_quit);
-                edit_dialog.show_all ();
-            }
-
-            return false;
         });
 
         note_textview.focus_in_event.connect (() => {
@@ -279,10 +309,6 @@ public class Views.Project : Gtk.EventBox {
 
         note_textview.buffer.changed.connect (() => {
             save (false);
-        });
-
-        name_entry.changed.connect (() => {
-            save ();
         });
 
         section_button.clicked.connect (() => {
@@ -326,6 +352,7 @@ public class Views.Project : Gtk.EventBox {
             if (project != null && p.id == project.id) {
                 project = p;
 
+                name_label.label = p.name;
                 name_entry.text = p.name;
             }
         });
@@ -469,14 +496,26 @@ public class Views.Project : Gtk.EventBox {
                 return false;
             });
         });
+
+        Planner.database.project_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (project.id == current_id) {
+                    project.id = new_id;
+                }
+
+                return false;
+            });
+        });
     }
 
-    private void save (bool online=true) {
+    private void save (bool todoist=true) {
         if (project != null) {
             project.note = note_textview.buffer.text;
             project.name = name_entry.text;
 
-            if (online) {
+            name_label.label = name_entry.text;
+
+            if (todoist) {
                 project.save ();
             } else {
                 project.save_local ();
@@ -599,7 +638,7 @@ public class Views.Project : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        //var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
+        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 
         var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
@@ -614,7 +653,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
-        //popover_grid.add (edit_menu);
+        popover_grid.add (edit_menu);
         //popover_grid.add (archive_menu);
         popover_grid.add (delete_menu);
         popover_grid.add (separator_01);
@@ -626,17 +665,20 @@ public class Views.Project : Gtk.EventBox {
             settings_button.active = false;
         });
 
-        /*
+    
         edit_menu.clicked.connect (() => {
             if (project != null) {
-                var edit_dialog = new Dialogs.ProjectSettings (project);
-                edit_dialog.destroy.connect (Gtk.main_quit);
-                edit_dialog.show_all ();
+                name_stack.visible_child_name = "name_entry";
+
+                name_entry.grab_focus_without_selecting ();
+
+                if (name_entry.cursor_position < name_entry.text.length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
             }
 
             popover.popdown ();
         });
-        */
 
         show_menu.clicked.connect (() => {
             if (completed_revealer.reveal_child) {

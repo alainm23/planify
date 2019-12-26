@@ -79,7 +79,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.RIGHT;
+        popover.position = Gtk.PositionType.BOTTOM;
 
         stack = new Gtk.Stack ();
         stack.expand = true;

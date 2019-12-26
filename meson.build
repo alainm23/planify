@@ -89,6 +89,7 @@ executable(
     'src/Objects/Label.vala',
     'src/Objects/Collaborator.vala',
     'src/Objects/Reminder.vala',
+    'src/Objects/Queue.vala',
     dependencies: [
         dependency('gee-0.8'),
         dependency('gobject-2.0'),

@@ -63,7 +63,11 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.RIGHT;
+        popover.position = Gtk.PositionType.BOTTOM;
+
+        var label_entry = new Gtk.Entry ();
+        label_entry.margin = 3;
+        label_entry.placeholder_text = _("Type a label");
 
         listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
@@ -98,6 +102,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         popover_grid.width_request = 235;
         popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        //popover_grid.add (label_entry);
         popover_grid.add (listbox_scrolled);
         popover_grid.add (edit_labels);
 

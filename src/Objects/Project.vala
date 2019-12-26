@@ -27,15 +27,13 @@ public class Objects.Project : GLib.Object {
         }
 
         timeout_id = Timeout.add (2500, () => {
-            new Thread<void*> ("save_timeout", () => {
-                Planner.database.update_project (this);
-                if (is_todoist == 1) {
-                    Planner.todoist.update_project (this);
-                }
+            Planner.database.update_project (this);
+            if (is_todoist == 1) {
+                Planner.todoist.update_project (this);
+            }
 
-                return null;
-            });
-
+            Source.remove (timeout_id);
+            timeout_id = 0;
             return false;
         });
     }
@@ -47,13 +45,33 @@ public class Objects.Project : GLib.Object {
         }
 
         timeout_id_2 = Timeout.add (2500, () => {
-            new Thread<void*> ("save_local_timeout", () => {
-                Planner.database.update_project (this);
+            Planner.database.update_project (this);
 
-                return null;
-            });
-
+            Source.remove (timeout_id_2);
+            timeout_id_2 = 0;
             return false;
         });
+    }
+
+    public string to_json () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (this.id);
+
+        builder.set_member_name ("name");
+        builder.add_string_value (this.name);
+
+        builder.set_member_name ("color");
+        builder.add_int_value (this.color);
+               
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 }

@@ -126,6 +126,11 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
         sync_image.get_style_context ().add_class ("sync-image-rotate");
         sync_image.pixel_size = 16;
+
+        var error_image = new Gtk.Image ();
+        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
+        error_image.pixel_size = 16;
+
         sync_button.image = sync_image;
 
         var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
@@ -341,7 +346,20 @@ public class Widgets.Pane : Gtk.EventBox {
                 return false;
             });
         });
-    } 
+
+        var network_monitor = GLib.NetworkMonitor.get_default ();
+        network_monitor.network_changed.connect (() => {
+            var network_available = NetworkMonitor.get_default ().get_network_available ();
+
+            if (network_available) {
+                sync_button.tooltip_text = _("Sync");
+                sync_button.image = sync_image;
+            } else {
+                sync_button.image = error_image;
+                sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect"));
+            }
+        });
+    }
 
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);

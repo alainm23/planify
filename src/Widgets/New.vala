@@ -528,20 +528,21 @@ public class Widgets.New : Gtk.Revealer {
             project.name = name_entry.text;
             project.color = color_selected;
 
-            project.id = Planner.utils.generate_id ();
-                
             if (source_combobox.active == 0) {
+                project.id = Planner.utils.generate_id ();
                 if (Planner.database.insert_project (project)) {
                     cancel ();
                 }
             } else { 
                 project.is_todoist = 1;
-
+                Planner.todoist.add_project (project);
+                /*
                 if (Planner.utils.check_connection ()) {
-                    Planner.todoist.add_project (project);
+                    
                 } else {
                     
                 }
+                */
             }
         }
     }
