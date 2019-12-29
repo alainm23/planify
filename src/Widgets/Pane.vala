@@ -9,6 +9,10 @@ public class Widgets.Pane : Gtk.EventBox {
     private Gtk.ListBox area_listbox;
 
     private Gtk.Button add_button;
+    private Gtk.Button sync_button;
+
+    private Gtk.Image sync_image;
+    private Gtk.Image error_image;
 
     public signal void activated (int id);
     private uint timeout;
@@ -112,7 +116,7 @@ public class Widgets.Pane : Gtk.EventBox {
         settings_image.pixel_size = 14;
         settings_button.image = settings_image;
 
-        var sync_button = new Gtk.Button ();
+        sync_button = new Gtk.Button ();
         sync_button.can_focus = false;
         sync_button.tooltip_text = _("Sync");
         sync_button.valign = Gtk.Align.CENTER;
@@ -122,12 +126,12 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
-        var sync_image = new Gtk.Image ();
+        sync_image = new Gtk.Image ();
         sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
         sync_image.get_style_context ().add_class ("sync-image-rotate");
         sync_image.pixel_size = 16;
 
-        var error_image = new Gtk.Image ();
+        error_image = new Gtk.Image ();
         error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
         error_image.pixel_size = 16;
 
@@ -178,7 +182,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (inbox_row);
         listbox.add (today_row);
         listbox.add (upcoming_row);
-        
+
         var top_eventbox = new Gtk.EventBox ();
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
 
@@ -242,6 +246,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_all_areas ();
         add_all_projects ();
         build_drag_and_drop ();
+        check_network ();
 
         listbox.row_selected.connect ((row) => {
             if (row != null) {
@@ -349,16 +354,20 @@ public class Widgets.Pane : Gtk.EventBox {
 
         var network_monitor = GLib.NetworkMonitor.get_default ();
         network_monitor.network_changed.connect (() => {
-            var network_available = NetworkMonitor.get_default ().get_network_available ();
-
-            if (network_available) {
-                sync_button.tooltip_text = _("Sync");
-                sync_button.image = sync_image;
-            } else {
-                sync_button.image = error_image;
-                sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect"));
-            }
+            check_network ();
         });
+    }
+
+    private void check_network () {
+        var available = GLib.NetworkMonitor.get_default ().network_available;
+
+        if (available) {
+            sync_button.tooltip_text = _("Sync");
+            sync_button.image = sync_image;
+        } else {
+            sync_button.image = error_image;
+            sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect"));
+        }
     }
 
     private void build_drag_and_drop () {

@@ -165,7 +165,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox_revealer.add (listbox);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.margin_bottom = 6;
+        main_box.margin_bottom = 18;
         main_box.hexpand = true;
         main_box.pack_start (motion_section_revealer, false, false, 0);
         main_box.pack_start (top_eventbox, false, false, 0);

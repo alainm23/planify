@@ -3,6 +3,7 @@ public class Views.Project : Gtk.EventBox {
 
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
+    private Gtk.Revealer action_revealer;
     private Gtk.TextView note_textview;
     private Gtk.Label note_placeholder;
     private Gtk.Stack name_stack;
@@ -46,7 +47,7 @@ public class Views.Project : Gtk.EventBox {
 
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        name_label.get_style_context ().add_class ("title-label");
         name_label.get_style_context ().add_class ("font-bold");
         name_label.use_markup = true;
 
@@ -131,6 +132,28 @@ public class Views.Project : Gtk.EventBox {
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 24;
         top_box.margin_start = 41;
+
+        var submit_button = new Gtk.Button.with_label (_("Save"));
+        submit_button.sensitive = false;
+        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.get_style_context ().add_class ("new-item-action-button");
+
+        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("new-item-action-button");
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.halign = Gtk.Align.START;
+        action_grid.margin_top = 6;
+        action_grid.column_homogeneous = true;
+        action_grid.column_spacing = 6;
+        action_grid.margin_start = 40;
+        action_grid.margin_bottom = 6;
+        action_grid.add (cancel_button);
+        action_grid.add (submit_button);
+
+        action_revealer = new Gtk.Revealer ();
+        action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        action_revealer.add (action_grid);
 
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
@@ -226,6 +249,7 @@ public class Views.Project : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         //main_box.pack_start (infobar, false, false, 0);
@@ -253,8 +277,18 @@ public class Views.Project : Gtk.EventBox {
             item.reveal_child = true;
         });
 
+        submit_button.clicked.connect (() => {
+            save (true);
+        });
+
+        cancel_button.clicked.connect (() => {
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
+        });
+
         name_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
+                action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
                 name_entry.grab_focus_without_selecting ();
@@ -267,20 +301,26 @@ public class Views.Project : Gtk.EventBox {
             return false;
         });
 
-        name_entry.changed.connect (() => {
-            save ();
-        });
-
         name_entry.activate.connect (() => {
-            name_stack.visible_child_name = "name_label";
+            save (true);
         });
 
-        name_entry.focus_out_event.connect (() => {
-            name_stack.visible_child_name = "name_label";
+        name_entry.changed.connect (() => {
+            if (name_entry.text != "") {
+                submit_button.sensitive = true;
+            } else {
+                submit_button.sensitive = false;
+            }
+        });
+
+        name_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                save (true);
+            }
 
             return false;
         });
-        
+
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 if (popover == null) {
@@ -514,6 +554,8 @@ public class Views.Project : Gtk.EventBox {
             project.name = name_entry.text;
 
             name_label.label = name_entry.text;
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
 
             if (todoist) {
                 project.save ();
@@ -668,6 +710,7 @@ public class Views.Project : Gtk.EventBox {
     
         edit_menu.clicked.connect (() => {
             if (project != null) {
+                action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
                 name_entry.grab_focus_without_selecting ();

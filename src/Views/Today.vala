@@ -16,7 +16,7 @@ public class Views.Today : Gtk.EventBox {
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.pixel_size = 21; 
+        icon_image.pixel_size = 19; 
 
         var hour = new GLib.DateTime.now_local ().get_hour ();
         if (hour >= 18 || hour <= 6) {
@@ -28,7 +28,7 @@ public class Views.Today : Gtk.EventBox {
         }
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
-        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+        title_label.get_style_context ().add_class ("title-label");
         //title_label.get_style_context ().add_class ("today");
         title_label.use_markup = true;
 

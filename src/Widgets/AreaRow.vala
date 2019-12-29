@@ -120,7 +120,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 38;
+        action_grid.margin_start = 40;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);

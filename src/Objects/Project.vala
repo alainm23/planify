@@ -21,21 +21,10 @@ public class Objects.Project : GLib.Object {
     private uint timeout_id_2 = 0;
 
     public void save () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-            timeout_id = 0;
+        Planner.database.update_project (this);
+        if (is_todoist == 1) {
+            Planner.todoist.update_project (this);
         }
-
-        timeout_id = Timeout.add (2500, () => {
-            Planner.database.update_project (this);
-            if (is_todoist == 1) {
-                Planner.todoist.update_project (this);
-            }
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
-            return false;
-        });
     }
 
     public void save_local () {

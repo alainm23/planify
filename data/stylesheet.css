@@ -692,17 +692,24 @@ paned > separator {
     border-bottom: none;
 }
 
+.menu-button {
+ padding: 3px;
+}
+
 .project-name-entry {
+    font-size: 21px;
     padding-left: 0px;
-    border: none;
     background-color: @projectview_color;
 }
 
 .project-name-entry:focus {
-    border-color: transparent;
+    border-bottom: 1px solid alpha (@colorAccent, 0.8);
     box-shadow: none;
 }
 
+.title-label {
+    font-size: 21px;
+}
 
 .label {
     font-size: 14px;

@@ -27,7 +27,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         var due_label = new Granite.HeaderLabel (_("Due:"));
         var due_datepicker = new Granite.Widgets.DatePicker ();
-
+ 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
         var color_30 = new Gtk.RadioButton (null);

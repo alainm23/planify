@@ -65,6 +65,7 @@ executable(
     'src/Widgets/ReminderRow.vala',
     'src/Widgets/TimePicker.vala',
     'src/Widgets/InfoBar.vala',
+    'src/Widgets/ColorGrid.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',

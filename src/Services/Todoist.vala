@@ -700,6 +700,21 @@ public class Services.Todoist : GLib.Object {
 
                     builder.end_object ();
                 builder.end_object ();
+            } else if (q._type == "project_delete") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("project_delete");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.end_object ();
+                builder.end_object ();
             }
 
             builder.end_object ();
@@ -1033,34 +1048,39 @@ public class Services.Todoist : GLib.Object {
 
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
-                    try {
-                        var parser = new Json.Parser ();
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+                    var parser = new Json.Parser ();
+                    parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        var node = parser.get_root ().get_object ();
+                    var node = parser.get_root ().get_object ();
 
-                        var sync_status = node.get_object_member ("sync_status");
-                        var uuid_member = sync_status.get_member (uuid);
+                    var sync_status = node.get_object_member ("sync_status");
+                    var uuid_member = sync_status.get_member (uuid);
 
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            string sync_token = node.get_string_member ("sync_token");
-                            Planner.settings.set_string ("todoist-sync-token", sync_token);
+                    if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                        string sync_token = node.get_string_member ("sync_token");
+                        Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            //if (Planner.database.delete_project (project.id)) {
-                            print ("Eliminado: %s\n".printf (project.name));
-                            //project_deleted_completed (project.id);
-                            //}
-                        } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                        //if (Planner.database.delete_project (project.id)) {
+                        print ("Eliminado: %s\n".printf (project.name));
+                        //project_deleted_completed (project.id);
+                        //}
+                    } else {
+                        //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                        //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
-                            //project_deleted_error (project.id, http_code, error_message);
-                        }
-                    } catch (Error e) {
-                        //project_deleted_error (project.id, (int32) mess.status_code, e.message);
-                    }  
+                        //project_deleted_error (project.id, http_code, error_message);
+                    }
                 } else {
-                    //project_deleted_error (project.id, (int32) mess.status_code, _("Connection error"));
+                    if (Planner.utils.is_disconnected ()) {
+                        if (Planner.database.insert_queue (
+                            project.id, "project_delete", "", project.to_json (), uuid)) {
+                                //project_updated_completed (project.id);
+                        }
+                    } else {
+                        show_message (_("Delete todoist project error"), 
+                                      _("Status Code: %u".printf (mess.status_code)),
+                                      "dialog-error");
+                    }
                 }
             });
 
