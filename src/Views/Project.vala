@@ -245,6 +245,7 @@ public class Views.Project : Gtk.EventBox {
         infobar.show_close_button = true;
         infobar.message_type = Gtk.MessageType.QUESTION;
         */
+        var new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -255,7 +256,7 @@ public class Views.Project : Gtk.EventBox {
         //main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
-        //main_box.pack_start (motion_last_grid, false, false, 0);
+        main_box.pack_start (new_section, false, true, 0);
         main_box.pack_start (completed_revealer, false, false, 12);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -352,40 +353,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         section_button.clicked.connect (() => {
-            var section = new Objects.Section ();
-            section.name = _("New Section");
-            section.project_id = project.id;
-            section.is_todoist = project.is_todoist;
-
-            if (project.is_todoist == 0) {
-                Planner.database.insert_section (section);
-            } else {
-                temp_id_mapping = Planner.utils.generate_id ();
-                section.is_todoist = 1;
-
-                Planner.todoist.add_section (section, temp_id_mapping);
-            }
-        });
-
-        Planner.todoist.section_added_started.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_loading";
-            }
-        });
-
-        Planner.todoist.section_added_completed.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_button";
-                temp_id_mapping = 0;
-            }
-        });
-
-        Planner.todoist.section_added_error.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_button";
-                temp_id_mapping = 0;
-                print ("Add Section Error\n");
-            }
+            new_section.reveal = !new_section.reveal;
         });
 
         Planner.database.project_updated.connect ((p) => {
@@ -402,8 +370,6 @@ public class Views.Project : Gtk.EventBox {
                 var row = new Widgets.SectionRow (section);
                 section_listbox.add (row);
                 section_listbox.show_all ();
-
-                row.set_focus = true;
             }
         });
 

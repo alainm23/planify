@@ -3,7 +3,6 @@ public class Widgets.Toast : Gtk.Revealer {
 
     private Gtk.Label simple_message_label;
     private Gtk.Label delete_message_label;
-    private Gtk.Label clear_message_label;
 
     private uint timeout_id;
 

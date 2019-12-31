@@ -240,8 +240,6 @@ public class Views.Inbox : Gtk.EventBox {
                 var row = new Widgets.SectionRow (section);
                 section_listbox.add (row);
                 section_listbox.show_all ();
-
-                row.set_focus = true;
             }
         });
 

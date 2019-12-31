@@ -172,8 +172,7 @@ public class Widgets.PopoverButton : Gtk.Button {
         var label = new Gtk.Label (text);
         label.halign = Gtk.Align.START;
         label.hexpand = true;
-        label.margin_start = 6;
-
+        
         var grid = new Gtk.Grid ();
         grid.margin_start = 6;
 

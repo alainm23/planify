@@ -20,6 +20,7 @@ public class Services.Database : GLib.Object {
     public signal void section_deleted (Objects.Section section);
     public signal void section_updated (Objects.Section section);
     public signal void section_moved (Objects.Section section, int64 project_id, int64 old_project_id);
+    public signal void section_id_updated (int64 current_id, int64 new_id);
 
     public signal void item_added (Objects.Item item);
     public signal void item_added_with_index (Objects.Item item, int index);
@@ -33,6 +34,7 @@ public class Services.Database : GLib.Object {
     public signal void item_completed (Objects.Item item);
     public signal void item_moved (Objects.Item item, int64 project_id, int64 old_project_id);
     public signal void item_section_moved (Objects.Item item, int64 section_id, int64 old_section_id);
+    public signal void item_id_updated (int64 current_id, int64 new_id);
     
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
@@ -91,9 +93,8 @@ public class Services.Database : GLib.Object {
     public void remove_item_to_delete () {
         new Thread<void*> ("remove_item_to_delete", () => {
             foreach (var item in items_to_delete) {
-                if (item.is_todoist == 0) {
-                    delete_item (item);
-                } else {
+                delete_item (item);
+                if (item.is_todoist == 1) {
                     Planner.todoist.add_delete_item (item);
                 }
             }
@@ -290,12 +291,12 @@ public class Services.Database : GLib.Object {
         
         sql = """
             CREATE TABLE IF NOT EXISTS Queue (
-                key      INTEGER PRIMARY KEY AUTOINCREMENT,
-                id       INTEGER,
-                type     TEXT,
-                temp_id  TEXT,
-                args     TEXT,
-                uuid     TEXT 
+                uuid       TEXT PRIMARY KEY,
+                object_id  INTEGER,
+                query      TEXT,
+                temp_id    TEXT,
+                args       TEXT,
+                date_added TEXT
             );
         """;
             
@@ -340,32 +341,35 @@ public class Services.Database : GLib.Object {
         Queue
     */
 
-    public bool insert_queue (int64 id, string type, string temp_id, string args, string uuid) {
+    public bool insert_queue (Objects.Queue queue) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            INSERT OR IGNORE INTO Queue (id, type, temp_id, args, uuid)
-            VALUES (?, ?, ?, ?, ?);
+            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, date_added)
+            VALUES (?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, id);
+        res = stmt.bind_text (1, queue.uuid);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, type);
+        res = stmt.bind_int64 (2, queue.object_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, queue.query);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_text (3, temp_id);
+        res = stmt.bind_text (4, queue.temp_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (4, args);
+        res = stmt.bind_text (5, queue.args);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (5, uuid);
+        res = stmt.bind_text (6, queue.date_added);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -380,9 +384,9 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-
+        
         sql = """
-            SELECT * FROM Queue ORDER BY key;
+            SELECT * FROM Queue ORDER BY date_added;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -390,15 +394,15 @@ public class Services.Database : GLib.Object {
 
         var all = new Gee.ArrayList<Objects.Queue?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var a = new Objects.Queue ();
-
-            a.key = stmt.column_int (0);
-            a.id = stmt.column_int64 (1);
-            a._type = stmt.column_text (2);
+            
+            a.uuid = stmt.column_text (0);
+            a.object_id = stmt.column_int64 (1);
+            a.query = stmt.column_text (2);
             a.temp_id = stmt.column_text (3);
             a.args = stmt.column_text (4);
-            a.uuid = stmt.column_text (5);
+            a.date_added = stmt.column_text (4);
 
             all.add (a);
         }
@@ -406,19 +410,19 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public void remove_queue (int key) {
+    public void remove_queue (string uuid) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            DELETE FROM Queue WHERE key = ?;
+            DELETE FROM Queue WHERE uuid = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, key);
+        res = stmt.bind_text (1, uuid);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -896,6 +900,62 @@ public class Services.Database : GLib.Object {
         if (res == Sqlite.DONE) {
             project_updated (project);
             
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool update_item_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, new_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, current_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            item_id_updated (current_id, new_id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool update_section_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Sections SET id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, new_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, current_id);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.step ();
+
+        if (res == Sqlite.DONE) {
+            section_id_updated (current_id, new_id);
             return true;
         } else {
             return false;

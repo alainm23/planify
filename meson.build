@@ -66,7 +66,8 @@ executable(
     'src/Widgets/TimePicker.vala',
     'src/Widgets/InfoBar.vala',
     'src/Widgets/ColorGrid.vala',
-    
+    'src/Widgets/NewSection.vala',
+
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -80,7 +81,6 @@ executable(
     'src/Views/Project.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
-    'src/Dialogs/ProjectSettings.vala',
     'src/Dialogs/Preferences.vala',
     
     'src/Objects/Project.vala',

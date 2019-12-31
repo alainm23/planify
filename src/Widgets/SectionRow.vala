@@ -17,13 +17,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
 
-    public bool set_focus {
-        set {
-            name_stack.visible_child_name = "name_entry";
-            name_entry.grab_focus ();
-        }
-    }
-
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -426,6 +419,16 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+
+        Planner.database.section_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (section.id == current_id) {
+                    section.id = new_id;
+                }
+
+                return false;
+            });
+        });
     }
 
     private void activate_menu () {
@@ -437,30 +440,37 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             child.destroy ();
         }
         
-        var item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
-        item_menu.activate.connect (() => {
-            Planner.database.move_section (section, Planner.settings.get_int64 ("inbox-project"));
+        Widgets.ImageMenuItem item_menu;
+        int is_todoist = 0;
+        if (Planner.settings.get_boolean ("inbox-project-sync")) {
+            is_todoist = 1;
+        }
 
-            if (section.is_todoist == 1) {
-                Planner.todoist.move_section (section, Planner.settings.get_int64 ("inbox-project"));
-            }
-        });
-        
-        projects_menu.add (item_menu);
+        if (section.is_todoist == is_todoist) {
+            item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+            item_menu.activate.connect (() => {
+                Planner.database.move_section (section, Planner.settings.get_int64 ("inbox-project"));
+                if (section.is_todoist == 1) {
+                    Planner.todoist.move_section (section, Planner.settings.get_int64 ("inbox-project"));
+                }
+            });
+
+            projects_menu.add (item_menu);
+        }
 
         foreach (var project in Planner.database.get_all_projects ()) {
             if (project.inbox_project == 0 && section.project_id != project.id) {
-                item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
-                item_menu.activate.connect (() => {
-                    Planner.database.move_section (section, project.id);
+                if (project.is_todoist == section.is_todoist) {
+                    item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic"); 
+                    item_menu.activate.connect (() => {
+                        Planner.database.move_section (section, project.id);
+                        if (section.is_todoist == 1) {
+                            Planner.todoist.move_section (section, project.id);
+                        }
+                    });
 
-                    if (section.is_todoist == 1) {
-                        print ("Se ejecuta aqui tambien\n");
-                        Planner.todoist.move_section (section, project.id);
-                    }
-                });
-
-                projects_menu.add (item_menu);
+                    projects_menu.add (item_menu);
+                }
             }
         }
 
@@ -521,9 +531,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                if (section.is_todoist == 0) {
-                    Planner.database.delete_section (section);
-                } else {
+                Planner.database.delete_section (section);
+                if (section.is_todoist == 1) {
                     Planner.todoist.delete_section (section);
                 }
             }
@@ -560,10 +569,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             name_label.label = name_entry.text;
             section.name = name_entry.text;
 
-            section.save ();
-
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+
+            section.save ();
         }
     }
 

@@ -37,6 +37,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var loading_revealer = new Gtk.Revealer ();
         loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         loading_revealer.add (loading_spinner);
+        //loading_revealer.reveal_child = true;
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 5;
@@ -61,8 +62,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_grid.add (content_entry);
         
         var grid = new Gtk.Grid ();
-        grid.margin_start = 14;
-        grid.column_spacing = 6;
+        grid.margin_start = 10;
+        grid.column_spacing = 11;
         grid.add (loading_revealer);
         grid.add (content_grid);
 
@@ -190,7 +191,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 Planner.todoist.add_item (item, index, has_index, temp_id_mapping);
             } else {
                 item.id = Planner.utils.generate_id ();
-
                 if (Planner.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
 

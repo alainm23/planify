@@ -38,9 +38,8 @@ public class Objects.Item : GLib.Object {
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
             new Thread<void*> ("save_timeout", () => {
-                if (this.is_todoist == 0) {
-                    Planner.database.update_item (this);
-                } else {
+                Planner.database.update_item (this);
+                if (this.is_todoist == 1) {
                     Planner.todoist.update_item (this);
                 }
 
@@ -110,5 +109,39 @@ public class Objects.Item : GLib.Object {
 
             //Planner.database.delete_item (this);
         }
+    }
+
+    public string to_json () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (this.id);
+
+        builder.set_member_name ("project_id");
+        builder.add_int_value (this.project_id);
+
+        builder.set_member_name ("section_id");
+        builder.add_int_value (this.section_id);
+
+        builder.set_member_name ("parent_id");
+        builder.add_int_value (this.parent_id);
+
+        builder.set_member_name ("content");
+        builder.add_string_value (this.content);
+
+        builder.set_member_name ("checked");
+        builder.add_int_value (this.checked);
+        
+        builder.set_member_name ("due_date");
+        builder.add_string_value (this.due_date);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+	    Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 }

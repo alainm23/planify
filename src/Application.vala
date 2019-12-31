@@ -71,7 +71,7 @@ public class Planner : Gtk.Application {
         }
 
         main_window = new MainWindow (this);
-
+        
         int window_x, window_y;
         var rect = Gtk.Allocation ();
 
@@ -98,7 +98,7 @@ public class Planner : Gtk.Application {
                 main_window.destroy ();
             }
         });
-
+        
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
             //var item = Application.database.get_item_by_id (parameter.get_int64 ());

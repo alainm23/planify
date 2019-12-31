@@ -53,7 +53,7 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
+        
         var projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
         projectview_header.decoration_layout = ":";
@@ -195,7 +195,7 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "inbox-view";
             }
         });
-
+        
         magic_button.clicked.connect (() => {
             visible_child_name = stack.visible_child_name;
             
@@ -289,7 +289,7 @@ public class MainWindow : Gtk.Window {
     public void show_quick_find () {
         quick_find.reveal_toggled ();
     }
-
+       
     private void go_view (int id) {
         if (id == 0) {
             if (inbox_view == null) {
@@ -386,7 +386,7 @@ public class MainWindow : Gtk.Window {
     private void update_badge_count () {
         int badge_count = Planner.settings.get_enum ("badge-count");
         int count = 0;
-
+        
         if (badge_count == 1) {
             count = Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
         } else if (badge_count == 2) {

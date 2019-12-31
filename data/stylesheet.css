@@ -643,7 +643,7 @@ paned > separator {
 }
 
 .new-item-action-button {
-    padding: 0px 6px 2px 6px;
+    font-size: 12px;
 }
 
 .check-eventbox { 

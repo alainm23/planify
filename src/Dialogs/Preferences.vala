@@ -30,6 +30,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
+        //stack.add_named (get_about_widget (), "about");
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
@@ -572,6 +573,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
     
+    //  private Gtk.Widget get_about_widget () {
+        
+    //  }
+
     private void add_all_labels (Gtk.ListBox listbox)  {           
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {
             var row = new Widgets.LabelRow (label);
