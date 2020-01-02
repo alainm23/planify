@@ -26,7 +26,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
-        //stack_add_named (get_todoist_widget (), "todoist");
+        stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
@@ -136,7 +136,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         todoist_item.activated.connect (() => {
             if (Planner.settings.get_boolean ("todoist-account")) {
-                stack.visible_child_name = "general";
+                stack.visible_child_name = "todoist";
             } else {
                 var todoistOAuth = new Dialogs.TodoistOAuth ();
                 todoistOAuth.show_all ();
@@ -489,11 +489,55 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
-    /*
     private Gtk.Widget get_todoist_widget () {
+        var top_box = new PreferenceTopBox ("planner-todoist", _("Todoist"));
 
+        Granite.Widgets.Avatar user_avatar;
+        if (Planner.settings.get_string ("todoist-user-image-id") != "") {
+            user_avatar = new Granite.Widgets.Avatar.from_file (
+                GLib.Path.build_filename (
+                    Planner.utils.AVATARS_FOLDER, 
+                    Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
+                ),
+                64
+            );
+        } else {
+            user_avatar = new Granite.Widgets.Avatar.with_default_icon (64);
+        }
+
+        user_avatar.margin_top = 12;
+
+        var username_label = new Gtk.Label (Planner.settings.get_string ("user-name"));
+        username_label.margin_top = 6;
+        username_label.get_style_context ().add_class ("h3");
+
+        var email_label = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        email_label.get_style_context ().add_class ("dim-label");
+
+        var last_update = new Gtk.Label (_("Last successful sync: %s".printf (
+            Planner.utils.get_relative_datetime_from_string (Planner.settings.get_string ("todoist-last-sync"))
+        )));
+        last_update.margin_top = 12;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        var run_background_switch = new PreferenceItemSwitch ("Todoist Sync", Planner.settings.get_boolean ("run-in-background"));
+        run_background_switch.margin_top = 24;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (user_avatar, false, false, 0);
+        main_box.pack_start (username_label, false, false, 0);
+        main_box.pack_start (email_label, false, false, 0);
+        main_box.pack_start (last_update, false, false, 0);
+        //main_box.pack_start (run_background_switch, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        return main_box;
     }
-    */
 
     private Gtk.Widget get_calendar_widget () {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));

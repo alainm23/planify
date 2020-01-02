@@ -243,8 +243,6 @@ public class Widgets.Pane : Gtk.EventBox {
         //main_revealer.add (stack);
         
         add (stack);
-        add_all_areas ();
-        add_all_projects ();
         build_drag_and_drop ();
         check_network ();
 

@@ -410,6 +410,12 @@ public class Utils : GLib.Object {
         }
     }
 
+    public string get_relative_datetime_from_string (string date) {
+        return Granite.DateTime.get_relative_datetime (
+            new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ())
+        );
+    }
+
     public string get_relative_date_from_string (string due) {
         var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
         return get_relative_date_from_date (date);

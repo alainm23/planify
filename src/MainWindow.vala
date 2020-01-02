@@ -130,6 +130,12 @@ public class MainWindow : Gtk.Window {
                     pane.select_item (Planner.settings.get_int ("homepage-item"));
                 }
                 
+                // Run Todoisr Sync server
+                Planner.todoist.run_server ();
+
+                pane.add_all_areas ();
+                pane.add_all_projects ();
+
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }
@@ -141,8 +147,6 @@ public class MainWindow : Gtk.Window {
             if (index == 0) {
                 // Save user name
                 Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
-
-                // To do: Save user photo
                 // To do: Create a tutorial project
                 
                 // Create Inbox Project
@@ -280,6 +284,11 @@ public class MainWindow : Gtk.Window {
                 Planner.utils.apply_theme_changed ();
             } else if (key == "badge-count") {
                 set_badge_visible ();
+            } else if (key == "todoist-sync-token") {
+                Planner.settings.set_string (
+                    "todoist-last-sync",
+                    new GLib.DateTime.now_local ().to_string ()
+                );
             }
         });
 

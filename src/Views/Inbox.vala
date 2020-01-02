@@ -162,11 +162,14 @@ public class Views.Inbox : Gtk.EventBox {
         Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
         section_listbox.drag_data_received.connect (on_drag_section_received);
 
+        var new_section = new Widgets.NewSection (project_id, is_todoist);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);        
         main_box.pack_start (listbox, false, false, 0);
+        main_box.pack_start (new_section, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
         main_box.pack_start (completed_revealer, false, false, 12);
 
@@ -200,46 +203,16 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         section_button.clicked.connect (() => {
-            var section = new Objects.Section ();
-            section.name = _("New Section");
-            section.project_id = project_id;
-
-            if (is_todoist == 0) {
-                Planner.database.insert_section (section);
-            } else {
-                temp_id_mapping = Planner.utils.generate_id ();
-                section.is_todoist = 1;
-
-                Planner.todoist.add_section (section, temp_id_mapping);
-            }
-        });
-
-        Planner.todoist.section_added_started.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_loading";
-            }
-        });
-
-        Planner.todoist.section_added_completed.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_button";
-                temp_id_mapping = 0;
-            }
-        });
-
-        Planner.todoist.section_added_error.connect ((id) => {
-            if (temp_id_mapping == id) {
-                section_stack.visible_child_name = "section_button";
-                temp_id_mapping = 0;
-                print ("Add Section Error\n");
-            }
+            new_section.reveal = !new_section.reveal;
         });
 
         Planner.database.section_added.connect ((section) => {
             if (project_id == section.project_id) {
                 var row = new Widgets.SectionRow (section);
-                section_listbox.add (row);
+                section_listbox.insert (row, 0);
                 section_listbox.show_all ();
+
+                update_section_order ();
             }
         });
 

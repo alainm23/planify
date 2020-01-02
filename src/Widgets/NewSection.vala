@@ -75,6 +75,8 @@ public class Widgets.NewSection : Gtk.Revealer {
         separator.margin_bottom = 6;
 
         var main_grid = new Gtk.Grid ();
+        main_grid.margin_top = 6;
+        main_grid.margin_bottom = 12;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_grid);
         main_grid.add (separator);
@@ -152,8 +154,6 @@ public class Widgets.NewSection : Gtk.Revealer {
 
                 Planner.todoist.add_section (section, temp_id_mapping);
             }
-
-            reveal = false;
         }
     }
 }

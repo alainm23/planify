@@ -113,6 +113,20 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void run_server () {
+        if (Planner.settings.get_boolean ("todoist-account")) {
+            sync ();
+        }
+
+        Timeout.add_seconds (15 * 60, () => {
+            if (Planner.settings.get_boolean ("todoist-account")) {
+                sync ();
+            }
+
+            return true;
+        });
+    }
+
     public void get_todoist_token (string url) {
         sync_started ();
         new Thread<void*> ("get_todoist_token", () => {

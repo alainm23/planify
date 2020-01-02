@@ -255,8 +255,8 @@ public class Views.Project : Gtk.EventBox {
         main_box.pack_start (motion_revealer, false, false, 0);
         //main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
-        main_box.pack_start (section_listbox, false, false, 0);
         main_box.pack_start (new_section, false, true, 0);
+        main_box.pack_start (section_listbox, false, false, 0);
         main_box.pack_start (completed_revealer, false, false, 12);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -368,8 +368,10 @@ public class Views.Project : Gtk.EventBox {
         Planner.database.section_added.connect ((section) => {
             if (project.id == section.project_id) {
                 var row = new Widgets.SectionRow (section);
-                section_listbox.add (row);
+                section_listbox.insert (row, 0);
                 section_listbox.show_all ();
+
+                update_section_order ();
             }
         });
 

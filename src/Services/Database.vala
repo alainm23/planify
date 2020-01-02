@@ -1193,7 +1193,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
+            SELECT id, area_id, name, note, due, color, is_todoist, inbox_project, team_inbox, 
+            item_order, is_deleted, is_archived, is_favorite, is_sync, shared 
+            FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1560,21 +1562,7 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
-        sql = """
-            SELECT COUNT (*) FROM Sections WHERE project_id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, section.project_id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            section.item_order = stmt.column_int (0);
-        }
-
-        stmt.reset ();
+        section.item_order = 0;
 
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed, 

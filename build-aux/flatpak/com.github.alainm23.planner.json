@@ -69,19 +69,19 @@
          "name": "evolution-data-server",
          "buildsystem": "cmake",
          "config-opts": [
-             "-DENABLE_GTK=ON",
-             "-DENABLE_INTROSPECTION=ON",
-             "-DENABLE_VALA_BINDINGS=ON",
-             "-DENABLE_GOA=OFF",
-             "-DENABLE_OAUTH2=OFF",
-             "-DENABLE_WEATHER=OFF",
-             "-DENABLE_GOOGLE=OFF",
-             "-DENABLE_EXAMPLES=OFF",
-             "-DENABLE_INSTALLED_TESTS=OFF",
-             "-DENABLE_GTK_DOC=OFF",
-             "-DWITH_PRIVATE_DOCS=OFF",
-             "-DWITH_OPENLDAP=OFF",
-             "-DWITH_LIBDB=OFF"
+            "-DENABLE_GTK=ON",
+            "-DENABLE_INTROSPECTION=ON",
+            "-DENABLE_VALA_BINDINGS=ON",
+            "-DENABLE_GOA=OFF",
+            "-DENABLE_OAUTH2=OFF",
+            "-DENABLE_WEATHER=OFF",
+            "-DENABLE_GOOGLE=OFF",
+            "-DENABLE_EXAMPLES=OFF",
+            "-DENABLE_INSTALLED_TESTS=OFF",
+            "-DENABLE_GTK_DOC=OFF",
+            "-DWITH_PRIVATE_DOCS=OFF",
+            "-DWITH_OPENLDAP=OFF",
+            "-DWITH_LIBDB=OFF"
          ],
          "sources": [
              {
