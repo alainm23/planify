@@ -50,7 +50,6 @@ src/Views/Upcoming.vala
 src/Views/Project.vala
 
 src/Dialogs/TodoistOAuth.vala
-src/Dialogs/ProjectSettings.vala
 src/Dialogs/Preferences.vala
 
 src/Objects/Project.vala

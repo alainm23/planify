@@ -151,6 +151,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
             stack.visible_child_name = "calendar";
         });
 
+        tutorial_item.activated.connect (() => {
+            Planner.utils.create_tutorial_project ();
+        });
+
         return main_grid;
     }
 
@@ -522,18 +526,30 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
-        var run_background_switch = new PreferenceItemSwitch ("Todoist Sync", Planner.settings.get_boolean ("run-in-background"));
-        run_background_switch.margin_top = 24;
+        var sync_server_switch = new PreferenceItemSwitch ("Sync server", Planner.settings.get_boolean ("todoist-sync-server"));
+        sync_server_switch.margin_top = 24;
+
+        var sync_server_label = new Gtk.Label (_("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes."));
+        sync_server_label.halign = Gtk.Align.START;
+        sync_server_label.wrap = true;
+        sync_server_label.margin_start = 12;
+        sync_server_label.margin_top = 3;
+        sync_server_label.xalign = (float) 0.0;
 
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (user_avatar, false, false, 0);
         main_box.pack_start (username_label, false, false, 0);
         main_box.pack_start (email_label, false, false, 0);
         main_box.pack_start (last_update, false, false, 0);
-        //main_box.pack_start (run_background_switch, false, true, 0);
+        main_box.pack_start (sync_server_switch, false, true, 0);
+        main_box.pack_start (sync_server_label, false, true, 0);
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        sync_server_switch.activated.connect ((val) => {
+            Planner.settings.set_boolean ("todoist-sync-server", val);
         });
 
         return main_box;

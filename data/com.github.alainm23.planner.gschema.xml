@@ -120,6 +120,12 @@
             <summary>User name</summary>
             <description>User name</description>
         </key>
+        
+        <key name="todoist-sync-server" type="b">
+            <default>true</default>
+            <summary>todoist-sync-server</summary>
+            <description>todoist-sync-server</description>
+        </key>
 
         <key name="todoist-access-token" type="s">
             <default>""</default>

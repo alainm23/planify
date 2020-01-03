@@ -167,6 +167,7 @@ public class Views.Project : Gtk.EventBox {
         note_textview = new Gtk.TextView ();
         note_textview.tooltip_text = _("Add a note");
         note_textview.hexpand = true;
+        note_textview.valign = Gtk.Align.START;
         note_textview.margin_top = 6;
         note_textview.height_request = 24;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
@@ -248,7 +249,8 @@ public class Views.Project : Gtk.EventBox {
         var new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.expand = true;
+        main_box.valign = Gtk.Align.START;
+        //main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);

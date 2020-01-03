@@ -519,4 +519,40 @@ public class Utils : GLib.Object {
             return;
         }
     }
+
+    /* 
+        Tutorial project
+    */
+
+    public void create_tutorial_project () {
+        var project = new Objects.Project ();
+        project.id = generate_id ();
+        project.name = _("🚀️ Getting Started");
+        project.note = _("This project will help you learn the basics of Planner and get started with a simple task management system to stay organized and on top of everything you need to do.");
+
+        var item_01 = new Objects.Item ();
+        item_01.id = generate_id ();
+        item_01.project_id = project.id;
+        item_01.content = _("Keeping track of your tasks");
+        item_01.note = _("It turns out, our brains are actually wired to keep us thinking about our unfinished tasks. Handy when you have one thing you need to work on. Not so good when you have 30+ tasks vying for your attention at once. That’s why the first step to organizing your work and life is getting everything out of your head and onto your to-do list. From there you can begin to organize and prioritize so you know exactly what to focus on and when.");
+
+        var item_02 = new Objects.Item ();
+        item_02.id = generate_id ();
+        item_02.project_id = project.id;
+        item_02.content = _("Adding new tasks");
+        item_02.note = _("""- To add a new task to Todoist, just click + and press Enter.
+- When your task is created, click on the task to be able to edit it, add a note or some other options.""");
+
+        var item_03 = new Objects.Item ();
+        item_03.id = generate_id ();
+        item_03.project_id = project.id;
+        item_03.content = _("Due dates");
+        item_03.note = _("""- If you know you need to have the task done on a certain day, click on the calendar icon and select a date.
+- If you want to delete the due date, repeat the process and select the "undate" option.""");
+
+        Planner.database.insert_project (project);
+        Planner.database.insert_item (item_01);
+        Planner.database.insert_item (item_02);
+        Planner.database.insert_item (item_03);
+    }
 }

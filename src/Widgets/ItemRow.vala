@@ -116,7 +116,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     construct {
-        tooltip_text = item.content;
         can_focus = false;
         get_style_context ().add_class ("item-row");
         labels_hashmap = new Gee.HashMap<string, bool> ();
@@ -170,6 +169,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         content_label = new Gtk.Label (item.content);
+        content_label.tooltip_text = item.content;
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
@@ -828,7 +828,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
             Planner.database.update_item_completed (item);
             if (item.is_todoist == 1) {
-                Planner.todoist.add_complete_item (item);
+                Planner.todoist.item_complete (item);
             }
         }
     }
@@ -952,7 +952,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (save_off == false) {
             content_label.label = content_entry.text;
 
-            tooltip_text = item.content;
+            content_label.tooltip_text = item.content;
             item.content = content_entry.text;
             item.note = note_textview.buffer.text;
 

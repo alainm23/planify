@@ -127,7 +127,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
                 Planner.database.update_item_completed (item);
                 if (item.is_todoist == 1) {
-                    Planner.todoist.add_complete_item (item);
+                    Planner.todoist.item_complete (item);
                 }
             } else {
                 item.checked = 0;
