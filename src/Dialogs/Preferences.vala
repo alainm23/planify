@@ -30,7 +30,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
-        //stack.add_named (get_about_widget (), "about");
+        stack.add_named (get_about_widget (), "about");
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
@@ -153,6 +153,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         tutorial_item.activated.connect (() => {
             Planner.utils.create_tutorial_project ();
+        });
+
+        about_item.activated.connect (() => {
+            stack.visible_child_name = "about";
         });
 
         return main_grid;
@@ -633,9 +637,85 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
     
-    //  private Gtk.Widget get_about_widget () {
-        
-    //  }
+    private Gtk.Widget get_about_widget () {
+        var top_box = new PreferenceTopBox ("office-calendar", _("About"));
+
+        var app_icon = new Gtk.Image ();
+        app_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
+        app_icon.pixel_size = 64;
+        app_icon.margin_top = 12;
+
+        var app_name = new Gtk.Label ("Planner");
+        app_name.get_style_context ().add_class ("h3");
+        app_name.margin_top = 6;
+
+        var version_label = new Gtk.Label ("v2.0");
+        version_label.get_style_context ().add_class ("dim-label");
+
+        var web_item = new PreferenceItem ("web-browser", _("Homepage"));
+        var issue_item = new PreferenceItem ("bug", _("Report a Problem"));
+        var translation_item = new PreferenceItem ("config-language", _("Suggest Translations"));
+        var fund_item = new PreferenceItem ("help-about", _("Fund"), true);
+
+        var grid = new Gtk.Grid ();
+        grid.margin_top = 24;
+        grid.valign = Gtk.Align.START;
+        grid.get_style_context ().add_class ("view");
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        grid.add (web_item);
+        grid.add (issue_item);
+        grid.add (translation_item);
+        grid.add (fund_item);
+        grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (app_icon, false, true, 0);
+        main_box.pack_start (app_name, false, true, 0);
+        main_box.pack_start (version_label, false, true, 0);
+        main_box.pack_start (grid, false, false, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        web_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://planner-todo.web.app", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        issue_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://github.com/alainm23/planner/issues", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        translation_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://github.com/alainm23/planner/tree/master/po#translating-planner", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        fund_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://www.patreon.com/alainm23", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        return main_box;
+    }
 
     private void add_all_labels (Gtk.ListBox listbox)  {           
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {

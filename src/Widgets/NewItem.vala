@@ -48,7 +48,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.hexpand = true;
         content_entry.margin_start = 3;
         content_entry.margin_bottom = 1;
-        content_entry.placeholder_text = _("Add a new subtask");
+        content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("welcome");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");

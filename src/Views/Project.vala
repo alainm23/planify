@@ -275,6 +275,12 @@ public class Views.Project : Gtk.EventBox {
         
         show_all ();
 
+        Timeout.add (100, () => {
+            note_textview.visible = false;
+            note_textview.visible = true;
+            return false;
+        });
+
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;

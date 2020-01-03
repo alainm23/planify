@@ -48,7 +48,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         name_entry.hexpand = true;
         name_entry.margin_start = 3;
         name_entry.margin_bottom = 1;
-        name_entry.placeholder_text = _("Add a new subtask");
+        name_entry.placeholder_text = _("Subtask name");
         //name_entry.get_style_context ().add_class ("welcome");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("check-entry");
