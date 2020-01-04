@@ -16,6 +16,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Revealer completed_revealer;
 
     private Gtk.Popover popover = null;
+    private Widgets.ModelButton show_menu;
     private Gtk.ToggleButton settings_button;
 
     private int64 temp_id_mapping { get; set; default = 0; }
@@ -364,6 +365,10 @@ public class Views.Project : Gtk.EventBox {
             new_section.reveal = !new_section.reveal;
         });
 
+        completed_listbox.remove.connect (() => {
+            check_task_complete_visible ();
+        });
+
         Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 project = p;
@@ -660,7 +665,7 @@ public class Views.Project : Gtk.EventBox {
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 
         var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
-        var show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+        show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
 
         var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator_01.margin_top = 3;
@@ -746,6 +751,18 @@ public class Views.Project : Gtk.EventBox {
                 return null;
             });
         });
+    }
+
+    private void check_task_complete_visible () {
+        int count = 0;
+        completed_listbox.foreach ((widget) => {
+            count++;
+        });
+
+        if (count <= 0) {
+            show_menu.text = _("Show completed task");
+            completed_revealer.reveal_child = false;
+        }
     }
 
     private Gtk.Widget get_completed_header () {

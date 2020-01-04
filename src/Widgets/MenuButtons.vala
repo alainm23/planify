@@ -58,7 +58,6 @@ public class Widgets.ModelButton : Gtk.Button {
         get_style_context ().remove_class ("button");
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("menuitem");
-        get_style_context ().add_class ("popover-menuitem");
         can_focus = false;
 
         item_image = new Gtk.Image ();

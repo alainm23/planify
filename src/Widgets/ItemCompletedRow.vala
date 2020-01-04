@@ -81,19 +81,6 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                 }  
             }
         });
-
-        Planner.todoist.item_uncompleted_started.connect ((i) => {
-            if (item.id == i.id) {
-                sensitive = false;
-                loading_revealer.reveal_child = true;
-            }
-        });
-
-        Planner.todoist.item_uncompleted_completed.connect ((i) => {
-            if (item.id == i.id) {
-                destroy ();
-            }
-        });
     }
 }
     

@@ -11,6 +11,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Revealer completed_revealer;
 
     private Gtk.Popover popover = null;
+    private Widgets.ModelButton show_button;
     private Gtk.ToggleButton settings_button;
     
     public int64 temp_id_mapping {get; set; default = 0; }
@@ -204,6 +205,10 @@ public class Views.Inbox : Gtk.EventBox {
 
         section_button.clicked.connect (() => {
             new_section.reveal = !new_section.reveal;
+        });
+
+        completed_listbox.remove.connect (() => {
+            check_task_complete_visible ();
         });
 
         Planner.database.section_added.connect ((section) => {
@@ -454,6 +459,18 @@ public class Views.Inbox : Gtk.EventBox {
         motion_revealer.reveal_child = false;
     }
 
+    private void check_task_complete_visible () {
+        int count = 0;
+        completed_listbox.foreach ((widget) => {
+            count++;
+        });
+
+        if (count <= 0) {
+            show_button.text = _("Show completed task");
+            completed_revealer.reveal_child = false;
+        }
+    }
+
     private void update_item_order () {
         listbox.foreach ((widget) => {
             var row = (Gtk.ListBoxRow) widget;
@@ -509,7 +526,7 @@ public class Views.Inbox : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var show_button = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+        show_button = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
  
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 200;
