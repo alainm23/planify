@@ -111,7 +111,6 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
-        listbox.get_style_context ().add_class ("background");
         listbox.set_sort_func ((row1, row2) => {
             var r1 = (Widgets.ReminderRow) row1;
             var r2 = (Widgets.ReminderRow) row2;

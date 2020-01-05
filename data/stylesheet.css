@@ -28,6 +28,11 @@ modelbutton:hover,
     background-color: @pane_selected_color;
 }
 
+menu,
+popover {
+    background-color: @base_color;
+}
+
 .popover-menuitem:hover image {
     color: @pane_text_color;
 }

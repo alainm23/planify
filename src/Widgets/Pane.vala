@@ -49,6 +49,8 @@ public class Widgets.Pane : Gtk.EventBox {
                 
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Upcoming"));
 
+        var back_row = new Widgets.ActionRow (_("Back-Pocket"), "user-trash-symbolic", "upcoming", _("Upcoming"));
+
         // Avatar
         Granite.Widgets.Avatar user_avatar;
         if (Planner.settings.get_boolean ("todoist-account")) {
@@ -182,6 +184,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (inbox_row);
         listbox.add (today_row);
         listbox.add (upcoming_row);
+        //listbox.add (back_row);
 
         var top_eventbox = new Gtk.EventBox ();
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);

@@ -190,6 +190,11 @@ public class Views.Project : Gtk.EventBox {
             note_placeholder.no_show_all = false;
         }
 
+        //  var listbox_placeholder = new Gtk.Label (_("No Tasks"));
+        //  listbox_placeholder.get_style_context ().add_class ("h2");
+        //  listbox_placeholder.show ();
+        //  listbox_placeholder.get_style_context ().add_class ("dim-label");
+
         listbox = new Gtk.ListBox  ();
         listbox.margin_top = 6;
         listbox.valign = Gtk.Align.START;
@@ -198,6 +203,7 @@ public class Views.Project : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        //listbox.set_placeholder (listbox_placeholder);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -690,18 +696,41 @@ public class Views.Project : Gtk.EventBox {
 
     
         edit_menu.clicked.connect (() => {
-            if (project != null) {
-                action_revealer.reveal_child = true;
-                name_stack.visible_child_name = "name_entry";
+            action_revealer.reveal_child = true;
+            name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus_without_selecting ();
+            name_entry.grab_focus_without_selecting ();
 
-                if (name_entry.cursor_position < name_entry.text.length) {
-                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-                }
+            if (name_entry.cursor_position < name_entry.text.length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
             }
 
             popover.popdown ();
+        });
+
+        delete_menu.clicked.connect (() => {
+            popover.popdown ();
+
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Delete project"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
+                "user-trash-full",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                Planner.database.delete_project (project.id);
+                if (project.is_todoist == 1) {
+                    Planner.todoist.delete_project (project);
+                }
+            }
+
+            message_dialog.destroy ();
         });
 
         show_menu.clicked.connect (() => {

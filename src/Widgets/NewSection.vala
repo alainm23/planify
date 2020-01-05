@@ -148,6 +148,8 @@ public class Widgets.NewSection : Gtk.Revealer {
             if (is_todoist == 0) {
                 section.id = Planner.utils.generate_id ();
                 Planner.database.insert_section (section);
+
+                reveal = false;
             } else {
                 temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;

@@ -73,7 +73,6 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
-        listbox.get_style_context ().add_class ("background");
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.expand = true;
