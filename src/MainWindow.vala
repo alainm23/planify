@@ -44,7 +44,7 @@ public class MainWindow : Gtk.Window {
 
     construct {
         projects_loaded = new Gee.HashMap<string, bool> ();
-        
+
         var sidebar_header = new Gtk.HeaderBar ();
         sidebar_header.decoration_layout = "close:";
         sidebar_header.has_subtitle = false;
