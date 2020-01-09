@@ -857,3 +857,7 @@ paned > separator {
 .info-bar-button {
     color: #fff;
 }
+
+.item-complete {
+    text-decoration:line-through;
+}

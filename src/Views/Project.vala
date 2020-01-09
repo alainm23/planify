@@ -410,25 +410,29 @@ public class Views.Project : Gtk.EventBox {
         });
         
         Planner.database.item_completed.connect ((item) => {
-            if (project.id == item.project_id) {
-                if (item.checked == 1 && item.parent_id == 0) {
-                    if (completed_revealer.reveal_child) {
-                        if (items_completed_loaded.has_key (item.id.to_string ()) == false) {
-                            var row = new Widgets.ItemCompletedRow (item);
-                            completed_listbox.add (row);
-                            completed_listbox.show_all ();
-
-                            items_completed_loaded.set (item.id.to_string (), true);
+            Idle.add (() => {
+                if (project.id == item.project_id) {
+                    if (item.checked == 1 && item.parent_id == 0) {
+                        if (completed_revealer.reveal_child) {
+                            if (items_completed_loaded.has_key (item.id.to_string ()) == false) {
+                                var row = new Widgets.ItemCompletedRow (item);
+                                completed_listbox.add (row);
+                                completed_listbox.show_all ();
+    
+                                items_completed_loaded.set (item.id.to_string (), true);
+                            }
+                        }
+                    } else {
+                        if (item.section_id == 0 && item.parent_id == 0) {
+                            var row = new Widgets.ItemRow (item);
+                            listbox.add (row);
+                            listbox.show_all ();
                         }
                     }
-                } else {
-                    if (item.section_id == 0 && item.parent_id == 0) {
-                        var row = new Widgets.ItemRow (item);
-                        listbox.add (row);
-                        listbox.show_all ();
-                    }
                 }
-            }
+                
+                return false;
+            });
         });
 
         Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {

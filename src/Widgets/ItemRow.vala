@@ -792,19 +792,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         */
 
         Planner.database.item_completed.connect ((i) => {
-            if (item.id == i.id) {
-                if (i.checked == 1) {
-                    checked_button.active = true;
-
-                    content_label.label = "<s>%s</s>".printf (item.content);
-                    
-                    checked_timeout = Timeout.add (700, () => {
-                        main_revealer.reveal_child = false;
-                        return false;
-                    });
-                } else {
+            Idle.add (() => {
+                if (item.id == i.id) {
+                    if (i.checked == 1) {
+                        checked_button.active = true;
+    
+                        content_label.get_style_context ().add_class ("item-complete");
+    
+                        checked_timeout = Timeout.add (700, () => {
+                            main_revealer.reveal_child = false;
+                            return false;
+                        });
+                    } else {
+                    }
                 }
-            }
+
+                return false;
+            });
         });
 
         Planner.database.item_id_updated.connect ((current_id, new_id) => {
@@ -824,11 +828,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
 
             checked_button.sensitive = false;
+            new Thread<void*> ("todoist_item_complete", () => {
+                Planner.database.update_item_completed (item);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.item_complete (item);
+                }
 
-            Planner.database.update_item_completed (item);
-            if (item.is_todoist == 1) {
-                Planner.todoist.item_complete (item);
-            }
+                return null;
+            });
         }
     }
 

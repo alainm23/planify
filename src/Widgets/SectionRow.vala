@@ -220,11 +220,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         Planner.database.item_completed.connect ((item) => {
-            if (item.checked == 0 && section.id == item.section_id && item.parent_id == 0) {
-                var row = new Widgets.ItemRow (item);
-                listbox.add (row);
-                listbox.show_all ();
-            }
+            Idle.add (() => {
+                if (item.checked == 0 && section.id == item.section_id && item.parent_id == 0) {
+                    var row = new Widgets.ItemRow (item);
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+                
+                return false;
+            });
         });
 
         Planner.database.item_added_with_index.connect ((item, index) => {

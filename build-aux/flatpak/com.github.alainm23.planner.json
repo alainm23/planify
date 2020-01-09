@@ -33,97 +33,97 @@
    ],
    "modules": [
       {
-         "name" : "libical",
-         "cleanup" : [
-             "/lib/cmake"
-         ],
-         "buildsystem" : "cmake-ninja",
-         "config-opts" : [
-             "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
-             "-DBUILD_SHARED_LIBS=On",
-             "-DICAL_BUILD_DOCS=False",
-             "-DWITH_CXX_BINDINGS=False"
-         ],
-         "sources" : [
-             {
-                 "type" : "archive",
-                 "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
-                 "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
-             }
-         ]
+        "name" : "libical",
+        "cleanup" : [
+            "/lib/cmake"
+        ],
+        "buildsystem" : "cmake-ninja",
+        "config-opts" : [
+        "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
+        "-DBUILD_SHARED_LIBS=On",
+        "-DICAL_BUILD_DOCS=False",
+        "-DWITH_CXX_BINDINGS=False"
+        ],
+        "sources" : [
+        {
+            "type" : "archive",
+            "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
+            "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
+        }
+        ]
       },
       {
-         "name": "intltool",
-         "cleanup": [
-             "*"
-         ],
-         "sources": [
-             {
-                 "type": "archive",
-                 "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-                 "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
-             }
-         ]
+        "name": "intltool",
+        "cleanup": [
+            "*"
+        ],
+        "sources": [
+            {
+                "type": "archive",
+                "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+            }
+        ]
       },
       {
-         "name": "evolution-data-server",
-         "buildsystem": "cmake",
-         "config-opts": [
-            "-DENABLE_GTK=ON",
-            "-DENABLE_INTROSPECTION=ON",
-            "-DENABLE_VALA_BINDINGS=ON",
-            "-DENABLE_GOA=OFF",
-            "-DENABLE_OAUTH2=OFF",
-            "-DENABLE_WEATHER=OFF",
-            "-DENABLE_GOOGLE=OFF",
-            "-DENABLE_EXAMPLES=OFF",
-            "-DENABLE_INSTALLED_TESTS=OFF",
-            "-DENABLE_GTK_DOC=OFF",
-            "-DWITH_PRIVATE_DOCS=OFF",
-            "-DWITH_OPENLDAP=OFF",
-            "-DWITH_LIBDB=OFF"
-         ],
-         "sources": [
-             {
-                 "type": "git",
-                 "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
-                 "commit": "550f44363b0aadf30014aed36bd62631c8b80cb9"
-             }
-         ]
+        "name": "evolution-data-server",
+        "buildsystem": "cmake",
+        "config-opts": [
+        "-DENABLE_GTK=ON",
+        "-DENABLE_INTROSPECTION=ON",
+        "-DENABLE_VALA_BINDINGS=ON",
+        "-DENABLE_GOA=OFF",
+        "-DENABLE_OAUTH2=OFF",
+        "-DENABLE_WEATHER=OFF",
+        "-DENABLE_GOOGLE=OFF",
+        "-DENABLE_EXAMPLES=OFF",
+        "-DENABLE_INSTALLED_TESTS=OFF",
+        "-DENABLE_GTK_DOC=OFF",
+        "-DWITH_PRIVATE_DOCS=OFF",
+        "-DWITH_OPENLDAP=OFF",
+        "-DWITH_LIBDB=OFF"
+        ],
+        "sources": [
+            {
+                "type": "git",
+                "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
+                "commit": "550f44363b0aadf30014aed36bd62631c8b80cb9"
+            }
+        ]
       },
       {
-         "name": "libyaml",
-         "sources": [
-             {
-                 "type": "git",
-                 "url": "https://github.com/yaml/libyaml.git",
-                 "tag": "0.2.1"
-             }
-         ]
+        "name": "libyaml",
+        "sources": [
+            {
+                "type": "git",
+                "url": "https://github.com/yaml/libyaml.git",
+                "tag": "0.2.1"
+            }
+        ]
       },
       {
-         "name": "appstream",
-         "buildsystem": "meson",
-         "config-opts": [
-             "-Dstemming=false"
-         ],
-         "sources": [
-             {
-                 "type": "git",
-                 "url": "https://github.com/ximion/appstream.git",
-                 "tag": "APPSTREAM_0_12_4"
-             }
-         ]
+        "name": "appstream",
+        "buildsystem": "meson",
+        "config-opts": [
+            "-Dstemming=false"
+        ],
+        "sources": [
+            {
+                "type": "git",
+                "url": "https://github.com/ximion/appstream.git",
+                "tag": "APPSTREAM_0_12_4"
+            }
+        ]
       },
       {
-         "name": "planner",
-         "buildsystem": "meson",
-         "sources": [
-             {
-                 "type": "git",
-                 "url": "https://github.com/alainm23/planner.git"
-             }
-         ]
+        "name": "planner",
+        "buildsystem": "meson",
+        "sources": [
+            {
+                "type": "git",
+                "url": "https://github.com/alainm23/planner.git"
+            }
+        ]
      }
    ]
 }

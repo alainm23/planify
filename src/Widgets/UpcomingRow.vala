@@ -153,18 +153,22 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         });
 
         Planner.database.item_completed.connect ((item) => {
-            if (item.checked == 0 && item.due_date != "") {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                if (Granite.DateTime.is_same_day (datetime, date)) {
-                    if (items_loaded.has_key (item.id.to_string ()) == false) {
-                        add_item (item);
+            Idle.add (() => {
+                if (item.checked == 0 && item.due_date != "") {
+                    var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+                    if (Granite.DateTime.is_same_day (datetime, date)) {
+                        if (items_loaded.has_key (item.id.to_string ()) == false) {
+                            add_item (item);
+                        }
+                    }
+                } else {
+                    if (items_loaded.has_key (item.id.to_string ())) {
+                        items_loaded.unset (item.id.to_string ());
                     }
                 }
-            } else {
-                if (items_loaded.has_key (item.id.to_string ())) {
-                    items_loaded.unset (item.id.to_string ());
-                }
-            }
+                
+                return false;
+            });
         });
 
         event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();

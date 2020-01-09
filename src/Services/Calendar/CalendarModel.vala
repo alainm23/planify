@@ -300,7 +300,7 @@ public class Services.Calendar.CalendarModel : Object {
                 return;
             }
 
-            var comps = events.get (cid.uid);
+            var comps = events.get (cid.get_uid ());
             foreach (ECal.Component event in comps) {
                 removed_events.add (event);
                 debug_event (source, event);

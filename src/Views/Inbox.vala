@@ -310,19 +310,23 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         Planner.database.item_completed.connect ((item) => {
-            if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
-                if (item.checked == 1) {
-                    if (completed_revealer.reveal_child) {
-                        var row = new Widgets.ItemCompletedRow (item);
-                        completed_listbox.add (row);
-                        completed_listbox.show_all ();
+            Idle.add (() => {
+                if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
+                    if (item.checked == 1) {
+                        if (completed_revealer.reveal_child) {
+                            var row = new Widgets.ItemCompletedRow (item);
+                            completed_listbox.add (row);
+                            completed_listbox.show_all ();
+                        }
+                    } else {
+                        var row = new Widgets.ItemRow (item);
+                        listbox.add (row);
+                        listbox.show_all ();
                     }
-                } else {
-                    var row = new Widgets.ItemRow (item);
-                    listbox.add (row);
-                    listbox.show_all ();
                 }
-            }
+                
+                return false;
+            });
         });
 
         Planner.utils.magic_button_activated.connect ((id, section_id, is_todoist, last, index) => {

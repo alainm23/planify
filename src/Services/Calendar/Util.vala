@@ -131,9 +131,9 @@ namespace Util {
 
         var a_id = a.get_id ();
         var b_id = b.get_id ();
-        int res = GLib.strcmp (a_id.uid, b_id.uid);
+        int res = GLib.strcmp (a_id.get_uid (), b_id.get_uid ());
         if (res == 0) {
-            return GLib.strcmp (a_id.rid, b_id.rid);
+            return GLib.strcmp (a_id.get_rid (), b_id.get_rid ());
         }
 
         return res;
