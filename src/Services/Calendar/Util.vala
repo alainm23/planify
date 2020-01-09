@@ -54,8 +54,16 @@ namespace Util {
      * XXX : Track next versions of evolution in order to convert ICal.Timezone to GLib.TimeZone with a dedicated function…
      */
     public GLib.DateTime ical_to_date_time (ICal.Time date) {
+#if E_CAL_2_0
+        int year, month, day, hour, minute, second;
+        date.get_date (out year, out month, out day);
+        date.get_time (out hour, out minute, out second);
+        return new GLib.DateTime (timezone_from_ical (date), year, month,
+            day, hour, minute, second);
+#else
         return new GLib.DateTime (timezone_from_ical (date), date.year, date.month,
             date.day, date.hour, date.minute, date.second);
+#endif
     }
 
     /**
@@ -132,22 +140,23 @@ namespace Util {
     }
 
     public bool calcomp_is_on_day (ECal.Component comp, GLib.DateTime day) {
-        ECal.ComponentDateTime start_dt;
-        ECal.ComponentDateTime end_dt;
-
-        comp.get_dtstart (out start_dt);
-        comp.get_dtend (out end_dt);
+#if E_CAL_2_0
+        unowned ICal.Timezone system_timezone = ECal.util_get_system_timezone ();
+#else
+        unowned ICal.Timezone system_timezone = ECal.Util.get_system_timezone ();
+#endif
 
         var stripped_time = new GLib.DateTime.local (day.get_year (), day.get_month (), day.get_day_of_month (), 0, 0, 0);
 
         var selected_date_unix = stripped_time.to_unix ();
         var selected_date_unix_next = stripped_time.add_days (1).to_unix ();
-        time_t start_unix;
-        time_t end_unix;
 
         /* We want to be relative to the local timezone */
-        start_unix = (*start_dt.value).as_timet_with_zone (ECal.Util.get_system_timezone ());
-        end_unix = (*end_dt.value).as_timet_with_zone (ECal.Util.get_system_timezone ());
+        unowned ICal.Component? icomp = comp.get_icalcomponent ();
+        ICal.Time? start_time = icomp.get_dtstart ();
+        ICal.Time? end_time = icomp.get_dtend ();
+        time_t start_unix = start_time.as_timet_with_zone (system_timezone);
+        time_t end_unix = end_time.as_timet_with_zone (system_timezone);
 
         /* If the selected date is inside the event */
         if (start_unix < selected_date_unix && selected_date_unix_next < end_unix) {

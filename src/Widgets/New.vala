@@ -536,13 +536,6 @@ public class Widgets.New : Gtk.Revealer {
             } else { 
                 project.is_todoist = 1;
                 Planner.todoist.add_project (project);
-                /*
-                if (Planner.utils.check_connection ()) {
-                    
-                } else {
-                    
-                }
-                */
             }
         }
     }

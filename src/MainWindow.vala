@@ -24,6 +24,7 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
+    private Widgets.MagicButton magic_button;
     private Gtk.Stack stack;
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
@@ -81,7 +82,7 @@ public class MainWindow : Gtk.Window {
         stack.add_named (welcome_view, "welcome-view");
         
         var toast = new Widgets.Toast ();
-        var magic_button = new Widgets.MagicButton ();
+        magic_button = new Widgets.MagicButton ();
 
         quick_find = new Widgets.QuickFind ();
 
@@ -306,6 +307,7 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (inbox_view, "inbox-view");
             }
 
+            magic_button.reveal_child = true;
             stack.visible_child_name = "inbox-view";
         } else if  (id == 1) {
             if (today_view == null) {
@@ -313,6 +315,7 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (today_view, "today-view");
             }
 
+            magic_button.reveal_child = true;
             stack.visible_child_name = "today-view";
         } else {
             if (upcoming_view == null) {
@@ -320,6 +323,7 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (upcoming_view, "upcoming-view");
             }
 
+            magic_button.reveal_child = false;
             stack.visible_child_name = "upcoming-view";
         }
     }

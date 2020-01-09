@@ -37,6 +37,15 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    public bool reveal_child {
+        get {
+            return main_revealer.reveal_child;
+        }
+        set {
+            main_revealer.reveal_child = value;
+        }
+    }
+
     public ActionRow (string name, string icon, string item_base_name, string tooltip_text) {
         Object (
             item_name: name,    

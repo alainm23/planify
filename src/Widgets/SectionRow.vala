@@ -429,6 +429,16 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+
+        Planner.database.project_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (section.project_id == current_id) {
+                    section.project_id = new_id;
+                }
+
+                return false;
+            });
+        });
     }
 
     private void activate_menu () {

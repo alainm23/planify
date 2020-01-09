@@ -111,7 +111,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.use_markup = true;
 
         count_label = new Gtk.Label (null);
         count_label.valign = Gtk.Align.CENTER;

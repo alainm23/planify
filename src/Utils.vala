@@ -25,11 +25,11 @@ public class Utils : GLib.Object {
         }
     }
 
-    public int64 generate_id () {
+    public int64 generate_id (int len=10) {
         string allowed_characters = NUMERIC_CHARS;
 
         var password_builder = new StringBuilder ();
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < len; i++) {
             var random_index = Random.int_range (0, allowed_characters.length);
             password_builder.append_c (allowed_characters[random_index]);
         }
@@ -51,6 +51,10 @@ public class Utils : GLib.Object {
         }
 
         return password_builder.str;
+    }
+
+    public string generate_temp_id () {
+        return "_" + generate_id (13).to_string ();
     }
 
     public void create_default_labels () {

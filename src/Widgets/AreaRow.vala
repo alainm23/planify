@@ -434,7 +434,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit area"), "edit-symbolic");
 
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete area"), "edit-delete-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete area"), "user-trash-symbolic");
 
         menu.add (edit_menu);
         menu.add (delete_menu);

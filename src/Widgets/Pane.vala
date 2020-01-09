@@ -357,6 +357,10 @@ public class Widgets.Pane : Gtk.EventBox {
         network_monitor.network_changed.connect (() => {
             check_network ();
         });
+
+        Planner.utils.drag_item_activated.connect ((value) => {
+            upcoming_row.reveal_child = !value;
+        });
     }
 
     private void check_network () {

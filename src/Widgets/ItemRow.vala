@@ -173,7 +173,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
-        content_label.use_markup = true;
         content_label.margin_bottom = 2;
         content_label.get_style_context ().add_class ("label");
         content_label.ellipsize = Pango.EllipsizeMode.END;

@@ -50,7 +50,6 @@ public class Views.Project : Gtk.EventBox {
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
         name_label.get_style_context ().add_class ("font-bold");
-        name_label.use_markup = true;
 
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -320,7 +319,7 @@ public class Views.Project : Gtk.EventBox {
         name_entry.activate.connect (() => {
             save (true);
         });
-
+        
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
                 submit_button.sensitive = true;

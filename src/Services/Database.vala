@@ -301,6 +301,17 @@ public class Services.Database : GLib.Object {
         """;
             
         rc = db.exec (sql, null, null);
+        debug ("Table Queue created");
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS CurTempIds (
+                id          INTEGER PRIMARY KEY,
+                temp_id     TEXT,
+                object      TEXT
+            );
+        """;
+            
+        rc = db.exec (sql, null, null);
         debug ("Table CurTempIds created");
 
         return rc;
@@ -431,10 +442,98 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } 
     }
-    
-    /*
-        Utils
-    */
+
+    public bool insert_CurTempIds (int64 id, string temp_id, string object) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            INSERT OR IGNORE INTO CurTempIds (id, temp_id, object)
+            VALUES (?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, temp_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, object);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void remove_CurTempIds (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM CurTempIds WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
+    public bool curTempIds_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM CurTempIds WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        return returned;
+    }
+
+    public string get_temp_id (int64 id) {
+        string returned = "";
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT temp_id FROM CurTempIds WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_text (0);
+        }
+
+        return returned;
+    }
 
     public bool column_exists (string table, string col) {
         Sqlite.Statement stmt;
@@ -962,7 +1061,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool update_project_id (int64 current_id, int64 new_id) {
+    public void update_project_id (int64 current_id, int64 new_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -979,14 +1078,51 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (2, current_id);
         assert (res == Sqlite.OK);
-        
+
         res = stmt.step ();
 
         if (res == Sqlite.DONE) {
             project_id_updated (current_id, new_id);
-            return true;
-        } else {
-            return false;
+            
+            stmt.reset ();
+
+            sql = """
+                UPDATE Sections SET project_id = ? WHERE project_id = ?;
+            """;
+            
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, new_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (2, current_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
+
+            /*
+            if (res == Sqlite.DONE) {
+                project_id_updated (current_id, new_id);
+            
+                stmt.reset ();
+
+                sql = """
+                    UPDATE Items SET project_id = ? WHERE project_id = ?;
+                """;
+                
+                res = db.prepare_v2 (sql, -1, out stmt);
+                assert (res == Sqlite.OK);
+
+                res = stmt.bind_int64 (1, new_id);
+                assert (res == Sqlite.OK);
+
+                res = stmt.bind_int64 (2, current_id);
+                assert (res == Sqlite.OK);
+
+                res = stmt.step ();
+            }
+            */
         }
     }
 

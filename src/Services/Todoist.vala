@@ -327,7 +327,8 @@ public class Services.Todoist : GLib.Object {
                         
                         // Download Profile Image
                         Planner.utils.download_profile_image (user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640"));
-
+                        run_server ();
+                        
                         first_sync_finished ();
                     } catch (Error e) {
                         show_message("Request page fail", e.message, "dialog-error");
@@ -640,6 +641,10 @@ public class Services.Todoist : GLib.Object {
                 get_queue_json (queue)
             );
 
+            print ("-----------------\n");
+            print ("%s\n".printf (get_queue_json (queue)));
+            print ("-----------------\n");
+
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {
@@ -659,16 +664,19 @@ public class Services.Todoist : GLib.Object {
                             if (q.query == "project_add") {
                                 var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
                                 Planner.database.update_project_id (q.object_id, id);
+                                Planner.database.remove_CurTempIds (q.object_id);
                             }
 
                             if (q.query == "section_add") {
                                 var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
                                 Planner.database.update_section_id (q.object_id, id);
+                                Planner.database.remove_CurTempIds (q.object_id);
                             }
 
                             if (q.query == "item_add") {
                                 var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
                                 Planner.database.update_item_id (q.object_id, id);
+                                Planner.database.remove_CurTempIds (q.object_id);
                             }
 
                             Planner.database.remove_queue (q.uuid);
@@ -771,7 +779,11 @@ public class Services.Todoist : GLib.Object {
                     builder.add_string_value (get_string_member_by_object (q.args, "name"));
 
                     builder.set_member_name ("project_id");
-                    builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    if (get_int_member_by_object (q.args, "project_id") == 0) {
+                        builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                    } else {
+                        builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    }
 
                     builder.end_object ();
                 builder.end_object ();
@@ -1154,7 +1166,9 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "project_add";
                         queue.args = project.to_json ();
 
-                        if (Planner.database.insert_project (project) && Planner.database.insert_queue (queue)) {
+                        if (Planner.database.insert_project (project) && 
+                            Planner.database.insert_queue (queue) &&
+                            Planner.database.insert_CurTempIds (project.id, temp_id, "project")) {
                             project_added_completed ();
                         }
                     } else {
@@ -1214,6 +1228,8 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.get_string ("todoist-access-token"),
                 get_update_project_json (project, uuid)
             );
+
+            print ("%s\n".printf (get_update_project_json (project, uuid)));
 
             var message = new Soup.Message ("POST", url);
 
@@ -1295,13 +1311,7 @@ public class Services.Todoist : GLib.Object {
             builder.set_member_name ("color");
             builder.add_int_value (project.color);
 
-            /*
-            builder.set_member_name ("is_favorite");    
-            builder.add_int_value (project.is_favorite);    
-            */
-
             builder.end_object ();
-        
         builder.end_object ();
         builder.end_array ();
 
@@ -1391,6 +1401,8 @@ public class Services.Todoist : GLib.Object {
                 get_add_section_json (section, temp_id, uuid)
             );
 
+            print ("%s\n".printf (get_add_section_json (section, temp_id, uuid)));
+
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {
@@ -1436,7 +1448,9 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "section_add";
                         queue.args = section.to_json ();
 
-                        if (Planner.database.insert_section (section) && Planner.database.insert_queue (queue)) {
+                        if (Planner.database.insert_section (section) && 
+                            Planner.database.insert_queue (queue) &&
+                            Planner.database.insert_CurTempIds (section.id, temp_id, "section")) {
                             section_added_completed (temp_id_mapping);
                         }
                     } else {

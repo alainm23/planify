@@ -62,8 +62,12 @@ public class Objects.Section : GLib.Object {
         builder.add_string_value (this.name);
 
         builder.set_member_name ("project_id");
-        builder.add_int_value (this.project_id);
-
+        if (Planner.database.curTempIds_exists (this.project_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (this.project_id));
+        } else {
+            builder.add_int_value (this.project_id);
+        }
+        
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();

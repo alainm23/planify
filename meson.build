@@ -15,13 +15,23 @@ c_args = [
 ]
 
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
-add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
+
+libecal_dep = dependency('libecal-2.0', required: false)
+if libecal_dep.found()
+    libical_dep = dependency('libical-glib')
+    add_project_arguments('--define=E_CAL_2_0', language: 'vala')
+    add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
+else
+    libecal_dep = dependency('libecal-1.2', version: '>=3.8.0')
+    libical_dep = dependency('libical')
+    add_project_arguments('--vapidir', join_paths(meson.current_source_dir(), 'vapi'), language: 'vala')
+endif
 
 executable(
     meson.project_name(),
@@ -100,9 +110,9 @@ executable(
         dependency('gtk+-3.0'),
         dependency('json-glib-1.0'),
         dependency('webkit2gtk-4.0'),
-        dependency('libecal-1.2'),
-        dependency('libedataserver-1.2'),
-        dependency('libical'),
+        libecal_dep,
+        libical_dep,
+        dependency('libedataserver-1.2', version: '>=3.8.0'),
         dependency('libsoup-2.4'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
