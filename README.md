@@ -14,7 +14,18 @@
 
 ![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-01.png)
 
-## Building and Installation
+## Installation
+
+### elementary OS AppCenter
+<a href="https://appcenter.elementary.io/com.github.alainm23.planner"><img src="https://appcenter.elementary.io/badge.svg?new" alt="Get it on AppCenter" /></a>
+
+### Flathub
+<a href="https://flathub.org/apps/details/com.github.alainm23.planner"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
+
+### Arch Linux
+[elementary-planner-git](https://aur.archlinux.org/packages/elementary-planner-git) are available in AUR.
+
+## Building
 
 You'll need the following dependencies:
 
@@ -25,7 +36,7 @@ You'll need the following dependencies:
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
 * libwebkit2gtk-4.0-dev
-* libecal1.2-dev
+* libecal1.2-dev || libecal1.2-dev
 * libedataserver1.2-dev
 * libical-dev
 * meson

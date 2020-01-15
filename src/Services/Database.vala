@@ -74,9 +74,9 @@ public class Services.Database : GLib.Object {
         //        Planner.database.add_text_column ("Areas", "abc", "hola mundo");
         //  }
 
-        if (Planner.database.column_exists ("Projects", "is_kanban") == false) {
-            Planner.database.add_int_column ("Projects", "is_kanban", 0);
-        }
+        //  if (Planner.database.column_exists ("Projects", "is_kanban") == false) {
+        //      Planner.database.add_int_column ("Projects", "is_kanban", 0);
+        //  }
 
         //  if (Planner.database.column_exists ("Areas", "aaaa") == false) {
         //      Planner.database.add_int_column ("Areas", "aaaa", 123);
