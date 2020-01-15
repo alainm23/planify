@@ -180,11 +180,11 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>Alain M.</developer_name>
-  <url type="homepage">https://github.com/alainm23/planner</url>
+  <url type="homepage">https://https://planner-todo.web.app</url>
   <url type="bugtracker">https://github.com/alainm23/planner/issues</url>
   <url type="translate">https://github.com/alainm23/planner/tree/master/po#readme</url>
-  <url type="donation">https://www.paypal.me/alainm23</url>
-  <url type="help">https://www.paypal.me/alainm23</url>
+  <url type="donation">https://www.patreon.com/alainm23</url>
+  <url type="help">https://www.patreon.com/alainm23</url>
   <custom>
     <value key="x-appcenter-color-primary">#ffe16b</value>
     <value key="x-appcenter-color-primary-text">#000</value>

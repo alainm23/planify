@@ -1,5 +1,5 @@
 @define-color projectview_color #ffffff;
-@define-color pane_color #F6F7F7;
+@define-color pane_color shade (@bg_color, 1.02);
 @define-color pane_selected_color #D1DFFE;
 @define-color pane_text_color #333333;
 

@@ -8,5 +8,5 @@ Icon=com.github.alainm23.planner
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=planner
-Keywords=development;task;tasks;project;todo;event;events;weather;calendar;github,issue;issues;
+Keywords=development;task;tasks;project;todo;event;events;calendar;todoist;
 X-GNOME-UsesNotifications=true

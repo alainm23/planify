@@ -497,7 +497,7 @@ public class Utils : GLib.Object {
         try {
             string projectview_color = "#ffffff";
             string border_color = "0.25";
-            string pane_color = "#F6F7F7";
+            string pane_color = "shade (@bg_color, 1.02)";
             string pane_selected_color = "#D1DFFE";
             string pane_text_color = "#333333";
             if (dark_mode) {
