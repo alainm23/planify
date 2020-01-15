@@ -245,13 +245,7 @@ public class Views.Project : Gtk.EventBox {
         var motion_last_grid = new Gtk.Grid ();
         //motion_last_grid.get_style_context ().add_class ("grid-motion");
         motion_last_grid.height_request = 24;
-
-        var infobar = new Widgets.InfoBar ();
-        /*
-        var infobar = new Gtk.InfoBar ();
-        infobar.show_close_button = true;
-        infobar.message_type = Gtk.MessageType.QUESTION;
-        */
+        
         var new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

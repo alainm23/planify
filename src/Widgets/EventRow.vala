@@ -88,7 +88,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         bool _visible = true;
 
         foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
-            if (cal.get_source ().uid == uid) {
+            if (cal.ref_source ().uid == uid) {
                 _visible = false;
             }
         }

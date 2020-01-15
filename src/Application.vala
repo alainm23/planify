@@ -51,6 +51,7 @@ public class Planner : Gtk.Application {
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
 
+        // Path database
         database.patch_database ();
     }
 

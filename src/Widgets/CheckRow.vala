@@ -141,12 +141,9 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         });
 
         delete_button.clicked.connect (() => {
+            Planner.database.delete_item (item);
             if (item.is_todoist == 1) {
-                if (Planner.todoist.add_delete_item (item)) {
-                    main_revealer.reveal_child = false;
-                }
-            } else {
-                Planner.database.delete_item (item);
+                Planner.todoist.add_delete_item (item);
             }
         });
 
@@ -154,6 +151,36 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
             if (item.id == i.id) {
                 destroy ();
             }
+        });
+
+        Planner.database.item_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (item.id == current_id) {
+                    item.id = new_id;
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.project_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (item.project_id == current_id) {
+                    item.project_id = new_id;
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.section_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (item.section_id == current_id) {
+                    item.section_id = new_id;
+                }
+
+                return false;
+            });
         });
     }
 

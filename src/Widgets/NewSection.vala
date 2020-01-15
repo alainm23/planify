@@ -6,6 +6,7 @@ public class Widgets.NewSection : Gtk.Revealer {
     private Gtk.Entry name_entry;
 
     public signal void new_item_hide ();
+    public signal void cancel_activated ();
 
     public bool reveal {
         set {
@@ -14,6 +15,7 @@ public class Widgets.NewSection : Gtk.Revealer {
                 name_entry.grab_focus ();
             } else {
                 name_entry.text = "";
+                cancel_activated ();
             }
         }
         get {

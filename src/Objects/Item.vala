@@ -119,13 +119,25 @@ public class Objects.Item : GLib.Object {
         builder.add_int_value (this.id);
 
         builder.set_member_name ("project_id");
-        builder.add_int_value (this.project_id);
+        if (Planner.database.curTempIds_exists (this.project_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (this.project_id));
+        } else {
+            builder.add_int_value (this.project_id);
+        }
 
         builder.set_member_name ("section_id");
-        builder.add_int_value (this.section_id);
+        if (Planner.database.curTempIds_exists (this.section_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (this.section_id));
+        } else {
+            builder.add_int_value (this.section_id);
+        }   
 
         builder.set_member_name ("parent_id");
-        builder.add_int_value (this.parent_id);
+        if (Planner.database.curTempIds_exists (this.parent_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (this.parent_id));
+        } else {
+            builder.add_int_value (this.parent_id);
+        }
 
         builder.set_member_name ("content");
         builder.add_string_value (this.content);

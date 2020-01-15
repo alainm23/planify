@@ -152,7 +152,13 @@ public class Dialogs.Preferences : Gtk.Dialog {
         });
 
         tutorial_item.activated.connect (() => {
-            Planner.utils.create_tutorial_project ();
+            destroy ();
+            
+            Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
+            Planner.notifications.send_notification (
+                0,
+                _("Your tutorial project was created")
+            );
         });
 
         about_item.activated.connect (() => {

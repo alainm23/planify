@@ -302,7 +302,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_listbox.margin_start = 59;
         check_listbox.get_style_context ().add_class ("check-listbox");
 
-        new_checklist = new Widgets.NewCheck (item.id, item.project_id, item.is_todoist);
+        new_checklist = new Widgets.NewCheck (item.id, item.project_id, item.section_id, item.is_todoist);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 59;
@@ -815,6 +815,26 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (item.id == current_id) {
                     item.id = new_id;
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.project_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (item.project_id == current_id) {
+                    item.project_id = new_id;
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.section_id_updated.connect ((current_id, new_id) => {
+            Idle.add (() => {
+                if (item.section_id == current_id) {
+                    item.section_id = new_id;
                 }
 
                 return false;

@@ -37,7 +37,7 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     construct {
-        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Inbox"));
+        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
@@ -45,9 +45,9 @@ public class Widgets.Pane : Gtk.EventBox {
             today_icon = "planner-today-night-symbolic";
         }
 
-        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("Today"));
+        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day."));
                 
-        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Upcoming"));
+        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events."));
 
         var back_row = new Widgets.ActionRow (_("Back-Pocket"), "user-trash-symbolic", "upcoming", _("Upcoming"));
 
@@ -359,7 +359,11 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         Planner.utils.drag_item_activated.connect ((value) => {
-            upcoming_row.reveal_child = !value;
+            if (value) {
+                upcoming_row.title_name.label = _("Tomorrow");
+            } else {
+                upcoming_row.title_name.label = _("Upcoming");
+            }
         });
     }
 

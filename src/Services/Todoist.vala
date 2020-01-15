@@ -328,6 +328,9 @@ public class Services.Todoist : GLib.Object {
                         // Download Profile Image
                         Planner.utils.download_profile_image (user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640"));
                         run_server ();
+
+                        // To do: Create a tutorial project
+                        Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
                         
                         first_sync_finished ();
                     } catch (Error e) {
@@ -364,7 +367,7 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        //print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
                         var node = parser.get_root ().get_object ();
                         var sync_token = node.get_string_member ("sync_token");
@@ -641,9 +644,7 @@ public class Services.Todoist : GLib.Object {
                 get_queue_json (queue)
             );
 
-            print ("-----------------\n");
             print ("%s\n".printf (get_queue_json (queue)));
-            print ("-----------------\n");
 
             var message = new Soup.Message ("POST", url);
 
@@ -779,7 +780,7 @@ public class Services.Todoist : GLib.Object {
                     builder.add_string_value (get_string_member_by_object (q.args, "name"));
 
                     builder.set_member_name ("project_id");
-                    if (get_int_member_by_object (q.args, "project_id") == 0) {
+                    if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
                         builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
                     } else {
                         builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
@@ -833,7 +834,11 @@ public class Services.Todoist : GLib.Object {
                     builder.add_int_value (get_int_member_by_object (q.args, "id"));
 
                     builder.set_member_name ("project_id");
-                    builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
+                        builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                    } else {
+                        builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    }
 
                     builder.end_object ();
                 builder.end_object ();
@@ -854,16 +859,30 @@ public class Services.Todoist : GLib.Object {
                     builder.add_string_value (get_string_member_by_object (q.args, "content"));
 
                     builder.set_member_name ("project_id");
-                    builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
-
-                    if (get_int_member_by_object (q.args, "parent_id") != 0) {
-                        builder.set_member_name ("parent_id");
-                        builder.add_int_value (get_int_member_by_object (q.args, "parent_id"));
+                    if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
+                        builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                    } else {
+                        builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
                     }
 
-                    if (get_int_member_by_object (q.args, "section_id") != 0) {
+                    if (get_type_by_member (q.args, "section_id") == GLib.Type.STRING) {
                         builder.set_member_name ("section_id");
-                        builder.add_int_value (get_int_member_by_object (q.args, "section_id"));
+                        builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
+                    } else {
+                        if (get_int_member_by_object (q.args, "section_id") != 0) {
+                            builder.set_member_name ("section_id");
+                            builder.add_int_value (get_int_member_by_object (q.args, "section_id"));
+                        }
+                    }
+
+                    if (get_type_by_member (q.args, "parent_id") == GLib.Type.STRING) {
+                        builder.set_member_name ("parent_id");
+                        builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
+                    } else {
+                        if (get_int_member_by_object (q.args, "parent_id") != 0) {
+                            builder.set_member_name ("parent_id");
+                            builder.add_int_value (get_int_member_by_object (q.args, "parent_id"));
+                        }
                     }
 
                     builder.end_object ();
@@ -1017,6 +1036,10 @@ public class Services.Todoist : GLib.Object {
         return get_object_by_string (object).get_string_member (member);
     }
 
+    public GLib.Type get_type_by_member (string object, string member) {
+        return get_object_by_string (object).get_member (member).get_value_type ();
+    }
+
     /*
     *   Collaborators
     */
@@ -1143,7 +1166,6 @@ public class Services.Todoist : GLib.Object {
                             project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                             if (Planner.database.insert_project (project)) {
-                                print ("Proyecto creado: %s\n".printf (project.name));
                                 project_added_completed ();
                             }
                         } else {
@@ -1172,9 +1194,7 @@ public class Services.Todoist : GLib.Object {
                             project_added_completed ();
                         }
                     } else {
-                        show_message (_("Create todoist project error"), 
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
+                        project_added_error ((int32) mess.status_code, _("Create todoist project error"));
                     }
                 }
             });
@@ -1229,8 +1249,6 @@ public class Services.Todoist : GLib.Object {
                 get_update_project_json (project, uuid)
             );
 
-            print ("%s\n".printf (get_update_project_json (project, uuid)));
-
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {
@@ -1250,11 +1268,9 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //if (Planner.database.update_project (project)) {
-                                print ("Actualizado: %s\n".printf (project.name));
-                                project_updated_completed (project.id);
-                            //}
+                            
+                            print ("Actualizado: %s\n".printf (project.name));
+                            project_updated_completed (project.id);
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
@@ -1266,14 +1282,20 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     if (Planner.utils.is_disconnected ()) {
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = project.id;
-                        queue.query = "project_update";
-                        queue.args = project.to_json ();
+                        if (Planner.database.curTempIds_exists (project.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (project.id);
+                            queue.args = project.to_json ();
+                            Planner.database.update_queue (queue);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = project.id;
+                            queue.query = "project_update";
+                            queue.args = project.to_json ();
 
-                        if (Planner.database.insert_queue (queue)) {
+                            if (Planner.database.insert_queue (queue)) {
                                 project_updated_completed (project.id);
+                            }
                         }
                     } else {
                         show_message (_("Update todoist project error"), 
@@ -1324,8 +1346,6 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void delete_project (Objects.Project project) {
-        //project_deleted_started (project.id);
-
         new Thread<void*> ("todoist_delete_project", () => {
             string uuid = Planner.utils.generate_string ();
 
@@ -1364,14 +1384,20 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     if (Planner.utils.is_disconnected ()) {
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = project.id;
-                        queue.query = "project_delete";
-                        queue.args = project.to_json ();
+                        if (Planner.database.curTempIds_exists (project.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (project.id);
+                            Planner.database.remove_queue (queue.uuid);
+                            Planner.database.remove_CurTempIds (project.id);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = project.id;
+                            queue.query = "project_delete";
+                            queue.args = project.to_json ();
 
-                        if (Planner.database.insert_queue (queue)) {
+                            if (Planner.database.insert_queue (queue)) {
 
+                            }
                         }
                     } else {
                         show_message (_("Delete todoist project error"), 
@@ -1400,8 +1426,6 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.get_string ("todoist-access-token"),
                 get_add_section_json (section, temp_id, uuid)
             );
-
-            print ("%s\n".printf (get_add_section_json (section, temp_id, uuid)));
 
             var message = new Soup.Message ("POST", url);
 
@@ -1544,14 +1568,20 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     if (Planner.utils.is_disconnected ()) {
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = section.id;
-                        queue.query = "section_update";
-                        queue.args = section.to_json ();
+                        if (Planner.database.curTempIds_exists (section.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (section.id);
+                            queue.args = section.to_json ();
+                            Planner.database.update_queue (queue);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = section.id;
+                            queue.query = "section_update";
+                            queue.args = section.to_json ();
 
-                        if (Planner.database.insert_queue (queue)) {
-                            section_updated_completed (section.id);
+                            if (Planner.database.insert_queue (queue)) {
+                                section_updated_completed (section.id);
+                            }
                         }
                     } else {
                         show_message (_("Update todoist section error"), 
@@ -1643,14 +1673,20 @@ public class Services.Todoist : GLib.Object {
                     }  
                 } else {
                     if (Planner.utils.is_disconnected ()) {
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = section.id;
-                        queue.query = "section_delete";
-                        queue.args = section.to_json ();
+                        if (Planner.database.curTempIds_exists (section.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (section.id);
+                            Planner.database.remove_queue (queue.uuid);
+                            Planner.database.remove_CurTempIds (section.id);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = section.id;
+                            queue.query = "section_delete";
+                            queue.args = section.to_json ();
 
-                        if (Planner.database.insert_queue (queue)) {
-                            section_deleted_completed (section.id);
+                            if (Planner.database.insert_queue (queue)) {
+                                section_deleted_completed (section.id);
+                            }
                         }
                     } else {
                         show_message (_("Update todoist section error"), 
@@ -1724,10 +1760,8 @@ public class Services.Todoist : GLib.Object {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            //if (Planner.database.move_section (section, id)) {
-                                print ("Movido: %s\n".printf (section.name));
-                                section_moved_completed (section.id);
-                            //}
+                            print ("Movido: %s\n".printf (section.name));
+                            section_moved_completed (section.id);
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
@@ -1855,15 +1889,14 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "item_add";
                         queue.args = item.to_json ();
 
-                        if (Planner.database.insert_item (item) && Planner.database.insert_queue (queue)) {
+                        if (Planner.database.insert_item (item) && 
+                            Planner.database.insert_queue (queue) &&
+                            Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed (temp_id_mapping);
                         }
                     } else {
-                        show_message (_("Create todoist project error"), 
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
+                        item_added_error (temp_id_mapping, (int32) mess.status_code, _("Connection error"));
                     }
-                    //item_added_error (id, (int32) mess.status_code, _("Connection error"));
                 }
             });
             
@@ -1957,14 +1990,20 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     if (Planner.utils.is_disconnected ()) {
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = item.id;
-                        queue.query = "item_update";
-                        queue.args = item.to_json ();
+                        if (Planner.database.curTempIds_exists (item.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (item.id);
+                            queue.args = item.to_json ();
+                            Planner.database.update_queue (queue);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = item.id;
+                            queue.query = "item_update";
+                            queue.args = item.to_json ();
 
-                        if (Planner.database.insert_queue (queue)) {
-                            print ("Actualizado: %s\n".printf (item.content));
+                            if (Planner.database.insert_queue (queue)) {
+                                print ("Actualizado: %s\n".printf (item.content));
+                            }
                         }
                     } else {
                         show_message (_("Update todoist item error"), 
@@ -2250,14 +2289,20 @@ public class Services.Todoist : GLib.Object {
                 } else {
                     if (Planner.utils.is_disconnected ()) {
                         foreach (var i in items_to_delete) {
-                            var queue = new Objects.Queue ();
-                            queue.uuid = Planner.utils.generate_string ();
-                            queue.object_id = i.id;
-                            queue.query = "item_delete";
-                            queue.args = i.to_json ();
-                            
-                            if (Planner.database.insert_queue (queue)) {
-                                print ("Eliminado: %s\n".printf (i.content));
+                            if (Planner.database.curTempIds_exists (i.id)) {
+                                var queue = Planner.database.get_queue_by_object_id (i.id);
+                                Planner.database.remove_queue (queue.uuid);
+                                Planner.database.remove_CurTempIds (i.id);
+                            } else {
+                                var queue = new Objects.Queue ();
+                                queue.uuid = Planner.utils.generate_string ();
+                                queue.object_id = i.id;
+                                queue.query = "item_delete";
+                                queue.args = i.to_json ();
+                                
+                                if (Planner.database.insert_queue (queue)) {
+                                    print ("Eliminado: %s\n".printf (i.content));
+                                }
                             }
                         }
 

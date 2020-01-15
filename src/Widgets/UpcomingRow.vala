@@ -235,7 +235,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             var dot = event_hashmap[event_uid];
             if (dot != null) {
                 dot.destroy ();
-                event_hashmap.remove (event_uid);
+                event_hashmap.unset (event_uid);
             }
         }
     }

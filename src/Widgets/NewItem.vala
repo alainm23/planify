@@ -167,7 +167,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Planner.todoist.item_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
-
+                loading_revealer.reveal_child = false;
+                sensitive = true;
             }
         });
     }

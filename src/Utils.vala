@@ -497,7 +497,7 @@ public class Utils : GLib.Object {
         try {
             string projectview_color = "#ffffff";
             string border_color = "0.25";
-            string pane_color = "#F9FAFA";
+            string pane_color = "#F6F7F7";
             string pane_selected_color = "#D1DFFE";
             string pane_text_color = "#333333";
             if (dark_mode) {
@@ -528,7 +528,7 @@ public class Utils : GLib.Object {
         Tutorial project
     */
 
-    public void create_tutorial_project () {
+    public Objects.Project create_tutorial_project () {
         var project = new Objects.Project ();
         project.id = generate_id ();
         project.name = _("🚀️ Getting Started");
@@ -544,7 +544,7 @@ public class Utils : GLib.Object {
         item_02.id = generate_id ();
         item_02.project_id = project.id;
         item_02.content = _("Adding new tasks");
-        item_02.note = _("""- To add a new task to Todoist, just click + and press Enter.
+        item_02.note = _("""- To add a new task to Planner, just click + and press Enter.
 - When your task is created, click on the task to be able to edit it, add a note or some other options.""");
 
         var item_03 = new Objects.Item ();
@@ -554,9 +554,40 @@ public class Utils : GLib.Object {
         item_03.note = _("""- If you know you need to have the task done on a certain day, click on the calendar icon and select a date.
 - If you want to delete the due date, repeat the process and select the "undate" option.""");
 
+        var item_04 = new Objects.Item ();
+        item_04.id = generate_id ();
+        item_04.project_id = project.id;
+        item_04.content = _("How to use projects");
+        item_04.note = _("""- Whether you’re planning a presentation, preparing for an event or creating a website, create a project so all the important details are saved in one central place.
+- In the navigation menu on the left, at the bottom, click on the + symbol.
+- In the options menu select 'Project' and type out the name of your new project.
+- Select a source from the drop-down menu.
+- (Optional) Select a different project color from the color list.
+- Click Add to create the project.""");
+
+        var section = new Objects.Section ();
+        section.id = generate_id ();
+        section.project_id = project.id;
+        section.name = _("Sections");
+
+        var item_05 = new Objects.Item ();
+        item_05.id = generate_id ();
+        item_05.project_id = project.id;
+        item_05.section_id = section.id;
+        item_05.content = _("Add sections");
+        item_05.note = _("""- It’s always easier to take on a big project when you split it into easily manageable parts using Planner’s sections.
+- Organize your projects with sections to group your tasks together and get a better overview of what needs to be done. Add sections to your project, drag the relevant tasks to the section they belong in, and you’ll find it a lot easier to make progress (instead of getting overwhelmed by a single long list).
+- At the top right of a project, click the + icon.
+- Type the name of your section and click Add.""");
+
         Planner.database.insert_project (project);
         Planner.database.insert_item (item_01);
         Planner.database.insert_item (item_02);
         Planner.database.insert_item (item_03);
+        Planner.database.insert_item (item_04);
+        Planner.database.insert_section (section);
+        Planner.database.insert_item (item_05);
+
+        return project;
     }
 }

@@ -148,8 +148,10 @@ public class MainWindow : Gtk.Window {
             if (index == 0) {
                 // Save user name
                 Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
-                // To do: Create a tutorial project
                 
+                // To do: Create a tutorial project
+                Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
+
                 // Create Inbox Project
                 var inbox_project = Planner.database.create_inbox_project ();
 
@@ -294,6 +296,74 @@ public class MainWindow : Gtk.Window {
         });
 
         init_badge_count ();
+
+        init_progress_controller ();
+    }
+
+    private void init_progress_controller () {
+        Planner.database.item_added.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
+        Planner.database.item_updated.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+        
+        Planner.database.item_added_with_index.connect ((item, index) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
+        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+            Planner.database.check_project_count (project_id);
+        });
+
+        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+            Planner.database.check_project_count (old_project_id);
+        });
+
+        Planner.database.item_deleted.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
+        Planner.database.item_completed.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
+        Planner.database.section_added.connect ((section) => {
+            Idle.add (() => {
+                Planner.database.check_project_count (section.project_id);
+                return false;
+            });
+        });
+
+        Planner.database.section_deleted.connect ((section) => {
+            Planner.database.check_project_count (section.project_id);
+        });
+
+        Planner.database.section_moved.connect ((section, id, old_project_id) => {
+            Idle.add (() => {
+                Planner.database.check_project_count (id);
+                return false;
+            });
+        });
+
+        Planner.database.section_moved.connect ((section, id, old_project_id) => {
+            Idle.add (() => {
+                Planner.database.check_project_count (old_project_id);
+                return false;
+            });
+        });
+
+        Planner.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                Planner.database.check_project_count (id);
+                return false;
+            });
+        });
+
+        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
+            Planner.database.check_project_count (id);
+        });
     }
 
     public void show_quick_find () {

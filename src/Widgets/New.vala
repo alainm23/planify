@@ -243,7 +243,7 @@ public class Widgets.New : Gtk.Revealer {
         submit_stack.expand = true;
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         
-        submit_stack.add_named (new Gtk.Label (_("Create")), "label");
+        submit_stack.add_named (new Gtk.Label (_("Add")), "label");
         submit_stack.add_named (submit_spinner, "spinner");
 
         submit_button.add (submit_stack);

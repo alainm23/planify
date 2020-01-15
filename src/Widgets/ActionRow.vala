@@ -20,6 +20,7 @@
 */
 
 public class Widgets.ActionRow : Gtk.ListBoxRow {
+    public Gtk.Label title_name;
     public Gtk.Image icon { get; set; }
 
     public string icon_name  { get; construct; }
@@ -65,7 +66,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         icon.gicon = new ThemedIcon (icon_name);
         icon.pixel_size = 16;
 
-        var title_name = new Gtk.Label (item_name);
+        title_name = new Gtk.Label (item_name);
         title_name.margin_bottom = 1;
         title_name.get_style_context ().add_class ("pane-item");
         title_name.use_markup = true;
@@ -128,38 +129,10 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.database.item_added.connect ((item) => {
-            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
+        Planner.database.check_project_count.connect ((id) => {
+            if (Planner.settings.get_int64 ("inbox-project") == id) {
                 update_count ();
             }
-        });
-
-        Planner.database.item_deleted.connect ((item) => {
-            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.item_completed.connect ((item) => {
-            if (Planner.settings.get_int64 ("inbox-project") == item.project_id) {
-                update_count ();
-            }
-        });
-        
-        Planner.database.item_moved.connect (() => {
-            Idle.add (() => {
-                update_count ();
-
-                return false;
-            });
-        });
-
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                update_count ();
-
-                return false;
-            });
         });
     }
 
@@ -174,48 +147,20 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             check_count_label ();
         });
 
-        Planner.database.item_added.connect ((item) => {
+        Planner.database.add_due_item.connect ((item) => {
+            update_count (true);
+        });
+        
+        Planner.database.update_due_item.connect ((item) => {
             update_count (true);
         });
 
-        Planner.database.item_added_with_index.connect (() => {
+        Planner.database.remove_due_item.connect ((item) => {
             update_count (true);
         });
 
         Planner.database.item_deleted.connect ((item) => {
             update_count (true);
-        });
-
-        Planner.database.item_completed.connect ((item) => {
-            update_count (true);
-        });
-
-        Planner.database.add_due_item.connect (() => {
-            update_count (true);
-        });
-
-        Planner.database.update_due_item.connect (() => {
-            update_count (true);
-        });
-
-        Planner.database.remove_due_item.connect (() => {
-            update_count (true);
-        });
-
-        Planner.database.item_moved.connect (() => {
-            Idle.add (() => {
-                update_count (true);
-
-                return false;
-            });
-        });
-
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                update_count (true);
-
-                return false;
-            });
         });
     }
 
@@ -255,6 +200,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             drag_data_received.connect (on_drag_imbox_item_received);
         } else if (item_base_name == "today") {
             drag_data_received.connect (on_drag_today_item_received);
+        } else if (item_base_name == "upcoming") {
+            drag_data_received.connect (on_drag_upcoming_item_received);
         }
     }
 
@@ -276,6 +223,26 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
         bool new_date = false;
         var date = new GLib.DateTime.now_local ();
+        if (source.item.due_date == "") {
+            new_date = true;
+        }
+
+        source.item.due_date = date.to_string ();
+
+        Planner.database.set_due_item (source.item, new_date);
+
+        if (source.item.is_todoist == 1) {
+            Planner.todoist.update_item (source.item);
+        }
+    }
+
+    private void on_drag_upcoming_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        bool new_date = false;
+        var date = new GLib.DateTime.now_local ().add_days (1);
         if (source.item.due_date == "") {
             new_date = true;
         }

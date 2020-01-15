@@ -1,6 +1,7 @@
 public class Widgets.NewCheck : Gtk.EventBox {
     public int64 item_id { get; construct; }
     public int64 project_id { get; construct; }
+    public int64 section_id { get; construct; }
     public int is_todoist { get; construct; }
     public int64 temp_id_mapping {get; set; default = 0; }
 
@@ -20,10 +21,11 @@ public class Widgets.NewCheck : Gtk.EventBox {
         }
     }
 
-    public NewCheck (int64 item_id, int64 project_id, int is_todoist=0) {
+    public NewCheck (int64 item_id, int64 project_id, int64 section_id, int is_todoist=0) {
         Object (
             item_id: item_id,
             project_id: project_id,
+            section_id: section_id,
             is_todoist: is_todoist
         );
     }
@@ -126,6 +128,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
             item.content = name_entry.text;
             item.parent_id = item_id;
             item.project_id = project_id;
+            item.section_id = section_id;
             item.is_todoist = is_todoist;
 
             temp_id_mapping = Planner.utils.generate_id ();

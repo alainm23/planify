@@ -195,7 +195,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         add (main_revealer);
 
         Timeout.add (125, () => {
-            Planner.database.get_project_count (project.id);
+            update_count ();
             return false;
         });
         
@@ -252,73 +252,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
         });
 
-        /*
-        Planner.todoist.project_deleted_started.connect ((id) => {
-            if (project.id == id) {
-                sensitive = false;
-            }
-        });
-
-        Planner.todoist.project_deleted_error.connect ((id, http_code, error_message) => {
-            if (project.id == id) {
-                sensitive = true;
-            }
-        });
-        */
-
         Planner.utils.drag_item_activated.connect ((active) => {
             build_drag_and_drop (active);
-        });
-
-        // Project count
-        Planner.database.item_added.connect ((item) => {
-            if (project.id == item.project_id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.item_deleted.connect ((item) => {
-            if (project.id == item.project_id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.item_completed.connect ((item) => {
-            if (project.id == item.project_id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.section_deleted.connect ((section) => {
-            if (project.id == section.project_id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.item_moved.connect (() => {
-            Idle.add (() => {
-                update_count ();
-
-                return false;
-            });
-        });
-
-        Planner.database.section_moved.connect ((section, id, old_project_id) => {
-            Idle.add (() => {
-                if (project.id == id || project.id == old_project_id) {
-                    update_count ();
-                }
-
-                return false;
-            });
-        });
-
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                update_count ();
-
-                return false;
-            });
         });
 
         Planner.database.update_project_count.connect ((id, items_0, items_1) => {
@@ -326,6 +261,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 project_progress.percentage = ((double) items_1 / ((double) items_0 + (double) items_1));
                 count = items_0;
                 check_count_label ();
+            }
+        });
+
+        Planner.database.check_project_count.connect ((id) => {
+            if (project.id == id) {
+                update_count ();
             }
         });
 
@@ -346,7 +287,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             timeout_id = 0;
         }
 
-        timeout_id = Timeout.add (250, () => {
+        timeout_id = Timeout.add (500, () => {
             Planner.database.get_project_count (project.id);
             
             Source.remove (timeout_id);

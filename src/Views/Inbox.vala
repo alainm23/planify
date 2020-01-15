@@ -163,6 +163,9 @@ public class Views.Inbox : Gtk.EventBox {
         Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
         section_listbox.drag_data_received.connect (on_drag_section_received);
 
+        var placeholder_view = new Widgets.Placeholder ();
+        placeholder_view.reveal_child = true;
+
         var new_section = new Widgets.NewSection (project_id, is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -172,7 +175,8 @@ public class Views.Inbox : Gtk.EventBox {
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (new_section, false, false, 0);
         main_box.pack_start (section_listbox, false, false, 0);
-        main_box.pack_start (completed_revealer, false, false, 12);
+        main_box.pack_start (completed_revealer, false, false, 0);
+        //main_box.pack_start (placeholder_view, false, false, 0);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -204,7 +208,30 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         section_button.clicked.connect (() => {
-            new_section.reveal = !new_section.reveal;
+            if (new_section.reveal) {
+                new_section.reveal = false;
+
+                /*
+                if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
+                    placeholder_view.reveal_child = false;
+                } else {
+                    placeholder_view.reveal_child = true;
+                }
+                */
+            } else {
+                new_section.reveal = true;
+                //placeholder_view.reveal_child = false;
+            }
+        });
+
+        new_section.cancel_activated.connect (() => {
+            /*
+            if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
+                placeholder_view.reveal_child = false;
+            } else {
+                placeholder_view.reveal_child = true;
+            }
+            */
         });
 
         completed_listbox.remove.connect (() => {
@@ -346,16 +373,19 @@ public class Views.Inbox : Gtk.EventBox {
                 }
 
                 listbox.show_all ();
+
+                //placeholder_view.reveal_child = false;
             }
         });
 
         Planner.settings.changed.connect (key => {
             if (key == "inbox-project") {
                 project_id = Planner.settings.get_int64 ("inbox-project");
+                new_section.project_id = Planner.settings.get_int64 ("inbox-project");
             } else if (key == "inbox-project-sync") {
                 if (Planner.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
-
+                    new_section.is_todoist = is_todoist;
                     add_items (project_id);
                 }
             }

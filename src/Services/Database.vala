@@ -43,6 +43,8 @@ public class Services.Database : GLib.Object {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (int64 id);
 
+    public signal void check_project_count (int64 project_id);
+
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (int64 id);
@@ -68,9 +70,13 @@ public class Services.Database : GLib.Object {
     }
 
     public void patch_database () {
-        //  if (Planner.database.column_exists ("Areas", "abc") == false) {
-        //      Planner.database.add_text_column ("Areas", "abc", "hola mundo");
+        //  if (Planner.database.column_exists ("Areas", "is_kanban") == false) {
+        //        Planner.database.add_text_column ("Areas", "abc", "hola mundo");
         //  }
+
+        if (Planner.database.column_exists ("Projects", "is_kanban") == false) {
+            Planner.database.add_int_column ("Projects", "is_kanban", 0);
+        }
 
         //  if (Planner.database.column_exists ("Areas", "aaaa") == false) {
         //      Planner.database.add_int_column ("Areas", "aaaa", 123);
@@ -141,9 +147,9 @@ public class Services.Database : GLib.Object {
             CREATE TABLE IF NOT EXISTS Projects (
                 id               INTEGER PRIMARY KEY,
                 area_id          INTEGER,
-                name             TEXT    NOT NULL,
+                name             TEXT NOT NULL,
                 note             TEXT,
-                due              TEXT,
+                due_date         TEXT,
                 color            INTEGER,
                 is_todoist       INTEGER,
                 inbox_project    INTEGER,
@@ -153,7 +159,8 @@ public class Services.Database : GLib.Object {
                 is_archived      INTEGER,
                 is_favorite      INTEGER,
                 is_sync          INTEGER,
-                shared           INTEGER
+                shared           INTEGER,
+                is_kanban        INTEGER
             );
         """; 
         
@@ -391,6 +398,35 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Objects.Queue get_queue_by_object_id (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        
+        sql = """
+            SELECT * FROM Queue WHERE object_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var queue = new Objects.Queue ();
+
+        if (stmt.step () == Sqlite.ROW) {
+            queue.uuid = stmt.column_text (0);
+            queue.object_id = stmt.column_int64 (1);
+            queue.query = stmt.column_text (2);
+            queue.temp_id = stmt.column_text (3);
+            queue.args = stmt.column_text (4);
+            queue.date_added = stmt.column_text (4);
+        }
+
+        return queue;
+    }
+
     public Gee.ArrayList<Objects.Queue?> get_all_queue () {
         Sqlite.Statement stmt;
         string sql;
@@ -419,6 +455,37 @@ public class Services.Database : GLib.Object {
         }
 
         return all;
+    }
+
+    public void update_queue (Objects.Queue queue) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Queue SET object_id = ?, query = ?, temp_id = ?, args = ?
+            WHERE uuid = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, queue.object_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, queue.query);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_text (3, queue.temp_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (4, queue.args);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (5, queue.uuid);
+        assert (res == Sqlite.OK);
+
+        res = stmt.step ();
     }
 
     public void remove_queue (string uuid) {
@@ -547,7 +614,6 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.ROW) {
             for (int i = 0; i < stmt.column_count (); i++) {
-                print ("column_name: %s\n".printf (stmt.column_name (i)));
                 if (stmt.column_name (i) == col) {
                     return true;
                 }
@@ -613,6 +679,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
     }
+
     /*
         Collaborators
     */
@@ -884,7 +951,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
 
         sql = """
-            INSERT OR IGNORE INTO Projects (id, area_id, name, note, due, color, 
+            INSERT OR IGNORE INTO Projects (id, area_id, name, note, due_date, color, 
                 is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived, 
                 is_favorite, is_sync, shared)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
@@ -905,7 +972,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (4, project.note);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (5, project.due);
+        res = stmt.bind_text (5, project.due_date);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (6, project.color);
@@ -953,8 +1020,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Projects SET name = ?, note = ?, due = ?, color = ?, item_order = ?, 
-            is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ?, shared = ?
+            UPDATE Projects SET name = ?, note = ?, due_date = ?, color = ?, item_order = ?, 
+            is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ?, shared = ?, is_kanban = ?
             WHERE id = ?;
         """;
 
@@ -967,7 +1034,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (2, project.note);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_text (3, project.due);
+        res = stmt.bind_text (3, project.due_date);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (4, project.color);
@@ -991,7 +1058,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (10, project.shared);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (11, project.id);
+        res = stmt.bind_int (11, project.is_kanban);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (12, project.id);
         assert (res == Sqlite.OK);
 
         res = stmt.step ();
@@ -1005,7 +1075,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool update_item_id (int64 current_id, int64 new_id) {
+    public void update_item_id (int64 current_id, int64 new_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1027,13 +1097,27 @@ public class Services.Database : GLib.Object {
 
         if (res == Sqlite.DONE) {
             item_id_updated (current_id, new_id);
-            return true;
-        } else {
-            return false;
+
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET parent_id = ? WHERE parent_id = ?;
+            """;
+            
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, new_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (2, current_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
         }
     }
 
-    public bool update_section_id (int64 current_id, int64 new_id) {
+    public void update_section_id (int64 current_id, int64 new_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1055,9 +1139,23 @@ public class Services.Database : GLib.Object {
 
         if (res == Sqlite.DONE) {
             section_id_updated (current_id, new_id);
-            return true;
-        } else {
-            return false;
+
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET section_id = ? WHERE section_id = ?;
+            """;
+            
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, new_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (2, current_id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.step ();
         }
     }
 
@@ -1101,7 +1199,6 @@ public class Services.Database : GLib.Object {
 
             res = stmt.step ();
 
-            /*
             if (res == Sqlite.DONE) {
                 project_id_updated (current_id, new_id);
             
@@ -1122,7 +1219,6 @@ public class Services.Database : GLib.Object {
 
                 res = stmt.step ();
             }
-            */
         }
     }
 
@@ -1226,7 +1322,7 @@ public class Services.Database : GLib.Object {
             p.area_id = stmt.column_int64 (1);
             p.name = stmt.column_text (2);
             p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
+            p.due_date = stmt.column_text (4);
             p.color = stmt.column_int (5);
             p.is_todoist = stmt.column_int (6);
             p.inbox_project = stmt.column_int (7);
@@ -1242,6 +1338,23 @@ public class Services.Database : GLib.Object {
         }
 
         return all;
+    }
+
+    public bool projects_area_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Projects WHERE area_id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        return returned;
     }
 
     public Gee.ArrayList<Objects.Project?> get_all_projects () {
@@ -1265,7 +1378,7 @@ public class Services.Database : GLib.Object {
             p.area_id = stmt.column_int64 (1);
             p.name = stmt.column_text (2);
             p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
+            p.due_date = stmt.column_text (4);
             p.color = stmt.column_int (5);
             p.is_todoist = stmt.column_int (6);
             p.inbox_project = stmt.column_int (7);
@@ -1276,6 +1389,7 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
 
             all.add (p);
         }
@@ -1305,7 +1419,7 @@ public class Services.Database : GLib.Object {
             p.area_id = stmt.column_int64 (1);
             p.name = stmt.column_text (2);
             p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
+            p.due_date = stmt.column_text (4);
             p.color = stmt.column_int (5);
             p.is_todoist = stmt.column_int (6);
             p.inbox_project = stmt.column_int (7);
@@ -1316,6 +1430,7 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
 
             all.add (p);
         }
@@ -1329,8 +1444,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT id, area_id, name, note, due, color, is_todoist, inbox_project, team_inbox, 
-            item_order, is_deleted, is_archived, is_favorite, is_sync, shared 
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox, 
+            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban
             FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
         """;
 
@@ -1346,7 +1461,7 @@ public class Services.Database : GLib.Object {
             p.area_id = stmt.column_int64 (1);
             p.name = stmt.column_text (2);
             p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
+            p.due_date = stmt.column_text (4);
             p.color = stmt.column_int (5);
             p.is_todoist = stmt.column_int (6);
             p.inbox_project = stmt.column_int (7);
@@ -1357,6 +1472,7 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
 
             all.add (p);
         }
@@ -1386,7 +1502,7 @@ public class Services.Database : GLib.Object {
             p.area_id = stmt.column_int64 (1);
             p.name = stmt.column_text (2);
             p.note = stmt.column_text (3);
-            p.due = stmt.column_text (4);
+            p.due_date = stmt.column_text (4);
             p.color = stmt.column_int (5);
             p.is_todoist = stmt.column_int (6);
             p.inbox_project = stmt.column_int (7);
@@ -1397,6 +1513,7 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
         }
 
         return p;
@@ -2282,6 +2399,8 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
         int64 old_project_id = item.project_id;
+        item.section_id = 0;
+        
         subtract_task_counter (old_project_id);
 
         sql = """
@@ -2402,7 +2521,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT id FROM Items WHERE project_id = ? AND checked = 0 ORDER BY item_order;
+            SELECT id FROM Items WHERE project_id = ? AND checked = 0;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2412,7 +2531,29 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
         
         var size = 0;
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            size++;
+        }
 
+        return size;
+    }
+
+    public int get_count_sections_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id FROM Sections WHERE project_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var size = 0;
         while ((res = stmt.step()) == Sqlite.ROW) {
             size++;
         }

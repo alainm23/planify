@@ -241,7 +241,7 @@ public class Views.Today : Gtk.EventBox {
             var event_row = event_hashmap[event_uid];
             if (event_row != null) {
                 event_row.destroy ();
-                event_hashmap.remove (event_uid);
+                event_hashmap.unset (event_uid);
             }
         }
     }

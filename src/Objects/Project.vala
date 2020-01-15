@@ -4,7 +4,7 @@ public class Objects.Project : GLib.Object {
     
     public string name { get; set; default = ""; }
     public string note { get; set; default = ""; }
-    public string due { get; set; default = ""; }
+    public string due_date { get; set; default = ""; }
 
     public int color { get; set; default = 0; }
     public int is_todoist { get; set; default = 0; }
@@ -15,10 +15,11 @@ public class Objects.Project : GLib.Object {
     public int is_archived { get; set; default = 0; }
     public int is_favorite { get; set; default = 0; }
     public int64 is_sync { get; set; default = 0; }
-    public int shared { get; set; default = 0; } 
+    public int shared { get; set; default = 0; }
+    public int is_kanban { get; set; default = 0; }
 
     private uint timeout_id = 0;
-
+    
     public void save () {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
@@ -57,7 +58,11 @@ public class Objects.Project : GLib.Object {
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (this.id);
+        if (Planner.database.curTempIds_exists (this.id)) {
+            builder.add_string_value (Planner.database.get_temp_id (this.id));
+        } else {
+            builder.add_int_value (this.id);
+        }
 
         builder.set_member_name ("name");
         builder.add_string_value (this.name);

@@ -15,7 +15,7 @@
    height="128"
    id="svg3489"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="com.github.alainm23.planner.svg">
+   sodipodi:docname="audacious.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -29,9 +29,9 @@
      inkscape:window-height="705"
      id="namedview154"
      showgrid="false"
-     inkscape:zoom="4.078125"
-     inkscape:cx="64"
-     inkscape:cy="64"
+     inkscape:zoom="2.8836699"
+     inkscape:cx="103.61113"
+     inkscape:cy="50.854203"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -1811,7 +1811,7 @@
        x2="114.81561"
        y2="58.858322"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-3.9813316,1.6316469)" />
+       gradientTransform="translate(-124.06097,5.1051406)" />
   </defs>
   <metadata
      id="metadata3494">
@@ -1821,7 +1821,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2872,7 +2872,7 @@
        id="tspan7203" /></text>
   <g
      id="g1357"
-     transform="rotate(1.0852244,81.61819,119.20237)">
+     transform="rotate(-3.0403773,56.776505,44.677326)">
     <rect
        transform="rotate(-10.67197)"
        id="rect6783"
@@ -2905,13 +2905,13 @@
        style="color:#000000;opacity:0.25;fill:none;stroke:#000000;stroke-width:0.89000976" />
   </g>
   <g
-     id="g1352"
-     transform="translate(0,-0.29967636)">
+     id="g1363"
+     transform="translate(121.37312,3.8145838)">
     <rect
        transform="matrix(0.99815978,0.06063869,-0.06164242,0.9980983,0,0)"
        id="rect2328-5"
-       x="25.591661"
-       y="10.981283"
+       x="-94.487976"
+       y="14.454777"
        width="85.242615"
        height="99.017372"
        ry="4.368413"
@@ -2920,25 +2920,22 @@
     <rect
        transform="matrix(0.99817113,0.06045157,-0.06183322,0.9980865,0,0)"
        id="rect2332-7"
-       x="25.219049"
-       y="10.604774"
+       x="-94.859955"
+       y="14.055758"
        width="86.013733"
        height="99.605888"
        ry="4.835238"
        rx="4.1754227"
        style="color:#000000;opacity:0.48900003;fill:none;fill-opacity:1;stroke:#002e99;stroke-width:0.89864713;stroke-opacity:1" />
-    <g
-       id="g1353">
-      <path
-         inkscape:connector-curvature="0"
-         d="m 80.331754,44.028468 8.378148,6.718774 -25.125743,36.647375 -21.742642,-16.675246 6.429521,-9.408359 12.715335,9.831635 z"
-         id="path2922-6-6-0-9-7-3"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.5;fill:#333333;fill-opacity:0.57777782;fill-rule:nonzero;stroke:none;stroke-width:3.34398198;marker:none;enable-background:accumulate" />
-      <path
-         inkscape:connector-curvature="0"
-         d="M 80.23368,42.108336 88.611827,48.82711 63.486085,85.474485 41.743442,68.799239 48.172963,59.39088 60.888299,69.222515 Z"
-         id="path2922-6-6-0-9-4-2-6"
-         style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.34398198;marker:none;enable-background:accumulate" />
-    </g>
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.5;fill:#333333;fill-opacity:0.57777782;fill-rule:nonzero;stroke:none;stroke-width:3.34398198;marker:none;enable-background:accumulate"
+       id="path2922-6-6-0-9-7-3"
+       d="m -39.741026,40.213884 8.378148,6.718774 -25.125743,36.647375 -21.742642,-16.675246 6.429521,-9.408359 12.715335,9.831635 z"
+       inkscape:connector-curvature="0" />
+    <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.34398198;marker:none;enable-background:accumulate"
+       id="path2922-6-6-0-9-4-2-6"
+       d="m -39.8391,38.293752 8.378147,6.718774 -25.125742,36.647375 -21.742643,-16.675246 6.429521,-9.408359 12.715336,9.831635 z"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

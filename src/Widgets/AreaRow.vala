@@ -459,10 +459,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 "user-trash-full",
                 Gtk.ButtonsType.CLOSE
             );
-
-            var custom_widget = new Gtk.CheckButton.with_label (_("Delete projects"));
-            custom_widget.show ();
-            message_dialog.custom_bin.add (custom_widget);
+            
+            Gtk.CheckButton custom_widget = null;
+            if (Planner.database.projects_area_exists (area.id)) {
+                custom_widget = new Gtk.CheckButton.with_label (_("Delete projects"));
+                custom_widget.show ();
+                message_dialog.custom_bin.add (custom_widget);
+            }
 
             var remove_button = new Gtk.Button.with_label (_("Delete"));
             remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
@@ -472,7 +475,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 if (Planner.database.delete_area (area)) {
-                    if (custom_widget.active) {
+                    if (custom_widget != null && custom_widget.active) {
                         delete_projects ();
                     } else {
                         move_projects ();
@@ -494,8 +497,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     private void delete_projects () {
         foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
-            if (project.is_todoist == 0) {
-                Planner.database.delete_project (project.id);
+            Planner.database.delete_project (project.id);
+            if (project.is_todoist == 1) {
+                Planner.todoist.delete_project (project);
             }
         }
 
