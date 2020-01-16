@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-15 10:54-0500\n"
-"PO-Revision-Date: 2019-03-27 12:04+0100\n"
+"PO-Revision-Date: 2020-01-16 20:15+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: src/MainWindow.vala:42 data/com.github.alainm23.planner.desktop.in:3
 #: data/com.github.alainm23.planner.desktop.in:4
@@ -24,109 +24,104 @@ msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:62 src/Utils.vala:69 src/Widgets/LabelRow.vala:27
-#, fuzzy
 msgid "Home"
-msgstr "Website"
+msgstr "Thuis"
 
 #: src/Utils.vala:63 src/Utils.vala:73
 msgid "Office"
-msgstr ""
+msgstr "Kantoor"
 
 #: src/Utils.vala:64 src/Utils.vala:77
 msgid "Errand"
-msgstr ""
+msgstr "Boodschap"
 
 #: src/Utils.vala:65 src/Utils.vala:81
-#, fuzzy
 msgid "Important"
-msgstr "Importeren"
+msgstr "Belangrijk"
 
 #: src/Utils.vala:66 src/Utils.vala:85
 msgid "Pending"
-msgstr ""
+msgstr "In behandeling"
 
 #: src/Utils.vala:128
 msgid "Berry Red"
-msgstr ""
+msgstr "Kersenrood"
 
 #: src/Utils.vala:129
-#, fuzzy
 msgid "Red"
-msgstr "woe"
+msgstr "Rood"
 
 #: src/Utils.vala:130
 msgid "Orange"
-msgstr ""
+msgstr "Oranje"
 
 #: src/Utils.vala:131
 msgid "Yellow"
-msgstr ""
+msgstr "Geel"
 
 #: src/Utils.vala:132
 msgid "Olive Green"
-msgstr ""
+msgstr "Olijfgroen"
 
 #: src/Utils.vala:133
 msgid "Lima Green"
-msgstr ""
+msgstr "Limagroen"
 
 #: src/Utils.vala:134
 msgid "Green"
-msgstr ""
+msgstr "Groen"
 
 #: src/Utils.vala:135
 msgid "Mint Green"
-msgstr ""
+msgstr "Mintgroen"
 
 #: src/Utils.vala:136
 msgid "Teal"
-msgstr ""
+msgstr "Groenblauw"
 
 #: src/Utils.vala:137
 msgid "Sky Blue"
-msgstr ""
+msgstr "Luchtblauw"
 
 #: src/Utils.vala:138
-#, fuzzy
 msgid "Light Blue"
-msgstr "Lichte regenbui"
+msgstr "Lichtblauw"
 
 #: src/Utils.vala:139
-#, fuzzy
 msgid "Blue"
-msgstr "Blauwe bes"
+msgstr "Blauw"
 
 #: src/Utils.vala:140
 msgid "Grape"
-msgstr ""
+msgstr "Druif"
 
 #: src/Utils.vala:141
 msgid "Violet"
-msgstr ""
+msgstr "Violet"
 
 #: src/Utils.vala:142
 msgid "Lavander"
-msgstr ""
+msgstr "Lavendel"
 
 #: src/Utils.vala:143
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Utils.vala:144
 msgid "Salmon"
-msgstr ""
+msgstr "Zalm"
 
 #: src/Utils.vala:145
 msgid "Charcoal"
-msgstr ""
+msgstr "Houtskool"
 
 #: src/Utils.vala:146
 msgid "Grey"
-msgstr ""
+msgstr "Grijs"
 
 #: src/Utils.vala:147
 msgid "Taupe"
-msgstr ""
+msgstr "Taupe"
 
 #: src/Utils.vala:440 src/Widgets/Pane.vala:48 src/Widgets/DueButton.vala:127
 #: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:188
@@ -141,7 +136,7 @@ msgstr "Morgen"
 
 #: src/Utils.vala:534
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Aan de slag"
 
 #: src/Utils.vala:535
 msgid ""
@@ -149,10 +144,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Dit project helpt je Planner onder de knie te krijgen door aan de slag te "
+"gaan met een goed ingedeeld taakoverzicht, waardoor je van alles op de "
+"hoogte blijft."
 
 #: src/Utils.vala:540
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Taken bijhouden"
 
 #: src/Utils.vala:541
 msgid ""
@@ -163,11 +161,17 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Uit onderzoek is gebleken dat onze hersenen zó in elkaar steken dat we "
+"altijd maar blijven denken aan onafgeronde taken. Dat is handig als je aan "
+"één taak moet werken, maar niet als je je aandacht moet verdelen over 30 "
+"taken of meer. Daarom is het aanbevolen alle taken uit je hoofd te zetten "
+"door ze op een takenlijst te zetten. Daarna kun je ze indelen en "
+"verschillende prioriteiten toekennen, zodat je weet waar je op moet focussen "
+"én wanneer."
 
 #: src/Utils.vala:546
-#, fuzzy
 msgid "Adding new tasks"
-msgstr "Nieuwe taak toevoegen"
+msgstr "Taken toevoegen"
 
 #: src/Utils.vala:547
 msgid ""
@@ -175,10 +179,13 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Voeg een taak toe door op + te klikken en achteraf op Enter te drukken.\n"
+"- Als je taak is aangemaakt, klik er dan op om deze aan te passen, een "
+"aantekening te maken of andere opties te tonen."
 
 #: src/Utils.vala:553
 msgid "Due dates"
-msgstr ""
+msgstr "Einddatums"
 
 #: src/Utils.vala:554
 msgid ""
@@ -187,11 +194,14 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- Als de taak op een bepaalde dag moet zijn afgerond, klik dan op het "
+"kalenderpictogram om een datum te kiezen.\n"
+"- Als je de datum wilt verwijderen, herhaal dan bovenstaande en kilk op "
+"'Geen einddatum'."
 
 #: src/Utils.vala:560
-#, fuzzy
 msgid "How to use projects"
-msgstr "Omzetten naar project"
+msgstr "Werken met projecten"
 
 #: src/Utils.vala:561
 msgid ""
@@ -205,16 +215,22 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Maak een project aan zodat al je informatie op één centrale plek te vinden "
+"is, of je nu een presentatie plant, je voorbereidt op een evenement of een "
+"website bouwt.\n"
+"- Klik in het navigatiemenu links op de knop '+'.\n"
+"- Kies 'Project' in het optiesmenu en voer een projectnaam in.\n"
+"- Kies een bron in het uitrolmenu.\n"
+"- (optioneel) Kies een andere projectkleur in de kleurenlijst.\n"
+"- Klik op 'Toevoegen' om het project aan te maken."
 
 #: src/Utils.vala:571
-#, fuzzy
 msgid "Sections"
-msgstr "Nieuw project"
+msgstr "Secties"
 
 #: src/Utils.vala:577
-#, fuzzy
 msgid "Add sections"
-msgstr "Locatie"
+msgstr "Secties toevoegen"
 
 #: src/Utils.vala:578
 msgid ""
@@ -228,6 +244,14 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Het is altijd makkelijker om een groot project op te splitsen in delen "
+"middels Planner's secties.\n"
+"- Deel je projecten in in secties om taken te groeperen en zo een beter "
+"overzicht te krijgen van alle openstaande taken. Voeg secties toe aan je "
+"project en sleep taken naar de juiste sectie. Zo raak je niet overprikkeld "
+"door het staren naar één lange lijst.\n"
+"- Ga naar een project. Klik rechtsbovenaan op de knop '+'.\n"
+"- Voer een naam in voor de sectie en klik op 'Toevoegen'."
 
 #: src/Services/Database.vala:873 src/Widgets/Pane.vala:40
 #: src/Widgets/ItemRow.vala:1064 src/Widgets/SectionRow.vala:464
@@ -237,14 +261,12 @@ msgid "Inbox"
 msgstr "Postvak IN"
 
 #: src/Services/Todoist.vala:1197
-#, fuzzy
 msgid "Create todoist project error"
-msgstr "Nieuw project creëren"
+msgstr "Fout bij aanmaken van todoist-project"
 
 #: src/Services/Todoist.vala:1301
-#, fuzzy
 msgid "Update todoist project error"
-msgstr "Project exporteren"
+msgstr "Fout bij bijwerken van todoist-project"
 
 #: src/Services/Todoist.vala:1302 src/Services/Todoist.vala:1404
 #: src/Services/Todoist.vala:1482 src/Services/Todoist.vala:1588
@@ -254,44 +276,39 @@ msgstr "Project exporteren"
 #: src/Services/Todoist.vala:2409 src/Services/Todoist.vala:2508
 #, c-format
 msgid "Status Code: %u"
-msgstr ""
+msgstr "Statuscode: %u"
 
 #: src/Services/Todoist.vala:1403
-#, fuzzy
 msgid "Delete todoist project error"
-msgstr "Project verwijderen"
+msgstr "Fout bij verwijderen van todoist-project"
 
 #: src/Services/Todoist.vala:1481
-#, fuzzy
 msgid "Create todoist section error"
-msgstr "Koppelen"
+msgstr "Fout bij aanmaken van todoist-sectie"
 
 #: src/Services/Todoist.vala:1587 src/Services/Todoist.vala:1692
 #: src/Services/Todoist.vala:1788
 msgid "Update todoist section error"
-msgstr ""
+msgstr "Fout bij bijwerken van todoist-sectie"
 
 #: src/Services/Todoist.vala:1898 src/Services/Todoist.vala:2413
 #: src/Services/Todoist.vala:2512
-#, fuzzy
 msgid "Connection error"
-msgstr "Koppelen"
+msgstr "Verbindingsfout"
 
 #: src/Services/Todoist.vala:2009 src/Services/Todoist.vala:2077
 #: src/Services/Todoist.vala:2191 src/Services/Todoist.vala:2311
 #: src/Services/Todoist.vala:2408 src/Services/Todoist.vala:2507
 msgid "Update todoist item error"
-msgstr ""
+msgstr "Fout bij bijwerken van todoist-item"
 
 #: src/Services/Notifications.vala:11
-#, fuzzy
 msgid "task"
-msgstr "Nieuwe taak"
+msgstr "taak"
 
 #: src/Services/Notifications.vala:13
-#, fuzzy
 msgid "tasks"
-msgstr "Alle taken"
+msgstr "taken"
 
 #: src/Services/Calendar/Util.vala:225 src/Widgets/New.vala:51
 msgid "On this computer"
@@ -304,6 +321,10 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
+"Standaard voeg je taken toe aan je Postvak IN zodat je ze snel uit je hoofd "
+"kunt zetten. Vervolgens keer je later terug en maak je een plan van aanpak. "
+"Dit is de beste manier om je hoofd leeg te maken zodat je kunt focussen op "
+"je huidige bezigheden."
 
 #: src/Widgets/Pane.vala:48
 msgid ""
@@ -311,6 +332,9 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"De pagina 'Vandaag' toont alle taken van alle projecten die vandaag als "
+"einddatum hebben. Bekijk deze elke ochtend en maak een plan van aanpak voor "
+"die dag."
 
 #: src/Widgets/Pane.vala:50 src/Widgets/Pane.vala:52 src/Widgets/Pane.vala:365
 #: src/Views/Upcoming.vala:12 src/Dialogs/Preferences.vala:191
@@ -322,10 +346,13 @@ msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
+"Op de pagina 'Aankomend' kun je alvast je week plannen. Deze pagina toont "
+"alle taken van de aankomende dagen, zowel ingeplande taken als "
+"kalendergebeurtenissen."
 
 #: src/Widgets/Pane.vala:52
 msgid "Back-Pocket"
-msgstr ""
+msgstr "Achterzak"
 
 #: src/Widgets/Pane.vala:90 data/com.github.alainm23.planner.appdata.xml.in:24
 msgid "Quick Find"
@@ -337,15 +364,15 @@ msgstr "Voorkeuren"
 
 #: src/Widgets/Pane.vala:123 src/Widgets/Pane.vala:374
 msgid "Sync"
-msgstr ""
+msgstr "Synchroniseren"
 
 #: src/Widgets/Pane.vala:166
 msgid "Add list"
-msgstr ""
+msgstr "Lijst toevoegen"
 
 #: src/Widgets/Pane.vala:378
 msgid "Offline mode is on"
-msgstr ""
+msgstr "Je werkt offline"
 
 #: src/Widgets/Pane.vala:378
 msgid ""
@@ -353,20 +380,21 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"Het lijkt erop dat je niet verbonden bent met\n"
+"internet. De aanpassingen die je nu doet, worden\n"
+"gesynchroniseerd zodra je verbonden bent."
 
 #: src/Widgets/New.vala:42
-#, fuzzy
 msgid "Name:"
-msgstr "Naam"
+msgstr "Naam:"
 
 #: src/Widgets/New.vala:46
 msgid "Source:"
-msgstr ""
+msgstr "Bron:"
 
 #: src/Widgets/New.vala:88
-#, fuzzy
 msgid "Color:"
-msgstr "Kleur"
+msgstr "Kleur:"
 
 #: src/Widgets/New.vala:246 src/Widgets/NewItem.vala:70
 #: src/Widgets/ReminderButton.vala:181
@@ -378,50 +406,45 @@ msgstr "Toevoegen"
 #: src/Widgets/AreaRow.vala:116 src/Widgets/ReminderButton.vala:179
 #: src/Views/Project.vala:141
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/Widgets/New.vala:444
-#, fuzzy
 msgid "Project"
-msgstr "Nieuw project"
+msgstr "Project"
 
 #: src/Widgets/New.vala:450
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
+"Begin aan een project, maak een takenlijst en organiseer je aantekeningen."
 
 #: src/Widgets/New.vala:475
 msgid "Area"
-msgstr ""
+msgstr "Pagina"
 
 #: src/Widgets/New.vala:481
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr ""
+msgstr "Deel je projecten in in groepen om je paneel overzichtelijk te houden."
 
 #: src/Widgets/New.vala:545
-#, fuzzy
 msgid "New area"
-msgstr "Nieuw project"
+msgstr "Nieuwe pagina"
 
 #: src/Widgets/ProjectRow.vala:154
-#, fuzzy
 msgid "Local Project"
-msgstr "Project verwijderen"
+msgstr "Lokaal project"
 
 #: src/Widgets/ProjectRow.vala:158
-#, fuzzy
 msgid "Todoist Project"
-msgstr "Project exporteren"
+msgstr "Todoist-project"
 
 #. Colors Menu
 #: src/Widgets/ProjectRow.vala:404
-#, fuzzy
 msgid "Colors"
-msgstr "Kleur"
+msgstr "Kleuren"
 
 #: src/Widgets/ProjectRow.vala:404
-#, fuzzy
 msgid "Project color"
-msgstr "Nieuw project"
+msgstr "Projectkleur"
 
 #: src/Widgets/ProjectRow.vala:408 src/Widgets/ProjectRow.vala:431
 #: src/Dialogs/Preferences.vala:851
@@ -429,14 +452,12 @@ msgid "Back"
 msgstr "Terug"
 
 #: src/Widgets/ProjectRow.vala:427
-#, fuzzy
 msgid "Move to area"
-msgstr "Omzetten naar project"
+msgstr "Verplaatsen naar pagina"
 
 #: src/Widgets/ProjectRow.vala:427
-#, fuzzy
 msgid "Project area"
-msgstr "Nieuw project"
+msgstr "Projectpagina"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:453 src/Widgets/ProjectRow.vala:497
@@ -446,9 +467,9 @@ msgstr "Project verwijderen"
 
 #: src/Widgets/ProjectRow.vala:498 src/Widgets/SectionRow.vala:537
 #: src/Widgets/AreaRow.vala:458 src/Views/Project.vala:713
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr "Weet je zeker dat je dit label wilt verwijderen?"
+msgstr "Weet je zeker dat je <b>%s</b> wilt verwijderen?"
 
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/SectionRow.vala:541
 #: src/Widgets/AreaRow.vala:470 src/Views/Project.vala:717
@@ -457,20 +478,18 @@ msgstr "Verwijderen"
 
 #: src/Widgets/ProjectRow.vala:539
 msgid "No Area"
-msgstr ""
+msgstr "Geen pagina"
 
 #: src/Widgets/NewItem.vala:51 src/Widgets/ItemRow.vala:263
 #: src/Widgets/AreaRow.vala:82 src/Widgets/CheckRow.vala:31
 msgid "Task name"
-msgstr ""
+msgstr "Naam van taak"
 
 #: src/Widgets/ItemRow.vala:291 src/Views/Project.vala:178
-#, fuzzy
 msgid "Add note"
-msgstr "Nieuw project toevoegen"
+msgstr "Aantekening maken"
 
 #: src/Widgets/ItemRow.vala:335
-#, fuzzy
 msgid "Add checklist"
 msgstr "Controlelijst"
 
@@ -481,33 +500,28 @@ msgid "Delete task"
 msgstr "Taak verwijderen"
 
 #: src/Widgets/ItemRow.vala:354
-#, fuzzy
 msgid "Task settings"
-msgstr "Instellingen"
+msgstr "Taakinstellingen"
 
 #: src/Widgets/ItemRow.vala:1091
-#, fuzzy
 msgid "No Section"
-msgstr "Nieuw project"
+msgstr "Geen sectie"
 
 #: src/Widgets/ItemRow.vala:1126
-#, fuzzy
 msgid "Complete"
-msgstr "Afgeronde taken"
+msgstr "Afgerond"
 
 #: src/Widgets/ItemRow.vala:1128
 msgid "View / Hide task"
-msgstr ""
+msgstr "Taak tonen/verbergen"
 
 #: src/Widgets/ItemRow.vala:1130
-#, fuzzy
 msgid "Move to project"
-msgstr "Omzetten naar project"
+msgstr "Verplaatsen naar project"
 
 #: src/Widgets/ItemRow.vala:1134
-#, fuzzy
 msgid "Move to section"
-msgstr "Locatie"
+msgstr "Verplaatsen naar sectie"
 
 #: src/Widgets/ItemRow.vala:1138
 msgid "Duplicate"
@@ -515,64 +529,58 @@ msgstr "Klonen"
 
 #: src/Widgets/ItemCompletedRow.vala:18
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: src/Widgets/ItemCompletedRow.vala:19
 msgid "Note"
-msgstr "Notitie"
+msgstr "Aantekening"
 
 #: src/Widgets/ItemCompletedRow.vala:20
 msgid "Due date"
-msgstr ""
+msgstr "Einddatum"
 
 #: src/Widgets/ItemCompletedRow.vala:21
-#, fuzzy
 msgid "Date completed"
-msgstr "Afgeronde taken verbergen"
+msgstr "Afgerond op"
 
 #: src/Widgets/SectionRow.vala:68
-#, fuzzy
 msgid "Section name"
-msgstr "Projectnaam"
+msgstr "Naam van sectie"
 
 #: src/Widgets/SectionRow.vala:82
 msgid "More"
-msgstr ""
+msgstr "Meer"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:99 src/Widgets/AreaRow.vala:111
 #: src/Views/Project.vala:136
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 #: src/Widgets/SectionRow.vala:500 src/Widgets/MagicButton.vala:11
 #: src/Widgets/UpcomingRow.vala:46
-#, fuzzy
 msgid "Add task"
-msgstr "Nieuwe taak toevoegen"
+msgstr "Taak toevoegen"
 
 #: src/Widgets/SectionRow.vala:502
 msgid "Edit section"
-msgstr ""
+msgstr "Sectie aanpassen"
 
 #: src/Widgets/SectionRow.vala:504
-#, fuzzy
 msgid "Move section"
-msgstr "Locatie"
+msgstr "Sectie verplaatsen"
 
 #: src/Widgets/SectionRow.vala:508 src/Widgets/SectionRow.vala:536
-#, fuzzy
 msgid "Delete section"
-msgstr "Account verwijderen"
+msgstr "Sectie verwijderen"
 
 #: src/Widgets/DueButton.vala:22
 msgid "Due Date"
-msgstr ""
+msgstr "Einddatum"
 
 #: src/Widgets/DueButton.vala:135
-#, fuzzy
 msgid "Undated"
-msgstr "Bijwerken"
+msgstr "Geen einddatum"
 
 #: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:86
 #: src/Dialogs/Preferences.vala:443
@@ -580,41 +588,36 @@ msgid "Labels"
 msgstr "Labels"
 
 #: src/Widgets/LabelButton.vala:24
-#, fuzzy
 msgid "labels"
-msgstr "Labels"
+msgstr "labels"
 
 #: src/Widgets/LabelButton.vala:70
 msgid "Type a label"
-msgstr ""
+msgstr "Typ een label"
 
 #: src/Widgets/LabelButton.vala:93
-#, fuzzy
 msgid "Edit labels"
-msgstr "Label bewerken"
+msgstr "Labels aanpassen"
 
 #: src/Widgets/Toast.vala:67
 msgid "Undo"
-msgstr ""
+msgstr "Ongedaan maken"
 
 #: src/Widgets/AreaRow.vala:435
-#, fuzzy
 msgid "Edit area"
-msgstr "Label bewerken"
+msgstr "Pagina aanpassen"
 
 #: src/Widgets/AreaRow.vala:437 src/Widgets/AreaRow.vala:457
-#, fuzzy
 msgid "Delete area"
-msgstr "Label verwijderen"
+msgstr "Pagina verwijderen"
 
 #: src/Widgets/AreaRow.vala:465
-#, fuzzy
 msgid "Delete projects"
-msgstr "Project verwijderen"
+msgstr "Projecten verwijderen"
 
 #: src/Widgets/NewCheck.vala:53
 msgid "Subtask name"
-msgstr ""
+msgstr "Naam van bijkomende taak"
 
 #. get_action_area ().visible = false;
 #. get_action_area ().no_show_all = true;
@@ -624,15 +627,15 @@ msgstr "Sluiten"
 
 #: src/Widgets/ReminderButton.vala:19
 msgid "Reminders"
-msgstr ""
+msgstr "Herinneringen"
 
 #: src/Widgets/ReminderButton.vala:137
 msgid "Add reminder"
-msgstr ""
+msgstr "Herinnering toevoegen"
 
 #: src/Widgets/ReminderButton.vala:172
 msgid "Time:"
-msgstr ""
+msgstr "Tijd:"
 
 #. / TRANSLATORS: this will only show up when 12-hours clock is in use
 #: src/Widgets/TimePicker.vala:104
@@ -647,12 +650,11 @@ msgstr "PM"
 #. / TRANSLATORS: separates hours from minutes.
 #: src/Widgets/TimePicker.vala:151
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
-#, fuzzy
 msgid "%OB, %Y"
-msgstr "%B %e, %Y"
+msgstr "%OB, %Y"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:42
 msgid "%OB %Y"
@@ -687,94 +689,87 @@ msgid "Sun"
 msgstr "zo"
 
 #: src/Views/Welcome.vala:26
-#, fuzzy
 msgid "Don't worry about forgetting things again"
-msgstr "Nooit meer zorgen over dingen vergeten"
+msgstr "Geen zorgen: je vergeet nooit meer iets"
 
 #: src/Views/Welcome.vala:29
 msgid "Startup"
-msgstr ""
+msgstr "Opstarten"
 
 #: src/Views/Welcome.vala:29
 msgid "Start working locally."
-msgstr ""
+msgstr "Lokaal werken."
 
 #: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:507
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Views/Welcome.vala:30
 msgid "Synchronize with your Todoist account and start working."
-msgstr ""
+msgstr "Synchroniseer je Todoist-account en ga daarmee aan de slag."
 
 #: src/Views/Inbox.vala:51 src/Views/Project.vala:80
 msgid "Add section"
-msgstr ""
+msgstr "Sectie toevoegen"
 
 #: src/Views/Inbox.vala:72
 msgid "Inbox comments"
-msgstr ""
+msgstr "Postvak IN-aantekeningen"
 
 #: src/Views/Inbox.vala:80 src/Views/Project.vala:119
-#, fuzzy
 msgid "Search task"
-msgstr "Taak delen"
+msgstr "Taak zoeken"
 
 #: src/Views/Inbox.vala:87 src/Views/Project.vala:126
 msgid "Options"
-msgstr ""
+msgstr "Opties"
 
 #: src/Views/Inbox.vala:503 src/Views/Inbox.vala:563 src/Views/Inbox.vala:580
 #: src/Views/Project.vala:671 src/Views/Project.vala:735
 #: src/Views/Project.vala:789
-#, fuzzy
 msgid "Show completed task"
-msgstr "Afgeronde taken tonen"
+msgstr "Afgeronde taak tonen"
 
 #: src/Views/Inbox.vala:583 src/Views/Project.vala:738
-#, fuzzy
 msgid "Hide completed task"
-msgstr "Afgeronde taken verbergen"
+msgstr "Afgeronde taak verbergen"
 
 #: src/Views/Project.vala:100
 msgid "Invite person"
-msgstr ""
+msgstr "Persoon uitnodigen"
 
 #: src/Views/Project.vala:110
-#, fuzzy
 msgid "Project comments"
-msgstr "Projectnaam"
+msgstr "Projectaantekeningen"
 
 #: src/Views/Project.vala:168
 msgid "Add a note"
-msgstr ""
+msgstr "Aantekening toevoegen"
 
 #: src/Views/Project.vala:667
-#, fuzzy
 msgid "Edit project"
-msgstr "Project exporteren"
+msgstr "Project aanpassen"
 
 #: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:103
-#, fuzzy
 msgid "Loading…"
-msgstr "Bezig met laden..."
+msgstr "Bezig met laden…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:117
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "Geen internetverbinding"
 
 #: src/Dialogs/TodoistOAuth.vala:47
 msgid "Connect to the Internet to connect with Todoist"
-msgstr ""
+msgstr "Maak verbinding met internet om Todoist te koppelen"
 
 #: src/Dialogs/TodoistOAuth.vala:83
 msgid "Synchronizing… Wait a moment please."
-msgstr ""
+msgstr "Bezig met synchroniseren…"
 
 #: src/Dialogs/TodoistOAuth.vala:95
 msgid "Please enter your credentials…"
-msgstr ""
+msgstr "Voer je inloggegevens in…"
 
 #. General
 #: src/Dialogs/Preferences.vala:61 src/Dialogs/Preferences.vala:67
@@ -784,26 +779,23 @@ msgstr "Algemeen"
 
 #: src/Dialogs/Preferences.vala:64 src/Dialogs/Preferences.vala:172
 #: src/Dialogs/Preferences.vala:661
-#, fuzzy
 msgid "Homepage"
-msgstr "Website"
+msgstr "Startpagina"
 
 #: src/Dialogs/Preferences.vala:65 src/Dialogs/Preferences.vala:275
-#, fuzzy
 msgid "Badge count"
 msgstr "Meldingsteller"
 
 #: src/Dialogs/Preferences.vala:66 src/Dialogs/Preferences.vala:346
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #. Addons
 #: src/Dialogs/Preferences.vala:81
 msgid "Add-ons"
-msgstr ""
+msgstr "Uitbreidingen"
 
 #: src/Dialogs/Preferences.vala:85 src/Dialogs/Preferences.vala:569
-#, fuzzy
 msgid "Calendar events"
 msgstr "Kalendergebeurtenissen"
 
@@ -813,14 +805,12 @@ msgid "About"
 msgstr "Over"
 
 #: src/Dialogs/Preferences.vala:101
-#, fuzzy
 msgid "Create tutorial project"
-msgstr "Nieuw project creëren"
+msgstr "Voorbeeldproject aanmaken"
 
 #: src/Dialogs/Preferences.vala:160
-#, fuzzy
 msgid "Your tutorial project was created"
-msgstr "Nieuw project creëren"
+msgstr "Je voorbeeldproject is aangemaakt"
 
 #: src/Dialogs/Preferences.vala:174
 msgid ""
@@ -828,11 +818,13 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Zorg ervoor dat je de taken onder ogen krijgt die voor jou het belangrijkst "
+"zijn zodra je Planner opent. Standaard wordt <b>Postvak IN</b> getoond, maar "
+"je kunt zelf een andere pagina kiezen."
 
 #: src/Dialogs/Preferences.vala:205
-#, fuzzy
 msgid "Projects"
-msgstr "Nieuw project"
+msgstr "Projecten"
 
 #: src/Dialogs/Preferences.vala:277
 msgid ""
@@ -847,60 +839,63 @@ msgstr "Geen"
 
 #: src/Dialogs/Preferences.vala:296
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Vandaag en Postvak IN"
 
 #: src/Dialogs/Preferences.vala:348
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
+"Pas het uiterlijk van Planner aan door een thema te kiezen dat bij jou past."
 
 #: src/Dialogs/Preferences.vala:357
-#, fuzzy
 msgid "Light"
-msgstr "Lichte regenbui"
+msgstr "Licht"
 
 #: src/Dialogs/Preferences.vala:361
-#, fuzzy
 msgid "Night"
-msgstr "Nachtmodus"
+msgstr "Donker"
 
 #: src/Dialogs/Preferences.vala:396
 msgid "DE Integration"
-msgstr ""
+msgstr "Werkomgevingsintegratie"
 
 #: src/Dialogs/Preferences.vala:402
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum en tijd"
 
 #: src/Dialogs/Preferences.vala:407
 msgid "AM/PM"
-msgstr ""
+msgstr "AM/PM"
 
 #: src/Dialogs/Preferences.vala:408
 msgid "24 h"
-msgstr ""
+msgstr "24 u"
 
 #: src/Dialogs/Preferences.vala:410
 msgid "Time format"
-msgstr ""
+msgstr "Tijdopmaak"
 
 #: src/Dialogs/Preferences.vala:446
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
+"Bespaar tijd door vergelijkbare taken te groeperen middels labels. Met een "
+"paar muisklikken kun je een overzicht krijgen van alle taken met dat label."
 
 #: src/Dialogs/Preferences.vala:531
 #, c-format
 msgid "Last successful sync: %s"
-msgstr ""
+msgstr "Gesynchroniseerd op: %s"
 
 #: src/Dialogs/Preferences.vala:542
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Schakel dit in om Planner elke 15 minuten automatisch te synchroniseren met "
+"je Todoist-account."
 
 #. top_box.action_button = "list-add-symbolic";
 #: src/Dialogs/Preferences.vala:572
@@ -910,25 +905,27 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
+"Je kunt je <b>Kalender</b>-app koppelen aan Planner om je gebeurtenissen en "
+"taken op één centrale locatie te hebben. Planner toont gebeurtenissen van "
+"zowel persoonlijke als gedeelde kalenders op de pagina's <b>Vandaag</b> en "
+"<b>Upcoming</b>. Dit is een handige manier om je dag (en je week) te plannen."
 
 #: src/Dialogs/Preferences.vala:662
-#, fuzzy
 msgid "Report a Problem"
 msgstr "Meld een probleem"
 
 #: src/Dialogs/Preferences.vala:663
-#, fuzzy
 msgid "Suggest Translations"
-msgstr "Vertalingen"
+msgstr "Vertalingen aandragen"
 
 #: src/Dialogs/Preferences.vala:664
 msgid "Fund"
-msgstr ""
+msgstr "Doneren"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
 msgid "Never worry about forgetting things again"
-msgstr "Nooit meer zorgen over dingen vergeten"
+msgstr "Geen zorgen: je vergeet nooit meer iets"
 
 #: data/com.github.alainm23.planner.desktop.in:8
 msgid "com.github.alainm23.planner"
@@ -958,39 +955,41 @@ msgid ""
 "you add a task, it goes straight to your Inbox unless you specify that the "
 "task goes into a project."
 msgstr ""
-"1. Verzamel je ideeën - Postvak IN is de standaard taaklijst van Planner. "
-"Als je een taak toevoegt, dan komt deze meteen terecht in je Postvak IN, "
-"tenzij je een ander project als bestemming kiest."
+"1. Verzamel je ideeën: Postvak IN is de standaard taaklijst van Planner. Als "
+"je een taak toevoegt, dan komt deze meteen terecht in je Postvak IN, tenzij "
+"je een ander project als bestemming kiest."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:13
 msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
-"2. Organiseer alles - Creëer een project voor elk doel en voeg dan de "
-"stappen toe die naar het doel leiden. Kijk ze regelmatig na om te zorgen dat "
-"je bijblijft."
+"2. Deel alles in: maak een project voor elk doel en voeg de stappen toe die "
+"naar dat doel leiden. Kijk ze regelmatig na om te zorgen dat je bijblijft."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
 msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
 "effectively. Planner will remind you on the right day."
 msgstr ""
-"3. Agenda en gebeurtenissen - Bekijk je agendagebeurtenissen en deel je tijd "
-"efficiënt in. Planner stuurt je op de juiste dag een herinnering."
+"3. Agenda en gebeurtenissen: bekijk je kalendergebeurtenissen en deel je "
+"tijd zo efficiënt mogelijk in. Planner stuurt je op de juiste dag een "
+"herinnering."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:15
 msgid ""
 "4. Be even more organized - Add a deadline to your tasks, create labels, use "
 "checklists."
-msgstr "4. "
+msgstr ""
+"4. Deel alles nóg beter in: voeg een einddatum toe aan taken, maak labels en "
+"gebruik controlelijsten."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:16
 msgid ""
 "5. Share your progress - Share all the progress of your project or some "
 "special task, all this in Markdown."
 msgstr ""
-"5. Deel je vooruitgang - Deel de voortgang van je project of een bepaalde "
+"5. Deel je vooruitgang: deel de voortgang van je project of een bepaalde "
 "taak middels Markdown."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:17
@@ -998,12 +997,12 @@ msgid ""
 "6. Support for Github Issues - Connect your account and start receiving "
 "notifications of every new issue in your repositories"
 msgstr ""
-"6. Ondersteuning voor GitHub-issues - Koppel je account en ontvang meldingen "
-"over nieuwe issues in je repo's"
+"6. Ondersteuning voor GitHub-issues: koppel je account en ontvang meldingen "
+"over nieuwe issues in je repo's."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 msgid "Other features"
-msgstr "Overige mogelijkheden"
+msgstr "Andere mogelijkheden"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
 msgid "Reminders notifications"
@@ -1015,7 +1014,7 @@ msgstr "Im- en exporteer je projecten"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 msgid "Different themes to choose"
-msgstr "Verschillende thema's om uit te kiezen"
+msgstr "Kies uit verschillende thema's"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:23
 #: data/com.github.alainm23.planner.appdata.xml.in:38
@@ -1024,173 +1023,166 @@ msgstr "Weersverwachting"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:25
 msgid "Night mode"
-msgstr "Nachtmodus"
+msgstr "Donker thema"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:27
 msgid "* Planner not created by, affiliated with, or supported by Doist"
 msgstr ""
+"* Planner wordt niet gemaakt of ondersteund door, en is ook niet verbonden "
+"met, Todoist"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:35
-#, fuzzy
 msgid "New features:"
-msgstr "Overige mogelijkheden"
+msgstr "Nieuwe mogelijkheden:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:37
-#, fuzzy
 msgid "Labels preview"
-msgstr "Labels"
+msgstr "Labelvoorvertoning"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:40
 #: data/com.github.alainm23.planner.appdata.xml.in:53
 #: data/com.github.alainm23.planner.appdata.xml.in:72
 #: data/com.github.alainm23.planner.appdata.xml.in:88
-#, fuzzy
 msgid "Translations:"
-msgstr "Vertalingen"
+msgstr "Vertalingen:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:42
 msgid "Lithuanian (welaq)"
-msgstr ""
+msgstr "Litouws (welaq)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:48
 #: data/com.github.alainm23.planner.appdata.xml.in:61
 msgid "Improvements:"
-msgstr ""
+msgstr "Verbeteringen:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:50
 msgid "Redesign 'Labels' popover"
-msgstr ""
+msgstr "Het labelmenu is opnieuw ontworpen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:51
-#, fuzzy
 msgid "Fix Notification error"
-msgstr "Meldingen"
+msgstr "Meldingsfout opgelost"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:55
 msgid "Updating French translations 🇫🇷 (NathanBnm)"
-msgstr ""
+msgstr "Franse vertaling bijgewerkt 🇫🇷 (NathanBnm)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:63
-#, fuzzy
 msgid "Better reminder notifications"
-msgstr "Herinneringsmeldingen"
+msgstr "Verbeterde herinneringsmeldingen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:64
 msgid "Improvement default theme"
-msgstr ""
+msgstr "Verbeterd standaardthema"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:65
 msgid "Redesign 'When' popover"
-msgstr ""
+msgstr "Het 'Wanneer'-menu is opnieuw ontworpen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:66
 msgid "New 'About' view"
-msgstr ""
+msgstr "Nieuwe pagina 'Over'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:67
 msgid "New 'Credits' view"
-msgstr ""
+msgstr "Nieuwe pagina 'Met dank aan'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:68
 msgid "Redesign 'Issues' view"
-msgstr ""
+msgstr "De 'Issues'-pagina is opnieuw ontworpen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:69
-#, fuzzy
 msgid "New task search"
-msgstr "Nieuwe taak"
+msgstr "Nieuwe zoekfunctie"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:70
-#, fuzzy
 msgid "Adding support to import and export projects"
 msgstr "Im- en exporteer je projecten"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:74
 msgid "German (kr428)"
-msgstr ""
+msgstr "Duits (kr428)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:75
 msgid "French (NathanBnm)"
-msgstr ""
+msgstr "Frans (NathanBum)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:76
 msgid "Update Spanish translation"
-msgstr ""
+msgstr "Spaanse vertaling bijgewerkt"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:82
 msgid "New feature: Support for Github Issues"
-msgstr ""
+msgstr "Nieuwe functie: ondersteuning voor GitHub-issues"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:84
 msgid "Connect with your Github account"
-msgstr ""
+msgstr "Koppel je GitHub-account"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:85
 msgid "Receive all your issue as tasks in Inbox"
-msgstr ""
+msgstr "Ontvang alle issues in je Postvak IN"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:86
 msgid "Planner will notify you if any new issue was posted"
-msgstr ""
+msgstr "Planner stuurt je een melding als er een nieuwe issue is geopend"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:90
 msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
-msgstr ""
+msgstr "Portugees Braziliaans 🇧🇷 (Marciel Sousa)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:91
 msgid "Romanian (Prongs Dark)"
-msgstr ""
+msgstr "Romaans (Prongs Dark)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:93
 msgid "Bugs and Improvements:"
-msgstr ""
+msgstr "Bugs en verbeteringen:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:95
 msgid "Performance improvement"
-msgstr ""
+msgstr "Prestatieverbeteringen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:96
 msgid "Design improvements"
-msgstr ""
+msgstr "Ontwerpverbeteringen"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:97
 msgid "Fix #22"
-msgstr ""
+msgstr "#22 opgelost"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:98
 msgid "Fix #21"
-msgstr ""
+msgstr "#21 opgelost"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:99
 msgid "Fix #11"
-msgstr ""
+msgstr "#11 opgelost"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:105
 msgid "Improved stability and some bug fixes"
-msgstr ""
+msgstr "Stabieler en bugs opgelost"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:107
-#, fuzzy
 msgid "Fixing critical bug with creating tasks from the clipboard #19"
-msgstr "De taak is gecreëerd via het klembord"
+msgstr ""
+"Kritieke bug opgelost omtrent het maken van taken middels het klembord #19"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:108
-#, fuzzy
 msgid "Adding new tooltips"
-msgstr "Nieuwe taak toevoegen"
+msgstr "Nieuwe hulpballonnen toegevoegd"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:114
-#, fuzzy
 msgid "Hola Planner !!!"
-msgstr "Hoe werkt Planner?"
+msgstr "Hola Planner!!!"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:116
 msgid "Adding Spanish translations"
-msgstr ""
+msgstr "Spaanse vertaling toegevoegd"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:122
 msgid "Initial release"
-msgstr ""
+msgstr "Initiële uitgave"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:163
 msgid "Alain M."
