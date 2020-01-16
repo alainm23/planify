@@ -118,12 +118,11 @@
       {
         "name": "planner",
         "buildsystem": "meson",
-        "sources": [
-            {
-                "type": "git",
-                "url": "https://github.com/alainm23/planner.git"
-            }
-        ]
+        "sources": [{
+            "type": "archive",
+            "url": "https://github.com/alainm23/planner/archive/2.0.2.zip",
+            "sha256": "d9d45c297d09afffbadae28434f19c2244ef726a0b6295bf2932cd85b7afecdd"
+        }]
      }
    ]
 }
