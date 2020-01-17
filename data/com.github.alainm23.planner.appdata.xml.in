@@ -30,14 +30,14 @@
       <li>🎉️ and much more.</li>
     </ul>
 
-    <p>🚀️ Support for Todoist:</p>
+    <p>☁️ Support for Todoist:</p>
     <ul>
       <li>Synchronize your Projects, Task and Sections thanks to Todoist.</li>
       <li>Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
     </ul>
     <p>* Planner not created by, affiliated with, or supported by Doist</p>
 
-    <p>Other features:</p>
+    <p>💎️ Other features:</p>
     <ul>
       <li>⏲️ Reminders notifications</li>
       <li>🔍️ Quick Find</li>
@@ -48,7 +48,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="2.0.4" date="2020-01-15">
+  <release version="2.0.5" date="2020-01-17">
       <description>
         <p>Planner 2 is here...</p>
         <ul>
