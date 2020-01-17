@@ -127,6 +127,8 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.get_style_context ().add_class ("settings-button");
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        sync_button.visible = Planner.settings.get_boolean ("todoist-account");
+        sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
 
         sync_image = new Gtk.Image ();
         sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
@@ -363,6 +365,15 @@ public class Widgets.Pane : Gtk.EventBox {
                 upcoming_row.title_name.label = _("Tomorrow");
             } else {
                 upcoming_row.title_name.label = _("Upcoming");
+            }
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "user-name") {
+                username_label.label = Planner.settings.get_string ("user-name");
+            } else if (key == "todoist-account") {
+                sync_button.visible = Planner.settings.get_boolean ("todoist-account");
+                sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
             }
         });
     }

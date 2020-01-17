@@ -13,18 +13,36 @@
     <p>2. Get Organized - Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
     <p>3. Calendar and Events - See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
     <p>4. Be even more organized - Add a duedate to your tasks, create labels, use checklists.</p>
-    <p>Other features:</p>
+
+    <p>🚀️ Planner 2 is here...</p>
     <ul>
-      <li>Reminders notifications</li>
-      <li>Quick Find</li>
-      <li>Night mode</li>
+      <li>🚀️ Complete redesign of the UI.</li>
+      <li>🏅️ New icon.</li>
+      <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
+      <li>💯️ Progress indicator for each project.</li>
+      <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
+      <li>📅️ Visualize your events and plan your day better.</li>
+      <li>💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you want.</li>
+      <li>⏲️ Improved reminder system, now you can create one or more reminders, you decide.</li>
+      <li>🌙️ Better integration with the dark theme.</li>
+      <li>☁️ Synchronize your Projects, Task and Sections thanks to Todoist.</li>
+      <li>👷️ Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
+      <li>🎉️ and much more.</li>
     </ul>
-    <p>Support for Todoist:</p>
+
+    <p>🚀️ Support for Todoist:</p>
     <ul>
       <li>Synchronize your Projects, Task and Sections thanks to Todoist.</li>
       <li>Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
     </ul>
     <p>* Planner not created by, affiliated with, or supported by Doist</p>
+
+    <p>Other features:</p>
+    <ul>
+      <li>⏲️ Reminders notifications</li>
+      <li>🔍️ Quick Find</li>
+      <li>🌙️ Night mode</li>
+    </ul>
   </description>
   <provides>
     <binary>com.github.alainm23.planner</binary>
