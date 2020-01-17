@@ -30,7 +30,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="2.0.1" date="2020-01-15">
+  <release version="2.0.4" date="2020-01-15">
       <description>
         <p>Planner 2 is here...</p>
         <ul>
