@@ -103,12 +103,9 @@ public class Services.Todoist : GLib.Object {
             var available = GLib.NetworkMonitor.get_default ().network_available;
 
             if (available) {
-                sync ();
-                //sync_button.tooltip_text = _("Sync");
-                //sync_button.image = sync_image;
-            } else {
-                //sync_button.image = error_image;
-                //sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect"));
+                if (Planner.settings.get_boolean ("todoist-account") && Planner.settings.get_boolean ("todoist-sync-server")) {
+                    sync ();
+                }
             }
         });
     }
