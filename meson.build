@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.0.7')
+        version: '2.0.8')
 
 add_project_arguments([
         '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
