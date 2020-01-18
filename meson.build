@@ -1,20 +1,27 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.0.0')
+        version: '2.0.6')
+
+add_project_arguments([
+        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
+    ],
+    language: 'c',
+)
 
 gnome = import('gnome')
 i18n = import('i18n')
 
-conf = configuration_data()
-conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-configure_file(output: 'config.h', configuration: conf)
-config_h_dir = include_directories('.')
-
-c_args = [
-  '-include', 'config.h'
-]
-
-add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
+conf_data = configuration_data()
+conf_data.set_quoted('PROJECT_NAME', meson.project_name())
+conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf_data.set_quoted('VERSION', meson.project_version())
+conf_data.set_quoted('PREFIX', get_option('prefix'))
+conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
+config_header = configure_file(
+    input : 'config.vala.in',
+    output : 'config.vala',
+    configuration : conf_data
+)
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
@@ -101,6 +108,7 @@ executable(
     'src/Objects/Collaborator.vala',
     'src/Objects/Reminder.vala',
     'src/Objects/Queue.vala',
+    config_header,
     dependencies: [
         dependency('gee-0.8'),
         dependency('gobject-2.0'),
