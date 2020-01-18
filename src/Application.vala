@@ -48,8 +48,10 @@ public class Planner : Gtk.Application {
         
         // Dir to Database
         utils = new Utils ();
-        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner");
-        utils.create_dir_with_parents ("/.local/share/com.github.alainm23.planner/avatars");
+        utils.create_dir_with_parents ("/com.github.alainm23.planner");
+        utils.create_dir_with_parents ("/com.github.alainm23.planner/avatars");
+
+        print ("URL: %s".printf (Environment.get_user_data_dir ()));
 
         // Services
         settings = new Settings ("com.github.alainm23.planner");

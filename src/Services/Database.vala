@@ -51,7 +51,7 @@ public class Services.Database : GLib.Object {
 
     public Database () {
         int rc = 0;
-        db_path = Environment.get_home_dir () + "/.local/share/com.github.alainm23.planner/database.db";
+        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
 
         if (create_tables () != Sqlite.OK) {
             stderr.printf ("Error creating db table: %d, %s\n", rc, db.errmsg ());

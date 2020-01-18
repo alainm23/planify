@@ -13,12 +13,13 @@ public class Utils : GLib.Object {
     public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
     
     public Utils () {
-        APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
+        //APP_FOLDER = GLib.Path.build_filename (Environment.get_home_dir () + "/.local/share/", "com.github.alainm23.planner");
+        APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
     }
 
     public void create_dir_with_parents (string dir) {
-        string path = Environment.get_home_dir () + dir;
+        string path = Environment.get_user_data_dir () + dir;
         File tmp = File.new_for_path (path);
         if (tmp.query_file_type (0) != FileType.DIRECTORY) {
             GLib.DirUtils.create_with_parents (path, 0775);
