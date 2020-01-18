@@ -332,16 +332,17 @@ public class Services.Calendar.CalendarModel : Object {
 
         source_item.visible_changed.connect (() => {
             string[] sources_disabled = {};
+            listbox.foreach ((widget) => {
+                var item = ((Widgets.SourceItem) widget);
 
-            foreach (var row in listbox.get_children ()) {
-                var _source = ((Widgets.SourceItem) row).source;
+                print ("Id: %s".printf (item.source.dup_uid ()));
 
-                if (((Widgets.SourceItem) row).visible == false) {
-                    sources_disabled += _source.dup_uid ();
+                if (item.source_enabled == false) {
+                    sources_disabled += item.source.dup_uid ();
                 }
-            }
+            });
 
-            Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
+            Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);            
         });
 
         listbox.add (source_item);

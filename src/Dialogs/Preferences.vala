@@ -567,7 +567,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
     private Gtk.Widget get_calendar_widget () {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));
-        //top_box.action_button = "list-add-symbolic";
 
         var description_label = new Gtk.Label (_("You can connect your <b>Calendar</b> app to Planner to see your events and to-dos together in one place. You’ll see events from both personal and shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when you’re managing your day, and as you plan the week ahead."));
         description_label.margin = 6;

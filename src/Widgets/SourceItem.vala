@@ -25,6 +25,11 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
 
     public string location { public get; private set; }
     public string label { public get; private set; }
+    public bool source_enabled {
+        get {
+            return visible_checkbutton.active;
+        }
+    }
     public E.Source source { public get; private set; }
     
     private Gtk.Label calendar_name_label;
@@ -48,7 +53,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
         visible_checkbutton = new Gtk.CheckButton ();
         visible_checkbutton.can_focus = false;
         visible_checkbutton.get_style_context ().add_class ("checklist-button");
-        visible_checkbutton.active = get_source_visible ();
+        visible_checkbutton.active = !get_source_visible ();
         
         var location_label = new Gtk.Label ("<small>%s</small>".printf (location));
         location_label.xalign = 0;
@@ -88,15 +93,15 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     }
 
     private bool get_source_visible () {
-        bool _visible = true;
+        bool returned = false;
 
         foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
             if (source.dup_uid () == uid) {
-                _visible = false;
+                return true;
             }
         }
 
-        return _visible;
+        return returned;
     }
 
     private void style_calendar_color (string color) {
