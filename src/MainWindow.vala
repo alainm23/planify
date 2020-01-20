@@ -186,6 +186,8 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                 stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
             }
+
+            magic_button.reveal_child = true;
         });
 
         Planner.todoist.first_sync_finished.connect (() => {
