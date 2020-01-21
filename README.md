@@ -23,7 +23,7 @@
 <a href="https://flathub.org/apps/details/com.github.alainm23.planner"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
 
 ### Arch Linux
-[elementary-planner-git](https://aur.archlinux.org/packages/elementary-planner-git) are available in AUR.
+[elementary-planner-git](https://aur.archlinux.org/packages/elementary-planner-git) are available in AUR thanks to @yochananmarqos.
 
 ## Building
 

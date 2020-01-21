@@ -98,8 +98,35 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         /* Others */
         var about_item = new PreferenceItem ("help-about", _("About"));
-        var tutorial_item = new PreferenceItem ("system-help", _("Create tutorial project"), true);
-        //var _item = new PreferenceItem ("tag", _("Labels"), true);
+
+        /* Tutorial Item */
+        var tutorial_image = new Gtk.Image ();
+        tutorial_image.pixel_size = 24;
+        tutorial_image.gicon = new ThemedIcon ("system-help");
+
+        var tutorial_label = new Gtk.Label (_("Create tutorial project"));
+        tutorial_label.get_style_context ().add_class ("h3");
+        tutorial_label.ellipsize = Pango.EllipsizeMode.END;
+        tutorial_label.halign = Gtk.Align.START;
+        tutorial_label.valign = Gtk.Align.CENTER;
+
+        var create_button = new Gtk.Button.with_label (_("Create"));
+        create_button.valign = Gtk.Align.CENTER;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.hexpand = true;
+        box.margin = 6;
+        box.margin_end = 12;
+        box.pack_start (tutorial_image, false, false, 0);
+        box.pack_start (tutorial_label, false, false, 0);
+        box.pack_end (create_button, false, true, 0);
+
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_start = 32;
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.add (box);
+        main_box.add (separator);
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
@@ -108,7 +135,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         others_grid.orientation = Gtk.Orientation.VERTICAL;
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
-        others_grid.add (tutorial_item);
+        others_grid.add (main_box);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_grid = new Gtk.Grid ();
@@ -151,14 +178,18 @@ public class Dialogs.Preferences : Gtk.Dialog {
             stack.visible_child_name = "calendar";
         });
 
-        tutorial_item.activated.connect (() => {
+        create_button.clicked.connect (() => {
             destroy ();
-            
-            Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
+
+            int64 id = Planner.utils.create_tutorial_project ().id;
+
+            Planner.utils.pane_project_selected (id, 0);
             Planner.notifications.send_notification (
                 0,
                 _("Your tutorial project was created")
             );
+
+            Planner.utils.select_pane_project (id);
         });
 
         about_item.activated.connect (() => {

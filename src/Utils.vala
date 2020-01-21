@@ -6,6 +6,7 @@ public class Utils : GLib.Object {
     public string AVATARS_FOLDER;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
+    public signal void select_pane_project (int64 project_id);
     public signal void pane_action_selected ();
     
     public signal void drag_item_activated (bool active);

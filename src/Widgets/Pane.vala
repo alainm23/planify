@@ -325,15 +325,25 @@ public class Widgets.Pane : Gtk.EventBox {
             row.set_focus = true;
         });
 
-        Planner.utils.pane_project_selected.connect ((id, area) => {
-            listbox.unselect_all ();
-        });
-
         Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
+            listbox.unselect_all ();
+
             if (area_id != 0) {
                 project_listbox.unselect_all ();
             }
         });
+
+        /*
+        Planner.utils.select_pane_project.connect ((project_id) => {
+            project_listbox.foreach ((widget) => {
+                var row = (Gtk.ListBoxRow) widget;
+
+                if (row.project.id == row) {
+
+                }
+            });
+        });
+        */
 
         Planner.database.project_added.connect ((project) => {
             if (project.inbox_project == 0 && project.area_id == 0) {
