@@ -19,6 +19,8 @@ public class Views.Project : Gtk.EventBox {
     private Widgets.ModelButton show_menu;
     private Gtk.ToggleButton settings_button;
 
+    private uint timeout;
+    
     private int64 temp_id_mapping { get; set; default = 0; }
 
     private const Gtk.TargetEntry[] targetEntries = {
@@ -647,16 +649,23 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void update_item_order () {
-        listbox.foreach ((widget) => {
-            var row = (Gtk.ListBoxRow) widget;
-            int index = row.get_index ();
-
-            var item = ((Widgets.ItemRow) row).item;
-            
+        timeout = Timeout.add (150, () => {
             new Thread<void*> ("update_item_order", () => {
-                Planner.database.update_item_order (item, 0, index);
+                listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+        
+                    var item = ((Widgets.ItemRow) row).item;
+                    Planner.database.update_item_order (item, 0, index);
+                });
+                
                 return null;
             });
+
+            Source.remove (timeout);
+            timeout = 0;
+
+            return false;
         });
     }
 

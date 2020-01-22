@@ -320,10 +320,17 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
+                        if (timeout != 0) {
+                            Source.remove (timeout);
+                            timeout = 0;
+                        }
+
                         timeout = Timeout.add (125, () => {
                             listbox.select_row (row);
     
                             Source.remove (timeout);
+                            timeout = 0;
+
                             return false;
                         });
                     }
@@ -406,17 +413,28 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void update_project_order () {
-        listbox.foreach ((widget) => {
-            var row = (Gtk.ListBoxRow) widget;
-            int index = row.get_index ();
-
-            var project = ((ProjectRow) row).project;
-
+        timeout = Timeout.add (150, () => {
             new Thread<void*> ("update_project_order", () => {
-                Planner.database.update_project_item_order (project.id, area.id, index);
-
+                listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+        
+                    var project = ((ProjectRow) row).project;
+        
+                    new Thread<void*> ("update_project_order", () => {
+                        Planner.database.update_project_item_order (project.id, area.id, index);
+        
+                        return null;
+                    });
+                });
+                
                 return null;
             });
+
+            Source.remove (timeout);
+            timeout = 0;
+
+            return false;
         });
     }
 

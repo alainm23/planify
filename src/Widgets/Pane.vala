@@ -333,17 +333,17 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         });
 
-        /*
         Planner.utils.select_pane_project.connect ((project_id) => {
             project_listbox.foreach ((widget) => {
-                var row = (Gtk.ListBoxRow) widget;
+                var row = (Widgets.ProjectRow) widget;
 
-                if (row.project.id == row) {
+                print ("AAA-%s\n".printf (row.project.name));
 
+                if (row.project.id == project_id) {
+                    project_listbox.select_row (row);
                 }
             });
         });
-        */
 
         Planner.database.project_added.connect ((project) => {
             if (project.inbox_project == 0 && project.area_id == 0) {
@@ -458,17 +458,20 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     private void update_project_order () {
-        project_listbox.foreach ((widget) => {
-            var row = (Gtk.ListBoxRow) widget;
-            int index = row.get_index ();
-
-            var project = ((ProjectRow) row).project;
-
+        Timeout.add (150, () => {
             new Thread<void*> ("update_project_order", () => {
-                Planner.database.update_project_item_order (project.id, 0, index);
-
+                project_listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+    
+                    var project = ((ProjectRow) row).project;
+                    Planner.database.update_project_item_order (project.id, 0, index);
+                });
+                
                 return null;
             });
+
+            return false;
         });
     }
 

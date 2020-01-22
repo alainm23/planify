@@ -75,6 +75,7 @@ public class Planner : Gtk.Application {
     protected override void activate () {
         if (get_windows ().length () > 0) {
             get_windows ().data.present ();
+            get_windows ().data.show_all ();
             return;
         }
 

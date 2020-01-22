@@ -320,10 +320,12 @@ public class Utils : GLib.Object {
         var desktop_file_name = "com.github.alainm23.planner.desktop";
         var desktop_file_path = new DesktopAppInfo (desktop_file_name).filename;
         var desktop_file = File.new_for_path (desktop_file_path);
-        var dest_path = Path.build_path (Path.DIR_SEPARATOR_S,
-                                         Environment.get_user_config_dir (),
-                                         "autostart",
-                                         desktop_file_name);
+        var dest_path = Path.build_path(
+            Path.DIR_SEPARATOR_S,
+            Environment.get_user_config_dir(),
+            "autostart",
+            desktop_file_name
+        );
         var dest_file = File.new_for_path (dest_path);
         try {
             desktop_file.copy (dest_file, FileCopyFlags.OVERWRITE);
@@ -335,7 +337,7 @@ public class Utils : GLib.Object {
         try {
             keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
             keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
-            keyfile.set_string("Desktop Entry", "Exec", "com.github.alainm23.planner.desktop --s");
+            keyfile.set_string("Desktop Entry", "Exec", "com.github.alainm23.planner --s");
             keyfile.save_to_file (dest_path);
         } catch (Error e) {
             warning ("Error enabling autostart: %s", e.message);

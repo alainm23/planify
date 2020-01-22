@@ -861,3 +861,7 @@ paned > separator {
 .item-complete {
     text-decoration:line-through;
 }
+
+.label-danger {
+    color: #c6262e;
+}

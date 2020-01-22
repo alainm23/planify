@@ -111,6 +111,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         tutorial_label.valign = Gtk.Align.CENTER;
 
         var create_button = new Gtk.Button.with_label (_("Create"));
+        create_button.can_focus = false;
         create_button.valign = Gtk.Align.CENTER;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -179,8 +180,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
         });
 
         create_button.clicked.connect (() => {
-            destroy ();
-
             int64 id = Planner.utils.create_tutorial_project ().id;
 
             Planner.utils.pane_project_selected (id, 0);
@@ -190,6 +189,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
             );
 
             Planner.utils.select_pane_project (id);
+
+            destroy ();
         });
 
         about_item.activated.connect (() => {
@@ -576,6 +577,40 @@ public class Dialogs.Preferences : Gtk.Dialog {
         sync_server_label.margin_start = 12;
         sync_server_label.margin_top = 3;
         sync_server_label.xalign = (float) 0.0;
+        
+        var delete_image = new Gtk.Image ();
+        delete_image.pixel_size = 16;
+        delete_image.gicon = new ThemedIcon ("user-trash-symbolic");
+
+        var delete_label = new Gtk.Label (_("Log out"));
+        delete_label.get_style_context ().add_class ("font-weight-600");
+        delete_label.get_style_context ().add_class ("label-danger");
+        delete_label.ellipsize = Pango.EllipsizeMode.END;
+        delete_label.halign = Gtk.Align.START;
+        delete_label.valign = Gtk.Align.CENTER;
+
+        var create_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
+        create_button.get_style_context ().add_class ("flat");
+        create_button.can_focus = false;
+        create_button.valign = Gtk.Align.CENTER;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.hexpand = true;
+        box.margin = 3;
+        box.margin_start = 12;
+        box.margin_end = 6;
+        box.pack_start (delete_label, false, false, 0);
+        box.pack_end (create_button, false, true, 0);
+        
+        var d_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        d_box.margin_top = 16;
+        d_box.get_style_context ().add_class ("view");
+        d_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        d_box.add (box);
+        d_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add (d_box);
 
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (user_avatar, false, false, 0);
@@ -584,6 +619,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (last_update, false, false, 0);
         main_box.pack_start (sync_server_switch, false, true, 0);
         main_box.pack_start (sync_server_label, false, true, 0);
+        main_box.pack_start (eventbox, false, true, 0);
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
@@ -591,6 +627,32 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         sync_server_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("todoist-sync-server", val);
+        });
+
+        eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
+                var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                    _("Log out"),
+                    _("Are you sure you want to log out?"),
+                    "system-log-out",
+                Gtk.ButtonsType.CANCEL);
+    
+                var remove_button = new Gtk.Button.with_label (_("Log out"));
+                remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+                message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+    
+                message_dialog.show_all ();
+    
+                if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                    
+                }
+    
+                message_dialog.destroy ();
+
+                return true;
+            }
+
+            return false;
         });
 
         return main_box;
@@ -878,6 +940,7 @@ public class PreferenceTopBox : Gtk.Box {
     public PreferenceTopBox (string icon, string title) {
         var back_button = new Gtk.Button.from_icon_name ("arrow-back-symbolic", Gtk.IconSize.MENU);
         back_button.always_show_image = true;
+        back_button.can_focus = false;
         back_button.label = _("Back");
         back_button.margin = 3;
         back_button.valign = Gtk.Align.CENTER;

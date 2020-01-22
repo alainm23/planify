@@ -8,12 +8,7 @@
   <summary>Never worry about forgetting things again</summary>
   <description>
     <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
-    <p>How Planner works:</p>
-    <p>1. Collect your Ideas - The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
-    <p>2. Get Organized - Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
-    <p>3. Calendar and Events - See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
-    <p>4. Be even more organized - Add a duedate to your tasks, create labels, use checklists.</p>
-
+    
     <p>🚀️ Planner 2 is here...</p>
     <ul>
       <li>🚀️ Complete redesign of the UI.</li>
@@ -25,10 +20,14 @@
       <li>💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you want.</li>
       <li>⏲️ Improved reminder system, now you can create one or more reminders, you decide.</li>
       <li>🌙️ Better integration with the dark theme.</li>
-      <li>☁️ Synchronize your Projects, Task and Sections thanks to Todoist.</li>
-      <li>👷️ Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
       <li>🎉️ and much more.</li>
     </ul>
+
+    <p>How Planner works:</p>
+    <p>1. Collect your Ideas - The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
+    <p>2. Get Organized - Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
+    <p>3. Calendar and Events - See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
+    <p>4. Be even more organized - Add a duedate to your tasks, create labels, use checklists.</p>
 
     <p>☁️ Support for Todoist:</p>
     <ul>
@@ -48,6 +47,21 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+  <release version="2.0.10" date="2020-01-22">
+    <description>
+      <p>Improvements:</p>
+      <ul>
+        <li>💪️ Planner doesn't freeze when the position of a project, section or task is ordered.</li>
+      </ul>
+      <p>Fix:</p>
+      <ul>
+        <li>[GitHub #147] - Badge count is not displayed when the system startup.</li>
+        <li>[GitHub #145, #146] - The way to create the tutorial project was improved.</li>
+        <li>[GitHub #138] - Fixing website address.</li>
+        <li>[GitHub #136] - Add new task button disappears.</li>
+      </ul>
+    </description>
+  </release>
   <release version="2.0.8" date="2020-01-17">
       <description>
         <p>Planner 2 is here...</p>

@@ -2,15 +2,10 @@ project('com.github.alainm23.planner',
         'vala', 'c',
         version: '2.0.8')
 
-add_project_arguments([
-        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
-    ],
-    language: 'c',
-)
-add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
-
 gnome = import('gnome')
 i18n = import('i18n')
+
+add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 
 conf_data = configuration_data()
 conf_data.set_quoted('PROJECT_NAME', meson.project_name())

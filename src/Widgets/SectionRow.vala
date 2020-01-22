@@ -17,6 +17,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
 
+    private uint timeout;
+
     private const Gtk.TargetEntry[] targetEntries = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -668,7 +670,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             source.item.section_id = section.id;
 
             if (source.item.is_todoist == 1) {
-                print ("Item para actualizar: %s\n".printf (source.item.content));
                 Planner.todoist.move_item_to_section (source.item, section.id);
             }
         }
@@ -706,17 +707,23 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void update_item_order () {
-        listbox.foreach ((widget) => {
-            var row = (Gtk.ListBoxRow) widget;
-            int index = row.get_index ();
-
-            var item = ((Widgets.ItemRow) row).item;
-
+        timeout = Timeout.add (150, () => {
             new Thread<void*> ("update_item_order", () => {
-                Planner.database.update_item_order (item, section.id, index);
-
+                listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+        
+                    var item = ((Widgets.ItemRow) row).item;
+                    Planner.database.update_item_order (item, section.id, index);
+                });
+                
                 return null;
             });
+
+            Source.remove (timeout);
+            timeout = 0;
+
+            return false;
         });
     }
 
