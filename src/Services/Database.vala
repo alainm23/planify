@@ -45,6 +45,8 @@ public class Services.Database : GLib.Object {
 
     public signal void check_project_count (int64 project_id);
 
+    public signal void reset ();
+
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (int64 id);
@@ -85,6 +87,37 @@ public class Services.Database : GLib.Object {
         //  if (Planner.database.column_exists ("Areas", "ascascascas") == false) {
         //      Planner.database.add_int64_column ("Areas", "ascascascas", 1234567890);
         //  }
+    }
+
+    public void reset_all () {
+        File db_path = File.new_for_path (db_path);
+        try {
+            db_path.delete ();
+        } catch (Error err) {
+            warning (err.message);
+        }
+
+        // Log out Todoist
+        Planner.todoist.log_out ();
+        
+        create_tables ();
+        reset ();
+
+        File directory = File.new_for_path (Planner.utils.AVATARS_FOLDER);
+        try {
+            var children = directory.enumerate_children ("", 0);
+            FileInfo file_info;
+            while ((file_info = children.next_file ()) != null) {
+                FileUtils.remove (GLib.Path.build_filename (Planner.utils.AVATARS_FOLDER, file_info.get_name ()));
+            }
+        
+            children.close ();
+            children.dispose ();
+        } catch (Error err) {
+            warning (err.message);
+        }
+        
+        directory.dispose ();
     }
 
     public bool add_item_to_delete (Objects.Item item) { 
@@ -503,8 +536,23 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (1, uuid);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } 
+    }
 
+    public void clear_queue () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Queue;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+        
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } 
@@ -555,11 +603,26 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+    }
+
+    public void clear_cur_temp_ids () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM CurTempIds;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } 
     }
 
     public bool curTempIds_exists (int64 id) {
@@ -1222,7 +1285,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool delete_project (int64 id) {
+    public void delete_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1237,16 +1300,45 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return false;
-        } 
+        } else {
+            stmt.reset ();
 
-        project_deleted (id);
-        
-        return true;
+            sql = """
+                DELETE FROM Sections WHERE project_id = ?;
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, id);
+            assert (res == Sqlite.OK);
+
+            if (stmt.step () != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            } else {
+                stmt.reset ();
+
+                sql = """
+                    DELETE FROM Items WHERE project_id = ?;
+                """;
+
+                res = db.prepare_v2 (sql, -1, out stmt);
+                assert (res == Sqlite.OK);
+
+                res = stmt.bind_int64 (1, id);
+                assert (res == Sqlite.OK);
+
+                res = stmt.step ();
+
+                if (stmt.step () != Sqlite.DONE) {
+                    warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+                } else {
+                    project_deleted (id);
+                }
+            }
+        }
     }
 
     public bool move_project (Objects.Project project, int64 area_id) {
@@ -1311,6 +1403,45 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Project?> ();
+
+        while ((res = stmt.step()) == Sqlite.ROW) {
+            var p = new Objects.Project ();
+
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due_date = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
+
+            all.add (p);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Project?> get_all_projects_by_todoist () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Projects WHERE is_todoist = 1;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Project?> ();
@@ -1988,10 +2119,8 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, section.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
-            print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
             stmt.reset ();
 
@@ -2004,16 +2133,10 @@ public class Services.Database : GLib.Object {
 
             res = stmt.bind_int64 (1, section.id);
             assert (res == Sqlite.OK);
-
-            res = stmt.step ();
-
+            
             if (stmt.step () != Sqlite.DONE) {
-                print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             } else {
-                print ("Se elinino todo xdxd\n");
-                print ("Section: %s\n".printf (section.name));
-                print ("Section id: %s\n".printf (section.id.to_string ()));
-
                 section_deleted (section);
             }
         }
@@ -2368,7 +2491,7 @@ public class Services.Database : GLib.Object {
         }
     }
     
-    public bool delete_item (Objects.Item item) {
+    public void delete_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -2383,14 +2506,26 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return false;
         } else {
-            item_deleted (item);
-            return true;
+            stmt.reset ();
+
+            sql = """
+                DELETE FROM Items WHERE parent_id = ?;
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, item.id);
+            assert (res == Sqlite.OK);
+
+            if (stmt.step () != Sqlite.DONE) {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            } else {
+                item_deleted (item);
+            }
         }
     }
 

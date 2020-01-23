@@ -27,9 +27,24 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.Stack stack;
 
     private Gtk.ComboBox source_combobox;   
+    private Gtk.ListStore list_store;
+    private Gtk.Revealer source_revealer;
     private int color_selected = 30;
     
     private uint timeout_id = 0;
+
+    public bool reveal {
+        get {
+            return reveal_child;
+        }
+        set {
+            reveal_child =  value;
+
+            if (value) {
+                build_list_store ();
+            }
+        }
+    }
 
     public New () {
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -45,45 +60,17 @@ public class Widgets.New : Gtk.Revealer {
 
         var source_label = new Granite.HeaderLabel (_("Source:"));
 
-        var list_store = new Gtk.ListStore (3, typeof (int64), typeof (unowned string), typeof (string));
+        list_store = new Gtk.ListStore (3, typeof (int64), typeof (unowned string), typeof (string));
         source_combobox = new Gtk.ComboBox.with_model (list_store);
-        
-        string local_text = " " + _("On this computer"); 	
-        Gtk.TreeIter local_iter;	
-        list_store.append (out local_iter);
-        list_store.@set (local_iter, 0, 0, 1, local_text, 2, "planner-offline-symbolic");
-
-        source_combobox.set_active_iter (local_iter);
-
-        var pixbuf_cell = new Gtk.CellRendererPixbuf ();
-        source_combobox.pack_start (pixbuf_cell, false);
-        source_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
-
-        var text_cell = new Gtk.CellRendererText ();
-        source_combobox.pack_start (text_cell, true);
-        source_combobox.add_attribute (text_cell, "text", 1);
 
         var source_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         source_box.pack_start (source_label, false, false, 0);
         source_box.pack_start (source_combobox, false, false, 0);
 
-        var source_revealer = new Gtk.Revealer ();
+        source_revealer = new Gtk.Revealer ();
         source_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         source_revealer.add (source_box);
         source_revealer.reveal_child = true;
-
-        if (Planner.settings.get_boolean ("todoist-account")) {
-            source_revealer.reveal_child = true;
-
-            string email_text = " " + Planner.settings.get_string ("todoist-user-email");
-            Gtk.TreeIter todoist_iter;
-            list_store.append (out todoist_iter);
-            list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
-
-            if (Planner.settings.get_int ("source-selected") == 1) {
-                source_combobox.set_active_iter (todoist_iter);
-            }
-        }
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
@@ -432,6 +419,39 @@ public class Widgets.New : Gtk.Revealer {
             source_revealer.reveal_child = Planner.settings.get_boolean ("todoist-account");
         });
     } 
+
+    private void build_list_store () {
+        list_store.clear ();
+        source_combobox.clear ();
+
+        string local_text = " " + _("On this computer"); 	
+        Gtk.TreeIter local_iter;	
+        list_store.append (out local_iter);
+        list_store.@set (local_iter, 0, 0, 1, local_text, 2, "planner-offline-symbolic");
+
+        source_combobox.set_active_iter (local_iter);
+
+        var pixbuf_cell = new Gtk.CellRendererPixbuf ();
+        source_combobox.pack_start (pixbuf_cell, false);
+        source_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
+
+        var text_cell = new Gtk.CellRendererText ();
+        source_combobox.pack_start (text_cell, true);
+        source_combobox.add_attribute (text_cell, "text", 1);
+
+        if (Planner.settings.get_boolean ("todoist-account")) {
+            source_revealer.reveal_child = true;
+
+            string email_text = " " + Planner.settings.get_string ("todoist-user-email");
+            Gtk.TreeIter todoist_iter;
+            list_store.append (out todoist_iter);
+            list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
+
+            if (Planner.settings.get_int ("source-selected") == 1) {
+                source_combobox.set_active_iter (todoist_iter);
+            }
+        }
+    }
 
     private Gtk.Box create_chooser_widget () {
         var project_image = new Gtk.Image ();

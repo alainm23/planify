@@ -144,6 +144,10 @@ public class MainWindow : Gtk.Window {
             return false;
         });
 
+        Planner.database.reset.connect (() => {
+            stack.visible_child_name = "welcome-view";
+        });
+
         welcome_view.activated.connect ((index) => {
             if (index == 0) {
                 // Save user name

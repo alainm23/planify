@@ -70,13 +70,11 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.settings.changed.connect ((key) => {
-            if (key == "time-format") {
-                date_label.label = "%s %s".printf (
-                    Planner.utils.get_relative_date_from_string (reminder.due_date),
-                    Planner.utils.get_relative_time_from_string (reminder.due_date)
-                );
-            }
+        Planner.utils.clock_format_changed.connect (() => {
+            date_label.label = "%s %s".printf (
+                Planner.utils.get_relative_date_from_string (reminder.due_date),
+                Planner.utils.get_relative_time_from_string (reminder.due_date)
+            );
         });
     }
 }

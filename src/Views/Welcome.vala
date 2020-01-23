@@ -23,7 +23,7 @@ public class Views.Welcome : Gtk.EventBox {
     public signal void activated (int index);
 
     construct {
-        var welcome = new Granite.Widgets.Welcome ("Planner", _("Don't worry about forgetting things again"));
+        var welcome = new Granite.Widgets.Welcome ("Planner", _("Never worry about forgetting things again"));
         welcome.margin_bottom = 48;
         
         welcome.append ("help-about", _("Startup"), _("Start working locally."));

@@ -46,6 +46,10 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         check_reminder_label (first_reminder);
 
+        Planner.utils.clock_format_changed.connect (() => {
+            check_reminder_label (first_reminder);
+        });
+        
         this.toggled.connect (() => {
             if (this.active) {
                 if (popover == null) {
@@ -172,7 +176,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         var time_header = new Granite.HeaderLabel (_("Time:"));
         time_header.margin_start = 9;
 
-        var time_picker = new Widgets.TimePicker ();
+        var time_picker = new Granite.Widgets.TimePicker ();
         time_picker.margin_start = 9;
         time_picker.margin_end = 9;
 

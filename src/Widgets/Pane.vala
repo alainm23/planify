@@ -276,7 +276,7 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         add_button.clicked.connect (() => {
-            new_project.reveal_child = true;
+            new_project.reveal = true;
         });
 
         settings_button.clicked.connect (() => {
@@ -385,6 +385,26 @@ public class Widgets.Pane : Gtk.EventBox {
                 sync_button.visible = Planner.settings.get_boolean ("todoist-account");
                 sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
             }
+        });
+
+        Planner.database.reset.connect (() => {
+            stack.visible_child_name = "grid";
+
+            project_listbox.foreach ((widget) => {
+                Idle.add (() => {
+                    widget.destroy ();
+    
+                    return false;
+                });
+            });
+
+            area_listbox.foreach ((widget) => {
+                Idle.add (() => {
+                    widget.destroy ();
+    
+                    return false;
+                });
+            });
         });
     }
 

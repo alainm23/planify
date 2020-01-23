@@ -89,8 +89,8 @@ public class Services.Todoist : GLib.Object {
     public Gee.ArrayList<Objects.Item?> items_to_complete;
     public Gee.ArrayList<Objects.Item?> items_to_delete;
 
-    private uint comple_timeout = 0;
     private uint delete_timeout = 0;
+    private uint server_timeout = 0;
 
     public Todoist () {
         session = new Soup.Session ();
@@ -110,12 +110,41 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void log_out () {
+        Planner.settings.set_string ("todoist-sync-token", "");
+        Planner.settings.set_string ("todoist-access-token", "");
+        Planner.settings.set_string ("todoist-last-sync", "");
+        Planner.settings.set_string ("todoist-user-email", "");
+        Planner.settings.set_string ("todoist-user-join-date", "");
+        Planner.settings.set_string ("todoist-user-avatar", "");
+        Planner.settings.set_string ("todoist-user-image-id", "");
+        Planner.settings.set_boolean ("todoist-sync-server", false);
+        Planner.settings.set_boolean ("todoist-account", false);
+        Planner.settings.set_boolean ("todoist-user-is-premium", false);  
+        Planner.settings.set_int ("todoist-user-id", 0);
+
+        // Delete all projects, sections and items
+        foreach (var project in Planner.database.get_all_projects_by_todoist ()) {
+            Planner.database.delete_project (project.id);
+        }
+
+        // Clear Queue
+        Planner.database.clear_queue ();
+
+        // Clear CurTempIds
+        Planner.database.clear_cur_temp_ids ();
+
+        // Remove server_timeout
+        Source.remove (server_timeout);
+        server_timeout = 0;
+    }
+
     public void run_server () {
         if (Planner.settings.get_boolean ("todoist-account") && Planner.settings.get_boolean ("todoist-sync-server")) {
             sync ();
         }
 
-        Timeout.add_seconds (15 * 60, () => {
+        server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (Planner.settings.get_boolean ("todoist-account") && Planner.settings.get_boolean ("todoist-sync-server")) {
                 sync ();
             }
@@ -181,6 +210,7 @@ public class Services.Todoist : GLib.Object {
             
                         Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
                         Planner.settings.set_string ("todoist-access-token", token);
+                        Planner.settings.set_boolean ("todoist-sync-server", true);
 
                         // User
                         Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));

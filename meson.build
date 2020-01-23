@@ -76,7 +76,6 @@ executable(
     'src/Widgets/SourceItem.vala',
     'src/Widgets/ReminderButton.vala',
     'src/Widgets/ReminderRow.vala',
-    'src/Widgets/TimePicker.vala',
     'src/Widgets/ColorGrid.vala',
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',

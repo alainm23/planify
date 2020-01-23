@@ -35,7 +35,6 @@ src/Widgets/QuickFind.vala
 src/Widgets/SourceItem.vala
 src/Widgets/ReminderButton.vala
 src/Widgets/ReminderRow.vala
-src/Widgets/TimePicker.vala
 
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala

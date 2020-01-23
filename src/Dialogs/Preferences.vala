@@ -97,37 +97,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         /* Others */
-        var about_item = new PreferenceItem ("help-about", _("About"));
-
-        /* Tutorial Item */
-        var tutorial_image = new Gtk.Image ();
-        tutorial_image.pixel_size = 24;
-        tutorial_image.gicon = new ThemedIcon ("system-help");
-
-        var tutorial_label = new Gtk.Label (_("Create tutorial project"));
-        tutorial_label.get_style_context ().add_class ("h3");
-        tutorial_label.ellipsize = Pango.EllipsizeMode.END;
-        tutorial_label.halign = Gtk.Align.START;
-        tutorial_label.valign = Gtk.Align.CENTER;
-
-        var create_button = new Gtk.Button.with_label (_("Create"));
-        create_button.can_focus = false;
-        create_button.valign = Gtk.Align.CENTER;
-
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.hexpand = true;
-        box.margin = 6;
-        box.margin_end = 12;
-        box.pack_start (tutorial_image, false, false, 0);
-        box.pack_start (tutorial_label, false, false, 0);
-        box.pack_end (create_button, false, true, 0);
-
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 32;
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.add (box);
-        main_box.add (separator);
+        var about_item = new PreferenceItem ("help-about", _("About"), true);
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
@@ -136,7 +106,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
         others_grid.orientation = Gtk.Orientation.VERTICAL;
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
-        others_grid.add (main_box);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_grid = new Gtk.Grid ();
@@ -177,20 +146,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
         
         calendar_item.activated.connect (() => {
             stack.visible_child_name = "calendar";
-        });
-
-        create_button.clicked.connect (() => {
-            int64 id = Planner.utils.create_tutorial_project ().id;
-
-            Planner.utils.pane_project_selected (id, 0);
-            Planner.notifications.send_notification (
-                0,
-                _("Your tutorial project was created")
-            );
-
-            Planner.utils.select_pane_project (id);
-
-            destroy ();
         });
 
         about_item.activated.connect (() => {
@@ -431,15 +386,18 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var run_background_switch = new PreferenceItemSwitch ("Run in background", Planner.settings.get_boolean ("run-in-background"), false);
         var run_startup_switch = new PreferenceItemSwitch ("Run on startup", Planner.settings.get_boolean ("run-on-startup"));
 
-        var datetime_header = new Granite.HeaderLabel (_("Date & Time"));
-        datetime_header.margin_start = 12;
-        datetime_header.margin_top = 12;
+        var help_header = new Granite.HeaderLabel (_("Help"));
+        help_header.margin_start = 12;
+        help_header.margin_top = 6;
 
-        List<string> items = new List<string> ();
-        items.append (_("AM/PM"));
-        items.append (_("24 h"));
+        var tutorial_item = new PreferenceItemButton (_("Create tutorial project"), _("Create"));
 
-        var time_select = new PreferenceItemSelect (_("Time format"), Planner.settings.get_enum ("time-format"), items);
+        var dz_header = new Granite.HeaderLabel (_("Danger zone"));
+        dz_header.margin_start = 12;
+        dz_header.margin_top = 6;
+
+        var clear_db_item = new PreferenceItemButton (_("Reset all"), _("Reset"));
+        clear_db_item.title_label.get_style_context ().add_class ("label-danger");
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -448,8 +406,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (de_header, false, false, 0);
         main_box.pack_start (run_background_switch, false, false, 0);
         main_box.pack_start (run_startup_switch, false, false, 0);
-        main_box.pack_start (datetime_header, false, false, 0);
-        main_box.pack_start (time_select, false, false, 0);
+        main_box.pack_start (help_header, false, false, 0);
+        main_box.pack_start (tutorial_item, false, false, 0);
+        main_box.pack_start (dz_header, false, false, 0);
+        main_box.pack_start (clear_db_item, false, false, 0);
 
         run_startup_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("run-on-startup", val);
@@ -460,12 +420,43 @@ public class Dialogs.Preferences : Gtk.Dialog {
             Planner.settings.set_boolean ("run-in-background", val);
         });
 
-        time_select.activated.connect ((val) => {
-            Planner.settings.set_enum ("time-format", val);
-        });
-
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        tutorial_item.activated.connect (() => {
+            int64 id = Planner.utils.create_tutorial_project ().id;
+
+            Planner.utils.pane_project_selected (id, 0);
+            Planner.notifications.send_notification (
+                0,
+                _("Your tutorial project was created")
+            );
+
+            Planner.utils.select_pane_project (id);
+
+            destroy ();
+        });
+
+        clear_db_item.activated.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Are you sure you want to reset all?"),
+                _("It process removes all stored information without the possibility of undoing it."),
+                "edit-delete",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Reset all"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                Planner.database.reset_all ();
+                destroy ();
+            }
+
+            message_dialog.destroy ();
         });
 
         return main_box;
@@ -644,7 +635,20 @@ public class Dialogs.Preferences : Gtk.Dialog {
                 message_dialog.show_all ();
     
                 if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                    
+                    // Log out Todoist
+                    Planner.todoist.log_out ();
+
+                    // Save user name
+                    Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
+
+                    // Create Inbox Project
+                    var inbox_project = Planner.database.create_inbox_project ();
+
+                    // Set settings
+                    Planner.settings.set_boolean ("inbox-project-sync", false);
+                    Planner.settings.set_int64 ("inbox-project", inbox_project.id);
+
+                    destroy ();
                 }
     
                 message_dialog.destroy ();
@@ -1015,6 +1019,46 @@ public class PreferenceItemSwitch : Gtk.EventBox {
 
         button_switch.notify["active"].connect (() => {
             activated (button_switch.active);
+        });
+
+        add (main_box);
+    }
+}
+
+public class PreferenceItemButton : Gtk.EventBox {
+    public signal void activated ();
+    public Gtk.Label title_label;
+
+    public PreferenceItemButton (string title, string button_text, bool visible_separator=true) {
+        title_label = new Gtk.Label (title);
+        title_label.get_style_context ().add_class ("font-weight-600");
+
+        var default_button = new Gtk.Button.with_label (button_text);
+        default_button.can_focus = false;
+        default_button.get_style_context ().add_class ("no-padding");
+        default_button.valign = Gtk.Align.CENTER;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin_start = 12;
+        box.margin_end = 12;
+        box.margin_top = 6;
+        box.margin_bottom = 6;
+        box.hexpand = true;
+        box.pack_start (title_label, false, true, 0);
+        box.pack_end (default_button, false, true, 0);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.get_style_context ().add_class ("view");
+        main_box.hexpand = true;
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (box, false, true, 0);
+
+        if (visible_separator == true) {
+            main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        }
+
+        default_button.clicked.connect (() => {
+            activated ();
         });
 
         add (main_box);

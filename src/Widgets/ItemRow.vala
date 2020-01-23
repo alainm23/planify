@@ -173,7 +173,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
-        content_label.margin_bottom = 2;
+        content_label.margin_bottom = 3;
         content_label.get_style_context ().add_class ("label");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
@@ -231,7 +231,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reminder_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         reminder_revealer.add (reminder_grid);
 
-        check_reminder_label (reminder);
+        Planner.utils.clock_format_changed.connect (() => {
+            check_reminder_label (reminder);
+        });
 
         labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_box.margin_start = 6;

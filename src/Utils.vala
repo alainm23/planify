@@ -4,11 +4,14 @@ public class Utils : GLib.Object {
     
     public string APP_FOLDER;
     public string AVATARS_FOLDER;
+    public Settings h24_settings;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
     public signal void pane_action_selected ();
     
+    public signal void clock_format_changed ();
+
     public signal void drag_item_activated (bool active);
     public signal void drag_magic_button_activated (bool active);
     public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
@@ -16,6 +19,13 @@ public class Utils : GLib.Object {
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
+
+        h24_settings = new Settings ("org.gnome.desktop.interface");
+        h24_settings.changed.connect ((key) => {
+            if (key == "clock-format") {
+                clock_format_changed ();
+            }
+        });
     }
 
     public void create_dir_with_parents (string dir) {
@@ -428,14 +438,14 @@ public class Utils : GLib.Object {
         return get_relative_date_from_date (date);
     }
 
-    public string get_relative_time_from_string (string due) {
-        bool is_12h = true;
-        if (Planner.settings.get_enum ("time-format") == 1) {
-            is_12h = false;
-        }
+    public bool is_clock_format_12h () {
+        var format = h24_settings.get_string ("clock-format");
+        return (format.contains ("12h"));
+    }
 
+    public string get_relative_time_from_string (string due) {
         var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
-        return date.format (Granite.DateTime.get_default_time_format (is_12h, false));
+        return date.format (Granite.DateTime.get_default_time_format (is_clock_format_12h (), false));
     }
 
     public string get_relative_date_from_date (GLib.DateTime date) {
