@@ -151,7 +151,7 @@ msgstr ""
 
 #: src/Utils.vala:540
 msgid "Keeping track of your tasks"
-msgstr "Garder une trace de vos tâches"
+msgstr "Gardez un œil sur vos tâches"
 
 #: src/Utils.vala:541
 msgid ""
@@ -267,7 +267,7 @@ msgstr "Boîte de réception"
 
 #: src/Services/Todoist.vala:1197
 msgid "Create todoist project error"
-msgstr "Erreur de création de projet Todoist"
+msgstr "Erreur de création du projet Todoist"
 
 #: src/Services/Todoist.vala:1301
 msgid "Update todoist project error"
@@ -397,7 +397,7 @@ msgstr "Nom :"
 
 #: src/Widgets/New.vala:46
 msgid "Source:"
-msgstr "Source:"
+msgstr "Source :"
 
 #: src/Widgets/New.vala:88
 msgid "Color:"
@@ -422,7 +422,7 @@ msgstr "Projet"
 #: src/Widgets/New.vala:450
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
-"Démarrer un nouveau projet, créer une liste de choses à faire, organisez vos "
+"Démarrez un nouveau projet, créez une liste de choses à faire, organisez vos "
 "notes."
 
 #: src/Widgets/New.vala:475
@@ -431,7 +431,7 @@ msgstr "Groupe"
 
 #: src/Widgets/New.vala:481
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr "Organiser vos projets en groupes et garder votre panneau propre."
+msgstr "Organisez vos projets en groupes et gardez votre panneau propre."
 
 #: src/Widgets/New.vala:545
 msgid "New area"
@@ -517,7 +517,7 @@ msgstr "Pas de section"
 
 #: src/Widgets/ItemRow.vala:1126
 msgid "Complete"
-msgstr "Terminée"
+msgstr "Marquer comme terminé"
 
 #: src/Widgets/ItemRow.vala:1128
 msgid "View / Hide task"
@@ -627,7 +627,7 @@ msgstr "Supprimer les projets"
 
 #: src/Widgets/NewCheck.vala:53
 msgid "Subtask name"
-msgstr "Nom de la sous-stâche"
+msgstr "Nom de la sous-tâche"
 
 #. get_action_area ().visible = false;
 #. get_action_area ().no_show_all = true;
@@ -729,7 +729,7 @@ msgstr "Commentaires de la boîte de réception"
 
 #: src/Views/Inbox.vala:80 src/Views/Project.vala:119
 msgid "Search task"
-msgstr "Chercher une tâche"
+msgstr "Rechercher une tâche"
 
 #: src/Views/Inbox.vala:87 src/Views/Project.vala:126
 msgid "Options"
@@ -934,7 +934,7 @@ msgstr "Suggérer des traductions"
 
 #: src/Dialogs/Preferences.vala:664
 msgid "Fund"
-msgstr "Financement"
+msgstr "Soutenir"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
