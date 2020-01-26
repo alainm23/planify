@@ -465,7 +465,7 @@ msgstr "Déplacer vers le groupe"
 
 #: src/Widgets/ProjectRow.vala:427
 msgid "Project area"
-msgstr "Projet de groupe"
+msgstr "Groupe de projet"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:453 src/Widgets/ProjectRow.vala:497
@@ -601,9 +601,8 @@ msgid "labels"
 msgstr "étiquettes"
 
 #: src/Widgets/LabelButton.vala:70
-#, fuzzy
 msgid "Type a label"
-msgstr "Créer une étiquette"
+msgstr "Saisir une étiquette"
 
 #: src/Widgets/LabelButton.vala:93
 msgid "Edit labels"
@@ -645,7 +644,7 @@ msgstr "Ajouter un rappel"
 
 #: src/Widgets/ReminderButton.vala:172
 msgid "Time:"
-msgstr "Heure:"
+msgstr "Heure :"
 
 #. / TRANSLATORS: this will only show up when 12-hours clock is in use
 #: src/Widgets/TimePicker.vala:104
@@ -709,7 +708,7 @@ msgstr "Mise en route"
 
 #: src/Views/Welcome.vala:29
 msgid "Start working locally."
-msgstr "Commencez à travailler localement"
+msgstr "Commencez à travailler localement."
 
 #: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:507
 msgid "Todoist"
@@ -717,7 +716,7 @@ msgstr "Todoist"
 
 #: src/Views/Welcome.vala:30
 msgid "Synchronize with your Todoist account and start working."
-msgstr "Synchronisez avec votre compte Todoist et commencez à travailler"
+msgstr "Synchronisez avec votre compte Todoist et commencez à travailler."
 
 #: src/Views/Inbox.vala:51 src/Views/Project.vala:80
 msgid "Add section"
@@ -776,11 +775,11 @@ msgstr "Connectez-vous à Internet pour vous connecter à Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:83
 msgid "Synchronizing… Wait a moment please."
-msgstr "Synchronisation… Attendez un instant s'il vous plaît"
+msgstr "Synchronisation… Veuillez patienter un instant."
 
 #: src/Dialogs/TodoistOAuth.vala:95
 msgid "Please enter your credentials…"
-msgstr "Veuillez saisir vos informations d'identification…"
+msgstr "Veuillez saisir vos identifiants…"
 
 #. General
 #: src/Dialogs/Preferences.vala:61 src/Dialogs/Preferences.vala:67
@@ -857,7 +856,7 @@ msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
-"Personnalisez l'apparence de votre planificateur en choisissant le thème qui "
+"Personnalisez l'apparence de Planner en choisissant le thème qui "
 "vous convient le mieux."
 
 #: src/Dialogs/Preferences.vala:357
