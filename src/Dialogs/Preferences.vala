@@ -397,8 +397,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var de_header = new Granite.HeaderLabel (_("DE Integration"));
         de_header.margin_start = 12;
 
-        var run_background_switch = new PreferenceItemSwitch ("Run in background", Planner.settings.get_boolean ("run-in-background"), false);
-        var run_startup_switch = new PreferenceItemSwitch ("Run on startup", Planner.settings.get_boolean ("run-on-startup"));
+        var run_background_switch = new PreferenceItemSwitch (_("Run in background"), Planner.settings.get_boolean ("run-in-background"), false);
+        var run_startup_switch = new PreferenceItemSwitch (_("Run on startup"), Planner.settings.get_boolean ("run-on-startup"));
 
         var help_header = new Granite.HeaderLabel (_("Help"));
         help_header.margin_start = 12;
@@ -742,7 +742,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
-        var enabled_switch = new PreferenceItemSwitch ("Enabled", Planner.settings.get_boolean ("calendar-enabled"));
+        var enabled_switch = new PreferenceItemSwitch (_("Enabled"), Planner.settings.get_boolean ("calendar-enabled"));
 
         var listbox = new Gtk.ListBox ();
         listbox.margin_top = 12;
