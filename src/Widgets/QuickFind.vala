@@ -141,7 +141,6 @@ public class Widgets.QuickFind : Gtk.Revealer {
                 }
 
                 cancel ();
-
                 return false;
             } else {
                 if (!search_entry.has_focus) {
@@ -154,6 +153,18 @@ public class Widgets.QuickFind : Gtk.Revealer {
             }
 
             return true;
+        });
+
+        listbox.row_activated.connect ((row) => {
+            var item = (Widgets.SearchItem) row;
+
+            if (item.element == "item") {
+                Planner.instance.go_view ("item", item.id, item.project_id);
+            } else if (item.element == "project") {
+                Planner.instance.go_view ("project", item.id, 0);
+            }
+
+            cancel ();
         });
     }
 
