@@ -103,6 +103,8 @@ executable(
     'src/Objects/Collaborator.vala',
     'src/Objects/Reminder.vala',
     'src/Objects/Queue.vala',
+    'src/Objects/Shortcuts.vala',
+    
     config_header,
     dependencies: [
         dependency('gee-0.8'),

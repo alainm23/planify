@@ -52,6 +52,9 @@
       <p>Improvements:</p>
       <ul>
         <li>💪️ Planner doesn't freeze when the position of a project, section or task is ordered.</li>
+        <li>💰️ A financing page was added in the preferences.</li>
+        <li>[GitHub #158] - The project panel was resized making it more compact and aesthetic.</li>
+        <li>[GitHub #156] - Now you can create an easier reminder by pressing the RETURN key.</li>
       </ul>
       <p>Fix:</p>
       <ul>

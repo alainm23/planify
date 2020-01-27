@@ -202,7 +202,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
     */
 
-    private void set_due (GLib.DateTime? date) {
+    public void set_due (GLib.DateTime? date) {
         bool new_date = false;
         if (date != null) {
             if (item.due_date == "") {

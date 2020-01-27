@@ -603,4 +603,22 @@ public class Utils : GLib.Object {
 
         return project;
     }
+
+    public Gee.ArrayList<Objects.Shortcuts?> get_shortcuts () {
+        var shortcuts = new Gee.ArrayList<Objects.Shortcuts?> ();
+
+        shortcuts.add (new Objects.Shortcuts (_("Create a new task"), { "Ctrl", "n" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new task at the top of the list (only works inside projects)"), { "Ctrl", "Shift", "n" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new area"), { "Ctrl", "Shift", "a" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new project"), { "Ctrl", "Shift", "p" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new section"), { "Ctrl", "Shift", "s" }));
+        shortcuts.add (new Objects.Shortcuts (_("Open the Inbox"), { "Ctrl", "1" }));
+        shortcuts.add (new Objects.Shortcuts (_("Open Today"), { "Ctrl", "2" }));
+        shortcuts.add (new Objects.Shortcuts (_("Open Upcoming"), { "Ctrl", "3" }));
+        shortcuts.add (new Objects.Shortcuts (_("Open Search"), { "Ctrl", "f" }));
+        shortcuts.add (new Objects.Shortcuts (_("Manually sync"), { "Ctrl", "s" }));
+        shortcuts.add (new Objects.Shortcuts (_("Quit"), { "Ctrl", "q" }));
+
+        return shortcuts;
+    }
 }

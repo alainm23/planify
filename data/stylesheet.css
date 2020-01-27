@@ -3,7 +3,6 @@
 @define-color pane_selected_color #D1DFFE;
 @define-color pane_text_color #333333;
 
-
 /*
     Dark theme
 */
@@ -37,12 +36,8 @@ popover {
     color: @pane_text_color;
 }
 
-
-.titlebar {
-    /*padding: 0 2px;*/
-}
-
 .sidebar-header {
+    padding-left: 7px;
     background-color: @pane_color;
 }
 
@@ -55,6 +50,7 @@ popover {
 }
 
 .projectview-header {
+    padding-right: 7px;
     background-color: @projectview_color;
 }
 
@@ -478,8 +474,6 @@ paned > separator {
 .grid-motion {
     background-color: alpha (#3689e6, 0.25);
     border-radius: 4px;
-    margin-left: 6px;
-    margin-right: 6px;
 }
 
 .check-button,
@@ -554,6 +548,13 @@ paned > separator {
     color: #fafafa;
     border-radius: 6px;
     padding: 3px;
+}
+
+.search-icon {
+    background-color: #333333;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
 }
 
 .inbox-icon {
@@ -863,5 +864,5 @@ paned > separator {
 }
 
 .label-danger {
-    color: #c6262e;
+    color:#ed5353;
 }

@@ -4,6 +4,7 @@ public class Views.Inbox : Gtk.EventBox {
 
     private Gtk.Box top_box;
     private Gtk.Revealer motion_revealer;
+    private Widgets.NewSection new_section;
     
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
@@ -166,7 +167,7 @@ public class Views.Inbox : Gtk.EventBox {
         var placeholder_view = new Widgets.Placeholder ();
         placeholder_view.reveal_child = true;
 
-        var new_section = new Widgets.NewSection (project_id, is_todoist);
+        new_section = new Widgets.NewSection (project_id, is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -208,20 +209,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         section_button.clicked.connect (() => {
-            if (new_section.reveal) {
-                new_section.reveal = false;
-
-                /*
-                if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
-                    placeholder_view.reveal_child = false;
-                } else {
-                    placeholder_view.reveal_child = true;
-                }
-                */
-            } else {
-                new_section.reveal = true;
-                //placeholder_view.reveal_child = false;
-            }
+            section_toggled ();
         });
 
         new_section.cancel_activated.connect (() => {
@@ -373,8 +361,6 @@ public class Views.Inbox : Gtk.EventBox {
                 }
 
                 listbox.show_all ();
-
-                //placeholder_view.reveal_child = false;
             }
         });
 
@@ -401,6 +387,22 @@ public class Views.Inbox : Gtk.EventBox {
             var row = new Widgets.ItemRow (item);
             listbox.add (row);
             listbox.show_all ();
+        }
+    }
+    public void section_toggled () {
+        if (new_section.reveal) {
+            new_section.reveal = false;
+
+            /*
+            if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
+                placeholder_view.reveal_child = false;
+            } else {
+                placeholder_view.reveal_child = true;
+            }
+            */
+        } else {
+            new_section.reveal = true;
+            //placeholder_view.reveal_child = false;
         }
     }
 

@@ -11,6 +11,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
     private Gtk.Revealer motion_revealer;
+    private Widgets.NewSection new_section;
 
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
@@ -244,20 +245,14 @@ public class Views.Project : Gtk.EventBox {
         completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         completed_revealer.add (completed_box);
         
-        var motion_last_grid = new Gtk.Grid ();
-        //motion_last_grid.get_style_context ().add_class ("grid-motion");
-        motion_last_grid.height_request = 24;
-        
-        var new_section = new Widgets.NewSection (project.id, project.is_todoist);
+        new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.valign = Gtk.Align.START;
-        //main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (note_textview, false, true, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
-        //main_box.pack_start (infobar, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (new_section, false, true, 0);
         main_box.pack_start (section_listbox, false, false, 0);
@@ -363,7 +358,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         section_button.clicked.connect (() => {
-            new_section.reveal = !new_section.reveal;
+            section_toggled ();
         });
 
         completed_listbox.remove.connect (() => {
@@ -821,5 +816,9 @@ public class Views.Project : Gtk.EventBox {
         main_box.show_all ();
 
         return main_box;
+    }
+
+    public void section_toggled () {
+        new_section.reveal = !new_section.reveal;
     }
 }

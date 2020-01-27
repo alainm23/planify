@@ -55,7 +55,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class ("dim-label");
 
         var stack = new Gtk.Stack ();
-        stack.margin_start = 9;
         stack.halign = Gtk.Align.CENTER;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
@@ -70,7 +69,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var count_label = new Gtk.Label ("<small>%s</small>".printf (""));
         count_label.valign = Gtk.Align.CENTER;
-        count_label.margin_top = 3;
         count_label.get_style_context ().add_class ("dim-label");
         count_label.use_markup = true;
 
@@ -103,7 +101,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_revealer.reveal_child = false;
         */
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
+        top_box.margin_start = 6;
+        top_box.margin_top = 6;
         top_box.pack_start (stack, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         //top_box.pack_end (hidden_revealer, false, false, 0);
@@ -119,9 +119,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
-        action_grid.column_spacing = 6;
-        action_grid.margin_start = 40;
         action_grid.margin_top = 6;
+        action_grid.margin_start = 37;
+        action_grid.column_spacing = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -151,6 +151,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         separator.margin_end = 6;
         
         var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 12;
+        motion_grid.margin_end = 6;
         motion_grid.height_request = 24;
         motion_grid.get_style_context ().add_class ("grid-motion");
             
@@ -160,7 +162,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.hexpand = true;
-        main_box.margin_bottom = 6;
         main_box.pack_start (top_eventbox, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);

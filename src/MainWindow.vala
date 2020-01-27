@@ -55,9 +55,77 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         
+        // Search Button
+        var search_button = new Gtk.Button ();
+        search_button.can_focus = false;
+        search_button.tooltip_text = _("Quick Find");
+        search_button.valign = Gtk.Align.CENTER;
+        search_button.halign = Gtk.Align.CENTER;
+        search_button.get_style_context ().add_class ("settings-button");
+        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var search_image = new Gtk.Image ();
+        search_image.gicon = new ThemedIcon ("edit-find-symbolic");
+        search_image.pixel_size = 14;
+        search_button.image = search_image;
+
+        var settings_button = new Gtk.Button ();
+        settings_button.margin_end = 1;
+        settings_button.can_focus = false;
+        settings_button.tooltip_text = _("Preferences");
+        settings_button.valign = Gtk.Align.CENTER;
+        settings_button.halign = Gtk.Align.CENTER;
+        settings_button.get_style_context ().add_class ("settings-button");
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("open-menu-symbolic");
+        settings_image.pixel_size = 14;
+        settings_button.image = settings_image;
+
+        var sync_button = new Gtk.Button ();
+        sync_button.can_focus = false;
+        sync_button.tooltip_text = _("Sync");
+        sync_button.valign = Gtk.Align.CENTER;
+        sync_button.halign = Gtk.Align.CENTER;
+        sync_button.get_style_context ().add_class ("sync");
+        sync_button.get_style_context ().add_class ("settings-button");
+        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        sync_button.visible = Planner.settings.get_boolean ("todoist-account");
+        sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
+
+        var sync_image = new Gtk.Image ();
+        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
+        sync_image.get_style_context ().add_class ("sync-image-rotate");
+        sync_image.pixel_size = 16;
+
+        var error_image = new Gtk.Image ();
+        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
+        error_image.pixel_size = 16;
+
+        sync_button.image = sync_image;
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        header_box.margin_top = 6;
+        header_box.margin_bottom = 6;
+        header_box.get_style_context ().add_class ("pane");
+        header_box.get_style_context ().add_class ("welcome");
+        header_box.pack_start (search_button, false, false, 0);
+        header_box.pack_start (sync_button, false, false, 0);
+        header_box.pack_start (settings_button, false, false, 0);
+
+        var header_box_revealer = new Gtk.Revealer ();
+        header_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        header_box_revealer.add (header_box);
+
+        sidebar_header.pack_end (header_box_revealer);
+
         var projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
-        projectview_header.decoration_layout = ":";
+        projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
         projectview_header.get_style_context ().add_class ("titlebar");
@@ -69,10 +137,7 @@ public class MainWindow : Gtk.Window {
         header_paned.pack2 (projectview_header, true, false);
 
         pane = new Widgets.Pane ();
-        pane.show_quick_find.connect (() => {
-            show_quick_find ();
-        });
-        
+
         var welcome_view = new Views.Welcome ();
 
         stack = new Gtk.Stack ();
@@ -116,6 +181,9 @@ public class MainWindow : Gtk.Window {
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
+                // Remove Trash Data
+                Planner.database.remove_trash ();
+
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
@@ -139,6 +207,7 @@ public class MainWindow : Gtk.Window {
 
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
+                header_box_revealer.reveal_child = true;
             }
             
             return false;
@@ -146,6 +215,7 @@ public class MainWindow : Gtk.Window {
 
         Planner.database.reset.connect (() => {
             stack.visible_child_name = "welcome-view";
+            header_box_revealer.reveal_child = false;
         });
 
         welcome_view.activated.connect ((index) => {
@@ -170,6 +240,7 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
+                header_box_revealer.reveal_child = true;
                 stack.transition_type = Gtk.StackTransitionType.NONE;
             } else {
                 var todoistOAuth = new Dialogs.TodoistOAuth ();
@@ -199,6 +270,7 @@ public class MainWindow : Gtk.Window {
             stack.visible_child_name = "inbox-view";
             pane.sensitive_ui = true;
             magic_button.reveal_child = true;
+            header_box_revealer.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
         });
         
@@ -301,6 +373,37 @@ public class MainWindow : Gtk.Window {
             }
         });
 
+        search_button.clicked.connect (() => {
+            show_quick_find ();
+        });
+
+        settings_button.clicked.connect (() => {
+            var dialog = new Dialogs.Preferences ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        });
+
+        sync_button.clicked.connect (() => {
+            Planner.todoist.sync ();
+        });
+
+        Planner.todoist.sync_started.connect (() => {
+            sync_button.sensitive = false;
+            sync_button.get_style_context ().add_class ("is_loading");
+        });
+
+        Planner.todoist.sync_finished.connect (() => {
+            sync_button.sensitive = true;
+            sync_button.get_style_context ().remove_class ("is_loading");
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "todoist-account") {
+                sync_button.visible = Planner.settings.get_boolean ("todoist-account");
+                sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
+            }
+        });
+
         init_badge_count ();
 
         init_progress_controller ();
@@ -375,8 +478,18 @@ public class MainWindow : Gtk.Window {
     public void show_quick_find () {
         quick_find.reveal_toggled ();
     }
+
+    public void new_project () {
+        if (pane.new_project.reveal) {
+            pane.new_project.reveal = false;
+        } else {
+            pane.new_project.reveal = true;
+            pane.new_project.stack.visible_child_name = "box";
+            pane.new_project.name_entry.grab_focus ();
+        }
+    }
        
-    private void go_view (int id) {
+    public void go_view (int id) {
         if (id == 0) {
             if (inbox_view == null) {
                 inbox_view = new Views.Inbox ();
@@ -402,6 +515,8 @@ public class MainWindow : Gtk.Window {
             magic_button.reveal_child = false;
             stack.visible_child_name = "upcoming-view";
         }
+
+        pane.select_item (id);
     }
 
     private void init_badge_count () {
@@ -508,6 +623,47 @@ public class MainWindow : Gtk.Window {
         });
     }
 
+    public void add_task_action (bool last) {
+        if (stack.visible_child_name == "inbox-view") {
+            int is_todoist = 0;
+            if (Planner.settings.get_boolean ("inbox-project-sync")) {
+                is_todoist = 1;
+            }
+
+            Planner.utils.magic_button_activated (
+                Planner.settings.get_int64 ("inbox-project"),
+                0,
+                is_todoist,
+                last
+            );
+        } else if (stack.visible_child_name == "today-view") {
+            today_view.toggle_new_item ();
+        } else if (stack.visible_child_name == "upcoming-view") {
+
+        } else {
+            var project = ((Views.Project) stack.visible_child).project;
+            Planner.utils.magic_button_activated (
+                project.id,
+                0,
+                project.is_todoist,
+                last
+            );
+        }
+    }
+
+    public void new_section_action () {
+        if (stack.visible_child_name == "inbox-view") {
+            inbox_view.section_toggled ();
+        } else if (stack.visible_child_name == "today-view") {
+            
+        } else if (stack.visible_child_name == "upcoming-view") {
+
+        } else {
+            var project_view = (Views.Project) stack.visible_child;
+            project_view.section_toggled ();
+        }
+    }
+
     public override bool configure_event (Gdk.EventConfigure event) {
         if (configure_id != 0) {
             GLib.Source.remove (configure_id);
@@ -516,17 +672,22 @@ public class MainWindow : Gtk.Window {
         configure_id = Timeout.add (100, () => {
             configure_id = 0;
 
-            Gdk.Rectangle rect;
-            get_allocation (out rect);
-            Planner.settings.set ("window-size", "(ii)", rect.width, rect.height);
+            if (is_maximized) {
+                Planner.settings.set_boolean ("window-maximized", true);
+            } else {
+                Planner.settings.set_boolean ("window-maximized", false);
 
-            int root_x, root_y;
-            get_position (out root_x, out root_y);
-            Planner.settings.set ("window-position", "(ii)", root_x, root_y);
+                Gdk.Rectangle rect;
+                get_allocation (out rect);
+                Planner.settings.set ("window-size", "(ii)", rect.width, rect.height);
+
+                int root_x, root_y;
+                get_position (out root_x, out root_y);
+                Planner.settings.set ("window-position", "(ii)", root_x, root_y);
+            }
 
             return false;
         });
-
         return base.configure_event (event);
     }
 }

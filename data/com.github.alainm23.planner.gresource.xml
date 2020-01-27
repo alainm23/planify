@@ -20,5 +20,8 @@
     <file alias="planner-label-symbolic.svg">resources/planner-label-symbolic.svg</file>
     <file alias="planner-list-symbolic.svg">resources/planner-list-symbolic.svg</file>
     <file alias="planner-trash-symbolic.svg">resources/planner-trash-symbolic.svg</file>
+
+    <file alias="paypal.svg">resources/paypal.svg</file>
+    <file alias="become_a_patron.svg">resources/become_a_patron.svg</file>
   </gresource>
 </gresources>

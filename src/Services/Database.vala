@@ -371,6 +371,15 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
+    public void remove_trash () {
+        Sqlite.Statement stmt;
+        
+        int res = db.prepare_v2 ("DELETE FROM Items WHERE NOT EXISTS (SELECT * FROM Projects WHERE Items.project_id = Projects.id);", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        stmt.step ();
+    }
+
     public bool project_exists (int64 id) {
         bool returned = false;
         Sqlite.Statement stmt;
@@ -891,9 +900,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (4, area.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             return true;
         } else {
             return false;
@@ -914,8 +921,6 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (1, area.id);
         assert (res == Sqlite.OK);
-
-        res = stmt.step ();
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -961,8 +966,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
-
         return project;
     }
 
@@ -984,9 +987,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, area_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
     }
@@ -1127,11 +1128,8 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (12, project.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             project_updated (project);
-            
             return true;
         } else {
             return false;
@@ -1156,9 +1154,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, current_id);
         assert (res == Sqlite.OK);
         
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             item_id_updated (current_id, new_id);
 
             stmt.reset ();
@@ -1197,10 +1193,8 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (2, current_id);
         assert (res == Sqlite.OK);
-        
-        res = stmt.step ();
 
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             section_id_updated (current_id, new_id);
 
             stmt.reset ();
@@ -1240,9 +1234,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, current_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             project_id_updated (current_id, new_id);
             
             stmt.reset ();
@@ -1260,9 +1252,7 @@ public class Services.Database : GLib.Object {
             res = stmt.bind_int64 (2, current_id);
             assert (res == Sqlite.OK);
 
-            res = stmt.step ();
-
-            if (res == Sqlite.DONE) {
+            if (stmt.step () == Sqlite.DONE) {
                 project_id_updated (current_id, new_id);
             
                 stmt.reset ();
@@ -1380,9 +1370,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, project.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             project_moved (project);
             return true;
         } else {
@@ -1502,7 +1490,7 @@ public class Services.Database : GLib.Object {
 
         var all = new Gee.ArrayList<Objects.Project?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var p = new Objects.Project ();
 
             p.id = stmt.column_int64 (0);
@@ -1543,7 +1531,7 @@ public class Services.Database : GLib.Object {
 
         var all = new Gee.ArrayList<Objects.Project?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var p = new Objects.Project ();
 
             p.id = stmt.column_int64 (0);
@@ -1671,9 +1659,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, project_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
     }
@@ -1810,9 +1796,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (6, label.is_favorite);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             label_added (label);
             return true;
         } else {
@@ -1867,9 +1851,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, label.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             label_deleted (label);
             return true;
         } else {
@@ -1909,9 +1891,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (6, label.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             label_updated (label);
             return true;
         } else {
@@ -2095,9 +2075,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (4, section.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             section_updated (section);
         } else {
             print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
@@ -2161,8 +2139,6 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, section.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
@@ -2184,7 +2160,7 @@ public class Services.Database : GLib.Object {
             res = stmt.bind_int64 (2, section.id);
             assert (res == Sqlite.OK);
 
-            res = stmt.step ();
+            stmt.step ();
 
             return true;
         }
@@ -2208,9 +2184,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, section_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
     }
@@ -2241,25 +2215,29 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
-        sql = """
-            SELECT COUNT (*) FROM Items WHERE project_id = ? AND section_id = ?;
-        """;
+        if (has_index == false) {
+            sql = """
+                SELECT COUNT (*) FROM Items WHERE project_id = ? AND section_id = ?;
+            """;
 
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, item.project_id);
-        assert (res == Sqlite.OK);
+            res = stmt.bind_int64 (1, item.project_id);
+            assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, item.section_id);
-        assert (res == Sqlite.OK);
+            res = stmt.bind_int64 (2, item.section_id);
+            assert (res == Sqlite.OK);
 
-        if (stmt.step () == Sqlite.ROW) {
-            item.item_order = stmt.column_int (0);
+            if (stmt.step () == Sqlite.ROW) {
+                item.item_order = stmt.column_int (0);
+            }
+
+            stmt.reset ();
+        } else {
+            item.item_order = index;
         }
 
-        stmt.reset ();
-        
         sql = """
             INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
             responsible_uid, sync_id, parent_id, priority, item_order, checked,
@@ -2401,9 +2379,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (11, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             item_updated (item);
             
             return true;
@@ -2481,9 +2457,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (4, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             item_completed (item);
             return true;
         } else {
@@ -2554,8 +2528,6 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
@@ -2577,7 +2549,7 @@ public class Services.Database : GLib.Object {
             res = stmt.bind_int64 (2, item.id);
             assert (res == Sqlite.OK);
 
-            res = stmt.step ();
+            stmt.step ();
 
             return true;
         }
@@ -2604,13 +2576,9 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
-
-        //if ()
     }
 
     public bool set_due_item (Objects.Item item, bool new_date) {
@@ -2631,9 +2599,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, item.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             if (new_date) {
                 add_due_item (item);
             } else {
@@ -2814,7 +2780,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -2863,7 +2829,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -2912,7 +2878,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -2961,7 +2927,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3010,7 +2976,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3059,7 +3025,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3108,7 +3074,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3151,7 +3117,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3197,7 +3163,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3246,7 +3212,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Item?> ();
 
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var i = new Objects.Item ();
 
             i.id = stmt.column_int64 (0);
@@ -3275,29 +3241,6 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    private int is_item_todoist (Objects.Item item) {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-        int returned = 0;
-        
-        sql = """
-            SELECT is_todoist FROM Projects WHERE id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, item.project_id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            returned = stmt.column_int (0);
-        }
-
-        return returned;
-    }
-
     public bool add_item_label (int64 item_id, Objects.Label label) {
         Sqlite.Statement stmt;
         string sql;
@@ -3322,9 +3265,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (3, label.id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
-        if (res == Sqlite.DONE) {
+        if (stmt.step () == Sqlite.DONE) {
             item_label_added (id, item_id, label);
             return true;
         } else {
@@ -3351,7 +3292,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Label?> ();
  
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var l = new Objects.Label ();
 
             l.item_label_id = stmt.column_int64 (0);
@@ -3380,8 +3321,6 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
-
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
@@ -3409,8 +3348,6 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (2, item.id);
         assert (res == Sqlite.OK);
-
-        res = stmt.step ();
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -3468,7 +3405,7 @@ public class Services.Database : GLib.Object {
         
         var all = new Gee.ArrayList<Objects.Reminder?> ();
  
-        while ((res = stmt.step()) == Sqlite.ROW) {
+        while ((res = stmt.step ()) == Sqlite.ROW) {
             var r = new Objects.Reminder ();
 
             r.id = stmt.column_int64 (0);
@@ -3552,9 +3489,7 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
-
-        res = stmt.step ();
-
+        
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
