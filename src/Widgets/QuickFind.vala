@@ -116,6 +116,12 @@ public class Widgets.QuickFind : Gtk.Revealer {
             return false;
         });
 
+        search_entry.icon_press.connect ((icon_pos, event) => {
+            if (icon_pos == Gtk.EntryIconPosition.SECONDARY) {
+                search_entry.grab_focus ();
+            }
+        });
+
         cancel_button.clicked.connect (() => {
             cancel ();
         });
