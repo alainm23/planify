@@ -53,6 +53,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Label due_label;
     private Gtk.Label project_name_label;
     private Gtk.Revealer project_name_revealer;
+    private Widgets.ImageMenuItem undated_menu;
+    private Widgets.DueButton due_button;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
@@ -320,7 +322,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-        var due_button = new Widgets.DueButton (item);
+        due_button = new Widgets.DueButton (item);
 
         var reminder_button = new Widgets.ReminderButton (item);
 
@@ -1115,6 +1117,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         }
 
+        if (item.due_date == "") {
+            undated_menu.visible = false;
+            undated_menu.no_show_all = true;
+        } else {
+            undated_menu.visible = true;
+            undated_menu.no_show_all = false;
+        }
+
         projects_menu.show_all ();
         sections_menu.show_all ();
 
@@ -1123,12 +1133,28 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void build_context_menu (Objects.Item item) {
         menu = new Gtk.Menu ();
-        menu.width_request = 200;
+        menu.width_request = 235;
+
+        var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
+
+        string today_icon = "planner-today-day-symbolic";
+        string today_css = "today-day-icon";
+        var hour = new GLib.DateTime.now_local ().get_hour ();
+        if (hour >= 18 || hour <= 5) {
+            today_icon = "planner-today-night-symbolic";
+            today_css = "today-night-icon";
+        }
         
-        var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");   
+        var today_menu = new Widgets.ImageMenuItem (_("Today"), today_icon);
+        today_menu.item_image.get_style_context ().add_class (today_css);
 
-        var view_edit_menu = new Widgets.ImageMenuItem (_("View / Hide task"), "edit-symbolic");
+        var tomorrow_menu = new Widgets.ImageMenuItem (_("Tomorrow"), "x-office-calendar-symbolic");
+        tomorrow_menu.item_image.get_style_context ().add_class ("upcoming-icon");
 
+        undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
+        undated_menu.item_image.get_style_context ().add_class ("due-clear");
+        
         var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "planner-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
@@ -1137,19 +1163,32 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         sections_menu = new Gtk.Menu ();
         move_section_menu.set_submenu (sections_menu);
 
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        var share_list_menu = new Gtk.Menu ();
+        share_menu.set_submenu (share_list_menu);
+
+        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "text-markdown");
+
+        share_list_menu.add (share_text_menu);
+        share_list_menu.add (share_markdown_menu);
+        share_list_menu.show_all ();
+
         var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
-        //var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
-        //var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete task"), "user-trash-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
         menu.add (complete_menu);
-        menu.add (view_edit_menu);
+        menu.add (edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (today_menu);
+        menu.add (tomorrow_menu);
+        menu.add (undated_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (move_project_menu);
         menu.add (move_section_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (duplicate_menu);
-        //menu.add (share_menu);
+        menu.add (share_menu);
+        //menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -1159,12 +1198,24 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             checked_button.active = !checked_button.active;
         });
 
-        view_edit_menu.activate.connect (() => {
-            if (bottom_revealer.reveal_child) {
-                hide_item ();
-            } else {
-                show_item ();
-            }
+        edit_menu.activate.connect (() => {
+            show_item ();
+        });
+
+        today_menu.activate.connect (() => {
+            due_button.set_due (new GLib.DateTime.now_local ());
+        });
+
+        tomorrow_menu.activate.connect (() => {
+            due_button.set_due (new GLib.DateTime.now_local ().add_days (1));
+        });
+
+        undated_menu.activate.connect (() => {
+            due_button.set_due (null);
+        });
+
+        duplicate_menu.activate.connect (() => {
+            Planner.database.insert_item (item.get_duplicate ());
         });
 
         delete_menu.activate.connect (() => {
@@ -1173,32 +1224,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 main_revealer.reveal_child = false;
             }
         });
-
-        duplicate_menu.activate.connect (() => {
-            Planner.database.insert_item (item.get_duplicate ());
-        });
-
-        /*
-        convert_menu.activate.connect (() => {
-            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Delete project"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
-                "user-trash-full",
-            Gtk.ButtonsType.CANCEL);
-
-            var remove_button = new Gtk.Button.with_label (_("Delete"));
-            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-
-            message_dialog.show_all ();
-
-            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-                item.convert_to_project ();
-            }
-
-            message_dialog.destroy ();
-        });
-        */
     }
 
     public void check_reminder_label (Objects.Reminder? reminder) {

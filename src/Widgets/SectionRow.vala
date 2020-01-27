@@ -501,13 +501,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var add_menu = new Widgets.ImageMenuItem (_("Add task"), "list-add-symbolic");
 
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit section"), "edit-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move section"), "go-jump-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "go-jump-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
-        var delete_menu = new Widgets.ImageMenuItem (_("Delete section"), "user-trash-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
         menu.add (add_menu);
         menu.add (new Gtk.SeparatorMenuItem ());

@@ -20,11 +20,11 @@
 */
 
 public class Widgets.New : Gtk.Revealer {
-    private Gtk.Entry name_entry;
+    public Gtk.Entry name_entry;
     private Gtk.Button project_button;
     private Gtk.Button area_button;
 
-    private Gtk.Stack stack;
+    public Gtk.Stack stack;
 
     private Gtk.ComboBox source_combobox;   
     private Gtk.ListStore list_store;

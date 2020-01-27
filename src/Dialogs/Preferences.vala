@@ -29,8 +29,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
+        stack.add_named (get_keyboard_shortcuts_widget (), "keyboard_shortcuts");
         stack.add_named (get_calendar_widget (), "calendar");
         stack.add_named (get_about_widget (), "about");
+        stack.add_named (get_fund_widget (), "fund");
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
@@ -83,7 +85,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         var todoist_item = new PreferenceItem ("planner-todoist", "Todoist");
         var calendar_item = new PreferenceItem ("x-office-calendar", _("Calendar events"));
-        var labels_item = new PreferenceItem ("tag", _("Labels"), true);
+        var labels_item = new PreferenceItem ("tag", _("Labels"));
+        var shortcuts_item = new PreferenceItem ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
 
         var addons_grid = new Gtk.Grid ();
         addons_grid.margin_top = 18;
@@ -94,10 +97,12 @@ public class Dialogs.Preferences : Gtk.Dialog {
         addons_grid.add (todoist_item);
         addons_grid.add (calendar_item);
         addons_grid.add (labels_item);
+        addons_grid.add (shortcuts_item);
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         /* Others */
-        var about_item = new PreferenceItem ("help-about", _("About"), true);
+        var about_item = new PreferenceItem ("dialog-information", _("About"));
+        var fund_item = new PreferenceItem ("help-about", _("Fund"), true);
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
@@ -106,6 +111,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         others_grid.orientation = Gtk.Orientation.VERTICAL;
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
+        others_grid.add (fund_item);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_grid = new Gtk.Grid ();
@@ -143,13 +149,21 @@ public class Dialogs.Preferences : Gtk.Dialog {
         labels_item.activated.connect (() => {
             stack.visible_child_name = "labels";
         });
-        
+
+        shortcuts_item.activated.connect (() => {
+            stack.visible_child_name = "keyboard_shortcuts";
+        });
+
         calendar_item.activated.connect (() => {
             stack.visible_child_name = "calendar";
         });
 
         about_item.activated.connect (() => {
             stack.visible_child_name = "about";
+        });
+
+        fund_item.activated.connect (() => {
+            stack.visible_child_name = "fund";
         });
 
         return main_grid;
@@ -526,6 +540,59 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
+    private Gtk.Widget get_keyboard_shortcuts_widget () {
+        var top_box = new PreferenceTopBox ("tag", _("Keyboard Shortcuts"));
+
+        var description_label = new Gtk.Label (_("All the shortcuts to save you time! Some can be used anywhere in the app, while others only work when adding or editing tasks."));
+        description_label.margin = 6;
+        description_label.margin_bottom = 12;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_bottom = 1;
+
+        var listbox = new Gtk.ListBox ();
+        listbox.valign = Gtk.Align.START;
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.expand = true;
+        
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.hexpand = true;
+        
+        foreach (var shortcut in Planner.utils.get_shortcuts ()) {
+            var row = new ShortcutRow (shortcut.name, shortcut.accels);
+            listbox.add (row);
+            listbox.show_all ();
+        }
+
+        box.pack_start (description_label, false, false, 0);
+        box.pack_start (separator, false, true, 0);
+        box.pack_start (listbox, false, true, 0);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        return main_box;
+    }
+
     private Gtk.Widget get_todoist_widget () {
         var top_box = new PreferenceTopBox ("planner-todoist", _("Todoist"));
 
@@ -623,8 +690,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
         eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                    _("Log out"),
                     _("Are you sure you want to log out?"),
+                    _("This process will close your Todoist session on this device."),
                     "system-log-out",
                 Gtk.ButtonsType.CANCEL);
     
@@ -738,6 +805,77 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         return main_box;
     }
+
+    private Gtk.Widget get_fund_widget () {
+        var top_box = new PreferenceTopBox ("face-heart", _("Fund"));
+
+        var description_label = new Gtk.Label (_("If you like Planner and you want to support its development, consider donating via:"));
+        description_label.margin = 6;
+        description_label.use_markup = true;
+        description_label.margin_bottom = 12;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+
+        var paypal_icon = new Gtk.Image.from_resource ("/com/github/alainm23/planner/paypal.svg");
+
+        var paypal_button = new Gtk.Button ();
+        paypal_button.can_focus = false;
+        paypal_button.get_style_context ().add_class ("flat");
+        paypal_button.margin_start = paypal_button.margin_end = 12;
+        paypal_button.image = paypal_icon;
+
+        var patreon_icon = new Gtk.Image.from_resource ("/com/github/alainm23/planner/become_a_patron.svg");
+
+        var patreon_button = new Gtk.Button ();
+        patreon_button.can_focus = false;
+        patreon_button.get_style_context ().add_class ("flat");
+        patreon_button.margin_start = patreon_button.margin_end = 12;
+        patreon_button.image = patreon_icon;
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.hexpand = true;
+        
+        box.pack_start (description_label, false, false, 0);
+        box.pack_start (paypal_button, false, false, 12);
+        box.pack_start (patreon_button, false, false, 6);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        paypal_button.clicked.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://www.paypal.me/alainm23", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        patreon_button.clicked.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://www.patreon.com/alainm23", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        return main_box;
+    }
     
     private Gtk.Widget get_about_widget () {
         var top_box = new PreferenceTopBox ("office-calendar", _("About"));
@@ -756,8 +894,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         var web_item = new PreferenceItem ("web-browser", _("Homepage"));
         var issue_item = new PreferenceItem ("bug", _("Report a Problem"));
-        var translation_item = new PreferenceItem ("config-language", _("Suggest Translations"));
-        var fund_item = new PreferenceItem ("help-about", _("Fund"), true);
+        var translation_item = new PreferenceItem ("config-language", _("Suggest Translations"), true);
 
         var grid = new Gtk.Grid ();
         grid.margin_top = 24;
@@ -768,7 +905,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
         grid.add (web_item);
         grid.add (issue_item);
         grid.add (translation_item);
-        grid.add (fund_item);
         grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -803,14 +939,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
         translation_item.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://github.com/alainm23/planner/tree/master/po#translating-planner", null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
-        });
-
-        fund_item.activated.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri ("https://www.patreon.com/alainm23", null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
@@ -1104,6 +1232,59 @@ public class PreferenceItemSelect : Gtk.EventBox {
         combobox.changed.connect (() => {
             activated (combobox.active);
         });
+
+        add (main_box);
+    }
+}
+
+public class ShortcutLabel : Gtk.Grid {
+    public string[] accels { get; construct; }
+
+    public ShortcutLabel (string[] accels) {
+        Object (accels: accels);
+    }
+
+    construct {
+        valign = Gtk.Align.CENTER;
+        column_spacing = 6;
+
+        if (accels[0] != "") {
+            foreach (unowned string accel in accels) {
+                if (accel == "") {
+                    continue;
+                }
+                var label = new Gtk.Label (accel);
+                label.get_style_context ().add_class ("keycap");
+                add (label);
+            }
+        } else {
+            var label = new Gtk.Label (_("Disabled"));
+            label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+            add (label);
+        }
+    }
+}
+
+public class ShortcutRow : Gtk.ListBoxRow {
+    public ShortcutRow (string name, string[] accels) {
+        var name_label = new Gtk.Label (name);
+        name_label.wrap = true;
+        name_label.xalign = 0;
+        name_label.get_style_context ().add_class ("font-weight-600");
+
+        var shortcuts_labels = new ShortcutLabel (accels);
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.margin_start = 12;
+        box.margin_top = 3;
+        box.margin_bottom = 3;
+        box.margin_end = 6;
+        box.pack_start (name_label, false, true, 0);
+        box.pack_end (shortcuts_labels, false, false, 0);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.pack_start (box);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         add (main_box);
     }

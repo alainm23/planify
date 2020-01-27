@@ -5,6 +5,8 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     private Gtk.Stack stack;
     private Gtk.Label reminder_label; 
     private Gtk.Revealer label_revealer;
+    private Widgets.Calendar.Calendar calendar;
+    private Granite.Widgets.TimePicker time_picker;
 
     private Objects.Reminder? first_reminder = null;
 
@@ -167,7 +169,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     }
 
     private Gtk.Widget get_reminder_new_widget () {
-        var calendar = new Widgets.Calendar.Calendar (true);
+        calendar = new Widgets.Calendar.Calendar (true);
         calendar.margin_bottom = 0;
         calendar.margin_top = 0;
         calendar.margin_end = 9;
@@ -176,7 +178,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         var time_header = new Granite.HeaderLabel (_("Time:"));
         time_header.margin_start = 9;
 
-        var time_picker = new Granite.Widgets.TimePicker ();
+        time_picker = new Granite.Widgets.TimePicker ();
         time_picker.margin_start = 9;
         time_picker.margin_end = 9;
 
@@ -209,35 +211,34 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
             add_button.sensitive = true;
         });
 
+        time_picker.activate.connect (() => {
+            add_reminder ();
+        });
+
         add_button.clicked.connect (() => {
-            var date = new GLib.DateTime.local (
-                calendar.date.get_year (),
-                calendar.date.get_month (),
-                calendar.date.get_day_of_month (),
-                time_picker.time.get_hour (),
-                time_picker.time.get_minute (),
-                0
-            );
-
-            print ("Datetime: %s\n".printf (date.to_string ()));
-
-            if (date == null) {
-                print ("Es Null\n");
-            } else {
-                print ("No es Null\n");
-            }
-            
-
-            var reminder = new Objects.Reminder ();
-            reminder.due_date = date.to_string ();
-            reminder.item_id = item.id;
-
-            if (Planner.database.insert_reminder (reminder)) {
-                stack.visible_child_name = "list";
-            }
+            add_reminder ();
         });
 
         return grid;
+    }
+
+    private void add_reminder () {
+        var date = new GLib.DateTime.local (
+            calendar.date.get_year (),
+            calendar.date.get_month (),
+            calendar.date.get_day_of_month (),
+            time_picker.time.get_hour (),
+            time_picker.time.get_minute (),
+            0
+        );
+
+        var reminder = new Objects.Reminder ();
+        reminder.due_date = date.to_string ();
+        reminder.item_id = item.id;
+
+        if (Planner.database.insert_reminder (reminder)) {
+            stack.visible_child_name = "list";
+        }
     }
 
     private void add_reminders (Gtk.ListBox listbox) {

@@ -88,7 +88,7 @@ public class Widgets.ModelButton : Gtk.Button {
 
 public class Widgets.ImageMenuItem : Gtk.MenuItem {
     private Gtk.Label item_label;
-    private Gtk.Image item_image;
+    public Gtk.Image item_image;
 
     public string icon {
         set {

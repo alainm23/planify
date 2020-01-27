@@ -2,7 +2,7 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
     private Gee.HashMap<string, bool> items_loaded;
-    private Gtk.Revealer new_item_revealer;
+    public Gtk.Revealer new_item_revealer;
     private Widgets.NewItem new_item;
 
     private Gtk.Box main_box;

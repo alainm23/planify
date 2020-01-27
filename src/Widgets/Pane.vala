@@ -1,5 +1,8 @@
 public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Stack stack;
+    public Widgets.New new_project;
+    
+    //private Widgets.ActionRow search_row;
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
@@ -17,8 +20,6 @@ public class Widgets.Pane : Gtk.EventBox {
     public signal void activated (int id);
     private uint timeout;
 
-    public signal void show_quick_find ();
-
     private const Gtk.TargetEntry[] targetEntries = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -32,11 +33,9 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         }
     }
-    public Pane () {
-        
-    }
 
     construct {
+        //search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 
         string today_icon = "planner-today-day-symbolic";
@@ -46,111 +45,8 @@ public class Widgets.Pane : Gtk.EventBox {
         }
 
         today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day."));
-                
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events."));
-
         var back_row = new Widgets.ActionRow (_("Back-Pocket"), "user-trash-symbolic", "upcoming", _("Upcoming"));
-
-        // Avatar
-        Granite.Widgets.Avatar user_avatar;
-        if (Planner.settings.get_boolean ("todoist-account")) {
-            if (Planner.settings.get_string ("todoist-user-image-id") != "") {
-                user_avatar = new Granite.Widgets.Avatar.from_file (
-                    GLib.Path.build_filename (
-                        Planner.utils.AVATARS_FOLDER, 
-                        Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
-                    ),
-                    20
-                );
-            } else {
-                user_avatar = new Granite.Widgets.Avatar.with_default_icon (20);
-            }
-        } else {
-            if (File.new_for_path ("/var/lib/AccountsService/icons/" + GLib.Environment.get_user_name ()).query_exists ()) {
-                user_avatar = new Granite.Widgets.Avatar.from_file (
-                    "/var/lib/AccountsService/icons/" + GLib.Environment.get_user_name (),
-                    20
-                );
-            } else {
-                user_avatar = new Granite.Widgets.Avatar.with_default_icon (20);
-            }
-        }
-
-        var username_label = new Gtk.Label (Planner.settings.get_string ("user-name"));
-        username_label.get_style_context ().add_class ("pane-item");
-        username_label.margin_top = 1;
-        username_label.halign = Gtk.Align.CENTER;
-        username_label.ellipsize = Pango.EllipsizeMode.END;
-        username_label.valign = Gtk.Align.CENTER;
-        username_label.use_markup = true;
-
-        // Search Button
-        var search_button = new Gtk.Button ();
-        search_button.can_focus = false;
-        search_button.tooltip_text = _("Quick Find");
-        search_button.valign = Gtk.Align.CENTER;
-        search_button.halign = Gtk.Align.CENTER;
-        search_button.get_style_context ().add_class ("settings-button");
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-
-        var search_image = new Gtk.Image ();
-        search_image.gicon = new ThemedIcon ("edit-find-symbolic");
-        search_image.pixel_size = 14;
-        search_button.image = search_image;
-
-        search_button.clicked.connect (() => {
-            show_quick_find ();
-        });
-        
-        var settings_button = new Gtk.Button ();
-        settings_button.margin_end = 1;
-        settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Preferences");
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.halign = Gtk.Align.CENTER;
-        settings_button.get_style_context ().add_class ("settings-button");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-
-        var settings_image = new Gtk.Image ();
-        settings_image.gicon = new ThemedIcon ("open-menu-symbolic");
-        settings_image.pixel_size = 14;
-        settings_button.image = settings_image;
-
-        sync_button = new Gtk.Button ();
-        sync_button.can_focus = false;
-        sync_button.tooltip_text = _("Sync");
-        sync_button.valign = Gtk.Align.CENTER;
-        sync_button.halign = Gtk.Align.CENTER;
-        sync_button.get_style_context ().add_class ("sync");
-        sync_button.get_style_context ().add_class ("settings-button");
-        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        sync_button.visible = Planner.settings.get_boolean ("todoist-account");
-        sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
-
-        sync_image = new Gtk.Image ();
-        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
-        sync_image.get_style_context ().add_class ("sync-image-rotate");
-        sync_image.pixel_size = 16;
-
-        error_image = new Gtk.Image ();
-        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
-        error_image.pixel_size = 16;
-
-        sync_button.image = sync_image;
-
-        var profile_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        profile_box.margin_start = 10;
-        profile_box.margin_end = 3;
-        profile_box.get_style_context ().add_class ("pane");
-        profile_box.get_style_context ().add_class ("welcome");
-        profile_box.pack_start (user_avatar, false, false, 0);
-        profile_box.pack_start (username_label, false, false, 0);
-        profile_box.pack_end (settings_button, false, false, 0);
-        profile_box.pack_end (sync_button, false, false, 0);
-        profile_box.pack_end (search_button, false, false, 0);
 
         var add_icon = new Gtk.Image ();
         add_icon.valign = Gtk.Align.CENTER;
@@ -176,13 +72,13 @@ public class Widgets.Pane : Gtk.EventBox {
         add_revealer.add (add_button);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 3;
         listbox.get_style_context ().add_class ("pane");
         listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        
+
+        //listbox.add (search_row);
         listbox.add (inbox_row);
         listbox.add (today_row);
         listbox.add (upcoming_row);
@@ -192,7 +88,6 @@ public class Widgets.Pane : Gtk.EventBox {
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
 
         project_listbox = new Gtk.ListBox  ();
-        //project_listbox.margin_top = 6;
         project_listbox.get_style_context ().add_class ("pane");
         project_listbox.get_style_context ().add_class ("welcome");
         project_listbox.activate_on_single_click = true;
@@ -200,7 +95,6 @@ public class Widgets.Pane : Gtk.EventBox {
         project_listbox.hexpand = true;
         
         area_listbox = new Gtk.ListBox  ();
-        area_listbox.margin_top = 6;
         area_listbox.get_style_context ().add_class ("pane");
         area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
@@ -219,12 +113,12 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_scrolled.hexpand = true;
         listbox_scrolled.add (listbox_grid);
 
-        var new_project = new Widgets.New ();
+        new_project = new Widgets.New ();
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.get_style_context ().add_class ("pane");
-        main_box.pack_start (profile_box, false, false, 0);
+        //main_box.pack_start (profile_box, false, false, 0);
         main_box.pack_start (listbox_scrolled, true, true, 0);   
         main_box.pack_end (add_revealer, false, false, 0);  
 
@@ -278,45 +172,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.clicked.connect (() => {
             new_project.reveal = true;
         });
-
-        settings_button.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences ();
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
-        });
-
-        sync_button.clicked.connect (() => {
-            Planner.todoist.sync ();
-        });
-
-        Planner.todoist.sync_started.connect (() => {
-            sync_button.sensitive = false;
-            sync_button.get_style_context ().add_class ("is_loading");
-        });
-
-        Planner.todoist.sync_finished.connect (() => {
-            sync_button.sensitive = true;
-            sync_button.get_style_context ().remove_class ("is_loading");
-        });
-
-        Planner.todoist.first_sync_finished.connect (() => {
-            username_label.label = Planner.settings.get_string ("user-name");
-            
-            sync_button.sensitive = true;
-            sync_button.get_style_context ().remove_class ("is_loading");
-        });
-
-        Planner.todoist.avatar_downloaded.connect ((id) => {
-            try {
-                user_avatar.pixbuf = new Gdk.Pixbuf.from_file_at_size (
-                    GLib.Path.build_filename (Planner.utils.AVATARS_FOLDER, (id + ".jpg")),
-                    20,
-                    20);
-            } catch (Error e) {
-                stderr.printf ("Error setting default avatar icon: %s ", e.message);
-            }
-        });
-
+        
         Planner.database.area_added.connect ((area) => {
             var row = new Widgets.AreaRow (area);
             area_listbox.add (row);
@@ -375,15 +231,6 @@ public class Widgets.Pane : Gtk.EventBox {
                 upcoming_row.title_name.label = _("Tomorrow");
             } else {
                 upcoming_row.title_name.label = _("Upcoming");
-            }
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "user-name") {
-                username_label.label = Planner.settings.get_string ("user-name");
-            } else if (key == "todoist-account") {
-                sync_button.visible = Planner.settings.get_boolean ("todoist-account");
-                sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
             }
         });
 
