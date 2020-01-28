@@ -53,8 +53,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Label due_label;
     private Gtk.Label project_name_label;
     private Gtk.Revealer project_name_revealer;
-    private Widgets.ImageMenuItem undated_menu;
-    private Widgets.DueButton due_button;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_box_revealer;
@@ -73,6 +71,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.Menu projects_menu; 
     private Gtk.Menu sections_menu;
+    private Widgets.ImageMenuItem undated_menu;
+    private Widgets.DueButton due_button;
+    private Widgets.ImageMenuItem move_section_menu;
     private Gtk.Menu menu = null;
 
     private uint checked_timeout = 0;
@@ -249,14 +250,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         1_box.pack_start (labels_box, false, false, 0);
         1_box.pack_end (reminder_revealer, false, false, 0);
         
-        /*
-        
-
-        labels_box_revealer = new Gtk.Revealer ();
-        labels_box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        labels_box_revealer.add (labels_box);
-        */
-
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.valign = Gtk.Align.CENTER;
         content_box.margin_top = 3;
@@ -286,7 +279,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         top_box.pack_start (content_stack, false, true, 0);
 
         note_textview = new Gtk.TextView ();
-        note_textview.margin_start = 66;
+        note_textview.margin_start = 65;
         note_textview.buffer.text = item.note;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("textview");
@@ -361,7 +354,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
-        action_box.margin_start = 60;
+        action_box.margin_start = 65;
         action_box.pack_start (labels_edit_box, false, true, 0);
         action_box.pack_end (settings_button, false, false, 0);
         action_box.pack_end (delete_button, false, false, 0);
@@ -391,6 +384,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         */
 
         var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 41;
+        motion_grid.margin_end = 32;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
             
@@ -913,7 +908,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
-        print ("Index: %i\n".printf (this.get_index ()));
         Planner.utils.magic_button_activated (
             item.project_id,
             item.section_id,
@@ -995,7 +989,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
     
     private void add_all_checks () {
-        foreach (var check in Planner.database.get_all_cheks_by_item (item)) {
+        foreach (var check in Planner.database.get_all_cheks_by_item (item.id)) {
             var row = new Widgets.CheckRow (check);
 
             row.hide_item.connect (hide_item);
@@ -1103,6 +1097,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             sections_menu.add (item_menu);
         }
         
+        int section_count = 0;
         foreach (var section in Planner.database.get_all_sections_by_project (item.project_id)) {
             if (item.section_id != section.id) {
                 item_menu = new Widgets.ImageMenuItem (section.name, "planner-project-symbolic");
@@ -1115,6 +1110,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 sections_menu.add (item_menu);
             }
+
+            section_count++;
+        }
+
+        if (section_count > 0) {
+            move_section_menu.visible = true;
+            move_section_menu.no_show_all = false;
+        } else {
+            move_section_menu.visible = false;
+            move_section_menu.no_show_all = true;
         }
 
         if (item.due_date == "") {
@@ -1159,7 +1164,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
-        var move_section_menu = new Widgets.ImageMenuItem (_("Move to section"), "go-jump-symbolic");
+        move_section_menu = new Widgets.ImageMenuItem (_("Move to section"), "go-jump-symbolic");
         sections_menu = new Gtk.Menu ();
         move_section_menu.set_submenu (sections_menu);
 
@@ -1168,7 +1173,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         share_menu.set_submenu (share_list_menu);
 
         var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "text-markdown");
+        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
         share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
@@ -1214,6 +1219,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             due_button.set_due (null);
         });
 
+        share_text_menu.activate.connect (() => {
+            item.share_text ();
+        });
+
+        share_markdown_menu.activate.connect (() => {
+            item.share_markdown ();
+        });
+        
         duplicate_menu.activate.connect (() => {
             Planner.database.insert_item (item.get_duplicate ());
         });

@@ -208,6 +208,8 @@ public class Views.Project : Gtk.EventBox {
         //listbox.set_placeholder (listbox_placeholder);
 
         var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 41;
+        motion_grid.margin_end = 32;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
             
@@ -266,7 +268,7 @@ public class Views.Project : Gtk.EventBox {
         add (main_scrolled);
 
         build_drag_and_drop (false);
-
+        
         add_all_items ();
         add_all_sections ();
         
@@ -668,15 +670,21 @@ public class Views.Project : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
+        var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 
-        var delete_menu = new Widgets.ModelButton (_("Delete project"), "user-trash-symbolic");
+        var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
+        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+
         show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
 
         var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator_01.margin_top = 3;
         separator_01.margin_bottom = 3;
+
+        var separator_02 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator_02.margin_top = 3;
+        separator_02.margin_bottom = 3;
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 200;
@@ -684,9 +692,9 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
         popover_grid.add (edit_menu);
-        //popover_grid.add (archive_menu);
-        popover_grid.add (delete_menu);
         popover_grid.add (separator_01);
+        popover_grid.add (delete_menu);
+        popover_grid.add (separator_02);
         popover_grid.add (show_menu);
   
         popover.add (popover_grid);
@@ -695,16 +703,10 @@ public class Views.Project : Gtk.EventBox {
             settings_button.active = false;
         });
 
-    
         edit_menu.clicked.connect (() => {
-            action_revealer.reveal_child = true;
-            name_stack.visible_child_name = "name_entry";
-
-            name_entry.grab_focus_without_selecting ();
-
-            if (name_entry.cursor_position < name_entry.text.length) {
-                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-            }
+            var dialog = new Dialogs.ProjectSettings (project);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
 
             popover.popdown ();
         });

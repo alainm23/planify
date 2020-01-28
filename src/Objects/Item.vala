@@ -103,7 +103,7 @@ public class Objects.Item : GLib.Object {
         project.name = content;
 
         if (Planner.database.insert_project (project)) {
-            foreach (var check in Planner.database.get_all_cheks_by_item (this)) {
+            foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
                 Planner.database.move_item (check, project.id);
             }
 
@@ -155,5 +155,31 @@ public class Objects.Item : GLib.Object {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public void share_text () {
+        string text = "";
+        text += "- %s\n".printf (this.content);
+        text += "  %s\n".printf (this.note.replace ("\n", " "));
+
+        foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
+            text += "  - %s\n".printf (check.content);
+        }
+
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
+        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
+    }
+
+    public void share_markdown () {
+        string text = "";
+        text += "#### %s\n".printf (this.content);
+        text += "%s\n".printf (this.note.replace ("\n", " "));
+
+        foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
+            text += "- [ ] %s\n".printf (check.content);
+        }
+
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
+        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
     }
 }

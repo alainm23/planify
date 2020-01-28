@@ -57,7 +57,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.image = add_icon;
         add_button.valign = Gtk.Align.CENTER;
         add_button.margin_bottom = 6;
-        add_button.margin_start = 6;
+        add_button.margin_start = 3;
         add_button.halign = Gtk.Align.START;
         add_button.always_show_image = true;
         add_button.can_focus = false;

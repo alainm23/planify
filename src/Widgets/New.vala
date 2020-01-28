@@ -367,11 +367,7 @@ public class Widgets.New : Gtk.Revealer {
                 submit_button.sensitive = false;
             }
         });
-
-        source_combobox.changed.connect (() => {
-            Planner.settings.set_int ("source-selected", source_combobox.active);
-        });
-
+        
         cancel_button.clicked.connect (cancel);
 
         name_entry.key_release_event.connect ((key) => {
@@ -438,6 +434,10 @@ public class Widgets.New : Gtk.Revealer {
         var text_cell = new Gtk.CellRendererText ();
         source_combobox.pack_start (text_cell, true);
         source_combobox.add_attribute (text_cell, "text", 1);
+
+        source_combobox.changed.connect (() => {
+            Planner.settings.set_int ("source-selected", source_combobox.active);
+        });
 
         if (Planner.settings.get_boolean ("todoist-account")) {
             source_revealer.reveal_child = true;

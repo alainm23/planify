@@ -1,7 +1,7 @@
 public class Widgets.ModelButton : Gtk.Button {
     public bool arrow { get; construct; }
     private Gtk.Label item_label;
-    private Gtk.Image item_image;
+    public Gtk.Image item_image;
 
     public string icon {
         set {
@@ -74,8 +74,8 @@ public class Widgets.ModelButton : Gtk.Button {
         arrow_image.get_style_context ().add_class ("dim-label");
         arrow_image.pixel_size = 16;
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.margin_start = 6;
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        box.margin_start = 3;
         box.pack_start (item_image, false, false, 0);
         box.pack_start (item_label, false, true, 0);
         if (arrow) {

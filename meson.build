@@ -94,6 +94,7 @@ executable(
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/Preferences.vala',
+    'src/Dialogs/ProjectSettings.vala',
     
     'src/Objects/Project.vala',
     'src/Objects/Item.vala',

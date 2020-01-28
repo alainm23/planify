@@ -27,12 +27,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
   
-    private Gtk.Menu work_areas;
+    private Gtk.Menu areas_menu;
     private Gtk.Menu menu = null;
     private Gtk.ToggleButton menu_button;
-    private Gtk.PopoverMenu menu_popover = null;
-    private Gtk.Grid areas_grid;
-    private Gtk.Grid colors_grid;
+    private Widgets.ImageMenuItem move_area_menu;
     
     public Gtk.Box handle_box;
     private Gtk.EventBox handle;
@@ -218,9 +216,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            if (menu_popover.visible == false) {
-                menu_stack.visible_child_name = "count_revealer";
-            }
+            menu_stack.visible_child_name = "count_revealer";
             
             return true;
         });
@@ -391,100 +387,95 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = true;
     }
 
-    private void build_menu_popover () {
-        /* Colors Menu */
-        var colors_button = new Widgets.ModelButton (_("Colors"), "preferences-color-symbolic", _("Project color"), true);
+    private void activate_menu () {
+        if (menu == null) {
+            build_context_menu (project);
+        } 
 
-        var back_button = new Gtk.ModelButton ();
-        back_button.margin_top = 3;
-        back_button.text = _("Back");
-        back_button.inverted = true;
-        back_button.menu_name = "main";
+        foreach (var child in areas_menu.get_children ()) {
+            child.destroy ();
+        }
 
-        var sub_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        sub_separator.margin_top = sub_separator.margin_bottom = 3;
-        sub_separator.hexpand = true;
+        Widgets.ImageMenuItem item_menu;
+        if (project.area_id != 0) {
+            item_menu = new Widgets.ImageMenuItem (_("No Area"), "window-close-symbolic");
+            item_menu.activate.connect (() => {
+                if (Planner.database.move_project (project, 0)) {
+                    destroy ();
+                }
+            });
 
-        var colors_widget = new Widgets.ColorGrid ();
+            areas_menu.add (item_menu);
+        }
 
-        colors_grid = new Gtk.Grid ();
-        colors_grid.orientation = Gtk.Orientation.VERTICAL;
-        colors_grid.width_request = 200;
-        colors_grid.name = "colors-menu";
-        colors_grid.add (back_button);
-        colors_grid.add (sub_separator);
-        colors_grid.add (colors_widget);
-        colors_grid.show_all ();
+        int area_count = 0;
+        foreach (Objects.Area area in Planner.database.get_all_areas ()) {
+            if (area.id != project.area_id) {
+                item_menu = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
+                item_menu.activate.connect (() => {
+                    if (Planner.database.move_project (project, area.id)) {
+                        destroy ();
+                    }
+                });
 
-        var areas_button = new Widgets.ModelButton (_("Move to area"), "planner-work-area-symbolic", _("Project area"), true);
+                areas_menu.add (item_menu);
+            }
 
-        var area_back_button = new Gtk.ModelButton ();
-        area_back_button.margin_top = 3;
-        area_back_button.text = _("Back");
-        area_back_button.inverted = true;
-        area_back_button.menu_name = "main";
+            area_count++;
+        }
 
-        var area_sub_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        area_sub_separator.margin_top = area_sub_separator.margin_bottom = 3;
-        area_sub_separator.hexpand = true;
+        if (area_count > 0) {
+            move_area_menu.visible = true;
+            move_area_menu.no_show_all = false;
+        } else {
+            move_area_menu.visible = false;
+            move_area_menu.no_show_all = true;
+        }
 
-        areas_grid = new Gtk.Grid ();
-        areas_grid.orientation = Gtk.Orientation.VERTICAL;
-        areas_grid.width_request = 200;
-        areas_grid.margin_bottom = 3;
+        areas_menu.show_all ();
+        menu.popup_at_pointer (null);
+    }
 
-        var areas_menu_grid = new Gtk.Grid ();
-        areas_menu_grid.orientation = Gtk.Orientation.VERTICAL;
-        areas_menu_grid.width_request = 200;
-        areas_menu_grid.name = "areas-menu";
-        areas_menu_grid.add (area_back_button);
-        areas_menu_grid.add (area_sub_separator);
-        areas_menu_grid.add (areas_grid);
-        areas_menu_grid.show_all ();
+    private void build_context_menu (Objects.Project project) {
+        menu = new Gtk.Menu ();
+        menu.width_request = 200;
 
-        var delete_menu = new Widgets.PopoverButton (_("Delete project"), "user-trash-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator_01.margin_top = separator_01.margin_bottom = 3;
-        separator_01.hexpand = true;
+        move_area_menu = new Widgets.ImageMenuItem (_("Move to area"), "planner-work-area-symbolic");
+        areas_menu = new Gtk.Menu ();
+        move_area_menu.set_submenu (areas_menu);
 
-        //  var separator_02 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        //  separator_02.margin_top = separator_02.margin_bottom = 3;
-        //  separator_02.hexpand = true;
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        var share_list_menu = new Gtk.Menu ();
+        share_menu.set_submenu (share_list_menu);
 
-        var grid = new Gtk.Grid ();
-        grid.margin_top = 3;
-        grid.margin_bottom = 3;
-        grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.width_request = 200;
-        grid.name = "main";
-        grid.add (colors_button);
-        grid.add (areas_button);
-        grid.add (separator_01);
-        grid.add (delete_menu);
-        grid.show_all ();
+        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        menu_popover = new Gtk.PopoverMenu ();
-        menu_popover.position = Gtk.PositionType.BOTTOM;
-        menu_popover.relative_to = menu_button;
-        menu_popover.add (grid);
-        menu_popover.add (colors_grid);
-        menu_popover.add (areas_menu_grid);
-        menu_popover.child_set_property (grid, "submenu", "main");
-        menu_popover.child_set_property (colors_grid, "submenu", "colors-menu");
-        menu_popover.child_set_property (areas_menu_grid, "submenu", "areas-menu");
+        share_list_menu.add (share_text_menu);
+        share_list_menu.add (share_markdown_menu);
+        share_list_menu.show_all ();
 
-        colors_button.clicked.connect (() => {
-            menu_popover.visible_submenu = "colors-menu";
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+
+        menu.add (edit_menu);
+        menu.add (move_area_menu);
+        menu.add (share_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (delete_menu);
+
+        menu.show_all (); 
+
+
+        edit_menu.activate.connect (() => {
+            var dialog = new Dialogs.ProjectSettings (project);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
         });
 
-        areas_button.clicked.connect (() => {
-            menu_popover.visible_submenu = "areas-menu";
-        });
-
-        delete_menu.clicked.connect (() => {
-            menu_popover.popdown ();
-
+        delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete project"),
                 _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
@@ -506,79 +497,5 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
-
-        colors_widget.color_selected.connect ((color) => {
-            project.color = color;
-            project.save ();
-        });
-
-        menu_popover.closed.connect (() => {
-            menu_button.active = false;
-        });
-    }
-
-    private void activate_menu () {
-        if (menu_popover == null) {
-            build_menu_popover ();
-        }
-
-        foreach (var child in areas_grid.get_children ()) {
-            child.destroy ();
-        }
-
-        Widgets.ModelButton item;
-        if (project.area_id != 0) {
-            item = new Widgets.ModelButton (_("No Area"), "window-close-symbolic");
-            item.clicked.connect (() => {
-                if (Planner.database.move_project (project, 0)) {
-                    destroy ();
-                }
-            });
-
-            areas_grid.add (item);
-        }
-
-        foreach (Objects.Area area in Planner.database.get_all_areas ()) {
-            if (area.id != project.area_id) {
-                item = new Widgets.ModelButton (area.name, "planner-work-area-symbolic");
-                item.clicked.connect (() => {
-                    if (Planner.database.move_project (project, area.id)) {
-                        destroy ();
-                    }
-                });
-
-                areas_grid.add (item);
-            }
-        }
-
-        areas_grid.show_all ();
-        menu_popover.popup ();
-        
-        /*
-        if (menu == null) {
-            build_context_menu (project);
-        } 
-
-        
-
-        Widgets.ImageMenuItem item;
-        
-
-        foreach (Objects.Area area in Planner.database.get_all_areas ()) {
-            if (area.id != project.area_id) {
-                item = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
-                item.activate.connect (() => {
-                    if (Planner.database.move_project (project, area.id)) {
-                        destroy ();
-                    }
-                });
-
-                work_areas.add (item);
-            }
-        }
-
-        work_areas.show_all ();
-        menu.popup_at_pointer (null);
-        */
     }
 }

@@ -52,14 +52,16 @@
       <p>The keyboard shortcuts arrived, design improvements and more.</p>
       <ul>
         <li>Now you can use keyboard shortcuts to be more productive: See the list of full keyboard shortcuts in the preferences.</li>
-        <li>Planner doesn't freeze when the position of a project, section or task is ordered.</li>
         <li>A financing page was added in the preferences.</li>
+        <li>The task menu has been designed. Making it more beautiful and productive.</li>
+        <li>Planner doesn't freeze when the position of a project, section or task is ordered.</li>
         <li>[GitHub #158] - The project panel was resized making it more compact and aesthetic.</li>
         <li>[GitHub #156] - Now you can create an easier reminder by pressing the RETURN key.</li>
         <li>[GitHub #147] - Badge count is not displayed when the system startup.</li>
-        <li>[GitHub #145, #146] - The way to create the tutorial project was improved.</li>
         <li>[GitHub #138] - Fixing website address.</li>
         <li>[GitHub #136] - Add new task button disappears.</li>
+        <li>[GitHub #145, #146] - The way to create the tutorial project was improved.</li>
+        <li>[GitHub #152, #149] - Fixed some bugs with Quick Find.</li>
       </ul>
     </description>
   </release>

@@ -1694,6 +1694,8 @@ public class Services.Database : GLib.Object {
         return items_0;
     }
 
+    //public int get_parent_
+
     public int get_today_project_count (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -3054,7 +3056,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Item?> get_all_cheks_by_item (Objects.Item item) {
+    public Gee.ArrayList<Objects.Item?> get_all_cheks_by_item (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -3069,7 +3071,7 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, item.id);
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
         
         var all = new Gee.ArrayList<Objects.Item?> ();

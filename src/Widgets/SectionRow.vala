@@ -130,6 +130,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         separator.margin_bottom = 6;
 
         var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 41;
+        motion_grid.margin_end = 32;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
             
@@ -138,6 +140,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         var motion_section_grid = new Gtk.Grid ();
+        motion_section_grid.margin_start = 41;
+        motion_section_grid.margin_end = 32;
         motion_section_grid.get_style_context ().add_class ("grid-motion");
         motion_section_grid.height_request = 24;
             
@@ -177,17 +181,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         add (main_revealer);
         add_all_items ();
 
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesSection, Gdk.DragAction.MOVE);
-        drag_begin.connect (on_drag_begin);
-        drag_data_get.connect (on_drag_data_get);
-        drag_end.connect (clear_indicator);
-
-        build_drag_and_drop (false);
-
         if (section.collapsed == 1) {
             listbox_revealer.reveal_child = true;
         }
 
+        build_defaul_drag_and_drop ();
+        
         Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
             if (section.project_id == project_id && section.id == section_id) {
                 var new_item = new Widgets.NewItem (
@@ -242,7 +241,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         Planner.utils.drag_magic_button_activated.connect ((value) => {
-            build_drag_and_drop (value);
+            build_magic_button_drag_and_drop (value);
+        });
+
+        Planner.utils.drag_item_activated.connect ((value) => {
+            build_item_drag_and_drop (value);
         });
 
         hidden_button.clicked.connect (() => {
@@ -360,19 +363,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        /*
-        Planner.utils.drag_item_activated.connect ((value) => {
-            if (value) {
-                Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
-                name_stack.drag_data_received.connect (on_drag_item_received);
-                name_stack.drag_motion.connect (on_drag_motion);
-                name_stack.drag_leave.connect (on_drag_leave);
-            } else {
-                build_drag_and_drop (false);
-            }
-        });
-        */
-
         Planner.database.section_updated.connect ((s) => {
             Idle.add (() => {
                 if (section.id == s.id) {
@@ -447,6 +437,20 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
     }
 
+    private void build_defaul_drag_and_drop () {
+        name_stack.drag_data_received.disconnect (on_drag_item_received);
+        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+        
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesSection, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+        drag_end.connect (clear_indicator);
+
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntriesSection, Gdk.DragAction.MOVE);
+        drag_motion.connect (on_drag_motion);
+        drag_leave.connect (on_drag_leave); 
+    }
+
     private void activate_menu () {
         if (menu == null) {
             build_context_menu (section);
@@ -507,6 +511,17 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        var share_list_menu = new Gtk.Menu ();
+        share_menu.set_submenu (share_list_menu);
+
+        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+
+        share_list_menu.add (share_text_menu);
+        share_list_menu.add (share_markdown_menu);
+        share_list_menu.show_all ();
+
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
@@ -514,6 +529,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (move_project_menu);
+        menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -593,7 +609,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
     }
 
-    private void build_drag_and_drop (bool value) {
+    private void build_magic_button_drag_and_drop (bool value) {
         name_stack.drag_data_received.disconnect (on_drag_item_received);
         name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
@@ -603,11 +619,23 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             name_stack.drag_motion.connect (on_drag_magicbutton_motion);
             name_stack.drag_leave.connect (on_drag_magicbutton_leave);
         } else {
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntriesSection, Gdk.DragAction.MOVE);
-            drag_motion.connect (on_drag_motion);
-            drag_leave.connect (on_drag_leave); 
+            build_defaul_drag_and_drop ();
         }
-    }   
+    }
+
+    private void build_item_drag_and_drop (bool value) {
+        name_stack.drag_data_received.disconnect (on_drag_item_received);
+        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+        
+        if (value) {
+            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+            name_stack.drag_data_received.connect (on_drag_item_received);
+            name_stack.drag_motion.connect (on_drag_magicbutton_motion);
+            name_stack.drag_leave.connect (on_drag_magicbutton_leave);
+        } else {
+            build_defaul_drag_and_drop ();
+        }
+    }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ItemRow target;
@@ -621,12 +649,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (target != null) {
-            print ("Se solto aqui: %s\n".printf (source.item.content));
             if (source.item.section_id != section.id) {
                 source.item.section_id = section.id;
     
                 if (source.item.is_todoist == 1) {
-                    print ("Item para actualizar: %s\n".printf (source.item.content));
                     Planner.todoist.move_item_to_section (source.item, section.id);
                 }
             }
