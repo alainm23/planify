@@ -47,11 +47,12 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="2.1" date="2020-01-27">
+  <release version="2.1" date="2020-01-29">
     <description>
       <p>The keyboard shortcuts arrived, design improvements and more.</p>
       <ul>
         <li>Now you can use keyboard shortcuts to be more productive: See the list of full keyboard shortcuts in the preferences.</li>
+        <li>Now you can share your tasks as text or markdown.</li>
         <li>A financing page was added in the preferences.</li>
         <li>Planner menus have been redesigned. Making it more beautiful and productive.</li>
         <li>Planner doesn't freeze when the position of a project, section or task is ordered.</li>
