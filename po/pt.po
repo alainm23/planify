@@ -21,11 +21,11 @@ msgstr ""
 #: data/com.github.alainm23.planner.desktop.in:4
 #: data/com.github.alainm23.planner.appdata.xml.in:7
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/Utils.vala:62 src/Utils.vala:69 src/Widgets/LabelRow.vala:27
 msgid "Home"
-msgstr ""
+msgstr "Página Inicial"
 
 #: src/Utils.vala:63 src/Utils.vala:73
 msgid "Office"
@@ -37,11 +37,11 @@ msgstr ""
 
 #: src/Utils.vala:65 src/Utils.vala:81
 msgid "Important"
-msgstr ""
+msgstr "Importar"
 
 #: src/Utils.vala:66 src/Utils.vala:85
 msgid "Pending"
-msgstr ""
+msgstr "Pending"
 
 #: src/Utils.vala:128
 msgid "Berry Red"
@@ -49,15 +49,15 @@ msgstr ""
 
 #: src/Utils.vala:129
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: src/Utils.vala:130
 msgid "Orange"
-msgstr ""
+msgstr "Laranja"
 
 #: src/Utils.vala:131
 msgid "Yellow"
-msgstr ""
+msgstr "Amarelo"
 
 #: src/Utils.vala:132
 msgid "Olive Green"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: src/Utils.vala:134
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: src/Utils.vala:135
 msgid "Mint Green"
@@ -77,19 +77,19 @@ msgstr ""
 
 #: src/Utils.vala:136
 msgid "Teal"
-msgstr ""
+msgstr "Verde azulado"
 
 #: src/Utils.vala:137
 msgid "Sky Blue"
-msgstr ""
+msgstr "Azul celeste"
 
 #: src/Utils.vala:138
 msgid "Light Blue"
-msgstr ""
+msgstr "Azul claro"
 
 #: src/Utils.vala:139
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: src/Utils.vala:140
 msgid "Grape"
@@ -97,7 +97,7 @@ msgstr ""
 
 #: src/Utils.vala:141
 msgid "Violet"
-msgstr ""
+msgstr "Roxo"
 
 #: src/Utils.vala:142
 msgid "Lavander"
@@ -113,11 +113,11 @@ msgstr ""
 
 #: src/Utils.vala:145
 msgid "Charcoal"
-msgstr ""
+msgstr "Carvão"
 
 #: src/Utils.vala:146
 msgid "Grey"
-msgstr ""
+msgstr "Cinzento"
 
 #: src/Utils.vala:147
 msgid "Taupe"
@@ -127,12 +127,12 @@ msgstr ""
 #: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:188
 #: src/Dialogs/Preferences.vala:293
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #: src/Utils.vala:442 src/Widgets/Pane.vala:365 src/Widgets/DueButton.vala:131
 #: src/Widgets/UpcomingRow.vala:33
 msgid "Tomorrow"
-msgstr ""
+msgstr "Amanhã"
 
 #: src/Utils.vala:534
 msgid "🚀️ Getting Started"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: src/Utils.vala:560
 msgid "How to use projects"
-msgstr ""
+msgstr "Como usar projetos"
 
 #: src/Utils.vala:561
 msgid ""
@@ -201,11 +201,11 @@ msgstr ""
 
 #: src/Utils.vala:571
 msgid "Sections"
-msgstr ""
+msgstr "Seções"
 
 #: src/Utils.vala:577
 msgid "Add sections"
-msgstr ""
+msgstr "Adicionar seções"
 
 #: src/Utils.vala:578
 msgid ""
@@ -271,15 +271,15 @@ msgstr ""
 
 #: src/Services/Notifications.vala:11
 msgid "task"
-msgstr ""
+msgstr "Tarefa"
 
 #: src/Services/Notifications.vala:13
 msgid "tasks"
-msgstr ""
+msgstr "Tarefas"
 
 #: src/Services/Calendar/Util.vala:225 src/Widgets/New.vala:51
 msgid "On this computer"
-msgstr ""
+msgstr "Neste computador"
 
 #: src/Widgets/Pane.vala:40
 msgid ""
@@ -817,7 +817,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences.vala:408
 msgid "24 h"
-msgstr ""
+msgstr "24h"
 
 #: src/Dialogs/Preferences.vala:410
 msgid "Time format"
@@ -855,11 +855,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences.vala:663
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Sugerir traduções"
 
 #: src/Dialogs/Preferences.vala:664
 msgid "Fund"
-msgstr ""
+msgstr "Fundo"
 
 #: data/com.github.alainm23.planner.desktop.in:5
 #: data/com.github.alainm23.planner.appdata.xml.in:8
@@ -997,19 +997,19 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:40
 msgid "Other features:"
-msgstr ""
+msgstr "Outras funções:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:42
 msgid "⏲️ Reminders notifications"
-msgstr ""
+msgstr "⏲️ Notificações de lembretes"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:43
 msgid "🔍️ Quick Find"
-msgstr ""
+msgstr "🔍️ Busca rápida"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:44
 msgid "🌙️ Night mode"
-msgstr ""
+msgstr "🌙️ Modo noturno"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:53
 msgid "Planner 2 is here..."
@@ -1032,7 +1032,7 @@ msgstr ""
 #: data/com.github.alainm23.planner.appdata.xml.in:110
 #: data/com.github.alainm23.planner.appdata.xml.in:126
 msgid "Translations:"
-msgstr ""
+msgstr "Traduções:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:80
 msgid "Lithuanian (welaq)"
@@ -1041,7 +1041,7 @@ msgstr ""
 #: data/com.github.alainm23.planner.appdata.xml.in:86
 #: data/com.github.alainm23.planner.appdata.xml.in:99
 msgid "Improvements:"
-msgstr ""
+msgstr "Melhorias:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:88
 msgid "Redesign 'Labels' popover"
@@ -1049,7 +1049,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:89
 msgid "Fix Notification error"
-msgstr ""
+msgstr "Corrigir erro de notificação"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:93
 msgid "Updating French translations 🇫🇷 (NathanBnm)"
@@ -1057,7 +1057,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:101
 msgid "Better reminder notifications"
-msgstr ""
+msgstr "Melhores notificações de lembrete"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:102
 msgid "Improvement default theme"
@@ -1081,11 +1081,11 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:107
 msgid "New task search"
-msgstr ""
+msgstr "Nova pesquisa de tarefas"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:108
 msgid "Adding support to import and export projects"
-msgstr ""
+msgstr "Adicionar suporte para projetos de importação e exportação"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:112
 msgid "German (kr428)"
@@ -1113,7 +1113,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:124
 msgid "Planner will notify you if any new issue was posted"
-msgstr ""
+msgstr "O Planejador notificará você se houver algum novo problema publicado"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:128
 msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
@@ -1125,27 +1125,27 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:131
 msgid "Bugs and Improvements:"
-msgstr ""
+msgstr "Problemas e melhorias"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:133
 msgid "Performance improvement"
-msgstr ""
+msgstr "Melhoria de desempenho"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:134
 msgid "Design improvements"
-msgstr ""
+msgstr "Melhorias do design"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:135
 msgid "Fix #22"
-msgstr ""
+msgstr "Fix #22"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:136
 msgid "Fix #21"
-msgstr ""
+msgstr "Fix #21"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:137
 msgid "Fix #11"
-msgstr ""
+msgstr "Fix #11"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:143
 msgid "Improved stability and some bug fixes"
@@ -1157,20 +1157,20 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:146
 msgid "Adding new tooltips"
-msgstr ""
+msgstr "Adicionar novas dicas de ferramentas"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:152
 msgid "Hola Planner !!!"
-msgstr ""
+msgstr "Olá Planner !!!"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:154
 msgid "Adding Spanish translations"
-msgstr ""
+msgstr "Adicionar traduções para o espanhol"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:160
 msgid "Initial release"
-msgstr ""
+msgstr "Versão inicial"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:201
 msgid "Alain M."
-msgstr ""
+msgstr "Alain M."
