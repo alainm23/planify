@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-17 10:35-0500\n"
+"POT-Creation-Date: 2020-01-30 00:21-0500\n"
 "PO-Revision-Date: 2019-06-19 05:26+0200\n"
 "Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
 "Language-Team: \n"
@@ -17,133 +17,150 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
 
+#: src/Application.vala:203 src/Widgets/New.vala:565
+#, fuzzy
+msgid "New area"
+msgstr "Neuer Bereich"
+
 #: src/MainWindow.vala:42 data/com.github.alainm23.planner.desktop.in:3
 #: data/com.github.alainm23.planner.desktop.in:4
 #: data/com.github.alainm23.planner.appdata.xml.in:7
 msgid "Planner"
 msgstr "Planner"
 
-#: src/Utils.vala:62 src/Utils.vala:69 src/Widgets/LabelRow.vala:27
+#: src/MainWindow.vala:61
+msgid "Quick Find"
+msgstr "Schnellsuche"
+
+#: src/MainWindow.vala:76
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: src/MainWindow.vala:90 src/Widgets/Pane.vala:301
+msgid "Sync"
+msgstr "Synchronisieren"
+
+#: src/Utils.vala:73 src/Utils.vala:80 src/Widgets/LabelRow.vala:27
 #, fuzzy
 msgid "Home"
 msgstr "Startseite"
 
-#: src/Utils.vala:63 src/Utils.vala:73
+#: src/Utils.vala:74 src/Utils.vala:84
 msgid "Office"
 msgstr "Büro"
 
-#: src/Utils.vala:64 src/Utils.vala:77
+#: src/Utils.vala:75 src/Utils.vala:88
 msgid "Errand"
 msgstr ""
 
-#: src/Utils.vala:65 src/Utils.vala:81
+#: src/Utils.vala:76 src/Utils.vala:92
 #, fuzzy
 msgid "Important"
 msgstr "Importieren"
 
-#: src/Utils.vala:66 src/Utils.vala:85
+#: src/Utils.vala:77 src/Utils.vala:96
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: src/Utils.vala:128
+#: src/Utils.vala:139
 msgid "Berry Red"
 msgstr "Beerenrot"
 
-#: src/Utils.vala:129
+#: src/Utils.vala:140
 #, fuzzy
 msgid "Red"
 msgstr "Rot"
 
-#: src/Utils.vala:130
+#: src/Utils.vala:141
 msgid "Orange"
 msgstr "Orange"
 
-#: src/Utils.vala:131
+#: src/Utils.vala:142
 msgid "Yellow"
 msgstr "Gelb"
 
-#: src/Utils.vala:132
+#: src/Utils.vala:143
 msgid "Olive Green"
 msgstr "Olivgrün"
 
-#: src/Utils.vala:133
+#: src/Utils.vala:144
 msgid "Lima Green"
 msgstr ""
 
-#: src/Utils.vala:134
+#: src/Utils.vala:145
 msgid "Green"
 msgstr "Grün"
 
-#: src/Utils.vala:135
+#: src/Utils.vala:146
 msgid "Mint Green"
 msgstr "Minzgrün"
 
-#: src/Utils.vala:136
+#: src/Utils.vala:147
 msgid "Teal"
 msgstr ""
 
-#: src/Utils.vala:137
+#: src/Utils.vala:148
 msgid "Sky Blue"
 msgstr "Himmelblau"
 
-#: src/Utils.vala:138
+#: src/Utils.vala:149
 #, fuzzy
 msgid "Light Blue"
 msgstr "Hellblau"
 
-#: src/Utils.vala:139
+#: src/Utils.vala:150
 #, fuzzy
 msgid "Blue"
 msgstr "Blau"
 
-#: src/Utils.vala:140
+#: src/Utils.vala:151
 msgid "Grape"
 msgstr "Traube"
 
-#: src/Utils.vala:141
+#: src/Utils.vala:152
 msgid "Violet"
 msgstr "Violett"
 
-#: src/Utils.vala:142
+#: src/Utils.vala:153
 msgid "Lavander"
 msgstr "Lavendel"
 
-#: src/Utils.vala:143
+#: src/Utils.vala:154
 msgid "Magenta"
 msgstr "Magenta"
 
-#: src/Utils.vala:144
+#: src/Utils.vala:155
 msgid "Salmon"
 msgstr "Lachs"
 
-#: src/Utils.vala:145
+#: src/Utils.vala:156
 msgid "Charcoal"
 msgstr ""
 
-#: src/Utils.vala:146
+#: src/Utils.vala:157
 msgid "Grey"
 msgstr "Grau"
 
-#: src/Utils.vala:147
+#: src/Utils.vala:158
 msgid "Taupe"
 msgstr "Taupe"
 
-#: src/Utils.vala:440 src/Widgets/Pane.vala:48 src/Widgets/DueButton.vala:127
-#: src/Views/Today.vala:30 src/Dialogs/Preferences.vala:188
-#: src/Dialogs/Preferences.vala:293
+#: src/Utils.vala:453 src/Widgets/Pane.vala:47 src/Widgets/ItemRow.vala:1154
+#: src/Widgets/DueButton.vala:127 src/Views/Today.vala:30
+#: src/Dialogs/Preferences.vala:189 src/Dialogs/Preferences.vala:294
 msgid "Today"
 msgstr "Heute"
 
-#: src/Utils.vala:442 src/Widgets/Pane.vala:365 src/Widgets/DueButton.vala:131
-#: src/Widgets/UpcomingRow.vala:33
+#: src/Utils.vala:455 src/Widgets/Pane.vala:270 src/Widgets/ItemRow.vala:1157
+#: src/Widgets/DueButton.vala:131 src/Widgets/UpcomingRow.vala:33
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#: src/Utils.vala:534
+#: src/Utils.vala:547
 msgid "🚀️ Getting Started"
 msgstr "Erste Schritte"
 
-#: src/Utils.vala:535
+#: src/Utils.vala:548
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -153,11 +170,11 @@ msgstr ""
 "dich in ein simples Aufgaben-Management System ein, um organisiert zu "
 "bleiben und den Überblick zu behalten."
 
-#: src/Utils.vala:540
+#: src/Utils.vala:553
 msgid "Keeping track of your tasks"
 msgstr "Behält die Übersicht über deine Aufgaben"
 
-#: src/Utils.vala:541
+#: src/Utils.vala:554
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -174,12 +191,12 @@ msgstr ""
 "Dort kannst du damit beginnen, diese Aufgaben zu organisieren und "
 "priorisieren sodass du weißt, worauf du dich wann konzentrieren musst."
 
-#: src/Utils.vala:546
+#: src/Utils.vala:559
 #, fuzzy
 msgid "Adding new tasks"
 msgstr "Neue Aufgabe anlegen"
 
-#: src/Utils.vala:547
+#: src/Utils.vala:560
 #, fuzzy
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
@@ -190,11 +207,11 @@ msgstr ""
 "- Wenn deine Aufgabe erstellt wurde, klicke auf diese, um sie zu "
 "bearbeiten,  oder sie zu konfigurieren."
 
-#: src/Utils.vala:553
+#: src/Utils.vala:566
 msgid "Due dates"
 msgstr "Fälligkeitsdaten"
 
-#: src/Utils.vala:554
+#: src/Utils.vala:567
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -204,12 +221,12 @@ msgstr ""
 "- Wenn du weißt, dass du eine bestimmte Aufgabe an einem bestimmten Tag "
 "fertiggestellt haben musst, klicke auf das Kalendericon und wähle ein Datum."
 
-#: src/Utils.vala:560
+#: src/Utils.vala:573
 #, fuzzy
 msgid "How to use projects"
 msgstr "Zu Projekt verschieben"
 
-#: src/Utils.vala:561
+#: src/Utils.vala:574
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -222,17 +239,17 @@ msgid ""
 "- Click Add to create the project."
 msgstr ""
 
-#: src/Utils.vala:571
+#: src/Utils.vala:584
 #, fuzzy
 msgid "Sections"
 msgstr "Kein Bereich"
 
-#: src/Utils.vala:577
+#: src/Utils.vala:590
 #, fuzzy
 msgid "Add sections"
 msgstr "Bereich hinzufügen"
 
-#: src/Utils.vala:578
+#: src/Utils.vala:591
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -245,57 +262,108 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 
-#: src/Services/Database.vala:873 src/Widgets/Pane.vala:40
-#: src/Widgets/ItemRow.vala:1064 src/Widgets/SectionRow.vala:464
-#: src/Views/Inbox.vala:40 src/Dialogs/Preferences.vala:184
-#: src/Dialogs/Preferences.vala:290
+#: src/Utils.vala:610
+#, fuzzy
+msgid "Create a new task"
+msgstr "Erzeuge ein neues Projekt"
+
+#: src/Utils.vala:611
+msgid "Create a new task at the top of the list (only works inside projects)"
+msgstr ""
+
+#: src/Utils.vala:612
+#, fuzzy
+msgid "Create a new area"
+msgstr "Erzeuge ein neues Projekt"
+
+#: src/Utils.vala:613
+msgid "Create a new project"
+msgstr "Erzeuge ein neues Projekt"
+
+#: src/Utils.vala:614
+#, fuzzy
+msgid "Create a new section"
+msgstr "Erzeuge ein neues Projekt"
+
+#: src/Utils.vala:615
+msgid "Open the Inbox"
+msgstr ""
+
+#: src/Utils.vala:616
+#, fuzzy
+msgid "Open Today"
+msgstr "Heute"
+
+#: src/Utils.vala:617
+#, fuzzy
+msgid "Open Upcoming"
+msgstr "Anstehend"
+
+#: src/Utils.vala:618
+#, fuzzy
+msgid "Open Search"
+msgstr "Suche"
+
+#: src/Utils.vala:619
+msgid "Manually sync"
+msgstr ""
+
+#: src/Utils.vala:620
+msgid "Quit"
+msgstr ""
+
+#. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
+#: src/Services/Database.vala:941 src/Widgets/Pane.vala:39
+#: src/Widgets/ItemRow.vala:1062 src/Widgets/SectionRow.vala:471
+#: src/Views/Inbox.vala:43 src/Dialogs/Preferences.vala:185
+#: src/Dialogs/Preferences.vala:291
 msgid "Inbox"
 msgstr "Eingang"
 
-#: src/Services/Todoist.vala:1197
+#: src/Services/Todoist.vala:1224
 #, fuzzy
 msgid "Create todoist project error"
 msgstr "Fehler beim Erstellen eines Todoist-Projektes"
 
-#: src/Services/Todoist.vala:1301
+#: src/Services/Todoist.vala:1328
 #, fuzzy
 msgid "Update todoist project error"
 msgstr "Fehler beim Aktualisieren des Projektes"
 
-#: src/Services/Todoist.vala:1302 src/Services/Todoist.vala:1404
-#: src/Services/Todoist.vala:1482 src/Services/Todoist.vala:1588
-#: src/Services/Todoist.vala:1693 src/Services/Todoist.vala:1789
-#: src/Services/Todoist.vala:2010 src/Services/Todoist.vala:2078
-#: src/Services/Todoist.vala:2192 src/Services/Todoist.vala:2312
-#: src/Services/Todoist.vala:2409 src/Services/Todoist.vala:2508
+#: src/Services/Todoist.vala:1329 src/Services/Todoist.vala:1431
+#: src/Services/Todoist.vala:1509 src/Services/Todoist.vala:1615
+#: src/Services/Todoist.vala:1720 src/Services/Todoist.vala:1816
+#: src/Services/Todoist.vala:2037 src/Services/Todoist.vala:2105
+#: src/Services/Todoist.vala:2219 src/Services/Todoist.vala:2339
+#: src/Services/Todoist.vala:2436 src/Services/Todoist.vala:2535
 #, c-format
 msgid "Status Code: %u"
 msgstr "Statuscode: %u"
 
-#: src/Services/Todoist.vala:1403
+#: src/Services/Todoist.vala:1430
 #, fuzzy
 msgid "Delete todoist project error"
 msgstr "Fehler beim Löschen des Projektes"
 
-#: src/Services/Todoist.vala:1481
+#: src/Services/Todoist.vala:1508
 #, fuzzy
 msgid "Create todoist section error"
 msgstr "Fehler beim Erstellen eines Todoist-Abschnittes"
 
-#: src/Services/Todoist.vala:1587 src/Services/Todoist.vala:1692
-#: src/Services/Todoist.vala:1788
+#: src/Services/Todoist.vala:1614 src/Services/Todoist.vala:1719
+#: src/Services/Todoist.vala:1815
 msgid "Update todoist section error"
 msgstr "Fehler beim Aktualisieren eines Todoist-Abschnittes"
 
-#: src/Services/Todoist.vala:1898 src/Services/Todoist.vala:2413
-#: src/Services/Todoist.vala:2512
+#: src/Services/Todoist.vala:1925 src/Services/Todoist.vala:2440
+#: src/Services/Todoist.vala:2539
 #, fuzzy
 msgid "Connection error"
 msgstr "Verbindungsfehler"
 
-#: src/Services/Todoist.vala:2009 src/Services/Todoist.vala:2077
-#: src/Services/Todoist.vala:2191 src/Services/Todoist.vala:2311
-#: src/Services/Todoist.vala:2408 src/Services/Todoist.vala:2507
+#: src/Services/Todoist.vala:2036 src/Services/Todoist.vala:2104
+#: src/Services/Todoist.vala:2218 src/Services/Todoist.vala:2338
+#: src/Services/Todoist.vala:2435 src/Services/Todoist.vala:2534
 msgid "Update todoist item error"
 msgstr "Fehler beim Aktualisieren eines Todoist-Eintrags"
 
@@ -309,11 +377,11 @@ msgstr "Neue Aufgabe"
 msgid "tasks"
 msgstr "Alle Aufgaben"
 
-#: src/Services/Calendar/Util.vala:225 src/Widgets/New.vala:51
+#: src/Services/Calendar/Util.vala:225 src/Widgets/New.vala:423
 msgid "On this computer"
 msgstr "Auf diesem Computer"
 
-#: src/Widgets/Pane.vala:40
+#: src/Widgets/Pane.vala:39
 msgid ""
 "Your Inbox is the default place to add new tasks so you can get them out of "
 "your head quickly, then come back and make a plan to take care of them "
@@ -321,49 +389,37 @@ msgid ""
 "you’re doing right now."
 msgstr ""
 
-#: src/Widgets/Pane.vala:48
+#: src/Widgets/Pane.vala:47
 msgid ""
 "The Today view lets you see all the tasks due today across all your "
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
 
-#: src/Widgets/Pane.vala:50 src/Widgets/Pane.vala:52 src/Widgets/Pane.vala:367
-#: src/Views/Upcoming.vala:12 src/Dialogs/Preferences.vala:191
+#: src/Widgets/Pane.vala:48 src/Widgets/Pane.vala:49 src/Widgets/Pane.vala:272
+#: src/Views/Upcoming.vala:12 src/Dialogs/Preferences.vala:192
 msgid "Upcoming"
 msgstr "Anstehend"
 
-#: src/Widgets/Pane.vala:50
+#: src/Widgets/Pane.vala:48
 msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 
-#: src/Widgets/Pane.vala:52
+#: src/Widgets/Pane.vala:49
 msgid "Back-Pocket"
 msgstr ""
 
-#: src/Widgets/Pane.vala:90
-msgid "Quick Find"
-msgstr "Schnellsuche"
-
-#: src/Widgets/Pane.vala:109
-msgid "Preferences"
-msgstr "Einstellungen"
-
-#: src/Widgets/Pane.vala:123 src/Widgets/Pane.vala:385
-msgid "Sync"
-msgstr "Synchronisieren"
-
-#: src/Widgets/Pane.vala:168
+#: src/Widgets/Pane.vala:64
 msgid "Add list"
 msgstr "Liste hinzufügen"
 
-#: src/Widgets/Pane.vala:389
+#: src/Widgets/Pane.vala:305
 msgid "Offline mode is on"
 msgstr "Offlinemodus ist aktiv"
 
-#: src/Widgets/Pane.vala:389
+#: src/Widgets/Pane.vala:305
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -374,164 +430,161 @@ msgstr ""
 "Offline-Modus werden synchonisiert, \n"
 "wenn du wieder online bist"
 
-#: src/Widgets/New.vala:42
+#: src/Widgets/New.vala:57
 #, fuzzy
 msgid "Name:"
 msgstr "Name"
 
-#: src/Widgets/New.vala:46
+#: src/Widgets/New.vala:61
 msgid "Source:"
 msgstr "Quelle:"
 
-#: src/Widgets/New.vala:88
+#: src/Widgets/New.vala:75
 #, fuzzy
 msgid "Color:"
 msgstr "Farbe:"
 
-#: src/Widgets/New.vala:246 src/Widgets/NewItem.vala:70
-#: src/Widgets/ReminderButton.vala:181
+#: src/Widgets/New.vala:233 src/Widgets/NewItem.vala:70
+#: src/Widgets/ReminderButton.vala:187
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: src/Widgets/New.vala:251 src/Widgets/New.vala:498
-#: src/Widgets/NewItem.vala:75 src/Widgets/SectionRow.vala:104
-#: src/Widgets/AreaRow.vala:116 src/Widgets/ReminderButton.vala:179
-#: src/Views/Project.vala:141
+#: src/Widgets/New.vala:238 src/Widgets/New.vala:518
+#: src/Widgets/NewItem.vala:75 src/Widgets/SectionRow.vala:106
+#: src/Widgets/AreaRow.vala:116 src/Widgets/ReminderButton.vala:185
+#: src/Views/Project.vala:145
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/Widgets/New.vala:444
+#: src/Widgets/New.vala:464
 #, fuzzy
 msgid "Project"
 msgstr "Neues Projekt"
 
-#: src/Widgets/New.vala:450
+#: src/Widgets/New.vala:470
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
 "Neues Projekt anlegen, eine neue Todo-Liste erstellen oder Notizen "
 "organisieren."
 
-#: src/Widgets/New.vala:475
+#: src/Widgets/New.vala:495
 msgid "Area"
 msgstr "Bereich"
 
-#: src/Widgets/New.vala:481
+#: src/Widgets/New.vala:501
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Deine Projekte in Gruppen organisieren und halte dein Panel sauber."
 
-#: src/Widgets/New.vala:545
-#, fuzzy
-msgid "New area"
-msgstr "Neuer Bereich"
-
-#: src/Widgets/ProjectRow.vala:154
+#: src/Widgets/ProjectRow.vala:144
 #, fuzzy
 msgid "Local Project"
 msgstr "Lokales Projekt"
 
-#: src/Widgets/ProjectRow.vala:158
+#: src/Widgets/ProjectRow.vala:148
 #, fuzzy
 msgid "Todoist Project"
 msgstr "Todoist-Projekt"
 
-#. Colors Menu
-#: src/Widgets/ProjectRow.vala:404
-#, fuzzy
-msgid "Colors"
-msgstr "Farben"
+#: src/Widgets/ProjectRow.vala:401
+msgid "No Area"
+msgstr "Kein Bereich"
 
-#: src/Widgets/ProjectRow.vala:404
-#, fuzzy
-msgid "Project color"
-msgstr "Projektfarbe"
+#. var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
+#: src/Widgets/ProjectRow.vala:443 src/Widgets/ItemRow.vala:1144
+#: src/Widgets/SectionRow.vala:509 src/Widgets/AreaRow.vala:455
+#: src/Views/Project.vala:708
+msgid "Edit"
+msgstr "Bearbeiten"
 
-#: src/Widgets/ProjectRow.vala:408 src/Widgets/ProjectRow.vala:431
-#: src/Dialogs/Preferences.vala:851
-msgid "Back"
-msgstr "Zurück"
-
-#: src/Widgets/ProjectRow.vala:427
+#: src/Widgets/ProjectRow.vala:445
 #, fuzzy
 msgid "Move to area"
 msgstr "In Bereich verschieben"
 
-#: src/Widgets/ProjectRow.vala:427
-#, fuzzy
-msgid "Project area"
-msgstr "Projektbereich"
+#: src/Widgets/ProjectRow.vala:449 src/Widgets/ItemRow.vala:1171
+#: src/Widgets/SectionRow.vala:515
+msgid "Share"
+msgstr "Teilen"
+
+#: src/Widgets/ProjectRow.vala:453 src/Widgets/ItemRow.vala:1175
+#: src/Widgets/SectionRow.vala:519
+msgid "Text"
+msgstr ""
+
+#: src/Widgets/ProjectRow.vala:454 src/Widgets/ItemRow.vala:1176
+#: src/Widgets/SectionRow.vala:520
+msgid "Markdown"
+msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:453 src/Widgets/ProjectRow.vala:497
-#: src/Views/Project.vala:670 src/Views/Project.vala:712
+#: src/Widgets/ProjectRow.vala:460 src/Widgets/ProjectRow.vala:485
+#: src/Widgets/ItemRow.vala:1183 src/Widgets/SectionRow.vala:526
+#: src/Widgets/SectionRow.vala:561 src/Widgets/AreaRow.vala:456
+#: src/Widgets/AreaRow.vala:493 src/Views/Project.vala:711
+#: src/Views/Project.vala:758
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/Widgets/ProjectRow.vala:480 src/Views/Project.vala:753
 msgid "Delete project"
 msgstr "Lösche Projekt"
 
-#: src/Widgets/ProjectRow.vala:498 src/Widgets/SectionRow.vala:537
-#: src/Widgets/AreaRow.vala:458 src/Views/Project.vala:713
+#: src/Widgets/ProjectRow.vala:481 src/Widgets/SectionRow.vala:557
+#: src/Widgets/AreaRow.vala:481 src/Views/Project.vala:754
 #, fuzzy, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Bist Du sicher, dass Du <b>%s</b> löschen möchtest?"
 
-#: src/Widgets/ProjectRow.vala:502 src/Widgets/SectionRow.vala:541
-#: src/Widgets/AreaRow.vala:470 src/Views/Project.vala:717
-msgid "Delete"
-msgstr "Löschen"
-
-#: src/Widgets/ProjectRow.vala:539
-msgid "No Area"
-msgstr "Kein Bereich"
-
-#: src/Widgets/NewItem.vala:51 src/Widgets/ItemRow.vala:263
-#: src/Widgets/AreaRow.vala:82 src/Widgets/CheckRow.vala:31
+#: src/Widgets/NewItem.vala:51 src/Widgets/ItemRow.vala:260
+#: src/Widgets/AreaRow.vala:80 src/Widgets/CheckRow.vala:31
 msgid "Task name"
 msgstr "Aufgabenname"
 
-#: src/Widgets/ItemRow.vala:291 src/Views/Project.vala:178
+#: src/Widgets/ItemRow.vala:288 src/Views/Project.vala:181
 #, fuzzy
 msgid "Add note"
 msgstr "Notiz hinzufügen"
 
-#: src/Widgets/ItemRow.vala:335
+#: src/Widgets/ItemRow.vala:332
 #, fuzzy
 msgid "Add checklist"
 msgstr "Checkliste hinzufügen"
 
-#. var convert_menu = new Widgets.ImageMenuItem (_("Convert to project"), "planner-project-symbolic");1
-#. var share_menu = new Widgets.ImageMenuItem (_("Copy link to task"), "insert-link-symbolic");
-#: src/Widgets/ItemRow.vala:342 src/Widgets/ItemRow.vala:1141
+#: src/Widgets/ItemRow.vala:339
 msgid "Delete task"
 msgstr "Lösche Aufgabe"
 
-#: src/Widgets/ItemRow.vala:354
+#: src/Widgets/ItemRow.vala:351
 #, fuzzy
 msgid "Task settings"
 msgstr "Einstellungen"
 
-#: src/Widgets/ItemRow.vala:1091
+#: src/Widgets/ItemRow.vala:1089
 #, fuzzy
 msgid "No Section"
 msgstr "Kein Bereich"
 
-#: src/Widgets/ItemRow.vala:1126
+#: src/Widgets/ItemRow.vala:1143
 #, fuzzy
 msgid "Complete"
 msgstr "Abgeschlossen"
 
-#: src/Widgets/ItemRow.vala:1128
-msgid "View / Hide task"
-msgstr "Aufgaben anzeigen / verbergen"
+#: src/Widgets/ItemRow.vala:1160 src/Widgets/DueButton.vala:135
+#, fuzzy
+msgid "Undated"
+msgstr "Ohne Datum"
 
-#: src/Widgets/ItemRow.vala:1130
+#: src/Widgets/ItemRow.vala:1163 src/Widgets/SectionRow.vala:511
 #, fuzzy
 msgid "Move to project"
 msgstr "Zu Projekt verschieben"
 
-#: src/Widgets/ItemRow.vala:1134
+#: src/Widgets/ItemRow.vala:1167
 #, fuzzy
 msgid "Move to section"
 msgstr "Zu Abschnitt verschieben"
 
-#: src/Widgets/ItemRow.vala:1138
+#: src/Widgets/ItemRow.vala:1182
 msgid "Duplicate"
 msgstr "Duplizieren"
 
@@ -552,37 +605,28 @@ msgstr "Fälligkeitsdatum"
 msgid "Date completed"
 msgstr "Fertigstellungsdatum"
 
-#: src/Widgets/SectionRow.vala:68
+#: src/Widgets/SectionRow.vala:70
 #, fuzzy
 msgid "Section name"
 msgstr "Abschnittsname"
 
-#: src/Widgets/SectionRow.vala:82
+#: src/Widgets/SectionRow.vala:84
 msgid "More"
 msgstr "Mehr"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
-#: src/Widgets/SectionRow.vala:99 src/Widgets/AreaRow.vala:111
-#: src/Views/Project.vala:136
+#: src/Widgets/SectionRow.vala:101 src/Widgets/AreaRow.vala:111
+#: src/Views/Project.vala:140
 msgid "Save"
 msgstr "Speichern"
 
-#: src/Widgets/SectionRow.vala:500 src/Widgets/MagicButton.vala:11
+#: src/Widgets/SectionRow.vala:507 src/Widgets/MagicButton.vala:11
 #: src/Widgets/UpcomingRow.vala:46
 #, fuzzy
 msgid "Add task"
 msgstr "Neue Aufgabe anlegen"
 
-#: src/Widgets/SectionRow.vala:502
-msgid "Edit section"
-msgstr "Abschnitt bearbeiten"
-
-#: src/Widgets/SectionRow.vala:504
-#, fuzzy
-msgid "Move section"
-msgstr "Abschnitt bearbeiten"
-
-#: src/Widgets/SectionRow.vala:508 src/Widgets/SectionRow.vala:536
+#: src/Widgets/SectionRow.vala:556
 #, fuzzy
 msgid "Delete section"
 msgstr "Abschnitt löschen"
@@ -591,13 +635,8 @@ msgstr "Abschnitt löschen"
 msgid "Due Date"
 msgstr "Fälligkeitsdatum"
 
-#: src/Widgets/DueButton.vala:135
-#, fuzzy
-msgid "Undated"
-msgstr "Ohne Datum"
-
-#: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:86
-#: src/Dialogs/Preferences.vala:443
+#: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:88
+#: src/Dialogs/Preferences.vala:480
 msgid "Labels"
 msgstr "Etiketten"
 
@@ -620,17 +659,12 @@ msgstr "Label bearbeiten"
 msgid "Undo"
 msgstr "Rückgängig"
 
-#: src/Widgets/AreaRow.vala:435
-#, fuzzy
-msgid "Edit area"
-msgstr "Bereich bearbeiten"
-
-#: src/Widgets/AreaRow.vala:437 src/Widgets/AreaRow.vala:457
+#: src/Widgets/AreaRow.vala:480
 #, fuzzy
 msgid "Delete area"
 msgstr "Bereich löschen"
 
-#: src/Widgets/AreaRow.vala:465
+#: src/Widgets/AreaRow.vala:488
 #, fuzzy
 msgid "Delete projects"
 msgstr "Lösche Projekte"
@@ -642,36 +676,21 @@ msgstr "Aufgabenname"
 
 #. get_action_area ().visible = false;
 #. get_action_area ().no_show_all = true;
-#: src/Widgets/QuickFind.vala:27 src/Dialogs/Preferences.vala:52
+#: src/Widgets/QuickFind.vala:27 src/Dialogs/Preferences.vala:54
 msgid "Close"
 msgstr "Schließen"
 
-#: src/Widgets/ReminderButton.vala:19
+#: src/Widgets/ReminderButton.vala:21
 msgid "Reminders"
 msgstr "Erinnerungen"
 
-#: src/Widgets/ReminderButton.vala:137
+#: src/Widgets/ReminderButton.vala:143
 msgid "Add reminder"
 msgstr "Erinnerung hinzufügen"
 
-#: src/Widgets/ReminderButton.vala:172
+#: src/Widgets/ReminderButton.vala:178
 msgid "Time:"
 msgstr "Zeit:"
-
-#. / TRANSLATORS: this will only show up when 12-hours clock is in use
-#: src/Widgets/TimePicker.vala:104
-msgid "AM"
-msgstr " vormittags"
-
-#. / TRANSLATORS: this will only show up when 12-hours clock is in use
-#: src/Widgets/TimePicker.vala:106
-msgid "PM"
-msgstr " nachmittags"
-
-#. / TRANSLATORS: separates hours from minutes.
-#: src/Widgets/TimePicker.vala:151
-msgid ":"
-msgstr ""
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
@@ -709,9 +728,9 @@ msgstr "Sa"
 msgid "Sun"
 msgstr "So"
 
-#: src/Views/Welcome.vala:26
-#, fuzzy
-msgid "Don't worry about forgetting things again"
+#: src/Views/Welcome.vala:26 data/com.github.alainm23.planner.desktop.in:5
+#: data/com.github.alainm23.planner.appdata.xml.in:8
+msgid "Never worry about forgetting things again"
 msgstr "Sorge Dich nie wieder darum, Dinge zu vergessen"
 
 #: src/Views/Welcome.vala:29
@@ -722,7 +741,7 @@ msgstr "Start"
 msgid "Start working locally."
 msgstr "Lokal arbeiten."
 
-#: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:507
+#: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:597
 msgid "Todoist"
 msgstr ""
 
@@ -730,52 +749,47 @@ msgstr ""
 msgid "Synchronize with your Todoist account and start working."
 msgstr "Verbinde dein Todoist Account und Arbeit beginnen."
 
-#: src/Views/Inbox.vala:51 src/Views/Project.vala:80
+#: src/Views/Inbox.vala:54 src/Views/Project.vala:84
 msgid "Add section"
 msgstr "Bereich hinzufügen"
 
-#: src/Views/Inbox.vala:72
+#: src/Views/Inbox.vala:75
 msgid "Inbox comments"
 msgstr "Eingangskommentare"
 
-#: src/Views/Inbox.vala:80 src/Views/Project.vala:119
+#: src/Views/Inbox.vala:83 src/Views/Project.vala:123
 #, fuzzy
 msgid "Search task"
 msgstr "Suche Aufgabe"
 
-#: src/Views/Inbox.vala:87 src/Views/Project.vala:126
+#: src/Views/Inbox.vala:90 src/Views/Project.vala:130
 msgid "Options"
 msgstr "Optionen"
 
-#: src/Views/Inbox.vala:503 src/Views/Inbox.vala:563 src/Views/Inbox.vala:580
-#: src/Views/Project.vala:671 src/Views/Project.vala:735
-#: src/Views/Project.vala:789
+#: src/Views/Inbox.vala:547 src/Views/Inbox.vala:618 src/Views/Inbox.vala:635
+#: src/Views/Project.vala:714 src/Views/Project.vala:776
+#: src/Views/Project.vala:840
 #, fuzzy
 msgid "Show completed task"
 msgstr "Zeige abgeschlossene Aufgaben"
 
-#: src/Views/Inbox.vala:583 src/Views/Project.vala:738
+#: src/Views/Inbox.vala:638 src/Views/Project.vala:779
 #, fuzzy
 msgid "Hide completed task"
 msgstr "Verstecke abgeschlossene Aufgaben"
 
-#: src/Views/Project.vala:100
+#: src/Views/Project.vala:104
 msgid "Invite person"
 msgstr "Person einladen"
 
-#: src/Views/Project.vala:110
+#: src/Views/Project.vala:114
 #, fuzzy
 msgid "Project comments"
 msgstr "Projektkommentare"
 
-#: src/Views/Project.vala:168
+#: src/Views/Project.vala:172
 msgid "Add a note"
 msgstr "Notiz hinzufügen"
-
-#: src/Views/Project.vala:667
-#, fuzzy
-msgid "Edit project"
-msgstr "Projekt bearbeiten"
 
 #: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:103
 #, fuzzy
@@ -800,52 +814,50 @@ msgid "Please enter your credentials…"
 msgstr "Bitte Zugangsdaten eingeben…"
 
 #. General
-#: src/Dialogs/Preferences.vala:61 src/Dialogs/Preferences.vala:67
-#: src/Dialogs/Preferences.vala:393
+#: src/Dialogs/Preferences.vala:63 src/Dialogs/Preferences.vala:69
+#: src/Dialogs/Preferences.vala:394
 msgid "General"
 msgstr "Allgemein"
 
-#: src/Dialogs/Preferences.vala:64 src/Dialogs/Preferences.vala:172
-#: src/Dialogs/Preferences.vala:661
+#: src/Dialogs/Preferences.vala:66 src/Dialogs/Preferences.vala:173
+#: src/Dialogs/Preferences.vala:895
 #, fuzzy
 msgid "Homepage"
 msgstr "Startseite"
 
-#: src/Dialogs/Preferences.vala:65 src/Dialogs/Preferences.vala:275
+#: src/Dialogs/Preferences.vala:67 src/Dialogs/Preferences.vala:276
 #, fuzzy
 msgid "Badge count"
 msgstr "Badge-Zahl"
 
-#: src/Dialogs/Preferences.vala:66 src/Dialogs/Preferences.vala:346
+#: src/Dialogs/Preferences.vala:68 src/Dialogs/Preferences.vala:347
 msgid "Theme"
 msgstr "Design"
 
 #. Addons
-#: src/Dialogs/Preferences.vala:81
+#: src/Dialogs/Preferences.vala:83
 msgid "Add-ons"
 msgstr "Erweiterungen"
 
-#: src/Dialogs/Preferences.vala:85 src/Dialogs/Preferences.vala:569
+#: src/Dialogs/Preferences.vala:87 src/Dialogs/Preferences.vala:733
 #, fuzzy
 msgid "Calendar events"
 msgstr "Kalender-Ereignisse"
 
+#: src/Dialogs/Preferences.vala:89 src/Dialogs/Preferences.vala:544
+msgid "Keyboard Shortcuts"
+msgstr ""
+
 #. Others
-#: src/Dialogs/Preferences.vala:100 src/Dialogs/Preferences.vala:647
+#: src/Dialogs/Preferences.vala:104 src/Dialogs/Preferences.vala:881
 msgid "About"
 msgstr "Über"
 
-#: src/Dialogs/Preferences.vala:101
-#, fuzzy
-msgid "Create tutorial project"
-msgstr "Erzeuge Beispielprojekt"
+#: src/Dialogs/Preferences.vala:105 src/Dialogs/Preferences.vala:810
+msgid "Fund"
+msgstr ""
 
-#: src/Dialogs/Preferences.vala:160
-#, fuzzy
-msgid "Your tutorial project was created"
-msgstr "Erzeuge Beispielprojekt"
-
-#: src/Dialogs/Preferences.vala:174
+#: src/Dialogs/Preferences.vala:175
 msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
@@ -855,63 +867,96 @@ msgstr ""
 "Aufgaben siehst. Die Standardseite ist der <b>Eingang</b> wo du, aber du "
 "kannst dies nach Belieben anpassen."
 
-#: src/Dialogs/Preferences.vala:205
+#: src/Dialogs/Preferences.vala:206
 #, fuzzy
 msgid "Projects"
 msgstr "Neues Projekt"
 
-#: src/Dialogs/Preferences.vala:277
+#: src/Dialogs/Preferences.vala:278
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
 "Wähle, welche Elemente für das Badge auf dem Applikations-Symbol gezählt "
 "werden sollen."
 
-#: src/Dialogs/Preferences.vala:286
+#: src/Dialogs/Preferences.vala:287
 msgid "None"
 msgstr "Keine"
 
-#: src/Dialogs/Preferences.vala:296
+#: src/Dialogs/Preferences.vala:297
 msgid "Today + Inbox"
 msgstr "Heute + Eingang"
 
-#: src/Dialogs/Preferences.vala:348
+#: src/Dialogs/Preferences.vala:349
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr "Passe das Aussehen von Planner mit deinem Lieblingsdesign an."
 
-#: src/Dialogs/Preferences.vala:357
+#: src/Dialogs/Preferences.vala:358
 #, fuzzy
 msgid "Light"
 msgstr "Tagmodus"
 
-#: src/Dialogs/Preferences.vala:361
+#: src/Dialogs/Preferences.vala:362
 #, fuzzy
 msgid "Night"
 msgstr "Nachtmodus"
 
-#: src/Dialogs/Preferences.vala:396
+#: src/Dialogs/Preferences.vala:397
 msgid "DE Integration"
 msgstr "DE Integration"
 
-#: src/Dialogs/Preferences.vala:402
-msgid "Date & Time"
-msgstr "Datum & Zeit"
+#: src/Dialogs/Preferences.vala:400
+msgid "Run in background"
+msgstr "Im Hintergrund ausführen"
+
+#: src/Dialogs/Preferences.vala:401
+msgid "Run on startup"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:403
+msgid "Help"
+msgstr "Hilfe"
 
 #: src/Dialogs/Preferences.vala:407
-msgid "AM/PM"
-msgstr "Vormittags/Nachmittags"
+#, fuzzy
+msgid "Create tutorial project"
+msgstr "Erzeuge Beispielprojekt"
 
-#: src/Dialogs/Preferences.vala:408
-msgid "24 h"
-msgstr "24 Stunden"
+#: src/Dialogs/Preferences.vala:407
+msgid "Create"
+msgstr "Erzeugen"
 
-#: src/Dialogs/Preferences.vala:410
-msgid "Time format"
-msgstr "Zeitformat"
+#: src/Dialogs/Preferences.vala:409
+msgid "Danger zone"
+msgstr ""
 
-#: src/Dialogs/Preferences.vala:446
+#: src/Dialogs/Preferences.vala:413 src/Dialogs/Preferences.vala:462
+msgid "Reset all"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:413
+msgid "Reset"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:447
+#, fuzzy
+msgid "Your tutorial project was created"
+msgstr "Erzeuge Beispielprojekt"
+
+#: src/Dialogs/Preferences.vala:457
+#, fuzzy
+msgid "Are you sure you want to reset all?"
+msgstr "Bist Du Sicher, daß Du diese Aufgabe löschen möchtest?"
+
+#: src/Dialogs/Preferences.vala:458
+msgid ""
+"It process removes all stored information without the possibility of undoing "
+"it."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:483
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
@@ -920,12 +965,18 @@ msgstr ""
 "wirst eine Liste mit allen Aufgaben eines bestimmten Labels innerhalb von "
 "Sekunden sehen."
 
-#: src/Dialogs/Preferences.vala:531
+#: src/Dialogs/Preferences.vala:546
+msgid ""
+"All the shortcuts to save you time! Some can be used anywhere in the app, "
+"while others only work when adding or editing tasks."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:621
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "Letzte Aktualisierung: %s"
 
-#: src/Dialogs/Preferences.vala:542
+#: src/Dialogs/Preferences.vala:632
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
@@ -933,8 +984,20 @@ msgstr ""
 "Diese Einstellung aktivieren, damit sich Planner automatisch alle 15 Minuten "
 "mit Todoist synchronisiert."
 
-#. top_box.action_button = "list-add-symbolic";
-#: src/Dialogs/Preferences.vala:572
+#: src/Dialogs/Preferences.vala:643 src/Dialogs/Preferences.vala:698
+msgid "Log out"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:693
+#, fuzzy
+msgid "Are you sure you want to log out?"
+msgstr "Bist Du Sicher, daß Du diese Aufgabe löschen möchtest?"
+
+#: src/Dialogs/Preferences.vala:694
+msgid "This process will close your Todoist session on this device."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:735
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -946,24 +1009,37 @@ msgstr ""
 "geteilten Kalendern in <b>Heute</b> und <b>Anstehend</b>. Das ist nützlich, "
 "wenn du deine deinen Tag und Woche im Vorraus planst."
 
-#: src/Dialogs/Preferences.vala:662
+#: src/Dialogs/Preferences.vala:745
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/Dialogs/Preferences.vala:812
+msgid ""
+"If you like Planner and you want to support its development, consider "
+"donating via:"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:896
 #, fuzzy
 msgid "Report a Problem"
 msgstr "Einen Fehler melden"
 
-#: src/Dialogs/Preferences.vala:663
+#: src/Dialogs/Preferences.vala:897
 #, fuzzy
 msgid "Suggest Translations"
 msgstr "Übersetzungen"
 
-#: src/Dialogs/Preferences.vala:664
-msgid "Fund"
-msgstr ""
+#: src/Dialogs/Preferences.vala:1076
+msgid "Back"
+msgstr "Zurück"
 
-#: data/com.github.alainm23.planner.desktop.in:5
-#: data/com.github.alainm23.planner.appdata.xml.in:8
-msgid "Never worry about forgetting things again"
-msgstr "Sorge Dich nie wieder darum, Dinge zu vergessen"
+#: src/Dialogs/Preferences.vala:1261
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: src/Objects/Item.vala:170 src/Objects/Item.vala:183
+msgid "The task was copied to the Clipboard."
+msgstr ""
 
 #: data/com.github.alainm23.planner.desktop.in:8
 msgid "com.github.alainm23.planner"
@@ -979,12 +1055,70 @@ msgstr ""
 "Jeder benötigt eine Aufgabenverwaltung und Planner passt sich an alle "
 "Bedürfnisse an"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:11
+#: data/com.github.alainm23.planner.appdata.xml.in:12
+msgid "🚀️ Planner 2 is here..."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:14
+#: data/com.github.alainm23.planner.appdata.xml.in:74
+msgid "🚀️ Complete redesign of the UI."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:15
+#: data/com.github.alainm23.planner.appdata.xml.in:75
+msgid "🏅️ New icon."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:16
+#: data/com.github.alainm23.planner.appdata.xml.in:76
+msgid "🤚️ Drag and Order arrived: Sort your tasks wherever you want."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:17
+#: data/com.github.alainm23.planner.appdata.xml.in:77
+msgid "💯️ Progress indicator for each project."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:18
+#: data/com.github.alainm23.planner.appdata.xml.in:78
+msgid "💪️ Be more productive and organize your tasks by 'Sections'."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:19
+#: data/com.github.alainm23.planner.appdata.xml.in:79
+msgid "📅️ Visualize your events and plan your day better."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:20
+#: data/com.github.alainm23.planner.appdata.xml.in:80
+msgid ""
+"💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you "
+"want."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:21
+#: data/com.github.alainm23.planner.appdata.xml.in:81
+msgid ""
+"⏲️ Improved reminder system, now you can create one or more reminders, you "
+"decide."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:22
+#: data/com.github.alainm23.planner.appdata.xml.in:82
+msgid "🌙️ Better integration with the dark theme."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:23
+#: data/com.github.alainm23.planner.appdata.xml.in:85
+msgid "🎉️ and much more."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:26
 #, fuzzy
 msgid "How Planner works:"
 msgstr "Wie Planner funktioniert"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:12
+#: data/com.github.alainm23.planner.appdata.xml.in:27
 msgid ""
 "1. Collect your Ideas - The Inbox is your default task list in Planner. When "
 "you add a task, it goes straight to your Inbox unless you specify that the "
@@ -994,7 +1128,7 @@ msgstr ""
 "Planner. Wenn Du eine Aufgabe einfügst, kommt diese direkt in die Inbox, "
 "sofern Du sie nicht direkt in ein Projekt einfügst."
 
-#: data/com.github.alainm23.planner.appdata.xml.in:13
+#: data/com.github.alainm23.planner.appdata.xml.in:28
 #, fuzzy
 msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
@@ -1003,7 +1137,7 @@ msgstr ""
 "Erzeuge ein Projekt für jedes Deiner Ziele, dann füge die Schritte ein, um "
 "dieses zu erreichen. Sichte diese regelmäßig, um auf Stand zu bleiben."
 
-#: data/com.github.alainm23.planner.appdata.xml.in:14
+#: data/com.github.alainm23.planner.appdata.xml.in:29
 #, fuzzy
 msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
@@ -1012,7 +1146,7 @@ msgstr ""
 "Sichte Deine Kalenderereignisse und plane Deine Zeit effektiv. Planner wird "
 "Dich im richtigen Moment erinnern."
 
-#: data/com.github.alainm23.planner.appdata.xml.in:15
+#: data/com.github.alainm23.planner.appdata.xml.in:30
 #, fuzzy
 msgid ""
 "4. Be even more organized - Add a duedate to your tasks, create labels, use "
@@ -1020,290 +1154,348 @@ msgid ""
 msgstr ""
 "Füge Fälligkeiten zu Aufgaben hinzu, erzeuge Labels, verwende Checklisten."
 
-#: data/com.github.alainm23.planner.appdata.xml.in:17
-msgid "🚀️ Planner 2 is here..."
+#: data/com.github.alainm23.planner.appdata.xml.in:32
+msgid "☁️ Support for Todoist:"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:19
-#: data/com.github.alainm23.planner.appdata.xml.in:55
-msgid "🚀️ Complete redesign of the UI."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:20
-#: data/com.github.alainm23.planner.appdata.xml.in:56
-msgid "🏅️ New icon."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:21
-#: data/com.github.alainm23.planner.appdata.xml.in:57
-msgid "🤚️ Drag and Order arrived: Sort your tasks wherever you want."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:22
-#: data/com.github.alainm23.planner.appdata.xml.in:58
-msgid "💯️ Progress indicator for each project."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:23
-#: data/com.github.alainm23.planner.appdata.xml.in:59
-msgid "💪️ Be more productive and organize your tasks by 'Sections'."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:24
-#: data/com.github.alainm23.planner.appdata.xml.in:60
-msgid "📅️ Visualize your events and plan your day better."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:25
-#: data/com.github.alainm23.planner.appdata.xml.in:61
-msgid ""
-"💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you "
-"want."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:26
-#: data/com.github.alainm23.planner.appdata.xml.in:62
-msgid ""
-"⏲️ Improved reminder system, now you can create one or more reminders, you "
-"decide."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:27
-#: data/com.github.alainm23.planner.appdata.xml.in:63
-msgid "🌙️ Better integration with the dark theme."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:28
-#: data/com.github.alainm23.planner.appdata.xml.in:64
-msgid "☁️ Synchronize your Projects, Task and Sections thanks to Todoist."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:29
-#: data/com.github.alainm23.planner.appdata.xml.in:65
-msgid ""
-"👷️ Support for Todoist offline: Work without an internet connection and when "
-"everything is reconnected it will be synchronized."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:30
-#: data/com.github.alainm23.planner.appdata.xml.in:66
-msgid "🎉️ and much more."
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:33
-msgid "🚀️ Support for Todoist:"
-msgstr ""
-
-#: data/com.github.alainm23.planner.appdata.xml.in:35
+#: data/com.github.alainm23.planner.appdata.xml.in:34
 msgid "Synchronize your Projects, Task and Sections thanks to Todoist."
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:36
+#: data/com.github.alainm23.planner.appdata.xml.in:35
 msgid ""
 "Support for Todoist offline: Work without an internet connection and when "
 "everything is reconnected it will be synchronized."
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:38
+#: data/com.github.alainm23.planner.appdata.xml.in:37
 msgid "* Planner not created by, affiliated with, or supported by Doist"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:40
+#: data/com.github.alainm23.planner.appdata.xml.in:39
 #, fuzzy
-msgid "Other features:"
+msgid "💎️ Other features:"
 msgstr "Andere Funktionen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:42
+#: data/com.github.alainm23.planner.appdata.xml.in:41
 #, fuzzy
 msgid "⏲️ Reminders notifications"
 msgstr "Erinnerungsbenachrichtigungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:43
+#: data/com.github.alainm23.planner.appdata.xml.in:42
 #, fuzzy
 msgid "🔍️ Quick Find"
 msgstr "Schnellsuche"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:44
+#: data/com.github.alainm23.planner.appdata.xml.in:43
 #, fuzzy
 msgid "🌙️ Night mode"
 msgstr "Nacht-Modus"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:53
+#: data/com.github.alainm23.planner.appdata.xml.in:52
+msgid "The keyboard shortcuts arrived, design improvements and more."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:54
+msgid ""
+"Now you can use keyboard shortcuts to be more productive: See the list of "
+"full keyboard shortcuts in the preferences."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:55
+msgid "Now you can share your tasks as text or markdown."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:56
+msgid "A financing page was added in the preferences."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:57
+msgid ""
+"Planner menus have been redesigned. Making it more beautiful and productive."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:58
+msgid ""
+"Planner doesn't freeze when the position of a project, section or task is "
+"ordered."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:59
+msgid "[GitHub #181] - You can log out of your Todoist account."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:60
+msgid ""
+"[GitHub #158] - The project panel was resized making it more compact and "
+"aesthetic."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:61
+msgid ""
+"[GitHub #156] - Now you can create an easier reminder by pressing the RETURN "
+"key."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:62
+msgid "[GitHub #147] - Badge count is not displayed when the system startup."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:63
+msgid "[GitHub #138] - Fixing website address."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:64
+msgid "[GitHub #136] - Add new task button disappears."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:65
+msgid ""
+"[GitHub #145, #146] - The way to create the tutorial project was improved."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:66
+msgid "[GitHub #152, #149] - Fixed some bugs with Quick Find."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:72
 #, fuzzy
 msgid "Planner 2 is here..."
 msgstr "Planner Dateien"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:73
+#: data/com.github.alainm23.planner.appdata.xml.in:83
+msgid "☁️ Synchronize your Projects, Task and Sections thanks to Todoist."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:84
+msgid ""
+"👷️ Support for Todoist offline: Work without an internet connection and when "
+"everything is reconnected it will be synchronized."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:92
 #, fuzzy
 msgid "New features:"
 msgstr "Neue Funktionen:"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:75
+#: data/com.github.alainm23.planner.appdata.xml.in:94
 #, fuzzy
 msgid "Labels preview"
 msgstr "Etikettenvorschau"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:76
+#: data/com.github.alainm23.planner.appdata.xml.in:95
 msgid "Weather forecast"
 msgstr "Wettervorhersage"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:78
-#: data/com.github.alainm23.planner.appdata.xml.in:91
+#: data/com.github.alainm23.planner.appdata.xml.in:97
 #: data/com.github.alainm23.planner.appdata.xml.in:110
-#: data/com.github.alainm23.planner.appdata.xml.in:126
+#: data/com.github.alainm23.planner.appdata.xml.in:129
+#: data/com.github.alainm23.planner.appdata.xml.in:145
 #, fuzzy
 msgid "Translations:"
 msgstr "Übersetzungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:80
+#: data/com.github.alainm23.planner.appdata.xml.in:99
 msgid "Lithuanian (welaq)"
 msgstr "Litauisch (welaq)"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:86
-#: data/com.github.alainm23.planner.appdata.xml.in:99
+#: data/com.github.alainm23.planner.appdata.xml.in:105
+#: data/com.github.alainm23.planner.appdata.xml.in:118
 msgid "Improvements:"
 msgstr "Verbesserungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:88
+#: data/com.github.alainm23.planner.appdata.xml.in:107
 msgid "Redesign 'Labels' popover"
 msgstr "Neudesign des 'Labels' popovers"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:89
+#: data/com.github.alainm23.planner.appdata.xml.in:108
 #, fuzzy
 msgid "Fix Notification error"
 msgstr "Fehler bei Benachrichtigungen behoben"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:93
+#: data/com.github.alainm23.planner.appdata.xml.in:112
 msgid "Updating French translations 🇫🇷 (NathanBnm)"
 msgstr "Französiche Übersetzung aktualisiert (NathanBnm)"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:101
+#: data/com.github.alainm23.planner.appdata.xml.in:120
 #, fuzzy
 msgid "Better reminder notifications"
 msgstr "Erinnerungsbenachrichtigungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:102
+#: data/com.github.alainm23.planner.appdata.xml.in:121
 msgid "Improvement default theme"
 msgstr "Standarddesign verbessert"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:103
+#: data/com.github.alainm23.planner.appdata.xml.in:122
 msgid "Redesign 'When' popover"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:104
+#: data/com.github.alainm23.planner.appdata.xml.in:123
 msgid "New 'About' view"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:105
+#: data/com.github.alainm23.planner.appdata.xml.in:124
 msgid "New 'Credits' view"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:106
+#: data/com.github.alainm23.planner.appdata.xml.in:125
 msgid "Redesign 'Issues' view"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:107
+#: data/com.github.alainm23.planner.appdata.xml.in:126
 #, fuzzy
 msgid "New task search"
 msgstr "Neue Aufgabe"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:108
+#: data/com.github.alainm23.planner.appdata.xml.in:127
 #, fuzzy
 msgid "Adding support to import and export projects"
 msgstr "Importiere und exportiere deine Projekte"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:112
+#: data/com.github.alainm23.planner.appdata.xml.in:131
 msgid "German (kr428)"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:113
+#: data/com.github.alainm23.planner.appdata.xml.in:132
 msgid "French (NathanBnm)"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:114
+#: data/com.github.alainm23.planner.appdata.xml.in:133
 msgid "Update Spanish translation"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:120
+#: data/com.github.alainm23.planner.appdata.xml.in:139
 #, fuzzy
 msgid "New feature: Support for Github Issues"
 msgstr "6. Unterstützung für GitHub-Issues"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:122
+#: data/com.github.alainm23.planner.appdata.xml.in:141
 msgid "Connect with your Github account"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:123
+#: data/com.github.alainm23.planner.appdata.xml.in:142
 msgid "Receive all your issue as tasks in Inbox"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:124
+#: data/com.github.alainm23.planner.appdata.xml.in:143
 msgid "Planner will notify you if any new issue was posted"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:128
+#: data/com.github.alainm23.planner.appdata.xml.in:147
 msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:129
+#: data/com.github.alainm23.planner.appdata.xml.in:148
 msgid "Romanian (Prongs Dark)"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:131
+#: data/com.github.alainm23.planner.appdata.xml.in:150
 msgid "Bugs and Improvements:"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:133
+#: data/com.github.alainm23.planner.appdata.xml.in:152
 msgid "Performance improvement"
 msgstr "Performanceverbesserungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:134
+#: data/com.github.alainm23.planner.appdata.xml.in:153
 msgid "Design improvements"
 msgstr "Designverbesserungen"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:135
+#: data/com.github.alainm23.planner.appdata.xml.in:154
 msgid "Fix #22"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:136
+#: data/com.github.alainm23.planner.appdata.xml.in:155
 msgid "Fix #21"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:137
+#: data/com.github.alainm23.planner.appdata.xml.in:156
 msgid "Fix #11"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:143
+#: data/com.github.alainm23.planner.appdata.xml.in:162
 msgid "Improved stability and some bug fixes"
 msgstr "Verbesserte Stabilität und Bugfixes"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:145
+#: data/com.github.alainm23.planner.appdata.xml.in:164
 #, fuzzy
 msgid "Fixing critical bug with creating tasks from the clipboard #19"
 msgstr ""
 "Kritischer Fehler behoben bei der Anlage von Aufgaben aus der Zwischenablage "
 "#19"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:146
+#: data/com.github.alainm23.planner.appdata.xml.in:165
 #, fuzzy
 msgid "Adding new tooltips"
 msgstr "Tooltips ergänzt"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:152
+#: data/com.github.alainm23.planner.appdata.xml.in:171
 msgid "Hola Planner !!!"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:154
+#: data/com.github.alainm23.planner.appdata.xml.in:173
 msgid "Adding Spanish translations"
 msgstr "Spanische Übersetzung hinzugefügt"
 
-#: data/com.github.alainm23.planner.appdata.xml.in:160
+#: data/com.github.alainm23.planner.appdata.xml.in:179
 msgid "Initial release"
 msgstr ""
 
-#: data/com.github.alainm23.planner.appdata.xml.in:201
+#: data/com.github.alainm23.planner.appdata.xml.in:220
 msgid "Alain M."
 msgstr "Alain M."
+
+#, fuzzy
+#~ msgid "Colors"
+#~ msgstr "Farben"
+
+#, fuzzy
+#~ msgid "Project color"
+#~ msgstr "Projektfarbe"
+
+#, fuzzy
+#~ msgid "Project area"
+#~ msgstr "Projektbereich"
+
+#~ msgid "View / Hide task"
+#~ msgstr "Aufgaben anzeigen / verbergen"
+
+#~ msgid "Edit section"
+#~ msgstr "Abschnitt bearbeiten"
+
+#, fuzzy
+#~ msgid "Move section"
+#~ msgstr "Abschnitt bearbeiten"
+
+#, fuzzy
+#~ msgid "Edit area"
+#~ msgstr "Bereich bearbeiten"
+
+#~ msgid "AM"
+#~ msgstr " vormittags"
+
+#~ msgid "PM"
+#~ msgstr " nachmittags"
+
+#, fuzzy
+#~ msgid "Don't worry about forgetting things again"
+#~ msgstr "Sorge Dich nie wieder darum, Dinge zu vergessen"
+
+#, fuzzy
+#~ msgid "Edit project"
+#~ msgstr "Projekt bearbeiten"
+
+#~ msgid "Date & Time"
+#~ msgstr "Datum & Zeit"
+
+#~ msgid "AM/PM"
+#~ msgstr "Vormittags/Nachmittags"
+
+#~ msgid "24 h"
+#~ msgstr "24 Stunden"
+
+#~ msgid "Time format"
+#~ msgstr "Zeitformat"
 
 #, fuzzy
 #~ msgid ""
@@ -1325,9 +1517,6 @@ msgstr "Alain M."
 
 #~ msgid "Different themes to choose"
 #~ msgstr "Verschiedene Designs zur Auswahl"
-
-#~ msgid "Create"
-#~ msgstr "Erzeugen"
 
 #, fuzzy
 #~ msgid "Add a new subtask"
@@ -1391,9 +1580,6 @@ msgstr "Alain M."
 #~ msgid "Filter by Label"
 #~ msgstr "Filtern nach Label"
 
-#~ msgid "Share"
-#~ msgstr "Teilen"
-
 #~ msgid "Empty clipboard"
 #~ msgstr "Zwischenablage leeren"
 
@@ -1426,9 +1612,6 @@ msgstr "Alain M."
 
 #~ msgid "Deadline"
 #~ msgstr "Termin"
-
-#~ msgid "Search"
-#~ msgstr "Suche"
 
 #~ msgid "Notes"
 #~ msgstr "Notizen"
@@ -1544,12 +1727,6 @@ msgstr "Alain M."
 #~ "Ereignisse aus Deinen persönlichen und geteilten Kalendern können "
 #~ "angezeigt werden."
 
-#~ msgid "Enabled"
-#~ msgstr "Aktiviert"
-
-#~ msgid "Disabled"
-#~ msgstr "Deaktiviert"
-
 #~ msgid "Credits"
 #~ msgstr "Credits"
 
@@ -1564,9 +1741,6 @@ msgstr "Alain M."
 
 #~ msgid "Support"
 #~ msgstr "Hilfe"
-
-#~ msgid "Run in background"
-#~ msgstr "Im Hintergrund ausführen"
 
 #~ msgid "Let Planner run in background and send notifications."
 #~ msgstr "Aktiviere Hintergrundausführung und Benachrichtigungen."
@@ -1634,9 +1808,6 @@ msgstr "Alain M."
 #~ msgid "It was moved to <b>%s</b>"
 #~ msgstr "Wurde verschoben nach <b>%s</b>"
 
-#~ msgid "Are you sure you want to delete this task?"
-#~ msgstr "Bist Du Sicher, daß Du diese Aufgabe löschen möchtest?"
-
 #~ msgid "Delete Task"
 #~ msgstr "Lösche Aufgabe"
 
@@ -1664,14 +1835,8 @@ msgstr "Alain M."
 #~ msgid "Personal"
 #~ msgstr "Persönlich"
 
-#~ msgid "Create a new project"
-#~ msgstr "Erzeuge ein neues Projekt"
-
 #~ msgid "Finalize project"
 #~ msgstr "Schließe Projekt ab"
-
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
 
 #~ msgid "Change project name"
 #~ msgstr "Ändere Projektname"
@@ -1699,9 +1864,6 @@ msgstr "Alain M."
 
 #~ msgid "Update repositories"
 #~ msgstr "Repositories aktualisieren"
-
-#~ msgid "Help"
-#~ msgstr "Hilfe"
 
 #~ msgid "Learn the app step by step with a short tutorial project."
 #~ msgstr ""
