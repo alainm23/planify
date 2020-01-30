@@ -150,6 +150,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_section_revealer.add (motion_section_grid);
 
         listbox = new Gtk.ListBox  ();
+        listbox.margin_bottom = 6;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
@@ -164,7 +165,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox_revealer.add (listbox);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.margin_bottom = 18;
+        main_box.margin_top = 6;
         main_box.hexpand = true;
         main_box.pack_start (motion_section_revealer, false, false, 0);
         main_box.pack_start (top_eventbox, false, false, 0);
@@ -529,7 +530,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (move_project_menu);
-        menu.add (share_menu);
+        //menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 

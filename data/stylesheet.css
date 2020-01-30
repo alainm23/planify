@@ -71,7 +71,7 @@ popover {
 }
 
 .projectview-header {
-    padding-right: 7px;
+    padding-right: 6px;
     background-color: @projectview_color;
 }
 

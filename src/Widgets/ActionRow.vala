@@ -83,8 +83,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         count_revealer.add (count_label);
 
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.margin = 4;
+        main_box.margin_start = 5;
         main_box.margin_end = 0;
 
         main_box.pack_start (icon, false, false, 0);

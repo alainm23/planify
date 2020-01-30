@@ -462,7 +462,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu.add (edit_menu);
         menu.add (move_area_menu);
-        menu.add (share_menu);
+        //menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 

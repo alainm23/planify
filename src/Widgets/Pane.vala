@@ -78,14 +78,23 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
-        //listbox.add (search_row);
         listbox.add (inbox_row);
         listbox.add (today_row);
         listbox.add (upcoming_row);
-        //listbox.add (back_row);
 
-        var top_eventbox = new Gtk.EventBox ();
-        top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 12;
+        motion_grid.margin_end = 6;
+        motion_grid.margin_bottom = 6;
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
+            
+        var motion_revealer = new Gtk.Revealer ();
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        motion_revealer.add (motion_grid);
+
+        var drag_grid = new Gtk.Grid ();
+        drag_grid.height_request = 8;
 
         project_listbox = new Gtk.ListBox  ();
         project_listbox.get_style_context ().add_class ("pane");
@@ -104,7 +113,8 @@ public class Widgets.Pane : Gtk.EventBox {
         var listbox_grid = new Gtk.Grid ();
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (listbox);
-        //listbox_grid.add (top_eventbox);
+        listbox_grid.add (drag_grid);
+        listbox_grid.add (motion_revealer);
         listbox_grid.add (project_listbox);
         listbox_grid.add (area_listbox);
 
@@ -144,6 +154,35 @@ public class Widgets.Pane : Gtk.EventBox {
         add (stack);
         build_drag_and_drop ();
         check_network ();
+
+        // Project Drag and Drop
+
+        Gtk.drag_dest_set (drag_grid, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        drag_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
+            Widgets.ProjectRow source;
+            Gtk.Allocation alloc;
+
+            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+            source = (Widgets.ProjectRow) row;
+            
+            source.get_parent ().remove (source); 
+
+            source.project.area_id = 0;
+
+            project_listbox.insert (source, 0);
+            project_listbox.show_all ();
+
+            update_project_order ();
+        });
+
+        drag_grid.drag_motion.connect ((context, x, y, time) => {
+            motion_revealer.reveal_child = true;
+            return true;
+        });
+
+        drag_grid.drag_leave.connect ((context, time) => {
+            motion_revealer.reveal_child = false;
+        });
 
         listbox.row_selected.connect ((row) => {
             if (row != null) {

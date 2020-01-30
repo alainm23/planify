@@ -11,6 +11,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
     private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer motion_section_revealer;
     private Widgets.NewSection new_section;
 
     private Gtk.ListBox completed_listbox;
@@ -20,7 +21,7 @@ public class Views.Project : Gtk.EventBox {
     private Widgets.ModelButton show_menu;
     private Gtk.ToggleButton settings_button;
 
-    private uint timeout;
+    private uint timeout = 0;
     
     private int64 temp_id_mapping { get; set; default = 0; }
 
@@ -172,7 +173,6 @@ public class Views.Project : Gtk.EventBox {
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.margin_top = 6;
-        note_textview.height_request = 24;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
         note_textview.get_style_context ().add_class ("welcome");
@@ -192,24 +192,19 @@ public class Views.Project : Gtk.EventBox {
             note_placeholder.no_show_all = false;
         }
 
-        //  var listbox_placeholder = new Gtk.Label (_("No Tasks"));
-        //  listbox_placeholder.get_style_context ().add_class ("h2");
-        //  listbox_placeholder.show ();
-        //  listbox_placeholder.get_style_context ().add_class ("dim-label");
-
-        listbox = new Gtk.ListBox  ();
-        listbox.margin_top = 6;
+        listbox = new Gtk.ListBox ();
+        listbox.margin_top = 12;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        //listbox.set_placeholder (listbox_placeholder);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 41;
         motion_grid.margin_end = 32;
+        motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
             
@@ -218,7 +213,6 @@ public class Views.Project : Gtk.EventBox {
         motion_revealer.add (motion_grid);
 
         section_listbox = new Gtk.ListBox  ();
-        section_listbox.margin_top = 6;
         section_listbox.valign = Gtk.Align.START;
         section_listbox.get_style_context ().add_class ("welcome");
         section_listbox.get_style_context ().add_class ("listbox");
@@ -249,6 +243,45 @@ public class Views.Project : Gtk.EventBox {
         
         new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
+        var motion_section_grid = new Gtk.Grid ();
+        motion_section_grid.margin_start = 41;
+        motion_section_grid.margin_end = 32;
+        motion_section_grid.get_style_context ().add_class ("grid-motion");
+        motion_section_grid.height_request = 24;
+            
+        motion_section_revealer = new Gtk.Revealer ();
+        motion_section_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        motion_section_revealer.add (motion_section_grid);
+
+        var drag_section_grid = new Gtk.Grid ();
+        drag_section_grid.margin_start = 41;
+        drag_section_grid.margin_end = 32;
+        drag_section_grid.height_request = 16;
+
+        Gtk.drag_dest_set (drag_section_grid, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
+        drag_section_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
+            Widgets.SectionRow source;
+
+            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+            source = (Widgets.SectionRow) row;
+            
+            source.get_parent ().remove (source); 
+
+            section_listbox.insert (source, (int32) section_listbox.get_children ().length ());
+            section_listbox.show_all ();
+
+            update_section_order ();   
+        });
+
+        drag_section_grid.drag_motion.connect ((context, x, y, time) => {
+            motion_section_revealer.reveal_child = true;
+            return true;
+        });
+
+        drag_section_grid.drag_leave.connect ((context, time) => {
+            motion_section_revealer.reveal_child = false;
+        });
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.valign = Gtk.Align.START;
         main_box.pack_start (top_box, false, false, 0);
@@ -258,6 +291,8 @@ public class Views.Project : Gtk.EventBox {
         main_box.pack_start (listbox, false, false, 0);
         main_box.pack_start (new_section, false, true, 0);
         main_box.pack_start (section_listbox, false, false, 0);
+        main_box.pack_start (drag_section_grid, false, false, 0);
+        main_box.pack_start (motion_section_revealer, false, false, 0);
         main_box.pack_start (completed_revealer, false, false, 12);
         
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -766,22 +801,32 @@ public class Views.Project : Gtk.EventBox {
             section_listbox.insert (source, target.get_index ());
             section_listbox.show_all ();
 
-            update_section_order ();         
+            update_section_order ();      
         }
     }
 
     private void update_section_order () {
-        section_listbox.foreach ((widget) => {
-            var row = (Gtk.ListBoxRow) widget;
-            int index = row.get_index ();
-            
-            var section = ((Widgets.SectionRow) row).section;
-
+        timeout = Timeout.add (150, () => {
             new Thread<void*> ("update_section_order", () => {
-                Planner.database.update_section_item_order (section.id, index);
+                section_listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+                    
+                    var section = ((Widgets.SectionRow) row).section;
+        
+                    new Thread<void*> ("update_section_order", () => {
+                        Planner.database.update_section_item_order (section.id, index);
+                        return null;
+                    });
+                });
 
                 return null;
             });
+
+            Source.remove (timeout);
+            timeout = 0;
+
+            return false;
         });
     }
 
