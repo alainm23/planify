@@ -28,11 +28,11 @@ public class Planner : Gtk.Application {
     public static Services.Todoist todoist;
     public static Services.Notifications notifications;
     public static Services.Calendar.CalendarModel calendar_model;
-    
+        
     public signal void go_view (string type, int64 id, int64 id_2);
 
     private bool silence = false;
-
+    
     public Planner () {
         Object (
             application_id: "com.github.alainm23.planner",

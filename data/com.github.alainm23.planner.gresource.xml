@@ -21,6 +21,7 @@
     <file alias="planner-list-symbolic.svg">resources/planner-list-symbolic.svg</file>
     <file alias="planner-trash-symbolic.svg">resources/planner-trash-symbolic.svg</file>
     <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
+    <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
 
     <file alias="paypal.svg">resources/paypal.svg</file>
     <file alias="become_a_patron.svg">resources/become_a_patron.svg</file>

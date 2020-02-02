@@ -66,6 +66,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var start_page_item = new PreferenceItem ("go-home", _("Homepage"));
         var badge_item = new PreferenceItem ("planner-badge-count", _("Badge count"));
         var theme_item = new PreferenceItem ("night-light", _("Theme"));
+        var quick_add_item = new PreferenceItem ("planner-quick-add", _("Quick Add"));
         var general_item = new PreferenceItem ("preferences-system", _("General"), true);
 
         var general_grid = new Gtk.Grid ();
@@ -76,6 +77,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
+        general_grid.add (quick_add_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -120,6 +122,11 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_grid.add (general_grid);
         main_grid.add (addons_grid);
         main_grid.add (others_grid);
+
+        var main_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.expand = true;
+        main_scrolled.add (main_grid);
 
         start_page_item.activated.connect (() => {
             stack.visible_child_name = "homepage";
@@ -166,7 +173,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
             stack.visible_child_name = "fund";
         });
 
-        return main_grid;
+        return main_scrolled;
     }
 
     private Gtk.Widget get_homepage_widget () {

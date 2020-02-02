@@ -272,7 +272,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.add_named (content_entry, "content_entry");
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 0;
         top_box.hexpand = true;
         top_box.pack_start (hidden_revealer, false, false, 0);
         top_box.pack_start (checked_button, false, false, 0);

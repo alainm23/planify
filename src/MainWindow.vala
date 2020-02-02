@@ -35,6 +35,8 @@ public class MainWindow : Gtk.Window {
     private uint timeout_id = 0;
     private uint configure_id;
 
+    private Services.DBusServer dbus_server;
+
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -44,6 +46,12 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
+        dbus_server = Services.DBusServer.get_default ();
+        dbus_server.item_added.connect ((id) => {
+            var item = Planner.database.get_item_by_id (id);
+            Planner.database.item_added (item);
+        });
+
         projects_loaded = new Gee.HashMap<string, bool> ();
 
         var sidebar_header = new Gtk.HeaderBar ();
