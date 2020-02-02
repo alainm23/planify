@@ -896,7 +896,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         app_name.get_style_context ().add_class ("h3");
         app_name.margin_top = 6;
 
-        var version_label = new Gtk.Label ("v2.0.8");
+        var version_label = new Gtk.Label (Constants.VERSION);
         version_label.get_style_context ().add_class ("dim-label");
 
         var web_item = new PreferenceItem ("web-browser", _("Homepage"));
