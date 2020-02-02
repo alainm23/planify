@@ -175,7 +175,7 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
-Si scopre che i nostri cervelli sono in realtà cablati per farci pensare ai nostri "
+"Si scopre che i nostri cervelli sono in realtà cablati per farci pensare ai nostri "
 "compiti incompiuti. Pratico quando hai una cosa su cui devi lavorare. Non così"
 "bene quando hai più di 30 compiti in lizza per la tua attenzione contemporaneamente. Ecco perché"
 "il primo passo per organizzare il tuo lavoro e la tua vita è ottenere tutto dalla"
@@ -211,7 +211,7 @@ msgstr ""
 "- Se sai che devi eseguire l'attività in un determinato giorno, fai clic su"
 "icona del calendario e seleziona una data.\n"
 "- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona"
-Opzione "\"senza data\."
+"Opzione "\"senza data\."
 
 #: src/Utils.vala:573
 msgid "How to use projects"
@@ -954,7 +954,7 @@ msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
-Attiva questa impostazione in modo che Planner si sincronizzi automaticamente con il tuo "
+"Attiva questa impostazione in modo che Planner si sincronizzi automaticamente con il tuo "
 "Account Todoist ogni 15 minuti."
 
 #: src/Dialogs/Preferences.vala:643 src/Dialogs/Preferences.vala:698
@@ -1071,7 +1071,7 @@ msgid ""
 "💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you "
 "want."
 msgstr ""
-💎️ Pulsante magico arrivato: trascina la selezione e crea le tue attività ovunque tu"
+"💎️ Pulsante magico arrivato: trascina la selezione e crea le tue attività ovunque tu"
 "voglia".
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
