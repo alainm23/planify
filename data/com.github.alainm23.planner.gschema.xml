@@ -26,8 +26,14 @@
             <description></description>
         </key>
 
-        <key name="quick-add-inbox-only" type="b">
-            <default>true</default>
+        <key name="quick-add-save-last-project" type="b">
+            <default>false</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="quick-add-shortcut" type="s">
+            <default>""</default>
             <summary></summary>
             <description></description>
         </key>

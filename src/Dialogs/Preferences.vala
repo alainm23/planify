@@ -412,7 +412,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
-        var inbox_only_switch = new PreferenceItemSwitch (_("Inbox Only"), Planner.settings.get_boolean ("quick-add-inbox-only"), false);
+        var inbox_only_switch = new PreferenceItemSwitch (_("Save last selected project"), Planner.settings.get_boolean ("quick-add-save-last-project"), false);
         
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -421,9 +421,13 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (inbox_only_switch, false, false, 0);
         //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-
+        
         info_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        inbox_only_switch.activated.connect ((value) => {
+            Planner.settings.set_boolean ("quick-add-save-last-project", value);
         });
 
         return main_box;

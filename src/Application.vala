@@ -28,7 +28,7 @@ public class Planner : Gtk.Application {
     public static Services.Todoist todoist;
     public static Services.Notifications notifications;
     public static Services.Calendar.CalendarModel calendar_model;
-        
+
     public signal void go_view (string type, int64 id, int64 id_2);
 
     private bool silence = false;
@@ -118,6 +118,9 @@ public class Planner : Gtk.Application {
 
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+
+        // Set shortcut
+        utils.set_quick_add_shortcut ("<Alt>a");
     }
 
     public override int command_line (ApplicationCommandLine command_line) {

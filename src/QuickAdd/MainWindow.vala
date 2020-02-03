@@ -129,17 +129,17 @@ public class MainWindow : Gtk.Window {
                 2, icon_name
             );
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-inbox-only") == false && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == 0) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == 0) {
                 if (project.inbox_project == 1) {
                     project_combobox.set_active_iter (iter);
                 }
             }
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-inbox-only") && project.inbox_project == 1) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == false && project.inbox_project == 1) {
                 project_combobox.set_active_iter (iter);
             }
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-inbox-only") == false && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == project.id) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == project.id) {
                 project_combobox.set_active_iter (iter);
             }
         }

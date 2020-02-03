@@ -50,6 +50,7 @@ executable(
     'src/Services/Calendar/Util.vala',
     'src/Services/Calendar/CalendarModel.vala',
     'src/Services/DBusServer.vala',
+    'src/Services/CustomShortcutSettings.vala',
     
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
@@ -130,7 +131,6 @@ executable(
     'planner-quick-add',
     'src/QuickAdd/Application.vala',
     'src/QuickAdd/MainWindow.vala',
-    'src/QuickAdd/CustomShortcutSettings.vala',
     'src/QuickAdd/DBusClient.vala',
     'src/QuickAdd/Database.vala',
     'src/QuickAdd/Project.vala',

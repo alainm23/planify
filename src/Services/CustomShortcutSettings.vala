@@ -1,7 +1,6 @@
 // From Clipped: https://github.com/davidmhewitt/clipped/blob/edac68890c2a78357910f05bf44060c2aba5958e/src/Settings/CustomShortcutSettings.vala
 
-public class CustomShortcutSettings : Object {
-
+public class Services.CustomShortcutSettings : Object {
     const string SCHEMA = "org.gnome.settings-daemon.plugins.media-keys";
     const string KEY = "custom-keybinding";
 

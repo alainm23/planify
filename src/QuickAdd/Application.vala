@@ -1,7 +1,4 @@
 public class PlannerQuickAdd : Gtk.Application {
-    public const string SHORTCUT = "<Alt>a";
-    public const string ID = "planner-quick-add";
-
     private const string CSS = """
         entry {
             caret-color: #3689e6;
@@ -42,7 +39,7 @@ public class PlannerQuickAdd : Gtk.Application {
 
     public PlannerQuickAdd () {
         Object (
-            application_id: ID,
+            application_id: "planner-quick-add",
             flags: ApplicationFlags.FLAGS_NONE
         );
 
@@ -89,24 +86,6 @@ public class PlannerQuickAdd : Gtk.Application {
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");
-        
-        // Set shortcut
-        CustomShortcutSettings.init ();
-        bool has_shortcut = false;
-        foreach (var shortcut in CustomShortcutSettings.list_custom_shortcuts ()) {
-            if (shortcut.command == ID) {
-                // CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, SHORTCUT);
-                has_shortcut = true;
-                return;
-            }
-        }
-        if (!has_shortcut) {
-            var shortcut = CustomShortcutSettings.create_shortcut ();
-            if (shortcut != null) {
-                CustomShortcutSettings.edit_shortcut (shortcut, SHORTCUT);
-                CustomShortcutSettings.edit_command (shortcut, ID);
-            }
-        }
     }
 }
 
