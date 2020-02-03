@@ -445,7 +445,11 @@ public class Widgets.New : Gtk.Revealer {
             string email_text = " " + Planner.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);
-            list_store.@set (todoist_iter, 0, 1, 1, email_text, 2, "planner-online-symbolic");
+            list_store.@set (todoist_iter, 
+                0, 1, 
+                1, email_text, 
+                2, "planner-online-symbolic"
+            );
 
             if (Planner.settings.get_int ("source-selected") == 1) {
                 source_combobox.set_active_iter (todoist_iter);

@@ -67,9 +67,6 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
 
         get_content_area ().pack_start (stack, true, true, 0);
         
-        get_action_area ().visible = false;
-        get_action_area ().no_show_all = true;
-
         use_header_bar = 1;
         var header_bar = (Gtk.HeaderBar) get_header_bar ();
         header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);

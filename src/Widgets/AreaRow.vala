@@ -11,6 +11,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Revealer listbox_revealer;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer action_revealer;
+    public Gtk.Revealer main_revealer;
     private Gtk.Menu menu = null;
 
     private uint timeout;
@@ -49,6 +50,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.can_focus = false;
         hidden_button.halign = Gtk.Align.CENTER;
         hidden_button.valign = Gtk.Align.CENTER;
+        hidden_button.tooltip_text = _("Display Projects");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
@@ -92,6 +94,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         if (area.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
+            hidden_button.tooltip_text = _("Hiding Projects");
         }
 
         /*
@@ -167,7 +170,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox_revealer, false, false, 0);
 
-        add (main_box);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (main_box);
+
+        add (main_revealer);
         add_all_projects ();
         build_drag_and_drop ();
 
@@ -303,10 +311,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         if (listbox_revealer.reveal_child) {
             listbox_revealer.reveal_child = false;
             hidden_button.get_style_context ().remove_class ("opened");
+            hidden_button.tooltip_text = _("Display Projects");
             area.collapsed = 0;
         } else {
             listbox_revealer.reveal_child = true;
             hidden_button.get_style_context ().add_class ("opened");
+            hidden_button.tooltip_text = _("Hiding Projects");
             area.collapsed = 1;
         }
 
@@ -515,7 +525,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Planner.database.move_project (project, 0);
         }
 
-        destroy ();
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
+        });
     }
 
     private void delete_projects () {
@@ -526,6 +541,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             }
         }
 
-        destroy ();
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
+        });
     }
 }

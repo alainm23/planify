@@ -20,6 +20,24 @@
             <description>Whether the window was maximized on last run</description>
         </key>
 
+        <key name="quick-add-project-selected" type="x">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="quick-add-save-last-project" type="b">
+            <default>false</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="quick-add-shortcut" type="s">
+            <default>""</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="window-position" type="(ii)">
 			<default>(-1, -1)</default>
 			<summary>Window position</summary>

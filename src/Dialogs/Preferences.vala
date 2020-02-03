@@ -1,7 +1,8 @@
 public class Dialogs.Preferences : Gtk.Dialog {
     public string view { get; construct; }
     private Gtk.Stack stack;
-    
+    private uint timeout = 0;
+
     public Preferences (string view="home") {
         Object (
             view: view,
@@ -10,7 +11,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: true
+            modal: false
         );
     }
     
@@ -26,6 +27,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
+        stack.add_named (get_quick_add_widget (), "quick-add");
         stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
@@ -48,9 +50,6 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         get_content_area ().pack_start (stack_scrolled, true, true, 0);
 
-        //get_action_area ().visible = false;
-        //get_action_area ().no_show_all = true;
-
         add_button (_("Close"), Gtk.ResponseType.CLOSE);
 
         response.connect ((response_id) => {
@@ -64,8 +63,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
         general_label.margin_start = 6;
 
         var start_page_item = new PreferenceItem ("go-home", _("Homepage"));
-        var badge_item = new PreferenceItem ("planner-badge-count", _("Badge count"));
+        var badge_item = new PreferenceItem ("planner-badge-count", _("Badge Count"));
         var theme_item = new PreferenceItem ("night-light", _("Theme"));
+        var quick_add_item = new PreferenceItem ("planner-quick-add", _("Quick Add"));
         var general_item = new PreferenceItem ("preferences-system", _("General"), true);
 
         var general_grid = new Gtk.Grid ();
@@ -76,6 +76,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
+        general_grid.add (quick_add_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -84,7 +85,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         addons_label.margin_start = 6;
 
         var todoist_item = new PreferenceItem ("planner-todoist", "Todoist");
-        var calendar_item = new PreferenceItem ("x-office-calendar", _("Calendar events"));
+        var calendar_item = new PreferenceItem ("x-office-calendar", _("Calendar Events"));
         var labels_item = new PreferenceItem ("tag", _("Labels"));
         var shortcuts_item = new PreferenceItem ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
 
@@ -121,6 +122,11 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_grid.add (addons_grid);
         main_grid.add (others_grid);
 
+        var main_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.expand = true;
+        main_scrolled.add (main_grid);
+
         start_page_item.activated.connect (() => {
             stack.visible_child_name = "homepage";
         });
@@ -131,6 +137,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         theme_item.activated.connect (() => {
             stack.visible_child_name = "theme";
+        });
+
+        quick_add_item.activated.connect (() => {
+            stack.visible_child_name = "quick-add";
         });
 
         general_item.activated.connect (() => {
@@ -166,7 +176,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
             stack.visible_child_name = "fund";
         });
 
-        return main_grid;
+        return main_scrolled;
     }
 
     private Gtk.Widget get_homepage_widget () {
@@ -273,7 +283,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_badge_count_widget () {
-        var top_box = new PreferenceTopBox ("planner-badge-count", _("Badge count"));
+        var top_box = new PreferenceTopBox ("planner-badge-count", _("Badge Count"));
         
         var description_label = new Gtk.Label (_("Choose which items should be counted for the badge on the application icon."));
         description_label.justify = Gtk.Justification.FILL;
@@ -390,6 +400,39 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
+    private Gtk.Widget get_quick_add_widget () {
+        var info_box = new PreferenceTopBox ("night-light", _("Quick Add"));
+
+        var description_label = new Gtk.Label (_("Personalize the look and feel of your Planner by choosing the theme that best suits you."));
+        description_label.margin = 6;
+        description_label.margin_bottom = 6;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+
+        var inbox_only_switch = new PreferenceItemSwitch (_("Save last selected project"), Planner.settings.get_boolean ("quick-add-save-last-project"), false);
+        
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (info_box, false, false, 0);
+        main_box.pack_start (description_label, false, false, 0);
+        main_box.pack_start (inbox_only_switch, false, false, 0);
+        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        
+        info_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        inbox_only_switch.activated.connect ((value) => {
+            Planner.settings.set_boolean ("quick-add-save-last-project", value);
+        });
+
+        return main_box;
+    }
+
     private Gtk.Widget get_general_widget () {
         var top_box = new PreferenceTopBox ("night-light", _("General"));
         top_box.margin_bottom = 12;
@@ -478,8 +521,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
     private Gtk.Widget get_labels_widget () {
         var top_box = new PreferenceTopBox ("tag", _("Labels"));
-        top_box.action_button = "list-add-symbolic";
-
+        
         var description_label = new Gtk.Label (_("Save time by batching similar tasks together using labels. You’ll be able to pull up a list of all tasks with any given label in a matter of seconds."));
         description_label.margin = 6;
         description_label.margin_bottom = 12;
@@ -500,9 +542,12 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.hexpand = true;
+
+        var new_label = new Widgets.NewLabel ();
         
         box.pack_start (description_label, false, false, 0);
         box.pack_start (separator, false, true, 0);
+        box.pack_start (new_label, false, true, 0);
         box.pack_start (listbox, false, true, 0);
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -522,22 +567,43 @@ public class Dialogs.Preferences : Gtk.Dialog {
         Planner.database.label_added.connect ((label) => {
             var row = new Widgets.LabelRow (label);
             
-            listbox.add (row);
+            listbox.insert (row, 0);
             listbox.show_all ();
 
-            row.name_entry.grab_focus ();
+            update_label_order (listbox);
         });
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
         });
 
-        top_box.action_activated.connect (() => {
-            var label = new Objects.Label ();
-            Planner.database.insert_label (label);
-        });
-        
         return main_box;
+    }
+
+    private void update_label_order (Gtk.ListBox listbox) {
+        timeout = Timeout.add (150, () => {
+            new Thread<void*> ("update_label_order", () => {
+                listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+        
+                    var label = ((Widgets.LabelRow) row).label;
+        
+                    new Thread<void*> ("update_label_order", () => {
+                        Planner.database.update_label_item_order (label.id, index);
+        
+                        return null;
+                    });
+                });
+                
+                return null;
+            });
+
+            Source.remove (timeout);
+            timeout = 0;
+
+            return false;
+        });
     }
 
     private Gtk.Widget get_keyboard_shortcuts_widget () {
@@ -730,7 +796,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_calendar_widget () {
-        var top_box = new PreferenceTopBox ("office-calendar", _("Calendar events"));
+        var top_box = new PreferenceTopBox ("office-calendar", _("Calendar Events"));
 
         var description_label = new Gtk.Label (_("You can connect your <b>Calendar</b> app to Planner to see your events and to-dos together in one place. You’ll see events from both personal and shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when you’re managing your day, and as you plan the week ahead."));
         description_label.margin = 6;
@@ -889,7 +955,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         app_name.get_style_context ().add_class ("h3");
         app_name.margin_top = 6;
 
-        var version_label = new Gtk.Label ("v2.0.8");
+        var version_label = new Gtk.Label (Constants.VERSION);
         version_label.get_style_context ().add_class ("dim-label");
 
         var web_item = new PreferenceItem ("web-browser", _("Homepage"));

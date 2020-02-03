@@ -17,7 +17,6 @@ public class Widgets.LabelPreview : Gtk.EventBox {
         var color_image = new Gtk.Image ();
         color_image.valign = Gtk.Align.CENTER;
         color_image.gicon = new ThemedIcon ("mail-unread-symbolic");
-        //color_image.get_style_context ().add_class ("label-item-%s".printf (label.id.to_string ()));
         color_image.pixel_size = 13;
 
         var name_label = new Gtk.Label (label.name);
@@ -26,16 +25,19 @@ public class Widgets.LabelPreview : Gtk.EventBox {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));
-        //box.add (color_image);
         box.add (name_label);
 
         add (box);
 
-        /*
-        get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));
-        height_request = 3;
-        width_request = 24;
-        */
+        Planner.database.label_updated.connect ((l) => {
+            Idle.add (() => {
+                if (label.id == l.id) {
+                    name_label.label = l.name;
+                }
+
+                return false;
+            });
+        });
 
         Planner.database.item_label_deleted.connect ((i) => {
             if (id == i) {

@@ -214,11 +214,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);
         save_button.has_default = true;
         save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-
-        var action_area = (Gtk.ButtonBox) get_action_area ();
-        action_area.margin = 6;
-        action_area.margin_top = 0;
-        
+               
         switch (project.color) {
             case 30:
                 color_30.active = true;

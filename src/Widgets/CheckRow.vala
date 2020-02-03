@@ -3,9 +3,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
-
-    private uint checked_timeout = 0;
-
+    
     public signal void hide_item ();
 
     public CheckRow (Objects.Item item) {
@@ -149,7 +147,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         Planner.database.item_deleted.connect ((i) => {
             if (item.id == i.id) {
-                destroy ();
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
 

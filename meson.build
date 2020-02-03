@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.1')
+        version: '2.2')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -49,6 +49,8 @@ executable(
     'src/Services/Notifications.vala',
     'src/Services/Calendar/Util.vala',
     'src/Services/Calendar/CalendarModel.vala',
+    'src/Services/DBusServer.vala',
+    'src/Services/CustomShortcutSettings.vala',
     
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
@@ -79,6 +81,7 @@ executable(
     'src/Widgets/ColorGrid.vala',
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',
+    'src/Widgets/NewLabel.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -105,7 +108,6 @@ executable(
     'src/Objects/Reminder.vala',
     'src/Objects/Queue.vala',
     'src/Objects/Shortcuts.vala',
-    
     config_header,
     dependencies: [
         dependency('gee-0.8'),
@@ -121,6 +123,31 @@ executable(
         dependency('libedataserver-1.2', version: '>=3.8.0'),
         dependency('libsoup-2.4'),
         meson.get_compiler('c').find_library('m', required : false)
+    ],
+    install: true
+)
+
+executable(
+    'planner-quick-add',
+    'src/QuickAdd/Application.vala',
+    'src/QuickAdd/MainWindow.vala',
+    'src/QuickAdd/DBusClient.vala',
+    'src/QuickAdd/Database.vala',
+    'src/QuickAdd/Project.vala',
+    'src/QuickAdd/Item.vala',
+    'src/QuickAdd/Queue.vala',
+    asresources,
+    config_header,
+    dependencies: [
+        dependency('glib-2.0'),
+        dependency('gee-0.8'),
+        dependency('gobject-2.0'),
+        dependency('granite'),
+        dependency('sqlite3'),
+        dependency('gtk+-3.0'),
+        dependency('json-glib-1.0'),
+        dependency('libsoup-2.4'),
+        meson.get_compiler('vala').find_library('posix'),
     ],
     install: true
 )

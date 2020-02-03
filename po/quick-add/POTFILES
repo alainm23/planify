@@ -1,0 +1,7 @@
+src/QuickAdd/Application.vala
+src/QuickAdd/MainWindow.vala
+src/QuickAdd/DBusClient.vala
+src/QuickAdd/Database.vala
+src/QuickAdd/Project.vala
+src/QuickAdd/Item.vala
+src/QuickAdd/Queue.vala

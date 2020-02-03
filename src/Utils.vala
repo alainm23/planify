@@ -537,6 +537,25 @@ public class Utils : GLib.Object {
         }
     }
 
+    public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT) {
+        Services.CustomShortcutSettings.init ();
+        bool has_shortcut = false;
+        foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
+            if (shortcut.command == "planner-quick-add") {
+                // CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
+                has_shortcut = true;
+                return;
+            }
+        }
+        if (!has_shortcut) {
+            var shortcut = Services.CustomShortcutSettings.create_shortcut ();
+            if (shortcut != null) {
+                Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);
+                Services.CustomShortcutSettings.edit_command (shortcut, "planner-quick-add");
+            }
+        }
+    }
+
     /* 
         Tutorial project
     */
@@ -607,17 +626,17 @@ public class Utils : GLib.Object {
     public Gee.ArrayList<Objects.Shortcuts?> get_shortcuts () {
         var shortcuts = new Gee.ArrayList<Objects.Shortcuts?> ();
 
-        shortcuts.add (new Objects.Shortcuts (_("Create a new task"), { "Ctrl", "n" }));
-        shortcuts.add (new Objects.Shortcuts (_("Create a new task at the top of the list (only works inside projects)"), { "Ctrl", "Shift", "n" }));
-        shortcuts.add (new Objects.Shortcuts (_("Create a new area"), { "Ctrl", "Shift", "a" }));
-        shortcuts.add (new Objects.Shortcuts (_("Create a new project"), { "Ctrl", "Shift", "p" }));
-        shortcuts.add (new Objects.Shortcuts (_("Create a new section"), { "Ctrl", "Shift", "s" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new task"), { "Ctrl", "N" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new task at the top of the list (only works inside projects)"), { "Ctrl", "Shift", "N" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new area"), { "Ctrl", "Shift", "A" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new project"), { "Ctrl", "Shift", "P" }));
+        shortcuts.add (new Objects.Shortcuts (_("Create a new section"), { "Ctrl", "Shift", "S" }));
         shortcuts.add (new Objects.Shortcuts (_("Open the Inbox"), { "Ctrl", "1" }));
         shortcuts.add (new Objects.Shortcuts (_("Open Today"), { "Ctrl", "2" }));
         shortcuts.add (new Objects.Shortcuts (_("Open Upcoming"), { "Ctrl", "3" }));
-        shortcuts.add (new Objects.Shortcuts (_("Open Search"), { "Ctrl", "f" }));
-        shortcuts.add (new Objects.Shortcuts (_("Manually sync"), { "Ctrl", "s" }));
-        shortcuts.add (new Objects.Shortcuts (_("Quit"), { "Ctrl", "q" }));
+        shortcuts.add (new Objects.Shortcuts (_("Open Search"), { "Ctrl", "F" }));
+        shortcuts.add (new Objects.Shortcuts (_("Manually sync"), { "Ctrl", "S" }));
+        shortcuts.add (new Objects.Shortcuts (_("Quit"), { "Ctrl", "Q" }));
 
         return shortcuts;
     }

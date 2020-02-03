@@ -51,22 +51,10 @@ public class Views.Inbox : Gtk.EventBox {
         var section_button = new Gtk.Button ();
         section_button.valign = Gtk.Align.CENTER;
         section_button.valign = Gtk.Align.CENTER;
-        section_button.tooltip_text = _("Add section");
+        section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
         section_button.can_focus = false;
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);
-
-        var section_loading = new Gtk.Spinner ();
-        section_loading.valign = Gtk.Align.CENTER;
-        section_loading.halign = Gtk.Align.CENTER;
-        section_loading.start ();
-
-        var section_stack = new Gtk.Stack ();
-        section_stack.margin_start = 6;
-        section_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        
-        section_stack.add_named (section_button, "section_button");
-        section_stack.add_named (section_loading, "section_loading");
 
         var comment_button = new Gtk.Button.from_icon_name ("internet-chat-symbolic", Gtk.IconSize.MENU);
         comment_button.valign = Gtk.Align.CENTER;
@@ -87,7 +75,7 @@ public class Views.Inbox : Gtk.EventBox {
         settings_button = new Gtk.ToggleButton ();
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Options");
+        settings_button.tooltip_text = _("Inbox Menu");
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
@@ -102,7 +90,7 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.pack_end (settings_button, false, false, 0);
         //top_box.pack_end (search_button, false, false, 0);
         //top_box.pack_end (comment_button, false, false, 0);
-        top_box.pack_end (section_stack, false, false, 0);
+        top_box.pack_end (section_button, false, false, 0);
 
         listbox = new Gtk.ListBox  ();
         listbox.valign = Gtk.Align.START;

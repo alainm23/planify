@@ -81,23 +81,11 @@ public class Views.Project : Gtk.EventBox {
         var section_button = new Gtk.Button ();
         section_button.valign = Gtk.Align.CENTER;
         section_button.valign = Gtk.Align.CENTER;
-        section_button.tooltip_text = _("Add section");
+        section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
         section_button.can_focus = false;
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);
 
-        var section_loading = new Gtk.Spinner ();
-        section_loading.valign = Gtk.Align.CENTER;
-        section_loading.halign = Gtk.Align.CENTER;
-        section_loading.start ();
-
-        var section_stack = new Gtk.Stack ();
-        section_stack.margin_start = 6;
-        section_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        
-        section_stack.add_named (section_button, "section_button");
-        section_stack.add_named (section_loading, "section_loading");
-        
         var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
         add_person_button.valign = Gtk.Align.CENTER;
         add_person_button.valign = Gtk.Align.CENTER;
@@ -127,7 +115,7 @@ public class Views.Project : Gtk.EventBox {
         settings_button = new Gtk.ToggleButton ();
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Options");
+        settings_button.tooltip_text = _("Project Menu");
         settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
@@ -166,7 +154,7 @@ public class Views.Project : Gtk.EventBox {
             //top_box.pack_end (add_person_button, false, false, 0);
             //top_box.pack_end (comment_button, false, false, 0);
         }
-        top_box.pack_end (section_stack, false, false, 0);
+        top_box.pack_end (section_button, false, false, 0);
 
         note_textview = new Gtk.TextView ();
         note_textview.tooltip_text = _("Add a note");

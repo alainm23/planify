@@ -12,7 +12,13 @@ public class Objects.Item : GLib.Object {
     public int checked { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }
     public int is_todoist { get; set; default = 0; }
-    public string content { get; set; default = ""; }
+
+    public string _content = "";
+    public string content {
+        get { return _content; }
+        set { _content = value.replace ("&", " "); }
+    }
+
     public string note { get; set; default = ""; }
 
     public string due_date { get; set; default = ""; }

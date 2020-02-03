@@ -35,6 +35,8 @@ public class MainWindow : Gtk.Window {
     private uint timeout_id = 0;
     private uint configure_id;
 
+    private Services.DBusServer dbus_server;
+
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -44,6 +46,12 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
+        dbus_server = Services.DBusServer.get_default ();
+        dbus_server.item_added.connect ((id) => {
+            var item = Planner.database.get_item_by_id (id);
+            Planner.database.item_added (item);
+        });
+
         projects_loaded = new Gee.HashMap<string, bool> ();
 
         var sidebar_header = new Gtk.HeaderBar ();
@@ -58,7 +66,7 @@ public class MainWindow : Gtk.Window {
         // Search Button
         var search_button = new Gtk.Button ();
         search_button.can_focus = false;
-        search_button.tooltip_text = _("Quick Find");
+        search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
         search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
         search_button.get_style_context ().add_class ("settings-button");
@@ -87,7 +95,7 @@ public class MainWindow : Gtk.Window {
 
         var sync_button = new Gtk.Button ();
         sync_button.can_focus = false;
-        sync_button.tooltip_text = _("Sync");
+        sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
         sync_button.valign = Gtk.Align.CENTER;
         sync_button.halign = Gtk.Align.CENTER;
         sync_button.get_style_context ().add_class ("sync");
@@ -278,6 +286,8 @@ public class MainWindow : Gtk.Window {
             if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
+
+                pane.select_item (0);
             }
         });
         

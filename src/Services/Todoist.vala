@@ -678,45 +678,51 @@ public class Services.Todoist : GLib.Object {
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
                     var parser = new Json.Parser ();
-                    parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-                    print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
-                    var node = parser.get_root ().get_object ();
-                    var sync_status = node.get_object_member ("sync_status");
-                    string sync_token = node.get_string_member ("sync_token");
-                    Planner.settings.set_string ("todoist-sync-token", sync_token);
+                    try {
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
-                    foreach (var q in queue) {  
-                        var uuid_member = sync_status.get_member (q.uuid);
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            if (q.query == "project_add") {
-                                var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
-                                Planner.database.update_project_id (q.object_id, id);
-                                Planner.database.remove_CurTempIds (q.object_id);
+                        var node = parser.get_root ().get_object ();
+                        var sync_status = node.get_object_member ("sync_status");
+                        string sync_token = node.get_string_member ("sync_token");
+                        Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+                        foreach (var q in queue) {  
+                            var uuid_member = sync_status.get_member (q.uuid);
+                            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                                if (q.query == "project_add") {
+                                    var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                                    Planner.database.update_project_id (q.object_id, id);
+                                    Planner.database.remove_CurTempIds (q.object_id);
+                                }
+
+                                if (q.query == "section_add") {
+                                    var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                                    Planner.database.update_section_id (q.object_id, id);
+                                    Planner.database.remove_CurTempIds (q.object_id);
+                                }
+
+                                if (q.query == "item_add") {
+                                    var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                                    Planner.database.update_item_id (q.object_id, id);
+                                    Planner.database.remove_CurTempIds (q.object_id);
+                                }
+
+                                Planner.database.remove_queue (q.uuid);
+                            } else {
+                                //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                                //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+        
+                                //project_added_error (http_code, error_message);
                             }
-
-                            if (q.query == "section_add") {
-                                var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
-                                Planner.database.update_section_id (q.object_id, id);
-                                Planner.database.remove_CurTempIds (q.object_id);
-                            }
-
-                            if (q.query == "item_add") {
-                                var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
-                                Planner.database.update_item_id (q.object_id, id);
-                                Planner.database.remove_CurTempIds (q.object_id);
-                            }
-
-                            Planner.database.remove_queue (q.uuid);
-                        } else {
-                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-    
-                            //project_added_error (http_code, error_message);
                         }
-                    }
 
-                    sync_finished ();
+                        sync_finished ();
+                    } catch (Error e) {
+                        debug (e.message);
+                        sync_finished ();
+                    }
                 } else {
                     sync_finished ();
                 }
@@ -1051,7 +1057,13 @@ public class Services.Todoist : GLib.Object {
 
     public Json.Object get_object_by_string (string object) {
         var parser = new Json.Parser ();
-        parser.load_from_data (object, -1);
+        
+        try {
+            parser.load_from_data (object, -1);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
         return parser.get_root ().get_object ();
     }
 
@@ -2079,8 +2091,8 @@ public class Services.Todoist : GLib.Object {
                                 //item_moved_completed (item.id);
                             //}
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
 
                             //item_moved_error (item.id, http_code, error_message);
                         }
