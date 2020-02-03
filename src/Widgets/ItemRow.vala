@@ -126,6 +126,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
         hidden_button.margin_start = 6;
+        hidden_button.tooltip_text = _("View Details");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
 
@@ -328,14 +329,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var checklist_button = new Gtk.Button ();
         checklist_button.image = checklist_icon;
         checklist_button.margin_end = 12;
-        checklist_button.tooltip_text = _("Add checklist");
+        checklist_button.tooltip_text = _("Add Checklist");
         checklist_button.get_style_context ().add_class ("flat");
         checklist_button.get_style_context ().add_class ("item-action-button");
         
         var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.MENU);
         delete_button.can_focus = false; 
         delete_button.valign = Gtk.Align.CENTER;
-        delete_button.tooltip_text = _("Delete task");
+        delete_button.tooltip_text = _("Delete Task");
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
 
@@ -347,7 +348,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         settings_button.image = settings_image;
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Task settings");
+        settings_button.tooltip_text = _("Task Menu");
         settings_button.get_style_context ().add_class ("item-action-button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
@@ -860,6 +861,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.visible_child_name = "content_entry";
 
         hidden_button.get_style_context ().add_class ("opened");
+        hidden_button.tooltip_text = _("Hiding");
 
         activatable = false;
         selectable = false;
@@ -878,6 +880,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_stack.visible_child_name = "content_label";
 
         hidden_button.get_style_context ().remove_class ("opened");
+        hidden_button.tooltip_text = _("View Details");
 
         timeout_id = Timeout.add (250, () => {
             activatable = true;
@@ -1155,11 +1158,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
         undated_menu.item_image.get_style_context ().add_class ("due-clear");
         
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move to project"), "planner-project-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "planner-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
-        move_section_menu = new Widgets.ImageMenuItem (_("Move to section"), "go-jump-symbolic");
+        move_section_menu = new Widgets.ImageMenuItem (_("Move to Section"), "go-jump-symbolic");
         sections_menu = new Gtk.Menu ();
         move_section_menu.set_submenu (sections_menu);
 

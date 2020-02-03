@@ -66,7 +66,7 @@ public class MainWindow : Gtk.Window {
         // Search Button
         var search_button = new Gtk.Button ();
         search_button.can_focus = false;
-        search_button.tooltip_text = _("Quick Find");
+        search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>F"}, _("Quick Find"));
         search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
         search_button.get_style_context ().add_class ("settings-button");
@@ -95,7 +95,7 @@ public class MainWindow : Gtk.Window {
 
         var sync_button = new Gtk.Button ();
         sync_button.can_focus = false;
-        sync_button.tooltip_text = _("Sync");
+        sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
         sync_button.valign = Gtk.Align.CENTER;
         sync_button.halign = Gtk.Align.CENTER;
         sync_button.get_style_context ().add_class ("sync");

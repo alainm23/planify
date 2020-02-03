@@ -1,6 +1,12 @@
 public class Objects.Area : GLib.Object {
     public int64 id { get; set; default = Planner.utils.generate_id (); }
-    public string name { get; set; default = ""; }
+    
+    public string _name = "";
+    public string name {
+        get { return _name; }
+        set { _name = value.replace ("&", " "); }
+    }
+
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public int collapsed { get; set; default = 1; }
     public int item_order { get; set; default = 0; }

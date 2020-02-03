@@ -1,0 +1,401 @@
+# Kazakh translations for extra package.
+# Copyright (C) 2020 THE extra'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# Automatically generated, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-03 06:04-0500\n"
+"PO-Revision-Date: 2020-02-03 06:04-0500\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/com.github.alainm23.planner.desktop.in:3
+#: data/com.github.alainm23.planner.desktop.in:4
+#: data/com.github.alainm23.planner.appdata.xml.in:7
+msgid "Planner"
+msgstr ""
+
+#: data/com.github.alainm23.planner.desktop.in:5
+#: data/com.github.alainm23.planner.appdata.xml.in:8
+msgid "Never worry about forgetting things again"
+msgstr ""
+
+#: data/com.github.alainm23.planner.desktop.in:8
+msgid "com.github.alainm23.planner"
+msgstr ""
+
+#: data/com.github.alainm23.planner.desktop.in:12
+msgid "development;task;tasks;project;todo;event;events;calendar;todoist;"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:10
+msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:12
+msgid "🚀️ Planner 2 is here..."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:14
+#: data/com.github.alainm23.planner.appdata.xml.in:74
+msgid "🚀️ Complete redesign of the UI."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:15
+#: data/com.github.alainm23.planner.appdata.xml.in:75
+msgid "🏅️ New icon."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:16
+#: data/com.github.alainm23.planner.appdata.xml.in:76
+msgid "🤚️ Drag and Order arrived: Sort your tasks wherever you want."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:17
+#: data/com.github.alainm23.planner.appdata.xml.in:77
+msgid "💯️ Progress indicator for each project."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:18
+#: data/com.github.alainm23.planner.appdata.xml.in:78
+msgid "💪️ Be more productive and organize your tasks by 'Sections'."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:19
+#: data/com.github.alainm23.planner.appdata.xml.in:79
+msgid "📅️ Visualize your events and plan your day better."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:20
+#: data/com.github.alainm23.planner.appdata.xml.in:80
+msgid ""
+"💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you "
+"want."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:21
+#: data/com.github.alainm23.planner.appdata.xml.in:81
+msgid ""
+"⏲️ Improved reminder system, now you can create one or more reminders, you "
+"decide."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:22
+#: data/com.github.alainm23.planner.appdata.xml.in:82
+msgid "🌙️ Better integration with the dark theme."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:23
+#: data/com.github.alainm23.planner.appdata.xml.in:85
+msgid "🎉️ and much more."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:26
+msgid "How Planner works:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:27
+msgid ""
+"1. Collect your Ideas - The Inbox is your default task list in Planner. When "
+"you add a task, it goes straight to your Inbox unless you specify that the "
+"task goes into a project."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:28
+msgid ""
+"2. Get Organized - Create a project for each of your goals, then add the "
+"steps to reach them. Review these regularly to stay on top of things."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:29
+msgid ""
+"3. Calendar and Events - See your calendar events and plan your time "
+"effectively. Planner will remind you on the right day."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:30
+msgid ""
+"4. Be even more organized - Add a duedate to your tasks, create labels, use "
+"checklists."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:32
+msgid "☁️ Support for Todoist:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:34
+msgid "Synchronize your Projects, Task and Sections thanks to Todoist."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:35
+msgid ""
+"Support for Todoist offline: Work without an internet connection and when "
+"everything is reconnected it will be synchronized."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:37
+msgid "* Planner not created by, affiliated with, or supported by Doist"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:39
+msgid "💎️ Other features:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:41
+msgid "⏲️ Reminders notifications"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:42
+msgid "🔍️ Quick Find"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:43
+msgid "🌙️ Night mode"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:52
+msgid "The keyboard shortcuts arrived, design improvements and more."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:54
+msgid ""
+"Now you can use keyboard shortcuts to be more productive: See the list of "
+"full keyboard shortcuts in the preferences."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:55
+msgid "Now you can share your tasks as text or markdown."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:56
+msgid "A financing page was added in the preferences."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:57
+msgid ""
+"Planner menus have been redesigned. Making it more beautiful and productive."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:58
+msgid ""
+"Planner doesn't freeze when the position of a project, section or task is "
+"ordered."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:59
+msgid "[GitHub #181] - You can log out of your Todoist account."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:60
+msgid ""
+"[GitHub #158] - The project panel was resized making it more compact and "
+"aesthetic."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:61
+msgid ""
+"[GitHub #156] - Now you can create an easier reminder by pressing the RETURN "
+"key."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:62
+msgid "[GitHub #147] - Badge count is not displayed when the system startup."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:63
+msgid "[GitHub #138] - Fixing website address."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:64
+msgid "[GitHub #136] - Add new task button disappears."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:65
+msgid ""
+"[GitHub #145, #146] - The way to create the tutorial project was improved."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:66
+msgid "[GitHub #152, #149] - Fixed some bugs with Quick Find."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:72
+msgid "Planner 2 is here..."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:83
+msgid "☁️ Synchronize your Projects, Task and Sections thanks to Todoist."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:84
+msgid ""
+"👷️ Support for Todoist offline: Work without an internet connection and when "
+"everything is reconnected it will be synchronized."
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:92
+msgid "New features:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:94
+msgid "Labels preview"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:95
+msgid "Weather forecast"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:97
+#: data/com.github.alainm23.planner.appdata.xml.in:110
+#: data/com.github.alainm23.planner.appdata.xml.in:129
+#: data/com.github.alainm23.planner.appdata.xml.in:145
+msgid "Translations:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:99
+msgid "Lithuanian (welaq)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:105
+#: data/com.github.alainm23.planner.appdata.xml.in:118
+msgid "Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:107
+msgid "Redesign 'Labels' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:108
+msgid "Fix Notification error"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:112
+msgid "Updating French translations 🇫🇷 (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:120
+msgid "Better reminder notifications"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:121
+msgid "Improvement default theme"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:122
+msgid "Redesign 'When' popover"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:123
+msgid "New 'About' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:124
+msgid "New 'Credits' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:125
+msgid "Redesign 'Issues' view"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:126
+msgid "New task search"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:127
+msgid "Adding support to import and export projects"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:131
+msgid "German (kr428)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:132
+msgid "French (NathanBnm)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:133
+msgid "Update Spanish translation"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:139
+msgid "New feature: Support for Github Issues"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:141
+msgid "Connect with your Github account"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:142
+msgid "Receive all your issue as tasks in Inbox"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:143
+msgid "Planner will notify you if any new issue was posted"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:147
+msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:148
+msgid "Romanian (Prongs Dark)"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:150
+msgid "Bugs and Improvements:"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:152
+msgid "Performance improvement"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:153
+msgid "Design improvements"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:154
+msgid "Fix #22"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:155
+msgid "Fix #21"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:156
+msgid "Fix #11"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:162
+msgid "Improved stability and some bug fixes"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:164
+msgid "Fixing critical bug with creating tasks from the clipboard #19"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:165
+msgid "Adding new tooltips"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:171
+msgid "Hola Planner !!!"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:173
+msgid "Adding Spanish translations"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:179
+msgid "Initial release"
+msgstr ""
+
+#: data/com.github.alainm23.planner.appdata.xml.in:220
+msgid "Alain M."
+msgstr ""

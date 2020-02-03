@@ -8,6 +8,8 @@ src/Services/LabelsController.vala
 src/Services/Notifications.vala
 src/Services/Calendar/Util.vala
 src/Services/Calendar/CalendarModel.vala
+src/Services/DBusServer.vala
+src/Services/CustomShortcutSettings.vala
 
 src/Widgets/ActionRow.vala
 src/Widgets/Pane.vala
@@ -35,6 +37,10 @@ src/Widgets/QuickFind.vala
 src/Widgets/SourceItem.vala
 src/Widgets/ReminderButton.vala
 src/Widgets/ReminderRow.vala
+src/Widgets/ColorGrid.vala
+src/Widgets/NewSection.vala
+src/Widgets/Placeholder.vala
+src/Widgets/NewLabel.vala
 
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
@@ -50,6 +56,7 @@ src/Views/Project.vala
 
 src/Dialogs/TodoistOAuth.vala
 src/Dialogs/Preferences.vala
+src/Dialogs/ProjectSettings.vala
 
 src/Objects/Project.vala
 src/Objects/Item.vala
@@ -58,6 +65,5 @@ src/Objects/Section.vala
 src/Objects/Label.vala
 src/Objects/Collaborator.vala
 src/Objects/Reminder.vala
-
-data/com.github.alainm23.planner.desktop.in
-data/com.github.alainm23.planner.appdata.xml.in
+src/Objects/Queue.vala
+src/Objects/Shortcuts.vala

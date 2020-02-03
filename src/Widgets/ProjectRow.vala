@@ -123,6 +123,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_button.halign = Gtk.Align.CENTER;
         menu_button.can_focus = false;
         menu_button.image = menu_icon;
+        menu_button.tooltip_text = _("Project Menu");
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         menu_button.get_style_context ().add_class ("dim-label");
         menu_button.get_style_context ().add_class ("menu-button");
@@ -228,6 +229,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
+                project.name = p.name;
+                project.color = p.color;
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
             }
@@ -456,7 +459,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        move_area_menu = new Widgets.ImageMenuItem (_("Move to area"), "planner-work-area-symbolic");
+        move_area_menu = new Widgets.ImageMenuItem (_("Move to Area"), "planner-work-area-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);
 
