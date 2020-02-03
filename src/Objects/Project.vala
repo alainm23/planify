@@ -83,4 +83,12 @@ public class Objects.Project : GLib.Object {
 
         return generator.to_data (null);
     }
+
+    public void share_text () {
+
+    }
+
+    public void share_markdown () {
+
+    }
 }

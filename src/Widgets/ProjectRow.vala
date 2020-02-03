@@ -514,5 +514,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
+
+        share_text_menu.activate.connect (() => {
+            project.share_text ();
+        });
+
+        share_markdown_menu.activate.connect (() => {
+            project.share_markdown ();
+        });
     }
 }

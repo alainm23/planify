@@ -57,4 +57,3 @@ To install, use `ninja install`, then execute with `com.github.alainm23.planner`
 If you like Planner and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23) or [PayPal](https://www.paypal.me/alainm23)
 
 Made with 💗 in Perú
-

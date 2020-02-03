@@ -585,6 +585,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
+
+        share_text_menu.activate.connect (() => {
+            section.share_text ();
+        });
+
+        share_markdown_menu.activate.connect (() => {
+            section.share_markdown ();
+        });
     }
 
     public void add_all_items () {            

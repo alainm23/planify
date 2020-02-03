@@ -80,4 +80,12 @@ public class Objects.Section : GLib.Object {
 
         return generator.to_data (null);
     }
+
+    public void share_text () {
+
+    }
+
+    public void share_markdown () {
+        
+    }
 }
