@@ -180,7 +180,7 @@ msgstr ""
 "bene quando hai più di 30 compiti in lizza per la tua attenzione contemporaneamente. Ecco perché"
 "il primo passo per organizzare il tuo lavoro e la tua vita è ottenere tutto dalla"
 "tua testa e il tuo elenco di cose da fare. Da lì puoi iniziare a organizzare la"
-"priorità in modo da sapere esattamente su cosa si deve concentrarsi e quando.
+"priorità in modo da sapere esattamente su cosa si deve concentrarsi e quando."
 
 #: src/Utils.vala:559
 msgid "Adding new tasks"
@@ -211,7 +211,7 @@ msgstr ""
 "- Se sai che devi eseguire l'attività in un determinato giorno, fai clic su"
 "icona del calendario e seleziona una data.\n"
 "- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona"
-"Opzione "\"senza data\."
+"\"l'opzione\" senza data."
 
 #: src/Utils.vala:573
 msgid "How to use projects"
@@ -232,7 +232,7 @@ msgstr ""
 "- Sia che tu stia pianificando una presentazione, preparando un evento o creando"
 "un sito Web, crea un progetto in modo che tutti i dettagli importanti vengano salvati in un"
 "posto centrale.\n"
-"- Nel menu di navigazione a sinistra, in basso, fai clic sul simbolo +.\n"
+"- Nel menu di navigazione a sinistra, in basso, fai clic sul simbolo.\n"
 "- Nel menu delle opzioni seleziona" Progetto "e digita il nome del tuo nuovo"
 "Progetto.\n"
 "- Seleziona una fonte dal menu a discesa.\n"
@@ -413,7 +413,7 @@ msgid ""
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 "Pianifica la tua settimana in anticipo con la vista Imminente. Mostra tutto sulla tua"
-"agenda per i prossimi giorni: cose da fare e eventi del calendario programmati".
+"agenda per i prossimi giorni: cose da fare e eventi del calendario programmati."
 
 #: src/Widgets/Pane.vala:49
 msgid "Back-Pocket"
@@ -925,7 +925,7 @@ msgid ""
 "it.""
 msgstr ""
 "Questo processo rimuove tutte le informazioni memorizzate senza la possibilità di
-"annullarlo.""
+"annullarlo."
 
 #: src/Dialogs/Preferences.vala:483
 msgid ""
@@ -941,7 +941,7 @@ msgid ""
 "All the shortcuts to save you time! Some can be used anywhere in the app, "
 "while others only work when adding or editing tasks."
 msgstr ""
-"Tutte le scorciatoie per farti risparmiare tempo! Alcune possono essere utilizzate ovunque nell'app",
+"Tutte le scorciatoie per farti risparmiare tempo! Alcune possono essere utilizzate ovunque nell'app,"
 "mentre le altre funzionano solo quando si aggiungono o modificano attività."
 
 #: src/Dialogs/Preferences.vala:621
@@ -1072,7 +1072,7 @@ msgid ""
 "want."
 msgstr ""
 "💎️ Pulsante magico arrivato: trascina la selezione e crea le tue attività ovunque tu"
-"voglia".
+"voglia."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 #: data/com.github.alainm23.planner.appdata.xml.in:81
@@ -1196,7 +1196,7 @@ msgstr "Una pagina di finanziamento è stata aggiunta nelle preferenze."
 msgid ""
 "Planner menus have been redesigned. Making it more beautiful and productive."
 msgstr ""
-"I menu del pianificatore sono stati riprogettati. Rendendolo più bello e produttivo.
+"I menu del pianificatore sono stati riprogettati. Rendendolo più bello e produttivo."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:58
 msgid ""
@@ -1242,7 +1242,7 @@ msgstr "[GitHub # 136] - Il pulsante aggiungi nuova attività scompare."
 msgid ""
 "[GitHub #145, #146] - The way to create the tutorial project was improved."
 msgstr ""
-"[GitHub # 145, # 146] - È stato migliorato il modo di creare il progetto tutorial.
+"[GitHub # 145, # 146] - È stato migliorato il modo di creare il progetto tutorial."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:66
 msgid "[GitHub #152, #149] - Fixed some bugs with Quick Find."
