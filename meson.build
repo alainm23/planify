@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.1')
+        version: '2.2')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -80,6 +80,7 @@ executable(
     'src/Widgets/ColorGrid.vala',
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',
+    'src/Widgets/NewLabel.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',

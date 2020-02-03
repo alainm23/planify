@@ -116,8 +116,8 @@ public class Planner : Gtk.Application {
 
         utils.apply_theme_changed ();
 
-        Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
-        Gtk.Settings.get_default().set_property("gtk-theme-name", "elementary");
+        Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
+        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
     }
 
     public override int command_line (ApplicationCommandLine command_line) {

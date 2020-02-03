@@ -78,9 +78,14 @@ public class PlannerQuickAdd : Gtk.Application {
 
         // CSS provider
         var provider = new Gtk.CssProvider ();
-        provider.load_from_data (CSS, CSS.length);
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        
+
+        try {
+            provider.load_from_data (CSS, CSS.length);
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);    
+        } catch (Error e) {
+            debug (e.message);
+        }
+
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");

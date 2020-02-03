@@ -623,12 +623,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 }
 
                 if (upcoming != null) {
-                    print ("Entro aqui\n"); 
                     date_label_revealer.reveal_child = false;
 
-                    print ("Nueva fecha: %s\n".printf (datetime.to_string ())); 
-                    print ("Upcoming: %s\n".printf (upcoming.to_string ())); 
-                    
                     if (Granite.DateTime.is_same_day (datetime, upcoming) == false) {
                         hide_item ();
 

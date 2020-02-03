@@ -11,6 +11,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Revealer listbox_revealer;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer action_revealer;
+    public Gtk.Revealer main_revealer;
     private Gtk.Menu menu = null;
 
     private uint timeout;
@@ -167,7 +168,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox_revealer, false, false, 0);
 
-        add (main_box);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (main_box);
+
+        add (main_revealer);
         add_all_projects ();
         build_drag_and_drop ();
 
@@ -515,7 +521,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Planner.database.move_project (project, 0);
         }
 
-        destroy ();
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
+        });
     }
 
     private void delete_projects () {
@@ -526,6 +537,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             }
         }
 
-        destroy ();
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
+        });
     }
 }

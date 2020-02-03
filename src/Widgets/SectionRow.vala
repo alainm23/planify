@@ -330,7 +330,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         Planner.database.section_deleted.connect ((s) => {
             if (section.id == s.id) {
-                destroy ();
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
 
@@ -354,7 +359,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         Planner.todoist.section_moved_completed.connect ((id) => {
             if (section.id == id) {
-                destroy ();
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
 

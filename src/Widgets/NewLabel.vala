@@ -1,28 +1,36 @@
-public class Widgets.LabelRow : Gtk.ListBoxRow {
-    public Objects.Label label { get; construct; }
-    public Gtk.Entry name_entry;
+public class Widgets.NewLabel : Gtk.EventBox {
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton color_button;
-    private Gtk.Revealer buttons_revealer;
-    public Gtk.Revealer main_revealer;
+    private Gtk.Entry name_entry;
+
     private int color_selected = 30;
-
-    public LabelRow (Objects.Label label) {
-        Object (
-            label: label
-        );
-    }
-
+    
     construct {
-        color_selected = label.color;
-        can_focus = false;
-        get_style_context ().add_class ("label-row");
+        var add_image = new Gtk.Image ();
+        add_image.gicon = new ThemedIcon ("list-add-symbolic");
+        add_image.pixel_size = 16;
 
+        var add_label = new Gtk.Label (_("Add Label"));
+        add_label.margin_start = 3;
+        add_label.get_style_context ().add_class ("font-weight-600");
+
+        var add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        add_box.margin_start = 14;
+        add_box.margin_top = 6;
+        add_box.margin_bottom = 6;
+        add_box.pack_start (add_image, false, false, 0);
+        add_box.pack_start (add_label, false, false, 0);
+
+        var add_eventbox = new Gtk.EventBox ();
+        add_eventbox.hexpand = true;
+        add_eventbox.add (add_box);
+
+        // Entry
         color_button = new Gtk.ToggleButton ();
         color_button.valign = Gtk.Align.CENTER;
         color_button.get_style_context ().add_class ("flat");
         color_button.get_style_context ().add_class ("delete-check-button");
-        color_button.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
+        color_button.get_style_context ().add_class ("label-preview");
 
         var color_image = new Gtk.Image ();
         color_image.gicon = new ThemedIcon ("tag-symbolic");
@@ -31,68 +39,83 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         color_button.add (color_image);
 
         name_entry = new Gtk.Entry ();
-        name_entry.text = label.name;
-        name_entry.placeholder_text = _("Home");
+        name_entry.get_style_context ().add_class ("font-weight-600");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("check-entry");
-        name_entry.get_style_context ().add_class ("font-weight-600");
         name_entry.hexpand = true;
+        name_entry.valign = Gtk.Align.CENTER;
 
-        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
-        delete_button.valign = Gtk.Align.CENTER;
-        delete_button.can_focus = false;
-        delete_button.get_style_context ().add_class ("flat");
-        delete_button.get_style_context ().add_class ("delete-check-button");
+        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("flat");
+        cancel_button.get_style_context ().add_class ("font-weight-600");
+        cancel_button.get_style_context ().add_class ("no-padding");
 
-        buttons_revealer = new Gtk.Revealer ();
-        buttons_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        buttons_revealer.add (delete_button);
+        var entry_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        entry_box.margin_end = 3;
+        entry_box.margin_start = 6;
+        entry_box.pack_start (color_button, false, false, 0);
+        entry_box.pack_start (name_entry, false, true, 0);
+        entry_box.pack_end (cancel_button, false, true, 0);
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.margin_start = 6;
-        //box.margin_end = 12;
-        box.margin_top = 3;
-        box.margin_bottom = 3;
-        box.pack_start (color_button, false, false, 0);
-        box.pack_start (name_entry, false, true, 0);
-        box.pack_end (buttons_revealer, false, true, 0);
+        var stack = new Gtk.Stack ();
+        stack.get_style_context ().add_class ("view");
+        stack.hexpand = true;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        stack.add_named (add_eventbox, "label");
+        stack.add_named (entry_box, "entry");
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.pack_start (box, false, false, 0);
+        main_box.pack_start (stack, false, true, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
-        var handle = new Gtk.EventBox ();
-        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        handle.add (main_box);
+        add (main_box);
+        apply_styles (Planner.utils.get_color (color_selected));
 
-        main_revealer = new Gtk.Revealer ();
-        main_revealer.reveal_child = true;
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (handle);
-
-        add (main_revealer);
-
-        handle.enter_notify_event.connect ((event) => {
-            buttons_revealer.reveal_child = true;
-
-            return true;
-        });
-
-        handle.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-            
-            if (color_button.active == false) {
-                buttons_revealer.reveal_child = false;
+        add_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
+                name_entry.grab_focus ();
+                stack.visible_child_name = "entry";
+                return true;
             }
 
-            return true;
+            return false;
         });
 
-        delete_button.clicked.connect (() => {
-            Planner.database.delete_label (label);
+        name_entry.activate.connect (() => {
+            if (name_entry.text != "") {
+                var label = new Objects.Label ();
+                label.name = name_entry.text;
+                label.color = color_selected;
+                Planner.database.insert_label (label);
+
+                name_entry.text = "";
+                stack.visible_child_name = "label";
+            }
         });
+
+        name_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                name_entry.text = "";
+                stack.visible_child_name = "label";
+            }
+
+            return false;
+        });
+
+        cancel_button.clicked.connect (() => {
+            name_entry.text = "";
+            stack.visible_child_name = "label";
+        });
+
+        //  name_entry.focus_out_event.connect (() => {
+        //      if (color_button.active == false) {
+        //          name_entry.text = "";
+        //          stack.visible_child_name = "label";
+        //      }
+
+        //      return false;
+        //  });
 
         color_button.toggled.connect (() => {
             if (color_button.active) {
@@ -103,28 +126,6 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
                 popover.show_all ();
             }
         });
-
-        name_entry.changed.connect (() => {
-            save ();
-        }); 
-        
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
-            }
-        });
-    }
-    
-    private void save () {
-        label.name = name_entry.text;
-        label.color = color_selected;
-
-        label.save ();
     }
 
     private void create_popover () {
@@ -291,107 +292,132 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         popover.add (popover_grid);
 
         popover.closed.connect (() => {
-            buttons_revealer.reveal_child = false;
             color_button.active = false;
+            name_entry.grab_focus ();
         });
 
         color_30.toggled.connect (() => {
             color_selected = 30;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_31.toggled.connect (() => {
             color_selected = 31;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_32.toggled.connect (() => {
             color_selected = 32;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_33.toggled.connect (() => {
             color_selected = 33;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_34.toggled.connect (() => {
             color_selected = 34;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_35.toggled.connect (() => {
             color_selected = 35;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_36.toggled.connect (() => {
             color_selected = 36;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_37.toggled.connect (() => {
             color_selected = 37;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_38.toggled.connect (() => {
             color_selected = 38;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_39.toggled.connect (() => {
             color_selected = 39;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_40.toggled.connect (() => {
             color_selected = 40;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_41.toggled.connect (() => {
             color_selected = 41;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_42.toggled.connect (() => {
             color_selected = 42;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_43.toggled.connect (() => {
             color_selected = 43;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_44.toggled.connect (() => {
             color_selected = 44;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_45.toggled.connect (() => {
             color_selected = 45;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_46.toggled.connect (() => {
             color_selected = 46;
+            apply_styles (Planner.utils.get_color (color_selected));
         });
 
         color_47.toggled.connect (() => {
             color_selected = 47;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
+            
         });
 
         color_48.toggled.connect (() => {
             color_selected = 48;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
+            
         });
 
         color_49.toggled.connect (() => {
             color_selected = 49;
-            save ();
+            apply_styles (Planner.utils.get_color (color_selected));
         });
+    }
+
+    private void apply_styles (string color) {
+        string COLOR_CSS = """
+            .label-preview image {
+                color: %s;
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var colored_css = COLOR_CSS.printf (
+                color
+            );
+            
+            provider.load_from_data (colored_css, colored_css.length);
+
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
     }
 }

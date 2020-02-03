@@ -231,9 +231,7 @@ public class Widgets.Pane : Gtk.EventBox {
         Planner.utils.select_pane_project.connect ((project_id) => {
             project_listbox.foreach ((widget) => {
                 var row = (Widgets.ProjectRow) widget;
-
-                print ("AAA-%s\n".printf (row.project.name));
-
+                
                 if (row.project.id == project_id) {
                     project_listbox.select_row (row);
                 }

@@ -419,6 +419,10 @@ paned > separator {
     padding-right: 0px;
 }
 
+.no-padding-left {
+    padding-left: 0px;
+}
+
 .itemview {
     border-radius: 6px;
     border: 1px solid alpha (#000, 0.3);
@@ -805,15 +809,6 @@ paned > separator {
     font-size: 12px;
     font-weight: 600;
     color: @text_color;
-}
-
-.label-preview {
-    background: @bg_color;
-    padding : 0px 6px 0px 3px;
-    border-radius: 12px;
-    margin-left: 6px;
-    font-size: 11px;
-    border: 1px solid shade (@bg_color, 0.75);
 }
 
 .no-padding {

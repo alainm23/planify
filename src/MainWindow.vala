@@ -286,6 +286,8 @@ public class MainWindow : Gtk.Window {
             if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
+
+                pane.select_item (0);
             }
         });
         

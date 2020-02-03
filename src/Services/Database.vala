@@ -1664,6 +1664,29 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_label_item_order (int64 id, int item_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Labels SET item_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.DONE) {
+            //updated_playlist (playlist);
+        }
+    }
+
     public int get_project_count (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -1758,19 +1781,6 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-
-        sql = """
-            SELECT COUNT (*) FROM Labels;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            label.item_order = stmt.column_int (0);
-        }
-
-        stmt.reset ();
 
         sql = """
             INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite)
