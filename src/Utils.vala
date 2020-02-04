@@ -542,7 +542,7 @@ public class Utils : GLib.Object {
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
             if (shortcut.command == "planner-quick-add") {
-                // CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
+                Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
                 has_shortcut = true;
                 return;
             }

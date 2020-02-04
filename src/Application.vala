@@ -32,7 +32,7 @@ public class Planner : Gtk.Application {
     public signal void go_view (string type, int64 id, int64 id_2);
 
     private bool silence = false;
-    
+
     public Planner () {
         Object (
             application_id: "com.github.alainm23.planner",
@@ -120,7 +120,12 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Set shortcut
-        utils.set_quick_add_shortcut ("<Alt>a");
+        string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
+        if (quick_add_shortcut == "") {
+            quick_add_shortcut = "<Primary>Tab";
+            settings.set_string ("quick-add-shortcut", quick_add_shortcut);
+        }
+        utils.set_quick_add_shortcut (quick_add_shortcut);
     }
 
     public override int command_line (ApplicationCommandLine command_line) {

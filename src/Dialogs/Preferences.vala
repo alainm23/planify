@@ -412,25 +412,131 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
-        var inbox_only_switch = new PreferenceItemSwitch (_("Save last selected project"), Planner.settings.get_boolean ("quick-add-save-last-project"), false);
+        var shortcut_label = new Gtk.Label ("Keyboard Shortcuts");
+        shortcut_label.get_style_context ().add_class ("font-weight-600");
+
+        string keys = Planner.settings.get_string ("quick-add-shortcut");
+        uint accelerator_key;
+        Gdk.ModifierType accelerator_mods;
+        Gtk.accelerator_parse (keys, out accelerator_key, out accelerator_mods);
+        var shortcut_hint = Gtk.accelerator_get_label (accelerator_key, accelerator_mods);
+
+        var accels = new ShortcutLabel (shortcut_hint.split ("+"));
+        accels.halign = Gtk.Align.END;
+
+        var keybinding_toggle_recording_button = new Gtk.ToggleButton.with_label (_ ("Change"));
+        keybinding_toggle_recording_button.valign = Gtk.Align.CENTER;
         
+        var shortcut_stack = new Gtk.Stack ();
+        shortcut_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        
+        shortcut_stack.add_named (accels, "accels");
+        shortcut_stack.add_named (keybinding_toggle_recording_button, "button");
+
+        var shortcut_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        shortcut_box.margin_start = 12;
+        shortcut_box.margin_top = 3;
+        shortcut_box.margin_bottom = 3;
+        shortcut_box.margin_end = 12;
+        shortcut_box.pack_start (shortcut_label, false, false, 0);
+        shortcut_box.pack_end (shortcut_stack, false, false, 0);
+
+        var shortcut_v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        shortcut_v_box.margin_top = 6;
+        shortcut_v_box.get_style_context ().add_class ("view");
+        shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        shortcut_v_box.add (shortcut_box);
+        shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var shortcut_eventbox = new Gtk.EventBox ();
+        shortcut_eventbox.add (shortcut_v_box);
+
+        var save_last_switch = new PreferenceItemSwitch (_("Save last selected project"), Planner.settings.get_boolean ("quick-add-save-last-project"));
+        save_last_switch.margin_top = 6;
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
-        main_box.pack_start (inbox_only_switch, false, false, 0);
-        //main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (shortcut_eventbox, false, false, 0);
+        main_box.pack_start (save_last_switch, false, false, 0);
+
+        shortcut_eventbox.enter_notify_event.connect ((event) => {
+            shortcut_stack.visible_child_name = "button";
+            return true;
+        });
+
+        shortcut_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            if (keybinding_toggle_recording_button.active == false) {
+                shortcut_stack.visible_child_name = "accels";
+            }
+            
+            return true;
+        });
         
         info_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
         });
 
-        inbox_only_switch.activated.connect ((value) => {
+        save_last_switch.activated.connect ((value) => {
             Planner.settings.set_boolean ("quick-add-save-last-project", value);
         });
 
+        keybinding_toggle_recording_button.toggled.connect (() => {
+            if (keybinding_toggle_recording_button.active) {
+                keybinding_toggle_recording_button.label = _ ("Press keys…");
+            } else {
+                keybinding_toggle_recording_button.label = _ ("Change");
+            }
+        });
+
+         // Listen to key events on the window for setting keyboard shortcuts
+        this.key_release_event.connect ((event) => {
+            if (keybinding_toggle_recording_button.active) {
+                keybinding_toggle_recording_button.active = false;
+    
+                if (event.keyval == Gdk.Key.Escape && no_modifier_set (event.state)) {
+                    return true;
+                } else if (event.keyval == Gdk.Key.BackSpace && no_modifier_set (event.state)) {
+                    Planner.settings.set_string ("quick-add-shortcut", "");
+                } else if (event.is_modifier == 0) {
+                    var mods = event.state & Gtk.accelerator_get_default_mod_mask ();
+                    string accelerator = Gtk.accelerator_name (event.keyval, mods);
+                    Planner.settings.set_string ("quick-add-shortcut", accelerator);
+                }
+    
+                return true;
+            }
+
+            shortcut_stack.visible_child_name = "accels";
+
+            return false;
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "quick-add-shortcut") {
+                string _keys = Planner.settings.get_string ("quick-add-shortcut");
+                uint _accelerator_key;
+                Gdk.ModifierType _accelerator_mods;
+                Gtk.accelerator_parse (_keys, out _accelerator_key, out _accelerator_mods);
+                var _shortcut_hint = Gtk.accelerator_get_label (_accelerator_key, _accelerator_mods);
+
+                accels.update_accels (_shortcut_hint.split ("+"));
+                
+                // Set shortcut
+                Planner.utils.set_quick_add_shortcut (_keys);
+            }
+        });
+
         return main_box;
+    }
+    
+    private static bool no_modifier_set (Gdk.ModifierType mods) {
+        return (mods & Gtk.accelerator_get_default_mod_mask ()) == 0;
     }
 
     private Gtk.Widget get_general_widget () {
@@ -1314,6 +1420,14 @@ public class ShortcutLabel : Gtk.Grid {
         valign = Gtk.Align.CENTER;
         column_spacing = 6;
 
+        update_accels (accels);
+    }
+
+    public void update_accels (string[] accels) {
+        foreach (var child in this.get_children ()) {
+            child.destroy ();
+        }
+
         if (accels[0] != "") {
             foreach (unowned string accel in accels) {
                 if (accel == "") {
@@ -1328,6 +1442,8 @@ public class ShortcutLabel : Gtk.Grid {
             label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             add (label);
         }
+
+        show_all ();
     }
 }
 

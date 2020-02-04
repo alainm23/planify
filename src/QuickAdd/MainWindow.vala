@@ -109,7 +109,7 @@ public class MainWindow : Gtk.Window {
         
         list_store = new Gtk.ListStore (3, typeof (Project), typeof (string), typeof (string));
         project_combobox = new Gtk.ComboBox.with_model (list_store);
-        project_combobox.margin_end = 6;
+        project_combobox.margin = 6;
         project_combobox.valign = Gtk.Align.CENTER;
 
         Gtk.TreeIter iter;
@@ -161,8 +161,8 @@ public class MainWindow : Gtk.Window {
 
         var action_bar = new Gtk.ActionBar ();
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (action_grid);
-        action_bar.pack_end (project_combobox);
+        action_bar.pack_start (project_combobox);
+        action_bar.pack_end (action_grid);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
