@@ -67,12 +67,12 @@ msgstr "💯️ Indicatore di avanzamento per ciascun progetto."
 #: data/com.github.alainm23.planner.appdata.xml.in:18
 #: data/com.github.alainm23.planner.appdata.xml.in:78
 msgid "💪️ Be more productive and organize your tasks by 'Sections'."
-msgstr "💪️ Sii più produttivo e organizza i tuoi compiti per "Sezioni."
+msgstr "💪️ Sii più produttivo e organizza i tuoi compiti per 'Sezioni'."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:19
 #: data/com.github.alainm23.planner.appdata.xml.in:79
 msgid "📅️ Visualize your events and plan your day better."
-msgstr ""📅️ Visualizza i tuoi eventi e pianifica meglio la tua giornata."
+msgstr "📅️ Visualizza i tuoi eventi e pianifica meglio la tua giornata."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:20
 #: data/com.github.alainm23.planner.appdata.xml.in:80
@@ -142,7 +142,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:32
 msgid "☁️ Support for Todoist:"
-msgstr ""☁️ Supporto per Todoist:"
+msgstr "☁️ Supporto per Todoist:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:34
 msgid "Synchronize your Projects, Task and Sections thanks to Todoist."
@@ -194,7 +194,7 @@ msgstr "Ora puoi condividere le tue attività come testo o markdown."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:56
 msgid "A financing page was added in the preferences."
-msgstr ""Una pagina di finanziamento è stata aggiunta nelle preferenze."
+msgstr "Una pagina di finanziamento è stata aggiunta nelle preferenze."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:57
 msgid ""
@@ -258,7 +258,7 @@ msgstr "Planner 2 è qui..."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:83
 msgid "☁️ Synchronize your Projects, Task and Sections thanks to Todoist."
-msgstr ""☁️ Sincronizza i tuoi progetti, compiti e sezioni grazie a Todoist."
+msgstr "☁️ Sincronizza i tuoi progetti, compiti e sezioni grazie a Todoist."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:84
 msgid ""
@@ -298,7 +298,7 @@ msgstr "Miglioramenti:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:107
 msgid "Redesign 'Labels' popover"
-msgstr "Riprogettato il popover "Etichette"
+msgstr "Riprogettato il popover 'Etichette'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:108
 msgid "Fix Notification error"
@@ -318,19 +318,19 @@ msgstr "Tema predefinito di migliorato"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:122
 msgid "Redesign 'When' popover"
-msgstr "Riprogettare il popover "Quando"
+msgstr "Riprogettare il popover 'Quando'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:123
 msgid "New 'About' view"
-msgstr "Nuova vista "Informazioni"
+msgstr "Nuova vista 'Informazioni'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:124
 msgid "New 'Credits' view"
-msgstr "Nuova vista "Crediti"
+msgstr "Nuova vista 'Crediti'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:125
 msgid "Redesign 'Issues' view"
-msgstr "Riprogettata la vista "Problemi"
+msgstr "Riprogettata la vista 'Problemi'"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:126
 msgid "New task search"
