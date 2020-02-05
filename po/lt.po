@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 06:02-0500\n"
+"POT-Creation-Date: 2020-02-05 16:06-0500\n"
 "PO-Revision-Date: 2019-01-29 16:32+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/Application.vala:206 src/Widgets/New.vala:569
+#: src/Application.vala:211 src/Widgets/New.vala:569
 #, fuzzy
 msgid "New area"
 msgstr "Naujas projektas"
@@ -36,7 +36,7 @@ msgstr "Sparti paieška"
 msgid "Preferences"
 msgstr "Nuostatos"
 
-#: src/MainWindow.vala:98 src/Widgets/Pane.vala:299
+#: src/MainWindow.vala:98 src/Widgets/Pane.vala:301
 msgid "Sync"
 msgstr ""
 
@@ -145,33 +145,43 @@ msgstr ""
 msgid "Taupe"
 msgstr ""
 
-#: src/Utils.vala:453 src/Widgets/Pane.vala:47 src/Widgets/ItemRow.vala:1152
+#: src/Utils.vala:453 src/Widgets/Pane.vala:49 src/Widgets/ItemRow.vala:1176
 #: src/Widgets/DueButton.vala:127 src/Views/Today.vala:30
 #: src/Dialogs/Preferences.vala:199 src/Dialogs/Preferences.vala:304
 msgid "Today"
 msgstr "Šiandien"
 
-#: src/Utils.vala:455 src/Widgets/Pane.vala:268 src/Widgets/ItemRow.vala:1155
+#: src/Utils.vala:455 src/Widgets/Pane.vala:270 src/Widgets/ItemRow.vala:1179
 #: src/Widgets/DueButton.vala:131 src/Widgets/UpcomingRow.vala:33
 msgid "Tomorrow"
 msgstr "Rytoj"
 
-#: src/Utils.vala:566
+#: src/Utils.vala:562
+#, fuzzy
+msgid "Quick Add Activated!"
+msgstr "Sparti paieška"
+
+#: src/Utils.vala:563
+#, c-format
+msgid "Try %s to activate it. You can change it from the preferences"
+msgstr ""
+
+#: src/Utils.vala:580
 msgid "🚀️ Getting Started"
 msgstr ""
 
-#: src/Utils.vala:567
+#: src/Utils.vala:581
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
 
-#: src/Utils.vala:572
+#: src/Utils.vala:586
 msgid "Keeping track of your tasks"
 msgstr ""
 
-#: src/Utils.vala:573
+#: src/Utils.vala:587
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -181,23 +191,23 @@ msgid ""
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
 
-#: src/Utils.vala:578
+#: src/Utils.vala:592
 #, fuzzy
 msgid "Adding new tasks"
 msgstr "Pridėti naują užduotį"
 
-#: src/Utils.vala:579
+#: src/Utils.vala:593
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
 
-#: src/Utils.vala:585
+#: src/Utils.vala:599
 msgid "Due dates"
 msgstr ""
 
-#: src/Utils.vala:586
+#: src/Utils.vala:600
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -205,12 +215,12 @@ msgid ""
 "\"undate\" option."
 msgstr ""
 
-#: src/Utils.vala:592
+#: src/Utils.vala:606
 #, fuzzy
 msgid "How to use projects"
 msgstr "Konvertuoti projektą"
 
-#: src/Utils.vala:593
+#: src/Utils.vala:607
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -223,17 +233,17 @@ msgid ""
 "- Click Add to create the project."
 msgstr ""
 
-#: src/Utils.vala:603
+#: src/Utils.vala:617
 #, fuzzy
 msgid "Sections"
 msgstr "Naujas projektas"
 
-#: src/Utils.vala:609
+#: src/Utils.vala:623
 #, fuzzy
 msgid "Add sections"
 msgstr "Vieta"
 
-#: src/Utils.vala:610
+#: src/Utils.vala:624
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -246,59 +256,59 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 
-#: src/Utils.vala:629
+#: src/Utils.vala:643
 #, fuzzy
 msgid "Create a new task"
 msgstr "Sukurti užduotį"
 
-#: src/Utils.vala:630
+#: src/Utils.vala:644
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
 
-#: src/Utils.vala:631
+#: src/Utils.vala:645
 msgid "Create a new area"
 msgstr ""
 
-#: src/Utils.vala:632
+#: src/Utils.vala:646
 #, fuzzy
 msgid "Create a new project"
 msgstr "Sukurti naują projektą"
 
-#: src/Utils.vala:633
+#: src/Utils.vala:647
 #, fuzzy
 msgid "Create a new section"
 msgstr "Ištrinti paskyrą"
 
-#: src/Utils.vala:634
+#: src/Utils.vala:648
 msgid "Open the Inbox"
 msgstr ""
 
-#: src/Utils.vala:635
+#: src/Utils.vala:649
 #, fuzzy
 msgid "Open Today"
 msgstr "Šiandien"
 
-#: src/Utils.vala:636
+#: src/Utils.vala:650
 #, fuzzy
 msgid "Open Upcoming"
 msgstr "Artėjantys"
 
-#: src/Utils.vala:637
+#: src/Utils.vala:651
 #, fuzzy
 msgid "Open Search"
 msgstr "Paieška"
 
-#: src/Utils.vala:638
+#: src/Utils.vala:652
 msgid "Manually sync"
 msgstr ""
 
-#: src/Utils.vala:639
+#: src/Utils.vala:653
 msgid "Quit"
 msgstr ""
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:941 src/Widgets/Pane.vala:39
-#: src/Widgets/ItemRow.vala:1060 src/Widgets/SectionRow.vala:483
+#: src/Services/Database.vala:941 src/Widgets/Pane.vala:41
+#: src/Widgets/ItemRow.vala:1084 src/Widgets/SectionRow.vala:482
 #: src/Views/Inbox.vala:43 src/Dialogs/Preferences.vala:195
 #: src/Dialogs/Preferences.vala:301
 msgid "Inbox"
@@ -365,7 +375,7 @@ msgstr "Visos užduotys"
 msgid "On this computer"
 msgstr "Šiame kompiuteryje"
 
-#: src/Widgets/Pane.vala:39
+#: src/Widgets/Pane.vala:41
 msgid ""
 "Your Inbox is the default place to add new tasks so you can get them out of "
 "your head quickly, then come back and make a plan to take care of them "
@@ -373,37 +383,37 @@ msgid ""
 "you’re doing right now."
 msgstr ""
 
-#: src/Widgets/Pane.vala:47
+#: src/Widgets/Pane.vala:49
 msgid ""
 "The Today view lets you see all the tasks due today across all your "
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
 
-#: src/Widgets/Pane.vala:48 src/Widgets/Pane.vala:49 src/Widgets/Pane.vala:270
+#: src/Widgets/Pane.vala:50 src/Widgets/Pane.vala:51 src/Widgets/Pane.vala:272
 #: src/Views/Upcoming.vala:12 src/Dialogs/Preferences.vala:202
 msgid "Upcoming"
 msgstr "Artėjantys"
 
-#: src/Widgets/Pane.vala:48
+#: src/Widgets/Pane.vala:50
 msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 
-#: src/Widgets/Pane.vala:49
+#: src/Widgets/Pane.vala:51
 msgid "Back-Pocket"
 msgstr ""
 
-#: src/Widgets/Pane.vala:64
+#: src/Widgets/Pane.vala:66
 msgid "Add list"
 msgstr ""
 
-#: src/Widgets/Pane.vala:303
+#: src/Widgets/Pane.vala:305
 msgid "Offline mode is on"
 msgstr ""
 
-#: src/Widgets/Pane.vala:303
+#: src/Widgets/Pane.vala:305
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -424,16 +434,16 @@ msgstr ""
 msgid "Color:"
 msgstr "Spalva"
 
-#: src/Widgets/New.vala:233 src/Widgets/NewItem.vala:70
-#: src/Widgets/ReminderButton.vala:187 src/Widgets/NewSection.vala:58
+#: src/Widgets/New.vala:233 src/Widgets/NewItem.vala:69
+#: src/Widgets/ReminderButton.vala:187 src/Widgets/NewSection.vala:61
 msgid "Add"
 msgstr "Pridėti"
 
 #: src/Widgets/New.vala:238 src/Widgets/New.vala:522
-#: src/Widgets/NewItem.vala:75 src/Widgets/SectionRow.vala:108
+#: src/Widgets/NewItem.vala:74 src/Widgets/SectionRow.vala:109
 #: src/Widgets/AreaRow.vala:119 src/Widgets/ReminderButton.vala:185
-#: src/Widgets/NewSection.vala:63 src/Widgets/NewLabel.vala:48
-#: src/Views/Project.vala:133
+#: src/Widgets/NewSection.vala:66 src/Widgets/NewLabel.vala:48
+#: src/Views/Project.vala:131
 msgid "Cancel"
 msgstr ""
 
@@ -454,7 +464,7 @@ msgstr ""
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:126 src/Views/Project.vala:118
+#: src/Widgets/ProjectRow.vala:126 src/Views/Project.vala:116
 #, fuzzy
 msgid "Project Menu"
 msgstr "Naujas projektas"
@@ -474,9 +484,9 @@ msgid "No Area"
 msgstr ""
 
 #. var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
-#: src/Widgets/ProjectRow.vala:460 src/Widgets/ItemRow.vala:1142
-#: src/Widgets/SectionRow.vala:521 src/Widgets/AreaRow.vala:465
-#: src/Views/Project.vala:696
+#: src/Widgets/ProjectRow.vala:460 src/Widgets/ItemRow.vala:1166
+#: src/Widgets/SectionRow.vala:520 src/Widgets/AreaRow.vala:461
+#: src/Views/Project.vala:691
 msgid "Edit"
 msgstr "Taisyti"
 
@@ -485,108 +495,103 @@ msgstr "Taisyti"
 msgid "Move to Area"
 msgstr "Konvertuoti projektą"
 
-#: src/Widgets/ProjectRow.vala:466 src/Widgets/ItemRow.vala:1169
-#: src/Widgets/SectionRow.vala:527
+#: src/Widgets/ProjectRow.vala:466 src/Widgets/ItemRow.vala:1193
+#: src/Widgets/SectionRow.vala:526
 msgid "Share"
 msgstr "Bendrinti"
 
-#: src/Widgets/ProjectRow.vala:470 src/Widgets/ItemRow.vala:1173
-#: src/Widgets/SectionRow.vala:531
+#: src/Widgets/ProjectRow.vala:470 src/Widgets/ItemRow.vala:1197
+#: src/Widgets/SectionRow.vala:530
 msgid "Text"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:471 src/Widgets/ItemRow.vala:1174
-#: src/Widgets/SectionRow.vala:532
+#: src/Widgets/ProjectRow.vala:471 src/Widgets/ItemRow.vala:1198
+#: src/Widgets/SectionRow.vala:531
 msgid "Markdown"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:477 src/Widgets/ProjectRow.vala:502
-#: src/Widgets/ItemRow.vala:1181 src/Widgets/SectionRow.vala:538
-#: src/Widgets/SectionRow.vala:573 src/Widgets/AreaRow.vala:466
-#: src/Widgets/AreaRow.vala:503 src/Views/Project.vala:699
-#: src/Views/Project.vala:746
+#: src/Widgets/ItemRow.vala:1205 src/Widgets/SectionRow.vala:537
+#: src/Widgets/SectionRow.vala:572 src/Widgets/AreaRow.vala:462
+#: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:694
+#: src/Views/Project.vala:741
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: src/Widgets/ProjectRow.vala:497 src/Views/Project.vala:741
+#: src/Widgets/ProjectRow.vala:497 src/Views/Project.vala:736
 msgid "Delete project"
 msgstr "Ištrinti projektą"
 
-#: src/Widgets/ProjectRow.vala:498 src/Widgets/SectionRow.vala:569
-#: src/Widgets/AreaRow.vala:491 src/Views/Project.vala:742
+#: src/Widgets/ProjectRow.vala:498 src/Widgets/SectionRow.vala:568
+#: src/Widgets/AreaRow.vala:487 src/Views/Project.vala:737
 #, fuzzy, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Ar tikrai norite ištrinti šią etiketę?"
 
-#: src/Widgets/NewItem.vala:51 src/Widgets/ItemRow.vala:261
+#: src/Widgets/NewItem.vala:50 src/Widgets/ItemRow.vala:168
 #: src/Widgets/AreaRow.vala:82 src/Widgets/CheckRow.vala:29
 msgid "Task name"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:129 src/Widgets/ItemRow.vala:883
+#: src/Widgets/ItemRow.vala:134 src/Widgets/ItemRow.vala:895
 msgid "View Details"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:288 src/Views/Project.vala:169
-#, fuzzy
-msgid "Add note"
-msgstr "Pridėti naują projektą"
+#: src/Widgets/ItemRow.vala:316 src/Widgets/ItemCompletedRow.vala:19
+msgid "Note"
+msgstr "Pastaba"
 
-#: src/Widgets/ItemRow.vala:332
+#: src/Widgets/ItemRow.vala:361
 #, fuzzy
 msgid "Add Checklist"
 msgstr "Kontrolinis sąrašas"
 
-#: src/Widgets/ItemRow.vala:339
+#: src/Widgets/ItemRow.vala:368
 msgid "Delete Task"
 msgstr "Ištrinti užduotį"
 
-#: src/Widgets/ItemRow.vala:351
+#: src/Widgets/ItemRow.vala:380
 #, fuzzy
 msgid "Task Menu"
 msgstr "Nustatymai"
 
-#: src/Widgets/ItemRow.vala:864
+#: src/Widgets/ItemRow.vala:878
 msgid "Hiding"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1087
+#: src/Widgets/ItemRow.vala:1111
 #, fuzzy
 msgid "No Section"
 msgstr "Naujas projektas"
 
-#: src/Widgets/ItemRow.vala:1141
+#: src/Widgets/ItemRow.vala:1165
 #, fuzzy
 msgid "Complete"
 msgstr "Užbaigtos užduotys"
 
-#: src/Widgets/ItemRow.vala:1158 src/Widgets/DueButton.vala:135
+#: src/Widgets/ItemRow.vala:1182 src/Widgets/DueButton.vala:135
 #, fuzzy
 msgid "Undated"
 msgstr "Atnaujinti"
 
-#: src/Widgets/ItemRow.vala:1161 src/Widgets/SectionRow.vala:523
+#: src/Widgets/ItemRow.vala:1185 src/Widgets/SectionRow.vala:522
 #, fuzzy
 msgid "Move to Project"
 msgstr "Konvertuoti projektą"
 
-#: src/Widgets/ItemRow.vala:1165
+#: src/Widgets/ItemRow.vala:1189
 #, fuzzy
 msgid "Move to Section"
 msgstr "Vieta"
 
-#: src/Widgets/ItemRow.vala:1180
+#: src/Widgets/ItemRow.vala:1204
 msgid "Duplicate"
 msgstr "Dubliuoti"
 
 #: src/Widgets/ItemCompletedRow.vala:18
 msgid "Content"
 msgstr ""
-
-#: src/Widgets/ItemCompletedRow.vala:19
-msgid "Note"
-msgstr "Pastaba"
 
 #: src/Widgets/ItemCompletedRow.vala:20
 msgid "Due date"
@@ -597,38 +602,38 @@ msgstr ""
 msgid "Date completed"
 msgstr "Slėpti užbaigtas užduotis"
 
-#: src/Widgets/SectionRow.vala:47 src/Widgets/SectionRow.vala:603
+#: src/Widgets/SectionRow.vala:47 src/Widgets/SectionRow.vala:610
 #, fuzzy
 msgid "Display Tasks"
 msgstr "Visos užduotys"
 
-#: src/Widgets/SectionRow.vala:54 src/Widgets/SectionRow.vala:608
+#: src/Widgets/SectionRow.vala:54 src/Widgets/SectionRow.vala:615
 #, fuzzy
 msgid "Hiding Tasks"
 msgstr "Pridėti naują užduotį"
 
-#: src/Widgets/SectionRow.vala:72 src/Widgets/NewSection.vala:46
+#: src/Widgets/SectionRow.vala:72 src/Widgets/NewSection.vala:49
 #, fuzzy
 msgid "Section name"
 msgstr "Projekto pavadinimas"
 
-#: src/Widgets/SectionRow.vala:86
+#: src/Widgets/SectionRow.vala:87
 #, fuzzy
 msgid "Section Menu"
 msgstr "Projekto pavadinimas"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
-#: src/Widgets/SectionRow.vala:103 src/Widgets/AreaRow.vala:114
-#: src/Views/Project.vala:128 src/Dialogs/ProjectSettings.vala:214
+#: src/Widgets/SectionRow.vala:104 src/Widgets/AreaRow.vala:114
+#: src/Views/Project.vala:126 src/Dialogs/ProjectSettings.vala:214
 msgid "Save"
 msgstr ""
 
-#: src/Widgets/SectionRow.vala:519 src/Widgets/MagicButton.vala:11
+#: src/Widgets/SectionRow.vala:518 src/Widgets/MagicButton.vala:11
 #, fuzzy
 msgid "Add Task"
 msgstr "Pridėti naują užduotį"
 
-#: src/Widgets/SectionRow.vala:568
+#: src/Widgets/SectionRow.vala:567
 #, fuzzy
 msgid "Delete section"
 msgstr "Ištrinti paskyrą"
@@ -638,7 +643,7 @@ msgid "Due Date"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:14 src/Dialogs/Preferences.vala:89
-#: src/Dialogs/Preferences.vala:523
+#: src/Dialogs/Preferences.vala:629
 msgid "Labels"
 msgstr "Etiketės"
 
@@ -660,22 +665,22 @@ msgstr "Taisyti etiketę"
 msgid "Undo"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:53 src/Widgets/AreaRow.vala:314
+#: src/Widgets/AreaRow.vala:53 src/Widgets/AreaRow.vala:310
 #, fuzzy
 msgid "Display Projects"
 msgstr "Naujas projektas"
 
-#: src/Widgets/AreaRow.vala:97 src/Widgets/AreaRow.vala:319
+#: src/Widgets/AreaRow.vala:97 src/Widgets/AreaRow.vala:315
 #, fuzzy
 msgid "Hiding Projects"
 msgstr "Naujas projektas"
 
-#: src/Widgets/AreaRow.vala:490
+#: src/Widgets/AreaRow.vala:486
 #, fuzzy
 msgid "Delete area"
 msgstr "Ištrinti etiketę"
 
-#: src/Widgets/AreaRow.vala:498
+#: src/Widgets/AreaRow.vala:494
 #, fuzzy
 msgid "Delete projects"
 msgstr "Ištrinti projektą"
@@ -770,7 +775,7 @@ msgstr ""
 msgid "Start working locally."
 msgstr ""
 
-#: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:663
+#: src/Views/Welcome.vala:30 src/Dialogs/Preferences.vala:769
 msgid "Todoist"
 msgstr ""
 
@@ -787,7 +792,7 @@ msgstr "Vieta"
 msgid "Inbox comments"
 msgstr ""
 
-#: src/Views/Inbox.vala:71 src/Views/Project.vala:111
+#: src/Views/Inbox.vala:71 src/Views/Project.vala:109
 #, fuzzy
 msgid "Search task"
 msgstr "Bendrinti užduotį"
@@ -798,13 +803,13 @@ msgid "Inbox Menu"
 msgstr "Gauta"
 
 #: src/Views/Inbox.vala:535 src/Views/Inbox.vala:606 src/Views/Inbox.vala:623
-#: src/Views/Project.vala:702 src/Views/Project.vala:764
-#: src/Views/Project.vala:828
+#: src/Views/Project.vala:697 src/Views/Project.vala:759
+#: src/Views/Project.vala:823
 #, fuzzy
 msgid "Show completed task"
 msgstr "Rodyti užbaigtas užduotis"
 
-#: src/Views/Inbox.vala:626 src/Views/Project.vala:767
+#: src/Views/Inbox.vala:626 src/Views/Project.vala:762
 #, fuzzy
 msgid "Hide completed task"
 msgstr "Slėpti užbaigtas užduotis"
@@ -813,14 +818,20 @@ msgstr "Slėpti užbaigtas užduotis"
 msgid "Invite person"
 msgstr ""
 
-#: src/Views/Project.vala:102
+#: src/Views/Project.vala:101
 #, fuzzy
 msgid "Project comments"
 msgstr "Projekto pavadinimas"
 
-#: src/Views/Project.vala:160
+#: src/Views/Project.vala:158
 msgid "Add a note"
 msgstr ""
+
+#. note_textview.get_style_context ().add_class ("welcome");
+#: src/Views/Project.vala:167
+#, fuzzy
+msgid "Add note"
+msgstr "Pridėti naują projektą"
 
 #: src/Dialogs/TodoistOAuth.vala:22 src/Dialogs/TodoistOAuth.vala:100
 msgid "Loading…"
@@ -845,12 +856,12 @@ msgstr ""
 
 #. General
 #: src/Dialogs/Preferences.vala:62 src/Dialogs/Preferences.vala:69
-#: src/Dialogs/Preferences.vala:437
+#: src/Dialogs/Preferences.vala:543
 msgid "General"
 msgstr "Bendra"
 
 #: src/Dialogs/Preferences.vala:65 src/Dialogs/Preferences.vala:183
-#: src/Dialogs/Preferences.vala:961
+#: src/Dialogs/Preferences.vala:1067
 #, fuzzy
 msgid "Homepage"
 msgstr "Internetinė svetainė"
@@ -874,21 +885,21 @@ msgstr "Sparti paieška"
 msgid "Add-ons"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:88 src/Dialogs/Preferences.vala:799
+#: src/Dialogs/Preferences.vala:88 src/Dialogs/Preferences.vala:905
 #, fuzzy
 msgid "Calendar Events"
 msgstr "Kalendoriaus įvykiai"
 
-#: src/Dialogs/Preferences.vala:90 src/Dialogs/Preferences.vala:610
+#: src/Dialogs/Preferences.vala:90 src/Dialogs/Preferences.vala:716
 msgid "Keyboard Shortcuts"
 msgstr ""
 
 #. Others
-#: src/Dialogs/Preferences.vala:105 src/Dialogs/Preferences.vala:947
+#: src/Dialogs/Preferences.vala:105 src/Dialogs/Preferences.vala:1053
 msgid "About"
 msgstr "Apie"
 
-#: src/Dialogs/Preferences.vala:106 src/Dialogs/Preferences.vala:876
+#: src/Dialogs/Preferences.vala:106 src/Dialogs/Preferences.vala:982
 msgid "Fund"
 msgstr ""
 
@@ -919,7 +930,7 @@ msgstr "Nėra"
 msgid "Today + Inbox"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:359 src/Dialogs/Preferences.vala:406
+#: src/Dialogs/Preferences.vala:359
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
@@ -935,101 +946,116 @@ msgstr "Naktinė veiksena"
 msgid "Night"
 msgstr "Naktinė veiksena"
 
-#: src/Dialogs/Preferences.vala:415
+#: src/Dialogs/Preferences.vala:406
+msgid ""
+"Don't worry about which app you're using. You can use a keyboard shortcut to "
+"open the Quick Add window, where you can enter a pending task and quickly "
+"return to work."
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:427 src/Dialogs/Preferences.vala:493
+msgid "Change"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:454
 #, fuzzy
-msgid "Save last selected project"
+msgid "Save Last Selected Project"
 msgstr "Ištrinti projektą"
 
-#: src/Dialogs/Preferences.vala:440
+#: src/Dialogs/Preferences.vala:491
+msgid "Press keys…"
+msgstr ""
+
+#: src/Dialogs/Preferences.vala:546
 msgid "DE Integration"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:443
+#: src/Dialogs/Preferences.vala:549
 msgid "Run in background"
 msgstr "Paleisti fone"
 
-#: src/Dialogs/Preferences.vala:444
+#: src/Dialogs/Preferences.vala:550
 msgid "Run on startup"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:446
+#: src/Dialogs/Preferences.vala:552
 msgid "Help"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:450
+#: src/Dialogs/Preferences.vala:556
 #, fuzzy
 msgid "Create tutorial project"
 msgstr "Sukurti naują projektą"
 
-#: src/Dialogs/Preferences.vala:450
+#: src/Dialogs/Preferences.vala:556
 msgid "Create"
 msgstr "Sukurti"
 
-#: src/Dialogs/Preferences.vala:452
+#: src/Dialogs/Preferences.vala:558
 msgid "Danger zone"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:456 src/Dialogs/Preferences.vala:505
+#: src/Dialogs/Preferences.vala:562 src/Dialogs/Preferences.vala:611
 msgid "Reset all"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:456
+#: src/Dialogs/Preferences.vala:562
 msgid "Reset"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:490
+#: src/Dialogs/Preferences.vala:596
 #, fuzzy
 msgid "Your tutorial project was created"
 msgstr "Sukurti naują projektą"
 
-#: src/Dialogs/Preferences.vala:500
+#: src/Dialogs/Preferences.vala:606
 #, fuzzy
 msgid "Are you sure you want to reset all?"
 msgstr "Ar tikrai norite ištrinti šią užduotį?"
 
-#: src/Dialogs/Preferences.vala:501
+#: src/Dialogs/Preferences.vala:607
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:525
+#: src/Dialogs/Preferences.vala:631
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:612
+#: src/Dialogs/Preferences.vala:718
 msgid ""
 "All the shortcuts to save you time! Some can be used anywhere in the app, "
 "while others only work when adding or editing tasks."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:687
+#: src/Dialogs/Preferences.vala:793
 #, c-format
 msgid "Last successful sync: %s"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:698
+#: src/Dialogs/Preferences.vala:804
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:709 src/Dialogs/Preferences.vala:764
+#: src/Dialogs/Preferences.vala:815 src/Dialogs/Preferences.vala:870
 msgid "Log out"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:759
+#: src/Dialogs/Preferences.vala:865
 #, fuzzy
 msgid "Are you sure you want to log out?"
 msgstr "Ar tikrai norite ištrinti šią užduotį?"
 
-#: src/Dialogs/Preferences.vala:760
+#: src/Dialogs/Preferences.vala:866
 msgid "This process will close your Todoist session on this device."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:801
+#: src/Dialogs/Preferences.vala:907
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -1037,31 +1063,31 @@ msgid ""
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:811
+#: src/Dialogs/Preferences.vala:917
 msgid "Enabled"
 msgstr "Įjungta"
 
-#: src/Dialogs/Preferences.vala:878
+#: src/Dialogs/Preferences.vala:984
 msgid ""
 "If you like Planner and you want to support its development, consider "
 "donating via:"
 msgstr ""
 
-#: src/Dialogs/Preferences.vala:962
+#: src/Dialogs/Preferences.vala:1068
 #, fuzzy
 msgid "Report a Problem"
 msgstr "Pranešti apie klaidą"
 
-#: src/Dialogs/Preferences.vala:963
+#: src/Dialogs/Preferences.vala:1069
 #, fuzzy
 msgid "Suggest Translations"
 msgstr "Vertimai"
 
-#: src/Dialogs/Preferences.vala:1142
+#: src/Dialogs/Preferences.vala:1248
 msgid "Back"
 msgstr "Atgal"
 
-#: src/Dialogs/Preferences.vala:1327
+#: src/Dialogs/Preferences.vala:1441
 msgid "Disabled"
 msgstr "Išjungta"
 

@@ -12,7 +12,7 @@ public class Services.LabelsController : GLib.Object {
                 color: @text_color;
                 padding : 0px 6px 1px 6px;
                 border-radius: 50px;
-                font-size: 9px;
+                font-size: 8px;
                 font-weight: 700;
                 border: 1px solid shade (%s, 0.95)
             }

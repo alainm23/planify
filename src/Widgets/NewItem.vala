@@ -28,8 +28,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         selectable = false;
         get_style_context ().add_class ("item-row");
         margin_end = 35;
-        margin_top = 3;
-        margin_bottom = 3;
+        margin_bottom = 12;
 
         var loading_spinner = new Gtk.Spinner ();
         loading_spinner.start ();
@@ -49,7 +48,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.margin_start = 3;
         content_entry.margin_bottom = 1;
         content_entry.placeholder_text = _("Task name");
-        content_entry.get_style_context ().add_class ("welcome");
+        //content_entry.get_style_context ().add_class ("welcome");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
@@ -94,8 +93,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         timeout_id = Timeout.add (150, () => {
             content_entry.grab_focus ();
-
+            
+            timeout_id = 0;
             Source.remove (timeout_id);
+
+            grab_focus ();
             return false;
         });
 

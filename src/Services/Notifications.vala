@@ -70,4 +70,13 @@ public class Services.Notifications : GLib.Object {
             return true;
         });
     }
+
+    public void send_system_notification (string title, string body, string icon_name, GLib.NotificationPriority priority) {
+        var notification = new Notification (title);
+        notification.set_body (body);
+        notification.set_icon (new ThemedIcon (icon_name));
+        notification.set_priority (priority);
+        
+        Planner.instance.send_notification ("com.github.alainm23.planner", notification);
+    }
 }

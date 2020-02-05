@@ -17,7 +17,7 @@ public class Widgets.Placeholder : Gtk.Revealer {
         var subtitle_label = new Gtk.Label (_("Looks like everything's organized in the right place."));
         subtitle_label.margin_top = 6;
         subtitle_label.get_style_context ().add_class ("dim-label");
-        subtitle_label.get_style_context ().add_class ("welcome");
+        //subtitle_label.get_style_context ().add_class ("welcome");
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.margin_bottom = 128;

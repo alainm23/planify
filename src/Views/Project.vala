@@ -56,13 +56,13 @@ public class Views.Project : Gtk.EventBox {
         name_label.get_style_context ().add_class ("font-bold");
 
         var name_eventbox = new Gtk.EventBox ();
+        name_eventbox.valign = Gtk.Align.START;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.hexpand = true;
         name_eventbox.add (name_label);
 
         name_entry = new Gtk.Entry ();
         name_entry.text = project.name;
-        name_entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
         name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("project-name-entry");
@@ -93,7 +93,6 @@ public class Views.Project : Gtk.EventBox {
         add_person_button.can_focus = false;
         add_person_button.margin_start = 6;
         add_person_button.get_style_context ().add_class ("flat");
-        //add_person_button.get_style_context ().add_class ("dim-label");
 
         var comment_button = new Gtk.Button.from_icon_name ("internet-chat-symbolic", Gtk.IconSize.MENU);
         comment_button.valign = Gtk.Align.CENTER;
@@ -102,7 +101,6 @@ public class Views.Project : Gtk.EventBox {
         comment_button.tooltip_text = _("Project comments");
         comment_button.margin_start = 6;
         comment_button.get_style_context ().add_class ("flat");
-        //comment_button.get_style_context ().add_class ("dim-label");
 
         var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU);
         search_button.valign = Gtk.Align.CENTER;
@@ -163,7 +161,7 @@ public class Views.Project : Gtk.EventBox {
         note_textview.margin_top = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.get_style_context ().add_class ("welcome");
+        //note_textview.get_style_context ().add_class ("welcome");
         note_textview.margin_start = 42;
 
         note_placeholder = new Gtk.Label (_("Add note"));
@@ -183,8 +181,8 @@ public class Views.Project : Gtk.EventBox {
         listbox = new Gtk.ListBox ();
         listbox.margin_top = 12;
         listbox.valign = Gtk.Align.START;
-        listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
+        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -202,7 +200,7 @@ public class Views.Project : Gtk.EventBox {
 
         section_listbox = new Gtk.ListBox  ();
         section_listbox.valign = Gtk.Align.START;
-        section_listbox.get_style_context ().add_class ("welcome");
+        //section_listbox.get_style_context ().add_class ("welcome");
         section_listbox.get_style_context ().add_class ("listbox");
         section_listbox.activate_on_single_click = true;
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -323,10 +321,7 @@ public class Views.Project : Gtk.EventBox {
                 name_stack.visible_child_name = "name_entry";
 
                 name_entry.grab_focus_without_selecting ();
-
-                if (name_entry.cursor_position < name_entry.text.length) {
-                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-                }
+                name_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             }
 
             return false;

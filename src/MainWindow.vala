@@ -120,7 +120,7 @@ public class MainWindow : Gtk.Window {
         header_box.margin_top = 6;
         header_box.margin_bottom = 6;
         header_box.get_style_context ().add_class ("pane");
-        header_box.get_style_context ().add_class ("welcome");
+        //header_box.get_style_context ().add_class ("welcome");
         header_box.pack_start (search_button, false, false, 0);
         header_box.pack_start (sync_button, false, false, 0);
         header_box.pack_start (settings_button, false, false, 0);

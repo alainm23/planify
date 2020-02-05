@@ -144,7 +144,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         section_listbox = new Gtk.ListBox  ();
         section_listbox.valign = Gtk.Align.START;
-        section_listbox.get_style_context ().add_class ("welcome");
+        //section_listbox.get_style_context ().add_class ("welcome");
         section_listbox.get_style_context ().add_class ("listbox");
         section_listbox.activate_on_single_click = true;
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;

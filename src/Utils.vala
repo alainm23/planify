@@ -552,9 +552,23 @@ public class Utils : GLib.Object {
             if (shortcut != null) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);
                 Services.CustomShortcutSettings.edit_command (shortcut, "planner-quick-add");
+
+                uint accelerator_key;
+                Gdk.ModifierType accelerator_mods;
+                Gtk.accelerator_parse (QUICK_ADD_SHORTCUT, out accelerator_key, out accelerator_mods);
+                var shortcut_hint = Gtk.accelerator_get_label (accelerator_key, accelerator_mods);
+
+                Planner.notifications.send_system_notification (
+                    _("Quick Add Activated!"), 
+                    _("Try %s to activate it. You can change it from the preferences".printf (shortcut_hint)),
+                    "com.github.alainm23.planner",
+                    GLib.NotificationPriority.HIGH
+                );
             }
         }
     }
+
+
 
     /* 
         Tutorial project

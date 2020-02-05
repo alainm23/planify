@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: quick-add\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 06:04-0500\n"
+"POT-Creation-Date: 2020-02-05 16:07-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:215
+#: src/QuickAdd/MainWindow.vala:217
 msgid "The task was correctly added."
 msgstr ""
 

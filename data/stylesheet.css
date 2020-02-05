@@ -511,6 +511,11 @@ paned > separator {
     font-weight: 500;
 }
 
+
+.label {
+    font-size: 13.6px;
+}
+
 .check-button image,
 .due-button image,
 .label-button image {
@@ -716,7 +721,7 @@ paned > separator {
 
 .header-title {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13.6px;
 }
 
 .header-entry {
@@ -730,8 +735,9 @@ paned > separator {
 }
 
 .project-name-entry {
-    font-size: 21px;
+    font-size: 18px;
     padding-left: 0px;
+    padding-top: 0px;
     background-color: @projectview_color;
 }
 
@@ -741,11 +747,7 @@ paned > separator {
 }
 
 .title-label {
-    font-size: 21px;
-}
-
-.label {
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .duedate-upcoming {

@@ -76,6 +76,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("content-entry");
         
         name_stack = new Gtk.Stack ();
+        name_stack.get_style_context ().add_class ("welcome");
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
         name_stack.add_named (name_label, "name_label");
         name_stack.add_named (name_entry, "name_entry");
@@ -152,9 +153,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_section_revealer.add (motion_section_grid);
 
         listbox = new Gtk.ListBox  ();
+        listbox.margin_end = 12;
         listbox.margin_bottom = 6;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
+        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -278,11 +281,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus_without_selecting ();
-
-                if (name_entry.cursor_position < name_entry.text.length) {
-                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-                }
+                name_entry.grab_focus ();
             }
 
             return false;

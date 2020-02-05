@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 06:04-0500\n"
+"POT-Creation-Date: 2020-02-05 16:07-0500\n"
 "PO-Revision-Date: 2020-02-03 06:04-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +24,6 @@ msgid "Planner"
 msgstr "Planner"
 
 #: data/com.github.alainm23.planner.desktop.in:5
-#: data/com.github.alainm23.planner.appdata.xml.in:8
 msgid "Never worry about forgetting things again"
 msgstr "Non preoccuparti più di dimenticare di nuovo le cose"
 
@@ -34,11 +33,20 @@ msgstr "com.github.alainm23.planner"
 
 #: data/com.github.alainm23.planner.desktop.in:12
 msgid "development;task;tasks;project;todo;event;events;calendar;todoist;"
-msgstr "sviluppo; compito; compiti; progetto; todo; evento; eventi; calendario; Todoist;"
+msgstr ""
+"sviluppo; compito; compiti; progetto; todo; evento; eventi; calendario; "
+"Todoist;"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:8
+msgid ""
+"Task and project manager with support for Todoist developer for Gnu/Linux"
+msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:10
 msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
-msgstr "Tutti hanno bisogno di un task manager e Planner si adatta alle esigenze di chiunque"
+msgstr ""
+"Tutti hanno bisogno di un task manager e Planner si adatta alle esigenze di "
+"chiunque"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:12
 msgid "🚀️ Planner 2 is here..."
@@ -80,8 +88,8 @@ msgid ""
 "💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you "
 "want."
 msgstr ""
-"Arrived Il pulsante magico è arrivato: trascina la selezione e crea le tue attività ovunque tu sia"
-"e voglia."
+"Arrived Il pulsante magico è arrivato: trascina la selezione e crea le tue "
+"attività ovunque tu siae voglia."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 #: data/com.github.alainm23.planner.appdata.xml.in:81
@@ -89,8 +97,8 @@ msgid ""
 "⏲️ Improved reminder system, now you can create one or more reminders, you "
 "decide."
 msgstr ""
-"⏲️ Sistema di promemoria migliorato, ora puoi creare uno o più promemoria, tu"
-"decidi."
+"⏲️ Sistema di promemoria migliorato, ora puoi creare uno o più promemoria, "
+"tudecidi."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 #: data/com.github.alainm23.planner.appdata.xml.in:82
@@ -112,33 +120,35 @@ msgid ""
 "you add a task, it goes straight to your Inbox unless you specify that the "
 "task goes into a project."
 msgstr ""
-"1. Raccogli le tue idee - La Posta in arrivo è l'elenco delle attività predefinito in Planner. Quando"
-"aggiungi un'attività, va direttamente alla Posta in arrivo a meno che non specifichi che"
-"l'attività viene inserita in un progetto."
+"1. Raccogli le tue idee - La Posta in arrivo è l'elenco delle attività "
+"predefinito in Planner. Quandoaggiungi un'attività, va direttamente alla "
+"Posta in arrivo a meno che non specifichi chel'attività viene inserita in un "
+"progetto."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:28
 msgid ""
 "2. Get Organized - Create a project for each of your goals, then add the "
 "steps to reach them. Review these regularly to stay on top of things."
 msgstr ""
-"2. Organizzati: crea un progetto per ciascuno dei tuoi obiettivi, quindi aggiungi i"
-"passi per raggiungerli. Esaminali regolarmente per essere sempre aggiornato."
+"2. Organizzati: crea un progetto per ciascuno dei tuoi obiettivi, quindi "
+"aggiungi ipassi per raggiungerli. Esaminali regolarmente per essere sempre "
+"aggiornato."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:29
 msgid ""
 "3. Calendar and Events - See your calendar events and plan your time "
 "effectively. Planner will remind you on the right day."
 msgstr ""
-"3. Calendario ed eventi - Visualizza i tuoi eventi del calendario e pianifica il tuo tempo"
-"efficacemente. Planner ti ricorderà il giorno giusto."
+"3. Calendario ed eventi - Visualizza i tuoi eventi del calendario e "
+"pianifica il tuo tempoefficacemente. Planner ti ricorderà il giorno giusto."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:30
 msgid ""
 "4. Be even more organized - Add a duedate to your tasks, create labels, use "
 "checklists."
 msgstr ""
-"4. Sii ancora più organizzato - Aggiungi una data di scadenza alle tue attività, crea etichette, usa"
-"liste di controllo".
+"4. Sii ancora più organizzato - Aggiungi una data di scadenza alle tue "
+"attività, crea etichette, usaliste di controllo."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:32
 msgid "☁️ Support for Todoist:"
@@ -153,8 +163,8 @@ msgid ""
 "Support for Todoist offline: Work without an internet connection and when "
 "everything is reconnected it will be synchronized."
 msgstr ""
-"Supporto per Todoist offline: funziona senza una connessione Internet e quando"
-"tutto viene ricollegato verrà sincronizzato."
+"Supporto per Todoist offline: funziona senza una connessione Internet e "
+"quandotutto viene ricollegato verrà sincronizzato."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:37
 msgid "* Planner not created by, affiliated with, or supported by Doist"
@@ -178,15 +188,17 @@ msgstr "🌙️ Modalità notturna"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:52
 msgid "The keyboard shortcuts arrived, design improvements and more."
-msgstr "Sono arrivate le scorciatoie da tastiera, i miglioramenti del design e altro ancora."
+msgstr ""
+"Sono arrivate le scorciatoie da tastiera, i miglioramenti del design e altro "
+"ancora."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:54
 msgid ""
 "Now you can use keyboard shortcuts to be more productive: See the list of "
 "full keyboard shortcuts in the preferences."
 msgstr ""
-"Ora puoi utilizzare le scorciatoie da tastiera per essere più produttivo: vedi l'elenco di "
-"scorciatoie da tastiera complete nelle preferenze."
+"Ora puoi utilizzare le scorciatoie da tastiera per essere più produttivo: "
+"vedi l'elenco di scorciatoie da tastiera complete nelle preferenze."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:55
 msgid "Now you can share your tasks as text or markdown."
@@ -200,39 +212,43 @@ msgstr "Una pagina di finanziamento è stata aggiunta nelle preferenze."
 msgid ""
 "Planner menus have been redesigned. Making it more beautiful and productive."
 msgstr ""
-"I menu del pianificatore sono stati riprogettati. Rendendolo più bello e produttivo."
+"I menu del pianificatore sono stati riprogettati. Rendendolo più bello e "
+"produttivo."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:58
 msgid ""
 "Planner doesn't freeze when the position of a project, section or task is "
 "ordered."
 msgstr ""
-"Planner non si blocca quando la posizione di un progetto, una sezione o un'attività è "
-"ordinato."
+"Planner non si blocca quando la posizione di un progetto, una sezione o "
+"un'attività è ordinato."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:59
 msgid "[GitHub #181] - You can log out of your Todoist account."
-msgstr "[GitHub # 181] - È possibile disconnettersi dal proprio account Todoist."
+msgstr ""
+"[GitHub # 181] - È possibile disconnettersi dal proprio account Todoist."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:60
 msgid ""
 "[GitHub #158] - The project panel was resized making it more compact and "
 "aesthetic."
 msgstr ""
-"[GitHub # 158] - Il pannello del progetto è stato ridimensionato rendendolo più compatto e "
-"estetico."
+"[GitHub # 158] - Il pannello del progetto è stato ridimensionato rendendolo "
+"più compatto e estetico."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:61
 msgid ""
 "[GitHub #156] - Now you can create an easier reminder by pressing the RETURN "
 "key."
 msgstr ""
-"[GitHub # 156] - Ora puoi creare un promemoria più semplice premendo il tasto chiave"
-"INVIO."
+"[GitHub # 156] - Ora puoi creare un promemoria più semplice premendo il "
+"tasto chiaveINVIO."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:62
 msgid "[GitHub #147] - Badge count is not displayed when the system startup."
-msgstr "[GitHub # 147] - Il conteggio dei badge non viene visualizzato all'avvio del sistema."
+msgstr ""
+"[GitHub # 147] - Il conteggio dei badge non viene visualizzato all'avvio del "
+"sistema."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:63
 msgid "[GitHub #138] - Fixing website address."
@@ -246,7 +262,8 @@ msgstr "[GitHub # 136] - Aggiunto pulsante nuova attività a scomparsa."
 msgid ""
 "[GitHub #145, #146] - The way to create the tutorial project was improved."
 msgstr ""
-"[GitHub # 145, # 146] - Il modo di creare il tutorial del progetto è stato migliorato."
+"[GitHub # 145, # 146] - Il modo di creare il tutorial del progetto è stato "
+"migliorato."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:66
 msgid "[GitHub #152, #149] - Fixed some bugs with Quick Find."
@@ -265,8 +282,8 @@ msgid ""
 "👷️ Support for Todoist offline: Work without an internet connection and when "
 "everything is reconnected it will be synchronized."
 msgstr ""
-"👷️ Supporto per Todoist offline: funziona senza una connessione Internet e quando"
-"tutto viene ricollegato verrà sincronizzato."
+"👷️ Supporto per Todoist offline: funziona senza una connessione Internet e "
+"quandotutto viene ricollegato verrà sincronizzato."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:92
 msgid "New features:"
@@ -406,7 +423,8 @@ msgstr "Stabilità migliorata e alcune correzioni di bug"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:164
 msgid "Fixing critical bug with creating tasks from the clipboard #19"
-msgstr "Correzione di bug critici con la creazione di attività dagli appunti #19"
+msgstr ""
+"Correzione di bug critici con la creazione di attività dagli appunti #19"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:165
 msgid "Adding new tooltips"

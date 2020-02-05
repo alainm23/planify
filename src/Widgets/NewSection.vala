@@ -11,8 +11,11 @@ public class Widgets.NewSection : Gtk.Revealer {
     public bool reveal {
         set {
             reveal_child = value;
+
             if (value) {
                 name_entry.grab_focus ();
+
+                grab_focus ();
             } else {
                 name_entry.text = "";
                 cancel_activated ();

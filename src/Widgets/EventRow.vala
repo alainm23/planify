@@ -72,7 +72,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         add (main_revealer);
 
         set_color ();
-        cal.notify["color"].connect (set_color);
+        //cal.notify["color"].connect (set_color);
         
         update_timelabel ();
         check_visible ();
@@ -103,6 +103,8 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     
     private void set_color () {
         var color = cal.dup_color ();
+
+        print ("Color: %s".printf (color));
 
         string COLOR_CSS = """
             .event-%s {

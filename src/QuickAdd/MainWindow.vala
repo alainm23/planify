@@ -109,6 +109,8 @@ public class MainWindow : Gtk.Window {
         
         list_store = new Gtk.ListStore (3, typeof (Project), typeof (string), typeof (string));
         project_combobox = new Gtk.ComboBox.with_model (list_store);
+        project_combobox.can_focus = false;
+        project_combobox.get_style_context ().add_class ("quick-add-combobox");
         project_combobox.margin = 6;
         project_combobox.valign = Gtk.Align.CENTER;
 
@@ -254,6 +256,7 @@ public class MainWindow : Gtk.Window {
             item.project_id = project.id;
             item.content = content_entry.text;
             item.note = note_textview.buffer.text;
+            item.is_todoist = project.is_todoist;
 
             if (project.inbox_project == 1) {
                 if (PlannerQuickAdd.settings.get_boolean ("inbox-project-sync")) {

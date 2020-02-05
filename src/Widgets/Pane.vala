@@ -35,6 +35,8 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     construct {
+        get_style_context ().add_class ("welcome");
+        
         //search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 
@@ -73,7 +75,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         listbox = new Gtk.ListBox  ();
         listbox.get_style_context ().add_class ("pane");
-        listbox.get_style_context ().add_class ("welcome");
+        //listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -98,14 +100,14 @@ public class Widgets.Pane : Gtk.EventBox {
 
         project_listbox = new Gtk.ListBox  ();
         project_listbox.get_style_context ().add_class ("pane");
-        project_listbox.get_style_context ().add_class ("welcome");
+        //project_listbox.get_style_context ().add_class ("welcome");
         project_listbox.activate_on_single_click = true;
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
         
         area_listbox = new Gtk.ListBox  ();
         area_listbox.get_style_context ().add_class ("pane");
-        area_listbox.get_style_context ().add_class ("welcome");
+        //area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;

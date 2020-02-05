@@ -13,11 +13,6 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
     construct {
         add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-    
-        var name_label = new Gtk.Label (label.name);
-        name_label.margin_end = 3;
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.valign = Gtk.Align.CENTER;
 
         var delete_image = new Gtk.Image ();
         delete_image.gicon = new ThemedIcon ("window-close-symbolic");
@@ -36,6 +31,12 @@ public class Widgets.LabelItem : Gtk.EventBox {
         delete_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         delete_revealer.add (delete_button);
 
+        var name_label = new Gtk.Label (label.name);
+        name_label.margin_end = 3;
+        name_label.margin_top = 1;
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.valign = Gtk.Align.CENTER;
+        
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.valign = Gtk.Align.CENTER;
         box.get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));

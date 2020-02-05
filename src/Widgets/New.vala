@@ -466,7 +466,7 @@ public class Widgets.New : Gtk.Revealer {
         project_image.get_style_context ().add_class ("project-icon");
 
         var project_label = new Gtk.Label (_("Project"));
-        project_label.get_style_context ().add_class ("welcome");
+        //project_label.get_style_context ().add_class ("welcome");
         project_label.get_style_context ().add_class ("h3");
         project_label.get_style_context ().add_class ("font-bold");
         project_label.halign = Gtk.Align.START;
@@ -498,7 +498,7 @@ public class Widgets.New : Gtk.Revealer {
 
         var source_label = new Gtk.Label (_("Area"));
         source_label.get_style_context ().add_class ("h3");
-        source_label.get_style_context ().add_class ("welcome");
+        ///source_label.get_style_context ().add_class ("welcome");
         source_label.get_style_context ().add_class ("font-bold");
         source_label.halign = Gtk.Align.START;
 

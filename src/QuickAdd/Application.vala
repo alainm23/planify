@@ -32,6 +32,14 @@ public class PlannerQuickAdd : Gtk.Application {
         .label {
             font-size: 14px;
         }
+
+        .quick-add-combobox {
+            background-color: @base_color;
+        }
+        
+        .quick-add-combobox button {
+            border-radius: 4px;
+        }
     """;
 
     public static Database database;

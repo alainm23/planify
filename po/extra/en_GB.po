@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 06:04-0500\n"
+"POT-Creation-Date: 2020-02-05 16:07-0500\n"
 "PO-Revision-Date: 2020-02-03 06:04-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +24,6 @@ msgid "Planner"
 msgstr "Planner"
 
 #: data/com.github.alainm23.planner.desktop.in:5
-#: data/com.github.alainm23.planner.appdata.xml.in:8
 msgid "Never worry about forgetting things again"
 msgstr "Never worry about forgetting things again"
 
@@ -35,6 +34,11 @@ msgstr "com.github.alainm23.planner"
 #: data/com.github.alainm23.planner.desktop.in:12
 msgid "development;task;tasks;project;todo;event;events;calendar;todoist;"
 msgstr "development;task;tasks;project;todo;event;events;calendar;todoist;"
+
+#: data/com.github.alainm23.planner.appdata.xml.in:8
+msgid ""
+"Task and project manager with support for Todoist developer for Gnu/Linux"
+msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:10
 msgid "Everyone needs a task manager and Planner adapts to anyone's needs"

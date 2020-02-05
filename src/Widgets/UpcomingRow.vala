@@ -84,7 +84,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_bottom = 3;
         event_listbox.valign = Gtk.Align.START;
-        event_listbox.get_style_context ().add_class ("welcome");
+        //event_listbox.get_style_context ().add_class ("welcome");
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;

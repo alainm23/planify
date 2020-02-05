@@ -403,7 +403,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
     private Gtk.Widget get_quick_add_widget () {
         var info_box = new PreferenceTopBox ("night-light", _("Quick Add"));
 
-        var description_label = new Gtk.Label (_("Personalize the look and feel of your Planner by choosing the theme that best suits you."));
+        var description_label = new Gtk.Label (_("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work."));
         description_label.margin = 6;
         description_label.margin_bottom = 6;
         description_label.margin_start = 12;
@@ -446,13 +446,13 @@ public class Dialogs.Preferences : Gtk.Dialog {
         shortcut_v_box.get_style_context ().add_class ("view");
         shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         shortcut_v_box.add (shortcut_box);
-        shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        //shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var shortcut_eventbox = new Gtk.EventBox ();
         shortcut_eventbox.add (shortcut_v_box);
 
-        var save_last_switch = new PreferenceItemSwitch (_("Save last selected project"), Planner.settings.get_boolean ("quick-add-save-last-project"));
-        save_last_switch.margin_top = 6;
+        var save_last_switch = new PreferenceItemSwitch (_("Save Last Selected Project"), Planner.settings.get_boolean ("quick-add-save-last-project"));
+        //save_last_switch.margin_top = 6;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
