@@ -353,6 +353,12 @@ public class Views.Project : Gtk.EventBox {
                     create_popover ();
                 }
 
+                if (Planner.database.get_count_checked_items_by_project (project.id) > 0) {
+                    show_menu.sensitive = true;
+                } else {
+                    show_menu.sensitive = false;
+                }
+
                 popover.show_all ();
             }
         });

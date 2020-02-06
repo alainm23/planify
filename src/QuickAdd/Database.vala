@@ -7,6 +7,7 @@ public class Database : GLib.Object {
 
     public signal void item_added (Item item);
 
+    public bool is_adding { get; set; default = false; }
     public signal void item_added_started ();
     public signal void item_added_completed ();
     public signal void item_added_error (int http_code, string error_message);
@@ -289,6 +290,7 @@ public class Database : GLib.Object {
 
     public void add_todoist_item (Item item) {
         item_added_started ();
+        is_adding = true;
 
         new Thread<void*> ("add_todoist_item", () => {
             string temp_id = generate_string ();
@@ -321,14 +323,16 @@ public class Database : GLib.Object {
                             insert_item (item);
                             print ("Item creado: %s\n".printf (item.content));
                             item_added_completed ();
+                            is_adding = false;
                         } else {
                             var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
                             var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
                             item_added_error (http_code, error_message);
+                            is_adding = false;
                         }
                     } catch (Error e) {
                         item_added_error ((int32) mess.status_code, e.message);
+                        is_adding = false;
                     }
                 } else {
                     if (is_disconnected ()) {
@@ -346,6 +350,7 @@ public class Database : GLib.Object {
                         }
                     } else {
                         item_added_error ((int32) mess.status_code, _("Connection error"));
+                        is_adding = false;
                     }
                 }
             });

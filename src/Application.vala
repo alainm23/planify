@@ -76,6 +76,13 @@ public class Planner : Gtk.Application {
         if (get_windows ().length () > 0) {
             get_windows ().data.present ();
             get_windows ().data.show_all ();
+
+            int x, y;
+            settings.get ("window-position", "(ii)", out x, out y);
+            if (x != -1 || y != -1) {
+                get_windows ().data.move (x, y);
+            }
+
             return;
         }
 

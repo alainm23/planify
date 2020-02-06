@@ -546,8 +546,21 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var de_header = new Granite.HeaderLabel (_("DE Integration"));
         de_header.margin_start = 12;
 
-        var run_background_switch = new PreferenceItemSwitch (_("Run in background"), Planner.settings.get_boolean ("run-in-background"), false);
+        var run_background_switch = new PreferenceItemSwitch (_("Run in background"), Planner.settings.get_boolean ("run-in-background"));
+        var run_background_label = new Gtk.Label (_("Enable this setting to keep Planner running in the background when it closes. This will allow Planner to continue updating and sending reminder notifications."));
+        run_background_label.wrap = true;
+        run_background_label.xalign = 0;
+        run_background_label.margin_start = 12;
+        run_background_label.halign = Gtk.Align.START;
+
         var run_startup_switch = new PreferenceItemSwitch (_("Run on startup"), Planner.settings.get_boolean ("run-on-startup"));
+        run_startup_switch.margin_top = 6;
+
+        var run_startup_label = new Gtk.Label (_("Enable this setting to make Planner startup with the system."));
+        run_startup_label.wrap = true;
+        run_startup_label.xalign = 0;
+        run_startup_label.margin_start = 12;
+        run_startup_label.halign = Gtk.Align.START;
 
         var help_header = new Granite.HeaderLabel (_("Help"));
         help_header.margin_start = 12;
@@ -568,7 +581,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (de_header, false, false, 0);
         main_box.pack_start (run_background_switch, false, false, 0);
+        main_box.pack_start (run_background_label, false, false, 0);
         main_box.pack_start (run_startup_switch, false, false, 0);
+        main_box.pack_start (run_startup_label, false, false, 0);
         main_box.pack_start (help_header, false, false, 0);
         main_box.pack_start (tutorial_item, false, false, 0);
         main_box.pack_start (dz_header, false, false, 0);

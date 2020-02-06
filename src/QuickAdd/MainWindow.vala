@@ -234,7 +234,7 @@ public class MainWindow : Gtk.Window {
         });
 
         focus_out_event.connect ((event) => {
-            if (Posix.isatty (Posix.STDIN_FILENO) == false && project_combobox.popup_shown == false) {
+            if (Posix.isatty (Posix.STDIN_FILENO) == false && project_combobox.popup_shown == false && PlannerQuickAdd.database.is_adding == false) {
                 hide ();
             
                 Timeout.add (500, () => {

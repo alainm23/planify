@@ -2651,6 +2651,29 @@ public class Services.Database : GLib.Object {
         return size;
     }
 
+    public int get_count_checked_items_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id FROM Items WHERE project_id = ? AND checked = 1;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+        
+        var size = 0;
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            size++;
+        }
+
+        return size;
+    }
+
     public int get_count_sections_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
