@@ -74,7 +74,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         listbox = new Gtk.ListBox  ();
-        listbox.margin_bottom = 32;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;

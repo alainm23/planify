@@ -17,6 +17,14 @@ textview {
     caret-color: #3689e6;
 }
 
+button {
+    border-radius: 4px;
+}
+
+.planner-button {
+    background-color: @base_color;
+}
+
 menu {
     background: shade (@base_color, 1.2);
     box-shadow: none;
@@ -789,7 +797,7 @@ paned > separator {
 }
 
 .label-row {
-    background-color: transparent;
+    background-color: @base_color;
 }
 
 .label-row label {

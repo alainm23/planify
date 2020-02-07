@@ -118,6 +118,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
         cancel_button.get_style_context ().add_class ("new-item-action-button");
+        cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;

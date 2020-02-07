@@ -28,8 +28,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         selectable = false;
         get_style_context ().add_class ("item-row");
         margin_end = 35;
-        margin_bottom = 12;
-
+        
         var loading_spinner = new Gtk.Spinner ();
         loading_spinner.start ();
 
@@ -144,6 +143,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Planner.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
+                loading_revealer.reveal_child = false;
+                sensitive = true;
+                content_entry.text = "";
+
                 bool last = true;
                 if (has_index) {
                     last = false;
@@ -171,6 +174,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             if (temp_id_mapping == id) {
                 loading_revealer.reveal_child = false;
                 sensitive = true;
+                content_entry.text = "";
             }
         });
     }

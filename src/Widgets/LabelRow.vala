@@ -1,22 +1,42 @@
 public class Widgets.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
-    public Gtk.Entry name_entry;
+    public Gtk.ScrolledWindow scrolled { get; construct; }
+
+    private Gtk.Entry name_entry;
+    private Gtk.Label name_label;
+    private Gtk.Stack name_stack;
+
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton color_button;
     private Gtk.Revealer buttons_revealer;
+    private Gtk.Revealer motion_revealer;
+    private Gtk.Separator separator;
     public Gtk.Revealer main_revealer;
     private int color_selected = 30;
 
-    public LabelRow (Objects.Label label) {
+    private bool scroll_up = false;
+    private bool scrolling = false;
+    private bool should_scroll = false;
+    public Gtk.Adjustment vadjustment;
+
+    private const int SCROLL_STEP_SIZE = 5;
+    private const int SCROLL_DISTANCE = 30;
+    private const int SCROLL_DELAY = 50;
+
+    private const Gtk.TargetEntry[] targetEntriesLabel = {
+        {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    public LabelRow (Objects.Label label, Gtk.ScrolledWindow scrolled) {
         Object (
-            label: label
+            label: label,
+            scrolled: scrolled
         );
     }
 
     construct {
         color_selected = label.color;
         can_focus = false;
-        get_style_context ().add_class ("label-row");
 
         color_button = new Gtk.ToggleButton ();
         color_button.valign = Gtk.Align.CENTER;
@@ -29,6 +49,14 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         color_image.pixel_size = 16;
 
         color_button.add (color_image);
+        
+        name_label =  new Gtk.Label (label.name);
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("font-weight-600");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.margin_start = 3;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+        name_label.margin_start = 3;
 
         name_entry = new Gtk.Entry ();
         name_entry.text = label.name;
@@ -37,6 +65,13 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("check-entry");
         name_entry.get_style_context ().add_class ("font-weight-600");
         name_entry.hexpand = true;
+
+        name_stack = new Gtk.Stack ();
+        name_stack.margin_bottom = 1;
+        name_stack.get_style_context ().add_class ("welcome");
+        name_stack.transition_type = Gtk.StackTransitionType.NONE;
+        name_stack.add_named (name_label, "name_label");
+        name_stack.add_named (name_entry, "name_entry");
 
         var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
@@ -50,20 +85,38 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.margin_start = 6;
-        //box.margin_end = 12;
         box.margin_top = 3;
         box.margin_bottom = 3;
         box.pack_start (color_button, false, false, 0);
-        box.pack_start (name_entry, false, true, 0);
+        box.pack_start (name_stack, false, true, 0);
         box.pack_end (buttons_revealer, false, true, 0);
 
+        var motion_grid = new Gtk.Grid ();
+        motion_grid.margin = 6;
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
+            
+        motion_revealer = new Gtk.Revealer ();
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        motion_revealer.add (motion_grid);
+
+        separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.visible = false;
+        separator.no_show_all = true;
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.pack_start (box, false, false, 0);
+        main_box.get_style_context ().add_class ("label-row");
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (box, false, false, 0);
+        main_box.pack_start (separator, false, false, 0);
+
+        var handle_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        handle_box.pack_start (main_box, false, false, 0);
+        handle_box.pack_start (motion_revealer, false, false, 0);
 
         var handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        handle.add (main_box);
+        handle.add (handle_box);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
@@ -71,6 +124,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
+        build_drag_and_drop ();
 
         handle.enter_notify_event.connect ((event) => {
             buttons_revealer.reveal_child = true;
@@ -106,7 +160,16 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         name_entry.changed.connect (() => {
             save ();
-        }); 
+        });
+
+        name_entry.activate.connect (() => {
+            name_stack.visible_child_name = "name_label";
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            name_stack.visible_child_name = "name_label";
+            return false;
+        });
         
         Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
@@ -120,9 +183,125 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         });
     }
     
+    private void build_drag_and_drop () {        
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesLabel, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntriesLabel, Gdk.DragAction.MOVE);
+        drag_motion.connect (on_drag_motion);
+        drag_leave.connect (on_drag_leave); 
+        drag_end.connect (clear_indicator);
+    }
+    
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var row = (Widgets.LabelRow) widget;
+
+        Gtk.Allocation alloc;
+        row.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+  
+        cr.set_source_rgba (255, 255, 255, 0.5);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        row.draw (cr);
+        Gtk.drag_set_icon_surface (context, surface);
+        main_revealer.reveal_child = false;
+    }
+
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        uchar[] data = new uchar[(sizeof (Widgets.LabelRow))];
+        ((Gtk.Widget[])data)[0] = widget;
+
+        selection_data.set (
+            Gdk.Atom.intern_static_string ("LABELROW"), 32, data
+        );
+    }
+    
+    public void clear_indicator (Gdk.DragContext context) {
+        main_revealer.reveal_child = true;
+    }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_revealer.reveal_child = true;
+        separator.visible = true;
+        separator.no_show_all = false;
+
+        int index = get_index ();
+        Gtk.Allocation alloc;
+        get_allocation (out alloc);
+
+        int real_y = (index * alloc.height) - alloc.height + y;
+        check_scroll (real_y);
+        
+        if (should_scroll && !scrolling) {
+            scrolling = true;
+            Timeout.add (SCROLL_DELAY, scroll);
+        }
+
+        return true;
+    }
+
+    private void check_scroll (int y) {
+        vadjustment = scrolled.vadjustment;
+
+        if (vadjustment == null) {
+            return;
+        }
+
+        double vadjustment_min = vadjustment.value;
+        double vadjustment_max = vadjustment.page_size + vadjustment_min;
+        double show_min = double.max (0, y - SCROLL_DISTANCE);
+        double show_max = double.min (vadjustment.upper, y + SCROLL_DISTANCE);
+
+        if (vadjustment_min > show_min) {
+            should_scroll = true;
+            scroll_up = true;
+        } else if (vadjustment_max < show_max) {
+            should_scroll = true;
+            scroll_up = false;
+        } else {
+            should_scroll = false;
+        }
+    }
+    
+    private bool scroll () {
+        if (should_scroll) {
+            if (scroll_up) {
+                vadjustment.value -= SCROLL_STEP_SIZE;
+            } else {
+                vadjustment.value += SCROLL_STEP_SIZE;
+            }
+        } else {
+            scrolling = false;
+        }
+
+        return should_scroll;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        motion_revealer.reveal_child = false;
+        separator.visible = false;
+        separator.no_show_all = true;
+        should_scroll = false;
+    }
+
     private void save () {
         label.name = name_entry.text;
         label.color = color_selected;
+        name_label.label = label.name;
 
         label.save ();
     }
@@ -294,6 +473,71 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             buttons_revealer.reveal_child = false;
             color_button.active = false;
         });
+        
+        switch (label.color) {
+            case 30:
+                color_30.active = true;
+                break;
+            case 31:
+                color_31.active = true;
+                break;
+            case 32:
+                color_32.active = true;
+                break;
+            case 33:
+                color_33.active = true;
+                break;
+            case 34:
+                color_34.active = true;
+                break;
+            case 35:
+                color_35.active = true;
+                break;
+            case 36:
+                color_36.active = true;
+                break;
+            case 37:
+                color_37.active = true;
+                break;
+            case 38:
+                color_38.active = true;
+                break;
+            case 39:
+                color_39.active = true;
+                break;
+            case 40:
+                color_40.active = true;
+                break;
+            case 41:
+                color_41.active = true;
+                break;
+            case 42:
+                color_42.active = true;
+                break;
+            case 43:
+                color_43.active = true;
+                break;
+            case 44:
+                color_44.active = true;
+                break;
+            case 45:
+                color_45.active = true;
+                break;
+            case 46:
+                color_46.active = true;
+                break;
+            case 47:
+                color_47.active = true;
+                break;
+            case 48:
+                color_48.active = true;
+                break;
+            case 49:
+                color_49.active = true;
+                break;
+            default:
+                break;
+        }
 
         color_30.toggled.connect (() => {
             color_selected = 30;
@@ -393,5 +637,10 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             color_selected = 49;
             save ();
         });
+    }
+
+    public void edit () {
+        name_stack.visible_child_name = "name_entry";
+        name_entry.grab_focus ();
     }
 }

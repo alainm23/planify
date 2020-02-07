@@ -99,6 +99,7 @@ public class MainWindow : Gtk.Window {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("view");
 
         var action_grid = new Gtk.Grid ();
         action_grid.margin = 6;

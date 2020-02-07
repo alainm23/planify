@@ -3,6 +3,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
     private Gtk.Stack stack;
     private uint timeout = 0;
 
+    private const Gtk.TargetEntry[] targetEntriesLabel = {
+        {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public Preferences (string view="home") {
         Object (
             view: view,
@@ -652,22 +656,47 @@ public class Dialogs.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_bottom = 1;
-
         var listbox = new Gtk.ListBox ();
-        listbox.valign = Gtk.Align.START;
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.get_style_context ().add_class ("background");
         listbox.expand = true;
+
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntriesLabel, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
+            Widgets.LabelRow target;
+            Widgets.LabelRow source;
+            Gtk.Allocation alloc;
+            int newPos;
+
+            target = (Widgets.LabelRow) listbox.get_row_at_y (y);
+            target.get_allocation (out alloc);
+            
+            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+            source = (Widgets.LabelRow) row;
+            
+            int last_index = (int) listbox.get_children ().length;
+
+            if (target == null) {
+                newPos = last_index - 1;
+            } else {
+                newPos = target.get_index () + 1;
+            }
+
+            source.get_parent ().remove (source); 
+
+            listbox.insert (source, newPos);
+            listbox.show_all ();
+
+            update_label_order (listbox);
+        });
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.hexpand = true;
 
         var new_label = new Widgets.NewLabel ();
-        
+
         box.pack_start (description_label, false, false, 0);
-        box.pack_start (separator, false, true, 0);
         box.pack_start (new_label, false, true, 0);
         box.pack_start (listbox, false, true, 0);
 
@@ -683,10 +712,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (box_scrolled, false, true, 0);
 
-        add_all_labels (listbox);
+        add_all_labels (listbox, box_scrolled);
 
         Planner.database.label_added.connect ((label) => {
-            var row = new Widgets.LabelRow (label);
+            var row = new Widgets.LabelRow (label, box_scrolled);
             
             listbox.insert (row, 0);
             listbox.show_all ();
@@ -696,6 +725,16 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        listbox.row_activated.connect ((row) => {
+            var item = ((Widgets.LabelRow) row);
+            item.edit ();
+        });
+
+        new_label.insert_row.connect ((row, position) => {
+            listbox.insert (row, position);
+            listbox.show_all ();
         });
 
         return main_box;
@@ -1134,9 +1173,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
-    private void add_all_labels (Gtk.ListBox listbox)  {           
+    private void add_all_labels (Gtk.ListBox listbox, Gtk.ScrolledWindow scrolled)  {           
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {
-            var row = new Widgets.LabelRow (label);
+            var row = new Widgets.LabelRow (label, scrolled);
             listbox.add (row);
         }
 

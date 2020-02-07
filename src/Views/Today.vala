@@ -54,6 +54,7 @@ public class Views.Today : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        listbox.margin_top = 6;
         
         int is_todoist = 0;
         if (Planner.settings.get_boolean ("inbox-project-sync")) {
@@ -267,8 +268,8 @@ public class Views.Today : Gtk.EventBox {
             listbox.show_all ();
         }
 
-        listbox.set_sort_func (sort_function);
-        listbox.set_header_func (update_headers);
+        //listbox.set_sort_func (sort_function);
+        //listbox.set_header_func (update_headers);
     }
 
     private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {

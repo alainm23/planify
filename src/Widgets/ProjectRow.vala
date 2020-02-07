@@ -32,7 +32,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.ToggleButton menu_button;
     private Widgets.ImageMenuItem move_area_menu;
     
-    public Gtk.Box handle_box;
     private Gtk.EventBox handle;
 
     private Gtk.Revealer motion_revealer;
@@ -149,7 +148,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             source_icon.tooltip_text = _("Todoist Project");
         }
         
-        handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
+        var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
         handle_box.hexpand = true;
         handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
@@ -183,6 +182,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
+        apply_color (Planner.utils.get_color (project.color));
 
         Timeout.add (125, () => {
             update_count ();
@@ -233,6 +233,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 project.color = p.color;
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
+
+                apply_color (Planner.utils.get_color (p.color));
             }
         });
 
@@ -274,6 +276,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+    }
+
+    private void apply_color (string color) {
+        string CSS = """
+            .project-color-%s {
+                color: %s
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var css = CSS.printf (
+                project.id.to_string (),
+                color
+            );
+
+            provider.load_from_data (css, css.length);
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        } catch (GLib.Error e) {
+            return;
+        }
     }
 
     private void update_count () {
@@ -336,14 +360,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = (ProjectRow) widget;
+        var row = ((ProjectRow) widget).handle;
 
         Gtk.Allocation alloc;
         row.get_allocation (out alloc);
 
         var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
         var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_source_rgba (0, 0, 0, 0.5);
         cr.set_line_width (1);
 
         cr.move_to (0, 0);
@@ -353,11 +377,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
   
-        cr.set_source_rgba (255, 255, 255, 0.5);
+        cr.set_source_rgba (255, 255, 255, 0.7);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
-        row.handle_box.draw (cr);
+        row.draw (cr);
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
     }

@@ -10,14 +10,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         set {
             _is_today = value;
             duedate_preview_revealer.reveal_child = !value;
-            check_preview_box ();
 
+            project = Planner.database.get_project_by_id (item.project_id);
+            project_preview_label.label = "<small>%s</small>".printf (project.name);
+            project_preview_revealer.reveal_child = true;
+            
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ()); 
             if (Planner.utils.is_before_today (datetime)) {
                 duedate_preview_label.get_style_context ().add_class ("duedate-expired");
                 duedate_preview_revealer.reveal_child = true;
-                check_preview_box ();
             }
+
+            check_preview_box ();
         }
     }
 
@@ -30,11 +34,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         set {
             _upcoming = value;
             duedate_preview_revealer.reveal_child = false;
-            check_preview_box ();
 
             project = Planner.database.get_project_by_id (item.project_id);
-            project_name_label.label = "<small>%s</small>".printf (project.name);
-            project_name_revealer.reveal_child = true;
+            project_preview_label.label = "<small>%s</small>".printf (project.name);
+            project_preview_revealer.reveal_child = true;
+
+            check_preview_box ();
         }
     }
 
@@ -55,8 +60,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Label duedate_preview_label;
-    private Gtk.Label project_name_label;
-    private Gtk.Revealer project_name_revealer;
+    private Gtk.Image project_preview_image;
+    private Gtk.Label project_preview_label;
+    private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
 
     private Gtk.Revealer motion_revealer;
@@ -189,13 +195,27 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         top_box.pack_start (content_box, false, true, 8);
 
         // Preview Icons
+        var project_preview_image = new Gtk.Image ();
+        project_preview_image.gicon = new ThemedIcon ("mail-unread-symbolic");
+        project_preview_image.pixel_size = 16;
+        project_preview_image.get_style_context ().add_class ("project-color-%s".printf (item.project_id.to_string ()));
 
-        project_name_label = new Gtk.Label (null);
-        project_name_label.use_markup = true;
+        project_preview_label = new Gtk.Label (null);
+        project_preview_label.get_style_context ().add_class ("pane-item");
+        project_preview_label.margin_end = 6;
+        project_preview_label.use_markup = true;
 
-        project_name_revealer = new Gtk.Revealer ();
-        project_name_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        project_name_revealer.add (project_name_label);
+        var project_preview_grid = new Gtk.Grid ();
+        project_preview_grid.column_spacing = 3;
+        project_preview_grid.margin_end = 6;
+        project_preview_grid.halign = Gtk.Align.CENTER;
+        project_preview_grid.valign = Gtk.Align.CENTER;
+        project_preview_grid.add (project_preview_image);
+        project_preview_grid.add (project_preview_label);
+
+        project_preview_revealer = new Gtk.Revealer ();
+        project_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        project_preview_revealer.add (project_preview_grid);
 
         var duedate_preview_image = new Gtk.Image ();
         duedate_preview_image.valign = Gtk.Align.CENTER;
@@ -278,6 +298,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         preview_box.margin_start = 64;
         preview_box.hexpand = true;
+        preview_box.pack_start (project_preview_revealer, false, false, 0);
         preview_box.pack_start (duedate_preview_revealer, false, false, 0);
         preview_box.pack_start (reminder_preview_revealer, false, false, 0);
         preview_box.pack_start (checklist_preview_revealer, false, false, 0);
@@ -748,8 +769,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 if (upcoming != null) {
                     project = Planner.database.get_project_by_id (item.project_id);
-                    project_name_label.label = "<small>%s</small>".printf (project.name);
-                    project_name_revealer.reveal_child = true;
+                    project_preview_label.label = "<small>%s</small>".printf (project.name);
+                    project_preview_revealer.reveal_child = true;
                 }
             }
         });
@@ -847,6 +868,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+
+        Planner.database.project_updated.connect ((project) => {
+            if (item.project_id == project.id) {
+                project_preview_label.label = "<small>%s</small>".printf (project.name);
+            }
+        });
     }
 
     private void checked_toggled () {
@@ -907,7 +934,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void check_preview_box () {
         if (bottom_revealer.reveal_child == false) {
-            preview_revealer.reveal_child = duedate_preview_revealer.reveal_child || note_preview_revealer.reveal_child || checklist_preview_revealer.reveal_child || reminder_preview_revealer.reveal_child || labels_preview_box_revealer.reveal_child;
+            preview_revealer.reveal_child = duedate_preview_revealer.reveal_child || note_preview_revealer.reveal_child || checklist_preview_revealer.reveal_child || reminder_preview_revealer.reveal_child || labels_preview_box_revealer.reveal_child || project_preview_revealer.reveal_child;
         }
     }
 
@@ -935,14 +962,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = (ItemRow) widget;
+        var row = ((Widgets.ItemRow) widget).top_box;
 
         Gtk.Allocation alloc;
         row.get_allocation (out alloc);
 
         var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
         var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_source_rgba (0, 0, 0, 0.5);
         cr.set_line_width (1);
 
         cr.move_to (0, 0);
@@ -952,7 +979,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
   
-        cr.set_source_rgba (255, 255, 255, 0.5);
+        cr.set_source_rgba (255, 255, 255, 0.7);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 

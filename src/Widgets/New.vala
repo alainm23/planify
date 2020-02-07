@@ -236,6 +236,7 @@ public class Widgets.New : Gtk.Revealer {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.column_homogeneous = true;
@@ -520,6 +521,7 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("menuitem");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("planner-button");
         cancel_button.margin = 6;
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

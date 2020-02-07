@@ -3,8 +3,16 @@ public class Widgets.NewLabel : Gtk.EventBox {
     private Gtk.ToggleButton color_button;
     private Gtk.Entry name_entry;
 
+    private Gtk.Revealer motion_revealer;
+    private Gtk.Separator separator;
+
+    public signal void insert_row (Widgets.LabelRow row, int position);
+
     private int color_selected = 30;
-    
+    private const Gtk.TargetEntry[] targetEntriesLabel = {
+        {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     construct {
         var add_image = new Gtk.Image ();
         add_image.gicon = new ThemedIcon ("list-add-symbolic");
@@ -59,18 +67,35 @@ public class Widgets.NewLabel : Gtk.EventBox {
 
         var stack = new Gtk.Stack ();
         stack.get_style_context ().add_class ("view");
+        stack.get_style_context ().add_class ("welcome");
         stack.hexpand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         stack.add_named (add_eventbox, "label");
         stack.add_named (entry_box, "entry");
 
+        var motion_grid = new Gtk.Grid ();
+        motion_grid.margin = 6;
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
+            
+        motion_revealer = new Gtk.Revealer ();
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        motion_revealer.add (motion_grid);
+
+        separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.visible = false;
+        separator.no_show_all = true;
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.pack_start (stack, false, true, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (stack, false, true, 0);
+        main_box.pack_start (separator, false, true, 0);
+        main_box.pack_start (motion_revealer, false, true, 0);
 
         add (main_box);
         apply_styles (Planner.utils.get_color (color_selected));
+        build_drag_and_drop ();
 
         add_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
@@ -126,6 +151,35 @@ public class Widgets.NewLabel : Gtk.EventBox {
                 popover.show_all ();
             }
         });
+    }
+
+    private void build_drag_and_drop () {
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesLabel, Gdk.DragAction.MOVE);
+        drag_data_received.connect (on_drag_item_received);
+        drag_motion.connect (on_drag_motion);
+        drag_leave.connect (on_drag_leave);
+    }
+
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+        var row = ((Gtk.Widget[]) selection_data.get_data ()) [0];
+        Widgets.LabelRow source = (Widgets.LabelRow) row;
+
+        source.get_parent ().remove (source); 
+
+        insert_row (source, 0);
+    }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_revealer.reveal_child = true;
+        separator.visible = true;
+        separator.no_show_all = false;
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        motion_revealer.reveal_child = false;
+        separator.visible = false;
+        separator.no_show_all = true;
     }
 
     private void create_popover () {

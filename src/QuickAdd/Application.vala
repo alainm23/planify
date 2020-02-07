@@ -4,6 +4,10 @@ public class PlannerQuickAdd : Gtk.Application {
             caret-color: #3689e6;
         }
         
+        button {
+            border-radius: 4px;
+        }
+        
         textview {
             caret-color: #3689e6;
         }

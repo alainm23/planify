@@ -7,7 +7,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Stack name_stack;
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer action_revealer;
-
+    private Gtk.EventBox top_eventbox;
     private Gtk.Separator separator;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer motion_section_revealer;
@@ -108,6 +108,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
         cancel_button.get_style_context ().add_class ("new-item-action-button");
+        cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
@@ -122,7 +123,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         action_revealer.add (action_grid);
 
-        var top_eventbox = new Gtk.EventBox ();
+        top_eventbox = new Gtk.EventBox ();
         top_eventbox.margin_end = 24;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
@@ -777,14 +778,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = (Widgets.SectionRow) widget;
+        var row = ((Widgets.SectionRow) widget).top_eventbox;
 
         Gtk.Allocation alloc;
         row.get_allocation (out alloc);
 
         var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
         var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.3);
+        cr.set_source_rgba (0, 0, 0, 0.5);
         cr.set_line_width (1);
 
         cr.move_to (0, 0);
@@ -794,7 +795,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
   
-        cr.set_source_rgba (255, 255, 255, 0.5);
+        cr.set_source_rgba (255, 255, 255, 0.7);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 

@@ -130,6 +130,7 @@ public class Views.Project : Gtk.EventBox {
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
         cancel_button.get_style_context ().add_class ("new-item-action-button");
+        cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
@@ -320,8 +321,7 @@ public class Views.Project : Gtk.EventBox {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus_without_selecting ();
-                name_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                name_entry.grab_focus ();
             }
 
             return false;

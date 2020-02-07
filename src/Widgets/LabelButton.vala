@@ -30,7 +30,6 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (label_icon);
-        //main_grid.add (label);
 
         add (main_grid);
 
@@ -147,7 +146,6 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
         label_image.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
 
         var name_label = new Gtk.Label (label.name);
-        name_label.get_style_context ().add_class ("h3");
         name_label.get_style_context ().add_class ("font-weight-600");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
