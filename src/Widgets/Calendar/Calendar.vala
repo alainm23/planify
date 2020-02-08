@@ -24,7 +24,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     private Widgets.Calendar.CalendarWeek calendar_week;
     private Widgets.Calendar.CalendarView calendar_view;
 
-    public bool sensitive_past_days { get; construct; }
+    public bool block_past_days { get; construct; }
 
     private int month_nav;
     private int year_nav;
@@ -42,9 +42,9 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void selection_changed (GLib.DateTime date);
 
-    public Calendar (bool sensitive_past_days=false) {
+    public Calendar (bool block_past_days=false) {
         Object (
-            sensitive_past_days: sensitive_past_days
+            block_past_days: block_past_days
         );
     }
 
@@ -102,7 +102,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
                                       max_days,
                                       date.get_day_of_month (),
                                       Planner.utils.is_current_month (date),
-                                      true,
+                                      block_past_days,
                                       date);
 
         calendar_header.date = date;
@@ -127,7 +127,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
                                       max_days,
                                       date.get_day_of_month (),
                                       Planner.utils.is_current_month (date),
-                                      true,
+                                      block_past_days,
                                       date);
 
         calendar_header.date = date;
@@ -152,7 +152,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
             max_days, 
             day, 
             true, 
-            true, 
+            block_past_days, 
             current_date
         );
 

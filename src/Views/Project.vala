@@ -700,7 +700,28 @@ public class Views.Project : Gtk.EventBox {
         var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
         delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
-        show_menu = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+        var show_completed_image = new Gtk.Image ();
+        show_completed_image.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_image.valign = Gtk.Align.CENTER;
+        show_completed_image.pixel_size = 16;
+
+        var show_completed_label = new Gtk.Label (_("Show Completed"));
+        show_completed_label.hexpand = true;
+        show_completed_label.xalign = 0;
+
+        var show_completed_switch = new Gtk.Switch ();
+        show_completed_switch.get_style_context ().add_class ("planner-switch");
+
+        var show_completed_grid = new Gtk.Grid ();
+        show_completed_grid.column_spacing = 6;
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_switch);
+
+        var show_completed_button = new Gtk.ModelButton ();
+        show_completed_button.margin_top = 3;
+        show_completed_button.get_child ().destroy ();
+        show_completed_button.add (show_completed_grid);
 
         var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator_01.margin_top = 3;
@@ -719,7 +740,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.add (separator_01);
         popover_grid.add (delete_menu);
         popover_grid.add (separator_02);
-        popover_grid.add (show_menu);
+        popover_grid.add (show_completed_button);
   
         popover.add (popover_grid);
 
@@ -761,6 +782,8 @@ public class Views.Project : Gtk.EventBox {
         });
 
         show_menu.clicked.connect (() => {
+            show_completed_switch.active = !show_completed_switch.active;
+            /*
             if (completed_revealer.reveal_child) {
                 show_menu.text = _("Show completed task");
                 completed_revealer.reveal_child = false;
@@ -770,6 +793,7 @@ public class Views.Project : Gtk.EventBox {
             }
 
             popover.popdown ();
+            */
         });
     }
 

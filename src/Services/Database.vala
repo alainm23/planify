@@ -1761,10 +1761,10 @@ public class Services.Database : GLib.Object {
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
             var due = new GLib.DateTime.from_iso8601 (stmt.column_text (0), new GLib.TimeZone.local ());
-            if (Planner.utils.is_before_today (due)) {
-                items_past++;
-            } else if (Planner.utils.is_today (due)) {
+            if (Planner.utils.is_today (due)) {
                 items_today++;
+            } else if (Planner.utils.is_past_day (due)) {
+                items_past++;
             }
         }
 
@@ -3176,7 +3176,7 @@ public class Services.Database : GLib.Object {
             i.is_todoist = stmt.column_int (18);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
-            if (Planner.utils.is_today (due) || Planner.utils.is_before_today (due)) {
+            if (Planner.utils.is_today (due) || Planner.utils.is_past_day (due)) {
                 all.add (i);
             }   
         }

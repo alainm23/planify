@@ -107,7 +107,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         count_label.valign = Gtk.Align.CENTER;
         count_label.opacity = 0.7;
         count_label.use_markup = true;
-        count_label.width_chars = 4;
+        count_label.width_chars = 3;
 
         count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -165,7 +165,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 6;
+        grid.margin_start = 4;
         grid.margin_top = grid.margin_bottom = 3;
         grid.add (handle_box);
         grid.add (motion_revealer);

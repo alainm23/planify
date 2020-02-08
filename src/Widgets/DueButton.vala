@@ -136,7 +136,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         undated_button.color = 2;
         undated_button.due_label = true;
 
-        calendar = new Widgets.Calendar.Calendar (true);
+        calendar = new Widgets.Calendar.Calendar ();
         calendar.hexpand = true;
 
         var grid = new Gtk.Grid ();

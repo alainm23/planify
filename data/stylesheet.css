@@ -2,6 +2,7 @@
 @define-color pane_color shade (@bg_color, 1.02);
 @define-color pane_selected_color #D1DFFE;
 @define-color pane_text_color #333333;
+@define-color duedate_today_color #d48e15;
 
 /*
     Dark theme
@@ -66,7 +67,7 @@ popover {
 }
 
 .sidebar-header {
-    padding-left: 7px;
+    padding-left: 3px;
     background-color: @pane_color;
 }
 
@@ -79,7 +80,7 @@ popover {
 }
 
 .projectview-header {
-    padding-right: 6px;
+    padding-right: 3px;
     background-color: @projectview_color;
 }
 
@@ -759,33 +760,15 @@ paned > separator {
 }
 
 .duedate-upcoming {
-    background-color: #f7f7f7;
-    padding: 0px 6px 1px 6px;
-    font-size: 9px;
-    font-weight: 600;
-    color: #333;
-    border-radius: 3px;
-    border: 1px solid shade (#f7f7f7, 0.95);
+    color: @text_color;
 }
 
 .duedate-expired {
-    background-color: shade (#ed5353, 0.85);
-    padding: 0px 6px 1px 6px;
-    font-size: 9px;
-    font-weight: 700;
-    color: #fafafa;
-    border-radius: 3px;
-    border: 1px solid #a10705;
+    color: #ed5353;
 }
 
 .duedate-today {
-    background-color: #ffe16b;
-    padding: 0px 6px 1px 6px;
-    font-size: 9px;
-    font-weight: 700;
-    color: #333;
-    border-radius: 3px;
-    border: 1px solid #f9c440;
+    color: @duedate_today_color;
 }
 
 .checklist-button check {
@@ -895,4 +878,9 @@ paned > separator {
 
 .label-danger {
     color:#ed5353;
+}
+
+.planner-switch slider {
+    min-height: 16px;
+    min-width: 16px;
 }

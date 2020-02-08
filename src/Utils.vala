@@ -399,6 +399,25 @@ public class Utils : GLib.Object {
         return false;
     }
 
+    public bool is_past_day (GLib.DateTime date) {
+        var returned = false;
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () < now.get_year ()) {
+            returned = true;
+        } else {
+            if (date.get_month () < now.get_month ()) {
+                returned = true;
+            } else {
+                if (date.get_day_of_month () < now.get_day_of_month ()) {
+                    returned = true;
+                }
+            }
+        }
+
+        return returned;
+    }
+
     public bool is_today (GLib.DateTime date_1) {
         var date_2 = new GLib.DateTime.now_local ();
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
@@ -500,6 +519,7 @@ public class Utils : GLib.Object {
             @define-color pane_color %s;
             @define-color pane_selected_color %s;
             @define-color pane_text_color %s;
+            @define-color duedate_today_color %s;
         """;
 
         bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
@@ -513,12 +533,15 @@ public class Utils : GLib.Object {
             string pane_color = "shade (@bg_color, 1.02)";
             string pane_selected_color = "#D1DFFE";
             string pane_text_color = "#333333";
+            string duedate_today_color = "#d48e15";
+
             if (dark_mode) {
                 projectview_color = "#333333";
                 border_color = "0.55";
                 pane_color = "shade (@bg_color, 0.7)";
                 pane_selected_color = "shade (#D1DFFE, 0.30)";
                 pane_text_color = "#ffffff";
+                duedate_today_color = "#f9c440";
             }
             
             var css = CSS.printf (
@@ -526,7 +549,8 @@ public class Utils : GLib.Object {
                 border_color,
                 pane_color,
                 pane_selected_color,
-                pane_text_color
+                pane_text_color,
+                duedate_today_color
             );
 
             provider.load_from_data (css, css.length);

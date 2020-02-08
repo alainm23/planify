@@ -59,7 +59,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                                 int max_day, 
                                 int current_day,
                                 bool is_current_month, 
-                                bool sensitive_past_days = false,
+                                bool block_past_days = false,
                                 GLib.DateTime month = new GLib.DateTime.now_local ()) {
         var day_number = 1;
 
@@ -82,7 +82,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                 item.no_show_all = true;
             } else {
                 if (day_number < _current_day) {
-                    if (sensitive_past_days) {
+                    if (block_past_days) {
                         if (is_current_month) {
                             item.sensitive = false;
                         }
@@ -99,7 +99,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                 day_number =  day_number + 1;
             }
 
-            if (sensitive_past_days) {
+            if (block_past_days) {
                 if (is_current_month == false) {
                     var now = new GLib.DateTime.now_local ();
                     if (month.compare (now) == -1) {

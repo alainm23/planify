@@ -16,7 +16,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             project_preview_revealer.reveal_child = true;
             
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ()); 
-            if (Planner.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_past_day (datetime)) {
                 duedate_preview_label.get_style_context ().add_class ("duedate-expired");
                 duedate_preview_revealer.reveal_child = true;
             }
@@ -60,10 +60,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Label duedate_preview_label;
-    private Gtk.Image project_preview_image;
     private Gtk.Label project_preview_label;
     private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
+    private Gtk.Grid duedate_preview_grid;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_preview_box_revealer;
@@ -226,7 +226,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_label.get_style_context ().add_class ("pane-item");
         duedate_preview_label.use_markup = true;
 
-        var duedate_preview_grid = new Gtk.Grid ();
+        duedate_preview_grid = new Gtk.Grid ();
         duedate_preview_grid.column_spacing = 3;
         duedate_preview_grid.margin_end = 6;
         duedate_preview_grid.halign = Gtk.Align.CENTER;
@@ -239,7 +239,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_revealer.add (duedate_preview_grid);
         duedate_preview_revealer.reveal_child = false;
 
-        check_due_style ();
+        check_duedate_style ();
 
         // Reminder
         reminder = Planner.database.get_first_reminders_by_item (item.id);
@@ -662,7 +662,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 duedate_preview_revealer.reveal_child = true;
                 check_preview_box ();
                 
-                check_due_style ();
+                check_duedate_style ();
                 due_button.update_date_text (i.due_date);
 
                 if (is_today) {
@@ -705,7 +705,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 duedate_preview_revealer.reveal_child = true;
                 check_preview_box ();
-                check_due_style ();
+                check_duedate_style ();
                 due_button.update_date_text (i.due_date);
             }
         });
@@ -716,7 +716,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 duedate_preview_revealer.reveal_child = false;
                 check_preview_box ();
-                check_due_style ();
+                check_duedate_style ();
                 due_button.update_date_text (i.due_date);
 
                 if (is_today || upcoming != null) {
@@ -1063,20 +1063,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    private void check_due_style () {
+    private void check_duedate_style () {
         if (item.due_date != "") {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());            
             
-            //duedate_preview_label.get_style_context ().remove_class ("duedate-today");
-            //duedate_preview_label.get_style_context ().remove_class ("duedate-expired");
-            //duedate_preview_label.get_style_context ().remove_class ("duedate-upcoming");
+            duedate_preview_grid.get_style_context ().remove_class ("duedate-today");
+            duedate_preview_grid.get_style_context ().remove_class ("duedate-expired");
+            duedate_preview_grid.get_style_context ().remove_class ("duedate-upcoming");
             
             if (Planner.utils.is_today (datetime)) {
-            //    duedate_preview_label.get_style_context ().add_class ("duedate-upcoming");
-            } else if (Planner.utils.is_before_today (datetime)) {
-            //    duedate_preview_label.get_style_context ().add_class ("duedate-upcoming");
+                duedate_preview_grid.get_style_context ().add_class ("duedate-today");
+            }
+
+            if (Planner.utils.is_past_day (datetime)) {
+                duedate_preview_grid.get_style_context ().add_class ("duedate-expired");
             } else {
-            //    duedate_preview_label.get_style_context ().add_class ("duedate-upcoming");
+                duedate_preview_grid.get_style_context ().add_class ("duedate-upcoming");
             }
         }
     }
@@ -1239,8 +1241,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (tomorrow_menu);
         menu.add (undated_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (move_project_menu);
-        menu.add (move_section_menu);
+        if (is_today == false && upcoming == null) {
+            menu.add (move_project_menu);
+            menu.add (move_section_menu);   
+        }
         menu.add (share_menu);
         //menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
