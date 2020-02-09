@@ -63,7 +63,7 @@ msgstr "Vermelho Escuro"
 
 #: src/Utils.vala:140
 msgid "Red"
-msgstr "Qua"
+msgstr "Vermelho"
 
 #: src/Utils.vala:141
 msgid "Orange"
@@ -184,12 +184,12 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
-"Acontece que nossos cérebros estão realmente conectados para nos fazer "
-"pensar em nossas tarefas inacabadas.É útil quando você tem apenas uma coisa "
+"Acontece que, nossos cérebros estão realmente conectados para nos fazer "
+"pensar em nossas tarefas inacabadas.  É útil quando você tem apenas uma coisa "
 "em que precisa trabalhar. Não é tão bom quando você tem mais de 30 tarefas "
 "disputando sua atenção de uma só vez. É por isso que o primeiro passo para "
 "organizar seu trabalho e sua vida é tirar tudo da sua cabeça e colocar em "
-"uma lista de tarefas. A partir daí, você pode começar a organizar e "
+"uma lista de tarefas. A partir daí você pode começar a organizar e "
 "priorizar para saber exatamente o que focar e quando."
 
 #: src/Utils.vala:592
@@ -393,7 +393,7 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
-"Sua caixa de entrada é o local padrão para adicionar novas tarefas, para que "
+"Sua caixa de entrada é o local padrão para adicionar novas tarefas para que "
 "você possa tirá-las da cabeça rapidamente, depois voltar e fazer um plano "
 "para cuidar delas mais tarde. É uma ótima maneira de organizar sua mente "
 "para que você possa se concentrar no que estiver fazendo no momento."
@@ -441,8 +441,8 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 "Parece que você não está conectado a\n"
-"Internet. Alterações feitas offline\n"
-"serão sincronizado somente quando você reconectar a internet"
+"internet. Alterações feitas offline\n"
+"serão sincronizado somente quando você reconectar"
 
 #: src/Widgets/New.vala:57 src/Dialogs/ProjectSettings.vala:25
 msgid "Name:"
@@ -511,7 +511,7 @@ msgstr "Editar"
 
 #: src/Widgets/ProjectRow.vala:462
 msgid "Move to Area"
-msgstr "Mover para área"
+msgstr "Mover para a área"
 
 #: src/Widgets/ProjectRow.vala:466 src/Widgets/ItemRow.vala:1193
 #: src/Widgets/SectionRow.vala:526
@@ -892,7 +892,7 @@ msgid ""
 "change it to whatever you'd like."
 msgstr ""
 "Ao abrir o Planejador, verifique as tarefas mais importantes. A página "
-"inicial padrão é a sua visualização <b> Caixa de entrada </b>, mas você pode "
+"inicial padrão é a sua visualização <b>Caixa de entrada</b>, mas você pode "
 "alterá-la para o que quiser."
 
 #: src/Dialogs/Preferences.vala:216
@@ -917,7 +917,7 @@ msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
-"Personalize a aparência do seu Planejador, escolhendo o tema que melhor lhe "
+"Personalize a aparência do seu Planejador escolhendo o tema que melhor lhe "
 "agradar."
 
 #: src/Dialogs/Preferences.vala:368
@@ -935,7 +935,7 @@ msgid ""
 "return to work."
 msgstr ""
 "Não se preocupe com o aplicativo que você está usando. Você pode usar o "
-"atalho do teclado para abrir a janela Adicionar , onde é possível inserir "
+"atalho do teclado para abrir a janela Adicionar, onde é possível inserir "
 "uma tarefa pendente e retornar rapidamente ao trabalho."
 
 #: src/Dialogs/Preferences.vala:427 src/Dialogs/Preferences.vala:493
@@ -992,7 +992,7 @@ msgstr "Seu projeto tutorial foi criado"
 
 #: src/Dialogs/Preferences.vala:606
 msgid "Are you sure you want to reset all?"
-msgstr "Você tem certeza que deseja redefinir tudo ?"
+msgstr "Você tem certeza que deseja redefinir tudo?"
 
 #: src/Dialogs/Preferences.vala:607
 msgid ""
@@ -1039,7 +1039,7 @@ msgstr "Sair"
 
 #: src/Dialogs/Preferences.vala:865
 msgid "Are you sure you want to log out?"
-msgstr "Você tem certeza que deseja sair ?"
+msgstr "Você tem certeza que deseja sair?"
 
 #: src/Dialogs/Preferences.vala:866
 msgid "This process will close your Todoist session on this device."
@@ -1052,10 +1052,10 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
-"Você pode conectar seu aplicativo <b> Calendário </b> ao Planejador para ver "
+"Você pode conectar seu aplicativo <b>Calendário</b> ao Planejador para ver "
 "seus eventos e tarefas juntos em um só lugar. Você verá eventos das agendas "
-"pessoal e compartilhada em <b> Hoje </b> e <b> Próximos </b>. Isso é útil "
-"quando você gerencia o seu dia e ao planejar a semana seguinte."
+"pessoal e compartilhada em <b>Hoje</b> e <b>Próximos</b>. Isso é útil "
+"quando você gerencia o seu dia, e ao planejar a semana seguinte."
 
 #: src/Dialogs/Preferences.vala:917
 msgid "Enabled"
@@ -1099,12 +1099,12 @@ msgstr "A tarefa foi copiada para a área de transferência."
 
 #~ msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
 #~ msgstr ""
-#~ "Todo mundo precisa de um gerenciador de tarefas e o Planner se adapta a "
+#~ "Todo mundo precisa de um gerenciador de tarefas e o Planejador se adapta a "
 #~ "todas as necessidades"
 
 #, fuzzy
 #~ msgid "How Planner works:"
-#~ msgstr "Como o Planner funciona"
+#~ msgstr "Como o Planejador funciona:"
 
 #, fuzzy
 #~ msgid ""
@@ -1112,7 +1112,7 @@ msgstr "A tarefa foi copiada para a área de transferência."
 #~ "When you add a task, it goes straight to your Inbox unless you specify "
 #~ "that the task goes into a project."
 #~ msgstr ""
-#~ "A caixa de entrada é sua lista de tarefas padrão no Planner. Quando você "
+#~ "1. Guarde suas Ideias - A caixa de entrada é sua lista de tarefas padrão no Planner. Quando você "
 #~ "adiciona uma tarefa, ela vai direto para sua caixa de entrada, a menos "
 #~ "que você especifique um projeto para ela."
 
@@ -1121,7 +1121,7 @@ msgstr "A tarefa foi copiada para a área de transferência."
 #~ "2. Get Organized - Create a project for each of your goals, then add the "
 #~ "steps to reach them. Review these regularly to stay on top of things."
 #~ msgstr ""
-#~ "Crie um projeto para cada um dos seus objetivos, e adicione os passos "
+#~ "2. Se Organize - Crie um projeto para cada um dos seus objetivos, e adicione os passos "
 #~ "para completá-los. Revise eles regularmente para ficar por dentro de tudo."
 
 #, fuzzy
@@ -1575,7 +1575,7 @@ msgstr "A tarefa foi copiada para a área de transferência."
 #~ msgstr "1. Guarde suas ideias"
 
 #~ msgid "2. Get Organized"
-#~ msgstr "2. Organize-se"
+#~ msgstr "2.Se Organize"
 
 #~ msgid "3. Calendar and Events"
 #~ msgstr "3. Calendário e eventos"
