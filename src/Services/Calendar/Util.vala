@@ -21,7 +21,7 @@
 
 namespace Util {
     static bool has_scrolled = false;
-    
+
     public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
         if (date == null) {
             date = new GLib.DateTime.now_local ();
@@ -146,7 +146,9 @@ namespace Util {
         unowned ICal.Timezone system_timezone = ECal.Util.get_system_timezone ();
 #endif
 
-        var stripped_time = new GLib.DateTime.local (day.get_year (), day.get_month (), day.get_day_of_month (), 0, 0, 0);
+        var stripped_time = new GLib.DateTime.local (
+            day.get_year (), day.get_month (), day.get_day_of_month (), 0, 0, 0
+        );
 
         var selected_date_unix = stripped_time.to_unix ();
         var selected_date_unix_next = stripped_time.add_days (1).to_unix ();
@@ -203,7 +205,7 @@ namespace Util {
             parent_uid = parent_source.parent;
 
             if (parent_source.has_extension (E.SOURCE_EXTENSION_AUTHENTICATION)) {
-                var collection = (E.SourceAuthentication)parent_source.get_extension (E.SOURCE_EXTENSION_AUTHENTICATION);
+                var collection = (E.SourceAuthentication) parent_source.get_extension (E.SOURCE_EXTENSION_AUTHENTICATION); // vala-lint=line-length
                 if (collection.user != null) {
                     return collection.user;
                 }

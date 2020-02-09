@@ -21,7 +21,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         var delete_button = new Gtk.Button ();
         delete_button.can_focus = false;
         delete_button.valign = Gtk.Align.CENTER;
-        delete_button.halign = Gtk.Align.CENTER; 
+        delete_button.halign = Gtk.Align.CENTER;
         delete_button.get_style_context ().add_class ("no-padding");
         delete_button.get_style_context ().add_class ("label-item-button");
         delete_button.image = delete_image;
@@ -36,7 +36,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         name_label.margin_top = 1;
         name_label.valign = Gtk.Align.CENTER;
         name_label.valign = Gtk.Align.CENTER;
-        
+
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.valign = Gtk.Align.CENTER;
         box.get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));
@@ -73,7 +73,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         delete_button.clicked.connect (() => {
             if (Planner.database.delete_item_label (id, item_id, label)) {
 
-            }   
+            }
         });
 
         Planner.database.item_label_deleted.connect ((i, item_id, label) => {

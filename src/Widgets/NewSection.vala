@@ -103,7 +103,7 @@ public class Widgets.NewSection : Gtk.Revealer {
             return false;
         });
 
-        name_entry.changed.connect (() => {  
+        name_entry.changed.connect (() => {
             if (name_entry.text != "") {
                 submit_button.sensitive = true;
             } else {
@@ -138,11 +138,11 @@ public class Widgets.NewSection : Gtk.Revealer {
                 temp_id_mapping = 0;
                 print ("Add Section Error\n");
                 sensitive = true;
-                reveal = false; 
+                reveal = false;
             }
         });
     }
-    
+
     private void insert_section () {
         if (name_entry.text != "") {
             var section = new Objects.Section ();

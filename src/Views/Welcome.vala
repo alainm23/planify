@@ -25,7 +25,7 @@ public class Views.Welcome : Gtk.EventBox {
     construct {
         var welcome = new Granite.Widgets.Welcome ("Planner", _("Never worry about forgetting things again"));
         welcome.margin_bottom = 48;
-        
+
         welcome.append ("help-about", _("Startup"), _("Start working locally."));
         welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist account and start working."));
 

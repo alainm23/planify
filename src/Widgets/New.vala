@@ -26,11 +26,11 @@ public class Widgets.New : Gtk.Revealer {
 
     public Gtk.Stack stack;
 
-    private Gtk.ComboBox source_combobox;   
+    private Gtk.ComboBox source_combobox;
     private Gtk.ListStore list_store;
     private Gtk.Revealer source_revealer;
     private int color_selected = 30;
-    
+
     private uint timeout_id = 0;
 
     public bool reveal {
@@ -38,7 +38,7 @@ public class Widgets.New : Gtk.Revealer {
             return reveal_child;
         }
         set {
-            reveal_child =  value;
+            reveal_child = value;
 
             if (value) {
                 build_list_store ();
@@ -55,7 +55,7 @@ public class Widgets.New : Gtk.Revealer {
 
     construct {
         var name_label = new Granite.HeaderLabel (_("Name:"));
-        
+
         name_entry = new Gtk.Entry ();
 
         var source_label = new Granite.HeaderLabel (_("Source:"));
@@ -153,7 +153,7 @@ public class Widgets.New : Gtk.Revealer {
         color_45.valign = Gtk.Align.START;
         color_45.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("45", Planner.utils.get_color (45), color_45);
-        
+
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
@@ -229,7 +229,7 @@ public class Widgets.New : Gtk.Revealer {
         var submit_stack = new Gtk.Stack ();
         submit_stack.expand = true;
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        
+
         submit_stack.add_named (new Gtk.Label (_("Add")), "label");
         submit_stack.add_named (submit_spinner, "spinner");
 
@@ -256,7 +256,7 @@ public class Widgets.New : Gtk.Revealer {
         box.pack_start (color_box, false, false, 0);
         box.pack_start (error_revealer, false, false, 0);
         box.pack_end (action_grid, false, false, 0);
-        
+
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -265,13 +265,13 @@ public class Widgets.New : Gtk.Revealer {
         stack.add_named (box, "box");
 
         var main_grid = new Gtk.Grid ();
-        main_grid.expand = false; 
+        main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
 
         main_grid.add (stack);
 
-        add (main_grid); 
+        add (main_grid);
 
         color_30.toggled.connect (() => {
             color_selected = 30;
@@ -368,7 +368,7 @@ public class Widgets.New : Gtk.Revealer {
                 submit_button.sensitive = false;
             }
         });
-        
+
         cancel_button.clicked.connect (cancel);
 
         name_entry.key_release_event.connect ((key) => {
@@ -382,7 +382,7 @@ public class Widgets.New : Gtk.Revealer {
         Planner.todoist.project_added_started.connect (() => {
             submit_button.sensitive = false;
             submit_stack.visible_child_name = "spinner";
-        }); 
+        });
 
         Planner.todoist.project_added_completed.connect (() => {
             submit_button.sensitive = true;
@@ -402,7 +402,8 @@ public class Widgets.New : Gtk.Revealer {
                 error_revealer.reveal_child = false;
 
                 Source.remove (timeout_id);
-                
+                timeout_id = 0;
+
                 return false;
             });
         });
@@ -415,14 +416,14 @@ public class Widgets.New : Gtk.Revealer {
 
             source_revealer.reveal_child = Planner.settings.get_boolean ("todoist-account");
         });
-    } 
+    }
 
     private void build_list_store () {
         list_store.clear ();
         source_combobox.clear ();
 
-        string local_text = " " + _("On this computer"); 	
-        Gtk.TreeIter local_iter;	
+        string local_text = " " + _("On this computer");
+        Gtk.TreeIter local_iter;
         list_store.append (out local_iter);
         list_store.@set (local_iter, 0, 0, 1, local_text, 2, "planner-offline-symbolic");
 
@@ -446,9 +447,9 @@ public class Widgets.New : Gtk.Revealer {
             string email_text = " " + Planner.settings.get_string ("todoist-user-email");
             Gtk.TreeIter todoist_iter;
             list_store.append (out todoist_iter);
-            list_store.@set (todoist_iter, 
-                0, 1, 
-                1, email_text, 
+            list_store.@set (todoist_iter,
+                0, 1,
+                1, email_text,
                 2, "planner-online-symbolic"
             );
 
@@ -559,7 +560,7 @@ public class Widgets.New : Gtk.Revealer {
                 if (Planner.database.insert_project (project)) {
                     cancel ();
                 }
-            } else { 
+            } else {
                 project.is_todoist = 1;
                 Planner.todoist.add_project (project);
             }
@@ -569,7 +570,7 @@ public class Widgets.New : Gtk.Revealer {
     private void create_area () {
         var area = new Objects.Area ();
         area.name = _("New area");
-        
+
         if (Planner.database.insert_area (area)) {
             cancel ();
         }

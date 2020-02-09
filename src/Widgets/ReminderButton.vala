@@ -3,7 +3,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private Gtk.Popover popover = null;
     private Gtk.Stack stack;
-    private Gtk.Label reminder_label; 
+    private Gtk.Label reminder_label;
     private Gtk.Revealer label_revealer;
     private Widgets.Calendar.Calendar calendar;
     private Granite.Widgets.TimePicker time_picker;
@@ -37,7 +37,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         label_revealer = new Gtk.Revealer ();
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         label_revealer.add (reminder_label);
-        
+
         var main_grid = new Gtk.Grid ();
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
@@ -51,7 +51,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         Planner.utils.clock_format_changed.connect (() => {
             check_reminder_label (first_reminder);
         });
-        
+
         this.toggled.connect (() => {
             if (this.active) {
                 if (popover == null) {
@@ -90,7 +90,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-        
+
         stack.add_named (get_reminders_widget (), "list");
         stack.add_named (get_reminder_new_widget (), "new");
 
@@ -183,7 +183,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         time_picker.margin_end = 9;
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        
+
         var add_button = new Gtk.Button.with_label (_("Add"));
         add_button.sensitive = false;
         add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);

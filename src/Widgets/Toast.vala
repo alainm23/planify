@@ -65,7 +65,7 @@ public class Widgets.Toast : Gtk.Revealer {
         var undo_button = new Gtk.Button ();
         undo_button.valign = Gtk.Align.CENTER;
         undo_button.label = _("Undo");
-        
+
         var notification_box = new Gtk.Grid ();
         notification_box.column_spacing = 12;
         notification_box.add (close_button);
@@ -84,7 +84,6 @@ public class Widgets.Toast : Gtk.Revealer {
             }
 
             reveal_child = false;
-            
             Planner.database.clear_item_to_delete ();
         });
 
@@ -117,7 +116,7 @@ public class Widgets.Toast : Gtk.Revealer {
             Source.remove (timeout_id);
             timeout_id = 0;
         }
-         
+
         main_stack.visible_child_name = "delete_toast";
         delete_message_label.label = message;
         reveal_child = true;

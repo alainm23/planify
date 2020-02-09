@@ -105,7 +105,7 @@ public class Widgets.ImageMenuItem : Gtk.MenuItem {
             item_label.label = value;
         }
     }
-    
+
     public int color {
         set {
             if (value == 0) {
@@ -171,7 +171,7 @@ public class Widgets.PopoverButton : Gtk.Button {
         var label = new Gtk.Label (text);
         label.halign = Gtk.Align.START;
         label.hexpand = true;
-        
+
         var grid = new Gtk.Grid ();
         grid.margin_start = 6;
 

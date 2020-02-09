@@ -1,12 +1,12 @@
 public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Stack stack;
     public Widgets.New new_project;
-    
+
     //private Widgets.ActionRow search_row;
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
-    
+
     private Gtk.ListBox listbox;
     private Gtk.ListBox project_listbox;
     private Gtk.ListBox area_listbox;
@@ -19,10 +19,10 @@ public class Widgets.Pane : Gtk.EventBox {
 
     public signal void activated (int id);
     public signal void show_quick_find ();
-    
+
     private uint timeout;
 
-    private const Gtk.TargetEntry[] targetEntries = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
@@ -38,9 +38,9 @@ public class Widgets.Pane : Gtk.EventBox {
 
     construct {
         get_style_context ().add_class ("welcome");
-        
+
         //search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
+        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now.")); // vala-lint=line-length
 
         string today_icon = "planner-today-day-symbolic";
         var hour = new GLib.DateTime.now_local ().get_hour ();
@@ -48,8 +48,8 @@ public class Widgets.Pane : Gtk.EventBox {
             today_icon = "planner-today-night-symbolic";
         }
 
-        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day."));
-        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events."));
+        today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day.")); // vala-lint=line-length
+        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events.")); // vala-lint=line-length
         var back_row = new Widgets.ActionRow (_("Back-Pocket"), "user-trash-symbolic", "upcoming", _("Upcoming"));
 
         add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
@@ -68,7 +68,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_revealer.reveal_child = true;
         add_revealer.add (add_button);
 
-        listbox = new Gtk.ListBox  ();
+        listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -84,7 +84,7 @@ public class Widgets.Pane : Gtk.EventBox {
         motion_grid.margin_bottom = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         var motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         motion_revealer.add (motion_grid);
@@ -92,14 +92,14 @@ public class Widgets.Pane : Gtk.EventBox {
         var drag_grid = new Gtk.Grid ();
         drag_grid.height_request = 8;
 
-        project_listbox = new Gtk.ListBox  ();
+        project_listbox = new Gtk.ListBox ();
         project_listbox.get_style_context ().add_class ("pane");
         //project_listbox.get_style_context ().add_class ("welcome");
         project_listbox.activate_on_single_click = true;
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
-        
-        area_listbox = new Gtk.ListBox  ();
+
+        area_listbox = new Gtk.ListBox ();
         area_listbox.get_style_context ().add_class ("pane");
         //area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
@@ -191,12 +191,12 @@ public class Widgets.Pane : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.get_style_context ().add_class ("pane");
-        main_box.pack_start (listbox_scrolled, true, true, 0);   
-        main_box.pack_end (action_box, false, false, 0);  
+        main_box.pack_start (listbox_scrolled, true, true, 0);
+        main_box.pack_end (action_box, false, false, 0);
 
         var overlay = new Gtk.Overlay ();
         overlay.add_overlay (new_project);
-        overlay.add (main_box); 
+        overlay.add (main_box);
 
         var grid = new Gtk.Grid ();
         grid.get_style_context ().add_class ("pane");
@@ -208,21 +208,21 @@ public class Widgets.Pane : Gtk.EventBox {
 
         stack.add_named (overlay, "scrolled");
         stack.add_named (grid, "grid");
-   
+
         add (stack);
         build_drag_and_drop ();
         check_network ();
 
         // Project Drag and Drop
-        Gtk.drag_dest_set (drag_grid, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (drag_grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
             Widgets.ProjectRow source;
             Gtk.Allocation alloc;
 
             var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
             source = (Widgets.ProjectRow) row;
-            
-            source.get_parent ().remove (source); 
+
+            source.get_parent ().remove (source);
 
             source.project.area_id = 0;
 
@@ -268,7 +268,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.clicked.connect (() => {
             new_project.reveal = true;
         });
-        
+
         Planner.database.area_added.connect ((area) => {
             var row = new Widgets.AreaRow (area);
             area_listbox.add (row);
@@ -288,7 +288,7 @@ public class Widgets.Pane : Gtk.EventBox {
         Planner.utils.select_pane_project.connect ((project_id) => {
             project_listbox.foreach ((widget) => {
                 var row = (Widgets.ProjectRow) widget;
-                
+
                 if (row.project.id == project_id) {
                     project_listbox.select_row (row);
                 }
@@ -334,7 +334,7 @@ public class Widgets.Pane : Gtk.EventBox {
             project_listbox.foreach ((widget) => {
                 Idle.add (() => {
                     widget.destroy ();
-    
+
                     return false;
                 });
             });
@@ -342,7 +342,7 @@ public class Widgets.Pane : Gtk.EventBox {
             area_listbox.foreach ((widget) => {
                 Idle.add (() => {
                     widget.destroy ();
-    
+
                     return false;
                 });
             });
@@ -388,38 +388,39 @@ public class Widgets.Pane : Gtk.EventBox {
             sync_button.image = sync_image;
         } else {
             sync_button.image = error_image;
-            sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect"));
+            sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
         }
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         project_listbox.drag_data_received.connect (on_drag_data_received);
     }
 
-    private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ProjectRow target;
         Widgets.ProjectRow source;
         Gtk.Allocation alloc;
 
         target = (Widgets.ProjectRow) project_listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
-        
+
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ProjectRow) row;
-        
+
         if (target != null) {
-            source.get_parent ().remove (source); 
+            source.get_parent ().remove (source);
 
             source.project.area_id = 0;
 
             project_listbox.insert (source, target.get_index () + 1);
             project_listbox.show_all ();
 
-            update_project_order ();         
+            update_project_order ();
         }
     }
-    
+
     public void add_all_projects () {
         foreach (var project in Planner.database.get_all_projects_no_area ()) {
             var row = new Widgets.ProjectRow (project);
@@ -455,11 +456,11 @@ public class Widgets.Pane : Gtk.EventBox {
                 project_listbox.foreach ((widget) => {
                     var row = (Gtk.ListBoxRow) widget;
                     int index = row.get_index ();
-    
+
                     var project = ((ProjectRow) row).project;
                     Planner.database.update_project_item_order (project.id, 0, index);
                 });
-                
+
                 return null;
             });
 

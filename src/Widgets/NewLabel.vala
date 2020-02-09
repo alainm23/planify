@@ -9,7 +9,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
     public signal void insert_row (Widgets.LabelRow row, int position);
 
     private int color_selected = 30;
-    private const Gtk.TargetEntry[] targetEntriesLabel = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_LABEL = {
         {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
@@ -78,7 +78,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
         motion_grid.margin = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         motion_revealer.add (motion_grid);
@@ -154,17 +154,18 @@ public class Widgets.NewLabel : Gtk.EventBox {
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesLabel, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
         drag_data_received.connect (on_drag_item_received);
         drag_motion.connect (on_drag_motion);
         drag_leave.connect (on_drag_leave);
     }
 
-    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         var row = ((Gtk.Widget[]) selection_data.get_data ()) [0];
         Widgets.LabelRow source = (Widgets.LabelRow) row;
 
-        source.get_parent ().remove (source); 
+        source.get_parent ().remove (source);
 
         insert_row (source, 0);
     }
@@ -281,7 +282,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
         color_45.halign = Gtk.Align.START;
         color_45.get_style_context ().add_class ("color-45");
         color_45.get_style_context ().add_class ("color-radio");
-        
+
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
@@ -438,13 +439,11 @@ public class Widgets.NewLabel : Gtk.EventBox {
         color_47.toggled.connect (() => {
             color_selected = 47;
             apply_styles (Planner.utils.get_color (color_selected));
-            
         });
 
         color_48.toggled.connect (() => {
             color_selected = 48;
             apply_styles (Planner.utils.get_color (color_selected));
-            
         });
 
         color_49.toggled.connect (() => {
@@ -454,7 +453,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
     }
 
     private void apply_styles (string color) {
-        string COLOR_CSS = """
+        string color_css = """
             .label-preview image {
                 color: %s;
             }
@@ -463,13 +462,16 @@ public class Widgets.NewLabel : Gtk.EventBox {
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (
+            var colored_css = color_css.printf (
                 color
             );
-            
+
             provider.load_from_data (colored_css, colored_css.length);
 
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }

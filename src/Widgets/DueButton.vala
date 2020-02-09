@@ -1,7 +1,7 @@
 public class Widgets.DueButton : Gtk.ToggleButton {
     public Objects.Item item { get; construct; }
 
-    private Gtk.Label due_label; 
+    private Gtk.Label due_label;
     private Gtk.Image due_image;
     private Gtk.Revealer label_revealer;
 
@@ -20,10 +20,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     construct {
         tooltip_text = _("Due Date");
-        
+
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
-        
+
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
         due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");

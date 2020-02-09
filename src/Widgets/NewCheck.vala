@@ -7,7 +7,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
     private Gtk.Entry name_entry;
     private Gtk.Revealer revealer;
-    
+
     public bool reveal_child {
         set {
             revealer.reveal_child = value;
@@ -89,7 +89,6 @@ public class Widgets.NewCheck : Gtk.EventBox {
             if (name_entry.text != "") {
                 //insert_item ();
                 //reveal_child = false;
-                
             } else {
                 name_entry.text = "";
                 reveal_child = false;

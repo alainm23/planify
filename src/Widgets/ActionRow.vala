@@ -23,7 +23,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     public Gtk.Label title_name;
     public Gtk.Image icon { get; set; }
 
-    public string icon_name  { get; construct; }
+    public string icon_name { get; construct; }
     public string item_name { get; construct; }
     public string item_base_name { get; construct; }
 
@@ -37,7 +37,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     private int count_past = 0;
     private uint timeout_id = 0;
 
-    private const Gtk.TargetEntry[] targetEntriesItem = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
@@ -52,7 +52,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
     public ActionRow (string name, string icon, string item_base_name, string tooltip_text) {
         Object (
-            item_name: name,    
+            item_name: name,
             icon_name: icon,
             item_base_name: item_base_name,
             tooltip_text: tooltip_text
@@ -119,7 +119,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         } else if (item_base_name == "today") {
             if (icon_name == "planner-today-day-symbolic") {
                 icon.get_style_context ().add_class ("today-day-icon");
-            } else {    
+            } else {
                 icon.get_style_context ().add_class ("today-night-icon");
             }
 
@@ -164,7 +164,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         Planner.database.add_due_item.connect ((item) => {
             update_count (true);
         });
-        
+
         Planner.database.update_due_item.connect ((item) => {
             update_count (true);
         });
@@ -190,7 +190,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             } else {
                 Planner.database.get_today_count ();
             }
-            
+
             return false;
         });
     }
@@ -213,10 +213,10 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_ITEM, Gdk.DragAction.MOVE);
         drag_motion.connect (on_drag_item_motion);
         drag_leave.connect (on_drag_item_leave);
-        
+
         if (item_base_name == "inbox") {
             drag_data_received.connect (on_drag_imbox_item_received);
         } else if (item_base_name == "today") {
@@ -226,7 +226,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
     }
 
-    private void on_drag_imbox_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+    private void on_drag_imbox_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
@@ -237,7 +238,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
     }
 
-    private void on_drag_today_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+    private void on_drag_today_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
@@ -257,7 +259,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
     }
 
-    private void on_drag_upcoming_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+    private void on_drag_upcoming_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
@@ -278,7 +281,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_item_motion (Gdk.DragContext context, int x, int y, uint time) {
-        get_style_context ().add_class ("highlight");  
+        get_style_context ().add_class ("highlight");
         return true;
     }
 

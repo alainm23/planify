@@ -21,7 +21,7 @@ public class Widgets.Placeholder : Gtk.Revealer {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.margin_bottom = 128;
-        box.pack_start (icon, false, false, 0);        
+        box.pack_start (icon, false, false, 0);
         box.pack_start (title_label, false, false, 0);
         box.pack_start (subtitle_label, false, false, 0);
 

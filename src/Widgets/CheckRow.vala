@@ -3,7 +3,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
-    
+
     public signal void hide_item ();
 
     public CheckRow (Objects.Item item) {
@@ -100,7 +100,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         content_entry.changed.connect (() => {
             save ();
-        }); 
+        });
 
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
@@ -190,7 +190,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     private void save () {
         item.content = content_entry.text;
         tooltip_text = item.content;
-        
         item.save ();
     }
 }

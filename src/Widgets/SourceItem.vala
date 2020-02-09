@@ -31,7 +31,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
         }
     }
     public E.Source source { public get; private set; }
-    
+
     private Gtk.Label calendar_name_label;
     private Gtk.CheckButton visible_checkbutton;
 
@@ -54,7 +54,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
         visible_checkbutton.can_focus = false;
         visible_checkbutton.get_style_context ().add_class ("checklist-button");
         visible_checkbutton.active = !get_source_visible ();
-        
+
         var location_label = new Gtk.Label ("<small>%s</small>".printf (location));
         location_label.xalign = 0;
         location_label.hexpand = true;
@@ -74,9 +74,9 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
         grid.margin_bottom = 3;
 
         grid.attach (visible_checkbutton, 0, 0, 1, 2);
-        grid.attach (color_grid,          1, 0, 1, 2);
+        grid.attach (color_grid, 1, 0, 1, 2);
         grid.attach (calendar_name_label, 2, 0, 1, 1);
-        grid.attach (location_label,      2, 1, 1, 1);
+        grid.attach (location_label, 2, 1, 1, 1);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.get_style_context ().add_class ("view");
@@ -105,24 +105,27 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
     }
 
     private void style_calendar_color (string color) {
-        string COLOR_CSS = """
+        string css = """
             .source-%s {
                 background-color: %s;
-                border-radius: 4px; 
+                border-radius: 4px;
             }
         """;
 
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (
+            var colored_css = css.printf (
                 source.dup_uid (),
                 color
             );
-            
+
             provider.load_from_data (colored_css, colored_css.length);
 
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }

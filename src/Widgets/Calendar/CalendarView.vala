@@ -55,10 +55,10 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         pack_end (days_grid);
     }
 
-    public void fill_grid_days (int start_day, 
-                                int max_day, 
+    public void fill_grid_days (int start_day,
+                                int max_day,
                                 int current_day,
-                                bool is_current_month, 
+                                bool is_current_month,
                                 bool block_past_days = false,
                                 GLib.DateTime month = new GLib.DateTime.now_local ()) {
         var day_number = 1;
@@ -89,14 +89,14 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                     }
                 }
 
-                if (_current_day != -1 && (i+1) == _current_day + start_day ) {
+                if (_current_day != -1 && (i + 1) == _current_day + start_day ) {
                     if (is_current_month) {
                         item.get_style_context ().add_class ("calendar-today");
                     }
                 }
 
                 item.day = day_number;
-                day_number =  day_number + 1;
+                day_number = day_number + 1;
             }
 
             if (block_past_days) {

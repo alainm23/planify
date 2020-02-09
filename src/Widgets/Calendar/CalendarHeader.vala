@@ -54,7 +54,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         right_button.get_style_context ().add_class ("flat");
         right_button.get_style_context ().add_class ("no-padding-right");
         right_button.can_focus = false;
-        
+
         pack_start (date_label, false, false, 0);
         pack_end (right_button, false, false, 0);
         pack_end (center_button, false, false, 0);

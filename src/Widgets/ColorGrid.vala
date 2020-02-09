@@ -15,12 +15,12 @@ public class Widgets.ColorGrid : Gtk.Grid {
         color_32.valign = Gtk.Align.START;
         color_32.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("32", Planner.utils.get_color (32), color_32);
-        
+
         var color_33 = new Gtk.RadioButton.from_widget (color_30);
         color_33.valign = Gtk.Align.START;
         color_33.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("33", Planner.utils.get_color (33), color_33);
-        
+
         var color_34 = new Gtk.RadioButton.from_widget (color_30);
         color_34.valign = Gtk.Align.START;
         color_34.halign = Gtk.Align.START;
@@ -35,7 +35,7 @@ public class Widgets.ColorGrid : Gtk.Grid {
         color_36.valign = Gtk.Align.START;
         color_36.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("36", Planner.utils.get_color (36), color_36);
-        
+
         var color_37 = new Gtk.RadioButton.from_widget (color_30);
         color_37.valign = Gtk.Align.START;
         color_37.halign = Gtk.Align.START;

@@ -3,10 +3,10 @@ public class Widgets.MagicButton : Gtk.Revealer {
 
     public signal void clicked ();
 
-    private const Gtk.TargetEntry[] targetEntries = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
     };
- 
+
     construct {
         tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>N"}, _("Add Task"));
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -20,7 +20,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         magic_button.width_request = 32;
         magic_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         magic_button.get_style_context ().add_class ("magic-button");
-        
+
         add (magic_button);
 
         build_drag_and_drop ();
@@ -31,7 +31,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_source_set (magic_button, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_source_set (magic_button, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         magic_button.drag_data_get.connect (on_drag_data_get);
         magic_button.drag_begin.connect (on_drag_begin);
         magic_button.drag_end.connect (on_drag_end);
@@ -54,7 +54,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         cr.line_to (0, alloc.height);
         cr.line_to (0, 0);
         cr.stroke ();
-  
+
         cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
@@ -67,7 +67,8 @@ public class Widgets.MagicButton : Gtk.Revealer {
         Planner.utils.drag_magic_button_activated (true);
     }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         uchar[] data = new uchar[(sizeof (Gtk.Button))];
         ((Gtk.Widget[])data)[0] = widget;
 

@@ -22,14 +22,14 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
 
     private uint timeout = 0;
-    
+
     private int64 temp_id_mapping { get; set; default = 0; }
 
-    private const Gtk.TargetEntry[] targetEntries = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    private const Gtk.TargetEntry[] targetEntriesSection = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_SECTION = {
         {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
@@ -70,7 +70,7 @@ public class Views.Project : Gtk.EventBox {
 
         name_stack = new Gtk.Stack ();
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        
+
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
@@ -168,7 +168,7 @@ public class Views.Project : Gtk.EventBox {
         note_placeholder = new Gtk.Label (_("Add note"));
         note_placeholder.opacity = 0.7;
         note_textview.add (note_placeholder);
-        
+
         note_textview.buffer.text = project.note;
 
         if (project.note != "") {
@@ -194,12 +194,12 @@ public class Views.Project : Gtk.EventBox {
         motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         motion_revealer.add (motion_grid);
 
-        section_listbox = new Gtk.ListBox  ();
+        section_listbox = new Gtk.ListBox ();
         section_listbox.valign = Gtk.Align.START;
         //section_listbox.get_style_context ().add_class ("welcome");
         section_listbox.get_style_context ().add_class ("listbox");
@@ -207,10 +207,10 @@ public class Views.Project : Gtk.EventBox {
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         section_listbox.hexpand = true;
 
-        Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
         section_listbox.drag_data_received.connect (on_drag_section_received);
-        
-        completed_listbox = new Gtk.ListBox  ();
+
+        completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_bottom = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("welcome");
@@ -227,7 +227,7 @@ public class Views.Project : Gtk.EventBox {
         completed_revealer = new Gtk.Revealer ();
         completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         completed_revealer.add (completed_box);
-        
+
         new_section = new Widgets.NewSection (project.id, project.is_todoist);
 
         var motion_section_grid = new Gtk.Grid ();
@@ -235,7 +235,7 @@ public class Views.Project : Gtk.EventBox {
         motion_section_grid.margin_end = 32;
         motion_section_grid.get_style_context ().add_class ("grid-motion");
         motion_section_grid.height_request = 24;
-            
+
         motion_section_revealer = new Gtk.Revealer ();
         motion_section_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         motion_section_revealer.add (motion_section_grid);
@@ -245,19 +245,19 @@ public class Views.Project : Gtk.EventBox {
         drag_section_grid.margin_end = 32;
         drag_section_grid.height_request = 16;
 
-        Gtk.drag_dest_set (drag_section_grid, Gtk.DestDefaults.ALL, targetEntriesSection, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (drag_section_grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
         drag_section_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
             Widgets.SectionRow source;
 
             var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
             source = (Widgets.SectionRow) row;
-            
-            source.get_parent ().remove (source); 
+
+            source.get_parent ().remove (source);
 
             section_listbox.insert (source, (int32) section_listbox.get_children ().length ());
             section_listbox.show_all ();
 
-            update_section_order ();   
+            update_section_order ();
         });
 
         drag_section_grid.drag_motion.connect ((context, x, y, time) => {
@@ -281,7 +281,7 @@ public class Views.Project : Gtk.EventBox {
         main_box.pack_start (drag_section_grid, false, false, 0);
         main_box.pack_start (motion_section_revealer, false, false, 0);
         main_box.pack_start (completed_revealer, false, false, 12);
-        
+
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
         main_scrolled.expand = true;
@@ -290,10 +290,10 @@ public class Views.Project : Gtk.EventBox {
         add (main_scrolled);
 
         build_drag_and_drop (false);
-        
+
         add_all_items ();
         add_all_sections ();
-        
+
         show_all ();
 
         Timeout.add (100, () => {
@@ -330,7 +330,7 @@ public class Views.Project : Gtk.EventBox {
         name_entry.activate.connect (() => {
             save (true);
         });
-        
+
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
                 submit_button.sensitive = true;
@@ -425,7 +425,7 @@ public class Views.Project : Gtk.EventBox {
                 listbox.show_all ();
             }
         });
-        
+
         Planner.database.item_completed.connect ((item) => {
             Idle.add (() => {
                 if (project.id == item.project_id) {
@@ -435,7 +435,7 @@ public class Views.Project : Gtk.EventBox {
                                 var row = new Widgets.ItemCompletedRow (item);
                                 completed_listbox.add (row);
                                 completed_listbox.show_all ();
-    
+
                                 items_completed_loaded.set (item.id.to_string (), true);
                             }
                         }
@@ -447,7 +447,7 @@ public class Views.Project : Gtk.EventBox {
                         }
                     }
                 }
-                
+
                 return false;
             });
         });
@@ -456,10 +456,10 @@ public class Views.Project : Gtk.EventBox {
             if (project.id == project_id && section_id == 0) {
                 var new_item = new Widgets.NewItem (
                     project_id,
-                    section_id, 
+                    section_id,
                     is_todoist
                 );
-                
+
                 if (last) {
                     listbox.add (new_item);
                 } else {
@@ -467,7 +467,7 @@ public class Views.Project : Gtk.EventBox {
                     new_item.index = index;
                     listbox.insert (new_item, index);
                 }
-                
+
                 listbox.show_all ();
             }
         });
@@ -477,7 +477,7 @@ public class Views.Project : Gtk.EventBox {
                 if (project.id == old_project_id) {
                     listbox.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
-                        
+
                         if (row.item.id == item.id) {
                             row.destroy ();
                         }
@@ -491,7 +491,7 @@ public class Views.Project : Gtk.EventBox {
                     listbox.add (row);
                     listbox.show_all ();
                 }
-                
+
                 return false;
             });
         });
@@ -501,7 +501,7 @@ public class Views.Project : Gtk.EventBox {
                 if (project.id == old_project_id) {
                     section_listbox.foreach ((widget) => {
                         var row = (Widgets.SectionRow) widget;
-                        
+
                         if (row.section.id == section.id) {
                             row.destroy ();
                         }
@@ -519,13 +519,13 @@ public class Views.Project : Gtk.EventBox {
                 return false;
             });
         });
-        
+
         Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
             Idle.add (() => {
                 if (0 == old_section_id) {
                     listbox.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
-                        
+
                         if (row.item.id == i.id) {
                             row.destroy ();
                         }
@@ -580,7 +580,7 @@ public class Views.Project : Gtk.EventBox {
         }
     }
 
-    private void add_completed_items (int64 id) { 
+    private void add_completed_items (int64 id) {
         foreach (var child in completed_listbox.get_children ()) {
             child.destroy ();
         }
@@ -603,27 +603,28 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void build_drag_and_drop (bool is_magic_button_active) {
-        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
-        Gtk.drag_dest_set (note_textview, Gtk.DestDefaults.ALL, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (note_textview, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         note_textview.drag_data_received.connect (on_drag_item_received);
         note_textview.drag_motion.connect (on_drag_motion);
         note_textview.drag_leave.connect (on_drag_leave);
     }
 
-    private void on_drag_data_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ItemRow target;
         Widgets.ItemRow source;
         Gtk.Allocation alloc;
 
         target = (Widgets.ItemRow) listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
-        
+
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (target != null) {         
+        if (target != null) {
             if (source.item.section_id != 0) {
                 source.item.section_id = 0;
 
@@ -632,7 +633,7 @@ public class Views.Project : Gtk.EventBox {
                 }
             }
 
-            source.get_parent ().remove (source); 
+            source.get_parent ().remove (source);
             listbox.insert (source, target.get_index () + 1);
             listbox.show_all ();
 
@@ -640,7 +641,8 @@ public class Views.Project : Gtk.EventBox {
         }
     }
 
-    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
@@ -653,10 +655,10 @@ public class Views.Project : Gtk.EventBox {
             }
         }
 
-        source.get_parent ().remove (source); 
+        source.get_parent ().remove (source);
         listbox.insert (source, 0);
         listbox.show_all ();
-    
+
         update_item_order ();
     }
 
@@ -675,11 +677,11 @@ public class Views.Project : Gtk.EventBox {
                 listbox.foreach ((widget) => {
                     var row = (Gtk.ListBoxRow) widget;
                     int index = row.get_index ();
-        
+
                     var item = ((Widgets.ItemRow) row).item;
                     Planner.database.update_item_order (item, 0, index);
                 });
-                
+
                 return null;
             });
 
@@ -741,7 +743,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.add (delete_menu);
         popover_grid.add (separator_02);
         popover_grid.add (show_completed_button);
-  
+
         popover.add (popover_grid);
 
         popover.closed.connect (() => {
@@ -797,24 +799,25 @@ public class Views.Project : Gtk.EventBox {
         });
     }
 
-    private void on_drag_section_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_section_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         Widgets.SectionRow target;
         Widgets.SectionRow source;
         Gtk.Allocation alloc;
 
         target = (Widgets.SectionRow) section_listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
-        
+
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.SectionRow) row;
-        
+
         if (target != null) {
-            source.get_parent ().remove (source); 
+            source.get_parent ().remove (source);
 
             section_listbox.insert (source, target.get_index ());
             section_listbox.show_all ();
 
-            update_section_order ();      
+            update_section_order ();
         }
     }
 
@@ -824,9 +827,9 @@ public class Views.Project : Gtk.EventBox {
                 section_listbox.foreach ((widget) => {
                     var row = (Gtk.ListBoxRow) widget;
                     int index = row.get_index ();
-                    
+
                     var section = ((Widgets.SectionRow) row).section;
-        
+
                     new Thread<void*> ("update_section_order", () => {
                         Planner.database.update_section_item_order (section.id, index);
                         return null;
@@ -856,7 +859,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private Gtk.Widget get_completed_header () {
-        var name_label =  new Gtk.Label ("Task completed");
+        var name_label = new Gtk.Label (_("Task completed"));
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("header-title");
         name_label.valign = Gtk.Align.CENTER;

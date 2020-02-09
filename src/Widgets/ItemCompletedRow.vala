@@ -13,8 +13,8 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         get_style_context ().add_class ("item-row");
-        
-        tooltip_markup =  "<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s".printf (
+
+        tooltip_markup = "<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s\n<b>%s</b>:\n%s".printf (
             _("Content"), item.content,
             _("Note"), item.note,
             _("Due date"), Planner.utils.get_relative_date_from_string (item.due_date),
@@ -28,7 +28,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         var loading_revealer = new Gtk.Revealer ();
         loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         loading_revealer.add (loading_spinner);
-    
+
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
         checked_button.margin_start = 9;
@@ -40,7 +40,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         var completed_label = new Gtk.Label (Planner.utils.get_relative_date_from_string (item.date_completed));
         completed_label.halign = Gtk.Align.START;
         completed_label.valign = Gtk.Align.CENTER;
-        
+
         completed_label.get_style_context ().add_class ("due-preview");
 
         content_label = new Gtk.Label ("<s>%s</s>".printf (item.content));
@@ -71,16 +71,15 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         });
 
         checked_button.toggled.connect (() => {
-            if (checked_button.active == false) { 
+            if (checked_button.active == false) {
                 item.checked = 0;
                 item.date_completed = "";
 
                 Planner.database.update_item_completed (item);
                 if (item.is_todoist == 1) {
                     Planner.todoist.item_uncomplete (item);
-                }  
+                }
             }
         });
     }
 }
-    

@@ -19,19 +19,19 @@
 * Authored by: Alain M. <alain23@protonmail.com>
 */
 
-public class Widgets.ProjectRow : Gtk.ListBoxRow { 
+public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
 
     private Gtk.Grid grid_color;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
-  
+
     private Gtk.Menu areas_menu;
     private Gtk.Menu menu = null;
     private Gtk.ToggleButton menu_button;
     private Widgets.ImageMenuItem move_area_menu;
-    
+
     private Gtk.EventBox handle;
 
     private Gtk.Revealer motion_revealer;
@@ -40,16 +40,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private int count = 0;
     private uint timeout_id = 0;
 
-    private const Gtk.TargetEntry[] targetEntries = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    private const Gtk.TargetEntry[] targetEntriesItem = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     public bool reveal_drag_motion {
-        set {   
+        set {
             motion_revealer.reveal_child = value;
         }
         get {
@@ -69,13 +69,13 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("project-row");
 
         var project_progress = new Widgets.ProjectProgress ();
-        project_progress.line_cap =  Cairo.LineCap.ROUND;
+        project_progress.line_cap = Cairo.LineCap.ROUND;
         project_progress.radius_filled = true;
         project_progress.line_width = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
-        
+
         project_progress.radius_fill_color = "#a7b2cb";
         if (Planner.settings.get_boolean ("prefer-dark-style")) {
             project_progress.radius_fill_color = "#666666";
@@ -92,7 +92,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         grid_color = new Gtk.Grid ();
-		grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
+        grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
         grid_color.set_size_request (13, 13);
         grid_color.valign = Gtk.Align.CENTER;
         grid_color.halign = Gtk.Align.CENTER;
@@ -147,18 +147,18 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             source_icon.icon_name = "planner-online-symbolic";
             source_icon.tooltip_text = _("Todoist Project");
         }
-        
+
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
         handle_box.hexpand = true;
         handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_icon, false, false, 0);
         handle_box.pack_end (menu_stack, false, false, 0);
-        
+
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
@@ -169,7 +169,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         grid.margin_top = grid.margin_bottom = 3;
         grid.add (handle_box);
         grid.add (motion_revealer);
-        
+
         handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         handle.expand = true;
@@ -188,9 +188,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             update_count ();
             return false;
         });
-        
 
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntries, Gdk.DragAction.MOVE);
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
 
@@ -217,7 +216,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             menu_stack.visible_child_name = "count_revealer";
-            
             return true;
         });
 
@@ -279,7 +277,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void apply_color (string color) {
-        string CSS = """
+        string _css = """
             .project-color-%s {
                 color: %s
             }
@@ -288,13 +286,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var provider = new Gtk.CssProvider ();
 
         try {
-            var css = CSS.printf (
+            var css = _css.printf (
                 project.id.to_string (),
                 color
             );
 
             provider.load_from_data (css, css.length);
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }
@@ -308,7 +309,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         timeout_id = Timeout.add (500, () => {
             Planner.database.get_project_count (project.id);
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
@@ -326,12 +327,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop (bool value) {
-        if (value) {    
+        if (value) {
             drag_motion.disconnect (on_drag_motion);
             drag_leave.disconnect (on_drag_leave);
             drag_end.disconnect (clear_indicator);
 
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, targetEntriesItem, Gdk.DragAction.MOVE);
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_ITEM, Gdk.DragAction.MOVE);
             drag_data_received.connect (on_drag_item_received);
             drag_motion.connect (on_drag_item_motion);
             drag_leave.connect (on_drag_item_leave);
@@ -341,14 +342,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             drag_motion.disconnect (on_drag_item_motion);
             drag_leave.disconnect (on_drag_item_leave);
 
-            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntries, Gdk.DragAction.MOVE);
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_ENTRIES, Gdk.DragAction.MOVE);
             drag_motion.connect (on_drag_motion);
             drag_leave.connect (on_drag_leave);
             drag_end.connect (clear_indicator);
         }
     }
 
-    private void on_drag_item_received (Gdk.DragContext context, int x, int y, Gtk.SelectionData selection_data, uint target_type) {
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type) {
         Widgets.ItemRow source;
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
@@ -376,7 +378,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.line_to (0, alloc.height);
         cr.line_to (0, 0);
         cr.stroke ();
-  
+
         cr.set_source_rgba (255, 255, 255, 0.7);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
@@ -386,7 +388,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = false;
     }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         uchar[] data = new uchar[(sizeof (ProjectRow))];
         ((Gtk.Widget[])data)[0] = widget;
 
@@ -396,7 +399,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        reveal_drag_motion = true;   
+        reveal_drag_motion = true;
         return true;
     }
 
@@ -405,7 +408,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_item_motion (Gdk.DragContext context, int x, int y, uint time) {
-        get_style_context ().add_class ("highlight");  
+        get_style_context ().add_class ("highlight");
         return true;
     }
 
@@ -421,7 +424,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private void activate_menu () {
         if (menu == null) {
             build_context_menu (project);
-        } 
+        }
 
         foreach (var child in areas_menu.get_children ()) {
             child.destroy ();
@@ -507,7 +510,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
-        menu.show_all (); 
+        menu.show_all ();
 
 
         edit_menu.activate.connect (() => {

@@ -58,7 +58,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
         box.pack_start (top_box, false, false, 0);
         //box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         box.pack_start (listbox_scrolled, false, false, 0);
-        
+
         var eventbox = new Gtk.EventBox ();
         eventbox.add (box);
 
@@ -79,7 +79,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
                         item.id,
                         item.project_id
                     );
-                    
+
                     listbox.add (row);
                     listbox.show_all ();
                 }
@@ -91,7 +91,7 @@ public class Widgets.QuickFind : Gtk.Revealer {
                         "project",
                         project.id
                     );
-                    
+
                     listbox.add (row);
                     listbox.show_all ();
                 }
@@ -207,7 +207,7 @@ public class Widgets.SearchItem : Gtk.ListBoxRow {
     construct {
         margin_start = margin_end = 6;
         get_style_context ().add_class ("pane-row");
-        
+
         var image = new Gtk.Image ();
         image.gicon = new ThemedIcon (icon);
         image.pixel_size = 16;

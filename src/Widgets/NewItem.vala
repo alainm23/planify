@@ -5,11 +5,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int index { get; set; default = 0; }
     public bool has_index { get; set; default = false; }
     public string due { get; set; default = ""; }
-    
+
     public int64 temp_id_mapping {get; set; default = 0; }
 
     private uint timeout_id = 0;
-    
+
     private Gtk.Entry content_entry;
 
     public signal void new_item_hide ();
@@ -28,7 +28,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         selectable = false;
         get_style_context ().add_class ("item-row");
         margin_end = 35;
-        
+
         var loading_spinner = new Gtk.Spinner ();
         loading_spinner.start ();
 
@@ -52,13 +52,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
         content_entry.get_style_context ().add_class ("label");
- 
+
         var content_grid = new Gtk.Grid ();
         content_grid.get_style_context ().add_class ("check-eventbox");
         content_grid.get_style_context ().add_class ("check-eventbox-border");
         content_grid.add (checked_button);
         content_grid.add (content_entry);
-        
+
         var grid = new Gtk.Grid ();
         grid.margin_start = 10;
         grid.column_spacing = 11;
@@ -92,9 +92,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         timeout_id = Timeout.add (150, () => {
             content_entry.grab_focus ();
-            
-            timeout_id = 0;
+
             Source.remove (timeout_id);
+            timeout_id = 0;
 
             grab_focus ();
             return false;
@@ -118,7 +118,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             return false;
         });
 
-        content_entry.changed.connect (() => {  
+        content_entry.changed.connect (() => {
             if (content_entry.text != "") {
                 submit_button.sensitive = true;
             } else {
@@ -165,7 +165,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 } else {
                     new_item_hide ();
                 }
-                
+
                 due = "";
             }
         });
@@ -178,7 +178,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             }
         });
     }
-    
+
     public void entry_grab_focus () {
         content_entry.grab_focus ();
     }
@@ -219,9 +219,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     } else {
                         new_item_hide ();
                     }
-                    
+
                     due = "";
-                } 
+                }
             }
         }
     }

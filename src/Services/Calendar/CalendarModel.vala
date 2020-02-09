@@ -44,12 +44,12 @@ public class Services.Calendar.CalendarModel : Object {
     public E.SourceRegistry registry { get; private set; }
     private HashTable<string, ECal.Client> source_client;
     private HashTable<string, ECal.ClientView> source_view;
-    
+
     construct {
         open.begin ();
 
         source_client = new HashTable<string, ECal.Client> (str_hash, str_equal);
-        source_events = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> > (Util.source_hash_func, Util.source_equal_func);
+        source_events = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> > (Util.source_hash_func, Util.source_equal_func); // vala-lint=line-length
         source_view = new HashTable<string, ECal.ClientView> (str_hash, str_equal);
 
         int week_start = Posix.NLTime.FIRST_WEEKDAY.to_string ().data[0];
@@ -120,7 +120,7 @@ public class Services.Calendar.CalendarModel : Object {
         events_removed (source, events);
         source_events.remove (source);
     }
-    
+
     /* --- Helper Methods ---// */
 
     private void compute_ranges () {
@@ -246,15 +246,15 @@ public class Services.Calendar.CalendarModel : Object {
 #endif
         debug (@"Received $(objects.length()) added event(s) for source '%s'", source.dup_display_name ());
         var events = source_events.get (source);
-        var added_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);
+        var added_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func); // vala-lint=line-length
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
 #if E_CAL_2_0
-            client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), null, (comp, start, end) => {
+            client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), null, (comp, start, end) => { // vala-lint=line-length
                 var event = new ECal.Component.from_icalcomponent (comp);
 #else
-            client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), (event, start, end) => {
+            client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), (event, start, end) => { // vala-lint=line-length
 #endif
                 debug_event (source, event);
                 events.set (uid, event);
@@ -272,7 +272,7 @@ public class Services.Calendar.CalendarModel : Object {
     private void on_objects_modified (E.Source source, ECal.Client client, SList<weak ICal.Component> objects) {
 #endif
         debug (@"Received $(objects.length()) modified event(s) for source '%s'", source.dup_display_name ());
-        var updated_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);
+        var updated_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func); // vala-lint=line-length
 
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
@@ -293,7 +293,7 @@ public class Services.Calendar.CalendarModel : Object {
 #endif
         debug (@"Received $(cids.length()) removed event(s) for source '%s'", source.dup_display_name ());
         var events = source_events.get (source);
-        var removed_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);
+        var removed_events = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func); // vala-lint=line-length
 
         cids.foreach ((cid) => {
             if (cid == null) {
@@ -342,7 +342,7 @@ public class Services.Calendar.CalendarModel : Object {
                 }
             });
 
-            Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);            
+            Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
         });
 
         listbox.add (source_item);

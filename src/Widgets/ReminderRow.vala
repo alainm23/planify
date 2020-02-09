@@ -54,9 +54,8 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
             if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
             }
-            
-            delete_revealer.reveal_child = false;
 
+            delete_revealer.reveal_child = false;
             return true;
         });
 

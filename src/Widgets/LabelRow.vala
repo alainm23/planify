@@ -23,7 +23,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     private const int SCROLL_DISTANCE = 30;
     private const int SCROLL_DELAY = 50;
 
-    private const Gtk.TargetEntry[] targetEntriesLabel = {
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_LABEL = {
         {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
@@ -49,8 +49,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         color_image.pixel_size = 16;
 
         color_button.add (color_image);
-        
-        name_label =  new Gtk.Label (label.name);
+
+        name_label = new Gtk.Label (label.name);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("font-weight-600");
         name_label.valign = Gtk.Align.CENTER;
@@ -95,7 +95,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         motion_grid.margin = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
@@ -136,7 +136,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             if (event.detail == Gdk.NotifyType.INFERIOR) {
                 return false;
             }
-            
+
             if (color_button.active == false) {
                 buttons_revealer.reveal_child = false;
             }
@@ -170,7 +170,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             name_stack.visible_child_name = "name_label";
             return false;
         });
-        
+
         Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
                 main_revealer.reveal_child = false;
@@ -182,18 +182,18 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             }
         });
     }
-    
-    private void build_drag_and_drop () {        
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, targetEntriesLabel, Gdk.DragAction.MOVE);
+
+    private void build_drag_and_drop () {
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
 
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, targetEntriesLabel, Gdk.DragAction.MOVE);
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
         drag_motion.connect (on_drag_motion);
-        drag_leave.connect (on_drag_leave); 
+        drag_leave.connect (on_drag_leave);
         drag_end.connect (clear_indicator);
     }
-    
+
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
         var row = (Widgets.LabelRow) widget;
 
@@ -211,7 +211,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         cr.line_to (0, alloc.height);
         cr.line_to (0, 0);
         cr.stroke ();
-  
+
         cr.set_source_rgba (255, 255, 255, 0.5);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
@@ -221,7 +221,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         main_revealer.reveal_child = false;
     }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context, Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
         uchar[] data = new uchar[(sizeof (Widgets.LabelRow))];
         ((Gtk.Widget[])data)[0] = widget;
 
@@ -229,7 +230,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             Gdk.Atom.intern_static_string ("LABELROW"), 32, data
         );
     }
-    
+
     public void clear_indicator (Gdk.DragContext context) {
         main_revealer.reveal_child = true;
     }
@@ -245,7 +246,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         int real_y = (index * alloc.height) - alloc.height + y;
         check_scroll (real_y);
-        
+
         if (should_scroll && !scrolling) {
             scrolling = true;
             Timeout.add (SCROLL_DELAY, scroll);
@@ -276,7 +277,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             should_scroll = false;
         }
     }
-    
+
     private bool scroll () {
         if (should_scroll) {
             if (scroll_up) {
@@ -405,7 +406,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         color_45.halign = Gtk.Align.START;
         color_45.get_style_context ().add_class ("color-45");
         color_45.get_style_context ().add_class ("color-radio");
-        
+
         var color_46 = new Gtk.RadioButton.from_widget (color_30);
         color_46.valign = Gtk.Align.START;
         color_46.halign = Gtk.Align.START;
@@ -473,7 +474,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             buttons_revealer.reveal_child = false;
             color_button.active = false;
         });
-        
+
         switch (label.color) {
             case 30:
                 color_30.active = true;

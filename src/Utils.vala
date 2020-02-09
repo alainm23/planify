@@ -1,9 +1,11 @@
+// vala-lint=skip-file
+
 public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "0123456789";
 
-    public string APP_FOLDER;
-    public string AVATARS_FOLDER;
+    public string APP_FOLDER; // vala-lint=naming-convention
+    public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
@@ -14,7 +16,9 @@ public class Utils : GLib.Object {
 
     public signal void drag_item_activated (bool active);
     public signal void drag_magic_button_activated (bool active);
-    public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
+    public signal void magic_button_activated (int64 project_id, int64 section_id,
+        int is_todoist, bool last, int index = 0
+    );
 
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
@@ -173,9 +177,9 @@ public class Utils : GLib.Object {
         rgba.parse (hex);
 
         //102 + ((255 - 102) x .1)
-        double r = (rgba.red * 255) + ((255 - rgba.red * 255) * 0.7); 
-        double g = (rgba.green * 255) + ((255 - rgba.green * 255) * 0.7); 
-        double b = (rgba.blue * 255) + ((255 - rgba.blue * 255) * 0.7); 
+        double r = (rgba.red * 255) + ((255 - rgba.red * 255) * 0.7);
+        double g = (rgba.green * 255) + ((255 - rgba.green * 255) * 0.7);
+        double b = (rgba.blue * 255) + ((255 - rgba.blue * 255) * 0.7);
 
         Gdk.RGBA new_rgba = Gdk.RGBA ();
         new_rgba.parse ("rgb (%s, %s, %s)".printf (r.to_string (), g.to_string (), b.to_string ()));
@@ -184,7 +188,7 @@ public class Utils : GLib.Object {
     }
 
     private string rgb_to_hex_string (Gdk.RGBA rgba) {
-        string s = "#%02x%02x%02x".printf(
+        string s = "#%02x%02x%02x".printf (
             (uint) (rgba.red * 255),
             (uint) (rgba.green * 255),
             (uint) (rgba.blue * 255));
@@ -250,7 +254,7 @@ public class Utils : GLib.Object {
     }
 
     public void apply_styles (string id, string color, Gtk.RadioButton radio) {
-        string COLOR_CSS = """
+        string color_css = """
             .color-%s radio {
                 background: %s;
                 border: 1px solid shade (%s, 0.9);
@@ -263,7 +267,7 @@ public class Utils : GLib.Object {
         radio.get_style_context ().add_class ("color-radio");
 
         try {
-            var colored_css = COLOR_CSS.printf (
+            var colored_css = color_css.printf (
                 id,
                 color,
                 color
@@ -271,7 +275,10 @@ public class Utils : GLib.Object {
 
             provider.load_from_data (colored_css, colored_css.length);
 
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }
@@ -287,9 +294,9 @@ public class Utils : GLib.Object {
             if (file_path.query_exists () == false) {
                 MainLoop loop = new MainLoop ();
 
-                file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {
+                file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => { // vala-lint=line-length
                     // Report copy-status:
-                    print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes);
+                    print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes); // vala-lint=line-length
                 }, (obj, res) => {
                     try {
                         if (file_from_uri.copy_async.end (res)) {
@@ -330,9 +337,9 @@ public class Utils : GLib.Object {
         var desktop_file_name = "com.github.alainm23.planner.desktop";
         var desktop_file_path = new DesktopAppInfo (desktop_file_name).filename;
         var desktop_file = File.new_for_path (desktop_file_path);
-        var dest_path = Path.build_path(
+        var dest_path = Path.build_path (
             Path.DIR_SEPARATOR_S,
-            Environment.get_user_config_dir(),
+            Environment.get_user_config_dir (),
             "autostart",
             desktop_file_name
         );
@@ -347,7 +354,7 @@ public class Utils : GLib.Object {
         try {
             keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
             keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
-            keyfile.set_string("Desktop Entry", "Exec", "com.github.alainm23.planner --s");
+            keyfile.set_string ("Desktop Entry", "Exec", "com.github.alainm23.planner --s");
             keyfile.save_to_file (dest_path);
         } catch (Error e) {
             warning ("Error enabling autostart: %s", e.message);
@@ -359,7 +366,7 @@ public class Utils : GLib.Object {
     */
 
     public int get_days_of_month (int index, int year_nav) {
-        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) { // vala-lint=line-length
             return 31;
         } else {
             if (index == 2) {
@@ -513,7 +520,7 @@ public class Utils : GLib.Object {
     */
 
     public void apply_theme_changed () {
-        string CSS = """
+        string _css = """
             @define-color projectview_color %s;
             @define-color border_color alpha (@BLACK_900, %s);
             @define-color pane_color %s;
@@ -544,7 +551,7 @@ public class Utils : GLib.Object {
                 duedate_today_color = "#f9c440";
             }
 
-            var css = CSS.printf (
+            var css = _css.printf (
                 projectview_color,
                 border_color,
                 pane_color,
@@ -555,13 +562,16 @@ public class Utils : GLib.Object {
 
             provider.load_from_data (css, css.length);
 
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }
     }
 
-    public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT) {
+    public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT) { // vala-lint=naming-convention
         Services.CustomShortcutSettings.init ();
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
@@ -583,7 +593,7 @@ public class Utils : GLib.Object {
                 var shortcut_hint = Gtk.accelerator_get_label (accelerator_key, accelerator_mods);
 
                 Planner.notifications.send_system_notification (
-                    _("Quick Add Activated!"), 
+                    _("Quick Add Activated!"),
                     _("Try %s to activate it. You can change it from the preferences".printf (shortcut_hint)),
                     "com.github.alainm23.planner",
                     GLib.NotificationPriority.HIGH
@@ -602,13 +612,13 @@ public class Utils : GLib.Object {
         var project = new Objects.Project ();
         project.id = generate_id ();
         project.name = _("🚀️ Getting Started");
-        project.note = _("This project will help you learn the basics of Planner and get started with a simple task management system to stay organized and on top of everything you need to do.");
+        project.note = _("This project will help you learn the basics of Planner and get started with a simple task management system to stay organized and on top of everything you need to do."); // vala-lint=line-length
 
         var item_01 = new Objects.Item ();
         item_01.id = generate_id ();
         item_01.project_id = project.id;
         item_01.content = _("Keeping track of your tasks");
-        item_01.note = _("It turns out, our brains are actually wired to keep us thinking about our unfinished tasks. Handy when you have one thing you need to work on. Not so good when you have 30+ tasks vying for your attention at once. That’s why the first step to organizing your work and life is getting everything out of your head and onto your to-do list. From there you can begin to organize and prioritize so you know exactly what to focus on and when.");
+        item_01.note = _("It turns out, our brains are actually wired to keep us thinking about our unfinished tasks. Handy when you have one thing you need to work on. Not so good when you have 30+ tasks vying for your attention at once. That’s why the first step to organizing your work and life is getting everything out of your head and onto your to-do list. From there you can begin to organize and prioritize so you know exactly what to focus on and when."); // vala-lint=line-length
 
         var item_02 = new Objects.Item ();
         item_02.id = generate_id ();

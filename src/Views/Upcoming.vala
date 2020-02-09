@@ -22,7 +22,7 @@ public class Views.Upcoming : Gtk.EventBox {
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 6);
 
-        listbox = new Gtk.ListBox  ();
+        listbox = new Gtk.ListBox ();
         listbox.margin_top = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("welcome");
@@ -47,7 +47,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         add_upcomings ();
 
-        main_scrolled.edge_reached.connect((pos)=> {
+        main_scrolled.edge_reached.connect ((pos) => {
             if (pos == Gtk.PositionType.BOTTOM) {
                 add_upcomings ();
             }
@@ -59,7 +59,7 @@ public class Views.Upcoming : Gtk.EventBox {
     private void add_upcomings () {
         for (int i = 0; i < 14; i++) {
             date = date.add_days (1);
-        
+
             var row = new Widgets.UpcomingRow (date);
 
             listbox.add (row);

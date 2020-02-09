@@ -18,10 +18,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         get_style_context ().add_class ("area-row");
-        
+
         items_loaded = new Gee.HashMap<string, bool> ();
 
-        var day_label =  new Gtk.Label (date.format ("%d"));
+        var day_label = new Gtk.Label (date.format ("%d"));
         day_label.halign = Gtk.Align.START;
         day_label.get_style_context ().add_class ("h2");
         day_label.get_style_context ().add_class ("font-bold");
@@ -68,12 +68,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
-            
+
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
-        listbox = new Gtk.ListBox  ();
+        listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
@@ -116,7 +116,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    add_item (item);  
+                    add_item (item);
                 }
             }
         });
@@ -133,16 +133,16 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var row = new Widgets.ItemRow (item);
-            
+
                     row.upcoming = date;
                     items_loaded.set (item.id.to_string (), true);
 
                     Timeout.add (1000, () => {
                         listbox.add (row);
                         listbox.show_all ();
-            
+
                         return false;
-                    }); 
+                    });
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
@@ -165,7 +165,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                         items_loaded.unset (item.id.to_string ());
                     }
                 }
-                
+
                 return false;
             });
         });
@@ -256,10 +256,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         return 0;
     }
-    
+
     private void add_item (Objects.Item item) {
         var row = new Widgets.ItemRow (item);
-            
+
         row.upcoming = date;
         items_loaded.set (item.id.to_string (), true);
 
