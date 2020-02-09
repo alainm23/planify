@@ -35,8 +35,8 @@ msgstr "com.github.alainm23.planner"
 #: data/com.github.alainm23.planner.desktop.in:12
 msgid "development;task;tasks;project;todo;event;events;calendar;todoist;"
 msgstr ""
-"desenvolvimento; tarefa; tarefas; projeto; todo; evento; eventos; "
-"calendário; todoist;"
+"desenvolvimento;tarefa;tarefas;projeto;todo;evento;eventos;"
+"calendário;todoist;"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:8
 msgid ""
@@ -53,7 +53,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:12
 msgid "🚀️ Planner 2 is here..."
-msgstr "O Planejador 2 está aqui..."
+msgstr "🚀️ O Planejador 2 está aqui..."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:14
 #: data/com.github.alainm23.planner.appdata.xml.in:74
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 "1. Colha suas ideias - A Caixa de entrada é sua lista de tarefas padrão no "
 "Planejador. Quando você adiciona uma tarefa, ela é direcionada diretamente "
-"para sua Caixa de Entrada, a menos que você especifique que a tarefa entra "
+"para sua Caixa de Entrada a menos que você especifique que a tarefa entra "
 "em um projeto."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:28
@@ -154,7 +154,7 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:32
 msgid "☁️ Support for Todoist:"
-msgstr "☁️Suporte ao Todoist:"
+msgstr "☁️ Suporte ao Todoist:"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:34
 msgid "Synchronize your Projects, Task and Sections thanks to Todoist."
@@ -166,7 +166,7 @@ msgid ""
 "everything is reconnected it will be synchronized."
 msgstr ""
 "Suporte ao Todoist offline: Trabalhe sem uma conexão à Internet e quando "
-"tudo for reconectado, ele será sincronizado."
+"tudo for reconectado ele será sincronizado."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:37
 msgid "* Planner not created by, affiliated with, or supported by Doist"
@@ -225,14 +225,14 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:59
 msgid "[GitHub #181] - You can log out of your Todoist account."
-msgstr "[GitHub # 181] - Você pode sair da sua conta Todoist."
+msgstr "[GitHub #181] - Você pode sair da sua conta Todoist."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:60
 msgid ""
 "[GitHub #158] - The project panel was resized making it more compact and "
 "aesthetic."
 msgstr ""
-"[GitHub # 158] - O painel de projetos foi redimensionado, tornando-o mais "
+"[GitHub #158] - O painel de projetos foi redimensionado, tornando-o mais "
 "compacto e estético."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:61
@@ -240,33 +240,33 @@ msgid ""
 "[GitHub #156] - Now you can create an easier reminder by pressing the RETURN "
 "key."
 msgstr ""
-"[GitHub # 156] - Agora você pode criar um lembrete mais fácil pressionando a "
+"[GitHub #156] - Agora você pode criar um lembrete mais fácil pressionando a "
 "tecla RETURN."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:62
 msgid "[GitHub #147] - Badge count is not displayed when the system startup."
 msgstr ""
-"[GitHub # 147] - A contagem de emblemas não é exibida quando a inicialização "
+"[GitHub #147] - A contagem de emblemas não é exibida quando a inicialização "
 "do sistema."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:63
 msgid "[GitHub #138] - Fixing website address."
-msgstr "[GitHub # 138] - Corrigindo o endereço do site."
+msgstr "[GitHub #138] - Corrigindo o endereço do site."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:64
 msgid "[GitHub #136] - Add new task button disappears."
-msgstr "[GitHub # 136] - O botão Adicionar nova tarefa desaparece."
+msgstr "[GitHub #136] - O botão Adicionar nova tarefa desaparece."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:65
 msgid ""
 "[GitHub #145, #146] - The way to create the tutorial project was improved."
 msgstr ""
-"[GitHub # 145, # 146] - A maneira de criar o projeto do tutorial foi "
+"[GitHub #145, #146] - A maneira de criar o projeto do tutorial foi "
 "aprimorada."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:66
 msgid "[GitHub #152, #149] - Fixed some bugs with Quick Find."
-msgstr "[GitHub # 152, # 149] - Corrigidos alguns erros com a Pesquisa rápida."
+msgstr "[GitHub #152, #149] - Corrigidos alguns erros com a Pesquisa rápida."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:72
 msgid "Planner 2 is here..."
@@ -282,7 +282,7 @@ msgid ""
 "everything is reconnected it will be synchronized."
 msgstr ""
 "👷️ Suporte ao Todoist offline: Trabalhe sem uma conexão à Internet e quando "
-"tudo for reconectado, ele será sincronizado."
+"tudo for reconectado ele será sincronizado."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:92
 msgid "New features:"
@@ -386,7 +386,7 @@ msgstr "O Planejador notificará você se houver algum novo problema publicado"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:147
 msgid "Portugués Brasileño 🇧🇷 (Marciel Sousa)"
-msgstr "Português Brasileiro (Marciel Sousa &  Gleisson J.J. Cardoso)"
+msgstr "Português Brasileiro 🇧🇷 (Gleisson)"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:148
 msgid "Romanian (Prongs Dark)"
@@ -424,7 +424,7 @@ msgstr "Estabilidade aprimorada e algumas correções de bugs"
 msgid "Fixing critical bug with creating tasks from the clipboard #19"
 msgstr ""
 "Corrigindo um erro crítico na criação de tarefas a partir da área de "
-"transferência # 19"
+"transferência #19"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:165
 msgid "Adding new tooltips"
