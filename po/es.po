@@ -599,7 +599,7 @@ msgstr "Mover a sección"
 
 #: src/Widgets/ItemRow.vala:1233
 msgid "Duplicate"
-msgstr "Duplicado"
+msgstr "Duplicar"
 
 #: src/Widgets/ItemCompletedRow.vala:18
 msgid "Content"
