@@ -47,9 +47,6 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.1.3" date="2020-02-09">
-      <p>Test</p>
-    </release>
     <release version="2.1.1" date="2020-01-29">
       <description>
         <p>The keyboard shortcuts arrived, design improvements and more.</p>

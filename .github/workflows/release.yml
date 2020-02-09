@@ -11,6 +11,8 @@ jobs:
     - uses: actions/checkout@v1
     - uses: elementary/actions/release@master
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_USER_TOKEN: "${{ secrets.GIT_USER_TOKEN }}"
+        GIT_USER_NAME: "alainm23"
+        GIT_USER_EMAIL: "alainmh23@gmail.com"
       with:
         release_branch: 'juno'
