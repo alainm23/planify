@@ -1,0 +1,16 @@
+name: Release
+on:
+  pull_request:
+    branches: master
+    types: closed
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && true == contains(join(github.event.pull_request.labels.*.name), 'Release')
+    steps:
+    - uses: actions/checkout@v1
+    - uses: elementary/actions/release@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_branch: 'juno'
