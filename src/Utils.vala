@@ -1,7 +1,7 @@
 public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "0123456789";
-    
+
     public string APP_FOLDER;
     public string AVATARS_FOLDER;
     public Settings h24_settings;
@@ -9,13 +9,13 @@ public class Utils : GLib.Object {
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
     public signal void pane_action_selected ();
-    
+
     public signal void clock_format_changed ();
 
     public signal void drag_item_activated (bool active);
     public signal void drag_magic_button_activated (bool active);
     public signal void magic_button_activated (int64 project_id, int64 section_id, int is_todoist, bool last, int index = 0);
-    
+
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -48,7 +48,7 @@ public class Utils : GLib.Object {
         if (int64.parse (password_builder.str) <= 0) {
             return generate_id ();
         }
-        
+
         return int64.parse (password_builder.str);
     }
 
@@ -108,7 +108,7 @@ public class Utils : GLib.Object {
     */
     public Gee.HashMap<int, string> color () {
         var colors = new Gee.HashMap<int, string> ();
-        
+
         colors.set (30, "#ed5353"); // b8256f
         colors.set (31, "#db4035"); // db4035
         colors.set (32, "#ff9933"); // ff9933
@@ -135,7 +135,7 @@ public class Utils : GLib.Object {
 
     public Gee.HashMap<int, string> color_name () {
         var colors = new Gee.HashMap<int, string> ();
-        
+
         colors.set (30, _("Berry Red"));
         colors.set (31, _("Red"));
         colors.set (32, _("Orange"));
@@ -182,7 +182,7 @@ public class Utils : GLib.Object {
 
         return rgb_to_hex_string (new_rgba);
     }
-    
+
     private string rgb_to_hex_string (Gdk.RGBA rgba) {
         string s = "#%02x%02x%02x".printf(
             (uint) (rgba.red * 255),
@@ -248,7 +248,7 @@ public class Utils : GLib.Object {
 
         return Math.pow ((color + 0.055) / 1.055, 2.4);
     }
-    
+
     public void apply_styles (string id, string color, Gtk.RadioButton radio) {
         string COLOR_CSS = """
             .color-%s radio {
@@ -322,7 +322,7 @@ public class Utils : GLib.Object {
             debug ("%s\n", e.message);
             return true;
         }
-        
+
         return false;
     }
 
@@ -357,7 +357,7 @@ public class Utils : GLib.Object {
     /*
         Calendar Utils
     */
-    
+
     public int get_days_of_month (int index, int year_nav) {
         if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) {
             return 31;
@@ -422,12 +422,12 @@ public class Utils : GLib.Object {
         var date_2 = new GLib.DateTime.now_local ();
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
     }
-    
+
     public bool is_tomorrow (GLib.DateTime date_1) {
         var date_2 = new GLib.DateTime.now_local ().add_days (1);
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
     }
-    
+
     public bool is_upcoming (GLib.DateTime date) {
         if (is_today (date) == false && is_before_today (date) == false) {
             return true;
@@ -508,8 +508,8 @@ public class Utils : GLib.Object {
         return datetime.length <= 10;
     }
 
-    /*  
-        Settigns Theme 
+    /*
+        Settigns Theme
     */
 
     public void apply_theme_changed () {
@@ -543,7 +543,7 @@ public class Utils : GLib.Object {
                 pane_text_color = "#ffffff";
                 duedate_today_color = "#f9c440";
             }
-            
+
             var css = CSS.printf (
                 projectview_color,
                 border_color,
@@ -594,7 +594,7 @@ public class Utils : GLib.Object {
 
 
 
-    /* 
+    /*
         Tutorial project
     */
 

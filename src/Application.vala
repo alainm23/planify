@@ -37,7 +37,7 @@ public class Planner : Gtk.Application {
         Object (
             application_id: "com.github.alainm23.planner",
             flags: ApplicationFlags.HANDLES_COMMAND_LINE
-        ); 
+        );
 
         // Init internationalization support
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -45,12 +45,12 @@ public class Planner : Gtk.Application {
         Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, langpack_dir);
         Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (Constants.GETTEXT_PACKAGE);
-        
+
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/com.github.alainm23.planner");
         utils.create_dir_with_parents ("/com.github.alainm23.planner/avatars");
-        
+
         // Services
         settings = new Settings ("com.github.alainm23.planner");
         database = new Services.Database ();
@@ -87,7 +87,7 @@ public class Planner : Gtk.Application {
         }
 
         main_window = new MainWindow (this);
-        
+
         int window_x, window_y;
         var rect = Gtk.Allocation ();
 
@@ -99,11 +99,11 @@ public class Planner : Gtk.Application {
         }
 
         main_window.set_allocation (rect);
-        
+
         if (settings.get_boolean ("window-maximized")) {
             main_window.maximize ();
         }
-        
+
         if (silence == false) {
             main_window.show_all ();
             main_window.present ();
@@ -115,7 +115,10 @@ public class Planner : Gtk.Application {
         // Stylesheet
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        Gtk.StyleContext.add_provider_for_screen (
+            Gdk.Screen.get_default (),
+            provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
 
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
@@ -145,7 +148,7 @@ public class Planner : Gtk.Application {
 
         string[] args = command_line.get_arguments ();
         string[] _args = new string[args.length];
-        for(int i = 0; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++) {
             _args[i] = args[i];
         }
 
@@ -155,7 +158,7 @@ public class Planner : Gtk.Application {
             ctx.add_main_entries (options, null);
             unowned string[] tmp = _args;
             ctx.parse (ref tmp);
-        } catch(OptionError e) {
+        } catch (OptionError e) {
             command_line.print ("error: %s\n", e.message);
             return 0;
         }
@@ -174,7 +177,7 @@ public class Planner : Gtk.Application {
                 main_window.destroy ();
             }
         });
-        
+
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
             //var item = Application.database.get_item_by_id (parameter.get_int64 ());
@@ -250,7 +253,7 @@ public class Planner : Gtk.Application {
         //      dialog.destroy.connect (Gtk.main_quit);
         //      dialog.show_all ();
         //  });
-        
+
         add_action (quit_action);
         add_action (show_item);
         add_action (quick_find_action);
@@ -265,7 +268,7 @@ public class Planner : Gtk.Application {
         add_action (view_upcoming);
         //add_action (open_settings);
     }
-    
+
     public static int main (string[] args) {
         Planner app = Planner.instance;
 

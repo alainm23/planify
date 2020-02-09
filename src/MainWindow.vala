@@ -31,7 +31,6 @@ public class MainWindow : Gtk.Window {
     private Views.Upcoming upcoming_view = null;
 
     private Widgets.QuickFind quick_find;
-    
     private uint timeout_id = 0;
     private uint configure_id;
 
@@ -71,7 +70,7 @@ public class MainWindow : Gtk.Window {
         projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        
+
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
@@ -81,13 +80,10 @@ public class MainWindow : Gtk.Window {
         var welcome_view = new Views.Welcome ();
 
         stack = new Gtk.Stack ();
-        stack.margin_end = 3;
-        stack.margin_bottom = 3;;
+        stack.margin_end = stack.margin_bottom = 3;
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
-        
         stack.add_named (welcome_view, "welcome-view");
-        
         var toast = new Widgets.Toast ();
         magic_button = new Widgets.MagicButton ();
 
@@ -140,7 +136,7 @@ public class MainWindow : Gtk.Window {
                     go_view (Planner.settings.get_int ("homepage-item"));
                     pane.select_item (Planner.settings.get_int ("homepage-item"));
                 }
-                
+
                 // Run Todoisr Sync server
                 Planner.todoist.run_server ();
 
@@ -150,7 +146,7 @@ public class MainWindow : Gtk.Window {
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }
-            
+
             return false;
         });
 
@@ -162,7 +158,7 @@ public class MainWindow : Gtk.Window {
             if (index == 0) {
                 // Save user name
                 Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
-                
+
                 // To do: Create a tutorial project
                 Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
 
@@ -175,15 +171,15 @@ public class MainWindow : Gtk.Window {
                 // Set settings
                 Planner.settings.set_boolean ("inbox-project-sync", false);
                 Planner.settings.set_int64 ("inbox-project", inbox_project.id);
-                
+
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "inbox-view";
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
                 stack.transition_type = Gtk.StackTransitionType.NONE;
             } else {
-                var todoistOAuth = new Dialogs.TodoistOAuth ();
-                todoistOAuth.show_all ();
+                var todoist_oauth = new Dialogs.TodoistOAuth ();
+                todoist_oauth.show_all ();
             }
         });
 
@@ -213,7 +209,7 @@ public class MainWindow : Gtk.Window {
             magic_button.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
         });
-        
+
         Planner.database.project_deleted.connect ((id) => {
             if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
@@ -222,10 +218,10 @@ public class MainWindow : Gtk.Window {
                 pane.select_item (0);
             }
         });
-        
+
         magic_button.clicked.connect (() => {
             visible_child_name = stack.visible_child_name;
-            
+
             if (visible_child_name == "inbox-view") {
                 int is_todoist = 0;
                 if (Planner.settings.get_boolean ("inbox-project-sync")) {
@@ -270,7 +266,7 @@ public class MainWindow : Gtk.Window {
 
                 return false;
             });
-        });  
+        });
 
         delete_event.connect (() => {
             if (Planner.settings.get_boolean ("run-in-background")) {
@@ -314,7 +310,7 @@ public class MainWindow : Gtk.Window {
                 );
             }
         });
-        
+
         init_badge_count ();
 
         init_progress_controller ();
@@ -328,7 +324,7 @@ public class MainWindow : Gtk.Window {
         Planner.database.item_updated.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
-        
+
         Planner.database.item_added_with_index.connect ((item, index) => {
             Planner.database.check_project_count (item.project_id);
         });
@@ -399,7 +395,7 @@ public class MainWindow : Gtk.Window {
             pane.new_project.name_entry.grab_focus ();
         }
     }
-       
+
     public void go_view (int id) {
         if (id == 0) {
             if (inbox_view == null) {
@@ -409,7 +405,7 @@ public class MainWindow : Gtk.Window {
 
             magic_button.reveal_child = true;
             stack.visible_child_name = "inbox-view";
-        } else if  (id == 1) {
+        } else if (id == 1) {
             if (today_view == null) {
                 today_view = new Views.Today ();
                 stack.add_named (today_view, "today-view");
@@ -432,7 +428,7 @@ public class MainWindow : Gtk.Window {
 
     private void init_badge_count () {
         set_badge_visible ();
-        
+
         Planner.database.item_added.connect ((item) => {
             set_badge_visible ();
         });
@@ -485,7 +481,8 @@ public class MainWindow : Gtk.Window {
         }
 
         timeout_id = Timeout.add (300, () => {
-            Granite.Services.Application.set_badge_visible.begin (Planner.settings.get_enum ("badge-count") != 0, (obj, res) => {
+            Granite.Services.Application.set_badge_visible.begin (
+                Planner.settings.get_enum ("badge-count") != 0, (obj, res) => {
                 try {
                     Granite.Services.Application.set_badge_visible.end (res);
                     update_badge_count ();
@@ -501,13 +498,17 @@ public class MainWindow : Gtk.Window {
     private void update_badge_count () {
         int badge_count = Planner.settings.get_enum ("badge-count");
         int count = 0;
-        
+
         if (badge_count == 1) {
             count = Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
         } else if (badge_count == 2) {
             count = Planner.database.get_today_count ();
         } else if (badge_count == 3) {
-            count = (Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project")) + Planner.database.get_today_count ()) - Planner.database.get_today_project_count (Planner.settings.get_int64 ("inbox-project"));
+            count = (Planner.database.get_project_count (
+                Planner.settings.get_int64 ("inbox-project")) +
+                Planner.database.get_today_count ()) -
+                Planner.database.get_today_project_count (Planner.settings.get_int64 ("inbox-project")
+            );
         }
 
         bool badge_visible = false;
@@ -566,7 +567,7 @@ public class MainWindow : Gtk.Window {
         if (stack.visible_child_name == "inbox-view") {
             inbox_view.section_toggled ();
         } else if (stack.visible_child_name == "today-view") {
-            
+
         } else if (stack.visible_child_name == "upcoming-view") {
 
         } else {
