@@ -1,7 +1,7 @@
 public class Project : GLib.Object {
     public int64 area_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
-    
+
     public string name { get; set; default = ""; }
     public string note { get; set; default = ""; }
     public string due_date { get; set; default = ""; }

@@ -6,7 +6,7 @@ public class Services.LabelsController : GLib.Object {
     }
 
     private void apply_styles (int64 id, string color) {
-        string COLOR_CSS = """
+        string color_css = """
             .label-preview-%s {
                 background-color: alpha (%s, 0.25);
                 color: @text_color;
@@ -29,7 +29,7 @@ public class Services.LabelsController : GLib.Object {
         var provider = new Gtk.CssProvider ();
 
         try {
-            var colored_css = COLOR_CSS.printf (
+            var colored_css = color_css.printf (
                 // Label preview
                 id.to_string (),
                 color,
@@ -41,10 +41,13 @@ public class Services.LabelsController : GLib.Object {
                 id.to_string (),
                 color
             );
-            
+
             provider.load_from_data (colored_css, colored_css.length);
 
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (GLib.Error e) {
             return;
         }

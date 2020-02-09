@@ -1,8 +1,8 @@
 public class Services.Notifications : GLib.Object {
     public signal void send_notification (int type, string message);
 
-    private string MOVE_TEMPLATE = "<b>%s</b> moved to <b>%s</b>";
-    private string DELETE_TEMPLATE = "(%i) %s deleted";
+    private const string MOVE_TEMPLATE = "<b>%s</b> moved to <b>%s</b>";
+    private const string DELETE_TEMPLATE = "(%i) %s deleted";
 
     construct {
         init_server ();
@@ -22,9 +22,9 @@ public class Services.Notifications : GLib.Object {
         Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
             Idle.add (() => {
                 send_notification (
-                    0, 
+                    0,
                     MOVE_TEMPLATE.printf (
-                        item.content, 
+                        item.content,
                         Planner.database.get_project_by_id (project_id).name
                     )
                 );
@@ -36,9 +36,9 @@ public class Services.Notifications : GLib.Object {
         Planner.database.section_moved.connect ((section) => {
             Idle.add (() => {
                 send_notification (
-                    0, 
+                    0,
                     MOVE_TEMPLATE.printf (
-                        section.name, 
+                        section.name,
                         Planner.database.get_project_by_id (section.project_id).name
                     )
                 );
@@ -58,7 +58,7 @@ public class Services.Notifications : GLib.Object {
                     notification.set_priority (GLib.NotificationPriority.URGENT);
 
                     notification.set_default_action_and_target_value (
-                        "app.show-item", 
+                        "app.show-item",
                         new Variant.int64 (reminder.item_id)
                     );
 
@@ -71,12 +71,13 @@ public class Services.Notifications : GLib.Object {
         });
     }
 
-    public void send_system_notification (string title, string body, string icon_name, GLib.NotificationPriority priority) {
+    public void send_system_notification (string title, string body,
+        string icon_name, GLib.NotificationPriority priority) {
         var notification = new Notification (title);
         notification.set_body (body);
         notification.set_icon (new ThemedIcon (icon_name));
         notification.set_priority (priority);
-        
+
         Planner.instance.send_notification ("com.github.alainm23.planner", notification);
     }
 }

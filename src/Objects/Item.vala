@@ -6,7 +6,7 @@ public class Objects.Item : GLib.Object {
     public int64 assigned_by_uid { get; set; default = 0; }
     public int64 responsible_uid { get; set; default = 0; }
     public int64 sync_id { get; set; default = 0; }
-    public int64 parent_id { get; set; default = 0; } 
+    public int64 parent_id { get; set; default = 0; }
     public int priority { get; set; default = 0; }
     public int item_order { get; set; default = 0; }
     public int checked { get; set; default = 0; }
@@ -26,7 +26,7 @@ public class Objects.Item : GLib.Object {
     public string due_string { get; set; default = ""; }
     public string due_lang { get; set; default = ""; }
     public int due_is_recurring { get; set; default = 0; }
-    
+
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string date_completed { get; set; default = ""; }
     public string date_updated { get; set; default = new GLib.DateTime.now_local ().to_string (); }
@@ -51,7 +51,7 @@ public class Objects.Item : GLib.Object {
 
                 return null;
             });
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
@@ -72,7 +72,7 @@ public class Objects.Item : GLib.Object {
 
                 return null;
             });
-            
+
             Source.remove (timeout_id_2);
             timeout_id_2 = 0;
             return false;
@@ -81,7 +81,7 @@ public class Objects.Item : GLib.Object {
 
     public Objects.Item get_duplicate () {
         var item = new Objects.Item ();
-        
+
         item.id = Planner.utils.generate_id ();
         item.project_id = project_id;
         item.section_id = section_id;
@@ -120,7 +120,7 @@ public class Objects.Item : GLib.Object {
     public string to_json () {
         var builder = new Json.Builder ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("id");
         builder.add_int_value (this.id);
 
@@ -136,7 +136,7 @@ public class Objects.Item : GLib.Object {
             builder.add_string_value (Planner.database.get_temp_id (this.section_id));
         } else {
             builder.add_int_value (this.section_id);
-        }   
+        }
 
         builder.set_member_name ("parent_id");
         if (Planner.database.curTempIds_exists (this.parent_id)) {
@@ -150,14 +150,14 @@ public class Objects.Item : GLib.Object {
 
         builder.set_member_name ("checked");
         builder.add_int_value (this.checked);
-        
+
         builder.set_member_name ("due_date");
         builder.add_string_value (this.due_date);
 
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
-	    Json.Node root = builder.get_root ();
+        Json.Node root = builder.get_root ();
         generator.set_root (root);
 
         return generator.to_data (null);

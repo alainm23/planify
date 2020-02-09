@@ -1,14 +1,14 @@
 public class Dialogs.ProjectSettings : Gtk.Dialog {
     public Objects.Project project { get; construct; }
     private Gtk.Entry name_entry;
-    
+
     private int color_selected;
 
     public ProjectSettings (Objects.Project project) {
         Object (
             project: project,
             transient_for: Planner.instance.main_window,
-            deletable: false, 
+            deletable: false,
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -29,7 +29,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         var due_label = new Granite.HeaderLabel (_("Due:"));
         var due_datepicker = new Granite.Widgets.DatePicker ();
- 
+
         var color_label = new Granite.HeaderLabel (_("Color:"));
 
         var color_30 = new Gtk.RadioButton (null);
@@ -49,13 +49,13 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         color_32.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("32", Planner.utils.get_color (32), color_32);
         color_32.get_style_context ().add_class ("color-radio-dialog");
-        
+
         var color_33 = new Gtk.RadioButton.from_widget (color_30);
         color_33.valign = Gtk.Align.START;
         color_33.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("33", Planner.utils.get_color (33), color_33);
         color_33.get_style_context ().add_class ("color-radio-dialog");
-        
+
         var color_34 = new Gtk.RadioButton.from_widget (color_30);
         color_34.valign = Gtk.Align.START;
         color_34.halign = Gtk.Align.START;
@@ -73,7 +73,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         color_36.halign = Gtk.Align.START;
         Planner.utils.apply_styles ("36", Planner.utils.get_color (36), color_36);
         color_36.get_style_context ().add_class ("color-radio-dialog");
-        
+
         var color_37 = new Gtk.RadioButton.from_widget (color_30);
         color_37.valign = Gtk.Align.START;
         color_37.halign = Gtk.Align.START;
@@ -214,7 +214,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);
         save_button.has_default = true;
         save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-               
+
         switch (project.color) {
             case 30:
                 color_30.active = true;
@@ -279,7 +279,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             default:
                 break;
         }
-        
+
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
                 save_button.sensitive = true;
@@ -392,18 +392,18 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             if (project.id == id) {
                 loading_revealer.reveal_child = true;
             }
-        }); 
+        });
 
         Planner.todoist.project_updated_completed.connect ((id) => {
             if (project.id == id) {
                 destroy ();
-            } 
+            }
         });
 
         Planner.todoist.project_updated_error.connect ((id, error_code, error_message) => {
             if (project.id == id) {
                 print ("Error: %s\n".printf (error_message));
-            } 
+            }
         });
     }
 
@@ -414,7 +414,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
             Planner.database.update_project (project);
             if (project.is_todoist == 0) {
-                Planner.todoist.update_project (project);    
+                Planner.todoist.update_project (project);
             }
 
             destroy ();

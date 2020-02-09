@@ -16,7 +16,7 @@ public class Objects.Section : GLib.Object {
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
 
     private uint timeout_id = 0;
-    
+
     public void save () {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
@@ -28,12 +28,11 @@ public class Objects.Section : GLib.Object {
             if (is_todoist == 1) {
                 Planner.todoist.update_section (this);
             }
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
         });
-        
     }
 
     public void save_local () {
@@ -48,7 +47,7 @@ public class Objects.Section : GLib.Object {
 
                 return null;
             });
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
@@ -58,10 +57,10 @@ public class Objects.Section : GLib.Object {
     public string to_json () {
         var builder = new Json.Builder ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("id");
         builder.add_int_value (this.id);
-        
+
         builder.set_member_name ("name");
         builder.add_string_value (this.name);
 
@@ -71,11 +70,11 @@ public class Objects.Section : GLib.Object {
         } else {
             builder.add_int_value (this.project_id);
         }
-        
+
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
-	    Json.Node root = builder.get_root ();
+        Json.Node root = builder.get_root ();
         generator.set_root (root);
 
         return generator.to_data (null);
@@ -86,6 +85,6 @@ public class Objects.Section : GLib.Object {
     }
 
     public void share_markdown () {
-        
+
     }
 }

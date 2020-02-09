@@ -11,7 +11,7 @@ public class Objects.Reminder : GLib.Object {
     public string due_string { get; set; default = ""; }
     public string due_lang { get; set; default = "en"; }
     public string content { get; set; default = ""; }
-    
+
     public int due_is_recurring { get; set; default = 0; }
     public int mm_offset { get; set; default = 180; }
     public int is_deleted { get; set; default = 0; }

@@ -3,11 +3,11 @@ public class PlannerQuickAdd : Gtk.Application {
         entry {
             caret-color: #3689e6;
         }
-        
+
         button {
             border-radius: 4px;
         }
-        
+
         textview {
             caret-color: #3689e6;
         }
@@ -27,7 +27,7 @@ public class PlannerQuickAdd : Gtk.Application {
             border-width: 0px 0px 0px 0px;
             background-color: @base_color;
         }
-        
+
         .content-entry:focus {
             border-color: transparent;
             box-shadow: none;
@@ -40,7 +40,7 @@ public class PlannerQuickAdd : Gtk.Application {
         .quick-add-combobox {
             background-color: @base_color;
         }
-        
+
         .quick-add-combobox button {
             border-radius: 4px;
         }
@@ -65,7 +65,7 @@ public class PlannerQuickAdd : Gtk.Application {
             windows.data.destroy ();
             return;
         }
-        
+
         var main_window = new MainWindow (this);
         main_window.show_all ();
 
@@ -90,7 +90,10 @@ public class PlannerQuickAdd : Gtk.Application {
 
         try {
             provider.load_from_data (CSS, CSS.length);
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);    
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
         } catch (Error e) {
             debug (e.message);
         }

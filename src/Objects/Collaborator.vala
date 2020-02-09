@@ -4,7 +4,7 @@ public class Objects.Collaborator : GLib.Object {
     public string full_name { get; set; default = ""; }
     public string timezone { get; set; default = ""; }
     public string image_id { get; set; default = ""; }
-    
+
     //private uint timeout_id = 0;
 
     public void save () {
@@ -19,7 +19,7 @@ public class Objects.Collaborator : GLib.Object {
                 Planner.database.update_area (this);
                 return null;
             });
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;

@@ -186,7 +186,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
     private Gtk.Widget get_homepage_widget () {
         var top_box = new PreferenceTopBox ("go-home", _("Homepage"));
 
-        var description_label = new Gtk.Label (_("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like."));
+        var description_label = new Gtk.Label (
+            _("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
+        );
         description_label.justify = Gtk.Justification.FILL;
         description_label.use_markup = true;
         description_label.wrap = true;
@@ -412,7 +414,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var info_box = new PreferenceTopBox ("night-light", _("Quick Add"));
 
         var description_label = new Gtk.Label (
-            _("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work.")
+            _("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work.") // vala-lint=line-length
         );
         description_label.margin = 6;
         description_label.margin_bottom = 6;
@@ -564,7 +566,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         );
 
         var run_background_label = new Gtk.Label (
-            _("Enable this setting to keep Planner running in the background when it closes. This will allow Planner to continue updating and sending reminder notifications.")
+            _("Enable this setting to keep Planner running in the background when it closes. This will allow Planner to continue updating and sending reminder notifications.") // vala-lint=line-length
         );
         run_background_label.wrap = true;
         run_background_label.xalign = 0;
@@ -664,7 +666,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("tag", _("Labels"));
 
         var description_label = new Gtk.Label (
-            _("Save time by batching similar tasks together using labels. You’ll be able to pull up a list of all tasks with any given label in a matter of seconds.")
+            _("Save time by batching similar tasks together using labels. You’ll be able to pull up a list of all tasks with any given label in a matter of seconds.") // vala-lint=line-length
         );
         description_label.margin = 6;
         description_label.margin_bottom = 12;
@@ -788,7 +790,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("tag", _("Keyboard Shortcuts"));
 
         var description_label = new Gtk.Label (
-            _("All the shortcuts to save you time! Some can be used anywhere in the app, while others only work when adding or editing tasks.")
+            _("All the shortcuts to save you time! Some can be used anywhere in the app, while others only work when adding or editing tasks.") // vala-lint=line-length
         );
         description_label.margin = 6;
         description_label.margin_bottom = 12;
@@ -878,7 +880,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         sync_server_switch.margin_top = 24;
 
         var sync_server_label = new Gtk.Label (
-            _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.")
+            _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.") // vala-lint=line-length
         );
         sync_server_label.halign = Gtk.Align.START;
         sync_server_label.wrap = true;
@@ -983,7 +985,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         var top_box = new PreferenceTopBox ("office-calendar", _("Calendar Events"));
 
         var description_label = new Gtk.Label (
-            _("You can connect your <b>Calendar</b> app to Planner to see your events and to-dos together in one place. You’ll see events from both personal and shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when you’re managing your day, and as you plan the week ahead.")
+            _("You can connect your <b>Calendar</b> app to Planner to see your events and to-dos together in one place. You’ll see events from both personal and shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when you’re managing your day, and as you plan the week ahead.") // vala-lint=line-length
         );
         description_label.margin = 6;
         description_label.use_markup = true;

@@ -1,7 +1,7 @@
 public class Objects.Project : GLib.Object {
     public int64 area_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
-    
+
     public string _name = "";
     public string name {
         get { return _name; }
@@ -24,7 +24,7 @@ public class Objects.Project : GLib.Object {
     public int is_kanban { get; set; default = 0; }
 
     private uint timeout_id = 0;
-    
+
     public void save () {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
@@ -36,7 +36,7 @@ public class Objects.Project : GLib.Object {
             if (is_todoist == 1) {
                 Planner.todoist.update_project (this);
             }
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
@@ -61,7 +61,7 @@ public class Objects.Project : GLib.Object {
     public string to_json () {
         var builder = new Json.Builder ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("id");
         if (Planner.database.curTempIds_exists (this.id)) {
             builder.add_string_value (Planner.database.get_temp_id (this.id));
@@ -74,11 +74,11 @@ public class Objects.Project : GLib.Object {
 
         builder.set_member_name ("color");
         builder.add_int_value (this.color);
-               
+
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
-	    Json.Node root = builder.get_root ();
+        Json.Node root = builder.get_root ();
         generator.set_root (root);
 
         return generator.to_data (null);

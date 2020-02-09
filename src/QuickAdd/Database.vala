@@ -1,6 +1,6 @@
 public class Database : GLib.Object {
     private Soup.Session session;
-    private Sqlite.Database db; 
+    private Sqlite.Database db;
 
     private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v8/sync";
     private string db_path;
@@ -66,7 +66,7 @@ public class Database : GLib.Object {
         return all;
     }
 
-    public bool insert_item (Item item) { 
+    public bool insert_item (Item item) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -103,7 +103,7 @@ public class Database : GLib.Object {
 
         res = stmt.bind_int64 (1, item.id);
         assert (res == Sqlite.OK);
-        
+
         res = stmt.bind_int64 (2, item.project_id);
         assert (res == Sqlite.OK);
 
@@ -124,7 +124,7 @@ public class Database : GLib.Object {
 
         res = stmt.bind_int64 (8, item.parent_id);
         assert (res == Sqlite.OK);
-        
+
         res = stmt.bind_int (9, item.priority);
         assert (res == Sqlite.OK);
 
@@ -200,7 +200,7 @@ public class Database : GLib.Object {
 
         res = stmt.bind_text (3, queue.query);
         assert (res == Sqlite.OK);
-        
+
         res = stmt.bind_text (4, queue.temp_id);
         assert (res == Sqlite.OK);
 
@@ -218,7 +218,7 @@ public class Database : GLib.Object {
         }
     }
 
-    public bool insert_CurTempIds (int64 id, string temp_id, string object) {
+    public bool insert_CurTempIds (int64 id, string temp_id, string object) { // vala-lint=naming-convention
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -248,7 +248,7 @@ public class Database : GLib.Object {
         }
     }
 
-    public bool curTempIds_exists (int64 id) {
+    public bool curTempIds_exists (int64 id) { // vala-lint=naming-convention
         bool returned = false;
         Sqlite.Statement stmt;
 
@@ -297,7 +297,7 @@ public class Database : GLib.Object {
             string uuid = generate_string ();
 
             string url = "%s?token=%s&commands=%s".printf (
-                TODOIST_SYNC_URL, 
+                TODOIST_SYNC_URL,
                 PlannerQuickAdd.settings.get_string ("todoist-access-token"),
                 get_add_item_json (item, temp_id, uuid)
             );
@@ -311,7 +311,7 @@ public class Database : GLib.Object {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
                         var node = parser.get_root ().get_object ();
-    
+
                         var sync_status = node.get_object_member ("sync_status");
                         var uuid_member = sync_status.get_member (uuid);
 
@@ -343,7 +343,7 @@ public class Database : GLib.Object {
                         queue.query = "item_add";
                         queue.args = item.to_json ();
 
-                        if (insert_item (item) && 
+                        if (insert_item (item) &&
                             insert_queue (queue) &&
                             insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed ();
@@ -354,7 +354,7 @@ public class Database : GLib.Object {
                     }
                 }
             });
-            
+
             return null;
         });
     }
@@ -363,7 +363,7 @@ public class Database : GLib.Object {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();
-        
+
         builder.set_member_name ("type");
         builder.add_string_value ("item_add");
 
@@ -392,12 +392,12 @@ public class Database : GLib.Object {
                 builder.add_int_value (item.section_id);
             }
 
-            builder.end_object ();        
+            builder.end_object ();
         builder.end_object ();
         builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
-	    Json.Node root = builder.get_root ();
+        Json.Node root = builder.get_root ();
         generator.set_root (root);
 
         return generator.to_data (null);
@@ -429,7 +429,7 @@ public class Database : GLib.Object {
             debug ("%s\n", e.message);
             return true;
         }
-        
+
         return false;
     }
 }

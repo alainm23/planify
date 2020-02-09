@@ -1,6 +1,6 @@
 public class Objects.Area : GLib.Object {
     public int64 id { get; set; default = Planner.utils.generate_id (); }
-    
+
     public string _name = "";
     public string name {
         get { return _name; }
@@ -24,7 +24,7 @@ public class Objects.Area : GLib.Object {
                 Planner.database.update_area (this);
                 return null;
             });
-            
+
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;

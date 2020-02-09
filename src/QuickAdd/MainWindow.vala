@@ -3,7 +3,7 @@ public class MainWindow : Gtk.Window {
     private Gtk.TextView note_textview;
 
     private DBusClient dbus_client;
-    private Gtk.ComboBox project_combobox;   
+    private Gtk.ComboBox project_combobox;
     private Gtk.ListStore list_store;
 
     public MainWindow (Gtk.Application application) {
@@ -92,7 +92,7 @@ public class MainWindow : Gtk.Window {
 
         var submit_stack = new Gtk.Stack ();
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        
+
         submit_stack.add_named (new Gtk.Label (_("Save")), "label");
         submit_stack.add_named (submit_spinner, "spinner");
 
@@ -107,7 +107,7 @@ public class MainWindow : Gtk.Window {
         action_grid.column_spacing = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
-        
+
         list_store = new Gtk.ListStore (3, typeof (Project), typeof (string), typeof (string));
         project_combobox = new Gtk.ComboBox.with_model (list_store);
         project_combobox.can_focus = false;
@@ -126,23 +126,26 @@ public class MainWindow : Gtk.Window {
                 icon_name = "planner-project-symbolic";
             }
 
-            list_store.@set (iter, 
-                0, project, 
-                1, " " + project.name, 
+            list_store.@set (iter,
+                0, project,
+                1, " " + project.name,
                 2, icon_name
             );
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == 0) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true &&
+                PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == 0) {
                 if (project.inbox_project == 1) {
                     project_combobox.set_active_iter (iter);
                 }
             }
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == false && project.inbox_project == 1) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == false &&
+                project.inbox_project == 1) {
                 project_combobox.set_active_iter (iter);
             }
 
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true && PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == project.id) {
+            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true &&
+                PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == project.id) {
                 project_combobox.set_active_iter (iter);
             }
         }
@@ -172,9 +175,9 @@ public class MainWindow : Gtk.Window {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (textview_scrolled, false, true, 0);
         main_box.pack_end (action_bar, false, false, 0);
-        
+
         add (main_box);
-        
+
         get_style_context ().add_class ("rounded");
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
         set_titlebar (headerbar);
@@ -235,9 +238,11 @@ public class MainWindow : Gtk.Window {
         });
 
         focus_out_event.connect ((event) => {
-            if (Posix.isatty (Posix.STDIN_FILENO) == false && project_combobox.popup_shown == false && PlannerQuickAdd.database.is_adding == false) {
+            if (Posix.isatty (Posix.STDIN_FILENO) == false &&
+                project_combobox.popup_shown == false &&
+                PlannerQuickAdd.database.is_adding == false) {
                 hide ();
-            
+
                 Timeout.add (500, () => {
                     destroy ();
                     return false;
@@ -261,7 +266,7 @@ public class MainWindow : Gtk.Window {
 
             if (project.inbox_project == 1) {
                 if (PlannerQuickAdd.settings.get_boolean ("inbox-project-sync")) {
-                    PlannerQuickAdd.database.add_todoist_item (item);       
+                    PlannerQuickAdd.database.add_todoist_item (item);
                 } else {
                     PlannerQuickAdd.database.insert_item (item);
                 }
@@ -299,7 +304,7 @@ public class MainWindow : Gtk.Window {
         if (int64.parse (password_builder.str) <= 0) {
             return generate_id ();
         }
-        
+
         return int64.parse (password_builder.str);
     }
 
