@@ -133,8 +133,6 @@ public class Objects.Item : GLib.Object {
             foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
                 Planner.database.move_item (check, project.id);
             }
-
-            //Planner.database.delete_item (this);
         }
     }
 

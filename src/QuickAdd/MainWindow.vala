@@ -180,7 +180,7 @@ public class MainWindow : Gtk.Window {
         project_combobox.add_attribute (text_cell, "text", 1);
 
         project_combobox.changed.connect (() => {
-            var project = get_selected_project ();
+            var project = get_project_selected ();
             if (project != null) {
                 PlannerQuickAdd.settings.set_int64 ("quick-add-project-selected", project.id);
             }
@@ -275,8 +275,8 @@ public class MainWindow : Gtk.Window {
     }
 
     private void add_item () {
-        if (content_entry.text != "" && get_selected_project () != null) {
-            var project = get_selected_project ();
+        if (content_entry.text != "" && get_project_selected () != null) {
+            var project = get_project_selected ();
 
             var item = new Item ();
             item.id = generate_id ();
@@ -301,7 +301,7 @@ public class MainWindow : Gtk.Window {
         }
     }
 
-    public Project? get_selected_project () {
+    public Project? get_project_selected () {
         Gtk.TreeIter iter;
         if (!project_combobox.get_active_iter (out iter)) {
             return null;

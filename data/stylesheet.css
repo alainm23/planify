@@ -22,6 +22,14 @@ button {
     border-radius: 4px;
 }
 
+.source-button {
+    border-radius: 0px 3px 3px 0px;
+}
+
+.no-border {
+    border-radius: 0px;
+}
+
 .planner-button {
     background-color: @base_color;
 }
@@ -514,6 +522,12 @@ paned > separator {
     border-radius: 4px;
 }
 
+.drag-begin {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    border: 1px solid #3689e6;
+}
+
 .check-button,
 .due-button,
 .label-button {
@@ -656,6 +670,14 @@ paned > separator {
     background-color: #3689e6;
     color: @text_color;
     border-radius: 50%;   
+}
+
+.fancy-turn-animation:hover image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
+.magic-button-animation:hover image {
+    animation: add-animation 0.7s ease-in-out;
 }
 
 .project-icon {
@@ -883,4 +905,8 @@ paned > separator {
 .planner-switch slider {
     min-height: 16px;
     min-width: 16px;
+}
+
+.popover-model-button {
+    padding-left: 9px;
 }

@@ -41,6 +41,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         magic_button.width_request = 32;
         magic_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         magic_button.get_style_context ().add_class ("magic-button");
+        magic_button.get_style_context ().add_class ("magic-button-animation");
 
         add (magic_button);
 

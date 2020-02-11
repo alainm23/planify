@@ -65,6 +65,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     construct {
         margin_start = margin_end = 6;
+        margin_top = 2;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
@@ -166,7 +167,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.margin_start = 4;
-        grid.margin_top = grid.margin_bottom = 3;
+        grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);
 
@@ -359,6 +360,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         if (source.item.is_todoist == 0) {
             Planner.todoist.move_item (source.item, project.id);
         }
+
+        string move_template = _("<b>%s</b> moved to <b>%s</b>");
+        Planner.notifications.send_notification (
+            0,
+            move_template.printf (
+                source.item.content,
+                Planner.database.get_project_by_id (project.id).name
+            )
+        );
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -369,7 +379,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
         var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.5);
+        cr.set_source_rgba (0, 0, 0, 0);
         cr.set_line_width (1);
 
         cr.move_to (0, 0);
@@ -379,11 +389,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context().add_class("drag-begin");
         row.draw (cr);
+        row.get_style_context().remove_class("drag-begin");
+
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
     }

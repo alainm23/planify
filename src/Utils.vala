@@ -33,6 +33,8 @@ public class Utils : GLib.Object {
     public signal void select_pane_project (int64 project_id);
     public signal void pane_action_selected ();
 
+    public signal void insert_project_to_area (int64 area_id);
+
     public signal void clock_format_changed ();
 
     public signal void drag_item_activated (bool active);

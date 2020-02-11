@@ -13,7 +13,7 @@
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
-        
+
         <key name="window-maximized" type="b">
             <default>false</default>
             <summary>Whether the window was maximized on last run</summary>
@@ -43,7 +43,7 @@
 			<summary>Window position</summary>
 			<description>Most recent window position (x, y)</description>
 		</key>
-		
+
 		<key name="window-size" type="(ii)">
 			<default>(1160, 795)</default>
 			<summary>Most recent window size</summary>
@@ -80,12 +80,18 @@
             <description>Source selected</description>
         </key>
 
+        <key name="area-selected" type="x">
+            <default>0</default>
+            <summary>Last Area selected</summary>
+            <description>Last Area selected</description>
+        </key>
+
         <key name="inbox-project" type="x">
             <default>0</default>
             <summary>Inbox Project ID</summary>
             <description>Inbox Project ID</description>
         </key>
-        
+
         <key name="run-on-startup" type="b">
             <default>false</default>
             <summary>Run Planner on startup</summary>
@@ -133,7 +139,7 @@
             <summary>User name</summary>
             <description>User name</description>
         </key>
-        
+
         <key name="todoist-sync-server" type="b">
             <default>true</default>
             <summary>todoist-sync-server</summary>

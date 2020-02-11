@@ -40,33 +40,33 @@ public class Services.Notifications : GLib.Object {
             );
         });
 
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
-            Idle.add (() => {
-                send_notification (
-                    0,
-                    MOVE_TEMPLATE.printf (
-                        item.content,
-                        Planner.database.get_project_by_id (project_id).name
-                    )
-                );
+        //  Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+        //      Idle.add (() => {
+        //          send_notification (
+        //              0,
+        //              MOVE_TEMPLATE.printf (
+        //                  item.content,
+        //                  Planner.database.get_project_by_id (project_id).name
+        //              )
+        //          );
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
 
-        Planner.database.section_moved.connect ((section) => {
-            Idle.add (() => {
-                send_notification (
-                    0,
-                    MOVE_TEMPLATE.printf (
-                        section.name,
-                        Planner.database.get_project_by_id (section.project_id).name
-                    )
-                );
+        //  Planner.database.section_moved.connect ((section) => {
+        //      Idle.add (() => {
+        //          send_notification (
+        //              0,
+        //              MOVE_TEMPLATE.printf (
+        //                  section.name,
+        //                  Planner.database.get_project_by_id (section.project_id).name
+        //              )
+        //          );
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
     }
 
     private void init_server () {
@@ -91,7 +91,7 @@ public class Services.Notifications : GLib.Object {
             return true;
         });
     }
-
+    
     public void send_system_notification (string title, string body,
         string icon_name, GLib.NotificationPriority priority) {
         var notification = new Notification (title);

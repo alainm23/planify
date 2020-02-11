@@ -123,7 +123,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
         timeout_id = GLib.Timeout.add (2500, () => {
             reveal_child = false;
-            simple_message_label.label = "";
+            simple_message_label.label = ""; 
 
             Source.remove (timeout_id);
             timeout_id = 0;

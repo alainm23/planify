@@ -332,7 +332,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                save_section ();
+                action_revealer.reveal_child = false;
+                name_stack.visible_child_name = "name_label";
+                name_entry.text = section.name;
             }
 
             return false;
@@ -345,6 +347,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         cancel_button.clicked.connect (() => {
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+            name_entry.text = section.name;
         });
 
         settings_button.clicked.connect (() => {

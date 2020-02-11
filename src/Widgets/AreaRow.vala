@@ -223,7 +223,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                save_area ();
+                action_revealer.reveal_child = false;
+                name_stack.visible_child_name = "name_label";
+                name_entry.text = area.name;
             }
 
             return false;
@@ -236,6 +238,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         cancel_button.clicked.connect (() => {
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+            name_entry.text = area.name;
         });
 
         top_eventbox.event.connect ((event) => {
@@ -477,13 +480,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
-        //var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
+        var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
-        //menu.add (add_menu);
-        //menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (add_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
@@ -499,6 +502,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             if (name_entry.cursor_position < name_entry.text.length) {
                 name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
             }
+        });
+
+        add_menu.activate.connect (() => {
+            Planner.utils.insert_project_to_area (area.id);
         });
 
         delete_menu.activate.connect (() => {

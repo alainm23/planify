@@ -132,6 +132,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
+        others_grid.margin_bottom = 3;
         others_grid.valign = Gtk.Align.START;
         others_grid.get_style_context ().add_class ("view");
         others_grid.orientation = Gtk.Orientation.VERTICAL;

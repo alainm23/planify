@@ -1145,6 +1145,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.is_todoist == 1) {
                 Planner.todoist.move_item (item, inbox_id);
             }
+
+            string move_template = _("<b>%s</b> moved to <b>%s</b>");
+            Planner.notifications.send_notification (
+                0,
+                move_template.printf (
+                    item.content,
+                    Planner.database.get_project_by_id (inbox_id).name
+                )
+            );
         });
 
         projects_menu.add (item_menu);
@@ -1157,6 +1166,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     if (item.is_todoist == 1) {
                         Planner.todoist.move_item (item, project.id);
                     }
+
+                    string move_template = _("<b>%s</b> moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        0,
+                        move_template.printf (
+                            item.content,
+                            Planner.database.get_project_by_id (project.id).name
+                        )
+                    );
                 });
 
                 projects_menu.add (item_menu);
@@ -1184,6 +1202,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     if (item.is_todoist == 1) {
                         Planner.todoist.move_item_to_section (item, section.id);
                     }
+
+                    string move_template = _("<b>%s</b> moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        0,
+                        move_template.printf (
+                            item.content,
+                            section.name
+                        )
+                    );
                 });
 
                 sections_menu.add (item_menu);
