@@ -769,7 +769,7 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.add (separator_01);
         popover_grid.add (show_completed_button);
         popover_grid.add (delete_menu);
-        
+
         popover.add (popover_grid);
 
         popover.closed.connect (() => {

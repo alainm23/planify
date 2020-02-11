@@ -392,9 +392,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
-        row.get_style_context().add_class("drag-begin");
+        row.get_style_context ().add_class ("drag-begin");
         row.draw (cr);
-        row.get_style_context().remove_class("drag-begin");
+        row.get_style_context ().remove_class ("drag-begin");
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
