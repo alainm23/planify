@@ -91,7 +91,7 @@ public class Services.Notifications : GLib.Object {
             return true;
         });
     }
-    
+
     public void send_system_notification (string title, string body,
         string icon_name, GLib.NotificationPriority priority) {
         var notification = new Notification (title);

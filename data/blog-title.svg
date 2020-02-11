@@ -1777,9 +1777,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.51513317"
-     inkscape:cx="742.52644"
-     inkscape:cy="372"
+     inkscape:zoom="0.23153753"
+     inkscape:cx="703.25569"
+     inkscape:cy="411.307"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1790,38 +1790,7 @@
      inkscape:window-height="705"
      inkscape:window-x="0"
      inkscape:window-y="30"
-     inkscape:window-maximized="1">
-    <sodipodi:guide
-       position="34.926243,84.233881"
-       orientation="1,0"
-       id="guide836"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="35.047358,169.55921"
-       orientation="0,1"
-       id="guide838"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="410.12655,152.80231"
-       orientation="1,0"
-       id="guide1921"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="68.641975,162.16213"
-       orientation="1,0"
-       id="guide1923"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="68.641975,-52.389365"
-       orientation="1,0"
-       id="guide1925"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="81.858383,113.47819"
-       orientation="1,0"
-       id="guide1992"
-       inkscape:locked="false" />
-  </sodipodi:namedview>
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -1853,17 +1822,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#2a3446;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="92.257034"
-       y="207.54285"
+       x="55.664165"
+       y="206.90614"
        id="text828"><tspan
          sodipodi:role="line"
          id="tspan826"
-         x="92.257034"
-         y="207.54285"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.39999962px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';fill:#273445;fill-opacity:1;stroke-width:0.26458332">Planner 2.2 develop #1</tspan></text>
+         x="55.664165"
+         y="206.90614"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.39999962px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';fill:#273445;fill-opacity:1;stroke-width:0.26458332">Planner 2.2 | Development #1</tspan></text>
     <g
        id="g1919"
-       transform="matrix(0.26458333,0,0,0.26458333,54.780958,180.60929)">
+       transform="matrix(0.26458333,0,0,0.26458333,18.188091,179.97259)">
       <g
          id="g4261"
          style="fill:#ffffff"

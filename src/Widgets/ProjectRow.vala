@@ -361,11 +361,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             Planner.todoist.move_item (source.item, project.id);
         }
 
-        string move_template = _("<b>%s</b> moved to <b>%s</b>");
+        string move_template = _("Task moved to <b>%s</b>");
         Planner.notifications.send_notification (
             0,
             move_template.printf (
-                source.item.content,
                 Planner.database.get_project_by_id (project.id).name
             )
         );
@@ -510,7 +509,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        share_list_menu.add (share_text_menu);
+        //share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
         share_list_menu.show_all ();
 
@@ -519,7 +518,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu.add (edit_menu);
         menu.add (move_area_menu);
-        //menu.add (share_menu);
+        menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 

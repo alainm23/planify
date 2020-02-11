@@ -822,11 +822,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context().add_class("drag-begin");
         row.draw (cr);
+        row.get_style_context().remove_class("drag-begin");
+
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
     }

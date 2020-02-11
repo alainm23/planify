@@ -110,6 +110,6 @@ public class Objects.Project : GLib.Object {
     }
 
     public void share_markdown () {
-
+        
     }
 }

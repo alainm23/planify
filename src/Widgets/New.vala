@@ -243,6 +243,8 @@ public class Widgets.New : Gtk.Revealer {
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
+        action_grid.expand = false;
+        action_grid.valign = Gtk.Align.END;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 9;
         action_grid.margin_top = 12;
@@ -268,6 +270,7 @@ public class Widgets.New : Gtk.Revealer {
         stack.add_named (box, "box");
 
         var main_grid = new Gtk.Grid ();
+        main_grid.height_request = 275;
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -520,9 +523,14 @@ public class Widgets.New : Gtk.Revealer {
 
         if (area_id == 0) {
             area_combobox.set_active_iter (iter);
+        } else {
+            if (Planner.database.area_exists (area_id) == false) {
+                area_combobox.set_active_iter (iter);
+            }
         }
 
-        foreach (var area in Planner.database.get_all_areas ()) {
+        var areas = Planner.database.get_all_areas ();
+        foreach (var area in areas) {
             area_liststore.append (out iter);
             area_liststore.@set (iter,
                 0, area,
@@ -533,6 +541,12 @@ public class Widgets.New : Gtk.Revealer {
             if (area.id == area_id && area_id != 0) {
                 area_combobox.set_active_iter (iter);
             }
+        }
+
+        if (areas.size > 0) {
+            area_revealer.reveal_child = true;
+        } else {
+            area_revealer.reveal_child = false;
         }
 
         var pixbuf_cell = new Gtk.CellRendererPixbuf ();

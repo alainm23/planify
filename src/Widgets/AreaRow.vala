@@ -23,6 +23,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
 
     private Gtk.Button hidden_button;
+    private Gtk.Button submit_button;
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Stack name_stack;
@@ -42,6 +43,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     public bool set_focus {
         set {
+            submit_button.sensitive = true;
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
             name_entry.grab_focus ();
@@ -131,7 +133,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.pack_start (name_stack, false, true, 0);
         //top_box.pack_end (hidden_revealer, false, false, 0);
 
-        var submit_button = new Gtk.Button.with_label (_("Save"));
+        submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.get_style_context ().add_class ("new-item-action-button");
@@ -179,6 +181,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         motion_grid.margin_end = 6;
         motion_grid.height_request = 24;
         motion_grid.get_style_context ().add_class ("grid-motion");
+
+        motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
@@ -493,6 +497,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         menu.show_all ();
 
+        add_menu.activate.connect (() => {
+            Planner.utils.insert_project_to_area (area.id);
+        });
+
         edit_menu.activate.connect (() => {
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
@@ -502,10 +510,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             if (name_entry.cursor_position < name_entry.text.length) {
                 name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
             }
-        });
-
-        add_menu.activate.connect (() => {
-            Planner.utils.insert_project_to_area (area.id);
         });
 
         delete_menu.activate.connect (() => {

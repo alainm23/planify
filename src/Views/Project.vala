@@ -767,10 +767,9 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.margin_bottom = 3;
         popover_grid.add (edit_menu);
         popover_grid.add (separator_01);
-        popover_grid.add (delete_menu);
-        popover_grid.add (separator_02);
         popover_grid.add (show_completed_button);
-
+        popover_grid.add (delete_menu);
+        
         popover.add (popover_grid);
 
         popover.closed.connect (() => {

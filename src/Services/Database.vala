@@ -820,6 +820,23 @@ public class Services.Database : GLib.Object {
         Areas
     */
 
+    public bool area_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Areas WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        return returned;
+    }
+
     public bool insert_area (Objects.Area area) {
         Sqlite.Statement stmt;
         string sql;

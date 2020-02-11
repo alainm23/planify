@@ -1007,11 +1007,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context().add_class("drag-begin");
         row.draw (cr);
+        row.get_style_context().remove_class("drag-begin");
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
@@ -1146,11 +1148,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 Planner.todoist.move_item (item, inbox_id);
             }
 
-            string move_template = _("<b>%s</b> moved to <b>%s</b>");
+            string move_template = _("Task moved to <b>%s</b>");
             Planner.notifications.send_notification (
                 0,
                 move_template.printf (
-                    item.content,
                     Planner.database.get_project_by_id (inbox_id).name
                 )
             );
@@ -1167,11 +1168,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                         Planner.todoist.move_item (item, project.id);
                     }
 
-                    string move_template = _("<b>%s</b> moved to <b>%s</b>");
+                    string move_template = _("Task moved to <b>%s</b>");
                     Planner.notifications.send_notification (
                         0,
                         move_template.printf (
-                            item.content,
                             Planner.database.get_project_by_id (project.id).name
                         )
                     );
@@ -1203,11 +1203,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                         Planner.todoist.move_item_to_section (item, section.id);
                     }
 
-                    string move_template = _("<b>%s</b> moved to <b>%s</b>");
+                    string move_template = _("Task moved to <b>%s</b>");
                     Planner.notifications.send_notification (
                         0,
                         move_template.printf (
-                            item.content,
                             section.name
                         )
                     );
