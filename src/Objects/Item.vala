@@ -184,27 +184,39 @@ public class Objects.Item : GLib.Object {
 
     public void share_text () {
         string text = "";
-        text += "- %s\n".printf (this.content);
-        text += "  %s\n".printf (this.note.replace ("\n", " "));
+        text += "- %s%s\n".printf (get_format_date (this.due_date), this.content);
+        if (this.note != "") {
+            text += "%s\n".printf (this.note.replace ("\n", " "));
+        }
 
         foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
             text += "  - %s\n".printf (check.content);
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
+        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
     }
 
     public void share_markdown () {
         string text = "";
-        text += "#### %s\n".printf (this.content);
-        text += "%s\n".printf (this.note.replace ("\n", " "));
+        text += "- [ ]%s%s\n".printf (get_format_date (this.due_date), this.content);
+        if (this.note != "") {
+            text += "%s\n".printf (this.note.replace ("\n", " "));
+        }
 
         foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
-            text += "- [ ] %s\n".printf (check.content);
+            text += "  - [ ] %s\n".printf (check.content);
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
+        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
+    }
+
+    private string get_format_date (string due_date) {
+        if (due_date == "") {
+            return " ";
+        }
+
+        return " (" + Planner.utils.get_default_date_format_from_string (due_date) + ") ";
     }
 }

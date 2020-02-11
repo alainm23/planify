@@ -466,6 +466,17 @@ public class Utils : GLib.Object {
         }
     }
 
+    public string get_default_date_format_from_string (string due_date) {
+        var now = new GLib.DateTime.now_local ();
+        var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+
+        if (date.get_year () == now.get_year ()) {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
+        } else {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
+        }
+    }
+
     public string get_default_date_format_from_date (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
 

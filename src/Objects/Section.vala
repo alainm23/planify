@@ -101,11 +101,26 @@ public class Objects.Section : GLib.Object {
         return generator.to_data (null);
     }
 
-    public void share_text () {
+    public void share_markdown () {
+        string text = "";
+        text += "## %s\n".printf (this.name);
 
+        foreach (var item in Planner.database.get_all_items_by_section_no_parent (this)) {
+            text += "- [ ]%s%s\n".printf (get_format_date (item.due_date), item.content);
+            foreach (var check in Planner.database.get_all_cheks_by_item (item.id)) {
+                text += "  - [ ] %s\n".printf (check.content);
+            }
+        }
+
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
+        Planner.notifications.send_notification (0, _("The Section was copied to the Clipboard."));
     }
 
-    public void share_markdown () {
+    private string get_format_date (string due_date) {
+        if (due_date == "") {
+            return " ";
+        }
 
+        return " (" + Planner.utils.get_default_date_format_from_string (due_date) + ") ";
     }
 }

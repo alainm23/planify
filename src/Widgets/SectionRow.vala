@@ -555,7 +555,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        share_list_menu.add (share_text_menu);
+        //share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
         share_list_menu.show_all ();
 
@@ -566,7 +566,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (move_project_menu);
-        //menu.add (share_menu);
+        menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -609,11 +609,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
-
-        share_text_menu.activate.connect (() => {
-            section.share_text ();
-        });
-
+        
         share_markdown_menu.activate.connect (() => {
             section.share_markdown ();
         });
