@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 00:26-0500\n"
-"PO-Revision-Date: 2020-02-12 05:50+0000\n"
+"PO-Revision-Date: 2020-02-12 05:59+0000\n"
 "Last-Translator: Alain <alain23@protonmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
@@ -512,7 +512,7 @@ msgstr "Proyecto de Todoist"
 
 #: src/Widgets/ProjectRow.vala:364 src/Widgets/ItemRow.vala:1156
 #: src/Widgets/ItemRow.vala:1176 src/Widgets/ItemRow.vala:1211
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "Se movió a <b>%s</b>"
 
@@ -692,9 +692,8 @@ msgid "Hiding Projects"
 msgstr "Ocultar proyectos"
 
 #: src/Widgets/AreaRow.vala:487
-#, fuzzy
 msgid "Add project"
-msgstr "Exportar Proyecto"
+msgstr "Añadir proyecto"
 
 #: src/Widgets/AreaRow.vala:517
 msgid "Delete area"
@@ -818,9 +817,8 @@ msgid "Show Completed"
 msgstr "Mostrar completadas"
 
 #: src/Views/Inbox.vala:687 src/Views/Project.vala:886
-#, fuzzy
 msgid "Task completed"
-msgstr "Fecha completada"
+msgstr "Tareas completada"
 
 #: src/Views/Project.vala:113
 msgid "Invite person"
@@ -1138,19 +1136,16 @@ msgid "Uploading changes…"
 msgstr "Subiendo cambios…"
 
 #: src/Objects/Project.vala:120
-#, fuzzy
 msgid "The Project was copied to the Clipboard."
-msgstr "La tarea ha sido copiada al portapapeles."
+msgstr "El proyecto ha sido copiada al portapapeles."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
-#, fuzzy
 msgid "The Task was copied to the Clipboard."
 msgstr "La tarea ha sido copiada al portapapeles."
 
 #: src/Objects/Section.vala:116
-#, fuzzy
 msgid "The Section was copied to the Clipboard."
-msgstr "La tarea ha sido copiada al portapapeles."
+msgstr "La sección ha sido copiada al portapapeles."
 
 #~ msgid "Source:"
 #~ msgstr "Fuente:"
