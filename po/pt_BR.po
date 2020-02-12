@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 00:26-0500\n"
-"PO-Revision-Date: 2020-02-12 16:28+0000\n"
+"PO-Revision-Date: 2020-02-14 17:50+0000\n"
 "Last-Translator: Henrique Andrade <henrique.coelho@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
@@ -68,7 +68,6 @@ msgid "Olive Green"
 msgstr "Verde Oliva"
 
 #: src/Utils.vala:171
-#, fuzzy
 msgid "Lime Green"
 msgstr "Verde Limão"
 
@@ -176,12 +175,12 @@ msgid ""
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
 "Acontece que, nossos cérebros estão realmente conectados para nos fazer "
-"pensar em nossas tarefas inacabadas.  É útil quando você tem apenas uma "
-"coisa em que precisa trabalhar. Não é tão bom quando você tem mais de 30 "
-"tarefas disputando sua atenção de uma só vez. É por isso que o primeiro "
-"passo para organizar seu trabalho e sua vida é tirar tudo da sua cabeça e "
-"colocar em uma lista de tarefas. A partir daí você pode começar a organizar "
-"e priorizar para saber exatamente o que focar e quando."
+"pensar em nossas tarefas inacabadas. É útil quando você tem apenas uma coisa "
+"em que precisa trabalhar. Não é tão bom quando você tem mais de 30 tarefas "
+"disputando sua atenção de uma só vez. É por isso que o primeiro passo para "
+"organizar seu trabalho e sua vida é tirar tudo da sua cabeça e colocar em "
+"uma lista de tarefas. A partir daí você pode começar a organizar e priorizar "
+"para saber exatamente o que focar e quando."
 
 #: src/Utils.vala:660
 msgid "Adding new tasks"
@@ -840,7 +839,7 @@ msgstr "Adicionar nota"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
-msgstr "Carregando..."
+msgstr "Carregando…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:67 src/Dialogs/TodoistOAuth.vala:135
@@ -857,7 +856,7 @@ msgstr "Sincronizando... Espere um momento por favor."
 
 #: src/Dialogs/TodoistOAuth.vala:113
 msgid "Please enter your credentials…"
-msgstr "Por favor entre com suas credenciais..."
+msgstr "Por favor entre com suas credenciais…"
 
 #. General
 #: src/Dialogs/Preferences.vala:88 src/Dialogs/Preferences.vala:95
@@ -988,6 +987,9 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
+"Ativar essa opção para manter a execução do Planner em segundo plano quando "
+"ele for fechado. Isso fará com que o Planner continue atualizando e enviando "
+"lembretes de notificações."
 
 #: src/Dialogs/Preferences.vala:606
 msgid "Run on startup"
@@ -995,7 +997,7 @@ msgstr "Executar ao iniciar"
 
 #: src/Dialogs/Preferences.vala:610
 msgid "Enable this setting to make Planner startup with the system."
-msgstr ""
+msgstr "Ativar essa opção para iniciar o Planner junto com o sistema."
 
 #: src/Dialogs/Preferences.vala:616
 msgid "Help"
@@ -1062,7 +1064,7 @@ msgstr "Última sincronização bem-sucedida: %s"
 
 #: src/Dialogs/Preferences.vala:913
 msgid "Sync server"
-msgstr ""
+msgstr "Sincronizar com o servidor"
 
 #: src/Dialogs/Preferences.vala:918
 msgid ""
@@ -1126,11 +1128,11 @@ msgstr "Desativado"
 
 #: src/Dialogs/ProjectSettings.vala:51
 msgid "Due:"
-msgstr "Data de Vencimento"
+msgstr "Data de Vencimento:"
 
 #: src/Dialogs/ProjectSettings.vala:206
 msgid "Uploading changes…"
-msgstr "Atualizando mudanças..."
+msgstr "Atualizando mudanças…"
 
 #: src/Objects/Project.vala:120
 msgid "The Project was copied to the Clipboard."
