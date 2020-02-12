@@ -53,7 +53,7 @@ To install, use `ninja install`, then execute with `com.github.alainm23.planner`
     sudo ninja install
     com.github.alainm23.planner
 
-## Translation
+## Translate Planner
 
 <a href="https://hosted.weblate.org/engage/planner/?utm_source=widget">
 <img src="https://hosted.weblate.org/widgets/planner/-/translations/open-graph.png" alt="Estado de la traducción" />
