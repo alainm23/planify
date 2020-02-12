@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: 2020-02-12 05:59+0000\n"
+"PO-Revision-Date: 2020-02-14 17:50+0000\n"
 "Last-Translator: Alain <alain23@protonmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
@@ -69,7 +69,6 @@ msgid "Olive Green"
 msgstr "Verde olivo"
 
 #: src/Utils.vala:171
-#, fuzzy
 msgid "Lime Green"
 msgstr "Verde lima"
 
