@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-12 00:26-0500\n"
-"PO-Revision-Date: 2020-02-09 17:09+0100\n"
-"Last-Translator: Daniel R. <riesp@pm.me>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-02-12 05:50+0000\n"
+"Last-Translator: Alain <alain23@protonmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
+"translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
@@ -452,9 +453,8 @@ msgid "Name:"
 msgstr "Nombre:"
 
 #: src/Widgets/New.vala:83
-#, fuzzy
 msgid "Area:"
-msgstr "Área"
+msgstr "Área:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
@@ -475,7 +475,7 @@ msgstr "Cancelar"
 
 #: src/Widgets/New.vala:449
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/Widgets/New.vala:520 src/Widgets/ProjectRow.vala:447
 msgid "No Area"
@@ -533,7 +533,7 @@ msgstr "Compartir"
 
 #: src/Widgets/ProjectRow.vala:509
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Enviar por e-mail"
 
 #: src/Widgets/ProjectRow.vala:510 src/Widgets/ItemRow.vala:1285
 #: src/Widgets/SectionRow.vala:556
@@ -1067,7 +1067,7 @@ msgstr "Última sincronización exitosa: %s"
 
 #: src/Dialogs/Preferences.vala:913
 msgid "Sync server"
-msgstr ""
+msgstr "Servidor de sincronización"
 
 #: src/Dialogs/Preferences.vala:918
 msgid ""
