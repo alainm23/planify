@@ -6,16 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 00:26-0500\n"
-"PO-Revision-Date: 2020-02-08 20:04-0300\n"
-"Last-Translator: Gleisson J.J. Cardoso <gleissoncg2@gmail.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-02-12 16:28+0000\n"
+"Last-Translator: Henrique Andrade <henrique.coelho@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
@@ -417,7 +419,6 @@ msgid "Back-Pocket"
 msgstr "Voltar"
 
 #: src/Widgets/Pane.vala:80
-#, fuzzy
 msgid "Add List"
 msgstr "Adicionar lista"
 
@@ -452,9 +453,8 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: src/Widgets/New.vala:83
-#, fuzzy
 msgid "Area:"
-msgstr "Área"
+msgstr "Área:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
@@ -475,7 +475,7 @@ msgstr "Cancelar"
 
 #: src/Widgets/New.vala:449
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/Widgets/New.vala:520 src/Widgets/ProjectRow.vala:447
 msgid "No Area"
@@ -512,9 +512,9 @@ msgstr "Projeto Todoist"
 
 #: src/Widgets/ProjectRow.vala:364 src/Widgets/ItemRow.vala:1156
 #: src/Widgets/ItemRow.vala:1176 src/Widgets/ItemRow.vala:1211
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr "Movido para <b>%s</b>"
+msgstr "Tarefa movida para <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:499 src/Widgets/ItemRow.vala:1253
 #: src/Widgets/SectionRow.vala:545 src/Widgets/AreaRow.vala:488
@@ -533,7 +533,7 @@ msgstr "Compartilhar"
 
 #: src/Widgets/ProjectRow.vala:509
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Enviar por e-mail"
 
 #: src/Widgets/ProjectRow.vala:510 src/Widgets/ItemRow.vala:1285
 #: src/Widgets/SectionRow.vala:556
@@ -692,9 +692,8 @@ msgid "Hiding Projects"
 msgstr "Ocultando Projetos"
 
 #: src/Widgets/AreaRow.vala:487
-#, fuzzy
 msgid "Add project"
-msgstr "Exportar projeto"
+msgstr "Adicionar projeto"
 
 #: src/Widgets/AreaRow.vala:517
 msgid "Delete area"
@@ -814,14 +813,12 @@ msgid "Inbox Menu"
 msgstr "Opção da caixa de entrada"
 
 #: src/Views/Inbox.vala:640 src/Views/Project.vala:735
-#, fuzzy
 msgid "Show Completed"
 msgstr "Exibir tarefas concluídas"
 
 #: src/Views/Inbox.vala:687 src/Views/Project.vala:886
-#, fuzzy
 msgid "Task completed"
-msgstr "Data de conclusão"
+msgstr "Tarefa concluída"
 
 #: src/Views/Project.vala:113
 msgid "Invite person"
@@ -1135,19 +1132,16 @@ msgid "Uploading changes…"
 msgstr "Atualizando mudanças..."
 
 #: src/Objects/Project.vala:120
-#, fuzzy
 msgid "The Project was copied to the Clipboard."
-msgstr "A tarefa foi copiada para a área de transferência."
+msgstr "O projeto foi copiado para a área de transferência."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
-#, fuzzy
 msgid "The Task was copied to the Clipboard."
 msgstr "A tarefa foi copiada para a área de transferência."
 
 #: src/Objects/Section.vala:116
-#, fuzzy
 msgid "The Section was copied to the Clipboard."
-msgstr "A tarefa foi copiada para a área de transferência."
+msgstr "A seção foi copiada para a área de transferência."
 
 #~ msgid "Source:"
 #~ msgstr "Fonte:"
