@@ -1,5 +1,26 @@
 // vala-lint=skip-file
 
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "0123456789";
@@ -11,6 +32,8 @@ public class Utils : GLib.Object {
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
     public signal void pane_action_selected ();
+
+    public signal void insert_project_to_area (int64 area_id);
 
     public signal void clock_format_changed ();
 
@@ -443,6 +466,17 @@ public class Utils : GLib.Object {
         }
     }
 
+    public string get_default_date_format_from_string (string due_date) {
+        var now = new GLib.DateTime.now_local ();
+        var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+
+        if (date.get_year () == now.get_year ()) {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, false));
+        } else {
+            return date.format (Granite.DateTime.get_default_date_format (false, true, true));
+        }
+    }
+
     public string get_default_date_format_from_date (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
 
@@ -537,7 +571,7 @@ public class Utils : GLib.Object {
         try {
             string projectview_color = "#ffffff";
             string border_color = "0.25";
-            string pane_color = "shade (@bg_color, 1.02)";
+            string pane_color = "shade (@bg_color, 1.01)";
             string pane_selected_color = "#D1DFFE";
             string pane_text_color = "#333333";
             string duedate_today_color = "#d48e15";

@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Services.Notifications : GLib.Object {
     public signal void send_notification (int type, string message);
 
@@ -19,33 +40,33 @@ public class Services.Notifications : GLib.Object {
             );
         });
 
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
-            Idle.add (() => {
-                send_notification (
-                    0,
-                    MOVE_TEMPLATE.printf (
-                        item.content,
-                        Planner.database.get_project_by_id (project_id).name
-                    )
-                );
+        //  Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+        //      Idle.add (() => {
+        //          send_notification (
+        //              0,
+        //              MOVE_TEMPLATE.printf (
+        //                  item.content,
+        //                  Planner.database.get_project_by_id (project_id).name
+        //              )
+        //          );
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
 
-        Planner.database.section_moved.connect ((section) => {
-            Idle.add (() => {
-                send_notification (
-                    0,
-                    MOVE_TEMPLATE.printf (
-                        section.name,
-                        Planner.database.get_project_by_id (section.project_id).name
-                    )
-                );
+        //  Planner.database.section_moved.connect ((section) => {
+        //      Idle.add (() => {
+        //          send_notification (
+        //              0,
+        //              MOVE_TEMPLATE.printf (
+        //                  section.name,
+        //                  Planner.database.get_project_by_id (section.project_id).name
+        //              )
+        //          );
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
     }
 
     private void init_server () {

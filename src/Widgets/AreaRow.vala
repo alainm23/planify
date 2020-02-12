@@ -1,7 +1,29 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
 
     private Gtk.Button hidden_button;
+    private Gtk.Button submit_button;
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Stack name_stack;
@@ -21,6 +43,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     public bool set_focus {
         set {
+            submit_button.sensitive = true;
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
             name_entry.grab_focus ();
@@ -110,7 +133,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.pack_start (name_stack, false, true, 0);
         //top_box.pack_end (hidden_revealer, false, false, 0);
 
-        var submit_button = new Gtk.Button.with_label (_("Save"));
+        submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.get_style_context ().add_class ("new-item-action-button");
@@ -158,6 +181,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         motion_grid.margin_end = 6;
         motion_grid.height_request = 24;
         motion_grid.get_style_context ().add_class ("grid-motion");
+
+        motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
@@ -202,7 +227,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                save_area ();
+                action_revealer.reveal_child = false;
+                name_stack.visible_child_name = "name_label";
+                name_entry.text = area.name;
             }
 
             return false;
@@ -215,6 +242,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         cancel_button.clicked.connect (() => {
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+            name_entry.text = area.name;
         });
 
         top_eventbox.event.connect ((event) => {
@@ -456,18 +484,22 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
-        //var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
+        var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.item_image.get_style_context ().add_class ("label-danger");
 
-        //menu.add (add_menu);
-        //menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (add_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
         menu.show_all ();
+
+        add_menu.activate.connect (() => {
+            Planner.utils.insert_project_to_area (area.id);
+        });
 
         edit_menu.activate.connect (() => {
             action_revealer.reveal_child = true;

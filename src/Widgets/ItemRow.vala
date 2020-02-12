@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Widgets.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
 
@@ -269,7 +290,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var checklist_preview_image = new Gtk.Image ();
         checklist_preview_image.margin_end = 6;
         checklist_preview_image.gicon = new ThemedIcon ("view-list-compact-symbolic");
-        checklist_preview_image.pixel_size = 12;
+        checklist_preview_image.pixel_size = 14;
+        checklist_preview_image.margin_top = 1;
         checklist_preview_image.get_style_context ().add_class ("dim-label");
 
         checklist_preview_revealer = new Gtk.Revealer ();
@@ -278,8 +300,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note
         var note_preview_image = new Gtk.Image ();
-        note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
-        note_preview_image.pixel_size = 11;
+        note_preview_image.gicon = new ThemedIcon ("emblem-documents-symbolic");
+        note_preview_image.pixel_size = 12;
         note_preview_image.margin_end = 6;
         note_preview_image.get_style_context ().add_class ("dim-label");
 
@@ -407,6 +429,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
         action_box.margin_start = 65;
+        action_box.margin_bottom = 6;
+        action_box.margin_end = 6;
         action_box.pack_start (labels_edit_box, false, true, 0);
         action_box.pack_end (menu_button, false, false, 0);
         action_box.pack_end (delete_button, false, false, 0);
@@ -897,6 +921,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private void show_item () {
         bottom_revealer.reveal_child = true;
         main_grid.get_style_context ().add_class ("item-row-selected");
+        main_grid.get_style_context ().add_class ("popover");
 
         entry_revealer.reveal_child = true;
         label_revealer.reveal_child = false;
@@ -914,6 +939,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private void hide_item () {
         bottom_revealer.reveal_child = false;
         main_grid.get_style_context ().remove_class ("item-row-selected");
+        main_grid.get_style_context ().remove_class ("popover");
 
         entry_revealer.reveal_child = false;
         label_revealer.reveal_child = true;
@@ -986,11 +1012,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context ().add_class ("drag-begin");
         row.draw (cr);
+        row.get_style_context ().remove_class ("drag-begin");
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
@@ -1124,6 +1152,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.is_todoist == 1) {
                 Planner.todoist.move_item (item, inbox_id);
             }
+
+            string move_template = _("Task moved to <b>%s</b>");
+            Planner.notifications.send_notification (
+                0,
+                move_template.printf (
+                    Planner.database.get_project_by_id (inbox_id).name
+                )
+            );
         });
 
         projects_menu.add (item_menu);
@@ -1136,6 +1172,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     if (item.is_todoist == 1) {
                         Planner.todoist.move_item (item, project.id);
                     }
+
+                    string move_template = _("Task moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        0,
+                        move_template.printf (
+                            Planner.database.get_project_by_id (project.id).name
+                        )
+                    );
                 });
 
                 projects_menu.add (item_menu);
@@ -1163,6 +1207,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     if (item.is_todoist == 1) {
                         Planner.todoist.move_item_to_section (item, section.id);
                     }
+
+                    string move_template = _("Task moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        0,
+                        move_template.printf (
+                            section.name
+                        )
+                    );
                 });
 
                 sections_menu.add (item_menu);

@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class MainWindow : Gtk.Window {
     private Gtk.Entry content_entry;
     private Gtk.TextView note_textview;
@@ -159,7 +180,7 @@ public class MainWindow : Gtk.Window {
         project_combobox.add_attribute (text_cell, "text", 1);
 
         project_combobox.changed.connect (() => {
-            var project = get_selected_project ();
+            var project = get_project_selected ();
             if (project != null) {
                 PlannerQuickAdd.settings.set_int64 ("quick-add-project-selected", project.id);
             }
@@ -254,8 +275,8 @@ public class MainWindow : Gtk.Window {
     }
 
     private void add_item () {
-        if (content_entry.text != "" && get_selected_project () != null) {
-            var project = get_selected_project ();
+        if (content_entry.text != "" && get_project_selected () != null) {
+            var project = get_project_selected ();
 
             var item = new Item ();
             item.id = generate_id ();
@@ -280,7 +301,7 @@ public class MainWindow : Gtk.Window {
         }
     }
 
-    public Project? get_selected_project () {
+    public Project? get_project_selected () {
         Gtk.TreeIter iter;
         if (!project_combobox.get_active_iter (out iter)) {
             return null;

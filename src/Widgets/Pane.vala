@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Stack stack;
     public Widgets.New new_project;
@@ -37,8 +58,6 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     construct {
-        get_style_context ().add_class ("welcome");
-
         //search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now.")); // vala-lint=line-length
 
@@ -70,6 +89,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
+        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -94,14 +114,14 @@ public class Widgets.Pane : Gtk.EventBox {
 
         project_listbox = new Gtk.ListBox ();
         project_listbox.get_style_context ().add_class ("pane");
-        //project_listbox.get_style_context ().add_class ("welcome");
+        project_listbox.get_style_context ().add_class ("welcome");
         project_listbox.activate_on_single_click = true;
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
 
         area_listbox = new Gtk.ListBox ();
         area_listbox.get_style_context ().add_class ("pane");
-        //area_listbox.get_style_context ().add_class ("welcome");
+        area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;
@@ -118,6 +138,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 246;
         listbox_scrolled.hexpand = true;
+        listbox_scrolled.margin_bottom = 6;
         listbox_scrolled.add (listbox_grid);
 
         new_project = new Widgets.New ();
@@ -130,7 +151,7 @@ public class Widgets.Pane : Gtk.EventBox {
         search_button.halign = Gtk.Align.CENTER;
         search_button.get_style_context ().add_class ("settings-button");
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        //search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
         var search_image = new Gtk.Image ();
         search_image.gicon = new ThemedIcon ("edit-find-symbolic");
@@ -145,7 +166,7 @@ public class Widgets.Pane : Gtk.EventBox {
         settings_button.halign = Gtk.Align.CENTER;
         settings_button.get_style_context ().add_class ("settings-button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        //settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
 
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("open-menu-symbolic");
@@ -160,7 +181,7 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.get_style_context ().add_class ("sync");
         sync_button.get_style_context ().add_class ("settings-button");
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        //sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         sync_button.visible = Planner.settings.get_boolean ("todoist-account");
         sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
 
@@ -182,8 +203,10 @@ public class Widgets.Pane : Gtk.EventBox {
         header_box.pack_start (settings_button, false, false, 0);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_end = 6;
+        action_box.margin_end = 12;
         action_box.margin_bottom = 6;
+        action_box.margin_top = 3;
+        action_box.margin_start = 6;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
         action_box.pack_end (header_box, false, false, 0);

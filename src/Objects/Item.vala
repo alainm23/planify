@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Objects.Item : GLib.Object {
     public int64 id { get; set; default = 0; }
     public int64 project_id { get; set; default = 0; }
@@ -112,8 +133,6 @@ public class Objects.Item : GLib.Object {
             foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
                 Planner.database.move_item (check, project.id);
             }
-
-            //Planner.database.delete_item (this);
         }
     }
 
@@ -165,27 +184,39 @@ public class Objects.Item : GLib.Object {
 
     public void share_text () {
         string text = "";
-        text += "- %s\n".printf (this.content);
-        text += "  %s\n".printf (this.note.replace ("\n", " "));
+        text += "- %s%s\n".printf (get_format_date (this.due_date), this.content);
+        if (this.note != "") {
+            text += "%s\n".printf (this.note.replace ("\n", " "));
+        }
 
         foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
             text += "  - %s\n".printf (check.content);
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
+        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
     }
 
     public void share_markdown () {
         string text = "";
-        text += "#### %s\n".printf (this.content);
-        text += "%s\n".printf (this.note.replace ("\n", " "));
+        text += "- [ ]%s%s\n".printf (get_format_date (this.due_date), this.content);
+        if (this.note != "") {
+            text += "%s\n".printf (this.note.replace ("\n", " "));
+        }
 
         foreach (var check in Planner.database.get_all_cheks_by_item (this.id)) {
-            text += "- [ ] %s\n".printf (check.content);
+            text += "  - [ ] %s\n".printf (check.content);
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The task was copied to the Clipboard."));
+        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
+    }
+
+    private string get_format_date (string due_date) {
+        if (due_date == "") {
+            return " ";
+        }
+
+        return " (" + Planner.utils.get_default_date_format_from_string (due_date) + ") ";
     }
 }

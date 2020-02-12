@@ -4,7 +4,7 @@
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Alain M. <alain23@protonmail.com>
+* Authored by: Alain M. <alainmh23@gmail.com>
 */
 
 public class Widgets.ActionRow : Gtk.ListBoxRow {
@@ -83,7 +83,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_past_label.width_chars = 3;
 
         count_past_revealer = new Gtk.Revealer ();
-        count_past_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_past_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         count_past_revealer.add (count_past_label);
 
         count_label = new Gtk.Label (null);
@@ -93,7 +93,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_label.width_chars = 3;
 
         count_revealer = new Gtk.Revealer ();
-        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         count_revealer.add (count_label);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

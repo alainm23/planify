@@ -23,16 +23,16 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="968"
-     inkscape:window-height="620"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
      id="namedview41"
      showgrid="false"
-     inkscape:zoom="5.2149125"
-     inkscape:cx="17.516595"
-     inkscape:cy="19.135129"
-     inkscape:window-x="398"
-     inkscape:window-y="48"
-     inkscape:window-maximized="0"
+     inkscape:zoom="32.625"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
      inkscape:current-layer="svg3172" />
   <defs
      id="defs3174">
@@ -188,12 +188,13 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     id="g4576">
+     id="g4576"
+     transform="matrix(1.1232259,0,0,1.1232259,-0.98146338,-1.0343382)">
     <g
        style="fill:#666666;fill-opacity:1"
        transform="matrix(0.19445238,0,0,0.19445238,-4.4446666,18.111524)"

@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Views.Inbox : Gtk.EventBox {
     private int64 project_id;
     private int is_todoist = 0;
@@ -10,6 +31,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.ListBox section_listbox;
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
+    private Gtk.ModelButton show_completed_button;
 
     private Gtk.Popover popover = null;
     private Widgets.ModelButton show_button;
@@ -232,6 +254,12 @@ public class Views.Inbox : Gtk.EventBox {
             if (settings_button.active) {
                 if (popover == null) {
                     create_popover ();
+                }
+
+                if (Planner.database.get_count_checked_items_by_project (project_id) > 0) {
+                    show_completed_button.sensitive = true;
+                } else {
+                    show_completed_button.sensitive = false;
                 }
 
                 popover.show_all ();
@@ -534,7 +562,6 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         if (count <= 0) {
-            show_button.text = _("Show completed task");
             completed_revealer.reveal_child = false;
         }
     }
@@ -605,14 +632,37 @@ public class Views.Inbox : Gtk.EventBox {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
-        show_button = new Widgets.ModelButton (_("Show completed task"), "emblem-default-symbolic", "");
+        var show_completed_image = new Gtk.Image ();
+        show_completed_image.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_image.valign = Gtk.Align.START;
+        show_completed_image.pixel_size = 16;
+
+        var show_completed_label = new Gtk.Label (_("Show Completed"));
+        show_completed_label.hexpand = true;
+        show_completed_label.valign = Gtk.Align.START;
+        show_completed_label.xalign = 0;
+        show_completed_label.margin_start = 9;
+
+        var show_completed_switch = new Gtk.Switch ();
+        show_completed_switch.margin_start = 12;
+        show_completed_switch.get_style_context ().add_class ("planner-switch");
+
+        var show_completed_grid = new Gtk.Grid ();
+        show_completed_grid.add (show_completed_image);
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_switch);
+
+        show_completed_button = new Gtk.ModelButton ();
+        show_completed_button.get_style_context ().add_class ("popover-model-button");
+        show_completed_button.get_child ().destroy ();
+        show_completed_button.add (show_completed_grid);
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 200;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.margin_top = 6;
-        popover_grid.margin_bottom = 6;
-        popover_grid.add (show_button);
+        popover_grid.margin_top = 3;
+        popover_grid.margin_bottom = 3;
+        popover_grid.add (show_completed_button);
 
         popover.add (popover_grid);
 
@@ -620,16 +670,16 @@ public class Views.Inbox : Gtk.EventBox {
             settings_button.active = false;
         });
 
-        show_button.clicked.connect (() => {
-            if (completed_revealer.reveal_child) {
-                show_button.text = _("Show completed task");
+        show_completed_button.button_release_event.connect (() => {
+            show_completed_switch.activate ();
+
+            if (show_completed_switch.active) {
                 completed_revealer.reveal_child = false;
             } else {
-                show_button.text = _("Hide completed task");
                 add_completed_items (project_id);
             }
 
-            popover.popdown ();
+            return Gdk.EVENT_STOP;
         });
     }
 

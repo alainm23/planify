@@ -1,3 +1,24 @@
+/*
+* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Widgets.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
 
@@ -311,7 +332,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                save_section ();
+                action_revealer.reveal_child = false;
+                name_stack.visible_child_name = "name_label";
+                name_entry.text = section.name;
             }
 
             return false;
@@ -324,6 +347,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         cancel_button.clicked.connect (() => {
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+            name_entry.text = section.name;
         });
 
         settings_button.clicked.connect (() => {
@@ -531,7 +555,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        share_list_menu.add (share_text_menu);
+        //share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
         share_list_menu.show_all ();
 
@@ -542,7 +566,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (move_project_menu);
-        //menu.add (share_menu);
+        menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -585,11 +609,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
-
-        share_text_menu.activate.connect (() => {
-            section.share_text ();
-        });
-
+        
         share_markdown_menu.activate.connect (() => {
             section.share_markdown ();
         });
@@ -798,11 +818,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context ().add_class ("drag-begin");
         row.draw (cr);
+        row.get_style_context ().remove_class ("drag-begin");
+
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
     }

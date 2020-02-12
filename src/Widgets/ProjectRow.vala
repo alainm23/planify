@@ -4,7 +4,7 @@
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
+* version 3 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,7 +16,7 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 *
-* Authored by: Alain M. <alain23@protonmail.com>
+* Authored by: Alain M. <alainmh23@gmail.com>
 */
 
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
@@ -65,6 +65,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     construct {
         margin_start = margin_end = 6;
+        margin_top = 2;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
@@ -166,7 +167,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.margin_start = 4;
-        grid.margin_top = grid.margin_bottom = 3;
+        grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);
 
@@ -359,6 +360,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         if (source.item.is_todoist == 0) {
             Planner.todoist.move_item (source.item, project.id);
         }
+
+        string move_template = _("Task moved to <b>%s</b>");
+        Planner.notifications.send_notification (
+            0,
+            move_template.printf (
+                Planner.database.get_project_by_id (project.id).name
+            )
+        );
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -369,7 +378,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
         var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.5);
+        cr.set_source_rgba (0, 0, 0, 0);
         cr.set_line_width (1);
 
         cr.move_to (0, 0);
@@ -379,11 +388,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0.7);
+        cr.set_source_rgba (255, 255, 255, 0);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
+        row.get_style_context ().add_class ("drag-begin");
         row.draw (cr);
+        row.get_style_context ().remove_class ("drag-begin");
+
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
     }
@@ -494,11 +506,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var share_list_menu = new Gtk.Menu ();
         share_menu.set_submenu (share_list_menu);
 
-        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
+        share_list_menu.add (share_mail);
         share_list_menu.show_all ();
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
@@ -506,7 +518,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu.add (edit_menu);
         menu.add (move_area_menu);
-        //menu.add (share_menu);
+        menu.add (share_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -542,8 +554,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             message_dialog.destroy ();
         });
 
-        share_text_menu.activate.connect (() => {
-            project.share_text ();
+        share_mail.activate.connect (() => {
+            project.share_mail ();
         });
 
         share_markdown_menu.activate.connect (() => {
