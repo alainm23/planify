@@ -6,16 +6,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: 2019-06-19 05:26+0200\n"
-"Last-Translator: Malte Kiefer <malte.kiefer@kiefer-networks.de>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2020-02-13 05:46+0000\n"
+"Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/planner/"
+"translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 #, fuzzy
@@ -40,9 +42,8 @@ msgid "Errand"
 msgstr ""
 
 #: src/Utils.vala:103 src/Utils.vala:119
-#, fuzzy
 msgid "Important"
-msgstr "Importieren"
+msgstr "Wichtig"
 
 #: src/Utils.vala:104 src/Utils.vala:123
 msgid "Pending"
@@ -70,9 +71,8 @@ msgid "Olive Green"
 msgstr "Olivgrün"
 
 #: src/Utils.vala:171
-#, fuzzy
 msgid "Lime Green"
-msgstr "Olivgrün"
+msgstr " Limettengrün"
 
 #: src/Utils.vala:172
 msgid "Green"
@@ -84,7 +84,7 @@ msgstr "Minzgrün"
 
 #: src/Utils.vala:174
 msgid "Teal"
-msgstr ""
+msgstr "Blaugrün"
 
 #: src/Utils.vala:175
 msgid "Sky Blue"
@@ -122,7 +122,7 @@ msgstr "Lachs"
 
 #: src/Utils.vala:183
 msgid "Charcoal"
-msgstr ""
+msgstr "Dunkelgrau"
 
 #: src/Utils.vala:184
 msgid "Grey"
@@ -130,7 +130,7 @@ msgstr "Grau"
 
 #: src/Utils.vala:185
 msgid "Taupe"
-msgstr "Taupe"
+msgstr "Braungrau"
 
 #: src/Utils.vala:513 src/Widgets/Pane.vala:70 src/Widgets/ItemRow.vala:1263
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:51
@@ -144,9 +144,8 @@ msgid "Tomorrow"
 msgstr "Morgen"
 
 #: src/Utils.vala:630
-#, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Schnellsuche"
+msgstr "Schnelles Hinzufügen aktiviert!"
 
 #: src/Utils.vala:631
 #, c-format
@@ -219,9 +218,8 @@ msgstr ""
 "fertiggestellt haben musst, klicke auf das Kalendericon und wähle ein Datum."
 
 #: src/Utils.vala:674
-#, fuzzy
 msgid "How to use projects"
-msgstr "Zu Projekt verschieben"
+msgstr "Wie man Projekte verwendet"
 
 #: src/Utils.vala:675
 msgid ""
@@ -237,14 +235,12 @@ msgid ""
 msgstr ""
 
 #: src/Utils.vala:685
-#, fuzzy
 msgid "Sections"
-msgstr "Kein Bereich"
+msgstr "Abschnitte"
 
 #: src/Utils.vala:691
-#, fuzzy
 msgid "Add sections"
-msgstr "Bereich hinzufügen"
+msgstr "Abschnitte hinzufügen"
 
 #: src/Utils.vala:692
 msgid ""
@@ -260,27 +256,24 @@ msgid ""
 msgstr ""
 
 #: src/Utils.vala:711
-#, fuzzy
 msgid "Create a new task"
-msgstr "Erzeuge ein neues Projekt"
+msgstr "Erstelle eine neue Aufgabe"
 
 #: src/Utils.vala:712
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
 
 #: src/Utils.vala:713
-#, fuzzy
 msgid "Create a new area"
-msgstr "Erzeuge ein neues Projekt"
+msgstr "Erstelle einen neuen Bereich"
 
 #: src/Utils.vala:714
 msgid "Create a new project"
 msgstr "Erzeuge ein neues Projekt"
 
 #: src/Utils.vala:715
-#, fuzzy
 msgid "Create a new section"
-msgstr "Erzeuge ein neues Projekt"
+msgstr "Erstelle einen neuen Abschnitt"
 
 #: src/Utils.vala:716
 msgid "Open the Inbox"
@@ -949,7 +942,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences.vala:133 src/Dialogs/Preferences.vala:1172
 msgid "Credits"
-msgstr "Credits"
+msgstr "Danksagungen"
 
 #: src/Dialogs/Preferences.vala:219
 msgid ""
