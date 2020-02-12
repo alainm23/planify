@@ -3,19 +3,22 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-02-14 17:50+0000\n"
+"Last-Translator: Guntis <guncharez@outlook.com>\n"
+"Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
+"translations/lv/>\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= "
+"19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
@@ -147,7 +150,7 @@ msgstr ""
 
 #: src/Utils.vala:648
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "Sākt darbu"
 
 #: src/Utils.vala:649
 msgid ""
@@ -155,10 +158,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Šis projekts palīdzēs apgūt plānotāja pamatus un sākt darbu ar vienkāršu "
+"uzdevumu pārvaldības sistēmu, lai tā būtu sakārtota, un papildus visam, kas "
+"jums jādara."
 
 #: src/Utils.vala:654
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Sekošana uzdevumiem"
 
 #: src/Utils.vala:655
 msgid ""
@@ -169,10 +175,16 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Izrādās, mūsu smadzenes patiesībā ir pievadītas, lai turpinātu domāt par "
+"saviem nepabeigtajiem uzdevumiem. Parocīgs, ja tev ir kaut kas, pie kā "
+"jāstrādā. Ne tik labi, ja jums uzreiz ir 30 + uzdevumi, kas prasa jūsu "
+"uzmanību. Tāpēc pirmais solis darba un dzīves sakārtošanā ir visu izkļūšana "
+"no galvas un nonākšana uzdevumu sarakstā. No turienes var sākt organizēt un "
+"noteikt prioritātes, lai zinātu, uz ko un kad koncentrēties."
 
 #: src/Utils.vala:660
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Pievienot jaunu uzdevumu"
 
 #: src/Utils.vala:661
 msgid ""
@@ -180,10 +192,14 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Lai plānotājam pievienotu jaunu uzdevumu, vienkārši noklikšķiniet uz + un "
+"nospiediet taustiņu Enter.\n"
+"- Kad uzdevums ir izveidots, noklikšķiniet uz uzdevuma, lai to varētu "
+"rediģēt, pievienojiet piezīmi vai citas opcijas."
 
 #: src/Utils.vala:667
 msgid "Due dates"
-msgstr ""
+msgstr "Izpildes datums"
 
 #: src/Utils.vala:668
 msgid ""
@@ -192,10 +208,14 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- Ja zināt, ka uzdevums jāveic noteiktā dienā, noklikšķiniet uz kalendāra "
+"ikonas un atlasiet datumu.\n"
+"- Ja vēlaties dzēst izpildes datumu, atkārtojiet procesu un atlasiet opciju “"
+"Atsaukt datumu”."
 
 #: src/Utils.vala:674
 msgid "How to use projects"
-msgstr ""
+msgstr "Kā lietot projektus"
 
 #: src/Utils.vala:675
 msgid ""
@@ -209,14 +229,23 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Neatkarīgi no tā, vai plānojat prezentāciju, gatavojaties kādam pasākumam "
+"vai veidojat vietni, veidojiet projektu tā, lai visas svarīgās detaļas tiktu "
+"saglabātas vienā centrālajā vietā.\n"
+"- Navigācijas izvēlnē pa kreisi, apakšā, noklikšķiniet uz + simbola.\n"
+"- Iespēju izvēlnē izvēlieties 'Projekts' un ierakstiet jaunā projekta "
+"nosaukumu.\n"
+"- nolaižamajā izvēlnē atlasiet avotu.\n"
+"- (Neobligāts) Atlasiet citu projekta krāsu no krāsu saraksta.\n"
+"- Noklikšķiniet uz Pievienot, lai izveidotu projektu."
 
 #: src/Utils.vala:685
 msgid "Sections"
-msgstr ""
+msgstr "Sekcijas"
 
 #: src/Utils.vala:691
 msgid "Add sections"
-msgstr ""
+msgstr "Pievienot sekciju"
 
 #: src/Utils.vala:692
 msgid ""
@@ -230,26 +259,36 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Vienmēr ir vieglāk pieņemt lielu projektu, sadalot to viegli pārvaldāmās "
+"daļās, izmantojot plānotāja sadaļas.\n"
+"- organizējiet projektus kopā ar sadaļām, lai sagrupētu savus uzdevumus kopā "
+"un iegūtu labāku pārskatu par to, kas ir jādara. Pievienojiet projektam "
+"sadaļas, velciet atbilstošos uzdevumus līdz sadaļai, kurā tie ietilpst, un "
+"jums būs daudz vieglāk panākt progresu (tā vietā, lai pārspētu vienu garu "
+"sarakstu).\n"
+"- Projekta augšējā labajā stūrī noklikšķiniet uz ikonas +.\n"
+"- Ierakstiet savas sekcijas nosaukumu un noklikšķiniet uz Pievienot."
 
 #: src/Utils.vala:711
 msgid "Create a new task"
-msgstr ""
+msgstr "Izveidot jaunu uzdevumu"
 
 #: src/Utils.vala:712
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Izveidot jaunu uzdevumu saraksta augšā (iespējams tikai projekta ietvaros)"
 
 #: src/Utils.vala:713
 msgid "Create a new area"
-msgstr ""
+msgstr "Izveidot jaunu apgabalu"
 
 #: src/Utils.vala:714
 msgid "Create a new project"
-msgstr ""
+msgstr "Izveidot jaunu projektu"
 
 #: src/Utils.vala:715
 msgid "Create a new section"
-msgstr ""
+msgstr "Izveidot jaunu sekciju"
 
 #: src/Utils.vala:716
 msgid "Open the Inbox"
@@ -257,7 +296,7 @@ msgstr ""
 
 #: src/Utils.vala:717
 msgid "Open Today"
-msgstr ""
+msgstr "Šodien"
 
 #: src/Utils.vala:718
 msgid "Open Upcoming"
