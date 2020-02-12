@@ -168,7 +168,7 @@ public class Utils : GLib.Object {
         colors.set (32, _("Orange"));
         colors.set (33, _("Yellow"));
         colors.set (34, _("Olive Green"));
-        colors.set (35, _("Lima Green"));
+        colors.set (35, _("Lime Green"));
         colors.set (36, _("Green"));
         colors.set (37, _("Mint Green"));
         colors.set (38, _("Teal"));

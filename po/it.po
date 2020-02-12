@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 00:26-0500\n"
+"POT-Creation-Date: 2020-02-12 11:55-0500\n"
 "PO-Revision-Date: 2020-02-02 14:10-0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Zorinos\n"
@@ -64,7 +64,8 @@ msgid "Olive Green"
 msgstr "Verde Oliva"
 
 #: src/Utils.vala:171
-msgid "Lima Green"
+#, fuzzy
+msgid "Lime Green"
 msgstr "Verde Lima"
 
 #: src/Utils.vala:172

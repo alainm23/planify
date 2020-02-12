@@ -69,7 +69,8 @@ msgid "Olive Green"
 msgstr "Vert olive"
 
 #: src/Utils.vala:171
-msgid "Lima Green"
+#, fuzzy
+msgid "Lime Green"
 msgstr "Citron vert"
 
 #: src/Utils.vala:172
