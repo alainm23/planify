@@ -105,11 +105,22 @@ public class Objects.Project : GLib.Object {
         return generator.to_data (null);
     }
 
-    public void share_text () {
-
+    public void share_mail () {
+        string uri = "";
+        uri += "mailto:?subject=%s&body=%s".printf (this.name, to_markdown ());
+        try {
+            AppInfo.launch_default_for_uri (uri, null);
+        } catch (Error e) {
+            warning ("%s\n", e.message);
+        }
     }
 
     public void share_markdown () {
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
+        Planner.notifications.send_notification (0, _("The Project was copied to the Clipboard."));
+    }
+
+    private string to_markdown () {
         string text = "";
         text += "# %s\n".printf (this.name);
 
@@ -134,8 +145,7 @@ public class Objects.Project : GLib.Object {
             }
         }
 
-        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The Project was copied to the Clipboard."));
+        return text;
     }
 
     private string get_format_date (string due_date) {

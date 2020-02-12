@@ -60,6 +60,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         stack.add_named (get_calendar_widget (), "calendar");
         stack.add_named (get_about_widget (), "about");
         stack.add_named (get_fund_widget (), "fund");
+        stack.add_named (get_credits_widget (), "credits");
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
@@ -128,7 +129,8 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         /* Others */
         var about_item = new PreferenceItem ("dialog-information", _("About"));
-        var fund_item = new PreferenceItem ("help-about", _("Fund"), true);
+        var fund_item = new PreferenceItem ("emblem-favorite", _("Fund"));
+        var credits_item = new PreferenceItem ("help-about", _("Credits"), true);
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
@@ -139,6 +141,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
         others_grid.add (fund_item);
+        others_grid.add (credits_item);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var main_grid = new Gtk.Grid ();
@@ -200,6 +203,10 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
         fund_item.activated.connect (() => {
             stack.visible_child_name = "fund";
+        });
+
+        credits_item.activated.connect (() => {
+            stack.visible_child_name = "credits";
         });
 
         return main_scrolled;
@@ -633,6 +640,12 @@ public class Dialogs.Preferences : Gtk.Dialog {
         main_box.pack_start (dz_header, false, false, 0);
         main_box.pack_start (clear_db_item, false, false, 0);
 
+        var main_box_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        main_box_scrolled.expand = true;
+        main_box_scrolled.add (main_box);
+
         run_startup_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("run-on-startup", val);
             Planner.utils.set_autostart (val);
@@ -681,7 +694,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
             message_dialog.destroy ();
         });
 
-        return main_box;
+        return main_box_scrolled;
     }
 
     private Gtk.Widget get_labels_widget () {
@@ -1155,6 +1168,61 @@ public class Dialogs.Preferences : Gtk.Dialog {
         return main_box;
     }
 
+    private Gtk.Widget get_credits_widget () {
+        var top_box = new PreferenceTopBox ("face-heart", _("Credits"));
+
+        var description_label = new Gtk.Label (
+            _("If you like Planner and you want to support its development, consider donating via:")
+        );
+        description_label.margin = 6;
+        description_label.use_markup = true;
+        description_label.margin_bottom = 12;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+
+        var listbox = new Gtk.ListBox ();
+        listbox.activate_on_single_click = true;
+        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.get_style_context ().add_class ("background");
+        listbox.expand = true;
+
+        var person_1 = new PreferencePerson ("Alain");
+        var person_2 = new PreferencePerson ("Juan Aascas");
+        var person_3 = new PreferencePerson ("Pedro Aascas Aaasc");
+
+        listbox.add (person_1);
+        listbox.add (person_2);
+        listbox.add (person_3);
+        listbox.show_all ();
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.hexpand = true;
+        box.pack_start (description_label, false, false, 0);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
+        box.pack_start (listbox, false, true, 0);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        return main_box;
+    }
+
     private Gtk.Widget get_about_widget () {
         var top_box = new PreferenceTopBox ("office-calendar", _("About"));
 
@@ -1574,6 +1642,34 @@ public class ShortcutRow : Gtk.ListBoxRow {
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.pack_start (box);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        add (main_box);
+    }
+}
+
+public class PreferencePerson : Gtk.ListBoxRow {
+    public string fullname { get; construct; }
+
+    public PreferencePerson (string fullname) {
+        Object (fullname: fullname);
+    }
+
+    construct {
+        var avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+        avatar.margin_start = 6;
+
+        var name_label = new Gtk.Label (fullname);
+        name_label.get_style_context ().add_class ("h3");
+
+        var grid = new Gtk.Grid ();
+        grid.get_style_context ().add_class ("view");
+        grid.column_spacing = 3;
+        grid.add (avatar);
+        grid.add (name_label);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.pack_start (grid);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         add (main_box);

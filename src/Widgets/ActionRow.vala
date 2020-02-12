@@ -83,7 +83,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_past_label.width_chars = 3;
 
         count_past_revealer = new Gtk.Revealer ();
-        count_past_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_past_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         count_past_revealer.add (count_past_label);
 
         count_label = new Gtk.Label (null);
@@ -93,7 +93,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_label.width_chars = 3;
 
         count_revealer = new Gtk.Revealer ();
-        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         count_revealer.add (count_label);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

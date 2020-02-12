@@ -567,11 +567,11 @@ public class Services.Todoist : GLib.Object {
                                         var due_object = object.get_object_member ("due");
                                         var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
                                         i.due_date = datetime.to_string ();
-        
+
                                         if (object.get_null_member ("timezone") == false) {
                                             i.due_timezone = due_object.get_string_member ("timezone");
                                         }
-        
+
                                         i.due_string = due_object.get_string_member ("string");
                                         i.due_lang = due_object.get_string_member ("lang");
                                         if (due_object.get_boolean_member ("is_recurring")) {

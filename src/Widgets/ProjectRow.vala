@@ -506,11 +506,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var share_list_menu = new Gtk.Menu ();
         share_menu.set_submenu (share_list_menu);
 
-        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
-        //share_list_menu.add (share_text_menu);
         share_list_menu.add (share_markdown_menu);
+        share_list_menu.add (share_mail);
         share_list_menu.show_all ();
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
@@ -554,8 +554,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             message_dialog.destroy ();
         });
 
-        share_text_menu.activate.connect (() => {
-            project.share_text ();
+        share_mail.activate.connect (() => {
+            project.share_mail ();
         });
 
         share_markdown_menu.activate.connect (() => {
