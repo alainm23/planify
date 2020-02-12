@@ -395,8 +395,7 @@ public class Services.Database : GLib.Object {
     public void remove_trash () {
         Sqlite.Statement stmt;
 
-        int res = db.prepare_v2 ("DELETE FROM Items WHERE NOT EXISTS
-            (SELECT * FROM Projects WHERE Items.project_id = Projects.id);",
+        int res = db.prepare_v2 ("DELETE FROM Items WHERE NOT EXISTS (SELECT * FROM Projects WHERE Items.project_id = Projects.id)",
              -1, out stmt);
         assert (res == Sqlite.OK);
 
