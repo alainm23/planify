@@ -7,16 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: 2020-01-26 12:22+0100\n"
-"Last-Translator: Yannicka\n"
-"Language-Team: Français\n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
+"POT-Creation-Date: 2020-02-12 00:26-0500\n"
+"PO-Revision-Date: 2020-02-12 16:28+0000\n"
+"Last-Translator: Thomas Citharel <tcit@tcit.fr>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/planner/"
+"translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 3.34.0\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
@@ -279,6 +281,8 @@ msgstr "Créer un nouveau projet"
 #: src/Utils.vala:712
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Créer une nouvelle tâche en tête de la liste (fonctionne uniquement au sein "
+"des projets)"
 
 #: src/Utils.vala:713
 #, fuzzy
@@ -296,7 +300,7 @@ msgstr "Créer un nouveau projet"
 
 #: src/Utils.vala:716
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Ouvrir la Boite de réception"
 
 #: src/Utils.vala:717
 #, fuzzy
@@ -315,11 +319,11 @@ msgstr "Recherche"
 
 #: src/Utils.vala:720
 msgid "Manually sync"
-msgstr ""
+msgstr "Synchroniser manuellement"
 
 #: src/Utils.vala:721
 msgid "Quit"
-msgstr ""
+msgstr "Quitter"
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:980 src/Widgets/Pane.vala:62
@@ -486,7 +490,7 @@ msgstr "Annuler"
 
 #: src/Widgets/New.vala:449
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/Widgets/New.vala:520 src/Widgets/ProjectRow.vala:447
 msgid "No Area"
@@ -547,12 +551,12 @@ msgstr "Partager"
 
 #: src/Widgets/ProjectRow.vala:509
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Envoyer par courriel"
 
 #: src/Widgets/ProjectRow.vala:510 src/Widgets/ItemRow.vala:1285
 #: src/Widgets/SectionRow.vala:556
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:516 src/Widgets/ProjectRow.vala:541
@@ -630,7 +634,7 @@ msgstr "Déplacer vers la section"
 
 #: src/Widgets/ItemRow.vala:1284 src/Widgets/SectionRow.vala:555
 msgid "Text"
-msgstr ""
+msgstr "Texte"
 
 #: src/Widgets/ItemRow.vala:1291
 msgid "Duplicate"
@@ -931,7 +935,7 @@ msgstr "Événements du calendrier"
 #: src/Dialogs/Preferences.vala:116 src/Dialogs/Preferences.vala:456
 #: src/Dialogs/Preferences.vala:825
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Raccourcis Clavier"
 
 #. Others
 #: src/Dialogs/Preferences.vala:131 src/Dialogs/Preferences.vala:1227
@@ -1010,7 +1014,7 @@ msgstr "Supprimer le projet"
 
 #: src/Dialogs/Preferences.vala:535
 msgid "Press keys…"
-msgstr ""
+msgstr "Appuyez sur des touches…"
 
 #: src/Dialogs/Preferences.vala:590
 msgid "DE Integration"
