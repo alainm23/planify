@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
 "PO-Revision-Date: 2020-02-14 17:50+0000\n"
-"Last-Translator: Salomon May <sollymay@gmail.com>\n"
+"Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -54,7 +54,6 @@ msgid "Berry Red"
 msgstr "Beerenrot"
 
 #: src/Utils.vala:167
-#, fuzzy
 msgid "Red"
 msgstr "Rot"
 
@@ -91,7 +90,6 @@ msgid "Sky Blue"
 msgstr "Himmelblau"
 
 #: src/Utils.vala:176
-#, fuzzy
 msgid "Light Blue"
 msgstr "Hellblau"
 
