@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
 "PO-Revision-Date: 2020-02-13 05:46+0000\n"
-"Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
+"Last-Translator: Salomon May <sollymay@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -39,7 +39,7 @@ msgstr "Büro"
 
 #: src/Utils.vala:102 src/Utils.vala:115
 msgid "Errand"
-msgstr ""
+msgstr "Auftrag"
 
 #: src/Utils.vala:103 src/Utils.vala:119
 msgid "Important"
