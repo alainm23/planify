@@ -3,142 +3,144 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-02-16 18:50+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
+"translations/ja/>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
-msgstr ""
+msgstr "新しい領域"
 
 #: src/MainWindow.vala:43
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/Utils.vala:100 src/Utils.vala:107 src/Widgets/LabelRow.vala:84
 msgid "Home"
-msgstr ""
+msgstr "自宅"
 
 #: src/Utils.vala:101 src/Utils.vala:111
 msgid "Office"
-msgstr ""
+msgstr "会社"
 
 #: src/Utils.vala:102 src/Utils.vala:115
 msgid "Errand"
-msgstr ""
+msgstr "用事"
 
 #: src/Utils.vala:103 src/Utils.vala:119
 msgid "Important"
-msgstr ""
+msgstr "重要"
 
 #: src/Utils.vala:104 src/Utils.vala:123
 msgid "Pending"
-msgstr ""
+msgstr "保留中"
 
 #: src/Utils.vala:166
 msgid "Berry Red"
-msgstr ""
+msgstr "ベリーレッド"
 
 #: src/Utils.vala:167
 msgid "Red"
-msgstr ""
+msgstr "赤"
 
 #: src/Utils.vala:168
 msgid "Orange"
-msgstr ""
+msgstr "オレンジ"
 
 #: src/Utils.vala:169
 msgid "Yellow"
-msgstr ""
+msgstr "黄"
 
 #: src/Utils.vala:170
 msgid "Olive Green"
-msgstr ""
+msgstr "オリーブグリーン"
 
 #: src/Utils.vala:171
 msgid "Lime Green"
-msgstr ""
+msgstr "ライムグリーン"
 
 #: src/Utils.vala:172
 msgid "Green"
-msgstr ""
+msgstr "緑"
 
 #: src/Utils.vala:173
 msgid "Mint Green"
-msgstr ""
+msgstr "ミントグリーン"
 
 #: src/Utils.vala:174
 msgid "Teal"
-msgstr ""
+msgstr "ティール"
 
 #: src/Utils.vala:175
 msgid "Sky Blue"
-msgstr ""
+msgstr "スカイブルー"
 
 #: src/Utils.vala:176
 msgid "Light Blue"
-msgstr ""
+msgstr "水色"
 
 #: src/Utils.vala:177
 msgid "Blue"
-msgstr ""
+msgstr "青"
 
 #: src/Utils.vala:178
 msgid "Grape"
-msgstr ""
+msgstr "グレープ"
 
 #: src/Utils.vala:179
 msgid "Violet"
-msgstr ""
+msgstr "紫"
 
 #: src/Utils.vala:180
 msgid "Lavander"
-msgstr ""
+msgstr "ラベンダー"
 
 #: src/Utils.vala:181
 msgid "Magenta"
-msgstr ""
+msgstr "赤紫"
 
 #: src/Utils.vala:182
 msgid "Salmon"
-msgstr ""
+msgstr "サーモンピンク"
 
 #: src/Utils.vala:183
 msgid "Charcoal"
-msgstr ""
+msgstr "消し炭色"
 
 #: src/Utils.vala:184
 msgid "Grey"
-msgstr ""
+msgstr "灰"
 
 #: src/Utils.vala:185
 msgid "Taupe"
-msgstr ""
+msgstr "トープ"
 
 #: src/Utils.vala:513 src/Widgets/Pane.vala:70 src/Widgets/ItemRow.vala:1263
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:51
 #: src/Dialogs/Preferences.vala:234 src/Dialogs/Preferences.vala:341
 msgid "Today"
-msgstr ""
+msgstr "今日"
 
 #: src/Utils.vala:515 src/Widgets/Pane.vala:348 src/Widgets/ItemRow.vala:1266
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: src/Utils.vala:630
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "クイック追加を有効にしました！"
 
 #: src/Utils.vala:631
 #, c-format
