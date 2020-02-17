@@ -59,16 +59,19 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     construct {
+        margin_top = 12;
         can_focus = false;
         get_style_context ().add_class ("area-row");
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_start = 6;
+        hidden_button.margin_start = 22;
+        hidden_button.margin_end = 6;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
+        hidden_button.get_style_context ().add_class ("no-padding");
 
         if (section.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
@@ -78,7 +81,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var hidden_revealer = new Gtk.Revealer ();
         hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = false;
+        hidden_revealer.reveal_child = true;
 
         name_label = new Gtk.Label (section.name);
         name_label.halign = Gtk.Align.START;
@@ -119,7 +122,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.pack_start (hidden_revealer, false, false, 0);
-        top_box.pack_start (name_stack, false, true, 6);
+        top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
@@ -135,8 +138,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 40;
+        action_grid.margin_start = 24;
         action_grid.margin_bottom = 6;
+        action_grid.margin_top = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -145,18 +149,18 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_revealer.add (action_grid);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_end = 24;
+        top_eventbox.margin_end = 16;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
 
         separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 41;
-        separator.margin_end = 32;
-        separator.margin_bottom = 6;
+        separator.margin_start = 24;
+        separator.margin_end = 16;
+        separator.margin_top = 3;
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 41;
-        motion_grid.margin_end = 32;
+        motion_grid.margin_start = 24;
+        motion_grid.margin_end = 24;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -165,8 +169,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         var motion_section_grid = new Gtk.Grid ();
-        motion_section_grid.margin_start = 41;
-        motion_section_grid.margin_end = 32;
+        motion_section_grid.margin_start = 24;
+        motion_section_grid.margin_end = 16;
         motion_section_grid.get_style_context ().add_class ("grid-motion");
         motion_section_grid.height_request = 24;
 
@@ -176,7 +180,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         listbox = new Gtk.ListBox ();
         listbox.margin_end = 12;
-        listbox.margin_bottom = 6;
+        listbox.margin_start = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.get_style_context ().add_class ("welcome");
@@ -281,7 +285,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            hidden_revealer.reveal_child = true;
+            //hidden_revealer.reveal_child = true;
             settings_revealer.reveal_child = true;
 
             return true;
@@ -293,7 +297,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
 
             settings_revealer.reveal_child = false;
-            hidden_revealer.reveal_child = false;
+            //hidden_revealer.reveal_child = false;
 
             return true;
         });
@@ -303,7 +307,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus ();
+                name_entry.grab_focus_without_selecting ();
+                if (name_entry.cursor_position < name_entry.text_length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+                }
             }
 
             return false;
@@ -581,9 +588,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             name_stack.visible_child_name = "name_entry";
 
             name_entry.grab_focus_without_selecting ();
-
-            if (name_entry.cursor_position < name_entry.text.length) {
-                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+            if (name_entry.cursor_position < name_entry.text_length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
             }
         });
 
@@ -609,7 +615,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             message_dialog.destroy ();
         });
-        
+
         share_markdown_menu.activate.connect (() => {
             section.share_markdown ();
         });

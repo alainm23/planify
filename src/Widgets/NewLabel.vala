@@ -45,8 +45,8 @@ public class Widgets.NewLabel : Gtk.EventBox {
 
         var add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         add_box.margin_start = 14;
-        add_box.margin_top = 6;
-        add_box.margin_bottom = 6;
+        add_box.margin_top = 7;
+        add_box.margin_bottom = 7;
         add_box.pack_start (add_image, false, false, 0);
         add_box.pack_start (add_label, false, false, 0);
 
@@ -58,7 +58,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
         color_button = new Gtk.ToggleButton ();
         color_button.valign = Gtk.Align.CENTER;
         color_button.get_style_context ().add_class ("flat");
-        color_button.get_style_context ().add_class ("delete-check-button");
+        color_button.get_style_context ().add_class ("area-row");
         color_button.get_style_context ().add_class ("label-preview");
 
         var color_image = new Gtk.Image ();

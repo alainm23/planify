@@ -67,6 +67,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Objects.Project project { get; set; }
 
     private Gtk.Button hidden_button;
+    private Gtk.Revealer hidden_revealer;
     private Gtk.CheckButton checked_button;
     private Gtk.Entry content_entry;
     private Gtk.Label content_label;
@@ -81,11 +82,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Label duedate_preview_label;
+    private Gtk.Image project_preview_image;
     private Gtk.Label project_preview_label;
     private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
     private Gtk.Grid duedate_preview_grid;
-
+    private Gtk.Box preview_box;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_preview_box_revealer;
     private Gtk.Revealer duedate_preview_revealer;
@@ -122,6 +124,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_CHECK = {
+        {"CHECKROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public signal void update_headers ();
 
     public bool reveal_child {
@@ -152,24 +158,27 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = false;
+        margin_start = 6;
+        margin_top = 6;
         get_style_context ().add_class ("item-row");
         labels_hashmap = new Gee.HashMap<string, bool> ();
 
-        hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
+        hidden_button = new Gtk.Button.from_icon_name ("view-restore-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_start = 6;
+        hidden_button.margin_top = 1;
+        hidden_button.margin_end = 3;
         hidden_button.tooltip_text = _("View Details");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
 
-        var hidden_revealer = new Gtk.Revealer ();
+        hidden_revealer = new Gtk.Revealer ();
         hidden_revealer.valign = Gtk.Align.START;
         hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         hidden_revealer.add (hidden_button);
 
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
-        checked_button.margin_start = 6;
+        //checked_button.margin_start = 24;
         checked_button.margin_top = 6;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.BASELINE;
@@ -187,6 +196,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_revealer = new Gtk.Revealer ();
         label_revealer.valign = Gtk.Align.START;
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        label_revealer.transition_duration = 125;
         label_revealer.add (content_label);
         label_revealer.reveal_child = true;
 
@@ -202,7 +212,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         entry_revealer = new Gtk.Revealer ();
         entry_revealer.valign = Gtk.Align.START;
-        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        entry_revealer.transition_duration = 125;
         entry_revealer.add (content_entry);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -211,12 +222,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_box.add (label_revealer);
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.pack_start (hidden_revealer, false, false, 0);
         top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (content_box, false, true, 8);
+        top_box.pack_end (hidden_revealer, false, false, 0);
 
         // Preview Icons
-        var project_preview_image = new Gtk.Image ();
+        project_preview_image = new Gtk.Image ();
         project_preview_image.gicon = new ThemedIcon ("mail-unread-symbolic");
         project_preview_image.pixel_size = 16;
         project_preview_image.get_style_context ().add_class ("project-color-%s".printf (item.project_id.to_string ()));
@@ -317,8 +328,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         labels_preview_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         labels_preview_box_revealer.add (labels_preview_box);
 
-        var preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        preview_box.margin_start = 64;
+        preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        preview_box.margin_start = 24;
         preview_box.hexpand = true;
         preview_box.pack_start (project_preview_revealer, false, false, 0);
         preview_box.pack_start (duedate_preview_revealer, false, false, 0);
@@ -352,7 +363,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note TextView
         note_textview = new Gtk.TextView ();
-        note_textview.margin_start = 65;
+        note_textview.margin_start = 22;
         note_textview.buffer.text = item.note;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("textview");
@@ -369,12 +380,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Checklist ListBox
         check_listbox = new Gtk.ListBox ();
         check_listbox.margin_top = 6;
-        check_listbox.margin_start = 59;
+        check_listbox.margin_start = 18;
         check_listbox.get_style_context ().add_class ("check-listbox");
+        Gtk.drag_dest_set (check_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_CHECK, Gdk.DragAction.MOVE);
+        check_listbox.drag_data_received.connect (on_drag_data_received);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 59;
+        separator.margin_start = 18;
         separator.margin_bottom = 6;
+        separator.margin_end = 9;
 
         separator_revealer = new Gtk.Revealer ();
         separator_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -428,7 +442,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
-        action_box.margin_start = 65;
+        action_box.margin_start = 24;
         action_box.margin_bottom = 6;
         action_box.margin_end = 6;
         action_box.pack_start (labels_edit_box, false, true, 0);
@@ -456,8 +470,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         */
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 41;
-        motion_grid.margin_end = 32;
+        motion_grid.margin_end = 16;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -474,7 +487,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.add (bottom_revealer);
 
         var grid = new Gtk.Grid ();
-        grid.margin_bottom = 6;
         grid.hexpand = true;
         grid.orientation = Gtk.Orientation.VERTICAL;
 
@@ -562,23 +574,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Planner.utils.drag_magic_button_activated.connect ((value) => {
             build_drag_and_drop (value);
-        });
-
-        handle.enter_notify_event.connect ((event) => {
-            hidden_revealer.reveal_child = true;
-            return true;
-        });
-
-        handle.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            if (bottom_revealer.reveal_child == false) {
-                hidden_revealer.reveal_child = false;
-            }
-
-            return true;
         });
 
         hidden_button.clicked.connect (() => {
@@ -793,9 +788,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.id == i.id) {
                 item.project_id = project_id;
 
-                if (upcoming != null) {
+                if (upcoming != null || is_today == true) {
                     project = Planner.database.get_project_by_id (item.project_id);
+
+                    foreach (string c in project_preview_image.get_style_context ().list_classes ()) {
+                        project_preview_image.get_style_context ().remove_class (c);
+                    }
+                    project_preview_image.get_style_context ().add_class ("project-color-%s".printf (project.id.to_string ()));
                     project_preview_label.label = "<small>%s</small>".printf (project.name);
+
                     project_preview_revealer.reveal_child = true;
                 }
             }
@@ -896,8 +897,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Planner.database.project_updated.connect ((project) => {
             if (item.project_id == project.id) {
+                foreach (string c in project_preview_image.get_style_context ().list_classes ()) {
+                    project_preview_image.get_style_context ().remove_class (c);
+                }
+                project_preview_image.get_style_context ().add_class ("project-color-%s".printf (project.id.to_string ()));
                 project_preview_label.label = "<small>%s</small>".printf (project.name);
             }
+        });
+
+        check_listbox.row_activated.connect ((row) => {
+            var item = ((Widgets.CheckRow) row);
+            item.edit ();
         });
     }
 
@@ -926,14 +936,17 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         entry_revealer.reveal_child = true;
         label_revealer.reveal_child = false;
         preview_revealer.reveal_child = false;
+        hidden_revealer.reveal_child = true;
 
-        hidden_button.get_style_context ().add_class ("opened");
         hidden_button.tooltip_text = _("Hiding");
 
         activatable = false;
         selectable = false;
 
-        content_entry.grab_focus ();
+        content_entry.grab_focus_without_selecting ();
+        if (content_entry.cursor_position < content_entry.text_length) {
+            content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);
+        }
     }
 
     private void hide_item () {
@@ -943,9 +956,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         entry_revealer.reveal_child = false;
         label_revealer.reveal_child = true;
+        hidden_revealer.reveal_child = false;
         check_preview_box ();
 
-        hidden_button.get_style_context ().remove_class ("opened");
         hidden_button.tooltip_text = _("View Details");
 
         timeout_id = Timeout.add (250, () => {
@@ -967,6 +980,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             reminder_preview_revealer.reveal_child ||
             labels_preview_box_revealer.reveal_child ||
             project_preview_revealer.reveal_child;
+        }
+
+        if (project_preview_revealer.reveal_child) {
+            preview_box.margin_start = 20;
+        } else {
+            preview_box.margin_start = 24;
         }
     }
 
@@ -1161,7 +1180,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 )
             );
         });
-
         projects_menu.add (item_menu);
 
         foreach (var project in Planner.database.get_all_projects ()) {
@@ -1299,10 +1317,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (tomorrow_menu);
         menu.add (undated_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        if (is_today == false && upcoming == null) {
-            menu.add (move_project_menu);
-            menu.add (move_section_menu);
-        }
+        menu.add (move_project_menu);
+        menu.add (move_section_menu);
         menu.add (share_menu);
         //menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
@@ -1363,5 +1379,52 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         check_preview_box ();
+    }
+
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.CheckRow target;
+        Widgets.CheckRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.CheckRow) check_listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.CheckRow) row;
+
+        if (target != null) {
+            if (source.item.parent_id != item.id) {
+                source.item.parent_id = item.id;
+
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.move_item_to_parent (source.item, item.id);
+                }
+            }
+
+            source.get_parent ().remove (source);
+            check_listbox.insert (source, target.get_index () + 1);
+            check_listbox.show_all ();
+
+            update_check_order ();
+        }
+    }
+
+    private void update_check_order () {
+        Timeout.add (150, () => {
+            new Thread<void*> ("update_check_order", () => {
+                check_listbox.foreach ((widget) => {
+                    var row = (Gtk.ListBoxRow) widget;
+                    int index = row.get_index ();
+
+                    var check = ((Widgets.CheckRow) row).item;
+                    Planner.database.update_check_order (check, item.id, index);
+                });
+
+                return null;
+            });
+
+            return false;
+        });
     }
 }

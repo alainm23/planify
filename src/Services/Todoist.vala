@@ -409,7 +409,7 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        //print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
                         var node = parser.get_root ().get_object ();
                         var sync_token = node.get_string_member ("sync_token");
@@ -1025,6 +1025,24 @@ public class Services.Todoist : GLib.Object {
                         builder.set_member_name ("section_id");
                         builder.add_int_value (get_int_member_by_object (q.args, "section_id"));
                     }
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "item_move_parent") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("item_move");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.set_member_name ("parent_id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "parent_id"));
 
                     builder.end_object ();
                 builder.end_object ();
@@ -2278,6 +2296,106 @@ public class Services.Todoist : GLib.Object {
                 builder.set_member_name ("section_id");
                 builder.add_int_value (section_id);
             }
+
+            builder.end_object ();
+
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public void move_item_to_parent (Objects.Item item, int64 parent_id) {
+        //item_moved_started (item.id);
+
+        new Thread<void*> ("move_item_to_parent", () => {
+            string uuid = Planner.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL,
+                Planner.settings.get_string ("todoist-access-token"),
+                get_move_parent_json (item, parent_id, uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            Planner.settings.set_string (
+                                "todoist-sync-token",
+                                node.get_string_member ("sync_token")
+                            );
+
+                            print ("Movido: %s\n".printf (item.content));
+                        } else {
+                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+
+                            //item_moved_error (item.id, http_code, error_message);
+                        }
+                    } catch (Error e) {
+                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
+                    }
+                } else {
+                    if (Planner.utils.is_disconnected ()) {
+                        item.parent_id = parent_id;
+
+                        var queue = new Objects.Queue ();
+                        queue.uuid = uuid;
+                        queue.object_id = item.id;
+                        queue.query = "item_move_parent";
+                        queue.args = item.to_json ();
+
+                        if (Planner.database.insert_queue (queue)) {
+                            print ("Movido: %s\n".printf (item.content));
+                        }
+                    } else {
+                        show_message (_("Update todoist item error"),
+                                      _("Status Code: %u".printf (mess.status_code)),
+                                      "dialog-error");
+                    }
+                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
+                }
+            });
+
+            return null;
+        });
+    }
+
+    public string get_move_parent_json (Objects.Item item, int64 parent_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_move");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (item.id);
+
+            builder.set_member_name ("parent_id");
+            builder.add_int_value (item.parent_id);
 
             builder.end_object ();
 

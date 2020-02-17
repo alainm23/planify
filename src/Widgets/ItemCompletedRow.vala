@@ -42,17 +42,8 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
             _("Date completed"), Planner.utils.get_relative_date_from_string (item.date_completed)
         );
 
-        var loading_spinner = new Gtk.Spinner ();
-        loading_spinner.margin_start = 17;
-        loading_spinner.start ();
-
-        var loading_revealer = new Gtk.Revealer ();
-        loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        loading_revealer.add (loading_spinner);
-
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
-        checked_button.margin_start = 9;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.START;
         checked_button.get_style_context ().add_class ("checklist-button");
@@ -64,21 +55,19 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
         completed_label.get_style_context ().add_class ("due-preview");
 
-        content_label = new Gtk.Label ("<s>%s</s>".printf (item.content));
-        content_label.margin_start = 9;
+        content_label = new Gtk.Label (item.content);
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
         content_label.use_markup = true;
         content_label.get_style_context ().add_class ("label");
+        content_label.get_style_context ().add_class ("label-line-through");
         content_label.ellipsize = Pango.EllipsizeMode.END;
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9);
         box.margin = 3;
-        box.margin_start = 0;
-        box.pack_start (loading_revealer, false, false, 0);
+        box.margin_start = 24;
         box.pack_start (checked_button, false, false, 0);
-        //box.pack_start (completed_label, false, false, 0);
         box.pack_start (content_label, false, false, 0);
 
         add (box);

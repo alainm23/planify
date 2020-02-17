@@ -52,40 +52,38 @@ public class Widgets.NewCheck : Gtk.EventBox {
     }
 
     construct {
-        margin_start = 31;
-
         var loading_spinner = new Gtk.Spinner ();
         loading_spinner.start ();
+        loading_spinner.margin_end = 6;
 
         var loading_revealer = new Gtk.Revealer ();
         loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         loading_revealer.add (loading_spinner);
+        //loading_revealer.reveal_child = true;
 
         var checked_button = new Gtk.CheckButton ();
-        checked_button.margin_start = 6;
+        checked_button.margin_start = 5;
         checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.get_style_context ().add_class ("checklist-check");
         checked_button.valign = Gtk.Align.CENTER;
 
         name_entry = new Gtk.Entry ();
         name_entry.hexpand = true;
-        name_entry.margin_start = 3;
+        name_entry.margin_start = 6;
         name_entry.margin_bottom = 1;
         name_entry.placeholder_text = _("Subtask name");
-        //name_entry.get_style_context ().add_class ("welcome");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("check-entry");
 
-        var box = new Gtk.Grid ();
-        box.get_style_context ().add_class ("check-eventbox");
-        box.add (checked_button);
-        box.add (name_entry);
-
         var main_box = new Gtk.Grid ();
-        main_box.column_spacing = 12;
+        main_box.get_style_context ().add_class ("check-eventbox");
+        main_box.get_style_context ().add_class ("check-eventbox-border");
         main_box.margin_bottom = 6;
+        main_box.margin_end = 6;
+        main_box.margin_start = 18;
+        main_box.add (checked_button);
+        main_box.add (name_entry);
         main_box.add (loading_revealer);
-        main_box.add (box);
 
         revealer = new Gtk.Revealer ();
         revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;

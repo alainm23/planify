@@ -61,7 +61,7 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
+        
         var projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
         projectview_header.decoration_layout = ":maximize";
@@ -565,14 +565,26 @@ public class MainWindow : Gtk.Window {
 
     public void new_section_action () {
         if (stack.visible_child_name == "inbox-view") {
-            inbox_view.section_toggled ();
+            inbox_view.open_new_section ();
         } else if (stack.visible_child_name == "today-view") {
 
         } else if (stack.visible_child_name == "upcoming-view") {
 
         } else {
             var project_view = (Views.Project) stack.visible_child;
-            project_view.section_toggled ();
+            project_view.open_new_section ();
+        }
+    }
+
+    public void hide_item () {
+        if (stack.visible_child_name == "inbox-view") {
+
+        } else if (stack.visible_child_name == "today-view") {
+
+        } else if (stack.visible_child_name == "upcoming-view") {
+
+        } else {
+            //var project_view = (Views.Project) stack.visible_child;
         }
     }
 

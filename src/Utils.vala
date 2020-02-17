@@ -569,10 +569,10 @@ public class Utils : GLib.Object {
         var provider = new Gtk.CssProvider ();
 
         try {
-            string projectview_color = "#ffffff";
+            string projectview_color = "shade (#FFFFFF, 0.985)";
             string border_color = "0.25";
-            string pane_color = "shade (@bg_color, 1.01)";
-            string pane_selected_color = "#D1DFFE";
+            string pane_color = "shade (#FFFFFF, 0.96)";
+            string pane_selected_color = "shade (#FFFFFF, 0.89)";
             string pane_text_color = "#333333";
             string duedate_today_color = "#d48e15";
 
@@ -580,7 +580,7 @@ public class Utils : GLib.Object {
                 projectview_color = "#333333";
                 border_color = "0.55";
                 pane_color = "shade (@bg_color, 0.7)";
-                pane_selected_color = "shade (#D1DFFE, 0.30)";
+                pane_selected_color = "#38393E";
                 pane_text_color = "#ffffff";
                 duedate_today_color = "#f9c440";
             }

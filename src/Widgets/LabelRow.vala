@@ -21,7 +21,7 @@
 
 public class Widgets.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
-    public Gtk.ScrolledWindow scrolled { get; construct; }
+    public Gtk.ScrolledWindow scrolled { get; set; }
 
     private Gtk.Entry name_entry;
     private Gtk.Label name_label;
@@ -48,10 +48,9 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    public LabelRow (Objects.Label label, Gtk.ScrolledWindow scrolled) {
+    public LabelRow (Objects.Label label) {
         Object (
-            label: label,
-            scrolled: scrolled
+            label: label
         );
     }
 
@@ -62,7 +61,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         color_button = new Gtk.ToggleButton ();
         color_button.valign = Gtk.Align.CENTER;
         color_button.get_style_context ().add_class ("flat");
-        color_button.get_style_context ().add_class ("delete-check-button");
+        color_button.get_style_context ().add_class ("area-row");
         color_button.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
 
         var color_image = new Gtk.Image ();
@@ -77,7 +76,6 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.margin_start = 3;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
-        name_label.margin_start = 3;
 
         name_entry = new Gtk.Entry ();
         name_entry.text = label.name;
@@ -94,20 +92,21 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_stack.add_named (name_label, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
+        var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("delete-check-button");
 
         buttons_revealer = new Gtk.Revealer ();
-        buttons_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        buttons_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         buttons_revealer.add (delete_button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.margin_start = 6;
         box.margin_top = 3;
         box.margin_bottom = 3;
+        box.margin_end = 6;
         box.pack_start (color_button, false, false, 0);
         box.pack_start (name_stack, false, true, 0);
         box.pack_end (buttons_revealer, false, true, 0);
@@ -149,6 +148,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
         handle.enter_notify_event.connect ((event) => {
             buttons_revealer.reveal_child = true;
+            delete_button.get_style_context ().add_class ("closed");
 
             return true;
         });
@@ -160,6 +160,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
             if (color_button.active == false) {
                 buttons_revealer.reveal_child = false;
+                delete_button.get_style_context ().remove_class ("closed");
             }
 
             return true;
@@ -663,6 +664,9 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
     public void edit () {
         name_stack.visible_child_name = "name_entry";
-        name_entry.grab_focus ();
+        name_entry.grab_focus_without_selecting ();
+        if (name_entry.cursor_position < name_entry.text_length) {
+            name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+        }
     }
 }

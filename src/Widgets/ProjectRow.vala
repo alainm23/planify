@@ -29,7 +29,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Menu areas_menu;
     private Gtk.Menu menu = null;
-    private Gtk.ToggleButton menu_button;
+    private Gtk.Button menu_button;
     private Widgets.ImageMenuItem move_area_menu;
 
     private Gtk.EventBox handle;
@@ -43,7 +43,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
-
     private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -56,6 +55,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             return motion_revealer.reveal_child;
         }
     }
+
+    public signal void removed ();
 
     public ProjectRow (Objects.Project project) {
         Object (
@@ -118,7 +119,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_icon.gicon = new ThemedIcon ("view-more-symbolic");
         menu_icon.pixel_size = 14;
 
-        menu_button = new Gtk.ToggleButton ();
+        menu_button = new Gtk.Button ();
         menu_button.valign = Gtk.Align.CENTER;
         menu_button.halign = Gtk.Align.CENTER;
         menu_button.can_focus = false;
@@ -137,7 +138,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
-        //source_icon.get_style_context ().add_class ("text-color");
         source_icon.margin_top = 3;
         source_icon.pixel_size = 14;
 
@@ -220,10 +220,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             return true;
         });
 
-        menu_button.toggled.connect (() => {
-            if (menu_button.active) {
-                activate_menu ();
-            }
+        menu_button.clicked.connect (() => {
+            activate_menu ();
         });
 
         Planner.database.project_updated.connect ((p) => {
@@ -240,6 +238,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Planner.database.project_deleted.connect ((id) => {
             if (project != null && id == project.id) {
                 main_revealer.reveal_child = false;
+                removed ();
 
                 Timeout.add (500, () => {
                     destroy ();
@@ -448,6 +447,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             item_menu.activate.connect (() => {
                 if (Planner.database.move_project (project, 0)) {
                     main_revealer.reveal_child = false;
+                    removed ();
 
                     Timeout.add (500, () => {
                         destroy ();
@@ -466,6 +466,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 item_menu.activate.connect (() => {
                     if (Planner.database.move_project (project, area.id)) {
                         main_revealer.reveal_child = false;
+                        removed ();
 
                         Timeout.add (500, () => {
                             destroy ();

@@ -1,6 +1,6 @@
-@define-color projectview_color #ffffff;
-@define-color pane_color shade (@bg_color, 1.01);
-@define-color pane_selected_color #D1DFFE;
+@define-color projectview_color shade (#FFFFFF, 0.985);
+@define-color pane_color shade (#FFFFFF, 0.96);
+@define-color pane_selected_color shade (#FFFFFF, 0.87);
 @define-color pane_text_color #333333;
 @define-color duedate_today_color #d48e15;
 
@@ -65,8 +65,7 @@ modelbutton:hover,
     background-color: @pane_selected_color;
 }
 
-menu,
-popover {
+menu {
     background-color: @base_color;
 }
 
@@ -207,7 +206,11 @@ paned > separator {
 */
 
 .item-row {
-    transition: all 250ms ease-in-out;
+    transition: all 225ms ease-in-out;
+}
+
+.transition {
+    transition: all 225ms ease-in-out;
 }
 
 .item-row:selected {
@@ -223,8 +226,10 @@ paned > separator {
 .item-row-selected {
     border-radius: 6px;
     background-color: @base_color;
-    padding-top: 8px;
-    margin-left: 16px;
+    padding-top: 6px;
+    padding-left: 12px;
+    margin-left: 6px;
+    margin-right: 24px;
 }
 
 .pane-project-selected {
@@ -235,6 +240,13 @@ paned > separator {
     background-color: @base_color;
 }
 
+/*
+    Check Row
+*/
+
+.check-row {
+    background-color:transparent;
+}
 /*
     Area Row
 */
@@ -542,7 +554,10 @@ paned > separator {
 }
 
 .delete-check-button {
-    background-color: transparent;
+    background-color: @text_color;
+    color: @bg_color;
+    border-radius: 50%;
+    padding: 0px;
 }
 
 .delete-check-button image {
@@ -742,10 +757,6 @@ paned > separator {
     border-bottom: none;
 }
 
-.transition {
-    transition: all 160ms ease-in-out;
-}
-
 .header-title {
     font-weight: bold;
     font-size: 13.6px;
@@ -905,4 +916,12 @@ paned > separator {
 
 .popover-model-button {
     padding-left: 9px;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.label-line-through {
+    text-decoration: line-through;
 }

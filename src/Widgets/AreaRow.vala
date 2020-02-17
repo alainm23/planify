@@ -46,7 +46,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             submit_button.sensitive = true;
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
-            name_entry.grab_focus ();
+
+            name_entry.grab_focus_without_selecting ();
+            if (name_entry.cursor_position < name_entry.text_length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+            }
         }
     }
 
@@ -213,7 +217,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             }
         });
 
-        name_entry.activate.connect (() =>{
+        name_entry.activate.connect (() => {
             save_area ();
         });
 
@@ -250,7 +254,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus ();
+                name_entry.grab_focus_without_selecting ();
+                if (name_entry.cursor_position < name_entry.text_length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+                }
             }
 
             return false;
@@ -506,10 +513,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             name_stack.visible_child_name = "name_entry";
 
             name_entry.grab_focus_without_selecting ();
-
-            if (name_entry.cursor_position < name_entry.text.length) {
-                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-            }
+            name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
         });
 
         delete_menu.activate.connect (() => {

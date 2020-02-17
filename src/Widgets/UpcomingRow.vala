@@ -44,7 +44,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         var day_label = new Gtk.Label (date.format ("%d"));
         day_label.halign = Gtk.Align.START;
-        day_label.get_style_context ().add_class ("h2");
+        day_label.get_style_context ().add_class ("title-label");
         day_label.get_style_context ().add_class ("font-bold");
         day_label.valign = Gtk.Align.CENTER;
         day_label.use_markup = true;
@@ -72,8 +72,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         add_button.get_style_context ().add_class ("hidden-button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 41;
-        top_box.margin_end = 32;
+        top_box.margin_start = 24;
+        top_box.margin_end = 16;
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.pack_start (day_label, false, false, 0);
@@ -82,8 +82,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_top = 3;
-        separator.margin_start = 41;
-        separator.margin_end = 32;
+        separator.margin_start = 24;
+        separator.margin_end = 16;
         separator.margin_bottom = 6;
 
         var motion_grid = new Gtk.Grid ();
@@ -96,6 +96,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
+        listbox.margin_start = 18;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -103,8 +104,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_bottom = 3;
+        event_listbox.margin_start = 26;
         event_listbox.valign = Gtk.Align.START;
-        //event_listbox.get_style_context ().add_class ("welcome");
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;

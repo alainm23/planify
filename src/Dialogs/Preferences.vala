@@ -715,7 +715,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.get_style_context ().add_class ("background");
-        listbox.expand = true;
+        listbox.hexpand = true;
 
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABELS, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
@@ -754,6 +754,7 @@ public class Dialogs.Preferences : Gtk.Dialog {
         box.pack_start (description_label, false, false, 0);
         box.pack_start (new_label, false, true, 0);
         box.pack_start (listbox, false, true, 0);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -770,8 +771,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
         add_all_labels (listbox, box_scrolled);
 
         Planner.database.label_added.connect ((label) => {
-            var row = new Widgets.LabelRow (label, box_scrolled);
-
+            var row = new Widgets.LabelRow (label);
+            row.scrolled = box_scrolled;
+            
             listbox.insert (row, 0);
             listbox.show_all ();
 
@@ -1297,7 +1299,9 @@ public class Dialogs.Preferences : Gtk.Dialog {
 
     private void add_all_labels (Gtk.ListBox listbox, Gtk.ScrolledWindow scrolled) {
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {
-            var row = new Widgets.LabelRow (label, scrolled);
+            var row = new Widgets.LabelRow (label);
+            row.scrolled = scrolled;
+
             listbox.add (row);
         }
 

@@ -246,6 +246,12 @@ public class Planner : Gtk.Application {
             main_window.go_view (2);
         });
 
+        var hide_item = new SimpleAction ("hide-item", null);
+        set_accels_for_action ("app.hide-item", {"Escape"});
+        hide_item.activate.connect (() => {
+            main_window.hide_item ();
+        });
+
         //  var open_settings = new SimpleAction ("open-settings", null);
         //  set_accels_for_action ("app.open-settings", {"<Control>,"});
         //  open_settings.activate.connect (() => {
@@ -266,7 +272,7 @@ public class Planner : Gtk.Application {
         add_action (view_inbox);
         add_action (view_today);
         add_action (view_upcoming);
-        //add_action (open_settings);
+        add_action (hide_item);
     }
 
     public static int main (string[] args) {

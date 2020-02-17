@@ -25,16 +25,18 @@ public class Views.Inbox : Gtk.EventBox {
 
     private Gtk.Box top_box;
     private Gtk.Revealer motion_revealer;
-    private Widgets.NewSection new_section;
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
     private Gtk.ModelButton show_completed_button;
+    private Gtk.Stack main_stack;
 
+    private Gtk.Entry section_name_entry;
+    private Gtk.ToggleButton section_button;
+    private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
-    private Widgets.ModelButton show_button;
     private Gtk.ToggleButton settings_button;
 
     private uint timeout = 0;
@@ -70,7 +72,7 @@ public class Views.Inbox : Gtk.EventBox {
         section_image.gicon = new ThemedIcon ("planner-header-symbolic");
         section_image.pixel_size = 21;
 
-        var section_button = new Gtk.Button ();
+        section_button = new Gtk.ToggleButton ();
         section_button.valign = Gtk.Align.CENTER;
         section_button.valign = Gtk.Align.CENTER;
         section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
@@ -104,8 +106,8 @@ public class Views.Inbox : Gtk.EventBox {
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 41;
-        top_box.margin_end = 24;
+        top_box.margin_start = 24;
+        top_box.margin_end = 16;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
@@ -116,7 +118,8 @@ public class Views.Inbox : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
-        listbox.margin_top = 12;
+        listbox.margin_top = 6;
+        listbox.margin_start = 18;
         listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
@@ -140,21 +143,12 @@ public class Views.Inbox : Gtk.EventBox {
         completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         completed_revealer.add (completed_box);
 
-        var placeholder_image = new Gtk.Image ();
-        placeholder_image.margin_bottom = 96;
-        placeholder_image.expand = true;
-        placeholder_image.valign = Gtk.Align.CENTER;
-        placeholder_image.halign = Gtk.Align.CENTER;
-        placeholder_image.gicon = new ThemedIcon ("mail-mailbox-symbolic");
-        placeholder_image.pixel_size = 96;
-        placeholder_image.opacity = 0.3;
-
-        var stack = new Gtk.Stack ();
-        stack.hexpand = true;
-        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-        //stack.add_named (listbox, "listbox");
-        stack.add_named (placeholder_image, "placeholder");
+        var placeholder_view = new Widgets.Placeholder (
+            _("All clear"),
+            _("Looks like everything's organized in the right place."),
+            "mail-mailbox-symbolic"
+        );
+        placeholder_view.reveal_child = true;
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -166,7 +160,6 @@ public class Views.Inbox : Gtk.EventBox {
 
         section_listbox = new Gtk.ListBox ();
         section_listbox.valign = Gtk.Align.START;
-        //section_listbox.get_style_context ().add_class ("welcome");
         section_listbox.get_style_context ().add_class ("listbox");
         section_listbox.activate_on_single_click = true;
         section_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -175,14 +168,9 @@ public class Views.Inbox : Gtk.EventBox {
         Gtk.drag_dest_set (section_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
         section_listbox.drag_data_received.connect (on_drag_section_received);
 
-        var placeholder_view = new Widgets.Placeholder ();
-        placeholder_view.reveal_child = true;
-
-        new_section = new Widgets.NewSection (project_id, is_todoist);
-
         var motion_section_grid = new Gtk.Grid ();
-        motion_section_grid.margin_start = 41;
-        motion_section_grid.margin_end = 32;
+        motion_section_grid.margin_start = 24;
+        motion_section_grid.margin_end = 16;
         motion_section_grid.get_style_context ().add_class ("grid-motion");
         motion_section_grid.height_request = 24;
 
@@ -191,8 +179,8 @@ public class Views.Inbox : Gtk.EventBox {
         motion_section_revealer.add (motion_section_grid);
 
         var drag_section_grid = new Gtk.Grid ();
-        drag_section_grid.margin_start = 41;
-        drag_section_grid.margin_end = 32;
+        drag_section_grid.margin_start = 24;
+        drag_section_grid.margin_end = 16;
         drag_section_grid.height_request = 16;
 
         Gtk.drag_dest_set (drag_section_grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
@@ -219,41 +207,64 @@ public class Views.Inbox : Gtk.EventBox {
             motion_section_revealer.reveal_child = false;
         });
 
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.expand = true;
-        main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (motion_revealer, false, false, 0);
-        main_box.pack_start (listbox, false, false, 0);
-        main_box.pack_start (new_section, false, false, 0);
-        main_box.pack_start (section_listbox, false, false, 0);
-        main_box.pack_start (drag_section_grid, false, false, 0);
-        main_box.pack_start (motion_section_revealer, false, false, 0);
-        main_box.pack_start (completed_revealer, false, false, 0);
-        //main_box.pack_start (placeholder_view, false, false, 0);
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.expand = true;
+        box.pack_start (motion_revealer, false, false, 0);
+        box.pack_start (listbox, false, false, 0);
+        box.pack_start (section_listbox, false, false, 0);
+        box.pack_start (drag_section_grid, false, false, 0);
+        box.pack_start (motion_section_revealer, false, false, 0);
+        box.pack_start (completed_revealer, false, false, 0);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
         main_scrolled.expand = true;
-        main_scrolled.add (main_box);
+        main_scrolled.add (box);
 
-        add (main_scrolled);
+        main_stack = new Gtk.Stack ();
+        main_stack.hexpand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        main_stack.add_named (main_scrolled, "project");
+        main_stack.add_named (placeholder_view, "placeholder");
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (main_scrolled, false, true, 0);
+        main_box.pack_start (main_stack, false, true, 0);
+
+        add (main_box);
 
         add_items (project_id);
         add_all_sections (project_id);
-
         build_drag_and_drop (false);
-
         show_all ();
+
+        // Check Placeholder view
+        Timeout.add (125, () => {
+            check_placeholder_view ();
+
+            return false;
+        });
 
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
         });
 
+        listbox.remove.connect ((row) => {
+            check_placeholder_view ();
+        });
+
+        section_listbox.remove.connect ((row) => {
+            check_placeholder_view ();
+        });
+
         settings_button.toggled.connect (() => {
             if (settings_button.active) {
                 if (popover == null) {
-                    create_popover ();
+                    build_menu_popover ();
                 }
 
                 if (Planner.database.get_count_checked_items_by_project (project_id) > 0) {
@@ -266,18 +277,8 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        section_button.clicked.connect (() => {
-            section_toggled ();
-        });
-
-        new_section.cancel_activated.connect (() => {
-            /*
-            if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
-                placeholder_view.reveal_child = false;
-            } else {
-                placeholder_view.reveal_child = true;
-            }
-            */
+        section_button.toggled.connect (() => {
+            open_new_section ();
         });
 
         completed_listbox.remove.connect (() => {
@@ -291,6 +292,7 @@ public class Views.Inbox : Gtk.EventBox {
                 section_listbox.show_all ();
 
                 update_section_order ();
+                main_stack.visible_child_name = "project";
             }
         });
 
@@ -304,6 +306,8 @@ public class Views.Inbox : Gtk.EventBox {
                             row.destroy ();
                         }
                     });
+
+                    check_placeholder_view ();
                 }
 
                 if (project_id == id) {
@@ -312,6 +316,7 @@ public class Views.Inbox : Gtk.EventBox {
                     var row = new Widgets.SectionRow (section);
                     section_listbox.add (row);
                     section_listbox.show_all ();
+                    check_placeholder_view ();
                 }
 
                 return false;
@@ -328,6 +333,7 @@ public class Views.Inbox : Gtk.EventBox {
                             row.destroy ();
                         }
                     });
+                    check_placeholder_view ();
                 }
 
                 if (project_id == id) {
@@ -336,6 +342,7 @@ public class Views.Inbox : Gtk.EventBox {
                     var row = new Widgets.ItemRow (item);
                     listbox.add (row);
                     listbox.show_all ();
+                    check_placeholder_view ();
                 }
 
                 return false;
@@ -352,6 +359,8 @@ public class Views.Inbox : Gtk.EventBox {
                             row.destroy ();
                         }
                     });
+
+                    check_placeholder_view ();
                 }
 
                 if (0 == section_id) {
@@ -360,6 +369,7 @@ public class Views.Inbox : Gtk.EventBox {
                     var row = new Widgets.ItemRow (i);
                     listbox.add (row);
                     listbox.show_all ();
+                    check_placeholder_view ();
                 }
 
                 return false;
@@ -371,6 +381,8 @@ public class Views.Inbox : Gtk.EventBox {
                 var row = new Widgets.ItemRow (item);
                 listbox.add (row);
                 listbox.show_all ();
+
+                check_placeholder_view ();
             }
         });
 
@@ -379,6 +391,8 @@ public class Views.Inbox : Gtk.EventBox {
                 var row = new Widgets.ItemRow (item);
                 listbox.insert (row, index);
                 listbox.show_all ();
+
+                check_placeholder_view ();
             }
         });
 
@@ -396,6 +410,8 @@ public class Views.Inbox : Gtk.EventBox {
                         listbox.add (row);
                         listbox.show_all ();
                     }
+
+                    check_placeholder_view ();
                 }
 
                 return false;
@@ -419,21 +435,29 @@ public class Views.Inbox : Gtk.EventBox {
                 }
 
                 listbox.show_all ();
+                main_stack.visible_child_name = "project";
             }
         });
 
         Planner.settings.changed.connect (key => {
             if (key == "inbox-project") {
                 project_id = Planner.settings.get_int64 ("inbox-project");
-                new_section.project_id = Planner.settings.get_int64 ("inbox-project");
             } else if (key == "inbox-project-sync") {
                 if (Planner.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
-                    new_section.is_todoist = is_todoist;
                     add_items (project_id);
                 }
             }
         });
+    }
+
+    public void open_new_section () {
+        if (new_section_popover == null) {
+            build_new_section_popover ();
+        }
+
+        new_section_popover.show_all ();
+        section_name_entry.grab_focus ();
     }
 
     private void add_items (int64 id) {
@@ -446,22 +470,8 @@ public class Views.Inbox : Gtk.EventBox {
             listbox.add (row);
             listbox.show_all ();
         }
-    }
-    public void section_toggled () {
-        if (new_section.reveal) {
-            new_section.reveal = false;
 
-            /*
-            if (Planner.database.get_count_sections_by_project (Planner.settings.get_int64 ("inbox-project")) > 0) {
-                placeholder_view.reveal_child = false;
-            } else {
-                placeholder_view.reveal_child = true;
-            }
-            */
-        } else {
-            new_section.reveal = true;
-            //placeholder_view.reveal_child = false;
-        }
+        check_placeholder_view ();
     }
 
     private void add_all_sections (int64 id) {
@@ -628,7 +638,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
     }
 
-    private void create_popover () {
+    private void build_menu_popover () {
         popover = new Gtk.Popover (settings_button);
         popover.position = Gtk.PositionType.BOTTOM;
 
@@ -675,11 +685,127 @@ public class Views.Inbox : Gtk.EventBox {
 
             if (show_completed_switch.active) {
                 completed_revealer.reveal_child = false;
+                check_placeholder_view ();
             } else {
                 add_completed_items (project_id);
+                main_stack.visible_child_name = "project";
             }
 
             return Gdk.EVENT_STOP;
+        });
+    }
+
+    private void build_new_section_popover () {
+        new_section_popover = new Gtk.Popover (section_button);
+        new_section_popover.position = Gtk.PositionType.BOTTOM;
+
+        var name_label = new Granite.HeaderLabel (_("Name:"));
+
+        section_name_entry = new Gtk.Entry ();
+        section_name_entry.hexpand = true;
+
+        var submit_button = new Gtk.Button ();
+        submit_button.sensitive = false;
+        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var submit_spinner = new Gtk.Spinner ();
+        submit_spinner.start ();
+
+        var submit_stack = new Gtk.Stack ();
+        submit_stack.expand = true;
+        submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        submit_stack.add_named (new Gtk.Label (_("Add")), "label");
+        submit_stack.add_named (submit_spinner, "spinner");
+
+        submit_button.add (submit_stack);
+
+        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("planner-button");
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.expand = false;
+        action_grid.halign = Gtk.Align.START;
+        action_grid.column_homogeneous = true;
+        action_grid.column_spacing = 9;
+        action_grid.margin_top = 12;
+        action_grid.add (cancel_button);
+        action_grid.add (submit_button);
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.width_request = 250;
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.margin_top = 3;
+        popover_grid.margin_bottom = 9;
+        popover_grid.margin_start = 9;
+        popover_grid.margin_end = 9;
+        popover_grid.add (name_label);
+        popover_grid.add (section_name_entry);
+        popover_grid.add (action_grid);
+
+        new_section_popover.add (popover_grid);
+
+        new_section_popover.closed.connect (() => {
+            section_button.active = false;
+        });
+
+        submit_button.clicked.connect (insert_section);
+
+        section_name_entry.activate.connect (() => {
+            insert_section ();
+        });
+
+        section_name_entry.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                section_name_entry.text = "";
+                new_section_popover.popdown ();
+            }
+
+            return false;
+        });
+
+        section_name_entry.changed.connect (() => {
+            if (section_name_entry.text != "") {
+                submit_button.sensitive = true;
+            } else {
+                submit_button.sensitive = false;
+            }
+        });
+
+        cancel_button.clicked.connect (() => {
+            section_name_entry.text = "";
+            new_section_popover.popdown ();
+        });
+
+        Planner.todoist.section_added_started.connect ((id) => {
+            if (temp_id_mapping == id) {
+                submit_stack.visible_child_name = "spinner";
+                popover_grid.sensitive = false;
+            }
+        });
+
+        Planner.todoist.section_added_completed.connect ((id) => {
+            if (temp_id_mapping == id) {
+                submit_stack.visible_child_name = "label";
+                temp_id_mapping = 0;
+
+                popover_grid.sensitive = true;
+
+                section_name_entry.text = "";
+                new_section_popover.popdown ();
+            }
+        });
+
+        Planner.todoist.section_added_error.connect ((id) => {
+            if (temp_id_mapping == id) {
+                submit_stack.visible_child_name = "label";
+                temp_id_mapping = 0;
+
+                popover_grid.sensitive = true;
+
+                section_name_entry.text = "";
+                new_section_popover.popdown ();
+            }
         });
     }
 
@@ -695,14 +821,45 @@ public class Views.Inbox : Gtk.EventBox {
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_top = 12;
-        main_box.margin_start = 41;
+        main_box.margin_start = 24;
         main_box.margin_bottom = 6;
-        main_box.margin_end = 32;
+        main_box.margin_end = 16;
         main_box.hexpand = true;
         main_box.pack_start (name_label, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.show_all ();
 
         return main_box;
+    }
+
+    private void insert_section () {
+        if (section_name_entry.text != "") {
+            var section = new Objects.Section ();
+            section.name = section_name_entry.text;
+            section.project_id = project_id;
+            section.is_todoist = is_todoist;
+
+            if (is_todoist == 0) {
+                section.id = Planner.utils.generate_id ();
+                Planner.database.insert_section (section);
+
+                section_name_entry.text = "";
+                new_section_popover.popdown ();
+            } else {
+                temp_id_mapping = Planner.utils.generate_id ();
+                section.is_todoist = 1;
+
+                Planner.todoist.add_section (section, temp_id_mapping);
+            }
+        }
+    }
+
+    private void check_placeholder_view () {
+        if (Planner.database.get_count_items_by_project (project_id) > 0 ||
+            Planner.database.get_count_sections_by_project (project_id) > 0) {
+            main_stack.visible_child_name = "project";
+        } else {
+            main_stack.visible_child_name = "placeholder";
+        }
     }
 }
