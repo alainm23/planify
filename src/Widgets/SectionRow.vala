@@ -39,6 +39,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Menu menu = null;
 
     private uint timeout;
+    public Gee.ArrayList<Widgets.ItemRow?> items_list;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -62,6 +63,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         margin_top = 12;
         can_focus = false;
         get_style_context ().add_class ("area-row");
+        items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
@@ -247,7 +249,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         Planner.database.item_added.connect ((item) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
+                row.destroy.connect (() => {
+                    item_row_removed (row);
+                });
+
                 listbox.add (row);
+                items_list.add (row);
+
                 listbox.show_all ();
             }
         });
@@ -256,7 +264,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (item.checked == 0 && section.id == item.section_id && item.parent_id == 0) {
                     var row = new Widgets.ItemRow (item);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    items_list.add (row);
+
                     listbox.show_all ();
                 }
 
@@ -267,7 +281,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         Planner.database.item_added_with_index.connect ((item, index) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
+                row.destroy.connect (() => {
+                    item_row_removed (row);
+                });
+
                 listbox.insert (row, index);
+                items_list.insert (index, row);
+
                 listbox.show_all ();
             }
         });
@@ -452,7 +472,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                     i.section_id = section_id;
 
                     var row = new Widgets.ItemRow (i);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    items_list.add (row);
+
                     listbox.show_all ();
                 }
 
@@ -624,7 +650,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     public void add_all_items () {
         foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
             var row = new Widgets.ItemRow (item);
+            row.destroy.connect (() => {
+                item_row_removed (row);
+            });
+
             listbox.add (row);
+            items_list.add (row);
+            
+            items_list.add (row);
         }
 
         listbox.show_all ();
@@ -708,9 +741,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
 
             source.get_parent ().remove (source);
-            listbox.insert (source, target.get_index () + 1);
-            listbox.show_all ();
+            items_list.remove (source);
 
+            listbox.insert (source, target.get_index () + 1);
+            items_list.insert (target.get_index () + 1, source);
+
+            listbox.show_all ();
             update_item_order ();
         }
     }
@@ -754,9 +790,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         source.get_parent ().remove (source);
-        listbox.insert (source, 0);
-        listbox.show_all ();
+        items_list.remove (source);
 
+        listbox.insert (source, 0);
+        items_list.insert (0, source);
+
+        listbox.show_all ();
         update_item_order ();
 
         listbox_revealer.reveal_child = true;
@@ -848,5 +887,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     public void clear_indicator (Gdk.DragContext context) {
         main_revealer.reveal_child = true;
+    }
+
+    private void item_row_removed (Widgets.ItemRow row) {
+        items_list.remove (row);
     }
 }

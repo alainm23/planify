@@ -252,11 +252,6 @@ public class Widgets.Pane : Gtk.EventBox {
             projects_list.insert (0, source);
             project_listbox.show_all ();
 
-            print ("-------------------\n");
-            foreach (var p in projects_list) {
-                print ("P: %s\n".printf (p.project.name));
-            }
-
             update_project_order ();
         });
 
@@ -293,16 +288,6 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         });
 
-        //  project_listbox.remove.connect ((_row) => {
-        //      if (_row != null) {
-        //          var row = ((Widgets.ProjectRow) _row);
-        //          projects_list.remove (row);
-        //          foreach (var p in projects_list) {
-        //              print ("P: %s\n".printf (p.project.name));
-        //          }
-        //      }
-        //  });
-
         add_button.clicked.connect (() => {
             new_project.reveal = true;
         });
@@ -336,7 +321,7 @@ public class Widgets.Pane : Gtk.EventBox {
         Planner.database.project_added.connect ((project) => {
             if (project.inbox_project == 0 && project.area_id == 0) {
                 var row = new Widgets.ProjectRow (project);
-                row.removed.connect (() => {
+                row.destroy.connect (() => {
                     project_row_removed (row);
                 });
 
@@ -351,7 +336,7 @@ public class Widgets.Pane : Gtk.EventBox {
             Idle.add (() => {
                 if (project.area_id == 0) {
                     var row = new Widgets.ProjectRow (project);
-                    row.removed.connect (() => {
+                    row.destroy.connect (() => {
                         project_row_removed (row);
                     });
 
@@ -470,11 +455,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
             project_listbox.show_all ();
 
-            print ("-------------------\n");
-            foreach (var p in projects_list) {
-                print ("P: %s\n".printf (p.project.name));
-            }
-
             update_project_order ();
         }
     }
@@ -482,7 +462,7 @@ public class Widgets.Pane : Gtk.EventBox {
     public void add_all_projects () {
         foreach (var project in Planner.database.get_all_projects_no_area ()) {
             var row = new Widgets.ProjectRow (project);
-            row.removed.connect (() => {
+            row.destroy.connect (() => {
                 project_row_removed (row);
             });
 

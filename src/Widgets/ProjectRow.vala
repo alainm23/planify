@@ -56,8 +56,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
-    public signal void removed ();
-
     public ProjectRow (Objects.Project project) {
         Object (
             project: project
@@ -238,7 +236,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Planner.database.project_deleted.connect ((id) => {
             if (project != null && id == project.id) {
                 main_revealer.reveal_child = false;
-                removed ();
 
                 Timeout.add (500, () => {
                     destroy ();
@@ -447,8 +444,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             item_menu.activate.connect (() => {
                 if (Planner.database.move_project (project, 0)) {
                     main_revealer.reveal_child = false;
-                    removed ();
-
+                    
                     Timeout.add (500, () => {
                         destroy ();
                         return false;
@@ -466,8 +462,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 item_menu.activate.connect (() => {
                     if (Planner.database.move_project (project, area.id)) {
                         main_revealer.reveal_child = false;
-                        removed ();
-
+                        
                         Timeout.add (500, () => {
                             destroy ();
                             return false;

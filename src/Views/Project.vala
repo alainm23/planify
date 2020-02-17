@@ -46,6 +46,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
 
     private uint timeout = 0;
+    public Gee.ArrayList<Widgets.ItemRow?> items_list;
 
     private int64 temp_id_mapping { get; set; default = 0; }
 
@@ -67,6 +68,7 @@ public class Views.Project : Gtk.EventBox {
 
     construct {
         items_completed_loaded = new Gee.HashMap<string, bool> ();
+        items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         var grid_color = new Gtk.Grid ();
         grid_color.set_size_request (16, 16);
@@ -328,7 +330,7 @@ public class Views.Project : Gtk.EventBox {
 
         add (main_box);
 
-        build_drag_and_drop (false);
+        build_drag_and_drop ();
         add_all_items ();
         add_all_sections ();
         show_all ();
@@ -468,7 +470,13 @@ public class Views.Project : Gtk.EventBox {
         Planner.database.item_added.connect ((item) => {
             if (project.id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
+                row.destroy.connect (() => {
+                    item_row_removed (row);
+                });
+
                 listbox.add (row);
+                items_list.add (row);
+
                 listbox.show_all ();
                 check_placeholder_view ();
             }
@@ -477,7 +485,13 @@ public class Views.Project : Gtk.EventBox {
         Planner.database.item_added_with_index.connect ((item, index) => {
             if (project.id == item.project_id && item.section_id == 0) {
                 var row = new Widgets.ItemRow (item);
+                row.destroy.connect (() => {
+                    item_row_removed (row);
+                });
+
                 listbox.insert (row, index);
+                items_list.insert (index, row);
+
                 listbox.show_all ();
                 check_placeholder_view ();
             }
@@ -499,7 +513,13 @@ public class Views.Project : Gtk.EventBox {
                     } else {
                         if (item.section_id == 0 && item.parent_id == 0) {
                             var row = new Widgets.ItemRow (item);
+                            row.destroy.connect (() => {
+                                item_row_removed (row);
+                            });
+
                             listbox.add (row);
+                            items_list.add (row);
+
                             listbox.show_all ();
                         }
                     }
@@ -549,7 +569,13 @@ public class Views.Project : Gtk.EventBox {
                     item.project_id = project_id;
 
                     var row = new Widgets.ItemRow (item);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    items_list.add (row);
+
                     listbox.show_all ();
                     check_placeholder_view ();
                 }
@@ -601,7 +627,13 @@ public class Views.Project : Gtk.EventBox {
                     i.section_id = 0;
 
                     var row = new Widgets.ItemRow (i);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    items_list.add (row);
+
                     listbox.show_all ();
                     check_placeholder_view ();
                 }
@@ -641,7 +673,13 @@ public class Views.Project : Gtk.EventBox {
     private void add_all_items () {
         foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project.id)) {
             var row = new Widgets.ItemRow (item);
+            row.destroy.connect (() => {
+                item_row_removed (row);
+            });
+
             listbox.add (row);
+            items_list.add (row);
+
             listbox.show_all ();
         }
     }
@@ -668,7 +706,7 @@ public class Views.Project : Gtk.EventBox {
         }
     }
 
-    private void build_drag_and_drop (bool is_magic_button_active) {
+    private void build_drag_and_drop () {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
@@ -700,9 +738,12 @@ public class Views.Project : Gtk.EventBox {
             }
 
             source.get_parent ().remove (source);
-            listbox.insert (source, target.get_index () + 1);
-            listbox.show_all ();
+            items_list.remove (source);
 
+            listbox.insert (source, target.get_index () + 1);
+            items_list.insert (target.get_index () + 1, source);
+
+            listbox.show_all ();
             update_item_order ();
         }
     }
@@ -722,9 +763,12 @@ public class Views.Project : Gtk.EventBox {
         }
 
         source.get_parent ().remove (source);
-        listbox.insert (source, 0);
-        listbox.show_all ();
+        items_list.remove (source);
 
+        listbox.insert (source, 0);
+        items_list.insert (0, source);
+
+        listbox.show_all ();
         update_item_order ();
     }
 
@@ -738,21 +782,14 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void update_item_order () {
-        timeout = Timeout.add (150, () => {
+        timeout = Timeout.add (250, () => {
             new Thread<void*> ("update_item_order", () => {
-                listbox.foreach ((widget) => {
-                    var row = (Gtk.ListBoxRow) widget;
-                    int index = row.get_index ();
-
-                    var item = ((Widgets.ItemRow) row).item;
-                    Planner.database.update_item_order (item, 0, index);
-                });
+                for (int index = 0; index < items_list.size; index++) {
+                    Planner.database.update_item_order (items_list [index].item, 0, index);
+                }
 
                 return null;
             });
-
-            Source.remove (timeout);
-            timeout = 0;
 
             return false;
         });
@@ -1101,5 +1138,9 @@ public class Views.Project : Gtk.EventBox {
         } else {
             main_stack.visible_child_name = "placeholder";
         }
+    }
+
+    private void item_row_removed (Widgets.ItemRow row) {
+        items_list.remove (row);
     }
 }
