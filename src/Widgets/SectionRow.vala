@@ -162,7 +162,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 24;
-        motion_grid.margin_end = 24;
+        motion_grid.margin_end = 16;
+        motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -181,7 +182,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_section_revealer.add (motion_section_grid);
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_end = 12;
         listbox.margin_start = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
@@ -574,10 +574,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         var add_menu = new Widgets.ImageMenuItem (_("Add Task"), "list-add-symbolic");
+        add_menu.get_style_context ().add_class ("add-button-menu");
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "go-jump-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "planner-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
@@ -585,7 +586,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var share_list_menu = new Gtk.Menu ();
         share_menu.set_submenu (share_list_menu);
 
-        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        //var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
         var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
 
         //share_list_menu.add (share_text_menu);
@@ -593,7 +594,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         share_list_menu.show_all ();
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (add_menu);
         menu.add (new Gtk.SeparatorMenuItem ());

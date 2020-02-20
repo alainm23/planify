@@ -22,8 +22,11 @@
 public class Views.Upcoming : Gtk.EventBox {
     public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
     private Gtk.ListBox listbox;
+    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
 
     construct {
+        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
+
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
@@ -74,6 +77,22 @@ public class Views.Upcoming : Gtk.EventBox {
         });
 
         show_all ();
+
+        Planner.utils.add_item_show_queue_view.connect ((row, view) => {
+            if (view == "upcoming") {
+                items_opened.add (row);
+            }
+        });
+
+        Planner.utils.remove_item_show_queue_view.connect ((row, view) => {
+            if (view == "upcoming") {
+                remove_item_show_queue (row);
+            }
+        });
+    }
+
+    private void remove_item_show_queue (Widgets.ItemRow row) {
+        items_opened.remove (row);
     }
 
     private void add_upcomings () {
@@ -86,6 +105,20 @@ public class Views.Upcoming : Gtk.EventBox {
             listbox.show_all ();
 
             Planner.calendar_model.month_start = Util.get_start_of_month (date);
+        }
+    }
+
+    public void hide_last_item () {
+        if (items_opened.size > 0) {
+            var last = items_opened [items_opened.size - 1];
+            remove_item_show_queue (last);
+            last.hide_item ();
+
+            if (items_opened.size > 0) {
+                var focus = items_opened [items_opened.size - 1];
+                focus.grab_focus ();
+                focus.content_entry_focus ();
+            }
         }
     }
 }

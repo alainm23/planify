@@ -28,11 +28,13 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.Stack view_stack;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
+    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     private uint update_events_idle_source = 0;
     private GLib.DateTime date;
 
     construct {
         items_loaded = new Gee.HashMap<string, bool> ();
+        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -248,6 +250,36 @@ public class Views.Today : Gtk.EventBox {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
+
+        Planner.utils.add_item_show_queue_view.connect ((row, view) => {
+            if (view == "today") {
+                items_opened.add (row);
+            }
+        });
+
+        Planner.utils.remove_item_show_queue_view.connect ((row, view) => {
+            if (view == "today") {
+                remove_item_show_queue (row);
+            }
+        });
+    }
+
+    private void remove_item_show_queue (Widgets.ItemRow row) {
+        items_opened.remove (row);
+    }
+
+    public void hide_last_item () {
+        if (items_opened.size > 0) {
+            var last = items_opened [items_opened.size - 1];
+            remove_item_show_queue (last);
+            last.hide_item ();
+
+            if (items_opened.size > 0) {
+                var focus = items_opened [items_opened.size - 1];
+                focus.grab_focus ();
+                focus.content_entry_focus ();
+            }
+        }
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {

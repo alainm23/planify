@@ -47,6 +47,7 @@ public class Views.Project : Gtk.EventBox {
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
+    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
 
     private int64 temp_id_mapping { get; set; default = 0; }
 
@@ -69,6 +70,7 @@ public class Views.Project : Gtk.EventBox {
     construct {
         items_completed_loaded = new Gee.HashMap<string, bool> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
+        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         var grid_color = new Gtk.Grid ();
         grid_color.set_size_request (16, 16);
@@ -101,8 +103,8 @@ public class Views.Project : Gtk.EventBox {
         name_stack.add_named (name_entry, "name_entry");
 
         var section_image = new Gtk.Image ();
-        section_image.gicon = new ThemedIcon ("planner-header-symbolic");
-        section_image.pixel_size = 21;
+        section_image.gicon = new ThemedIcon ("go-jump-symbolic");
+        section_image.pixel_size = 16;
 
         section_button = new Gtk.ToggleButton ();
         section_button.valign = Gtk.Align.CENTER;
@@ -651,6 +653,36 @@ public class Views.Project : Gtk.EventBox {
                 return false;
             });
         });
+
+        Planner.utils.add_item_show_queue.connect ((row) => {
+            if (project.id == row.item.project_id) {
+                items_opened.add (row);
+            }
+        });
+
+        Planner.utils.remove_item_show_queue.connect ((row) => {
+            if (project.id == row.item.project_id) {
+                remove_item_show_queue (row);
+            }
+        });
+    }
+
+    private void remove_item_show_queue (Widgets.ItemRow row) {
+        items_opened.remove (row);
+    }
+
+    public void hide_last_item () {
+        if (items_opened.size > 0) {
+            var last = items_opened [items_opened.size - 1];
+            remove_item_show_queue (last);
+            last.hide_item ();
+
+            if (items_opened.size > 0) {
+                var focus = items_opened [items_opened.size - 1];
+                focus.grab_focus ();
+                focus.content_entry_focus ();
+            }
+        }
     }
 
     private void save (bool todoist=true) {
@@ -803,7 +835,7 @@ public class Views.Project : Gtk.EventBox {
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 
         var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         // Show Complete
         var show_completed_image = new Gtk.Image ();

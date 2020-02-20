@@ -6,7 +6,7 @@
         <value nick="Today" value="2" />
         <value nick="Today + Inbox" value="3" />
     </enum>
-
+    
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>

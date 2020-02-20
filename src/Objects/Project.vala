@@ -22,13 +22,7 @@
 public class Objects.Project : GLib.Object {
     public int64 area_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
-
-    public string _name = "";
-    public string name {
-        get { return _name; }
-        set { _name = value.replace ("&", " "); }
-    }
-
+    public string name { get; set; default = ""; }
     public string note { get; set; default = ""; }
     public string due_date { get; set; default = ""; }
 

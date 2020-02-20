@@ -496,9 +496,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
+        add_menu.get_style_context ().add_class ("add-button-menu");
+
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (add_menu);
         menu.add (new Gtk.SeparatorMenuItem ());

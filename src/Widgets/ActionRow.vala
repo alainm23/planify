@@ -185,6 +185,14 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         Planner.database.item_deleted.connect ((item) => {
             update_count (true);
         });
+
+        Planner.database.project_deleted.connect ((id) => {
+            update_count (true);
+        });
+
+        Planner.database.section_deleted.connect ((s) => {
+            update_count (true);
+        });
     }
 
     private void update_count (bool today=false) {

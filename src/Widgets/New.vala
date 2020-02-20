@@ -400,6 +400,9 @@ public class Widgets.New : Gtk.Revealer {
         Planner.todoist.project_added_error.connect ((error_code, error_message) => {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
+
+            print ("error_code: %i\n".printf (error_code));
+            print ("error_message: %s\n".printf (error_message));
         });
 
         source_button.toggled.connect (() => {
@@ -434,6 +437,7 @@ public class Widgets.New : Gtk.Revealer {
             reveal_child = true;
             stack.visible_child_name = "box";
             build_area_liststore (area_id);
+            name_entry.grab_focus ();
         });
     }
 

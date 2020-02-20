@@ -24,6 +24,8 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap<string, bool> projects_loaded;
     private string visible_child_name = "";
 
+    private Gtk.HeaderBar sidebar_header;
+    private Gtk.HeaderBar projectview_header;
     private Widgets.MagicButton magic_button;
     private Gtk.Stack stack;
     private Views.Inbox inbox_view = null;
@@ -35,6 +37,7 @@ public class MainWindow : Gtk.Window {
     private uint configure_id;
 
     private Services.DBusServer dbus_server;
+    private GLib.Settings gnome_wm_settings;
 
     public MainWindow (Planner application) {
         Object (
@@ -44,6 +47,34 @@ public class MainWindow : Gtk.Window {
         );
     }
 
+    private void check_button_layout () {
+        string button_layout = gnome_wm_settings.get_string ("button-layout");
+        if (button_layout == "close:maximize") {
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":maximize";
+        } else if (button_layout == ":minimize,maximize,close") {
+            sidebar_header.decoration_layout = ":";
+            projectview_header.decoration_layout = ":minimize,maximize,close";
+        } else if (button_layout == "close:minimize,maximize") {
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":minimize,maximize";
+        } else if (button_layout == "close,maximize,minimize") {
+            sidebar_header.decoration_layout = "close,maximize,minimize:";
+            projectview_header.decoration_layout = ":";
+        } else if (button_layout == "close,minimize,maximize") {
+            sidebar_header.decoration_layout = "close,minimize,maximize";
+            projectview_header.decoration_layout = ":";
+        } else if (button_layout == "close,minimize:maximize") {
+            sidebar_header.decoration_layout = "close,minimize:";
+            projectview_header.decoration_layout = ":maximize";
+        } else if (button_layout == ":close") {
+            sidebar_header.decoration_layout = ":";
+            projectview_header.decoration_layout = ":close";
+        } else if (button_layout == "close:") {
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":";
+        }
+    }
     construct {
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
@@ -51,25 +82,33 @@ public class MainWindow : Gtk.Window {
             Planner.database.item_added (item);
         });
 
+        gnome_wm_settings = new GLib.Settings ("org.gnome.desktop.wm.preferences");
+        gnome_wm_settings.changed.connect ((key) => {
+            if (key == "button-layout") {
+                check_button_layout ();
+            }
+        });
+
         projects_loaded = new Gee.HashMap<string, bool> ();
 
-        var sidebar_header = new Gtk.HeaderBar ();
-        sidebar_header.decoration_layout = "close:";
+        sidebar_header = new Gtk.HeaderBar ();
+        sidebar_header.decoration_layout = "close,maximize,minimize";
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        
-        var projectview_header = new Gtk.HeaderBar ();
+
+        projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
-        projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
         projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        check_button_layout ();
 
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
@@ -577,14 +616,19 @@ public class MainWindow : Gtk.Window {
     }
 
     public void hide_item () {
-        if (stack.visible_child_name == "inbox-view") {
-
-        } else if (stack.visible_child_name == "today-view") {
-
-        } else if (stack.visible_child_name == "upcoming-view") {
-
+        if (pane.visible_new_widget ()) {
+            pane.set_visible_new_widget (false);
         } else {
-            //var project_view = (Views.Project) stack.visible_child;
+            if (stack.visible_child_name == "inbox-view") {
+                inbox_view.hide_last_item ();
+            } else if (stack.visible_child_name == "today-view") {
+                today_view.hide_last_item ();
+            } else if (stack.visible_child_name == "upcoming-view") {
+                upcoming_view.hide_last_item ();
+            } else {
+                var project_view = (Views.Project) stack.visible_child;
+                project_view.hide_last_item ();
+            }
         }
     }
 

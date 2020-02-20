@@ -69,10 +69,6 @@ menu {
     background-color: @base_color;
 }
 
-.popover-menuitem:hover image {
-    color: @pane_text_color;
-}
-
 .sidebar-header {
     padding-left: 3px;
     background-color: @pane_color;
@@ -232,14 +228,6 @@ paned > separator {
     margin-right: 24px;
 }
 
-.pane-project-selected {
-    background-color: shade (@base_color, 0.98);
-}
-
-.pane-no-project-selected {
-    background-color: @base_color;
-}
-
 /*
     Check Row
 */
@@ -322,26 +310,6 @@ paned > separator {
     padding: 4px;
 }
 
-.add-project-image {
-    transition: all 240ms ease-in-out;
-}
-
-.add-project-label {
-    transition: all 240ms ease-in-out;
-}
-
-.add-project-label.active {
-    color: #3689e6;
-}
-
-.add-project-image.active {
-    animation: add-animation 0.5s ease-in-out;
-
-    background-color: #3689e6;
-    color: @text_color;
-    border-radius: 4px;
-}
-
 .add-project-widget {
     border-radius: 6px;
     border: 1px solid alpha (#000, 0.3);
@@ -361,7 +329,7 @@ paned > separator {
     padding: 3px;
     -gtk-icon-shadow: none;
 }
-  
+
 .color-radio radio:focus {
     border-color: @colorAccent;
     box-shadow:
@@ -379,10 +347,6 @@ paned > separator {
 
 .sync-image-rotate {
     -gtk-icon-transform: rotate(45deg);
-}
-
-.error_label {
-    color: @error_color;
 }
 
 .font-bold {
@@ -447,48 +411,12 @@ paned > separator {
     padding-left: 0px;
 }
 
-.itemview {
-    border-radius: 6px;
-    border: 1px solid alpha (#000, 0.3);
-    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-    text-shadow: none;
-    margin: 12px;
-    background-color: shade (@base_color, 0.99);
-}
-
 .textview text {
     background-color: @base_color;
 }
 
-.itemview-button {
-    padding-top: 0px;
-    padding-bottom: 2px;
-}
-
 .actionbar {
     background-color: @base_color;
-}
-
-.new-item-textview text {
-    border-bottom: 1px solid @border_color;
-}
-
-.new-item-textview text:focus {
-   border-color: alpha (@colorAccent, 0.8);
-   box-shadow:
-       inset 0 0 0 1px alpha (@colorAccent, 0.23),
-       0 1px 0 0 alpha (@bg_highlight_color, 0.3);
-   transition: all 200ms ease-in;
-
-   border-width: 0 0 1px;
-   border-radius: 0;
-   background-color: @base_color;
-   background-image: none;
-   box-shadow: none;
-}
-
-.checked-preview check:disabled {
-    background: @base_color;
 }
 
 .content-entry {
@@ -505,23 +433,6 @@ paned > separator {
 
 .listbox {
     background-color: @projectview_color;
-}
-
-.cancel-add-button image {
-    transition: all 240ms ease-in-out;  
-}
-
-.cancel-add-button.active image {
-    -gtk-icon-transform: rotate(45deg);
-
-}
-
-.view-button {
-    transition: all 150ms ease-in-out;  
-}
-
-.view-button.opened {
-    -gtk-icon-transform: rotate(90deg);
 }
 
 .grid-motion {
@@ -568,7 +479,7 @@ paned > separator {
     -gtk-icon-transform: rotate(-90deg);
 }
 
-.preview { 
+.preview {
     padding: 0px 6px 0px 6px;
     background-color: shade (@base_color, 0.96);
     border: 1px solid shade (@base_color, 0.85);
@@ -594,10 +505,6 @@ paned > separator {
 .item-action-button {
     padding: 0px 3px 0px 3px;
     background-color: transparent;
-}
-
-.due-no-date {
-    opacity: 0.7;
 }
 
 /*
@@ -680,7 +587,11 @@ paned > separator {
 .add-button-image {
     background-color: #3689e6;
     color: @text_color;
-    border-radius: 50%;   
+    border-radius: 50%;
+}
+
+.add-button-menu:hover image {
+    animation: add-animation 0.5s ease-in-out;
 }
 
 .fancy-turn-animation:hover image {
@@ -695,7 +606,7 @@ paned > separator {
     background-color: #3689e6;
     color: #fff;
     border-radius: 4px;
-    padding: 2px;   
+    padding: 2px;
 }
 
 .area-icon {
@@ -792,11 +703,23 @@ paned > separator {
     color: @text_color;
 }
 
+.duedate-upcoming image {
+    color: @text_color;
+}
+
 .duedate-expired {
     color: #ed5353;
 }
 
+.duedate-expired image {
+    color: #ed5353;
+}
+
 .duedate-today {
+    color: @duedate_today_color;
+}
+
+.duedate-today image {
     color: @duedate_today_color;
 }
 
@@ -842,17 +765,8 @@ paned > separator {
     border-radius: 3px;
 }
 
-
 .label-item-button {
     background-color: transparent;
-}
-
-.description-label {
-    font-weight: 600;
-}
-
-.primary-label {
-    color: #ed5353;
 }
 
 .preference-item-radio {
@@ -867,34 +781,6 @@ paned > separator {
 .active-switch slider {
     min-height: 16px;
     min-width: 16px;
-}
-
-.infor-bar {
-    background-color: #D1DFFE;
-    border: 1px solid shade (#D1DFFE, 0.93);
-    color: #333;
-    padding: 6px 6px 6px 6px;
-    border-radius: 5px;
-}
-
-.infor-bar label {
-    color: #000;
-    font-weight: 500;
-    font-size: 13px;
-    color: #000;
-}
-
-.infor-bar image {
-    padding: 0px;
-    background-color: #3689e6;
-    border-radius: 4px;
-    color: #fff;
-}
-
-.infor-bar button {
-    border-radius: 4px;
-    padding: 0px 0px 1px 0px;
-    color: #fff;
 }
 
 .info-bar-button {
@@ -924,4 +810,24 @@ paned > separator {
 
 .label-line-through {
     text-decoration: line-through;
+}
+
+.menu-danger:hover {
+    background-color: transparent;
+    color: #ed5353;
+}
+
+.menu-danger:hover image {
+    color: #ed5353;
+}
+
+/*
+    Label Select
+*/
+
+.entry-label-select {
+    background: @base_color;
+    border-radius: 4px;
+    padding: 2px 3px 2px 6px;
+    font-size: 12px;
 }

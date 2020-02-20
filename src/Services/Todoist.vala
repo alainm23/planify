@@ -1219,8 +1219,10 @@ public class Services.Todoist : GLib.Object {
                 get_add_project_json (project, temp_id, uuid)
             );
 
-            var message = new Soup.Message ("POST", url);
+            print ("%s\n".printf (get_add_project_json (project, temp_id, uuid)));
 
+            var message = new Soup.Message ("POST", url);
+            
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
                     var parser = new Json.Parser ();

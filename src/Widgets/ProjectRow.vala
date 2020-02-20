@@ -164,7 +164,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 4;
+        grid.margin_start = grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);
@@ -444,7 +444,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             item_menu.activate.connect (() => {
                 if (Planner.database.move_project (project, 0)) {
                     main_revealer.reveal_child = false;
-                    
+
                     Timeout.add (500, () => {
                         destroy ();
                         return false;
@@ -462,7 +462,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 item_menu.activate.connect (() => {
                     if (Planner.database.move_project (project, area.id)) {
                         main_revealer.reveal_child = false;
-                        
+
                         Timeout.add (500, () => {
                             destroy ();
                             return false;
@@ -510,7 +510,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         share_list_menu.show_all ();
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (edit_menu);
         menu.add (move_area_menu);

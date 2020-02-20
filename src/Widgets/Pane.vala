@@ -203,7 +203,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_end = 16;
-        action_box.margin_bottom = 6;
+        action_box.margin_bottom = 9;
         action_box.margin_start = 16;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
@@ -519,5 +519,13 @@ public class Widgets.Pane : Gtk.EventBox {
 
     private void project_row_removed (Widgets.ProjectRow row) {
         projects_list.remove (row);
+    }
+
+    public bool visible_new_widget () {
+        return new_project.reveal;
+    }
+
+    public void set_visible_new_widget (bool value) {
+        new_project.reveal = false;
     }
 }

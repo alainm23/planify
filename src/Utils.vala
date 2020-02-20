@@ -43,6 +43,11 @@ public class Utils : GLib.Object {
         int is_todoist, bool last, int index = 0
     );
 
+    public signal void add_item_show_queue (Widgets.ItemRow row);
+    public signal void remove_item_show_queue (Widgets.ItemRow row);
+    public signal void add_item_show_queue_view (Widgets.ItemRow row, string view);
+    public signal void remove_item_show_queue_view (Widgets.ItemRow row, string view);
+
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");

@@ -42,7 +42,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void selection_changed (GLib.DateTime date);
 
-    public Calendar (bool block_past_days=false) {
+    public Calendar (bool block_past_days = true) {
         Object (
             block_past_days: block_past_days
         );
