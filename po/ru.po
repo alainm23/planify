@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-12 11:55-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
-"Last-Translator: Pavel <rub_rub_rub_rub@mail.ru>\n"
+"PO-Revision-Date: 2020-02-24 02:14+0000\n"
+"Last-Translator: Василий Морозов <vaskamorozov@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:691
 msgid "New area"
-msgstr ""
+msgstr "Новая область"
 
 #: src/MainWindow.vala:43
 msgid "Planner"
@@ -256,7 +256,7 @@ msgstr "Создать новую задачу наверху листа (раб
 
 #: src/Utils.vala:713
 msgid "Create a new area"
-msgstr ""
+msgstr "Создать новую область"
 
 #: src/Utils.vala:714
 msgid "Create a new project"
@@ -268,7 +268,7 @@ msgstr "Создать новый раздел"
 
 #: src/Utils.vala:716
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Открыть почту"
 
 #: src/Utils.vala:717
 msgid "Open Today"
@@ -284,7 +284,7 @@ msgstr "Открыть Поиск"
 
 #: src/Utils.vala:720
 msgid "Manually sync"
-msgstr ""
+msgstr "Синхронизация вручную"
 
 #: src/Utils.vala:721
 msgid "Quit"
@@ -300,11 +300,11 @@ msgstr "Отложенные"
 
 #: src/Services/Todoist.vala:1253
 msgid "Create todoist project error"
-msgstr ""
+msgstr "Ошибка создания списка задач"
 
 #: src/Services/Todoist.vala:1357
 msgid "Update todoist project error"
-msgstr ""
+msgstr "Ошибка обновления списка задач"
 
 #: src/Services/Todoist.vala:1358 src/Services/Todoist.vala:1459
 #: src/Services/Todoist.vala:1537 src/Services/Todoist.vala:1643
@@ -318,16 +318,16 @@ msgstr ""
 
 #: src/Services/Todoist.vala:1458
 msgid "Delete todoist project error"
-msgstr ""
+msgstr "Ошибка удаления списка задач"
 
 #: src/Services/Todoist.vala:1536
 msgid "Create todoist section error"
-msgstr ""
+msgstr "Ошибка создания раздела списка задач"
 
 #: src/Services/Todoist.vala:1642 src/Services/Todoist.vala:1746
 #: src/Services/Todoist.vala:1842
 msgid "Update todoist section error"
-msgstr ""
+msgstr "Ошибка обновления раздела списка задач"
 
 #: src/Services/Todoist.vala:1952 src/Services/Todoist.vala:2466
 #: src/Services/Todoist.vala:2563
