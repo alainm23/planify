@@ -72,6 +72,10 @@ public class Services.Todoist : GLib.Object {
     public signal void item_added_completed (int64 id);
     public signal void item_added_error (int64 id, int error_code, string error_message);
 
+    public signal void item_updated_started (int64 id);
+    public signal void item_updated_completed (int64 id);
+    public signal void item_updated_error (int64 id, int error_code, string error_message);
+
     public signal void item_completed_started (Objects.Item item);
     public signal void item_completed_completed (Objects.Item item);
     public signal void item_completed_error (Objects.Item item, int error_code, string error_message);
@@ -279,7 +283,7 @@ public class Services.Todoist : GLib.Object {
                             Planner.database.insert_project (p);
                         }
 
-                        // Create Sections 
+                        // Create Sections
                         unowned Json.Array sections = node.get_array_member ("sections");
                         foreach (unowned Json.Node item in sections.get_elements ()) {
                             var object = item.get_object ();
@@ -376,7 +380,7 @@ public class Services.Todoist : GLib.Object {
 
                         first_sync_finished ();
                     } catch (Error e) {
-                        show_message ("Request page fail", e.message, "dialog-error");
+                        debug (e.message);
                     }
                 } else {
                     show_message ("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
@@ -409,7 +413,7 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        //print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
                         var node = parser.get_root ().get_object ();
                         var sync_token = node.get_string_member ("sync_token");
@@ -653,13 +657,8 @@ public class Services.Todoist : GLib.Object {
 
                         queue ();
                     } catch (Error e) {
+                        debug (e.message);
                         sync_finished ();
-
-                        string msg = """
-                            Request todoist fail
-                            status code: %i
-                        """;
-                        print (msg.printf (e.message));
                     }
                 } else {
                     sync_finished ();
@@ -691,8 +690,6 @@ public class Services.Todoist : GLib.Object {
                 get_queue_json (queue)
             );
 
-            print ("%s\n".printf (get_queue_json (queue)));
-
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {
@@ -701,7 +698,6 @@ public class Services.Todoist : GLib.Object {
 
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
 
                         var node = parser.get_root ().get_object ();
                         var sync_status = node.get_object_member ("sync_status");
@@ -1134,10 +1130,6 @@ public class Services.Todoist : GLib.Object {
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
                     try {
-                        print ("----------------------\n");
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-                        print ("----------------------\n");
-
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
@@ -1158,7 +1150,7 @@ public class Services.Todoist : GLib.Object {
                             //project_added_error (http_code, error_message);
                         }
                     } catch (Error e) {
-                        //project_added_error ((int32) mess.status_code, e.message);
+                        debug (e.message);
                     }
                 } else {
                     //project_added_error ((int32) mess.status_code, _("Connection error"));
@@ -1219,10 +1211,7 @@ public class Services.Todoist : GLib.Object {
                 get_add_project_json (project, temp_id, uuid)
             );
 
-            print ("%s\n".printf (get_add_project_json (project, temp_id, uuid)));
-
             var message = new Soup.Message ("POST", url);
-            
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
                     var parser = new Json.Parser ();
@@ -1245,16 +1234,27 @@ public class Services.Todoist : GLib.Object {
                                 project_added_completed ();
                             }
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            project_added_error (http_code, error_message);
+                            project_added_error (
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        project_added_error ((int32) mess.status_code, e.message);
+                        project_added_error (
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        project_added_error (
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         project.id = Planner.utils.generate_id ();
 
                         var queue = new Objects.Queue ();
@@ -1269,8 +1269,6 @@ public class Services.Todoist : GLib.Object {
                             Planner.database.insert_CurTempIds (project.id, temp_id, "project")) {
                             project_added_completed ();
                         }
-                    } else {
-                        project_added_error ((int32) mess.status_code, _("Create todoist project error"));
                     }
                 }
             });
@@ -1334,8 +1332,6 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -1344,20 +1340,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            print ("Actualizado: %s\n".printf (project.name));
                             project_updated_completed (project.id);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            project_updated_error (project.id, http_code, error_message);
+                            project_updated_error (
+                                project.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        project_updated_error (project.id, (int32) mess.status_code, e.message);
+                        project_updated_error (
+                            project.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        project_updated_error (
+                            project.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         if (Planner.database.curTempIds_exists (project.id)) {
                             var queue = Planner.database.get_queue_by_object_id (project.id);
                             queue.args = project.to_json ();
@@ -1373,10 +1381,6 @@ public class Services.Todoist : GLib.Object {
                                 project_updated_completed (project.id);
                             }
                         }
-                    } else {
-                        show_message (_("Update todoist project error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
                 }
             });
@@ -1421,6 +1425,8 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void delete_project (Objects.Project project) {
+        project_deleted_started (project.id);
+
         new Thread<void*> ("todoist_delete_project", () => {
             string uuid = Planner.utils.generate_string ();
 
@@ -1447,18 +1453,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-                            print ("Eliminado: %s\n".printf (project.name));
+                            project_deleted_completed (project.id);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            project_deleted_error (project.id, http_code, error_message);
+                            project_deleted_error (
+                                project.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        project_deleted_error (project.id, (int32) mess.status_code, e.message);
+                        project_deleted_error (
+                            project.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        project_deleted_error (
+                            project.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         if (Planner.database.curTempIds_exists (project.id)) {
                             var queue = Planner.database.get_queue_by_object_id (project.id);
                             Planner.database.remove_queue (queue.uuid);
@@ -1471,13 +1491,9 @@ public class Services.Todoist : GLib.Object {
                             queue.args = project.to_json ();
 
                             if (Planner.database.insert_queue (queue)) {
-
+                                project_deleted_completed (project.id);
                             }
                         }
-                    } else {
-                        show_message (_("Delete todoist project error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
                 }
             });
@@ -1510,8 +1526,6 @@ public class Services.Todoist : GLib.Object {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -1524,20 +1538,33 @@ public class Services.Todoist : GLib.Object {
                             section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                             if (Planner.database.insert_section (section)) {
-                                print ("Section creado: %s\n".printf (section.name));
                                 section_added_completed (temp_id_mapping);
                             }
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            section_added_error (temp_id_mapping, http_code, error_message);
+                            section_added_error (
+                                temp_id_mapping,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        section_added_error (temp_id_mapping, (int32) mess.status_code, e.message);
+                        section_added_error (
+                            temp_id_mapping,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        section_added_error (
+                            temp_id_mapping,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         section.id = Planner.utils.generate_id ();
 
                         var queue = new Objects.Queue ();
@@ -1552,10 +1579,6 @@ public class Services.Todoist : GLib.Object {
                             Planner.database.insert_CurTempIds (section.id, temp_id, "section")) {
                             section_added_completed (temp_id_mapping);
                         }
-                    } else {
-                        show_message (_("Create todoist section error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
                 }
             });
@@ -1618,8 +1641,6 @@ public class Services.Todoist : GLib.Object {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -1628,21 +1649,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //Planner.database.update_section (section);
-                            print ("Section Actualizado: %s\n".printf (section.name));
                             section_updated_completed (section.id);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            section_updated_error (section.id, http_code, error_message);
+                            section_updated_error (
+                                section.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        section_updated_error (section.id, (int32) mess.status_code, e.message);
+                        section_updated_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        section_updated_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         if (Planner.database.curTempIds_exists (section.id)) {
                             var queue = Planner.database.get_queue_by_object_id (section.id);
                             queue.args = section.to_json ();
@@ -1658,12 +1690,7 @@ public class Services.Todoist : GLib.Object {
                                 section_updated_completed (section.id);
                             }
                         }
-                    } else {
-                        show_message (_("Update todoist section error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //section_updated_error (section.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -1732,21 +1759,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //Planner.database.delete_section (section);
-                            print ("Eliminado: %s\n".printf (section.name));
                             section_deleted_completed (section.id);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            section_deleted_error (section.id, http_code, error_message);
+                            section_deleted_error (
+                                section.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        section_deleted_error (section.id, (int32) mess.status_code, e.message);
+                        section_deleted_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        section_deleted_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         if (Planner.database.curTempIds_exists (section.id)) {
                             var queue = Planner.database.get_queue_by_object_id (section.id);
                             Planner.database.remove_queue (queue.uuid);
@@ -1762,12 +1800,7 @@ public class Services.Todoist : GLib.Object {
                                 section_deleted_completed (section.id);
                             }
                         }
-                    } else {
-                        show_message (_("Update todoist section error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //section_deleted_error (section.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -1833,20 +1866,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            print ("Movido: %s\n".printf (section.name));
                             section_moved_completed (section.id);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            section_moved_error (section.id, http_code, error_message);
+                            section_moved_error (
+                                section.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        section_moved_error (section.id, (int32) mess.status_code, e.message);
+                        section_moved_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        section_moved_error (
+                            section.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         section.project_id = id;
 
                         var queue = new Objects.Queue ();
@@ -1856,14 +1901,9 @@ public class Services.Todoist : GLib.Object {
                         queue.args = section.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            section_deleted_completed (section.id);
+                            section_moved_completed (section.id);
                         }
-                    } else {
-                        show_message (_("Update todoist section error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //section_moved_error (section.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -1940,20 +1980,33 @@ public class Services.Todoist : GLib.Object {
                             item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                             if (Planner.database.insert_item (item, index, has_index)) {
-                                print ("Item creado: %s\n".printf (item.content));
                                 item_added_completed (temp_id_mapping);
                             }
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            item_added_error (temp_id_mapping, http_code, error_message);
+                            item_added_error (
+                                temp_id_mapping,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        item_added_error (temp_id_mapping, (int32) mess.status_code, e.message);
+                        item_added_error (
+                            temp_id_mapping,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_added_error (
+                            temp_id_mapping,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         item.id = temp_id_mapping;
 
                         var queue = new Objects.Queue ();
@@ -1968,8 +2021,6 @@ public class Services.Todoist : GLib.Object {
                             Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed (temp_id_mapping);
                         }
-                    } else {
-                        item_added_error (temp_id_mapping, (int32) mess.status_code, _("Connection error"));
                     }
                 }
             });
@@ -2023,6 +2074,8 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void update_item (Objects.Item item) {
+        item_updated_started (item.id);
+
         new Thread<void*> ("todoist_update_item", () => {
             string uuid = Planner.utils.generate_string ();
 
@@ -2040,8 +2093,6 @@ public class Services.Todoist : GLib.Object {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -2050,20 +2101,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //if (Planner.database.update_item (item)) {
-                            print ("Actualizado: %s\n".printf (item.content));
-                            //}
+                            item_updated_completed (item.id);
                         } else {
-                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-                            //project_updated_error (http_code, error_message);
+                            item_updated_error (
+                                item.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        //project_updated_error ((int32) mess.status_code, e.message);
+                        item_updated_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_added_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         if (Planner.database.curTempIds_exists (item.id)) {
                             var queue = Planner.database.get_queue_by_object_id (item.id);
                             queue.args = item.to_json ();
@@ -2076,15 +2139,10 @@ public class Services.Todoist : GLib.Object {
                             queue.args = item.to_json ();
 
                             if (Planner.database.insert_queue (queue)) {
-                                print ("Actualizado: %s\n".printf (item.content));
+                                item_updated_completed (item.id);
                             }
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //project_updated_error ((int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -2093,7 +2151,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void move_item (Objects.Item item, int64 project_id) {
-        //item_moved_started (item.id);
+        item_moved_started (item.id);
 
         new Thread<void*> ("todoist_move_item", () => {
             string uuid = Planner.utils.generate_string ();
@@ -2120,21 +2178,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //if (Planner.database.move_item (item, project_id)) {
-                                //item_moved_completed (item.id);
-                            //}
+                            item_moved_completed (item.id);
                         } else {
-                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            //item_moved_error (item.id, http_code, error_message);
+                            item_moved_error (
+                                item.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         item.project_id = project_id;
 
                         var queue = new Objects.Queue ();
@@ -2144,15 +2213,9 @@ public class Services.Todoist : GLib.Object {
                         queue.args = item.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            print ("Movido: %s\n".printf (item.content));
+                            item_moved_completed (item.id);
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-
-                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -2207,7 +2270,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void move_item_to_section (Objects.Item item, int64 section_id) {
-        //item_moved_started (item.id);
+        item_moved_started (item.id);
 
         new Thread<void*> ("todoist_move_item_to_section", () => {
             string uuid = Planner.utils.generate_string ();
@@ -2236,19 +2299,32 @@ public class Services.Todoist : GLib.Object {
                                 "todoist-sync-token",
                                 node.get_string_member ("sync_token")
                             );
-
-                            print ("Movido: %s\n".printf (item.content));
+                            item_moved_completed (item.id);
                         } else {
-                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            //item_moved_error (item.id, http_code, error_message);
+                            item_moved_error (
+                                item.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         item.section_id = section_id;
 
                         var queue = new Objects.Queue ();
@@ -2258,14 +2334,9 @@ public class Services.Todoist : GLib.Object {
                         queue.args = item.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            print ("Movido: %s\n".printf (item.content));
+                            item_moved_completed (item.id);
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -2312,7 +2383,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void move_item_to_parent (Objects.Item item, int64 parent_id) {
-        //item_moved_started (item.id);
+        item_moved_started (item.id);
 
         new Thread<void*> ("move_item_to_parent", () => {
             string uuid = Planner.utils.generate_string ();
@@ -2341,19 +2412,32 @@ public class Services.Todoist : GLib.Object {
                                 "todoist-sync-token",
                                 node.get_string_member ("sync_token")
                             );
-
-                            print ("Movido: %s\n".printf (item.content));
+                            item_moved_completed (item.id);
                         } else {
-                            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-
-                            //item_moved_error (item.id, http_code, error_message);
+                            item_moved_error (
+                                item.id,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        //item_moved_error (item.id, (int32) mess.status_code, e.message);
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_moved_error (
+                            item.id,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         item.parent_id = parent_id;
 
                         var queue = new Objects.Queue ();
@@ -2363,14 +2447,11 @@ public class Services.Todoist : GLib.Object {
                         queue.args = item.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            print ("Movido: %s\n".printf (item.content));
+                            if (Planner.database.insert_queue (queue)) {
+                                item_moved_completed (item.id);
+                            }
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-                    //item_moved_error (item.id, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -2422,6 +2503,7 @@ public class Services.Todoist : GLib.Object {
 
             Source.remove (delete_timeout);
             delete_timeout = 0;
+
             return false;
         });
 
@@ -2444,23 +2526,25 @@ public class Services.Todoist : GLib.Object {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("delete_items: %s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         string sync_token = node.get_string_member ("sync_token");
                         Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                        foreach (var i in items_to_delete) {
-                            print ("Eliminado: %s\n".printf (i.content));
-                        }
-
                         items_to_delete.clear ();
                     } catch (Error e) {
-                        //project_updated_error ((int32) mess.status_code, e.message);
+                        debug (e.message);
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        //  item_moved_error (
+                        //      item.id,
+                        //      (int32) mess.status_code,
+                        //      Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        //  );
+                    } else {
                         foreach (var i in items_to_delete) {
                             if (Planner.database.curTempIds_exists (i.id)) {
                                 var queue = Planner.database.get_queue_by_object_id (i.id);
@@ -2474,16 +2558,11 @@ public class Services.Todoist : GLib.Object {
                                 queue.args = i.to_json ();
 
                                 if (Planner.database.insert_queue (queue)) {
-                                    print ("Eliminado: %s\n".printf (i.content));
                                 }
                             }
                         }
 
                         items_to_delete.clear ();
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
                 }
             });
@@ -2543,8 +2622,6 @@ public class Services.Todoist : GLib.Object {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -2553,21 +2630,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //if (Planner.database.update_item_completed (item)) {
-                            print ("Actualizado: %s\n".printf (item.content));
-                                //item_uncompleted_completed (item);
-                            //}
+                            item_uncompleted_completed (item);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-                            item_uncompleted_error (item, http_code, error_message);
+                            item_uncompleted_error (
+                                item,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        item_uncompleted_error (item, (int32) mess.status_code, e.message);
+                        item_uncompleted_error (
+                            item,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_uncompleted_error (
+                            item,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         var queue = new Objects.Queue ();
                         queue.uuid = uuid;
                         queue.object_id = item.id;
@@ -2575,15 +2663,9 @@ public class Services.Todoist : GLib.Object {
                         queue.args = item.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            print ("Actualizado: %s\n".printf (item.content));
+                            item_uncompleted_completed (item);
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-
-                    item_uncompleted_error (item, (int32) mess.status_code, _("Connection error"));
                 }
             });
 
@@ -2621,7 +2703,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void item_complete (Objects.Item item) {
-        item_uncompleted_started (item);
+        item_completed_started (item);
 
         new Thread<void*> ("todoist_item_complete", () => {
             string uuid = Planner.utils.generate_string ();
@@ -2650,21 +2732,32 @@ public class Services.Todoist : GLib.Object {
                         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                             string sync_token = node.get_string_member ("sync_token");
                             Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            //if (Planner.database.update_item_completed (item)) {
-                            print ("Actualizado: %s\n".printf (item.content));
-                                //item_uncompleted_completed (item);
-                            //}
+                            item_completed_completed (item);
                         } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-                            item_uncompleted_error (item, http_code, error_message);
+                            item_completed_error (
+                                item,
+                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                                sync_status.get_object_member (uuid).get_string_member ("error")
+                            );
                         }
                     } catch (Error e) {
-                        item_uncompleted_error (item, (int32) mess.status_code, e.message);
+                        item_completed_error (
+                            item,
+                            (int32) mess.status_code,
+                            e.message
+                        );
                     }
                 } else {
-                    if (Planner.utils.is_disconnected ()) {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        item_completed_error (
+                            item,
+                            (int32) mess.status_code,
+                            Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        );
+                    } else {
                         var queue = new Objects.Queue ();
                         queue.uuid = uuid;
                         queue.object_id = item.id;
@@ -2672,15 +2765,9 @@ public class Services.Todoist : GLib.Object {
                         queue.args = item.to_json ();
 
                         if (Planner.database.insert_queue (queue)) {
-                            print ("Actualizado: %s\n".printf (item.content));
+                            item_completed_completed (item);
                         }
-                    } else {
-                        show_message (_("Update todoist item error"),
-                                      _("Status Code: %u".printf (mess.status_code)),
-                                      "dialog-error");
                     }
-
-                    item_uncompleted_error (item, (int32) mess.status_code, _("Connection error"));
                 }
             });
 

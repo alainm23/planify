@@ -135,10 +135,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();

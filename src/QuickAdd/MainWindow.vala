@@ -21,7 +21,6 @@
 
 public class MainWindow : Gtk.Window {
     private Gtk.Entry content_entry;
-    private Gtk.TextView note_textview;
 
     private DBusClient dbus_client;
     private Gtk.ComboBox project_combobox;
@@ -32,7 +31,6 @@ public class MainWindow : Gtk.Window {
             application: application,
             resizable: false,
             width_request: 700,
-            height_request: 335,
             window_position: Gtk.WindowPosition.CENTER,
             margin_bottom: 192
         );
@@ -50,6 +48,7 @@ public class MainWindow : Gtk.Window {
         headerbar_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
         var checked_button = new Gtk.CheckButton ();
+        checked_button.margin_start = 7;
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.BASELINE;
@@ -59,50 +58,16 @@ public class MainWindow : Gtk.Window {
         content_entry.margin_bottom = 1;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
-        content_entry.get_style_context ().add_class ("label");
         content_entry.get_style_context ().add_class ("content-entry");
         content_entry.hexpand = true;
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        top_box.margin_start = 18;
-        top_box.margin_end = 6;
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
+        top_box.get_style_context ().add_class ("check-grid");
+        top_box.margin_start = 16;
+        top_box.margin_end = 16;
         top_box.hexpand = true;
         top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (content_entry, false, true, 0);
-
-        note_textview = new Gtk.TextView ();
-        note_textview.expand = true;
-        note_textview.margin_start = 42;
-        note_textview.margin_bottom = 12;
-        note_textview.margin_end = 6;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD;
-        note_textview.get_style_context ().add_class ("textview");
-        //note_textview.height_request = 42;
-
-        var textview_scrolled = new Gtk.ScrolledWindow (null, null);
-        textview_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        textview_scrolled.expand = true;
-        textview_scrolled.add (note_textview);
-
-        var note_placeholder = new Gtk.Label (_("Add note"));
-        note_placeholder.opacity = 0.7;
-        note_textview.add (note_placeholder);
-
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
-        note_textview.focus_out_event.connect (() => {
-            if (note_textview.buffer.text == "") {
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            }
-
-            return false;
-        });
 
         var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
@@ -123,7 +88,6 @@ public class MainWindow : Gtk.Window {
         cancel_button.get_style_context ().add_class ("view");
 
         var action_grid = new Gtk.Grid ();
-        action_grid.margin = 6;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
         action_grid.add (cancel_button);
@@ -133,7 +97,6 @@ public class MainWindow : Gtk.Window {
         project_combobox = new Gtk.ComboBox.with_model (list_store);
         project_combobox.can_focus = false;
         project_combobox.get_style_context ().add_class ("quick-add-combobox");
-        project_combobox.margin = 6;
         project_combobox.valign = Gtk.Align.CENTER;
 
         Gtk.TreeIter iter;
@@ -186,16 +149,17 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        var action_bar = new Gtk.ActionBar ();
-        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (project_combobox);
-        action_bar.pack_end (action_grid);
+        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        action_box.margin_start = action_box.margin_end = 16;
+        action_box.margin_top = action_box.margin_bottom = 9;
+        action_box.hexpand = true;
+        action_box.pack_start (action_grid, false, false, 0);
+        action_box.pack_end (project_combobox, false, false, 0);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (textview_scrolled, false, true, 0);
-        main_box.pack_end (action_bar, false, false, 0);
+        main_box.pack_end (action_box, false, false, 0);
 
         add (main_box);
 
@@ -242,8 +206,6 @@ public class MainWindow : Gtk.Window {
             send_notification (item.content, _("The task was correctly added."));
 
             content_entry.text = "";
-            note_textview.buffer.text = "";
-
             content_entry.grab_focus ();
 
             try {
@@ -282,7 +244,6 @@ public class MainWindow : Gtk.Window {
             item.id = generate_id ();
             item.project_id = project.id;
             item.content = content_entry.text;
-            item.note = note_textview.buffer.text;
             item.is_todoist = project.is_todoist;
 
             if (project.inbox_project == 1) {

@@ -84,11 +84,10 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         source_icon.tooltip_text = _("Todoist Project");
 
         count_past_label = new Gtk.Label (null);
-        count_past_label.get_style_context ().add_class ("duedate-expired");
+        count_past_label.get_style_context ().add_class ("badge-expired");
         count_past_label.get_style_context ().add_class ("font-bold");
         count_past_label.valign = Gtk.Align.CENTER;
         count_past_label.use_markup = true;
-        count_past_label.opacity = 0.7;
         count_past_label.width_chars = 3;
 
         count_past_revealer = new Gtk.Revealer ();
@@ -250,7 +249,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
-        if (source.item.is_todoist == 0) {
+        if (source.item.is_todoist == 1) {
             Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
         }
     }

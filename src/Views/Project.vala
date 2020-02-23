@@ -93,6 +93,7 @@ public class Views.Project : Gtk.EventBox {
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("flat");
+        name_entry.get_style_context ().add_class ("title-label");
         name_entry.get_style_context ().add_class ("project-name-entry");
         name_entry.hexpand = true;
 
@@ -154,10 +155,8 @@ public class Views.Project : Gtk.EventBox {
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
@@ -190,7 +189,6 @@ public class Views.Project : Gtk.EventBox {
         note_textview.margin_top = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.get_style_context ().add_class ("welcome");
         note_textview.margin_start = 24;
 
         note_placeholder = new Gtk.Label (_("Add note"));
@@ -212,7 +210,6 @@ public class Views.Project : Gtk.EventBox {
         listbox.margin_start = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
-        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -241,7 +238,6 @@ public class Views.Project : Gtk.EventBox {
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_bottom = 32;
         completed_listbox.valign = Gtk.Align.START;
-        completed_listbox.get_style_context ().add_class ("welcome");
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
         completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -313,7 +309,7 @@ public class Views.Project : Gtk.EventBox {
 
         var placeholder_view = new Widgets.Placeholder (
             _("What will you accomplish?"),
-            _("Add a task"),
+            _("Tap + to add a task to this project."),
             "planner-project-symbolic"
         );
         placeholder_view.reveal_child = true;

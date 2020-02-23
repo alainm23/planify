@@ -69,7 +69,7 @@ public class Services.Notifications : GLib.Object {
         //  });
     }
 
-    private void init_server () {
+    public void init_server () {
         Timeout.add_seconds (1 * 60, () => {
             foreach (var reminder in Planner.database.get_reminders ()) {
                 if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {

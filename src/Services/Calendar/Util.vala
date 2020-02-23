@@ -98,7 +98,7 @@ namespace Util {
 
                 providers[color] = style_provider;
             } catch (Error e) {
-                critical ("Unable to set calendar color: %s", e.message);
+                //critical ("Unable to set calendar color: %s", e.message);
             }
         }
 

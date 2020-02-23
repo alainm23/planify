@@ -80,30 +80,23 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             hidden_button.tooltip_text = _("Hiding Tasks");
         }
 
-        var hidden_revealer = new Gtk.Revealer ();
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = true;
-
         name_label = new Gtk.Label (section.name);
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("header-title");
-        name_label.valign = Gtk.Align.CENTER;
+        name_label.get_style_context ().add_class ("font-bold");
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
         name_entry = new Gtk.Entry ();
         name_entry.text = section.name;
         name_entry.hexpand = true;
-        name_entry.valign = Gtk.Align.CENTER;
         name_entry.placeholder_text = _("Section name");
+        name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("flat");
-        name_entry.get_style_context ().add_class ("header-title");
-        name_entry.get_style_context ().add_class ("header-entry");
-        name_entry.get_style_context ().add_class ("content-entry");
+        name_entry.get_style_context ().add_class ("project-name-entry");
+        name_entry.get_style_context ().add_class ("no-padding");
 
         name_stack = new Gtk.Stack ();
-        name_stack.get_style_context ().add_class ("welcome");
-        name_stack.transition_type = Gtk.StackTransitionType.NONE;
+        name_stack.hexpand = true;
+        name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         name_stack.add_named (name_label, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
@@ -123,24 +116,22 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_revealer.reveal_child = false;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.pack_start (hidden_revealer, false, false, 0);
+        top_box.pack_start (hidden_button, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 24;
+        action_grid.margin_start = 47;
         action_grid.margin_bottom = 6;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
@@ -156,9 +147,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         top_eventbox.add (top_box);
 
         separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 24;
-        separator.margin_end = 16;
-        separator.margin_top = 3;
+        separator.margin_start = 47;
+        separator.margin_end = 24;
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 24;
@@ -185,7 +175,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.margin_start = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
-        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -305,7 +294,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            //hidden_revealer.reveal_child = true;
             settings_revealer.reveal_child = true;
 
             return true;
@@ -317,8 +305,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
 
             settings_revealer.reveal_child = false;
-            //hidden_revealer.reveal_child = false;
-
             return true;
         });
 
@@ -326,6 +312,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
+
+                separator.visible = false;
 
                 name_entry.grab_focus_without_selecting ();
                 if (name_entry.cursor_position < name_entry.text_length) {
@@ -362,6 +350,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = false;
                 name_stack.visible_child_name = "name_label";
                 name_entry.text = section.name;
+
+                separator.visible = true;
             }
 
             return false;
@@ -375,6 +365,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
             name_entry.text = section.name;
+
+            separator.visible = true;
         });
 
         settings_button.clicked.connect (() => {
@@ -543,6 +535,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 if (section.is_todoist == 1) {
                     Planner.todoist.move_section (section, Planner.settings.get_int64 ("inbox-project"));
                 }
+
+                string move_template = _("Section moved to <b>%s</b>");
+                Planner.notifications.send_notification (
+                    0,
+                    move_template.printf (
+                        section.name
+                    )
+                );
             });
 
             projects_menu.add (item_menu);
@@ -557,6 +557,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                         if (section.is_todoist == 1) {
                             Planner.todoist.move_section (section, project.id);
                         }
+
+                        string move_template = _("Section moved to <b>%s</b>");
+                        Planner.notifications.send_notification (
+                            0,
+                            move_template.printf (
+                                section.name
+                            )
+                        );
                     });
 
                     projects_menu.add (item_menu);
@@ -565,7 +573,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         projects_menu.show_all ();
-
         menu.popup_at_pointer (null);
     }
 
@@ -614,6 +621,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
 
+            separator.visible = false;
+
             name_entry.grab_focus_without_selecting ();
             if (name_entry.cursor_position < name_entry.text_length) {
                 name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
@@ -638,6 +647,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 if (section.is_todoist == 1) {
                     Planner.todoist.delete_section (section);
                 }
+
+                Planner.notifications.send_notification (
+                    0,
+                    _("Section deleted")
+                );
             }
 
             message_dialog.destroy ();
@@ -657,7 +671,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             listbox.add (row);
             items_list.add (row);
-            
+
             items_list.add (row);
         }
 
@@ -687,6 +701,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
+
+            separator.visible = true;
 
             section.save ();
         }

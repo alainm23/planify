@@ -48,6 +48,7 @@ public class Objects.Area : GLib.Object {
 
             Source.remove (timeout_id);
             timeout_id = 0;
+            
             return false;
         });
     }

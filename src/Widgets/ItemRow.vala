@@ -159,7 +159,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         margin_start = 6;
-        margin_top = 6;
+        margin_top = 3;
         get_style_context ().add_class ("item-row");
         labels_hashmap = new Gee.HashMap<string, bool> ();
 
@@ -189,7 +189,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
-        content_label.margin_top = 3;
+        content_label.margin_top = 5;
         content_label.get_style_context ().add_class ("label");
         content_label.wrap = true;
 
@@ -206,6 +206,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("label");
         content_entry.get_style_context ().add_class ("content-entry");
+        content_entry.get_style_context ().add_class ("font-bold");
         content_entry.get_style_context ().add_class ("no-padding-left");
         content_entry.text = item.content;
         content_entry.hexpand = true;
@@ -523,7 +524,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                //hide_item ();
+                hide_item ();
             }
 
             return false;
@@ -1078,8 +1079,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.fill ();
 
         row.get_style_context ().add_class ("drag-begin");
+        row.margin_start = 6;
         row.draw (cr);
         row.get_style_context ().remove_class ("drag-begin");
+        row.margin_start = 0;
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;
@@ -1204,25 +1207,32 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         Widgets.ImageMenuItem item_menu;
+        int is_todoist = 0;
+        if (Planner.settings.get_boolean ("inbox-project-sync")) {
+            is_todoist = 1;
+        }
 
-        item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
-        item_menu.activate.connect (() => {
-            int64 inbox_id = Planner.settings.get_int64 ("inbox-project");
+        if (item.is_todoist == is_todoist) {
+            item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+            item_menu.activate.connect (() => {
+                int64 inbox_id = Planner.settings.get_int64 ("inbox-project");
 
-            Planner.database.move_item (item, inbox_id);
-            if (item.is_todoist == 1) {
-                Planner.todoist.move_item (item, inbox_id);
-            }
+                Planner.database.move_item (item, inbox_id);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.move_item (item, inbox_id);
+                }
 
-            string move_template = _("Task moved to <b>%s</b>");
-            Planner.notifications.send_notification (
-                0,
-                move_template.printf (
-                    Planner.database.get_project_by_id (inbox_id).name
-                )
-            );
-        });
-        projects_menu.add (item_menu);
+                string move_template = _("Task moved to <b>%s</b>");
+                Planner.notifications.send_notification (
+                    0,
+                    move_template.printf (
+                        Planner.database.get_project_by_id (inbox_id).name
+                    )
+                );
+            });
+
+            projects_menu.add (item_menu);
+        }
 
         foreach (var project in Planner.database.get_all_projects ()) {
             if (item.project_id != project.id && project.inbox_project == 0 && project.is_todoist == item.is_todoist) {

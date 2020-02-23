@@ -75,7 +75,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var submit_spinner = new Gtk.Spinner ();
         submit_spinner.start ();
@@ -90,7 +89,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
@@ -109,7 +107,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.add (action_grid);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         main_revealer.add (main_grid);
         main_revealer.reveal_child = false;
 

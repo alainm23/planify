@@ -91,7 +91,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
-        listbox.get_style_context ().add_class ("welcome");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -101,7 +100,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (upcoming_row);
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 12;
+        motion_grid.margin_start = 6;
         motion_grid.margin_end = 6;
         motion_grid.margin_bottom = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -116,14 +115,12 @@ public class Widgets.Pane : Gtk.EventBox {
 
         project_listbox = new Gtk.ListBox ();
         project_listbox.get_style_context ().add_class ("pane");
-        project_listbox.get_style_context ().add_class ("welcome");
         project_listbox.activate_on_single_click = true;
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
 
         area_listbox = new Gtk.ListBox ();
         area_listbox.get_style_context ().add_class ("pane");
-        area_listbox.get_style_context ().add_class ("welcome");
         area_listbox.activate_on_single_click = true;
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;
@@ -388,7 +385,7 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         settings_button.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences ();
+            var dialog = new Dialogs.Preferences.Preferences ();
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
         });

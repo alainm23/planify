@@ -19,12 +19,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.LabelButton : Gtk.EventBox {
+public class Widgets.LabelButton : Gtk.ToggleButton {
     public int64 item_id { get; construct; }
 
     private Gtk.Popover popover = null;
+    private Gtk.Entry label_entry;
     private Gtk.ListBox listbox;
-    private Gtk.Entry search_entry;
 
     public LabelButton (int64 item_id) {
         Object (
@@ -35,106 +35,70 @@ public class Widgets.LabelButton : Gtk.EventBox {
     construct {
         tooltip_text = _("Labels");
 
+        get_style_context ().add_class ("flat");
+        get_style_context ().add_class ("item-action-button");
+
         var label_icon = new Gtk.Image ();
         label_icon.valign = Gtk.Align.CENTER;
         label_icon.gicon = new ThemedIcon ("tag-new-symbolic");
         label_icon.pixel_size = 16;
 
-        var label_button = new Gtk.Button ();
-        label_button.get_style_context ().add_class ("flat");
-        label_button.get_style_context ().add_class ("item-action-button");
-        label_button.add (label_icon);
-
-        var button_revealer = new Gtk.Revealer ();
-        button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        button_revealer.add (label_button);
-        button_revealer.reveal_child = true;
-
-        var completion = new Gtk.EntryCompletion ();
-
-        search_entry = new Gtk.Entry ();
-        search_entry.completion = completion;
-        search_entry.secondary_icon_name = "applications-system-symbolic";
-        search_entry.get_style_context ().add_class ("entry-label-select");
-        search_entry.width_chars = 16;
-        search_entry.margin_end = 6;
-
-        var entry_revealer = new Gtk.Revealer ();
-        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        entry_revealer.add (search_entry);
+        var label = new Gtk.Label (_("labels"));
+        label.get_style_context ().add_class ("pane-item");
+        label.margin_bottom = 1;
+        label.use_markup = true;
 
         var main_grid = new Gtk.Grid ();
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
-        main_grid.add (button_revealer);
-        main_grid.add (entry_revealer);
+        main_grid.add (label_icon);
 
         add (main_grid);
 
-        label_button.clicked.connect (() => {
-            button_revealer.reveal_child = false;
-            entry_revealer.reveal_child = true;
+        this.toggled.connect (() => {
+            if (this.active) {
+                if (popover == null) {
+                    create_popover ();
 
-            //  if (popover == null) {
-            //      create_popover ();
+                    Planner.database.label_added.connect ((label) => {
+                        if (popover != null) {
+                            var row = new Widgets.LabelPopoverRow (label);
+                            listbox.add (row);
+                        }
+                    });
+                }
 
-            //      Planner.database.label_added.connect ((label) => {
-            //          if (popover != null) {
-            //              var row = new Widgets.LabelPopoverRow (label);
-            //              listbox.add (row);
-            //          }
-            //      });
+                foreach (Gtk.Widget element in listbox.get_children ()) {
+                    listbox.remove (element);
+                }
 
-            //      foreach (Gtk.Widget element in listbox.get_children ()) {
-            //          listbox.remove (element);
-            //      }
+                foreach (Objects.Label l in Planner.database.get_all_labels ()) {
+                    var row = new Widgets.LabelPopoverRow (l);
+                    listbox.add (row);
+                }
 
-            //      foreach (Objects.Label l in Planner.database.get_all_labels ()) {
-            //          var row = new Widgets.LabelPopoverRow (l);
-            //          listbox.add (row);
-            //      }
-
-            //      popover.show_all ();
-            //  }
-
-            search_entry.grab_focus ();
+                popover.show_all ();
+                label_entry.grab_focus ();
+            }
         });
-
-        //  this.toggled.connect (() => {
-        //      if (this.active) {
-        //          if (popover == null) {
-        //              create_popover ();
-
-        //              Planner.database.label_added.connect ((label) => {
-        //                  if (popover != null) {
-        //                      var row = new Widgets.LabelPopoverRow (label);
-        //                      listbox.add (row);
-        //                  }
-        //              });
-        //          }
-
-        //          foreach (Gtk.Widget element in listbox.get_children ()) {
-        //              listbox.remove (element);
-        //          }
-
-        //          foreach (Objects.Label l in Planner.database.get_all_labels ()) {
-        //              var row = new Widgets.LabelPopoverRow (l);
-        //              listbox.add (row);
-        //          }
-
-        //          popover.show_all ();
-        //      }
-        //  });
     }
 
     private void create_popover () {
-        popover = new Gtk.Popover (search_entry);
+        popover = new Gtk.Popover (this);
         popover.position = Gtk.PositionType.BOTTOM;
+
+        label_entry = new Gtk.Entry ();
+        label_entry.margin = 6;
+        label_entry.placeholder_text = _("Type a label");
 
         listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
+        listbox.set_filter_func ((row) => {
+            var label = ((Widgets.LabelPopoverRow) row).label;
+            return label_entry.text.down () in label.name.down ();
+        });
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.expand = true;
@@ -146,7 +110,7 @@ public class Widgets.LabelButton : Gtk.EventBox {
         edit_icon.pixel_size = 14;
 
         var edit_labels = new Gtk.Button ();
-        edit_labels.margin_bottom = 6;
+        edit_labels.margin = 3;
         edit_labels.image = edit_icon;
         edit_labels.valign = Gtk.Align.CENTER;
         edit_labels.halign = Gtk.Align.START;
@@ -156,34 +120,77 @@ public class Widgets.LabelButton : Gtk.EventBox {
         edit_labels.get_style_context ().add_class ("flat");
         edit_labels.get_style_context ().add_class ("font-bold");
 
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.pack_start (edit_labels);
+
         var popover_grid = new Gtk.Grid ();
-        popover_grid.margin_start = 3;
-        popover_grid.margin_end = 3;
-        popover_grid.margin_top = 6;
         popover_grid.width_request = 235;
         popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.add (label_entry);
         popover_grid.add (listbox_scrolled);
-        popover_grid.add (edit_labels);
+        popover_grid.add (action_bar);
 
-        popover.add (popover_grid);
+        var eventbox = new Gtk.EventBox ();
+        eventbox.add (popover_grid);
+
+        popover.add (eventbox);
 
         popover.closed.connect (() => {
-            //this.active = false;
+            this.active = false;
         });
 
         edit_labels.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences ("labels");
+            var dialog = new Dialogs.Preferences.Preferences ("labels");
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
 
             popover.popdown ();
         });
 
+        eventbox.key_press_event.connect ((event) => {
+            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
+                if (Planner.database.add_item_label (item_id, label)) {
+                    popover.popdown ();
+                }
+
+                return false;
+            } else {
+                if (!label_entry.has_focus) {
+                    label_entry.grab_focus ();
+                    label_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                    label_entry.key_press_event (event);
+                }
+
+                return false;
+            }
+
+            return true;
+        });
+
         listbox.row_activated.connect ((row) => {
             var label = ((Widgets.LabelPopoverRow) row).label;
             if (Planner.database.add_item_label (item_id, label)) {
                 popover.popdown ();
+            }
+        });
+
+        label_entry.changed.connect (() => {
+            listbox.invalidate_filter ();
+        });
+
+        label_entry.activate.connect (() => {
+            if (listbox.get_selected_row () != null) {
+                var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
+                if (Planner.database.add_item_label (item_id, label)) {
+                    popover.popdown ();
+                }
             }
         });
     }
@@ -199,7 +206,9 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
     }
 
     construct {
-        //get_style_context ().add_class ("area-row");
+        get_style_context ().add_class ("label-select-row");
+        margin_start = margin_end = 6;
+        margin_bottom = 3;
 
         var label_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
         label_image.valign = Gtk.Align.CENTER;

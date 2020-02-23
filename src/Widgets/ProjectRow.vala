@@ -157,6 +157,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
+        motion_grid.margin_top = 6;
 
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -353,7 +354,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         Planner.database.move_item (source.item, project.id);
-        if (source.item.is_todoist == 0) {
+        if (source.item.is_todoist == 1) {
             Planner.todoist.move_item (source.item, project.id);
         }
 

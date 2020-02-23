@@ -29,10 +29,6 @@ public class PlannerQuickAdd : Gtk.Application {
             border-radius: 4px;
         }
 
-        textview {
-            caret-color: #3689e6;
-        }
-
         .titlebar {
             padding: 0px;
             background-color: @base_color;
@@ -43,10 +39,12 @@ public class PlannerQuickAdd : Gtk.Application {
         }
 
         .content-entry {
-            color: @text_color;
-            font-weight: 600;
-            border-width: 0px 0px 0px 0px;
-            background-color: @base_color;
+            border-width: 0 0 1px;
+            border-radius: 0;
+            background-color: transparent;
+            background-image: none;
+            box-shadow: none;
+            border-bottom: none;
         }
 
         .content-entry:focus {
@@ -54,16 +52,20 @@ public class PlannerQuickAdd : Gtk.Application {
             box-shadow: none;
         }
 
-        .label {
-            font-size: 14px;
-        }
-
         .quick-add-combobox {
             background-color: @base_color;
         }
 
         .quick-add-combobox button {
+            padding-left: 6px;
+            padding-right: 6px;
             border-radius: 4px;
+        }
+
+        .check-grid {
+            background-color: alpha (#3689e6, 0.25);
+            border-radius: 4px;
+            border: 1px solid alpha (#3689e6, 0.45);
         }
     """;
 
@@ -72,7 +74,7 @@ public class PlannerQuickAdd : Gtk.Application {
 
     public PlannerQuickAdd () {
         Object (
-            application_id: "planner-quick-add",
+            application_id: "com.github.alainm23.planner-quick-add",
             flags: ApplicationFlags.FLAGS_NONE
         );
 

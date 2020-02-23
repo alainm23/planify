@@ -124,7 +124,6 @@ public class Views.Inbox : Gtk.EventBox {
         listbox.valign = Gtk.Align.START;
         listbox.margin_top = 6;
         listbox.margin_start = 18;
-        listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -132,7 +131,6 @@ public class Views.Inbox : Gtk.EventBox {
 
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.valign = Gtk.Align.START;
-        completed_listbox.get_style_context ().add_class ("welcome");
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
         completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;

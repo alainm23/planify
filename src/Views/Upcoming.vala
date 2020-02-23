@@ -47,7 +47,6 @@ public class Views.Upcoming : Gtk.EventBox {
         top_box.pack_start (title_label, false, false, 6);
 
         listbox = new Gtk.ListBox ();
-        listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;

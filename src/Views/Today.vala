@@ -75,7 +75,6 @@ public class Views.Today : Gtk.EventBox {
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
         listbox.margin_start = 18;
-        listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -84,7 +83,7 @@ public class Views.Today : Gtk.EventBox {
 
         var placeholder_view = new Widgets.Placeholder (
             _("What tasks are on your mind?"),
-            _("Add a task"),
+            _("Tap + to add a task for today."),
             icon_image.icon_name
         );
         placeholder_view.reveal_child = true;
@@ -116,7 +115,6 @@ public class Views.Today : Gtk.EventBox {
         event_listbox.margin_top = 6;
         event_listbox.margin_start = 26;
         event_listbox.valign = Gtk.Align.START;
-        event_listbox.get_style_context ().add_class ("welcome");
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;

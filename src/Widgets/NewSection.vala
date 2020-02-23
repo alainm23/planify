@@ -82,10 +82,8 @@ public class Widgets.NewSection : Gtk.Revealer {
         var submit_button = new Gtk.Button.with_label (_("Add"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;

@@ -51,7 +51,7 @@ executable(
     'src/Services/Calendar/CalendarModel.vala',
     'src/Services/DBusServer.vala',
     'src/Services/CustomShortcutSettings.vala',
-    
+
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
     'src/Widgets/New.vala',
@@ -78,7 +78,6 @@ executable(
     'src/Widgets/SourceItem.vala',
     'src/Widgets/ReminderButton.vala',
     'src/Widgets/ReminderRow.vala',
-    'src/Widgets/ColorGrid.vala',
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',
     'src/Widgets/NewLabel.vala',
@@ -88,7 +87,7 @@ executable(
     'src/Widgets/Calendar/CalendarHeader.vala',
     'src/Widgets/Calendar/CalendarView.vala',
     'src/Widgets/Calendar/CalendarWeek.vala',
-    
+
     'src/Views/Welcome.vala',
     'src/Views/Inbox.vala',
     'src/Views/Today.vala',
@@ -96,9 +95,15 @@ executable(
     'src/Views/Project.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
-    'src/Dialogs/Preferences.vala',
     'src/Dialogs/ProjectSettings.vala',
-    
+
+    'src/Dialogs/Preferences/Preferences.vala',
+    'src/Dialogs/Preferences/ItemSelect.vala',
+    'src/Dialogs/Preferences/ItemSwitch.vala',
+    'src/Dialogs/Preferences/ItemButton.vala',
+    'src/Dialogs/Preferences/Item.vala',
+    'src/Dialogs/Preferences/TopBox.vala',
+
     'src/Objects/Project.vala',
     'src/Objects/Item.vala',
     'src/Objects/Area.vala',
@@ -128,7 +133,7 @@ executable(
 )
 
 executable(
-    'planner-quick-add',
+    'com.github.alainm23.planner-quick-add',
     'src/QuickAdd/Application.vala',
     'src/QuickAdd/MainWindow.vala',
     'src/QuickAdd/DBusClient.vala',
