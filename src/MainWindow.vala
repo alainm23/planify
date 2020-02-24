@@ -20,21 +20,23 @@
 */
 
 public class MainWindow : Gtk.Window {
-    private Widgets.Pane pane;
-    public Gee.HashMap<string, bool> projects_loaded;
-    private string visible_child_name = "";
+    public Gee.HashMap <string, bool> projects_loaded;
 
-    private Widgets.MagicButton magic_button;
+    private Widgets.Pane pane;
+    private Gtk.HeaderBar sidebar_header;
+    private Gtk.HeaderBar projectview_header;
     private Gtk.Stack stack;
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
 
+    private Widgets.MagicButton magic_button;
+    private Widgets.Toast notification_toast;
     private Widgets.QuickFind quick_find;
-    private uint timeout_id = 0;
-    private uint configure_id;
-
     private Services.DBusServer dbus_server;
+
+    private uint timeout_id = 0;
+    private uint configure_id = 0;
 
     public MainWindow (Planner application) {
         Object (
@@ -47,14 +49,12 @@ public class MainWindow : Gtk.Window {
     construct {
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
-            var item = Planner.database.get_item_by_id (id);
-            Planner.database.item_added (item);
+            Planner.database.item_added (Planner.database.get_item_by_id (id));
         });
 
-        projects_loaded = new Gee.HashMap<string, bool> ();
+        projects_loaded = new Gee.HashMap <string, bool> ();
 
-        var sidebar_header = new Gtk.HeaderBar ();
-        sidebar_header.decoration_layout = "close:";
+        sidebar_header = new Gtk.HeaderBar ();
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
@@ -62,14 +62,15 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var projectview_header = new Gtk.HeaderBar ();
+        projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
-        projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
         projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        check_button_layout ();
 
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
         header_paned.pack1 (sidebar_header, false, false);
@@ -84,15 +85,15 @@ public class MainWindow : Gtk.Window {
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
         stack.add_named (welcome_view, "welcome-view");
-        var toast = new Widgets.Toast ();
-        magic_button = new Widgets.MagicButton ();
 
+        notification_toast = new Widgets.Toast ();
+        magic_button = new Widgets.MagicButton ();
         quick_find = new Widgets.QuickFind ();
 
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
         projectview_overlay.add_overlay (magic_button);
-        projectview_overlay.add_overlay (toast);
+        projectview_overlay.add_overlay (notification_toast);
         projectview_overlay.add (stack);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
@@ -122,6 +123,7 @@ public class MainWindow : Gtk.Window {
                 // Remove Trash Data
                 Planner.database.remove_trash ();
 
+                // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
@@ -140,8 +142,9 @@ public class MainWindow : Gtk.Window {
                 // Run Todoisr Sync server
                 Planner.todoist.run_server ();
 
-                pane.add_all_areas ();
+                // Add all projects and areas
                 pane.add_all_projects ();
+                pane.add_all_areas ();
 
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
@@ -220,9 +223,7 @@ public class MainWindow : Gtk.Window {
         });
 
         magic_button.clicked.connect (() => {
-            visible_child_name = stack.visible_child_name;
-
-            if (visible_child_name == "inbox-view") {
+            if (stack.visible_child_name == "inbox-view") {
                 int is_todoist = 0;
                 if (Planner.settings.get_boolean ("inbox-project-sync")) {
                     is_todoist = 1;
@@ -234,12 +235,12 @@ public class MainWindow : Gtk.Window {
                     is_todoist,
                     true
                 );
-            } else if (visible_child_name == "today-view") {
+            } else if (stack.visible_child_name == "today-view") {
                 today_view.toggle_new_item ();
-            } else if (visible_child_name == "upcoming-view") {
+            } else if (stack.visible_child_name == "upcoming-view") {
 
             } else {
-                var project = ((Views.Project) stack.get_child_by_name (visible_child_name)).project;
+                var project = ((Views.Project) stack.get_child_by_name (stack.visible_child_name)).project;
                 Planner.utils.magic_button_activated (
                     project.id,
                     0,
@@ -308,6 +309,8 @@ public class MainWindow : Gtk.Window {
                     "todoist-last-sync",
                     new GLib.DateTime.now_local ().to_string ()
                 );
+            } else if (key == "button-layout") {
+                check_button_layout ();
             }
         });
 
@@ -487,7 +490,7 @@ public class MainWindow : Gtk.Window {
                     Granite.Services.Application.set_badge_visible.end (res);
                     update_badge_count ();
                 } catch (GLib.Error e) {
-                    critical (e.message);
+                    //critical (e.message);
                 }
             });
 
@@ -525,12 +528,12 @@ public class MainWindow : Gtk.Window {
                         try {
                             Granite.Services.Application.set_badge_visible.end (res);
                         } catch (GLib.Error e) {
-                            critical (e.message);
+                            //critical (e.message);
                         }
                     });
                 }
             } catch (GLib.Error e) {
-                critical (e.message);
+                //critical (e.message);
             }
         });
     }
@@ -565,14 +568,61 @@ public class MainWindow : Gtk.Window {
 
     public void new_section_action () {
         if (stack.visible_child_name == "inbox-view") {
-            inbox_view.section_toggled ();
+            inbox_view.open_new_section ();
         } else if (stack.visible_child_name == "today-view") {
 
         } else if (stack.visible_child_name == "upcoming-view") {
 
         } else {
             var project_view = (Views.Project) stack.visible_child;
-            project_view.section_toggled ();
+            project_view.open_new_section ();
+        }
+    }
+
+    public void hide_item () {
+        if (pane.visible_new_widget ()) {
+            pane.set_visible_new_widget (false);
+        } else {
+            if (stack.visible_child_name == "inbox-view") {
+                //inbox_view.hide_last_item ();
+            } else if (stack.visible_child_name == "today-view") {
+                //today_view.hide_last_item ();
+            } else if (stack.visible_child_name == "upcoming-view") {
+                //upcoming_view.hide_last_item ();
+            } else {
+                var project_view = (Views.Project) stack.visible_child;
+                //project_view.hide_last_item ();
+            }
+        }
+    }
+
+    private void check_button_layout () {
+        int button_layout = Planner.settings.get_enum ("button-layout");
+
+        if (button_layout == 0) { // elementary
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":maximize";
+        } else if (button_layout == 1) { // Ubuntu
+            sidebar_header.decoration_layout = "close,maximize,minimize:";
+            projectview_header.decoration_layout = ":";
+        } else if (button_layout == 2) { // Windows
+            sidebar_header.decoration_layout = ":";
+            projectview_header.decoration_layout = ":minimize,maximize,close";
+        } else if (button_layout == 3) { // macOS
+            sidebar_header.decoration_layout = "close,minimize,maximize";
+            projectview_header.decoration_layout = ":";
+        } else if (button_layout == 4) { // Minimize Left
+            sidebar_header.decoration_layout = "close,minimize:";
+            projectview_header.decoration_layout = ":maximize";
+        } else if (button_layout == 5) { // Minimize Right
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":minimize,maximize";
+        } else if (button_layout == 6) { // Close Only Left
+            sidebar_header.decoration_layout = "close:";
+            projectview_header.decoration_layout = ":";
+        } else if (button_layout == 7) { // Close Only Right
+            sidebar_header.decoration_layout = ":";
+            projectview_header.decoration_layout = ":close";
         }
     }
 
@@ -600,6 +650,7 @@ public class MainWindow : Gtk.Window {
 
             return false;
         });
+
         return base.configure_event (event);
     }
 }

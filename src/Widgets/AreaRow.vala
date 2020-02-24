@@ -36,6 +36,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Menu menu = null;
 
     private uint timeout;
+    public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -46,7 +47,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             submit_button.sensitive = true;
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
-            name_entry.grab_focus ();
+
+            name_entry.grab_focus_without_selecting ();
+            if (name_entry.cursor_position < name_entry.text_length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+            }
         }
     }
 
@@ -59,6 +64,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         get_style_context ().add_class ("area-row");
+        projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
 
         var area_image = new Gtk.Image ();
         area_image.halign = Gtk.Align.CENTER;
@@ -119,13 +125,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             hidden_button.tooltip_text = _("Hiding Projects");
         }
 
-        /*
-        var hidden_revealer = new Gtk.Revealer ();
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = false;
-        */
-
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
         top_box.margin_start = 4;
         top_box.margin_top = 6;
@@ -136,10 +135,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("new-item-action-button");
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("new-item-action-button");
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
@@ -213,7 +210,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             }
         });
 
-        name_entry.activate.connect (() =>{
+        name_entry.activate.connect (() => {
             save_area ();
         });
 
@@ -250,7 +247,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus ();
+                name_entry.grab_focus_without_selecting ();
+                if (name_entry.cursor_position < name_entry.text_length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+                }
             }
 
             return false;
@@ -287,7 +287,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (project.inbox_project == 0 && project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
+                    row.destroy.connect (() => {
+                        project_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    projects_list.add (row);
                     listbox.show_all ();
 
                     listbox_revealer.reveal_child = true;
@@ -304,7 +309,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
+                    row.destroy.connect (() => {
+                        project_row_removed (row);
+                    });
+
                     listbox.add (row);
+                    projects_list.add (row);
                     listbox.show_all ();
 
                     listbox_revealer.reveal_child = true;
@@ -348,7 +358,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
             if (project.inbox_project == 0) {
                 var row = new Widgets.ProjectRow (project);
+                row.destroy.connect (() => {
+                    project_row_removed (row);
+                });
+
                 listbox.add (row);
+                projects_list.add (row);
 
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
@@ -409,10 +424,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         if (target != null) {
             source.get_parent ().remove (source);
+            projects_list.remove (source);
 
             source.project.area_id = area.id;
 
             listbox.insert (source, target.get_index () + 1);
+            projects_list.insert (target.get_index () + 1, source);
+
             listbox.show_all ();
 
             update_project_order ();
@@ -426,7 +444,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         source = (Widgets.ProjectRow) row;
 
         source.get_parent ().remove (source);
+        projects_list.remove (source);
+
         listbox.insert (source, 0);
+        projects_list.insert (0, source);
         listbox.show_all ();
 
         update_project_order ();
@@ -447,26 +468,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void update_project_order () {
-        timeout = Timeout.add (150, () => {
+        timeout = Timeout.add (250, () => {
             new Thread<void*> ("update_project_order", () => {
-                listbox.foreach ((widget) => {
-                    var row = (Gtk.ListBoxRow) widget;
-                    int index = row.get_index ();
-
-                    var project = ((ProjectRow) row).project;
-
-                    new Thread<void*> ("update_project_order", () => {
-                        Planner.database.update_project_item_order (project.id, area.id, index);
-
-                        return null;
-                    });
-                });
+                for (int index = 0; index < projects_list.size; index++) {
+                    Planner.database.update_project_item_order (projects_list [index].project.id, area.id, index);
+                }
 
                 return null;
             });
-
-            Source.remove (timeout);
-            timeout = 0;
 
             return false;
         });
@@ -485,9 +494,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
+        add_menu.get_style_context ().add_class ("add-button-menu");
+
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (add_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
@@ -506,10 +517,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             name_stack.visible_child_name = "name_entry";
 
             name_entry.grab_focus_without_selecting ();
-
-            if (name_entry.cursor_position < name_entry.text.length) {
-                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-            }
+            name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
         });
 
         delete_menu.activate.connect (() => {
@@ -574,5 +582,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             destroy ();
             return false;
         });
+    }
+
+    private void project_row_removed (Widgets.ProjectRow row) {
+        projects_list.remove (row);
     }
 }

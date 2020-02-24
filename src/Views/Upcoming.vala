@@ -22,8 +22,11 @@
 public class Views.Upcoming : Gtk.EventBox {
     public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
     private Gtk.ListBox listbox;
+    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
 
     construct {
+        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
+
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
@@ -37,44 +40,58 @@ public class Views.Upcoming : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 41;
-        top_box.margin_end = 24;
+        top_box.margin_start = 24;
+        top_box.margin_end = 16;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 6);
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_top = 18;
-        listbox.valign = Gtk.Align.START;
-        listbox.get_style_context ().add_class ("welcome");
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
+        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled.margin_top = 16;
+        listbox_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        listbox_scrolled.expand = true;
+        listbox_scrolled.add (listbox);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (listbox, false, false, 0);
+        main_box.pack_start (listbox_scrolled, false, true, 0);
 
-        var main_scrolled = new Gtk.ScrolledWindow (null, null);
-        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        main_scrolled.expand = true;
-        main_scrolled.add (main_box);
-
-        add (main_scrolled);
+        add (main_box);
 
         Planner.calendar_model.month_start = Util.get_start_of_month ();
 
         add_upcomings ();
 
-        main_scrolled.edge_reached.connect ((pos) => {
+        listbox_scrolled.edge_reached.connect ((pos) => {
             if (pos == Gtk.PositionType.BOTTOM) {
                 add_upcomings ();
             }
         });
 
         show_all ();
+
+        Planner.utils.add_item_show_queue_view.connect ((row, view) => {
+            if (view == "upcoming") {
+                items_opened.add (row);
+            }
+        });
+
+        Planner.utils.remove_item_show_queue_view.connect ((row, view) => {
+            if (view == "upcoming") {
+                remove_item_show_queue (row);
+            }
+        });
+    }
+
+    private void remove_item_show_queue (Widgets.ItemRow row) {
+        items_opened.remove (row);
     }
 
     private void add_upcomings () {
@@ -87,6 +104,20 @@ public class Views.Upcoming : Gtk.EventBox {
             listbox.show_all ();
 
             Planner.calendar_model.month_start = Util.get_start_of_month (date);
+        }
+    }
+
+    public void hide_last_item () {
+        if (items_opened.size > 0) {
+            var last = items_opened [items_opened.size - 1];
+            remove_item_show_queue (last);
+            last.hide_item ();
+
+            if (items_opened.size > 0) {
+                var focus = items_opened [items_opened.size - 1];
+                focus.grab_focus ();
+                focus.content_entry_focus ();
+            }
         }
     }
 }

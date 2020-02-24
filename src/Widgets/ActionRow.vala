@@ -75,11 +75,19 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         title_name.get_style_context ().add_class ("pane-item");
         title_name.use_markup = true;
 
+        var source_icon = new Gtk.Image ();
+        source_icon.valign = Gtk.Align.CENTER;
+        source_icon.get_style_context ().add_class ("dim-label");
+        source_icon.margin_top = 3;
+        source_icon.pixel_size = 14;
+        source_icon.icon_name = "planner-online-symbolic";
+        source_icon.tooltip_text = _("Todoist Project");
+
         count_past_label = new Gtk.Label (null);
-        count_past_label.get_style_context ().add_class ("duedate-expired");
+        count_past_label.get_style_context ().add_class ("badge-expired");
+        count_past_label.get_style_context ().add_class ("font-bold");
         count_past_label.valign = Gtk.Align.CENTER;
         count_past_label.use_markup = true;
-        count_past_label.opacity = 0.7;
         count_past_label.width_chars = 3;
 
         count_past_revealer = new Gtk.Revealer ();
@@ -176,6 +184,14 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         Planner.database.item_deleted.connect ((item) => {
             update_count (true);
         });
+
+        Planner.database.project_deleted.connect ((id) => {
+            update_count (true);
+        });
+
+        Planner.database.section_deleted.connect ((s) => {
+            update_count (true);
+        });
     }
 
     private void update_count (bool today=false) {
@@ -233,7 +249,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
-        if (source.item.is_todoist == 0) {
+        if (source.item.is_todoist == 1) {
             Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
         }
     }

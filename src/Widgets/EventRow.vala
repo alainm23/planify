@@ -52,38 +52,33 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         }
 
         color_grid = new Gtk.Grid ();
-        color_grid.width_request = 3;
-        color_grid.height_request = 29;
+        color_grid.width_request = 10;
+        color_grid.height_request = 10;
         color_grid.valign = Gtk.Align.CENTER;
+        color_grid.halign = Gtk.Align.CENTER;
         color_grid.get_style_context ().add_class ("event-%s".printf (component.get_uid ()));
-
-        if (is_allday) {
-            color_grid.height_request = 19;
-        }
 
         time_label = new Gtk.Label (null);
         time_label.use_markup = true;
-        time_label.xalign = 0;
-        time_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        time_label.valign = Gtk.Align.CENTER;
+        time_label.get_style_context ().add_class ("font-bold");
 
-        var name_label = new Gtk.Label (component.get_summary ());
-        name_label.hexpand = true;
+        var name_label = new Gtk.Label ("<small>%s</small>".printf (component.get_summary ()));
+        name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.lines = 3;
         name_label.wrap = true;
+        name_label.use_markup = true;
         name_label.wrap_mode = Pango.WrapMode.WORD_CHAR;
-        name_label.xalign = 0;
 
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
-        grid.margin_start = 43;
         grid.margin_top = 3;
         grid.margin_bottom = 3;
-        grid.attach (color_grid, 0, 0, 1, 2);
-        grid.attach (name_label, 1, 0, 1, 1);
+        grid.add (color_grid);
         if (!is_allday) {
-            grid.attach (time_label, 1, 1, 1, 1);
+            grid.add (time_label);
         }
+        grid.add (name_label);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -132,7 +127,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         string color_css = """
             .event-%s {
                 background-color: %s;
-                border-radius: 4px;
+                border-radius: 50%;
             }
         """;
 

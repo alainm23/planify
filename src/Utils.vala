@@ -43,6 +43,11 @@ public class Utils : GLib.Object {
         int is_todoist, bool last, int index = 0
     );
 
+    public signal void add_item_show_queue (Widgets.ItemRow row);
+    public signal void remove_item_show_queue (Widgets.ItemRow row);
+    public signal void add_item_show_queue_view (Widgets.ItemRow row, string view);
+    public signal void remove_item_show_queue_view (Widgets.ItemRow row, string view);
+
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -280,8 +285,7 @@ public class Utils : GLib.Object {
         string color_css = """
             .color-%s radio {
                 background: %s;
-                border: 1px solid shade (%s, 0.9);
-                box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+                border: 1px solid shade (%s, 0.67);
             }
         """;
 
@@ -569,10 +573,10 @@ public class Utils : GLib.Object {
         var provider = new Gtk.CssProvider ();
 
         try {
-            string projectview_color = "#ffffff";
+            string projectview_color = "shade (#FFFFFF, 0.985)";
             string border_color = "0.25";
-            string pane_color = "shade (@bg_color, 1.01)";
-            string pane_selected_color = "#D1DFFE";
+            string pane_color = "shade (#FFFFFF, 0.96)";
+            string pane_selected_color = "shade (#FFFFFF, 0.89)";
             string pane_text_color = "#333333";
             string duedate_today_color = "#d48e15";
 
@@ -580,7 +584,7 @@ public class Utils : GLib.Object {
                 projectview_color = "#333333";
                 border_color = "0.55";
                 pane_color = "shade (@bg_color, 0.7)";
-                pane_selected_color = "shade (#D1DFFE, 0.30)";
+                pane_selected_color = "#38393E";
                 pane_text_color = "#ffffff";
                 duedate_today_color = "#f9c440";
             }
@@ -609,7 +613,7 @@ public class Utils : GLib.Object {
         Services.CustomShortcutSettings.init ();
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
-            if (shortcut.command == "planner-quick-add") {
+            if (shortcut.command == "com.github.alainm23.planner-quick-add") {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
                 has_shortcut = true;
                 return;
@@ -619,7 +623,7 @@ public class Utils : GLib.Object {
             var shortcut = Services.CustomShortcutSettings.create_shortcut ();
             if (shortcut != null) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);
-                Services.CustomShortcutSettings.edit_command (shortcut, "planner-quick-add");
+                Services.CustomShortcutSettings.edit_command (shortcut, "com.github.alainm23.planner-quick-add");
 
                 uint accelerator_key;
                 Gdk.ModifierType accelerator_mods;
@@ -721,5 +725,34 @@ public class Utils : GLib.Object {
         shortcuts.add (new Objects.Shortcuts (_("Quit"), { "Ctrl", "Q" }));
 
         return shortcuts;
+    }
+
+    public string get_todoist_error (int code) {
+        var messages = new Gee.HashMap<int, string> ();
+
+        messages.set (400, _("The request was incorrect."));
+        messages.set (401, _("Authentication is required, and has failed, or has not yet been provided."));
+        messages.set (403, _("The request was valid, but for something that is forbidden."));
+        messages.set (404, _("The requested resource could not be found."));
+        messages.set (429, _("The user has sent too many requests in a given amount of time."));
+        messages.set (500, _("The request failed due to a server error."));
+        messages.set (503, _("The server is currently unable to handle the request."));
+
+        return messages.get (code);
+    }
+
+    public Gee.ArrayList<string> get_patrons () {
+        var patrons = new Gee.ArrayList<string> ();
+
+        patrons.add ("Cassidy James Blaede");
+        patrons.add ("Lior");
+        patrons.add ("Luke Gaudreau");
+        patrons.add ("Mathew Robinson");
+        patrons.add ("Marco Bluethgen");
+        patrons.add ("Jeppe Terndrup");
+        patrons.add ("The Linux Experiment");
+        patrons.add ("William Tumeo");
+
+        return patrons;
     }
 }

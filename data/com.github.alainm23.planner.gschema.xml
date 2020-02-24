@@ -7,11 +7,28 @@
         <value nick="Today + Inbox" value="3" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.button-layout">
+        <value nick="elementary" value="0" />
+        <value nick="Ubuntu" value="1" />
+        <value nick="Windows" value="2" />
+        <value nick="macOS" value="3" />
+        <value nick="Minimize Left" value="4" />
+        <value nick="Minimize Right" value="5" />
+        <value nick="Close Only Left" value="6" />
+        <value nick="Close Only Right" value="7" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
+
+        <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
+            <default>"elementary"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
         </key>
 
         <key name="window-maximized" type="b">

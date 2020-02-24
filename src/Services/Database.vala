@@ -2631,6 +2631,32 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_check_order (Objects.Item item, int64 parent_id, int item_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET item_order = ?, parent_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, item_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.DONE) {
+            //updated_playlist (playlist);
+        }
+    }
+
     public bool set_due_item (Objects.Item item, bool new_date) {
         Sqlite.Statement stmt;
         string sql;
@@ -3182,7 +3208,10 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Items WHERE checked = 0 AND due_date != '';
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, date_added, date_completed, date_updated, is_todoist
+            FROM Items WHERE checked = 0 AND due_date != '';
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -3228,7 +3257,10 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Items WHERE checked = 0;
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, date_added, date_completed, date_updated, is_todoist
+            FROM Items WHERE checked = 0;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

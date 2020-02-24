@@ -25,15 +25,16 @@ public class Views.Today : Gtk.EventBox {
     private Gee.HashMap<string, bool> items_loaded;
     public Gtk.Revealer new_item_revealer;
     private Widgets.NewItem new_item;
-
-    private Gtk.Box main_box;
+    private Gtk.Stack view_stack;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
+    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     private uint update_events_idle_source = 0;
     private GLib.DateTime date;
 
     construct {
         items_loaded = new Gee.HashMap<string, bool> ();
+        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -41,16 +42,15 @@ public class Views.Today : Gtk.EventBox {
 
         var hour = new GLib.DateTime.now_local ().get_hour ();
         if (hour >= 18 || hour <= 6) {
-            icon_image.gicon = new ThemedIcon ("planner-today-night-symbolic");
+            icon_image.icon_name = "planner-today-night-symbolic";
             icon_image.get_style_context ().add_class ("today-night-icon");
         } else {
-            icon_image.gicon = new ThemedIcon ("planner-today-day-symbolic");
+            icon_image.icon_name = "planner-today-day-symbolic";
             icon_image.get_style_context ().add_class ("today-day-icon");
         }
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         title_label.get_style_context ().add_class ("title-label");
-        //title_label.get_style_context ().add_class ("today");
         title_label.use_markup = true;
 
         var date_label = new Gtk.Label (
@@ -65,21 +65,34 @@ public class Views.Today : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 41;
-        top_box.margin_end = 24;
+        top_box.margin_start = 24;
+        top_box.margin_end = 16;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 6);
         top_box.pack_start (date_label, false, false, 0);
 
         listbox = new Gtk.ListBox ();
-        listbox.valign = Gtk.Align.START;
-        listbox.get_style_context ().add_class ("welcome");
+        listbox.expand = true;
+        listbox.margin_start = 18;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
         listbox.margin_top = 6;
+
+        var placeholder_view = new Widgets.Placeholder (
+            _("What tasks are on your mind?"),
+            _("Tap + to add a task for today."),
+            icon_image.icon_name
+        );
+        placeholder_view.reveal_child = true;
+
+        view_stack = new Gtk.Stack ();
+        view_stack.expand = true;
+        view_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        view_stack.add_named (listbox, "listbox");
+        view_stack.add_named (placeholder_view, "placeholder");
 
         int is_todoist = 0;
         if (Planner.settings.get_boolean ("inbox-project-sync")) {
@@ -91,7 +104,8 @@ public class Views.Today : Gtk.EventBox {
             0,
             is_todoist
         );
-        new_item.margin_top = 12;
+        new_item.margin_top = 6;
+        new_item.margin_start = 18;
 
         new_item_revealer = new Gtk.Revealer ();
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -99,8 +113,8 @@ public class Views.Today : Gtk.EventBox {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_top = 6;
+        event_listbox.margin_start = 26;
         event_listbox.valign = Gtk.Align.START;
-        event_listbox.get_style_context ().add_class ("welcome");
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
         event_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -112,22 +126,32 @@ public class Views.Today : Gtk.EventBox {
         event_revealer.add (event_listbox);
         event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
 
-        main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        //box.valign = Gtk.Align.START;
+        box.pack_start (event_revealer, false, false, 0);
+        box.pack_start (new_item_revealer, false, false, 0);
+        box.pack_start (view_stack, true, true, 0);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (event_revealer, false, false, 0);
-        main_box.pack_start (new_item_revealer, false, false, 0);
-        main_box.pack_start (listbox, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
 
-        var main_scrolled = new Gtk.ScrolledWindow (null, null);
-        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        main_scrolled.expand = true;
-        main_scrolled.add (main_box);
-
-        add (main_scrolled);
+        add (main_box);
         add_all_items ();
-
         show_all ();
+
+        // Check Placeholder view
+        Timeout.add (125, () => {
+            check_placeholder_view ();
+
+            return false;
+        });
 
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
@@ -145,6 +169,8 @@ public class Views.Today : Gtk.EventBox {
 
                     listbox.add (row);
                     listbox.show_all ();
+
+                    check_placeholder_view ();
                 }
             }
         });
@@ -152,6 +178,7 @@ public class Views.Today : Gtk.EventBox {
         Planner.database.remove_due_item.connect ((item) => {
             if (items_loaded.has_key (item.id.to_string ())) {
                 items_loaded.unset (item.id.to_string ());
+                check_placeholder_view ();
             }
         });
 
@@ -161,10 +188,12 @@ public class Views.Today : Gtk.EventBox {
             if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     add_item (item);
+                    check_placeholder_view ();
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
                     items_loaded.unset (item.id.to_string ());
+                    check_placeholder_view ();
                 }
             }
         });
@@ -174,6 +203,7 @@ public class Views.Today : Gtk.EventBox {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_today (datetime)) {
                     add_item (item);
+                    check_placeholder_view ();
                 }
             }
         });
@@ -185,11 +215,13 @@ public class Views.Today : Gtk.EventBox {
                     if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                         if (items_loaded.has_key (item.id.to_string ()) == false) {
                             add_item (item);
+                            check_placeholder_view ();
                         }
                     }
                 } else {
                     if (items_loaded.has_key (item.id.to_string ())) {
                         items_loaded.unset (item.id.to_string ());
+                        check_placeholder_view ();
                     }
                 }
 
@@ -199,6 +231,7 @@ public class Views.Today : Gtk.EventBox {
 
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;
+            check_placeholder_view ();
         });
 
         date = new GLib.DateTime.now_local ();
@@ -215,6 +248,36 @@ public class Views.Today : Gtk.EventBox {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
+
+        Planner.utils.add_item_show_queue_view.connect ((row, view) => {
+            if (view == "today") {
+                items_opened.add (row);
+            }
+        });
+
+        Planner.utils.remove_item_show_queue_view.connect ((row, view) => {
+            if (view == "today") {
+                remove_item_show_queue (row);
+            }
+        });
+    }
+
+    private void remove_item_show_queue (Widgets.ItemRow row) {
+        items_opened.remove (row);
+    }
+
+    public void hide_last_item () {
+        if (items_opened.size > 0) {
+            var last = items_opened [items_opened.size - 1];
+            remove_item_show_queue (last);
+            last.hide_item ();
+
+            if (items_opened.size > 0) {
+                var focus = items_opened [items_opened.size - 1];
+                focus.grab_focus ();
+                focus.content_entry_focus ();
+            }
+        }
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {
@@ -376,6 +439,16 @@ public class Views.Today : Gtk.EventBox {
             new_item.due = new GLib.DateTime.now_local ().to_string ();
             new_item_revealer.reveal_child = true;
             new_item.entry_grab_focus ();
+
+            view_stack.visible_child_name = "listbox";
+        }
+    }
+
+    private void check_placeholder_view () {
+        if (Planner.database.get_all_today_items ().size > 0) {
+            view_stack.visible_child_name = "listbox";
+        } else {
+            view_stack.visible_child_name = "placeholder";
         }
     }
 }

@@ -29,7 +29,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Menu areas_menu;
     private Gtk.Menu menu = null;
-    private Gtk.ToggleButton menu_button;
+    private Gtk.Button menu_button;
     private Widgets.ImageMenuItem move_area_menu;
 
     private Gtk.EventBox handle;
@@ -43,7 +43,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
     };
-
     private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -118,7 +117,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_icon.gicon = new ThemedIcon ("view-more-symbolic");
         menu_icon.pixel_size = 14;
 
-        menu_button = new Gtk.ToggleButton ();
+        menu_button = new Gtk.Button ();
         menu_button.valign = Gtk.Align.CENTER;
         menu_button.halign = Gtk.Align.CENTER;
         menu_button.can_focus = false;
@@ -137,7 +136,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
-        //source_icon.get_style_context ().add_class ("text-color");
         source_icon.margin_top = 3;
         source_icon.pixel_size = 14;
 
@@ -159,6 +157,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
+        motion_grid.margin_top = 6;
 
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -166,7 +165,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 4;
+        grid.margin_start = grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);
@@ -220,10 +219,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             return true;
         });
 
-        menu_button.toggled.connect (() => {
-            if (menu_button.active) {
-                activate_menu ();
-            }
+        menu_button.clicked.connect (() => {
+            activate_menu ();
         });
 
         Planner.database.project_updated.connect ((p) => {
@@ -357,7 +354,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         Planner.database.move_item (source.item, project.id);
-        if (source.item.is_todoist == 0) {
+        if (source.item.is_todoist == 1) {
             Planner.todoist.move_item (source.item, project.id);
         }
 
@@ -514,7 +511,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         share_list_menu.show_all ();
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
-        delete_menu.item_image.get_style_context ().add_class ("label-danger");
+        delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (edit_menu);
         menu.add (move_area_menu);
