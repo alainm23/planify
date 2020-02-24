@@ -651,16 +651,16 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
 
-        var main_box_scrolled = new Gtk.ScrolledWindow (null, null);
-        main_box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        main_box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
-        main_box_scrolled.expand = true;
-        main_box_scrolled.add (box);
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (main_box_scrolled, false, false, 0);
+        main_box.pack_start (box_scrolled, true, true, 0);
 
         run_startup_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("run-on-startup", val);
