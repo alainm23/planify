@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
 "PO-Revision-Date: 2020-02-24 20:43+0000\n"
-"Last-Translator: linuxr01 <it@rx01.eu>\n"
+"Last-Translator: Alex Kager <alex@monochromatic.cc>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -149,6 +149,7 @@ msgstr "Schnelles Hinzufügen aktiviert!"
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
+"Probiere %s um es zu aktivieren. Du kannst es in den Einstellungen ändern"
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
