@@ -47,7 +47,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.2" date="2020-02-23">
+    <release version="2.2.1" date="2020-02-23">
       <description>
         <p>Quick Add is here, design improvements and more.</p>
         <ul>
