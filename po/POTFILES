@@ -10,7 +10,6 @@ src/Services/Calendar/Util.vala
 src/Services/Calendar/CalendarModel.vala
 src/Services/DBusServer.vala
 src/Services/CustomShortcutSettings.vala
-
 src/Widgets/ActionRow.vala
 src/Widgets/Pane.vala
 src/Widgets/New.vala
@@ -37,11 +36,9 @@ src/Widgets/QuickFind.vala
 src/Widgets/SourceItem.vala
 src/Widgets/ReminderButton.vala
 src/Widgets/ReminderRow.vala
-src/Widgets/ColorGrid.vala
 src/Widgets/NewSection.vala
 src/Widgets/Placeholder.vala
 src/Widgets/NewLabel.vala
-
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
 src/Widgets/Calendar/CalendarHeader.vala
@@ -55,8 +52,14 @@ src/Views/Upcoming.vala
 src/Views/Project.vala
 
 src/Dialogs/TodoistOAuth.vala
-src/Dialogs/Preferences.vala
 src/Dialogs/ProjectSettings.vala
+
+src/Dialogs/Preferences/Preferences.vala
+src/Dialogs/Preferences/ItemSelect.vala
+src/Dialogs/Preferences/ItemSwitch.vala
+src/Dialogs/Preferences/ItemButton.vala
+src/Dialogs/Preferences/Item.vala
+src/Dialogs/Preferences/TopBox.vala
 
 src/Objects/Project.vala
 src/Objects/Item.vala

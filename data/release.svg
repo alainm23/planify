@@ -15,7 +15,7 @@
    viewBox="0 0 437.09166 196.85"
    version="1.1"
    id="svg8"
-   inkscape:export-filename="/home/alain/planner-2.1.png"
+   inkscape:export-filename="/home/alain/planner-2.2.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -1777,9 +1777,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.46307506"
-     inkscape:cx="826"
-     inkscape:cy="372"
+     inkscape:zoom="0.32744352"
+     inkscape:cx="570.23471"
+     inkscape:cy="445.0854"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1790,7 +1790,8 @@
      inkscape:window-height="705"
      inkscape:window-x="0"
      inkscape:window-y="30"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     inkscape:lockguides="false">
     <sodipodi:guide
        position="34.926243,84.233881"
        orientation="1,0"
@@ -1830,7 +1831,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1860,7 +1861,7 @@
          id="tspan826"
          x="72.221146"
          y="151.66306"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.39999962px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';fill:#273445;fill-opacity:1;stroke-width:0.26458332">Planner 2.1</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.39999962px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';fill:#273445;fill-opacity:1;stroke-width:0.26458332">Planner 2.2</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -1871,7 +1872,7 @@
          id="tspan830"
          x="74.496719"
          y="167.9456"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:'Noto Nastaliq Urdu';-inkscape-font-specification:'Noto Nastaliq Urdu';fill:#7e8087;fill-opacity:1;stroke-width:0.26458332">January 29, 2020    AppCenter - Flathub</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:'Noto Nastaliq Urdu';-inkscape-font-specification:'Noto Nastaliq Urdu';fill:#7e8087;fill-opacity:1;stroke-width:0.26458332">February 23, 2020    AppCenter - Flathub</tspan></text>
     <g
        id="g1919"
        transform="matrix(0.26458333,0,0,0.26458333,34.74507,124.7295)">
@@ -2989,7 +2990,7 @@
          x="80.969131"
          y="190.42358"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332"
-         id="tspan1931">Keyboard shortcuts added.</tspan></text>
+         id="tspan1931">Quick Add: Use a keyboard shortcut to quickly add tasks.</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -3000,7 +3001,7 @@
          id="tspan1933"
          x="81.732666"
          y="208.4003"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">The project panel and menus were redesigned.</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Task detail redesigned.</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -3011,7 +3012,7 @@
          id="tspan1937"
          x="80.96183"
          y="226.63387"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Now you can share your tasks in text or markdown format.</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Share your projects by Markdown or email.</tspan><tspan
          sodipodi:role="line"
          x="80.96183"
          y="239.86304"
@@ -3027,7 +3028,7 @@
          id="tspan1943"
          x="81.70417"
          y="245.63786"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Various improvement and performance enhancements.</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Customize your window controls to your liking.</tspan></text>
     <rect
        style="opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.02335753;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect1955"
@@ -3064,6 +3065,26 @@
        height="4.2333331"
        x="74.089859"
        y="240.16708"
+       rx="2.1166666"
+       ry="2.1166666" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="81.33931"
+       y="264.13156"
+       id="text1945-5"><tspan
+         sodipodi:role="line"
+         id="tspan1943-3"
+         x="81.33931"
+         y="264.13156"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;fill:#333333;fill-opacity:1;stroke-width:0.26458332">Various improvement and performance enhancements.</tspan></text>
+    <rect
+       style="opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.02335753;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect1955-8-5"
+       width="4.2333331"
+       height="4.2333331"
+       x="73.724998"
+       y="258.6608"
        rx="2.1166666"
        ry="2.1166666" />
   </g>
