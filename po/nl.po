@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
+"PO-Revision-Date: 2020-02-24 20:43+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:715
 msgid "New area"
@@ -314,34 +314,36 @@ msgid "Quit"
 msgstr "Afsluiten"
 
 #: src/Utils.vala:733
-#, fuzzy
 msgid "The request was incorrect."
-msgstr "De taak is gekopieerd naar het klembord."
+msgstr "Onjuist verzoek."
 
 #: src/Utils.vala:734
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"Er is goedkeuring vereist, maar deze is niet afgegeven of niet aangevraagd."
 
 #: src/Utils.vala:735
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Het verzoek was juist, maar verboden."
 
 #: src/Utils.vala:736
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "De opgevraagde bron is niet aangetroffen."
 
 #: src/Utils.vala:737
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"De gebruiker heeft te veel verzoeken verstuurd binnen de opgegeven "
+"tijdsperiode."
 
 #: src/Utils.vala:738
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Het verzoek is mislukt wegens een serverfout."
 
 #: src/Utils.vala:739
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "De server kan het verzoek momenteel niet behandelen."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:980 src/Widgets/Pane.vala:65
@@ -642,9 +644,9 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: src/Widgets/SectionRow.vala:539 src/Widgets/SectionRow.vala:561
-#, fuzzy, c-format
+#, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "De taak is verplaatst naar <b>%s</b>"
+msgstr "De sectie is verplaatst naar <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:583 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
@@ -655,9 +657,8 @@ msgid "Delete section"
 msgstr "Sectie verwijderen"
 
 #: src/Widgets/SectionRow.vala:653
-#, fuzzy
 msgid "Section deleted"
-msgstr "Naam van sectie"
+msgstr "De sectie is verwijderd"
 
 #: src/Widgets/DueButton.vala:43
 msgid "Due Date"
@@ -823,12 +824,11 @@ msgstr "Taak afgerond"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Welke taken heb je in gedachten?"
 
 #: src/Views/Today.vala:86
-#, fuzzy
 msgid "Tap + to add a task for today."
-msgstr "Klik op + om een taak toe te voegen."
+msgstr "Klik op + om een taak toe te voegen voor vandaag."
 
 #: src/Views/Project.vala:121
 msgid "Invite person"
@@ -848,12 +848,11 @@ msgstr "Aantekening maken"
 
 #: src/Views/Project.vala:311
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Wat hoop je te bereiken?"
 
 #: src/Views/Project.vala:312
-#, fuzzy
 msgid "Tap + to add a task to this project."
-msgstr "Klik op + om een taak toe te voegen."
+msgstr "Klik op + om een taak toe te voegen aan dit project."
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -937,7 +936,7 @@ msgstr "Over"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr ""
+msgstr "Ondersteuning en dankwoord"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -1033,7 +1032,7 @@ msgstr "Met deze optie zorg je er voor dat Planner automatisch opstart."
 
 #: src/Dialogs/Preferences/Preferences.vala:620
 msgid "Button layout"
-msgstr ""
+msgstr "Knopindeling"
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
@@ -1139,20 +1138,22 @@ msgid "Enabled"
 msgstr "Ingeschakeld"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
-#, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Als je planner graag gebruikt, overweeg dan een donatie te doen om de "
-"ontwikkeling ervan te steunen:"
+"Planner wordt gemaakt met ❤️ en passie voor open source. Als je planner "
+"graag gebruikt, overweeg dan een donatie te doen om de ontwikkeling ervan te "
+"steunen:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Met dank aan allen die een donatie hebben gedaan via Patreon of PayPal. (als "
+"jij hier ook vermeld wilt worden, ga dan naar onze Patreon-pagina 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
