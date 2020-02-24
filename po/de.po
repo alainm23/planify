@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
-"Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
+"PO-Revision-Date: 2020-02-24 20:43+0000\n"
+"Last-Translator: Alex Kager <alex@monochromatic.cc>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:715
 #, fuzzy
@@ -71,7 +71,7 @@ msgstr "Olivgrün"
 
 #: src/Utils.vala:176
 msgid "Lime Green"
-msgstr " Limettengrün"
+msgstr "Limettengrün"
 
 #: src/Utils.vala:177
 msgid "Green"
@@ -149,6 +149,7 @@ msgstr "Schnelles Hinzufügen aktiviert!"
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
+"Probiere %s um es zu aktivieren. Du kannst es in den Einstellungen ändern"
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
@@ -422,9 +423,8 @@ msgstr ""
 
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:770 src/Views/Project.vala:1030
 #: src/Dialogs/ProjectSettings.vala:46
-#, fuzzy
 msgid "Name:"
-msgstr "Name"
+msgstr "Name:"
 
 #: src/Widgets/New.vala:83
 #, fuzzy
