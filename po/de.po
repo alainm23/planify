@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-24 20:43+0000\n"
+"PO-Revision-Date: 2020-02-26 11:33+0000\n"
 "Last-Translator: Alex Kager <alex@monochromatic.cc>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
@@ -149,11 +149,11 @@ msgstr "Schnelles Hinzufügen aktiviert!"
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
-"Probiere %s um es zu aktivieren. Du kannst es in den Einstellungen ändern"
+"Drücke %s zum Aktivieren. Du kannst dies später in den Einstellungen ändern."
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
-msgstr "Erste Schritte"
+msgstr "🚀️ Erste Schritte"
 
 #: src/Utils.vala:653
 msgid ""
@@ -427,9 +427,8 @@ msgid "Name:"
 msgstr "Name:"
 
 #: src/Widgets/New.vala:83
-#, fuzzy
 msgid "Area:"
-msgstr "Bereich"
+msgstr "Bereich:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 #, fuzzy
