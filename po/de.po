@@ -424,7 +424,7 @@ msgstr ""
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:770 src/Views/Project.vala:1030
 #: src/Dialogs/ProjectSettings.vala:46
 msgid "Name:"
-msgstr "Name"
+msgstr "Name:"
 
 #: src/Widgets/New.vala:83
 #, fuzzy
