@@ -334,7 +334,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         name_entry.changed.connect (() => {
-            if (name_entry.text != "") {
+            if (name_entry.text.strip () != "" && section.name != name_entry.text) {
                 submit_button.sensitive = true;
             } else {
                 submit_button.sensitive = false;
@@ -695,16 +695,19 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public void save_section () {
-        if (name_entry.text != "") {
+        if (name_entry.text.strip () != "" && section.name != name_entry.text) {
             name_label.label = name_entry.text;
             section.name = name_entry.text;
 
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
-
             separator.visible = true;
 
             section.save ();
+        } else {
+            action_revealer.reveal_child = false;
+            name_stack.visible_child_name = "name_label";
+            separator.visible = true;
         }
     }
 

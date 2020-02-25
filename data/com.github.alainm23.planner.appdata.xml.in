@@ -47,6 +47,23 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.2.3" date="2020-02-25">
+      <description>
+        <p>Quick Add is here, design improvements and more.</p>
+        <ul>
+          <li>Quick Add: Use a keyboard shortcut to quickly add tasks from anywhere.</li>
+          <li>Task detail redesigned.</li>
+          <li>Improved label system. Now you can sort, search and add them in a faster way.</li>
+          <li>Now you can share your Projects in Markdown format or send it by email.</li>
+          <li>Improved synchronization with Todoist.</li>
+          <li>Now you can add a Project directly in an Area. Just right click on a selected area and enter the name of your project.</li>
+          <li>Customize your window controls to your liking.</li>
+          <li>Visual enhancements for tasks that have already expired.</li>
+        </ul>
+        <p>Special thanks to Nick @ The Linux Experiment and William Tumeo for becoming our new silver tier patrons and supporting the development of Planner.</p>
+        <p>We also thank all the people who made some donations via Patreon or PayPal. Without you this would not be possible 😉️.</p>
+      </description>
+    </release>
     <release version="2.2.2" date="2020-02-23">
       <description>
         <p>Quick Add is here, design improvements and more.</p>
