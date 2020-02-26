@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
-"Last-Translator: Alain <alain23@protonmail.com>\n"
+"PO-Revision-Date: 2020-02-26 11:33+0000\n"
+"Last-Translator: riesp <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:715
 msgid "New area"
@@ -317,32 +317,34 @@ msgstr "Salir"
 
 #: src/Utils.vala:733
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La solicitud fue incorrecta."
 
 #: src/Utils.vala:734
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Se requiere autenticación, y ha fallado, o aún no se ha proporcionado."
 
 #: src/Utils.vala:735
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "La solicitud era válida, pero para algo que está prohibido."
 
 #: src/Utils.vala:736
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "No se pudo encontrar el recurso solicitado."
 
 #: src/Utils.vala:737
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"El usuario ha enviado demasiadas solicitudes en un período de tiempo "
+"determinado."
 
 #: src/Utils.vala:738
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "La solicitud falló debido a un error del servidor."
 
 #: src/Utils.vala:739
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "El servidor actualmente no puede encargarse de la solicitud."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:980 src/Widgets/Pane.vala:65
@@ -643,9 +645,9 @@ msgid "Save"
 msgstr "Guardar"
 
 #: src/Widgets/SectionRow.vala:539 src/Widgets/SectionRow.vala:561
-#, fuzzy, c-format
+#, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "Se movió a <b>%s</b>"
+msgstr "Sección movida a <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:583 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
@@ -656,9 +658,8 @@ msgid "Delete section"
 msgstr "Eliminar sección"
 
 #: src/Widgets/SectionRow.vala:653
-#, fuzzy
 msgid "Section deleted"
-msgstr "Nombre de sección"
+msgstr "Sección eliminada"
 
 #: src/Widgets/DueButton.vala:43
 msgid "Due Date"
@@ -824,12 +825,11 @@ msgstr "Tareas completada"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "¿Qué tareas tienes en mente?"
 
 #: src/Views/Today.vala:86
-#, fuzzy
 msgid "Tap + to add a task for today."
-msgstr "Toca + para agregar una tarea."
+msgstr "Toque + para añadir una tarea para hoy."
 
 #: src/Views/Project.vala:121
 msgid "Invite person"
@@ -849,12 +849,11 @@ msgstr "Añadir nota"
 
 #: src/Views/Project.vala:311
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "¿Qué va a lograr?"
 
 #: src/Views/Project.vala:312
-#, fuzzy
 msgid "Tap + to add a task to this project."
-msgstr "Toca + para agregar una tarea."
+msgstr "Toque + para añadir una tarea."
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -938,7 +937,7 @@ msgstr "Acerca de"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr ""
+msgstr "Apoyo y créditos"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -1036,7 +1035,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:620
 msgid "Button layout"
-msgstr ""
+msgstr "Diseño de botones"
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
@@ -1143,20 +1142,21 @@ msgid "Enabled"
 msgstr "Habilitado"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
-#, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Si le gusta Planner y quiere apoyar su desarrollo, considere donar a través "
-"de:"
+"Planner se desarrolla con ❤️ y pasión por el código abierto. Sin embargo, si "
+"le gusta Planner y desea apoyar su desarrollo, considere donar a través de:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Gracias a quienes hicieron una donación a través de Patreon o PayPal. (Si "
+"quiere aparecer aquí visite nuestra cuenta de Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
