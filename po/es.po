@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: 2020-02-26 11:33+0000\n"
+"POT-Creation-Date: 2020-02-23 21:49-0500\n"
+"PO-Revision-Date: 2020-02-26 14:55+0000\n"
 "Last-Translator: riesp <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
@@ -526,7 +526,7 @@ msgstr "Compartir"
 
 #: src/Widgets/ProjectRow.vala:506
 msgid "Send by e-mail"
-msgstr "Enviar por e-mail"
+msgstr "Enviar por correo electrónico"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:507 src/Widgets/ItemRow.vala:1355
@@ -1176,7 +1176,7 @@ msgstr "Atrás"
 
 #: src/Objects/Project.vala:118
 msgid "The Project was copied to the Clipboard."
-msgstr "El proyecto ha sido copiada al portapapeles."
+msgstr "El proyecto ha sido copiado al portapapeles."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 msgid "The Task was copied to the Clipboard."
