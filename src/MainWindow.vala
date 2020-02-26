@@ -590,7 +590,7 @@ public class MainWindow : Gtk.Window {
             } else if (stack.visible_child_name == "upcoming-view") {
                 //upcoming_view.hide_last_item ();
             } else {
-                var project_view = (Views.Project) stack.visible_child;
+                //var project_view = (Views.Project) stack.visible_child;
                 //project_view.hide_last_item ();
             }
         }

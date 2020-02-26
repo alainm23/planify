@@ -15,12 +15,12 @@ if not os.environ.get('DESTDIR'):
     if not os.path.exists(icon_cache_dir):
         os.makedirs(icon_cache_dir)
     subprocess.call(['gtk-update-icon-cache', '-qtf', icon_cache_dir])
-    
+
     print('Updating desktop database...')
     desktop_database_dir = os.path.join(datadir, 'applications')
     if not os.path.exists(desktop_database_dir):
         os.makedirs(desktop_database_dir)
     subprocess.call(['update-desktop-database', '-q', desktop_database_dir])
-    
+
     print('Compiling gsettings schemas...')
     subprocess.call(['glib-compile-schemas', schemadir])

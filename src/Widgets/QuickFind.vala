@@ -156,9 +156,9 @@ public class Widgets.QuickFind : Gtk.Revealer {
                 var item = (Widgets.SearchItem) listbox.get_selected_row ();
 
                 if (item.element == "item") {
-                    Planner.instance.go_view ("item", item.id, item.project_id);
+                    //Planner.instance.go_view ("item", item.id, item.project_id);
                 } else if (item.element == "project") {
-                    Planner.instance.go_view ("project", item.id, 0);
+                    //Planner.instance.go_view ("project", item.id, 0);
                 }
 
                 cancel ();
@@ -180,9 +180,9 @@ public class Widgets.QuickFind : Gtk.Revealer {
             var item = (Widgets.SearchItem) row;
 
             if (item.element == "item") {
-                Planner.instance.go_view ("item", item.id, item.project_id);
+                //Planner.instance.go_view ("item", item.id, item.project_id);
             } else if (item.element == "project") {
-                Planner.instance.go_view ("project", item.id, 0);
+                //Planner.instance.go_view ("project", item.id, 0);
             }
 
             cancel ();

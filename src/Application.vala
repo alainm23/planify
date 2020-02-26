@@ -180,7 +180,9 @@ public class Planner : Gtk.Application {
 
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
-            //var item = Application.database.get_item_by_id (parameter.get_int64 ());
+            //var item = database.get_item_by_id (parameter.get_int64 ());
+            //Planner.instance.go_view ("item", item.id, item.project_id);
+
             activate ();
         });
 

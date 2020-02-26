@@ -384,7 +384,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         name_entry.changed.connect (() => {
-            if (name_entry.text != "") {
+            if (name_entry.text.strip () != "" && project.name != name_entry.text) {
                 submit_button.sensitive = true;
             } else {
                 submit_button.sensitive = false;
