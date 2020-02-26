@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-03 06:04-0500\n"
+"PO-Revision-Date: 2020-02-24 20:40-0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -41,6 +41,7 @@ msgstr ""
 msgid ""
 "Task and project manager with support for Todoist developer for Gnu/Linux"
 msgstr ""
+"Task e project manager con supporto Todoist per lo sviluppatore Gnu/Linux"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:10
 msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
@@ -89,7 +90,7 @@ msgid ""
 "want."
 msgstr ""
 "Arrived Il pulsante magico è arrivato: trascina la selezione e crea le tue "
-"attività ovunque tu siae voglia."
+"attività ovunque tu sia e voglia."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:21
 #: data/com.github.alainm23.planner.appdata.xml.in:98
@@ -98,7 +99,7 @@ msgid ""
 "decide."
 msgstr ""
 "⏲️ Sistema di promemoria migliorato, ora puoi creare uno o più promemoria, "
-"tudecidi."
+"decidi tu."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:22
 #: data/com.github.alainm23.planner.appdata.xml.in:99
@@ -195,51 +196,57 @@ msgstr ""
 
 #: data/com.github.alainm23.planner.appdata.xml.in:54
 msgid "Quick Add: Use a keyboard shortcut to quickly add tasks from anywhere."
-msgstr ""
+msgstr "Aggiunta veloce: utilizzare una scorciatoia da tastiera per aggiungere rapidamente le attività da qualsiasi luogo."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:55
 msgid "Task detail redesigned."
-msgstr ""
+msgstr "Dettagli dell'attività riprogettati."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:56
 msgid ""
 "Improved label system. Now you can sort, search and add them in a faster way."
 msgstr ""
+"Sistema di etichette migliorato. Ora puoi ordinare, cercare e aggiungerle in modo più rapido."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:57
-#, fuzzy
 msgid "Now you can share your Projects in Markdown format or send it by email."
-msgstr "Ora puoi condividere le tue attività come testo o markdown."
+msgstr "Ora puoi condividere i tuoi progetti in Markdown e spedirli via email."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:58
 msgid "Improved synchronization with Todoist."
-msgstr ""
+msgstr "Sincronizzazione migliorata con Todoist."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:59
 msgid ""
 "Now you can add a Project directly in an Area. Just right click on a "
 "selected area and enter the name of your project."
 msgstr ""
+"Ora puoi aggiungere un progetto direttamente in un'area. Basta fare clic destro su un"
+"area selezionata e inserisci il nome del tuo progetto."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:60
 msgid "Customize your window controls to your liking."
-msgstr ""
+msgstr "Personalizza i controlli della finestra a tuo piacimento."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:61
 msgid "Visual enhancements for tasks that have already expired."
-msgstr ""
+msgstr "Miglioramenti visivi per le attività che sono già scadute."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:63
 msgid ""
 "Special thanks to Nick @ The Linux Experiment and William Tumeo for becoming "
 "our new silver tier patrons and supporting the development of Planner."
 msgstr ""
+"Un ringraziamento speciale a Nick @ The Linux Experiment e William Tumeo per essere diventati"
+"i nostri nuovi sostenitori di livello argento e il supporto allo sviluppo di Planner.
 
 #: data/com.github.alainm23.planner.appdata.xml.in:64
 msgid ""
 "We also thank all the people who made some donations via Patreon or PayPal. "
 "Without you this would not be possible 😉️."
 msgstr ""
+"Ringraziamo anche tutte le persone che hanno effettuato alcune donazioni tramite Patreon o PayPal."
+"Senza di te questo non sarebbe possibile 😉️."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:69
 msgid "The keyboard shortcuts arrived, design improvements and more."
@@ -297,7 +304,7 @@ msgid ""
 "key."
 msgstr ""
 "[GitHub # 156] - Ora puoi creare un promemoria più semplice premendo il "
-"tasto chiaveINVIO."
+"tasto INVIO."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:79
 msgid "[GitHub #147] - Badge count is not displayed when the system startup."
@@ -462,15 +469,15 @@ msgstr "Miglioramenti del design"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:170
 msgid "Fix #22"
-msgstr ""
+msgstr "Fix #22"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:171
 msgid "Fix #21"
-msgstr ""
+msgstr "Fix #21"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:172
 msgid "Fix #11"
-msgstr ""
+msgstr "Fix #11"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:178
 msgid "Improved stability and some bug fixes"
