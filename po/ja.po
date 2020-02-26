@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 21:49-0500\n"
+"POT-Creation-Date: 2020-02-26 09:53-0500\n"
 "PO-Revision-Date: 2020-02-16 18:50+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.11-dev\n"
 
-#: src/Application.vala:221 src/Widgets/New.vala:715
+#: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
 msgstr "新しい領域"
 

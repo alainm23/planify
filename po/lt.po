@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 21:49-0500\n"
+"POT-Creation-Date: 2020-02-26 09:53-0500\n"
 "PO-Revision-Date: 2019-01-29 16:32+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/Application.vala:221 src/Widgets/New.vala:715
+#: src/Application.vala:223 src/Widgets/New.vala:715
 #, fuzzy
 msgid "New area"
 msgstr "Naujas projektas"

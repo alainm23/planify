@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-02-23 21:49-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-26 09:53-0500\n"
 "PO-Revision-Date: 2020-02-24 20:43+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.0-dev\n"
 
-#: src/Application.vala:221 src/Widgets/New.vala:715
+#: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
 msgstr "Nieuwe pagina"
 
@@ -1143,8 +1143,8 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Planner wordt gemaakt met ❤️ en passie voor open source. Als je planner "
-"graag gebruikt, overweeg dan een donatie te doen om de ontwikkeling ervan te "
+"Planner wordt gemaakt met ❤️ en passie voor open source. Als je planner graag "
+"gebruikt, overweeg dan een donatie te doen om de ontwikkeling ervan te "
 "steunen:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
