@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: 2020-02-24 02:14+0000\n"
+"PO-Revision-Date: 2020-02-28 09:14+0000\n"
 "Last-Translator: Vinodh Moodley <vmoodleyzaf@gmail.com>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/planner/"
 "translations/af/>\n"
@@ -141,12 +141,12 @@ msgstr "Môre"
 
 #: src/Utils.vala:634
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Vinnige byvoeging geaktiveer!"
 
 #: src/Utils.vala:635
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Probeer %s om dit te aktiveer. Jy kan dit verander van die voorkeure"
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
@@ -158,10 +158,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Hierdie projek sal u help om die basiese begrippe van Planner te leer en met "
+"'n eenvoudige taakbestuurstelsel te begin om georganiseerd te bly en bo "
+"alles te werk wat u moet doen."
 
 #: src/Utils.vala:658
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Hou u take dop"
 
 #: src/Utils.vala:659
 msgid ""
@@ -172,10 +175,17 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Dit blyk uit, ons brein is eintlik bedraad om ons te hou dink oor ons "
+"onvoltooide take. Handig te pas wanneer jy een ding wat jy nodig het om te "
+"werk op. Nie so goed as wat jy het 30+ take veg vir jou aandag op een slag. "
+"Dit is waarom die eerste stap tot die organisering van jou werk en lewe is "
+"om alles uit jou kop en op jou te-doen lys. Van daar kan jy begin om te "
+"organiseer en te prioritiseer so jy weet presies wat om te fokus op en "
+"wanneer."
 
 #: src/Utils.vala:664
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Voeg nuwe take by"
 
 #: src/Utils.vala:665
 msgid ""
@@ -183,10 +193,13 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Om 'n nuwe taak by die Planner te voeg, klik op + en druk Enter.\n"
+"- Wanneer u taak geskep is, klik op die taak om dit te kan redigeer, 'n nota "
+"of ander opsies by te voeg."
 
 #: src/Utils.vala:671
 msgid "Due dates"
-msgstr ""
+msgstr "Sperdatums"
 
 #: src/Utils.vala:672
 msgid ""
@@ -195,10 +208,14 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- As u weet dat u die taak op 'n sekere dag moet doen, klik dan op die "
+"kalenderikoon en kies 'n datum. \n"
+"- As u die sperdatum wil skrap, herhaal die proses en kies die opsie \""
+"ondate\"."
 
 #: src/Utils.vala:678
 msgid "How to use projects"
-msgstr ""
+msgstr "Hoe om projekte te gebruik"
 
 #: src/Utils.vala:679
 msgid ""
@@ -212,14 +229,23 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Of u nou 'n aanbieding beplan, voorberei vir 'n geleentheid of 'n webwerf "
+"skep, maak 'n projek sodat al die belangrike besonderhede op een sentrale "
+"plek gestoor word.\n"
+"- Klik op die + -symbool in die navigasiekieslys aan die linkerkant, aan die "
+"onderkant.\n"
+"- Kies 'Project' in die opsiesmenu en tik die naam van u nuwe projek in.\n"
+"- Kies 'n bron in die keuselys.\n"
+"- (Opsioneel) Kies 'n ander projekkleur in die kleurlys.\n"
+"- Klik op Voeg by om die projek te skep."
 
 #: src/Utils.vala:689
 msgid "Sections"
-msgstr ""
+msgstr "Afdelings"
 
 #: src/Utils.vala:695
 msgid "Add sections"
-msgstr ""
+msgstr "Voeg afdelings by"
 
 #: src/Utils.vala:696
 msgid ""
@@ -233,38 +259,47 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Dit is altyd makliker om 'n groot projek aan te pak as u dit in onderdele "
+"van die Planner in maklik hanteerbare dele verdeel.\n"
+"- Organiseer u projekte met afdelings om u take saam te groepeer en kry 'n "
+"beter oorsig van wat gedoen moet word. Voeg afdelings by u projek, sleep die "
+"betrokke take na die afdeling waarin hulle behoort, en u vind dit baie "
+"makliker om vordering te maak (in plaas daarvan om oorweldig te word deur 'n "
+"enkele lang lys).\n"
+"- Klik regs bo in 'n projek op die + -ikoon.\n"
+"- Tik die naam van u afdeling in en klik op \"Add\"."
 
 #: src/Utils.vala:715
 msgid "Create a new task"
-msgstr ""
+msgstr "Skep 'n nuwe taak"
 
 #: src/Utils.vala:716
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr ""
+msgstr "Skep 'n nuwe taak bo-aan die lys (werk slegs in projekte)"
 
 #: src/Utils.vala:717
 msgid "Create a new area"
-msgstr ""
+msgstr "Skep 'n nuwe gebied"
 
 #: src/Utils.vala:718
 msgid "Create a new project"
-msgstr ""
+msgstr "Skep 'n nuwe projek"
 
 #: src/Utils.vala:719
 msgid "Create a new section"
-msgstr ""
+msgstr "Skep 'n nuwe afdeling"
 
 #: src/Utils.vala:720
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Maak die inkassie oop"
 
 #: src/Utils.vala:721
 msgid "Open Today"
-msgstr ""
+msgstr "Maak die \"Inbox\" oop"
 
 #: src/Utils.vala:722
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Oop Komende"
 
 #: src/Utils.vala:723
 msgid "Open Search"
@@ -272,40 +307,40 @@ msgstr ""
 
 #: src/Utils.vala:724
 msgid "Manually sync"
-msgstr ""
+msgstr "Sinkroniseer handmatig"
 
 #: src/Utils.vala:725
 msgid "Quit"
-msgstr ""
+msgstr "Sluit Af"
 
 #: src/Utils.vala:733
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Die versoek was verkeerd."
 
 #: src/Utils.vala:734
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Verifikasie word vereis en het misluk, of is nog nie voorsien nie."
 
 #: src/Utils.vala:735
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Die versoek was geldig, maar vir iets wat is verbode."
 
 #: src/Utils.vala:736
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Die versoekte hulpbron kon nie gevind word nie."
 
 #: src/Utils.vala:737
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Die gebruiker het binne 'n gegewe tydstip te veel versoeke gestuur."
 
 #: src/Utils.vala:738
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Die versoek het misluk weens 'n bedienerfout."
 
 #: src/Utils.vala:739
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Die bediener kan tans nie die versoek hanteer nie."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:980 src/Widgets/Pane.vala:65
@@ -317,19 +352,19 @@ msgstr ""
 
 #: src/Services/Notifications.vala:32
 msgid "task"
-msgstr ""
+msgstr "taak"
 
 #: src/Services/Notifications.vala:34
 msgid "tasks"
-msgstr ""
+msgstr "take"
 
 #: src/Services/Calendar/Util.vala:227
 msgid "On this computer"
-msgstr ""
+msgstr "Op hierdie rekenaar"
 
 #: src/Widgets/ActionRow.vala:84 src/Widgets/ProjectRow.vala:147
 msgid "Todoist Project"
-msgstr ""
+msgstr "Todoist Projek"
 
 #: src/Widgets/Pane.vala:65
 msgid ""
@@ -338,6 +373,10 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
+"U inkassie is die standaardpunt om nuwe take by te voeg, sodat u dit vinnig "
+"uit u kop kan kry en dan weer kan terugkom en 'n plan maak om later daarvoor "
+"te sorg. Dit is 'n goeie manier om jou gedagtes te ontwrig, sodat jy kan "
+"fokus op alles wat jy op die oomblik doen."
 
 #: src/Widgets/Pane.vala:73
 msgid ""
