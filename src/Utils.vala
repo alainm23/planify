@@ -432,26 +432,7 @@ public class Utils : GLib.Object {
 
         return false;
     }
-
-    public bool is_past_day (GLib.DateTime date) {
-        var returned = false;
-        var now = new GLib.DateTime.now_local ();
-
-        if (date.get_year () < now.get_year ()) {
-            returned = true;
-        } else {
-            if (date.get_month () < now.get_month ()) {
-                returned = true;
-            } else {
-                if (date.get_day_of_month () < now.get_day_of_month ()) {
-                    returned = true;
-                }
-            }
-        }
-
-        return returned;
-    }
-
+    
     public bool is_today (GLib.DateTime date_1) {
         var date_2 = new GLib.DateTime.now_local ();
         return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();

@@ -37,7 +37,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             project_preview_revealer.reveal_child = true;
 
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            if (Planner.utils.is_past_day (datetime)) {
+            if (Planner.utils.is_before_today (datetime)) {
                 duedate_preview_revealer.reveal_child = true;
                 check_duedate_style ();
             }
@@ -1173,10 +1173,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 duedate_preview_grid.get_style_context ().add_class ("duedate-today");
             }
 
-            if (Planner.utils.is_past_day (datetime)) {
-                duedate_preview_grid.get_style_context ().add_class ("duedate-expired");
-            } else {
+            if (Planner.utils.is_upcoming (datetime)) {
                 duedate_preview_grid.get_style_context ().add_class ("duedate-upcoming");
+            } else {
+                duedate_preview_grid.get_style_context ().add_class ("duedate-expired");
             }
         }
     }
