@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
-"Last-Translator: Henrique Andrade <henrique.coelho@gmail.com>\n"
+"PO-Revision-Date: 2020-02-27 18:22-0300\n"
+"Last-Translator: Gleisson J.J. Cardoso <gleissoncg2@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
@@ -89,7 +89,7 @@ msgstr "Azul Céu"
 
 #: src/Utils.vala:181
 msgid "Light Blue"
-msgstr "Modo Noturno"
+msgstr "Azul claro"
 
 #: src/Utils.vala:182
 msgid "Blue"
@@ -158,7 +158,7 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
-"Este projeto ajudará você a aprender os conceitos básicos do Planejador e a "
+"Este projeto ajudará você a aprender os conceitos básicos do Planner e a "
 "começar com um sistema simples de gerenciamento de tarefas para se manter "
 "organizado e além de tudo fazer o que precisa ser feito."
 
@@ -193,8 +193,7 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
-"- Para adicionar uma nova tarefa ao Planejador, clique em + e pressione "
-"Enter.\n"
+"- Para adicionar uma nova tarefa ao Planner, clique em + e pressione Enter.\n"
 "- Quando sua tarefa for criada, clique nela para poder editá-la, adicionar "
 "uma nota ou outras opções."
 
@@ -261,7 +260,7 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 "- É sempre mais fácil assumir um grande projeto quando você o divide em "
-"partes de fácil gerenciamento usando as seções do Planejador.\n"
+"partes de fácil gerenciamento usando as seções do Planner.\n"
 "- Organize seus projetos com seções para agrupar suas tarefas e obter uma "
 "melhor visão geral do que precisa ser feito. Adicione seções ao seu projeto, "
 "arraste as tarefas relevantes para a seção em que pertencem e você achará "
@@ -317,32 +316,33 @@ msgstr "Cancelar"
 
 #: src/Utils.vala:733
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A requisição foi incorreta"
 
 #: src/Utils.vala:734
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "A autenticação é necessária e falhou ou ainda não foi fornecida."
 
 #: src/Utils.vala:735
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "A solicitação foi válida, mas por algum motivo foi proibido."
 
 #: src/Utils.vala:736
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Não foi possível encontrar o recurso solicitado."
 
 #: src/Utils.vala:737
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"O usuário enviou muitas solicitações em um determinado período de tempo."
 
 #: src/Utils.vala:738
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "A solicitação falhou devido a um erro no servidor."
 
 #: src/Utils.vala:739
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "No momento, o servidor não consegue lidar com a solicitação."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:980 src/Widgets/Pane.vala:65
@@ -576,9 +576,10 @@ msgstr "Excluir tarefa"
 msgid "Task Menu"
 msgstr "Opção da tarefa"
 
+# Estava como ocultando,mas acabou não fazendo muito sentido com o contexto do app
 #: src/Widgets/ItemRow.vala:984
 msgid "Hiding"
-msgstr "Ocultando"
+msgstr "Ocultar"
 
 #: src/Widgets/ItemRow.vala:1260
 msgid "No Section"
@@ -656,9 +657,8 @@ msgid "Delete section"
 msgstr "Excluir seção"
 
 #: src/Widgets/SectionRow.vala:653
-#, fuzzy
 msgid "Section deleted"
-msgstr "Nome da seção"
+msgstr ""
 
 #: src/Widgets/DueButton.vala:43
 msgid "Due Date"
@@ -824,12 +824,11 @@ msgstr "Tarefa concluída"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Que tarefas estão em sua mente?"
 
 #: src/Views/Today.vala:86
-#, fuzzy
 msgid "Tap + to add a task for today."
-msgstr "Toque + para adicionar uma tarefa."
+msgstr "Toque + para adicionar uma tarefa para Hoje"
 
 #: src/Views/Project.vala:121
 msgid "Invite person"
@@ -849,12 +848,11 @@ msgstr "Adicionar nota"
 
 #: src/Views/Project.vala:311
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "O que você vai conseguir?"
 
 #: src/Views/Project.vala:312
-#, fuzzy
 msgid "Tap + to add a task to this project."
-msgstr "Toque + para adicionar uma tarefa."
+msgstr "Toque + para adicionar uma tarefa para este projeto"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -901,7 +899,7 @@ msgstr "Página Inicial"
 #: src/Dialogs/Preferences/Preferences.vala:91
 #: src/Dialogs/Preferences/Preferences.vala:314
 msgid "Badge Count"
-msgstr "Contador no Ícone"
+msgstr "Contador do Ícone"
 
 #: src/Dialogs/Preferences/Preferences.vala:92
 #: src/Dialogs/Preferences/Preferences.vala:387
@@ -938,7 +936,7 @@ msgstr "Sobre"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr ""
+msgstr "Suporte & Créditos"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -946,9 +944,9 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
-"Ao abrir o Planejador, verifique as tarefas mais importantes. A página "
-"inicial padrão é a sua visualização <b>Caixa de entrada</b>, mas você pode "
-"alterá-la para o que quiser."
+"Ao abrir o Planner, verifique as tarefas mais importantes. A página inicial "
+"padrão é a sua visualização <b>Caixa de entrada</b>, mas você pode alterá-la "
+"para o que quiser."
 
 #: src/Dialogs/Preferences/Preferences.vala:244
 msgid "Projects"
@@ -972,7 +970,7 @@ msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
-"Personalize a aparência do seu Planejador escolhendo o tema que melhor lhe "
+"Personalize a aparência do seu Planner escolhendo o tema que melhor lhe "
 "agradar."
 
 #: src/Dialogs/Preferences/Preferences.vala:400
@@ -1020,7 +1018,7 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
-"Ativar essa opção para manter a execução do Planner em segundo plano quando "
+"Ative essa opção para manter a execução do Planner em segundo plano quando "
 "ele for fechado. Isso fará com que o Planner continue atualizando e enviando "
 "lembretes de notificações."
 
@@ -1034,7 +1032,7 @@ msgstr "Ativar essa opção para iniciar o Planner junto com o sistema."
 
 #: src/Dialogs/Preferences/Preferences.vala:620
 msgid "Button layout"
-msgstr ""
+msgstr "Layout de botões"
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
@@ -1109,8 +1107,8 @@ msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
-"Ative essa configuração para que o Planejador seja sincronizado "
-"automaticamente com sua conta Todoist a cada 15 minutos."
+"Ative essa configuração para que o Planner seja sincronizado automaticamente "
+"com sua conta Todoist a cada 15 minutos."
 
 #: src/Dialogs/Preferences/Preferences.vala:952
 #: src/Dialogs/Preferences/Preferences.vala:1007
@@ -1132,23 +1130,22 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
-"Você pode conectar seu aplicativo <b>Calendário</b> ao Planejador para ver "
-"seus eventos e tarefas juntos em um só lugar. Você verá eventos das agendas "
-"pessoal e compartilhada em <b>Hoje</b> e <b>Próximos</b>. Isso é útil quando "
-"você gerencia o seu dia, e ao planejar a semana seguinte."
+"Você pode conectar seu aplicativo <b>Calendário</b> ao Planner para ver seus "
+"eventos e tarefas juntos em um só lugar. Você verá eventos da agenda pessoal "
+"e compartilhada em <b>Hoje</b> e <b>Próximos</b>. Isso é útil quando você "
+"gerencia o seu dia, e ao planejar a semana seguinte."
 
 #: src/Dialogs/Preferences/Preferences.vala:1056
 msgid "Enabled"
 msgstr "Ativado"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
-#, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Se você gosta do Planejador e deseja apoiar seu desenvolvimento, considere "
+"Se você gosta do Planner e deseja apoiar seu desenvolvimento, considere "
 "fazer uma doação via:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
@@ -1156,6 +1153,8 @@ msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Graças a eles que fizeram uma doação via Patreon ou PayPal. (Se você quiser "
+"aparecer aqui, visite nossa conta Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
