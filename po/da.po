@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-02-28 09:14+0000\n"
+"Last-Translator: Stabsy <stabsy@tuta.io>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/planner/"
+"translations/da/>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
-msgstr ""
+msgstr "Nyt område"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
@@ -31,11 +33,11 @@ msgstr ""
 
 #: src/Utils.vala:106 src/Utils.vala:116
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #: src/Utils.vala:107 src/Utils.vala:120
 msgid "Errand"
-msgstr ""
+msgstr "Ærinde"
 
 #: src/Utils.vala:108 src/Utils.vala:124
 msgid "Important"
@@ -43,15 +45,15 @@ msgstr ""
 
 #: src/Utils.vala:109 src/Utils.vala:128
 msgid "Pending"
-msgstr ""
+msgstr "Afventer"
 
 #: src/Utils.vala:171
 msgid "Berry Red"
-msgstr ""
+msgstr "Røde Bær"
 
 #: src/Utils.vala:172
 msgid "Red"
-msgstr ""
+msgstr "Rød"
 
 #: src/Utils.vala:173
 msgid "Orange"
@@ -63,35 +65,35 @@ msgstr ""
 
 #: src/Utils.vala:175
 msgid "Olive Green"
-msgstr ""
+msgstr "Olivengrøn"
 
 #: src/Utils.vala:176
 msgid "Lime Green"
-msgstr ""
+msgstr "Lime grøn"
 
 #: src/Utils.vala:177
 msgid "Green"
-msgstr ""
+msgstr "Grøn"
 
 #: src/Utils.vala:178
 msgid "Mint Green"
-msgstr ""
+msgstr "Mint Grøn"
 
 #: src/Utils.vala:179
 msgid "Teal"
-msgstr ""
+msgstr "Blågrøn"
 
 #: src/Utils.vala:180
 msgid "Sky Blue"
-msgstr ""
+msgstr "Himmelblå"
 
 #: src/Utils.vala:181
 msgid "Light Blue"
-msgstr ""
+msgstr "Lyseblå"
 
 #: src/Utils.vala:182
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: src/Utils.vala:183
 msgid "Grape"
@@ -103,52 +105,52 @@ msgstr ""
 
 #: src/Utils.vala:185
 msgid "Lavander"
-msgstr ""
+msgstr "Lavendel"
 
 #: src/Utils.vala:186
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Utils.vala:187
 msgid "Salmon"
-msgstr ""
+msgstr "Salmon"
 
 #: src/Utils.vala:188
 msgid "Charcoal"
-msgstr ""
+msgstr "Trækul"
 
 #: src/Utils.vala:189
 msgid "Grey"
-msgstr ""
+msgstr "Grå"
 
 #: src/Utils.vala:190
 msgid "Taupe"
-msgstr ""
+msgstr "Taupe"
 
 #: src/Utils.vala:517 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1333
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:52
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334
 msgid "Today"
-msgstr ""
+msgstr "I dag"
 
 #: src/Utils.vala:519 src/Widgets/Pane.vala:357 src/Widgets/ItemRow.vala:1336
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "I morgen"
 
 #: src/Utils.vala:634
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Hurtig Tilføjelse Aktiveret!"
 
 #: src/Utils.vala:635
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Prøv %s for at aktivere det. Du kan ændre det fra præferencerne"
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Kom godt i gang"
 
 #: src/Utils.vala:653
 msgid ""
@@ -156,12 +158,16 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Dette projekt vil hjælpe dig med at lære det grundlæggende i Planner og "
+"komme i gang med et simpelt opgavestyringssystem for, at forblive "
+"organiseret og på toppen af alt hvad du skal gøre."
 
 #: src/Utils.vala:658
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Hold styr på dine opgaver"
 
 #: src/Utils.vala:659
+#, fuzzy
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -170,10 +176,17 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Det viser sig, vores hjerner er faktisk kablet for at holde os til at tænke "
+"over vores uafsluttede opgaver. Praktisk, når du har en ting, du skal "
+"arbejde på. Ikke så godt, når du har 30+ opgaver, der kæmper om din "
+"opmærksomhed på en gang. Derfor er det første skridt til at organisere dit "
+"arbejde og liv at få alt ud af dit hoved og på din opgaveliste. Derfra kan "
+"du begynde at organisere og prioritere, så du ved nøjagtigt, hvad du skal "
+"fokusere på, og hvornår."
 
 #: src/Utils.vala:664
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Tilføj nye opgaver"
 
 #: src/Utils.vala:665
 msgid ""
@@ -181,10 +194,14 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- For at tilføje en ny opgave til Planner skal du blot klikke på + og trykke "
+"på Enter.\n"
+"- Når din opgave er oprettet, skal du klikke på opgaven for at kunne "
+"redigere den, tilføje en note eller nogle andre muligheder."
 
 #: src/Utils.vala:671
 msgid "Due dates"
-msgstr ""
+msgstr "Forfaldsdatoer"
 
 #: src/Utils.vala:672
 msgid ""
@@ -196,7 +213,7 @@ msgstr ""
 
 #: src/Utils.vala:678
 msgid "How to use projects"
-msgstr ""
+msgstr "Sådan bruges projekter"
 
 #: src/Utils.vala:679
 msgid ""
