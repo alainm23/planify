@@ -423,51 +423,42 @@ public class Utils : GLib.Object {
     }
 
     public bool is_before_today (GLib.DateTime date) {
-        var date_1 = date.add_days (1);
-        var date_2 = new GLib.DateTime.now_local ();
+        var now = get_format_date (new DateTime.now_local ());
 
-        if (date_1.compare (date_2) == -1) {
+        if (get_format_date (date).compare (now) == -1) {
             return true;
         }
 
         return false;
     }
 
-    public bool is_past_day (GLib.DateTime date) {
-        var returned = false;
-        var now = new GLib.DateTime.now_local ();
-
-        if (date.get_year () < now.get_year ()) {
-            returned = true;
-        } else {
-            if (date.get_month () < now.get_month ()) {
-                returned = true;
-            } else {
-                if (date.get_day_of_month () < now.get_day_of_month ()) {
-                    returned = true;
-                }
-            }
-        }
-
-        return returned;
+    public bool is_today (GLib.DateTime date) {
+        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ());
     }
 
-    public bool is_today (GLib.DateTime date_1) {
-        var date_2 = new GLib.DateTime.now_local ();
-        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
-    }
-
-    public bool is_tomorrow (GLib.DateTime date_1) {
-        var date_2 = new GLib.DateTime.now_local ().add_days (1);
-        return date_1.get_day_of_year () == date_2.get_day_of_year () && date_1.get_year () == date_2.get_year ();
+    public bool is_tomorrow (GLib.DateTime date) {
+        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
     }
 
     public bool is_upcoming (GLib.DateTime date) {
-        if (is_today (date) == false && is_before_today (date) == false) {
+        var now = get_format_date (new DateTime.now_local ());
+
+        if (get_format_date (date).compare (now) == 1) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+    }
+
+    private GLib.DateTime get_format_date (GLib.DateTime date) {
+        return new DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            0,
+            0,
+            0
+        );
     }
 
     public string get_default_date_format_from_string (string due_date) {

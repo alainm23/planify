@@ -266,15 +266,6 @@ public class Widgets.Pane : Gtk.EventBox {
                 activated (row.get_index ());
                 Planner.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
-
-                var action = (Widgets.ActionRow) row;
-
-                action.icon.get_style_context ().add_class ("active");
-
-                Timeout.add (700, () => {
-                    action.icon.get_style_context ().remove_class ("active");
-                    return false;
-                });
             }
         });
 

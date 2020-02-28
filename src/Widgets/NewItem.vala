@@ -25,7 +25,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int is_todoist { get; set; }
     public int index { get; set; default = 0; }
     public bool has_index { get; set; default = false; }
-    public string due { get; set; default = ""; }
+    public string due_date { get; set; default = ""; }
 
     public int64 temp_id_mapping {get; set; default = 0; }
 
@@ -132,7 +132,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                if (due == "") {
+                if (due_date == "") {
                     main_revealer.reveal_child = false;
 
                     Timeout.add (500, () => {
@@ -156,7 +156,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         cancel_button.clicked.connect (() => {
-            if (due == "") {
+            if (due_date == "") {
                 main_revealer.reveal_child = false;
 
                 Timeout.add (500, () => {
@@ -181,20 +181,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 sensitive = true;
                 content_entry.text = "";
 
-                bool last = true;
-                if (has_index) {
-                    last = false;
-                }
+                if (due_date == "") {
+                    bool last = true;
+                    if (has_index) {
+                        last = false;
+                    }
 
-                Planner.utils.magic_button_activated (
-                    project_id,
-                    section_id,
-                    is_todoist,
-                    last,
-                    index + 1
-                );
+                    Planner.utils.magic_button_activated (
+                        project_id,
+                        section_id,
+                        is_todoist,
+                        last,
+                        index + 1
+                    );
 
-                if (due == "") {
                     main_revealer.reveal_child = false;
 
                     Timeout.add (500, () => {
@@ -205,7 +205,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     new_item_hide ();
                 }
 
-                due = "";
+                due_date = "";
             }
         });
 
@@ -229,7 +229,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
-            item.due_date = due;
+            item.due_date = due_date;
 
             temp_id_mapping = Planner.utils.generate_id ();
 
@@ -240,20 +240,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 if (Planner.database.insert_item (item, index, has_index)) {
                     content_entry.text = "";
 
-                    bool last = true;
-                    if (has_index) {
-                        last = false;
-                    }
+                    if (due_date == "") {
+                        bool last = true;
+                        if (has_index) {
+                            last = false;
+                        }
 
-                    Planner.utils.magic_button_activated (
-                        project_id,
-                        section_id,
-                        is_todoist,
-                        last,
-                        index + 1
-                    );
+                        Planner.utils.magic_button_activated (
+                            project_id,
+                            section_id,
+                            is_todoist,
+                            last,
+                            index + 1
+                        );
 
-                    if (due == "") {
                         main_revealer.reveal_child = false;
 
                         Timeout.add (500, () => {
@@ -264,7 +264,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                         new_item_hide ();
                     }
 
-                    due = "";
+                    due_date = "";
                 }
             }
         }

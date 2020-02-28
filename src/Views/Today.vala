@@ -436,7 +436,7 @@ public class Views.Today : Gtk.EventBox {
         if (new_item_revealer.reveal_child) {
             new_item_revealer.reveal_child = false;
         } else {
-            new_item.due = new GLib.DateTime.now_local ().to_string ();
+            new_item.due_date = new GLib.DateTime.now_local ().to_string ();
             new_item_revealer.reveal_child = true;
             new_item.entry_grab_focus ();
 
