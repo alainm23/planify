@@ -167,8 +167,12 @@ paned.horizontal > separator {
 }
 
 .pane-row {
-    transition: all 210ms ease-in-out;
+    transition: all 250ms ease-in-out;
     background-color: transparent;
+}
+
+.action-row:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
 }
 
 .pane-row:selected {
@@ -282,10 +286,6 @@ paned.horizontal > separator {
     50%  { -gtk-icon-transform: rotate(0deg);   }
     75%  { -gtk-icon-transform: rotate(30deg);  }
     100% { -gtk-icon-transform: rotate(0deg);   }
-}
-
-.active {
-  animation: fancy-turn 0.7s ease-in-out;
 }
 
 @keyframes add-animation {

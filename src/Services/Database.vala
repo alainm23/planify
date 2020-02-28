@@ -1802,7 +1802,9 @@ public class Services.Database : GLib.Object {
             var due = new GLib.DateTime.from_iso8601 (stmt.column_text (0), new GLib.TimeZone.local ());
             if (Planner.utils.is_today (due)) {
                 items_today++;
-            } else if (Planner.utils.is_before_today (due)) {
+            }
+
+            if (Planner.utils.is_before_today (due)) {
                 items_past++;
             }
         }

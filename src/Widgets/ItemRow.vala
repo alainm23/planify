@@ -178,7 +178,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
-        //checked_button.margin_start = 24;
         checked_button.margin_top = 6;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.BASELINE;
