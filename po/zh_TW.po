@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-02-29 02:29+0000\n"
+"Last-Translator: Ethan Chen <ethan42411@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"planner/translations/zh_Hant/>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
@@ -23,39 +25,39 @@ msgstr ""
 
 #: src/MainWindow.vala:45
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/Utils.vala:105 src/Utils.vala:112 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "首頁"
 
 #: src/Utils.vala:106 src/Utils.vala:116
 msgid "Office"
-msgstr ""
+msgstr "辦公室"
 
 #: src/Utils.vala:107 src/Utils.vala:120
 msgid "Errand"
-msgstr ""
+msgstr "任務"
 
 #: src/Utils.vala:108 src/Utils.vala:124
 msgid "Important"
-msgstr ""
+msgstr "重要"
 
 #: src/Utils.vala:109 src/Utils.vala:128
 msgid "Pending"
-msgstr ""
+msgstr "擱置"
 
 #: src/Utils.vala:171
 msgid "Berry Red"
-msgstr ""
+msgstr "紅莓紅"
 
 #: src/Utils.vala:172
 msgid "Red"
-msgstr ""
+msgstr "紅"
 
 #: src/Utils.vala:173
 msgid "Orange"
-msgstr ""
+msgstr "橘"
 
 #: src/Utils.vala:174
 msgid "Yellow"
@@ -1091,12 +1093,12 @@ msgstr ""
 
 #: src/Objects/Project.vala:118
 msgid "The Project was copied to the Clipboard."
-msgstr ""
+msgstr "此專案已被複製到剪貼簿。"
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "此工作已被複製到剪貼簿。"
 
 #: src/Objects/Section.vala:116
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "此區段已經被複製到剪貼簿。"
