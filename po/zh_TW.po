@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: 2020-02-29 02:29+0000\n"
+"PO-Revision-Date: 2020-03-01 03:33+0000\n"
 "Last-Translator: Ethan Chen <ethan42411@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "planner/translations/zh_Hant/>\n"
@@ -215,11 +215,11 @@ msgstr ""
 
 #: src/Utils.vala:689
 msgid "Sections"
-msgstr ""
+msgstr "區段"
 
 #: src/Utils.vala:695
 msgid "Add sections"
-msgstr ""
+msgstr "新增區段"
 
 #: src/Utils.vala:696
 msgid ""
@@ -276,7 +276,7 @@ msgstr ""
 
 #: src/Utils.vala:725
 msgid "Quit"
-msgstr ""
+msgstr "離開"
 
 #: src/Utils.vala:733
 msgid "The request was incorrect."
@@ -313,23 +313,23 @@ msgstr ""
 #: src/Views/Inbox.vala:71 src/Dialogs/Preferences/Preferences.vala:223
 #: src/Dialogs/Preferences/Preferences.vala:331
 msgid "Inbox"
-msgstr ""
+msgstr "收件夾"
 
 #: src/Services/Notifications.vala:32
 msgid "task"
-msgstr ""
+msgstr "工作"
 
 #: src/Services/Notifications.vala:34
 msgid "tasks"
-msgstr ""
+msgstr "工作"
 
 #: src/Services/Calendar/Util.vala:227
 msgid "On this computer"
-msgstr ""
+msgstr "位於此電腦"
 
 #: src/Widgets/ActionRow.vala:84 src/Widgets/ProjectRow.vala:147
 msgid "Todoist Project"
-msgstr ""
+msgstr "Todoist專案"
 
 #: src/Widgets/Pane.vala:65
 msgid ""
@@ -365,11 +365,11 @@ msgstr ""
 
 #: src/Widgets/Pane.vala:82
 msgid "Add List"
-msgstr ""
+msgstr "新增列表"
 
 #: src/Widgets/Pane.vala:148
 msgid "Quick Find"
-msgstr ""
+msgstr "快速搜尋"
 
 #: src/Widgets/Pane.vala:162
 msgid "Preferences"
@@ -377,7 +377,7 @@ msgstr ""
 
 #: src/Widgets/Pane.vala:175 src/Widgets/Pane.vala:419
 msgid "Sync"
-msgstr ""
+msgstr "同步"
 
 #: src/Widgets/Pane.vala:423
 msgid "Offline mode is on"
@@ -393,7 +393,7 @@ msgstr ""
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:770 src/Views/Project.vala:1030
 #: src/Dialogs/ProjectSettings.vala:46
 msgid "Name:"
-msgstr ""
+msgstr "名稱："
 
 #: src/Widgets/New.vala:83
 msgid "Area:"
@@ -401,13 +401,13 @@ msgstr ""
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
-msgstr ""
+msgstr "顏色："
 
 #: src/Widgets/New.vala:257 src/Widgets/NewItem.vala:86
 #: src/Widgets/ReminderButton.vala:208 src/Widgets/NewSection.vala:82
 #: src/Views/Inbox.vala:786 src/Views/Project.vala:1046
 msgid "Add"
-msgstr ""
+msgstr "新增"
 
 #: src/Widgets/New.vala:262 src/Widgets/New.vala:659
 #: src/Widgets/NewItem.vala:91 src/Widgets/SectionRow.vala:127
@@ -416,11 +416,11 @@ msgstr ""
 #: src/Views/Inbox.vala:791 src/Views/Project.vala:159
 #: src/Views/Project.vala:1051
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: src/Widgets/New.vala:473
 msgid "Local"
-msgstr ""
+msgstr "本地"
 
 #: src/Widgets/New.vala:544 src/Widgets/ProjectRow.vala:444
 msgid "No Area"
@@ -428,7 +428,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:605
 msgid "Project"
-msgstr ""
+msgstr "專案"
 
 #: src/Widgets/New.vala:610
 msgid "Start a new project, create a to do list, organize your notes."
@@ -444,7 +444,7 @@ msgstr ""
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:145
 msgid "Project Menu"
-msgstr ""
+msgstr "專案選單"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
@@ -460,7 +460,7 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:586 src/Widgets/AreaRow.vala:499
 #: src/Views/Project.vala:830
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: src/Widgets/ProjectRow.vala:498
 msgid "Move to Area"
@@ -469,17 +469,17 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1350
 #: src/Widgets/SectionRow.vala:592
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 #: src/Widgets/ProjectRow.vala:506
 msgid "Send by e-mail"
-msgstr ""
+msgstr "使用e-mail寄送"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:507 src/Widgets/ItemRow.vala:1355
 #: src/Widgets/SectionRow.vala:597
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:513 src/Widgets/ProjectRow.vala:538
@@ -488,11 +488,11 @@ msgstr ""
 #: src/Widgets/AreaRow.vala:538 src/Widgets/CheckRow.vala:80
 #: src/Views/Project.vala:833 src/Views/Project.vala:903
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 #: src/Widgets/ProjectRow.vala:533 src/Views/Project.vala:898
 msgid "Delete project"
-msgstr ""
+msgstr "刪除專案"
 
 #: src/Widgets/ProjectRow.vala:534 src/Widgets/SectionRow.vala:635
 #: src/Widgets/AreaRow.vala:526 src/Views/Project.vala:899
@@ -503,31 +503,31 @@ msgstr ""
 #: src/Widgets/NewItem.vala:63 src/Widgets/ItemRow.vala:205
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "工作名稱"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1005
 msgid "View Details"
-msgstr ""
+msgstr "顯示詳細訊息"
 
 #: src/Widgets/ItemRow.vala:373 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
-msgstr ""
+msgstr "備註"
 
 #: src/Widgets/ItemRow.vala:421
 msgid "Add Checklist"
-msgstr ""
+msgstr "新增檢查清單"
 
 #: src/Widgets/ItemRow.vala:428
 msgid "Delete Task"
-msgstr ""
+msgstr "刪除工作"
 
 #: src/Widgets/ItemRow.vala:441
 msgid "Task Menu"
-msgstr ""
+msgstr "工作選單"
 
 #: src/Widgets/ItemRow.vala:984
 msgid "Hiding"
-msgstr ""
+msgstr "隱藏中"
 
 #: src/Widgets/ItemRow.vala:1260
 msgid "No Section"
@@ -551,7 +551,7 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1354
 msgid "Text"
-msgstr ""
+msgstr "文字"
 
 #: src/Widgets/ItemRow.vala:1361
 msgid "Duplicate"
@@ -559,7 +559,7 @@ msgstr ""
 
 #: src/Widgets/ItemCompletedRow.vala:39
 msgid "Content"
-msgstr ""
+msgstr "內容"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Due date"
@@ -589,7 +589,7 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:123 src/Widgets/AreaRow.vala:135
 #: src/Views/Project.vala:155 src/Dialogs/ProjectSettings.vala:255
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: src/Widgets/SectionRow.vala:539 src/Widgets/SectionRow.vala:561
 #, c-format
@@ -602,7 +602,7 @@ msgstr ""
 
 #: src/Widgets/SectionRow.vala:634
 msgid "Delete section"
-msgstr ""
+msgstr "刪除區段"
 
 #: src/Widgets/SectionRow.vala:653
 msgid "Section deleted"
@@ -631,19 +631,19 @@ msgstr ""
 
 #: src/Widgets/Toast.vala:88
 msgid "Undo"
-msgstr ""
+msgstr "復原"
 
 #: src/Widgets/AreaRow.vala:81 src/Widgets/AreaRow.vala:345
 msgid "Display Projects"
-msgstr ""
+msgstr "顯示專案"
 
 #: src/Widgets/AreaRow.vala:125 src/Widgets/AreaRow.vala:350
 msgid "Hiding Projects"
-msgstr ""
+msgstr "隱藏中的專案"
 
 #: src/Widgets/AreaRow.vala:496
 msgid "Add project"
-msgstr ""
+msgstr "新增專案"
 
 #: src/Widgets/AreaRow.vala:525
 msgid "Delete area"
@@ -655,7 +655,7 @@ msgstr ""
 
 #: src/Widgets/NewCheck.vala:74
 msgid "Subtask name"
-msgstr ""
+msgstr "子工作名稱"
 
 #: src/Widgets/UpcomingRow.vala:67
 msgid "Add task"
@@ -664,7 +664,7 @@ msgstr ""
 #: src/Widgets/QuickFind.vala:48 src/Dialogs/ProjectSettings.vala:253
 #: src/Dialogs/Preferences/Preferences.vala:78
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 #: src/Widgets/ReminderButton.vala:42
 msgid "Reminders"
@@ -676,47 +676,47 @@ msgstr ""
 
 #: src/Widgets/ReminderButton.vala:199
 msgid "Time:"
-msgstr ""
+msgstr "時間:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
-msgstr ""
+msgstr "新增標籤"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
-msgstr ""
+msgstr "%OB, %Y"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:42
 msgid "%OB %Y"
-msgstr ""
+msgstr "%OB %Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:26
 msgid "Mon"
-msgstr ""
+msgstr "星期一"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:29
 msgid "Tue"
-msgstr ""
+msgstr "星期二"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:32
 msgid "Wed"
-msgstr ""
+msgstr "星期三"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:35
 msgid "Thu"
-msgstr ""
+msgstr "星期四"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:38
 msgid "Fri"
-msgstr ""
+msgstr "星期五"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:41
 msgid "Sat"
-msgstr ""
+msgstr "星期六"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:44
 msgid "Sun"
-msgstr ""
+msgstr "星期天"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
@@ -732,7 +732,7 @@ msgstr ""
 
 #: src/Views/Welcome.vala:30 src/Dialogs/Preferences/Preferences.vala:902
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Views/Welcome.vala:30
 msgid "Synchronize with your Todoist account and start working."
@@ -748,15 +748,15 @@ msgstr ""
 
 #: src/Views/Inbox.vala:99 src/Views/Project.vala:138
 msgid "Search task"
-msgstr ""
+msgstr "搜尋工作"
 
 #: src/Views/Inbox.vala:106
 msgid "Inbox Menu"
-msgstr ""
+msgstr "收件夾選單"
 
 #: src/Views/Inbox.vala:149
 msgid "All clear"
-msgstr ""
+msgstr "全部清除"
 
 #: src/Views/Inbox.vala:150
 msgid "Looks like everything's organized in the right place."
@@ -764,11 +764,11 @@ msgstr ""
 
 #: src/Views/Inbox.vala:718 src/Views/Project.vala:842
 msgid "Show Completed"
-msgstr ""
+msgstr "顯示已完成"
 
 #: src/Views/Inbox.vala:881 src/Views/Project.vala:995
 msgid "Task completed"
-msgstr ""
+msgstr "工作已完成"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
@@ -804,7 +804,7 @@ msgstr ""
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
-msgstr ""
+msgstr "載入中…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:67 src/Dialogs/TodoistOAuth.vala:135
@@ -842,7 +842,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:209
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Homepage"
-msgstr ""
+msgstr "首頁"
 
 #: src/Dialogs/Preferences/Preferences.vala:91
 #: src/Dialogs/Preferences/Preferences.vala:314
@@ -852,12 +852,12 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:92
 #: src/Dialogs/Preferences/Preferences.vala:387
 msgid "Theme"
-msgstr ""
+msgstr "佈景主題"
 
 #: src/Dialogs/Preferences/Preferences.vala:93
 #: src/Dialogs/Preferences/Preferences.vala:436
 msgid "Quick Add"
-msgstr ""
+msgstr "快速新增"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:109
@@ -873,13 +873,13 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:449
 #: src/Dialogs/Preferences/Preferences.vala:847
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "鍵盤快速鍵"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:130
 #: src/Dialogs/Preferences/Preferences.vala:1216
 msgid "About"
-msgstr ""
+msgstr "關於"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
@@ -973,7 +973,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
-msgstr ""
+msgstr "說明"
 
 #: src/Dialogs/Preferences/Preferences.vala:631
 msgid "Create tutorial project"
@@ -981,7 +981,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:631
 msgid "Create"
-msgstr ""
+msgstr "建立"
 
 #: src/Dialogs/Preferences/Preferences.vala:633
 msgid "Danger zone"
@@ -990,11 +990,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:637
 #: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Reset all"
-msgstr ""
+msgstr "重置全部"
 
 #: src/Dialogs/Preferences/Preferences.vala:637
 msgid "Reset"
-msgstr ""
+msgstr "重置"
 
 #: src/Dialogs/Preferences/Preferences.vala:688
 msgid "Your tutorial project was created"
@@ -1029,7 +1029,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:935
 msgid "Sync server"
-msgstr ""
+msgstr "同步伺服器"
 
 #: src/Dialogs/Preferences/Preferences.vala:940
 msgid ""
@@ -1040,11 +1040,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:952
 #: src/Dialogs/Preferences/Preferences.vala:1007
 msgid "Log out"
-msgstr ""
+msgstr "登出"
 
 #: src/Dialogs/Preferences/Preferences.vala:1002
 msgid "Are you sure you want to log out?"
-msgstr ""
+msgstr "您確定要登出?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1003
 msgid "This process will close your Todoist session on this device."
@@ -1060,7 +1060,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1056
 msgid "Enabled"
-msgstr ""
+msgstr "啟用"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
 msgid ""
@@ -1077,19 +1077,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
-msgstr ""
+msgstr "回報問題"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Suggest Translations"
-msgstr ""
+msgstr "建議翻譯"
 
 #: src/Dialogs/Preferences/Preferences.vala:1334
 msgid "Disabled"
-msgstr ""
+msgstr "關閉"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 #: src/Objects/Project.vala:118
 msgid "The Project was copied to the Clipboard."
