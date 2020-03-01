@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: 2020-02-28 09:14+0000\n"
+"PO-Revision-Date: 2020-03-02 13:33+0000\n"
 "Last-Translator: Vinodh Moodley <vmoodleyzaf@gmail.com>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/planner/"
 "translations/af/>\n"
@@ -45,7 +45,7 @@ msgstr "Belangrik"
 
 #: src/Utils.vala:109 src/Utils.vala:128
 msgid "Pending"
-msgstr ""
+msgstr "Hangende"
 
 #: src/Utils.vala:171
 msgid "Berry Red"
@@ -77,11 +77,11 @@ msgstr "Groen"
 
 #: src/Utils.vala:178
 msgid "Mint Green"
-msgstr ""
+msgstr "Ment Groen"
 
 #: src/Utils.vala:179
 msgid "Teal"
-msgstr ""
+msgstr "Teal"
 
 #: src/Utils.vala:180
 msgid "Sky Blue"
@@ -101,7 +101,7 @@ msgstr "Druif"
 
 #: src/Utils.vala:184
 msgid "Violet"
-msgstr ""
+msgstr "Violet"
 
 #: src/Utils.vala:185
 msgid "Lavander"
@@ -109,11 +109,11 @@ msgstr "lavendel"
 
 #: src/Utils.vala:186
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Utils.vala:187
 msgid "Salmon"
-msgstr ""
+msgstr "Salm"
 
 #: src/Utils.vala:188
 msgid "Charcoal"
@@ -125,7 +125,7 @@ msgstr "Grys"
 
 #: src/Utils.vala:190
 msgid "Taupe"
-msgstr ""
+msgstr "Taupe"
 
 #: src/Utils.vala:517 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1333
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:52
@@ -150,7 +150,7 @@ msgstr "Probeer %s om dit te aktiveer. Jy kan dit verander van die voorkeure"
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Aan die gang kom"
 
 #: src/Utils.vala:653
 msgid ""
@@ -303,7 +303,7 @@ msgstr "Oop Komende"
 
 #: src/Utils.vala:723
 msgid "Open Search"
-msgstr ""
+msgstr "Maak Soek Oop"
 
 #: src/Utils.vala:724
 msgid "Manually sync"
@@ -348,7 +348,7 @@ msgstr "Die bediener kan tans nie die versoek hanteer nie."
 #: src/Views/Inbox.vala:71 src/Dialogs/Preferences/Preferences.vala:223
 #: src/Dialogs/Preferences/Preferences.vala:331
 msgid "Inbox"
-msgstr ""
+msgstr "Inkassie"
 
 #: src/Services/Notifications.vala:32
 msgid "task"
@@ -384,43 +384,48 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"Met die Vandag-aansig kan u al die take sien wat uitstaande is oor al u "
+"projeckte."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:75 src/Widgets/Pane.vala:359
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:230
 msgid "Upcoming"
-msgstr ""
+msgstr "Komende"
 
 #: src/Widgets/Pane.vala:74
+#, fuzzy
 msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
+"Beplan jou week vooruit met die komende aansig. Dit wys alles op jou agenda "
+"vir die komende dae: geskeduleer \"Tod-Do's\" en kalender gebeurtenisse."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:75
 msgid "Back-Pocket"
-msgstr ""
+msgstr "Agter-Sak"
 
 #: src/Widgets/Pane.vala:82
 msgid "Add List"
-msgstr ""
+msgstr "Voeg Lys By"
 
 #: src/Widgets/Pane.vala:148
 msgid "Quick Find"
-msgstr ""
+msgstr "Vinnige Soek"
 
 #: src/Widgets/Pane.vala:162
 msgid "Preferences"
-msgstr ""
+msgstr "Voorkeure"
 
 #: src/Widgets/Pane.vala:175 src/Widgets/Pane.vala:419
 msgid "Sync"
-msgstr ""
+msgstr "Sinchro"
 
 #: src/Widgets/Pane.vala:423
 msgid "Offline mode is on"
-msgstr ""
+msgstr "Vanlyn af is aan"
 
 #: src/Widgets/Pane.vala:423
 msgid ""
@@ -428,25 +433,28 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"Dit lyk of u nie aan die internet gekoppel is nie. \n"
+"Wysigings wat u vanlyn af maak sal gesinkroniseer word as u weer gekoppel "
+"word."
 
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:770 src/Views/Project.vala:1030
 #: src/Dialogs/ProjectSettings.vala:46
 msgid "Name:"
-msgstr ""
+msgstr "Naam:"
 
 #: src/Widgets/New.vala:83
 msgid "Area:"
-msgstr ""
+msgstr "Gebied:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
-msgstr ""
+msgstr "Kleur:"
 
 #: src/Widgets/New.vala:257 src/Widgets/NewItem.vala:86
 #: src/Widgets/ReminderButton.vala:208 src/Widgets/NewSection.vala:82
 #: src/Views/Inbox.vala:786 src/Views/Project.vala:1046
 msgid "Add"
-msgstr ""
+msgstr "Voeg"
 
 #: src/Widgets/New.vala:262 src/Widgets/New.vala:659
 #: src/Widgets/NewItem.vala:91 src/Widgets/SectionRow.vala:127
@@ -455,70 +463,70 @@ msgstr ""
 #: src/Views/Inbox.vala:791 src/Views/Project.vala:159
 #: src/Views/Project.vala:1051
 msgid "Cancel"
-msgstr ""
+msgstr "Kanselleer"
 
 #: src/Widgets/New.vala:473
 msgid "Local"
-msgstr ""
+msgstr "Plaaslike"
 
 #: src/Widgets/New.vala:544 src/Widgets/ProjectRow.vala:444
 msgid "No Area"
-msgstr ""
+msgstr "Geen gebied nie"
 
 #: src/Widgets/New.vala:605
 msgid "Project"
-msgstr ""
+msgstr "Projek"
 
 #: src/Widgets/New.vala:610
 msgid "Start a new project, create a to do list, organize your notes."
-msgstr ""
+msgstr "Begin 'n nuwe projek, skep 'n lys om te doen, organiseer jou notas."
 
 #: src/Widgets/New.vala:636
 msgid "Area"
-msgstr ""
+msgstr "Gebied"
 
 #: src/Widgets/New.vala:641
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr ""
+msgstr "Organiseer jou projekte in groepe en hou jou paneel skoon."
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:145
 msgid "Project Menu"
-msgstr ""
+msgstr "Projekkieslys"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
-msgstr ""
+msgstr "Plaaslike Projek"
 
 #: src/Widgets/ProjectRow.vala:361 src/Widgets/ItemRow.vala:1225
 #: src/Widgets/ItemRow.vala:1246 src/Widgets/ItemRow.vala:1281
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr ""
+msgstr "Taak verskuif na  <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:496 src/Widgets/ItemRow.vala:1323
 #: src/Widgets/SectionRow.vala:586 src/Widgets/AreaRow.vala:499
 #: src/Views/Project.vala:830
 msgid "Edit"
-msgstr ""
+msgstr "Wysig"
 
 #: src/Widgets/ProjectRow.vala:498
 msgid "Move to Area"
-msgstr ""
+msgstr "Skuif na Gebied"
 
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1350
 #: src/Widgets/SectionRow.vala:592
 msgid "Share"
-msgstr ""
+msgstr "Deel"
 
 #: src/Widgets/ProjectRow.vala:506
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Stuur per e-pos"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:507 src/Widgets/ItemRow.vala:1355
 #: src/Widgets/SectionRow.vala:597
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:513 src/Widgets/ProjectRow.vala:538
@@ -527,30 +535,30 @@ msgstr ""
 #: src/Widgets/AreaRow.vala:538 src/Widgets/CheckRow.vala:80
 #: src/Views/Project.vala:833 src/Views/Project.vala:903
 msgid "Delete"
-msgstr ""
+msgstr "Verwyder"
 
 #: src/Widgets/ProjectRow.vala:533 src/Views/Project.vala:898
 msgid "Delete project"
-msgstr ""
+msgstr "Verwyder projek"
 
 #: src/Widgets/ProjectRow.vala:534 src/Widgets/SectionRow.vala:635
 #: src/Widgets/AreaRow.vala:526 src/Views/Project.vala:899
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Is u seker dat u <b>%s</b> wil verwyder?"
 
 #: src/Widgets/NewItem.vala:63 src/Widgets/ItemRow.vala:205
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "Taaknaam"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1005
 msgid "View Details"
-msgstr ""
+msgstr "Sien besonderhede"
 
 #: src/Widgets/ItemRow.vala:373 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: src/Widgets/ItemRow.vala:421
 msgid "Add Checklist"
