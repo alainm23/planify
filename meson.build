@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.2.8')
+        version: '2.2.9')
 
 gnome = import('gnome')
 i18n = import('i18n')

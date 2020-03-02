@@ -743,6 +743,8 @@ public class Utils : GLib.Object {
         patrons.add ("Jeppe Terndrup");
         patrons.add ("The Linux Experiment");
         patrons.add ("William Tumeo");
+        patrons.add ("Wount");
+        patrons.add ("M");
 
         return patrons;
     }
