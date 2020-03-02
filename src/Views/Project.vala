@@ -187,6 +187,7 @@ public class Views.Project : Gtk.EventBox {
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.margin_top = 6;
+        note_textview.margin_bottom = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
         note_textview.margin_start = 24;
@@ -206,7 +207,6 @@ public class Views.Project : Gtk.EventBox {
         }
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_top = 6;
         listbox.margin_start = 18;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
@@ -994,7 +994,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Widget get_completed_header () {
         var name_label = new Gtk.Label (_("Task completed"));
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("header-title");
+        name_label.get_style_context ().add_class ("font-bold");
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 

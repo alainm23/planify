@@ -93,20 +93,12 @@ public class Services.Database : GLib.Object {
     }
 
     public void patch_database () {
-        //  if (Planner.database.column_exists ("Areas", "is_kanban") == false) {
-        //        Planner.database.add_text_column ("Areas", "abc", "hola mundo");
+        //  if (Planner.database.column_exists ("Sections", "note") == false) {
+        //        Planner.database.add_text_column ("Sections", "note", "");
         //  }
 
         //  if (Planner.database.column_exists ("Projects", "is_kanban") == false) {
         //      Planner.database.add_int_column ("Projects", "is_kanban", 0);
-        //  }
-
-        //  if (Planner.database.column_exists ("Areas", "aaaa") == false) {
-        //      Planner.database.add_int_column ("Areas", "aaaa", 123);
-        //  }
-
-        //  if (Planner.database.column_exists ("Areas", "ascascascas") == false) {
-        //      Planner.database.add_int64_column ("Areas", "ascascascas", 1234567890);
         //  }
     }
 
@@ -725,9 +717,7 @@ public class Services.Database : GLib.Object {
         sql = """
             ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %i;
         """.printf (table, col, default_value);
-
-        print ("%s\n".printf (sql));
-
+        
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -745,8 +735,6 @@ public class Services.Database : GLib.Object {
             ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %s;
         """.printf (table, col, default_value.to_string ());
 
-        print ("%s\n".printf (sql));
-
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -763,8 +751,6 @@ public class Services.Database : GLib.Object {
         sql = """
             ALTER TABLE %s ADD COLUMN %s TEXT DEFAULT '%s';
         """.printf (table, col, default_value);
-
-        print ("%s\n".printf (sql));
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
@@ -1982,7 +1968,7 @@ public class Services.Database : GLib.Object {
         section.item_order = 0;
 
         sql = """
-            INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed, 
+            INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed,
             sync_id, is_deleted, is_archived, date_archived, date_added, is_todoist)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
@@ -2023,6 +2009,9 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (11, section.is_todoist);
         assert (res == Sqlite.OK);
 
+        //  res = stmt.bind_text (12, section.note);
+        //  assert (res == Sqlite.OK);
+
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
@@ -2061,6 +2050,7 @@ public class Services.Database : GLib.Object {
             s.date_archived = stmt.column_text (8);
             s.date_added = stmt.column_text (9);
             s.is_todoist = stmt.column_int (10);
+            // s.note = stmt.column_text (11);
         }
 
         return s;
@@ -2097,6 +2087,7 @@ public class Services.Database : GLib.Object {
             s.date_archived = stmt.column_text (8);
             s.date_added = stmt.column_text (9);
             s.is_todoist = stmt.column_int (10);
+            //  s.note = stmt.column_text (11);
 
             all.add (s);
         }
@@ -2127,6 +2118,9 @@ public class Services.Database : GLib.Object {
 
         res = stmt.bind_int64 (4, section.id);
         assert (res == Sqlite.OK);
+
+        //  res = stmt.bind_text (5, section.note);
+        //  assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
             section_updated (section);
@@ -3563,7 +3557,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT Reminders.id, Reminders.item_id, Reminders.due_date, Items.content, Items.project_id FROM Reminders
-            INNER JOIN Items ON Reminders.item_id = Items.id ORDER BY Reminders.due_date;
+            INNER JOIN Items ON Reminders.item_id = Items.id WHERE Items.checked = 0 ORDER BY Reminders.due_date;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

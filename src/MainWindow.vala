@@ -123,6 +123,9 @@ public class MainWindow : Gtk.Window {
                 // Remove Trash Data
                 Planner.database.remove_trash ();
 
+                // Path Database
+                Planner.database.patch_database ();
+
                 // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
@@ -138,6 +141,9 @@ public class MainWindow : Gtk.Window {
                     go_view (Planner.settings.get_int ("homepage-item"));
                     pane.select_item (Planner.settings.get_int ("homepage-item"));
                 }
+
+                // Run Reminder server
+                Planner.notifications.init_server ();
 
                 // Run Todoisr Sync server
                 Planner.todoist.run_server ();

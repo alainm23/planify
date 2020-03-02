@@ -472,6 +472,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_end = 16;
+        motion_grid.margin_top = 3;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -670,12 +671,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_checklist_separator ();
         });
 
-        Planner.todoist.item_completed_completed.connect ((i) => {
-            if (item.id == i.id) {
-                destroy ();
-            }
-        });
-
         Planner.database.update_due_item.connect ((i) => {
             if (item.id == i.id) {
                 var datetime = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
@@ -852,13 +847,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 if (item.id == i.id) {
                     if (i.checked == 1) {
                         checked_button.active = true;
+                        content_label.get_style_context ().add_class ("label-line-through");
+                        sensitive = false;
 
-                        content_label.get_style_context ().add_class ("item-complete");
-                        checked_timeout = Timeout.add (700, () => {
+                        checked_timeout = Timeout.add (750, () => {
                             main_revealer.reveal_child = false;
                             return false;
                         });
-                    } else {
                     }
                 }
 
@@ -939,15 +934,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item.checked = 1;
             item.date_completed = new GLib.DateTime.now_local ().to_string ();
 
-            checked_button.sensitive = false;
-            new Thread<void*> ("todoist_item_complete", () => {
-                Planner.database.update_item_completed (item);
-                if (item.is_todoist == 1) {
-                    Planner.todoist.item_complete (item);
-                }
-
-                return null;
-            });
+            Planner.database.update_item_completed (item);
+            if (item.is_todoist == 1) {
+                Planner.todoist.item_complete (item);
+            }
         }
     }
 
@@ -1246,7 +1236,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     Planner.notifications.send_notification (
                         0,
                         move_template.printf (
-                            Planner.database.get_project_by_id (project.id).name
+                            project.name
                         )
                     );
                 });

@@ -20,14 +20,10 @@
 */
 
 public class Services.Notifications : GLib.Object {
-    public signal void send_notification (int type, string message);
-
-    private const string MOVE_TEMPLATE = "<b>%s</b> moved to <b>%s</b>";
     private const string DELETE_TEMPLATE = "(%i) %s deleted";
-
+    public signal void send_notification (int type, string message);
+    
     construct {
-        init_server ();
-
         Planner.database.show_toast_delete.connect ((count) => {
             string t = _("task");
             if (count > 1) {
@@ -39,34 +35,6 @@ public class Services.Notifications : GLib.Object {
                 DELETE_TEMPLATE.printf (count, t)
             );
         });
-
-        //  Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
-        //      Idle.add (() => {
-        //          send_notification (
-        //              0,
-        //              MOVE_TEMPLATE.printf (
-        //                  item.content,
-        //                  Planner.database.get_project_by_id (project_id).name
-        //              )
-        //          );
-
-        //          return false;
-        //      });
-        //  });
-
-        //  Planner.database.section_moved.connect ((section) => {
-        //      Idle.add (() => {
-        //          send_notification (
-        //              0,
-        //              MOVE_TEMPLATE.printf (
-        //                  section.name,
-        //                  Planner.database.get_project_by_id (section.project_id).name
-        //              )
-        //          );
-
-        //          return false;
-        //      });
-        //  });
     }
 
     public void init_server () {

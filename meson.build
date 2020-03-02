@@ -134,13 +134,13 @@ executable(
 
 executable(
     'com.github.alainm23.planner-quick-add',
-    'src/QuickAdd/Application.vala',
-    'src/QuickAdd/MainWindow.vala',
-    'src/QuickAdd/DBusClient.vala',
-    'src/QuickAdd/Database.vala',
-    'src/QuickAdd/Project.vala',
-    'src/QuickAdd/Item.vala',
-    'src/QuickAdd/Queue.vala',
+    'quick-add/Application.vala',
+    'quick-add/MainWindow.vala',
+    'quick-add/DBusClient.vala',
+    'quick-add/Database.vala',
+    'quick-add/Project.vala',
+    'quick-add/Item.vala',
+    'quick-add/Queue.vala',
     asresources,
     config_header,
     dependencies: [
