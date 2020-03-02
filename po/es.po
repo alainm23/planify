@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-23 21:49-0500\n"
-"PO-Revision-Date: 2020-02-26 14:55+0000\n"
+"PO-Revision-Date: 2020-02-28 09:14+0000\n"
 "Last-Translator: riesp <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
@@ -293,7 +293,7 @@ msgstr "Crear una nueva sección"
 
 #: src/Utils.vala:720
 msgid "Open the Inbox"
-msgstr "Abrir la Entrada"
+msgstr "Abrir Entrada"
 
 #: src/Utils.vala:721
 msgid "Open Today"
@@ -825,7 +825,7 @@ msgstr "Tareas completada"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr "¿Qué tareas tienes en mente?"
+msgstr "¿Qué tareas tiene en mente?"
 
 #: src/Views/Today.vala:86
 msgid "Tap + to add a task for today."
@@ -1102,7 +1102,7 @@ msgstr "Última sincronización exitosa: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:935
 msgid "Sync server"
-msgstr "Servidor de sincronización"
+msgstr "Sincronizar con el servidor"
 
 #: src/Dialogs/Preferences/Preferences.vala:940
 msgid ""
