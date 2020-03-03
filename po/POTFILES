@@ -10,6 +10,7 @@ src/Services/Calendar/Util.vala
 src/Services/Calendar/CalendarModel.vala
 src/Services/DBusServer.vala
 src/Services/CustomShortcutSettings.vala
+
 src/Widgets/ActionRow.vala
 src/Widgets/Pane.vala
 src/Widgets/New.vala
@@ -39,6 +40,7 @@ src/Widgets/ReminderRow.vala
 src/Widgets/NewSection.vala
 src/Widgets/Placeholder.vala
 src/Widgets/NewLabel.vala
+
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
 src/Widgets/Calendar/CalendarHeader.vala

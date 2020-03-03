@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-02-26 09:53-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-02 18:53-0500\n"
 "PO-Revision-Date: 2020-02-28 09:14+0000\n"
 "Last-Translator: Long Nguyen <stoostranger@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/"
@@ -127,32 +127,32 @@ msgstr "Xám"
 msgid "Taupe"
 msgstr "Nâu nhạt"
 
-#: src/Utils.vala:517 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1333
+#: src/Utils.vala:508 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1322
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:52
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334
 msgid "Today"
 msgstr "Hôm nay"
 
-#: src/Utils.vala:519 src/Widgets/Pane.vala:357 src/Widgets/ItemRow.vala:1336
+#: src/Utils.vala:510 src/Widgets/Pane.vala:348 src/Widgets/ItemRow.vala:1325
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
 msgstr "Ngày mai"
 
-#: src/Utils.vala:634
+#: src/Utils.vala:625
 msgid "Quick Add Activated!"
 msgstr "Bật Thêm Nhanh!"
 
-#: src/Utils.vala:635
+#: src/Utils.vala:626
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "Thử %s để kích hoạt. Bạn có thể thay đổi trong cài đặt"
 
-#: src/Utils.vala:652
+#: src/Utils.vala:643
 msgid "🚀️ Getting Started"
 msgstr "🚀️ Bắt đầu"
 
-#: src/Utils.vala:653
+#: src/Utils.vala:644
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -162,11 +162,11 @@ msgstr ""
 "thử một hệ thống quản lý việc đơn giản để bạn luôn ngăn nắp và sẵn sàng với "
 "mọi việc cần làm."
 
-#: src/Utils.vala:658
+#: src/Utils.vala:649
 msgid "Keeping track of your tasks"
 msgstr "Theo dõi việc cần làm của bạn"
 
-#: src/Utils.vala:659
+#: src/Utils.vala:650
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -183,11 +183,11 @@ msgstr ""
 "đó bạn có thể bắt đầu sắp xếp và ưu tiên mọi thứ để biết mình nên làm gì và "
 "lúc nào."
 
-#: src/Utils.vala:664
+#: src/Utils.vala:655
 msgid "Adding new tasks"
 msgstr "Thêm việc cần làm"
 
-#: src/Utils.vala:665
+#: src/Utils.vala:656
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
@@ -197,11 +197,11 @@ msgstr ""
 "- Khi việc cần làm được tạo ra, bạn có thể ấn vào nó để sửa, thêm ghi chú, "
 "hoặc lựa chọn khác."
 
-#: src/Utils.vala:671
+#: src/Utils.vala:662
 msgid "Due dates"
 msgstr "Ngày đến hạn"
 
-#: src/Utils.vala:672
+#: src/Utils.vala:663
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -212,11 +212,11 @@ msgstr ""
 "hình lịch và chọn ngày đó.\n"
 "- Nếu bạn muốn hóa ngày đến hạn, làm như trên, và chọn \"xóa ngày\"."
 
-#: src/Utils.vala:678
+#: src/Utils.vala:669
 msgid "How to use projects"
 msgstr "Cách sử dụng kế hoạch"
 
-#: src/Utils.vala:679
+#: src/Utils.vala:670
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -237,15 +237,15 @@ msgstr ""
 "- Chọn màu khác cho Kế hoạch từ danh sách màu (nếu muốn).\n"
 "- Ấn Thêm để tạo Kế hoạch mới."
 
-#: src/Utils.vala:689
+#: src/Utils.vala:680
 msgid "Sections"
 msgstr "Phần"
 
-#: src/Utils.vala:695
+#: src/Utils.vala:686
 msgid "Add sections"
 msgstr "thêm Phần"
 
-#: src/Utils.vala:696
+#: src/Utils.vala:687
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -266,94 +266,94 @@ msgstr ""
 "- Trên góc phải của 1 Kế hoạch, ấn vào nút mũi tên.\n"
 "- Gõ tên của Phần và ấn Thêm."
 
-#: src/Utils.vala:715
+#: src/Utils.vala:706
 msgid "Create a new task"
 msgstr "Tạo việc cần làm mới"
 
-#: src/Utils.vala:716
+#: src/Utils.vala:707
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr "Tạo việc cần làm trên cùng"
 
-#: src/Utils.vala:717
+#: src/Utils.vala:708
 msgid "Create a new area"
 msgstr "Thêm Khu vực"
 
-#: src/Utils.vala:718
+#: src/Utils.vala:709
 msgid "Create a new project"
 msgstr "Tạo kế hoạch mới"
 
-#: src/Utils.vala:719
+#: src/Utils.vala:710
 msgid "Create a new section"
 msgstr "Tạo phần mới"
 
-#: src/Utils.vala:720
+#: src/Utils.vala:711
 msgid "Open the Inbox"
 msgstr "Mở hộp thư"
 
-#: src/Utils.vala:721
+#: src/Utils.vala:712
 msgid "Open Today"
 msgstr "Mở Hôm nay"
 
-#: src/Utils.vala:722
+#: src/Utils.vala:713
 msgid "Open Upcoming"
 msgstr "Mở Sắp tới"
 
-#: src/Utils.vala:723
+#: src/Utils.vala:714
 msgid "Open Search"
 msgstr "Mở Tìm kiếm"
 
-#: src/Utils.vala:724
+#: src/Utils.vala:715
 msgid "Manually sync"
 msgstr "Đồng bộ thủ công"
 
-#: src/Utils.vala:725
+#: src/Utils.vala:716
 msgid "Quit"
 msgstr "Thoát"
 
-#: src/Utils.vala:733
+#: src/Utils.vala:724
 msgid "The request was incorrect."
 msgstr "Yêu cầu không chính xác."
 
-#: src/Utils.vala:734
+#: src/Utils.vala:725
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Cần thông tin xác thực nhưng không thành công, hoặc thông tin xác thực chưa "
 "được cung cấp."
 
-#: src/Utils.vala:735
+#: src/Utils.vala:726
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Yêu cầu chính xác, nhưng một cách nào đó không thực hiện được."
 
-#: src/Utils.vala:736
+#: src/Utils.vala:727
 msgid "The requested resource could not be found."
 msgstr "Không thể tìm thấy nguồn được yêu cầu."
 
-#: src/Utils.vala:737
+#: src/Utils.vala:728
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Bạn gửi quá nhiều yêu cầu trong thời quan cho phép."
 
-#: src/Utils.vala:738
+#: src/Utils.vala:729
 msgid "The request failed due to a server error."
 msgstr "Yêu cầu không thực hiện được do lỗi máy chủ."
 
-#: src/Utils.vala:739
+#: src/Utils.vala:730
 msgid "The server is currently unable to handle the request."
 msgstr "Máy chủ hiện tại không thể xử lý yêu cầu."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:980 src/Widgets/Pane.vala:65
-#: src/Widgets/ItemRow.vala:1216 src/Widgets/SectionRow.vala:532
+#: src/Services/Database.vala:966 src/Widgets/Pane.vala:65
+#: src/Widgets/ItemRow.vala:1205 src/Widgets/SectionRow.vala:538
 #: src/Views/Inbox.vala:71 src/Dialogs/Preferences/Preferences.vala:223
 #: src/Dialogs/Preferences/Preferences.vala:331
 msgid "Inbox"
 msgstr "Hộp thư"
 
-#: src/Services/Notifications.vala:32
+#: src/Services/Notifications.vala:28
 msgid "task"
 msgstr "việc cần làm"
 
-#: src/Services/Notifications.vala:34
+#: src/Services/Notifications.vala:30
 msgid "tasks"
 msgstr "việc cần làm"
 
@@ -361,7 +361,7 @@ msgstr "việc cần làm"
 msgid "On this computer"
 msgstr "Trên máy tính này"
 
-#: src/Widgets/ActionRow.vala:84 src/Widgets/ProjectRow.vala:147
+#: src/Widgets/ActionRow.vala:85 src/Widgets/ProjectRow.vala:147
 msgid "Todoist Project"
 msgstr "Kế hoạch từ Todoist"
 
@@ -387,7 +387,7 @@ msgstr ""
 "cho ngày hôm đó."
 
 #. vala-lint=line-length
-#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:75 src/Widgets/Pane.vala:359
+#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:75 src/Widgets/Pane.vala:350
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:230
 msgid "Upcoming"
 msgstr "Sắp tới"
@@ -417,15 +417,15 @@ msgstr "Tìm nhanh"
 msgid "Preferences"
 msgstr "Cài đặt"
 
-#: src/Widgets/Pane.vala:175 src/Widgets/Pane.vala:419
+#: src/Widgets/Pane.vala:175 src/Widgets/Pane.vala:410
 msgid "Sync"
 msgstr "Đồng bộ"
 
-#: src/Widgets/Pane.vala:423
+#: src/Widgets/Pane.vala:414
 msgid "Offline mode is on"
 msgstr "Chế độ ngoại tuyến đang bật"
 
-#: src/Widgets/Pane.vala:423
+#: src/Widgets/Pane.vala:414
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -455,7 +455,7 @@ msgid "Add"
 msgstr "Thêm"
 
 #: src/Widgets/New.vala:262 src/Widgets/New.vala:659
-#: src/Widgets/NewItem.vala:91 src/Widgets/SectionRow.vala:127
+#: src/Widgets/NewItem.vala:91 src/Widgets/SectionRow.vala:132
 #: src/Widgets/AreaRow.vala:139 src/Widgets/ReminderButton.vala:206
 #: src/Widgets/NewSection.vala:86 src/Widgets/NewLabel.vala:77
 #: src/Views/Inbox.vala:791 src/Views/Project.vala:159
@@ -495,15 +495,15 @@ msgstr "Menu Kế hoạch"
 msgid "Local Project"
 msgstr "Kế hoạch nội bộ"
 
-#: src/Widgets/ProjectRow.vala:361 src/Widgets/ItemRow.vala:1225
-#: src/Widgets/ItemRow.vala:1246 src/Widgets/ItemRow.vala:1281
+#: src/Widgets/ProjectRow.vala:361 src/Widgets/ItemRow.vala:1214
+#: src/Widgets/ItemRow.vala:1235 src/Widgets/ItemRow.vala:1270
+#: src/Widgets/SectionRow.vala:770
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "Việc cần làm đã chuyển sang <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:496 src/Widgets/ItemRow.vala:1323
-#: src/Widgets/SectionRow.vala:586 src/Widgets/AreaRow.vala:499
-#: src/Views/Project.vala:830
+#: src/Widgets/ProjectRow.vala:496 src/Widgets/ItemRow.vala:1312
+#: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:830
 msgid "Edit"
 msgstr "Sửa"
 
@@ -511,8 +511,8 @@ msgstr "Sửa"
 msgid "Move to Area"
 msgstr "Chuyển sang Vùng"
 
-#: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1350
-#: src/Widgets/SectionRow.vala:592
+#: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1339
+#: src/Widgets/SectionRow.vala:599
 msgid "Share"
 msgstr "Chia sẻ"
 
@@ -521,15 +521,15 @@ msgid "Send by e-mail"
 msgstr "Gửi qua email"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:507 src/Widgets/ItemRow.vala:1355
-#: src/Widgets/SectionRow.vala:597
+#: src/Widgets/ProjectRow.vala:507 src/Widgets/ItemRow.vala:1344
+#: src/Widgets/SectionRow.vala:604
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:513 src/Widgets/ProjectRow.vala:538
-#: src/Widgets/ItemRow.vala:1362 src/Widgets/SectionRow.vala:603
-#: src/Widgets/SectionRow.vala:639 src/Widgets/AreaRow.vala:500
+#: src/Widgets/ItemRow.vala:1351 src/Widgets/SectionRow.vala:610
+#: src/Widgets/SectionRow.vala:647 src/Widgets/AreaRow.vala:500
 #: src/Widgets/AreaRow.vala:538 src/Widgets/CheckRow.vala:80
 #: src/Views/Project.vala:833 src/Views/Project.vala:903
 msgid "Delete"
@@ -539,66 +539,66 @@ msgstr "Xóa"
 msgid "Delete project"
 msgstr "Xóa kế hoạch"
 
-#: src/Widgets/ProjectRow.vala:534 src/Widgets/SectionRow.vala:635
+#: src/Widgets/ProjectRow.vala:534 src/Widgets/SectionRow.vala:643
 #: src/Widgets/AreaRow.vala:526 src/Views/Project.vala:899
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Bạn có chắc chắc bạn muốn xóa <b>%s</b>?"
 
-#: src/Widgets/NewItem.vala:63 src/Widgets/ItemRow.vala:205
+#: src/Widgets/NewItem.vala:63 src/Widgets/ItemRow.vala:204
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
 msgstr "Tên việc cần làm"
 
-#: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1005
+#: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:994
 msgid "View Details"
 msgstr "Xem nội dung"
 
-#: src/Widgets/ItemRow.vala:373 src/Widgets/ItemCompletedRow.vala:40
+#: src/Widgets/ItemRow.vala:372 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
 msgstr "Ghi chú"
 
-#: src/Widgets/ItemRow.vala:421
+#: src/Widgets/ItemRow.vala:420
 msgid "Add Checklist"
 msgstr "Thêm danh mục"
 
-#: src/Widgets/ItemRow.vala:428
+#: src/Widgets/ItemRow.vala:427
 msgid "Delete Task"
 msgstr "Xóa việc cần làm"
 
-#: src/Widgets/ItemRow.vala:441
+#: src/Widgets/ItemRow.vala:440
 msgid "Task Menu"
 msgstr "Menu Việc cần làm"
 
-#: src/Widgets/ItemRow.vala:984
+#: src/Widgets/ItemRow.vala:973
 msgid "Hiding"
 msgstr "Ẩn"
 
-#: src/Widgets/ItemRow.vala:1260
+#: src/Widgets/ItemRow.vala:1249
 msgid "No Section"
 msgstr "Không thuộc Phần nào"
 
-#: src/Widgets/ItemRow.vala:1322
+#: src/Widgets/ItemRow.vala:1311
 msgid "Complete"
 msgstr "Hoàn thành"
 
-#: src/Widgets/ItemRow.vala:1339 src/Widgets/DueButton.vala:156
+#: src/Widgets/ItemRow.vala:1328 src/Widgets/DueButton.vala:156
 msgid "Undated"
 msgstr "Xóa ngày"
 
-#: src/Widgets/ItemRow.vala:1342 src/Widgets/SectionRow.vala:588
+#: src/Widgets/ItemRow.vala:1331 src/Widgets/SectionRow.vala:595
 msgid "Move to Project"
 msgstr "Chuyển tới Kế hoạch"
 
-#: src/Widgets/ItemRow.vala:1346
+#: src/Widgets/ItemRow.vala:1335
 msgid "Move to Section"
 msgstr "Chuyển tới Phần"
 
-#: src/Widgets/ItemRow.vala:1354
+#: src/Widgets/ItemRow.vala:1343
 msgid "Text"
 msgstr "Nội dung"
 
-#: src/Widgets/ItemRow.vala:1361
+#: src/Widgets/ItemRow.vala:1350
 msgid "Duplicate"
 msgstr "Sao chép"
 
@@ -614,42 +614,51 @@ msgstr "Ngày đến hạn"
 msgid "Date completed"
 msgstr "Ngày hoàn thành"
 
-#: src/Widgets/SectionRow.vala:72 src/Widgets/SectionRow.vala:685
+#: src/Widgets/SectionRow.vala:77 src/Widgets/SectionRow.vala:693
 msgid "Display Tasks"
 msgstr "Hiện Việt cần làm"
 
-#: src/Widgets/SectionRow.vala:80 src/Widgets/SectionRow.vala:690
+#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:698
 msgid "Hiding Tasks"
 msgstr "Ẩn Việc cần làm"
 
-#: src/Widgets/SectionRow.vala:91 src/Widgets/NewSection.vala:70
+#: src/Widgets/SectionRow.vala:96 src/Widgets/NewSection.vala:70
 msgid "Section name"
 msgstr "Tên Phần"
 
-#: src/Widgets/SectionRow.vala:106
+#: src/Widgets/SectionRow.vala:111
 msgid "Section Menu"
 msgstr "Menu Phần"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
-#: src/Widgets/SectionRow.vala:123 src/Widgets/AreaRow.vala:135
+#: src/Widgets/SectionRow.vala:128 src/Widgets/AreaRow.vala:135
 #: src/Views/Project.vala:155 src/Dialogs/ProjectSettings.vala:255
 msgid "Save"
 msgstr "Lưu"
 
-#: src/Widgets/SectionRow.vala:539 src/Widgets/SectionRow.vala:561
+#: src/Widgets/SectionRow.vala:545 src/Widgets/SectionRow.vala:567
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "Phần này đã được chuyển sang <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:583 src/Widgets/MagicButton.vala:32
+#: src/Widgets/SectionRow.vala:589 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
 msgstr "Thêm việc cần làm"
 
-#: src/Widgets/SectionRow.vala:634
+#: src/Widgets/SectionRow.vala:592
+msgid "Rename"
+msgstr ""
+
+#: src/Widgets/SectionRow.vala:593
+#, fuzzy
+msgid "Add Note"
+msgstr "Thêm ghi chú"
+
+#: src/Widgets/SectionRow.vala:642
 msgid "Delete section"
 msgstr "Xóa Phần này"
 
-#: src/Widgets/SectionRow.vala:653
+#: src/Widgets/SectionRow.vala:661
 msgid "Section deleted"
 msgstr "Phần này đã được xóa"
 
@@ -835,7 +844,7 @@ msgstr "Ghi chú Kế hoạch"
 msgid "Add a note"
 msgstr "Thêm ghi chú"
 
-#: src/Views/Project.vala:194
+#: src/Views/Project.vala:195
 msgid "Add note"
 msgstr "Thêm ghi chú"
 
@@ -1133,9 +1142,9 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Planner được phát triển với ❤️ và niềm đam mê cho phần mềm mở. Tuy nhiên, "
-"nếu bạn thích Planner vào muốn hỗ trợ quá trình phát triển, xem xét việc ủng "
-"hộ Planner qua:"
+"Planner được phát triển với ❤️ và niềm đam mê cho phần mềm mở. Tuy nhiên, nếu "
+"bạn thích Planner vào muốn hỗ trợ quá trình phát triển, xem xét việc ủng hộ "
+"Planner qua:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
 msgid ""
@@ -1169,6 +1178,6 @@ msgstr "Kế hoạch đã được sao chép vào Clipboard."
 msgid "The Task was copied to the Clipboard."
 msgstr "Việc cần làm đã được sao chép vào Clipboard."
 
-#: src/Objects/Section.vala:116
+#: src/Objects/Section.vala:117
 msgid "The Section was copied to the Clipboard."
 msgstr "Phần này đã được lưu vào Clipboard."
