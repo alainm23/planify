@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.2.13')
+        version: '2.2.14')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -96,6 +96,7 @@ executable(
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
+    'src/Dialogs/QuickFind.vala',
 
     'src/Dialogs/Preferences/Preferences.vala',
     'src/Dialogs/Preferences/ItemSelect.vala',

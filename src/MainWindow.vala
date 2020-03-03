@@ -496,7 +496,7 @@ public class MainWindow : Gtk.Window {
                     Granite.Services.Application.set_badge_visible.end (res);
                     update_badge_count ();
                 } catch (GLib.Error e) {
-                    //critical (e.message);
+                    critical (e.message);
                 }
             });
 
@@ -534,12 +534,12 @@ public class MainWindow : Gtk.Window {
                         try {
                             Granite.Services.Application.set_badge_visible.end (res);
                         } catch (GLib.Error e) {
-                            //critical (e.message);
+                            critical (e.message);
                         }
                     });
                 }
             } catch (GLib.Error e) {
-                //critical (e.message);
+                critical (e.message);
             }
         });
     }

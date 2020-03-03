@@ -373,6 +373,9 @@ public class Widgets.Pane : Gtk.EventBox {
 
         search_button.clicked.connect (() => {
             show_quick_find ();
+            //  var dialog = new Dialogs.QuickFind ();
+            //  dialog.destroy.connect (Gtk.main_quit);
+            //  dialog.show_all ();
         });
 
         settings_button.clicked.connect (() => {

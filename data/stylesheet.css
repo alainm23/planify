@@ -837,3 +837,8 @@ paned.horizontal > separator {
 .label-select-row:selected label {
     color: @text_color;
 }
+
+.searchitem-row:selected {
+    background-color: @pane_selected_color;
+    color: @text_color;
+}
