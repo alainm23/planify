@@ -3,27 +3,30 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-02-26 09:53-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-05 03:43+0000\n"
+"Last-Translator: Dušan Gvozdenović <dusan.gvozdenovic.99@gmail.com>\n"
+"Language-Team: Serbian <https://hosted.weblate.org/projects/planner/"
+"translations/sr/>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
-msgstr ""
+msgstr "Нова област"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
-msgstr ""
+msgstr "Роковник"
 
 #: src/Utils.vala:105 src/Utils.vala:112 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -31,11 +34,11 @@ msgstr ""
 
 #: src/Utils.vala:106 src/Utils.vala:116
 msgid "Office"
-msgstr ""
+msgstr "Канцеларија"
 
 #: src/Utils.vala:107 src/Utils.vala:120
 msgid "Errand"
-msgstr ""
+msgstr "Задатак"
 
 #: src/Utils.vala:108 src/Utils.vala:124
 msgid "Important"
@@ -51,19 +54,19 @@ msgstr ""
 
 #: src/Utils.vala:172
 msgid "Red"
-msgstr ""
+msgstr "Црвена"
 
 #: src/Utils.vala:173
 msgid "Orange"
-msgstr ""
+msgstr "Наранџаста"
 
 #: src/Utils.vala:174
 msgid "Yellow"
-msgstr ""
+msgstr "Жута"
 
 #: src/Utils.vala:175
 msgid "Olive Green"
-msgstr ""
+msgstr "Маслинасто зелена"
 
 #: src/Utils.vala:176
 msgid "Lime Green"
@@ -71,7 +74,7 @@ msgstr ""
 
 #: src/Utils.vala:177
 msgid "Green"
-msgstr ""
+msgstr "Зелена"
 
 #: src/Utils.vala:178
 msgid "Mint Green"
@@ -91,7 +94,7 @@ msgstr ""
 
 #: src/Utils.vala:182
 msgid "Blue"
-msgstr ""
+msgstr "Плава"
 
 #: src/Utils.vala:183
 msgid "Grape"
@@ -99,11 +102,11 @@ msgstr ""
 
 #: src/Utils.vala:184
 msgid "Violet"
-msgstr ""
+msgstr "Љубичаста"
 
 #: src/Utils.vala:185
 msgid "Lavander"
-msgstr ""
+msgstr "Лаванда"
 
 #: src/Utils.vala:186
 msgid "Magenta"
@@ -119,7 +122,7 @@ msgstr ""
 
 #: src/Utils.vala:189
 msgid "Grey"
-msgstr ""
+msgstr "Сива"
 
 #: src/Utils.vala:190
 msgid "Taupe"
@@ -130,16 +133,16 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334
 msgid "Today"
-msgstr ""
+msgstr "Данас"
 
 #: src/Utils.vala:519 src/Widgets/Pane.vala:357 src/Widgets/ItemRow.vala:1336
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "Сутра"
 
 #: src/Utils.vala:634
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Брзо додавање укључено!"
 
 #: src/Utils.vala:635
 #, c-format
@@ -148,7 +151,7 @@ msgstr ""
 
 #: src/Utils.vala:652
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Почетак"
 
 #: src/Utils.vala:653
 msgid ""
@@ -159,7 +162,7 @@ msgstr ""
 
 #: src/Utils.vala:658
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Праћење постојећих задатака"
 
 #: src/Utils.vala:659
 msgid ""
@@ -173,7 +176,7 @@ msgstr ""
 
 #: src/Utils.vala:664
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Додавање нових задатака"
 
 #: src/Utils.vala:665
 msgid ""
@@ -234,7 +237,7 @@ msgstr ""
 
 #: src/Utils.vala:715
 msgid "Create a new task"
-msgstr ""
+msgstr "Направи нови задатак"
 
 #: src/Utils.vala:716
 msgid "Create a new task at the top of the list (only works inside projects)"
