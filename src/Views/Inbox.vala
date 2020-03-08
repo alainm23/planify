@@ -38,6 +38,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton settings_button;
+    private Gtk.Switch show_completed_switch;
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
@@ -276,6 +277,7 @@ public class Views.Inbox : Gtk.EventBox {
                     show_completed_button.sensitive = true;
                 } else {
                     show_completed_button.sensitive = false;
+                    show_completed_switch.active = false;
                 }
 
                 popover.show_all ();
@@ -721,7 +723,7 @@ public class Views.Inbox : Gtk.EventBox {
         show_completed_label.xalign = 0;
         show_completed_label.margin_start = 9;
 
-        var show_completed_switch = new Gtk.Switch ();
+        show_completed_switch = new Gtk.Switch ();
         show_completed_switch.margin_start = 12;
         show_completed_switch.get_style_context ().add_class ("planner-switch");
 
@@ -880,7 +882,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Widget get_completed_header () {
         var name_label = new Gtk.Label (_("Task completed"));
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("header-title");
+        name_label.get_style_context ().add_class ("font-bold");
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 

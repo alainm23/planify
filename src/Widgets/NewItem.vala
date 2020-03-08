@@ -50,6 +50,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         selectable = false;
         get_style_context ().add_class ("item-row");
         margin_end = 16;
+        margin_start = 6;
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;

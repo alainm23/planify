@@ -35,6 +35,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Revealer motion_section_revealer;
 
     private Gtk.ModelButton show_completed_button;
+    private Gtk.Switch show_completed_switch;
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
     private Gtk.Stack main_stack;
@@ -413,6 +414,7 @@ public class Views.Project : Gtk.EventBox {
                     show_completed_button.sensitive = true;
                 } else {
                     show_completed_button.sensitive = false;
+                    show_completed_switch.active = false;
                 }
 
                 popover.show_all ();
@@ -855,7 +857,7 @@ public class Views.Project : Gtk.EventBox {
         show_completed_label.xalign = 0;
         show_completed_label.margin_start = 9;
 
-        var show_completed_switch = new Gtk.Switch ();
+        show_completed_switch = new Gtk.Switch ();
         show_completed_switch.margin_start = 12;
         show_completed_switch.get_style_context ().add_class ("planner-switch");
 
