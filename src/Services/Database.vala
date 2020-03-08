@@ -1545,11 +1545,10 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-        string _search_text = "%" + search_text + "%";
-
+        
         sql = """
-            SELECT * FROM Projects WHERE name LIKE '%s' OR note LIKE '%s';
-        """.printf (_search_text, _search_text);
+            SELECT * FROM Projects WHERE name LIKE '%s';
+        """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
@@ -1742,8 +1741,6 @@ public class Services.Database : GLib.Object {
         return items_0;
     }
 
-    //public int get_parent_
-
     public int get_today_project_count (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -1842,6 +1839,37 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
         }
+    }
+
+    public Gee.ArrayList<Objects.Label?> get_labels_by_search (string search_text) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Labels WHERE name LIKE '%s';
+        """.printf ("%" + search_text + "%");
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Label?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var l = new Objects.Label ();
+
+            l.id = stmt.column_int64 (0);
+            l.name = stmt.column_text (1);
+            l.color = stmt.column_int (2);
+            l.item_order = stmt.column_int (3);
+            l.is_deleted = stmt.column_int (4);
+            l.is_favorite = stmt.column_int (5);
+            l.is_todoist = stmt.column_int (6);
+
+            all.add (l);
+        }
+
+        return all;
     }
 
     public Gee.ArrayList<Objects.Label?> get_all_labels () {
@@ -2688,6 +2716,29 @@ public class Services.Database : GLib.Object {
         return false;
     }
 
+    public int get_all_count_items_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id FROM Items WHERE project_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var size = 0;
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            size++;
+        }
+
+        return size;
+    }
+
     public int get_count_items_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -3306,11 +3357,10 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-        string _search_text = "%" + search_text + "%";
 
         sql = """
-            SELECT * FROM Items WHERE content LIKE '%s' OR note LIKE '%s';
-        """.printf (_search_text, _search_text);
+            SELECT * FROM Items WHERE checked = 0 AND content LIKE '%s';
+        """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);

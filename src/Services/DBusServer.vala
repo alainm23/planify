@@ -47,6 +47,10 @@ public class Services.DBusServer : Object {
         item_added (id);
     }
 
+    public bool settings_get_boolean (string key) throws IOError, DBusError {
+        return Planner.settings.get_boolean (key);
+    }
+    
     private void on_bus_aquired (DBusConnection conn) {
         try {
             conn.register_object (DBUS_PATH, get_default ());

@@ -165,7 +165,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = grid.margin_end = 3;
+        grid.margin_start = 4;
+        grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);

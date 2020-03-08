@@ -179,6 +179,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button = new Gtk.CheckButton ();
         checked_button.can_focus = false;
         checked_button.margin_top = 6;
+        checked_button.margin_start = 6;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.BASELINE;
         checked_button.get_style_context ().add_class ("checklist-button");
@@ -209,6 +210,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("no-padding-left");
         content_entry.text = item.content;
         content_entry.hexpand = true;
+        content_entry.margin_top = 2;
 
         entry_revealer = new Gtk.Revealer ();
         entry_revealer.valign = Gtk.Align.START;
@@ -329,7 +331,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         labels_preview_box_revealer.add (labels_preview_box);
 
         preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        preview_box.margin_start = 22;
+        preview_box.margin_start = 28;
         preview_box.hexpand = true;
         preview_box.pack_start (project_preview_revealer, false, false, 0);
         preview_box.pack_start (duedate_preview_revealer, false, false, 0);
@@ -363,9 +365,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note TextView
         note_textview = new Gtk.TextView ();
-        note_textview.margin_start = 22;
+        note_textview.margin_start = 28;
         note_textview.buffer.text = item.note;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.wrap_mode = Gtk.WrapMode.WORD_CHAR;
         note_textview.get_style_context ().add_class ("textview");
         note_textview.height_request = 42;
 
@@ -927,6 +929,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             var item = ((Widgets.CheckRow) row);
             item.edit ();
         });
+
+        Planner.utils.highlight_item.connect ((item_id) => {
+            if (item.id == item_id) {
+                get_style_context ().add_class ("item-highlight");
+
+                Timeout.add (700, () => {
+                    get_style_context ().remove_class ("item-highlight");
+
+                    return false;
+                });
+            }
+        });
     }
 
     private void checked_toggled () {
@@ -1015,9 +1029,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         if (project_preview_revealer.reveal_child) {
-            preview_box.margin_start = 20;
+            preview_box.margin_start = 26;
         } else {
-            preview_box.margin_start = 22;
+            preview_box.margin_start = 28;
         }
     }
 
@@ -1063,15 +1077,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         cr.line_to (0, 0);
         cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0);
+        cr.set_source_rgba (255, 255, 255, 1);
         cr.rectangle (0, 0, alloc.width, alloc.height);
         cr.fill ();
 
         row.get_style_context ().add_class ("drag-begin");
-        row.margin_start = 6;
         row.draw (cr);
         row.get_style_context ().remove_class ("drag-begin");
-        row.margin_start = 0;
 
         Gtk.drag_set_icon_surface (context, surface);
         main_revealer.reveal_child = false;

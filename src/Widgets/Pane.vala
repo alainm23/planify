@@ -72,7 +72,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         today_row = new Widgets.ActionRow (_("Today"), today_icon, "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day.")); // vala-lint=line-length
         upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events.")); // vala-lint=line-length
-        var back_row = new Widgets.ActionRow (_("Back-Pocket"), "user-trash-symbolic", "upcoming", _("Upcoming"));
+        //var back_row = new Widgets.ActionRow (_("Trash"), "user-trash-symbolic", "upcoming", _("Upcoming"));
 
         add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.valign = Gtk.Align.CENTER;
@@ -98,6 +98,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.add (inbox_row);
         listbox.add (today_row);
         listbox.add (upcoming_row);
+        //listbox.add (back_row);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 6;
@@ -135,7 +136,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (area_listbox);
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
-        listbox_scrolled.width_request = 246;
+        listbox_scrolled.width_request = 260;
         listbox_scrolled.hexpand = true;
         listbox_scrolled.margin_bottom = 6;
         listbox_scrolled.add (listbox_grid);
@@ -200,7 +201,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_end = 16;
-        action_box.margin_bottom = 9;
+        action_box.margin_bottom = 6;
         action_box.margin_start = 16;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
@@ -372,10 +373,10 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         search_button.clicked.connect (() => {
-            show_quick_find ();
-            //  var dialog = new Dialogs.QuickFind ();
-            //  dialog.destroy.connect (Gtk.main_quit);
-            //  dialog.show_all ();
+            //  show_quick_find ();
+            var dialog = new Dialogs.QuickFind ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
         });
 
         settings_button.clicked.connect (() => {

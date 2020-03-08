@@ -123,7 +123,7 @@ public class Views.Inbox : Gtk.EventBox {
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
         listbox.margin_top = 6;
-        listbox.margin_start = 18;
+        listbox.margin_start = 12;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;

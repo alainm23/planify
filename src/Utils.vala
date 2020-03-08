@@ -48,6 +48,10 @@ public class Utils : GLib.Object {
     public signal void add_item_show_queue_view (Widgets.ItemRow row, string view);
     public signal void remove_item_show_queue_view (Widgets.ItemRow row, string view);
 
+    public signal void highlight_item (int64 item_id);
+
+    private GLib.Regex line_break_to_space_regex = null;
+
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
@@ -66,6 +70,24 @@ public class Utils : GLib.Object {
         if (tmp.query_file_type (0) != FileType.DIRECTORY) {
             GLib.DirUtils.create_with_parents (path, 0775);
         }
+    }
+
+    public string line_break_to_space (string str) {
+        if (line_break_to_space_regex == null) {
+            try {
+                line_break_to_space_regex = new GLib.Regex ("(^\\s+|\\s+$|\n|\\s\\s+)");
+            } catch (GLib.RegexError e) {
+                critical (e.message);
+            }
+        }
+
+        try {
+            return line_break_to_space_regex.replace (str, str.length, 0, " ");
+        } catch (GLib.RegexError e) {
+            warning (e.message);
+        }
+
+        return str;
     }
 
     public int64 generate_id (int len=10) {

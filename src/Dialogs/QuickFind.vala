@@ -19,6 +19,14 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+public enum QuickFind_Result_Type {
+    NONE,
+    ITEM,
+    PROJECT,
+    VIEW,
+    LABEL
+}
+
 public class Dialogs.QuickFind : Gtk.Dialog {
     public QuickFind () {
         Object (
@@ -26,13 +34,15 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             deletable: false,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: false
+            modal: false,
+            use_header_bar: 1
         );
     }
 
     construct {
-        get_style_context ().add_class ("planner-dialog");
-        width_request = 600;
+        get_style_context ().add_class ("quick-find-dialog");
+        width_request = 575;
+        height_request = 425;
 
         int window_x, window_y;
         int window_width, width_height;
@@ -40,35 +50,91 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
         Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
 
-        move (window_x + ((window_width - width_request) / 2), window_y + 64);
+        move (window_x + ((window_width - width_request) / 2), window_y + 48);
 
-        var search_label = new Gtk.Label (_("Search:"));
-        search_label.get_style_context ().add_class ("h3");
+        var views = new Gee.ArrayList<string> ();
+        views.add ("""
+            {
+                "name": "%s",
+                "id": 0
+            }
+        """.printf (_("Inbox")));
+
+        views.add ("""
+            {
+                "name": "%s",
+                "id": 1
+            }
+        """.printf (_("Today")));
+
+        views.add ("""
+            {
+                "name": "%s",
+                "id": 2
+            }
+        """.printf (_("Upcoming")));
+
+        //  views.add ("""
+        //      {
+        //          "name": "%s",
+        //          "id": 3
+        //      }
+        //  """.printf (_("Trash")));
+
+        get_header_bar ().visible = false;
+        get_header_bar ().no_show_all = true;
+
+        var search_label = new Gtk.Label (_("Search"));
+        search_label.get_style_context ().add_class ("font-weight-600");
+        search_label.get_style_context ().add_class ("welcome");
+        search_label.width_request = 90;
+        search_label.xalign = (float) 0.5;
 
         var search_entry = new Gtk.SearchEntry ();
         search_entry.hexpand = true;
+        search_entry.placeholder_text = _("Quick Find");
 
         var top_grid = new Gtk.Grid ();
-        top_grid.column_spacing = 12;
-        top_grid.margin_start = 34;
-        top_grid.margin_end = 16;
+        top_grid.margin_end = 6;
+        top_grid.margin_top = 6;
         top_grid.add (search_label);
         top_grid.add (search_entry);
+
+        var placeholder_image = new Gtk.Image ();
+        placeholder_image.gicon = new ThemedIcon ("folder-saved-search-symbolic");
+        placeholder_image.pixel_size = 24;
+
+        var placeholder_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels, ..."));
+        placeholder_label.wrap = true;
+        placeholder_label.max_width_chars = 32;
+        placeholder_label.justify = Gtk.Justification.CENTER;
+        placeholder_label.show ();
+
+        var placeholder_grid = new Gtk.Grid ();
+        placeholder_grid.get_style_context ().add_class ("dim-label");
+        placeholder_grid.orientation = Gtk.Orientation.VERTICAL;
+        placeholder_grid.halign = Gtk.Align.CENTER;
+        placeholder_grid.row_spacing = 9;
+        placeholder_grid.margin_top = 24;
+        placeholder_grid.add (placeholder_image);
+        placeholder_grid.add (placeholder_label);
+        placeholder_grid.show_all ();
 
         var listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("background");
         listbox.hexpand = true;
+        listbox.set_placeholder (placeholder_grid);
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
-        listbox_scrolled.height_request = 250;
         listbox_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
         listbox_scrolled.expand = true;
         listbox_scrolled.add (listbox);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 16;
+        separator.margin_top = 6;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
         main_box.pack_start (top_grid, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (listbox_scrolled, true, true, 0);
@@ -80,63 +146,175 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                 widget.destroy ();
             });
 
-            if (search_entry.text != "") {
-                foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
-                    var row = new SearchItem (
-                        "item",
-                        item.content,
-                        search_entry.text
-                    );
-    
-                    listbox.add (row);
-                    listbox.show_all ();
+            if (search_entry.text.strip () != "") {
+                foreach (string view in views) {
+                    if (search_entry.text.down () in Planner.todoist.get_string_member_by_object (view, "name").down ()) {
+                        var row = new SearchItem (
+                            QuickFind_Result_Type.VIEW,
+                            view,
+                            search_entry.text
+                        );
+
+                        listbox.add (row);
+                        listbox.show_all ();
+                    }
                 }
 
                 foreach (var project in Planner.database.get_all_projects_by_search (search_entry.text)) {
+                    if (project.inbox_project == 0) {
+                        var row = new SearchItem (
+                            QuickFind_Result_Type.PROJECT,
+                            project.to_json (),
+                            search_entry.text
+                        );
+
+                        listbox.add (row);
+                        listbox.show_all ();
+                    }
+                }
+
+                foreach (var label in Planner.database.get_labels_by_search (search_entry.text)) {
                     var row = new SearchItem (
-                        "project",
-                        project.name,
+                        QuickFind_Result_Type.LABEL,
+                        label.to_json (),
                         search_entry.text
                     );
 
                     listbox.add (row);
                     listbox.show_all ();
                 }
-            } else {
 
+                foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
+                    var row = new SearchItem (
+                        QuickFind_Result_Type.ITEM,
+                        item.to_json (),
+                        search_entry.text
+                    );
+
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+
+                QuickFind_Result_Type result_type = QuickFind_Result_Type.NONE;
+                listbox.foreach ((widget) => {
+                    var row = (SearchItem) widget;
+
+                    if (row.result_type != result_type) {
+                        row.header_label.opacity = 1;
+                    }
+
+                    result_type = row.result_type;
+                });
             }
+        });
+
+        this.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                popdown ();
+            }
+
+            return false;
+        });
+
+        this.focus_out_event.connect (() => {
+            if (search_entry.text == "") {
+                // popdown ();
+            }
+
+            return false;
+        });
+
+        this.key_press_event.connect ((event) => {
+            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                row_activated (listbox.get_selected_row ());
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
+
+                return false;
+            }
+
+            return true;
+        });
+
+        listbox.row_activated.connect ((row) => {
+            row_activated (row);
+        });
+    }
+
+    private void row_activated (Gtk.ListBoxRow row) {
+        var item = (SearchItem) row;
+
+        if (item.result_type == QuickFind_Result_Type.PROJECT) {
+            Planner.instance.main_window.go_project (
+                Planner.todoist.get_int_member_by_object (item.object, "id")
+            );
+        } else if (item.result_type == QuickFind_Result_Type.VIEW) {
+            Planner.instance.main_window.go_view (
+                (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
+            );
+        } else if (item.result_type == QuickFind_Result_Type.ITEM) {
+            Planner.instance.main_window.go_item (
+                Planner.todoist.get_int_member_by_object (item.object, "id")
+            );
+        }
+
+        popdown ();
+    }
+
+    private void popdown () {
+        hide ();
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
         });
     }
 }
 
 public class SearchItem : Gtk.ListBoxRow {
-    public string result_type { get; construct; }
-    public string content { get; construct; }
-    public string search_text { get; construct; }
+    public QuickFind_Result_Type result_type { get; construct set; }
 
-    public SearchItem (string result_type, string content, string search_text) {
+    public Gtk.Label header_label;
+    public string object { get; construct; }
+    public string search_term { get; construct; }
+
+    public SearchItem (QuickFind_Result_Type result_type, string object, string search_term) {
         Object (
             result_type: result_type,
-            content: content,
-            search_text: search_text
+            object: object,
+            search_term: search_term
         );
     }
 
     construct {
         get_style_context ().add_class ("searchitem-row");
-        if (result_type == "item") {
-            var header_label = new Gtk.Label (_("Tasks"));
-            header_label.get_style_context ().add_class ("h3");
-            header_label.width_request = 84;
+        if (result_type == QuickFind_Result_Type.ITEM) {
+            header_label = new Gtk.Label (_("Tasks"));
+            header_label.get_style_context ().add_class ("welcome");
+            header_label.get_style_context ().add_class ("font-weight-600");
+            header_label.width_request = 67;
             header_label.xalign = 1;
-            header_label.margin_end  = 12;
+            header_label.margin_end = 23;
+            header_label.opacity = 0;
 
             var checked_button = new Gtk.CheckButton ();
             checked_button.valign = Gtk.Align.CENTER;
-            //checked_button.margin_top = 1;
             checked_button.get_style_context ().add_class ("checklist-button");
 
-            var content_label = new Gtk.Label (content.replace (search_text, "<b>%s</b>".printf (search_text)));
+            var content_label = new Gtk.Label (
+                markup_string_with_search (
+                    Planner.todoist.get_string_member_by_object (object, "content"),
+                    search_term
+                )
+            );
             content_label.wrap = true;
             content_label.xalign = 0;
             content_label.use_markup = true;
@@ -154,12 +332,14 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (grid, 2, 0, 1, 1);
 
             add (main_grid);
-        } else if (result_type == "project") {
-            var header_label = new Gtk.Label (_("Projects"));
-            header_label.get_style_context ().add_class ("h3");
-            header_label.width_request = 84;
+        } else if (result_type == QuickFind_Result_Type.PROJECT) {
+            header_label = new Gtk.Label (_("Projects"));
+            header_label.get_style_context ().add_class ("welcome");
+            header_label.get_style_context ().add_class ("font-weight-600");
+            header_label.width_request = 67;
             header_label.xalign = 1;
-            header_label.margin_end  = 12;
+            header_label.margin_end = 23;
+            header_label.opacity = 0;
 
             var project_progress = new Widgets.ProjectProgress ();
             project_progress.line_cap = Cairo.LineCap.ROUND;
@@ -167,10 +347,35 @@ public class SearchItem : Gtk.ListBoxRow {
             project_progress.line_width = 2;
             project_progress.valign = Gtk.Align.CENTER;
             project_progress.halign = Gtk.Align.CENTER;
-            project_progress.percentage = 0.5;
-            //project_progress.progress_fill_color = Planner.utils.get_color (project.color);
+            project_progress.percentage = get_percentage (
+                Planner.database.get_count_checked_items_by_project (Planner.todoist.get_int_member_by_object (object, "id")),
+                Planner.database.get_all_count_items_by_project (Planner.todoist.get_int_member_by_object (object, "id"))
+            );
+            project_progress.progress_fill_color = Planner.utils.get_color (
+                (int32) Planner.todoist.get_int_member_by_object (object, "color")
+            );
 
-            var content_label = new Gtk.Label (content.replace (search_text, "<b>%s</b>".printf (search_text)));
+            project_progress.radius_fill_color = "#a7b2cb";
+            if (Planner.settings.get_boolean ("prefer-dark-style")) {
+                project_progress.radius_fill_color = "#666666";
+            }
+
+            Planner.settings.changed.connect ((key) => {
+                if (key == "prefer-dark-style") {
+                    if (Planner.settings.get_boolean ("prefer-dark-style")) {
+                        project_progress.radius_fill_color = "#666666";
+                    } else {
+                        project_progress.radius_fill_color = "#a7b2cb";
+                    }
+                }
+            });
+
+            var content_label = new Gtk.Label (
+                markup_string_with_search (
+                    Planner.todoist.get_string_member_by_object (object, "name"),
+                    search_term
+                )
+            );
             content_label.wrap = true;
             content_label.xalign = 0;
             content_label.use_markup = true;
@@ -179,8 +384,113 @@ public class SearchItem : Gtk.ListBoxRow {
             var grid = new Gtk.Grid ();
             grid.margin = 6;
             grid.margin_start = 4;
-            grid.column_spacing = 3;
+            grid.column_spacing = 4;
             grid.add (project_progress);
+            grid.add (content_label);
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.attach (header_label, 0, 0, 1, 1);
+            main_grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
+            main_grid.attach (grid, 2, 0, 1, 1);
+
+            add (main_grid);
+        } else if (result_type == QuickFind_Result_Type.VIEW) {
+            header_label = new Gtk.Label (_("Views"));
+            header_label.get_style_context ().add_class ("welcome");
+            header_label.get_style_context ().add_class ("font-weight-600");
+            header_label.width_request = 67;
+            header_label.xalign = 1;
+            header_label.margin_end = 23;
+            header_label.opacity = 0;
+
+            var icon = new Gtk.Image ();
+            icon.halign = Gtk.Align.CENTER;
+            icon.valign = Gtk.Align.CENTER;
+            icon.pixel_size = 12;
+
+            if (Planner.todoist.get_int_member_by_object (object, "id") == 0) {
+                icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
+                icon.get_style_context ().add_class ("inbox-icon");
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
+                string today_icon = "planner-today-day-symbolic";
+                var hour = new GLib.DateTime.now_local ().get_hour ();
+                if (hour >= 18 || hour <= 5) {
+                    today_icon = "planner-today-night-symbolic";
+                }
+
+                if (today_icon == "planner-today-day-symbolic") {
+                    icon.get_style_context ().add_class ("today-day-icon");
+                } else {
+                    icon.get_style_context ().add_class ("today-night-icon");
+                }
+
+                icon.gicon = new ThemedIcon (today_icon);
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
+                icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                icon.get_style_context ().add_class ("upcoming-icon");
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
+                icon.gicon = new ThemedIcon ("user-trash-symbolic");
+                icon.get_style_context ().add_class ("trash-icon");
+            }
+
+            var content_label = new Gtk.Label (
+                markup_string_with_search (
+                    Planner.todoist.get_string_member_by_object (object, "name"),
+                    search_term
+                )
+            );
+            content_label.wrap = true;
+            content_label.xalign = 0;
+            content_label.use_markup = true;
+            content_label.get_style_context ().add_class ("label");
+
+            var grid = new Gtk.Grid ();
+            grid.margin = 6;
+            grid.margin_start = 5;
+            grid.column_spacing = 5;
+            grid.add (icon);
+            grid.add (content_label);
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.attach (header_label, 0, 0, 1, 1);
+            main_grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
+            main_grid.attach (grid, 2, 0, 1, 1);
+
+            add (main_grid);
+        } else if (result_type == QuickFind_Result_Type.LABEL) {
+            header_label = new Gtk.Label (_("Labels"));
+            header_label.get_style_context ().add_class ("welcome");
+            header_label.get_style_context ().add_class ("font-weight-600");
+            header_label.width_request = 67;
+            header_label.xalign = 1;
+            header_label.margin_end = 23;
+            header_label.opacity = 0;
+
+            var icon = new Gtk.Image ();
+            icon.halign = Gtk.Align.CENTER;
+            icon.valign = Gtk.Align.CENTER;
+            icon.pixel_size = 14;
+            icon.gicon = new ThemedIcon ("tag-symbolic");
+            icon.get_style_context ().add_class ("label-color-%s".printf (
+                Planner.todoist.get_int_member_by_object (object, "color").to_string ()
+            ));
+
+            var content_label = new Gtk.Label (
+                markup_string_with_search (
+                    Planner.todoist.get_string_member_by_object (object, "name"),
+                    search_term
+                )
+            );
+            content_label.wrap = true;
+            content_label.xalign = 0;
+            content_label.use_markup = true;
+            content_label.margin_bottom = 1;
+            content_label.get_style_context ().add_class ("label");
+
+            var grid = new Gtk.Grid ();
+            grid.margin = 6;
+            grid.column_spacing = 6;
+            grid.add (icon);
             grid.add (content_label);
 
             var main_grid = new Gtk.Grid ();
@@ -191,41 +501,336 @@ public class SearchItem : Gtk.ListBoxRow {
             add (main_grid);
         }
     }
-    //  public string title { get; construct; }
-    //  public int64 id { get; construct; }
-    //  public int64 project_id { get; construct; }
-    //  public string icon { get; construct; }
-    //  public string element { get; construct; }
 
-    //  public SearchItem (string title, string icon, string element, int64 id, int64 project_id=0) {
-    //      Object (
-    //          title: title,
-    //          icon: icon,
-    //          element: element,
-    //          id: id,
-    //          project_id: project_id
-    //      );
-    //  }
+    private static string markup_string_with_search (string text, string pattern) {
+        const string MARKUP = "%s";
 
-    //  construct {
-    //      margin_start = margin_end = 6;
-    //      get_style_context ().add_class ("pane-row");
+        if (pattern == "") {
+            return MARKUP.printf (Markup.escape_text (text));
+        }
 
-    //      var image = new Gtk.Image ();
-    //      image.gicon = new ThemedIcon (icon);
-    //      image.pixel_size = 16;
+        // if no text found, use pattern
+        if (text == "") {
+            return MARKUP.printf (Markup.escape_text (pattern));
+        }
 
-    //      var title_label = new Gtk.Label (title);
-    //      //title_label.get_style_context ().add_class ("h3");
-    //      title_label.ellipsize = Pango.EllipsizeMode.END;
-    //      //title_label.use_markup = true;
+        var matchers = Synapse.Query.get_matchers_for_query (
+            pattern,
+            0,
+            RegexCompileFlags.OPTIMIZE | RegexCompileFlags.CASELESS
+        );
 
-    //      var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-    //      box.hexpand = true;
-    //      box.margin = 6;
-    //      box.pack_start (image, false, false, 0);
-    //      box.pack_start (title_label, false, false, 0);
+        string? highlighted = null;
+        foreach (var matcher in matchers) {
+            MatchInfo mi;
+            if (matcher.key.match (text, 0, out mi)) {
+                int start_pos;
+                int end_pos;
+                int last_pos = 0;
+                int cnt = mi.get_match_count ();
+                StringBuilder res = new StringBuilder ();
+                for (int i = 1; i < cnt; i++) {
+                    mi.fetch_pos (i, out start_pos, out end_pos);
+                    warn_if_fail (start_pos >= 0 && end_pos >= 0);
+                    res.append (Markup.escape_text (text.substring (last_pos, start_pos - last_pos)));
+                    last_pos = end_pos;
+                    res.append (Markup.printf_escaped ("<b>%s</b>", mi.fetch (i)));
+                    if (i == cnt - 1) {
+                        res.append (Markup.escape_text (text.substring (last_pos)));
+                    }
+                }
+                highlighted = res.str;
+                break;
+            }
+        }
 
-    //      add (box);
-    //  }
+        if (highlighted != null) {
+            return MARKUP.printf (highlighted);
+        } else {
+            return MARKUP.printf (Markup.escape_text (text));
+        }
+    }
+
+    private double get_percentage (int a, int b) {
+        return (double) a / (double) b;
+    }
+}
+
+namespace Synapse {
+    [Flags]
+    public enum QueryFlags {
+        /* HowTo create categories (32bit).
+        * Authored by Alberto Aldegheri <albyrock87+dev@gmail.com>
+        * Categories are "stored" in 3 Levels:
+        *  Super-Category
+        *  -> Category
+        *  ----> Sub-Category
+        * ------------------------------------
+        * if (Super-Category does NOT have childs):
+        *    SUPER = 1 << FreeBitPosition
+        * else:
+        *    if (Category does NOT have childs)
+        *      CATEGORY = 1 << FreeBitPosition
+        *    else
+        *      SUB = 1 << FreeBitPosition
+        *      CATEGORY = OR ([subcategories, ...]);
+        *
+        *    SUPER = OR ([categories, ...]);
+        *
+        *
+        * Remember:
+        *   if you add or remove a category,
+        *   change labels in UIInterface.CategoryConfig.init_labels
+        *
+        */
+        INCLUDE_REMOTE = 1 << 0,
+        UNCATEGORIZED = 1 << 1,
+
+        APPLICATIONS = 1 << 2,
+
+        ACTIONS = 1 << 3,
+
+        AUDIO = 1 << 4,
+        VIDEO = 1 << 5,
+        DOCUMENTS = 1 << 6,
+        IMAGES = 1 << 7,
+        FILES = AUDIO | VIDEO | DOCUMENTS | IMAGES,
+
+        PLACES = 1 << 8,
+
+        // FIXME: shouldn't this be FILES | INCLUDE_REMOTE?
+        INTERNET = 1 << 9,
+
+        // FIXME: Text Query flag? kinda weird, why do we have this here?
+        TEXT = 1 << 10,
+
+        CONTACTS = 1 << 11,
+
+        ALL = 0xFFFFFFFF,
+        LOCAL_CONTENT = ALL ^ QueryFlags.INCLUDE_REMOTE
+    }
+
+    [Flags]
+    public enum MatcherFlags {
+        NO_REVERSED = 1 << 0,
+        NO_SUBSTRING = 1 << 1,
+        NO_PARTIAL = 1 << 2,
+        NO_FUZZY = 1 << 3
+    }
+
+    public struct Query {
+        string query_string;
+        string query_string_folded;
+        Cancellable cancellable;
+        QueryFlags query_type;
+        uint max_results;
+        uint query_id;
+
+        public Query (
+            uint query_id,
+            string query,
+            QueryFlags flags = QueryFlags.LOCAL_CONTENT,
+            uint num_results = 96
+        ) {
+            this.query_id = query_id;
+            this.query_string = query;
+            this.query_string_folded = query.casefold ();
+            this.query_type = flags;
+            this.max_results = num_results;
+        }
+
+        public bool is_cancelled () {
+            return cancellable.is_cancelled ();
+        }
+
+        public static Gee.List<Gee.Map.Entry<Regex, int>> get_matchers_for_query (
+            string query,
+            MatcherFlags match_flags = 0,
+            RegexCompileFlags flags = GLib.RegexCompileFlags.OPTIMIZE
+        ) {
+            /* create a couple of regexes and try to help with matching
+            * match with these regular expressions (with descending score):
+            * 1) ^query$
+            * 2) ^query
+            * 3) \bquery
+            * 4) split to words and seach \bword1.+\bword2 (if there are 2+ words)
+            * 5) query
+            * 6) split to characters and search \bq.+\bu.+\be.+\br.+\by
+            * 7) split to characters and search \bq.*u.*e.*r.*y
+            *
+            * The set of returned regular expressions depends on MatcherFlags.
+            */
+
+            var results = new Gee.HashMap<Regex, int> ();
+            Regex re;
+
+            try {
+                re = new Regex ("^(%s)$".printf (Regex.escape_string (query)), flags);
+                results[re] = Match.Score.HIGHEST;
+            } catch (RegexError err) { }
+
+            try {
+                re = new Regex ("^(%s)".printf (Regex.escape_string (query)), flags);
+                results[re] = Match.Score.EXCELLENT;
+            } catch (RegexError err) { }
+
+            try {
+                re = new Regex ("\\b(%s)".printf (Regex.escape_string (query)), flags);
+                results[re] = Match.Score.VERY_GOOD;
+            } catch (RegexError err) { }
+
+            // split to individual chars
+            string[] individual_words = Regex.split_simple ("\\s+", query.strip ());
+            if (individual_words.length >= 2) {
+                string[] escaped_words = {};
+                foreach (unowned string word in individual_words) {
+                    escaped_words += Regex.escape_string (word);
+                }
+                string pattern = "\\b(%s)".printf (string.joinv (").+\\b(", escaped_words));
+
+                try {
+                    re = new Regex (pattern, flags);
+                    results[re] = Match.Score.GOOD;
+                } catch (RegexError err) { }
+
+                // FIXME: do something generic here
+                if (!(MatcherFlags.NO_REVERSED in match_flags)) {
+                    if (escaped_words.length == 2) {
+                        var reversed = "\\b(%s)".printf (
+                            string.join (").+\\b(", escaped_words[1], escaped_words[0], null)
+                        );
+                        try {
+                            re = new Regex (reversed, flags);
+                            results[re] = Match.Score.GOOD - Match.Score.INCREMENT_MINOR;
+                        } catch (RegexError err) { }
+                    } else {
+                        // not too nice, but is quite fast to compute
+                        var orred = "\\b((?:%s))".printf (string.joinv (")|(?:", escaped_words));
+                        var any_order = "";
+                        for (int i = 0; i < escaped_words.length; i++) {
+                            bool is_last = i == escaped_words.length - 1;
+                            any_order += orred;
+                            if (!is_last) {
+                                any_order += ".+";
+                            }
+                        }
+                        try {
+                            re = new Regex (any_order, flags);
+                            results[re] = Match.Score.AVERAGE + Match.Score.INCREMENT_MINOR;
+                        } catch (RegexError err) { }
+                    }
+                }
+            }
+
+            if (!(MatcherFlags.NO_SUBSTRING in match_flags)) {
+                try {
+                    re = new Regex ("(%s)".printf (Regex.escape_string (query)), flags);
+                    results[re] = Match.Score.BELOW_AVERAGE;
+                } catch (RegexError err) { }
+            }
+
+            // split to individual characters
+            string[] individual_chars = Regex.split_simple ("\\s*", query);
+            string[] escaped_chars = {};
+            foreach (unowned string word in individual_chars) {
+                escaped_chars += Regex.escape_string (word);
+            }
+
+            // make  "aj" match "Activity Journal"
+            if (
+                !(MatcherFlags.NO_PARTIAL in match_flags)
+                && individual_words.length == 1
+                && individual_chars.length <= 5
+            ) {
+                string pattern = "\\b(%s)".printf (string.joinv (").+\\b(", escaped_chars));
+
+                try {
+                    re = new Regex (pattern, flags);
+                    results[re] = Match.Score.ABOVE_AVERAGE;
+                } catch (RegexError err) { }
+            }
+
+            if (!(MatcherFlags.NO_FUZZY in match_flags) && escaped_chars.length > 0) {
+                string pattern = "\\b(%s)".printf (string.joinv (").*(", escaped_chars));
+
+                try {
+                    re = new Regex (pattern, flags);
+                    results[re] = Match.Score.POOR;
+                } catch (RegexError err) { }
+            }
+
+            var sorted_results = new Gee.ArrayList<Gee.Map.Entry<Regex, int>> ();
+            var entries = results.entries;
+            // FIXME: why it doesn't work without this?
+            sorted_results.set_data ("entries-ref", entries);
+            sorted_results.add_all (entries);
+            sorted_results.sort ((a, b) => {
+                unowned Gee.Map.Entry<Regex, int> e1 = (Gee.Map.Entry<Regex, int>) a;
+                unowned Gee.Map.Entry<Regex, int> e2 = (Gee.Map.Entry<Regex, int>) b;
+                return e2.value - e1.value;
+            });
+
+            return sorted_results;
+        }
+    }
+}
+
+public enum Synapse.MatchType {
+    UNKNOWN = 0,
+    TEXT,
+    APPLICATION,
+    GENERIC_URI,
+    ACTION,
+    SEARCH,
+    CONTACT
+}
+
+public abstract class Synapse.Match: GLib.Object {
+    public enum Score {
+        INCREMENT_MINOR = 2000,
+        INCREMENT_SMALL = 5000,
+        INCREMENT_MEDIUM = 10000,
+        INCREMENT_LARGE = 20000,
+        URI_PENALTY = 15000,
+
+        POOR = 50000,
+        BELOW_AVERAGE = 60000,
+        AVERAGE = 70000,
+        ABOVE_AVERAGE = 75000,
+        GOOD = 80000,
+        VERY_GOOD = 85000,
+        EXCELLENT = 90000,
+
+        HIGHEST = 100000
+    }
+
+    // properties
+    public string title { get; construct set; default = ""; }
+    public string description { get; set; default = ""; }
+    public string? icon_name { get; construct set; default = null; }
+    public bool has_thumbnail { get; construct set; default = false; }
+    public string? thumbnail_path { get; construct set; default = null; }
+    public Synapse.MatchType match_type { get; construct set; default = Synapse.MatchType.UNKNOWN; }
+
+    public virtual void execute (Synapse.Match? match) {
+        critical ("execute () is not implemented");
+    }
+
+    public virtual void execute_with_target (Synapse.Match? source, Synapse.Match? target = null) {
+        if (target == null) {
+            execute (source);
+        } else {
+            critical ("execute () is not implemented");
+        }
+    }
+
+    public virtual bool needs_target () {
+        return false;
+    }
+
+    public virtual Synapse.QueryFlags target_flags () {
+        return Synapse.QueryFlags.ALL;
+    }
+
+    public signal void executed ();
 }

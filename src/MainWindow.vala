@@ -199,16 +199,7 @@ public class MainWindow : Gtk.Window {
         pane.show_quick_find.connect (show_quick_find);
 
         Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
-            if (projects_loaded.has_key (project_id.to_string ())) {
-                stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
-            } else {
-                projects_loaded.set (project_id.to_string (), true);
-                var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
-                stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
-                stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
-            }
-
-            magic_button.reveal_child = true;
+            go_project (project_id);
         });
 
         Planner.todoist.first_sync_finished.connect (() => {
@@ -321,7 +312,6 @@ public class MainWindow : Gtk.Window {
         });
 
         init_badge_count ();
-
         init_progress_controller ();
     }
 
@@ -392,7 +382,11 @@ public class MainWindow : Gtk.Window {
     }
 
     public void show_quick_find () {
-        quick_find.reveal_toggled ();
+        var dialog = new Dialogs.QuickFind ();
+        dialog.destroy.connect (Gtk.main_quit);
+        dialog.show_all ();
+
+        //quick_find.reveal_toggled ();
     }
 
     public void new_project () {
@@ -433,6 +427,25 @@ public class MainWindow : Gtk.Window {
         }
 
         pane.select_item (id);
+    }
+
+    public void go_project (int64 project_id) {
+        if (projects_loaded.has_key (project_id.to_string ())) {
+            stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+        } else {
+            projects_loaded.set (project_id.to_string (), true);
+            var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
+            stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
+            stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+        }
+
+        magic_button.reveal_child = true;
+    }
+
+    public void go_item (int64 item_id) {
+        var item = Planner.database.get_item_by_id (item_id);
+        go_project (item.project_id);
+        Planner.utils.highlight_item (item_id);
     }
 
     private void init_badge_count () {

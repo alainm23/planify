@@ -70,7 +70,7 @@ menu {
 }
 
 .sidebar-header {
-    /* padding-left: 3px; */
+    padding-left: 1px;
     background-color: @pane_color;
 }
 
@@ -336,7 +336,6 @@ paned.horizontal > separator {
     border: 1px solid alpha (#000, 0.3);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     text-shadow: none;
-    margin: 8px;
     background-color: @bg_color;
 }
 
@@ -396,8 +395,22 @@ paned.horizontal > separator {
     -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
 }
 
+.project-textview {
+    padding-bottom: 3px;
+}
+
 .project-textview text {
     background-color: @projectview_color;
+    transition: all 250ms ease-in-out;
+}
+
+.project-textview text:focus {
+    border-bottom: 1px solid #3689e6;
+}
+
+.note-grid {
+    border: 1px solid @menu_separator;
+    border-radius: 4px;
 }
 
 .new-item-entry {
@@ -464,7 +477,7 @@ paned.horizontal > separator {
     background-color: @bg_color;
     border: 1px solid alpha (@fg_color, 0.25);
     color: @text_color;
-    border-radius: 6px;
+    border-radius: 4px;
 }
 
 .check-button,
@@ -558,6 +571,13 @@ paned.horizontal > separator {
 
 .upcoming-icon {
     background-color: #ed5353;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.trash-icon {
+    background-color: #485a6c;
     color: #fff;
     border-radius: 4px;
     padding: 2px;
@@ -841,4 +861,23 @@ paned.horizontal > separator {
 .searchitem-row:selected {
     background-color: @pane_selected_color;
     color: @text_color;
+}
+
+.quick-find-dialog {
+    border-radius: 6px;
+}
+
+.quick-find-dialog entry {
+    border-radius: 4px;
+}
+
+@keyframes highlight-item {
+    0%   { background-color: alpha (#3689e6, 0.25); }
+    50%  { background-color: @projectview_color; }
+    100% { background-color: alpha (#3689e6, 0.25); }
+}
+
+.item-highlight {
+    border-radius: 4px;
+    animation: highlight-item 0.7s ease-in-out;
 }

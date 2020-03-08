@@ -60,11 +60,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     construct {
-        if (get_index () == 0) {
-            margin_top = 0;
-        } else {
-            margin_top = 12;
-        }
+        margin_top = 12;
 
         can_focus = false;
         get_style_context ().add_class ("area-row");
@@ -136,7 +132,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 47;
+        action_grid.margin_start = 45;
         action_grid.margin_bottom = 6;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
@@ -178,7 +174,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_section_revealer.add (motion_section_grid);
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 18;
+        listbox.margin_start = 12;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
