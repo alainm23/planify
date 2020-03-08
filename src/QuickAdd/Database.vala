@@ -47,6 +47,20 @@ public class Database : GLib.Object {
         }
     }
 
+    public bool is_database_empty () {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Projects", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) <= 0;
+        }
+
+        return returned;
+    }
+    
     public Gee.ArrayList<Project?> get_all_projects () {
         Sqlite.Statement stmt;
         string sql;

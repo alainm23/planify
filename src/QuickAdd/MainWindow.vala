@@ -20,6 +20,7 @@
 */
 
 public class MainWindow : Gtk.Window {
+    private Gtk.Stack stack;
     private Gtk.Entry content_entry;
 
     private DBusClient dbus_client;
@@ -161,7 +162,40 @@ public class MainWindow : Gtk.Window {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_end (action_box, false, false, 0);
 
-        add (main_box);
+        var warning_image = new Gtk.Image ();
+        warning_image.gicon = new ThemedIcon ("dialog-warning");
+        warning_image.pixel_size = 32;
+
+        var warning_label = new Gtk.Label (_("I'm sorry, Quick Add can't find any project available, try creating a project from Planner."));
+        warning_label.wrap = true;
+        warning_label.max_width_chars = 42;
+        warning_label.xalign = 0;
+
+        var warning_grid = new Gtk.Grid ();
+        warning_grid.margin_top = 9;
+        warning_grid.margin_start = 18;
+        warning_grid.margin_end = 18;
+        warning_grid.halign = Gtk.Align.CENTER;
+        warning_grid.column_spacing = 12;
+        warning_grid.add (warning_image);
+        warning_grid.add (warning_label);
+
+        stack = new Gtk.Stack ();
+        stack.expand = true;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        stack.add_named (main_box, "main_box");
+        stack.add_named (warning_grid, "warning_grid");
+
+        add (stack);
+
+        Timeout.add (125, () => {
+            if (PlannerQuickAdd.database.is_database_empty ()) {
+                stack.visible_child_name = "warning_grid";
+            } else {
+                stack.visible_child_name = "main_box";
+            }
+        });
 
         get_style_context ().add_class ("rounded");
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
