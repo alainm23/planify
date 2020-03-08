@@ -45,7 +45,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         height_request = 425;
 
         int window_x, window_y;
-        int window_width, width_height;
+        int window_width, width_height;  
 
         Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
         Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
