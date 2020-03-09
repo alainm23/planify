@@ -42,7 +42,7 @@ public class Objects.Project : GLib.Object {
     public int shared { get; set; default = 0; }
     public int is_kanban { get; set; default = 0; }
     public int show_completed { get; set; default = 0; }
-    
+
     private uint timeout_id = 0;
 
     public void save () {

@@ -342,6 +342,13 @@ public class Views.Project : Gtk.EventBox {
             note_textview.visible = true;
 
             check_placeholder_view ();
+
+            if (project.show_completed == 1) {
+                show_completed_switch.active = true;
+                add_completed_items (project.id);
+                main_stack.visible_child_name = "project";
+            }
+
             return false;
         });
 
@@ -862,6 +869,9 @@ public class Views.Project : Gtk.EventBox {
         show_completed_switch = new Gtk.Switch ();
         show_completed_switch.margin_start = 12;
         show_completed_switch.get_style_context ().add_class ("planner-switch");
+        if (project.show_completed == 1) {
+            show_completed_switch.active = true;
+        }
 
         var show_completed_grid = new Gtk.Grid ();
         show_completed_grid.add (show_completed_image);
@@ -934,17 +944,18 @@ public class Views.Project : Gtk.EventBox {
             show_completed_switch.activate ();
 
             if (show_completed_switch.active) {
+                project.show_completed = 0;
                 completed_revealer.reveal_child = false;
                 check_placeholder_view ();
             } else {
+                project.show_completed = 1;
                 add_completed_items (project.id);
                 main_stack.visible_child_name = "project";
             }
 
+            save (false);
             return Gdk.EVENT_STOP;
         });
-
-
     }
 
     private void on_drag_section_received (Gdk.DragContext context, int x, int y,
