@@ -501,6 +501,7 @@ paned.horizontal > separator {
 }
 
 .delete-check-button image {
+    color: @bg_color;
     transition: all 240ms ease-in-out;
 }
 
