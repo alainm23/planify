@@ -382,13 +382,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Checklist ListBox
         check_listbox = new Gtk.ListBox ();
         check_listbox.margin_top = 6;
-        check_listbox.margin_start = 18;
+        check_listbox.margin_start = 24;
         check_listbox.get_style_context ().add_class ("check-listbox");
         Gtk.drag_dest_set (check_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_CHECK, Gdk.DragAction.MOVE);
         check_listbox.drag_data_received.connect (on_drag_data_received);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 18;
+        separator.margin_start = 24;
         separator.margin_bottom = 6;
         separator.margin_end = 9;
 
@@ -445,7 +445,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin_top = 3;
-        action_box.margin_start = 24;
+        action_box.margin_start = 30;
         action_box.margin_bottom = 6;
         action_box.margin_end = 6;
         action_box.pack_start (labels_edit_box, false, true, 0);

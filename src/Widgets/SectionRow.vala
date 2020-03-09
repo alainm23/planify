@@ -436,12 +436,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
             Idle.add (() => {
-                if (section.project_id == old_project_id && section.id == item.section_id) {
-                    listbox.foreach ((widget) => {
+                if (section.id == item.section_id) {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == item.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
                 }

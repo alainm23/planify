@@ -93,13 +93,13 @@ public class Services.Database : GLib.Object {
     }
 
     public void patch_database () {
-        //  if (Planner.database.column_exists ("Sections", "note") == false) {
-        //        Planner.database.add_text_column ("Sections", "note", "");
-        //  }
+        if (Planner.database.column_exists ("Sections", "note") == false) {
+              Planner.database.add_text_column ("Sections", "note", "");
+        }
 
-        //  if (Planner.database.column_exists ("Projects", "is_kanban") == false) {
-        //      Planner.database.add_int_column ("Projects", "is_kanban", 0);
-        //  }
+        if (Planner.database.column_exists ("Projects", "show_completed") == false) {
+            Planner.database.add_int_column ("Projects", "show_completed", 0);
+        }
     }
 
     public void reset_all () {
@@ -206,7 +206,8 @@ public class Services.Database : GLib.Object {
                 is_favorite      INTEGER,
                 is_sync          INTEGER,
                 shared           INTEGER,
-                is_kanban        INTEGER
+                is_kanban        INTEGER,
+                show_completed   INTEGER
             );
         """;
 
@@ -225,7 +226,8 @@ public class Services.Database : GLib.Object {
                 is_archived     INTEGER,
                 date_archived   TEXT,
                 date_added      TEXT,
-                is_todoist      INTEGER
+                is_todoist      INTEGER,
+                note            TEXT
             );
         """;
 
@@ -717,7 +719,7 @@ public class Services.Database : GLib.Object {
         sql = """
             ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %i;
         """.printf (table, col, default_value);
-        
+
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
@@ -1040,10 +1042,10 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
 
         sql = """
-            INSERT OR IGNORE INTO Projects (id, area_id, name, note, due_date, color, 
-                is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived, 
-                is_favorite, is_sync, shared)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT OR IGNORE INTO Projects (id, area_id, name, note, due_date, color,
+                is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived,
+                is_favorite, is_sync, shared, show_completed)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1094,6 +1096,9 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (15, project.shared);
         assert (res == Sqlite.OK);
 
+        res = stmt.bind_int (16, project.show_completed);
+        assert (res == Sqlite.OK);
+
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             return false;
@@ -1109,8 +1114,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Projects SET name = ?, note = ?, due_date = ?, color = ?, item_order = ?, 
-            is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ?, shared = ?, is_kanban = ?
+            UPDATE Projects SET name = ?, note = ?, due_date = ?, color = ?, item_order = ?,
+            is_deleted = ?, is_archived = ?, is_favorite = ?, is_sync = ?, shared = ?, is_kanban = ?, show_completed = ?
             WHERE id = ?;
         """;
 
@@ -1150,7 +1155,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (11, project.is_kanban);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (12, project.id);
+        res = stmt.bind_int (12, project.show_completed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (13, project.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1438,6 +1446,8 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1477,6 +1487,8 @@ public class Services.Database : GLib.Object {
             p.is_favorite = stmt.column_int (12);
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1534,6 +1546,7 @@ public class Services.Database : GLib.Object {
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1587,8 +1600,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox, 
-            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
             FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
         """;
 
@@ -1616,6 +1629,7 @@ public class Services.Database : GLib.Object {
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1657,6 +1671,7 @@ public class Services.Database : GLib.Object {
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
         }
 
         return p;
@@ -1997,7 +2012,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed,
-            sync_id, is_deleted, is_archived, date_archived, date_added, is_todoist)
+            sync_id, is_deleted, is_archived, date_archived, date_added, is_todoist, note)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
@@ -2037,8 +2052,8 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (11, section.is_todoist);
         assert (res == Sqlite.OK);
 
-        //  res = stmt.bind_text (12, section.note);
-        //  assert (res == Sqlite.OK);
+        res = stmt.bind_text (12, section.note);
+        assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -2078,7 +2093,7 @@ public class Services.Database : GLib.Object {
             s.date_archived = stmt.column_text (8);
             s.date_added = stmt.column_text (9);
             s.is_todoist = stmt.column_int (10);
-            // s.note = stmt.column_text (11);
+            s.note = stmt.column_text (11);
         }
 
         return s;
@@ -2129,7 +2144,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Sections SET name = ?, collapsed = ?, item_order = ? WHERE id = ?;
+            UPDATE Sections SET name = ?, collapsed = ?, item_order = ?, note = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2147,8 +2162,8 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (4, section.id);
         assert (res == Sqlite.OK);
 
-        //  res = stmt.bind_text (5, section.note);
-        //  assert (res == Sqlite.OK);
+        res = stmt.bind_text (5, section.note);
+        assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
             section_updated (section);

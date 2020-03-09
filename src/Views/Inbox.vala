@@ -333,13 +333,15 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.item_moved.connect ((item, id, old_id) => {
             Idle.add (() => {
                 if (project_id == old_id) {
-                    listbox.foreach ((widget) => {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == item.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
+
                     check_placeholder_view ();
                 }
 
@@ -365,11 +367,12 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
             Idle.add (() => {
                 if (0 == old_section_id) {
-                    listbox.foreach ((widget) => {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == i.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
 

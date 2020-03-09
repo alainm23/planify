@@ -28,7 +28,7 @@ public class Objects.Section : GLib.Object {
         get { return _name; }
         set { _name = value.replace ("&", " "); }
     }
-    //public string note { get; set; default = ""; }
+    public string note { get; set; default = ""; }
     public int item_order { get; set; default = 0; }
     public int collapsed { get; set; default = 1; }
     public int is_todoist { get; set; default = 0; }
