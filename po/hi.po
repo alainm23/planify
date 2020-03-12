@@ -3,152 +3,154 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 18:53-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
+"POT-Creation-Date: 2020-02-26 09:53-0500\n"
+"PO-Revision-Date: 2020-03-05 03:43+0000\n"
+"Last-Translator: Joe <jovial7joe@hotmail.com>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/planner/"
+"translations/hi/>\n
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
-msgstr ""
+msgstr "नया क्षेत्र"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
-msgstr ""
+msgstr "योजनाकर्ता"
 
 #: src/Utils.vala:105 src/Utils.vala:112 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "घर"
 
 #: src/Utils.vala:106 src/Utils.vala:116
 msgid "Office"
-msgstr ""
+msgstr "दफ्तर"
 
 #: src/Utils.vala:107 src/Utils.vala:120
 msgid "Errand"
-msgstr ""
+msgstr "दूतकर्म"
 
 #: src/Utils.vala:108 src/Utils.vala:124
 msgid "Important"
-msgstr ""
+msgstr "महत्वपूर्ण"
 
 #: src/Utils.vala:109 src/Utils.vala:128
 msgid "Pending"
-msgstr ""
+msgstr "विचाराधीन"
 
 #: src/Utils.vala:171
 msgid "Berry Red"
-msgstr ""
+msgstr "बेरी रेड"
 
 #: src/Utils.vala:172
 msgid "Red"
-msgstr ""
+msgstr "लाल"
 
 #: src/Utils.vala:173
 msgid "Orange"
-msgstr ""
+msgstr "संतरा"
 
 #: src/Utils.vala:174
 msgid "Yellow"
-msgstr ""
+msgstr "पीला"
 
 #: src/Utils.vala:175
 msgid "Olive Green"
-msgstr ""
+msgstr "जैतून हरा"
 
 #: src/Utils.vala:176
 msgid "Lime Green"
-msgstr ""
+msgstr "पीला हरा"
 
 #: src/Utils.vala:177
 msgid "Green"
-msgstr ""
+msgstr "हरा"
 
 #: src/Utils.vala:178
 msgid "Mint Green"
-msgstr ""
+msgstr "पुदीन हरा"
 
 #: src/Utils.vala:179
 msgid "Teal"
-msgstr ""
+msgstr "टील"
 
 #: src/Utils.vala:180
 msgid "Sky Blue"
-msgstr ""
+msgstr "आसमानी नीला"
 
 #: src/Utils.vala:181
 msgid "Light Blue"
-msgstr ""
+msgstr "हल्का नीला"
 
 #: src/Utils.vala:182
 msgid "Blue"
-msgstr ""
+msgstr "नीला"
 
 #: src/Utils.vala:183
 msgid "Grape"
-msgstr ""
+msgstr "अंगूर"
 
 #: src/Utils.vala:184
 msgid "Violet"
-msgstr ""
+msgstr "बैंगनी"
 
 #: src/Utils.vala:185
 msgid "Lavander"
-msgstr ""
+msgstr "लैवेंडर"
 
 #: src/Utils.vala:186
 msgid "Magenta"
-msgstr ""
+msgstr "मैजेंटा"
 
 #: src/Utils.vala:187
 msgid "Salmon"
-msgstr ""
+msgstr "सैल्मन"
 
 #: src/Utils.vala:188
 msgid "Charcoal"
-msgstr ""
+msgstr "कोयला"
 
 #: src/Utils.vala:189
 msgid "Grey"
-msgstr ""
+msgstr "धूसर"
 
 #: src/Utils.vala:190
 msgid "Taupe"
-msgstr ""
+msgstr "टोपे"
 
 #: src/Utils.vala:508 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1322
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:52
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334
 msgid "Today"
-msgstr ""
+msgstr "आज"
 
 #: src/Utils.vala:510 src/Widgets/Pane.vala:348 src/Widgets/ItemRow.vala:1325
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "कल"
 
 #: src/Utils.vala:625
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "त्वरित जोड़ें सक्रिय!"
 
 #: src/Utils.vala:626
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
+"इसे सक्रिय करने के लिए `%s` का प्रयास करें। आप इसे वरीयताओं से बदल सकते हैं"
 
 #: src/Utils.vala:643
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ अरब करें"
 
 #: src/Utils.vala:644
 msgid ""
@@ -156,10 +158,12 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"यह परियोजना आपको `नियोजक` की मूल बातें सीखने में मदद करेगी और आप सब के ऊपर "
+"संगठित रह सकते हो।"
 
 #: src/Utils.vala:649
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "अपने कार्यों पर नज़र रखें"
 
 #: src/Utils.vala:650
 msgid ""
@@ -170,10 +174,16 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"यह पता चला है, हमारे दिमाग वास्तव में हमारे अधूरे कार्यों के बारे में सोचते "
+"रहने के लिए वायर्ड हैं। अच्छा है, जब आपके पास केवल एक चीज है जिस पर आपको काम "
+"करने की आवश्यकता है। इतना अच्छा नहीं है जब आपके पास एक बार में आपके ध्यान के "
+"लिए 30+ कार्य हों। इसी कारण से, पहला कदम यह है की, आपके सिर से आपकी टू-डू "
+"सूची भर दें। वहां से आप व्यवस्थित करना और प्राथमिकता देना शुरू कर सकते हैं "
+"ताकि आपको पता हो कि वास्तव में क्या और कब फोकस करना है।"
 
 #: src/Utils.vala:655
 msgid "Adding new tasks"
-msgstr ""
+msgstr "नए कार्यों को जोड़ना"
 
 #: src/Utils.vala:656
 msgid ""
@@ -181,10 +191,14 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- प्लानर में एक नया कार्य जोड़ने के लिए, बस `+` पर क्लिक करें और `Enter` "
+"दबाएं।\n"
+"- जब आपका कार्य बन जाता है, तो उसे संपादित करने में सक्षम होने के लिए कार्य "
+"पर क्लिक करें, एक नोट या कुछ अन्य विकल्प जोड़ें।"
 
 #: src/Utils.vala:662
 msgid "Due dates"
-msgstr ""
+msgstr "नियत तारीक"
 
 #: src/Utils.vala:663
 msgid ""
@@ -193,10 +207,14 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- यदि आप जानते हैं कि आपको एक निश्चित दिन में कार्य करने की आवश्यकता है, तो "
+"कैलेंडर आइकन पर क्लिक करें और एक तारीख चुनें।\n"
+"- यदि आप नियत तारीख को हटाना चाहते हैं, तो प्रक्रिया को दोहराएं और \"अन-डेट\""
+" विकल्प चुनें।"
 
 #: src/Utils.vala:669
 msgid "How to use projects"
-msgstr ""
+msgstr "परियोजनाओं का उपयोग कैसे करें"
 
 #: src/Utils.vala:670
 msgid ""
@@ -210,14 +228,22 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- चाहे आप किसी प्रेजेंटेशन की योजना बना रहे हों, किसी इवेंट की तैयारी कर रहे "
+"हों या कोई वेबसाइट बना रहे हों, एक प्रोजेक्ट बनाएं ताकि सभी महत्वपूर्ण विवरण "
+"एक केंद्रीय स्थान पर सेव हो जाएं।\n"
+"- सबसे नीचे बाईं ओर नेविगेशन मेनू में + सिंबल पर क्लिक करें।\n"
+"- विकल्प मेनू में 'प्रोजेक्ट' चुनें और अपनी नई परियोजना का नाम लिखें।\n"
+"- ड्रॉप-डाउन मेनू से एक स्रोत का चयन करें।\n"
+"- (वैकल्पिक) रंग सूची से किसी भिन्न प्रोजेक्ट रंग का चयन करें।\n"
+"- प्रोजेक्ट बनाने के लिए `नया` पर क्लिक करें।"
 
 #: src/Utils.vala:680
 msgid "Sections"
-msgstr ""
+msgstr "अनुभाग"
 
 #: src/Utils.vala:686
 msgid "Add sections"
-msgstr ""
+msgstr "अनुभाग जोड़ें"
 
 #: src/Utils.vala:687
 msgid ""
@@ -231,30 +257,39 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- जब आप प्लानर के अनुभागों का उपयोग करके आसानी से प्रबंधनीय भागों में विभाजि"
+"त करते हैं, तो एक बड़ी प्रोजेक्ट को लेना हमेशा आसान होता है।\n"
+"- अपने कार्यों को एक साथ करने के लिए वर्गों के साथ अपनी प्रोजेक्ट को व्यवस्थि"
+"त करें और जो किया जाना चाहिए उसका बेहतर अवलोकन करें। अपनी प्रोजेक्ट में अनुभा"
+"ग जोड़ें, संबंधित कार्यों को उस अनुभाग में खींचें, जिसमें वे संबंधित हैं और "
+"आपको प्रगति करना बहुत आसान लगेगा (बजाय एक लंबी सूची के अभिभूत होने के)।\n"
+"- किसी प्रोजेक्ट के शीर्ष दाईं ओर, `+` आइकन पर क्लिक करें।\n"
+"- अपने सेक्शन का नाम टाइप करें और `Add` पर क्लिक करें।"
 
 #: src/Utils.vala:706
 msgid "Create a new task"
-msgstr ""
+msgstr "एक नया कार्य बनाएँ"
 
 #: src/Utils.vala:707
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"सूची के शीर्ष पर एक नया कार्य बनाएँ (केवल प्रोजेक्ट के अंदर काम करता है)"
 
 #: src/Utils.vala:708
 msgid "Create a new area"
-msgstr ""
+msgstr "एक नया क्षेत्र बनाएँ"
 
 #: src/Utils.vala:709
 msgid "Create a new project"
-msgstr ""
+msgstr "एक नया प्रोजेक्ट बनाएं"
 
 #: src/Utils.vala:710
 msgid "Create a new section"
-msgstr ""
+msgstr "एक नया अनुभाग बनाएँ"
 
 #: src/Utils.vala:711
 msgid "Open the Inbox"
-msgstr ""
+msgstr "इनबॉक्स खोलें"
 
 #: src/Utils.vala:712
 msgid "Open Today"

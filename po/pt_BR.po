@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
@@ -125,7 +125,7 @@ msgstr "Cinza"
 
 #: src/Utils.vala:190
 msgid "Taupe"
-msgstr "Cor taupe"
+msgstr "Taupe"
 
 #: src/Utils.vala:508 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1322
 #: src/Widgets/DueButton.vala:148 src/Views/Today.vala:52
@@ -141,7 +141,7 @@ msgstr "Amanhã"
 
 #: src/Utils.vala:625
 msgid "Quick Add Activated!"
-msgstr "Busca rápida ativada !"
+msgstr "Adição rápida ativada !"
 
 #: src/Utils.vala:626
 #, c-format
@@ -215,7 +215,7 @@ msgstr ""
 
 #: src/Utils.vala:669
 msgid "How to use projects"
-msgstr "Converter para projeto"
+msgstr "Como usar projetos"
 
 #: src/Utils.vala:670
 msgid ""
@@ -276,7 +276,7 @@ msgstr "Criar uma nova tarefa"
 #: src/Utils.vala:707
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
-"Crie uma nova tarefa no topo da lista (Funciona apenas dentro de projetos)"
+"Crie uma nova tarefa no topo da lista (funciona apenas dentro de projetos)"
 
 #: src/Utils.vala:708
 msgid "Create a new area"
@@ -495,7 +495,7 @@ msgstr "Organize seus projetos em grupos e mantenha seu painel limpo."
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:145
 msgid "Project Menu"
-msgstr "Opção do Projeto"
+msgstr "Menu do Projeto"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
@@ -574,7 +574,7 @@ msgstr "Excluir tarefa"
 
 #: src/Widgets/ItemRow.vala:440
 msgid "Task Menu"
-msgstr "Opção da tarefa"
+msgstr "Menu de Tarefa"
 
 # Estava como ocultando,mas acabou não fazendo muito sentido com o contexto do app
 #: src/Widgets/ItemRow.vala:973
@@ -595,11 +595,11 @@ msgstr "Sem data"
 
 #: src/Widgets/ItemRow.vala:1331 src/Widgets/SectionRow.vala:595
 msgid "Move to Project"
-msgstr "Mover ao projeto"
+msgstr "Mover para Projeto"
 
 #: src/Widgets/ItemRow.vala:1335
 msgid "Move to Section"
-msgstr "Mover para a seção"
+msgstr "Mover para Seção"
 
 #: src/Widgets/ItemRow.vala:1343
 msgid "Text"
@@ -615,7 +615,7 @@ msgstr "Conteúdo"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Due date"
-msgstr "Data de Vencimento"
+msgstr "Data de vencimento"
 
 #: src/Widgets/ItemCompletedRow.vala:42
 msgid "Date completed"
@@ -623,11 +623,11 @@ msgstr "Data de conclusão"
 
 #: src/Widgets/SectionRow.vala:77 src/Widgets/SectionRow.vala:693
 msgid "Display Tasks"
-msgstr "Mostrar tarefas"
+msgstr "Mostrar Tarefas"
 
 #: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:698
 msgid "Hiding Tasks"
-msgstr "Ocultando tarefas"
+msgstr "Ocultando Tarefas"
 
 #: src/Widgets/SectionRow.vala:96 src/Widgets/NewSection.vala:70
 msgid "Section name"
@@ -635,7 +635,7 @@ msgstr "Nome da seção"
 
 #: src/Widgets/SectionRow.vala:111
 msgid "Section Menu"
-msgstr "Opção da Secão"
+msgstr "Menu de Seção"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:128 src/Widgets/AreaRow.vala:135
@@ -646,11 +646,11 @@ msgstr "Salvar"
 #: src/Widgets/SectionRow.vala:545 src/Widgets/SectionRow.vala:567
 #, fuzzy, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "Tarefa movida para <b>%s</b>"
+msgstr "Seção movida para <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:589 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
-msgstr "Adicionar nova tarefa"
+msgstr "Adicionar Tarefa"
 
 #: src/Widgets/SectionRow.vala:592
 #, fuzzy
@@ -685,7 +685,7 @@ msgstr "etiquetas"
 
 #: src/Widgets/LabelButton.vala:92
 msgid "Type a label"
-msgstr "Digite a etiqueta"
+msgstr "Digite uma etiqueta"
 
 #: src/Widgets/LabelButton.vala:119
 msgid "Edit labels"
@@ -697,7 +697,7 @@ msgstr "Desfazer"
 
 #: src/Widgets/AreaRow.vala:81 src/Widgets/AreaRow.vala:345
 msgid "Display Projects"
-msgstr "Mostrar projetos"
+msgstr "Mostrar Projetos"
 
 #: src/Widgets/AreaRow.vala:125 src/Widgets/AreaRow.vala:350
 msgid "Hiding Projects"
@@ -721,7 +721,7 @@ msgstr "Nome da subtarefa"
 
 #: src/Widgets/UpcomingRow.vala:67
 msgid "Add task"
-msgstr "Adicionar nova tarefa"
+msgstr "Adicionar tarefa"
 
 #: src/Widgets/QuickFind.vala:48 src/Dialogs/ProjectSettings.vala:253
 #: src/Dialogs/Preferences/Preferences.vala:78
@@ -742,7 +742,7 @@ msgstr "Hora:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
-msgstr "Adicionar nova etiqueta"
+msgstr "Adicionar Etiqueta"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
@@ -802,7 +802,7 @@ msgstr "Sincronize com sua conta Todoist e comece a trabalhar."
 
 #: src/Views/Inbox.vala:82 src/Views/Project.vala:113
 msgid "Add Section"
-msgstr "Adicionar seção"
+msgstr "Adicionar Seção"
 
 #: src/Views/Inbox.vala:91
 msgid "Inbox comments"
@@ -814,7 +814,7 @@ msgstr "Procurar tarefa"
 
 #: src/Views/Inbox.vala:106
 msgid "Inbox Menu"
-msgstr "Opção da caixa de entrada"
+msgstr "Menu da caixa de entrada"
 
 #: src/Views/Inbox.vala:149
 msgid "All clear"
@@ -826,7 +826,7 @@ msgstr "Parece que tudo está organizado no lugar certo."
 
 #: src/Views/Inbox.vala:718 src/Views/Project.vala:842
 msgid "Show Completed"
-msgstr "Exibir tarefas concluídas"
+msgstr "Exibir Concluídas"
 
 #: src/Views/Inbox.vala:881 src/Views/Project.vala:995
 msgid "Task completed"
@@ -842,7 +842,7 @@ msgstr "Toque + para adicionar uma tarefa para Hoje"
 
 #: src/Views/Project.vala:121
 msgid "Invite person"
-msgstr "Convidar pessoa"
+msgstr "Convidar Pessoa"
 
 #: src/Views/Project.vala:130
 msgid "Project comments"
@@ -919,7 +919,7 @@ msgstr "Tema"
 #: src/Dialogs/Preferences/Preferences.vala:93
 #: src/Dialogs/Preferences/Preferences.vala:436
 msgid "Quick Add"
-msgstr "Busca rápida"
+msgstr "Adição Rápida"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:109
@@ -935,7 +935,7 @@ msgstr "Eventos do Calendário"
 #: src/Dialogs/Preferences/Preferences.vala:449
 #: src/Dialogs/Preferences/Preferences.vala:847
 msgid "Keyboard Shortcuts"
-msgstr "Atalhos do teclado"
+msgstr "Atalhos do Teclado"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:130

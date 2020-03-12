@@ -3,27 +3,30 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 18:53-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
+"POT-Creation-Date: 2020-02-26 09:53-0500\n"
+"PO-Revision-Date: 2020-03-05 03:43+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
+"translations/hr/>\n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:223 src/Widgets/New.vala:715
 msgid "New area"
-msgstr ""
+msgstr "Novo područje"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
-msgstr ""
+msgstr "Planer"
 
 #: src/Utils.vala:105 src/Utils.vala:112 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -246,48 +249,48 @@ msgstr ""
 
 #: src/Utils.vala:709
 msgid "Create a new project"
-msgstr ""
+msgstr "Stvori novi projekt"
 
 #: src/Utils.vala:710
 msgid "Create a new section"
-msgstr ""
+msgstr "Stvori novi odjeljak"
 
 #: src/Utils.vala:711
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Otvori u ulaznom sandučiću"
 
 #: src/Utils.vala:712
 msgid "Open Today"
-msgstr ""
+msgstr "Otvori današnji dan"
 
 #: src/Utils.vala:713
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Otvori nadolazeće"
 
 #: src/Utils.vala:714
 msgid "Open Search"
-msgstr ""
+msgstr "Otvori pretragu"
 
 #: src/Utils.vala:715
 msgid "Manually sync"
-msgstr ""
+msgstr "Ručno sinkroniziraj"
 
 #: src/Utils.vala:716
 msgid "Quit"
-msgstr ""
+msgstr "Zatvori"
 
 #: src/Utils.vala:724
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Zahtjev je bio neispravan."
 
 #: src/Utils.vala:725
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Autentifikacija je potrebna, a nije uspjela ili još nije navedena."
 
 #: src/Utils.vala:726
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Zahtjev je bio ispravan, ali za nešto što je zabranjeno."
 
 #: src/Utils.vala:727
 msgid "The requested resource could not be found."
@@ -414,7 +417,7 @@ msgstr ""
 #: src/Views/Inbox.vala:791 src/Views/Project.vala:159
 #: src/Views/Project.vala:1051
 msgid "Cancel"
-msgstr ""
+msgstr "Odustani"
 
 #: src/Widgets/New.vala:473
 msgid "Local"
@@ -458,7 +461,7 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:496 src/Widgets/ItemRow.vala:1312
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:830
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #: src/Widgets/ProjectRow.vala:498
 msgid "Move to Area"
@@ -501,7 +504,7 @@ msgstr ""
 #: src/Widgets/NewItem.vala:63 src/Widgets/ItemRow.vala:204
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "Ime zadatka"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:994
 msgid "View Details"
@@ -587,7 +590,7 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:128 src/Widgets/AreaRow.vala:135
 #: src/Views/Project.vala:155 src/Dialogs/ProjectSettings.vala:255
 msgid "Save"
-msgstr ""
+msgstr "Spremi"
 
 #: src/Widgets/SectionRow.vala:545 src/Widgets/SectionRow.vala:567
 #, c-format
@@ -1095,7 +1098,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "Natrag"
 
 #: src/Objects/Project.vala:118
 msgid "The Project was copied to the Clipboard."
