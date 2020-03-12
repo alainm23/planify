@@ -136,7 +136,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (area_listbox);
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
-        listbox_scrolled.width_request = 260;
+        listbox_scrolled.width_request = 252;
         listbox_scrolled.hexpand = true;
         listbox_scrolled.margin_bottom = 6;
         listbox_scrolled.add (listbox_grid);

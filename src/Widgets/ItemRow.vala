@@ -236,16 +236,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         project_preview_label = new Gtk.Label (null);
         project_preview_label.get_style_context ().add_class ("pane-item");
-        project_preview_label.margin_end = 6;
+        //project_preview_label.margin_end = 6;
         project_preview_label.use_markup = true;
 
         var project_preview_grid = new Gtk.Grid ();
         project_preview_grid.column_spacing = 3;
-        project_preview_grid.margin_end = 6;
+        project_preview_grid.margin_end = 16;
         project_preview_grid.halign = Gtk.Align.CENTER;
         project_preview_grid.valign = Gtk.Align.CENTER;
-        project_preview_grid.add (project_preview_image);
         project_preview_grid.add (project_preview_label);
+        project_preview_grid.add (project_preview_image);
 
         project_preview_revealer = new Gtk.Revealer ();
         project_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -331,14 +331,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         labels_preview_box_revealer.add (labels_preview_box);
 
         preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        preview_box.margin_start = 28;
+        preview_box.margin_start = 27;
         preview_box.hexpand = true;
-        preview_box.pack_start (project_preview_revealer, false, false, 0);
         preview_box.pack_start (duedate_preview_revealer, false, false, 0);
         preview_box.pack_start (reminder_preview_revealer, false, false, 0);
         preview_box.pack_start (checklist_preview_revealer, false, false, 0);
         preview_box.pack_start (note_preview_revealer, false, false, 0);
         preview_box.pack_start (labels_preview_box_revealer, false, false, 0);
+        preview_box.pack_end (project_preview_revealer, false, false, 0);
 
         preview_revealer = new Gtk.Revealer ();
         preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -695,7 +695,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                         hide_item ();
 
                         Timeout.add (1000, () => {
-                            destroy ();
+                            hide_destroy ();
                             return false;
                         });
                     }
@@ -745,7 +745,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     hide_item ();
 
                     Timeout.add (1500, () => {
-                        destroy ();
+                        hide_destroy ();
                         return false;
                     });
                 }
@@ -905,23 +905,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Planner.database.project_deleted.connect ((id) => {
             if (item.project_id == id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
+                hide_destroy ();
             }
         });
 
         Planner.database.section_deleted.connect ((s) => {
             if (item.section_id == s.id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
+                hide_destroy ();
             }
         });
 
@@ -940,6 +930,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     return false;
                 });
             }
+        });
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
         });
     }
 
@@ -1026,12 +1025,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             reminder_preview_revealer.reveal_child ||
             labels_preview_box_revealer.reveal_child ||
             project_preview_revealer.reveal_child;
-        }
-
-        if (project_preview_revealer.reveal_child) {
-            preview_box.margin_start = 26;
-        } else {
-            preview_box.margin_start = 28;
         }
     }
 

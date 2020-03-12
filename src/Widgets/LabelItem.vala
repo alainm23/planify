@@ -92,9 +92,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         });
 
         delete_button.clicked.connect (() => {
-            if (Planner.database.delete_item_label (id, item_id, label)) {
-
-            }
+            Planner.database.delete_item_label (id, item_id, label);
         });
 
         Planner.database.item_label_deleted.connect ((i, item_id, label) => {

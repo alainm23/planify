@@ -767,6 +767,7 @@ public class Utils : GLib.Object {
         patrons.add ("William Tumeo");
         patrons.add ("Wount");
         patrons.add ("M");
+        patrons.add ("Cal");
 
         return patrons;
     }

@@ -29,10 +29,10 @@ public class MainWindow : Gtk.Window {
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
+    private Views.Label label_view = null;
 
     private Widgets.MagicButton magic_button;
     private Widgets.Toast notification_toast;
-    private Widgets.QuickFind quick_find;
     private Services.DBusServer dbus_server;
 
     private uint timeout_id = 0;
@@ -84,11 +84,11 @@ public class MainWindow : Gtk.Window {
         stack.margin_end = stack.margin_bottom = 3;
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
+
         stack.add_named (welcome_view, "welcome-view");
 
         notification_toast = new Widgets.Toast ();
         magic_button = new Widgets.MagicButton ();
-        quick_find = new Widgets.QuickFind ();
 
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
@@ -100,13 +100,8 @@ public class MainWindow : Gtk.Window {
         paned.pack1 (pane, false, false);
         paned.pack2 (projectview_overlay, true, true);
 
-        var paned_overlay = new Gtk.Overlay ();
-        paned_overlay.expand = true;
-        paned_overlay.add_overlay (quick_find);
-        paned_overlay.add (paned);
-
         set_titlebar (header_paned);
-        add (paned_overlay);
+        add (paned);
 
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
@@ -385,8 +380,6 @@ public class MainWindow : Gtk.Window {
         var dialog = new Dialogs.QuickFind ();
         dialog.destroy.connect (Gtk.main_quit);
         dialog.show_all ();
-
-        //quick_find.reveal_toggled ();
     }
 
     public void new_project () {
@@ -430,14 +423,21 @@ public class MainWindow : Gtk.Window {
     }
 
     public void go_project (int64 project_id) {
-        if (projects_loaded.has_key (project_id.to_string ())) {
-            stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+        var project = Planner.database.get_project_by_id (project_id);
+
+        if (projects_loaded.has_key (project.id.to_string ())) {
+            stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
         } else {
-            projects_loaded.set (project_id.to_string (), true);
-            var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
-            stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
-            stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+            projects_loaded.set (project.id.to_string (), true);
+            var project_view = new Views.Project (Planner.database.get_project_by_id (project.id));
+            stack.add_named (project_view, "project-view-%s".printf (project.id.to_string ()));
+            stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
         }
+
+
+
+        // Planner.utils.pane_project_selected (project.id, project.area_id);
+        // Planner.utils.select_pane_project (project.id);
 
         magic_button.reveal_child = true;
     }
@@ -446,6 +446,16 @@ public class MainWindow : Gtk.Window {
         var item = Planner.database.get_item_by_id (item_id);
         go_project (item.project_id);
         Planner.utils.highlight_item (item_id);
+    }
+
+    public void go_label (int64 label_id) {
+        if (label_view == null) {
+            label_view = new Views.Label ();
+            stack.add_named (label_view, "label-view");
+        }
+
+        label_view.label = Planner.database.get_label_by_id (label_id);
+        stack.visible_child_name = "label-view";
     }
 
     private void init_badge_count () {

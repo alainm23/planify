@@ -139,13 +139,16 @@ public class Views.Project : Gtk.EventBox {
         search_button.tooltip_text = _("Search task");
         search_button.margin_start = 6;
         search_button.get_style_context ().add_class ("flat");
+        
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
 
         settings_button = new Gtk.ToggleButton ();
-        settings_button.valign = Gtk.Align.START;
-        settings_button.halign = Gtk.Align.CENTER;
+        settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Project Menu");
-        settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
@@ -741,6 +744,7 @@ public class Views.Project : Gtk.EventBox {
         }
 
         completed_revealer.reveal_child = true;
+        completed_revealer.show ();
     }
 
     private void add_all_sections () {

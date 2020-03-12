@@ -88,16 +88,23 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         search_label.get_style_context ().add_class ("font-weight-600");
         search_label.get_style_context ().add_class ("welcome");
         search_label.width_request = 90;
+        search_label.margin_start = 6;
         search_label.xalign = (float) 0.5;
+
+        var search_revealer = new Gtk.Revealer ();
+        search_revealer.reveal_child = false;
+        search_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        search_revealer.add (search_label);
 
         var search_entry = new Gtk.SearchEntry ();
         search_entry.hexpand = true;
         search_entry.placeholder_text = _("Quick Find");
 
         var top_grid = new Gtk.Grid ();
+        top_grid.column_spacing = 6;
         top_grid.margin_end = 6;
         top_grid.margin_top = 6;
-        top_grid.add (search_label);
+        top_grid.add (search_revealer);
         top_grid.add (search_entry);
 
         var placeholder_image = new Gtk.Image ();
@@ -147,6 +154,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             });
 
             if (search_entry.text.strip () != "") {
+                search_revealer.reveal_child = true;
+
                 foreach (string view in views) {
                     if (search_entry.text.down () in Planner.todoist.get_string_member_by_object (view, "name").down ()) {
                         var row = new SearchItem (
@@ -205,6 +214,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
                     result_type = row.result_type;
                 });
+            } else {
+                search_revealer.reveal_child = false;
             }
         });
 
@@ -264,6 +275,10 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             Planner.instance.main_window.go_item (
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
+        } else if (item.result_type == QuickFind_Result_Type.LABEL) {
+            Planner.instance.main_window.go_label (
+                Planner.todoist.get_int_member_by_object (item.object, "id")
+            );
         }
 
         popdown ();
@@ -300,9 +315,9 @@ public class SearchItem : Gtk.ListBoxRow {
             header_label = new Gtk.Label (_("Tasks"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
-            header_label.width_request = 67;
+            header_label.width_request = 73;
             header_label.xalign = 1;
-            header_label.margin_end = 23;
+            header_label.margin_end = 29;
             header_label.opacity = 0;
 
             var checked_button = new Gtk.CheckButton ();
@@ -336,9 +351,9 @@ public class SearchItem : Gtk.ListBoxRow {
             header_label = new Gtk.Label (_("Projects"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
-            header_label.width_request = 67;
+            header_label.width_request = 73;
             header_label.xalign = 1;
-            header_label.margin_end = 23;
+            header_label.margin_end = 29;
             header_label.opacity = 0;
 
             var project_progress = new Widgets.ProjectProgress ();
@@ -398,9 +413,9 @@ public class SearchItem : Gtk.ListBoxRow {
             header_label = new Gtk.Label (_("Views"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
-            header_label.width_request = 67;
+            header_label.width_request = 73;
             header_label.xalign = 1;
-            header_label.margin_end = 23;
+            header_label.margin_end = 29;
             header_label.opacity = 0;
 
             var icon = new Gtk.Image ();
@@ -461,9 +476,9 @@ public class SearchItem : Gtk.ListBoxRow {
             header_label = new Gtk.Label (_("Labels"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
-            header_label.width_request = 67;
+            header_label.width_request = 73;
             header_label.xalign = 1;
-            header_label.margin_end = 23;
+            header_label.margin_end = 29;
             header_label.opacity = 0;
 
             var icon = new Gtk.Image ();
