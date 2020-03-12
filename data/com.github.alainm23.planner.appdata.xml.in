@@ -47,6 +47,17 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.2.14" date="2020-03-02">
+      <description>
+        <p>Improved stability and some bug fixes.</p>
+        <ul>
+          <li>Fixed the error showing next week's tasks in today's view</li>
+          <li>Fix focus when changing views</li>
+          <li>Updated translations</li>
+        </ul>
+        <p>Special thanks to 'Wount' for becoming our new silver tier patrons and supporting the development of Planner.</p>
+      </description>
+    </release>
     <release version="2.2.8" date="2020-02-26">
       <description>
         <p>Quick Add is here, design improvements and more.</p>

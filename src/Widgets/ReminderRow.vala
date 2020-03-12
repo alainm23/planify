@@ -29,7 +29,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("item-row");
+        get_style_context ().add_class ("check-row");
 
         var icon = new Gtk.Image ();
         icon.gicon = new ThemedIcon ("alarm-symbolic");
@@ -49,11 +49,12 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
         delete_button.get_style_context ().add_class ("dim-label");
 
         var delete_revealer = new Gtk.Revealer ();
-        delete_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        delete_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         delete_revealer.add (delete_button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.margin_start = 6;
+        box.margin_end = 6;
         box.hexpand = true;
         box.pack_start (icon, false, false, 0);
         box.pack_start (date_label, false, true, 0);
@@ -67,7 +68,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
 
         handle.enter_notify_event.connect ((event) => {
             delete_revealer.reveal_child = true;
-
+            delete_button.get_style_context ().add_class ("closed");
             return true;
         });
 
@@ -77,6 +78,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
             }
 
             delete_revealer.reveal_child = false;
+            delete_button.get_style_context ().remove_class ("closed");
             return true;
         });
 

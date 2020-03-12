@@ -180,9 +180,7 @@ public class Planner : Gtk.Application {
 
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
-            //var item = database.get_item_by_id (parameter.get_int64 ());
-            //Planner.instance.go_view ("item", item.id, item.project_id);
-
+            Planner.instance.main_window.go_item (parameter.get_int64 ());
             activate ();
         });
 
@@ -255,9 +253,9 @@ public class Planner : Gtk.Application {
         });
 
         //  var open_settings = new SimpleAction ("open-settings", null);
-        //  set_accels_for_action ("app.open-settings", {"<Control>,"});
+        //  set_accels_for_action ("app.open-settings", {"<Control>p"});
         //  open_settings.activate.connect (() => {
-        //      var dialog = new Dialogs.Preferences ();
+        //      var dialog = new Dialogs.Preferences.Preferences ();
         //      dialog.destroy.connect (Gtk.main_quit);
         //      dialog.show_all ();
         //  });
@@ -275,6 +273,7 @@ public class Planner : Gtk.Application {
         add_action (view_today);
         add_action (view_upcoming);
         add_action (hide_item);
+        // add_action (open_settings);
     }
 
     public static int main (string[] args) {

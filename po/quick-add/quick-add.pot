@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: quick-add\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 21:50-0500\n"
+"POT-Creation-Date: 2020-03-02 18:50-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/QuickAdd/MainWindow.vala:59
+#: src/quick-add/MainWindow.vala:59
 msgid "Task name"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:82
+#: src/quick-add/MainWindow.vala:82
 msgid "Save"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:87
+#: src/quick-add/MainWindow.vala:87
 msgid "Cancel"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:206
+#: src/quick-add/MainWindow.vala:206
 msgid "The task was correctly added."
 msgstr ""
 
-#: src/QuickAdd/Database.vala:373
+#: src/quick-add/Database.vala:373
 msgid "Connection error"
 msgstr ""

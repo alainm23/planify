@@ -38,6 +38,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton settings_button;
+    private Gtk.Switch show_completed_switch;
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
@@ -100,11 +101,15 @@ public class Views.Inbox : Gtk.EventBox {
         search_button.margin_start = 6;
         search_button.get_style_context ().add_class ("flat");
 
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
+
         settings_button = new Gtk.ToggleButton ();
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Inbox Menu");
-        settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -113,17 +118,54 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.margin_start = 24;
         top_box.margin_end = 16;
 
+        var date_entry = new Gtk.Entry ();
+        date_entry.activate.connect (() => {
+            if (date_entry.text != null) {
+                var parsedDate = Date ();
+                parsedDate.set_parse (date_entry.text);
+                if (parsedDate.valid ()) {
+                    GLib.Time time;
+                    parsedDate.to_time (out time);
+
+                    var date = new DateTime.local (
+                        time.year,
+                        time.month,
+                        time.day,
+                        0,
+                        0,
+                        0
+                    );
+
+                    var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                        "This is a primary text",
+                        "Year: %i\nMonth: %i\nDay: %i\n".printf (time.year, time.month, time.day),
+                        "applications-development",
+                        Gtk.ButtonsType.CLOSE
+                    );
+
+                    var custom_widget = new Gtk.CheckButton.with_label ("Custom widget");
+                    custom_widget.show ();
+
+                    message_dialog.custom_bin.add (custom_widget);
+                    message_dialog.run ();
+                    message_dialog.destroy ();
+                } else {
+                    print ("Sorry, failed to parse date...\n");
+                }
+            }
+        });
+
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        //top_box.pack_end (search_button, false, false, 0);
-        //top_box.pack_end (comment_button, false, false, 0);
+        // top_box.pack_end (search_button, false, false, 0);
+        // top_box.pack_end (date_entry, false, false, 0);
         top_box.pack_end (section_button, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
         listbox.margin_top = 6;
-        listbox.margin_start = 18;
+        listbox.margin_start = 12;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -244,11 +286,18 @@ public class Views.Inbox : Gtk.EventBox {
         add_items (project_id);
         add_all_sections (project_id);
         build_drag_and_drop (false);
+
         show_all ();
 
         // Check Placeholder view
         Timeout.add (125, () => {
             check_placeholder_view ();
+
+            if (Planner.settings.get_boolean ("inbox-show-completed")) {
+                show_completed_switch.active = true;
+                add_completed_items (project_id);
+                main_stack.visible_child_name = "project";
+            }
 
             return false;
         });
@@ -276,6 +325,7 @@ public class Views.Inbox : Gtk.EventBox {
                     show_completed_button.sensitive = true;
                 } else {
                     show_completed_button.sensitive = false;
+                    show_completed_switch.active = false;
                 }
 
                 popover.show_all ();
@@ -331,13 +381,15 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.item_moved.connect ((item, id, old_id) => {
             Idle.add (() => {
                 if (project_id == old_id) {
-                    listbox.foreach ((widget) => {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == item.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
+
                     check_placeholder_view ();
                 }
 
@@ -363,11 +415,12 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
             Idle.add (() => {
                 if (0 == old_section_id) {
-                    listbox.foreach ((widget) => {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == i.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
 
@@ -721,9 +774,12 @@ public class Views.Inbox : Gtk.EventBox {
         show_completed_label.xalign = 0;
         show_completed_label.margin_start = 9;
 
-        var show_completed_switch = new Gtk.Switch ();
+        show_completed_switch = new Gtk.Switch ();
         show_completed_switch.margin_start = 12;
         show_completed_switch.get_style_context ().add_class ("planner-switch");
+        if (Planner.settings.get_boolean ("inbox-show-completed")) {
+            show_completed_switch.active = true;
+        }
 
         var show_completed_grid = new Gtk.Grid ();
         show_completed_grid.add (show_completed_image);
@@ -752,9 +808,11 @@ public class Views.Inbox : Gtk.EventBox {
             show_completed_switch.activate ();
 
             if (show_completed_switch.active) {
+                Planner.settings.set_boolean ("inbox-show-completed", false);
                 completed_revealer.reveal_child = false;
                 check_placeholder_view ();
             } else {
+                Planner.settings.set_boolean ("inbox-show-completed", true);
                 add_completed_items (project_id);
                 main_stack.visible_child_name = "project";
             }
@@ -880,7 +938,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Widget get_completed_header () {
         var name_label = new Gtk.Label (_("Task completed"));
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("header-title");
+        name_label.get_style_context ().add_class ("font-bold");
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 

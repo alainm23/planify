@@ -373,6 +373,11 @@ public class Services.Todoist : GLib.Object {
                         Planner.utils.download_profile_image (
                             user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
                         );
+
+                        // Run Reminder server
+                        Planner.notifications.init_server ();
+
+                        // Run Todoisr Sync server
                         run_server ();
 
                         // To do: Create a tutorial project

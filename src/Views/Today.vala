@@ -74,7 +74,7 @@ public class Views.Today : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
-        listbox.margin_start = 18;
+        listbox.margin_start = 12;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;

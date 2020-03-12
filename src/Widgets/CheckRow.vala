@@ -69,7 +69,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_entry.hexpand = true;
 
         content_stack = new Gtk.Stack ();
-        content_stack.margin_bottom = 2;
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
         content_stack.add_named (content_label, "content_label");
         content_stack.add_named (content_entry, "content_entry");

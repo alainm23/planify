@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.2.8')
+        version: '2.2.14')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -74,7 +74,6 @@ executable(
     'src/Widgets/ProjectProgress.vala',
     'src/Widgets/UpcomingRow.vala',
     'src/Widgets/EventRow.vala',
-    'src/Widgets/QuickFind.vala',
     'src/Widgets/SourceItem.vala',
     'src/Widgets/ReminderButton.vala',
     'src/Widgets/ReminderRow.vala',
@@ -93,9 +92,11 @@ executable(
     'src/Views/Today.vala',
     'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
+    'src/Views/Label.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
+    'src/Dialogs/QuickFind.vala',
 
     'src/Dialogs/Preferences/Preferences.vala',
     'src/Dialogs/Preferences/ItemSelect.vala',

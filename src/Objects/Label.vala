@@ -54,4 +54,26 @@ public class Objects.Label : GLib.Object {
             return false;
         });
     }
+
+    public string to_json () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+
+        builder.set_member_name ("id");
+        builder.add_int_value (this.id);
+
+        builder.set_member_name ("name");
+        builder.add_string_value (this.name);
+
+        builder.set_member_name ("color");
+        builder.add_int_value (this.color);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
 }

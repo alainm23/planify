@@ -22,11 +22,11 @@
 public class Services.LabelsController : GLib.Object {
     construct {
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {
-            apply_styles (label.id, Planner.utils.get_color (label.color));
+            apply_styles (label.id, Planner.utils.get_color (label.color), label.color);
         }
     }
 
-    private void apply_styles (int64 id, string color) {
+    private void apply_styles (int64 id, string color_hex, int color) {
         string color_css = """
             .label-preview-%s {
                 background-color: alpha (%s, 0.25);
@@ -45,6 +45,10 @@ public class Services.LabelsController : GLib.Object {
             .label-%s {
                 color: %s
             }
+
+            .label-color-%s {
+                color: %s
+            }
         """;
 
         var provider = new Gtk.CssProvider ();
@@ -53,14 +57,17 @@ public class Services.LabelsController : GLib.Object {
             var colored_css = color_css.printf (
                 // Label preview
                 id.to_string (),
-                color,
-                color,
+                color_hex,
+                color_hex,
                 // Label Item
                 id.to_string (),
-                color,
+                color_hex,
                 // Label Row
                 id.to_string (),
-                color
+                color_hex,
+                // Label Color By Number
+                color.to_string (),
+                color_hex
             );
 
             provider.load_from_data (colored_css, colored_css.length);
@@ -75,10 +82,10 @@ public class Services.LabelsController : GLib.Object {
     }
 
     public void add_label (Objects.Label label) {
-        apply_styles (label.id, Planner.utils.get_color (label.color));
+        apply_styles (label.id, Planner.utils.get_color (label.color), label.color);
     }
 
     public void update_label (Objects.Label label) {
-        apply_styles (label.id, Planner.utils.get_color (label.color));
+        apply_styles (label.id, Planner.utils.get_color (label.color), label.color);
     }
 }
