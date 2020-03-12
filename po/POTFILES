@@ -33,7 +33,6 @@ src/Widgets/LabelItem.vala
 src/Widgets/ProjectProgress.vala
 src/Widgets/UpcomingRow.vala
 src/Widgets/EventRow.vala
-src/Widgets/QuickFind.vala
 src/Widgets/SourceItem.vala
 src/Widgets/ReminderButton.vala
 src/Widgets/ReminderRow.vala
@@ -62,6 +61,7 @@ src/Dialogs/Preferences/ItemSwitch.vala
 src/Dialogs/Preferences/ItemButton.vala
 src/Dialogs/Preferences/Item.vala
 src/Dialogs/Preferences/TopBox.vala
+src/Dialogs/QuickFind.vala
 
 src/Objects/Project.vala
 src/Objects/Item.vala
