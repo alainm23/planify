@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-14 09:05+0000\n"
-"Last-Translator: Alain <alain23@protonmail.com>\n"
+"PO-Revision-Date: 2020-03-15 09:37+0000\n"
+"Last-Translator: Daniel <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -840,7 +840,7 @@ msgstr "Comentarios de proyecto"
 
 #: src/Views/Project.vala:191
 msgid "Add a description"
-msgstr "Añade una descripción"
+msgstr "Añada una descripción"
 
 #: src/Views/Project.vala:201
 msgid "Description"
@@ -1185,7 +1185,7 @@ msgstr "Buscar"
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
-"Cambiar rápidamente de proyecto y vistas, encuentra tareas, buscar por "
+"Cambie rápidamente de proyecto y vistas, encuentre tareas, busque por "
 "etiquetas, ..."
 
 #: src/Dialogs/QuickFind.vala:315
