@@ -1030,7 +1030,7 @@ msgid ""
 msgstr ""
 "Abilita questa impostazione per mantenere Planner in esecuzione in background quando "
 "chiude. Ciò consentirà a Planner di continuare ad aggiornare e inviare notifiche di "
-"promemoria".
+"promemoria."
 
 #: src/Dialogs/Preferences/Preferences.vala:599
 msgid "Run on startup"
@@ -1157,8 +1157,8 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Planner è stato sviluppato con ❤️ e passione per l'Open Source. Tuttavia, se"
-"ti piace Planner e vuoi supportarne lo sviluppo, considera di donare a"
+"Planner è stato sviluppato con ❤️ e passione per l'Open Source. Tuttavia, se "
+"ti piace Planner e vuoi supportarne lo sviluppo, considera di donare a "
 "attraverso:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
@@ -1166,8 +1166,8 @@ msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
-"Grazie a loro che hanno fatto una donazione tramite Patreon o PayPal. (Se vuoi"
-"apparire qui, visita il nostro account Patreon 😉️)
+"Grazie a loro che hanno fatto una donazione tramite Patreon o PayPal. (Se vuoi "
+"apparire qui, visita il nostro account Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
