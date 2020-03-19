@@ -22,7 +22,6 @@
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Grid grid_color;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
@@ -69,33 +68,35 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("project-row");
 
         var project_progress = new Widgets.ProjectProgress ();
-        project_progress.line_cap = Cairo.LineCap.ROUND;
-        project_progress.radius_filled = true;
-        project_progress.line_width = 2;
+        //project_progress.line_cap = Cairo.LineCap.ROUND;
+        //project_progress.radius_filled = true;
+        project_progress.line_width = 5;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
 
-        project_progress.radius_fill_color = "#a7b2cb";
-        if (Planner.settings.get_boolean ("prefer-dark-style")) {
-            project_progress.radius_fill_color = "#666666";
-        }
+        //  project_progress.radius_fill_color = "#a7b2cb";
+        //  if (Planner.settings.get_boolean ("prefer-dark-style")) {
+        //      project_progress.radius_fill_color = "#666666";
+        //  }
 
-        Planner.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
-                if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                    project_progress.radius_fill_color = "#666666";
-                } else {
-                    project_progress.radius_fill_color = "#a7b2cb";
-                }
-            }
-        });
+        //  Planner.settings.changed.connect ((key) => {
+        //      if (key == "prefer-dark-style") {
+        //          if (Planner.settings.get_boolean ("prefer-dark-style")) {
+        //              project_progress.radius_fill_color = "#666666";
+        //          } else {
+        //              project_progress.radius_fill_color = "#a7b2cb";
+        //          }
+        //      }
+        //  });
 
-        grid_color = new Gtk.Grid ();
-        grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        grid_color.set_size_request (13, 13);
-        grid_color.valign = Gtk.Align.CENTER;
-        grid_color.halign = Gtk.Align.CENTER;
+        var progress_grid = new Gtk.Grid ();
+        progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
+            project.id.to_string ()
+        ));
+        progress_grid.add (project_progress);
+        progress_grid.valign = Gtk.Align.CENTER;
+        progress_grid.halign = Gtk.Align.CENTER;
 
         name_label = new Gtk.Label (project.name);
         name_label.tooltip_text = project.name;
@@ -152,7 +153,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
         handle_box.hexpand = true;
-        handle_box.pack_start (project_progress, false, false, 0);
+        handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_revealer, false, false, 0);
         handle_box.pack_end (menu_stack, false, false, 0);
@@ -186,7 +187,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-        // apply_color (Planner.utils.get_color (project.color));
+        apply_color (Planner.utils.get_color (project.color));
 
         Timeout.add (125, () => {
             update_count ();
@@ -237,7 +238,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
-                // apply_color (Planner.utils.get_color (p.color));
+                apply_color (Planner.utils.get_color (p.color));
             }
         });
 
@@ -281,30 +282,32 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
     }
 
-    //  private void apply_color (string color) {
-    //      string _css = """
-    //          .project-color-%s {
-    //              color: %s
-    //          }
-    //      """;
+    private void apply_color (string color) {
+        string _css = """
+            .project-progress-%s {
+                border-radius: 50%;
+                border: 1.5px solid %s;
+                padding: 1px;
+            }
+        """;
 
-    //      var provider = new Gtk.CssProvider ();
+        var provider = new Gtk.CssProvider ();
 
-    //      try {
-    //          var css = _css.printf (
-    //              project.id.to_string (),
-    //              color
-    //          );
+        try {
+            var css = _css.printf (
+                project.id.to_string (),
+                color
+            );
 
-    //          provider.load_from_data (css, css.length);
-    //          Gtk.StyleContext.add_provider_for_screen (
-    //              Gdk.Screen.get_default (), provider,
-    //              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    //          );
-    //      } catch (GLib.Error e) {
-    //          return;
-    //      }
-    //  }
+            provider.load_from_data (css, css.length);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
 
     private void update_count () {
         if (timeout_id != 0) {

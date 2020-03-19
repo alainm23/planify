@@ -10,13 +10,14 @@
  * Minimum size is hardcoded on MIN_D. Minimum line width is 1.
  *
  * José Miguel Fonte
+ * https://github.com/phastmike/vala-circular-progress-bar
  */
 
 using Gtk;
 using Cairo;
 
 public class Widgets.ProjectProgress : Gtk.Bin {
-    private const int MIN_D = 18;
+    private const int MIN_D = 12;
     private int _line_width;
     private double _percentage;
     private string _center_fill_color;
