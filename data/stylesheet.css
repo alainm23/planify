@@ -3,6 +3,7 @@
 @define-color pane_selected_color shade (#FFFFFF, 0.87);
 @define-color pane_text_color #333333;
 @define-color duedate_today_color #d48e15;
+@define-color popover_background @projectview_color;
 
 /*
     Dark theme
@@ -252,7 +253,7 @@ paned.horizontal > separator {
     border-radius: 6px;
     background-color: @base_color;
     padding-top: 6px;
-    padding-left: 12px;
+    padding-left: 6px;
     margin-left: 6px;
     margin-right: 24px;
 }
@@ -615,7 +616,7 @@ paned.horizontal > separator {
 }
 
 .add-button-menu:hover image {
-    animation: add-animation 0.5s ease-in-out;
+    animation: add-animation 0.35s ease-in-out;
 }
 
 .fancy-turn-animation:hover image {
@@ -844,15 +845,8 @@ paned.horizontal > separator {
     Label Select
 */
 
-.entry-label-select {
-    background: @base_color;
-    border-radius: 4px;
-    padding: 2px 3px 2px 6px;
-}
-
 .label-select-row:selected {
     background-color: @pane_selected_color;
-    border-radius: 4px;
 }
 
 .label-select-row:selected label {
@@ -881,4 +875,28 @@ paned.horizontal > separator {
 .item-highlight {
     border-radius: 4px;
     animation: highlight-item 0.7s ease-in-out;
+}
+
+.description text {
+    background-color: @bg_color;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+.due-menuitem {
+    padding: 1px 0px 1px 6px;
+}
+
+.popover-background {
+    background-color: @popover_background;
+}
+
+.repeat-image {
+    -gtk-icon-transform: rotate(45deg);
+}
+
+.edi-label-button {
+    border-radius: 0px 3px 3px 0px;
 }

@@ -29,7 +29,8 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("check-row");
+        activatable = false;
+        selectable =  false;
 
         var icon = new Gtk.Image ();
         icon.gicon = new ThemedIcon ("alarm-symbolic");
@@ -39,7 +40,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
             Planner.utils.get_relative_date_from_string (reminder.due_date),
             Planner.utils.get_relative_time_from_string (reminder.due_date)
         ));
-        date_label.get_style_context ().add_class ("h4");
+        date_label.margin_top = 1;
 
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
@@ -52,10 +53,9 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
         delete_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         delete_revealer.add (delete_button);
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.margin_start = 6;
-        box.margin_end = 6;
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.hexpand = true;
+        box.margin = 6;
         box.pack_start (icon, false, false, 0);
         box.pack_start (date_label, false, true, 0);
         box.pack_end (delete_revealer, false, true, 0);
@@ -64,7 +64,13 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         handle.add (box);
 
-        add (handle);
+        var grid = new Gtk.Grid ();
+        grid.hexpand = true;
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (handle);
+        grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        add (grid);
 
         handle.enter_notify_event.connect ((event) => {
             delete_revealer.reveal_child = true;

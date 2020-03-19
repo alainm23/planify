@@ -292,13 +292,6 @@ public class Views.Inbox : Gtk.EventBox {
         // Check Placeholder view
         Timeout.add (125, () => {
             check_placeholder_view ();
-
-            if (Planner.settings.get_boolean ("inbox-show-completed")) {
-                show_completed_switch.active = true;
-                add_completed_items (project_id);
-                main_stack.visible_child_name = "project";
-            }
-
             return false;
         });
 
@@ -778,7 +771,7 @@ public class Views.Inbox : Gtk.EventBox {
         show_completed_switch.margin_start = 12;
         show_completed_switch.get_style_context ().add_class ("planner-switch");
         if (Planner.settings.get_boolean ("inbox-show-completed")) {
-            show_completed_switch.active = true;
+            // show_completed_switch.active = true;
         }
 
         var show_completed_grid = new Gtk.Grid ();

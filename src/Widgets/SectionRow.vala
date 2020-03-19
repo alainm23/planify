@@ -436,7 +436,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
             Idle.add (() => {
-                if (section.id == item.section_id) {
+                if (section.project_id == old_project_id) {
                     items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
@@ -454,11 +454,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
             Idle.add (() => {
                 if (section.id == old_section_id) {
-                    listbox.foreach ((widget) => {
+                    items_list.foreach ((widget) => {
                         var row = (Widgets.ItemRow) widget;
 
                         if (row.item.id == i.id) {
                             row.destroy ();
+                            items_list.remove (row);
                         }
                     });
                 }
@@ -532,7 +533,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         if (section.is_todoist == is_todoist) {
-            item_menu = new Widgets.ImageMenuItem (_("Inbox"), "mail-mailbox-symbolic");
+            item_menu = new Widgets.ImageMenuItem (_("Inbox"), "planner-inbox");
             item_menu.activate.connect (() => {
                 Planner.database.move_section (section, Planner.settings.get_int64 ("inbox-project"));
                 if (section.is_todoist == 1) {
@@ -554,7 +555,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         foreach (var project in Planner.database.get_all_projects ()) {
             if (project.inbox_project == 0 && section.project_id != project.id) {
                 if (project.is_todoist == section.is_todoist) {
-                    item_menu = new Widgets.ImageMenuItem (project.name, "planner-project-symbolic");
+                    item_menu = new Widgets.ImageMenuItem (project.name, "color-%i".printf (project.color));
                     item_menu.activate.connect (() => {
                         Planner.database.move_section (section, project.id);
                         if (section.is_todoist == 1) {
@@ -675,8 +676,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             });
 
             listbox.add (row);
-            items_list.add (row);
-
             items_list.add (row);
         }
 

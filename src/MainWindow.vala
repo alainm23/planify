@@ -38,6 +38,9 @@ public class MainWindow : Gtk.Window {
     private uint timeout_id = 0;
     private uint configure_id = 0;
 
+    private uint paned_timeout = 0;
+    private bool paned_hide = false;
+
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -61,6 +64,9 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var pane_show_button = new Gtk.Button.from_icon_name ("pane-show-symbolic", Gtk.IconSize.MENU);
+        //sidebar_header.pack_end (pane_show_button);
 
         projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
@@ -103,6 +109,34 @@ public class MainWindow : Gtk.Window {
         set_titlebar (header_paned);
         add (paned);
 
+        pane_show_button.clicked.connect (() => {
+            if (paned_hide) {
+                paned_hide = false;
+
+                Timeout.add (10, () => {
+                    paned.position = paned.position + 10;
+
+                    if (paned.position >= 252) {
+                        return false;
+                    }
+
+                    return true;
+                });
+            } else {
+                paned_hide = true;
+
+                Timeout.add (10, () => {
+                    paned.position = paned.position - 10;
+
+                    if (paned.position <= 105) {
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+        });
+
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
         get_style_context ().add_class ("rounded");
@@ -110,17 +144,17 @@ public class MainWindow : Gtk.Window {
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
         Timeout.add (125, () => {
+            // Remove Trash Data
+            Planner.database.remove_trash ();
+
+            // Path Database
+            Planner.database.patch_database ();
+
             if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
-                // Remove Trash Data
-                Planner.database.remove_trash ();
-
-                // Path Database
-                Planner.database.patch_database ();
-
                 // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
@@ -454,6 +488,7 @@ public class MainWindow : Gtk.Window {
             stack.add_named (label_view, "label-view");
         }
 
+        magic_button.reveal_child = false;
         label_view.label = Planner.database.get_label_by_id (label_id);
         stack.visible_child_name = "label-view";
     }

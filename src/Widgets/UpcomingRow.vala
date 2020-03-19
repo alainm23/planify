@@ -44,7 +44,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         var day_label = new Gtk.Label (date.format ("%d"));
         day_label.halign = Gtk.Align.START;
-        day_label.get_style_context ().add_class ("title-label");
+        day_label.get_style_context ().add_class ("h2");
         day_label.get_style_context ().add_class ("font-bold");
         day_label.valign = Gtk.Align.CENTER;
         day_label.use_markup = true;

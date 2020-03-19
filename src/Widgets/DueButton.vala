@@ -32,6 +32,15 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Widgets.ModelButton tomorrow_button;
     private Widgets.ModelButton undated_button;
     private Widgets.Calendar.Calendar calendar;
+    private Gtk.Switch recurring_switch;
+    private Gtk.Revealer combobox_revealer;
+    private Gtk.ComboBox combobox;
+    private Gtk.ListStore liststore;
+
+    private Gtk.TreeIter e_day_iter;
+    private Gtk.TreeIter e_week_iter;
+    private Gtk.TreeIter e_month_iter;
+    private Gtk.TreeIter e_year_iter;
 
     public DueButton (Objects.Item item) {
         Object (
@@ -47,7 +56,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
         due_image.pixel_size = 18;
 
         due_label = new Gtk.Label (null);
@@ -73,16 +81,41 @@ public class Widgets.DueButton : Gtk.ToggleButton {
                     create_popover ();
                 }
 
+                if (item.due_date == "") {
+                    undated_button.visible = false;
+                    undated_button.no_show_all = true;
+                    combobox.set_active_iter (e_day_iter);
+                } else {
+                    undated_button.visible = true;
+                    undated_button.no_show_all = false;
+                }
+
+                if (item.due_is_recurring == 1) {
+                    int recurring_iter = Planner.utils.get_recurring_iter (item);
+
+                    if (recurring_iter == 0) {
+                        combobox.set_active_iter (e_day_iter);
+                    } else if (recurring_iter == 1) {
+                        combobox.set_active_iter (e_week_iter);
+                    } else if (recurring_iter == 2) {
+                        combobox.set_active_iter (e_month_iter);
+                    } else if (recurring_iter == 3) {
+                        combobox.set_active_iter (e_year_iter);
+                    }
+
+                    recurring_switch.active = true;
+                }
+
                 popover.popup ();
             }
         });
 
-        update_date_text (item.due_date);
+        update_date_text (item);
     }
 
-    public void update_date_text (string due) {
-        if (due != "") {
-            var date = new GLib.DateTime.from_iso8601 (due, new GLib.TimeZone.local ());
+    public void update_date_text (Objects.Item item) {
+        if (item.due_date != "") {
+            var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
             due_label.label = Planner.utils.get_relative_date_from_date (date);
             due_image.get_style_context ().add_class ("upcoming");
@@ -92,49 +125,33 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             due_image.get_style_context ().remove_class ("upcoming");
             label_revealer.reveal_child = false;
         }
+
+        if (item.due_is_recurring == 1) {
+            due_image.gicon = new ThemedIcon ("view-refresh-symbolic");
+            due_image.get_style_context ().add_class ("repeat-image");
+        } else {
+            due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+            due_image.get_style_context ().remove_class ("repeat-image");
+        }
     }
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.BOTTOM;
-
-        var mode_button = new Granite.Widgets.ModeButton ();
-        mode_button.hexpand = true;
-        mode_button.margin = 6;
-        mode_button.valign = Gtk.Align.CENTER;
-
-        mode_button.append_icon ("office-calendar-symbolic", Gtk.IconSize.MENU);
-        mode_button.append_icon ("view-refresh-symbolic", Gtk.IconSize.MENU);
-
-        mode_button.selected = 0;
-
-        var stack = new Gtk.Stack ();
-        stack.expand = true;
-        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-
-        stack.add_named (get_calendar_widget (), "duedate");
-        //stack.add_named (get_repeat_widget (), "repeat");
+        popover.position = Gtk.PositionType.LEFT;
+        popover.get_style_context ().add_class ("popover-background");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;
+        popover_grid.margin_bottom = 12;
         popover_grid.width_request = 235;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        //popover_grid.add (mode_button);
-        popover_grid.add (stack);
+        popover_grid.add (get_calendar_widget ());
         popover_grid.show_all ();
 
         popover.add (popover_grid);
 
         popover.closed.connect (() => {
             this.active = false;
-        });
-
-        mode_button.mode_changed.connect ((widget) => {
-            if (mode_button.selected == 0) {
-                stack.visible_child_name = "duedate";
-            } else {
-                stack.visible_child_name = "repeat";
-            }
         });
     }
 
@@ -146,19 +163,85 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         }
 
         today_button = new Widgets.ModelButton (_("Today"), today_icon, "");
+        today_button.get_style_context ().add_class ("due-menuitem");
+        today_button.item_image.pixel_size = 14;
         today_button.color = 0;
         today_button.due_label = true;
 
         tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "x-office-calendar-symbolic", "");
+        tomorrow_button.get_style_context ().add_class ("due-menuitem");
+        tomorrow_button.item_image.pixel_size = 14;
         tomorrow_button.color = 1;
         tomorrow_button.due_label = true;
 
         undated_button = new Widgets.ModelButton (_("Undated"), "window-close-symbolic", "");
+        undated_button.get_style_context ().add_class ("due-menuitem");
+        undated_button.item_image.pixel_size = 14;
         undated_button.color = 2;
         undated_button.due_label = true;
 
         calendar = new Widgets.Calendar.Calendar ();
         calendar.hexpand = true;
+
+        var recurring_header = new Gtk.Label (_("Repeat"));
+        recurring_header.get_style_context ().add_class ("font-bold");
+
+        recurring_switch = new Gtk.Switch ();
+        recurring_switch.get_style_context ().add_class ("active-switch");
+
+        var recurring_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        recurring_box.hexpand = true;
+        recurring_box.margin_start = 16;
+        recurring_box.margin_end = 16;
+        recurring_box.pack_start (recurring_header, false, false, 0);
+        recurring_box.pack_end (recurring_switch, false, false, 0);
+
+        liststore = new Gtk.ListStore (2, typeof (int), typeof (string));
+        combobox = new Gtk.ComboBox.with_model (liststore);
+        combobox.margin_top = 9;
+        combobox.margin_start = 16;
+        combobox.margin_end = 16;
+        combobox.margin_bottom = 1;
+
+        liststore.append (out e_day_iter);
+        liststore.@set (e_day_iter,
+            0, 0,
+            1, " " + _("Every day")
+        );
+
+        liststore.append (out e_week_iter);
+        liststore.@set (e_week_iter,
+            0, 1,
+            1, " " + _("Every week")
+        );
+
+        liststore.append (out e_month_iter);
+        liststore.@set (e_month_iter,
+            0, 2,
+            1, " " + _("Every month")
+        );
+
+        liststore.append (out e_year_iter);
+        liststore.@set (e_year_iter,
+            0, 3,
+            1, " " + _("Every year")
+        );
+
+        var text_cell = new Gtk.CellRendererText ();
+        combobox.pack_start (text_cell, true);
+        combobox.add_attribute (text_cell, "text", 1);
+
+        combobox_revealer = new Gtk.Revealer ();
+        combobox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        combobox_revealer.add (combobox);
+
+        recurring_switch.notify["active"].connect (() => {
+            update_duedate ();
+        });
+
+        combobox.changed.connect (() => {
+            update_duedate ();
+        });
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
@@ -166,79 +249,96 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         grid.add (tomorrow_button);
         grid.add (undated_button);
         grid.add (calendar);
+        grid.add (recurring_box);
+        grid.add (combobox_revealer);
         grid.show_all ();
 
         today_button.clicked.connect (() => {
-            set_due (new GLib.DateTime.now_local ());
+            set_due (new GLib.DateTime.now_local ().to_string ());
         });
 
         tomorrow_button.clicked.connect (() => {
-            set_due (new GLib.DateTime.now_local ().add_days (1));
+            set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
         });
 
         undated_button.clicked.connect (() => {
-            set_due (null);
+            set_due ("");
+            popover.popdown ();
         });
 
         calendar.selection_changed.connect ((date) => {
-            set_due (date);
+            set_due (date.to_string ());
         });
 
         return grid;
     }
 
-    /*
-    private Gtk.Widget get_repeat_widget () {
-        var enabled_label = new Gtk.Label (_("Enabled"));
-        enabled_label.get_style_context ().add_class ("font-weight-600");
+    private void update_duedate () {
+        if (recurring_switch.active) {
+            combobox_revealer.reveal_child = true;
 
-        var enabled_switch = new Gtk.Switch ();
-        enabled_switch.valign = Gtk.Align.CENTER;
-        enabled_switch.get_style_context ().add_class ("active-switch");
+            if (item.due_date == "") {
+                item.due_is_recurring = 1;
+                item.due_string = get_string_selected ();
+                item.due_lang = "en";
+                set_due (new GLib.DateTime.now_local ().to_string ());
+            } else {
+                item.due_is_recurring = 1;
+                item.due_string = get_string_selected ();
+                item.due_lang = "en";
+                set_due (item.due_date);
+            }
+        } else {
+            item.due_is_recurring = 0;
+            item.due_string = "";
+            item.due_lang = "";
 
-        var enabled_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        enabled_box.hexpand = true;
-        enabled_box.pack_start (enabled_label, false, true, 0);
-        enabled_box.pack_end (enabled_switch, false, true, 0);
-
-        // Combobox
-        var combobox = new Gtk.ComboBoxText ();
-        combobox.margin_top = 12;
-        combobox.append_text (_("Every day"));
-        combobox.append_text (_("Every week"));
-        combobox.append_text (_("Every month"));
-        combobox.append_text (_("Every year"));
-        combobox.append_text (_("Custom"));
-
-        var grid = new Gtk.Grid ();
-        grid.margin_start = 9;
-        grid.margin_end = 9;
-        grid.margin_top = 6;
-        grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.add (enabled_box);
-        grid.add (combobox);
-        grid.show_all ();
-
-        return grid;
+            combobox_revealer.reveal_child = false;
+            set_due (item.due_date);
+        }
     }
-    */
 
-    public void set_due (GLib.DateTime? date) {
+    public string get_string_selected () {
+        string returned = "";
+        Gtk.TreeIter iter;
+        if (!combobox.get_active_iter (out iter)) {
+            return "";
+        }
+
+        Value item;
+        liststore.get_value (iter, 0, out item);
+
+        if (((int) item) == 0) {
+            returned = "every day";
+        } else if (((int) item) == 1) {
+            returned = "every week";
+        } else if (((int) item) == 2) {
+            returned = "every month";
+        } else if (((int) item) == 3) {
+            returned = "every year";
+        }
+
+        return returned;
+    }
+
+    public void set_due (string date) {
         bool new_date = false;
-        if (date != null) {
+        if (date != "") {
             if (item.due_date == "") {
                 new_date = true;
             }
 
-            item.due_date = date.to_string ();
+            item.due_date = date;
         } else {
             item.due_date = "";
+            item.due_is_recurring = 0;
+            item.due_string = "";
+            item.due_lang = "";
+
+            recurring_switch.active = false;
         }
 
-        if (Planner.database.set_due_item (item, new_date)) {
-            popover.popdown ();
-        }
-
+        Planner.database.set_due_item (item, new_date);
         if (item.is_todoist == 1) {
             Planner.todoist.update_item (item);
         }

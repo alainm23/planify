@@ -93,6 +93,8 @@ public class Services.Database : GLib.Object {
     }
 
     public void patch_database () {
+        print ("Entro aqui ----------------------------------- \n");
+
         // Release 2.3
         if (!Planner.database.column_exists ("Sections", "note")) {
               Planner.database.add_text_column ("Sections", "note", "");
@@ -701,11 +703,11 @@ public class Services.Database : GLib.Object {
         int res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        if (stmt.step () == Sqlite.ROW) {
-            for (int i = 0; i < stmt.column_count (); i++) {
-                if (stmt.column_name (i) == col) {
-                    return true;
-                }
+        stmt.step ();
+
+        for (int i = 0; i < stmt.column_count (); i++) {
+            if (stmt.column_name (i) == col) {
+                return true;
             }
         }
 
@@ -2044,7 +2046,7 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, project_id, item_order, collapsed,
             sync_id, is_deleted, is_archived, date_archived, date_added, is_todoist, note)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2362,7 +2364,7 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, project_id, section_id, user_id, assigned_by_uid,
             responsible_uid, sync_id, parent_id, priority, item_order, checked,
-            is_deleted, content, note, due_date, date_added, date_completed, date_updated, 
+            is_deleted, content, note, due_date, date_added, date_completed, date_updated,
             due_timezone, due_string, due_lang, due_is_recurring, is_todoist)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
@@ -2585,6 +2587,39 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_item_recurring_due_date (Objects.Item item) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        GLib.DateTime next_due = Planner.utils.get_next_recurring_due_date (item);
+
+        item.due_date = next_due.to_string ();
+
+        sql = """
+            UPDATE Items SET due_date = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, item.due_date);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            update_due_item (item);
+            
+            if (item.is_todoist == 1) {
+                Planner.todoist.update_item (item);
+            }
+        }
+    }
+
     public void delete_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;
@@ -2732,8 +2767,15 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
+        if (item.due_date == "") {
+            item.due_string = "";
+            item.due_lang = "";
+            item.due_is_recurring = 0;
+        }
+
         sql = """
-            UPDATE Items SET due_date = ? WHERE id = ?;
+            UPDATE Items SET due_date = ?, due_string = ?, due_lang = ?, due_is_recurring = ?
+            WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2742,7 +2784,16 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (1, item.due_date);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, item.id);
+        res = stmt.bind_text (2, item.due_string);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, item.due_lang);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (4, item.due_is_recurring);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (5, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -3058,7 +3109,8 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
-                due_date, date_added, date_completed, date_updated, is_todoist
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist
             FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
@@ -3088,10 +3140,14 @@ public class Services.Database : GLib.Object {
             i.content = stmt.column_text (12);
             i.note = stmt.column_text (13);
             i.due_date = stmt.column_text (14);
-            i.date_added = stmt.column_text (15);
-            i.date_completed = stmt.column_text (16);
-            i.date_updated = stmt.column_text (17);
-            i.is_todoist = stmt.column_int (18);
+            i.due_timezone = stmt.column_text (15);
+            i.due_string = stmt.column_text (16);
+            i.due_lang = stmt.column_text (17);
+            i.due_is_recurring = stmt.column_int (18);
+            i.date_added = stmt.column_text (19);
+            i.date_completed = stmt.column_text (20);
+            i.date_updated = stmt.column_text (21);
+            i.is_todoist = stmt.column_int (22);
 
             all.add (i);
         }

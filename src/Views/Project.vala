@@ -109,7 +109,7 @@ public class Views.Project : Gtk.EventBox {
         section_image.pixel_size = 16;
 
         section_button = new Gtk.ToggleButton ();
-        section_button.valign = Gtk.Align.START;
+        section_button.valign = Gtk.Align.CENTER;
         section_button.halign = Gtk.Align.CENTER;
         section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
         section_button.can_focus = false;
@@ -117,7 +117,7 @@ public class Views.Project : Gtk.EventBox {
         section_button.add (section_image);
 
         var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
-        add_person_button.valign = Gtk.Align.START;
+        add_person_button.valign = Gtk.Align.CENTER;
         add_person_button.halign = Gtk.Align.CENTER;
         add_person_button.tooltip_text = _("Invite person");
         add_person_button.can_focus = false;
@@ -125,7 +125,7 @@ public class Views.Project : Gtk.EventBox {
         add_person_button.get_style_context ().add_class ("flat");
 
         var comment_button = new Gtk.Button.from_icon_name ("internet-chat-symbolic", Gtk.IconSize.MENU);
-        comment_button.valign = Gtk.Align.START;
+        comment_button.valign = Gtk.Align.CENTER;
         comment_button.halign = Gtk.Align.CENTER;
         comment_button.can_focus = false;
         comment_button.tooltip_text = _("Project comments");
@@ -133,13 +133,13 @@ public class Views.Project : Gtk.EventBox {
         comment_button.get_style_context ().add_class ("flat");
 
         var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU);
-        search_button.valign = Gtk.Align.START;
+        search_button.valign = Gtk.Align.CENTER;
         search_button.halign = Gtk.Align.CENTER;
         search_button.can_focus = false;
         search_button.tooltip_text = _("Search task");
         search_button.margin_start = 6;
         search_button.get_style_context ().add_class ("flat");
-        
+
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
         settings_image.pixel_size = 14;
@@ -180,10 +180,10 @@ public class Views.Project : Gtk.EventBox {
 
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        //top_box.pack_end (search_button, false, false, 0);
+        // top_box.pack_end (search_button, false, false, 0);
         if (project.is_todoist == 1) {
-            //top_box.pack_end (add_person_button, false, false, 0);
-            //top_box.pack_end (comment_button, false, false, 0);
+            // top_box.pack_end (add_person_button, false, false, 0);
+            // top_box.pack_end (comment_button, false, false, 0);
         }
         top_box.pack_end (section_button, false, false, 0);
 
@@ -202,7 +202,7 @@ public class Views.Project : Gtk.EventBox {
         note_placeholder.opacity = 0.7;
         note_textview.add (note_placeholder);
 
-        note_textview.buffer.text = project.note;
+        note_textview.buffer.text = Planner.utils.line_break_to_space (project.note);
 
         if (project.note != "") {
             note_placeholder.visible = false;
@@ -1057,9 +1057,13 @@ public class Views.Project : Gtk.EventBox {
         new_section_popover.position = Gtk.PositionType.BOTTOM;
 
         var name_label = new Granite.HeaderLabel (_("Name:"));
+        name_label.margin_start = 4;
 
         section_name_entry = new Gtk.Entry ();
         section_name_entry.hexpand = true;
+        section_name_entry.margin_start = 4;
+        section_name_entry.margin_end = 4;
+        section_name_entry.margin_bottom = 6;
 
         var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
@@ -1084,21 +1088,21 @@ public class Views.Project : Gtk.EventBox {
         action_grid.expand = false;
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
-        action_grid.column_spacing = 9;
-        action_grid.margin_top = 12;
+        action_grid.column_spacing = 4;
+        action_grid.margin = 4;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
+
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.pack_start (action_grid);
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.margin_top = 3;
-        popover_grid.margin_bottom = 9;
-        popover_grid.margin_start = 9;
-        popover_grid.margin_end = 9;
         popover_grid.add (name_label);
         popover_grid.add (section_name_entry);
-        popover_grid.add (action_grid);
+        popover_grid.add (action_bar);
 
         new_section_popover.add (popover_grid);
 

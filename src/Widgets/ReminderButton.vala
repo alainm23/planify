@@ -106,7 +106,8 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.BOTTOM;
+        popover.get_style_context ().add_class ("popover-background");
+        popover.position = Gtk.PositionType.LEFT;
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -122,6 +123,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 235;
+        //popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.add (stack);
         popover_grid.show_all ();
@@ -155,8 +157,8 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         add_icon.pixel_size = 14;
 
         var add_button = new Gtk.Button ();
-        add_button.margin_bottom = 6;
         add_button.image = add_icon;
+        add_button.margin = 3;
         add_button.valign = Gtk.Align.CENTER;
         add_button.halign = Gtk.Align.START;
         add_button.always_show_image = true;
@@ -164,12 +166,18 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         add_button.label = _("Add reminder");
         add_button.get_style_context ().add_class ("flat");
         add_button.get_style_context ().add_class ("font-bold");
+        add_button.get_style_context ().add_class ("add-button");
+
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.pack_start (add_button);
 
         var grid = new Gtk.Grid ();
         grid.margin_top = 3;
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (listbox_scrolled);
-        grid.add (add_button);
+        grid.add (action_bar);
+        grid.show ();
 
         add_reminders (listbox);
 
@@ -191,17 +199,15 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private Gtk.Widget get_reminder_new_widget () {
         calendar = new Widgets.Calendar.Calendar ();
-        calendar.margin_bottom = 0;
-        calendar.margin_top = 0;
-        calendar.margin_end = 9;
+        calendar.margin = 6;
         calendar.hexpand = true;
 
         var time_header = new Granite.HeaderLabel (_("Time:"));
-        time_header.margin_start = 9;
+        time_header.margin_start = 6;
 
         time_picker = new Granite.Widgets.TimePicker ();
-        time_picker.margin_start = 9;
-        time_picker.margin_end = 9;
+        time_picker.margin_start = 6;
+        time_picker.margin_end = 6;
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
 
@@ -210,19 +216,25 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         var action_grid = new Gtk.Grid ();
-        action_grid.margin = 9;
-        action_grid.column_spacing = 9;
+        action_grid.margin = 6;
+        action_grid.hexpand = true;
+        action_grid.column_spacing = 6;
         action_grid.column_homogeneous = true;
         action_grid.add (cancel_button);
         action_grid.add (add_button);
+
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.margin_top = 6;
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.pack_start (action_grid);
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (calendar);
         grid.add (time_header);
         grid.add (time_picker);
-        grid.add (action_grid);
-        grid.show_all ();
+        grid.add (action_bar);
+        grid.show ();
 
         cancel_button.clicked.connect (() => {
             stack.visible_child_name = "list";

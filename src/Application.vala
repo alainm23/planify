@@ -46,6 +46,10 @@ public class Planner : Gtk.Application {
         Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
+        //  foreach (var lang in Intl.get_language_names ()) {
+        //      print ("Lang: %s\n".printf (lang));
+        //  }
+
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/com.github.alainm23.planner");
@@ -57,9 +61,6 @@ public class Planner : Gtk.Application {
         todoist = new Services.Todoist ();
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
-
-        // Path database
-        database.patch_database ();
     }
 
     public static Planner _instance = null;

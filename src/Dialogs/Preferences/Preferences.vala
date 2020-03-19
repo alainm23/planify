@@ -1227,7 +1227,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var version_label = new Gtk.Label (Constants.VERSION);
         version_label.get_style_context ().add_class ("dim-label");
 
-        var web_item = new Dialogs.Preferences.Item ("web-browser", _("Homepage"));
+        var web_item = new Dialogs.Preferences.Item ("web-browser", _("Website"));
+        var twitter_item = new Dialogs.Preferences.Item ("online-account-twitter", _("Follow"));
         var issue_item = new Dialogs.Preferences.Item ("bug", _("Report a Problem"));
         var translation_item = new Dialogs.Preferences.Item ("config-language", _("Suggest Translations"), true);
 
@@ -1238,6 +1239,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         grid.add (web_item);
+        grid.add (twitter_item);
         grid.add (issue_item);
         grid.add (translation_item);
         grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -1258,6 +1260,14 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         web_item.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://planner-todo.web.app", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        twitter_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://twitter.com/planner_todo", null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }

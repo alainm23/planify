@@ -171,7 +171,16 @@ public class Widgets.Pane : Gtk.EventBox {
         settings_image.pixel_size = 14;
         settings_button.image = settings_image;
 
-        var sync_button = new Gtk.Button ();
+        sync_image = new Gtk.Image ();
+        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
+        sync_image.get_style_context ().add_class ("sync-image-rotate");
+        sync_image.pixel_size = 16;
+
+        error_image = new Gtk.Image ();
+        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
+        error_image.pixel_size = 16;
+
+        sync_button = new Gtk.Button ();
         sync_button.can_focus = false;
         sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
         sync_button.valign = Gtk.Align.CENTER;
@@ -181,17 +190,6 @@ public class Widgets.Pane : Gtk.EventBox {
         sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         sync_button.visible = Planner.settings.get_boolean ("todoist-account");
         sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
-
-        var sync_image = new Gtk.Image ();
-        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
-        sync_image.get_style_context ().add_class ("sync-image-rotate");
-        sync_image.pixel_size = 16;
-
-        var error_image = new Gtk.Image ();
-        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
-        error_image.pixel_size = 16;
-
-        sync_button.image = sync_image;
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         header_box.get_style_context ().add_class ("pane");
@@ -408,8 +406,8 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     private void check_network () {
-        var available = GLib.NetworkMonitor.get_default ().network_available;
-
+        var available = GLib.NetworkMonitor.get_default ().get_network_available ();
+        
         if (available) {
             sync_button.tooltip_text = _("Sync");
             sync_button.image = sync_image;

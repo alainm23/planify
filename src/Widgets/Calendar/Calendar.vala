@@ -42,7 +42,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void selection_changed (GLib.DateTime date);
 
-    public Calendar (bool block_past_days=false) {
+    public Calendar (bool block_past_days = true) {
         Object (
             block_past_days: block_past_days
         );
@@ -51,6 +51,8 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     construct {
         orientation = Gtk.Orientation.VERTICAL;
         margin = 6;
+        margin_start = 9;
+        margin_end = 6;
         height_request = 200;
 
         current_date = new GLib.DateTime.now_local ();

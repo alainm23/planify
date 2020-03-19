@@ -85,10 +85,11 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.BOTTOM;
+        popover.get_style_context ().add_class ("popover-background");
+        popover.position = Gtk.PositionType.LEFT;
 
-        label_entry = new Gtk.Entry ();
-        label_entry.margin = 6;
+        label_entry = new Gtk.SearchEntry ();
+        label_entry.hexpand = true;
         label_entry.placeholder_text = _("Type a label");
 
         listbox = new Gtk.ListBox ();
@@ -110,25 +111,28 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         edit_icon.pixel_size = 14;
 
         var edit_labels = new Gtk.Button ();
-        edit_labels.margin = 3;
-        edit_labels.image = edit_icon;
-        edit_labels.valign = Gtk.Align.CENTER;
-        edit_labels.halign = Gtk.Align.START;
-        edit_labels.always_show_image = true;
+        edit_labels.add (edit_icon);
         edit_labels.can_focus = false;
-        edit_labels.label = _("Edit labels");
-        edit_labels.get_style_context ().add_class ("flat");
-        edit_labels.get_style_context ().add_class ("font-bold");
+        edit_labels.tooltip_text = _("Edit labels");
+        edit_labels.get_style_context ().add_class ("edi-label-button");
+
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        action_grid.margin = 6;
+        action_grid.hexpand = true;
+        action_grid.add (label_entry);
+        action_grid.add (edit_labels);
 
         var action_bar = new Gtk.ActionBar ();
         action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (edit_labels);
+        action_bar.pack_start (action_grid);
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.width_request = 235;
         popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.add (label_entry);
+        popover_grid.margin_top = 3;
         popover_grid.add (listbox_scrolled);
         popover_grid.add (action_bar);
 
@@ -165,7 +169,6 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 if (!label_entry.has_focus) {
                     label_entry.grab_focus ();
                     label_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-                    label_entry.key_press_event (event);
                 }
 
                 return false;
@@ -207,8 +210,6 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("label-select-row");
-        margin_start = margin_end = 6;
-        margin_bottom = 3;
 
         var label_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
         label_image.valign = Gtk.Align.CENTER;
@@ -224,11 +225,18 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
         name_label.use_markup = true;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.margin = 3;
+        box.margin = 6;
+        box.hexpand = true;
         box.pack_start (label_image, false, false, 0);
         box.pack_start (name_label, false, true, 0);
 
-        add (box);
+        var grid = new Gtk.Grid ();
+        grid.hexpand = true;
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (box);
+        grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        add (grid);
 
         Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {

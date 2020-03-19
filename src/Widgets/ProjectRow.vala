@@ -136,7 +136,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
-        source_icon.margin_top = 3;
         source_icon.pixel_size = 14;
 
         if (project.is_todoist == 0) {
@@ -147,11 +146,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             source_icon.tooltip_text = _("Todoist Project");
         }
 
+        var source_revealer = new Gtk.Revealer ();
+        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        source_revealer.add (source_icon);
+
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
         handle_box.hexpand = true;
         handle_box.pack_start (project_progress, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (source_icon, false, false, 0);
+        handle_box.pack_start (source_revealer, false, false, 0);
         handle_box.pack_end (menu_stack, false, false, 0);
 
         var motion_grid = new Gtk.Grid ();
@@ -183,7 +186,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-        apply_color (Planner.utils.get_color (project.color));
+        // apply_color (Planner.utils.get_color (project.color));
 
         Timeout.add (125, () => {
             update_count ();
@@ -207,6 +210,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         handle.enter_notify_event.connect ((event) => {
             menu_stack.visible_child_name = "menu_button";
+            source_revealer.reveal_child = true;
 
             return true;
         });
@@ -217,6 +221,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             menu_stack.visible_child_name = "count_revealer";
+            source_revealer.reveal_child = false;
+
             return true;
         });
 
@@ -231,7 +237,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
-                apply_color (Planner.utils.get_color (p.color));
+                // apply_color (Planner.utils.get_color (p.color));
             }
         });
 
@@ -275,30 +281,30 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
     }
 
-    private void apply_color (string color) {
-        string _css = """
-            .project-color-%s {
-                color: %s
-            }
-        """;
+    //  private void apply_color (string color) {
+    //      string _css = """
+    //          .project-color-%s {
+    //              color: %s
+    //          }
+    //      """;
 
-        var provider = new Gtk.CssProvider ();
+    //      var provider = new Gtk.CssProvider ();
 
-        try {
-            var css = _css.printf (
-                project.id.to_string (),
-                color
-            );
+    //      try {
+    //          var css = _css.printf (
+    //              project.id.to_string (),
+    //              color
+    //          );
 
-            provider.load_from_data (css, css.length);
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } catch (GLib.Error e) {
-            return;
-        }
-    }
+    //          provider.load_from_data (css, css.length);
+    //          Gtk.StyleContext.add_provider_for_screen (
+    //              Gdk.Screen.get_default (), provider,
+    //              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    //          );
+    //      } catch (GLib.Error e) {
+    //          return;
+    //      }
+    //  }
 
     private void update_count () {
         if (timeout_id != 0) {
@@ -442,7 +448,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Widgets.ImageMenuItem item_menu;
         if (project.area_id != 0) {
-            item_menu = new Widgets.ImageMenuItem (_("No Area"), "window-close-symbolic");
+            item_menu = new Widgets.ImageMenuItem (_("No Folder"), "window-close-symbolic");
             item_menu.activate.connect (() => {
                 if (Planner.database.move_project (project, 0)) {
                     main_revealer.reveal_child = false;
@@ -460,7 +466,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         int area_count = 0;
         foreach (Objects.Area area in Planner.database.get_all_areas ()) {
             if (area.id != project.area_id) {
-                item_menu = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
+                item_menu = new Widgets.ImageMenuItem (area.name, "folder-outline");
                 item_menu.activate.connect (() => {
                     if (Planner.database.move_project (project, area.id)) {
                         main_revealer.reveal_child = false;
@@ -496,7 +502,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        move_area_menu = new Widgets.ImageMenuItem (_("Move to Area"), "planner-work-area-symbolic");
+        move_area_menu = new Widgets.ImageMenuItem (_("Move to Folder"), "go-jump-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);
 

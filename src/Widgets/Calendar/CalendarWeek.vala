@@ -21,28 +21,29 @@
 
 public class Widgets.Calendar.CalendarWeek : Gtk.Grid {
     public CalendarWeek () {
+        margin_end = 3;
         column_homogeneous = true;
 
         var label_monday = new Gtk.Label (_("Mon"));
-        label_monday.get_style_context ().add_class ("h4");
+        label_monday.get_style_context ().add_class ("font-weight-600");
 
         var label_tuesday = new Gtk.Label (_("Tue"));
-        label_tuesday.get_style_context ().add_class ("h4");
+        label_tuesday.get_style_context ().add_class ("font-weight-600");
 
         var label_wednesday = new Gtk.Label (_("Wed"));
-        label_wednesday.get_style_context ().add_class ("h4");
+        label_wednesday.get_style_context ().add_class ("font-weight-600");
 
         var label_thursday = new Gtk.Label (_("Thu"));
-        label_thursday.get_style_context ().add_class ("h4");
+        label_thursday.get_style_context ().add_class ("font-weight-600");
 
         var label_friday = new Gtk.Label (_("Fri"));
-        label_friday.get_style_context ().add_class ("h4");
+        label_friday.get_style_context ().add_class ("font-weight-600");
 
         var label_saturday = new Gtk.Label (_("Sat"));
-        label_saturday.get_style_context ().add_class ("h4");
+        label_saturday.get_style_context ().add_class ("font-weight-600");
 
         var label_sunday = new Gtk.Label (_("Sun"));
-        label_sunday.get_style_context ().add_class ("h4");
+        label_sunday.get_style_context ().add_class ("font-weight-600");
 
         add (label_monday);
         add (label_tuesday);

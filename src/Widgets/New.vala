@@ -23,7 +23,7 @@ public class Widgets.New : Gtk.Revealer {
     public Gtk.Entry name_entry;
     private Gtk.Button project_button;
     private Gtk.Button area_button;
-
+    private Gtk.TextView description_textview;
     private Gtk.ToggleButton source_button;
     private Gtk.Image source_image;
     private Gtk.Popover source_popover = null;
@@ -33,12 +33,14 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.ComboBox area_combobox;
     private Gtk.ListStore area_liststore;
     private Gtk.Revealer area_revealer;
+
+    private Gtk.ListStore color_liststore;
+    private Gtk.ComboBox color_combobox;
+
     private bool area_change_activated { get; set; default = false; }
 
     private Gtk.ModelButton online_button;
     private Gtk.Label online_label;
-
-    private int color_selected = 30;
 
     public bool reveal {
         get {
@@ -59,7 +61,9 @@ public class Widgets.New : Gtk.Revealer {
         valign = Gtk.Align.END;
         halign = Gtk.Align.CENTER;
 
-        var name_label = new Granite.HeaderLabel (_("Name:"));
+        var name_header = new Granite.HeaderLabel (_("Name:"));
+        name_header.margin_start = 6;
+
         name_entry = new Gtk.Entry ();
         name_entry.hexpand = true;
 
@@ -76,17 +80,37 @@ public class Widgets.New : Gtk.Revealer {
         source_button.get_style_context ().add_class ("source-button");
 
         var top_grid = new Gtk.Grid ();
+        top_grid.margin_start = top_grid.margin_end = 6;
         top_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         top_grid.add (name_entry);
         top_grid.add (source_button);
 
-        var area_label = new Granite.HeaderLabel (_("Area:"));
+        var description_header = new Granite.HeaderLabel (_("Description:"));
+        description_header.margin_start = 6;
+
+        description_textview = new Gtk.TextView ();
+        description_textview.get_style_context ().add_class ("description");
+        description_textview.margin = 3;
+        description_textview.wrap_mode = Gtk.WrapMode.WORD_CHAR;
+
+        var description_scrolled = new Gtk.ScrolledWindow (null, null);
+        description_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        description_scrolled.hexpand = true;
+        description_scrolled.add (description_textview);
+
+        var description_frame = new Gtk.Frame (null);
+        description_frame.get_style_context ().add_class ("border-radius-4");
+        description_frame.margin_start = description_frame.margin_end = 6;
+        description_frame.add (description_scrolled);
+
+        var area_header = new Granite.HeaderLabel (_("Folder:"));
 
         area_liststore = new Gtk.ListStore (3, typeof (Objects.Area?), typeof (unowned string), typeof (string));
         area_combobox = new Gtk.ComboBox.with_model (area_liststore);
 
         var area_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        area_box.pack_start (area_label, false, false, 0);
+        area_box.margin_start = area_box.margin_end = 6;
+        area_box.pack_start (area_header, false, false, 0);
         area_box.pack_start (area_combobox, false, false, 0);
 
         area_revealer = new Gtk.Revealer ();
@@ -94,154 +118,34 @@ public class Widgets.New : Gtk.Revealer {
         area_revealer.add (area_box);
         area_revealer.reveal_child = true;
 
-        var color_label = new Granite.HeaderLabel (_("Color:"));
+        var color_header = new Granite.HeaderLabel (_("Color:"));
+        color_header.margin_start = 6;
 
-        var color_30 = new Gtk.RadioButton (null);
-        color_30.valign = Gtk.Align.START;
-        color_30.halign = Gtk.Align.START;
-        color_30.tooltip_text = Planner.utils.get_color_name (30);
-        Planner.utils.apply_styles ("30", Planner.utils.get_color (30), color_30);
+        color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
+        color_combobox = new Gtk.ComboBox.with_model (color_liststore);
+        color_combobox.margin_start = color_combobox.margin_end = 6;
 
-        var color_31 = new Gtk.RadioButton.from_widget (color_30);
-        color_31.valign = Gtk.Align.START;
-        color_31.halign = Gtk.Align.START;
-        color_31.tooltip_text = Planner.utils.get_color_name (31);
-        Planner.utils.apply_styles ("31", Planner.utils.get_color (31), color_31);
+        Gtk.TreeIter iter;
+        foreach (var color in Planner.utils.get_color_list ()) {
+            color_liststore.append (out iter);
+            color_liststore.@set (iter,
+                0, color,
+                1, " " + Planner.utils.get_color_name (color),
+                2, "color-%i".printf (color)
+            );
 
-        var color_32 = new Gtk.RadioButton.from_widget (color_30);
-        color_32.valign = Gtk.Align.START;
-        color_32.halign = Gtk.Align.START;
-        color_32.tooltip_text = Planner.utils.get_color_name (32);
-        Planner.utils.apply_styles ("32", Planner.utils.get_color (32), color_32);
+            if (color == 30) {
+                color_combobox.set_active_iter (iter);
+            }
+        }
 
-        var color_33 = new Gtk.RadioButton.from_widget (color_30);
-        color_33.valign = Gtk.Align.START;
-        color_33.halign = Gtk.Align.START;
-        color_33.tooltip_text = Planner.utils.get_color_name (33);
-        Planner.utils.apply_styles ("33", Planner.utils.get_color (33), color_33);
+        var pixbuf_cell = new Gtk.CellRendererPixbuf ();
+        color_combobox.pack_start (pixbuf_cell, false);
+        color_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
 
-        var color_34 = new Gtk.RadioButton.from_widget (color_30);
-        color_34.valign = Gtk.Align.START;
-        color_34.halign = Gtk.Align.START;
-        color_34.tooltip_text = Planner.utils.get_color_name (34);
-        Planner.utils.apply_styles ("34", Planner.utils.get_color (34), color_34);
-
-        var color_35 = new Gtk.RadioButton.from_widget (color_30);
-        color_35.valign = Gtk.Align.START;
-        color_35.halign = Gtk.Align.START;
-        color_35.tooltip_text = Planner.utils.get_color_name (35);
-        Planner.utils.apply_styles ("35", Planner.utils.get_color (35), color_35);
-
-        var color_36 = new Gtk.RadioButton.from_widget (color_30);
-        color_36.valign = Gtk.Align.START;
-        color_36.halign = Gtk.Align.START;
-        color_36.tooltip_text = Planner.utils.get_color_name (36);
-        Planner.utils.apply_styles ("36", Planner.utils.get_color (36), color_36);
-
-        var color_37 = new Gtk.RadioButton.from_widget (color_30);
-        color_37.valign = Gtk.Align.START;
-        color_37.halign = Gtk.Align.START;
-        color_37.tooltip_text = Planner.utils.get_color_name (37);
-        Planner.utils.apply_styles ("37", Planner.utils.get_color (37), color_37);
-
-        var color_38 = new Gtk.RadioButton.from_widget (color_30);
-        color_38.valign = Gtk.Align.START;
-        color_38.halign = Gtk.Align.START;
-        color_38.tooltip_text = Planner.utils.get_color_name (38);
-        Planner.utils.apply_styles ("38", Planner.utils.get_color (38), color_38);
-
-        var color_39 = new Gtk.RadioButton.from_widget (color_30);
-        color_39.valign = Gtk.Align.START;
-        color_39.halign = Gtk.Align.START;
-        color_39.tooltip_text = Planner.utils.get_color_name (39);
-        Planner.utils.apply_styles ("39", Planner.utils.get_color (39), color_39);
-
-        var color_40 = new Gtk.RadioButton.from_widget (color_30);
-        color_40.valign = Gtk.Align.START;
-        color_40.halign = Gtk.Align.START;
-        color_40.tooltip_text = Planner.utils.get_color_name (40);
-        Planner.utils.apply_styles ("40", Planner.utils.get_color (40), color_40);
-
-        var color_41 = new Gtk.RadioButton.from_widget (color_30);
-        color_41.valign = Gtk.Align.START;
-        color_41.halign = Gtk.Align.START;
-        color_41.tooltip_text = Planner.utils.get_color_name (41);
-        Planner.utils.apply_styles ("41", Planner.utils.get_color (41), color_41);
-
-        var color_42 = new Gtk.RadioButton.from_widget (color_30);
-        color_42.valign = Gtk.Align.START;
-        color_42.halign = Gtk.Align.START;
-        color_42.tooltip_text = Planner.utils.get_color_name (42);
-        Planner.utils.apply_styles ("42", Planner.utils.get_color (42), color_42);
-
-        var color_43 = new Gtk.RadioButton.from_widget (color_30);
-        color_43.valign = Gtk.Align.START;
-        color_43.halign = Gtk.Align.START;
-        color_43.tooltip_text = Planner.utils.get_color_name (43);
-        Planner.utils.apply_styles ("43", Planner.utils.get_color (43), color_43);
-
-        var color_44 = new Gtk.RadioButton.from_widget (color_30);
-        color_44.valign = Gtk.Align.START;
-        color_44.halign = Gtk.Align.START;
-        color_44.tooltip_text = Planner.utils.get_color_name (44);
-        Planner.utils.apply_styles ("44", Planner.utils.get_color (44), color_44);
-
-        var color_45 = new Gtk.RadioButton.from_widget (color_30);
-        color_45.valign = Gtk.Align.START;
-        color_45.halign = Gtk.Align.START;
-        color_45.tooltip_text = Planner.utils.get_color_name (45);
-        Planner.utils.apply_styles ("45", Planner.utils.get_color (45), color_45);
-
-        var color_46 = new Gtk.RadioButton.from_widget (color_30);
-        color_46.valign = Gtk.Align.START;
-        color_46.halign = Gtk.Align.START;
-        color_46.tooltip_text = Planner.utils.get_color_name (46);
-        Planner.utils.apply_styles ("46", Planner.utils.get_color (46), color_46);
-
-        var color_47 = new Gtk.RadioButton.from_widget (color_30);
-        color_47.valign = Gtk.Align.START;
-        color_47.halign = Gtk.Align.START;
-        color_47.tooltip_text = Planner.utils.get_color_name (47);
-        Planner.utils.apply_styles ("47", Planner.utils.get_color (47), color_47);
-
-        var color_48 = new Gtk.RadioButton.from_widget (color_30);
-        color_48.valign = Gtk.Align.START;
-        color_48.halign = Gtk.Align.START;
-        color_48.tooltip_text = Planner.utils.get_color_name (48);
-        Planner.utils.apply_styles ("48", Planner.utils.get_color (48), color_48);
-
-        var color_49 = new Gtk.RadioButton.from_widget (color_30);
-        color_49.valign = Gtk.Align.START;
-        color_49.halign = Gtk.Align.START;
-        color_49.tooltip_text = Planner.utils.get_color_name (49);
-        Planner.utils.apply_styles ("49", Planner.utils.get_color (49), color_49);
-
-        var color_box = new Gtk.Grid ();
-        color_box.column_homogeneous = true;
-        color_box.row_homogeneous = true;
-        color_box.row_spacing = 6;
-        color_box.column_spacing = 12;
-
-        color_box.attach (color_30, 0, 0, 1, 1);
-        color_box.attach (color_31, 1, 0, 1, 1);
-        color_box.attach (color_32, 2, 0, 1, 1);
-        color_box.attach (color_33, 3, 0, 1, 1);
-        color_box.attach (color_34, 4, 0, 1, 1);
-        color_box.attach (color_35, 5, 0, 1, 1);
-        color_box.attach (color_36, 6, 0, 1, 1);
-        color_box.attach (color_37, 0, 1, 1, 1);
-        color_box.attach (color_38, 1, 1, 1, 1);
-        color_box.attach (color_39, 2, 1, 1, 1);
-        color_box.attach (color_40, 3, 1, 1, 1);
-        color_box.attach (color_41, 4, 1, 1, 1);
-        color_box.attach (color_42, 5, 1, 1, 1);
-        color_box.attach (color_43, 6, 1, 1, 1);
-        color_box.attach (color_44, 0, 2, 1, 1);
-        color_box.attach (color_45, 1, 2, 1, 1);
-        color_box.attach (color_46, 2, 2, 1, 1);
-        color_box.attach (color_47, 3, 2, 1, 1);
-        color_box.attach (color_48, 4, 2, 1, 1);
-        color_box.attach (color_49, 5, 2, 1, 1);
+        var text_cell = new Gtk.CellRendererText ();
+        color_combobox.pack_start (text_cell, true);
+        color_combobox.add_attribute (text_cell, "text", 1);
 
         var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
@@ -263,24 +167,30 @@ public class Widgets.New : Gtk.Revealer {
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
-        action_grid.expand = false;
+        action_grid.margin = 3;
+        action_grid.column_spacing = 3;
+        action_grid.hexpand = true;
         action_grid.valign = Gtk.Align.END;
         action_grid.column_homogeneous = true;
-        action_grid.column_spacing = 9;
-        action_grid.margin_top = 12;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.valign = Gtk.Align.END;
+        action_bar.expand = false;
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.add (action_grid);
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
-        box.margin = 9;
-        box.margin_top = 0;
-        box.pack_start (name_label, false, false, 0);
+        box.pack_start (name_header, false, false, 0);
         box.pack_start (top_grid, false, false, 0);
+        box.pack_start (description_header, false, false, 0);
+        box.pack_start (description_frame, false, false, 0);
+        box.pack_start (color_header, false, false, 0);
+        box.pack_start (color_combobox, false, false, 0);
         box.pack_start (area_revealer, false, false, 0);
-        box.pack_start (color_label, false, false, 0);
-        box.pack_start (color_box, false, false, 0);
-        box.pack_end (action_grid, false, false, 0);
+        box.pack_end (action_bar, false, false, 0);
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -299,86 +209,6 @@ public class Widgets.New : Gtk.Revealer {
         main_grid.add (stack);
 
         add (main_grid);
-
-        color_30.toggled.connect (() => {
-            color_selected = 30;
-        });
-
-        color_31.toggled.connect (() => {
-            color_selected = 31;
-        });
-
-        color_32.toggled.connect (() => {
-            color_selected = 32;
-        });
-
-        color_33.toggled.connect (() => {
-            color_selected = 33;
-        });
-
-        color_34.toggled.connect (() => {
-            color_selected = 34;
-        });
-
-        color_35.toggled.connect (() => {
-            color_selected = 35;
-        });
-
-        color_36.toggled.connect (() => {
-            color_selected = 36;
-        });
-
-        color_37.toggled.connect (() => {
-            color_selected = 37;
-        });
-
-        color_38.toggled.connect (() => {
-            color_selected = 38;
-        });
-
-        color_39.toggled.connect (() => {
-            color_selected = 39;
-        });
-
-        color_40.toggled.connect (() => {
-            color_selected = 40;
-        });
-
-        color_41.toggled.connect (() => {
-            color_selected = 41;
-        });
-
-        color_42.toggled.connect (() => {
-            color_selected = 42;
-        });
-
-        color_43.toggled.connect (() => {
-            color_selected = 43;
-        });
-
-        color_44.toggled.connect (() => {
-            color_selected = 44;
-        });
-
-        color_45.toggled.connect (() => {
-            color_selected = 45;
-        });
-
-        color_46.toggled.connect (() => {
-            color_selected = 46;
-        });
-
-        color_47.toggled.connect (() => {
-            color_selected = 47;
-        });
-
-        color_48.toggled.connect (() => {
-            color_selected = 48;
-        });
-
-        color_49.toggled.connect (() => {
-            color_selected = 49;
-        });
 
         submit_button.clicked.connect (() => {
             create_project ();
@@ -466,6 +296,15 @@ public class Widgets.New : Gtk.Revealer {
         source_popover = new Gtk.Popover (source_button);
         source_popover.position = Gtk.PositionType.BOTTOM;
 
+        var offline_radio = new Gtk.RadioButton (null);
+        var online_radio = new Gtk.RadioButton.from_widget (offline_radio);
+
+        if (Planner.settings.get_int ("source-selected") == 0) {
+            offline_radio.active = true;
+        } else {
+            online_radio.active = true;
+        }
+
         var offline_image = new Gtk.Image ();
         offline_image.gicon = new ThemedIcon ("planner-offline-symbolic");
         offline_image.valign = Gtk.Align.START;
@@ -475,9 +314,10 @@ public class Widgets.New : Gtk.Revealer {
         offline_label.hexpand = true;
         offline_label.valign = Gtk.Align.START;
         offline_label.xalign = 0;
-        offline_label.margin_start = 9;
 
         var offline_grid = new Gtk.Grid ();
+        offline_grid.column_spacing = 6;
+        offline_grid.add (offline_radio);
         offline_grid.add (offline_image);
         offline_grid.add (offline_label);
 
@@ -496,9 +336,10 @@ public class Widgets.New : Gtk.Revealer {
         online_label.hexpand = true;
         online_label.valign = Gtk.Align.START;
         online_label.xalign = 0;
-        online_label.margin_start = 9;
 
         var online_grid = new Gtk.Grid ();
+        online_grid.column_spacing = 6;
+        online_grid.add (online_radio);
         online_grid.add (online_image);
         online_grid.add (online_label);
 
@@ -524,11 +365,13 @@ public class Widgets.New : Gtk.Revealer {
         offline_button.clicked.connect (() => {
             source_image.icon_name = "planner-offline-symbolic";
             Planner.settings.set_int ("source-selected", 0);
+            offline_radio.active = true;
         });
 
         online_button.clicked.connect (() => {
             source_image.icon_name = "planner-online-symbolic";
             Planner.settings.set_int ("source-selected", 1);
+            online_radio.active = true;
         });
     }
 
@@ -542,7 +385,7 @@ public class Widgets.New : Gtk.Revealer {
         area_liststore.append (out iter);
         area_liststore.@set (iter,
             0, null,
-            1, " " + _("No Area"),
+            1, " " + _("No Folder"),
             2, "window-close-symbolic"
         );
 
@@ -560,7 +403,7 @@ public class Widgets.New : Gtk.Revealer {
             area_liststore.@set (iter,
                 0, area,
                 1, " " + area.name,
-                2, "planner-work-area-symbolic"
+                2, "folder-outline"
             );
 
             if (area.id == area_id && area_id != 0) {
@@ -595,13 +438,25 @@ public class Widgets.New : Gtk.Revealer {
         return (Objects.Area) item;
     }
 
+    public int? get_color_selected () {
+        Gtk.TreeIter iter;
+        if (!color_combobox.get_active_iter (out iter)) {
+            return null;
+        }
+
+        Value item;
+        area_liststore.get_value (iter, 0, out item);
+
+        return (int) item;
+    }
+
     private Gtk.Box create_chooser_widget () {
         var project_image = new Gtk.Image ();
         project_image.halign = Gtk.Align.START;
         project_image.valign = Gtk.Align.CENTER;
         project_image.gicon = new ThemedIcon ("planner-project-symbolic");
         project_image.pixel_size = 14;
-        project_image.get_style_context ().add_class ("project-icon");
+        project_image.get_style_context ().add_class ("area-icon");
 
         var project_label = new Gtk.Label (_("Project"));
         project_label.get_style_context ().add_class ("h3");
@@ -630,11 +485,11 @@ public class Widgets.New : Gtk.Revealer {
         var area_image = new Gtk.Image ();
         area_image.halign = Gtk.Align.START;
         area_image.valign = Gtk.Align.CENTER;
-        area_image.gicon = new ThemedIcon ("planner-work-area-symbolic");
+        area_image.gicon = new ThemedIcon ("folder-symbolic");
         area_image.pixel_size = 14;
-        area_image.get_style_context ().add_class ("area-icon");
+        area_image.get_style_context ().add_class ("project-icon");
 
-        var source_label = new Gtk.Label (_("Area"));
+        var source_label = new Gtk.Label (_("Folder"));
         source_label.get_style_context ().add_class ("h3");
         source_label.get_style_context ().add_class ("font-bold");
         source_label.halign = Gtk.Align.START;
@@ -657,15 +512,20 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("flat");
         area_button.get_style_context ().add_class ("menuitem");
 
-        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        var cancel_button = new Gtk.Button.with_label (_("Close"));
         cancel_button.get_style_context ().add_class ("planner-button");
-        cancel_button.margin = 6;
+        cancel_button.margin = 3;
+        cancel_button.hexpand = true;
+
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.pack_start (cancel_button);
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.add (project_button);
         box.pack_start (project_button, false, false, 0);
         box.pack_start (area_button, false, false, 0);
-        box.pack_end (cancel_button, false, false, 0);
+        box.pack_end (action_bar, false, false, 0);
 
         cancel_button.clicked.connect (cancel);
 
@@ -681,7 +541,10 @@ public class Widgets.New : Gtk.Revealer {
 
     private void cancel () {
         reveal_child = false;
+
         name_entry.text = "";
+        description_textview.buffer.text = "";
+
         stack.visible_child_name = "chooser";
     }
 
@@ -691,7 +554,8 @@ public class Widgets.New : Gtk.Revealer {
 
             var project = new Objects.Project ();
             project.name = name_entry.text;
-            project.color = color_selected;
+            project.color = get_color_selected ();
+            project.note = description_textview.buffer.text;
 
             if (area == null) {
                 project.area_id = 0;
@@ -713,7 +577,7 @@ public class Widgets.New : Gtk.Revealer {
 
     private void create_area () {
         var area = new Objects.Area ();
-        area.name = _("New area");
+        area.name = _("New folder");
 
         if (Planner.database.insert_area (area)) {
             cancel ();

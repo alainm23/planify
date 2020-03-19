@@ -22,6 +22,8 @@
 public class Dialogs.ProjectSettings : Gtk.Dialog {
     public Objects.Project project { get; construct; }
     private Gtk.Entry name_entry;
+    private Gtk.ListStore color_liststore;
+    private Gtk.ComboBox color_combobox;
 
     private int color_selected;
 
@@ -43,15 +45,50 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         color_selected = project.color;
         get_style_context ().add_class ("planner-dialog");
 
-        var name_label = new Granite.HeaderLabel (_("Name:"));
+        var name_header = new Granite.HeaderLabel (_("Name:"));
 
         name_entry = new Gtk.Entry ();
         name_entry.text = project.name;
+
+        var description_header = new Granite.HeaderLabel (_("Description:"));
+
+        var description_textview = new Gtk.TextView ();
+        description_textview.margin = 6;
+
+        var description_scrolled = new Gtk.ScrolledWindow (null, null);
+        description_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        description_scrolled.hexpand = true;
+        description_scrolled.height_request = 64;
+        description_scrolled.add (description_textview);
+
+        var description_frame = new Gtk.Frame (null);
+        description_frame.add (description_scrolled);
 
         var due_label = new Granite.HeaderLabel (_("Due:"));
         var due_datepicker = new Granite.Widgets.DatePicker ();
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
+
+        color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
+        color_combobox = new Gtk.ComboBox.with_model (color_liststore);
+
+        Gtk.TreeIter iter;
+        foreach (var color in Planner.utils.get_color_list ()) {
+            color_liststore.append (out iter);
+            color_liststore.@set (iter,
+                0, color,
+                1, " " + Planner.utils.get_color_name (color),
+                2, "color-%i".printf (color)
+            );
+        }
+
+        var pixbuf_cell = new Gtk.CellRendererPixbuf ();
+        color_combobox.pack_start (pixbuf_cell, false);
+        color_combobox.add_attribute (pixbuf_cell, "icon-name", 2);
+
+        var text_cell = new Gtk.CellRendererText ();
+        color_combobox.pack_start (text_cell, true);
+        color_combobox.add_attribute (text_cell, "text", 1);
 
         var color_30 = new Gtk.RadioButton (null);
         color_30.valign = Gtk.Align.START;
@@ -239,12 +276,12 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.margin = 12;
         grid.margin_top = 0;
         grid.expand = true;
-        grid.add (name_label);
+        grid.add (name_header);
         grid.add (name_entry);
-        //grid.add (due_label);
-        //grid.add (due_datepicker);
+        grid.add (description_header);
+        grid.add (description_frame);
         grid.add (color_label);
-        grid.add (color_box);
+        grid.add (color_combobox);
         grid.add (loading_revealer);
         grid.show_all ();
 
@@ -458,4 +495,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             destroy ();
         }
     }
+
+
 }
