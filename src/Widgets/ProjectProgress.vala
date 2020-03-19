@@ -17,7 +17,7 @@ using Gtk;
 using Cairo;
 
 public class Widgets.ProjectProgress : Gtk.Bin {
-    private const int MIN_D = 12;
+    private const int MIN_D = 10;
     private int _line_width;
     private double _percentage;
     private string _center_fill_color;

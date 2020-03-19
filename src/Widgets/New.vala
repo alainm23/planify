@@ -445,7 +445,7 @@ public class Widgets.New : Gtk.Revealer {
         }
 
         Value item;
-        area_liststore.get_value (iter, 0, out item);
+        color_liststore.get_value (iter, 0, out item);
 
         return (int) item;
     }

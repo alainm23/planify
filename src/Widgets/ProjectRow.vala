@@ -68,27 +68,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("project-row");
 
         var project_progress = new Widgets.ProjectProgress ();
-        //project_progress.line_cap = Cairo.LineCap.ROUND;
-        //project_progress.radius_filled = true;
+        project_progress.margin = 1;
         project_progress.line_width = 5;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
-
-        //  project_progress.radius_fill_color = "#a7b2cb";
-        //  if (Planner.settings.get_boolean ("prefer-dark-style")) {
-        //      project_progress.radius_fill_color = "#666666";
-        //  }
-
-        //  Planner.settings.changed.connect ((key) => {
-        //      if (key == "prefer-dark-style") {
-        //          if (Planner.settings.get_boolean ("prefer-dark-style")) {
-        //              project_progress.radius_fill_color = "#666666";
-        //          } else {
-        //              project_progress.radius_fill_color = "#a7b2cb";
-        //          }
-        //      }
-        //  });
 
         var progress_grid = new Gtk.Grid ();
         progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
@@ -103,6 +87,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.margin_start = 9;
 
         count_label = new Gtk.Label (null);
         count_label.valign = Gtk.Align.CENTER;
@@ -138,6 +123,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
         source_icon.pixel_size = 14;
+        source_icon.margin_start = 6;
 
         if (project.is_todoist == 0) {
             source_icon.tooltip_text = _("Local Project");
@@ -151,7 +137,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         source_revealer.add (source_icon);
 
-        var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
+        var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
@@ -169,7 +155,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 4;
+        grid.margin_start = 6;
         grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
@@ -287,7 +273,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             .project-progress-%s {
                 border-radius: 50%;
                 border: 1.5px solid %s;
-                padding: 1px;
             }
         """;
 
