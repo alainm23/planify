@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-15 09:37+0000\n"
-"Last-Translator: Daniel <riesp@pm.me>\n"
+"PO-Revision-Date: 2020-03-25 04:46+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -142,7 +142,7 @@ msgstr "Mañana"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
-msgstr "Adición rápida activada!"
+msgstr "¡Adición rápida activada!"
 
 #: src/Utils.vala:648
 #, c-format
