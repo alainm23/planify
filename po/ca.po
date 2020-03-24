@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-25 04:46+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
+"translations/ca/>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:716
 msgid "New area"
-msgstr ""
+msgstr "Àrea nova"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
@@ -27,63 +29,63 @@ msgstr ""
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Llar"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "Oficina"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "Encàrrec"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "Important"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "Pendent"
 
 #: src/Utils.vala:193
 msgid "Berry Red"
-msgstr ""
+msgstr "Vermell baia"
 
 #: src/Utils.vala:194
 msgid "Red"
-msgstr ""
+msgstr "Vermell"
 
 #: src/Utils.vala:195
 msgid "Orange"
-msgstr ""
+msgstr "Taronja"
 
 #: src/Utils.vala:196
 msgid "Yellow"
-msgstr ""
+msgstr "Groc"
 
 #: src/Utils.vala:197
 msgid "Olive Green"
-msgstr ""
+msgstr "Verd oliva"
 
 #: src/Utils.vala:198
 msgid "Lime Green"
-msgstr ""
+msgstr "Verd llima"
 
 #: src/Utils.vala:199
 msgid "Green"
-msgstr ""
+msgstr "Verd"
 
 #: src/Utils.vala:200
 msgid "Mint Green"
-msgstr ""
+msgstr "Verd menta"
 
 #: src/Utils.vala:201
 msgid "Teal"
-msgstr ""
+msgstr "Xarxet"
 
 #: src/Utils.vala:202
 msgid "Sky Blue"
-msgstr ""
+msgstr "Blau cel"
 
 #: src/Utils.vala:203
 msgid "Light Blue"
@@ -91,15 +93,15 @@ msgstr ""
 
 #: src/Utils.vala:204
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 #: src/Utils.vala:205
 msgid "Grape"
-msgstr ""
+msgstr "Raïm"
 
 #: src/Utils.vala:206
 msgid "Violet"
-msgstr ""
+msgstr "Violat"
 
 #: src/Utils.vala:207
 msgid "Lavander"
@@ -107,15 +109,15 @@ msgstr ""
 
 #: src/Utils.vala:208
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Utils.vala:209
 msgid "Salmon"
-msgstr ""
+msgstr "Salmó"
 
 #: src/Utils.vala:210
 msgid "Charcoal"
-msgstr ""
+msgstr "Carbó"
 
 #: src/Utils.vala:211
 msgid "Grey"
@@ -130,16 +132,16 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:68
 msgid "Today"
-msgstr ""
+msgstr "Avui"
 
 #: src/Utils.vala:532 src/Widgets/Pane.vala:349 src/Widgets/ItemRow.vala:1330
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "Demà"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "S’ha activat l’addició ràpida."
 
 #: src/Utils.vala:648
 #, c-format
@@ -148,7 +150,7 @@ msgstr ""
 
 #: src/Utils.vala:665
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Com començar"
 
 #: src/Utils.vala:666
 msgid ""
@@ -173,7 +175,7 @@ msgstr ""
 
 #: src/Utils.vala:677
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Addició de tasques noves"
 
 #: src/Utils.vala:678
 msgid ""
@@ -181,6 +183,9 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Per a afegir una tasca nova al Planner, feu clic a «+» i premeu Intro.\n"
+"- Quan es creï la vostra tasca, feu-hi clic per a editar-la, afegir-hi una "
+"nota o accedir a més opcions."
 
 #: src/Utils.vala:684
 msgid "Due dates"
@@ -196,7 +201,7 @@ msgstr ""
 
 #: src/Utils.vala:691
 msgid "How to use projects"
-msgstr ""
+msgstr "Com s’utilitzen els projectes"
 
 #: src/Utils.vala:692
 msgid ""
@@ -213,7 +218,7 @@ msgstr ""
 
 #: src/Utils.vala:702
 msgid "Sections"
-msgstr ""
+msgstr "Seccions"
 
 #: src/Utils.vala:708
 msgid "Add sections"
@@ -254,11 +259,11 @@ msgstr ""
 
 #: src/Utils.vala:733
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Obre la safata d’entrada"
 
 #: src/Utils.vala:734
 msgid "Open Today"
-msgstr ""
+msgstr "Obre Avui"
 
 #: src/Utils.vala:735
 msgid "Open Upcoming"
@@ -266,15 +271,15 @@ msgstr ""
 
 #: src/Utils.vala:736
 msgid "Open Search"
-msgstr ""
+msgstr "Obre la cerca"
 
 #: src/Utils.vala:737
 msgid "Manually sync"
-msgstr ""
+msgstr "Sincronitza manualment"
 
 #: src/Utils.vala:738
 msgid "Quit"
-msgstr ""
+msgstr "Surt"
 
 #: src/Utils.vala:746
 msgid "The request was incorrect."
@@ -359,7 +364,7 @@ msgstr ""
 
 #: src/Widgets/Pane.vala:82
 msgid "Add List"
-msgstr ""
+msgstr "Afegeix una llista"
 
 #: src/Widgets/Pane.vala:149 src/Dialogs/QuickFind.vala:101
 msgid "Quick Find"
@@ -367,11 +372,11 @@ msgstr ""
 
 #: src/Widgets/Pane.vala:163
 msgid "Preferences"
-msgstr ""
+msgstr "Preferències"
 
 #: src/Widgets/Pane.vala:176 src/Widgets/Pane.vala:414
 msgid "Sync"
-msgstr ""
+msgstr "Sincronització"
 
 #: src/Widgets/Pane.vala:418
 msgid "Offline mode is on"
@@ -387,21 +392,21 @@ msgstr ""
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:828 src/Views/Project.vala:1059
 #: src/Dialogs/ProjectSettings.vala:46
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
 #: src/Widgets/New.vala:83
 msgid "Area:"
-msgstr ""
+msgstr "Àrea:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
-msgstr ""
+msgstr "Color:"
 
 #: src/Widgets/New.vala:257 src/Widgets/NewItem.vala:87
 #: src/Widgets/ReminderButton.vala:208 src/Widgets/NewSection.vala:82
 #: src/Views/Inbox.vala:844 src/Views/Project.vala:1075
 msgid "Add"
-msgstr ""
+msgstr "Afegeix"
 
 #: src/Widgets/New.vala:262 src/Widgets/New.vala:660
 #: src/Widgets/NewItem.vala:92 src/Widgets/SectionRow.vala:128
@@ -410,27 +415,29 @@ msgstr ""
 #: src/Views/Inbox.vala:849 src/Views/Project.vala:164
 #: src/Views/Project.vala:1080
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·la"
 
 #: src/Widgets/New.vala:474
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/Widgets/New.vala:545 src/Widgets/ProjectRow.vala:445
 msgid "No Area"
-msgstr ""
+msgstr "Cap àrea"
 
 #: src/Widgets/New.vala:606
 msgid "Project"
-msgstr ""
+msgstr "Projecte"
 
 #: src/Widgets/New.vala:611
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
+"Inicieu un projecte nou, creeu una llista de pendents o organitzeu les "
+"vostres notes."
 
 #: src/Widgets/New.vala:637
 msgid "Area"
-msgstr ""
+msgstr "Àrea"
 
 #: src/Widgets/New.vala:642
 msgid "Organize your projects in groups and keep your panel clean."
@@ -438,7 +445,7 @@ msgstr ""
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:150
 msgid "Project Menu"
-msgstr ""
+msgstr "Menú de projectes"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
@@ -454,7 +461,7 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1317
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:855
 msgid "Edit"
-msgstr ""
+msgstr "Edita"
 
 #: src/Widgets/ProjectRow.vala:499
 msgid "Move to Area"
@@ -463,7 +470,7 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:503 src/Widgets/ItemRow.vala:1344
 #: src/Widgets/SectionRow.vala:596
 msgid "Share"
-msgstr ""
+msgstr "Comparteix"
 
 #: src/Widgets/ProjectRow.vala:507
 msgid "Send by e-mail"
@@ -482,42 +489,42 @@ msgstr ""
 #: src/Widgets/AreaRow.vala:538 src/Widgets/CheckRow.vala:79
 #: src/Views/Project.vala:858 src/Views/Project.vala:931
 msgid "Delete"
-msgstr ""
+msgstr "Suprimeix"
 
 #: src/Widgets/ProjectRow.vala:534 src/Views/Project.vala:926
 msgid "Delete project"
-msgstr ""
+msgstr "Suprimeix el projecte"
 
 #: src/Widgets/ProjectRow.vala:535 src/Widgets/SectionRow.vala:640
 #: src/Widgets/AreaRow.vala:526 src/Views/Project.vala:927
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Segur que voleu suprimir <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:205
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "Nom de la tasca"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1007
 msgid "View Details"
-msgstr ""
+msgstr "Mostra els detalls"
 
 #: src/Widgets/ItemRow.vala:374 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: src/Widgets/ItemRow.vala:422
 msgid "Add Checklist"
-msgstr ""
+msgstr "Afegeix una llista de comprovació"
 
 #: src/Widgets/ItemRow.vala:429
 msgid "Delete Task"
-msgstr ""
+msgstr "Suprimeix la tasca"
 
 #: src/Widgets/ItemRow.vala:442
 msgid "Task Menu"
-msgstr ""
+msgstr "Menú de tasques"
 
 #: src/Widgets/ItemRow.vala:986
 msgid "Hiding"
@@ -533,7 +540,7 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1333 src/Widgets/DueButton.vala:156
 msgid "Undated"
-msgstr ""
+msgstr "Sense datar"
 
 #: src/Widgets/ItemRow.vala:1336 src/Widgets/SectionRow.vala:592
 msgid "Move to Project"
@@ -545,7 +552,7 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1348
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/Widgets/ItemRow.vala:1355
 msgid "Duplicate"
@@ -553,7 +560,7 @@ msgstr ""
 
 #: src/Widgets/ItemCompletedRow.vala:39
 msgid "Content"
-msgstr ""
+msgstr "Contingut"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Due date"
@@ -573,17 +580,17 @@ msgstr ""
 
 #: src/Widgets/SectionRow.vala:92 src/Widgets/NewSection.vala:70
 msgid "Section name"
-msgstr ""
+msgstr "Nom de la secció"
 
 #: src/Widgets/SectionRow.vala:107
 msgid "Section Menu"
-msgstr ""
+msgstr "Menú de seccions"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:124 src/Widgets/AreaRow.vala:135
 #: src/Views/Project.vala:160 src/Dialogs/ProjectSettings.vala:255
 msgid "Save"
-msgstr ""
+msgstr "Desa"
 
 #: src/Widgets/SectionRow.vala:542 src/Widgets/SectionRow.vala:564
 #, c-format
@@ -592,23 +599,23 @@ msgstr ""
 
 #: src/Widgets/SectionRow.vala:586 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
-msgstr ""
+msgstr "Afegeix una tasca"
 
 #: src/Widgets/SectionRow.vala:589
 msgid "Rename"
-msgstr ""
+msgstr "Canvia el nom"
 
 #: src/Widgets/SectionRow.vala:590
 msgid "Add Note"
-msgstr ""
+msgstr "Afegeix una nota"
 
 #: src/Widgets/SectionRow.vala:639
 msgid "Delete section"
-msgstr ""
+msgstr "Suprimeix la secció"
 
 #: src/Widgets/SectionRow.vala:658
 msgid "Section deleted"
-msgstr ""
+msgstr "S’ha suprimit la secció"
 
 #: src/Widgets/DueButton.vala:43
 msgid "Due Date"
@@ -617,23 +624,23 @@ msgstr ""
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:476
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetes"
 
 #: src/Widgets/LabelButton.vala:46
 msgid "labels"
-msgstr ""
+msgstr "etiquetes"
 
 #: src/Widgets/LabelButton.vala:92
 msgid "Type a label"
-msgstr ""
+msgstr "Escriviu una etiqueta"
 
 #: src/Widgets/LabelButton.vala:119
 msgid "Edit labels"
-msgstr ""
+msgstr "Edita les etiquetes"
 
 #: src/Widgets/Toast.vala:88
 msgid "Undo"
-msgstr ""
+msgstr "Desfés"
 
 #: src/Widgets/AreaRow.vala:81 src/Widgets/AreaRow.vala:345
 msgid "Display Projects"
@@ -645,39 +652,39 @@ msgstr ""
 
 #: src/Widgets/AreaRow.vala:496
 msgid "Add project"
-msgstr ""
+msgstr "Afegeix un projecte"
 
 #: src/Widgets/AreaRow.vala:525
 msgid "Delete area"
-msgstr ""
+msgstr "Suprimeix l’àrea"
 
 #: src/Widgets/AreaRow.vala:533
 msgid "Delete projects"
-msgstr ""
+msgstr "Suprimeix els projectes"
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
-msgstr ""
+msgstr "Nom de la subtasca"
 
 #: src/Widgets/UpcomingRow.vala:67
 msgid "Add task"
-msgstr ""
+msgstr "Afegeix una tasca"
 
 #: src/Widgets/ReminderButton.vala:42
 msgid "Reminders"
-msgstr ""
+msgstr "Recordatoris"
 
 #: src/Widgets/ReminderButton.vala:164
 msgid "Add reminder"
-msgstr ""
+msgstr "Afegeix un recordatori"
 
 #: src/Widgets/ReminderButton.vala:199
 msgid "Time:"
-msgstr ""
+msgstr "Hora:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
-msgstr ""
+msgstr "Afegeix una etiqueta"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
@@ -689,31 +696,31 @@ msgstr ""
 
 #: src/Widgets/Calendar/CalendarWeek.vala:26
 msgid "Mon"
-msgstr ""
+msgstr "dl."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:29
 msgid "Tue"
-msgstr ""
+msgstr "dt."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:32
 msgid "Wed"
-msgstr ""
+msgstr "dc."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:35
 msgid "Thu"
-msgstr ""
+msgstr "dj."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:38
 msgid "Fri"
-msgstr ""
+msgstr "dv."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:41
 msgid "Sat"
-msgstr ""
+msgstr "ds."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:44
 msgid "Sun"
-msgstr ""
+msgstr "dg."
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
@@ -734,10 +741,11 @@ msgstr ""
 #: src/Views/Welcome.vala:30
 msgid "Synchronize with your Todoist account and start working."
 msgstr ""
+"Sincronitzeu amb el vostre compte del Todoist i comenceu a treballar-hi."
 
 #: src/Views/Inbox.vala:83 src/Views/Project.vala:114
 msgid "Add Section"
-msgstr ""
+msgstr "Afegeix una secció"
 
 #: src/Views/Inbox.vala:92
 msgid "Inbox comments"
@@ -745,7 +753,7 @@ msgstr ""
 
 #: src/Views/Inbox.vala:100 src/Views/Project.vala:139
 msgid "Search task"
-msgstr ""
+msgstr "Cerca a la tasca"
 
 #: src/Views/Inbox.vala:111
 msgid "Inbox Menu"
@@ -769,7 +777,7 @@ msgstr ""
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Quines tasques teniu al cap?"
 
 #: src/Views/Today.vala:86
 msgid "Tap + to add a task for today."
@@ -781,15 +789,15 @@ msgstr ""
 
 #: src/Views/Project.vala:131
 msgid "Project comments"
-msgstr ""
+msgstr "Comentaris del projecte"
 
 #: src/Views/Project.vala:191
 msgid "Add a description"
-msgstr ""
+msgstr "Afegeix una descripció"
 
 #: src/Views/Project.vala:201
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #: src/Views/Project.vala:315
 msgid "What will you accomplish?"
@@ -801,12 +809,12 @@ msgstr ""
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
-msgstr ""
+msgstr "S’està carregant…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:67 src/Dialogs/TodoistOAuth.vala:135
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "La xarxa no està disponible"
 
 #: src/Dialogs/TodoistOAuth.vala:68
 msgid "Connect to the Internet to connect with Todoist"
@@ -814,11 +822,11 @@ msgstr ""
 
 #: src/Dialogs/TodoistOAuth.vala:101
 msgid "Synchronizing… Wait a moment please."
-msgstr ""
+msgstr "S’està sincronitzant… Un moment."
 
 #: src/Dialogs/TodoistOAuth.vala:113
 msgid "Please enter your credentials…"
-msgstr ""
+msgstr "Introduïu les vostres dades d’accés…"
 
 #: src/Dialogs/ProjectSettings.vala:51
 msgid "Due:"
@@ -826,12 +834,12 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:226
 msgid "Uploading changes…"
-msgstr ""
+msgstr "S’estan pujant els canvis…"
 
 #: src/Dialogs/ProjectSettings.vala:253
 #: src/Dialogs/Preferences/Preferences.vala:78
 msgid "Close"
-msgstr ""
+msgstr "Tanca"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:87
@@ -854,39 +862,39 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:92
 #: src/Dialogs/Preferences/Preferences.vala:387
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: src/Dialogs/Preferences/Preferences.vala:93
 #: src/Dialogs/Preferences/Preferences.vala:436
 msgid "Quick Add"
-msgstr ""
+msgstr "Addició ràpida"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Add-ons"
-msgstr ""
+msgstr "Complements"
 
 #: src/Dialogs/Preferences/Preferences.vala:113
 #: src/Dialogs/Preferences/Preferences.vala:1042
 msgid "Calendar Events"
-msgstr ""
+msgstr "Esdeveniments del calendari"
 
 #: src/Dialogs/Preferences/Preferences.vala:115
 #: src/Dialogs/Preferences/Preferences.vala:449
 #: src/Dialogs/Preferences/Preferences.vala:847
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Dreceres del teclat"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:130
 #: src/Dialogs/Preferences/Preferences.vala:1216
 msgid "About"
-msgstr ""
+msgstr "Quant a"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr ""
+msgstr "Assistència i crèdits"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -894,10 +902,13 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Quan obriu el Planner, cercioreu-vos que veieu les tasques més importants. "
+"La pàgina d’inici per defecte és la vostra <b>safata d’entrada</b>, però "
+"podeu canviar-la segons el que desitgeu."
 
 #: src/Dialogs/Preferences/Preferences.vala:244 src/Dialogs/QuickFind.vala:351
 msgid "Projects"
-msgstr ""
+msgstr "Projectes"
 
 #: src/Dialogs/Preferences/Preferences.vala:317
 msgid ""
@@ -906,11 +917,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:327
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: src/Dialogs/Preferences/Preferences.vala:337
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Avui + safata d’entrada"
 
 #: src/Dialogs/Preferences/Preferences.vala:390
 msgid ""
@@ -920,11 +931,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:400
 msgid "Light"
-msgstr ""
+msgstr "Clar"
 
 #: src/Dialogs/Preferences/Preferences.vala:404
 msgid "Night"
-msgstr ""
+msgstr "Nocturn"
 
 #: src/Dialogs/Preferences/Preferences.vala:439
 msgid ""
@@ -936,23 +947,23 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:461
 #: src/Dialogs/Preferences/Preferences.vala:530
 msgid "Change"
-msgstr ""
+msgstr "Canvia"
 
 #: src/Dialogs/Preferences/Preferences.vala:489
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Desa l’últim projecte seleccionat"
 
 #: src/Dialogs/Preferences/Preferences.vala:528
 msgid "Press keys…"
-msgstr ""
+msgstr "Premeu tecles…"
 
 #: src/Dialogs/Preferences/Preferences.vala:583
 msgid "DE Integration"
-msgstr ""
+msgstr "Integració amb l’entorn d’escriptori"
 
 #: src/Dialogs/Preferences/Preferences.vala:587
 msgid "Run in background"
-msgstr ""
+msgstr "Executa en segon pla"
 
 #: src/Dialogs/Preferences/Preferences.vala:591
 msgid ""
@@ -963,7 +974,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:599
 msgid "Run on startup"
-msgstr ""
+msgstr "Executa en engegar"
 
 #: src/Dialogs/Preferences/Preferences.vala:603
 msgid "Enable this setting to make Planner startup with the system."
@@ -971,11 +982,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:620
 msgid "Button layout"
-msgstr ""
+msgstr "Disposició dels botons"
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: src/Dialogs/Preferences/Preferences.vala:631
 msgid "Create tutorial project"
@@ -983,7 +994,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:631
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 #: src/Dialogs/Preferences/Preferences.vala:633
 msgid "Danger zone"
@@ -992,11 +1003,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:637
 #: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Reset all"
-msgstr ""
+msgstr "Reinicialitza-ho tot"
 
 #: src/Dialogs/Preferences/Preferences.vala:637
 msgid "Reset"
-msgstr ""
+msgstr "Reinicialitza"
 
 #: src/Dialogs/Preferences/Preferences.vala:688
 msgid "Your tutorial project was created"
@@ -1004,7 +1015,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:698
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Segur que voleu reinicialitzar-ho tot?"
 
 #: src/Dialogs/Preferences/Preferences.vala:699
 msgid ""
@@ -1042,11 +1053,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:952
 #: src/Dialogs/Preferences/Preferences.vala:1007
 msgid "Log out"
-msgstr ""
+msgstr "Finalitza la sessió"
 
 #: src/Dialogs/Preferences/Preferences.vala:1002
 msgid "Are you sure you want to log out?"
-msgstr ""
+msgstr "Segur que voleu finalitzar la sessió?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1003
 msgid "This process will close your Todoist session on this device."
@@ -1103,20 +1114,20 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:315
 msgid "Tasks"
-msgstr ""
+msgstr "Tasques"
 
 #: src/Dialogs/QuickFind.vala:413
 msgid "Views"
-msgstr ""
+msgstr "Visualitzacions"
 
 #: src/Objects/Project.vala:119
 msgid "The Project was copied to the Clipboard."
-msgstr ""
+msgstr "S’ha copiat el projecte al porta-retalls."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "S’ha copiat la tasca al porta-retalls."
 
 #: src/Objects/Section.vala:117
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "S’ha copiat la secció al porta-retalls."
