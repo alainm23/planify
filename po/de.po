@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-02-26 11:33+0000\n"
-"Last-Translator: Alex Kager <alex@monochromatic.cc>\n"
+"PO-Revision-Date: 2020-03-28 22:09+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -187,9 +187,8 @@ msgstr ""
 "priorisieren sodass du weißt, worauf du dich wann konzentrieren musst."
 
 #: src/Utils.vala:677
-#, fuzzy
 msgid "Adding new tasks"
-msgstr "Neue Aufgabe anlegen"
+msgstr "Neue Aufgaben hinzufügen"
 
 #: src/Utils.vala:678
 #, fuzzy
