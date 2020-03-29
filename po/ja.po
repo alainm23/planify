@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-29 00:20+0000\n"
+"PO-Revision-Date: 2020-03-29 00:26+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
 "translations/ja/>\n"
@@ -762,7 +762,7 @@ msgstr "受信箱メニュー"
 
 #: src/Views/Inbox.vala:191
 msgid "All clear"
-msgstr "すべて消去"
+msgstr "受信箱は空です"
 
 #: src/Views/Inbox.vala:192
 msgid "Looks like everything's organized in the right place."
