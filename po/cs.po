@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-29 21:19+0000\n"
+"PO-Revision-Date: 2020-03-30 22:18+0000\n"
 "Last-Translator: 12people <contact.mirek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -25,7 +25,7 @@ msgstr "Nová oblast"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -905,20 +905,22 @@ msgstr "Projekty"
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
+"Vyberte, jaké položky by se měly započítávat do odznaku na ikoně aplikace."
 
 #: src/Dialogs/Preferences/Preferences.vala:327
 msgid "None"
-msgstr ""
+msgstr "Žádné"
 
 #: src/Dialogs/Preferences/Preferences.vala:337
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Dnes + Schránka"
 
 #: src/Dialogs/Preferences/Preferences.vala:390
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
+"Přizpůsobte si svůj Planner vybráním vzhledu, který vám vyhovuje nejvíce."
 
 #: src/Dialogs/Preferences/Preferences.vala:400
 msgid "Light"
@@ -934,6 +936,9 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work."
 msgstr ""
+"Nezáleží na tom, jakou aplikaci zrovna používáte. Můžete použít klávesovou "
+"zkratku, abyste otevřel/a okno Rychlého přidání, v němž můžete zadat "
+"plánovanou úlohu a rychle se vrátit k práci."
 
 #: src/Dialogs/Preferences/Preferences.vala:461
 #: src/Dialogs/Preferences/Preferences.vala:530
