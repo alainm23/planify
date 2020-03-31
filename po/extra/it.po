@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-12 16:03-0500\n"
-"PO-Revision-Date: 2020-02-24 20:40-0100\n"
+"PO-Revision-Date: 2020-03-31 18:40+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -188,22 +188,20 @@ msgid "🌙️ Night mode"
 msgstr "🌙️ Modalità notturna"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:52
-#, fuzzy
 msgid "Improved stability and some bug fixes."
 msgstr "Stabilità migliorata e alcune correzioni di bug"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:54
 msgid "Fixed the error showing next week's tasks in today's view"
-msgstr ""
+msgstr "Risolto l'errore che mostrava le attività della prossima settimana nella vista di oggi"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:55
 msgid "Fix focus when changing views"
-msgstr ""
+msgstr "Risolto lo stato attivo quando si cambia vista"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:56
-#, fuzzy
 msgid "Updated translations"
-msgstr "Aggiornata la traduzione spagnola"
+msgstr "Traduzioni aggiornate"
 
 #: data/com.github.alainm23.planner.appdata.xml.in:58
 #, fuzzy
@@ -283,7 +281,7 @@ msgstr "Miglioramenti visivi per le attività che sono già scadute."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:73
 msgid "The translations were updated."
-msgstr ""
+msgstr "Le traduzioni sono state aggiornate."
 
 #: data/com.github.alainm23.planner.appdata.xml.in:75
 #: data/com.github.alainm23.planner.appdata.xml.in:92
