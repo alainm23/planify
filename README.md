@@ -23,6 +23,9 @@
 ### Arch Linux
 [elementary-planner-git](https://aur.archlinux.org/packages/elementary-planner-git) are available in AUR thanks to @yochananmarqos.
 
+### Fedora
+[elementary-planner](https://src.fedoraproject.org/rpms/elementary-planner) are available in Fedora repos thanks to @tim77.
+
 ## Building
 
 You'll need the following dependencies:
