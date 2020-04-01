@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-30 23:58+0000\n"
+"PO-Revision-Date: 2020-04-02 01:48+0000\n"
 "Last-Translator: 12people <contact.mirek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -274,7 +274,7 @@ msgstr "Vytvořit novou sekci"
 
 #: src/Utils.vala:733
 msgid "Open the Inbox"
-msgstr "Otevřít Nástěnku"
+msgstr "Otevřít Příchozí"
 
 #: src/Utils.vala:734
 msgid "Open Today"
@@ -331,7 +331,7 @@ msgstr "Server momentálně nemůže požadavek zpracovat."
 #: src/Views/Inbox.vala:72 src/Dialogs/Preferences/Preferences.vala:223
 #: src/Dialogs/Preferences/Preferences.vala:331 src/Dialogs/QuickFind.vala:61
 msgid "Inbox"
-msgstr "Nástěnka"
+msgstr "Příchozí"
 
 #: src/Services/Notifications.vala:28
 msgid "task"
@@ -761,7 +761,7 @@ msgstr "Přidat sekci"
 
 #: src/Views/Inbox.vala:92
 msgid "Inbox comments"
-msgstr "Komentáře k Nástěnce"
+msgstr "Komentáře k Příchozím"
 
 #: src/Views/Inbox.vala:100 src/Views/Project.vala:139
 msgid "Search task"
@@ -769,7 +769,7 @@ msgstr ""
 
 #: src/Views/Inbox.vala:111
 msgid "Inbox Menu"
-msgstr "Menu Nástěnky"
+msgstr "Menu Příchozích"
 
 #: src/Views/Inbox.vala:191
 msgid "All clear"
@@ -931,7 +931,7 @@ msgstr "Žádné"
 
 #: src/Dialogs/Preferences/Preferences.vala:337
 msgid "Today + Inbox"
-msgstr "Dnes + Nástěnka"
+msgstr "Dnes + Příchozí"
 
 #: src/Dialogs/Preferences/Preferences.vala:390
 msgid ""
