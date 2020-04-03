@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-04-03 21:43+0000\n"
+"PO-Revision-Date: 2020-04-03 22:40+0000\n"
 "Last-Translator: 12people <contact.mirek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -1066,6 +1066,8 @@ msgid ""
 "All the shortcuts to save you time! Some can be used anywhere in the app, "
 "while others only work when adding or editing tasks."
 msgstr ""
+"Všechny zkratky vám šetří čas! Některé lze použít kdekoliv v aplikaci, "
+"zatímco jiné fungují jen při přidávání či upravování úkolů."
 
 #: src/Dialogs/Preferences/Preferences.vala:926
 #, c-format
@@ -1081,6 +1083,8 @@ msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Zapněte toto nastavení, aby se Planner automaticky synchronizoval s vaším "
+"Todoist účtem každých 15 minut."
 
 #: src/Dialogs/Preferences/Preferences.vala:952
 #: src/Dialogs/Preferences/Preferences.vala:1007
@@ -1089,11 +1093,11 @@ msgstr "Odhlásit se"
 
 #: src/Dialogs/Preferences/Preferences.vala:1002
 msgid "Are you sure you want to log out?"
-msgstr ""
+msgstr "Opravdu se chcete odhlásit?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1003
 msgid "This process will close your Todoist session on this device."
-msgstr ""
+msgstr "Tento proces uzavře vaši Todoist relaci na tomto zařízení."
 
 #: src/Dialogs/Preferences/Preferences.vala:1045
 msgid ""
@@ -1117,12 +1121,16 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
+"Planner je vyvíjen s ❤️ a zápalem pro open source. Pokud se vám ale líbí "
+"Planner a chcete podpořit jeho vývoj, zvažte finanční dar pomocí:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Děkujeme všem, kteří učinili dar pomocí Patreonu nebo PayPalu. (Pokud tu "
+"chcete mít jméno, navštivte náš účet na Patreonu 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
@@ -1147,6 +1155,8 @@ msgstr "Hledat"
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
+"Rychle přepněte mezi projekty a pohledy, najděte úkoly, vyhledejte dle "
+"štítků, ..."
 
 #: src/Dialogs/QuickFind.vala:315
 msgid "Tasks"
