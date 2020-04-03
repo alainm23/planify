@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-04-02 01:48+0000\n"
+"PO-Revision-Date: 2020-04-03 21:33+0000\n"
 "Last-Translator: 12people <contact.mirek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -356,6 +356,10 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
+"Panel Příchozí je výchozím místem, kam přidávat nové úkoly, abyste je mohl/a "
+"pustit z hlavy, pak se k nim vrátit a naplánovat, jak s nimi později "
+"naložit. Je to skvělý způsob, jak si utřídit myšlenky, abyste se mohl/a "
+"soustředit na cokoliv, na čem právě pracujete."
 
 #: src/Widgets/Pane.vala:73
 msgid ""
@@ -363,6 +367,9 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"Pohled Dnes vám umožňuje vidět všechny úkoly do dneška napříč projekty. "
+"Nahlédněte sem každé ráno, abyste si vytvořil/a realistický plán, jak si "
+"strukturovat den."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:351
@@ -376,6 +383,8 @@ msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
+"Naplánujte si dopředu svůj týden pomocí pohledu Nadcházející. Zobrazuje vše, "
+"co plánujete v příštích dnech: naplánované úkoly i události z kalendáře."
 
 #: src/Widgets/Pane.vala:82
 msgid "Add List"
