@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-28 22:09+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2020-04-03 19:16+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -191,15 +191,14 @@ msgid "Adding new tasks"
 msgstr "Neue Aufgaben hinzufügen"
 
 #: src/Utils.vala:678
-#, fuzzy
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
 "- Um eine neue Aufgabe in Todoist anzulegen, drücke + und klicke Enter.\n"
-"- Wenn deine Aufgabe erstellt wurde, klicke auf diese, um sie zu "
-"bearbeiten,  oder sie zu konfigurieren."
+"- Wenn deine Aufgabe erstellt wurde, klicke auf diese, um sie zu bearbeiten, "
+"oder sie zu konfigurieren."
 
 #: src/Utils.vala:684
 msgid "Due dates"
