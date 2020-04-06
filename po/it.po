@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-04-06 17:23+0000\n"
+"PO-Revision-Date: 2020-04-06 23:26+0000\n"
 "Last-Translator: Marco Barnà <marco.barna@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
@@ -140,9 +140,8 @@ msgid "Tomorrow"
 msgstr "Domani"
 
 #: src/Utils.vala:647
-#, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Ricerca veloce"
+msgstr "Inserimento Veloce Attivato!"
 
 #: src/Utils.vala:648
 #, c-format
@@ -522,7 +521,6 @@ msgstr "L'attività è stata spostata in <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1317
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:855
-#, fuzzy
 msgid "Edit"
 msgstr "Modifica"
 
@@ -878,7 +876,7 @@ msgstr "Che cosa vuoi realizzare?"
 
 #: src/Views/Project.vala:316
 msgid "Tap + to add a task to this project."
-msgstr ""
+msgstr "Premi + per aggiungere un'attività a questo progetto."
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -903,7 +901,7 @@ msgstr "Per cortesia inserisci le credenziali…"
 
 #: src/Dialogs/ProjectSettings.vala:51
 msgid "Due:"
-msgstr ""
+msgstr "Scadenza:"
 
 #: src/Dialogs/ProjectSettings.vala:226
 #, fuzzy
@@ -971,7 +969,7 @@ msgstr "Info"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr ""
+msgstr "Supporto e crediti"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -1023,21 +1021,22 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work."
 msgstr ""
+"Non ti preoccupare di quale app stai usando. Puoi usare le scorciatoie da "
+"tastiera per aprire la finestra Aggiungi Rapido, dove potrai inserire "
+"un'attività in sospeso e tornare velocemente a lavorare."
 
 #: src/Dialogs/Preferences/Preferences.vala:461
 #: src/Dialogs/Preferences/Preferences.vala:530
-#, fuzzy
 msgid "Change"
-msgstr "Arancione"
+msgstr "Cambiare"
 
 #: src/Dialogs/Preferences/Preferences.vala:489
-#, fuzzy
 msgid "Save Last Selected Project"
-msgstr "Elimina progetto"
+msgstr "Salva l'ultimo progetto selezionato"
 
 #: src/Dialogs/Preferences/Preferences.vala:528
 msgid "Press keys…"
-msgstr ""
+msgstr "Premi i tasti…"
 
 #: src/Dialogs/Preferences/Preferences.vala:583
 msgid "DE Integration"
@@ -1053,6 +1052,9 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
+"Abilita questa impostazione per mantenere Planner in funzione in background "
+"quando lo chiudi. Questo gli permette di continuare ad aggiornarsi ed "
+"inviare le notifiche."
 
 #: src/Dialogs/Preferences/Preferences.vala:599
 msgid "Run on startup"
@@ -1061,10 +1063,12 @@ msgstr "Eseguire all'avvio"
 #: src/Dialogs/Preferences/Preferences.vala:603
 msgid "Enable this setting to make Planner startup with the system."
 msgstr ""
+"Abilita questa impostazione per permettere a Planner di avviarsi con l'avvio "
+"del sistema."
 
 #: src/Dialogs/Preferences/Preferences.vala:620
 msgid "Button layout"
-msgstr ""
+msgstr "Layout dei tasti"
 
 #: src/Dialogs/Preferences/Preferences.vala:627
 msgid "Help"
@@ -1107,7 +1111,7 @@ msgid ""
 "it."
 msgstr ""
 "Questo processo rimuove tutte le informazioni memorizzate senza la "
-"possibilità diannullarlo."
+"possibilità di annullarlo."
 
 #: src/Dialogs/Preferences/Preferences.vala:724
 msgid ""
@@ -1124,7 +1128,7 @@ msgid ""
 "while others only work when adding or editing tasks."
 msgstr ""
 "Tutte le scorciatoie per farti risparmiare tempo! Alcune possono essere "
-"utilizzate ovunque nell'app,mentre le altre funzionano solo quando si "
+"utilizzate ovunque nell'app, mentre le altre funzionano solo quando si "
 "aggiungono o modificano attività."
 
 #: src/Dialogs/Preferences/Preferences.vala:926
@@ -1134,7 +1138,7 @@ msgstr "Ultima sincronizzazione riuscita: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:935
 msgid "Sync server"
-msgstr ""
+msgstr "Sync del server"
 
 #: src/Dialogs/Preferences/Preferences.vala:940
 msgid ""
@@ -1176,13 +1180,12 @@ msgid "Enabled"
 msgstr "Abilitato"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
-#, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Se ti piace Planner e vuoi supportarne lo sviluppo, considerauna donazione "
+"Se ti piace Planner e vuoi supportarne lo sviluppo, considera una donazione "
 "tramite:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1150
@@ -1190,6 +1193,8 @@ msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Grazie alle persone che hanno donato via Patreon o PayPal. (Se vuoi apparire "
+"qui visita il nostro account Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 msgid "Report a Problem"
@@ -1216,20 +1221,20 @@ msgstr "Apri Ricerca"
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
+"Cambia velocemente tra progetti e viste, trova le attività, ricerca per "
+"etichetta...."
 
 #: src/Dialogs/QuickFind.vala:315
-#, fuzzy
 msgid "Tasks"
-msgstr "compiti"
+msgstr "Attività"
 
 #: src/Dialogs/QuickFind.vala:413
 msgid "Views"
-msgstr ""
+msgstr "Viste"
 
 #: src/Objects/Project.vala:119
-#, fuzzy
 msgid "The Project was copied to the Clipboard."
-msgstr "L'attività è stata copiata negli Appunti."
+msgstr "Il progetto è stata copiato negli Appunti."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 #, fuzzy
@@ -1237,9 +1242,8 @@ msgid "The Task was copied to the Clipboard."
 msgstr "L'attività è stata copiata negli Appunti."
 
 #: src/Objects/Section.vala:117
-#, fuzzy
 msgid "The Section was copied to the Clipboard."
-msgstr "L'attività è stata copiata negli Appunti."
+msgstr "La sezione è stata copiata negli Appunti."
 
 #~ msgid "Back-Pocket"
 #~ msgstr "Tasca posteriore"
