@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-04-03 19:16+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2020-04-06 17:23+0000\n"
+"Last-Translator: Marco Barnà <marco.barna@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -147,7 +147,7 @@ msgstr "Ricerca veloce"
 #: src/Utils.vala:648
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Prova %s per attivarlo. Puoi cambiarlo anche dalle preferenze"
 
 #: src/Utils.vala:665
 msgid "🚀️ Getting Started"
@@ -161,7 +161,7 @@ msgid ""
 msgstr ""
 "Questo progetto ti aiuterà a imparare le basi di Planner ed iniziare con un "
 "semplice sistema di gestione delle attività per rimanere organizzato su "
-"quello chedevi fare."
+"quello che devi fare."
 
 #: src/Utils.vala:671
 msgid "Keeping track of your tasks"
@@ -178,10 +178,10 @@ msgid ""
 msgstr ""
 "Si scopre che i nostri cervelli sono in realtà cablati per farci pensare ai "
 "nostri compiti incompiuti. Pratico quando hai una cosa su cui devi lavorare. "
-"Non cosìbene quando hai più di 30 compiti in lizza per la tua attenzione "
-"contemporaneamente. Ecco perchéil primo passo per organizzare il tuo lavoro "
-"e la tua vita è ottenere tutto dallatua testa e il tuo elenco di cose da "
-"fare. Da lì puoi iniziare a organizzare lapriorità in modo da sapere "
+"Non così bene quando hai più di 30 compiti in lizza per la tua attenzione "
+"contemporaneamente. Ecco perché il primo passo per organizzare il tuo lavoro "
+"e la tua vita è ottenere tutto dalla tua testa e il tuo elenco di cose da "
+"fare. Da lì puoi iniziare a organizzare le priorità in modo da sapere "
 "esattamente su cosa si deve concentrarsi e quando."
 
 #: src/Utils.vala:677
@@ -197,7 +197,7 @@ msgid ""
 msgstr ""
 "- Per aggiungere una nuova attività a Planner, fai clic su + e premi Invio.\n"
 "- Quando viene creata l'attività, fare clic sull'attività per poterla "
-"modificare, aggiungere unanota o alcune altre opzioni."
+"modificare, aggiungere una nota o alcune altre opzioni."
 
 #: src/Utils.vala:684
 #, fuzzy
@@ -212,8 +212,8 @@ msgid ""
 "\"undate\" option."
 msgstr ""
 "- Se sai che devi eseguire l'attività in un determinato giorno, fai clic "
-"suicona del calendario e seleziona una data.\n"
-"- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona"
+"sull'icona del calendario e seleziona una data.\n"
+"- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona "
 "\"l'opzione\" senza data."
 
 #: src/Utils.vala:691
@@ -237,8 +237,8 @@ msgstr ""
 "creando un sito Web, crea un progetto in modo che tutti i dettagli "
 "importanti vengano salvati in un posto centrale.\n"
 "- Nel menu di navigazione a sinistra, in basso, fai clic sul simbolo.\n"
-"- Nel menu delle opzioni seleziona Progetto'e digita il nome del tuo "
-"nuovoProgetto.\n"
+"- Nel menu delle opzioni seleziona Progetto e digita il nome del tuo nuovo "
+"Progetto.\n"
 "- Seleziona una fonte dal menu a discesa.\n"
 "- (Facoltativo) Seleziona un colore di progetto diverso dall'elenco dei "
 "colori.\n"
@@ -267,12 +267,12 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 "- È sempre più facile affrontare un grande progetto quando lo dividi "
-"facilmente inparti gestibili utilizzando le sezioni di Planner.\n"
+"facilmente in parti gestibili utilizzando le sezioni di Planner.\n"
 "- Organizza i tuoi progetti con sezioni per raggruppare le attività e "
-"ottenereuna migliore panoramica di ciò che deve essere fatto. Aggiungi "
-"sezioni al tuo progettotrascina le attività pertinenti nella sezione di "
-"appartenenza e la troveraimolto più facile per fare progressi (invece di "
-"essere sopraffatto da una singola lungaLista).\n"
+"ottenere una migliore panoramica di ciò che deve essere fatto. Aggiungi "
+"sezioni al tuo progetto trascina le attività pertinenti nella sezione di "
+"appartenenza e la troverai molto più facile per fare progressi (invece di "
+"essere sopraffatto da una singola lunga lista).\n"
 "- In alto a destra di un progetto, fai clic sull'icona +.\n"
 "- Digita il nome della sezione e fai clic su Aggiungi."
 
@@ -329,32 +329,33 @@ msgstr "Esci"
 
 #: src/Utils.vala:746
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La richiesta è incorretta."
 
 #: src/Utils.vala:747
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"L'autenticazione è richiesta, ed ha fallito, oppure non è stata ancora data."
 
 #: src/Utils.vala:748
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "La richiesta è valida, però per qualcosa di non permesso."
 
 #: src/Utils.vala:749
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Le risorse richieste non sono state trovate."
 
 #: src/Utils.vala:750
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "L'utente ha inviato troppe richieste in un tempo molto breve."
 
 #: src/Utils.vala:751
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "La richiesta è fallita a seguito di un errore del server."
 
 #: src/Utils.vala:752
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Il server attualmente non può gestire la tua richiesta."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:969 src/Widgets/Pane.vala:65
@@ -388,10 +389,10 @@ msgid ""
 "you’re doing right now."
 msgstr ""
 "La Posta in arrivo è il luogo predefinito in cui aggiungere nuove attività "
-"in modo da poterle estrarrenella tua testa rapidamente, poi torna indietro e "
-"fai un piano per prenderti cura di loropiù tardi. È un ottimo modo per far "
-"decadere la mente in modo che tu possa concentrarti su qualunque cosastai "
-"facendo proprio ora."
+"in modo da poterle estrarre nella tua testa rapidamente, poi torna indietro "
+"e fai un piano per prenderti cura di loro più tardi. È un ottimo modo per "
+"far decadere la mente in modo che tu possa concentrarti su qualunque cosa "
+"stai facendo proprio ora."
 
 #: src/Widgets/Pane.vala:73
 msgid ""
@@ -400,8 +401,8 @@ msgid ""
 "your day."
 msgstr ""
 "La vista Oggi ti consente di vedere tutte le attività che dovresti ricevere "
-"oggi in tutti i tuoiprogetti. Fai il check-in qui ogni mattina per fare un "
-"piano realistico per affrontarela tua giornata."
+"oggi in tutti i tuoi progetti. Fai il check-in qui ogni mattina per fare un "
+"piano realistico per affrontare la tua giornata."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:351
@@ -416,7 +417,7 @@ msgid ""
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 "Pianifica la tua settimana in anticipo con la vista Imminente. Mostra tutto "
-"sulla tuaagenda per i prossimi giorni: cose da fare e eventi del calendario "
+"sulla tua agenda per i prossimi giorni: cose da fare e eventi del calendario "
 "programmati."
 
 #: src/Widgets/Pane.vala:82
@@ -447,7 +448,7 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 "Sembra che tu non sia connesso a\n"
-"Internet.Le modifiche apportate in modalità offline\n"
+"Internet. Le modifiche apportate in modalità offline\n"
 "verranno sincronizzate quando ti riconnetti"
 
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:828 src/Views/Project.vala:1059
@@ -456,9 +457,8 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: src/Widgets/New.vala:83
-#, fuzzy
 msgid "Area:"
-msgstr "Area"
+msgstr "Area:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
@@ -481,7 +481,7 @@ msgstr "Annulla"
 
 #: src/Widgets/New.vala:474
 msgid "Local"
-msgstr ""
+msgstr "Locale"
 
 #: src/Widgets/New.vala:545 src/Widgets/ProjectRow.vala:445
 msgid "No Area"
@@ -506,9 +506,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organizza i tuoi progetti in gruppo e mantieni pulito il pannello."
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:150
-#, fuzzy
 msgid "Project Menu"
-msgstr "Progetto"
+msgstr "Menù Progetto"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
@@ -519,7 +518,7 @@ msgstr "Progetto locale"
 #: src/Widgets/SectionRow.vala:767
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr ""
+msgstr "L'attività è stata spostata in <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1317
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:855
@@ -528,9 +527,8 @@ msgid "Edit"
 msgstr "Modifica"
 
 #: src/Widgets/ProjectRow.vala:499
-#, fuzzy
 msgid "Move to Area"
-msgstr "Muovi a progetto"
+msgstr "Sposta nell' area"
 
 #: src/Widgets/ProjectRow.vala:503 src/Widgets/ItemRow.vala:1344
 #: src/Widgets/SectionRow.vala:596
@@ -539,13 +537,13 @@ msgstr "Condividi"
 
 #: src/Widgets/ProjectRow.vala:507
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Invia per e-mail"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:508 src/Widgets/ItemRow.vala:1349
 #: src/Widgets/SectionRow.vala:601
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:514 src/Widgets/ProjectRow.vala:539
@@ -569,12 +567,11 @@ msgstr "Sei sicuro di voler eliminare <b>%s</b>?"
 #: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:205
 #: src/Widgets/AreaRow.vala:110 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr "Nome task"
+msgstr "Nome attività"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1007
-#, fuzzy
 msgid "View Details"
-msgstr "Mostra / Nascondi task"
+msgstr "Mostra / Nascondi attività"
 
 #: src/Widgets/ItemRow.vala:374 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
@@ -586,14 +583,12 @@ msgid "Add Checklist"
 msgstr "Aggiungi checklist"
 
 #: src/Widgets/ItemRow.vala:429
-#, fuzzy
 msgid "Delete Task"
-msgstr "Elimina task"
+msgstr "Elimina attività"
 
 #: src/Widgets/ItemRow.vala:442
-#, fuzzy
 msgid "Task Menu"
-msgstr "Nome task"
+msgstr "Nome attività"
 
 #: src/Widgets/ItemRow.vala:986
 #, fuzzy
@@ -614,9 +609,8 @@ msgid "Undated"
 msgstr "Senza data"
 
 #: src/Widgets/ItemRow.vala:1336 src/Widgets/SectionRow.vala:592
-#, fuzzy
 msgid "Move to Project"
-msgstr "Muovi a progetto"
+msgstr "Sposta in progetto"
 
 #: src/Widgets/ItemRow.vala:1340
 #, fuzzy
@@ -645,7 +639,7 @@ msgstr "Data completamento"
 
 #: src/Widgets/SectionRow.vala:73 src/Widgets/SectionRow.vala:690
 msgid "Display Tasks"
-msgstr ""
+msgstr "Mostra attività"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/SectionRow.vala:695
 #, fuzzy
@@ -670,16 +664,15 @@ msgstr "Salva"
 #: src/Widgets/SectionRow.vala:542 src/Widgets/SectionRow.vala:564
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr ""
+msgstr "Sezione spostata in <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:586 src/Widgets/MagicButton.vala:32
-#, fuzzy
 msgid "Add Task"
-msgstr "Aggiungi task"
+msgstr "Aggiungi attività"
 
 #: src/Widgets/SectionRow.vala:589
 msgid "Rename"
-msgstr ""
+msgstr "Rinomina"
 
 #: src/Widgets/SectionRow.vala:590
 #, fuzzy
@@ -691,9 +684,8 @@ msgid "Delete section"
 msgstr "Elimina sezione"
 
 #: src/Widgets/SectionRow.vala:658
-#, fuzzy
 msgid "Section deleted"
-msgstr "Nome sezione"
+msgstr "Sezione cancellata"
 
 #: src/Widgets/DueButton.vala:43
 msgid "Due Date"
@@ -721,19 +713,16 @@ msgid "Undo"
 msgstr "Annulla"
 
 #: src/Widgets/AreaRow.vala:81 src/Widgets/AreaRow.vala:345
-#, fuzzy
 msgid "Display Projects"
-msgstr "Progetti"
+msgstr "Mostra Progetti"
 
 #: src/Widgets/AreaRow.vala:125 src/Widgets/AreaRow.vala:350
-#, fuzzy
 msgid "Hiding Projects"
-msgstr "Progetti"
+msgstr "Nascondi Progetti"
 
 #: src/Widgets/AreaRow.vala:496
-#, fuzzy
 msgid "Add project"
-msgstr "Progetto"
+msgstr "Aggiungi Progetto"
 
 #: src/Widgets/AreaRow.vala:525
 msgid "Delete area"
@@ -744,13 +733,12 @@ msgid "Delete projects"
 msgstr "Elimina progetti"
 
 #: src/Widgets/NewCheck.vala:73
-#, fuzzy
 msgid "Subtask name"
-msgstr "Nome task"
+msgstr "Nome sotto-attività"
 
 #: src/Widgets/UpcomingRow.vala:67
 msgid "Add task"
-msgstr "Aggiungi task"
+msgstr "Aggiungi attività"
 
 #: src/Widgets/ReminderButton.vala:42
 msgid "Reminders"
@@ -765,9 +753,8 @@ msgid "Time:"
 msgstr "Ora:"
 
 #: src/Widgets/NewLabel.vala:42
-#, fuzzy
 msgid "Add Label"
-msgstr "Etichette"
+msgstr "Aggiungi etichetta"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
@@ -836,7 +823,7 @@ msgstr "Commenti Inbox"
 
 #: src/Views/Inbox.vala:100 src/Views/Project.vala:139
 msgid "Search task"
-msgstr "Ricerca task"
+msgstr "Ricerca attività"
 
 #: src/Views/Inbox.vala:111
 #, fuzzy
@@ -845,16 +832,15 @@ msgstr "Commenti Inbox"
 
 #: src/Views/Inbox.vala:191
 msgid "All clear"
-msgstr ""
+msgstr "Tutto cancellato"
 
 #: src/Views/Inbox.vala:192
 msgid "Looks like everything's organized in the right place."
-msgstr ""
+msgstr "A quanto pare tutto è stato organizzato nel verso giusto."
 
 #: src/Views/Inbox.vala:771 src/Views/Project.vala:867
-#, fuzzy
 msgid "Show Completed"
-msgstr "Mostra task completati"
+msgstr "Mostra completati"
 
 #: src/Views/Inbox.vala:939 src/Views/Project.vala:1024
 #, fuzzy
@@ -863,11 +849,11 @@ msgstr "Data completamento"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Quale attività hai in mente?"
 
 #: src/Views/Today.vala:86
 msgid "Tap + to add a task for today."
-msgstr ""
+msgstr "Premi + per aggiungere un'attività odierna."
 
 #: src/Views/Project.vala:122
 msgid "Invite person"
@@ -878,9 +864,8 @@ msgid "Project comments"
 msgstr "Commenti progetto"
 
 #: src/Views/Project.vala:191
-#, fuzzy
 msgid "Add a description"
-msgstr "Aggiungi sezione"
+msgstr "Aggiungi una descrizione"
 
 #: src/Views/Project.vala:201
 #, fuzzy
@@ -889,7 +874,7 @@ msgstr "Elimina sezione"
 
 #: src/Views/Project.vala:315
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Che cosa vuoi realizzare?"
 
 #: src/Views/Project.vala:316
 msgid "Tap + to add a task to this project."
