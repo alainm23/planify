@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-04-06 23:26+0000\n"
+"PO-Revision-Date: 2020-04-06 23:53+0000\n"
 "Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: src/Utils.vala:196
 msgid "Yellow"
-msgstr ""
+msgstr "Flava"
 
 #: src/Utils.vala:197
 msgid "Olive Green"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: src/Utils.vala:199
 msgid "Green"
-msgstr ""
+msgstr "Verda"
 
 #: src/Utils.vala:200
 msgid "Mint Green"
@@ -93,11 +93,11 @@ msgstr ""
 
 #: src/Utils.vala:204
 msgid "Blue"
-msgstr ""
+msgstr "Blua"
 
 #: src/Utils.vala:205
 msgid "Grape"
-msgstr ""
+msgstr "Uvo"
 
 #: src/Utils.vala:206
 msgid "Violet"
@@ -121,7 +121,7 @@ msgstr ""
 
 #: src/Utils.vala:211
 msgid "Grey"
-msgstr ""
+msgstr "Griza"
 
 #: src/Utils.vala:212
 msgid "Taupe"
@@ -132,21 +132,21 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:68
 msgid "Today"
-msgstr ""
+msgstr "Hodiaŭ"
 
 #: src/Utils.vala:532 src/Widgets/Pane.vala:349 src/Widgets/ItemRow.vala:1330
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "Morgaŭ"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
 msgstr ""
 
 #: src/Utils.vala:648
-#, c-format
+#, c-format, fuzzy
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Provu %s por aktivigi ĝin. Vi povas sanĝi ĝin from the preferences"
 
 #: src/Utils.vala:665
 msgid "🚀️ Getting Started"
