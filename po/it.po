@@ -437,13 +437,12 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Descrizione"
+msgstr "Descrizione:"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Cartella:"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 msgid "Color:"
@@ -469,7 +468,7 @@ msgstr "Locale"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr ""
+msgstr "Nessuna Cartella"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -483,7 +482,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
@@ -496,7 +495,7 @@ msgstr "Chiudi"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr ""
+msgstr "Nuova Cartella"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -678,23 +677,23 @@ msgstr "Data di scadenza"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr ""
+msgstr "Ripeti"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
-msgstr ""
+msgstr "Ogni giorno"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every week"
-msgstr ""
+msgstr "Ogni settimana"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every month"
-msgstr ""
+msgstr "Ogni mese"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every year"
-msgstr ""
+msgstr "Ogni anno"
 
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
@@ -729,7 +728,7 @@ msgstr "Task completato"
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Completato. Prossima occorrenza:%s"
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
 msgid "Display Projects"
@@ -1217,7 +1216,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Sito Web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
 #, fuzzy
