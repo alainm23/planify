@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
 "PO-Revision-Date: 2020-04-07 15:18+0000\n"
-"Last-Translator: Tomáš Marhoun <tmarhoun@email.cz>\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -230,6 +230,14 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Ať už plánujete prezentaci, připravujete oslavu nebo vytváříte webovou "
+"stránku, založte projekt, a tak mějte všechny důležité detaily na jednom "
+"místě.\n"
+"- V navigačním menu vlevo dole klikněte na symbol +.\n"
+"- V menu voleb vyberte \"Projekt\" a napište název svého nového projektu.\n"
+"- Vyberte zdroj v rozbalovacím menu.\n"
+"- (Volitelně) Zvolte si barvu projektu z nabídky barev.\n"
+"- Klikněte na tlačítko přidat pro vytvoření projektu."
 
 #: src/Utils.vala:817
 msgid "Sections"
@@ -1188,12 +1196,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Webová stránka"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
-#, fuzzy
 msgid "Follow"
-msgstr "Žlutá"
+msgstr "Sledovat"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Report a Problem"
