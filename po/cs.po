@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-03 22:40+0000\n"
-"Last-Translator: 12people <contact.mirek@protonmail.com>\n"
+"PO-Revision-Date: 2020-04-07 15:13+0000\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -251,6 +251,15 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Vždy je jednodušší vzládnout velký projekt, když si ho rozdělíte na menší "
+"a jednodušší části s použitím sekcí v Planneru.\n"
+"- Uspořádejte si projekty se sekcemi tak, abyste měli všechny úkoly "
+"pohromadě a získejte přehled toho, co je ještě třeba udělat. Přidejte sekce "
+"do vašeho projektu, přetáhněte příslušný úkol do sekce ke které patří a "
+"zjistíte, že je jednodušší dělat pokroky (nebudete zahlceni zdánlivě "
+"nekonečným seznamem).\n"
+"- U projektu vpravo nahoře klikněte na symbol +.\n"
+"- Napište název sekce a klikněte na Přidat."
 
 #: src/Utils.vala:843
 msgid "Create a new task"
@@ -414,13 +423,12 @@ msgid "Name:"
 msgstr "Název:"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Popis"
+msgstr "Popis:"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Složka:"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 msgid "Color:"
@@ -446,7 +454,7 @@ msgstr "Místní"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr ""
+msgstr "Bez složky"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -458,7 +466,7 @@ msgstr "Založte nový projekt, vytvořte seznam úkolů, organizujte své pozn�
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Složka"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
@@ -471,7 +479,7 @@ msgstr "Zavřít"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr ""
+msgstr "Nová složka"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -494,9 +502,8 @@ msgid "Edit"
 msgstr "Upravit"
 
 #: src/Widgets/ProjectRow.vala:493
-#, fuzzy
 msgid "Move to Folder"
-msgstr "Přesunout do oblasti"
+msgstr "Přesunout do složky"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1351
 #: src/Widgets/SectionRow.vala:660
@@ -653,23 +660,23 @@ msgstr "Datum do"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr ""
+msgstr "Opakovat"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
-msgstr ""
+msgstr "Každý den"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every week"
-msgstr ""
+msgstr "Každý týden"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every month"
-msgstr ""
+msgstr "Každý měsíc"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every year"
-msgstr ""
+msgstr "Každý rok"
 
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
@@ -693,9 +700,8 @@ msgid "Undo"
 msgstr "Vrátit zpět"
 
 #: src/Widgets/Toast.vala:246
-#, fuzzy
 msgid "Task deleted"
-msgstr "Úkol hotový"
+msgstr "Úkol vymazaný"
 
 #: src/Widgets/Toast.vala:248 src/Views/Inbox.vala:932
 msgid "Task completed"
@@ -719,9 +725,8 @@ msgid "Add project"
 msgstr "Přidat projekt"
 
 #: src/Widgets/AreaRow.vala:531
-#, fuzzy
 msgid "Delete folder"
-msgstr "Odstranit projekt"
+msgstr "Odstranit složku"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -817,7 +822,7 @@ msgstr "Komentáře k Příchozím"
 
 #: src/Views/Inbox.vala:100 src/Views/Project.vala:172
 msgid "Search task"
-msgstr ""
+msgstr "Vyhledat úkol"
 
 #: src/Views/Inbox.vala:111
 msgid "Inbox Menu"
@@ -825,7 +830,7 @@ msgstr "Menu Příchozích"
 
 #: src/Views/Inbox.vala:191
 msgid "All clear"
-msgstr ""
+msgstr "Vše vyčistit"
 
 #: src/Views/Inbox.vala:192
 msgid "Looks like everything's organized in the right place."
@@ -870,20 +875,19 @@ msgstr "Klikněte na +, abyste přidal/a úkol do tohoto projektu."
 #: src/Views/Project.vala:779
 #, c-format
 msgid "Project's progress: %s"
-msgstr ""
+msgstr "Postup v projektu: %s"
 
 #: src/Views/Project.vala:1166
 msgid "Productivity"
-msgstr ""
+msgstr "Produktivita"
 
 #: src/Views/Project.vala:1171
 msgid "Progress:"
-msgstr ""
+msgstr "Postup:"
 
 #: src/Views/Project.vala:1182
-#, fuzzy
 msgid "Due date:"
-msgstr "Datum do"
+msgstr "Do dne:"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -1101,7 +1105,7 @@ msgstr "Opravdu chcete resetovat vše?"
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
-msgstr ""
+msgstr "Toto odstraní veškeré uložené informace bez možnosti vrátit je."
 
 #: src/Dialogs/Preferences/Preferences.vala:724
 msgid ""
