@@ -5,12 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-03-31 18:10+0100\n"
-"Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
-"Language-Team: Zorinos\n"
-"Language: italian\n"
+"PO-Revision-Date: 2020-04-08 06:08+0000\n"
+"Last-Translator: Marco Bottacin <westdam@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
+"translations/it/>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -76,7 +77,7 @@ msgstr "Verde"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr "Menta Verde"
+msgstr "Verde Menta"
 
 #: src/Utils.vala:202
 msgid "Teal"
@@ -166,6 +167,7 @@ msgid "Keeping track of your tasks"
 msgstr "Tenere traccia delle tue attività"
 
 #: src/Utils.vala:787
+#, fuzzy
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -331,7 +333,7 @@ msgstr "La richiesta era valida, ma per qualcosa che è proibito."
 
 #: src/Utils.vala:864
 msgid "The requested resource could not be found."
-msgstr "La risorsa richiesta non è stata trovata"
+msgstr "La risorsa richiesta non è stata trovata."
 
 #: src/Utils.vala:865
 msgid "The user has sent too many requests in a given amount of time."
@@ -437,13 +439,12 @@ msgid "Name:"
 msgstr "Nome:"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Descrizione"
+msgstr "Descrizione:"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Cartella:"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 msgid "Color:"
@@ -469,7 +470,7 @@ msgstr "Locale"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr ""
+msgstr "Nessuna Cartella"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -483,7 +484,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
@@ -496,7 +497,7 @@ msgstr "Chiudi"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr ""
+msgstr "Nuova Cartella"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -678,23 +679,23 @@ msgstr "Data di scadenza"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr ""
+msgstr "Ripetizione"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
-msgstr ""
+msgstr "Ogni giorno"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every week"
-msgstr ""
+msgstr "Ogni settimana"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every month"
-msgstr ""
+msgstr "Ogni mese"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every year"
-msgstr ""
+msgstr "Ogni anno"
 
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
@@ -718,9 +719,8 @@ msgid "Undo"
 msgstr "Annulla"
 
 #: src/Widgets/Toast.vala:246
-#, fuzzy
 msgid "Task deleted"
-msgstr "Task completato"
+msgstr "Attività cancellata"
 
 #: src/Widgets/Toast.vala:248 src/Views/Inbox.vala:932
 msgid "Task completed"
@@ -729,7 +729,7 @@ msgstr "Task completato"
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Completato. Prossima ricorrenza %s"
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
 msgid "Display Projects"
@@ -744,9 +744,8 @@ msgid "Add project"
 msgstr "Aggiungi Progetto"
 
 #: src/Widgets/AreaRow.vala:531
-#, fuzzy
 msgid "Delete folder"
-msgstr "Elimina progetto"
+msgstr "Elimina cartella"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -895,20 +894,19 @@ msgstr "Tocca + per aggiungere un'attività a questo progetto."
 #: src/Views/Project.vala:779
 #, c-format
 msgid "Project's progress: %s"
-msgstr ""
+msgstr "Progresso del progetto: %s"
 
 #: src/Views/Project.vala:1166
 msgid "Productivity"
-msgstr ""
+msgstr "Produttività"
 
 #: src/Views/Project.vala:1171
 msgid "Progress:"
-msgstr ""
+msgstr "Progresso:"
 
 #: src/Views/Project.vala:1182
-#, fuzzy
 msgid "Due date:"
-msgstr "Data di scadenza"
+msgstr "Data di scadenza:"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -953,9 +951,8 @@ msgstr "Homepage"
 
 #: src/Dialogs/Preferences/Preferences.vala:91
 #: src/Dialogs/Preferences/Preferences.vala:314
-#, fuzzy
 msgid "Badge Count"
-msgstr "Contatore badge"
+msgstr "Segnalino Contatore"
 
 #: src/Dialogs/Preferences/Preferences.vala:92
 #: src/Dialogs/Preferences/Preferences.vala:387
@@ -1217,12 +1214,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Sito Web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
-#, fuzzy
 msgid "Follow"
-msgstr "Giallo"
+msgstr "Segui"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Report a Problem"
