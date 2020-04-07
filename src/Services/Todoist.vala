@@ -2020,7 +2020,7 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "item_add";
                         queue.args = item.to_json ();
 
-                        if (Planner.database.insert_item (item) &&
+                        if (Planner.database.insert_item (item, index, has_index) &&
                             Planner.database.insert_queue (queue) &&
                             Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed (temp_id_mapping);

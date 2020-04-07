@@ -407,7 +407,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
     private void check_network () {
         var available = GLib.NetworkMonitor.get_default ().get_network_available ();
-        
+
         if (available) {
             sync_button.tooltip_text = _("Sync");
             sync_button.image = sync_image;

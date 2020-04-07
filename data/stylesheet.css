@@ -19,6 +19,10 @@ textview {
     caret-color: #3689e6;
 }
 
+progressbar trough {
+    border-radius: 4px;
+}
+
 button {
     border-radius: 4px;
 }
@@ -47,6 +51,10 @@ menu image {
 
 window.popup {
     border-radius: 7px;
+}
+
+window.rounded decoration {
+    border-radius: 4px;
 }
 
 window.popup decoration {
@@ -899,4 +907,33 @@ paned.horizontal > separator {
 
 .edi-label-button {
     border-radius: 0px 3px 3px 0px;
+}
+
+.project-progress-view {
+    border-radius: 50%;
+    border: 1.5px solid @text_color;
+}
+
+.close-button {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade(@error_color, 1.3),
+            @error_color
+        );
+    border: 1px solid shade(@error_color, 0.9);
+    border-radius: 50%;
+    padding: 3px;
+    color: #fff;
+}
+
+.notification-image {
+    background-color: @bg_color;
+    padding: 3px;
+    border-radius: 4px;
+    color: @text_color;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
 }

@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-04-06 23:53+0000\n"
+"Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
+"Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
+"translations/eo/>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:716
 msgid "New area"
@@ -27,11 +29,11 @@ msgstr ""
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Hejmo"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "Oficejo"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
@@ -39,7 +41,7 @@ msgstr ""
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "Grava"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
@@ -51,7 +53,7 @@ msgstr ""
 
 #: src/Utils.vala:194
 msgid "Red"
-msgstr ""
+msgstr "Ruĝa"
 
 #: src/Utils.vala:195
 msgid "Orange"
@@ -59,7 +61,7 @@ msgstr ""
 
 #: src/Utils.vala:196
 msgid "Yellow"
-msgstr ""
+msgstr "Flava"
 
 #: src/Utils.vala:197
 msgid "Olive Green"
@@ -71,7 +73,7 @@ msgstr ""
 
 #: src/Utils.vala:199
 msgid "Green"
-msgstr ""
+msgstr "Verda"
 
 #: src/Utils.vala:200
 msgid "Mint Green"
@@ -91,11 +93,11 @@ msgstr ""
 
 #: src/Utils.vala:204
 msgid "Blue"
-msgstr ""
+msgstr "Blua"
 
 #: src/Utils.vala:205
 msgid "Grape"
-msgstr ""
+msgstr "Uvo"
 
 #: src/Utils.vala:206
 msgid "Violet"
@@ -119,7 +121,7 @@ msgstr ""
 
 #: src/Utils.vala:211
 msgid "Grey"
-msgstr ""
+msgstr "Griza"
 
 #: src/Utils.vala:212
 msgid "Taupe"
@@ -130,21 +132,21 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:68
 msgid "Today"
-msgstr ""
+msgstr "Hodiaŭ"
 
 #: src/Utils.vala:532 src/Widgets/Pane.vala:349 src/Widgets/ItemRow.vala:1330
 #: src/Widgets/DueButton.vala:152 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
-msgstr ""
+msgstr "Morgaŭ"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
 msgstr ""
 
 #: src/Utils.vala:648
-#, c-format
+#, c-format, fuzzy
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Provu %s por aktivigi ĝin. Vi povas sanĝi ĝin from the preferences"
 
 #: src/Utils.vala:665
 msgid "🚀️ Getting Started"

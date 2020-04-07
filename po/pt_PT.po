@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-11 18:09+ZONE\n"
-"Last-Translator: André Tiago Barata <andretiagob@protonmail.com>\n"
-"Language-Team: Portuguese (Portugal) <hLL@li.org>\n"
+"PO-Revision-Date: 2020-04-01 15:08+0000\n"
+"Last-Translator: Nuno Tomás <nvctsyler@gmail.com>\n"
+"Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
+"planner/translations/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:716
 msgid "New area"
@@ -66,9 +68,8 @@ msgid "Olive Green"
 msgstr "Verde Oliva"
 
 #: src/Utils.vala:198
-#, fuzzy
 msgid "Lime Green"
-msgstr "Verde Limão"
+msgstr "Verde Lima"
 
 #: src/Utils.vala:199
 msgid "Green"
@@ -96,7 +97,7 @@ msgstr "Azul"
 
 #: src/Utils.vala:205
 msgid "Grape"
-msgstr "Roxo"
+msgstr "Uva"
 
 #: src/Utils.vala:206
 msgid "Violet"
@@ -140,16 +141,16 @@ msgstr "Amanhã"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
-msgstr "Rápido e ativado!"
+msgstr "Adição Rápida Ativada!"
 
 #: src/Utils.vala:648
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr "Tente %s para ativá-lo. Voçê pode alterá-lo nas preferências"
+msgstr "Tente %s para ativá-lo. Você pode alterá-lo nas preferências"
 
 #: src/Utils.vala:665
 msgid "🚀️ Getting Started"
-msgstr "Começar"
+msgstr "🚀️ Começando"
 
 #: src/Utils.vala:666
 msgid ""
@@ -158,7 +159,7 @@ msgid ""
 "you need to do."
 msgstr ""
 "Este projeto vai ajudá-lo a aprender os conceitos básicos do Planner e a "
-"começar com um sistema simples de gerenciador de tarefas para se manter "
+"começar com um sistema simples de gestão de tarefas para se manter "
 "organizado e além de tudo fazer o que precisa ser feito."
 
 #: src/Utils.vala:671
@@ -439,15 +440,15 @@ msgstr ""
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:828 src/Views/Project.vala:1059
 #: src/Dialogs/ProjectSettings.vala:46
 msgid "Name:"
-msgstr "Nome"
+msgstr "Nome:"
 
 #: src/Widgets/New.vala:83
 msgid "Area:"
-msgstr "Área"
+msgstr "Área:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:54
 msgid "Color:"
-msgstr "Cor"
+msgstr "Cor:"
 
 #: src/Widgets/New.vala:257 src/Widgets/NewItem.vala:87
 #: src/Widgets/ReminderButton.vala:208 src/Widgets/NewSection.vala:82
@@ -573,9 +574,8 @@ msgid "Task Menu"
 msgstr "Menu de Tarefa"
 
 #: src/Widgets/ItemRow.vala:986
-#, fuzzy
 msgid "Hiding"
-msgstr "Ocultar"
+msgstr "Oculto"
 
 #: src/Widgets/ItemRow.vala:1254
 msgid "No Section"
@@ -632,9 +632,8 @@ msgid "Section name"
 msgstr "Nome da Secção"
 
 #: src/Widgets/SectionRow.vala:107
-#, fuzzy
 msgid "Section Menu"
-msgstr "Menu de Secções"
+msgstr "Menu da Secção"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:124 src/Widgets/AreaRow.vala:135
@@ -733,7 +732,7 @@ msgstr "Adicionar lembrete"
 
 #: src/Widgets/ReminderButton.vala:199
 msgid "Time:"
-msgstr "Tempo"
+msgstr "Tempo:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
@@ -983,8 +982,7 @@ msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
-"Personalize a aparência do seu Planner escolhendo o tema mais que mais "
-"oagrada."
+"Personalize a aparência do seu Planner escolhendo o tema que mais lhe agrada."
 
 #: src/Dialogs/Preferences/Preferences.vala:400
 msgid "Light"
@@ -1086,7 +1084,7 @@ msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr ""
-"O processor remove toda a informação guardada sem possibilidade de a "
+"Este processo remove toda a informação guardada sem possibilidade de a "
 "restaurar."
 
 #: src/Dialogs/Preferences/Preferences.vala:724
@@ -1094,7 +1092,7 @@ msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
-"Poupe tempo agrupando tarefas semelhantes usando etiquetas. Voçê poderá ver "
+"Poupe tempo agrupando tarefas semelhantes usando etiquetas. Você poderá ver "
 "uma lista de todas as tarefas com uma etiqueta específica em segundos."
 
 #: src/Dialogs/Preferences/Preferences.vala:850
@@ -1143,8 +1141,8 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
-"Voçê pode conectar a sua aplicação <b>calendário</b> ao Planner para ver os "
-"seus eventos e tarefas num único síto. Vai poder ver o calendário de eventos "
+"Você pode conectar a sua aplicação de <b>Calendário</b> ao Planner para ver "
+"os seus eventos e tarefas num único sítio. Poderá ver eventos de calendários "
 "pessoais e partilhados em <b>Hoje</b> e <b>Próximos</b>. Isto é útil "
 "enquanto organiza o seu dia e planeia a semana seguinte."
 
@@ -1158,7 +1156,7 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"O Planner está a ser desenvolvido com ❤️ e paixão para a comunidade código "
+"O Planner está a ser desenvolvido com ❤️ e paixão pela comunidade de código "
 "aberto. Contudo, se gosta do Planner e gostaria de contribuir para o seu "
 "desenvolvimento, considere uma doação via:"
 
@@ -1187,22 +1185,22 @@ msgid "Back"
 msgstr "Voltar"
 
 #: src/Dialogs/QuickFind.vala:87
-#, fuzzy
 msgid "Search"
-msgstr "Abrir Procura"
+msgstr "Procurar"
 
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
+"Troque rapidamente de projetos e vistas, encontre tarefas, procure por "
+"etiquetas, ..."
 
 #: src/Dialogs/QuickFind.vala:315
-#, fuzzy
 msgid "Tasks"
-msgstr "tarefas"
+msgstr "Tarefas"
 
 #: src/Dialogs/QuickFind.vala:413
 msgid "Views"
-msgstr ""
+msgstr "Ver"
 
 #: src/Objects/Project.vala:119
 msgid "The Project was copied to the Clipboard."
@@ -1210,11 +1208,11 @@ msgstr "O Projeto foi copiado para a área de transferência."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 msgid "The Task was copied to the Clipboard."
-msgstr "A Tarefa foi copiada para a área de transferência."
+msgstr "A Tarefa foi copiada para a Área de Transferência."
 
 #: src/Objects/Section.vala:117
 msgid "The Section was copied to the Clipboard."
-msgstr "A secção foi copiada para a área de transferência."
+msgstr "A Secção foi copiada para a Área de Transferência."
 
 #~ msgid "Back-Pocket"
 #~ msgstr "Bolso"
