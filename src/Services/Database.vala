@@ -160,15 +160,7 @@ public class Services.Database : GLib.Object {
             return null;
         });
     }
-
-    public void clear_item_to_delete () {
-        foreach (var item in items_to_delete) {
-            // show_undo_item (item.id);
-        }
-
-        items_to_delete.clear ();
-    }
-
+    
     private int create_tables () {
         int rc;
         string sql;

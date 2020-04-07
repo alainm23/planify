@@ -173,8 +173,6 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
                 return false;
             }
-
-            return true;
         });
 
         listbox.row_activated.connect ((row) => {

@@ -349,7 +349,7 @@ public class Views.Today : Gtk.EventBox {
     private void add_all_items () {
         foreach (var item in Planner.database.get_all_today_items ()) {
             var row = new Widgets.ItemRow (item, "today");
-            
+
             items_loaded.set (item.id.to_string (), row);
 
             listbox.add (row);
@@ -360,16 +360,16 @@ public class Views.Today : Gtk.EventBox {
         //listbox.set_header_func (update_headers);
     }
 
-    private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {
-        var i1 = ((Widgets.ItemRow) row1).item;
-        var i2 = ((Widgets.ItemRow) row2).item;
+    //  private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {
+    //      var i1 = ((Widgets.ItemRow) row1).item;
+    //      var i2 = ((Widgets.ItemRow) row2).item;
 
-        if (i1.project_id < i2.project_id) {
-            return -1;
-        } else {
-            return 1;
-        }
-    }
+    //      if (i1.project_id < i2.project_id) {
+    //          return -1;
+    //      } else {
+    //          return 1;
+    //      }
+    //  }
 
     private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
         var e1 = (Widgets.EventRow) child1;
@@ -389,49 +389,24 @@ public class Views.Today : Gtk.EventBox {
         return 0;
     }
 
-    private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
-        var item = ((Widgets.ItemRow) row).item;
-        if (before != null) {
-            var item_before = ((Widgets.ItemRow) before).item;
+    //  private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
+    //      var item = ((Widgets.ItemRow) row).item;
+    //      if (before != null) {
+    //          var item_before = ((Widgets.ItemRow) before).item;
 
-            if (item.project_id == item_before.project_id) {
-                row.set_header (null);
-                return;
-            }
+    //          if (item.project_id == item_before.project_id) {
+    //              row.set_header (null);
+    //              return;
+    //          }
 
-            if (item.project_id != item_before.project_id) {
-                row.set_header (get_header_project (item.project_id));
-            }
-        } else {
-            row.set_header (get_header_project (item.project_id));
-        }
-    }
-
-    private Gtk.Widget get_header_project (int64 id) {
-        var project = Planner.database.get_project_by_id (id);
-
-        var name_label = new Gtk.Label (project.name);
-        name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("header-title");
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.set_ellipsize (Pango.EllipsizeMode.END);
-
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 3;
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.margin_top = 12;
-        main_box.margin_start = 41;
-        main_box.margin_bottom = 6;
-        main_box.margin_end = 32;
-        main_box.hexpand = true;
-        main_box.pack_start (name_label, false, false, 0);
-        main_box.pack_start (separator, false, false, 0);
-        main_box.show_all ();
-
-        return main_box;
-    }
-
+    //          if (item.project_id != item_before.project_id) {
+    //              row.set_header (get_header_project (item.project_id));
+    //          }
+    //      } else {
+    //          row.set_header (get_header_project (item.project_id));
+    //      }
+    //  }
+    
     public void toggle_new_item () {
         if (new_item_revealer.reveal_child) {
             new_item_revealer.reveal_child = false;

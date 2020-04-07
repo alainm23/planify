@@ -54,12 +54,6 @@ To install, use `ninja install`, then execute with `com.github.alainm23.planner`
     sudo ninja install
     com.github.alainm23.planner
 
-## Translate Planner
-
-<a href="https://hosted.weblate.org/engage/planner/?utm_source=widget">
-<img src="https://hosted.weblate.org/widgets/planner/-/translations/open-graph.png" alt="Estado de la traducción" />
-</a>
-
 ## Support
 If you like Planner and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23) or [PayPal](https://www.paypal.me/alainm23)
 
