@@ -37,7 +37,7 @@ public class MainWindow : Gtk.Window {
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
-
+    
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -110,17 +110,17 @@ public class MainWindow : Gtk.Window {
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
         Timeout.add (125, () => {
+            // Remove Trash Data
+            Planner.database.remove_trash ();
+
+            // Path Database
+            Planner.database.patch_database ();
+
             if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
                 magic_button.reveal_child = false;
             } else {
-                // Remove Trash Data
-                Planner.database.remove_trash ();
-
-                // Path Database
-                Planner.database.patch_database ();
-
                 // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
@@ -339,6 +339,10 @@ public class MainWindow : Gtk.Window {
             Planner.database.check_project_count (item.project_id);
         });
 
+        Planner.database.item_uncompleted.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
         Planner.database.section_added.connect ((section) => {
             Idle.add (() => {
                 Planner.database.check_project_count (section.project_id);
@@ -454,6 +458,7 @@ public class MainWindow : Gtk.Window {
             stack.add_named (label_view, "label-view");
         }
 
+        magic_button.reveal_child = false;
         label_view.label = Planner.database.get_label_by_id (label_id);
         stack.visible_child_name = "label-view";
     }

@@ -22,7 +22,6 @@
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Grid grid_color;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
@@ -68,40 +67,26 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
-        var project_progress = new Widgets.ProjectProgress ();
-        project_progress.line_cap = Cairo.LineCap.ROUND;
-        project_progress.radius_filled = true;
-        project_progress.line_width = 2;
+        var project_progress = new Widgets.ProjectProgress (10);
+        project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
 
-        project_progress.radius_fill_color = "#a7b2cb";
-        if (Planner.settings.get_boolean ("prefer-dark-style")) {
-            project_progress.radius_fill_color = "#666666";
-        }
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
-                if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                    project_progress.radius_fill_color = "#666666";
-                } else {
-                    project_progress.radius_fill_color = "#a7b2cb";
-                }
-            }
-        });
-
-        grid_color = new Gtk.Grid ();
-        grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-        grid_color.set_size_request (13, 13);
-        grid_color.valign = Gtk.Align.CENTER;
-        grid_color.halign = Gtk.Align.CENTER;
+        var progress_grid = new Gtk.Grid ();
+        progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
+            project.id.to_string ()
+        ));
+        progress_grid.add (project_progress);
+        progress_grid.valign = Gtk.Align.CENTER;
+        progress_grid.halign = Gtk.Align.CENTER;
 
         name_label = new Gtk.Label (project.name);
         name_label.tooltip_text = project.name;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
+        name_label.margin_start = 9;
 
         count_label = new Gtk.Label (null);
         count_label.valign = Gtk.Align.CENTER;
@@ -136,8 +121,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
-        source_icon.margin_top = 3;
         source_icon.pixel_size = 14;
+        source_icon.margin_start = 6;
 
         if (project.is_todoist == 0) {
             source_icon.tooltip_text = _("Local Project");
@@ -147,11 +132,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             source_icon.tooltip_text = _("Todoist Project");
         }
 
-        var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 7);
+        var source_revealer = new Gtk.Revealer ();
+        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        source_revealer.add (source_icon);
+
+        var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
-        handle_box.pack_start (project_progress, false, false, 0);
+        handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (source_icon, false, false, 0);
+        handle_box.pack_start (source_revealer, false, false, 0);
         handle_box.pack_end (menu_stack, false, false, 0);
 
         var motion_grid = new Gtk.Grid ();
@@ -165,7 +154,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 4;
+        grid.margin_start = 5;
         grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
@@ -207,6 +196,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         handle.enter_notify_event.connect ((event) => {
             menu_stack.visible_child_name = "menu_button";
+            source_revealer.reveal_child = true;
 
             return true;
         });
@@ -217,6 +207,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             menu_stack.visible_child_name = "count_revealer";
+            source_revealer.reveal_child = false;
+
             return true;
         });
 
@@ -228,6 +220,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             if (project != null && p.id == project.id) {
                 project.name = p.name;
                 project.color = p.color;
+                project.note = p.note;
+
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
@@ -277,8 +271,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private void apply_color (string color) {
         string _css = """
-            .project-color-%s {
-                color: %s
+            .project-progress-%s {
+                border-radius: 50%;
+                border: 1.5px solid %s;
             }
         """;
 
@@ -361,7 +356,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         string move_template = _("Task moved to <b>%s</b>");
         Planner.notifications.send_notification (
-            0,
             move_template.printf (
                 Planner.database.get_project_by_id (project.id).name
             )
@@ -442,7 +436,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         Widgets.ImageMenuItem item_menu;
         if (project.area_id != 0) {
-            item_menu = new Widgets.ImageMenuItem (_("No Area"), "window-close-symbolic");
+            item_menu = new Widgets.ImageMenuItem (_("No Folder"), "window-close-symbolic");
             item_menu.activate.connect (() => {
                 if (Planner.database.move_project (project, 0)) {
                     main_revealer.reveal_child = false;
@@ -460,7 +454,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         int area_count = 0;
         foreach (Objects.Area area in Planner.database.get_all_areas ()) {
             if (area.id != project.area_id) {
-                item_menu = new Widgets.ImageMenuItem (area.name, "planner-work-area-symbolic");
+                item_menu = new Widgets.ImageMenuItem (area.name, "folder-outline");
                 item_menu.activate.connect (() => {
                     if (Planner.database.move_project (project, area.id)) {
                         main_revealer.reveal_child = false;
@@ -496,7 +490,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        move_area_menu = new Widgets.ImageMenuItem (_("Move to Area"), "planner-work-area-symbolic");
+        move_area_menu = new Widgets.ImageMenuItem (_("Move to Folder"), "go-jump-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);
 

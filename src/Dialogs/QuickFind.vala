@@ -357,33 +357,26 @@ public class SearchItem : Gtk.ListBoxRow {
             header_label.opacity = 0;
 
             var project_progress = new Widgets.ProjectProgress ();
-            project_progress.line_cap = Cairo.LineCap.ROUND;
-            project_progress.radius_filled = true;
-            project_progress.line_width = 2;
+            project_progress.margin = 1;
+            project_progress.line_width = 4;
             project_progress.valign = Gtk.Align.CENTER;
             project_progress.halign = Gtk.Align.CENTER;
+            project_progress.progress_fill_color = Planner.utils.get_color (
+                (int32) Planner.todoist.get_int_member_by_object (object, "color")
+            );
             project_progress.percentage = get_percentage (
                 Planner.database.get_count_checked_items_by_project (Planner.todoist.get_int_member_by_object (object, "id")),
                 Planner.database.get_all_count_items_by_project (Planner.todoist.get_int_member_by_object (object, "id"))
             );
-            project_progress.progress_fill_color = Planner.utils.get_color (
-                (int32) Planner.todoist.get_int_member_by_object (object, "color")
-            );
 
-            project_progress.radius_fill_color = "#a7b2cb";
-            if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                project_progress.radius_fill_color = "#666666";
-            }
 
-            Planner.settings.changed.connect ((key) => {
-                if (key == "prefer-dark-style") {
-                    if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                        project_progress.radius_fill_color = "#666666";
-                    } else {
-                        project_progress.radius_fill_color = "#a7b2cb";
-                    }
-                }
-            });
+            var progress_grid = new Gtk.Grid ();
+            progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
+                Planner.todoist.get_int_member_by_object (object, "id").to_string ()
+            ));
+            progress_grid.add (project_progress);
+            progress_grid.valign = Gtk.Align.CENTER;
+            progress_grid.halign = Gtk.Align.CENTER;
 
             var content_label = new Gtk.Label (
                 markup_string_with_search (
@@ -398,9 +391,9 @@ public class SearchItem : Gtk.ListBoxRow {
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
-            grid.margin_start = 4;
-            grid.column_spacing = 4;
-            grid.add (project_progress);
+            grid.margin_start = 6;
+            grid.column_spacing = 6;
+            grid.add (progress_grid);
             grid.add (content_label);
 
             var main_grid = new Gtk.Grid ();

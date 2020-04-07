@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
 "PO-Revision-Date: 2020-03-14 10:10+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
@@ -14,6 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:221 src/Widgets/New.vala:716
 msgid "New area"
@@ -137,9 +139,8 @@ msgid "Tomorrow"
 msgstr "Domani"
 
 #: src/Utils.vala:647
-#, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Ricerca veloce"
+msgstr "Inserimento Veloce Attivato!"
 
 #: src/Utils.vala:648
 #, c-format
@@ -158,7 +159,7 @@ msgid ""
 msgstr ""
 "Questo progetto ti aiuterà a imparare le basi di Planner ed iniziare con un "
 "semplice sistema di gestione delle attività per rimanere organizzato su "
-"quello chedevi fare."
+"quello che devi fare."
 
 #: src/Utils.vala:671
 msgid "Keeping track of your tasks"
@@ -175,10 +176,10 @@ msgid ""
 msgstr ""
 "Si scopre che i nostri cervelli sono in realtà cablati per farci pensare ai "
 "nostri compiti incompiuti. Pratico quando hai una cosa su cui devi lavorare. "
-"Non cosìbene quando hai più di 30 compiti in lizza per la tua attenzione "
-"contemporaneamente. Ecco perchéil primo passo per organizzare il tuo lavoro "
-"e la tua vita è ottenere tutto dallatua testa e il tuo elenco di cose da "
-"fare. Da lì puoi iniziare a organizzare lapriorità in modo da sapere "
+"Non così bene quando hai più di 30 compiti in lizza per la tua attenzione "
+"contemporaneamente. Ecco perché il primo passo per organizzare il tuo lavoro "
+"e la tua vita è ottenere tutto dalla tua testa e il tuo elenco di cose da "
+"fare. Da lì puoi iniziare a organizzare le priorità in modo da sapere "
 "esattamente su cosa si deve concentrarsi e quando."
 
 #: src/Utils.vala:677
@@ -194,7 +195,7 @@ msgid ""
 msgstr ""
 "- Per aggiungere una nuova attività a Planner, fai clic su + e premi Invio.\n"
 "- Quando viene creata l'attività, fare clic sull'attività per poterla "
-"modificare, aggiungere unanota o alcune altre opzioni."
+"modificare, aggiungere una nota o alcune altre opzioni."
 
 #: src/Utils.vala:684
 msgid "Due dates"
@@ -208,8 +209,8 @@ msgid ""
 "\"undate\" option."
 msgstr ""
 "- Se sai che devi eseguire l'attività in un determinato giorno, fai clic "
-"suicona del calendario e seleziona una data.\n"
-"- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona"
+"sull'icona del calendario e seleziona una data.\n"
+"- Se desideri eliminare la data di scadenza, ripeti la procedura e seleziona "
 "\"l'opzione\" senza data."
 
 #: src/Utils.vala:691
@@ -232,8 +233,8 @@ msgstr ""
 "creando un sito Web, crea un progetto in modo che tutti i dettagli "
 "importanti vengano salvati in un posto centrale.\n"
 "- Nel menu di navigazione a sinistra, in basso, fai clic sul simbolo.\n"
-"- Nel menu delle opzioni seleziona Progetto'e digita il nome del tuo "
-"nuovoProgetto.\n"
+"- Nel menu delle opzioni seleziona Progetto e digita il nome del tuo nuovo "
+"Progetto.\n"
 "- Seleziona una fonte dal menu a discesa.\n"
 "- (Facoltativo) Seleziona un colore di progetto diverso dall'elenco dei "
 "colori.\n"
@@ -260,12 +261,12 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 "- È sempre più facile affrontare un grande progetto quando lo dividi "
-"facilmente inparti gestibili utilizzando le sezioni di Planner.\n"
+"facilmente in parti gestibili utilizzando le sezioni di Planner.\n"
 "- Organizza i tuoi progetti con sezioni per raggruppare le attività e "
-"ottenereuna migliore panoramica di ciò che deve essere fatto. Aggiungi "
-"sezioni al tuo progettotrascina le attività pertinenti nella sezione di "
-"appartenenza e la troveraimolto più facile per fare progressi (invece di "
-"essere sopraffatto da una singola lungaLista).\n"
+"ottenere una migliore panoramica di ciò che deve essere fatto. Aggiungi "
+"sezioni al tuo progetto trascina le attività pertinenti nella sezione di "
+"appartenenza e la troverai molto più facile per fare progressi (invece di "
+"essere sopraffatto da una singola lunga lista).\n"
 "- In alto a destra di un progetto, fai clic sull'icona +.\n"
 "- Digita il nome della sezione e fai clic su Aggiungi."
 
@@ -293,7 +294,7 @@ msgstr "Crea una nuova sezione"
 
 #: src/Utils.vala:733
 msgid "Open the Inbox"
-msgstr "Apri  in entrata"
+msgstr "Apri in entrata"
 
 #: src/Utils.vala:734
 #, fuzzy
@@ -319,7 +320,7 @@ msgstr "Esci"
 
 #: src/Utils.vala:746
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La richiesta è incorretta."
 
 #: src/Utils.vala:747
 msgid ""
@@ -379,10 +380,10 @@ msgid ""
 "you’re doing right now."
 msgstr ""
 "La Posta in arrivo è il luogo predefinito in cui aggiungere nuove attività "
-"in modo da poterle estrarrenella tua testa rapidamente, poi torna indietro e "
-"fai un piano per prenderti cura di loropiù tardi. È un ottimo modo per far "
-"decadere la mente in modo che tu possa concentrarti su qualunque cosastai "
-"facendo proprio ora."
+"in modo da poterle estrarre nella tua testa rapidamente, poi torna indietro "
+"e fai un piano per prenderti cura di loro più tardi. È un ottimo modo per "
+"far decadere la mente in modo che tu possa concentrarti su qualunque cosa "
+"stai facendo proprio ora."
 
 #: src/Widgets/Pane.vala:73
 msgid ""
@@ -391,8 +392,8 @@ msgid ""
 "your day."
 msgstr ""
 "La vista Oggi ti consente di vedere tutte le attività che dovresti ricevere "
-"oggi in tutti i tuoiprogetti. Fai il check-in qui ogni mattina per fare un "
-"piano realistico per affrontarela tua giornata."
+"oggi in tutti i tuoi progetti. Fai il check-in qui ogni mattina per fare un "
+"piano realistico per affrontare la tua giornata."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:351
@@ -407,7 +408,7 @@ msgid ""
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 "Pianifica la tua settimana in anticipo con la vista Imminente. Mostra tutto "
-"sulla tuaagenda per i prossimi giorni: cose da fare e eventi del calendario "
+"sulla tua agenda per i prossimi giorni: cose da fare e eventi del calendario "
 "programmati."
 
 #: src/Widgets/Pane.vala:82
@@ -437,7 +438,7 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 "Sembra che tu non sia connesso a\n"
-"Internet.Le modifiche apportate in modalità offline\n"
+"Internet. Le modifiche apportate in modalità offline\n"
 "verranno sincronizzate quando ti riconnetti"
 
 #: src/Widgets/New.vala:62 src/Views/Inbox.vala:828 src/Views/Project.vala:1059
@@ -531,7 +532,7 @@ msgstr "Invia per email"
 #: src/Widgets/ProjectRow.vala:508 src/Widgets/ItemRow.vala:1349
 #: src/Widgets/SectionRow.vala:601
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:514 src/Widgets/ProjectRow.vala:539
@@ -880,7 +881,7 @@ msgstr "Per cortesia inserisci le credenziali…"
 
 #: src/Dialogs/ProjectSettings.vala:51
 msgid "Due:"
-msgstr ""
+msgstr "Scadenza:"
 
 #: src/Dialogs/ProjectSettings.vala:226
 msgid "Uploading changes…"
@@ -1083,7 +1084,7 @@ msgid ""
 "it."
 msgstr ""
 "Questo processo rimuove tutte le informazioni memorizzate senza la "
-"possibilità diannullarlo."
+"possibilità di annullarlo."
 
 #: src/Dialogs/Preferences/Preferences.vala:724
 msgid ""
@@ -1100,7 +1101,7 @@ msgid ""
 "while others only work when adding or editing tasks."
 msgstr ""
 "Tutte le scorciatoie per farti risparmiare tempo! Alcune possono essere "
-"utilizzate ovunque nell'app,mentre le altre funzionano solo quando si "
+"utilizzate ovunque nell'app, mentre le altre funzionano solo quando si "
 "aggiungono o modificano attività."
 
 #: src/Dialogs/Preferences/Preferences.vala:926
@@ -1151,7 +1152,6 @@ msgid "Enabled"
 msgstr "Abilitato"
 
 #: src/Dialogs/Preferences/Preferences.vala:1124
-#, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "

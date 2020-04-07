@@ -60,10 +60,23 @@ public class Views.Label : Gtk.EventBox {
         box_scrolled.expand = true;
         box_scrolled.add (listbox);
 
+        var placeholder_view = new Widgets.Placeholder (
+            _("All clear"),
+            _("No tasks in this filter at the moment."),
+            "emblem-ok-symbolic"
+        );
+        placeholder_view.reveal_child = true;
+
+        var view_stack = new Gtk.Stack ();
+        view_stack.expand = true;
+        view_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        view_stack.add_named (box_scrolled, "listbox");
+        view_stack.add_named (placeholder_view, "placeholder");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (box_scrolled, false, true, 0);
+        main_box.pack_start (view_stack, false, true, 0);
 
         add (main_box);
         show_all ();
@@ -83,17 +96,18 @@ public class Views.Label : Gtk.EventBox {
             }
 
             foreach (Objects.Item item in Planner.database.get_items_by_label (label.id)) {
-                var row = new Widgets.ItemRow (item);
-
-                row.is_today = true;
-                row.destroy.connect (() => {
-                    // item_row_removed (row);
-                });
+                var row = new Widgets.ItemRow (item, "label");
 
                 listbox.add (row);
                 items_loaded.set (item.id.to_string (), row);
 
                 listbox.show_all ();
+            }
+
+            if (items_loaded.size > 0) {
+                view_stack.visible_child_name = "listbox";
+            } else {
+                view_stack.visible_child_name = "placeholder";
             }
         });
 
@@ -105,6 +119,13 @@ public class Views.Label : Gtk.EventBox {
         Planner.database.item_label_deleted.connect ((i, item_id, l) => {
             if (label.id == l.id && items_loaded.has_key (item_id.to_string ())) {
                 items_loaded.get (item_id.to_string ()).hide_destroy ();
+                items_loaded.unset (item_id.to_string ());
+
+                if (items_loaded.size > 0) {
+                    view_stack.visible_child_name = "listbox";
+                } else {
+                    view_stack.visible_child_name = "placeholder";
+                }
             }
         });
     }

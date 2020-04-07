@@ -22,6 +22,7 @@
 public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
 
+    private Gtk.Image area_image;
     private Gtk.Button hidden_button;
     private Gtk.Button submit_button;
     private Gtk.Label name_label;
@@ -66,13 +67,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("area-row");
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
 
-        var area_image = new Gtk.Image ();
+        area_image = new Gtk.Image ();
         area_image.halign = Gtk.Align.CENTER;
         area_image.valign = Gtk.Align.CENTER;
-        area_image.gicon = new ThemedIcon ("planner-work-area-symbolic");
-        area_image.get_style_context ().add_class ("text-color");
-        area_image.get_style_context ().add_class ("dim-label");
+        area_image.gicon = new ThemedIcon ("folder-outline");
         area_image.pixel_size = 16;
+        if (area.collapsed == 1) {
+            area_image.gicon = new ThemedIcon ("folder-open-outline");
+        }
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
@@ -84,12 +86,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class ("hidden-button");
         hidden_button.get_style_context ().add_class ("dim-label");
 
-        var stack = new Gtk.Stack ();
-        stack.halign = Gtk.Align.CENTER;
-        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        //  var stack = new Gtk.Stack ();
+        //  stack.halign = Gtk.Align.CENTER;
+        //  stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        stack.add_named (area_image, "area_image");
-        stack.add_named (hidden_button, "hidden_button");
+        //  stack.add_named (area_image, "area_image");
+        //  stack.add_named (hidden_button, "hidden_button");
 
         name_label = new Gtk.Label (area.name);
         name_label.halign = Gtk.Align.START;
@@ -116,6 +118,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_entry.hexpand = true;
 
         name_stack = new Gtk.Stack ();
+        name_stack.margin_start = 8;
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
         name_stack.add_named (info_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
@@ -125,12 +128,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             hidden_button.tooltip_text = _("Hiding Projects");
         }
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
-        top_box.margin_start = 4;
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin_start = 11;
+        top_box.margin_end = 5;
         top_box.margin_top = 6;
-        top_box.pack_start (stack, false, false, 0);
+        top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        //top_box.pack_end (hidden_revealer, false, false, 0);
+        top_box.pack_end (hidden_button, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -270,7 +274,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            stack.visible_child_name = "hidden_button";
+            // stack.visible_child_name = "hidden_button";
             return true;
         });
 
@@ -279,7 +283,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            stack.visible_child_name = "area_image";
+            // stack.visible_child_name = "area_image";
             return true;
         });
 
@@ -343,11 +347,13 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             listbox_revealer.reveal_child = false;
             hidden_button.get_style_context ().remove_class ("opened");
             hidden_button.tooltip_text = _("Display Projects");
+            area_image.gicon = new ThemedIcon ("folder-outline");
             area.collapsed = 0;
         } else {
             listbox_revealer.reveal_child = true;
             hidden_button.get_style_context ().add_class ("opened");
             hidden_button.tooltip_text = _("Hiding Projects");
+            area_image.gicon = new ThemedIcon ("folder-open-outline");
             area.collapsed = 1;
         }
 
@@ -522,7 +528,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Delete area"),
+                _("Delete folder"),
                 _("Are you sure you want to delete <b>%s</b>?".printf (area.name)),
                 "user-trash-full",
                 Gtk.ButtonsType.CLOSE

@@ -21,21 +21,8 @@
 
 public class Services.Notifications : GLib.Object {
     private const string DELETE_TEMPLATE = "(%i) %s deleted";
-    public signal void send_notification (int type, string message);
-    
-    construct {
-        Planner.database.show_toast_delete.connect ((count) => {
-            string t = _("task");
-            if (count > 1) {
-                t = _("tasks");
-            }
-
-            send_notification (
-                1,
-                DELETE_TEMPLATE.printf (count, t)
-            );
-        });
-    }
+    public signal void send_notification (string message, string icon="notification-symbolic");
+    public signal void send_undo_notification (int64 object_id, string object_type, string undo_type, string undo_value = "");
 
     public void init_server () {
         Timeout.add_seconds (1 * 60, () => {

@@ -24,6 +24,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Label content_label;
+    private Gtk.Revealer main_revealer;
 
     public ItemCompletedRow (Objects.Item item) {
         Object (
@@ -70,15 +71,20 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_label, false, false, 0);
 
-        add (box);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (box);
 
-        Planner.database.item_completed.connect ((i) => {
-            if (item.id == i.id) {
-                if (i.checked == 0) {
-                    destroy ();
-                }
-            }
-        });
+        add (main_revealer);
+
+        //  Planner.database.item_completed.connect ((i) => {
+        //      if (item.id == i.id) {
+        //          if (i.checked == 0) {
+        //              destroy ();
+        //          }
+        //      }
+        //  });
 
         checked_button.toggled.connect (() => {
             if (checked_button.active == false) {
@@ -90,6 +96,15 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                     Planner.todoist.item_uncomplete (item);
                 }
             }
+        });
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
         });
     }
 }

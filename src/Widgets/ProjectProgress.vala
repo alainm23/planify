@@ -10,13 +10,14 @@
  * Minimum size is hardcoded on MIN_D. Minimum line width is 1.
  *
  * José Miguel Fonte
+ * https://github.com/phastmike/vala-circular-progress-bar
  */
 
 using Gtk;
 using Cairo;
 
 public class Widgets.ProjectProgress : Gtk.Bin {
-    private const int MIN_D = 18;
+    public int MIN_D { get; construct; }
     private int _line_width;
     private double _percentage;
     private string _center_fill_color;
@@ -80,8 +81,8 @@ public class Widgets.ProjectProgress : Gtk.Bin {
             return _line_width;
         }
         set {
-            if (value < 1) {
-                _line_width = 1;
+            if (value < 0) {
+                _line_width = 0;
             } else {
                 _line_width = value;
             }
@@ -105,21 +106,25 @@ public class Widgets.ProjectProgress : Gtk.Bin {
     }
 
     construct {
-        _line_width = 1;
+        _line_width = 0;
         _percentage = 0;
         _center_fill_color = "#adadad";
         _radius_fill_color = "#d3d3d3";
         _progress_fill_color = "#4a90d9";
     }
 
-    public ProjectProgress () {
+    public ProjectProgress (int MIN_D=10) {
+        Object (
+            MIN_D: MIN_D
+        );
+
         notify.connect (() => {
             queue_draw ();
         });
     }
 
     private int calculate_radius () {
-        return (int) double.min (get_allocated_width () / 2, get_allocated_height () / 2) - 1;
+        return int.min (get_allocated_width () / 2, get_allocated_height () / 2) - 1;
     }
 
     private int calculate_diameter () {
@@ -155,8 +160,11 @@ public class Widgets.ProjectProgress : Gtk.Bin {
     }
 
     public override bool draw (Cairo.Context cr) {
+        int w,h;
         int delta;
         Gdk.RGBA color;
+        Pango.Layout layout;
+        Pango.FontDescription desc;
 
         cr.save ();
 
@@ -164,16 +172,17 @@ public class Widgets.ProjectProgress : Gtk.Bin {
 
         var center_x = get_allocated_width () / 2;
         var center_y = get_allocated_height () / 2;
-        var radius = calculate_radius ();
-        var d = radius - line_width;
-        delta = radius - line_width / 2;
-        if (d < 0) {
+        var radius =  calculate_radius ();
+
+        if (radius - line_width < 0) {
             delta = 0;
             line_width = radius;
+        } else {
+            delta = radius - (line_width / 2);
         }
 
         color = Gdk.RGBA ();
-        cr.set_line_cap (line_cap);
+        cr.set_line_cap  (line_cap);
         cr.set_line_width (line_width);
 
         // Center Fill
@@ -192,21 +201,31 @@ public class Widgets.ProjectProgress : Gtk.Bin {
             cr.stroke ();
         }
 
-        // Progress Fill
-        var progress = ((double) percentage);
-        if (progress > 0) {
-            cr.arc (center_x,
-                    center_y,
-                    delta,
-                    1.5 * Math.PI,
-                    (1.5 + progress * 2 ) * Math.PI);
+        // Progress/Percentage Fill
+        if (percentage > 0) {
             color.parse (progress_fill_color);
             Gdk.cairo_set_source_rgba (cr, color);
-            cr.stroke ();
+
+            if (line_width == 0) {
+                cr.move_to (center_x, center_y);
+                cr.arc (center_x,
+                        center_y,
+                        delta+1,
+                        1.5  * Math.PI,
+                        (1.5 + percentage * 2 ) * Math.PI);
+                cr.fill ();
+            } else {
+                cr.arc (center_x,
+                        center_y,
+                        delta,
+                        1.5  * Math.PI,
+                        (1.5 + percentage * 2 ) * Math.PI);
+                cr.stroke ();
+            }
         }
 
         cr.restore ();
 
-        return base.draw (cr);
+        return base.draw(cr);
     }
 }

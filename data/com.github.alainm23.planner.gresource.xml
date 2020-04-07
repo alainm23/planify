@@ -15,8 +15,33 @@
     <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
     <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
     <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
-
+    <file alias="online-account-twitter.svg">resources/online-account-twitter.svg</file>
     <file alias="paypal.svg">resources/paypal.svg</file>
     <file alias="become_a_patron.svg">resources/become_a_patron.svg</file>
+    <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
+    <file alias="folder-outline.svg">resources/folder-outline.svg</file>
+    <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
+    <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
+    
+    <file alias="color-30.svg">resources/colors/color-30.svg</file>
+    <file alias="color-31.svg">resources/colors/color-31.svg</file>
+    <file alias="color-32.svg">resources/colors/color-32.svg</file>
+    <file alias="color-33.svg">resources/colors/color-33.svg</file>
+    <file alias="color-34.svg">resources/colors/color-34.svg</file>
+    <file alias="color-35.svg">resources/colors/color-35.svg</file>
+    <file alias="color-36.svg">resources/colors/color-36.svg</file>
+    <file alias="color-37.svg">resources/colors/color-37.svg</file>
+    <file alias="color-38.svg">resources/colors/color-38.svg</file>
+    <file alias="color-39.svg">resources/colors/color-39.svg</file>
+    <file alias="color-40.svg">resources/colors/color-40.svg</file>
+    <file alias="color-41.svg">resources/colors/color-41.svg</file>
+    <file alias="color-42.svg">resources/colors/color-42.svg</file>
+    <file alias="color-43.svg">resources/colors/color-43.svg</file>
+    <file alias="color-44.svg">resources/colors/color-44.svg</file>
+    <file alias="color-45.svg">resources/colors/color-45.svg</file>
+    <file alias="color-46.svg">resources/colors/color-46.svg</file>
+    <file alias="color-47.svg">resources/colors/color-47.svg</file>
+    <file alias="color-48.svg">resources/colors/color-48.svg</file>
+    <file alias="color-49.svg">resources/colors/color-49.svg</file>
   </gresource>
 </gresources>

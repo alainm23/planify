@@ -158,8 +158,9 @@ public class Utils : GLib.Object {
     }
 
     /*
-        Colors Utils
+    *  Colors Utils
     */
+
     public Gee.HashMap<int, string> color () {
         var colors = new Gee.HashMap<int, string> ();
 
@@ -210,6 +211,33 @@ public class Utils : GLib.Object {
         colors.set (47, _("Charcoal"));
         colors.set (48, _("Grey"));
         colors.set (49, _("Taupe"));
+
+        return colors;
+    }
+
+    public Gee.ArrayList<int> get_color_list () {
+        var colors = new Gee.ArrayList<int> ();
+
+        colors.add (30);
+        colors.add (31);
+        colors.add (32);
+        colors.add (33);
+        colors.add (34);
+        colors.add (35);
+        colors.add (36);
+        colors.add (37);
+        colors.add (38);
+        colors.add (39);
+        colors.add (40);
+        colors.add (41);
+        colors.add (42);
+        colors.add (43);
+        colors.add (44);
+        colors.add (45);
+        colors.add (46);
+        colors.add (47);
+        colors.add (48);
+        colors.add (49);
 
         return colors;
     }
@@ -483,6 +511,19 @@ public class Utils : GLib.Object {
         );
     }
 
+    public GLib.DateTime get_format_date_from_string (string due_date) {
+        var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+
+        return new DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            0,
+            0,
+            0
+        );
+    }
+
     public string get_default_date_format_from_string (string due_date) {
         var now = new GLib.DateTime.now_local ();
         var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
@@ -566,6 +607,75 @@ public class Utils : GLib.Object {
         return datetime.length <= 10;
     }
 
+    public GLib.DateTime? get_next_recurring_due_date (Objects.Item item, int value=1) {
+        GLib.DateTime returned = null;
+
+        if (item.due_lang == "en") {
+            if (item.due_string == "every day" || item.due_string == "daily") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
+            } else if (item.due_string == "every week" || item.due_string == "weekly") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
+            } else if (item.due_string == "every month" || item.due_string == "monthly") {
+                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
+            } else if (item.due_string == "every year" || item.due_string == "yearly") {
+                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
+            }
+        } else if (item.due_lang == "es") {
+            if (item.due_string == "cada dia" || item.due_string == "todos dias" || item.due_string == "diario") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
+            } else if (item.due_string == "cada semana" || item.due_string == "semanal") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
+            } else if (item.due_string == "cada mes" || item.due_string == "mensual") {
+                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
+            } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
+                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
+            }
+        }
+
+        return returned;
+    }
+
+    public int get_recurring_iter (Objects.Item item) {
+        int returned = 4;
+
+        if (item.due_lang == "en") {
+            if (item.due_string == "every day" || item.due_string == "daily") {
+                returned = 0;
+            } else if (item.due_string == "every week" || item.due_string == "weekly") {
+                returned = 1;
+            } else if (item.due_string == "every month" || item.due_string == "monthly") {
+                returned = 2;
+            } else if (item.due_string == "every year" || item.due_string == "yearly") {
+                returned = 3;
+            }
+        } else if (item.due_lang == "es") {
+            if (item.due_string == "cada dia" || item.due_string == "todos dias" || item.due_string == "diario") {
+                returned = 0;
+            } else if (item.due_string == "cada semana" || item.due_string == "semanal") {
+                returned = 1;
+            } else if (item.due_string == "cada mes" || item.due_string == "mensual") {
+                returned = 2;
+            } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
+                returned = 3;
+            }
+        }
+
+        return returned;
+    }
+    
+    //  public string get_recurrent_task_string (int id) {
+    //      if (is_supported_language ()) {
+
+    //      }
+
+    //      return "";
+    //  }
+
+    //  private bool is_supported_language () {
+    //      return "es" in Intl.get_language_names () ||
+    //              "en" in Intl.get_language_names ();
+    //  }
+
     /*
         Settigns Theme
     */
@@ -578,6 +688,7 @@ public class Utils : GLib.Object {
             @define-color pane_selected_color %s;
             @define-color pane_text_color %s;
             @define-color duedate_today_color %s;
+            @define-color popover_background %s;
         """;
 
         bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
@@ -592,6 +703,7 @@ public class Utils : GLib.Object {
             string pane_selected_color = "shade (#FFFFFF, 0.89)";
             string pane_text_color = "#333333";
             string duedate_today_color = "#d48e15";
+            string popover_background = "@projectview_color";
 
             if (dark_mode) {
                 projectview_color = "#333333";
@@ -600,6 +712,7 @@ public class Utils : GLib.Object {
                 pane_selected_color = "#38393E";
                 pane_text_color = "#ffffff";
                 duedate_today_color = "#f9c440";
+                popover_background = "@bg_color";
             }
 
             var css = _css.printf (
@@ -608,7 +721,8 @@ public class Utils : GLib.Object {
                 pane_color,
                 pane_selected_color,
                 pane_text_color,
-                duedate_today_color
+                duedate_today_color,
+                popover_background
             );
 
             provider.load_from_data (css, css.length);
@@ -662,6 +776,7 @@ public class Utils : GLib.Object {
     public Objects.Project create_tutorial_project () {
         var project = new Objects.Project ();
         project.id = generate_id ();
+        project.color = 41;
         project.name = _("🚀️ Getting Started");
         project.note = _("This project will help you learn the basics of Planner and get started with a simple task management system to stay organized and on top of everything you need to do."); // vala-lint=line-length
 

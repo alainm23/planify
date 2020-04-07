@@ -37,10 +37,11 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
 
     construct {
         margin_start = 3;
+        margin_end = 3;
         orientation = Gtk.Orientation.HORIZONTAL;
 
         date_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB %Y")));
-        date_label.get_style_context ().add_class ("due-label");
+        date_label.get_style_context ().add_class ("font-bold");
 
         center_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
         center_button.get_style_context ().add_class ("flat");

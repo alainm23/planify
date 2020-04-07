@@ -418,7 +418,16 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
-                        //print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                        //      "This is a primary text",
+                        //      "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
+                        //      "applications-development",
+                        //      Gtk.ButtonsType.CLOSE
+                        //  );
+                        //  message_dialog.show_error_details ((string) mess.response_body.flatten ().data);
+
+                        //  message_dialog.run ();
+                        //  message_dialog.destroy ();
 
                         var node = parser.get_root ().get_object ();
                         var sync_token = node.get_string_member ("sync_token");
@@ -555,11 +564,19 @@ public class Services.Todoist : GLib.Object {
                                         due_date = Planner.utils.get_todoist_datetime (
                                             object.get_object_member ("due").get_string_member ("date")
                                         ).to_string ();
+
+                                        if (object.get_object_member ("due").get_boolean_member ("is_recurring")) {
+                                            i.due_is_recurring = 1;
+                                        } else {
+                                            i.due_is_recurring = 0;
+                                        }
+
+                                        i.due_string = object.get_object_member ("due").get_string_member ("string");
+                                        i.due_lang = object.get_object_member ("due").get_string_member ("lang");
                                     }
 
                                     if (due_date != i.due_date) {
                                         bool new_date = false;
-
                                         if (due_date != "") {
                                             if (i.due_date == "") {
                                                 new_date = true;
@@ -570,24 +587,6 @@ public class Services.Todoist : GLib.Object {
                                         Planner.database.set_due_item (i, new_date);
                                     }
 
-
-                                    /*
-                                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
-                                        var due_object = object.get_object_member ("due");
-                                        var datetime = Planner.utils.get_todoist_datetime (due_object.get_string_member ("date"));
-                                        i.due_date = datetime.to_string ();
-
-                                        if (object.get_null_member ("timezone") == false) {
-                                            i.due_timezone = due_object.get_string_member ("timezone");
-                                        }
-
-                                        i.due_string = due_object.get_string_member ("string");
-                                        i.due_lang = due_object.get_string_member ("lang");
-                                        if (due_object.get_boolean_member ("is_recurring")) {
-                                            i.due_is_recurring = 1;
-                                        }
-                                    }
-                                    */
 
                                     if (object.get_int_member ("project_id") != i.project_id) {
                                         Planner.database.move_item (i, object.get_int_member ("project_id"));
@@ -2021,7 +2020,7 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "item_add";
                         queue.args = item.to_json ();
 
-                        if (Planner.database.insert_item (item) &&
+                        if (Planner.database.insert_item (item, index, has_index) &&
                             Planner.database.insert_queue (queue) &&
                             Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed (temp_id_mapping);
@@ -2254,8 +2253,25 @@ public class Services.Todoist : GLib.Object {
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (new GLib.DateTime.from_iso8601 (
-                    item.due_date, new GLib.TimeZone.local ()).format ("%F"));
+                builder.add_string_value (
+                    new GLib.DateTime.from_iso8601 (
+                        item.due_date,
+                        new GLib.TimeZone.local ()
+                    ).format ("%F")
+                );
+
+                builder.set_member_name ("is_recurring");
+                if (item.due_is_recurring == 0) {
+                    builder.add_boolean_value (false);
+                } else {
+                    builder.add_boolean_value (true);
+                }
+
+                builder.set_member_name ("string");
+                builder.add_string_value (item.due_string);
+
+                builder.set_member_name ("lang");
+                builder.add_string_value (item.due_lang);
 
                 builder.end_object ();
             } else {
