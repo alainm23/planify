@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-02-24 20:43+0000\n"
+"PO-Revision-Date: 2020-03-15 09:37+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -649,12 +649,10 @@ msgid "Add Task"
 msgstr "Taak toevoegen"
 
 #: src/Widgets/SectionRow.vala:589
-#, fuzzy
 msgid "Rename"
-msgstr "Gebruikersnaam"
+msgstr "Naam wijzigen"
 
 #: src/Widgets/SectionRow.vala:590
-#, fuzzy
 msgid "Add Note"
 msgstr "Aantekening maken"
 
@@ -840,14 +838,12 @@ msgid "Project comments"
 msgstr "Projectaantekeningen"
 
 #: src/Views/Project.vala:191
-#, fuzzy
 msgid "Add a description"
-msgstr "Sectie toevoegen"
+msgstr "Beschrijving toevoegen"
 
 #: src/Views/Project.vala:201
-#, fuzzy
 msgid "Description"
-msgstr "Sectie verwijderen"
+msgstr "Beschrijving"
 
 #: src/Views/Project.vala:315
 msgid "What will you accomplish?"
@@ -1180,22 +1176,22 @@ msgid "Back"
 msgstr "Terug"
 
 #: src/Dialogs/QuickFind.vala:87
-#, fuzzy
 msgid "Search"
-msgstr "Zoekbalk tonen"
+msgstr "Zoeken"
 
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
+"Schakel snel tussen projecten en weergaven, zoek naar taken, zoek op labels, "
+"..."
 
 #: src/Dialogs/QuickFind.vala:315
-#, fuzzy
 msgid "Tasks"
-msgstr "taken"
+msgstr "Taken"
 
 #: src/Dialogs/QuickFind.vala:413
 msgid "Views"
-msgstr ""
+msgstr "Weergaven"
 
 #: src/Objects/Project.vala:119
 msgid "The Project was copied to the Clipboard."
