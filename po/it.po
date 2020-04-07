@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
 "PO-Revision-Date: 2020-04-08 06:08+0000\n"
-"Last-Translator: Marco Bottacin <westdam@gmail.com>\n"
+"Last-Translator: anonymous <noreply@weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -67,9 +67,8 @@ msgid "Olive Green"
 msgstr "Verde Oliva"
 
 #: src/Utils.vala:199
-#, fuzzy
 msgid "Lime Green"
-msgstr "Verde Lima"
+msgstr "Verde Lime"
 
 #: src/Utils.vala:200
 msgid "Green"
@@ -520,9 +519,8 @@ msgid "Edit"
 msgstr "Modifica"
 
 #: src/Widgets/ProjectRow.vala:493
-#, fuzzy
 msgid "Move to Folder"
-msgstr "Sposta in Area"
+msgstr "Sposta nella cartella"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1351
 #: src/Widgets/SectionRow.vala:660
