@@ -37,10 +37,7 @@ public class MainWindow : Gtk.Window {
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
-
-    private uint paned_timeout = 0;
-    private bool paned_hide = false;
-
+    
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -64,9 +61,6 @@ public class MainWindow : Gtk.Window {
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var pane_show_button = new Gtk.Button.from_icon_name ("pane-show-symbolic", Gtk.IconSize.MENU);
-        //sidebar_header.pack_end (pane_show_button);
 
         projectview_header = new Gtk.HeaderBar ();
         projectview_header.has_subtitle = false;
@@ -108,34 +102,6 @@ public class MainWindow : Gtk.Window {
 
         set_titlebar (header_paned);
         add (paned);
-
-        pane_show_button.clicked.connect (() => {
-            if (paned_hide) {
-                paned_hide = false;
-
-                Timeout.add (10, () => {
-                    paned.position = paned.position + 10;
-
-                    if (paned.position >= 252) {
-                        return false;
-                    }
-
-                    return true;
-                });
-            } else {
-                paned_hide = true;
-
-                Timeout.add (10, () => {
-                    paned.position = paned.position - 10;
-
-                    if (paned.position <= 105) {
-                        return false;
-                    }
-
-                    return true;
-                });
-            }
-        });
 
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
@@ -370,6 +336,10 @@ public class MainWindow : Gtk.Window {
         });
 
         Planner.database.item_completed.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
+        });
+
+        Planner.database.item_uncompleted.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
 

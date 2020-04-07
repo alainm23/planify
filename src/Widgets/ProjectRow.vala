@@ -67,9 +67,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
-        var project_progress = new Widgets.ProjectProgress ();
-        project_progress.margin = 1;
-        project_progress.line_width = 5;
+        var project_progress = new Widgets.ProjectProgress (10);
+        project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
@@ -155,7 +154,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 6;
+        grid.margin_start = 5;
         grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
@@ -221,6 +220,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             if (project != null && p.id == project.id) {
                 project.name = p.name;
                 project.color = p.color;
+                project.note = p.note;
+
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
@@ -355,7 +356,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         string move_template = _("Task moved to <b>%s</b>");
         Planner.notifications.send_notification (
-            0,
             move_template.printf (
                 Planner.database.get_project_by_id (project.id).name
             )

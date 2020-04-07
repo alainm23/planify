@@ -463,33 +463,33 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Planner.database.item_completed.connect ((item) => {
-            Idle.add (() => {
-                if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
-                    if (item.checked == 1) {
-                        if (completed_revealer.reveal_child) {
-                            var row = new Widgets.ItemCompletedRow (item);
-                            completed_listbox.add (row);
-                            completed_listbox.show_all ();
-                        }
-                    } else {
-                        var row = new Widgets.ItemRow (item);
-                        row.destroy.connect (() => {
-                            item_row_removed (row);
-                        });
+        //  Planner.database.item_completed.connect ((item) => {
+        //      Idle.add (() => {
+        //          if (project_id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
+        //              if (item.checked == 1) {
+        //                  if (completed_revealer.reveal_child) {
+        //                      var row = new Widgets.ItemCompletedRow (item);
+        //                      completed_listbox.add (row);
+        //                      completed_listbox.show_all ();
+        //                  }
+        //              } else {
+        //                  var row = new Widgets.ItemRow (item);
+        //                  row.destroy.connect (() => {
+        //                      item_row_removed (row);
+        //                  });
 
-                        listbox.add (row);
-                        items_list.add (row);
+        //                  listbox.add (row);
+        //                  items_list.add (row);
 
-                        listbox.show_all ();
-                    }
+        //                  listbox.show_all ();
+        //              }
 
-                    check_placeholder_view ();
-                }
+        //              check_placeholder_view ();
+        //          }
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
 
         Planner.utils.magic_button_activated.connect ((id, section_id, is_todoist, last, index) => {
             if (project_id == id && section_id == 0) {

@@ -61,9 +61,11 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         time_label = new Gtk.Label (null);
         time_label.use_markup = true;
         time_label.valign = Gtk.Align.CENTER;
-        time_label.get_style_context ().add_class ("font-bold");
+        time_label.get_style_context ().add_class ("dim-label");
 
         var name_label = new Gtk.Label ("<small>%s</small>".printf (component.get_summary ()));
+        name_label.get_style_context ().add_class ("font-bold");
+        name_label.get_style_context ().add_class ("dim-label");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
         name_label.wrap = true;

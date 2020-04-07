@@ -199,15 +199,15 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private Gtk.Widget get_reminder_new_widget () {
         calendar = new Widgets.Calendar.Calendar ();
-        calendar.margin = 6;
+        calendar.margin = 3;
         calendar.hexpand = true;
 
         var time_header = new Granite.HeaderLabel (_("Time:"));
-        time_header.margin_start = 6;
+        time_header.margin_start = 3;
 
         time_picker = new Granite.Widgets.TimePicker ();
-        time_picker.margin_start = 6;
-        time_picker.margin_end = 6;
+        time_picker.margin_start = 3;
+        time_picker.margin_end = 3;
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
 
@@ -216,9 +216,9 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         var action_grid = new Gtk.Grid ();
-        action_grid.margin = 6;
+        action_grid.margin = 3;
         action_grid.hexpand = true;
-        action_grid.column_spacing = 6;
+        action_grid.column_spacing = 3;
         action_grid.column_homogeneous = true;
         action_grid.add (cancel_button);
         action_grid.add (add_button);

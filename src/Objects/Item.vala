@@ -194,7 +194,10 @@ public class Objects.Item : GLib.Object {
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
+        Planner.notifications.send_notification (
+            _("The Task was copied to the Clipboard."),
+            "edit-copy-symbolic"
+        );
     }
 
     public void share_markdown () {
@@ -209,7 +212,10 @@ public class Objects.Item : GLib.Object {
         }
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
-        Planner.notifications.send_notification (0, _("The Task was copied to the Clipboard."));
+        Planner.notifications.send_notification (
+            _("The Task was copied to the Clipboard."),
+            "edit-copy-symbolic"
+        );
     }
 
     private string get_format_date (string due_date) {

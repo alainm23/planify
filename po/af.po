@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-02 13:33+0000\n"
-"Last-Translator: Vinodh Moodley <vmoodleyzaf@gmail.com>\n"
+"PO-Revision-Date: 2020-04-03 19:16+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/planner/"
 "translations/af/>\n"
 "Language: af\n"
@@ -498,7 +498,7 @@ msgstr "Plaaslike Projek"
 #: src/Widgets/SectionRow.vala:767
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr "Taak verskuif na  <b>%s</b>"
+msgstr "Taak verskuif na <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1317
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:855
