@@ -22,19 +22,20 @@
 public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
-    private Gee.HashMap<string, bool> items_loaded;
     public Gtk.Revealer new_item_revealer;
     private Widgets.NewItem new_item;
     private Gtk.Stack view_stack;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
+    public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
+
     private uint update_events_idle_source = 0;
     private GLib.DateTime date;
 
     construct {
-        items_loaded = new Gee.HashMap<string, bool> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
+        items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -162,10 +163,9 @@ public class Views.Today : Gtk.EventBox {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    var row = new Widgets.ItemRow (item);
+                    var row = new Widgets.ItemRow (item, "today");
 
-                    row.is_today = true;
-                    items_loaded.set (item.id.to_string (), true);
+                    items_loaded.set (item.id.to_string (), row);
 
                     listbox.add (row);
                     listbox.show_all ();
@@ -177,6 +177,7 @@ public class Views.Today : Gtk.EventBox {
 
         Planner.database.remove_due_item.connect ((item) => {
             if (items_loaded.has_key (item.id.to_string ())) {
+                items_loaded.get (item.id.to_string ()).hide_destroy ();
                 items_loaded.unset (item.id.to_string ());
                 check_placeholder_view ();
             }
@@ -192,6 +193,7 @@ public class Views.Today : Gtk.EventBox {
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.get (item.id.to_string ()).hide_destroy ();
                     items_loaded.unset (item.id.to_string ());
                     check_placeholder_view ();
                 }
@@ -208,26 +210,26 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        Planner.database.item_completed.connect ((item) => {
-            Idle.add (() => {
-                if (item.checked == 0 && item.due_date != "") {
-                    var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                    if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
-                        if (items_loaded.has_key (item.id.to_string ()) == false) {
-                            add_item (item);
-                            check_placeholder_view ();
-                        }
-                    }
-                } else {
-                    if (items_loaded.has_key (item.id.to_string ())) {
-                        items_loaded.unset (item.id.to_string ());
-                        check_placeholder_view ();
-                    }
-                }
+        //  Planner.database.item_completed.connect ((item) => {
+        //      Idle.add (() => {
+        //          if (item.checked == 0 && item.due_date != "") {
+        //              var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+        //              if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
+        //                  if (items_loaded.has_key (item.id.to_string ()) == false) {
+        //                      add_item (item);
+        //                      check_placeholder_view ();
+        //                  }
+        //              }
+        //          } else {
+        //              if (items_loaded.has_key (item.id.to_string ())) {
+        //                  items_loaded.unset (item.id.to_string ());
+        //                  check_placeholder_view ();
+        //              }
+        //          }
 
-                return false;
-            });
-        });
+        //          return false;
+        //      });
+        //  });
 
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;
@@ -336,10 +338,9 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void add_item (Objects.Item item) {
-        var row = new Widgets.ItemRow (item);
+        var row = new Widgets.ItemRow (item, "today");
 
-        row.is_today = true;
-        items_loaded.set (item.id.to_string (), true);
+        items_loaded.set (item.id.to_string (), row);
 
         listbox.add (row);
         listbox.show_all ();
@@ -347,10 +348,9 @@ public class Views.Today : Gtk.EventBox {
 
     private void add_all_items () {
         foreach (var item in Planner.database.get_all_today_items ()) {
-            var row = new Widgets.ItemRow (item);
-
-            row.is_today = true;
-            items_loaded.set (item.id.to_string (), true);
+            var row = new Widgets.ItemRow (item, "today");
+            
+            items_loaded.set (item.id.to_string (), row);
 
             listbox.add (row);
             listbox.show_all ();

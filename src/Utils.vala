@@ -511,7 +511,7 @@ public class Utils : GLib.Object {
         );
     }
 
-    private GLib.DateTime get_format_date_from_string (string due_date) {
+    public GLib.DateTime get_format_date_from_string (string due_date) {
         var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
 
         return new DateTime.local (
@@ -607,22 +607,28 @@ public class Utils : GLib.Object {
         return datetime.length <= 10;
     }
 
-    public GLib.DateTime? get_next_recurring_due_date (Objects.Item item) {
+    public GLib.DateTime? get_next_recurring_due_date (Objects.Item item, int value=1) {
         GLib.DateTime returned = null;
 
         if (item.due_lang == "en") {
             if (item.due_string == "every day" || item.due_string == "daily") {
-                returned = get_format_date_from_string (item.due_date).add_days (1);
+                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
             } else if (item.due_string == "every week" || item.due_string == "weekly") {
-                returned = get_format_date_from_string (item.due_date).add_days (7);
+                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
             } else if (item.due_string == "every month" || item.due_string == "monthly") {
-                returned = get_format_date_from_string (item.due_date).add_months (1);
+                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
             } else if (item.due_string == "every year" || item.due_string == "yearly") {
-                returned = get_format_date_from_string (item.due_date).add_years (1);
+                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
             }
         } else if (item.due_lang == "es") {
-            if (item.due_string == "cada dia" || item.due_string == "todos dias") {
-                returned = get_format_date_from_string (item.due_date).add_days (1);
+            if (item.due_string == "cada dia" || item.due_string == "todos dias" || item.due_string == "diario") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
+            } else if (item.due_string == "cada semana" || item.due_string == "semanal") {
+                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
+            } else if (item.due_string == "cada mes" || item.due_string == "mensual") {
+                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
+            } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
+                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
             }
         }
 
@@ -643,11 +649,32 @@ public class Utils : GLib.Object {
                 returned = 3;
             }
         } else if (item.due_lang == "es") {
-
+            if (item.due_string == "cada dia" || item.due_string == "todos dias" || item.due_string == "diario") {
+                returned = 0;
+            } else if (item.due_string == "cada semana" || item.due_string == "semanal") {
+                returned = 1;
+            } else if (item.due_string == "cada mes" || item.due_string == "mensual") {
+                returned = 2;
+            } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
+                returned = 3;
+            }
         }
 
         return returned;
     }
+    
+    //  public string get_recurrent_task_string (int id) {
+    //      if (is_supported_language ()) {
+
+    //      }
+
+    //      return "";
+    //  }
+
+    //  private bool is_supported_language () {
+    //      return "es" in Intl.get_language_names () ||
+    //              "en" in Intl.get_language_names ();
+    //  }
 
     /*
         Settigns Theme
@@ -749,6 +776,7 @@ public class Utils : GLib.Object {
     public Objects.Project create_tutorial_project () {
         var project = new Objects.Project ();
         project.id = generate_id ();
+        project.color = 41;
         project.name = _("🚀️ Getting Started");
         project.note = _("This project will help you learn the basics of Planner and get started with a simple task management system to stay organized and on top of everything you need to do."); // vala-lint=line-length
 

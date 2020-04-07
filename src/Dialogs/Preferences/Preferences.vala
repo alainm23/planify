@@ -684,8 +684,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
             Planner.utils.pane_project_selected (id, 0);
             Planner.notifications.send_notification (
-                0,
-                _("Your tutorial project was created")
+                _("Your tutorial project was created"),
+                "emblem-ok-symbolic"
             );
 
             Planner.utils.select_pane_project (id);

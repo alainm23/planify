@@ -96,12 +96,7 @@ public class Views.Label : Gtk.EventBox {
             }
 
             foreach (Objects.Item item in Planner.database.get_items_by_label (label.id)) {
-                var row = new Widgets.ItemRow (item);
-
-                row.is_today = true;
-                row.destroy.connect (() => {
-                    // item_row_removed (row);
-                });
+                var row = new Widgets.ItemRow (item, "label");
 
                 listbox.add (row);
                 items_loaded.set (item.id.to_string (), row);

@@ -45,7 +45,7 @@ public class Objects.Project : GLib.Object {
 
     private uint timeout_id = 0;
 
-    public void save () {
+    public void save (bool todoist=true) {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
             timeout_id = 0;
@@ -53,24 +53,9 @@ public class Objects.Project : GLib.Object {
 
         timeout_id = Timeout.add (500, () => {
             Planner.database.update_project (this);
-            if (is_todoist == 1) {
+            if (is_todoist == 1 && todoist) {
                 Planner.todoist.update_project (this);
             }
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
-            return false;
-        });
-    }
-
-    public void save_local () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-            timeout_id = 0;
-        }
-
-        timeout_id = Timeout.add (2500, () => {
-            Planner.database.update_project (this);
 
             Source.remove (timeout_id);
             timeout_id = 0;
@@ -116,7 +101,10 @@ public class Objects.Project : GLib.Object {
 
     public void share_markdown () {
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
-        Planner.notifications.send_notification (0, _("The Project was copied to the Clipboard."));
+        Planner.notifications.send_notification (
+            _("The Project was copied to the Clipboard."),
+            "edit-copy-symbolic"
+        );
     }
 
     private string to_markdown () {

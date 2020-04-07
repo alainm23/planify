@@ -22,8 +22,13 @@
 public class Dialogs.ProjectSettings : Gtk.Dialog {
     public Objects.Project project { get; construct; }
     private Gtk.Entry name_entry;
+    private Gtk.TextView description_textview;
     private Gtk.ListStore color_liststore;
     private Gtk.ComboBox color_combobox;
+    private Gtk.Switch due_switch;
+    private Granite.Widgets.DatePicker due_datepicker;
+    private Gtk.Revealer due_revealer;
+
     public ProjectSettings (Objects.Project project) {
         Object (
             project: project,
@@ -45,11 +50,15 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         name_entry = new Gtk.Entry ();
         name_entry.text = project.name;
+        name_entry.get_style_context ().add_class ("border-radius-4");
 
         var description_header = new Granite.HeaderLabel (_("Description:"));
+        description_header.margin_top = 6;
 
-        var description_textview = new Gtk.TextView ();
+        description_textview = new Gtk.TextView ();
+        description_textview.get_style_context ().add_class ("description");
         description_textview.margin = 6;
+        description_textview.buffer.text = project.note;
 
         var description_scrolled = new Gtk.ScrolledWindow (null, null);
         description_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -58,12 +67,35 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         description_scrolled.add (description_textview);
 
         var description_frame = new Gtk.Frame (null);
+        description_frame.get_style_context ().add_class ("border-radius-4");
         description_frame.add (description_scrolled);
 
         var due_label = new Granite.HeaderLabel (_("Due:"));
-        var due_datepicker = new Granite.Widgets.DatePicker ();
+
+        due_switch = new Gtk.Switch ();
+        due_switch.valign = Gtk.Align.CENTER;
+        due_switch.get_style_context ().add_class ("active-switch");
+
+        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        due_box.margin_top = 6;
+        due_box.hexpand = true;
+        due_box.pack_start (due_label, false, false, 0);
+        due_box.pack_end (due_switch, false, false, 0);
+
+        due_datepicker = new Granite.Widgets.DatePicker ();
+
+        due_revealer = new Gtk.Revealer ();
+        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        due_revealer.add (due_datepicker);
+
+        if (project.due_date != "") {
+            due_switch.active = true;
+            due_revealer.reveal_child = true;
+            due_datepicker.date = Planner.utils.get_format_date_from_string (project.due_date);
+        }
 
         var color_label = new Granite.HeaderLabel (_("Color:"));
+        color_label.margin_top = 6;
 
         color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
         color_combobox = new Gtk.ComboBox.with_model (color_liststore);
@@ -116,6 +148,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.add (color_label);
         grid.add (color_combobox);
         grid.add (loading_revealer);
+        grid.add (due_box);
+        grid.add (due_revealer);
         grid.show_all ();
 
         get_content_area ().add (grid);
@@ -125,7 +159,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);
         save_button.has_default = true;
         save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        
+
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
                 save_button.sensitive = true;
@@ -154,6 +188,10 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             }
         });
 
+        due_switch.notify["active"].connect (() => {
+            due_revealer.reveal_child = due_switch.active;
+        });
+
         Planner.todoist.project_updated_started.connect ((id) => {
             if (project.id == id) {
                 loading_revealer.reveal_child = true;
@@ -177,6 +215,13 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         if (name_entry.text != "") {
             project.name = name_entry.text;
             project.color = get_color_selected ();
+            project.note = description_textview.buffer.text;
+
+            if (due_switch.active) {
+                project.due_date = due_datepicker.date.to_string ();
+            } else {
+                project.due_date = "";
+            }
 
             project.save ();
 
