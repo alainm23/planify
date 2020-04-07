@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-06 23:53+0000\n"
+"PO-Revision-Date: 2020-04-07 16:18+0000\n"
 "Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/Application.vala:222
 msgid "New area"
-msgstr ""
+msgstr "Nova areo"
 
 #: src/MainWindow.vala:45
 msgid "Planner"
@@ -57,7 +57,7 @@ msgstr "Ruĝa"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "Oranĝkolora"
 
 #: src/Utils.vala:197
 msgid "Yellow"
@@ -101,7 +101,7 @@ msgstr "Uvo"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "Violkolora"
 
 #: src/Utils.vala:208
 msgid "Lavander"
@@ -113,7 +113,7 @@ msgstr ""
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "Salmkolora"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
@@ -140,8 +140,9 @@ msgid "Tomorrow"
 msgstr "Morgaŭ"
 
 #: src/Utils.vala:761
+#, fuzzy
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Rapida aldono aktivigas!"
 
 #: src/Utils.vala:762
 #, fuzzy, c-format
@@ -153,11 +154,14 @@ msgid "🚀️ Getting Started"
 msgstr ""
 
 #: src/Utils.vala:781
+#, fuzzy
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Ĉi tiu projekto helpos vin por lerni la [] de Planner kaj komencas kun "
+"simpla [task management system] por"
 
 #: src/Utils.vala:786
 msgid "Keeping track of your tasks"
