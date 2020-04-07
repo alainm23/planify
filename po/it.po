@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-03-12 16:02-0500\n"
-"PO-Revision-Date: 2020-03-14 10:10+0100\n"
+"PO-Revision-Date: 2020-03-31 18:10+0100\n"
 "Last-Translator: Albano Battistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Zorinos\n"
 "Language: italian\n"
@@ -140,7 +140,7 @@ msgstr "Domani"
 
 #: src/Utils.vala:647
 msgid "Quick Add Activated!"
-msgstr "Inserimento Veloce Attivato!"
+msgstr "Aggiunta rapida attivata! "
 
 #: src/Utils.vala:648
 #, c-format
@@ -183,7 +183,6 @@ msgstr ""
 "esattamente su cosa si deve concentrarsi e quando."
 
 #: src/Utils.vala:677
-#, fuzzy
 msgid "Adding new tasks"
 msgstr "Aggiunta di nuove attività"
 
@@ -297,14 +296,12 @@ msgid "Open the Inbox"
 msgstr "Apri in entrata"
 
 #: src/Utils.vala:734
-#, fuzzy
 msgid "Open Today"
 msgstr "Aperto Oggi"
 
 #: src/Utils.vala:735
-#, fuzzy
 msgid "Open Upcoming"
-msgstr "Imminente"
+msgstr "Apri Imminente"
 
 #: src/Utils.vala:736
 msgid "Open Search"
@@ -320,12 +317,12 @@ msgstr "Esci"
 
 #: src/Utils.vala:746
 msgid "The request was incorrect."
-msgstr "La richiesta è incorretta."
+msgstr "La richiesta non era corretta"
 
 #: src/Utils.vala:747
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "
 "È richiesta l'autenticazione, non è riuscita o non è stata ancora fornita."
 
 #: src/Utils.vala:748
@@ -334,7 +331,7 @@ msgstr "La richiesta era valida, ma per qualcosa che è proibito."
 
 #: src/Utils.vala:749
 msgid "The requested resource could not be found."
-msgstr "La risorsa richiesta non è stata trovata."
+msgstr "La risorsa richiesta non è stata trovata"
 
 #: src/Utils.vala:750
 msgid "The user has sent too many requests in a given amount of time."
@@ -471,7 +468,7 @@ msgstr "Annulla"
 
 #: src/Widgets/New.vala:474
 msgid "Local"
-msgstr "Locale"
+msgstr Locale"
 
 #: src/Widgets/New.vala:545 src/Widgets/ProjectRow.vala:445
 msgid "No Area"
@@ -497,7 +494,7 @@ msgstr "Organizza i tuoi progetti in gruppo e mantieni pulito il pannello."
 
 #: src/Widgets/ProjectRow.vala:125 src/Views/Project.vala:150
 msgid "Project Menu"
-msgstr "Menu del progetto"
+msgstr "Menu Progetto"
 
 #: src/Widgets/ProjectRow.vala:143
 msgid "Local Project"
@@ -508,7 +505,7 @@ msgstr "Progetto locale"
 #: src/Widgets/SectionRow.vala:767
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr "L'attività è stata spostata in<b>%s</b>"
+msgstr "L'attività è stata spostata in <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1317
 #: src/Widgets/AreaRow.vala:499 src/Views/Project.vala:855
@@ -560,7 +557,7 @@ msgstr "Nome compito"
 
 #: src/Widgets/ItemRow.vala:170 src/Widgets/ItemRow.vala:1007
 msgid "View Details"
-msgstr "Visualizza dettagli"
+msgstr "Mostra Dettagli"
 
 #: src/Widgets/ItemRow.vala:374 src/Widgets/ItemCompletedRow.vala:40
 msgid "Note"
@@ -576,7 +573,7 @@ msgstr "Elimina Compito"
 
 #: src/Widgets/ItemRow.vala:442
 msgid "Task Menu"
-msgstr "Menu Compito"
+msgstr "Menu task"
 
 #: src/Widgets/ItemRow.vala:986
 msgid "Hiding"
@@ -624,7 +621,7 @@ msgstr "Data completamento"
 
 #: src/Widgets/SectionRow.vala:73 src/Widgets/SectionRow.vala:690
 msgid "Display Tasks"
-msgstr "Mostra Compiti"
+msgstr "Mostra Tasks"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/SectionRow.vala:695
 msgid "Hiding Tasks"
@@ -636,7 +633,7 @@ msgstr "Nome sezione"
 
 #: src/Widgets/SectionRow.vala:107
 msgid "Section Menu"
-msgstr "Menu sezione"
+msgstr "Menu Sezione"
 
 #. top_box.pack_end (hidden_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:124 src/Widgets/AreaRow.vala:135
@@ -647,7 +644,7 @@ msgstr "Salva"
 #: src/Widgets/SectionRow.vala:542 src/Widgets/SectionRow.vala:564
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "La sezione è stata spostata in<b>%s</b>"
+msgstr "La sezione è stata spostata in <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:586 src/Widgets/MagicButton.vala:32
 msgid "Add Task"
@@ -700,7 +697,7 @@ msgstr "Mostra Progetti"
 
 #: src/Widgets/AreaRow.vala:125 src/Widgets/AreaRow.vala:350
 msgid "Hiding Projects"
-msgstr "Progetti Nascosti"
+msgstr "Nascondi Progetti"
 
 #: src/Widgets/AreaRow.vala:496
 msgid "Add project"
@@ -796,11 +793,11 @@ msgstr "Sincronizza con il tuo account Todoist e inizia a lavorare."
 
 #: src/Views/Inbox.vala:83 src/Views/Project.vala:114
 msgid "Add Section"
-msgstr "Aggiungi sezione"
+msgstr "Aggiungi Sezione"
 
 #: src/Views/Inbox.vala:92
 msgid "Inbox comments"
-msgstr "Commenti Posta in arrivo"
+msgstr "Commenti Iin entrata"
 
 #: src/Views/Inbox.vala:100 src/Views/Project.vala:139
 msgid "Search task"
@@ -808,7 +805,7 @@ msgstr "Ricerca compito"
 
 #: src/Views/Inbox.vala:111
 msgid "Inbox Menu"
-msgstr "Menu Posta in arrivo"
+msgstr "Commenti In entrata"
 
 #: src/Views/Inbox.vala:191
 msgid "All clear"
@@ -820,11 +817,11 @@ msgstr "Sembra che tutto sia organizzato nel posto giusto."
 
 #: src/Views/Inbox.vala:771 src/Views/Project.vala:867
 msgid "Show Completed"
-msgstr "Mostra Completati"
+msgstr "Mostra completati"
 
 #: src/Views/Inbox.vala:939 src/Views/Project.vala:1024
 msgid "Task completed"
-msgstr "Compiti completati"
+msgstr "Task completato"
 
 #: src/Views/Today.vala:85
 msgid "What tasks are on your mind?"
@@ -919,7 +916,7 @@ msgstr "Tema"
 #: src/Dialogs/Preferences/Preferences.vala:93
 #: src/Dialogs/Preferences/Preferences.vala:436
 msgid "Quick Add"
-msgstr "Aggiunta veloce"
+msgstr "Aggiunta Veloce"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:109
@@ -946,7 +943,7 @@ msgstr "Info"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1121
 msgid "Support & Credits"
-msgstr "Supporto e Crediti"
+msgstr ""Supporto & crediti"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -1030,8 +1027,8 @@ msgid ""
 "notifications."
 msgstr ""
 "Abilita questa impostazione per mantenere Planner in esecuzione in background quando "
-"chiude. Ciò consentirà a Planner di continuare ad aggiornare e inviare notifiche di "
-"promemoria."
+"chiude. Ciò consentirà a Planner di continuare ad aggiornare e inviare notifiche "
+"di promemoria."
 
 #: src/Dialogs/Preferences/Preferences.vala:599
 msgid "Run on startup"
@@ -1166,7 +1163,7 @@ msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
-"Grazie a loro che hanno fatto una donazione tramite Patreon o PayPal. (Se vuoi "
+"Grazie a loro che hanno fatto una donazione tramite Patreon o PayPal. (Se vuoi"
 "apparire qui, visita il nostro account Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
@@ -1203,7 +1200,7 @@ msgstr "Visualizzazioni"
 
 #: src/Objects/Project.vala:119
 msgid "The Project was copied to the Clipboard."
-msgstr "Il Progetto è stata copiata negli Appunti."
+msgstr "Il Progetto è stato copiato negli Appunti."
 
 #: src/Objects/Item.vala:197 src/Objects/Item.vala:212
 msgid "The Task was copied to the Clipboard."
