@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-07 16:18+0000\n"
+"PO-Revision-Date: 2020-04-07 18:41+0000\n"
 "Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
@@ -142,7 +142,7 @@ msgstr "Morgaŭ"
 #: src/Utils.vala:761
 #, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Rapida aldono aktivigas!"
+msgstr "Rapidan aldonon aktivigas!"
 
 #: src/Utils.vala:762
 #, fuzzy, c-format
