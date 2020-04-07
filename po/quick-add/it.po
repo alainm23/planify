@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: quick-add\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-12 16:02-0500\n"
+"POT-Creation-Date: 2020-04-06 21:33-0500\n"
 "PO-Revision-Date: 2020-03-15 10:04+0100\n"
 "Last-Translator: Albano Battistella\n"
 "Language-Team: Italiano\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/QuickAdd/MainWindow.vala:60
 msgid "Task name"
-msgstr "Nome attività"
+msgstr ""
 
 #: src/QuickAdd/MainWindow.vala:83
 msgid "Save"
@@ -34,12 +34,12 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planner."
 msgstr ""
-"Mi dispiace, Quick Add non riesce a trovare nessun progetto disponibile, prova a creare un"
-"progetto da Planner."
+"Mi dispiace, Quick Add non riesce a trovare nessun progetto disponibile, "
+"prova a creare unprogetto da Planner."
 
 #: src/QuickAdd/MainWindow.vala:240
 msgid "The task was correctly added."
-msgstr "L'attività è stata aggiunta correttamente."
+msgstr ""
 
 #: src/QuickAdd/Database.vala:387
 msgid "Connection error"
