@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-03-23 03:48+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-04-07 16:18+0000\n"
+"Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -440,13 +440,12 @@ msgid "Name:"
 msgstr "Nom :"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Description"
+msgstr "Description :"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Dossier :"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 msgid "Color:"
@@ -472,7 +471,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr ""
+msgstr "Pas de Dossier :"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -486,7 +485,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Dossier"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
@@ -498,9 +497,8 @@ msgid "Close"
 msgstr "Fermer"
 
 #: src/Widgets/New.vala:580
-#, fuzzy
 msgid "New folder"
-msgstr "Autres fonctionnalités"
+msgstr "Nouveau groupe"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -682,23 +680,23 @@ msgstr "Date d'échéance"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr ""
+msgstr "Répéter"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
-msgstr ""
+msgstr "Tous les jours"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every week"
-msgstr ""
+msgstr "Tous les semaine"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every month"
-msgstr ""
+msgstr "Tous les mois"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every year"
-msgstr ""
+msgstr "Toutes les années"
 
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
@@ -722,9 +720,8 @@ msgid "Undo"
 msgstr "Annuler"
 
 #: src/Widgets/Toast.vala:246
-#, fuzzy
 msgid "Task deleted"
-msgstr "Tâches complétées"
+msgstr "Tâche supprimée"
 
 #: src/Widgets/Toast.vala:248 src/Views/Inbox.vala:932
 msgid "Task completed"
@@ -733,7 +730,7 @@ msgstr "Tâches complétées"
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Tâche terminée. Prochaine occurrence : %s"
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
 msgid "Display Projects"
@@ -748,9 +745,8 @@ msgid "Add project"
 msgstr "Ajouter un Projet"
 
 #: src/Widgets/AreaRow.vala:531
-#, fuzzy
 msgid "Delete folder"
-msgstr "Supprimer le projet"
+msgstr "Supprimer le groupe"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -899,7 +895,7 @@ msgstr "Cliquez sur + pour ajouter une tâche à ce projet."
 #: src/Views/Project.vala:779
 #, c-format
 msgid "Project's progress: %s"
-msgstr ""
+msgstr "Progression du projet : %s"
 
 #: src/Views/Project.vala:1166
 msgid "Productivity"
