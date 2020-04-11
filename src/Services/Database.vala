@@ -23,7 +23,7 @@ public class Services.Database : GLib.Object {
     private Sqlite.Database db;
     private string db_path;
 
-    public signal void update_today_count (int items_0, int items_1);
+    public signal void update_all_bage ();
 
     public signal void area_added (Objects.Area area);
     public signal void area_deleted (Objects.Area area);
@@ -1747,7 +1747,6 @@ public class Services.Database : GLib.Object {
         }
 
         update_project_count (id, items_0, items_1);
-
         return items_0;
     }
 
@@ -1781,8 +1780,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-        int items_today = 0;
-        int items_past = 0;
+        int count = 0;
 
         sql = """
             SELECT due_date FROM Items WHERE checked = 0 AND due_date != '';
@@ -1794,17 +1792,34 @@ public class Services.Database : GLib.Object {
         while ((res = stmt.step ()) == Sqlite.ROW) {
             var due = new GLib.DateTime.from_iso8601 (stmt.column_text (0), new GLib.TimeZone.local ());
             if (Planner.utils.is_today (due)) {
-                items_today++;
-            }
-
-            if (Planner.utils.is_before_today (due)) {
-                items_past++;
+                count++;
             }
         }
 
-        update_today_count (items_past, items_today);
+        return count;
+    }
 
-        return items_today + items_past;
+    public int get_past_count () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int count = 0;
+
+        sql = """
+            SELECT due_date FROM Items WHERE checked = 0 AND due_date != '';
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var due = new GLib.DateTime.from_iso8601 (stmt.column_text (0), new GLib.TimeZone.local ());
+            if (Planner.utils.is_before_today (due)) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     /*
@@ -2155,7 +2170,7 @@ public class Services.Database : GLib.Object {
             s.date_archived = stmt.column_text (8);
             s.date_added = stmt.column_text (9);
             s.is_todoist = stmt.column_int (10);
-            //  s.note = stmt.column_text (11);
+            s.note = stmt.column_text (11);
 
             all.add (s);
         }

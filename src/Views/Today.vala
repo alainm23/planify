@@ -39,7 +39,7 @@ public class Views.Today : Gtk.EventBox {
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.pixel_size = 19;
+        icon_image.pixel_size = 16;
 
         var hour = new GLib.DateTime.now_local ().get_hour ();
         if (hour >= 18 || hour <= 6) {
@@ -63,19 +63,19 @@ public class Views.Today : Gtk.EventBox {
         date_label.margin_top = 6;
         date_label.use_markup = true;
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 24;
-        top_box.margin_end = 16;
+        top_box.margin_start = 36;
+        top_box.margin_end = 24;
 
         top_box.pack_start (icon_image, false, false, 0);
-        top_box.pack_start (title_label, false, false, 6);
+        top_box.pack_start (title_label, false, false, 0);
         top_box.pack_start (date_label, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
-        listbox.margin_start = 12;
+        listbox.margin_start = 24;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -106,7 +106,8 @@ public class Views.Today : Gtk.EventBox {
             is_todoist
         );
         new_item.margin_top = 6;
-        new_item.margin_start = 18;
+        new_item.margin_start = 30;
+        new_item.margin_end = 24;
 
         new_item_revealer = new Gtk.Revealer ();
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -114,7 +115,7 @@ public class Views.Today : Gtk.EventBox {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_top = 6;
-        event_listbox.margin_start = 26;
+        event_listbox.margin_start = 36;
         event_listbox.valign = Gtk.Align.START;
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
@@ -128,7 +129,8 @@ public class Views.Today : Gtk.EventBox {
         event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        //box.valign = Gtk.Align.START;
+        box.margin_bottom = 3;
+        box.margin_end = 3;
         box.pack_start (event_revealer, false, false, 0);
         box.pack_start (new_item_revealer, false, false, 0);
         box.pack_start (view_stack, true, true, 0);

@@ -123,8 +123,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 project = Planner.database.get_project_by_id (item.project_id);
                 project_preview_label.label = "<small>%s</small>".printf (project.name);
-                project_preview_image.gicon = new ThemedIcon ("color-%i".printf (project.color));
                 project_preview_revealer.reveal_child = true;
+
+                if (project.inbox_project == 1) {
+                    project_preview_image.gicon = new ThemedIcon ("color-41");
+                } else {
+                    project_preview_image.gicon = new ThemedIcon ("color-%i".printf (project.color));
+                }
 
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_before_today (datetime)) {
@@ -153,7 +158,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_button.can_focus = false;
         hidden_button.margin_top = 1;
         hidden_button.margin_end = 3;
-        hidden_button.tooltip_text = _("View Details");
+        hidden_button.tooltip_text = _("Hide Details");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
 
@@ -181,7 +186,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         label_revealer = new Gtk.Revealer ();
         label_revealer.valign = Gtk.Align.START;
-        label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        label_revealer.transition_type = Gtk.RevealerTransitionType.NONE;
         label_revealer.transition_duration = 125;
         label_revealer.add (content_label);
         label_revealer.reveal_child = true;
@@ -200,7 +205,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         entry_revealer = new Gtk.Revealer ();
         entry_revealer.valign = Gtk.Align.START;
-        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.NONE;
         entry_revealer.transition_duration = 125;
         entry_revealer.add (content_entry);
 
@@ -225,7 +230,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var project_preview_grid = new Gtk.Grid ();
         project_preview_grid.column_spacing = 3;
-        project_preview_grid.margin_end = 16;
+        project_preview_grid.margin_end = 6;
         project_preview_grid.halign = Gtk.Align.CENTER;
         project_preview_grid.valign = Gtk.Align.CENTER;
         project_preview_grid.add (project_preview_image);
@@ -467,6 +472,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_end = 16;
+        motion_grid.margin_bottom = 12;
         motion_grid.margin_top = 3;
         motion_grid.margin_start = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -972,18 +978,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     public void show_item () {
-        //  if (is_today == false && upcoming == null) {
-        //      Planner.utils.add_item_show_queue (this);
-        //  } else {
-        //      if (is_today) {
-        //          Planner.utils.add_item_show_queue_view (this, "today");
-        //      }
-
-        //      if (upcoming != null) {
-        //          Planner.utils.add_item_show_queue_view (this, "upcoming");
-        //      }
-        //  }
-
         bottom_revealer.reveal_child = true;
         main_grid.get_style_context ().add_class ("item-row-selected");
         main_grid.get_style_context ().add_class ("popover");
@@ -992,8 +986,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_revealer.reveal_child = false;
         preview_revealer.reveal_child = false;
         hidden_revealer.reveal_child = true;
-
-        hidden_button.tooltip_text = _("Hiding");
 
         activatable = false;
         selectable = false;
@@ -1013,8 +1005,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_revealer.reveal_child = false;
 
         check_preview_box ();
-
-        hidden_button.tooltip_text = _("View Details");
 
         timeout_id = Timeout.add (250, () => {
             activatable = true;

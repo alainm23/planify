@@ -22,7 +22,7 @@
     <file alias="folder-outline.svg">resources/folder-outline.svg</file>
     <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
     <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
-    
+
     <file alias="color-30.svg">resources/colors/color-30.svg</file>
     <file alias="color-31.svg">resources/colors/color-31.svg</file>
     <file alias="color-32.svg">resources/colors/color-32.svg</file>
@@ -43,5 +43,16 @@
     <file alias="color-47.svg">resources/colors/color-47.svg</file>
     <file alias="color-48.svg">resources/colors/color-48.svg</file>
     <file alias="color-49.svg">resources/colors/color-49.svg</file>
+
+    <file alias="cat.svg">resources/avatars/cat.svg</file>
+    <file alias="dog.svg">resources/avatars/dog.svg</file>
+    <file alias="koala.svg">resources/avatars/koala.svg</file>
+    <file alias="lion.svg">resources/avatars/lion.svg</file>
+    <file alias="monkey.svg">resources/avatars/monkey.svg</file>
+    <file alias="owl.svg">resources/avatars/owl.svg</file>
+    <file alias="penguin.svg">resources/avatars/penguin.svg</file>
+    <file alias="rabbit.svg">resources/avatars/rabbit.svg</file>
+    <file alias="tiger.svg">resources/avatars/tiger.svg</file>
+    <file alias="zoo.svg">resources/avatars/zoo.svg</file>
   </gresource>
 </gresources>

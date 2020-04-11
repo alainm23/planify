@@ -82,12 +82,6 @@ public class Views.Project : Gtk.EventBox {
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
 
-        var grid_color = new Gtk.Grid ();
-        grid_color.set_size_request (16, 16);
-        grid_color.valign = Gtk.Align.CENTER;
-        grid_color.halign = Gtk.Align.CENTER;
-        grid_color.get_style_context ().add_class ("project-%s".printf (project.id.to_string ()));
-
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
@@ -184,11 +178,11 @@ public class Views.Project : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_end = 16;
-        top_box.margin_start = 24;
+        top_box.margin_end = 24;
+        top_box.margin_start = 36;
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -202,7 +196,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.margin_top = 6;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 24;
+        action_grid.margin_start = 36;
         action_grid.margin_bottom = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
@@ -229,8 +223,8 @@ public class Views.Project : Gtk.EventBox {
         note_textview.margin_bottom = 3;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.margin_start = 25;
-        note_textview.margin_end = 32;
+        note_textview.margin_start = 37;
+        note_textview.margin_end = 36;
 
         note_placeholder = new Gtk.Label (_("Description"));
         note_placeholder.opacity = 0.7;
@@ -247,12 +241,12 @@ public class Views.Project : Gtk.EventBox {
         }
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 12;
+        listbox.margin_start = 24;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        listbox.margin_bottom = 6;
+        listbox.margin_bottom = 3;
         // listbox.set_filter_func (filter_function);
         // listbox.set_sort_func (sort_function);
         listbox.hexpand = true;
@@ -273,8 +267,9 @@ public class Views.Project : Gtk.EventBox {
         }
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 24;
-        motion_grid.margin_end = 16;
+        motion_grid.margin_start = 36;
+        motion_grid.margin_end = 24;
+        motion_grid.margin_bottom = 12;
         motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -333,6 +328,8 @@ public class Views.Project : Gtk.EventBox {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
+        box.margin_bottom = 3;
+        box.margin_end = 3;
         box.pack_start (motion_revealer, false, false, 0);
         box.pack_start (listbox, false, false, 0);
         box.pack_start (completed_revealer, false, false, 0);
@@ -392,12 +389,6 @@ public class Views.Project : Gtk.EventBox {
             item.reveal_child = true;
         });
 
-        listbox.remove.connect ((row) => {
-            // items_uncompleted_added.unset (((Widgets.ItemRow) row).item.id.to_string ());
-            // check_placeholder_view ();
-            // check_listbox_margin ();
-        });
-
         section_listbox.remove.connect ((row) => {
             check_placeholder_view ();
         });
@@ -454,13 +445,6 @@ public class Views.Project : Gtk.EventBox {
                     create_popover ();
                 }
 
-                if (Planner.database.get_count_checked_items_by_project (project.id) > 0) {
-                    // show_completed_button.sensitive = true;
-                } else {
-                    // show_completed_button.sensitive = false;
-                    // show_completed_switch.active = false;
-                }
-
                 popover.show_all ();
             }
         });
@@ -479,7 +463,7 @@ public class Views.Project : Gtk.EventBox {
             }
 
             return false;
-        });
+        }); 
 
         note_textview.buffer.changed.connect (() => {
             save (false);
@@ -595,6 +579,9 @@ public class Views.Project : Gtk.EventBox {
                     }
                 }
 
+                check_listbox_margin ();
+                check_placeholder_view ();
+                
                 return false;
             });
         });
@@ -617,6 +604,9 @@ public class Views.Project : Gtk.EventBox {
                         }
                     }
                 }
+
+                check_listbox_margin ();
+                check_placeholder_view ();
 
                 return false;
             });
@@ -931,6 +921,7 @@ public class Views.Project : Gtk.EventBox {
 
         listbox.show_all ();
         update_item_order ();
+        check_listbox_margin ();
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -1058,16 +1049,13 @@ public class Views.Project : Gtk.EventBox {
             if (show_completed_switch.active) {
                 project.show_completed = 0;
                 completed_revealer.reveal_child = false;
-
-                // check_placeholder_view ();
-                // check_listbox_margin ();
             } else {
                 project.show_completed = 1;
                 completed_revealer.reveal_child = true;
-                // add_completed_items (project.id);
-                //  main_stack.visible_child_name = "project";
             }
 
+            check_placeholder_view ();
+            check_listbox_margin ();
             Planner.database.project_show_completed (project);
             save (false);
             return Gdk.EVENT_STOP;
@@ -1344,11 +1332,22 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void check_placeholder_view () {
-        if (Planner.database.get_count_items_by_project (project.id) > 0 ||
-            Planner.database.get_count_sections_by_project (project.id) > 0) {
-            main_stack.visible_child_name = "project";
+        if (project.show_completed == 0) {
+            if (items_uncompleted_added.size > 0 || Planner.database.get_count_sections_by_project (project.id) > 0) {
+                main_stack.visible_child_name = "project";
+            } else {
+                main_stack.visible_child_name = "placeholder";
+            }
         } else {
-            main_stack.visible_child_name = "placeholder";
+            if (items_uncompleted_added.size > 0 || Planner.database.get_count_sections_by_project (project.id) > 0) {
+                main_stack.visible_child_name = "project";
+            } else {
+                if (items_completed_added.size > 0) {
+                    main_stack.visible_child_name = "project";
+                } else {
+                    main_stack.visible_child_name = "placeholder";
+                }
+            }
         }
     }
 
@@ -1362,10 +1361,22 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void check_listbox_margin () {
-        if (items_uncompleted_added.size > 0) {
-            completed_revealer.margin_bottom = 32;
+        if (project.show_completed == 0) {
+            if (items_uncompleted_added.size > 0) {
+                completed_revealer.margin_bottom = 32;
+            } else {
+                completed_revealer.margin_bottom = 6;
+            }
         } else {
-            completed_revealer.margin_bottom = 6;
+            if (items_uncompleted_added.size > 0) {
+                completed_revealer.margin_bottom = 32;
+            } else {
+                if (items_completed_added.size > 0) {
+                    completed_revealer.margin_bottom = 32;
+                } else {
+                    completed_revealer.margin_bottom = 6;
+                }
+            }
         }
     }
 

@@ -22,6 +22,7 @@
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
 
+    private Widgets.ProjectProgress project_progress;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
@@ -67,7 +68,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("project-row");
 
-        var project_progress = new Widgets.ProjectProgress (10);
+        project_progress = new Widgets.ProjectProgress (10);
         project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
@@ -174,11 +175,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         add (main_revealer);
         apply_color (Planner.utils.get_color (project.color));
 
-        Timeout.add (125, () => {
-            update_count ();
-            return false;
-        });
-
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
@@ -244,14 +240,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_drag_and_drop (active);
         });
 
-        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
-            if (project.id == id) {
-                project_progress.percentage = ((double) items_1 / ((double) items_0 + (double) items_1));
-                count = items_0;
-                check_count_label ();
-            }
-        });
-
         Planner.database.check_project_count.connect ((id) => {
             if (project.id == id) {
                 update_count ();
@@ -266,6 +254,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 return false;
             });
+        });
+
+        Planner.database.update_all_bage.connect (() => {
+            update_count ();
         });
     }
 
@@ -302,12 +294,23 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
 
         timeout_id = Timeout.add (500, () => {
-            Planner.database.get_project_count (project.id);
+            count = Planner.database.get_count_items_by_project (project.id);
+            check_count_label ();
+
+            // Progress update
+            project_progress.percentage = get_percentage (
+                Planner.database.get_count_checked_items_by_project (project.id),
+                Planner.database.get_all_count_items_by_project (project.id)
+            );
 
             Source.remove (timeout_id);
             timeout_id = 0;
             return false;
         });
+    }
+
+    private double get_percentage (int a, int b) {
+        return (double) a / (double) b;
     }
 
     private void check_count_label () {

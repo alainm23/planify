@@ -30,8 +30,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Revealer action_revealer;
     private Gtk.EventBox top_eventbox;
     private Gtk.Separator separator;
+    private Gtk.Revealer separator_revealer;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer motion_section_revealer;
+    private Gtk.TextView note_textview;
+    private Gtk.Label note_placeholder;
+    private Gtk.Revealer note_revealer;
 
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
@@ -72,13 +76,17 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_start = 22;
-        hidden_button.margin_end = 6;
+        hidden_button.margin_start = 9;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
         hidden_button.get_style_context ().add_class ("no-padding");
+
+        var hidden_revealer = new Gtk.Revealer ();
+        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        hidden_revealer.add (hidden_button);
+        hidden_revealer.reveal_child = false;
 
         if (section.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
@@ -100,19 +108,23 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("no-padding");
 
         name_stack = new Gtk.Stack ();
+        name_stack.margin_start = 9;
         name_stack.hexpand = true;
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         name_stack.add_named (name_label, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
+
         var settings_button = new Gtk.Button ();
         settings_button.can_focus = false;
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.tooltip_text = _("Section Menu");
-        settings_button.image = new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.MENU);
+        settings_button.image = settings_image;
         settings_button.get_style_context ().remove_class ("button");
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         settings_button.get_style_context ().add_class ("hidden-button");
 
         var settings_revealer = new Gtk.Revealer ();
@@ -121,7 +133,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_revealer.reveal_child = false;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.pack_start (hidden_button, false, false, 0);
+        top_box.pack_start (hidden_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, true, 0);
 
@@ -136,7 +148,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 45;
+        action_grid.margin_start = 36;
         action_grid.margin_bottom = 6;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
@@ -147,17 +159,98 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_revealer.add (action_grid);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_end = 16;
+        top_eventbox.margin_end = 21;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
 
         separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 47;
-        separator.margin_end = 24;
+        separator.margin_start = 36;
+        separator.margin_end = 32;
+
+        separator_revealer = new Gtk.Revealer ();
+        separator_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        separator_revealer.add (separator);
+        separator_revealer.reveal_child = true;
+
+        note_textview = new Gtk.TextView ();
+        note_textview.tooltip_text = _("Add a description");
+        note_textview.hexpand = true;
+        note_textview.valign = Gtk.Align.START;
+        note_textview.margin_top = 3;
+        note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.get_style_context ().add_class ("project-textview");
+        note_textview.margin_start = 36;
+        note_textview.margin_end = 32;
+
+        note_placeholder = new Gtk.Label (_("Description"));
+        note_placeholder.opacity = 0.7;
+        note_textview.add (note_placeholder);
+
+        note_textview.buffer.text = Planner.utils.line_break_to_space (section.note);
+
+        note_revealer = new Gtk.Revealer ();
+        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        note_revealer.add (note_textview);
+
+        if (section.note != "") {
+            note_placeholder.visible = false;
+            note_placeholder.no_show_all = true;
+
+            note_revealer.reveal_child = true;
+        } else {
+            note_placeholder.visible = true;
+            note_placeholder.no_show_all = false;
+
+            note_revealer.reveal_child = false;
+        }
+
+        note_textview.focus_in_event.connect (() => {
+            note_placeholder.visible = false;
+            note_placeholder.no_show_all = true;
+            separator_revealer.reveal_child = false;
+
+            return false;
+        });
+
+        note_textview.focus_out_event.connect (() => {
+            if (note_textview.buffer.text == "") {
+                note_placeholder.visible = true;
+                note_placeholder.no_show_all = false;
+                note_revealer.reveal_child = false;
+            } else {
+                note_revealer.reveal_child = true;
+            }
+
+            separator_revealer.reveal_child = true;
+
+            return false;
+        });
+
+
+        note_textview.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                if (note_textview.buffer.text == "") {
+                    note_placeholder.visible = true;
+                    note_placeholder.no_show_all = false;
+
+                    note_revealer.reveal_child = false;
+                } else {
+                    note_revealer.reveal_child = true;
+                }
+            }
+
+            return false;
+        });
+
+        note_textview.buffer.changed.connect (() => {
+            separator_revealer.reveal_child = false;
+            save (false);
+        });
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 24;
-        motion_grid.margin_end = 16;
+        motion_grid.margin_start = 36;
+        motion_grid.margin_bottom = 12;
+        motion_grid.margin_end = 24;
         motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -167,8 +260,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_revealer.add (motion_grid);
 
         var motion_section_grid = new Gtk.Grid ();
-        motion_section_grid.margin_start = 24;
-        motion_section_grid.margin_end = 16;
+        motion_section_grid.margin_start = 36;
+        motion_section_grid.margin_end = 24;
         motion_section_grid.margin_bottom = 6;
         motion_section_grid.get_style_context ().add_class ("grid-motion");
         motion_section_grid.height_request = 24;
@@ -178,7 +271,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         motion_section_revealer.add (motion_section_grid);
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 12;
+        listbox.margin_start = 24;
         listbox.margin_bottom = 3;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
@@ -220,8 +313,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         main_box.margin_bottom = 32;
         main_box.pack_start (motion_section_revealer, false, false, 0);
         main_box.pack_start (top_eventbox, false, false, 0);
-        main_box.pack_start (separator, false, false, 0);
+        main_box.pack_start (separator_revealer, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
+        main_box.pack_start (note_revealer, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox_revealer, false, false, 0);
 
@@ -351,6 +445,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         top_eventbox.enter_notify_event.connect ((event) => {
             settings_revealer.reveal_child = true;
+            hidden_revealer.reveal_child = true;
 
             return true;
         });
@@ -361,6 +456,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
 
             settings_revealer.reveal_child = false;
+            hidden_revealer.reveal_child = false;
+
             return true;
         });
 
@@ -369,7 +466,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
-                separator.visible = false;
+                separator_revealer.reveal_child = false;
 
                 name_entry.grab_focus_without_selecting ();
                 if (name_entry.cursor_position < name_entry.text_length) {
@@ -398,7 +495,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         name_entry.activate.connect (() =>{
-            save_section ();
+            save ();
+            separator_revealer.reveal_child = true;
         });
 
         name_entry.key_release_event.connect ((key) => {
@@ -407,14 +505,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 name_stack.visible_child_name = "name_label";
                 name_entry.text = section.name;
 
-                separator.visible = true;
+                separator_revealer.reveal_child = true;
             }
 
             return false;
         });
 
         submit_button.clicked.connect (() => {
-            save_section ();
+            save ();
+            separator_revealer.reveal_child = true;
         });
 
         cancel_button.clicked.connect (() => {
@@ -422,7 +521,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             name_stack.visible_child_name = "name_label";
             name_entry.text = section.name;
 
-            separator.visible = true;
+            separator_revealer.reveal_child = true;
         });
 
         settings_button.clicked.connect (() => {
@@ -686,11 +785,17 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             add_new_item (true);
         });
 
+        note_menu.activate.connect (() => {
+            separator_revealer.reveal_child = false;
+            note_revealer.reveal_child = true;
+            note_textview.grab_focus ();
+        });
+
         edit_menu.activate.connect (() => {
             action_revealer.reveal_child = true;
             name_stack.visible_child_name = "name_entry";
 
-            separator.visible = false;
+            separator_revealer.reveal_child = false;
 
             name_entry.grab_focus_without_selecting ();
             if (name_entry.cursor_position < name_entry.text_length) {
@@ -768,24 +873,18 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             section.collapsed = 1;
         }
 
-        section.save_local ();
+        save (false);
     }
 
-    public void save_section () {
-        if (name_entry.text.strip () != "" && section.name != name_entry.text) {
-            name_label.label = name_entry.text;
-            section.name = name_entry.text;
+    public void save (bool todoist=true) {
+        name_label.label = name_entry.text;
+        section.name = name_entry.text;
+        section.note = note_textview.buffer.text;
 
-            action_revealer.reveal_child = false;
-            name_stack.visible_child_name = "name_label";
-            separator.visible = true;
+        action_revealer.reveal_child = false;
+        name_stack.visible_child_name = "name_label";
 
-            section.save ();
-        } else {
-            action_revealer.reveal_child = false;
-            name_stack.visible_child_name = "name_label";
-            separator.visible = true;
-        }
+        section.save (todoist);
     }
 
     private void build_magic_button_drag_and_drop (bool value) {
@@ -909,9 +1008,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         update_item_order ();
 
         listbox_revealer.reveal_child = true;
+        separator_revealer.reveal_child = true;
         section.collapsed = 1;
 
-        save_section ();
+        save (false);
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -924,13 +1024,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_magicbutton_motion (Gdk.DragContext context, int x, int y, uint time) {
-        separator.visible = false;
+        separator_revealer.reveal_child = false;
         motion_revealer.reveal_child = true;
         return true;
     }
 
     public void on_drag_magicbutton_leave (Gdk.DragContext context, uint time) {
-        separator.visible = true;
+        separator_revealer.reveal_child = true;
         motion_revealer.reveal_child = false;
     }
 

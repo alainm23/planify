@@ -33,8 +33,6 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     private Gtk.Revealer count_past_revealer;
     private Gtk.Revealer main_revealer;
 
-    private int count = 0;
-    private int count_past = 0;
     private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
@@ -124,75 +122,55 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             icon.get_style_context ().add_class ("search-icon");
         } else if (item_base_name == "inbox") {
             icon.get_style_context ().add_class ("inbox-icon");
-            check_inbox_count_update ();
         } else if (item_base_name == "today") {
             if (icon_name == "planner-today-day-symbolic") {
                 icon.get_style_context ().add_class ("today-day-icon");
             } else {
                 icon.get_style_context ().add_class ("today-night-icon");
             }
-
-            check_today_count_update ();
         } else if (item_base_name == "upcoming") {
             icon.get_style_context ().add_class ("upcoming-icon");
         }
+
+        check_count_update ();
     }
 
-    private void check_inbox_count_update () {
-        Timeout.add (125, () => {
-            Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
-            return false;
+    private void check_count_update () {
+        Planner.database.update_all_bage.connect (() => {
+            update_count ();
         });
 
-        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
-            if (Planner.settings.get_int64 ("inbox-project") == id) {
-                count = items_0;
-                check_count_label ();
-            }
-        });
-
-        Planner.database.check_project_count.connect ((id) => {
-            if (Planner.settings.get_int64 ("inbox-project") == id) {
+        if (item_base_name == "today") {
+            Planner.database.add_due_item.connect ((item) => {
                 update_count ();
-            }
-        });
-    }
+            });
 
-    private void check_today_count_update () {
-        Timeout.add (125, () => {
-            Planner.database.get_today_count ();
-            return false;
-        });
+            Planner.database.update_due_item.connect ((item) => {
+                update_count ();
+            });
 
-        Planner.database.update_today_count.connect ((past, today) => {
-            count = today;
-            count_past = past;
-            check_count_label ();
-        });
+            Planner.database.remove_due_item.connect ((item) => {
+                update_count ();
+            });
 
-        Planner.database.add_due_item.connect ((item) => {
-            update_count (true);
-        });
+            Planner.database.item_deleted.connect ((item) => {
+                update_count ();
+            });
 
-        Planner.database.update_due_item.connect ((item) => {
-            update_count (true);
-        });
+            Planner.database.project_deleted.connect ((id) => {
+                update_count ();
+            });
 
-        Planner.database.remove_due_item.connect ((item) => {
-            update_count (true);
-        });
-
-        Planner.database.item_deleted.connect ((item) => {
-            update_count (true);
-        });
-
-        Planner.database.project_deleted.connect ((id) => {
-            update_count (true);
-        });
-
-        Planner.database.section_deleted.connect ((s) => {
-            update_count (true);
-        });
+            Planner.database.section_deleted.connect ((s) => {
+                update_count ();
+            });
+        } else {
+            Planner.database.check_project_count.connect ((id) => {
+                if (Planner.settings.get_int64 ("inbox-project") == id) {
+                    update_count ();
+                }
+            });
+        }
     }
 
     private void update_count (bool today=false) {
@@ -202,33 +180,54 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
 
         timeout_id = Timeout.add (250, () => {
-            if (today == false) {
-                Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
+            if (item_base_name == "today") {
+                check_today_badge ();
             } else {
-                Planner.database.get_today_count ();
+                check_inbox_badge ();
             }
+
+            Source.remove (timeout_id);
+            timeout_id = 0;
 
             return false;
         });
     }
 
-    private void check_count_label () {
+    private void check_inbox_badge () {
+        int count = Planner.database.get_count_items_by_project (Planner.settings.get_int64 ("inbox-project"));
+
         count_label.label = "<small>%i</small>".printf (count);
-        count_past_label.label = "<small>%i</small>".printf (count_past);
 
         if (count <= 0) {
             count_revealer.reveal_child = false;
         } else {
             count_revealer.reveal_child = true;
         }
+    }
 
-        if (count_past <= 0) {
+    private void check_today_badge () {
+        int today_count = Planner.database.get_today_count ();
+        int past_count = Planner.database.get_past_count ();
+
+        count_label.label = "<small>%i</small>".printf (today_count);
+        count_past_label.label = "<small>%i</small>".printf (past_count);
+
+        if (past_count <= 0) {
             count_past_revealer.reveal_child = false;
         } else {
             count_past_revealer.reveal_child = true;
         }
+
+        if (today_count <= 0) {
+            count_revealer.reveal_child = false;
+        } else {
+            count_revealer.reveal_child = true;
+        }
     }
 
+    /*
+    *   Build DRAGN AND DROP
+    */
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_ITEM, Gdk.DragAction.MOVE);
         drag_motion.connect (on_drag_item_motion);

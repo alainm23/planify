@@ -1383,19 +1383,24 @@ public class PreferencePerson : Gtk.ListBoxRow {
     }
 
     construct {
-        var avatar = new Granite.Widgets.Avatar.with_default_icon (24);
+        var avatar = new Gtk.Image.from_pixbuf (
+            new Gdk.Pixbuf.from_resource_at_scale (Planner.utils.get_random_avatar (), 24, 24, false)
+        );
+
         avatar.margin_start = 6;
 
         var name_label = new Gtk.Label (fullname);
         name_label.get_style_context ().add_class ("h3");
+        name_label.get_style_context ().add_class ("font-weight-600");
 
         var grid = new Gtk.Grid ();
-        grid.get_style_context ().add_class ("view");
-        grid.column_spacing = 3;
+        grid.margin = 6;
+        grid.column_spacing = 6;
         grid.add (avatar);
         grid.add (name_label);
-
+        
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.get_style_context ().add_class ("view");
         main_box.pack_start (grid);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 

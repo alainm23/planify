@@ -872,18 +872,34 @@ public class Utils : GLib.Object {
     public Gee.ArrayList<string> get_patrons () {
         var patrons = new Gee.ArrayList<string> ();
 
-        patrons.add ("Cassidy James Blaede");
-        patrons.add ("Lior");
-        patrons.add ("Luke Gaudreau");
-        patrons.add ("Mathew Robinson");
-        patrons.add ("Marco Bluethgen");
-        patrons.add ("Jeppe Terndrup");
+        patrons.add ("Cassidy James");
+        patrons.add ("Wout");
         patrons.add ("The Linux Experiment");
         patrons.add ("William Tumeo");
-        patrons.add ("Wount");
-        patrons.add ("M");
         patrons.add ("Cal");
+        patrons.add ("Coryn");
+        patrons.add ("Marco Bluethgen");
+        patrons.add ("Luke Gaudreau");
+        patrons.add ("I Sutter");
+        patrons.add ("M");
 
         return patrons;
+    }
+
+    public string get_random_avatar () {
+        var avatars = new Gee.ArrayList<string> ();
+
+        avatars.add ("/com/github/alainm23/planner/cat.svg");
+        avatars.add ("/com/github/alainm23/planner/dog.svg");
+        avatars.add ("/com/github/alainm23/planner/koala.svg");
+        avatars.add ("/com/github/alainm23/planner/lion.svg");
+        avatars.add ("/com/github/alainm23/planner/monkey.svg");
+        avatars.add ("/com/github/alainm23/planner/owl.svg");
+        avatars.add ("/com/github/alainm23/planner/penguin.svg");
+        avatars.add ("/com/github/alainm23/planner/rabbit.svg");
+        avatars.add ("/com/github/alainm23/planner/tiger.svg");
+        avatars.add ("/com/github/alainm23/planner/zoo.svg");
+
+        return avatars [GLib.Random.int_range (0, avatars.size)];
     }
 }
