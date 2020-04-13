@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-07 16:18+0000\n"
+"PO-Revision-Date: 2020-04-14 16:11+0000\n"
 "Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
@@ -471,7 +471,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr "Pas de Dossier :"
+msgstr "Pas de dossier"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -498,7 +498,7 @@ msgstr "Fermer"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr "Nouveau groupe"
+msgstr "Nouveau dossier"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -521,9 +521,8 @@ msgid "Edit"
 msgstr "Modifier"
 
 #: src/Widgets/ProjectRow.vala:493
-#, fuzzy
 msgid "Move to Folder"
-msgstr "Déplacer vers le Groupe"
+msgstr "Déplacer vers le dossier"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1351
 #: src/Widgets/SectionRow.vala:660
@@ -746,7 +745,7 @@ msgstr "Ajouter un Projet"
 
 #: src/Widgets/AreaRow.vala:531
 msgid "Delete folder"
-msgstr "Supprimer le groupe"
+msgstr "Supprimer le dossier"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -899,16 +898,15 @@ msgstr "Progression du projet : %s"
 
 #: src/Views/Project.vala:1166
 msgid "Productivity"
-msgstr ""
+msgstr "Productivité"
 
 #: src/Views/Project.vala:1171
 msgid "Progress:"
-msgstr ""
+msgstr "Progression :"
 
 #: src/Views/Project.vala:1182
-#, fuzzy
 msgid "Due date:"
-msgstr "Date d'échéance"
+msgstr "Date d'échéance :"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -1218,12 +1216,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Site web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
-#, fuzzy
 msgid "Follow"
-msgstr "Jaune"
+msgstr "Suivre"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Report a Problem"
