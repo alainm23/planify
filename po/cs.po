@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-07 16:18+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2020-04-14 16:11+0000\n"
+"Last-Translator: 12people <contact.mirek@protonmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -574,7 +574,7 @@ msgstr "Menu úkolu"
 
 #: src/Widgets/ItemRow.vala:996
 msgid "Hiding"
-msgstr ""
+msgstr "Skrytí"
 
 #: src/Widgets/ItemRow.vala:1262
 msgid "No Section"
@@ -622,7 +622,7 @@ msgstr "Zobrazit úkoly"
 
 #: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:767
 msgid "Hiding Tasks"
-msgstr ""
+msgstr "Skrytí úkolů"
 
 #: src/Widgets/SectionRow.vala:96 src/Widgets/NewSection.vala:70
 msgid "Section name"
@@ -726,7 +726,7 @@ msgstr "Zobrazit projekty"
 
 #: src/Widgets/AreaRow.vala:128 src/Widgets/AreaRow.vala:355
 msgid "Hiding Projects"
-msgstr ""
+msgstr "Skrytí projektů"
 
 #: src/Widgets/AreaRow.vala:502
 msgid "Add project"
