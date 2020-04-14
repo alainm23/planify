@@ -178,7 +178,7 @@ public class Views.Project : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 24;

@@ -23,6 +23,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
 
     private Gtk.Button hidden_button;
+    private Gtk.Button add_button;
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
     private Gtk.Stack name_stack;
@@ -44,7 +45,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
 
-    private uint timeout;
+    private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
     public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
@@ -76,12 +77,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_start = 9;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
-        hidden_button.get_style_context ().add_class ("no-padding");
 
         var hidden_revealer = new Gtk.Revealer ();
         hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -92,6 +91,21 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             hidden_button.get_style_context ().add_class ("opened");
             hidden_button.tooltip_text = _("Hiding Tasks");
         }
+
+        add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        add_button.can_focus = false;
+        add_button.margin_start = 9;
+        add_button.tooltip_text = _("Add Task");
+        add_button.get_style_context ().remove_class ("button");
+        add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        add_button.get_style_context ().add_class ("hidden-button");
+        add_button.get_style_context ().add_class ("no-padding");
+        add_button.get_style_context ().add_class ("add-button-menu");
+
+        var add_revealer = new Gtk.Revealer ();
+        add_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        add_revealer.add (add_button);
+        add_revealer.reveal_child = false; 
 
         name_label = new Gtk.Label (section.name);
         name_label.halign = Gtk.Align.START;
@@ -133,9 +147,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_revealer.reveal_child = false;
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.pack_start (hidden_revealer, false, false, 0);
+        top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, true, 0);
+        top_box.pack_end (hidden_revealer, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -446,6 +461,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         top_eventbox.enter_notify_event.connect ((event) => {
             settings_revealer.reveal_child = true;
             hidden_revealer.reveal_child = true;
+            add_revealer.reveal_child = true;
+            add_button.get_style_context ().add_class ("animation");
 
             return true;
         });
@@ -457,8 +474,14 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
             settings_revealer.reveal_child = false;
             hidden_revealer.reveal_child = false;
+            add_revealer.reveal_child = false;
+            add_button.get_style_context ().remove_class ("animation");
 
             return true;
+        });
+
+        add_button.clicked.connect (() => {
+            add_new_item (false);
         });
 
         top_eventbox.event.connect ((event) => {
@@ -782,7 +805,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.show_all ();
 
         add_menu.activate.connect (() => {
-            add_new_item (true);
+            add_new_item (false);
         });
 
         note_menu.activate.connect (() => {

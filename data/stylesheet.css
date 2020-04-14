@@ -627,6 +627,10 @@ paned.horizontal > separator {
     animation: add-animation 0.35s ease-in-out;
 }
 
+.add-button-menu.animation image {
+    animation: add-animation 0.35s ease-in-out;
+}
+
 .fancy-turn-animation:hover image {
     animation: fancy-turn 0.7s ease-in-out;
 }

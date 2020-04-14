@@ -28,7 +28,7 @@ public class Utils : GLib.Object {
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
-    public GLib.Regex pattern_regex;
+    // public GLib.Regex pattern_regex;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
@@ -64,12 +64,7 @@ public class Utils : GLib.Object {
             }
         });
 
-        pattern_regex = new GLib.Regex ("^(https?:\\/\\/)?"+ // protocol
-            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-            "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-            "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-            "(\\#[-a-z\\d_]*)?$"); // fragment locator
+        // pattern_regex = new GLib.Regex ("(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'.,<>?«»“”‘’]))");
     }
 
     public void create_dir_with_parents (string dir) {
@@ -924,6 +919,7 @@ public class Utils : GLib.Object {
     }
 
     private string valid_worl (string text) {
+        // if (is_valid_url (text)) {
         if (text.substring (0, 4).has_prefix ("http")) {
             return "<a href='%s'>%s</a>".printf (text, text);
         }
@@ -931,7 +927,7 @@ public class Utils : GLib.Object {
         return text;
     }
 
-    private bool is_valid_url (string text) {
-        return !!pattern_regex.match (text);
-    }
+    //  private bool is_valid_url (string text) {
+    //      return !!pattern_regex.match (text);
+    //  }
 }
