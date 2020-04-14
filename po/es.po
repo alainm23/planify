@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-03-25 04:46+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2020-04-07 07:39+0000\n"
+"Last-Translator: Alain <alain23@protonmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -436,13 +436,12 @@ msgid "Name:"
 msgstr "Nombre:"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Descripción"
+msgstr "Descripción:"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Folder:"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 msgid "Color:"
@@ -468,7 +467,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
 msgid "No Folder"
-msgstr ""
+msgstr "Ningún folder"
 
 #: src/Widgets/New.vala:461
 msgid "Project"
@@ -481,7 +480,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
@@ -493,9 +492,8 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: src/Widgets/New.vala:580
-#, fuzzy
 msgid "New folder"
-msgstr "Otras características"
+msgstr "Nuevo folder"
 
 #: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
 msgid "Project Menu"
@@ -518,9 +516,8 @@ msgid "Edit"
 msgstr "Editar"
 
 #: src/Widgets/ProjectRow.vala:493
-#, fuzzy
 msgid "Move to Folder"
-msgstr "Mover a área"
+msgstr "Mover a folder"
 
 #: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1351
 #: src/Widgets/SectionRow.vala:660
@@ -677,23 +674,23 @@ msgstr "Fecha de vencimiento"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr ""
+msgstr "Repetir"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
-msgstr ""
+msgstr "Cada dia"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every week"
-msgstr ""
+msgstr "Cada semana"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every month"
-msgstr ""
+msgstr "Cada mes"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every year"
-msgstr ""
+msgstr "Cada año"
 
 #: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
@@ -717,9 +714,8 @@ msgid "Undo"
 msgstr "Deshacer"
 
 #: src/Widgets/Toast.vala:246
-#, fuzzy
 msgid "Task deleted"
-msgstr "Tareas completada"
+msgstr "Tarea eliminada"
 
 #: src/Widgets/Toast.vala:248 src/Views/Inbox.vala:932
 msgid "Task completed"
@@ -728,7 +724,7 @@ msgstr "Tareas completada"
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Completada. Próximo evento: %s"
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
 msgid "Display Projects"
@@ -743,9 +739,8 @@ msgid "Add project"
 msgstr "Añadir proyecto"
 
 #: src/Widgets/AreaRow.vala:531
-#, fuzzy
 msgid "Delete folder"
-msgstr "Eliminar proyecto"
+msgstr "Eliminar folder"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -894,20 +889,19 @@ msgstr "Toque + para añadir una tarea."
 #: src/Views/Project.vala:779
 #, c-format
 msgid "Project's progress: %s"
-msgstr ""
+msgstr "Avance del proyecto: %s"
 
 #: src/Views/Project.vala:1166
 msgid "Productivity"
-msgstr ""
+msgstr "Productividad"
 
 #: src/Views/Project.vala:1171
 msgid "Progress:"
-msgstr ""
+msgstr "Progreso:"
 
 #: src/Views/Project.vala:1182
-#, fuzzy
 msgid "Due date:"
-msgstr "Fecha de vencimiento"
+msgstr "Fecha de vencimiento:"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -1213,12 +1207,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Página web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
-#, fuzzy
 msgid "Follow"
-msgstr "Amarillo"
+msgstr "Sigue"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Report a Problem"
