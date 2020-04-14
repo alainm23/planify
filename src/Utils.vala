@@ -28,6 +28,7 @@ public class Utils : GLib.Object {
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
+    public GLib.Regex pattern_regex;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
@@ -62,6 +63,13 @@ public class Utils : GLib.Object {
                 clock_format_changed ();
             }
         });
+
+        pattern_regex = new GLib.Regex ("^(https?:\\/\\/)?"+ // protocol
+            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+            "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+            "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+            "(\\#[-a-z\\d_]*)?$"); // fragment locator
     }
 
     public void create_dir_with_parents (string dir) {
@@ -901,5 +909,29 @@ public class Utils : GLib.Object {
         avatars.add ("/com/github/alainm23/planner/zoo.svg");
 
         return avatars [GLib.Random.int_range (0, avatars.size)];
+    }
+
+    // URL VALID
+    public string get_markup_format (string text) {
+        string correct = "";
+        string [] list = text.split (" ");
+
+        foreach (string word in list) {
+            correct += valid_worl (word) + " ";
+        }
+
+        return correct;
+    }
+
+    private string valid_worl (string text) {
+        if (text.substring (0, 4).has_prefix ("http")) {
+            return "<a href='%s'>%s</a>".printf (text, text);
+        }
+    
+        return text;
+    }
+
+    private bool is_valid_url (string text) {
+        return !!pattern_regex.match (text);
     }
 }

@@ -32,6 +32,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.Box top_box;
     private Gtk.TextView note_textview;
+    private Gtk.Label note_label;
+    private Gtk.Stack note_stack;
     private Gtk.Label note_placeholder;
     private Gtk.Revealer note_preview_revealer;
     private Gtk.Revealer bottom_revealer;
@@ -176,11 +178,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.active = item.checked == 1;
 
-        content_label = new Gtk.Label (item.content);
+        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
         content_label.margin_top = 5;
+        content_label.use_markup = true;
         content_label.get_style_context ().add_class ("label");
         content_label.wrap = true;
 
@@ -363,19 +366,106 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note TextView
         note_textview = new Gtk.TextView ();
-        note_textview.margin_start = 28;
-        note_textview.buffer.text = item.note;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD_CHAR;
-        note_textview.get_style_context ().add_class ("textview");
         note_textview.height_request = 42;
+        note_textview.buffer.text = item.note;
+        note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.get_style_context ().add_class ("textview");
 
         note_placeholder = new Gtk.Label (_("Note"));
         note_placeholder.opacity = 0.7;
         note_textview.add (note_placeholder);
-        if (item.note != "") {
+
+        // Note Label
+        note_label = new Gtk.Label (Planner.utils.get_markup_format (item.note));
+        note_label.valign = Gtk.Align.START;
+        note_label.height_request = 42;
+        note_label.wrap = true;
+        note_label.wrap_mode = Pango.WrapMode.WORD;
+        note_label.xalign = 0;
+        note_label.yalign = 0;
+        note_label.use_markup = true;
+
+        var note_eventbox = new Gtk.EventBox ();
+        note_eventbox.hexpand = true;
+        note_eventbox.add (note_label);
+
+        note_stack = new Gtk.Stack ();
+        note_stack.hexpand = true;
+        note_stack.margin_start = 28;
+        note_stack.margin_end = 12;
+        note_stack.margin_top = 3;
+        note_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        note_stack.vhomogeneous = false;
+        note_stack.add_named (note_eventbox, "label");
+        note_stack.add_named (note_textview, "textview");
+
+        Timeout.add (250, () => {
+            if (item.note.strip () == "") {  
+                note_stack.visible_child_name = "textview";
+                note_placeholder.visible = true;
+                note_placeholder.no_show_all = false;
+            } else {
+                note_stack.visible_child_name = "label";
+                note_placeholder.visible = false;
+                note_placeholder.no_show_all = true;
+            }
+
+            return false;
+        });
+
+        note_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
+                note_stack.visible_child_name = "textview";
+                note_textview.grab_focus ();
+                
+                return true;
+            }
+
+            return false;
+        });
+
+        note_textview.buffer.changed.connect (() => {
+            save (false);
+
+            if (note_textview.buffer.text == "") {
+                note_preview_revealer.reveal_child = false;
+            } else {
+                note_preview_revealer.reveal_child = true;
+            }
+
+            check_preview_box ();
+        });
+
+        note_textview.focus_in_event.connect (() => {
             note_placeholder.visible = false;
             note_placeholder.no_show_all = true;
-        }
+
+            return false;
+        });
+
+        note_textview.focus_out_event.connect (() => {
+            note_label.label = Planner.utils.get_markup_format (note_textview.buffer.text); 
+
+            if (item.note.strip () == "") {
+                note_stack.visible_child_name = "textview";
+                note_placeholder.visible = true;
+                note_placeholder.no_show_all = false;
+            } else {
+                note_stack.visible_child_name = "label";
+                note_placeholder.visible = false;
+                note_placeholder.no_show_all = true;
+            }
+
+            return false;
+        });
+
+        note_textview.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                hide_item ();
+            }
+
+            return false;
+        });
 
         // Checklist ListBox
         check_listbox = new Gtk.ListBox ();
@@ -455,7 +545,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (due_button, false, true, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        bottom_box.pack_start (note_textview, false, true, 0);
+        bottom_box.pack_start (note_stack, false, true, 0);
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
@@ -540,42 +630,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         content_entry.changed.connect (() => {
             save ();
-        });
-
-        note_textview.buffer.changed.connect (() => {
-            save (false);
-
-            if (note_textview.buffer.text == "") {
-                note_preview_revealer.reveal_child = false;
-            } else {
-                note_preview_revealer.reveal_child = true;
-            }
-
-            check_preview_box ();
-        });
-
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
-        note_textview.focus_out_event.connect (() => {
-            if (note_textview.buffer.text == "") {
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            }
-
-            return false;
-        });
-
-        note_textview.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                hide_item ();
-            }
-
-            return false;
         });
 
         Planner.utils.drag_magic_button_activated.connect ((value) => {
@@ -767,7 +821,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     item.note = i.note;
 
                     content_entry.text = item.content;
-                    content_label.label = item.content;
+                    content_label.label = Planner.utils.get_markup_format (item.content);
                     note_textview.buffer.text = item.note;
 
                     if (note_textview.buffer.text == "") {
@@ -1001,6 +1055,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.get_style_context ().remove_class ("popover");
 
         entry_revealer.reveal_child = false;
+        content_label.label = Planner.utils.get_markup_format (content_entry.text);
         label_revealer.reveal_child = true;
         hidden_revealer.reveal_child = false;
 
@@ -1111,8 +1166,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private void save (bool online=true) {
         if (save_off == false) {
             content_label.label = content_entry.text;
-
-            content_label.tooltip_text = item.content;
+            content_label.tooltip_text = content_entry.text;
             item.content = content_entry.text;
             item.note = note_textview.buffer.text;
 
