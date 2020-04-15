@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-03-25 04:46+0000\n"
+"PO-Revision-Date: 2020-04-13 09:11+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
@@ -89,7 +89,7 @@ msgstr "Blau cel"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "Blau clar"
 
 #: src/Utils.vala:205
 msgid "Blue"
@@ -222,7 +222,7 @@ msgstr "Seccions"
 
 #: src/Utils.vala:823
 msgid "Add sections"
-msgstr ""
+msgstr "Addició de seccions"
 
 #: src/Utils.vala:824
 msgid ""
@@ -239,11 +239,13 @@ msgstr ""
 
 #: src/Utils.vala:843
 msgid "Create a new task"
-msgstr ""
+msgstr "Creació d’una tasca nova"
 
 #: src/Utils.vala:844
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Creeu una tasca nova a la part superior de la llista (funciona només dins "
+"els projectes)"
 
 #: src/Utils.vala:845
 msgid "Create a new area"
@@ -387,9 +389,8 @@ msgid "Name:"
 msgstr "Nom:"
 
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Descripció"
+msgstr "Descripció:"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
@@ -692,9 +693,8 @@ msgid "Add project"
 msgstr "Afegeix un projecte"
 
 #: src/Widgets/AreaRow.vala:531
-#, fuzzy
 msgid "Delete folder"
-msgstr "Suprimeix el projecte"
+msgstr "Suprimeix la carpeta"
 
 #: src/Widgets/AreaRow.vala:539
 msgid "Delete projects"
@@ -1083,17 +1083,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:926
 #, c-format
 msgid "Last successful sync: %s"
-msgstr ""
+msgstr "Darrera sincronització correcta: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:935
 msgid "Sync server"
-msgstr ""
+msgstr "Sincronitza amb el servidor"
 
 #: src/Dialogs/Preferences/Preferences.vala:940
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Activeu aquesta opció perquè el Planner se sincronitzi automàticament amb el "
+"compte del Todoist cada 15 minuts."
 
 #: src/Dialogs/Preferences/Preferences.vala:952
 #: src/Dialogs/Preferences/Preferences.vala:1007
@@ -1135,36 +1137,37 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1230
 msgid "Website"
-msgstr ""
+msgstr "Lloc web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1231
-#, fuzzy
 msgid "Follow"
-msgstr "Groc"
+msgstr "Segueix"
 
 #: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "Report a Problem"
-msgstr ""
+msgstr "Informa d'un problema"
 
 #: src/Dialogs/Preferences/Preferences.vala:1233
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Suggeriments de traduccions"
 
 #: src/Dialogs/Preferences/Preferences.vala:1344
 msgid "Disabled"
-msgstr ""
+msgstr "Desactivat"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "Enrere"
 
 #: src/Dialogs/QuickFind.vala:87
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #: src/Dialogs/QuickFind.vala:114
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
+"Canvieu ràpidament entre projectes i vistes, trobeu-ne les tasques, cerqueu-"
+"hi per etiquetes…"
 
 #: src/Dialogs/QuickFind.vala:315
 msgid "Tasks"
