@@ -28,7 +28,6 @@ public class Utils : GLib.Object {
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
-    // public GLib.Regex pattern_regex;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
@@ -63,8 +62,6 @@ public class Utils : GLib.Object {
                 clock_format_changed ();
             }
         });
-
-        // pattern_regex = new GLib.Regex ("(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'.,<>?«»“”‘’]))");
     }
 
     public void create_dir_with_parents (string dir) {
@@ -907,7 +904,7 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
-        Regex regex =  /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        Regex regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
         MatchInfo info;
         try {
             List<string> urls = new List<string>();

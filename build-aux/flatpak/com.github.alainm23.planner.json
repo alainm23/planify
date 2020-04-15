@@ -1,0 +1,93 @@
+{
+  "app-id": "com.github.alainm23.planner",
+  "sdk": "org.gnome.Sdk",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.34",
+  "base": "io.elementary.BaseApp",
+  "base-version": "juno-19.08",
+  "command": "com.github.alainm23.planner",
+  "finish-args": [
+    "--share=network",
+    "--share=ipc",
+    "--device=dri",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/",
+    "--talk-name=org.gtk.vfs.*",
+    "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
+    "--talk-name=org.gnome.evolution.dataserver.Calendar7",
+    "--talk-name=org.gnome.evolution.dataserver.Sources5",
+    "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
+    "--talk-name=com.github.alainm23.planner"
+  ],
+  "cleanup": [
+    "/include",
+    "/lib/pkgconfig",
+    "/man",
+    "/share/doc",
+    "/share/gtk-doc",
+    "/share/man",
+    "/share/pkgconfig",
+    "/share/vala",
+    "*.la",
+    "*.a"
+  ],
+  "modules": [
+    {
+      "name" : "libical",
+      "cleanup" : [
+          "/lib/cmake"
+      ],
+      "buildsystem" : "cmake-ninja",
+      "config-opts" : [
+      "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
+      "-DBUILD_SHARED_LIBS=On",
+      "-DICAL_BUILD_DOCS=False",
+      "-DWITH_CXX_BINDINGS=False"
+      ],
+      "sources" : [
+      {
+          "type" : "archive",
+          "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
+          "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
+      }
+      ]
+    },
+    "shared-modules/intltool/intltool-0.51.json",
+    {
+      "name": "evolution-data-server",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DENABLE_UOA=OFF",
+        "-DENABLE_GTK=ON",
+        "-DENABLE_INTROSPECTION=ON",
+        "-DENABLE_VALA_BINDINGS=ON",
+        "-DENABLE_GOA=OFF",
+        "-DENABLE_OAUTH2=OFF",
+        "-DENABLE_WEATHER=OFF",
+        "-DENABLE_GOOGLE=OFF",
+        "-DENABLE_EXAMPLES=OFF",
+        "-DENABLE_INSTALLED_TESTS=OFF",
+        "-DENABLE_GTK_DOC=OFF",
+        "-DWITH_PRIVATE_DOCS=OFF",
+        "-DWITH_OPENLDAP=OFF",
+        "-DWITH_LIBDB=OFF"
+      ],
+      "sources" : [
+        {
+             "type": "archive",
+             "url": "https://download.gnome.org/sources/evolution-data-server/3.28/evolution-data-server-3.28.5.tar.xz",
+             "sha256": "d95348d27207cde4ff3209d16c9336fd2a97d958f4c563450ccdf2f7c07e8788"
+        }
+      ]
+    },
+    {
+      "name": "planner",
+      "buildsystem": "meson",
+      "sources": [{
+        "type": "git",
+        "url": "https://github.com/alainm23/planner.git"
+      }]
+    }
+  ]
+}

@@ -127,8 +127,27 @@ public class Planner : Gtk.Application {
 
         utils.apply_theme_changed ();
 
+        // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+
+        // Path Theme
+        if (get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+            string CSS = """
+                window decoration {
+                    box-shadow: none;
+                    margin: 1px;
+                }
+            """;
+
+            var _provider = new Gtk.CssProvider ();
+            _provider.load_from_data (CSS, CSS.length);
+
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), _provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        }
 
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
@@ -136,7 +155,31 @@ public class Planner : Gtk.Application {
             quick_add_shortcut = "<Primary>Tab";
             settings.set_string ("quick-add-shortcut", quick_add_shortcut);
         }
+
         utils.set_quick_add_shortcut (quick_add_shortcut);
+    }
+    
+    public string get_os_info (string field) {
+        string return_value = "";
+        var file = File.new_for_path ("/etc/os-release");
+        try {
+            var osrel = new Gee.HashMap<string, string> ();
+            var dis = new DataInputStream (file.read ());
+            string line;
+            // Read lines until end of file (null) is reached
+            while ((line = dis.read_line (null)) != null) {
+                var osrel_component = line.split ("=", 2);
+                if (osrel_component.length == 2) {
+                    osrel[osrel_component[0]] = osrel_component[1].replace ("\"", "");
+                }
+            }
+
+            return_value = osrel[field];
+        } catch (Error e) {
+            warning ("Couldn't read os-release file, assuming elementary OS");
+        }
+        
+        return return_value;
     }
 
     public override int command_line (ApplicationCommandLine command_line) {
