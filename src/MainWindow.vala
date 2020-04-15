@@ -43,8 +43,8 @@ public class MainWindow : Gtk.Window {
             application: application,
             icon_name: "com.github.alainm23.planner",
             title: _("Planner"),
-            height_request: 600,
-            width_request: 750
+            height_request: 400,
+            width_request: 400
         );
     }
 

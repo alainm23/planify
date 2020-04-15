@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 21:31-0500\n"
+"POT-Creation-Date: 2020-04-14 20:39-0500\n"
 "PO-Revision-Date: 2020-03-29 00:26+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
@@ -27,143 +27,143 @@ msgstr "新しいエリア"
 msgid "Planner"
 msgstr "Planner"
 
-#: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
+#: src/Utils.vala:130 src/Utils.vala:137 src/Widgets/LabelRow.vala:82
 msgid "Home"
 msgstr "自宅"
 
-#: src/Utils.vala:128 src/Utils.vala:138
+#: src/Utils.vala:131 src/Utils.vala:141
 msgid "Office"
 msgstr "会社"
 
-#: src/Utils.vala:129 src/Utils.vala:142
+#: src/Utils.vala:132 src/Utils.vala:145
 msgid "Errand"
 msgstr "用事"
 
-#: src/Utils.vala:130 src/Utils.vala:146
+#: src/Utils.vala:133 src/Utils.vala:149
 msgid "Important"
 msgstr "重要"
 
-#: src/Utils.vala:131 src/Utils.vala:150
+#: src/Utils.vala:134 src/Utils.vala:153
 msgid "Pending"
 msgstr "保留中"
 
-#: src/Utils.vala:194
+#: src/Utils.vala:197
 msgid "Berry Red"
 msgstr "ベリーレッド"
 
-#: src/Utils.vala:195
+#: src/Utils.vala:198
 msgid "Red"
 msgstr "赤"
 
-#: src/Utils.vala:196
+#: src/Utils.vala:199
 msgid "Orange"
 msgstr "オレンジ"
 
-#: src/Utils.vala:197
+#: src/Utils.vala:200
 msgid "Yellow"
 msgstr "黄"
 
-#: src/Utils.vala:198
+#: src/Utils.vala:201
 msgid "Olive Green"
 msgstr "オリーブグリーン"
 
-#: src/Utils.vala:199
+#: src/Utils.vala:202
 msgid "Lime Green"
 msgstr "ライムグリーン"
 
-#: src/Utils.vala:200
+#: src/Utils.vala:203
 msgid "Green"
 msgstr "緑"
 
-#: src/Utils.vala:201
+#: src/Utils.vala:204
 msgid "Mint Green"
 msgstr "ミントグリーン"
 
-#: src/Utils.vala:202
+#: src/Utils.vala:205
 msgid "Teal"
 msgstr "ティール"
 
-#: src/Utils.vala:203
+#: src/Utils.vala:206
 msgid "Sky Blue"
 msgstr "スカイブルー"
 
-#: src/Utils.vala:204
+#: src/Utils.vala:207
 msgid "Light Blue"
 msgstr "水色"
 
-#: src/Utils.vala:205
+#: src/Utils.vala:208
 msgid "Blue"
 msgstr "青"
 
-#: src/Utils.vala:206
+#: src/Utils.vala:209
 msgid "Grape"
 msgstr "グレープ"
 
-#: src/Utils.vala:207
+#: src/Utils.vala:210
 msgid "Violet"
 msgstr "紫"
 
-#: src/Utils.vala:208
+#: src/Utils.vala:211
 msgid "Lavander"
 msgstr "ラベンダー"
 
-#: src/Utils.vala:209
+#: src/Utils.vala:212
 msgid "Magenta"
 msgstr "赤紫"
 
-#: src/Utils.vala:210
+#: src/Utils.vala:213
 msgid "Salmon"
 msgstr "サーモンピンク"
 
-#: src/Utils.vala:211
+#: src/Utils.vala:214
 msgid "Charcoal"
 msgstr "消し炭色"
 
-#: src/Utils.vala:212
+#: src/Utils.vala:215
 msgid "Grey"
 msgstr "灰"
 
-#: src/Utils.vala:213
+#: src/Utils.vala:216
 msgid "Taupe"
 msgstr "トープ"
 
-#: src/Utils.vala:571 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1334
+#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1378
 #: src/Widgets/DueButton.vala:165 src/Views/Today.vala:53
 #: src/Dialogs/Preferences/Preferences.vala:227
 #: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:68
 msgid "Today"
 msgstr "今日"
 
-#: src/Utils.vala:573 src/Widgets/Pane.vala:347 src/Widgets/ItemRow.vala:1337
+#: src/Utils.vala:576 src/Widgets/Pane.vala:348 src/Widgets/ItemRow.vala:1381
 #: src/Widgets/DueButton.vala:171 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
 msgstr "明日"
 
-#: src/Utils.vala:761
+#: src/Utils.vala:764
 msgid "Quick Add Activated!"
 msgstr "クイック追加を有効にしました！"
 
-#: src/Utils.vala:762
+#: src/Utils.vala:765
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "有効にするには %s を試してください。これは、設定から変更できます"
 
-#: src/Utils.vala:780
+#: src/Utils.vala:783
 msgid "🚀️ Getting Started"
 msgstr "🚀️ はじめに"
 
-#: src/Utils.vala:781
+#: src/Utils.vala:784
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
 
-#: src/Utils.vala:786
+#: src/Utils.vala:789
 msgid "Keeping track of your tasks"
 msgstr "タスクを把握"
 
-#: src/Utils.vala:787
+#: src/Utils.vala:790
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -173,11 +173,11 @@ msgid ""
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
 
-#: src/Utils.vala:792
+#: src/Utils.vala:795
 msgid "Adding new tasks"
 msgstr "新しいタスクを追加"
 
-#: src/Utils.vala:793
+#: src/Utils.vala:796
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
@@ -188,11 +188,11 @@ msgstr ""
 "- 作成後にタスクを編集したり、ノートを追加したり、そのほかのオプションを表示"
 "するには、タスクの上でクリックしてください。"
 
-#: src/Utils.vala:799
+#: src/Utils.vala:802
 msgid "Due dates"
 msgstr "期日"
 
-#: src/Utils.vala:800
+#: src/Utils.vala:803
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -204,11 +204,11 @@ msgstr ""
 "- 期日を削除したい場合は、カレンダーアイコン上でクリックして、\"期日を削除\" "
 "を選択してください。"
 
-#: src/Utils.vala:806
+#: src/Utils.vala:809
 msgid "How to use projects"
 msgstr "プロジェクトの使い方"
 
-#: src/Utils.vala:807
+#: src/Utils.vala:810
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -221,15 +221,15 @@ msgid ""
 "- Click Add to create the project."
 msgstr ""
 
-#: src/Utils.vala:817
+#: src/Utils.vala:820
 msgid "Sections"
 msgstr "セクション"
 
-#: src/Utils.vala:823
+#: src/Utils.vala:826
 msgid "Add sections"
 msgstr "セクションを追加"
 
-#: src/Utils.vala:824
+#: src/Utils.vala:827
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -242,83 +242,83 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 
-#: src/Utils.vala:843
+#: src/Utils.vala:846
 msgid "Create a new task"
 msgstr "新しいタスクを作成"
 
-#: src/Utils.vala:844
+#: src/Utils.vala:847
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr "リストの一番上に新しいタスクを作成します (プロジェクト内のみ有効です)"
 
-#: src/Utils.vala:845
+#: src/Utils.vala:848
 msgid "Create a new area"
 msgstr "新しいエリアを作成"
 
-#: src/Utils.vala:846
+#: src/Utils.vala:849
 msgid "Create a new project"
 msgstr "新しいプロジェクトを作成"
 
-#: src/Utils.vala:847
+#: src/Utils.vala:850
 msgid "Create a new section"
 msgstr "新しいセクションを作成"
 
-#: src/Utils.vala:848
+#: src/Utils.vala:851
 msgid "Open the Inbox"
 msgstr "受信箱を開く"
 
-#: src/Utils.vala:849
+#: src/Utils.vala:852
 msgid "Open Today"
 msgstr "今日のタスクを開く"
 
-#: src/Utils.vala:850
+#: src/Utils.vala:853
 msgid "Open Upcoming"
 msgstr "次のタスクを開く"
 
-#: src/Utils.vala:851
+#: src/Utils.vala:854
 msgid "Open Search"
 msgstr "検索を開く"
 
-#: src/Utils.vala:852
+#: src/Utils.vala:855
 msgid "Manually sync"
 msgstr "手動で同期"
 
-#: src/Utils.vala:853
+#: src/Utils.vala:856
 msgid "Quit"
 msgstr "終了"
 
-#: src/Utils.vala:861
+#: src/Utils.vala:864
 msgid "The request was incorrect."
 msgstr "要求が正しくありません。"
 
-#: src/Utils.vala:862
+#: src/Utils.vala:865
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "認証が要求されましたが、失敗したか、まだ提供されていません。"
 
-#: src/Utils.vala:863
+#: src/Utils.vala:866
 msgid "The request was valid, but for something that is forbidden."
 msgstr "正しい要求でしたが、何らかの問題によって拒否されました。"
 
-#: src/Utils.vala:864
+#: src/Utils.vala:867
 msgid "The requested resource could not be found."
 msgstr "要求されたリソースが見つかりませんでした。"
 
-#: src/Utils.vala:865
+#: src/Utils.vala:868
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "一定の時間内に過度の要求が行われました。"
 
-#: src/Utils.vala:866
+#: src/Utils.vala:869
 msgid "The request failed due to a server error."
 msgstr "サーバーエラーが原因で要求が失敗しました。"
 
-#: src/Utils.vala:867
+#: src/Utils.vala:870
 msgid "The server is currently unable to handle the request."
 msgstr "サーバーは現在要求を処理できません。"
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:972 src/Widgets/Pane.vala:65
-#: src/Widgets/ItemRow.vala:1220 src/Widgets/SectionRow.vala:601
-#: src/Views/Inbox.vala:72 src/Dialogs/Preferences/Preferences.vala:223
+#: src/Services/Database.vala:964 src/Widgets/Pane.vala:65
+#: src/Widgets/ItemRow.vala:1264 src/Widgets/SectionRow.vala:723
+#: src/Views/Inbox.vala:1081 src/Dialogs/Preferences/Preferences.vala:223
 #: src/Dialogs/Preferences/Preferences.vala:331 src/Dialogs/QuickFind.vala:61
 msgid "Inbox"
 msgstr "受信箱"
@@ -327,7 +327,7 @@ msgstr "受信箱"
 msgid "On this computer"
 msgstr "このコンピューター"
 
-#: src/Widgets/ActionRow.vala:85 src/Widgets/ProjectRow.vala:132
+#: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:133
 msgid "Todoist Project"
 msgstr "Todoist プロジェクト"
 
@@ -347,7 +347,7 @@ msgid ""
 msgstr ""
 
 #. vala-lint=line-length
-#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:349
+#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:350
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:230
 #: src/Dialogs/QuickFind.vala:75
 msgid "Upcoming"
@@ -363,23 +363,23 @@ msgstr ""
 msgid "Add List"
 msgstr "リストを追加"
 
-#: src/Widgets/Pane.vala:149 src/Dialogs/QuickFind.vala:101
+#: src/Widgets/Pane.vala:150 src/Dialogs/QuickFind.vala:101
 msgid "Quick Find"
 msgstr "クイック検索"
 
-#: src/Widgets/Pane.vala:163
+#: src/Widgets/Pane.vala:164
 msgid "Preferences"
 msgstr "設定"
 
-#: src/Widgets/Pane.vala:185 src/Widgets/Pane.vala:412
+#: src/Widgets/Pane.vala:186 src/Widgets/Pane.vala:413
 msgid "Sync"
 msgstr "同期"
 
-#: src/Widgets/Pane.vala:416
+#: src/Widgets/Pane.vala:417
 msgid "Offline mode is on"
 msgstr "オフラインモード: オン"
 
-#: src/Widgets/Pane.vala:416
+#: src/Widgets/Pane.vala:417
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -389,8 +389,8 @@ msgstr ""
 "オフラインモードで行った変更は、再接続時\n"
 "に同期されます"
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:821 src/Views/Project.vala:1216
-#: src/Dialogs/ProjectSettings.vala:49
+#: src/Widgets/New.vala:64 src/Views/Inbox.vala:1989
+#: src/Views/Project.vala:1211 src/Dialogs/ProjectSettings.vala:49
 msgid "Name:"
 msgstr "名前:"
 
@@ -408,16 +408,16 @@ msgid "Color:"
 msgstr "色:"
 
 #: src/Widgets/New.vala:161 src/Widgets/NewItem.vala:87
-#: src/Widgets/ReminderButton.vala:214 src/Widgets/NewSection.vala:82
-#: src/Views/Inbox.vala:837 src/Views/Project.vala:1232
+#: src/Widgets/ReminderButton.vala:238 src/Widgets/NewSection.vala:82
+#: src/Views/Inbox.vala:2005 src/Views/Project.vala:1227
 msgid "Add"
 msgstr "追加"
 
 #: src/Widgets/New.vala:166 src/Widgets/NewItem.vala:92
-#: src/Widgets/SectionRow.vala:132 src/Widgets/AreaRow.vala:143
-#: src/Widgets/ReminderButton.vala:212 src/Widgets/NewSection.vala:86
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:842
-#: src/Views/Project.vala:197 src/Views/Project.vala:1237
+#: src/Widgets/SectionRow.vala:159 src/Widgets/AreaRow.vala:161
+#: src/Widgets/ReminderButton.vala:236 src/Widgets/NewSection.vala:86
+#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:2010
+#: src/Views/Project.vala:199 src/Views/Project.vala:1232
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -425,7 +425,7 @@ msgstr "キャンセル"
 msgid "Local"
 msgstr "ローカル"
 
-#: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:439
+#: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:442
 msgid "No Folder"
 msgstr ""
 
@@ -455,119 +455,117 @@ msgstr "閉じる"
 msgid "New folder"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:110 src/Views/Project.vala:183
+#: src/Widgets/ProjectRow.vala:111 src/Views/Inbox.vala:1152
+#: src/Views/Project.vala:185
 msgid "Project Menu"
 msgstr "プロジェクトメニュー"
 
-#: src/Widgets/ProjectRow.vala:128
+#: src/Widgets/ProjectRow.vala:129
 msgid "Local Project"
 msgstr "ローカルプロジェクト"
 
-#: src/Widgets/ProjectRow.vala:357 src/Widgets/ItemRow.vala:1229
-#: src/Widgets/ItemRow.vala:1249 src/Widgets/ItemRow.vala:1283
-#: src/Widgets/SectionRow.vala:839 src/Widgets/SectionRow.vala:894
+#: src/Widgets/ProjectRow.vala:360 src/Widgets/ItemRow.vala:1273
+#: src/Widgets/ItemRow.vala:1293 src/Widgets/ItemRow.vala:1327
+#: src/Widgets/SectionRow.vala:961 src/Widgets/SectionRow.vala:1016
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "タスクを <b>%s</b> に移動しました"
 
-#: src/Widgets/ProjectRow.vala:491 src/Widgets/ItemRow.vala:1324
-#: src/Widgets/AreaRow.vala:505 src/Views/Project.vala:963
+#: src/Widgets/ProjectRow.vala:494 src/Widgets/ItemRow.vala:1368
+#: src/Widgets/AreaRow.vala:531 src/Views/Project.vala:961
 msgid "Edit"
 msgstr "編集"
 
-#: src/Widgets/ProjectRow.vala:493
+#: src/Widgets/ProjectRow.vala:496
 #, fuzzy
 msgid "Move to Folder"
 msgstr "エリアに移動"
 
-#: src/Widgets/ProjectRow.vala:497 src/Widgets/ItemRow.vala:1351
-#: src/Widgets/SectionRow.vala:660
+#: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1395
+#: src/Widgets/SectionRow.vala:782
 msgid "Share"
 msgstr "共有"
 
-#: src/Widgets/ProjectRow.vala:501
+#: src/Widgets/ProjectRow.vala:504
 msgid "Send by e-mail"
 msgstr "メールで送信"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1356
-#: src/Widgets/SectionRow.vala:665
+#: src/Widgets/ProjectRow.vala:505 src/Widgets/ItemRow.vala:1400
+#: src/Widgets/SectionRow.vala:787
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:508 src/Widgets/ProjectRow.vala:533
-#: src/Widgets/ItemRow.vala:1363 src/Widgets/SectionRow.vala:671
-#: src/Widgets/SectionRow.vala:708 src/Widgets/AreaRow.vala:506
-#: src/Widgets/AreaRow.vala:544 src/Widgets/CheckRow.vala:79
-#: src/Views/Project.vala:966 src/Views/Project.vala:1039
+#: src/Widgets/ProjectRow.vala:511 src/Widgets/ProjectRow.vala:536
+#: src/Widgets/ItemRow.vala:1407 src/Widgets/SectionRow.vala:793
+#: src/Widgets/SectionRow.vala:836 src/Widgets/AreaRow.vala:532
+#: src/Widgets/AreaRow.vala:570 src/Widgets/CheckRow.vala:79
+#: src/Views/Project.vala:964 src/Views/Project.vala:1037
 msgid "Delete"
 msgstr "削除"
 
-#: src/Widgets/ProjectRow.vala:528 src/Views/Project.vala:1034
+#: src/Widgets/ProjectRow.vala:531 src/Views/Project.vala:1032
 msgid "Delete project"
 msgstr "プロジェクトを削除"
 
-#: src/Widgets/ProjectRow.vala:529 src/Widgets/SectionRow.vala:704
-#: src/Widgets/AreaRow.vala:532 src/Views/Project.vala:1035
+#: src/Widgets/ProjectRow.vala:532 src/Widgets/SectionRow.vala:832
+#: src/Widgets/AreaRow.vala:558 src/Views/Project.vala:1033
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "<b>%s</b> を削除してもよろしいですか？"
 
-#: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:191
-#: src/Widgets/AreaRow.vala:112 src/Widgets/CheckRow.vala:64
+#: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:199
+#: src/Widgets/AreaRow.vala:134 src/Widgets/CheckRow.vala:64
 msgid "Task name"
 msgstr "タスク名"
 
-#: src/Widgets/ItemRow.vala:156 src/Widgets/ItemRow.vala:1017
-msgid "View Details"
+#: src/Widgets/ItemRow.vala:163
+#, fuzzy
+msgid "Hide Details"
 msgstr "詳細を表示"
 
-#: src/Widgets/ItemRow.vala:367 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:374 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
 msgstr "メモ"
 
-#: src/Widgets/ItemRow.vala:415
+#: src/Widgets/ItemRow.vala:510
 msgid "Add Checklist"
 msgstr "チェックリストを追加"
 
-#: src/Widgets/ItemRow.vala:422
+#: src/Widgets/ItemRow.vala:517
 msgid "Delete Task"
 msgstr "タスクを削除"
 
-#: src/Widgets/ItemRow.vala:435
+#: src/Widgets/ItemRow.vala:530
 msgid "Task Menu"
 msgstr "タスクメニュー"
 
-#: src/Widgets/ItemRow.vala:996
-msgid "Hiding"
-msgstr "非表示"
-
-#: src/Widgets/ItemRow.vala:1262
+#: src/Widgets/ItemRow.vala:1306
 msgid "No Section"
 msgstr "セクションがありません"
 
-#: src/Widgets/ItemRow.vala:1323
+#: src/Widgets/ItemRow.vala:1367
 msgid "Complete"
 msgstr "完了"
 
-#: src/Widgets/ItemRow.vala:1340 src/Widgets/DueButton.vala:177
+#: src/Widgets/ItemRow.vala:1384 src/Widgets/DueButton.vala:177
 msgid "Undated"
 msgstr "期日なし"
 
-#: src/Widgets/ItemRow.vala:1343 src/Widgets/SectionRow.vala:656
+#: src/Widgets/ItemRow.vala:1387 src/Widgets/SectionRow.vala:778
 msgid "Move to Project"
 msgstr "プロジェクトに移動"
 
-#: src/Widgets/ItemRow.vala:1347
+#: src/Widgets/ItemRow.vala:1391
 msgid "Move to Section"
 msgstr "セクションに移動"
 
-#: src/Widgets/ItemRow.vala:1355
+#: src/Widgets/ItemRow.vala:1399
 msgid "Text"
 msgstr "テキスト"
 
-#: src/Widgets/ItemRow.vala:1362
+#: src/Widgets/ItemRow.vala:1406
 msgid "Duplicate"
 msgstr "複製"
 
@@ -583,49 +581,58 @@ msgstr "期日"
 msgid "Date completed"
 msgstr ""
 
-#: src/Widgets/SectionRow.vala:77 src/Widgets/SectionRow.vala:762
+#: src/Widgets/SectionRow.vala:80 src/Widgets/SectionRow.vala:890
 msgid "Display Tasks"
 msgstr "タスクを表示"
 
-#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:767
+#: src/Widgets/SectionRow.vala:92 src/Widgets/SectionRow.vala:895
 msgid "Hiding Tasks"
 msgstr "非表示のタスク"
 
-#: src/Widgets/SectionRow.vala:96 src/Widgets/NewSection.vala:70
+#: src/Widgets/SectionRow.vala:98 src/Widgets/SectionRow.vala:772
+#: src/Widgets/MagicButton.vala:32
+msgid "Add Task"
+msgstr "タスクを追加"
+
+#: src/Widgets/SectionRow.vala:118 src/Widgets/NewSection.vala:70
 msgid "Section name"
 msgstr "セクション名"
 
-#: src/Widgets/SectionRow.vala:111
+#: src/Widgets/SectionRow.vala:138 src/Widgets/AreaRow.vala:106
 msgid "Section Menu"
 msgstr "セクションメニュー"
 
-#: src/Widgets/SectionRow.vala:128 src/Widgets/AreaRow.vala:139
-#: src/Views/Project.vala:193 src/Dialogs/ProjectSettings.vala:159
+#: src/Widgets/SectionRow.vala:155 src/Widgets/AreaRow.vala:157
+#: src/Views/Project.vala:195 src/Dialogs/ProjectSettings.vala:159
 msgid "Save"
 msgstr "保存"
 
-#: src/Widgets/SectionRow.vala:608 src/Widgets/SectionRow.vala:629
+#: src/Widgets/SectionRow.vala:191 src/Views/Project.vala:227
+msgid "Add a description"
+msgstr "説明を追加"
+
+#: src/Widgets/SectionRow.vala:200 src/Views/Project.vala:237
+msgid "Description"
+msgstr "説明"
+
+#: src/Widgets/SectionRow.vala:730 src/Widgets/SectionRow.vala:751
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "セクションを <b>%s</b> に移動しました"
 
-#: src/Widgets/SectionRow.vala:650 src/Widgets/MagicButton.vala:32
-msgid "Add Task"
-msgstr "タスクを追加"
-
-#: src/Widgets/SectionRow.vala:653
+#: src/Widgets/SectionRow.vala:775
 msgid "Rename"
 msgstr "名前を変更"
 
-#: src/Widgets/SectionRow.vala:654
+#: src/Widgets/SectionRow.vala:776
 msgid "Add Note"
 msgstr "メモを追加"
 
-#: src/Widgets/SectionRow.vala:703
+#: src/Widgets/SectionRow.vala:831
 msgid "Delete section"
 msgstr "セクションを削除"
 
-#: src/Widgets/SectionRow.vala:721
+#: src/Widgets/SectionRow.vala:849
 msgid "Section deleted"
 msgstr "セクションを削除しました"
 
@@ -653,22 +660,48 @@ msgstr ""
 msgid "Every year"
 msgstr ""
 
-#: src/Widgets/LabelButton.vala:36 src/Dialogs/Preferences/Preferences.vala:114
+#: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
 msgid "Labels"
 msgstr "ラベル"
 
-#: src/Widgets/LabelButton.vala:46
+#: src/Widgets/LabelButton.vala:49
 msgid "labels"
 msgstr "ラベル"
 
-#: src/Widgets/LabelButton.vala:93
+#: src/Widgets/LabelButton.vala:89 src/Widgets/LabelButton.vala:228
+#, fuzzy
+msgid "Using Labels"
+msgstr "ラベル"
+
+#: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:229
+msgid ""
+"Categorize your to-dos with labels, then use them to filter your lists and "
+"get focused."
+msgstr ""
+
+#: src/Widgets/LabelButton.vala:108
 msgid "Type a label"
 msgstr "ラベルを入力"
 
-#: src/Widgets/LabelButton.vala:116
+#: src/Widgets/LabelButton.vala:118 src/Widgets/LabelButton.vala:208
+#: src/Widgets/LabelButton.vala:226
 msgid "Edit labels"
 msgstr "ラベルを編集"
+
+#: src/Widgets/LabelButton.vala:218
+#, fuzzy
+msgid "Add label"
+msgstr "ラベルを追加"
+
+#: src/Widgets/LabelButton.vala:221
+msgid "Label not found"
+msgstr ""
+
+#: src/Widgets/LabelButton.vala:222
+#, fuzzy, c-format
+msgid "Create '%s'"
+msgstr "作成"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
@@ -679,7 +712,7 @@ msgstr "元に戻す"
 msgid "Task deleted"
 msgstr "タスクが完了しました"
 
-#: src/Widgets/Toast.vala:248 src/Views/Inbox.vala:932
+#: src/Widgets/Toast.vala:248
 msgid "Task completed"
 msgstr "タスクが完了しました"
 
@@ -688,24 +721,24 @@ msgstr "タスクが完了しました"
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
+#: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:375
 msgid "Display Projects"
 msgstr "プロジェクトを表示"
 
-#: src/Widgets/AreaRow.vala:128 src/Widgets/AreaRow.vala:355
+#: src/Widgets/AreaRow.vala:91 src/Widgets/AreaRow.vala:381
 msgid "Hiding Projects"
 msgstr "非表示のプロジェクト"
 
-#: src/Widgets/AreaRow.vala:502
+#: src/Widgets/AreaRow.vala:528
 msgid "Add project"
 msgstr "プロジェクトを追加"
 
-#: src/Widgets/AreaRow.vala:531
+#: src/Widgets/AreaRow.vala:557
 #, fuzzy
 msgid "Delete folder"
 msgstr "プロジェクトを削除"
 
-#: src/Widgets/AreaRow.vala:539
+#: src/Widgets/AreaRow.vala:565
 msgid "Delete projects"
 msgstr "プロジェクトを削除"
 
@@ -721,11 +754,15 @@ msgstr "タスクを追加"
 msgid "Reminders"
 msgstr "リマインダー"
 
-#: src/Widgets/ReminderButton.vala:166
+#: src/Widgets/ReminderButton.vala:167
 msgid "Add reminder"
 msgstr "リマインダーを追加"
 
-#: src/Widgets/ReminderButton.vala:205
+#: src/Widgets/ReminderButton.vala:209
+msgid "Never forget a task again! Have Planner send you a reminder."
+msgstr ""
+
+#: src/Widgets/ReminderButton.vala:229
 msgid "Time:"
 msgstr "時刻:"
 
@@ -789,33 +826,52 @@ msgstr "Todoist"
 msgid "Synchronize with your Todoist account and start working."
 msgstr "Todoist アカウントと同期して、開始します。"
 
-#: src/Views/Inbox.vala:83 src/Views/Project.vala:147
+#: src/Views/Inbox.vala:1116 src/Views/Project.vala:141
+#: src/Views/Project.vala:149
 msgid "Add Section"
 msgstr "セクションを追加"
 
-#: src/Views/Inbox.vala:92
-msgid "Inbox comments"
-msgstr "受信箱のコメント"
+#: src/Views/Inbox.vala:1124 src/Views/Project.vala:157
+msgid "Invite person"
+msgstr "ほかの人を招待"
 
-#: src/Views/Inbox.vala:100 src/Views/Project.vala:172
+#: src/Views/Inbox.vala:1133 src/Views/Project.vala:166
+msgid "Project comments"
+msgstr "プロジェクトのコメント"
+
+#: src/Views/Inbox.vala:1141 src/Views/Project.vala:174
 msgid "Search task"
 msgstr "タスクを検索"
 
-#: src/Views/Inbox.vala:111
-msgid "Inbox Menu"
-msgstr "受信箱メニュー"
-
-#: src/Views/Inbox.vala:191
+#: src/Views/Inbox.vala:1275
 msgid "All clear"
 msgstr "受信箱は空です"
 
-#: src/Views/Inbox.vala:192
+#: src/Views/Inbox.vala:1276
 msgid "Looks like everything's organized in the right place."
 msgstr "すべて正しくまとめられています。"
 
-#: src/Views/Inbox.vala:764 src/Views/Project.vala:975
+#: src/Views/Inbox.vala:1609 src/Views/Project.vala:777
+#, c-format
+msgid "Project's progress: %s"
+msgstr ""
+
+#: src/Views/Inbox.vala:1793 src/Views/Project.vala:973
 msgid "Show Completed"
 msgstr "完了済みを表示"
+
+#: src/Views/Inbox.vala:1939 src/Views/Project.vala:1161
+msgid "Productivity"
+msgstr ""
+
+#: src/Views/Inbox.vala:1944 src/Views/Project.vala:1166
+msgid "Progress:"
+msgstr ""
+
+#: src/Views/Inbox.vala:1955 src/Views/Project.vala:1177
+#, fuzzy
+msgid "Due date:"
+msgstr "期日"
 
 #: src/Views/Today.vala:86
 msgid "What tasks are on your mind?"
@@ -825,47 +881,13 @@ msgstr "どんなタスクを追加しますか？"
 msgid "Tap + to add a task for today."
 msgstr "今日のタスクを追加するには、+ をタップしてください。"
 
-#: src/Views/Project.vala:155
-msgid "Invite person"
-msgstr "ほかの人を招待"
-
-#: src/Views/Project.vala:164
-msgid "Project comments"
-msgstr "プロジェクトのコメント"
-
-#: src/Views/Project.vala:225
-msgid "Add a description"
-msgstr "説明を追加"
-
-#: src/Views/Project.vala:235
-msgid "Description"
-msgstr "説明"
-
-#: src/Views/Project.vala:349
+#: src/Views/Project.vala:354
 msgid "What will you accomplish?"
 msgstr "何を達成しましたか？"
 
-#: src/Views/Project.vala:350
+#: src/Views/Project.vala:355
 msgid "Tap + to add a task to this project."
 msgstr "このプロジェクトにタスクを追加するには、+ をタップしてください。"
-
-#: src/Views/Project.vala:779
-#, c-format
-msgid "Project's progress: %s"
-msgstr ""
-
-#: src/Views/Project.vala:1166
-msgid "Productivity"
-msgstr ""
-
-#: src/Views/Project.vala:1171
-msgid "Progress:"
-msgstr ""
-
-#: src/Views/Project.vala:1182
-#, fuzzy
-msgid "Due date:"
-msgstr "期日"
 
 #: src/Dialogs/TodoistOAuth.vala:43 src/Dialogs/TodoistOAuth.vala:121
 msgid "Loading…"
@@ -1196,9 +1218,18 @@ msgstr "プロジェクトをクリップボードにコピーしました。"
 msgid "The Task was copied to the Clipboard."
 msgstr "タスクをクリップボードにコピーしました。"
 
-#: src/Objects/Section.vala:118
+#: src/Objects/Section.vala:100
 msgid "The Section was copied to the Clipboard."
 msgstr "セクションをクリップボードにコピーしました。"
+
+#~ msgid "Hiding"
+#~ msgstr "非表示"
+
+#~ msgid "Inbox comments"
+#~ msgstr "受信箱のコメント"
+
+#~ msgid "Inbox Menu"
+#~ msgstr "受信箱メニュー"
 
 #~ msgid "task"
 #~ msgstr "タスク"

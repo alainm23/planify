@@ -1384,7 +1384,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
         undated_menu.item_image.get_style_context ().add_class ("due-clear");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "planner-project-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "move-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
