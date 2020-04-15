@@ -22,6 +22,9 @@
 public class Widgets.LabelButton : Gtk.ToggleButton {
     public int64 item_id { get; construct; }
 
+    private Gtk.Image placeholder_image;
+    private Gtk.Label placeholder_label;
+    private Gtk.Label subtitle_label;
     private Gtk.Popover popover = null;
     private Gtk.Entry label_entry;
     private Gtk.ListBox listbox;
@@ -72,9 +75,19 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                     listbox.remove (element);
                 }
 
-                foreach (Objects.Label l in Planner.database.get_all_labels ()) {
-                    var row = new Widgets.LabelPopoverRow (l);
-                    listbox.add (row);
+                var labels = Planner.database.get_all_labels ();
+
+                if (labels.size > 0) {
+                    foreach (Objects.Label l in labels) {
+                        var row = new Widgets.LabelPopoverRow (l);
+                        listbox.add (row);
+                    }
+
+                    listbox.show_all ();
+                } else {
+                    placeholder_image.gicon = new ThemedIcon ("tag-symbolic");
+                    placeholder_label.label = "<b>%s</b>".printf (_("Using Labels"));
+                    subtitle_label.label = _("Categorize your to-dos with labels, then use them to filter your lists and get focused.");
                 }
 
                 popover.show_all ();
@@ -87,70 +100,70 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         popover = new Gtk.Popover (this);
         popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.LEFT;
+        popover.width_request = 260;
+        popover.height_request = 300;
 
         label_entry = new Gtk.SearchEntry ();
         label_entry.hexpand = true;
         label_entry.placeholder_text = _("Type a label");
 
+        var edit_add_icon = new Gtk.Image ();
+        edit_add_icon.valign = Gtk.Align.CENTER;
+        edit_add_icon.icon_name = "edit-symbolic";
+        edit_add_icon.pixel_size = 16;
+
+        var edit_labels = new Gtk.Button ();
+        edit_labels.add (edit_add_icon);
+        edit_labels.can_focus = false;
+        edit_labels.tooltip_text = _("Edit labels");
+        edit_labels.get_style_context ().add_class ("edi-label-button");
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        action_grid.hexpand = true;
+        action_grid.margin = 6;
+        action_grid.add (label_entry);
+        action_grid.add (edit_labels);
+
+        var action_background = new Gtk.Grid ();
+        action_background.get_style_context ().add_class ("background");
+        action_background.add (action_grid);
+
         listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
-        listbox.set_filter_func ((row) => {
-            var label = ((Widgets.LabelPopoverRow) row).label;
-            return label_entry.text.down () in label.name.down ();
-        });
+        listbox.set_placeholder (get_alert_placeholder ());
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.expand = true;
         listbox_scrolled.add (listbox);
 
-        var edit_icon = new Gtk.Image ();
-        edit_icon.valign = Gtk.Align.CENTER;
-        edit_icon.gicon = new ThemedIcon ("edit-symbolic");
-        edit_icon.pixel_size = 14;
-
-        var edit_labels = new Gtk.Button ();
-        edit_labels.add (edit_icon);
-        edit_labels.can_focus = false;
-        edit_labels.tooltip_text = _("Edit labels");
-        edit_labels.get_style_context ().add_class ("edi-label-button");
-
-
-        var action_grid = new Gtk.Grid ();
-        action_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
-        action_grid.margin = 6;
-        action_grid.hexpand = true;
-        action_grid.add (label_entry);
-        action_grid.add (edit_labels);
-
-        var action_bar = new Gtk.ActionBar ();
-        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (action_grid);
-
         var popover_grid = new Gtk.Grid ();
-        popover_grid.width_request = 235;
-        popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.margin_top = 3;
+        popover_grid.add (action_background);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         popover_grid.add (listbox_scrolled);
-        popover_grid.add (action_bar);
 
         var eventbox = new Gtk.EventBox ();
         eventbox.add (popover_grid);
-
         popover.add (eventbox);
 
         popover.closed.connect (() => {
             this.active = false;
+            label_entry.text = "";
         });
 
         edit_labels.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences.Preferences ("labels");
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
+            if (edit_add_icon.icon_name == "edit-symbolic") {
+                var dialog = new Dialogs.Preferences.Preferences ("labels");
+                dialog.destroy.connect (Gtk.main_quit);
+                dialog.show_all ();
 
-            popover.popdown ();
+                popover.popdown ();
+            } else {
+                create_assign ();
+            }
         });
 
         eventbox.key_press_event.connect ((event) => {
@@ -183,7 +196,38 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         });
 
         label_entry.changed.connect (() => {
-            listbox.invalidate_filter ();
+            listbox.foreach ((widget) => {
+                widget.destroy ();
+            });
+
+            if (label_entry.text.strip () != "") {
+                var labels = Planner.database.get_labels_by_search (label_entry.text);
+
+                if (labels.size > 0) {
+                    edit_add_icon.icon_name = "edit-symbolic";
+                    edit_labels.tooltip_text = _("Edit labels");
+
+                    foreach (Objects.Label l in labels) {
+                        var row = new Widgets.LabelPopoverRow (l);
+                        listbox.add (row);
+                    }
+
+                    listbox.show_all ();
+                } else {
+                    edit_add_icon.icon_name = "list-add-symbolic";
+                    edit_labels.tooltip_text = _("Add label");
+
+                    placeholder_image.gicon = new ThemedIcon ("tag-new-symbolic");
+                    placeholder_label.label = "<b>%s</b>".printf (_("Label not found"));
+                    subtitle_label.label = _("Create '%s'".printf (label_entry.text));
+                }
+            } else {
+                edit_add_icon.icon_name = "edit-symbolic";
+                edit_labels.tooltip_text = _("Edit labels");
+                placeholder_image.gicon = new ThemedIcon ("tag-symbolic");
+                placeholder_label.label = "<b>%s</b>".printf (_("Using Labels"));
+                subtitle_label.label = _("Categorize your to-dos with labels, then use them to filter your lists and get focused.");
+            }
         });
 
         label_entry.activate.connect (() => {
@@ -192,8 +236,62 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 if (Planner.database.add_item_label (item_id, label)) {
                     popover.popdown ();
                 }
+            } else {
+                if (edit_add_icon.icon_name == "list-add-symbolic") {
+                    create_assign ();
+                }
             }
         });
+    }
+
+    private void create_assign () {
+        var label = new Objects.Label ();
+        label.name = label_entry.text;
+        label.color = 47;
+
+        if (Planner.database.insert_label (label)) {
+            if (Planner.database.add_item_label (item_id, label)) {
+                popover.popdown ();
+                this.active = false;
+            }
+        }
+    }
+
+    private Gtk.Widget get_alert_placeholder () {
+        placeholder_image = new Gtk.Image ();
+        placeholder_image.gicon = new ThemedIcon ("tag-symbolic");
+        placeholder_image.pixel_size = 42;
+        placeholder_image.halign = Gtk.Align.CENTER;
+        placeholder_image.opacity = 0.9;
+        placeholder_image.get_style_context ().add_class ("dim-label");
+
+        placeholder_label = new Gtk.Label (null);
+        placeholder_label.wrap = true;
+        placeholder_label.margin_top = 12;
+        placeholder_label.max_width_chars = 27;
+        placeholder_label.halign = Gtk.Align.CENTER;
+        placeholder_label.justify = Gtk.Justification.CENTER;
+        placeholder_label.use_markup = true;
+        placeholder_label.get_style_context ().add_class ("dim-label");
+
+        subtitle_label = new Gtk.Label (null);
+        subtitle_label.wrap = true;
+        subtitle_label.margin_top = 2;
+        subtitle_label.max_width_chars = 27;
+        subtitle_label.halign = Gtk.Align.CENTER;
+        subtitle_label.justify = Gtk.Justification.CENTER;
+        subtitle_label.get_style_context ().add_class ("dim-label");
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.margin = 12;
+        box.margin_bottom = 24;
+        box.valign = Gtk.Align.CENTER;
+        box.pack_start (placeholder_image, false, false, 0);
+        box.pack_start (placeholder_label, false, false, 0);
+        box.pack_start (subtitle_label, false, false, 0);
+        box.show_all ();
+
+        return box;
     }
 }
 

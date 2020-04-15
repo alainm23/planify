@@ -127,7 +127,8 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.hexpand = true;
 
         var listbox_grid = new Gtk.Grid ();
-        listbox_grid.margin_start = listbox_grid.margin_end = 12;
+        listbox_grid.margin_start = 15;
+        listbox_grid.margin_end = 16;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (listbox);
         listbox_grid.add (drag_grid);

@@ -108,6 +108,8 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         popover = new Gtk.Popover (this);
         popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.LEFT;
+        popover.width_request = 260;
+        popover.height_request = 250;
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -122,8 +124,6 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         });
 
         var popover_grid = new Gtk.Grid ();
-        popover_grid.width_request = 235;
-        //popover_grid.height_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.add (stack);
         popover_grid.show_all ();
@@ -140,6 +140,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.expand = true;
+        listbox.set_placeholder (get_placeholder ());
         listbox.set_sort_func ((row1, row2) => {
             var r1 = (Widgets.ReminderRow) row1;
             var r2 = (Widgets.ReminderRow) row2;
@@ -195,6 +196,29 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         });
 
         return grid;
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var icon = new Gtk.Image ();
+        icon.gicon = new ThemedIcon ("alarm-symbolic");
+        icon.pixel_size = 42;
+        icon.halign = Gtk.Align.CENTER;
+        icon.opacity = 0.9;
+        icon.get_style_context ().add_class ("dim-label");
+
+        var title_label = new Gtk.Label (_("Never forget a task again! Have Planner send you a reminder."));
+        title_label.wrap = true;
+        title_label.justify = Gtk.Justification.CENTER;
+        title_label.get_style_context ().add_class ("dim-label");
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        box.margin = 12;
+        box.valign = Gtk.Align.CENTER;
+        box.pack_start (icon, false, false, 0);
+        box.pack_start (title_label, false, false, 0);
+        box.show_all ();
+
+        return box;
     }
 
     private Gtk.Widget get_reminder_new_widget () {

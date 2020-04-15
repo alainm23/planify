@@ -64,7 +64,12 @@ public class Widgets.LabelItem : Gtk.EventBox {
         box.add (delete_revealer);
         box.add (name_label);
 
-        add (box);
+        var main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = true;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        main_revealer.add (box);
+
+        add (main_revealer);
 
         Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {
@@ -97,13 +102,23 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
         Planner.database.item_label_deleted.connect ((i, item_id, label) => {
             if (id == i) {
-                destroy ();
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
 
         Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
-                destroy ();
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
     }

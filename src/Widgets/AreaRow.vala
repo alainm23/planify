@@ -86,12 +86,33 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         hidden_button.get_style_context ().add_class ("hidden-button");
         hidden_button.get_style_context ().add_class ("dim-label");
 
-        //  var stack = new Gtk.Stack ();
-        //  stack.halign = Gtk.Align.CENTER;
-        //  stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        if (area.collapsed == 1) {
+            hidden_button.get_style_context ().add_class ("opened");
+            hidden_button.tooltip_text = _("Hiding Projects");
+        }
 
-        //  stack.add_named (area_image, "area_image");
-        //  stack.add_named (hidden_button, "hidden_button");
+        var hidden_revealer = new Gtk.Revealer ();
+        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        hidden_revealer.add (hidden_button);
+        hidden_revealer.reveal_child = false;
+
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
+
+        var settings_button = new Gtk.Button ();
+        settings_button.can_focus = false;
+        settings_button.valign = Gtk.Align.CENTER;
+        settings_button.tooltip_text = _("Section Menu");
+        settings_button.image = settings_image;
+        settings_button.get_style_context ().remove_class ("button");
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        settings_button.get_style_context ().add_class ("hidden-button");
+
+        var settings_revealer = new Gtk.Revealer ();
+        settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        settings_revealer.add (settings_button);
+        settings_revealer.reveal_child = false;
 
         name_label = new Gtk.Label (area.name);
         name_label.halign = Gtk.Align.START;
@@ -109,6 +130,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         info_box.pack_start (count_label, false, true, 0);
 
         name_entry = new Gtk.Entry ();
+        name_entry.width_chars = 16;
         name_entry.placeholder_text = _("Task name");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("pane-area");
@@ -123,18 +145,14 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_stack.add_named (info_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        if (area.collapsed == 1) {
-            hidden_button.get_style_context ().add_class ("opened");
-            hidden_button.tooltip_text = _("Hiding Projects");
-        }
-
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_start = 11;
         top_box.margin_end = 5;
         top_box.margin_top = 6;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (hidden_button, false, false, 0);
+        top_box.pack_end (settings_revealer, false, false, 0);
+        top_box.pack_end (hidden_revealer, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -260,6 +278,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             return false;
         });
 
+        settings_button.clicked.connect (() => {
+            activate_menu ();
+        });
+
         button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
                 activate_menu ();
@@ -274,7 +296,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            // stack.visible_child_name = "hidden_button";
+            hidden_revealer.reveal_child = true;
+            settings_revealer.reveal_child = true;
+
             return true;
         });
 
@@ -283,7 +307,9 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            // stack.visible_child_name = "area_image";
+            hidden_revealer.reveal_child = false;
+            settings_revealer.reveal_child = false;
+
             return true;
         });
 

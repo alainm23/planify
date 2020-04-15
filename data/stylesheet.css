@@ -58,7 +58,7 @@ window.rounded decoration {
 }
 
 window.popup decoration {
-    border-radius: 7px;
+    border-radius: 4px;
     box-shadow:
         0 3px 8px alpha (#000, 0.2),
         0 1px 2px alpha (#000, 0.3);
@@ -240,11 +240,11 @@ paned.horizontal > separator {
 */
 
 .item-row {
-    transition: all 225ms ease-in-out;
+    transition: all 115ms ease-in-out;
 }
 
 .transition {
-    transition: all 225ms ease-in-out;
+    transition: all 115ms ease-in-out;
 }
 
 .item-row:selected {
@@ -263,7 +263,7 @@ paned.horizontal > separator {
     padding-top: 6px;
     padding-left: 6px;
     margin-left: 6px;
-    margin-right: 24px;
+    margin-right: 33px;
 }
 
 /*
@@ -624,6 +624,10 @@ paned.horizontal > separator {
 }
 
 .add-button-menu:hover image {
+    animation: add-animation 0.35s ease-in-out;
+}
+
+.add-button-menu.animation image {
     animation: add-animation 0.35s ease-in-out;
 }
 

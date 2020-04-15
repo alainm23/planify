@@ -39,7 +39,7 @@ public class Objects.Section : GLib.Object {
 
     private uint timeout_id = 0;
 
-    public void save () {
+    public void save (bool todoist=true) {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
             timeout_id = 0;
@@ -47,31 +47,13 @@ public class Objects.Section : GLib.Object {
 
         timeout_id = Timeout.add (500, () => {
             Planner.database.update_section (this);
-            if (is_todoist == 1) {
+            if (is_todoist == 1 && todoist) {
                 Planner.todoist.update_section (this);
             }
 
             Source.remove (timeout_id);
             timeout_id = 0;
-            return false;
-        });
-    }
-
-    public void save_local () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-            timeout_id = 0;
-        }
-
-        timeout_id = Timeout.add (1500, () => {
-            new Thread<void*> ("save_local_timeout", () => {
-                Planner.database.update_section (this);
-
-                return null;
-            });
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
+            
             return false;
         });
     }

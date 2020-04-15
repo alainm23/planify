@@ -32,7 +32,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>N"}, _("Add Task"));
         transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         reveal_child = true;
-        margin = 16;
+        margin = 22;
         valign = Gtk.Align.END;
         halign = Gtk.Align.END;
 

@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-04-06 21:31-0500\n"
-"PO-Revision-Date: 2020-04-03 19:16+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2020-04-11 22:09+0000\n"
+"Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -20,7 +20,6 @@ msgstr ""
 "X-Generator: Weblate 4.0-dev\n"
 
 #: src/Application.vala:222
-#, fuzzy
 msgid "New area"
 msgstr "Neuer Bereich"
 
@@ -29,7 +28,6 @@ msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
-#, fuzzy
 msgid "Home"
 msgstr "Startseite"
 
@@ -230,6 +228,15 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Wenn du eine Präsentation planst, dich auf eine Veranstaltung vorbereitest "
+"oder eine Website erstellst, erstelle ein Projekt, damit alle wichtigen "
+"Details an einer zentralen Stelle gespeichert werden.\n"
+"- Klicke im Navigationsmenü links unten auf das + Symbol.\n"
+"- Wähle im Optionsmenü 'Projekt' und gebe den Namen deines neuen Projekts "
+"ein.\n"
+"- Wähle eine Quelle aus dem Dropdown-Menü aus.\n"
+"- (Optional) Wähle eine andere Projektfarbe aus der Farbliste.\n"
+"- Klicke auf \"Hinzufügen\", um das Projekt zu erstellen."
 
 #: src/Utils.vala:817
 msgid "Sections"
@@ -251,6 +258,17 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Es ist immer einfacher, ein großes Projekt zu realisieren, wenn du es mit "
+"Hilfe der Abschnittsfunktion von Planner in leicht handhabbare Teile "
+"aufteilst.\n"
+"- Organisiere deine Projekte in Abschnitten, um deine Aufgaben zu gruppieren "
+"und einen besseren Überblick darüber zu erhalten, was zu tun ist. Füge "
+"Abschnitte zu deinem Projekt hinzu, ziehe die relevanten Aufgaben in den "
+"Abschnitt, in den sie gehören, und du wirst es viel einfacher finden, "
+"Fortschritte zu machen (statt von einer einzigen langen Liste überwältigt zu "
+"werden).\n"
+"- Klicke oben rechts in einem Projekt auf das + Symbol.\n"
+"- Gebe den Namen deines Abschnitts ein und klicke auf Hinzufügen."
 
 #: src/Utils.vala:843
 msgid "Create a new task"
@@ -259,6 +277,8 @@ msgstr "Erstelle eine neue Aufgabe"
 #: src/Utils.vala:844
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Erstelle eine neue Aufgabe am Anfang der Liste (funktioniert nur innerhalb "
+"von Projekten)"
 
 #: src/Utils.vala:845
 msgid "Create a new area"
@@ -359,6 +379,9 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"In der Tagesansicht kannst du alle heute fälligen Aufgaben für alle deine "
+"Projekte sehen. Schaue hier jeden Morgen hinein, um einen realistischen Plan "
+"zu schmieden, wie du deinen Tag in die Hand nehmen kannst."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:349
@@ -734,19 +757,16 @@ msgid "Completed. Next occurrence: %s"
 msgstr ""
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
-#, fuzzy
 msgid "Display Projects"
-msgstr "Neues Projekt"
+msgstr "Projekte anzeigen"
 
 #: src/Widgets/AreaRow.vala:128 src/Widgets/AreaRow.vala:355
-#, fuzzy
 msgid "Hiding Projects"
-msgstr "Neues Projekt"
+msgstr "Projekte verbergen"
 
 #: src/Widgets/AreaRow.vala:502
-#, fuzzy
 msgid "Add project"
-msgstr "Projekt bearbeiten"
+msgstr "Projekt hinzufügen"
 
 #: src/Widgets/AreaRow.vala:531
 #, fuzzy
@@ -1088,7 +1108,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:583
 msgid "DE Integration"
-msgstr "DE Integration"
+msgstr "Integration in die Desktopumgebung"
 
 #: src/Dialogs/Preferences/Preferences.vala:587
 msgid "Run in background"

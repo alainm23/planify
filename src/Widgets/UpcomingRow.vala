@@ -76,8 +76,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         separator.margin_top = 3;
 
         var top_box = new Gtk.Grid ();
-        top_box.margin_start = 24;
-        top_box.margin_end = 16;
+        top_box.margin_start = 36;
+        top_box.margin_end = 24;
         top_box.column_spacing = 6;
         top_box.row_spacing = 3;
         top_box.hexpand = true;
@@ -98,7 +98,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
-        listbox.margin_start = 12;
+        listbox.margin_start = 24;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -106,7 +106,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_bottom = 3;
-        event_listbox.margin_start = 26;
+        event_listbox.margin_start = 38;
         event_listbox.valign = Gtk.Align.START;
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;

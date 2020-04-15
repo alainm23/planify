@@ -42,7 +42,9 @@ public class MainWindow : Gtk.Window {
         Object (
             application: application,
             icon_name: "com.github.alainm23.planner",
-            title: _("Planner")
+            title: _("Planner"),
+            height_request: 400,
+            width_request: 400
         );
     }
 
@@ -81,7 +83,6 @@ public class MainWindow : Gtk.Window {
         var welcome_view = new Views.Welcome ();
 
         stack = new Gtk.Stack ();
-        stack.margin_end = stack.margin_bottom = 3;
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
 
@@ -147,6 +148,10 @@ public class MainWindow : Gtk.Window {
                 pane.add_all_projects ();
                 pane.add_all_areas ();
 
+                // Init Progress Server
+                init_badge_count ();
+                init_progress_controller ();
+
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }
@@ -178,9 +183,15 @@ public class MainWindow : Gtk.Window {
 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
                 stack.visible_child_name = "inbox-view";
+
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
+
                 stack.transition_type = Gtk.StackTransitionType.NONE;
+
+                // Init Progress Server
+                init_badge_count ();
+                init_progress_controller ();
             } else {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -203,6 +214,10 @@ public class MainWindow : Gtk.Window {
             pane.sensitive_ui = true;
             magic_button.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
+
+            // Init Progress Server
+            init_badge_count ();
+            init_progress_controller ();
         });
 
         Planner.database.project_deleted.connect ((id) => {
@@ -305,17 +320,14 @@ public class MainWindow : Gtk.Window {
                 check_button_layout ();
             }
         });
-
-        init_badge_count ();
-        init_progress_controller ();
     }
 
-    private void init_progress_controller () {
-        Planner.database.item_added.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
+    public void init_progress_controller () {
+        /*
+        *  Item events
+        */
 
-        Planner.database.item_updated.connect ((item) => {
+        Planner.database.item_added.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
 
@@ -323,11 +335,12 @@ public class MainWindow : Gtk.Window {
             Planner.database.check_project_count (item.project_id);
         });
 
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
-            Planner.database.check_project_count (project_id);
+        Planner.database.item_updated.connect ((item) => {
+            Planner.database.check_project_count (item.project_id);
         });
 
         Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+            Planner.database.check_project_count (project_id);
             Planner.database.check_project_count (old_project_id);
         });
 
@@ -343,6 +356,20 @@ public class MainWindow : Gtk.Window {
             Planner.database.check_project_count (item.project_id);
         });
 
+        Planner.database.subtract_task_counter.connect ((id) => {
+            Idle.add (() => {
+                Planner.database.check_project_count (id);
+                return false;
+            });
+        });
+
+        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
+            Planner.database.check_project_count (id);
+        });
+
+        /*
+        *   Sections Event
+        */
         Planner.database.section_added.connect ((section) => {
             Idle.add (() => {
                 Planner.database.check_project_count (section.project_id);
@@ -357,27 +384,12 @@ public class MainWindow : Gtk.Window {
         Planner.database.section_moved.connect ((section, id, old_project_id) => {
             Idle.add (() => {
                 Planner.database.check_project_count (id);
-                return false;
-            });
-        });
-
-        Planner.database.section_moved.connect ((section, id, old_project_id) => {
-            Idle.add (() => {
                 Planner.database.check_project_count (old_project_id);
                 return false;
             });
         });
 
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                Planner.database.check_project_count (id);
-                return false;
-            });
-        });
-
-        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
-            Planner.database.check_project_count (id);
-        });
+        Planner.database.update_all_bage ();
     }
 
     public void show_quick_find () {
@@ -399,7 +411,9 @@ public class MainWindow : Gtk.Window {
     public void go_view (int id) {
         if (id == 0) {
             if (inbox_view == null) {
-                inbox_view = new Views.Inbox ();
+                inbox_view = new Views.Inbox (
+                    Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
+                );
                 stack.add_named (inbox_view, "inbox-view");
             }
 
@@ -437,8 +451,6 @@ public class MainWindow : Gtk.Window {
             stack.add_named (project_view, "project-view-%s".printf (project.id.to_string ()));
             stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
         }
-
-
 
         // Planner.utils.pane_project_selected (project.id, project.area_id);
         // Planner.utils.select_pane_project (project.id);

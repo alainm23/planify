@@ -49,7 +49,7 @@ public class Widgets.Placeholder : Gtk.Revealer {
         title_label.get_style_context ().add_class ("h3");
 
         var subtitle_label = new Gtk.Label (subtitle);
-        subtitle_label.margin_top = 6;
+        subtitle_label.margin_top = 3;
         subtitle_label.get_style_context ().add_class ("dim-label");
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

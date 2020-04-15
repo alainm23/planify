@@ -30,21 +30,21 @@ public class Views.Label : Gtk.EventBox {
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("tag-symbolic");
-        icon_image.pixel_size = 18;
+        icon_image.pixel_size = 16;
         icon_image.margin_top = 1;
 
         var title_label = new Gtk.Label ( null);
         title_label.get_style_context ().add_class ("title-label");
         title_label.use_markup = true;
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.margin_start = 24;
         top_box.margin_end = 16;
 
         top_box.pack_start (icon_image, false, false, 0);
-        top_box.pack_start (title_label, false, false, 6);
+        top_box.pack_start (title_label, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
@@ -63,7 +63,7 @@ public class Views.Label : Gtk.EventBox {
         var placeholder_view = new Widgets.Placeholder (
             _("All clear"),
             _("No tasks in this filter at the moment."),
-            "emblem-ok-symbolic"
+            "tag-symbolic"
         );
         placeholder_view.reveal_child = true;
 

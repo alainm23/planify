@@ -47,6 +47,45 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.3" date="2020-04-14">
+      <description>
+        <p>Hi everyone! Planner 2.3 is here –  a big update for the Quick Find feature,</p>
+        <p>recurring tasks and design improvements.</p>
+        <p>QUICK FIND</p>
+        <ul>
+          <li>Quick Find was completely redesigned adding new features and improving the UX.</li>
+          <li>Task searches are now more accurate and highlighting matches.</li>
+          <li>Move faster between Projects and Views (Inbox, Today, Upcoming).</li>
+          <li>Filter your tasks by labels.</li>
+        </ul>
+        <p>RECURRING TASKS</p>
+        <ul>
+          <li>Since the release of Planner 2, Recurring tasks were one of the most requested features and now this is possible.</li>
+          <li>Work with recurring tasks in a local project or synchronized with Todoist.</li>
+          <li>Repeat your tasks every day, week, month or year.</li>
+        </ul>
+        <p>DESIGN ENHANCEMENTS AND MORE</p>
+        <ul>
+          <li>The design of the progress indicator for each project was improved.</li>
+          <li>The workspaces are now called Folders and the icon has been changed.</li>
+          <li>See your completed tasks in context.</li>
+          <li>URLs are now displayed in the task content as in the notes.</li>
+          <li>Added a progress indicator in the project view.</li>
+          <li>A new button was added to the side of a section to add tasks faster.</li>
+          <li>It's now possible to create and assign a label directly if it is not available.</li>
+          <li>Now you can undo the completed tasks.</li>
+          <li>The 'Move to project' menu now displays the correct color for each project.</li>
+          <li>The dialog to create new projects has been redesigned.</li>
+          <li>The dialog to edit the preferences of a project has been redesigned.</li>
+          <li>The 'Upcoming' view was improved.</li>
+          <li>Quick notifications were designed.</li>
+          <li>Planner animations are now more consistent.</li>
+          <li>Performance was improved.</li>
+        </ul>
+        <p>Special thanks to 'Cal' for becoming our new silver tier patrons and supporting the development of Planner.</p>
+      </description>
+    </release>
+
     <release version="2.2.14" date="2020-03-02">
       <description>
         <p>Improved stability and some bug fixes.</p>

@@ -28,6 +28,7 @@ public class Utils : GLib.Object {
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
+    // public GLib.Regex pattern_regex;
 
     public signal void pane_project_selected (int64 project_id, int64 area_id);
     public signal void select_pane_project (int64 project_id);
@@ -62,6 +63,8 @@ public class Utils : GLib.Object {
                 clock_format_changed ();
             }
         });
+
+        // pattern_regex = new GLib.Regex ("(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'.,<>?«»“”‘’]))");
     }
 
     public void create_dir_with_parents (string dir) {
@@ -872,18 +875,59 @@ public class Utils : GLib.Object {
     public Gee.ArrayList<string> get_patrons () {
         var patrons = new Gee.ArrayList<string> ();
 
-        patrons.add ("Cassidy James Blaede");
-        patrons.add ("Lior");
-        patrons.add ("Luke Gaudreau");
-        patrons.add ("Mathew Robinson");
-        patrons.add ("Marco Bluethgen");
-        patrons.add ("Jeppe Terndrup");
+        patrons.add ("Cassidy James");
+        patrons.add ("Wout");
         patrons.add ("The Linux Experiment");
         patrons.add ("William Tumeo");
-        patrons.add ("Wount");
-        patrons.add ("M");
         patrons.add ("Cal");
+        patrons.add ("Coryn");
+        patrons.add ("Marco Bluethgen");
+        patrons.add ("Luke Gaudreau");
+        patrons.add ("I Sutter");
+        patrons.add ("M");
 
         return patrons;
     }
+
+    public string get_random_avatar () {
+        var avatars = new Gee.ArrayList<string> ();
+
+        avatars.add ("/com/github/alainm23/planner/cat.svg");
+        avatars.add ("/com/github/alainm23/planner/dog.svg");
+        avatars.add ("/com/github/alainm23/planner/koala.svg");
+        avatars.add ("/com/github/alainm23/planner/lion.svg");
+        avatars.add ("/com/github/alainm23/planner/monkey.svg");
+        avatars.add ("/com/github/alainm23/planner/owl.svg");
+        avatars.add ("/com/github/alainm23/planner/penguin.svg");
+        avatars.add ("/com/github/alainm23/planner/rabbit.svg");
+        avatars.add ("/com/github/alainm23/planner/tiger.svg");
+        avatars.add ("/com/github/alainm23/planner/zoo.svg");
+
+        return avatars [GLib.Random.int_range (0, avatars.size)];
+    }
+
+    // URL VALID
+    public string get_markup_format (string text) {
+        string correct = "";
+        string [] list = text.split (" ");
+
+        foreach (string word in list) {
+            correct += valid_worl (word) + " ";
+        }
+
+        return correct;
+    }
+
+    private string valid_worl (string text) {
+        // if (is_valid_url (text)) {
+        if (text.substring (0, 4).has_prefix ("http")) {
+            return "<a href='%s'>%s</a>".printf (text, text);
+        }
+    
+        return text;
+    }
+
+    //  private bool is_valid_url (string text) {
+    //      return !!pattern_regex.match (text);
+    //  }
 }

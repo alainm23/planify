@@ -32,6 +32,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.Box top_box;
     private Gtk.TextView note_textview;
+    private Gtk.Label note_label;
+    private Gtk.Stack note_stack;
     private Gtk.Label note_placeholder;
     private Gtk.Revealer note_preview_revealer;
     private Gtk.Revealer bottom_revealer;
@@ -123,8 +125,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 project = Planner.database.get_project_by_id (item.project_id);
                 project_preview_label.label = "<small>%s</small>".printf (project.name);
-                project_preview_image.gicon = new ThemedIcon ("color-%i".printf (project.color));
                 project_preview_revealer.reveal_child = true;
+
+                if (project.inbox_project == 1) {
+                    project_preview_image.gicon = new ThemedIcon ("color-41");
+                } else {
+                    project_preview_image.gicon = new ThemedIcon ("color-%i".printf (project.color));
+                }
 
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_before_today (datetime)) {
@@ -153,7 +160,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_button.can_focus = false;
         hidden_button.margin_top = 1;
         hidden_button.margin_end = 3;
-        hidden_button.tooltip_text = _("View Details");
+        hidden_button.tooltip_text = _("Hide Details");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
 
@@ -171,17 +178,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.active = item.checked == 1;
 
-        content_label = new Gtk.Label (item.content);
+        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
         content_label.margin_top = 5;
+        content_label.use_markup = true;
         content_label.get_style_context ().add_class ("label");
         content_label.wrap = true;
 
         label_revealer = new Gtk.Revealer ();
         label_revealer.valign = Gtk.Align.START;
-        label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        label_revealer.transition_type = Gtk.RevealerTransitionType.NONE;
         label_revealer.transition_duration = 125;
         label_revealer.add (content_label);
         label_revealer.reveal_child = true;
@@ -200,7 +208,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         entry_revealer = new Gtk.Revealer ();
         entry_revealer.valign = Gtk.Align.START;
-        entry_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        entry_revealer.transition_type = Gtk.RevealerTransitionType.NONE;
         entry_revealer.transition_duration = 125;
         entry_revealer.add (content_entry);
 
@@ -225,7 +233,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var project_preview_grid = new Gtk.Grid ();
         project_preview_grid.column_spacing = 3;
-        project_preview_grid.margin_end = 16;
+        project_preview_grid.margin_end = 6;
         project_preview_grid.halign = Gtk.Align.CENTER;
         project_preview_grid.valign = Gtk.Align.CENTER;
         project_preview_grid.add (project_preview_image);
@@ -358,19 +366,106 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note TextView
         note_textview = new Gtk.TextView ();
-        note_textview.margin_start = 28;
-        note_textview.buffer.text = item.note;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD_CHAR;
-        note_textview.get_style_context ().add_class ("textview");
         note_textview.height_request = 42;
+        note_textview.buffer.text = item.note;
+        note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.get_style_context ().add_class ("textview");
 
         note_placeholder = new Gtk.Label (_("Note"));
         note_placeholder.opacity = 0.7;
         note_textview.add (note_placeholder);
-        if (item.note != "") {
+
+        // Note Label
+        note_label = new Gtk.Label (Planner.utils.get_markup_format (item.note));
+        note_label.valign = Gtk.Align.START;
+        note_label.height_request = 42;
+        note_label.wrap = true;
+        note_label.wrap_mode = Pango.WrapMode.WORD;
+        note_label.xalign = 0;
+        note_label.yalign = 0;
+        note_label.use_markup = true;
+
+        var note_eventbox = new Gtk.EventBox ();
+        note_eventbox.hexpand = true;
+        note_eventbox.add (note_label);
+
+        note_stack = new Gtk.Stack ();
+        note_stack.hexpand = true;
+        note_stack.margin_start = 28;
+        note_stack.margin_end = 12;
+        note_stack.margin_top = 3;
+        note_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        note_stack.vhomogeneous = false;
+        note_stack.add_named (note_eventbox, "label");
+        note_stack.add_named (note_textview, "textview");
+
+        Timeout.add (250, () => {
+            if (item.note.strip () == "") {  
+                note_stack.visible_child_name = "textview";
+                note_placeholder.visible = true;
+                note_placeholder.no_show_all = false;
+            } else {
+                note_stack.visible_child_name = "label";
+                note_placeholder.visible = false;
+                note_placeholder.no_show_all = true;
+            }
+
+            return false;
+        });
+
+        note_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
+                note_stack.visible_child_name = "textview";
+                note_textview.grab_focus ();
+                
+                return true;
+            }
+
+            return false;
+        });
+
+        note_textview.buffer.changed.connect (() => {
+            save (false);
+
+            if (note_textview.buffer.text == "") {
+                note_preview_revealer.reveal_child = false;
+            } else {
+                note_preview_revealer.reveal_child = true;
+            }
+
+            check_preview_box ();
+        });
+
+        note_textview.focus_in_event.connect (() => {
             note_placeholder.visible = false;
             note_placeholder.no_show_all = true;
-        }
+
+            return false;
+        });
+
+        note_textview.focus_out_event.connect (() => {
+            note_label.label = Planner.utils.get_markup_format (note_textview.buffer.text); 
+
+            if (item.note.strip () == "") {
+                note_stack.visible_child_name = "textview";
+                note_placeholder.visible = true;
+                note_placeholder.no_show_all = false;
+            } else {
+                note_stack.visible_child_name = "label";
+                note_placeholder.visible = false;
+                note_placeholder.no_show_all = true;
+            }
+
+            return false;
+        });
+
+        note_textview.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                hide_item ();
+            }
+
+            return false;
+        });
 
         // Checklist ListBox
         check_listbox = new Gtk.ListBox ();
@@ -450,7 +545,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (due_button, false, true, 0);
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        bottom_box.pack_start (note_textview, false, true, 0);
+        bottom_box.pack_start (note_stack, false, true, 0);
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
@@ -467,6 +562,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_end = 16;
+        motion_grid.margin_bottom = 12;
         motion_grid.margin_top = 3;
         motion_grid.margin_start = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -534,42 +630,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         content_entry.changed.connect (() => {
             save ();
-        });
-
-        note_textview.buffer.changed.connect (() => {
-            save (false);
-
-            if (note_textview.buffer.text == "") {
-                note_preview_revealer.reveal_child = false;
-            } else {
-                note_preview_revealer.reveal_child = true;
-            }
-
-            check_preview_box ();
-        });
-
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
-        note_textview.focus_out_event.connect (() => {
-            if (note_textview.buffer.text == "") {
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            }
-
-            return false;
-        });
-
-        note_textview.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                hide_item ();
-            }
-
-            return false;
         });
 
         Planner.utils.drag_magic_button_activated.connect ((value) => {
@@ -761,7 +821,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     item.note = i.note;
 
                     content_entry.text = item.content;
-                    content_label.label = item.content;
+                    content_label.label = Planner.utils.get_markup_format (item.content);
                     note_textview.buffer.text = item.note;
 
                     if (note_textview.buffer.text == "") {
@@ -972,18 +1032,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     public void show_item () {
-        //  if (is_today == false && upcoming == null) {
-        //      Planner.utils.add_item_show_queue (this);
-        //  } else {
-        //      if (is_today) {
-        //          Planner.utils.add_item_show_queue_view (this, "today");
-        //      }
-
-        //      if (upcoming != null) {
-        //          Planner.utils.add_item_show_queue_view (this, "upcoming");
-        //      }
-        //  }
-
         bottom_revealer.reveal_child = true;
         main_grid.get_style_context ().add_class ("item-row-selected");
         main_grid.get_style_context ().add_class ("popover");
@@ -992,8 +1040,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_revealer.reveal_child = false;
         preview_revealer.reveal_child = false;
         hidden_revealer.reveal_child = true;
-
-        hidden_button.tooltip_text = _("Hiding");
 
         activatable = false;
         selectable = false;
@@ -1009,12 +1055,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.get_style_context ().remove_class ("popover");
 
         entry_revealer.reveal_child = false;
+        content_label.label = Planner.utils.get_markup_format (content_entry.text);
         label_revealer.reveal_child = true;
         hidden_revealer.reveal_child = false;
 
         check_preview_box ();
-
-        hidden_button.tooltip_text = _("View Details");
 
         timeout_id = Timeout.add (250, () => {
             activatable = true;
@@ -1121,8 +1166,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private void save (bool online=true) {
         if (save_off == false) {
             content_label.label = content_entry.text;
-
-            content_label.tooltip_text = item.content;
+            content_label.tooltip_text = content_entry.text;
             item.content = content_entry.text;
             item.note = note_textview.buffer.text;
 
@@ -1340,7 +1384,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
         undated_menu.item_image.get_style_context ().add_class ("due-clear");
 
-        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "planner-project-symbolic");
+        var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "move-project-symbolic");
         projects_menu = new Gtk.Menu ();
         move_project_menu.set_submenu (projects_menu);
 
