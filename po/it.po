@@ -677,7 +677,7 @@ msgstr "Data di scadenza"
 
 #: src/Widgets/DueButton.vala:186
 msgid "Repeat"
-msgstr "Ripetizione"
+msgstr "Ripeti"
 
 #: src/Widgets/DueButton.vala:209
 msgid "Every day"
@@ -727,7 +727,7 @@ msgstr "Task completato"
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr "Completato. Prossima ricorrenza %s"
+msgstr "Completato. Prossima occorrenza: %s"
 
 #: src/Widgets/AreaRow.vala:83 src/Widgets/AreaRow.vala:349
 msgid "Display Projects"
