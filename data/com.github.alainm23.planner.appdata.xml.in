@@ -97,6 +97,7 @@
         <p>Special thanks to 'Wount' for becoming our new silver tier patrons and supporting the development of Planner.</p>
       </description>
     </release>
+
     <release version="2.2.8" date="2020-02-26">
       <description>
         <p>Quick Add is here, design improvements and more.</p>
@@ -115,6 +116,7 @@
         <p>We also thank all the people who made some donations via Patreon or PayPal. Without you this would not be possible 😉️.</p>
       </description>
     </release>
+
     <release version="2.2.6" date="2020-02-25">
       <description>
         <p>Quick Add is here, design improvements and more.</p>
@@ -132,6 +134,7 @@
         <p>We also thank all the people who made some donations via Patreon or PayPal. Without you this would not be possible 😉️.</p>
       </description>
     </release>
+
     <release version="2.2.2" date="2020-02-23">
       <description>
         <p>Quick Add is here, design improvements and more.</p>
@@ -149,6 +152,7 @@
         <p>We also thank all the people who made some donations via Patreon or PayPal. Without you this would not be possible 😉️.</p>
       </description>
     </release>
+
     <release version="2.1.1" date="2020-01-29">
       <description>
         <p>The keyboard shortcuts arrived, design improvements and more.</p>
@@ -169,6 +173,7 @@
         </ul>
       </description>
     </release>
+
     <release version="2.0.8" date="2020-01-17">
       <description>
         <p>Planner 2 is here...</p>
@@ -188,6 +193,7 @@
         </ul>
       </description>
     </release>
+
     <release version="1.2.3" date="2019-01-29">
       <description>
         <p>New features:</p>
@@ -201,6 +207,7 @@
         </ul>
       </description>
     </release>
+
     <release version="1.2.2" date="2019-01-19">
       <description>
         <p>Improvements:</p>
@@ -214,6 +221,7 @@
         </ul>
       </description>
     </release>
+
     <release version="1.2.1" date="2019-01-18">
       <description>
         <p>Improvements:</p>
@@ -235,6 +243,7 @@
         </ul>
       </description>
     </release>
+
     <release version="1.1.1" date="2019-01-11">
       <description>
           <p>New feature: Support for Github Issues</p>
@@ -258,6 +267,7 @@
           </ul>
       </description>
     </release>
+
     <release version="1.0.4" date="2019-01-04">
       <description>
           <p>Improved stability and some bug fixes</p>
@@ -267,6 +277,7 @@
           </ul>
       </description>
     </release>
+
     <release version="1.0.2" date="2019-01-02">
         <description>
             <p>Hola Planner !!!</p>
@@ -275,6 +286,7 @@
             </ul>
         </description>
     </release>
+    
     <release version="1.0" date="2019-01-01">
         <description>
             <p>Initial release</p>
