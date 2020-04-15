@@ -73,7 +73,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
-
+        project_progress.percentage = get_percentage (
+            Planner.database.get_count_checked_items_by_project (project.id),
+            Planner.database.get_all_count_items_by_project (project.id)
+        );
+        
         var progress_grid = new Gtk.Grid ();
         progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
             project.id.to_string ()

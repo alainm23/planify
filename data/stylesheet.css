@@ -870,6 +870,11 @@ paned.horizontal > separator {
     color: @text_color;
 }
 
+.quick-find-dialog decoration {
+    box-shadow: none;
+    margin: 1px;
+}
+
 .quick-find-dialog {
     border-radius: 6px;
 }
