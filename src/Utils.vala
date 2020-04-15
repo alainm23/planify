@@ -906,28 +906,26 @@ public class Utils : GLib.Object {
         return avatars [GLib.Random.int_range (0, avatars.size)];
     }
 
-    // URL VALID
     public string get_markup_format (string text) {
-        string correct = "";
-        string [] list = text.split (" ");
-
-        foreach (string word in list) {
-            correct += valid_worl (word) + " ";
+        Regex regex =  /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        MatchInfo info;
+        try {
+            List<string> urls = new List<string>();
+            if (regex.match(text, 0, out info)) {
+                do {
+                    var url = info.fetch_named("url");
+                    urls.append(url);
+                } while (info.next());
+            }
+            var converted = text;
+            urls.foreach((url) => {
+                var urlEncoded = url.replace("&", "&amp;");
+                var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
+                converted = converted.replace(url, urlAsLink);
+            });
+            return converted;
+        } catch (GLib.RegexError ex) {
+            return text;
         }
-
-        return correct;
     }
-
-    private string valid_worl (string text) {
-        // if (is_valid_url (text)) {
-        if (text.substring (0, 4).has_prefix ("http")) {
-            return "<a href='%s'>%s</a>".printf (text, text);
-        }
-    
-        return text;
-    }
-
-    //  private bool is_valid_url (string text) {
-    //      return !!pattern_regex.match (text);
-    //  }
 }
