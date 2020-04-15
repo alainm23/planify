@@ -766,9 +766,7 @@ public class Utils : GLib.Object {
             }
         }
     }
-
-
-
+    
     /*
         Tutorial project
     */

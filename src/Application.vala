@@ -132,7 +132,8 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
-        if (get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+        print ("PRETTY_NAME: %s\n".printf (get_os_info ("PRETTY_NAME")));
+        if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             string CSS = """
                 window decoration {
                     box-shadow: none;
