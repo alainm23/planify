@@ -143,6 +143,14 @@ public class Views.Project : Gtk.EventBox {
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);
 
+        section_button = new Gtk.ToggleButton ();
+        section_button.valign = Gtk.Align.CENTER;
+        section_button.halign = Gtk.Align.CENTER;
+        section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
+        section_button.can_focus = false;
+        section_button.get_style_context ().add_class ("flat");
+        section_button.add (section_image);
+
         var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
         add_person_button.valign = Gtk.Align.CENTER;
         add_person_button.halign = Gtk.Align.CENTER;
@@ -474,7 +482,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         progress_button.toggled.connect (() => {
-            open_progress_popover ();
+            // open_progress_popover ();
         });
 
         completed_listbox.remove.connect (() => {
@@ -905,7 +913,6 @@ public class Views.Project : Gtk.EventBox {
 
         if (source.item.section_id != 0) {
             source.item.section_id = 0;
-
             if (source.item.is_todoist == 1) {
                 Planner.todoist.move_item_to_section (source.item, 0);
             }

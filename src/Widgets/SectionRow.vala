@@ -1008,7 +1008,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (source.item.section_id != section.id) {
-            Planner.database.move_item_section (source.item, section.id);
+            source.item.section_id = section.id;
             if (source.item.is_todoist == 1) {
                 Planner.todoist.move_item_to_section (source.item, section.id);
             }
@@ -1023,7 +1023,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         source.get_parent ().remove (source);
         items_list.remove (source);
-
+        items_uncompleted_added.set (source.item.id.to_string (), source);
+        
         listbox.insert (source, 0);
         items_list.insert (0, source);
 

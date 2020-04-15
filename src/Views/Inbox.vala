@@ -1332,7 +1332,7 @@ public class Views.Inbox : Gtk.EventBox {
         });
 
         progress_button.toggled.connect (() => {
-            open_progress_popover ();
+            // open_progress_popover ();
         });
 
         completed_listbox.remove.connect (() => {
