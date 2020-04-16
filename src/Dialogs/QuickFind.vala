@@ -41,6 +41,10 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
     construct {
         get_style_context ().add_class ("quick-find-dialog");
+        if (Planner.instance.get_os_info ("PRETTY_NAME") == null || Planner.instance.get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+            get_style_context ().add_class ("patch");
+        }
+
         width_request = 575;
         height_request = 425;
 

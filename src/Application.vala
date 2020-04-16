@@ -135,10 +135,7 @@ public class Planner : Gtk.Application {
         if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             string CSS = """
                 window decoration {
-                    box-shadow:
-                        0 0 0 1px @decoration_border_color,
-                        0 14px 28px rgba(0, 0, 0, 0.35),
-                        0 10px 10px rgba(0, 0, 0, 0.22);
+                    box-shadow: none;
                     margin: 1px;
                 }
             """;
