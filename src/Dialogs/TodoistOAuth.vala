@@ -39,7 +39,10 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
         height_request = 700;
         width_request = 600;
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
-
+        if (Planner.instance.get_os_info ("PRETTY_NAME") == null || Planner.instance.get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+            get_style_context ().add_class ("dialog-patch");
+        }
+        
         var info_label = new Gtk.Label (_("Loading…"));
 
         var spinner = new Gtk.Spinner ();

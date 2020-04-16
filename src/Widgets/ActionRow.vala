@@ -164,7 +164,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             Planner.database.section_deleted.connect ((s) => {
                 update_count ();
             });
-        } else {
+        } else if (item_base_name == "inbox") {
             Planner.database.check_project_count.connect ((id) => {
                 if (Planner.settings.get_int64 ("inbox-project") == id) {
                     update_count ();
@@ -182,7 +182,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         timeout_id = Timeout.add (250, () => {
             if (item_base_name == "today") {
                 check_today_badge ();
-            } else {
+            } else if (item_base_name == "inbox") {
                 check_inbox_badge ();
             }
 

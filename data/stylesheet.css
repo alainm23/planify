@@ -870,7 +870,7 @@ paned.horizontal > separator {
     color: @text_color;
 }
 
-.quick-find-dialog.patch decoration {
+.dialog-patch decoration {
     box-shadow: none;
     margin: 1px;
 }
