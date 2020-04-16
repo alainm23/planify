@@ -1086,6 +1086,11 @@ public class Views.Inbox : Gtk.EventBox {
         project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
+        project_progress.percentage = get_percentage (
+            Planner.database.get_count_checked_items_by_project (project.id),
+            Planner.database.get_all_count_items_by_project (project.id)
+        );
+        
         if (Planner.settings.get_boolean ("prefer-dark-style")) {
             project_progress.progress_fill_color = "#FFFFFF";
         } else {
@@ -1603,12 +1608,12 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
-        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
+        Planner.database.check_project_count.connect ((id) => {
             if (project.id == id) {
-                project_progress.percentage = ((double) items_1 / ((double) items_0 + (double) items_1));
-                progress_button.tooltip_text = _("Project's progress: %s".printf (
-                    GLib.Math.floor ((project_progress.percentage * 100)).to_string ())
-                ) + "%";
+                project_progress.percentage = get_percentage (
+                    Planner.database.get_count_checked_items_by_project (project.id),
+                    Planner.database.get_all_count_items_by_project (project.id)
+                );
             }
         });
 
@@ -1625,6 +1630,10 @@ public class Views.Inbox : Gtk.EventBox {
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
         items_opened.remove (row);
+    }
+
+    private double get_percentage (int a, int b) {
+        return (double) a / (double) b;
     }
 
     public void hide_last_item () {

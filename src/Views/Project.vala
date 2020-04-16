@@ -111,6 +111,11 @@ public class Views.Project : Gtk.EventBox {
         project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
+        project_progress.percentage = get_percentage (
+            Planner.database.get_count_checked_items_by_project (project.id),
+            Planner.database.get_all_count_items_by_project (project.id)
+        );
+        
         if (Planner.settings.get_boolean ("prefer-dark-style")) {
             project_progress.progress_fill_color = "#FFFFFF";
         } else {
