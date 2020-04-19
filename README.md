@@ -25,7 +25,7 @@
 - 🌙️ Better integration with the dark theme.
 - 🎉️ and much more.
 
-### ☁️ Support for Todoist:</p>
+### ☁️ Support for Todoist:
 
 - Synchronize your Projects, Task and Sections thanks to Todoist.
 - Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.

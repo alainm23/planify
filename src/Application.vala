@@ -132,28 +132,22 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
-        var command = new Granite.Services.SimpleCommand (".", "echo $DESKTOP_SESSION");
-        command.run ();
-        command.output_changed.connect ((text) => {
-            print ("DESKTOP_SESSION: %s\n".printf (text));
-        });
+        //  if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+        //      string CSS = """
+        //          window decoration {
+        //              box-shadow: none;
+        //              margin: 1px;
+        //          }
+        //      """;
 
-        if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
-            string CSS = """
-                window decoration {
-                    box-shadow: none;
-                    margin: 1px;
-                }
-            """;
+        //      var _provider = new Gtk.CssProvider ();
+        //      _provider.load_from_data (CSS, CSS.length);
 
-            var _provider = new Gtk.CssProvider ();
-            _provider.load_from_data (CSS, CSS.length);
-
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), _provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        }
+        //      Gtk.StyleContext.add_provider_for_screen (
+        //          Gdk.Screen.get_default (), _provider,
+        //          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        //      );
+        //  }
 
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
