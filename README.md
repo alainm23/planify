@@ -10,7 +10,7 @@
   <h3 align="center">Never worry about forgetting things again</h3>
 </div>
 
-![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-01.png)
+![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-02.png)
 
 ## Planner 2 is here...
 
@@ -29,14 +29,14 @@
 
 - Synchronize your Projects, Task and Sections thanks to Todoist.
 - Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.
-* Planner not created by, affiliated with, or supported by Doist
+- Planner not created by, affiliated with, or supported by Doist
 
 ### 💎️ Other features:
 
-- ⏲️ Reminders notifications
-- 🔍️ Quick Find
-- 🌙️ Night mode
-- 🔁️ Recurring due dates
+- ⏲️ Reminders notifications.
+- 🔍️ Quick Find.
+- 🌙️ Night mode.
+- 🔁️ Recurring due dates.
 
 
 ## Installation
