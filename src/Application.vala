@@ -128,8 +128,12 @@ public class Planner : Gtk.Application {
         utils.apply_theme_changed ();
 
         // Set Theme and Icon
-        Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
-        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+        if (GLib.FileUtils.test("/usr/share/themes/elementary", GLib.FileTest.IS_DIR) || GLib.FileUtils.test("~/.themes/elementary", GLib.FileTest.IS_DIR)) {
+            Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+        }
+        if (GLib.FileUtils.test("/usr/share/icons/elementary", GLib.FileTest.IS_DIR) || GLib.FileUtils.test("~/.icons/elementary", GLib.FileTest.IS_DIR)) {
+            Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
+        }
 
         // Path Theme
         var command = new Granite.Services.SimpleCommand (".", "echo $DESKTOP_SESSION");
