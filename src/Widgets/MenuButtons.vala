@@ -43,12 +43,13 @@ public class Widgets.ModelButton : Gtk.Button {
     public int color {
         set {
             if (value == 0) {
-                var hour = new GLib.DateTime.now_local ().get_hour ();
-                if (hour >= 18 || hour <= 6) {
-                    item_image.get_style_context ().add_class ("today-night-icon");
-                } else {
-                    item_image.get_style_context ().add_class ("today-day-icon");
-                }
+                item_image.get_style_context ().add_class ("today-icon");
+                //  var hour = new GLib.DateTime.now_local ().get_hour ();
+                //  if (hour >= 18 || hour <= 6) {
+                //      item_image.get_style_context ().add_class ("today-night-icon");
+                //  } else {
+                //      item_image.get_style_context ().add_class ("today-icon");
+                //  }
             } else if (value == 1) {
                 item_image.get_style_context ().add_class ("upcoming-icon");
             } else {

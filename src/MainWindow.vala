@@ -151,7 +151,7 @@ public class MainWindow : Gtk.Window {
                 // Init Progress Server
                 init_badge_count ();
                 init_progress_controller ();
-
+                
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }

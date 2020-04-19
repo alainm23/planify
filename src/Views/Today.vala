@@ -40,15 +40,8 @@ public class Views.Today : Gtk.EventBox {
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.pixel_size = 16;
-
-        var hour = new GLib.DateTime.now_local ().get_hour ();
-        if (hour >= 18 || hour <= 6) {
-            icon_image.icon_name = "planner-today-night-symbolic";
-            icon_image.get_style_context ().add_class ("today-night-icon");
-        } else {
-            icon_image.icon_name = "planner-today-day-symbolic";
-            icon_image.get_style_context ().add_class ("today-day-icon");
-        }
+        icon_image.icon_name = "help-about-symbolic";
+        icon_image.get_style_context ().add_class ("today-icon");
 
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Today")));
         title_label.get_style_context ().add_class ("title-label");
@@ -66,8 +59,10 @@ public class Views.Today : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 36;
-        top_box.margin_end = 24;
+        top_box.margin_end = 36;
+        top_box.margin_start = 42;
+        top_box.margin_bottom = 6;
+        top_box.margin_top = 6;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
@@ -75,7 +70,7 @@ public class Views.Today : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
-        listbox.margin_start = 24;
+        listbox.margin_start = 30;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -212,26 +207,33 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        //  Planner.database.item_completed.connect ((item) => {
-        //      Idle.add (() => {
-        //          if (item.checked == 0 && item.due_date != "") {
-        //              var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-        //              if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
-        //                  if (items_loaded.has_key (item.id.to_string ()) == false) {
-        //                      add_item (item);
-        //                      check_placeholder_view ();
-        //                  }
-        //              }
-        //          } else {
-        //              if (items_loaded.has_key (item.id.to_string ())) {
-        //                  items_loaded.unset (item.id.to_string ());
-        //                  check_placeholder_view ();
-        //              }
-        //          }
+        Planner.database.item_completed.connect ((item) => {
+            Idle.add (() => {
+                if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.get (item.id.to_string ()).hide_destroy ();
+                    items_loaded.unset (item.id.to_string ());
+                    check_placeholder_view ();
+                }
 
-        //          return false;
-        //      });
-        //  });
+                return false;
+            });
+        });
+
+        Planner.database.item_uncompleted.connect ((item) => {
+            Idle.add (() => {
+                if (items_loaded.has_key (item.id.to_string ()) == false) {
+                    var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+                    if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
+                        if (items_loaded.has_key (item.id.to_string ()) == false) {
+                            add_item (item);
+                            check_placeholder_view ();
+                        }
+                    }
+                }
+
+                return false;
+            });
+        });
 
         new_item.new_item_hide.connect (() => {
             new_item_revealer.reveal_child = false;

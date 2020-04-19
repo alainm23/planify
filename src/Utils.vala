@@ -331,7 +331,7 @@ public class Utils : GLib.Object {
         return Math.pow ((color + 0.055) / 1.055, 2.4);
     }
 
-    public void apply_styles (string id, string color, Gtk.RadioButton radio) {
+    public void apply_styles (string id, string color) {
         string color_css = """
             .color-%s radio {
                 background: %s;
@@ -340,9 +340,6 @@ public class Utils : GLib.Object {
         """;
 
         var provider = new Gtk.CssProvider ();
-        radio.get_style_context ().add_class ("color-%s".printf (id));
-        radio.get_style_context ().add_class ("color-radio");
-
         try {
             var colored_css = color_css.printf (
                 id,
@@ -358,6 +355,12 @@ public class Utils : GLib.Object {
             );
         } catch (GLib.Error e) {
             return;
+        }
+    }
+
+    public void init_labels_color () {
+        foreach (int color_id in get_color_list ()) {
+            apply_styles (color_id.to_string (), get_color (color_id));
         }
     }
 

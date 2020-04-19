@@ -29,7 +29,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+        icon_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
         icon_image.get_style_context ().add_class ("upcoming-icon");
         icon_image.pixel_size = 16;
 
@@ -40,9 +40,10 @@ public class Views.Upcoming : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_start = 36;
-        top_box.margin_end = 24;
-        top_box.margin_bottom = 16;
+        top_box.margin_end = 36;
+        top_box.margin_start = 42;
+        top_box.margin_bottom = 24;
+        top_box.margin_top = 6;
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);

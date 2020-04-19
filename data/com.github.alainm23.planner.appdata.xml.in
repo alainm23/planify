@@ -47,7 +47,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.3" date="2020-04-14">
+    <release version="2.3.2" date="2020-04-14">
       <description>
         <p>Hi everyone! Planner 2.3 is here –  a big update for the Quick Find feature,</p>
         <p>recurring tasks and design improvements.</p>

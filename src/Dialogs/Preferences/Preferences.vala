@@ -74,8 +74,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack_scrolled.add (stack);
 
         get_content_area ().pack_start (stack_scrolled, true, true, 0);
-
         add_button (_("Close"), Gtk.ResponseType.CLOSE);
+        Planner.utils.init_labels_color ();
 
         response.connect ((response_id) => {
             destroy ();

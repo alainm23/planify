@@ -34,19 +34,21 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             deletable: false,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: false,
+            modal: true,
             use_header_bar: 1
         );
     }
 
     construct {
         get_style_context ().add_class ("quick-find-dialog");
-        if (Planner.instance.get_os_info ("PRETTY_NAME") == null || Planner.instance.get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
-            get_style_context ().add_class ("dialog-patch");
-        }
-
-        width_request = 575;
-        height_request = 425;
+        // if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+            // get_style_context ().add_class ("dialog-patch");
+            // width_request = 465;
+            // height_request = 255;
+        // } else {
+            width_request = 575;
+            height_request = 425;
+        // }
 
         int window_x, window_y;
         int window_width, width_height;
@@ -424,21 +426,10 @@ public class SearchItem : Gtk.ListBoxRow {
                 icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
                 icon.get_style_context ().add_class ("inbox-icon");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
-                string today_icon = "planner-today-day-symbolic";
-                var hour = new GLib.DateTime.now_local ().get_hour ();
-                if (hour >= 18 || hour <= 5) {
-                    today_icon = "planner-today-night-symbolic";
-                }
-
-                if (today_icon == "planner-today-day-symbolic") {
-                    icon.get_style_context ().add_class ("today-day-icon");
-                } else {
-                    icon.get_style_context ().add_class ("today-night-icon");
-                }
-
-                icon.gicon = new ThemedIcon (today_icon);
+                icon.gicon = new ThemedIcon ("help-about-symbolic");
+                icon.get_style_context ().add_class ("today-icon");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
-                icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                icon.gicon = new ThemedIcon ("planner-calendar-symbolic");
                 icon.get_style_context ().add_class ("upcoming-icon");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
                 icon.gicon = new ThemedIcon ("user-trash-symbolic");

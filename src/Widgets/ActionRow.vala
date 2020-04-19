@@ -123,11 +123,12 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         } else if (item_base_name == "inbox") {
             icon.get_style_context ().add_class ("inbox-icon");
         } else if (item_base_name == "today") {
-            if (icon_name == "planner-today-day-symbolic") {
-                icon.get_style_context ().add_class ("today-day-icon");
-            } else {
-                icon.get_style_context ().add_class ("today-night-icon");
-            }
+            icon.get_style_context ().add_class ("today-icon");
+            //  if (icon_name == "planner-today-day-symbolic") {
+            //      icon.get_style_context ().add_class ("today-day-icon");
+            //  } else {
+            //      icon.get_style_context ().add_class ("today-night-icon");
+            //  }
         } else if (item_base_name == "upcoming") {
             icon.get_style_context ().add_class ("upcoming-icon");
         }
@@ -141,6 +142,14 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         });
 
         if (item_base_name == "today") {
+            Planner.database.item_completed.connect ((item) => {
+                update_count ();
+            });
+
+            Planner.database.item_uncompleted.connect ((item) => {
+                update_count ();
+            });
+
             Planner.database.add_due_item.connect ((item) => {
                 update_count ();
             });

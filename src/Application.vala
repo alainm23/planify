@@ -132,6 +132,12 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
+        var command = new Granite.Services.SimpleCommand (".", "echo $DESKTOP_SESSION");
+        command.run ();
+        command.output_changed.connect ((text) => {
+            print ("DESKTOP_SESSION: %s\n".printf (text));
+        });
+
         if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             string CSS = """
                 window decoration {

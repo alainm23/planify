@@ -35,6 +35,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     };
 
     public signal void hide_item ();
+    // public signal void activate (int index);
 
     public CheckRow (Objects.Item item) {
         Object (
@@ -72,7 +73,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
         content_stack.add_named (content_label, "content_label");
         content_stack.add_named (content_entry, "content_entry");
-
+        
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;
@@ -167,6 +168,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         content_entry.activate.connect (() => {
             content_stack.visible_child_name = "content_label";
+            // activate (get_index ());
+            // print ("Index: %i\n".printf (get_index ()));
         });
 
         content_entry.focus_out_event.connect (() => {

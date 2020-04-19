@@ -191,11 +191,12 @@ public class Views.Project : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_end = 24;
-        top_box.margin_start = 36;
+        top_box.margin_end = 36;
+        top_box.margin_start = 42;
+        top_box.margin_top = 6;
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -209,7 +210,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.margin_top = 6;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 36;
+        action_grid.margin_start = 42;
         action_grid.margin_bottom = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
@@ -233,11 +234,11 @@ public class Views.Project : Gtk.EventBox {
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.margin_top = 6;
-        note_textview.margin_bottom = 3;
+        note_textview.margin_bottom = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.margin_start = 37;
-        note_textview.margin_end = 36;
+        note_textview.margin_start = 43;
+        note_textview.margin_end = 45;
 
         note_placeholder = new Gtk.Label (_("Description"));
         note_placeholder.opacity = 0.7;
@@ -254,12 +255,13 @@ public class Views.Project : Gtk.EventBox {
         }
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 24;
+        listbox.margin_start = 30;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.margin_bottom = 3;
+        listbox.margin_top = 6;
         // listbox.set_filter_func (filter_function);
         // listbox.set_sort_func (sort_function);
         listbox.hexpand = true;
@@ -343,7 +345,7 @@ public class Views.Project : Gtk.EventBox {
         box.expand = true;
         box.margin_bottom = 3;
         box.margin_end = 3;
-        box.pack_start (motion_revealer, false, false, 0);
+        box.pack_start (action_revealer, false, false, 0);
         box.pack_start (listbox, false, false, 0);
         box.pack_start (completed_revealer, false, false, 0);
         box.pack_start (section_listbox, false, false, 0);
@@ -372,8 +374,8 @@ public class Views.Project : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (note_textview, false, false, 0);
+        main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
         add (main_box);
@@ -1074,6 +1076,7 @@ public class Views.Project : Gtk.EventBox {
             check_listbox_margin ();
             Planner.database.project_show_completed (project);
             save (false);
+            
             return Gdk.EVENT_STOP;
         });
     }
@@ -1395,25 +1398,4 @@ public class Views.Project : Gtk.EventBox {
             }
         }
     }
-
-    //  private bool filter_function (Gtk.ListBoxRow row) {
-    //      if (((Widgets.ItemRow) row).item.checked == 1) {
-    //          return false;
-    //      }
-
-    //      return true;
-    //  }
-
-    //  private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {
-    //      var row1_completed = ((Widgets.ItemRow) row1).item.checked;
-    //      var row2_completed = ((Widgets.ItemRow) row2).item.checked;
-
-    //      if (row1_completed == 1 && row2_completed == 0) {
-    //          return 1;
-    //      } else if (row2_completed == 1 && row1_completed == 0) {
-    //          return -1;
-    //      }
-
-    //      return 0;
-    //  }
 }

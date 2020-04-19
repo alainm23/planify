@@ -48,11 +48,9 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         reminder_image.valign = Gtk.Align.CENTER;
         reminder_image.gicon = new ThemedIcon ("alarm-symbolic");
         reminder_image.pixel_size = 16;
-        reminder_image.margin_bottom = 1;
 
         reminder_label = new Gtk.Label (null);
-        reminder_label.get_style_context ().add_class ("pane-item");
-        reminder_label.margin_bottom = 1;
+        reminder_label.get_style_context ().add_class ("font-bold");
         reminder_label.use_markup = true;
 
         label_revealer = new Gtk.Revealer ();

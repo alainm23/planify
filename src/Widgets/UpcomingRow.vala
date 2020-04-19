@@ -76,8 +76,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         separator.margin_top = 3;
 
         var top_box = new Gtk.Grid ();
-        top_box.margin_start = 36;
-        top_box.margin_end = 24;
+        top_box.margin_start = 42;
+        top_box.margin_end = 40;
         top_box.column_spacing = 6;
         top_box.row_spacing = 3;
         top_box.hexpand = true;
@@ -85,8 +85,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         top_box.attach (day_label,  0, 0, 1, 2);
         top_box.attach (separator,  1, 0, 1, 1);
         top_box.attach (date_label, 1, 1, 1, 1);
-        // top_box.pack_start (date_label, false, false, 6);
-        //top_box.pack_end (add_button, false, false, 0);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -98,7 +96,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
-        listbox.margin_start = 24;
+        listbox.margin_start = 32;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -106,7 +104,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_bottom = 3;
-        event_listbox.margin_start = 38;
+        event_listbox.margin_start = 44;
         event_listbox.valign = Gtk.Align.START;
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;
@@ -172,24 +170,31 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
-        //  Planner.database.item_completed.connect ((item) => {
-        //      Idle.add (() => {
-        //          if (item.checked == 0 && item.due_date != "") {
-        //              var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-        //              if (Granite.DateTime.is_same_day (datetime, date)) {
-        //                  if (items_loaded.has_key (item.id.to_string ()) == false) {
-        //                      add_item (item);
-        //                  }
-        //              }
-        //          } else {
-        //              if (items_loaded.has_key (item.id.to_string ())) {
-        //                  items_loaded.unset (item.id.to_string ());
-        //              }
-        //          }
+        Planner.database.item_completed.connect ((item) => {
+            Idle.add (() => {
+                if (items_loaded.has_key (item.id.to_string ())) {
+                    items_loaded.get (item.id.to_string ()).hide_destroy ();
+                    items_loaded.unset (item.id.to_string ());
+                }
 
-        //          return false;
-        //      });
-        //  });
+                return false;
+            });
+        });
+
+        Planner.database.item_uncompleted.connect ((item) => {
+            Idle.add (() => {
+                if (items_loaded.has_key (item.id.to_string ()) == false) {
+                    var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+                    if (Granite.DateTime.is_same_day (datetime, date)) {
+                        if (items_loaded.has_key (item.id.to_string ()) == false) {
+                            add_item (item);
+                        }
+                    }
+                }
+
+                return false;
+            });
+        });
 
         event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();
 

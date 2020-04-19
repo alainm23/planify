@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-14 20:39-0500\n"
+"POT-Creation-Date: 2020-04-18 23:09-0500\n"
 "PO-Revision-Date: 2020-04-11 22:09+0000\n"
 "Last-Translator: Dorian <dalcacer+weblateorg@mailbox.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.0-dev\n"
 
-#: src/Application.vala:222
+#: src/Application.vala:271
 msgid "New area"
 msgstr "Neuer Bereich"
 
@@ -27,115 +27,116 @@ msgstr "Neuer Bereich"
 msgid "Planner"
 msgstr "Planner"
 
-#: src/Utils.vala:130 src/Utils.vala:137 src/Widgets/LabelRow.vala:82
+#: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
 msgstr "Startseite"
 
-#: src/Utils.vala:131 src/Utils.vala:141
+#: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
 msgstr "Büro"
 
-#: src/Utils.vala:132 src/Utils.vala:145
+#: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
 msgstr "Auftrag"
 
-#: src/Utils.vala:133 src/Utils.vala:149
+#: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
 msgstr "Wichtig"
 
-#: src/Utils.vala:134 src/Utils.vala:153
+#: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: src/Utils.vala:197
+#: src/Utils.vala:194
 msgid "Berry Red"
 msgstr "Beerenrot"
 
-#: src/Utils.vala:198
+#: src/Utils.vala:195
 msgid "Red"
 msgstr "Rot"
 
-#: src/Utils.vala:199
+#: src/Utils.vala:196
 msgid "Orange"
 msgstr "Orange"
 
-#: src/Utils.vala:200
+#: src/Utils.vala:197
 msgid "Yellow"
 msgstr "Gelb"
 
-#: src/Utils.vala:201
+#: src/Utils.vala:198
 msgid "Olive Green"
 msgstr "Olivgrün"
 
-#: src/Utils.vala:202
+#: src/Utils.vala:199
 msgid "Lime Green"
 msgstr "Limettengrün"
 
-#: src/Utils.vala:203
+#: src/Utils.vala:200
 msgid "Green"
 msgstr "Grün"
 
-#: src/Utils.vala:204
+#: src/Utils.vala:201
 msgid "Mint Green"
 msgstr "Minzgrün"
 
-#: src/Utils.vala:205
+#: src/Utils.vala:202
 msgid "Teal"
 msgstr "Blaugrün"
 
-#: src/Utils.vala:206
+#: src/Utils.vala:203
 msgid "Sky Blue"
 msgstr "Himmelblau"
 
-#: src/Utils.vala:207
+#: src/Utils.vala:204
 msgid "Light Blue"
 msgstr "Hellblau"
 
-#: src/Utils.vala:208
+#: src/Utils.vala:205
 msgid "Blue"
 msgstr "Blau"
 
-#: src/Utils.vala:209
+#: src/Utils.vala:206
 msgid "Grape"
 msgstr "Traube"
 
-#: src/Utils.vala:210
+#: src/Utils.vala:207
 msgid "Violet"
 msgstr "Violett"
 
-#: src/Utils.vala:211
+#: src/Utils.vala:208
 msgid "Lavander"
 msgstr "Lavendel"
 
-#: src/Utils.vala:212
+#: src/Utils.vala:209
 msgid "Magenta"
 msgstr "Magenta"
 
-#: src/Utils.vala:213
+#: src/Utils.vala:210
 msgid "Salmon"
 msgstr "Lachs"
 
-#: src/Utils.vala:214
+#: src/Utils.vala:211
 msgid "Charcoal"
 msgstr "Dunkelgrau"
 
-#: src/Utils.vala:215
+#: src/Utils.vala:212
 msgid "Grey"
 msgstr "Grau"
 
-#: src/Utils.vala:216
+#: src/Utils.vala:213
 msgid "Taupe"
 msgstr "Braungrau"
 
-#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1378
-#: src/Widgets/DueButton.vala:165 src/Views/Today.vala:53
+#. vala-lint=line-length
+#: src/Utils.vala:574 src/Widgets/Pane.vala:66 src/Widgets/ItemRow.vala:1364
+#: src/Widgets/DueButton.vala:168 src/Views/Today.vala:46
 #: src/Dialogs/Preferences/Preferences.vala:227
-#: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:68
+#: src/Dialogs/Preferences/Preferences.vala:334 src/Dialogs/QuickFind.vala:74
 msgid "Today"
 msgstr "Heute"
 
-#: src/Utils.vala:576 src/Widgets/Pane.vala:348 src/Widgets/ItemRow.vala:1381
-#: src/Widgets/DueButton.vala:171 src/Widgets/UpcomingRow.vala:54
+#: src/Utils.vala:576 src/Widgets/Pane.vala:341 src/Widgets/ItemRow.vala:1367
+#: src/Widgets/DueButton.vala:174 src/Widgets/UpcomingRow.vala:54
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -149,11 +150,11 @@ msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
 "Drücke %s zum Aktivieren. Du kannst dies später in den Einstellungen ändern."
 
-#: src/Utils.vala:783
+#: src/Utils.vala:781
 msgid "🚀️ Getting Started"
 msgstr "🚀️ Erste Schritte"
 
-#: src/Utils.vala:784
+#: src/Utils.vala:782
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -163,11 +164,11 @@ msgstr ""
 "dich in ein simples Aufgaben-Management System ein, um organisiert zu "
 "bleiben und den Überblick zu behalten."
 
-#: src/Utils.vala:789
+#: src/Utils.vala:787
 msgid "Keeping track of your tasks"
 msgstr "Behält die Übersicht über deine Aufgaben"
 
-#: src/Utils.vala:790
+#: src/Utils.vala:788
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -184,11 +185,11 @@ msgstr ""
 "Dort kannst du damit beginnen, diese Aufgaben zu organisieren und "
 "priorisieren sodass du weißt, worauf du dich wann konzentrieren musst."
 
-#: src/Utils.vala:795
+#: src/Utils.vala:793
 msgid "Adding new tasks"
 msgstr "Neue Aufgaben hinzufügen"
 
-#: src/Utils.vala:796
+#: src/Utils.vala:794
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
@@ -198,11 +199,11 @@ msgstr ""
 "- Wenn deine Aufgabe erstellt wurde, klicke auf diese, um sie zu bearbeiten, "
 "oder sie zu konfigurieren."
 
-#: src/Utils.vala:802
+#: src/Utils.vala:800
 msgid "Due dates"
 msgstr "Fälligkeitsdaten"
 
-#: src/Utils.vala:803
+#: src/Utils.vala:801
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -212,11 +213,11 @@ msgstr ""
 "- Wenn du weißt, dass du eine bestimmte Aufgabe an einem bestimmten Tag "
 "fertiggestellt haben musst, klicke auf das Kalendericon und wähle ein Datum."
 
-#: src/Utils.vala:809
+#: src/Utils.vala:807
 msgid "How to use projects"
 msgstr "Wie man Projekte verwendet"
 
-#: src/Utils.vala:810
+#: src/Utils.vala:808
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -238,15 +239,15 @@ msgstr ""
 "- (Optional) Wähle eine andere Projektfarbe aus der Farbliste.\n"
 "- Klicke auf \"Hinzufügen\", um das Projekt zu erstellen."
 
-#: src/Utils.vala:820
+#: src/Utils.vala:818
 msgid "Sections"
 msgstr "Abschnitte"
 
-#: src/Utils.vala:826
+#: src/Utils.vala:824
 msgid "Add sections"
 msgstr "Abschnitte hinzufügen"
 
-#: src/Utils.vala:827
+#: src/Utils.vala:825
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -270,89 +271,89 @@ msgstr ""
 "- Klicke oben rechts in einem Projekt auf das + Symbol.\n"
 "- Gebe den Namen deines Abschnitts ein und klicke auf Hinzufügen."
 
-#: src/Utils.vala:846
+#: src/Utils.vala:844
 msgid "Create a new task"
 msgstr "Erstelle eine neue Aufgabe"
 
-#: src/Utils.vala:847
+#: src/Utils.vala:845
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
 "Erstelle eine neue Aufgabe am Anfang der Liste (funktioniert nur innerhalb "
 "von Projekten)"
 
-#: src/Utils.vala:848
+#: src/Utils.vala:846
 msgid "Create a new area"
 msgstr "Erstelle einen neuen Bereich"
 
-#: src/Utils.vala:849
+#: src/Utils.vala:847
 msgid "Create a new project"
 msgstr "Erzeuge ein neues Projekt"
 
-#: src/Utils.vala:850
+#: src/Utils.vala:848
 msgid "Create a new section"
 msgstr "Erstelle einen neuen Abschnitt"
 
-#: src/Utils.vala:851
+#: src/Utils.vala:849
 msgid "Open the Inbox"
 msgstr ""
 
-#: src/Utils.vala:852
+#: src/Utils.vala:850
 #, fuzzy
 msgid "Open Today"
 msgstr "Heute"
 
-#: src/Utils.vala:853
+#: src/Utils.vala:851
 #, fuzzy
 msgid "Open Upcoming"
 msgstr "Anstehend"
 
-#: src/Utils.vala:854
+#: src/Utils.vala:852
 #, fuzzy
 msgid "Open Search"
 msgstr "Suche"
 
-#: src/Utils.vala:855
+#: src/Utils.vala:853
 msgid "Manually sync"
 msgstr ""
 
-#: src/Utils.vala:856
+#: src/Utils.vala:854
 msgid "Quit"
 msgstr ""
 
-#: src/Utils.vala:864
+#: src/Utils.vala:862
 msgid "The request was incorrect."
 msgstr ""
 
-#: src/Utils.vala:865
+#: src/Utils.vala:863
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 
-#: src/Utils.vala:866
+#: src/Utils.vala:864
 msgid "The request was valid, but for something that is forbidden."
 msgstr ""
 
-#: src/Utils.vala:867
+#: src/Utils.vala:865
 msgid "The requested resource could not be found."
 msgstr ""
 
-#: src/Utils.vala:868
+#: src/Utils.vala:866
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 
-#: src/Utils.vala:869
+#: src/Utils.vala:867
 msgid "The request failed due to a server error."
 msgstr ""
 
-#: src/Utils.vala:870
+#: src/Utils.vala:868
 msgid "The server is currently unable to handle the request."
 msgstr ""
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:964 src/Widgets/Pane.vala:65
-#: src/Widgets/ItemRow.vala:1264 src/Widgets/SectionRow.vala:723
-#: src/Views/Inbox.vala:1081 src/Dialogs/Preferences/Preferences.vala:223
-#: src/Dialogs/Preferences/Preferences.vala:331 src/Dialogs/QuickFind.vala:61
+#: src/Widgets/ItemRow.vala:1258 src/Widgets/SectionRow.vala:726
+#: src/Views/Inbox.vala:91 src/Dialogs/Preferences/Preferences.vala:223
+#: src/Dialogs/Preferences/Preferences.vala:331 src/Dialogs/QuickFind.vala:67
 msgid "Inbox"
 msgstr "Eingang"
 
@@ -373,7 +374,7 @@ msgid ""
 "you’re doing right now."
 msgstr ""
 
-#: src/Widgets/Pane.vala:73
+#: src/Widgets/Pane.vala:66
 msgid ""
 "The Today view lets you see all the tasks due today across all your "
 "projects. Check in here every morning to make a realistic plan to tackle "
@@ -384,40 +385,40 @@ msgstr ""
 "zu schmieden, wie du deinen Tag in die Hand nehmen kannst."
 
 #. vala-lint=line-length
-#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:350
+#: src/Widgets/Pane.vala:67 src/Widgets/Pane.vala:343
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:230
-#: src/Dialogs/QuickFind.vala:75
+#: src/Dialogs/QuickFind.vala:81
 msgid "Upcoming"
 msgstr "Anstehend"
 
-#: src/Widgets/Pane.vala:74
+#: src/Widgets/Pane.vala:67
 msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
 
-#: src/Widgets/Pane.vala:82
+#: src/Widgets/Pane.vala:75
 #, fuzzy
 msgid "Add List"
 msgstr "Liste hinzufügen"
 
-#: src/Widgets/Pane.vala:150 src/Dialogs/QuickFind.vala:101
+#: src/Widgets/Pane.vala:143 src/Dialogs/QuickFind.vala:107
 msgid "Quick Find"
 msgstr "Schnellsuche"
 
-#: src/Widgets/Pane.vala:164
+#: src/Widgets/Pane.vala:157
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: src/Widgets/Pane.vala:186 src/Widgets/Pane.vala:413
+#: src/Widgets/Pane.vala:179 src/Widgets/Pane.vala:406
 msgid "Sync"
 msgstr "Synchronisieren"
 
-#: src/Widgets/Pane.vala:417
+#: src/Widgets/Pane.vala:410
 msgid "Offline mode is on"
 msgstr "Offlinemodus ist aktiv"
 
-#: src/Widgets/Pane.vala:417
+#: src/Widgets/Pane.vala:410
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -428,8 +429,8 @@ msgstr ""
 "Offline-Modus werden synchonisiert, \n"
 "wenn du wieder online bist"
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:1989
-#: src/Views/Project.vala:1211 src/Dialogs/ProjectSettings.vala:49
+#: src/Widgets/New.vala:64 src/Views/Inbox.vala:1010
+#: src/Views/Project.vala:1223 src/Dialogs/ProjectSettings.vala:49
 msgid "Name:"
 msgstr "Name:"
 
@@ -448,16 +449,16 @@ msgid "Color:"
 msgstr "Farbe:"
 
 #: src/Widgets/New.vala:161 src/Widgets/NewItem.vala:87
-#: src/Widgets/ReminderButton.vala:238 src/Widgets/NewSection.vala:82
-#: src/Views/Inbox.vala:2005 src/Views/Project.vala:1227
+#: src/Widgets/ReminderButton.vala:236 src/Widgets/NewSection.vala:82
+#: src/Views/Inbox.vala:1026 src/Views/Project.vala:1239
 msgid "Add"
 msgstr "Hinzufügen"
 
 #: src/Widgets/New.vala:166 src/Widgets/NewItem.vala:92
-#: src/Widgets/SectionRow.vala:159 src/Widgets/AreaRow.vala:161
-#: src/Widgets/ReminderButton.vala:236 src/Widgets/NewSection.vala:86
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:2010
-#: src/Views/Project.vala:199 src/Views/Project.vala:1232
+#: src/Widgets/SectionRow.vala:160 src/Widgets/AreaRow.vala:161
+#: src/Widgets/ReminderButton.vala:234 src/Widgets/NewSection.vala:86
+#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:1031
+#: src/Views/Project.vala:205 src/Views/Project.vala:1244
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -489,7 +490,7 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Deine Projekte in Gruppen organisieren und halte dein Panel sauber."
 
 #: src/Widgets/New.vala:515 src/Dialogs/ProjectSettings.vala:157
-#: src/Dialogs/Preferences/Preferences.vala:78
+#: src/Dialogs/Preferences/Preferences.vala:77
 msgid "Close"
 msgstr "Schließen"
 
@@ -498,8 +499,8 @@ msgstr "Schließen"
 msgid "New folder"
 msgstr "Neue Funktionen:"
 
-#: src/Widgets/ProjectRow.vala:111 src/Views/Inbox.vala:1152
-#: src/Views/Project.vala:185
+#: src/Widgets/ProjectRow.vala:111 src/Views/Inbox.vala:167
+#: src/Views/Project.vala:190
 #, fuzzy
 msgid "Project Menu"
 msgstr "Projektbereich"
@@ -509,15 +510,15 @@ msgstr "Projektbereich"
 msgid "Local Project"
 msgstr "Lokales Projekt"
 
-#: src/Widgets/ProjectRow.vala:360 src/Widgets/ItemRow.vala:1273
-#: src/Widgets/ItemRow.vala:1293 src/Widgets/ItemRow.vala:1327
-#: src/Widgets/SectionRow.vala:961 src/Widgets/SectionRow.vala:1016
+#: src/Widgets/ProjectRow.vala:360 src/Widgets/ItemRow.vala:1267
+#: src/Widgets/ItemRow.vala:1287 src/Widgets/ItemRow.vala:1321
+#: src/Widgets/SectionRow.vala:964 src/Widgets/SectionRow.vala:1019
 #, fuzzy, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "Wurde verschoben nach <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:494 src/Widgets/ItemRow.vala:1368
-#: src/Widgets/AreaRow.vala:531 src/Views/Project.vala:961
+#: src/Widgets/ProjectRow.vala:494 src/Widgets/ItemRow.vala:1362
+#: src/Widgets/AreaRow.vala:531 src/Views/Project.vala:972
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -526,8 +527,8 @@ msgstr "Bearbeiten"
 msgid "Move to Folder"
 msgstr "In Bereich verschieben"
 
-#: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1395
-#: src/Widgets/SectionRow.vala:782
+#: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1381
+#: src/Widgets/SectionRow.vala:785
 msgid "Share"
 msgstr "Teilen"
 
@@ -536,32 +537,32 @@ msgid "Send by e-mail"
 msgstr ""
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:505 src/Widgets/ItemRow.vala:1400
-#: src/Widgets/SectionRow.vala:787
+#: src/Widgets/ProjectRow.vala:505 src/Widgets/ItemRow.vala:1386
+#: src/Widgets/SectionRow.vala:790
 msgid "Markdown"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:511 src/Widgets/ProjectRow.vala:536
-#: src/Widgets/ItemRow.vala:1407 src/Widgets/SectionRow.vala:793
-#: src/Widgets/SectionRow.vala:836 src/Widgets/AreaRow.vala:532
-#: src/Widgets/AreaRow.vala:570 src/Widgets/CheckRow.vala:79
-#: src/Views/Project.vala:964 src/Views/Project.vala:1037
+#: src/Widgets/ItemRow.vala:1393 src/Widgets/SectionRow.vala:796
+#: src/Widgets/SectionRow.vala:839 src/Widgets/AreaRow.vala:532
+#: src/Widgets/AreaRow.vala:570 src/Widgets/CheckRow.vala:80
+#: src/Views/Project.vala:975 src/Views/Project.vala:1048
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/Widgets/ProjectRow.vala:531 src/Views/Project.vala:1032
+#: src/Widgets/ProjectRow.vala:531 src/Views/Project.vala:1043
 msgid "Delete project"
 msgstr "Lösche Projekt"
 
-#: src/Widgets/ProjectRow.vala:532 src/Widgets/SectionRow.vala:832
-#: src/Widgets/AreaRow.vala:558 src/Views/Project.vala:1033
+#: src/Widgets/ProjectRow.vala:532 src/Widgets/SectionRow.vala:835
+#: src/Widgets/AreaRow.vala:558 src/Views/Project.vala:1044
 #, fuzzy, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Bist Du sicher, dass Du <b>%s</b> löschen möchtest?"
 
 #: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:199
-#: src/Widgets/AreaRow.vala:134 src/Widgets/CheckRow.vala:64
+#: src/Widgets/AreaRow.vala:134 src/Widgets/CheckRow.vala:65
 msgid "Task name"
 msgstr "Aufgabenname"
 
@@ -570,54 +571,54 @@ msgstr "Aufgabenname"
 msgid "Hide Details"
 msgstr "Aufgaben anzeigen / verbergen"
 
-#: src/Widgets/ItemRow.vala:374 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:375 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
 msgstr "Notiz"
 
-#: src/Widgets/ItemRow.vala:510
+#: src/Widgets/ItemRow.vala:511
 #, fuzzy
 msgid "Add Checklist"
 msgstr "Checkliste hinzufügen"
 
-#: src/Widgets/ItemRow.vala:517
+#: src/Widgets/ItemRow.vala:518
 msgid "Delete Task"
 msgstr "Lösche Aufgabe"
 
-#: src/Widgets/ItemRow.vala:530
+#: src/Widgets/ItemRow.vala:531
 #, fuzzy
 msgid "Task Menu"
 msgstr "Aufgabenname"
 
-#: src/Widgets/ItemRow.vala:1306
+#: src/Widgets/ItemRow.vala:1300
 #, fuzzy
 msgid "No Section"
 msgstr "Kein Bereich"
 
-#: src/Widgets/ItemRow.vala:1367
+#: src/Widgets/ItemRow.vala:1361
 #, fuzzy
 msgid "Complete"
 msgstr "Abgeschlossen"
 
-#: src/Widgets/ItemRow.vala:1384 src/Widgets/DueButton.vala:177
+#: src/Widgets/ItemRow.vala:1370 src/Widgets/DueButton.vala:180
 #, fuzzy
 msgid "Undated"
 msgstr "Ohne Datum"
 
-#: src/Widgets/ItemRow.vala:1387 src/Widgets/SectionRow.vala:778
+#: src/Widgets/ItemRow.vala:1373 src/Widgets/SectionRow.vala:781
 #, fuzzy
 msgid "Move to Project"
 msgstr "Zu Projekt verschieben"
 
-#: src/Widgets/ItemRow.vala:1391
+#: src/Widgets/ItemRow.vala:1377
 #, fuzzy
 msgid "Move to Section"
 msgstr "Zu Abschnitt verschieben"
 
-#: src/Widgets/ItemRow.vala:1399
+#: src/Widgets/ItemRow.vala:1385
 msgid "Text"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1406
+#: src/Widgets/ItemRow.vala:1392
 msgid "Duplicate"
 msgstr "Duplizieren"
 
@@ -634,68 +635,68 @@ msgstr "Fälligkeitsdatum"
 msgid "Date completed"
 msgstr "Fertigstellungsdatum"
 
-#: src/Widgets/SectionRow.vala:80 src/Widgets/SectionRow.vala:890
+#: src/Widgets/SectionRow.vala:81 src/Widgets/SectionRow.vala:893
 #, fuzzy
 msgid "Display Tasks"
 msgstr "Alle Aufgaben"
 
-#: src/Widgets/SectionRow.vala:92 src/Widgets/SectionRow.vala:895
+#: src/Widgets/SectionRow.vala:93 src/Widgets/SectionRow.vala:898
 #, fuzzy
 msgid "Hiding Tasks"
 msgstr "Neue Aufgabe anlegen"
 
-#: src/Widgets/SectionRow.vala:98 src/Widgets/SectionRow.vala:772
+#: src/Widgets/SectionRow.vala:99 src/Widgets/SectionRow.vala:775
 #: src/Widgets/MagicButton.vala:32
 #, fuzzy
 msgid "Add Task"
 msgstr "Neue Aufgabe anlegen"
 
-#: src/Widgets/SectionRow.vala:118 src/Widgets/NewSection.vala:70
+#: src/Widgets/SectionRow.vala:119 src/Widgets/NewSection.vala:70
 #, fuzzy
 msgid "Section name"
 msgstr "Abschnittsname"
 
-#: src/Widgets/SectionRow.vala:138 src/Widgets/AreaRow.vala:106
+#: src/Widgets/SectionRow.vala:139 src/Widgets/AreaRow.vala:106
 #, fuzzy
 msgid "Section Menu"
 msgstr "Abschnittsname"
 
-#: src/Widgets/SectionRow.vala:155 src/Widgets/AreaRow.vala:157
-#: src/Views/Project.vala:195 src/Dialogs/ProjectSettings.vala:159
+#: src/Widgets/SectionRow.vala:156 src/Widgets/AreaRow.vala:157
+#: src/Views/Project.vala:201 src/Dialogs/ProjectSettings.vala:159
 msgid "Save"
 msgstr "Speichern"
 
-#: src/Widgets/SectionRow.vala:191 src/Views/Project.vala:227
+#: src/Widgets/SectionRow.vala:192 src/Views/Project.vala:233
 #, fuzzy
 msgid "Add a description"
 msgstr "Bereich hinzufügen"
 
-#: src/Widgets/SectionRow.vala:200 src/Views/Project.vala:237
+#: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:243
 #, fuzzy
 msgid "Description"
 msgstr "Abschnitt löschen"
 
-#: src/Widgets/SectionRow.vala:730 src/Widgets/SectionRow.vala:751
+#: src/Widgets/SectionRow.vala:733 src/Widgets/SectionRow.vala:754
 #, fuzzy, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "Wurde verschoben nach <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:775
+#: src/Widgets/SectionRow.vala:778
 #, fuzzy
 msgid "Rename"
 msgstr "Nutzername"
 
-#: src/Widgets/SectionRow.vala:776
+#: src/Widgets/SectionRow.vala:779
 #, fuzzy
 msgid "Add Note"
 msgstr "Notiz hinzufügen"
 
-#: src/Widgets/SectionRow.vala:831
+#: src/Widgets/SectionRow.vala:834
 #, fuzzy
 msgid "Delete section"
 msgstr "Abschnitt löschen"
 
-#: src/Widgets/SectionRow.vala:849
+#: src/Widgets/SectionRow.vala:852
 #, fuzzy
 msgid "Section deleted"
 msgstr "Abschnittsname"
@@ -704,28 +705,28 @@ msgstr "Abschnittsname"
 msgid "Due Date"
 msgstr "Fälligkeitsdatum"
 
-#: src/Widgets/DueButton.vala:186
+#: src/Widgets/DueButton.vala:189
 msgid "Repeat"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:209
+#: src/Widgets/DueButton.vala:212
 msgid "Every day"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:215
+#: src/Widgets/DueButton.vala:218
 msgid "Every week"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:221
+#: src/Widgets/DueButton.vala:224
 msgid "Every month"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:227
+#: src/Widgets/DueButton.vala:230
 msgid "Every year"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
-#: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:469
+#: src/Dialogs/Preferences/Preferences.vala:721 src/Dialogs/QuickFind.vala:464
 msgid "Labels"
 msgstr "Etiketten"
 
@@ -825,15 +826,15 @@ msgstr "Neue Aufgabe anlegen"
 msgid "Reminders"
 msgstr "Erinnerungen"
 
-#: src/Widgets/ReminderButton.vala:167
+#: src/Widgets/ReminderButton.vala:165
 msgid "Add reminder"
 msgstr "Erinnerung hinzufügen"
 
-#: src/Widgets/ReminderButton.vala:209
+#: src/Widgets/ReminderButton.vala:207
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
 
-#: src/Widgets/ReminderButton.vala:229
+#: src/Widgets/ReminderButton.vala:227
 msgid "Time:"
 msgstr "Zeit:"
 
@@ -898,72 +899,67 @@ msgstr ""
 msgid "Synchronize with your Todoist account and start working."
 msgstr "Verbinde dein Todoist Account und Arbeit beginnen."
 
-#: src/Views/Inbox.vala:1116 src/Views/Project.vala:141
-#: src/Views/Project.vala:149
+#: src/Views/Inbox.vala:131 src/Views/Project.vala:146
+#: src/Views/Project.vala:154
 #, fuzzy
 msgid "Add Section"
 msgstr "Bereich hinzufügen"
 
-#: src/Views/Inbox.vala:1124 src/Views/Project.vala:157
+#: src/Views/Inbox.vala:139 src/Views/Project.vala:162
 msgid "Invite person"
 msgstr "Person einladen"
 
-#: src/Views/Inbox.vala:1133 src/Views/Project.vala:166
+#: src/Views/Inbox.vala:148 src/Views/Project.vala:171
 #, fuzzy
 msgid "Project comments"
 msgstr "Projektkommentare"
 
-#: src/Views/Inbox.vala:1141 src/Views/Project.vala:174
+#: src/Views/Inbox.vala:156 src/Views/Project.vala:179
 #, fuzzy
 msgid "Search task"
 msgstr "Suche Aufgabe"
 
-#: src/Views/Inbox.vala:1275
+#: src/Views/Inbox.vala:292
 msgid "All clear"
 msgstr "Alles leer"
 
-#: src/Views/Inbox.vala:1276
+#: src/Views/Inbox.vala:293
 #, fuzzy
 msgid "Looks like everything's organized in the right place."
 msgstr "Alles sieht geordnet aus. Tippe +, um eine Aufgabe anzulegen."
 
-#: src/Views/Inbox.vala:1609 src/Views/Project.vala:777
-#, c-format
-msgid "Project's progress: %s"
-msgstr ""
-
-#: src/Views/Inbox.vala:1793 src/Views/Project.vala:973
+#: src/Views/Inbox.vala:814 src/Views/Project.vala:984
 #, fuzzy
 msgid "Show Completed"
 msgstr "Zeige abgeschlossene Aufgaben"
 
-#: src/Views/Inbox.vala:1939 src/Views/Project.vala:1161
+#: src/Views/Inbox.vala:960 src/Views/Project.vala:1173
 msgid "Productivity"
 msgstr ""
 
-#: src/Views/Inbox.vala:1944 src/Views/Project.vala:1166
+#: src/Views/Inbox.vala:965 src/Views/Project.vala:1178
 msgid "Progress:"
 msgstr ""
 
-#: src/Views/Inbox.vala:1955 src/Views/Project.vala:1177
+#: src/Views/Inbox.vala:976 src/Views/Project.vala:1189
 #, fuzzy
 msgid "Due date:"
 msgstr "Fälligkeitsdatum"
 
-#: src/Views/Today.vala:86
+#: src/Views/Today.vala:81
 msgid "What tasks are on your mind?"
 msgstr ""
 
-#: src/Views/Today.vala:87
+#: src/Views/Today.vala:82
 #, fuzzy
 msgid "Tap + to add a task for today."
 msgstr "Tippe +, um eine Aufgabe anzulegen."
 
-#: src/Views/Project.vala:354
+#: src/Views/Project.vala:361
 msgid "What will you accomplish?"
 msgstr ""
 
-#: src/Views/Project.vala:355
+#: src/Views/Project.vala:362
 #, fuzzy
 msgid "Tap + to add a task to this project."
 msgstr "Tippe +, um eine Aufgabe anzulegen."
@@ -1067,7 +1063,7 @@ msgstr ""
 "Aufgaben siehst. Die Standardseite ist der <b>Eingang</b> wo du, aber du "
 "kannst dies nach Belieben anpassen."
 
-#: src/Dialogs/Preferences/Preferences.vala:244 src/Dialogs/QuickFind.vala:351
+#: src/Dialogs/Preferences/Preferences.vala:244 src/Dialogs/QuickFind.vala:357
 #, fuzzy
 msgid "Projects"
 msgstr "Neues Projekt"
@@ -1296,21 +1292,21 @@ msgstr "Deaktiviert"
 msgid "Back"
 msgstr "Zurück"
 
-#: src/Dialogs/QuickFind.vala:87
+#: src/Dialogs/QuickFind.vala:93
 #, fuzzy
 msgid "Search"
 msgstr "Suche"
 
-#: src/Dialogs/QuickFind.vala:114
+#: src/Dialogs/QuickFind.vala:120
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:315
+#: src/Dialogs/QuickFind.vala:321
 #, fuzzy
 msgid "Tasks"
 msgstr "Alle Aufgaben"
 
-#: src/Dialogs/QuickFind.vala:406
+#: src/Dialogs/QuickFind.vala:412
 msgid "Views"
 msgstr ""
 

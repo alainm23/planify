@@ -56,13 +56,13 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.pixel_size = 18;
+        due_image.pixel_size = 16;
+        due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
 
         due_label = new Gtk.Label (null);
-        due_label.get_style_context ().add_class ("pane-item");
-        due_label.margin_bottom = 1;
+        due_label.get_style_context ().add_class ("font-bold");
         due_label.use_markup = true;
-
+        
         label_revealer = new Gtk.Revealer ();
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         label_revealer.add (due_label);
@@ -116,22 +116,31 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     public void update_date_text (Objects.Item item) {
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-
             due_label.label = Planner.utils.get_relative_date_from_date (date);
-            due_image.get_style_context ().add_class ("upcoming");
             label_revealer.reveal_child = true;
+
+            due_image.get_style_context ().remove_class ("today");
+            due_image.get_style_context ().remove_class ("upcoming");
+            due_image.get_style_context ().remove_class ("repeat-image");
+
+            if (item.due_is_recurring == 1) {
+                due_image.gicon = new ThemedIcon ("view-refresh-symbolic");
+                due_image.get_style_context ().add_class ("repeat-image");
+            } else {
+                if (Planner.utils.is_today (date)) {
+                    due_image.gicon = new ThemedIcon ("help-about-symbolic");
+                    due_image.get_style_context ().add_class ("today");
+                } else {
+                    due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+                    due_image.get_style_context ().add_class ("upcoming");
+                }
+            }
         } else {
             due_label.label = "";
+            due_image.get_style_context ().remove_class ("today");
             due_image.get_style_context ().remove_class ("upcoming");
-            label_revealer.reveal_child = false;
-        }
-
-        if (item.due_is_recurring == 1) {
-            due_image.gicon = new ThemedIcon ("view-refresh-symbolic");
-            due_image.get_style_context ().add_class ("repeat-image");
-        } else {
-            due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
             due_image.get_style_context ().remove_class ("repeat-image");
+            label_revealer.reveal_child = false;
         }
     }
 
@@ -156,19 +165,13 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     private Gtk.Widget get_calendar_widget () {
-        string today_icon = "planner-today-day-symbolic";
-        var hour = new GLib.DateTime.now_local ().get_hour ();
-        if (hour >= 18 || hour <= 5) {
-            today_icon = "planner-today-night-symbolic";
-        }
-
-        today_button = new Widgets.ModelButton (_("Today"), today_icon, "");
+        today_button = new Widgets.ModelButton (_("Today"), "help-about-symbolic", "");
         today_button.get_style_context ().add_class ("due-menuitem");
         today_button.item_image.pixel_size = 14;
         today_button.color = 0;
         today_button.due_label = true;
 
-        tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "x-office-calendar-symbolic", "");
+        tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "planner-calendar-symbolic", "");
         tomorrow_button.get_style_context ().add_class ("due-menuitem");
         tomorrow_button.item_image.pixel_size = 14;
         tomorrow_button.color = 1;
@@ -324,12 +327,19 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     public void set_due (string date) {
         bool new_date = false;
         if (date != "") {
+            undated_button.visible = true;
+            undated_button.no_show_all = false;
+
             if (item.due_date == "") {
                 new_date = true;
             }
 
             item.due_date = date;
         } else {
+            undated_button.visible = false;
+            undated_button.no_show_all = true;
+            combobox.set_active_iter (e_day_iter);
+
             item.due_date = "";
             item.due_is_recurring = 0;
             item.due_string = "";

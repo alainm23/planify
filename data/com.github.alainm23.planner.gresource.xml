@@ -8,10 +8,8 @@
     <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
     <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
     <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
-    <file alias="planner-today-day-symbolic.svg">resources/planner-today-day-symbolic.svg</file>
-    <file alias="planner-today-night-symbolic.svg">resources/planner-today-night-symbolic.svg</file>
-    <file alias="planner-work-area-symbolic.svg">resources/planner-work-area-symbolic.svg</file>
     <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
+    <file alias="planner-calendar-symbolic.svg">resources/planner-calendar-symbolic.svg</file>
     <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
     <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
     <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
