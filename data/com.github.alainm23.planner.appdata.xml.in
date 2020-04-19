@@ -5,7 +5,7 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Planner</name>
-  <summary>Task and project manager with support for Todoist developer for GNU/Linux</summary>
+  <summary>Task manager with Todoist support designed for GNU/Linux 🚀️</summary>
   <description>
     <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
 
@@ -47,7 +47,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.3.2" date="2020-04-14">
+  <release version="2.3.2" date="2020-04-14">
       <description>
         <p>Hi everyone! Planner 2.3 is here –  a big update for the Quick Find feature,</p>
         <p>recurring tasks and design improvements.</p>
