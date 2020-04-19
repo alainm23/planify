@@ -5,10 +5,8 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Planner</name>
-  <summary>Task manager with Todoist support designed for GNU/Linux 🚀️</summary>
+  <summary>Never worry about forgetting things again</summary>
   <description>
-    <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
-
     <p>🚀️ Planner 2 is here...</p>
     <ul>
       <li>🚀️ Complete redesign of the UI.</li>
@@ -23,6 +21,7 @@
       <li>🎉️ and much more.</li>
     </ul>
 
+    <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
     <p>How Planner works:</p>
     <p>1. Collect your Ideas - The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
     <p>2. Get Organized - Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
