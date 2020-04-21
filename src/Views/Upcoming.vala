@@ -42,7 +42,7 @@ public class Views.Upcoming : Gtk.EventBox {
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 36;
         top_box.margin_start = 42;
-        top_box.margin_bottom = 24;
+        top_box.margin_bottom = 12;
         top_box.margin_top = 6;
 
         top_box.pack_start (icon_image, false, false, 0);
@@ -50,6 +50,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("listbox");
+        listbox.margin_top = 6;
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;

@@ -743,7 +743,7 @@ public class Utils : GLib.Object {
         Services.CustomShortcutSettings.init ();
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
-            if (shortcut.command == "com.github.alainm23.planner-quick-add") {
+            if (shortcut.command == "com.github.alainm23.planner.quick-add") {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
                 has_shortcut = true;
                 return;
@@ -753,7 +753,7 @@ public class Utils : GLib.Object {
             var shortcut = Services.CustomShortcutSettings.create_shortcut ();
             if (shortcut != null) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);
-                Services.CustomShortcutSettings.edit_command (shortcut, "com.github.alainm23.planner-quick-add");
+                Services.CustomShortcutSettings.edit_command (shortcut, "com.github.alainm23.planner.quick-add");
 
                 uint accelerator_key;
                 Gdk.ModifierType accelerator_mods;

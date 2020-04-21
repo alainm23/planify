@@ -1,6 +1,6 @@
 project('com.github.alainm23.planner',
         'vala', 'c',
-        version: '2.3.2')
+        version: '2.3.3')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -134,7 +134,7 @@ executable(
 )
 
 executable(
-    'com.github.alainm23.planner-quick-add',
+    'com.github.alainm23.planner.quick-add',
     'src/QuickAdd/Application.vala',
     'src/QuickAdd/MainWindow.vala',
     'src/QuickAdd/DBusClient.vala',

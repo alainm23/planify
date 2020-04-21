@@ -74,7 +74,7 @@ public class PlannerQuickAdd : Gtk.Application {
 
     public PlannerQuickAdd () {
         Object (
-            application_id: "com.github.alainm23.planner-quick-add",
+            application_id: "com.github.alainm23.planner.quick-add",
             flags: ApplicationFlags.FLAGS_NONE
         );
 

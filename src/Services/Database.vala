@@ -1697,7 +1697,7 @@ public class Services.Database : GLib.Object {
             //updated_playlist (playlist);
         }
     }
-
+    
     public void update_label_item_order (int64 id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
