@@ -102,6 +102,7 @@ executable(
     'src/Dialogs/Preferences/ItemSelect.vala',
     'src/Dialogs/Preferences/ItemSwitch.vala',
     'src/Dialogs/Preferences/ItemButton.vala',
+    'src/Dialogs/Preferences/DatabaseSettings.vala',
     'src/Dialogs/Preferences/Item.vala',
     'src/Dialogs/Preferences/TopBox.vala',
 

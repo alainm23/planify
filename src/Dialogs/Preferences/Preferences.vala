@@ -624,6 +624,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         );
         button_layout.margin_top = 12;
 
+        var db_header = new Granite.HeaderLabel (_("Database"));
+        db_header.margin_start = 12;
+        var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+
         var help_header = new Granite.HeaderLabel (_("Help"));
         help_header.margin_start = 12;
         help_header.margin_top = 6;
@@ -646,6 +650,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_startup_label, false, false, 0);
         box.pack_start (button_layout, false, false, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
+        box.pack_start (db_header, false, false, 0);
+        box.pack_start (database_settings, false, false, 0);
         box.pack_start (help_header, false, false, 0);
         box.pack_start (tutorial_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
