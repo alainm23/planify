@@ -222,5 +222,16 @@
             <summary>Todoist user is premium</summary>
             <description>Todoist user is premium</description>
         </key>
+
+        <key name="database-location-use-default" type="b">
+            <default>true</default>
+            <summary>Use the default database location</summary>
+            <description>Whether to use the default location or use an alternative path.</description>
+        </key>
+        <key name="database-location-path" type="s">
+            <default>""</default>
+            <summary>Database location</summary>
+            <description>The location where all Planner data is stored.</description>
+        </key>
     </schema>
 </schemalist>
