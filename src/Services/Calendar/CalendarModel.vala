@@ -78,7 +78,7 @@ public class Services.Calendar.CalendarModel : Object {
 
             load_all_sources ();
         } catch (GLib.Error error) {
-            //critical (error.message);
+            critical (error.message);
         }
     }
 
@@ -192,7 +192,7 @@ public class Services.Calendar.CalendarModel : Object {
             try {
                 view.start ();
             } catch (Error e) {
-                //critical (e.message);
+                critical (e.message);
             }
 
             source_view.set (source.dup_uid (), view);
@@ -205,7 +205,7 @@ public class Services.Calendar.CalendarModel : Object {
             var client = (ECal.Client) ECal.Client.connect_sync (source, ECal.ClientSourceType.EVENTS, -1, null);
             source_client.insert (source.dup_uid (), client);
         } catch (Error e) {
-            //critical (e.message);
+            critical (e.message);
         }
 
         Idle.add (() => {
@@ -233,7 +233,7 @@ public class Services.Calendar.CalendarModel : Object {
             bool status = client.get_view.end (results, out view);
             assert (status == true);
         } catch (Error e) {
-            //critical ("Error loading client-view from source '%s': %s", source.dup_display_name (), e.message);
+            critical ("Error loading client-view from source '%s': %s", source.dup_display_name (), e.message);
         }
 
         return view;
@@ -320,7 +320,7 @@ public class Services.Calendar.CalendarModel : Object {
                 add_source_to_view (source, listbox);
             });
         } catch (GLib.Error error) {
-            //critical (error.message);
+            critical (error.message);
         }
     }
 
