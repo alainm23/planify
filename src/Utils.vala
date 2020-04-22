@@ -883,6 +883,8 @@ public class Utils : GLib.Object {
         patrons.add ("Luke Gaudreau");
         patrons.add ("I Sutter");
         patrons.add ("M");
+        patrons.add ("James");
+        patrons.add ("Sampath Rajapakse");
 
         return patrons;
     }
