@@ -105,20 +105,16 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool is_database_path_default() {
-        return Planner.settings.get_boolean("database-location-use-default");
-    }
-
-    public void set_database_path(string path) {
+    public void set_database_path (string path) {
         print ("set database path %s\n".printf (path));
-        Planner.settings.set_string("database-location-path", path);
-        Planner.settings.set_boolean("database-location-use-default", false);
+        Planner.settings.set_string ("database-location-path", path);
+        Planner.settings.set_boolean ("database-location-use-default", false);
     }
 
-    public void reset_database_path_to_default() {
+    public void reset_database_path_to_default () {
         print ("reset database path to default");
-        Planner.settings.set_string("database-location-path", "");
-        Planner.settings.set_boolean("database-location-use-default", true);
+        Planner.settings.set_string ("database-location-path", "");
+        Planner.settings.set_boolean ("database-location-use-default", true);
     }
 
     public void patch_database () {

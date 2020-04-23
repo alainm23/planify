@@ -20,22 +20,24 @@
 */
 
 public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
-    public signal void resetSettings ();
-    public signal void locationChanged (GLib.File file);
+    private Gtk.Label current_location_content;
 
     public DatabaseSettings () {
 
-        var location_path = Planner.database.get_database_path();
-        var current_location_label = new Gtk.Label (_("Current location: %s").printf(location_path));
-        current_location_label.get_style_context ().add_class ("font-weight-600");
+        var current_location_label = new Gtk.Label (_("Current location:"));
+        current_location_label.halign = Gtk.Align.START;
+        this.current_location_content = new Gtk.Label (Planner.database.get_database_path());
+        current_location_content.get_style_context ().add_class ("font-weight-600");
+        current_location_content.halign = Gtk.Align.START;
 
-        var current_location_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var current_location_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         current_location_box.margin_start = 12;
         current_location_box.margin_end = 12;
         current_location_box.margin_top = 6;
         current_location_box.margin_bottom = 6;
         current_location_box.hexpand = true;
-        current_location_box.pack_start (current_location_label, false, true, 0);
+        current_location_box.pack_start (current_location_label, false, false, 0);
+        current_location_box.pack_start (current_location_content, false, false, 0);
 
         var change_location_button = new Gtk.Button.with_label(_("Change..."));
         change_location_button.can_focus = false;
@@ -53,7 +55,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         button_box.margin_bottom = 6;
         button_box.hexpand = true;
         button_box.pack_end (change_location_button, false, true, 0);
-        button_box.pack_end (database_location_reset_default, false, true, 0);
+        button_box.pack_end (database_location_reset_default, false, true,10);
       
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.get_style_context ().add_class ("view");
@@ -64,7 +66,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         
 
         database_location_reset_default.clicked.connect (() => {
-            resetSettings ();
+            Planner.database.reset_database_path_to_default();
         });
 
         change_location_button.clicked.connect (() => {
@@ -81,6 +83,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
             filter.set_filter_name (_("Planner DB Files (sqlite)"));
             dialog.add_filter (filter);
             dialog.set_modal (true);
+            dialog.set_file(GLib.File.new_for_path(Planner.database.get_database_path()));
             dialog.response.connect (dialog_response);
             dialog.show ();
         });
@@ -88,12 +91,16 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         add (main_box);
     }
 
-    void dialog_response (Gtk.Dialog dialog, int response_id) {
+    private void dialog_response (Gtk.Dialog dialog, int response_id) {
         var open_dialog = dialog as Gtk.FileChooserDialog;
         switch (response_id) {
             case Gtk.ResponseType.ACCEPT:
-                var file = open_dialog.get_filename();
-                this.locationChanged (GLib.File.new_for_path(file));
+                var filename = open_dialog.get_filename ();
+                var file = GLib.File.new_for_path (filename);
+                if (!file.query_exists()) {
+                }
+                Planner.database.set_database_path (filename);
+                this.current_location_content.label = filename;
                 break;
             default:
                 break;
