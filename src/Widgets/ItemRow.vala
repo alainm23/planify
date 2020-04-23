@@ -67,6 +67,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Widgets.ImageMenuItem undated_menu;
     private Widgets.DueButton due_button;
     private Widgets.ImageMenuItem move_section_menu;
+    private Widgets.ImageMenuItem edit_menu;
+    private Widgets.ImageMenuItem today_menu;
+    private Widgets.ImageMenuItem tomorrow_menu;
+    private Gtk.SeparatorMenuItem date_separator;
     private Gtk.Menu menu = null;
 
     private uint checked_timeout = 0;
@@ -722,7 +726,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         menu_button.clicked.connect (() => {
-            activate_menu ();
+            activate_menu (false);
         });
 
         checked_button.toggled.connect (checked_toggled);
@@ -1235,10 +1239,33 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_preview_box ();
     }
 
-    private void activate_menu () {
+    private void activate_menu (bool visible=true) {
         if (menu == null) {
             build_context_menu (item);
         }
+
+        if (item.due_date == "") {
+            undated_menu.visible = false;
+            undated_menu.no_show_all = true;
+        } else {
+            undated_menu.visible = true;
+            undated_menu.no_show_all = false;
+        }
+
+        edit_menu.visible = visible;
+        edit_menu.no_show_all = !visible;
+
+        today_menu.visible = visible;
+        today_menu.no_show_all = !visible;
+
+        tomorrow_menu.visible = visible; 
+        tomorrow_menu.no_show_all = !visible;
+
+        undated_menu.visible = visible;
+        undated_menu.no_show_all = !visible;
+
+        date_separator.visible = visible;
+        date_separator.no_show_all = !visible;
 
         foreach (var child in projects_menu.get_children ()) {
             child.destroy ();
@@ -1340,14 +1367,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             move_section_menu.no_show_all = true;
         }
 
-        if (item.due_date == "") {
-            undated_menu.visible = false;
-            undated_menu.no_show_all = true;
-        } else {
-            undated_menu.visible = true;
-            undated_menu.no_show_all = false;
-        }
-
         projects_menu.show_all ();
         sections_menu.show_all ();
 
@@ -1359,16 +1378,18 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.width_request = 235;
 
         var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
+        edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        var today_menu = new Widgets.ImageMenuItem (_("Today"), "help-about-symbolic");
+        today_menu = new Widgets.ImageMenuItem (_("Today"), "help-about-symbolic");
         today_menu.item_image.get_style_context ().add_class ("today-icon");
 
-        var tomorrow_menu = new Widgets.ImageMenuItem (_("Tomorrow"), "planner-calendar-symbolic");
+        tomorrow_menu = new Widgets.ImageMenuItem (_("Tomorrow"), "planner-calendar-symbolic");
         tomorrow_menu.item_image.get_style_context ().add_class ("upcoming-icon");
 
         undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
         undated_menu.item_image.get_style_context ().add_class ("due-clear");
+
+        date_separator = new Gtk.SeparatorMenuItem ();
 
         var move_project_menu = new Widgets.ImageMenuItem (_("Move to Project"), "move-project-symbolic");
         projects_menu = new Gtk.Menu ();
@@ -1399,7 +1420,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (today_menu);
         menu.add (tomorrow_menu);
         menu.add (undated_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (date_separator);
         menu.add (move_project_menu);
         menu.add (move_section_menu);
         menu.add (share_menu);

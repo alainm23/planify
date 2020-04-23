@@ -106,9 +106,9 @@ public class MainWindow : Gtk.Window {
             list_store.append (out iter);
 
             if (project.inbox_project == 1) {
-                icon_name = "mail-mailbox-symbolic";
+                icon_name = "planner-inbox";
             } else {
-                icon_name = "planner-project-symbolic";
+                icon_name = "color-%i".printf (project.color);
             }
 
             list_store.@set (iter,

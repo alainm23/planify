@@ -32,6 +32,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.ListBox listbox;
     private Gtk.Revealer listbox_revealer;
     private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer motion_area_revealer;
+    private Gtk.Grid drop_grid;
     private Gtk.Revealer action_revealer;
     public Gtk.Revealer main_revealer;
     private Gtk.Menu menu = null;
@@ -41,6 +43,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    private const Gtk.TargetEntry[] TARGET_AREAS = {
+        {"AREAROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     public bool set_focus {
@@ -148,7 +154,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_start = 11;
         top_box.margin_end = 5;
-        top_box.margin_top = 6;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_revealer, false, false, 0);
@@ -196,7 +201,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         separator.margin_end = 6;
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 12;
+        motion_grid.margin_start = 6;
         motion_grid.margin_end = 6;
         motion_grid.height_request = 24;
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -205,12 +210,31 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
+        drop_grid = new Gtk.Grid ();
+        drop_grid.margin_start = 6;
+        drop_grid.margin_end = 6;
+        drop_grid.height_request = 12;
+        //drop_grid.get_style_context ().add_class ("grid-motion");
+
+        var motion_area_grid = new Gtk.Grid ();
+        motion_area_grid.margin_start = 6;
+        motion_area_grid.margin_end = 6;
+        motion_area_grid.height_request = 24;
+        motion_area_grid.margin_bottom = 12;
+        motion_area_grid.get_style_context ().add_class ("grid-motion");
+
+        motion_area_revealer = new Gtk.Revealer ();
+        motion_area_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        motion_area_revealer.add (motion_area_grid);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.hexpand = true;
         main_box.pack_start (top_eventbox, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox_revealer, false, false, 0);
+        main_box.pack_start (drop_grid, false, false, 0);
+        main_box.pack_start (motion_area_revealer, false, false, 0);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
@@ -252,6 +276,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             }
 
             return false;
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            // save_area ();
         });
 
         submit_button.clicked.connect (() => {
@@ -433,6 +461,15 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_AREAS, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+        drag_end.connect (clear_indicator);
+
+        Gtk.drag_dest_set (drop_grid, Gtk.DestDefaults.MOTION, TARGET_AREAS, Gdk.DragAction.MOVE);
+        drop_grid.drag_motion.connect (on_drag_area_motion);
+        drop_grid.drag_leave.connect (on_drag_area_leave);
+
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
@@ -440,6 +477,59 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_eventbox.drag_data_received.connect (on_drag_project_received);
         top_eventbox.drag_motion.connect (on_drag_motion);
         top_eventbox.drag_leave.connect (on_drag_leave);
+    }
+
+    public bool on_drag_area_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_area_revealer.reveal_child = true;
+        return true;
+    }
+
+    public void on_drag_area_leave (Gdk.DragContext context, uint time) {
+        motion_area_revealer.reveal_child = false;
+    }
+
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var row = ((Widgets.AreaRow) widget).top_eventbox;
+
+        Gtk.Allocation alloc;
+        row.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0.5);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+
+        cr.set_source_rgba (255, 255, 255, 0);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        row.get_style_context ().add_class ("drag-begin");
+        row.draw (cr);
+        row.get_style_context ().remove_class ("drag-begin");
+
+        Gtk.drag_set_icon_surface (context, surface);
+        main_revealer.reveal_child = false;
+    }
+
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        uchar[] data = new uchar[(sizeof (Widgets.AreaRow))];
+        ((Gtk.Widget[])data)[0] = widget;
+
+        selection_data.set (
+            Gdk.Atom.intern_static_string ("AREAROW"), 32, data
+        );
+    }
+
+    public void clear_indicator (Gdk.DragContext context) {
+        main_revealer.reveal_child = true;
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y,

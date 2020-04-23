@@ -30,6 +30,7 @@ public class Services.CustomShortcutSettings : Object {
         }
 
         settings = new GLib.Settings.full (schema, null, null);
+
         available = true;
     }
 

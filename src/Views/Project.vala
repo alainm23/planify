@@ -345,7 +345,6 @@ public class Views.Project : Gtk.EventBox {
         box.expand = true;
         box.margin_bottom = 3;
         box.margin_end = 3;
-        box.pack_start (action_revealer, false, false, 0);
         box.pack_start (listbox, false, false, 0);
         box.pack_start (completed_revealer, false, false, 0);
         box.pack_start (section_listbox, false, false, 0);
@@ -374,6 +373,7 @@ public class Views.Project : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (action_revealer, false, false, 0);
         main_box.pack_start (note_textview, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
@@ -452,6 +452,10 @@ public class Views.Project : Gtk.EventBox {
             }
 
             return false;
+        });
+
+        name_entry.focus_out_event.connect (() => {
+            // save (true);
         });
 
         settings_button.toggled.connect (() => {

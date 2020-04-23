@@ -139,6 +139,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
+        handle_box.margin_start = 5;
+        handle_box.margin_end = 3;
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_revealer, false, false, 0);
@@ -155,8 +157,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.margin_start = 5;
-        grid.margin_end = 3;
         grid.margin_top = grid.margin_bottom = 2;
         grid.add (handle_box);
         grid.add (motion_revealer);

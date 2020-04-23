@@ -1719,7 +1719,7 @@ public class Services.Database : GLib.Object {
             //updated_playlist (playlist);
         }
     }
-
+    
     public void update_label_item_order (int64 id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
@@ -3580,13 +3580,13 @@ public class Services.Database : GLib.Object {
             i.is_todoist = stmt.column_int (22);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
-            //  if (Planner.utils.is_today (due) || Planner.utils.is_before_today (due)) {
+            if (Planner.utils.is_today (due) || Planner.utils.is_before_today (due)) {
+                  all.add (i);
+            }
+
+            //  if (due.compare (new GLib.DateTime.now_local ()) <= 0) {
             //      all.add (i);
             //  }
-
-            if (due.compare (new GLib.DateTime.now_local ()) <= 0) {
-                all.add (i);
-            }
         }
 
         return all;

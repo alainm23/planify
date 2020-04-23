@@ -46,7 +46,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="2.3.2" date="2020-04-14">
+  <release version="2.3.3" date="2020-04-14">
       <description>
         <p>Hi everyone! Planner 2.3 is here –  a big update for the Quick Find feature,</p>
         <p>recurring tasks and design improvements.</p>
@@ -68,11 +68,11 @@
           <li>The design of the progress indicator for each project was improved.</li>
           <li>The workspaces are now called Folders and the icon has been changed.</li>
           <li>See your completed tasks in context.</li>
-          <li>URLs are now displayed in the task content as in the notes.</li>
+          <li>View URL from the notes or the title of a task.</li>
           <li>Added a progress indicator in the project view.</li>
           <li>A new button was added to the side of a section to add tasks faster.</li>
           <li>It's now possible to create and assign a label directly if it is not available.</li>
-          <li>Now you can undo the completed tasks.</li>
+          <li>Quick action to undo when a task is completed.</li>
           <li>The 'Move to project' menu now displays the correct color for each project.</li>
           <li>The dialog to create new projects has been redesigned.</li>
           <li>The dialog to edit the preferences of a project has been redesigned.</li>

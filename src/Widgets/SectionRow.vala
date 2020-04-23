@@ -476,6 +476,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
+        name_entry.focus_out_event.connect (() => {
+            // save (true);
+            // separator_revealer.reveal_child = true;
+        });
 
         note_textview.focus_in_event.connect (() => {
             note_placeholder.visible = false;

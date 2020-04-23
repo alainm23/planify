@@ -110,7 +110,7 @@ public class Views.Today : Gtk.EventBox {
 
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_top = 6;
-        event_listbox.margin_start = 36;
+        event_listbox.margin_start = 44;
         event_listbox.valign = Gtk.Align.START;
         event_listbox.get_style_context ().add_class ("listbox");
         event_listbox.activate_on_single_click = true;

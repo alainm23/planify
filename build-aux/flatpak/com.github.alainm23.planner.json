@@ -2,7 +2,7 @@
   "app-id": "com.github.alainm23.planner",
   "sdk": "org.gnome.Sdk",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "3.34",
+  "runtime-version": "3.36",
   "base": "io.elementary.BaseApp",
   "base-version": "juno-19.08",
   "command": "com.github.alainm23.planner",
@@ -12,13 +12,18 @@
     "--device=dri",
     "--socket=fallback-x11",
     "--socket=wayland",
-    "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/",
     "--talk-name=org.gtk.vfs.*",
     "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
     "--talk-name=org.gnome.evolution.dataserver.Calendar7",
     "--talk-name=org.gnome.evolution.dataserver.Sources5",
     "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
-    "--talk-name=com.github.alainm23.planner"
+    "--talk-name=com.github.alainm23.planner",
+    "--talk-name=org.gnome.settings-daemon.plugins.media-keys",
+    "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
+    "--filesystem=xdg-run/dconf",
+    "--filesystem=~/.config/dconf:ro",
+    "--talk-name=ca.desrt.dconf",
+    "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
   ],
   "cleanup": [
     "/include",
@@ -95,8 +100,8 @@
       "name": "planner",
       "buildsystem": "meson",
       "sources": [{
-        "type": "git",
-        "url": "https://github.com/alainm23/planner.git"
+        "type": "dir",
+        "path": "../.."
       }]
     }
   ]
