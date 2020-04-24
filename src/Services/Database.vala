@@ -76,6 +76,10 @@ public class Services.Database : GLib.Object {
     public signal void show_undo_item (Objects.Item item, string type="");
 
     public Database () {
+        this.open_database ();
+    }
+
+    private void open_database () {
         int rc = 0;
         db_path = this.get_database_path();
 
@@ -109,12 +113,16 @@ public class Services.Database : GLib.Object {
         print ("set database path %s\n".printf (path));
         Planner.settings.set_string ("database-location-path", path);
         Planner.settings.set_boolean ("database-location-use-default", false);
+        this.reset ();
+        this.open_database ();
     }
 
     public void reset_database_path_to_default () {
         print ("reset database path to default");
         Planner.settings.set_string ("database-location-path", "");
         Planner.settings.set_boolean ("database-location-use-default", true);
+        this.reset ();
+        this.open_database ();
     }
 
     public void patch_database () {
