@@ -98,6 +98,11 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                 var filename = open_dialog.get_filename ();
                 var file = GLib.File.new_for_path (filename);
                 if (!file.query_exists()) {
+                    var old_file = GLib.File.new_for_path (Planner.database.get_database_path());
+                    old_file.copy(file, FileCopyFlags.ALL_METADATA, null, (current_num_bytes, total_num_bytes) => {
+                        print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n",
+                            current_num_bytes, total_num_bytes);
+                    });
                 }
                 Planner.database.set_database_path (filename);
                 this.current_location_content.label = filename;
