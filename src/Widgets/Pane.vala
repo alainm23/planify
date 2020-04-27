@@ -96,10 +96,13 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.margin_start = 15;
         listbox.margin_end = 16;
 
-        listbox.add (inbox_row);
-        listbox.add (today_row);
-        listbox.add (upcoming_row);
-        //listbox.add (back_row);
+        Planner.database.opened.connect(() => {
+            listbox.foreach ((row) => listbox.remove (row));
+            listbox.add (inbox_row);
+            listbox.add (today_row);
+            listbox.add (upcoming_row);
+            listbox.show_all ();
+        });
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 6;

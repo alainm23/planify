@@ -110,12 +110,7 @@ public class MainWindow : Gtk.Window {
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
-        Timeout.add (125, () => {
-            // Remove Trash Data
-            Planner.database.remove_trash ();
-
-            // Path Database
-            Planner.database.patch_database ();
+        Planner.database.opened.connect(() => {
 
             if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
@@ -155,8 +150,6 @@ public class MainWindow : Gtk.Window {
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }
-
-            return false;
         });
 
         Planner.database.reset.connect (() => {
