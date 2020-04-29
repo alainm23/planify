@@ -77,7 +77,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_end = 6;
+        // hidden_button.margin_end = 6;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -150,7 +150,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, true, 0);
+        // top_box.pack_end (settings_revealer, false, true, 0);
         top_box.pack_end (hidden_revealer, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
@@ -257,6 +257,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.drag_data_received.connect (on_drag_data_received);
 
         completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 38;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;

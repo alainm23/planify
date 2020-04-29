@@ -29,6 +29,7 @@ public class MainWindow : Gtk.Window {
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
+    private Views.Completed completed_view = null;
     private Views.Label label_view = null;
 
     private Widgets.MagicButton magic_button;
@@ -210,7 +211,12 @@ public class MainWindow : Gtk.Window {
 
         Planner.todoist.first_sync_finished.connect (() => {
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            stack.visible_child_name = "inbox-view";
+            
+            // Create The New Inbox Project
+            inbox_view =  null;
+            go_view (0);
+
+            // Enable UI
             pane.sensitive_ui = true;
             magic_button.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
@@ -307,7 +313,7 @@ public class MainWindow : Gtk.Window {
         });
 
         Planner.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
+            if (key == "appearance") {
                 Planner.utils.apply_theme_changed ();
             } else if (key == "badge-count") {
                 set_badge_visible ();
@@ -427,7 +433,7 @@ public class MainWindow : Gtk.Window {
 
             magic_button.reveal_child = true;
             stack.visible_child_name = "today-view";
-        } else {
+        } else if (id == 2) {
             if (upcoming_view == null) {
                 upcoming_view = new Views.Upcoming ();
                 stack.add_named (upcoming_view, "upcoming-view");
@@ -435,6 +441,15 @@ public class MainWindow : Gtk.Window {
 
             magic_button.reveal_child = false;
             stack.visible_child_name = "upcoming-view";
+        } else if (id == 3) {
+            if (completed_view == null) {
+                completed_view = new Views.Completed ();
+                stack.add_named (completed_view, "completed-view");
+            }
+
+            completed_view.add_all_items ();
+            magic_button.reveal_child = false;
+            stack.visible_child_name = "completed-view";
         }
 
         pane.select_item (id);

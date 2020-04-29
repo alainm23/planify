@@ -79,7 +79,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         main_box.get_style_context ().add_class ("check-eventbox-border");
         main_box.margin_bottom = 6;
         main_box.margin_end = 6;
-        main_box.margin_start = 24;
+        main_box.margin_start = 22;
         main_box.add (checked_button);
         main_box.add (name_entry);
         main_box.add (loading_revealer);

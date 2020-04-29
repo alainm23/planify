@@ -57,15 +57,16 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
         due_image.pixel_size = 16;
-        due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
-        due_label = new Gtk.Label (null);
-        due_label.get_style_context ().add_class ("font-bold");
+        due_label = new Gtk.Label (_("Schedule"));
+        // due_label.get_style_context ().add_class ("font-bold");
         due_label.use_markup = true;
         
         label_revealer = new Gtk.Revealer ();
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         label_revealer.add (due_label);
+        label_revealer.reveal_child = true;
 
         var main_grid = new Gtk.Grid ();
         main_grid.halign = Gtk.Align.CENTER;
@@ -117,36 +118,38 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             due_label.label = Planner.utils.get_relative_date_from_date (date);
-            label_revealer.reveal_child = true;
-
+            // label_revealer.reveal_child = true;
+            get_style_context ().add_class ("font-weight-600");
             due_image.get_style_context ().remove_class ("today");
             due_image.get_style_context ().remove_class ("upcoming");
-            due_image.get_style_context ().remove_class ("repeat-image");
-
+            // due_image.get_style_context ().remove_class ("repeat-image");
+            
             if (item.due_is_recurring == 1) {
-                due_image.gicon = new ThemedIcon ("view-refresh-symbolic");
-                due_image.get_style_context ().add_class ("repeat-image");
+                due_image.gicon = new ThemedIcon ("planner-repeat-symbolic");
+                // due_image.get_style_context ().add_class ("repeat-image");
             } else {
                 if (Planner.utils.is_today (date)) {
                     due_image.gicon = new ThemedIcon ("help-about-symbolic");
                     due_image.get_style_context ().add_class ("today");
                 } else {
-                    due_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+                    due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                     due_image.get_style_context ().add_class ("upcoming");
-                }
+                }    
             }
         } else {
-            due_label.label = "";
+            due_label.label = _("Schedule");
+            get_style_context ().remove_class ("font-weight-600");
             due_image.get_style_context ().remove_class ("today");
             due_image.get_style_context ().remove_class ("upcoming");
-            due_image.get_style_context ().remove_class ("repeat-image");
-            label_revealer.reveal_child = false;
+            due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+            // due_image.get_style_context ().remove_class ("repeat-image");
+            // label_revealer.reveal_child = false;
         }
     }
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.LEFT;
+        popover.position = Gtk.PositionType.RIGHT;
         popover.get_style_context ().add_class ("popover-background");
 
         var popover_grid = new Gtk.Grid ();
@@ -171,7 +174,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         today_button.color = 0;
         today_button.due_label = true;
 
-        tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "planner-calendar-symbolic", "");
+        tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "x-office-calendar-symbolic", "");
         tomorrow_button.get_style_context ().add_class ("due-menuitem");
         tomorrow_button.item_image.pixel_size = 14;
         tomorrow_button.color = 1;

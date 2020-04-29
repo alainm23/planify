@@ -164,7 +164,7 @@ public class Utils : GLib.Object {
     public Gee.HashMap<int, string> color () {
         var colors = new Gee.HashMap<int, string> ();
 
-        colors.set (30, "#ed5353"); // b8256f
+        colors.set (30, "#b8256f"); // ed5353
         colors.set (31, "#db4035"); // db4035
         colors.set (32, "#ff9933"); // ff9933
         colors.set (33, "#fad000"); // fad000
@@ -685,47 +685,73 @@ public class Utils : GLib.Object {
 
     public void apply_theme_changed () {
         string _css = """
+            @define-color base_color %s;
+            @define-color check_border_color %s;
             @define-color projectview_color %s;
-            @define-color border_color alpha (@BLACK_900, %s);
             @define-color pane_color %s;
             @define-color pane_selected_color %s;
             @define-color pane_text_color %s;
-            @define-color duedate_today_color %s;
             @define-color popover_background %s;
+            @define-color row_selected_color %s;
         """;
 
-        bool dark_mode = Planner.settings.get_boolean ("prefer-dark-style");
-        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = dark_mode;
+        int appearance_mode = Planner.settings.get_enum ("appearance");
 
         var provider = new Gtk.CssProvider ();
-
         try {
-            string projectview_color = "shade (#FFFFFF, 0.985)";
-            string border_color = "0.25";
-            string pane_color = "shade (#FFFFFF, 0.96)";
-            string pane_selected_color = "shade (#FFFFFF, 0.89)";
-            string pane_text_color = "#333333";
-            string duedate_today_color = "#d48e15";
-            string popover_background = "@projectview_color";
+            string base_color = "";
+            string check_border_color = "";
+            string projectview_color = "";
+            string pane_color = "";
+            string pane_selected_color = "";
+            string pane_text_color = "";
+            string popover_background = "";
+            string row_selected_color = "";
 
-            if (dark_mode) {
-                projectview_color = "#333333";
-                border_color = "0.55";
+            if (appearance_mode == 0) {
+                base_color = "white";
+                check_border_color = "@border_color";
+                projectview_color = "shade (#FFFFFF, 0.985)";
+                pane_color = "shade (#FFFFFF, 0.96)";
+                pane_selected_color = "shade (#FFFFFF, 0.87)";
+                pane_text_color = "#333333";
+                popover_background = "@projectview_color";
+                row_selected_color = "shade (@check_border_color, 0.75)";
+
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+            } else if (appearance_mode == 1) {
+                base_color = "#282828";
+                check_border_color = "alpha (#000000, 0.5)";
+                projectview_color = "#1f1f1f";
                 pane_color = "shade (@bg_color, 0.7)";
-                pane_selected_color = "#38393E";
+                pane_selected_color = "#282828";
                 pane_text_color = "#ffffff";
-                duedate_today_color = "#f9c440";
-                popover_background = "@bg_color";
+                popover_background = "#333333";
+                row_selected_color = "shade (#333333, 0.4)";
+
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+            } else if (appearance_mode == 2) {
+                base_color = "#15151B";
+                check_border_color = "#333333";
+                projectview_color = "#0B0B11";
+                pane_color = "#15151B";
+                pane_selected_color = "#1D2836";
+                pane_text_color = "#ffffff";
+                popover_background = "#15151B";
+                row_selected_color = "shade (#ffffff, 0.125)";
+
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
 
             var css = _css.printf (
+                base_color,
+                check_border_color,
                 projectview_color,
-                border_color,
                 pane_color,
                 pane_selected_color,
                 pane_text_color,
-                duedate_today_color,
-                popover_background
+                popover_background,
+                row_selected_color
             );
 
             provider.load_from_data (css, css.length);
@@ -885,6 +911,8 @@ public class Utils : GLib.Object {
         patrons.add ("M");
         patrons.add ("James");
         patrons.add ("Sampath Rajapakse");
+        patrons.add ("Kyle Riedemann");
+        patrons.add ("Richard Prammer");
 
         return patrons;
     }

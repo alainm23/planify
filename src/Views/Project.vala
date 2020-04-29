@@ -107,6 +107,8 @@ public class Views.Project : Gtk.EventBox {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
+        var due_button = new Widgets.DueProjectButton (project);
+
         var project_progress = new Widgets.ProjectProgress (10);
         project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
@@ -116,10 +118,10 @@ public class Views.Project : Gtk.EventBox {
             Planner.database.get_all_count_items_by_project (project.id)
         );
         
-        if (Planner.settings.get_boolean ("prefer-dark-style")) {
-            project_progress.progress_fill_color = "#FFFFFF";
-        } else {
+        if (Planner.settings.get_enum ("appearance") == 0) {
             project_progress.progress_fill_color = "#000000";
+        } else {
+            project_progress.progress_fill_color = "#FFFFFF";
         }
 
         var progress_grid = new Gtk.Grid ();
@@ -228,6 +230,7 @@ public class Views.Project : Gtk.EventBox {
         }
         top_box.pack_end (section_button, false, false, 0);
         top_box.pack_end (progress_button, false, false, 0);
+        top_box.pack_end (due_button, false, false, 0);
 
         note_textview = new Gtk.TextView ();
         note_textview.tooltip_text = _("Add a description");
@@ -267,6 +270,7 @@ public class Views.Project : Gtk.EventBox {
         listbox.hexpand = true;
 
         completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 38;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
@@ -404,6 +408,10 @@ public class Views.Project : Gtk.EventBox {
             item.reveal_child = true;
         });
 
+        listbox.remove.connect ((row) => {
+            check_placeholder_view ();
+        });
+
         section_listbox.remove.connect ((row) => {
             check_placeholder_view ();
         });
@@ -493,7 +501,7 @@ public class Views.Project : Gtk.EventBox {
         });
 
         progress_button.toggled.connect (() => {
-            // open_progress_popover ();
+            open_progress_popover ();
         });
 
         completed_listbox.remove.connect (() => {
@@ -579,7 +587,7 @@ public class Views.Project : Gtk.EventBox {
                 if (project.id == item.project_id) {
                     if (item.section_id == 0 && item.parent_id == 0) {
                         if (items_completed_added.has_key (item.id.to_string ())) {
-                            items_completed_added.get (item.id.to_string ()).hide_destroy ();
+                            // items_completed_added.get (item.id.to_string ()).hide_destroy ();
                             items_completed_added.unset (item.id.to_string ());
                         }
 
@@ -792,11 +800,11 @@ public class Views.Project : Gtk.EventBox {
         });
 
         Planner.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
-                if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                    project_progress.progress_fill_color = "#FFFFFF";
-                } else {
+            if (key == "appearance") {
+                if (Planner.settings.get_enum ("appearance") == 0) {
                     project_progress.progress_fill_color = "#000000";
+                } else {
+                    project_progress.progress_fill_color = "#FFFFFF";
                 }
             }
         });
@@ -971,6 +979,7 @@ public class Views.Project : Gtk.EventBox {
 
     private void create_popover () {
         popover = new Gtk.Popover (settings_button);
+        popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.BOTTOM;
 
         var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", "");
@@ -1172,6 +1181,7 @@ public class Views.Project : Gtk.EventBox {
 
     public void build_progress_popover () {
         progress_popover = new Gtk.Popover (progress_button);
+        progress_popover.get_style_context ().add_class ("popover-background");
         progress_popover.position = Gtk.PositionType.BOTTOM;
 
         var productivity_labe = new Gtk.Label ("<small>%s</small>".printf (_("Productivity")));
@@ -1222,6 +1232,7 @@ public class Views.Project : Gtk.EventBox {
 
     private void build_new_section_popover () {
         new_section_popover = new Gtk.Popover (section_button);
+        new_section_popover.get_style_context ().add_class ("popover-background");
         new_section_popover.position = Gtk.PositionType.BOTTOM;
 
         var name_label = new Granite.HeaderLabel (_("Name:"));

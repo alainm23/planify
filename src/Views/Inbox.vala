@@ -34,19 +34,11 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Revealer completed_revealer;
     private Gtk.Stack main_stack;
 
-    private Gtk.Label progress_label;
-    private Gtk.Label duedate_label;
-    private Gtk.LevelBar progress_bar;
-    private Gtk.LevelBar duedate_bar;
-
     private Gtk.Entry section_name_entry;
     private Gtk.ToggleButton section_button;
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton settings_button;
-
-    private Gtk.Popover progress_popover = null;
-    private Gtk.ToggleButton progress_button;
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
@@ -75,13 +67,7 @@ public class Views.Inbox : Gtk.EventBox {
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
-
-        if (Planner.settings.get_boolean ("inbox-project-sync")) {
-            project.is_todoist = 1;
-        } else {
-            project.is_todoist = 0;
-        }
-
+        
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.gicon = new ThemedIcon ("mail-mailbox-symbolic");
@@ -91,35 +77,6 @@ public class Views.Inbox : Gtk.EventBox {
         var title_label = new Gtk.Label ("<b>%s</b>".printf (_("Inbox")));
         title_label.get_style_context ().add_class ("title-label");
         title_label.use_markup = true;
-
-        var project_progress = new Widgets.ProjectProgress (10);
-        project_progress.margin = 2;
-        project_progress.valign = Gtk.Align.CENTER;
-        project_progress.halign = Gtk.Align.CENTER;
-        project_progress.percentage = get_percentage (
-            Planner.database.get_count_checked_items_by_project (project.id),
-            Planner.database.get_all_count_items_by_project (project.id)
-        );
-        
-        if (Planner.settings.get_boolean ("prefer-dark-style")) {
-            project_progress.progress_fill_color = "#FFFFFF";
-        } else {
-            project_progress.progress_fill_color = "#000000";
-        }
-
-        var progress_grid = new Gtk.Grid ();
-        progress_grid.get_style_context ().add_class ("project-progress-view");
-        progress_grid.add (project_progress);
-        progress_grid.valign = Gtk.Align.CENTER;
-        progress_grid.halign = Gtk.Align.CENTER;
-
-        progress_button = new Gtk.ToggleButton ();
-        progress_button.valign = Gtk.Align.CENTER;
-        progress_button.halign = Gtk.Align.CENTER;
-        progress_button.can_focus = false;
-        progress_button.margin_end = 3;
-        progress_button.get_style_context ().add_class ("flat");
-        progress_button.add (progress_grid);
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("go-jump-symbolic");
@@ -185,7 +142,6 @@ public class Views.Inbox : Gtk.EventBox {
             // top_box.pack_end (comment_button, false, false, 0);
         }
         top_box.pack_end (section_button, false, false, 0);
-        top_box.pack_end (progress_button, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
@@ -198,6 +154,7 @@ public class Views.Inbox : Gtk.EventBox {
         listbox.hexpand = true;
 
         completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 38;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
@@ -330,6 +287,10 @@ public class Views.Inbox : Gtk.EventBox {
             item.reveal_child = true;
         });
 
+        listbox.remove.connect ((row) => {
+            check_placeholder_view ();
+        });
+        
         section_listbox.remove.connect ((row) => {
             check_placeholder_view ();
         });
@@ -347,11 +308,7 @@ public class Views.Inbox : Gtk.EventBox {
         section_button.toggled.connect (() => {
             open_new_section ();
         });
-
-        progress_button.toggled.connect (() => {
-            // open_progress_popover ();
-        });
-
+        
         completed_listbox.remove.connect (() => {
             check_task_complete_visible ();
         });
@@ -417,7 +374,7 @@ public class Views.Inbox : Gtk.EventBox {
                 if (project.id == item.project_id) {
                     if (item.section_id == 0 && item.parent_id == 0) {
                         if (items_completed_added.has_key (item.id.to_string ())) {
-                            items_completed_added.get (item.id.to_string ()).hide_destroy ();
+                            // items_completed_added.get (item.id.to_string ()).hide_destroy ();
                             items_completed_added.unset (item.id.to_string ());
                         }
 
@@ -619,25 +576,6 @@ public class Views.Inbox : Gtk.EventBox {
                 remove_item_show_queue (row);
             }
         });
-
-        Planner.database.check_project_count.connect ((id) => {
-            if (project.id == id) {
-                project_progress.percentage = get_percentage (
-                    Planner.database.get_count_checked_items_by_project (project.id),
-                    Planner.database.get_all_count_items_by_project (project.id)
-                );
-            }
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "prefer-dark-style") {
-                if (Planner.settings.get_boolean ("prefer-dark-style")) {
-                    project_progress.progress_fill_color = "#FFFFFF";
-                } else {
-                    project_progress.progress_fill_color = "#000000";
-                }
-            }
-        });
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
@@ -803,6 +741,7 @@ public class Views.Inbox : Gtk.EventBox {
 
     private void create_popover () {
         popover = new Gtk.Popover (settings_button);
+        popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.BOTTOM;
 
         // Show Complete
@@ -851,11 +790,9 @@ public class Views.Inbox : Gtk.EventBox {
             show_completed_switch.activate ();
 
             if (show_completed_switch.active) {
-                Planner.settings.set_boolean ("inbox-project-sync", false);
                 project.show_completed = 0;
                 completed_revealer.reveal_child = false;
             } else {
-                Planner.settings.set_boolean ("inbox-project-sync", true);
                 project.show_completed = 1;
                 completed_revealer.reveal_child = true;
             }
@@ -864,6 +801,7 @@ public class Views.Inbox : Gtk.EventBox {
             check_listbox_margin ();
             Planner.database.project_show_completed (project);
             save (false);
+            
             return Gdk.EVENT_STOP;
         });
     }
@@ -935,76 +873,9 @@ public class Views.Inbox : Gtk.EventBox {
         section_name_entry.grab_focus ();
     }
 
-    public void open_progress_popover () {
-        if (progress_popover == null) {
-            build_progress_popover ();
-        }
-
-        int checked = Planner.database.get_count_checked_items_by_project (project.id);
-        int all = Planner.database.get_all_count_items_by_project (project.id);
-
-        progress_bar.value = (double) checked / (double) all;
-        progress_label.label = "%i/%i".printf (
-            checked,
-            all
-        );
-
-
-        progress_popover.show_all ();
-    }
-
-    public void build_progress_popover () {
-        progress_popover = new Gtk.Popover (progress_button);
-        progress_popover.position = Gtk.PositionType.BOTTOM;
-
-        var productivity_labe = new Gtk.Label ("<small>%s</small>".printf (_("Productivity")));
-        productivity_labe.use_markup = true;
-        productivity_labe.get_style_context ().add_class ("dim-label");
-        productivity_labe.get_style_context ().add_class ("font-weight-600");
-
-        var progress_header = new Granite.HeaderLabel (_("Progress:"));
-        progress_label = new Gtk.Label (null);
-        progress_label.get_style_context ().add_class ("dim-label");
-
-        var progress_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        progress_box.pack_start (progress_header, false, false, 0);
-        progress_box.pack_end (progress_label, false, false, 0);
-
-        progress_bar = new Gtk.LevelBar.for_interval (0, 1);
-        progress_bar.hexpand = true;
-
-        var duedate_header = new Granite.HeaderLabel (_("Due date:"));
-        duedate_label = new Gtk.Label (null);
-        duedate_label.get_style_context ().add_class ("dim-label");
-
-        var duedate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        duedate_box.margin_top = 6;
-        duedate_box.pack_start (duedate_header, false, false, 0);
-        duedate_box.pack_end (duedate_label, false, false, 0);
-
-        duedate_bar = new Gtk.LevelBar.for_interval (0, 1);
-        duedate_bar.hexpand = true;
-
-        var popover_grid = new Gtk.Grid ();
-        popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.margin = 12;
-        popover_grid.margin_top = 6;
-        popover_grid.width_request = 250;
-        popover_grid.add (productivity_labe);
-        popover_grid.add (progress_box);
-        popover_grid.add (progress_bar);
-        popover_grid.add (duedate_box);
-        popover_grid.add (duedate_bar);
-
-        progress_popover.add (popover_grid);
-
-        progress_popover.closed.connect (() => {
-            progress_button.active = false;
-        });
-    }
-
     private void build_new_section_popover () {
         new_section_popover = new Gtk.Popover (section_button);
+        new_section_popover.get_style_context ().add_class ("popover-background");
         new_section_popover.position = Gtk.PositionType.BOTTOM;
 
         var name_label = new Granite.HeaderLabel (_("Name:"));

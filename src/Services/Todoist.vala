@@ -159,7 +159,7 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
-    public void get_todoist_token (string url) {
+    public void get_todoist_token (string url, string view) {
         sync_started ();
         new Thread<void*> ("get_todoist_token", () => {
             try {
@@ -179,7 +179,7 @@ public class Services.Todoist : GLib.Object {
                 var root = parser.get_root ().get_object ();
                 var token = root.get_string_member ("access_token");
 
-                first_sync (token);
+                first_sync (token, view);
             } catch (Error e) {
                 debug (e.message);
             }
@@ -188,7 +188,7 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
-    public void first_sync (string token) {
+    public void first_sync (string token, string view) {
         sync_started ();
 
         new Thread<void*> ("first_sync", () => {
@@ -227,8 +227,15 @@ public class Services.Todoist : GLib.Object {
 
                         Planner.settings.set_boolean ("todoist-account", true);
 
+                        if (view == "preferences") {
+                            // Delete Old Inbox Project
+                            Planner.database.delete_project (Planner.settings.get_int64 ("inbox-project"));
+                        }
+
+                        // Set Inbox Project
                         Planner.settings.set_boolean ("inbox-project-sync", true);
                         Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+
 
                         Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
                         Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));

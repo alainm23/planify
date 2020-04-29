@@ -80,12 +80,12 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         """.printf (_("Upcoming")));
 
-        //  views.add ("""
-        //      {
-        //          "name": "%s",
-        //          "id": 3
-        //      }
-        //  """.printf (_("Trash")));
+        views.add ("""
+            {
+                "name": "%s",
+                "id": 3
+            }
+        """.printf (_("Completed")));
 
         get_header_bar ().visible = false;
         get_header_bar ().no_show_all = true;
@@ -339,7 +339,6 @@ public class SearchItem : Gtk.ListBoxRow {
             content_label.wrap = true;
             content_label.xalign = 0;
             content_label.use_markup = true;
-            content_label.get_style_context ().add_class ("label");
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
@@ -393,7 +392,6 @@ public class SearchItem : Gtk.ListBoxRow {
             content_label.wrap = true;
             content_label.xalign = 0;
             content_label.use_markup = true;
-            content_label.get_style_context ().add_class ("label");
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
@@ -429,11 +427,12 @@ public class SearchItem : Gtk.ListBoxRow {
                 icon.gicon = new ThemedIcon ("help-about-symbolic");
                 icon.get_style_context ().add_class ("today-icon");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
-                icon.gicon = new ThemedIcon ("planner-calendar-symbolic");
+                icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 icon.get_style_context ().add_class ("upcoming-icon");
+                icon.margin_start = 1;
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
-                icon.gicon = new ThemedIcon ("user-trash-symbolic");
-                icon.get_style_context ().add_class ("trash-icon");
+                icon.gicon = new ThemedIcon ("emblem-default-symbolic");
+                icon.get_style_context ().add_class ("completed-icon");
             }
 
             var content_label = new Gtk.Label (
@@ -445,7 +444,6 @@ public class SearchItem : Gtk.ListBoxRow {
             content_label.wrap = true;
             content_label.xalign = 0;
             content_label.use_markup = true;
-            content_label.get_style_context ().add_class ("label");
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
@@ -488,7 +486,6 @@ public class SearchItem : Gtk.ListBoxRow {
             content_label.xalign = 0;
             content_label.use_markup = true;
             content_label.margin_bottom = 1;
-            content_label.get_style_context ().add_class ("label");
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;

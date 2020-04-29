@@ -101,8 +101,8 @@ public class Views.Today : Gtk.EventBox {
             is_todoist
         );
         new_item.margin_top = 6;
-        new_item.margin_start = 30;
-        new_item.margin_end = 24;
+        new_item.margin_start = 36;
+        new_item.margin_end = 32;
 
         new_item_revealer = new Gtk.Revealer ();
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;

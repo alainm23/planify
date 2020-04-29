@@ -148,8 +148,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.add (color_label);
         grid.add (color_combobox);
         grid.add (loading_revealer);
-        // grid.add (due_box);
-        // grid.add (due_revealer);
+        grid.add (due_box);
+        grid.add (due_revealer);
         grid.show_all ();
 
         get_content_area ().add (grid);

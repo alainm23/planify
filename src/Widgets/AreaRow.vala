@@ -156,7 +156,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.margin_end = 5;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, false, 0);
+        // top_box.pack_end (settings_revealer, false, false, 0);
         top_box.pack_end (hidden_revealer, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));

@@ -126,7 +126,7 @@ public class PlannerQuickAdd : Gtk.Application {
         default_theme.add_resource_path ("/com/github/alainm23/planner");
 
         // Dark Mode
-        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.get_boolean ("prefer-dark-style");
+        // Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.get_boolean ("prefer-dark-style");
     }
 }
 

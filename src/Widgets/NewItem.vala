@@ -54,7 +54,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
-        checked_button.get_style_context ().add_class ("checklist-button");
+        checked_button.get_style_context ().add_class ("checklist-border");
         checked_button.valign = Gtk.Align.CENTER;
 
         content_entry = new Gtk.Entry ();
@@ -65,7 +65,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
-        content_entry.get_style_context ().add_class ("label");
 
         var content_grid = new Gtk.Grid ();
         content_grid.get_style_context ().add_class ("check-eventbox");
@@ -90,6 +89,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("cancel-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;

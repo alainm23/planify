@@ -80,6 +80,7 @@ executable(
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',
     'src/Widgets/NewLabel.vala',
+    'src/Widgets/DueProjectButton.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -93,6 +94,7 @@ executable(
     'src/Views/Upcoming.vala',
     'src/Views/Project.vala',
     'src/Views/Label.vala',
+    'src/Views/Completed.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',

@@ -493,7 +493,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
-        move_area_menu = new Widgets.ImageMenuItem (_("Move to Folder"), "go-jump-symbolic");
+        move_area_menu = new Widgets.ImageMenuItem (_("Move"), "move-project-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);
 
@@ -508,12 +508,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         share_list_menu.add (share_mail);
         share_list_menu.show_all ();
 
+        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
+
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.get_style_context ().add_class ("menu-danger");
 
         menu.add (edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (move_area_menu);
         menu.add (share_menu);
+        menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
