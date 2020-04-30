@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-29 09:41-0500\n"
+"POT-Creation-Date: 2020-04-30 10:00-0500\n"
 "PO-Revision-Date: 2020-04-07 18:41+0000\n"
 "Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
@@ -383,7 +383,7 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:881 src/Views/Project.vala:1238
+#: src/Widgets/New.vala:64 src/Views/Inbox.vala:879 src/Views/Project.vala:1238
 #: src/Dialogs/ProjectSettings.vala:49
 msgid "Name:"
 msgstr ""
@@ -402,15 +402,15 @@ msgstr ""
 
 #: src/Widgets/New.vala:161 src/Widgets/NewItem.vala:86
 #: src/Widgets/ReminderButton.vala:236 src/Widgets/NewSection.vala:82
-#: src/Views/Inbox.vala:897 src/Views/Project.vala:1254
+#: src/Views/Inbox.vala:895 src/Views/Project.vala:1254
 msgid "Add"
 msgstr ""
 
 #: src/Widgets/New.vala:166 src/Widgets/NewItem.vala:91
-#: src/Widgets/SectionRow.vala:160 src/Widgets/AreaRow.vala:166
+#: src/Widgets/SectionRow.vala:160 src/Widgets/AreaRow.vala:167
 #: src/Widgets/ReminderButton.vala:234 src/Widgets/NewSection.vala:86
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:902
-#: src/Views/Project.vala:207 src/Views/Project.vala:1259
+#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:900
+#: src/Views/Project.vala:208 src/Views/Project.vala:1259
 msgid "Cancel"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgstr ""
 msgid "Local"
 msgstr ""
 
-#: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:442
+#: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:444
 msgid "No Folder"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgid "New folder"
 msgstr ""
 
 #: src/Widgets/ProjectRow.vala:111 src/Views/Inbox.vala:124
-#: src/Views/Project.vala:192
+#: src/Views/Project.vala:193
 msgid "Project Menu"
 msgstr ""
 
@@ -463,49 +463,50 @@ msgstr ""
 msgid "Task moved to <b>%s</b>"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:494 src/Widgets/ItemRow.vala:1391
-#: src/Widgets/AreaRow.vala:621 src/Views/Project.vala:985
+#. get_style_context ().remove_class ("highlight");
+#: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1391
+#: src/Widgets/AreaRow.vala:630 src/Views/Project.vala:985
 msgid "Edit"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:496
+#: src/Widgets/ProjectRow.vala:502
 msgid "Move"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1412
+#: src/Widgets/ProjectRow.vala:506 src/Widgets/ItemRow.vala:1412
 #: src/Widgets/SectionRow.vala:790
 msgid "Share"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:504
+#: src/Widgets/ProjectRow.vala:510
 msgid "Send by e-mail"
 msgstr ""
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:505 src/Widgets/ItemRow.vala:1417
+#: src/Widgets/ProjectRow.vala:511 src/Widgets/ItemRow.vala:1417
 #: src/Widgets/SectionRow.vala:795
 msgid "Markdown"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:511 src/Widgets/ItemRow.vala:1423
+#: src/Widgets/ProjectRow.vala:517 src/Widgets/ItemRow.vala:1423
 msgid "Duplicate"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:513 src/Widgets/ProjectRow.vala:540
+#: src/Widgets/ProjectRow.vala:519 src/Widgets/ProjectRow.vala:546
 #: src/Widgets/ItemRow.vala:1424 src/Widgets/SectionRow.vala:801
-#: src/Widgets/SectionRow.vala:844 src/Widgets/AreaRow.vala:622
-#: src/Widgets/AreaRow.vala:660 src/Widgets/CheckRow.vala:80
+#: src/Widgets/SectionRow.vala:844 src/Widgets/AreaRow.vala:631
+#: src/Widgets/AreaRow.vala:669 src/Widgets/CheckRow.vala:80
 #: src/Views/Project.vala:988 src/Views/Project.vala:1061
 msgid "Delete"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:535 src/Views/Project.vala:1056
+#: src/Widgets/ProjectRow.vala:541 src/Views/Project.vala:1056
 msgid "Delete project"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:536 src/Widgets/SectionRow.vala:840
-#: src/Widgets/AreaRow.vala:648 src/Views/Project.vala:1057
+#: src/Widgets/ProjectRow.vala:542 src/Widgets/SectionRow.vala:840
+#: src/Widgets/AreaRow.vala:657 src/Views/Project.vala:1057
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr ""
@@ -595,16 +596,16 @@ msgstr ""
 
 #. top_box.pack_end (settings_revealer, false, true, 0);
 #. top_box.pack_end (settings_revealer, false, false, 0);
-#: src/Widgets/SectionRow.vala:156 src/Widgets/AreaRow.vala:162
-#: src/Views/Project.vala:203 src/Dialogs/ProjectSettings.vala:159
+#: src/Widgets/SectionRow.vala:156 src/Widgets/AreaRow.vala:163
+#: src/Views/Project.vala:204 src/Dialogs/ProjectSettings.vala:159
 msgid "Save"
 msgstr ""
 
-#: src/Widgets/SectionRow.vala:192 src/Views/Project.vala:236
+#: src/Widgets/SectionRow.vala:192 src/Views/Project.vala:237
 msgid "Add a description"
 msgstr ""
 
-#: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:246
+#: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:247
 msgid "Description"
 msgstr ""
 
@@ -629,11 +630,8 @@ msgstr ""
 msgid "Section deleted"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:52
-msgid "Due Date"
-msgstr ""
-
-#: src/Widgets/DueButton.vala:62 src/Widgets/DueButton.vala:140
+#: src/Widgets/DueButton.vala:52 src/Widgets/DueButton.vala:62
+#: src/Widgets/DueButton.vala:140
 msgid "Schedule"
 msgstr ""
 
@@ -715,23 +713,24 @@ msgstr ""
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:89 src/Widgets/AreaRow.vala:403
+#: src/Widgets/AreaRow.vala:89 src/Widgets/AreaRow.vala:406
 msgid "Display Projects"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:97 src/Widgets/AreaRow.vala:409
+#: src/Widgets/AreaRow.vala:97 src/Widgets/AreaRow.vala:412
 msgid "Hiding Projects"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:618
+#. top_eventbox.get_style_context ().remove_class ("highlight");
+#: src/Widgets/AreaRow.vala:627
 msgid "Add project"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:647
+#: src/Widgets/AreaRow.vala:656
 msgid "Delete folder"
 msgstr ""
 
-#: src/Widgets/AreaRow.vala:655
+#: src/Widgets/AreaRow.vala:664
 msgid "Delete projects"
 msgstr ""
 
@@ -823,32 +822,32 @@ msgstr ""
 msgid "Synchronize with your Todoist account and start working."
 msgstr ""
 
-#: src/Views/Inbox.vala:88 src/Views/Project.vala:148
-#: src/Views/Project.vala:156
+#: src/Views/Inbox.vala:88 src/Views/Project.vala:149
+#: src/Views/Project.vala:157
 msgid "Add Section"
 msgstr ""
 
-#: src/Views/Inbox.vala:96 src/Views/Project.vala:164
+#: src/Views/Inbox.vala:96 src/Views/Project.vala:165
 msgid "Invite person"
 msgstr ""
 
-#: src/Views/Inbox.vala:105 src/Views/Project.vala:173
+#: src/Views/Inbox.vala:105 src/Views/Project.vala:174
 msgid "Project comments"
 msgstr ""
 
-#: src/Views/Inbox.vala:113 src/Views/Project.vala:181
+#: src/Views/Inbox.vala:113 src/Views/Project.vala:182
 msgid "Search task"
 msgstr ""
 
-#: src/Views/Inbox.vala:249
+#: src/Views/Inbox.vala:247
 msgid "All clear"
 msgstr ""
 
-#: src/Views/Inbox.vala:250
+#: src/Views/Inbox.vala:248
 msgid "Looks like everything's organized in the right place."
 msgstr ""
 
-#: src/Views/Inbox.vala:753 src/Views/Project.vala:997
+#: src/Views/Inbox.vala:751 src/Views/Project.vala:997
 msgid "Show Completed"
 msgstr ""
 
@@ -860,11 +859,16 @@ msgstr ""
 msgid "Tap + to add a task for today."
 msgstr ""
 
-#: src/Views/Project.vala:364
+#: src/Views/Project.vala:134 src/Views/Project.vala:798
+#, c-format
+msgid "Progress: %s"
+msgstr ""
+
+#: src/Views/Project.vala:363
 msgid "What will you accomplish?"
 msgstr ""
 
-#: src/Views/Project.vala:365
+#: src/Views/Project.vala:364
 msgid "Tap + to add a task to this project."
 msgstr ""
 
