@@ -23,11 +23,11 @@
        inkscape:collect="always"
        id="linearGradient1201">
       <stop
-         style="stop-color:#f9c440;stop-opacity:1"
+         style="stop-color:#fad000;stop-opacity:1"
          offset="0"
          id="stop1197" />
       <stop
-         style="stop-color:#ffe16b;stop-opacity:1"
+         style="stop-color:#fbd933;stop-opacity:1"
          offset="1"
          id="stop1199" />
     </linearGradient>
@@ -742,19 +742,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="32.625"
-     inkscape:cx="8"
-     inkscape:cy="8"
+     inkscape:zoom="23.069359"
+     inkscape:cx="11.554178"
+     inkscape:cy="9.1872065"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1366"
-     inkscape:window-height="705"
-     inkscape:window-x="0"
-     inkscape:window-y="30"
-     inkscape:window-maximized="1"
-     showguides="false" />
+     inkscape:window-width="902"
+     inkscape:window-height="587"
+     inkscape:window-x="549"
+     inkscape:window-y="94"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -789,7 +788,7 @@
        inkscape:connector-curvature="0"
        id="path961"
        d="m 2.1166667,293.06485 c -1.003515,0 -1.81872299,0.8152 -1.81872299,1.81872 0,1.00351 0.81520799,1.81872 1.81872299,1.81872 1.003515,0 1.818723,-0.81521 1.818723,-1.81872 0,-1.00352 -0.815208,-1.81872 -1.818723,-1.81872 z"
-       style="color:#000000;opacity:1;fill:none;fill-opacity:1;stroke:#d48e15;stroke-width:0.06672075;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       style="color:#000000;opacity:1;fill:none;fill-opacity:1;stroke:#c8a600;stroke-width:0.06672075;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     <path
        style="color:#000000;opacity:1;fill:url(#linearGradient1178);fill-opacity:1;stroke:none;stroke-width:0.03497544;stroke-opacity:1"
        d="m 2.1166667,293.06485 c -1.003515,0 -1.81872299,0.8152 -1.81872299,1.81872 0,1.00351 0.81520799,1.81872 1.81872299,1.81872 1.003515,0 1.818723,-0.81521 1.818723,-1.81872 0,-1.00352 -0.815208,-1.81872 -1.818723,-1.81872 z"

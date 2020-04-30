@@ -536,7 +536,7 @@ paned.horizontal > separator {
         inset 0px -1px 6px -15px #3689e6,
 	inset 0px 0px 0px 1.75px alpha (#3689e6, 0.75);
     color: @text_color;
-    background-color: @pane_selected_color;
+    background-color: transparent;
     border-radius: 6px;
 }
 

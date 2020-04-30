@@ -170,10 +170,8 @@ public class Views.Inbox : Gtk.EventBox {
         }
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 36;
-        motion_grid.margin_end = 24;
-        motion_grid.margin_bottom = 12;
-        motion_grid.margin_top = 6;
+        motion_grid.margin_start = 42;
+        motion_grid.margin_end = 42;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 

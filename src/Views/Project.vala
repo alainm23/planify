@@ -131,6 +131,7 @@ public class Views.Project : Gtk.EventBox {
         progress_grid.halign = Gtk.Align.CENTER;
 
         progress_button = new Gtk.ToggleButton ();
+        progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
         progress_button.valign = Gtk.Align.CENTER;
         progress_button.halign = Gtk.Align.CENTER;
         progress_button.can_focus = false;
@@ -230,7 +231,7 @@ public class Views.Project : Gtk.EventBox {
         }
         top_box.pack_end (section_button, false, false, 0);
         top_box.pack_end (progress_button, false, false, 0);
-        top_box.pack_end (due_button, false, false, 0);
+        // top_box.pack_end (due_button, false, false, 0);
 
         note_textview = new Gtk.TextView ();
         note_textview.tooltip_text = _("Add a description");
@@ -286,10 +287,8 @@ public class Views.Project : Gtk.EventBox {
         }
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 36;
-        motion_grid.margin_end = 24;
-        motion_grid.margin_bottom = 12;
-        motion_grid.margin_top = 6;
+        motion_grid.margin_start = 42;
+        motion_grid.margin_end = 42;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -796,6 +795,7 @@ public class Views.Project : Gtk.EventBox {
                     Planner.database.get_count_checked_items_by_project (project.id),
                     Planner.database.get_all_count_items_by_project (project.id)
                 );
+                progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             }
         });
 
@@ -1220,8 +1220,8 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.add (productivity_labe);
         popover_grid.add (progress_box);
         popover_grid.add (progress_bar);
-        popover_grid.add (duedate_box);
-        popover_grid.add (duedate_bar);
+        // popover_grid.add (duedate_box);
+        // popover_grid.add (duedate_bar);
 
         progress_popover.add (popover_grid);
 

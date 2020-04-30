@@ -566,10 +566,11 @@ public class MainWindow : Gtk.Window {
         if (badge_count == 1) {
             count = Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
         } else if (badge_count == 2) {
-            count = Planner.database.get_today_count ();
+            count = Planner.database.get_today_count () + Planner.database.get_past_count ();
         } else if (badge_count == 3) {
             count = (Planner.database.get_project_count (
                 Planner.settings.get_int64 ("inbox-project")) +
+                Planner.database.get_past_count () +
                 Planner.database.get_today_count ()) -
                 Planner.database.get_today_project_count (Planner.settings.get_int64 ("inbox-project")
             );

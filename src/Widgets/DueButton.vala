@@ -49,7 +49,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     construct {
-        tooltip_text = _("Due Date");
+        tooltip_text = _("Schedule");
 
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");

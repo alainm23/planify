@@ -49,6 +49,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         tooltip_markup = tooltip_string;
 
         var checked_button = new Gtk.CheckButton ();
+        checked_button.margin_start = 1;
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.START;
@@ -57,6 +58,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         checked_button.margin_top = 2;
 
         var content_label = new Gtk.Label (item.content);
+        content_label.margin_start = 7;
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.xalign = 0;
@@ -102,7 +104,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
             bottom_box.pack_start (project_preview_grid, false, false, 0);
         }
 
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9);
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.margin = 3;
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_label, false, false, 0);

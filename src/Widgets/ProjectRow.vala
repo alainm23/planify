@@ -433,6 +433,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_context_menu (project);
         }
 
+        // get_style_context ().add_class ("highlight");
+        
         foreach (var child in areas_menu.get_children ()) {
             child.destroy ();
         }
@@ -491,6 +493,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
 
+        menu.hide.connect (() => {
+            // get_style_context ().remove_class ("highlight");
+        });
+
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
         move_area_menu = new Widgets.ImageMenuItem (_("Move"), "move-project-symbolic");
@@ -517,7 +523,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (move_area_menu);
         menu.add (share_menu);
-        menu.add (duplicate_menu);
+        // menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 

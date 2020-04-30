@@ -1794,7 +1794,7 @@ public class Services.Database : GLib.Object {
             if (Planner.utils.is_today (due)) {
                 count++;
             }
-        }
+        } 
 
         return count;
     }

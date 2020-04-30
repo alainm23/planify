@@ -49,7 +49,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         activatable = false;
         selectable = false;
         get_style_context ().add_class ("item-row");
-        margin_end = 16;
+        margin_end = 42;
         margin_start = 6;
 
         var checked_button = new Gtk.CheckButton ();
