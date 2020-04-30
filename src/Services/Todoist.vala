@@ -116,7 +116,12 @@ public class Services.Todoist : GLib.Object {
 
         Planner.database.reset.connect(() => {
             if (this.server_timeout != 0) {
-                Source.remove(this.server_timeout);
+                bool removed = Source.remove(this.server_timeout);
+                if (removed) {
+                    print("todoist sync timer stopped\n");
+                } else {
+                    print("could not remove todoist sync timer\n");
+                }
                 this.server_timeout = 0;
             }
         });

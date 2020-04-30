@@ -143,6 +143,7 @@ public class Services.Database : GLib.Object {
         }
 
         directory.dispose ();
+        this.opened ();
     }
 
     public bool add_item_to_delete (Objects.Item item) {

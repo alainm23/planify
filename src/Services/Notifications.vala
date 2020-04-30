@@ -29,7 +29,12 @@ public class Services.Notifications : GLib.Object {
     construct {
         Planner.database.reset.connect(() => {
             if (this.server_timeout != 0) {
-                Source.remove(this.server_timeout);
+                bool removed = Source.remove(this.server_timeout);
+                if (removed) {
+                    print("notification timer stopped\n");
+                } else {
+                    print("could not remove notification timer\n");
+                }
                 this.server_timeout = 0;
             }
         });
