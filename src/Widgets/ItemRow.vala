@@ -1286,11 +1286,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         Widgets.ImageMenuItem item_menu;
-        int is_todoist = 0;
-        if (Planner.settings.get_boolean ("inbox-project-sync")) {
-            is_todoist = 1;
-        }
-
+        int is_todoist = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist;
         if (item.is_todoist == is_todoist) {
             item_menu = new Widgets.ImageMenuItem (_("Inbox"), "planner-inbox");
             item_menu.activate.connect (() => {

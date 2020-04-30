@@ -1033,7 +1033,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
                     var inbox_project = Planner.database.create_inbox_project ();
 
                     // Set settings
-                    Planner.settings.set_boolean ("inbox-project-sync", false);
                     Planner.settings.set_int64 ("inbox-project", inbox_project.id);
 
                     destroy ();

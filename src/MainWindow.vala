@@ -179,7 +179,6 @@ public class MainWindow : Gtk.Window {
                 Planner.utils.create_default_labels ();
 
                 // Set settings
-                Planner.settings.set_boolean ("inbox-project-sync", false);
                 Planner.settings.set_int64 ("inbox-project", inbox_project.id);
 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
@@ -237,15 +236,10 @@ public class MainWindow : Gtk.Window {
 
         magic_button.clicked.connect (() => {
             if (stack.visible_child_name == "inbox-view") {
-                int is_todoist = 0;
-                if (Planner.settings.get_boolean ("inbox-project-sync")) {
-                    is_todoist = 1;
-                }
-
                 Planner.utils.magic_button_activated (
                     Planner.settings.get_int64 ("inbox-project"),
                     0,
-                    is_todoist,
+                    Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
                     true
                 );
             } else if (stack.visible_child_name == "today-view") {
@@ -602,15 +596,10 @@ public class MainWindow : Gtk.Window {
 
     public void add_task_action (bool last) {
         if (stack.visible_child_name == "inbox-view") {
-            int is_todoist = 0;
-            if (Planner.settings.get_boolean ("inbox-project-sync")) {
-                is_todoist = 1;
-            }
-
             Planner.utils.magic_button_activated (
                 Planner.settings.get_int64 ("inbox-project"),
                 0,
-                is_todoist,
+                Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
                 last
             );
         } else if (stack.visible_child_name == "today-view") {

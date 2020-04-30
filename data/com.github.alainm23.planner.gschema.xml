@@ -144,13 +144,7 @@
             <summary>homepage-item</summary>
             <description>homepage-item</description>
         </key>
-
-        <key name="inbox-project-sync" type="b">
-            <default>false</default>
-            <summary>Inbox Project Sync</summary>
-            <description>Inbox Project Sync</description>
-        </key>
-
+        
         <key name="inbox-show-completed" type="b">
             <default>false</default>
             <summary>Inbox Show Completed</summary>

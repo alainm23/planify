@@ -38,4 +38,5 @@ public class Project : GLib.Object {
     public int64 is_sync { get; set; default = 0; }
     public int shared { get; set; default = 0; }
     public int is_kanban { get; set; default = 0; }
+    public int show_completed { get; set; default = 0; }
 }

@@ -233,7 +233,6 @@ public class Services.Todoist : GLib.Object {
                         }
 
                         // Set Inbox Project
-                        Planner.settings.set_boolean ("inbox-project-sync", true);
                         Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
 
@@ -2071,6 +2070,19 @@ public class Services.Todoist : GLib.Object {
             if (item.section_id != 0) {
                 builder.set_member_name ("section_id");
                 builder.add_int_value (item.section_id);
+            }
+
+            if (item.due_date != "") {
+                builder.set_member_name ("due");
+                builder.begin_object ();
+
+                builder.set_member_name ("date");
+                builder.add_string_value (new GLib.DateTime.from_iso8601 (
+                    item.due_date,
+                    new GLib.TimeZone.local ()).format ("%F")
+                );
+
+                builder.end_object ();
             }
 
             builder.end_object ();

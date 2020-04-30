@@ -100,33 +100,33 @@ public class MainWindow : Gtk.Window {
         project_combobox.get_style_context ().add_class ("quick-add-combobox");
         project_combobox.valign = Gtk.Align.CENTER;
 
+        Gtk.TreeIter inbox_iter;
+        list_store.append (out inbox_iter);
+
+        var inbox_project = PlannerQuickAdd.database.get_project_by_id (PlannerQuickAdd.settings.get_int64 ("inbox-project"));
+        list_store.@set (inbox_iter,
+            0, inbox_project,
+            1, " " + _("Inbox"),
+            2, "planner-inbox"
+        );
+
+        if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == false) {
+            project_combobox.set_active_iter (inbox_iter);
+        }
+
         Gtk.TreeIter iter;
-        string icon_name;
         foreach (var project in PlannerQuickAdd.database.get_all_projects ()) {
             list_store.append (out iter);
-
-            if (project.inbox_project == 1) {
-                icon_name = "planner-inbox";
-            } else {
-                icon_name = "color-%i".printf (project.color);
-            }
 
             list_store.@set (iter,
                 0, project,
                 1, " " + project.name,
-                2, icon_name
+                2, "color-%i".printf (project.color)
             );
 
             if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true &&
                 PlannerQuickAdd.settings.get_int64 ("quick-add-project-selected") == 0) {
-                if (project.inbox_project == 1) {
-                    project_combobox.set_active_iter (iter);
-                }
-            }
-
-            if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == false &&
-                project.inbox_project == 1) {
-                project_combobox.set_active_iter (iter);
+                project_combobox.set_active_iter (inbox_iter);
             }
 
             if (PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true &&
@@ -279,9 +279,9 @@ public class MainWindow : Gtk.Window {
             item.project_id = project.id;
             item.content = content_entry.text;
             item.is_todoist = project.is_todoist;
-
+            
             if (project.inbox_project == 1) {
-                if (PlannerQuickAdd.settings.get_boolean ("inbox-project-sync")) {
+                if (PlannerQuickAdd.database.get_project_by_id (PlannerQuickAdd.settings.get_int64 ("inbox-project")).is_todoist == 1) {
                     PlannerQuickAdd.database.add_todoist_item (item);
                 } else {
                     PlannerQuickAdd.database.insert_item (item);

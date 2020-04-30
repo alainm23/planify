@@ -90,19 +90,15 @@ public class Views.Today : Gtk.EventBox {
         view_stack.add_named (listbox, "listbox");
         view_stack.add_named (placeholder_view, "placeholder");
 
-        int is_todoist = 0;
-        if (Planner.settings.get_boolean ("inbox-project-sync")) {
-            is_todoist = 1;
-        }
-
         new_item = new Widgets.NewItem (
             Planner.settings.get_int64 ("inbox-project"),
             0,
-            is_todoist
+            Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist
         );
         new_item.margin_top = 6;
         new_item.margin_start = 36;
         new_item.margin_end = 32;
+        new_item.due_date = new GLib.DateTime.now_local ().to_string ();
 
         new_item_revealer = new Gtk.Revealer ();
         new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -415,7 +411,6 @@ public class Views.Today : Gtk.EventBox {
         if (new_item_revealer.reveal_child) {
             new_item_revealer.reveal_child = false;
         } else {
-            new_item.due_date = new GLib.DateTime.now_local ().to_string ();
             new_item_revealer.reveal_child = true;
             new_item.entry_grab_focus ();
 
