@@ -1803,7 +1803,7 @@ public class Services.Database : GLib.Object {
             if (Planner.utils.is_today (due)) {
                 count++;
             }
-        }
+        } 
 
         return count;
     }
@@ -3052,6 +3052,57 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due_date = stmt.column_text (14);
+            i.due_timezone = stmt.column_text (15);
+            i.due_string = stmt.column_text (16);
+            i.due_lang = stmt.column_text (17);
+            i.due_is_recurring = stmt.column_int (18);
+            i.date_added = stmt.column_text (19);
+            i.date_completed = stmt.column_text (20);
+            i.date_updated = stmt.column_text (21);
+            i.is_todoist = stmt.column_int (22);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist
+            FROM Items WHERE checked = 1 ORDER BY date_completed DESC;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Item?> ();

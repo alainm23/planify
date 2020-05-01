@@ -77,7 +77,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        hidden_button.margin_end = 6;
+        // hidden_button.margin_end = 6;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -150,7 +150,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, true, 0);
+        // top_box.pack_end (settings_revealer, false, true, 0);
         top_box.pack_end (hidden_revealer, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
@@ -222,9 +222,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 42;
-        motion_grid.margin_bottom = 12;
+        motion_grid.margin_bottom = 0;
         motion_grid.margin_end = 40;
-        motion_grid.margin_top = 6;
+        motion_grid.margin_top = 12;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -257,6 +257,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.drag_data_received.connect (on_drag_data_received);
 
         completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 38;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
@@ -721,11 +722,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         Widgets.ImageMenuItem item_menu;
-        int is_todoist = 0;
-        if (Planner.settings.get_boolean ("inbox-project-sync")) {
-            is_todoist = 1;
-        }
-
+        int is_todoist = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist;
         if (section.is_todoist == is_todoist) {
             item_menu = new Widgets.ImageMenuItem (_("Inbox"), "planner-inbox");
             item_menu.activate.connect (() => {

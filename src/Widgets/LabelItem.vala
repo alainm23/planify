@@ -40,6 +40,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         delete_image.pixel_size = 13;
 
         var delete_button = new Gtk.Button ();
+        delete_button.tooltip_text = _("Remove");
         delete_button.can_focus = false;
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.halign = Gtk.Align.CENTER;
