@@ -561,6 +561,7 @@ public class Services.Todoist : GLib.Object {
                                     // Update data
                                     i.content = object.get_string_member ("content");
                                     i.is_todoist = 1;
+                                    i.priority = (int32) object.get_int_member ("priority");
                                     i.checked = (int32) object.get_int_member ("checked");
                                     Planner.database.update_item (i);
 
@@ -2266,6 +2267,13 @@ public class Services.Todoist : GLib.Object {
 
             builder.set_member_name ("content");
             builder.add_string_value (item.content);
+
+            builder.set_member_name ("priority");
+            if (item.priority == 0) {
+                builder.add_int_value (1);
+            } else {
+                builder.add_int_value (item.priority);
+            }
 
             if (item.due_date != "") {
                 builder.set_member_name ("due");

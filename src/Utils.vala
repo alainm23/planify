@@ -721,7 +721,7 @@ public class Utils : GLib.Object {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
             } else if (appearance_mode == 1) {
                 base_color = "#282828";
-                check_border_color = "alpha (#000000, 0.5)";
+                check_border_color = "grey";
                 projectview_color = "#1f1f1f";
                 pane_color = "shade (@bg_color, 0.7)";
                 pane_selected_color = "#282828";
@@ -732,7 +732,7 @@ public class Utils : GLib.Object {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             } else if (appearance_mode == 2) {
                 base_color = "#15151B";
-                check_border_color = "#333333";
+                check_border_color = "grey";
                 projectview_color = "#0B0B11";
                 pane_color = "#15151B";
                 pane_selected_color = "#1D2836";

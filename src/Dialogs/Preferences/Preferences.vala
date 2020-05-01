@@ -414,7 +414,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
-        // main_box.pack_start (dark_blue_radio, false, false, 0);
+        main_box.pack_start (dark_blue_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
         if (Planner.settings.get_enum ("appearance") == 0) {

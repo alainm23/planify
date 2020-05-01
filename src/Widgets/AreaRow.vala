@@ -152,7 +152,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_stack.add_named (name_entry, "name_entry");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 4;
+        top_box.margin_start = 5;
         top_box.margin_top = 1;
         top_box.margin_bottom = 1;
         top_box.pack_start (area_image, false, false, 0);
@@ -611,7 +611,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             build_context_menu (area);
         }
 
-        // top_eventbox.get_style_context ().add_class ("highlight");
+        top_eventbox.get_style_context ().add_class ("highlight");
         
         menu.popup_at_pointer (null);
     }
@@ -621,7 +621,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         menu.hide.connect (() => {
-            // top_eventbox.get_style_context ().remove_class ("highlight");
+            top_eventbox.get_style_context ().remove_class ("highlight");
         });
 
         var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");

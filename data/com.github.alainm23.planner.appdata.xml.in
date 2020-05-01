@@ -55,7 +55,6 @@
           <li>[GitHub #334] - Overdue tasks are now counted in badge count.</li>
           <li>[GitHub #333] - Today's tasks are displayed correctly.</li>
           <li>[GitHub #331 #330] - The progress indicator in the project view now has a tooltip.</li>
-          <li></li>
         </ul>
       </description>
     </release>

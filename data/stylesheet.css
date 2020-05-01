@@ -1018,3 +1018,27 @@ paned.horizontal > separator {
             )
         ); 
 }
+
+.priority-4 check {
+    border-radius: 4px;
+    border-color: #ff7066;
+    background: rgba (255, 112, 102, 0.1);
+}
+
+.priority-3 check {
+    border-radius: 4px;
+    border-color: #ff9a14;
+    background: rgba (255, 154, 20, 0.1);
+}
+
+.priority-2 check {
+    border-radius: 4px;
+    border-color: #5297ff;
+    background: rgba (82, 151, 255, 0.1);
+}
+
+.priority-1 check {
+    border-radius: 4px;
+    border-color: @check_border_color;
+    background-color: transparent;
+}

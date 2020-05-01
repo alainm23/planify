@@ -113,6 +113,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_label.get_style_context ().add_class ("font-bold");
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
+        var name_eventbox = new Gtk.EventBox ();
+        name_eventbox.add (name_label);
+
         name_entry = new Gtk.Entry ();
         name_entry.text = section.name;
         name_entry.hexpand = true;
@@ -126,7 +129,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_stack.margin_start = 12;
         name_stack.hexpand = true;
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        name_stack.add_named (name_label, "name_label");
+        name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
         var settings_image = new Gtk.Image ();
@@ -444,7 +447,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             add_new_item (false);
         });
 
-        top_eventbox.event.connect ((event) => {
+        name_eventbox.event.connect ((event) => {
             if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
@@ -485,7 +488,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         note_textview.focus_in_event.connect (() => {
             note_placeholder.visible = false;
             note_placeholder.no_show_all = true;
-            separator_revealer.reveal_child = false;
+            // separator_revealer.reveal_child = false;
 
             return false;
         });
@@ -499,7 +502,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 note_revealer.reveal_child = true;
             }
 
-            separator_revealer.reveal_child = true;
+            // separator_revealer.reveal_child = true;
 
             return false;
         });
@@ -521,7 +524,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         note_textview.buffer.changed.connect (() => {
-            separator_revealer.reveal_child = false;
+            // separator_revealer.reveal_child = false;
             save (false);
         });
 
@@ -813,7 +816,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         note_menu.activate.connect (() => {
-            separator_revealer.reveal_child = false;
+            // separator_revealer.reveal_child = false;
             note_revealer.reveal_child = true;
             note_textview.grab_focus ();
         });
@@ -1051,13 +1054,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_magicbutton_motion (Gdk.DragContext context, int x, int y, uint time) {
-        // separator_revealer.reveal_child = false;
         motion_revealer.reveal_child = true;
         return true;
     }
 
     public void on_drag_magicbutton_leave (Gdk.DragContext context, uint time) {
-        // separator_revealer.reveal_child = true;
         motion_revealer.reveal_child = false;
     }
 

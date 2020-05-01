@@ -179,8 +179,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button.margin_start = 6;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.BASELINE;
-        checked_button.get_style_context ().add_class ("checklist-button");
         checked_button.active = item.checked == 1;
+
+        check_priority_style ();
 
         content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.hexpand = true;
@@ -795,6 +796,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                     item.content = i.content;
                     item.note = i.note;
+                    item.priority = i.priority;
 
                     content_entry.text = item.content;
                     content_label.label = Planner.utils.get_markup_format (item.content);
@@ -807,6 +809,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                         note_placeholder.visible = false;
                         note_placeholder.no_show_all = true;
                     }
+
+                    check_priority_style ();
 
                     Timeout.add (250, () => {
                         save_off = false;
@@ -1258,8 +1262,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             undated_menu.visible = false;
             undated_menu.no_show_all = true;
         } else {
-            undated_menu.visible = true;
-            undated_menu.no_show_all = false;
+            undated_menu.visible = visible;
+            undated_menu.no_show_all = !visible;
         }
 
         edit_menu.visible = visible;
@@ -1270,9 +1274,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         tomorrow_menu.visible = visible; 
         tomorrow_menu.no_show_all = !visible;
-
-        undated_menu.visible = visible;
-        undated_menu.no_show_all = !visible;
 
         date_separator.visible = visible;
         date_separator.no_show_all = !visible;
@@ -1515,6 +1516,25 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_listbox.show_all ();
 
             update_check_order ();
+        }
+    }
+
+    private void check_priority_style () {
+        checked_button.get_style_context ().remove_class ("priority-4");
+        checked_button.get_style_context ().remove_class ("priority-3");
+        checked_button.get_style_context ().remove_class ("priority-2");
+        checked_button.get_style_context ().remove_class ("priority-1");
+
+        if (item.priority == 0 || item.priority == 1) {
+            checked_button.get_style_context ().add_class ("priority-1");
+        } else if (item.priority == 2) {
+            checked_button.get_style_context ().add_class ("priority-2");
+        } else if (item.priority == 3) {
+            checked_button.get_style_context ().add_class ("priority-3");
+        } else if (item.priority == 4) {
+            checked_button.get_style_context ().add_class ("priority-4");
+        } else {
+            checked_button.get_style_context ().add_class ("priority-1");
         }
     }
 

@@ -2469,7 +2469,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Items SET content = ?, note = ?, due_date = ?, is_deleted = ?, checked = ?, 
-            item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?
+            item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?,
+            priority = ?
             WHERE id = ?;
         """;
 
@@ -2506,7 +2507,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (10, item.date_updated);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (11, item.id);
+        res = stmt.bind_int (11, item.priority);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (12, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {

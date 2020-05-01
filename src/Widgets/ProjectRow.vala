@@ -433,7 +433,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             build_context_menu (project);
         }
 
-        // get_style_context ().add_class ("highlight");
+        get_style_context ().add_class ("highlight");
         
         foreach (var child in areas_menu.get_children ()) {
             child.destroy ();
@@ -494,7 +494,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         menu.hide.connect (() => {
-            // get_style_context ().remove_class ("highlight");
+            get_style_context ().remove_class ("highlight");
         });
 
         var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
