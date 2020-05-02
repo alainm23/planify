@@ -100,11 +100,16 @@ public class Services.Database : GLib.Object {
         this.remove_trash ();
         this.patch_database ();
         // fire signal to tell that the database is ready
-        this.opened();
+        this.opened ();
     }
 
     public void patch_database () {
-        // Release 2.3
+        /*
+        * Release 2.3
+        * - Add note to Sections
+        * - Add show_completed yo Projects
+        */
+        
         if (!Planner.database.column_exists ("Sections", "note")) {
               Planner.database.add_text_column ("Sections", "note", "");
         }

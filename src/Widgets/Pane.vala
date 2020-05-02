@@ -96,7 +96,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.margin_start = 15;
         listbox.margin_end = 16;
 
-        Planner.database.opened.connect(() => {
+        Planner.database.opened.connect (() => {
             listbox.foreach ((row) => listbox.remove (row));
             listbox.add (inbox_row);
             listbox.add (today_row);

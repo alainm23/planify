@@ -111,8 +111,7 @@ public class MainWindow : Gtk.Window {
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
-        Planner.database.opened.connect(() => {
-
+        Planner.database.opened.connect (() => {
             if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;

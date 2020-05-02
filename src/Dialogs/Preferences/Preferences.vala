@@ -68,7 +68,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var stack_scrolled = new Gtk.ScrolledWindow (null, null);
         stack_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        stack_scrolled.vscrollbar_policy = Gtk.PolicyType.NEVER;
         stack_scrolled.width_request = 246;
         stack_scrolled.expand = true;
         stack_scrolled.add (stack);
@@ -278,7 +277,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -665,7 +663,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -790,7 +787,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -893,7 +889,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -1099,7 +1094,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -1190,7 +1184,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 

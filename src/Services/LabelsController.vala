@@ -21,7 +21,7 @@
 
 public class Services.LabelsController : GLib.Object {
     construct {
-        Planner.database.opened.connect(this.init);
+        Planner.database.opened.connect (this.init);
     }
 
     private void init() {

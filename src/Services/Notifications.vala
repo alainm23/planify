@@ -27,7 +27,7 @@ public class Services.Notifications : GLib.Object {
     private uint server_timeout = 0;
 
     construct {
-        Planner.database.reset.connect(() => {
+        Planner.database.reset.connect (() => {
             if (this.server_timeout != 0) {
                 Source.remove(this.server_timeout);
                 this.server_timeout = 0;
