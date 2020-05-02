@@ -890,7 +890,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Areas ORDER BY item_order;
+            SELECT id, name, date_added, collapsed, item_order FROM Areas ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1426,7 +1426,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE area_id = ? ORDER BY item_order;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE area_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1470,7 +1472,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE is_todoist = 1;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE is_todoist = 1;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1528,7 +1532,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects ORDER BY item_order;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1569,7 +1575,9 @@ public class Services.Database : GLib.Object {
         int res;
         
         sql = """
-            SELECT * FROM Projects WHERE name LIKE '%s';
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE name LIKE '%s';
         """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1596,6 +1604,7 @@ public class Services.Database : GLib.Object {
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1652,7 +1661,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE id = ?;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1886,7 +1897,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels WHERE name LIKE '%s';
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels WHERE name LIKE '%s';
         """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1917,7 +1929,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels ORDER BY item_order;
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1948,7 +1961,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels WHERE id = ?;
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2124,7 +2138,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Sections WHERE id = ?;
+            SELECT id, name, project_id, item_order, collapsed, sync_id,
+                is_deleted, is_archived, date_archived, date_added, is_todoist, note
+            FROM Sections WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2159,7 +2175,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Sections WHERE project_id = ? ORDER BY item_order;
+            SELECT id, name, project_id, item_order, collapsed, sync_id, is_deleted, is_archived,
+                date_archived, date_added, is_todoist, note
+            FROM Sections WHERE project_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
