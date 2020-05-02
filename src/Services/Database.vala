@@ -69,13 +69,16 @@ public class Services.Database : GLib.Object {
 
     public signal void check_project_count (int64 project_id);
 
+    public signal void opened ();
     public signal void reset ();
 
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (Objects.Item item, string type="");
 
-    public Database () {
+    public Database () {}
+
+    public void open_database () {
         int rc = 0;
         db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
 
@@ -93,6 +96,11 @@ public class Services.Database : GLib.Object {
         }
 
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
+
+        this.remove_trash ();
+        this.patch_database ();
+        // fire signal to tell that the database is ready
+        this.opened();
     }
 
     public void patch_database () {
@@ -135,6 +143,7 @@ public class Services.Database : GLib.Object {
         }
 
         directory.dispose ();
+        this.opened ();
     }
 
     public bool add_item_to_delete (Objects.Item item) {
