@@ -52,7 +52,7 @@ public class Widgets.SourceItem : Gtk.ListBoxRow {
 
         visible_checkbutton = new Gtk.CheckButton ();
         visible_checkbutton.can_focus = false;
-        visible_checkbutton.get_style_context ().add_class ("checklist-button");
+        visible_checkbutton.get_style_context ().add_class ("checklist-radio");
         visible_checkbutton.active = !get_source_visible ();
 
         var location_label = new Gtk.Label ("<small>%s</small>".printf (location));

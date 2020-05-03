@@ -70,7 +70,7 @@ public class Widgets.Pane : Gtk.EventBox {
         //search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now.")); // vala-lint=line-length
         today_row = new Widgets.ActionRow (_("Today"), "help-about-symbolic", "today", _("The Today view lets you see all the tasks due today across all your projects. Check in here every morning to make a realistic plan to tackle your day.")); // vala-lint=line-length
-        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "planner-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events.")); // vala-lint=line-length
+        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", _("Plan your week ahead with the Upcoming view. It shows everything on your agenda for the coming days: scheduled to-dos and calendar events.")); // vala-lint=line-length
         //var back_row = new Widgets.ActionRow (_("Trash"), "user-trash-symbolic", "upcoming", _("Upcoming"));
         
         add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
@@ -96,10 +96,13 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.margin_start = 15;
         listbox.margin_end = 16;
 
-        listbox.add (inbox_row);
-        listbox.add (today_row);
-        listbox.add (upcoming_row);
-        //listbox.add (back_row);
+        Planner.database.opened.connect (() => {
+            listbox.foreach ((row) => listbox.remove (row));
+            listbox.add (inbox_row);
+            listbox.add (today_row);
+            listbox.add (upcoming_row);
+            listbox.show_all ();
+        });
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 6;
@@ -602,8 +605,10 @@ public class Widgets.Pane : Gtk.EventBox {
             listbox.select_row (inbox_row);
         } else if (id == 1) {
             listbox.select_row (today_row);
-        } else {
+        } else if (id == 2) {
             listbox.select_row (upcoming_row);
+        } else {
+            listbox.unselect_all ();
         }
     }
 

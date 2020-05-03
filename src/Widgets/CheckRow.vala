@@ -53,7 +53,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
-        checked_button.get_style_context ().add_class ("checklist-button");
+        checked_button.get_style_context ().add_class ("checklist-border");
         checked_button.get_style_context ().add_class ("checklist-check");
 
         content_label = new Gtk.Label (item.content);

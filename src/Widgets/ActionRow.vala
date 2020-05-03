@@ -142,6 +142,14 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         });
 
         if (item_base_name == "today") {
+            Planner.database.item_added.connect ((item) => {
+                update_count ();
+            });
+
+            Planner.database.item_added_with_index.connect ((item) => {
+                update_count ();
+            });
+
             Planner.database.item_completed.connect ((item) => {
                 update_count ();
             });

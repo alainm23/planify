@@ -18,11 +18,23 @@
         <value nick="Close Only Right" value="7" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.appearance">
+        <value nick="Light" value="0" />
+        <value nick="Black" value="1" />
+        <value nick="Dark Blue" value="2" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
+
+        <key name="appearance" enum="com.github.alainm23.planner.appearance">
+            <default>"Light"</default>
+            <summary></summary>
+            <description></description>
         </key>
 
         <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
@@ -72,13 +84,7 @@
             <summary>Most recent pane position</summary>
             <description>Most recent pane position</description>
         </key>
-
-        <key name="prefer-dark-style" type="b">
-            <default>false</default>
-            <summary>If the dark Gtk stylesheet should be used</summary>
-            <description>If the dark Gtk stylesheet should be used</description>
-        </key>
-
+        
         <key name="calendar-enabled" type="b">
             <default>true</default>
             <summary>enabled enabled</summary>
@@ -138,19 +144,7 @@
             <summary>homepage-item</summary>
             <description>homepage-item</description>
         </key>
-
-        <key name="inbox-project-sync" type="b">
-            <default>false</default>
-            <summary>Inbox Project Sync</summary>
-            <description>Inbox Project Sync</description>
-        </key>
-
-        <key name="inbox-show-completed" type="b">
-            <default>false</default>
-            <summary>Inbox Show Completed</summary>
-            <description>Inbox Show Completed</description>
-        </key>
-
+        
         <key name="user-name" type="s">
             <default>""</default>
             <summary>User name</summary>

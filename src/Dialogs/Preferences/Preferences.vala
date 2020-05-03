@@ -68,7 +68,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var stack_scrolled = new Gtk.ScrolledWindow (null, null);
         stack_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        stack_scrolled.vscrollbar_policy = Gtk.PolicyType.NEVER;
         stack_scrolled.width_request = 246;
         stack_scrolled.expand = true;
         stack_scrolled.add (stack);
@@ -177,7 +176,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             if (Planner.settings.get_boolean ("todoist-account")) {
                 stack.visible_child_name = "todoist";
             } else {
-                var todoist_oauth = new Dialogs.TodoistOAuth ();
+                var todoist_oauth = new Dialogs.TodoistOAuth ("preferences");
                 todoist_oauth.show_all ();
             }
         });
@@ -278,7 +277,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -404,6 +402,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var night_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Night"));
         night_radio.get_style_context ().add_class ("preference-item-radio");
 
+        var dark_blue_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Dark Blue"));
+        dark_blue_radio.get_style_context ().add_class ("preference-item-radio");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
@@ -411,22 +412,31 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
+        main_box.pack_start (dark_blue_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
-        if (Planner.settings.get_boolean ("prefer-dark-style")) {
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            light_radio.active = true;
+        } else if (Planner.settings.get_enum ("appearance") == 1) {
             night_radio.active = true;
-        }
+        } else if (Planner.settings.get_enum ("appearance") == 2) {
+            dark_blue_radio.active = true;
+        }   
 
         info_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
         });
 
         light_radio.toggled.connect (() => {
-            Planner.settings.set_boolean ("prefer-dark-style", false);
+            Planner.settings.set_enum ("appearance", 0);
         });
 
         night_radio.toggled.connect (() => {
-            Planner.settings.set_boolean ("prefer-dark-style", true);
+            Planner.settings.set_enum ("appearance", 1);
+        });
+
+        dark_blue_radio.toggled.connect (() => {
+            Planner.settings.set_enum ("appearance", 2);
         });
 
         return main_box;
@@ -659,7 +669,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -784,7 +793,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -887,7 +895,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -1027,7 +1034,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
                     var inbox_project = Planner.database.create_inbox_project ();
 
                     // Set settings
-                    Planner.settings.set_boolean ("inbox-project-sync", false);
                     Planner.settings.set_int64 ("inbox-project", inbox_project.id);
 
                     destroy ();
@@ -1094,7 +1100,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
@@ -1185,7 +1190,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.vscrollbar_policy = Gtk.PolicyType.EXTERNAL;
         box_scrolled.expand = true;
         box_scrolled.add (box);
 

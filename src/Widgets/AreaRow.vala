@@ -77,7 +77,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         area_image.halign = Gtk.Align.CENTER;
         area_image.valign = Gtk.Align.CENTER;
         area_image.gicon = new ThemedIcon ("folder-outline");
-        area_image.pixel_size = 16;
+        area_image.pixel_size = 18;
         if (area.collapsed == 1) {
             area_image.gicon = new ThemedIcon ("folder-open-outline");
         }
@@ -146,17 +146,18 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_entry.hexpand = true;
 
         name_stack = new Gtk.Stack ();
-        name_stack.margin_start = 8;
+        name_stack.margin_start = 9;
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
         name_stack.add_named (info_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 11;
-        top_box.margin_end = 5;
+        top_box.margin_start = 5;
+        top_box.margin_top = 1;
+        top_box.margin_bottom = 1;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, false, 0);
+        // top_box.pack_end (settings_revealer, false, false, 0);
         top_box.pack_end (hidden_revealer, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));
@@ -181,6 +182,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         action_revealer.reveal_child = false;
 
         top_eventbox = new Gtk.EventBox ();
+        top_eventbox.margin_start = 5;
+        top_eventbox.margin_end = 5;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
 
@@ -608,12 +611,18 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             build_context_menu (area);
         }
 
+        top_eventbox.get_style_context ().add_class ("highlight");
+        
         menu.popup_at_pointer (null);
     }
 
     private void build_context_menu (Objects.Area area) {
         menu = new Gtk.Menu ();
         menu.width_request = 200;
+
+        menu.hide.connect (() => {
+            top_eventbox.get_style_context ().remove_class ("highlight");
+        });
 
         var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");
         add_menu.get_style_context ().add_class ("add-button-menu");

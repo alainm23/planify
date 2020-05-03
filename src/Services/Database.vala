@@ -69,17 +69,16 @@ public class Services.Database : GLib.Object {
 
     public signal void check_project_count (int64 project_id);
 
+    public signal void opened ();
     public signal void reset ();
 
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (Objects.Item item, string type="");
 
-    public Database () {
-        this.open_database ();
-    }
+    public Database () {}
 
-    private void open_database () {
+    public void open_database () {
         int rc = 0;
         db_path = this.get_database_path();
 
@@ -97,6 +96,11 @@ public class Services.Database : GLib.Object {
         }
 
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
+
+        this.remove_trash ();
+        this.patch_database ();
+        // fire signal to tell that the database is ready
+        this.opened ();
     }
 
     public string get_database_path() {
@@ -126,7 +130,12 @@ public class Services.Database : GLib.Object {
     }
 
     public void patch_database () {
-        // Release 2.3
+        /*
+        * Release 2.3
+        * - Add note to Sections
+        * - Add show_completed yo Projects
+        */
+        
         if (!Planner.database.column_exists ("Sections", "note")) {
               Planner.database.add_text_column ("Sections", "note", "");
         }
@@ -165,6 +174,7 @@ public class Services.Database : GLib.Object {
         }
 
         directory.dispose ();
+        this.opened ();
     }
 
     public bool add_item_to_delete (Objects.Item item) {
@@ -906,7 +916,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Areas ORDER BY item_order;
+            SELECT id, name, date_added, collapsed, item_order FROM Areas ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1442,7 +1452,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE area_id = ? ORDER BY item_order;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE area_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1486,7 +1498,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE is_todoist = 1;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE is_todoist = 1;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1544,7 +1558,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects ORDER BY item_order;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1585,7 +1601,9 @@ public class Services.Database : GLib.Object {
         int res;
         
         sql = """
-            SELECT * FROM Projects WHERE name LIKE '%s';
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE name LIKE '%s';
         """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1612,6 +1630,7 @@ public class Services.Database : GLib.Object {
             p.is_sync = stmt.column_int (13);
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
 
             all.add (p);
         }
@@ -1668,7 +1687,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects WHERE id = ?;
+            SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
+            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+            FROM Projects WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1824,7 +1845,7 @@ public class Services.Database : GLib.Object {
             if (Planner.utils.is_today (due)) {
                 count++;
             }
-        }
+        } 
 
         return count;
     }
@@ -1902,7 +1923,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels WHERE name LIKE '%s';
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels WHERE name LIKE '%s';
         """.printf ("%" + search_text + "%");
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1933,7 +1955,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels ORDER BY item_order;
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1964,7 +1987,8 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Labels WHERE id = ?;
+            SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
+            FROM Labels WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2140,7 +2164,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Sections WHERE id = ?;
+            SELECT id, name, project_id, item_order, collapsed, sync_id,
+                is_deleted, is_archived, date_archived, date_added, is_todoist, note
+            FROM Sections WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2175,7 +2201,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Sections WHERE project_id = ? ORDER BY item_order;
+            SELECT id, name, project_id, item_order, collapsed, sync_id, is_deleted, is_archived,
+                date_archived, date_added, is_todoist, note
+            FROM Sections WHERE project_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -2499,7 +2527,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Items SET content = ?, note = ?, due_date = ?, is_deleted = ?, checked = ?, 
-            item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?
+            item_order = ?, project_id = ?, section_id = ?, date_completed = ?, date_updated = ?,
+            priority = ?
             WHERE id = ?;
         """;
 
@@ -2536,7 +2565,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (10, item.date_updated);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (11, item.id);
+        res = stmt.bind_int (11, item.priority);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (12, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -3073,6 +3105,57 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due_date = stmt.column_text (14);
+            i.due_timezone = stmt.column_text (15);
+            i.due_string = stmt.column_text (16);
+            i.due_lang = stmt.column_text (17);
+            i.due_is_recurring = stmt.column_int (18);
+            i.date_added = stmt.column_text (19);
+            i.date_completed = stmt.column_text (20);
+            i.date_updated = stmt.column_text (21);
+            i.is_todoist = stmt.column_int (22);
+
+            all.add (i);
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist
+            FROM Items WHERE checked = 1 ORDER BY date_completed DESC;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Item?> ();

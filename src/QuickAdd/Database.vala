@@ -67,7 +67,7 @@ public class Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT * FROM Projects ORDER BY item_order;
+            SELECT * FROM Projects WHERE inbox_project = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -99,6 +99,46 @@ public class Database : GLib.Object {
         }
 
         return all;
+    }
+
+    public Project? get_project_by_id (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM Projects WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var p = new Project ();
+
+        if (stmt.step () == Sqlite.ROW) {
+            p.id = stmt.column_int64 (0);
+            p.area_id = stmt.column_int64 (1);
+            p.name = stmt.column_text (2);
+            p.note = stmt.column_text (3);
+            p.due_date = stmt.column_text (4);
+            p.color = stmt.column_int (5);
+            p.is_todoist = stmt.column_int (6);
+            p.inbox_project = stmt.column_int (7);
+            p.team_inbox = stmt.column_int (8);
+            p.item_order = stmt.column_int (9);
+            p.is_deleted = stmt.column_int (10);
+            p.is_archived = stmt.column_int (11);
+            p.is_favorite = stmt.column_int (12);
+            p.is_sync = stmt.column_int (13);
+            p.shared = stmt.column_int (14);
+            p.is_kanban = stmt.column_int (15);
+            p.show_completed = stmt.column_int (16);
+        }
+
+        return p;
     }
 
     public bool insert_item (Item item) {

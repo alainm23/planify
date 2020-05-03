@@ -28,7 +28,7 @@ public class Objects.Item : GLib.Object {
     public int64 responsible_uid { get; set; default = 0; }
     public int64 sync_id { get; set; default = 0; }
     public int64 parent_id { get; set; default = 0; }
-    public int priority { get; set; default = 0; }
+    public int priority { get; set; default = 1; }
     public int item_order { get; set; default = 0; }
     public int checked { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }

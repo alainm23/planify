@@ -23,13 +23,13 @@ public class Views.Upcoming : Gtk.EventBox {
     public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
     private Gtk.ListBox listbox;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
-
+    
     construct {
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.gicon = new ThemedIcon ("planner-calendar-symbolic");
+        icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
         icon_image.get_style_context ().add_class ("upcoming-icon");
         icon_image.pixel_size = 16;
 

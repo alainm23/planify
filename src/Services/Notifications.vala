@@ -24,8 +24,19 @@ public class Services.Notifications : GLib.Object {
     public signal void send_notification (string message, string icon="notification-symbolic");
     public signal void send_undo_notification (int64 object_id, string object_type, string undo_type, string undo_value = "");
 
+    private uint server_timeout = 0;
+
+    construct {
+        Planner.database.reset.connect (() => {
+            if (this.server_timeout != 0) {
+                Source.remove(this.server_timeout);
+                this.server_timeout = 0;
+            }
+        });
+    }
+
     public void init_server () {
-        Timeout.add_seconds (1 * 60, () => {
+        this.server_timeout = Timeout.add_seconds (1 * 60, () => {
             foreach (var reminder in Planner.database.get_reminders ()) {
                 if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
                     var notification = new Notification (reminder.project_name);

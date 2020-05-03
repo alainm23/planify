@@ -157,6 +157,8 @@ public class Planner : Gtk.Application {
         }
 
         utils.set_quick_add_shortcut (quick_add_shortcut);
+
+        database.open_database ();
     }
     
     public string get_os_info (string field) {
