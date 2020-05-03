@@ -134,7 +134,7 @@ public class Widgets.New : Gtk.Revealer {
                 2, "color-%i".printf (color)
             );
 
-            if (color == 30) {
+            if (color == 42) {
                 color_combobox.set_active_iter (iter);
             }
         }

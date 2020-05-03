@@ -401,7 +401,7 @@ public class Views.Inbox : Gtk.EventBox {
         Planner.database.item_completed.connect ((item) => {
             Idle.add (() => {
                 if (project.id == item.project_id) {
-                    if (item.checked == 1 && item.section_id == 0) {
+                    if (item.checked == 1 && item.section_id == 0 && item.parent_id == 0) {
                         if (items_uncompleted_added.has_key (item.id.to_string ())) {
                             items_uncompleted_added.get (item.id.to_string ()).destroy ();
                             items_uncompleted_added.unset (item.id.to_string ());

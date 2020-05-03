@@ -21,7 +21,8 @@
     <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
     <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
     <file alias="planner-repeat-symbolic.svg">resources/planner-repeat-symbolic.svg</file>
-
+    <file alias="priority-symbolic.svg">resources/priority-symbolic.svg</file>
+    
     <file alias="color-30.svg">resources/colors/color-30.svg</file>
     <file alias="color-31.svg">resources/colors/color-31.svg</file>
     <file alias="color-32.svg">resources/colors/color-32.svg</file>

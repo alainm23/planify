@@ -305,7 +305,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Checklist
         var checklist_preview_image = new Gtk.Image ();
         checklist_preview_image.margin_end = 6;
-        checklist_preview_image.gicon = new ThemedIcon ("view-list-compact-symbolic");
+        checklist_preview_image.gicon = new ThemedIcon ("emblem-default-symbolic");
         checklist_preview_image.pixel_size = 13;
         checklist_preview_image.margin_top = 1;
         checklist_preview_image.get_style_context ().add_class ("dim-label");
@@ -436,8 +436,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_button.margin_end = 3;
 
         var checklist_icon = new Gtk.Image ();
-        checklist_icon.gicon = new ThemedIcon ("view-list-compact-symbolic");
-        checklist_icon.pixel_size = 18;
+        checklist_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
+        checklist_icon.pixel_size = 16;
 
         var checklist_button = new Gtk.Button ();
         checklist_button.image = checklist_icon;
