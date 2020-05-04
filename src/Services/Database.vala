@@ -80,7 +80,7 @@ public class Services.Database : GLib.Object {
 
     public void open_database () {
         int rc = 0;
-        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        db_path = this.get_database_path();
 
         if (create_tables () != Sqlite.OK) {
             stderr.printf ("Error creating db table: %d, %s\n", rc, db.errmsg ());
@@ -101,6 +101,32 @@ public class Services.Database : GLib.Object {
         this.patch_database ();
         // fire signal to tell that the database is ready
         this.opened ();
+    }
+
+    public string get_database_path() {
+        var database_location_use_default = Planner.settings.get_boolean("database-location-use-default");
+        if (database_location_use_default) {
+            return Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        } else {
+            var database_location = Planner.settings.get_string("database-location-path");
+            return database_location;
+        }
+    }
+
+    public void set_database_path (string path) {
+        print ("set database path %s\n".printf (path));
+        Planner.settings.set_string ("database-location-path", path);
+        Planner.settings.set_boolean ("database-location-use-default", false);
+        this.reset ();
+        this.open_database ();
+    }
+
+    public void reset_database_path_to_default () {
+        print ("reset database path to default");
+        Planner.settings.set_string ("database-location-path", "");
+        Planner.settings.set_boolean ("database-location-use-default", true);
+        this.reset ();
+        this.open_database ();
     }
 
     public void patch_database () {
