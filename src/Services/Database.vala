@@ -75,9 +75,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Item?> items_to_delete;
     public signal void show_toast_delete (int count);
     public signal void show_undo_item (Objects.Item item, string type="");
-
-    public Database () {}
-
+    
     public void open_database () {
         int rc = 0;
         db_path = this.get_database_path();

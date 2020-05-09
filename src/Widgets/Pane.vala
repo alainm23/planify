@@ -93,8 +93,8 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        listbox.margin_start = 15;
-        listbox.margin_end = 16;
+        //  listbox.margin_start = 15;
+        //  listbox.margin_end = 16;
 
         Planner.database.opened.connect (() => {
             listbox.foreach ((row) => listbox.remove (row));
@@ -179,6 +179,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.margin_start = 15;
         listbox_grid.margin_end = 16;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
+        listbox_grid.add (listbox);
         listbox_grid.add (drop_project_grid);
         listbox_grid.add (motion_revealer);
         listbox_grid.add (project_listbox);
@@ -259,7 +260,6 @@ public class Widgets.Pane : Gtk.EventBox {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.get_style_context ().add_class ("pane");
-        main_box.add (listbox);
         main_box.pack_start (listbox_scrolled, true, true, 0);
         main_box.pack_end (action_box, false, false, 0);
 

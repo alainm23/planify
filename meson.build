@@ -81,7 +81,8 @@ executable(
     'src/Widgets/Placeholder.vala',
     'src/Widgets/NewLabel.vala',
     'src/Widgets/DueProjectButton.vala',
-
+    'src/Widgets/PriorityButton.vala',
+    
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',

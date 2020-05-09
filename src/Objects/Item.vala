@@ -170,6 +170,9 @@ public class Objects.Item : GLib.Object {
         builder.set_member_name ("checked");
         builder.add_int_value (this.checked);
 
+        builder.set_member_name ("priority");
+        builder.add_int_value (this.priority);
+
         builder.set_member_name ("due_date");
         builder.add_string_value (this.due_date);
 

@@ -922,6 +922,9 @@ public class Services.Todoist : GLib.Object {
                     builder.set_member_name ("content");
                     builder.add_string_value (get_string_member_by_object (q.args, "content"));
 
+                    builder.set_member_name ("priority");
+                    builder.add_int_value (get_int_member_by_object (q.args, "priority"));
+
                     builder.set_member_name ("project_id");
                     if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
                         builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
