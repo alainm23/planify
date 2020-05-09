@@ -405,6 +405,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var dark_blue_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Dark Blue"));
         dark_blue_radio.get_style_context ().add_class ("preference-item-radio");
 
+        var arc_dark_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Arc Dark"));
+        arc_dark_radio.get_style_context ().add_class ("preference-item-radio");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
@@ -413,6 +416,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
         main_box.pack_start (dark_blue_radio, false, false, 0);
+        main_box.pack_start (arc_dark_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
@@ -421,6 +425,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             night_radio.active = true;
         } else if (Planner.settings.get_enum ("appearance") == 2) {
             dark_blue_radio.active = true;
+        } else if (Planner.settings.get_enum ("appearance") == 3) {
+            arc_dark_radio.active = true;
         }   
 
         info_box.back_activated.connect (() => {
@@ -437,6 +443,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         dark_blue_radio.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 2);
+        });
+
+        arc_dark_radio.toggled.connect (() => {
+            Planner.settings.set_enum ("appearance", 3);
         });
 
         return main_box;

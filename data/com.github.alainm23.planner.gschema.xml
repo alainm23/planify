@@ -22,6 +22,7 @@
         <value nick="Light" value="0" />
         <value nick="Black" value="1" />
         <value nick="Dark Blue" value="2" />
+        <value nick="Arc Dark" value="3" />
     </enum>
 
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        

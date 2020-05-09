@@ -748,6 +748,18 @@ public class Utils : GLib.Object {
                 upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+            } else if (appearance_mode == 3) {
+                base_color = "#353945";
+                check_border_color = "grey";
+                projectview_color = "#404552";
+                pane_color = "#353945";
+                pane_selected_color = "#2B303B";
+                pane_text_color = "#fefeff";
+                popover_background = "#353945";
+                row_selected_color = "shade (@projectview_color, 0.3)";
+                upcoming_color = "#a970ff";
+
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
 
             var css = _css.printf (
