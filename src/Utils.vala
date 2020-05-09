@@ -757,6 +757,7 @@ public class Utils : GLib.Object {
                 pane_text_color = "#fefeff";
                 popover_background = "#353945";
                 row_selected_color = "shade (@projectview_color, 0.3)";
+                upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
