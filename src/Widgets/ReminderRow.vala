@@ -33,7 +33,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
         selectable =  false;
 
         var icon = new Gtk.Image ();
-        icon.gicon = new ThemedIcon ("alarm-symbolic");
+        icon.gicon = new ThemedIcon ("notification-symbolic");
         icon.pixel_size = 16;
 
         var date_label = new Gtk.Label ("%s %s".printf (

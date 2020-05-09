@@ -35,7 +35,7 @@ public class Services.LabelsController : GLib.Object {
             .label-preview-%s {
                 background-color: alpha (%s, 0.25);
                 color: @text_color;
-                padding: 0px 3px 0px 3px;
+                padding: 0px 3px 1px 3px;
                 border-radius: 4px;
                 font-size: 6pt;
                 font-weight: 700;

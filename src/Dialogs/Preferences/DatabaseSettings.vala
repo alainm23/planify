@@ -21,55 +21,82 @@
 
 public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
     private Gtk.Label current_location_content;
+    private Gtk.Grid location_grid;
 
     public DatabaseSettings () {
+        var database_header = new Gtk.Label (_("Database"));
+        database_header.get_style_context ().add_class ("font-weight-600");
+        database_header.halign = Gtk.Align.START;
 
-        var current_location_label = new Gtk.Label (_("Current location:"));
-        current_location_label.halign = Gtk.Align.START;
-        this.current_location_content = new Gtk.Label (Planner.database.get_database_path());
+        current_location_content = new Gtk.Label ("<small>%s</small>".printf (Planner.database.get_database_path ()));
         current_location_content.get_style_context ().add_class ("font-weight-600");
         current_location_content.halign = Gtk.Align.START;
+        current_location_content.use_markup = true;
+        current_location_content.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
-        var current_location_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        location_grid = new Gtk.Grid ();
+        location_grid.orientation = Gtk.Orientation.VERTICAL;
+        location_grid.add (database_header);
+        location_grid.add (current_location_content);
+        location_grid.margin_end = 16;
+        location_grid.tooltip_text = _("Current location: %s".printf (Planner.database.get_database_path ()));
+
+        var change_button = new Gtk.Button.with_label(_("Change..."));
+        change_button.can_focus = false;
+        change_button.get_style_context ().add_class ("no-padding");
+        change_button.valign = Gtk.Align.CENTER;
+
+        var reset_default = new Gtk.Button.with_label(_("Reset to default"));
+        reset_default.can_focus = false;
+        reset_default.get_style_context ().add_class ("no-padding");
+        reset_default.valign = Gtk.Align.CENTER;
+
+        var menu_icon = new Gtk.Image ();
+        menu_icon.gicon = new ThemedIcon ("preferences-system-symbolic");
+        menu_icon.pixel_size = 14;
+
+        var menu_button = new Gtk.Button ();
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.halign = Gtk.Align.CENTER;
+        menu_button.can_focus = false;
+        menu_button.image = menu_icon;
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("dim-label");
+        menu_button.get_style_context ().add_class ("menu-button");
+
+        var current_location_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         current_location_box.margin_start = 12;
-        current_location_box.margin_end = 12;
-        current_location_box.margin_top = 6;
-        current_location_box.margin_bottom = 6;
+        current_location_box.margin_end = 9;
+        current_location_box.margin_top = 3;
+        current_location_box.margin_bottom = 3;
         current_location_box.hexpand = true;
-        current_location_box.pack_start (current_location_label, false, false, 0);
-        current_location_box.pack_start (current_location_content, false, false, 0);
+        current_location_box.pack_start (location_grid, false, false, 0);
+        current_location_box.pack_end (menu_button, false, false, 0);
 
-        var change_location_button = new Gtk.Button.with_label(_("Change..."));
-        change_location_button.can_focus = false;
-        change_location_button.get_style_context ().add_class ("no-padding");
-        change_location_button.valign = Gtk.Align.CENTER;
-        var database_location_reset_default = new Gtk.Button.with_label(_("reset to default"));
-        database_location_reset_default.can_focus = false;
-        database_location_reset_default.get_style_context ().add_class ("no-padding");
-        database_location_reset_default.valign = Gtk.Align.CENTER;
-
-        var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        button_box.margin_start = 12;
-        button_box.margin_end = 12;
-        button_box.margin_top = 6;
-        button_box.margin_bottom = 6;
-        button_box.hexpand = true;
-        button_box.pack_end (change_location_button, false, true, 0);
-        button_box.pack_end (database_location_reset_default, false, true,10);
+        //  var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        //  button_box.margin_start = 12;
+        //  button_box.margin_end = 12;
+        //  button_box.margin_top = 6;
+        //  button_box.margin_bottom = 6;
+        //  button_box.hexpand = true;
+        //  button_box.pack_end (change_button, false, true, 0);
+        //  button_box.pack_end (reset_default, false, true,10);
       
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.margin_top = 12;
         main_box.get_style_context ().add_class ("view");
         main_box.hexpand = true;
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (current_location_box, false, false, 0);
-        main_box.pack_start (button_box, false, false, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         
+        add (main_box);
 
-        database_location_reset_default.clicked.connect (() => {
-            Planner.database.reset_database_path_to_default();
+        reset_default.clicked.connect (() => {
+            Planner.database.reset_database_path_to_default ();
         });
 
-        change_location_button.clicked.connect (() => {
+        change_button.clicked.connect (() => {
             var dialog = new Gtk.FileChooserDialog (_("database location"), 
                                                     this as Gtk.Window, 
                                                     Gtk.FileChooserAction.SAVE,
@@ -87,12 +114,11 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
             dialog.response.connect (dialog_response);
             dialog.show ();
         });
-
-        add (main_box);
     }
 
     private void dialog_response (Gtk.Dialog dialog, int response_id) {
         var open_dialog = dialog as Gtk.FileChooserDialog;
+        
         switch (response_id) {
             case Gtk.ResponseType.ACCEPT:
                 var filename = open_dialog.get_filename ();
@@ -104,12 +130,16 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                             current_num_bytes, total_num_bytes);
                     });
                 }
+
                 Planner.database.set_database_path (filename);
-                this.current_location_content.label = filename;
+                current_location_content.label = "<small>%s<small>".printf (filename);
+                location_grid.tooltip_text = _("Current location: %s".printf (filename));
+
                 break;
             default:
                 break;
         }
+
         dialog.destroy ();
     }
 }

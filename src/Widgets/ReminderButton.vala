@@ -46,7 +46,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         var reminder_image = new Gtk.Image ();
         reminder_image.valign = Gtk.Align.CENTER;
-        reminder_image.gicon = new ThemedIcon ("alarm-symbolic");
+        reminder_image.gicon = new ThemedIcon ("notification-symbolic");
         reminder_image.pixel_size = 16;
 
         reminder_label = new Gtk.Label (null);
@@ -198,7 +198,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     private Gtk.Widget get_placeholder () {
         var icon = new Gtk.Image ();
-        icon.gicon = new ThemedIcon ("alarm-symbolic");
+        icon.gicon = new ThemedIcon ("notification-symbolic");
         icon.pixel_size = 42;
         icon.halign = Gtk.Align.CENTER;
         icon.opacity = 0.9;
