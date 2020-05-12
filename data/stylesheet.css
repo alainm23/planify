@@ -1,12 +1,13 @@
 @define-color base_color white;
 @define-color check_border_color @border_color;
 @define-color projectview_color shade (#FFFFFF, 0.985);
-@define-color pane_color shade (#FFFFFF, 0.96);
-@define-color pane_selected_color shade (#FFFFFF, 0.87);
+@define-color pane_color #F5F6F7;
+@define-color pane_selected_color rgb (210, 227, 253);
 @define-color pane_text_color #333333;
 @define-color popover_background @projectview_color;
 @define-color row_selected_color shade (@check_border_color, 0.75);
 @define-color upcoming_color #692fc2;
+@define-color background_new_color #692fc2;
 /*
     Dark theme
 */
@@ -345,7 +346,7 @@ paned.horizontal > separator {
     border: 1px solid alpha (#000, 0.3);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     text-shadow: none;
-    background-color: @base_color;
+    background-color: shade (@base_color, 1.15);
 }
 
 .color-radio radio,
@@ -917,8 +918,11 @@ paned.horizontal > separator {
     animation: highlight-item 0.7s ease-in-out;
 }
 
+.name-entry {
+    background: shade (@base_color, 1.15)
+}
 .description text {
-    background-color: @bg_color;
+    background-color: shade (@base_color, 1.15);
 }
 
 .border-radius-4 {
@@ -1034,7 +1038,7 @@ paned.horizontal > separator {
 .priority-1 check {
     border-radius: 4px;
     border-color: @check_border_color;
-    background-color: transparent;
+    background: transparent;
 }
 
 .today-icon-button {
@@ -1065,7 +1069,15 @@ paned.horizontal > separator {
     color: #ff7066;
 }
 
+.priority-1-icon {
+    color: #ff7066;
+}
+
 .priority-2-icon image {
+    color: #ff9a14;
+}
+
+.priority-2-icon {
     color: #ff9a14;
 }
 
@@ -1073,7 +1085,15 @@ paned.horizontal > separator {
     color: #5297ff;
 }
 
+.priority-3-icon {
+    color: #5297ff;
+}
+
 .priority-4-icon image {
+    color: @text_color;
+}
+
+.priority-4-icon {
     color: @text_color;
 }
 

@@ -716,8 +716,8 @@ public class Utils : GLib.Object {
                 base_color = "white";
                 check_border_color = "@border_color";
                 projectview_color = "shade (#FFFFFF, 0.985)";
-                pane_color = "shade (#FFFFFF, 0.96)";
-                pane_selected_color = "shade (#FFFFFF, 0.87)";
+                pane_color = "#F5F6F7";
+                pane_selected_color = "rgb (210, 227, 253)";
                 pane_text_color = "#333333";
                 popover_background = "@projectview_color";
                 row_selected_color = "shade (@check_border_color, 0.75)";

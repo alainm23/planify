@@ -96,6 +96,7 @@ executable(
     'src/Views/Project.vala',
     'src/Views/Label.vala',
     'src/Views/Completed.vala',
+    'src/Views/Priority.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',

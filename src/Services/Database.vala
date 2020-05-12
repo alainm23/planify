@@ -95,7 +95,7 @@ public class Services.Database : GLib.Object {
 
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
 
-        this.remove_trash ();
+        // this.remove_trash ();
         this.patch_database ();
         // fire signal to tell that the database is ready
         this.opened ();
@@ -131,7 +131,7 @@ public class Services.Database : GLib.Object {
         /*
         * Release 2.3
         * - Add note to Sections
-        * - Add show_completed yo Projects
+        * - Add show_completed to Projects
         */
         
         if (!Planner.database.column_exists ("Sections", "note")) {
@@ -140,6 +140,16 @@ public class Services.Database : GLib.Object {
 
         if (!Planner.database.column_exists ("Projects", "show_completed")) {
             Planner.database.add_int_column ("Projects", "show_completed", 0);
+        }
+
+        /*
+        * Release 2.4
+        * - Add day_order to Items
+        * The order of the task inside the Today or Upcoming view 
+        * (a number, where the smallest value would place the task at the top).
+        */
+        if (!Planner.database.column_exists ("Items", "day_order")) {
+            Planner.database.add_int_column ("Items", "day_order", -1);
         }
     }
 
@@ -292,7 +302,8 @@ public class Services.Database : GLib.Object {
                 date_added          TEXT,
                 date_completed      TEXT,
                 date_updated        TEXT,
-                is_todoist          INTEGER
+                is_todoist          INTEGER,
+                today_orden         INTEGER
             );
         """;
 
@@ -2586,7 +2597,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE id = ?;
         """;
 
@@ -2622,6 +2633,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
         }
 
         return i;
@@ -2987,7 +2999,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND checked = 1 ORDER BY date_completed;
         """;
 
@@ -3025,6 +3037,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3041,7 +3054,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND checked = 1 AND parent_id = 0 ORDER BY date_completed;
         """;
 
@@ -3079,6 +3092,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3095,7 +3109,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? ORDER BY item_order;
         """;
 
@@ -3133,6 +3147,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3149,7 +3164,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE checked = 1 ORDER BY date_completed DESC;
         """;
 
@@ -3184,6 +3199,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3200,7 +3216,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
@@ -3238,6 +3254,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3254,7 +3271,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
@@ -3292,6 +3309,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3308,7 +3326,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND section_id = 0 AND parent_id = 0 AND checked = 1 ORDER BY item_order;
         """;
 
@@ -3346,6 +3364,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3362,7 +3381,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE project_id = ? AND section_id = 0 ORDER BY item_order;
         """;
 
@@ -3400,6 +3419,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3416,7 +3436,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE section_id = ? AND parent_id = 0 AND checked = 0 ORDER BY item_order;
         """;
 
@@ -3454,6 +3474,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3470,7 +3491,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE section_id = ? AND parent_id = 0 AND checked = 1 ORDER BY item_order;
         """;
 
@@ -3508,6 +3529,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3524,7 +3546,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE section_id = ? ORDER BY item_order;
         """;
 
@@ -3562,6 +3584,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3578,7 +3601,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE parent_id = ? ORDER BY item_order;
         """;
 
@@ -3616,6 +3639,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3632,7 +3656,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE checked = 0 AND due_date != '';
         """;
 
@@ -3667,6 +3691,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
             if (Planner.utils.is_today (due) || Planner.utils.is_before_today (due)) {
@@ -3690,7 +3715,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE checked = 0;
         """;
 
@@ -3725,6 +3750,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             if (i.due_date != "") {
                 var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
@@ -3732,6 +3758,61 @@ public class Services.Database : GLib.Object {
                     all.add (i);
                 }
             }
+        }
+
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_items_by_priority (int priority) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist, day_order
+            FROM Items WHERE priority = ? AND checked = 0;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, priority);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = new Objects.Item ();
+
+            i.id = stmt.column_int64 (0);
+            i.project_id = stmt.column_int64 (1);
+            i.section_id = stmt.column_int64 (2);
+            i.user_id = stmt.column_int64 (3);
+            i.assigned_by_uid = stmt.column_int64 (4);
+            i.responsible_uid = stmt.column_int64 (5);
+            i.sync_id = stmt.column_int64 (6);
+            i.parent_id = stmt.column_int64 (7);
+            i.priority = stmt.column_int (8);
+            i.item_order = stmt.column_int (9);
+            i.checked = stmt.column_int (10);
+            i.is_deleted = stmt.column_int (11);
+            i.content = stmt.column_text (12);
+            i.note = stmt.column_text (13);
+            i.due_date = stmt.column_text (14);
+            i.due_timezone = stmt.column_text (15);
+            i.due_string = stmt.column_text (16);
+            i.due_lang = stmt.column_text (17);
+            i.due_is_recurring = stmt.column_int (18);
+            i.date_added = stmt.column_text (19);
+            i.date_completed = stmt.column_text (20);
+            i.date_updated = stmt.column_text (21);
+            i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
+
+            all.add (i);
         }
 
         return all;
@@ -3746,7 +3827,7 @@ public class Services.Database : GLib.Object {
             SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
-                date_completed, date_updated, is_todoist
+                date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE checked = 0 AND content LIKE '%s';
         """.printf ("%" + search_text + "%");
 
@@ -3781,6 +3862,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }
@@ -3797,7 +3879,7 @@ public class Services.Database : GLib.Object {
             SELECT Items.id, Items.project_id, Items.section_id, Items.user_id, Items.assigned_by_uid, Items.responsible_uid,
                 Items.sync_id, Items.parent_id, Items.priority, Items.item_order, Items.checked, Items.is_deleted, Items.content, Items.note,
                 Items.due_date, Items.due_timezone, Items.due_string, Items.due_lang, Items.due_is_recurring, Items.date_added,
-                Items.date_completed, Items.date_updated, Items.is_todoist
+                Items.date_completed, Items.date_updated, Items.is_todoist, Items.day_order
             FROM Items_Labels
             INNER JOIN Items ON Items.id = Items_Labels.item_id WHERE Items_Labels.label_id = ?;
         """;
@@ -3836,6 +3918,7 @@ public class Services.Database : GLib.Object {
             i.date_completed = stmt.column_text (20);
             i.date_updated = stmt.column_text (21);
             i.is_todoist = stmt.column_int (22);
+            i.day_order = stmt.column_int (23);
 
             all.add (i);
         }

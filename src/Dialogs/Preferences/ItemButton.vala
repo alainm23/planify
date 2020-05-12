@@ -29,7 +29,6 @@ public class Dialogs.Preferences.ItemButton : Gtk.EventBox {
 
         var default_button = new Gtk.Button.with_label (button_text);
         default_button.can_focus = false;
-        default_button.get_style_context ().add_class ("no-padding");
         default_button.valign = Gtk.Align.CENTER;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

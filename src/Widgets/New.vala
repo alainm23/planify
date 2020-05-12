@@ -65,6 +65,7 @@ public class Widgets.New : Gtk.Revealer {
         name_header.margin_start = 6;
 
         name_entry = new Gtk.Entry ();
+        name_entry.get_style_context ().add_class ("name-entry");
         name_entry.hexpand = true;
 
         source_image = new Gtk.Image ();

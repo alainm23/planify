@@ -653,12 +653,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var tutorial_item = new Dialogs.Preferences.ItemButton (_("Create tutorial project"), _("Create"));
 
         var dz_header = new Granite.HeaderLabel (_("Danger zone"));
+        dz_header.get_style_context ().add_class ("label-danger");
         dz_header.margin_start = 12;
         dz_header.margin_top = 6;
 
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
-        clear_db_item.title_label.get_style_context ().add_class ("label-danger");
-
+        
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (de_header, false, false, 0);

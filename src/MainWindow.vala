@@ -31,6 +31,7 @@ public class MainWindow : Gtk.Window {
     private Views.Upcoming upcoming_view = null;
     private Views.Completed completed_view = null;
     private Views.Label label_view = null;
+    private Views.Priority priority_view = null;
 
     private Widgets.MagicButton magic_button;
     private Widgets.Toast notification_toast;
@@ -474,6 +475,17 @@ public class MainWindow : Gtk.Window {
         magic_button.reveal_child = false;
         label_view.label = Planner.database.get_label_by_id (label_id);
         stack.visible_child_name = "label-view";
+    }
+
+    public void go_priority (int priority) {
+        if (priority_view == null) {
+            priority_view = new Views.Priority ();
+            stack.add_named (priority_view, "priority-view");
+        }
+
+        magic_button.reveal_child = false;
+        priority_view.priority = priority;
+        stack.visible_child_name = "priority-view";
     }
 
     private void init_badge_count () {

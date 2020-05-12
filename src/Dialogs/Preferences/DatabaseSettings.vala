@@ -41,11 +41,18 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         location_grid.margin_end = 16;
         location_grid.tooltip_text = _("Current location: %s".printf (Planner.database.get_database_path ()));
 
-        var change_button = new Gtk.Button.with_label(_("Change..."));
-        change_button.can_focus = false;
-        change_button.get_style_context ().add_class ("no-padding");
+        var change_button = new Gtk.Button.with_label(_("Change"));
         change_button.valign = Gtk.Align.CENTER;
+        change_button.can_focus = false;
 
+        var menu_button = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.MENU);
+
+        var button_grid = new Gtk.Grid ();
+        button_grid.valign = Gtk.Align.CENTER;
+        button_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        button_grid.add (change_button);
+        button_grid.add (menu_button);
+            
         var reset_default = new Gtk.Button.with_label(_("Reset to default"));
         reset_default.can_focus = false;
         reset_default.get_style_context ().add_class ("no-padding");
@@ -55,15 +62,6 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         menu_icon.gicon = new ThemedIcon ("preferences-system-symbolic");
         menu_icon.pixel_size = 14;
 
-        var menu_button = new Gtk.Button ();
-        menu_button.valign = Gtk.Align.CENTER;
-        menu_button.halign = Gtk.Align.CENTER;
-        menu_button.can_focus = false;
-        menu_button.image = menu_icon;
-        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        menu_button.get_style_context ().add_class ("dim-label");
-        menu_button.get_style_context ().add_class ("menu-button");
-
         var current_location_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         current_location_box.margin_start = 12;
         current_location_box.margin_end = 9;
@@ -71,7 +69,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         current_location_box.margin_bottom = 3;
         current_location_box.hexpand = true;
         current_location_box.pack_start (location_grid, false, false, 0);
-        current_location_box.pack_end (menu_button, false, false, 0);
+        current_location_box.pack_end (button_grid, false, false, 0);
 
         //  var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         //  button_box.margin_start = 12;
@@ -97,22 +95,41 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         });
 
         change_button.clicked.connect (() => {
-            var dialog = new Gtk.FileChooserDialog (_("database location"), 
-                                                    this as Gtk.Window, 
-                                                    Gtk.FileChooserAction.SAVE,
-                                                    Gtk.Stock.CANCEL,
-                                                    Gtk.ResponseType.CANCEL,
-                                                    Gtk.Stock.OPEN,
-                                                    Gtk.ResponseType.ACCEPT);
-            dialog.local_only = false; //allow for uri
-            var filter = new Gtk.FileFilter();
-            filter.add_pattern ("*.db");
-            filter.set_filter_name (_("Planner DB Files (sqlite)"));
-            dialog.add_filter (filter);
-            dialog.set_modal (true);
-            dialog.set_file(GLib.File.new_for_path(Planner.database.get_database_path()));
-            dialog.response.connect (dialog_response);
-            dialog.show ();
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Delete project"),
+                _("xxx"),
+                "dialog-warning",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                var dialog = new Gtk.FileChooserDialog (
+                    _("database location"), 
+                    this as Gtk.Window, 
+                    Gtk.FileChooserAction.SAVE,
+                    Gtk.Stock.CANCEL,
+                    Gtk.ResponseType.CANCEL,
+                    Gtk.Stock.OPEN,
+                    Gtk.ResponseType.ACCEPT
+                );
+
+                dialog.local_only = false; //allow for uri
+                var filter = new Gtk.FileFilter();
+                filter.add_pattern ("*.db");
+                filter.set_filter_name (_("Planner DB Files (sqlite)"));
+                dialog.add_filter (filter);
+                dialog.set_modal (true);
+                dialog.set_file(GLib.File.new_for_path(Planner.database.get_database_path()));
+                dialog.response.connect (dialog_response);
+                dialog.show ();
+            }
+
+            message_dialog.destroy ();
         });
     }
 
