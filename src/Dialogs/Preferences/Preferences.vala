@@ -94,7 +94,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var general_grid = new Gtk.Grid ();
         general_grid.valign = Gtk.Align.START;
-        general_grid.get_style_context ().add_class ("view");
+        general_grid.get_style_context ().add_class ("preferences-view");
         general_grid.orientation = Gtk.Orientation.VERTICAL;
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         general_grid.add (start_page_item);
@@ -116,7 +116,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var addons_grid = new Gtk.Grid ();
         addons_grid.margin_top = 18;
         addons_grid.valign = Gtk.Align.START;
-        addons_grid.get_style_context ().add_class ("view");
+        addons_grid.get_style_context ().add_class ("preferences-view");
         addons_grid.orientation = Gtk.Orientation.VERTICAL;
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         addons_grid.add (todoist_item);
@@ -133,7 +133,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         others_grid.margin_top = 18;
         others_grid.margin_bottom = 3;
         others_grid.valign = Gtk.Align.START;
-        others_grid.get_style_context ().add_class ("view");
+        others_grid.get_style_context ().add_class ("preferences-view");
         others_grid.orientation = Gtk.Orientation.VERTICAL;
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
@@ -405,6 +405,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var dark_blue_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Dark Blue"));
         dark_blue_radio.get_style_context ().add_class ("preference-item-radio");
 
+        var arc_dark_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Arc Dark"));
+        arc_dark_radio.get_style_context ().add_class ("preference-item-radio");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
@@ -413,6 +416,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
         main_box.pack_start (dark_blue_radio, false, false, 0);
+        main_box.pack_start (arc_dark_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
@@ -421,6 +425,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             night_radio.active = true;
         } else if (Planner.settings.get_enum ("appearance") == 2) {
             dark_blue_radio.active = true;
+        } else if (Planner.settings.get_enum ("appearance") == 3) {
+            arc_dark_radio.active = true;
         }   
 
         info_box.back_activated.connect (() => {
@@ -437,6 +443,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         dark_blue_radio.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 2);
+        });
+
+        arc_dark_radio.toggled.connect (() => {
+            Planner.settings.set_enum ("appearance", 3);
         });
 
         return main_box;
@@ -487,7 +497,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var shortcut_v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         shortcut_v_box.margin_top = 6;
-        shortcut_v_box.get_style_context ().add_class ("view");
+        shortcut_v_box.get_style_context ().add_class ("preferences-view");
         shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         shortcut_v_box.add (shortcut_box);
         //shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -634,8 +644,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         );
         button_layout.margin_top = 12;
 
-        var db_header = new Granite.HeaderLabel (_("Database"));
-        db_header.margin_start = 12;
         var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 
         var help_header = new Granite.HeaderLabel (_("Help"));
@@ -660,7 +668,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_startup_label, false, false, 0);
         box.pack_start (button_layout, false, false, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        box.pack_start (db_header, false, false, 0);
         box.pack_start (database_settings, false, false, 0);
         box.pack_start (help_header, false, false, 0);
         box.pack_start (tutorial_item, false, false, 0);
@@ -984,7 +991,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var d_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         d_box.margin_top = 16;
-        d_box.get_style_context ().add_class ("view");
+        d_box.get_style_context ().add_class ("preferences-view");
         d_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         d_box.add (box);
         d_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -1245,7 +1252,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var grid = new Gtk.Grid ();
         grid.margin_top = 24;
         grid.valign = Gtk.Align.START;
-        grid.get_style_context ().add_class ("view");
+        grid.get_style_context ().add_class ("preferences-view");
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         grid.add (web_item);
@@ -1318,7 +1325,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
 public class PreferenceItemRadio : Gtk.RadioButton {
     public PreferenceItemRadio () {
-        get_style_context ().add_class ("view");
+        get_style_context ().add_class ("preferences-view");
     }
 }
 
@@ -1410,7 +1417,7 @@ public class PreferencePerson : Gtk.ListBoxRow {
         grid.add (name_label);
         
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.get_style_context ().add_class ("view");
+        main_box.get_style_context ().add_class ("preferences-view");
         main_box.pack_start (grid);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 

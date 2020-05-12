@@ -574,6 +574,8 @@ public class Utils : GLib.Object {
             return _("Today");
         } else if (Planner.utils.is_tomorrow (date)) {
             return _("Tomorrow");
+        } else if (Planner.utils.is_before_today (date)) {
+            return Granite.DateTime.get_relative_datetime (date);
         } else {
             return get_default_date_format_from_date (date);
         }
@@ -693,11 +695,12 @@ public class Utils : GLib.Object {
             @define-color pane_text_color %s;
             @define-color popover_background %s;
             @define-color row_selected_color %s;
+            @define-color upcoming_color %s;
         """;
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
-
         var provider = new Gtk.CssProvider ();
+        
         try {
             string base_color = "";
             string check_border_color = "";
@@ -707,6 +710,7 @@ public class Utils : GLib.Object {
             string pane_text_color = "";
             string popover_background = "";
             string row_selected_color = "";
+            string upcoming_color = "";
 
             if (appearance_mode == 0) {
                 base_color = "white";
@@ -717,6 +721,7 @@ public class Utils : GLib.Object {
                 pane_text_color = "#333333";
                 popover_background = "@projectview_color";
                 row_selected_color = "shade (@check_border_color, 0.75)";
+                upcoming_color = "#692fc2";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
             } else if (appearance_mode == 1) {
@@ -728,6 +733,7 @@ public class Utils : GLib.Object {
                 pane_text_color = "#ffffff";
                 popover_background = "#333333";
                 row_selected_color = "shade (#333333, 0.4)";
+                upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             } else if (appearance_mode == 2) {
@@ -739,6 +745,19 @@ public class Utils : GLib.Object {
                 pane_text_color = "#ffffff";
                 popover_background = "#15151B";
                 row_selected_color = "shade (#ffffff, 0.125)";
+                upcoming_color = "#a970ff";
+
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+            } else if (appearance_mode == 3) {
+                base_color = "#353945";
+                check_border_color = "grey";
+                projectview_color = "#404552";
+                pane_color = "#353945";
+                pane_selected_color = "#2B303B";
+                pane_text_color = "#fefeff";
+                popover_background = "#353945";
+                row_selected_color = "shade (@projectview_color, 0.3)";
+                upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
@@ -751,7 +770,8 @@ public class Utils : GLib.Object {
                 pane_selected_color,
                 pane_text_color,
                 popover_background,
-                row_selected_color
+                row_selected_color,
+                upcoming_color
             );
 
             provider.load_from_data (css, css.length);

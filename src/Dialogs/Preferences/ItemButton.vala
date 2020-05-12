@@ -42,7 +42,7 @@ public class Dialogs.Preferences.ItemButton : Gtk.EventBox {
         box.pack_end (default_button, false, true, 0);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.get_style_context ().add_class ("view");
+        main_box.get_style_context ().add_class ("preferences-view");
         main_box.hexpand = true;
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (box, false, true, 0);

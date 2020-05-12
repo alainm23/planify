@@ -6,7 +6,7 @@
 @define-color pane_text_color #333333;
 @define-color popover_background @projectview_color;
 @define-color row_selected_color shade (@check_border_color, 0.75);
-
+@define-color upcoming_color #692fc2;
 /*
     Dark theme
 */
@@ -23,6 +23,11 @@ textview {
 
 progressbar trough {
     border-radius: 4px;
+}
+
+radio {
+    border-color: @check_border_color;
+    background-color: transparent;
 }
 
 button {
@@ -569,7 +574,7 @@ paned.horizontal > separator {
 }
 
 .today-icon {
-    background-color: #f9c440;
+    background-color: #ffaa00;
     color: #ffffff;
     border-radius: 4px;
     padding: 2px;
@@ -601,11 +606,11 @@ paned.horizontal > separator {
 }
 
 .today {
-    color: #f9c440;
+    color: #ffaa00;
 }
 
 .upcoming {
-    color: #692fc2;
+    color: @upcoming_color;
 }
 
 .due-label {
@@ -815,12 +820,16 @@ paned.horizontal > separator {
     background-color: transparent;
 }
 
+.preferences-view {
+    background-color: shade (@bg_color, 1.1);
+}
+
 .preference-item-radio {
     border-top: 1px solid @menu_separator;
     border-bottom: 1px solid @menu_separator_shadow;
     margin-bottom: -1px;	
     padding: 7px 6px 6px 12px;
-    background-color: @base_color;   
+    background-color: shade (@bg_color, 1.1);
     font-weight: 600;
 }
 
@@ -1026,4 +1035,48 @@ paned.horizontal > separator {
     border-radius: 4px;
     border-color: @check_border_color;
     background-color: transparent;
+}
+
+.today-icon-button {
+    background-color: #ffaa00;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.today-icon-item {
+    background-color: #ffaa00;
+    color: #ffffff;
+    border-radius: 50%;
+    padding: 0.5px;
+}
+
+.today-label-button {
+    color: #ffaa00;
+    font-weight: bold;
+}
+
+.upcoming-label-button {
+    font-weight: bold;
+    color: @upcoming_color;
+}
+
+.priority-1-icon image {
+    color: #ff7066;
+}
+
+.priority-2-icon image {
+    color: #ff9a14;
+}
+
+.priority-3-icon image {
+    color: #5297ff;
+}
+
+.priority-4-icon image {
+    color: @text_color;
+}
+
+.header {
+    color: #3689e6;
 }

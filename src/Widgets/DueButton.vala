@@ -36,6 +36,8 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Gtk.Revealer combobox_revealer;
     private Gtk.ComboBox combobox;
     private Gtk.ListStore liststore;
+    private Gtk.Image repeat_image;
+    private Gtk.Revealer repeat_revealer;
 
     private Gtk.TreeIter e_day_iter;
     private Gtk.TreeIter e_week_iter;
@@ -60,7 +62,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
         due_label = new Gtk.Label (_("Schedule"));
-        // due_label.get_style_context ().add_class ("font-bold");
         due_label.use_markup = true;
         
         label_revealer = new Gtk.Revealer ();
@@ -68,11 +69,22 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         label_revealer.add (due_label);
         label_revealer.reveal_child = true;
 
+        repeat_image = new Gtk.Image ();
+        repeat_image.valign = Gtk.Align.CENTER;
+        repeat_image.pixel_size = 10;
+        repeat_image.margin_top = 2;
+        repeat_image.gicon = new ThemedIcon ("media-playlist-repeat-symbolic");
+
+        repeat_revealer = new Gtk.Revealer ();
+        repeat_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        repeat_revealer.add (repeat_image);
+
         var main_grid = new Gtk.Grid ();
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (due_image);
         main_grid.add (label_revealer);
+        main_grid.add (repeat_revealer);
 
         add (main_grid);
 
@@ -118,32 +130,50 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             due_label.label = Planner.utils.get_relative_date_from_date (date);
-            // label_revealer.reveal_child = true;
-            get_style_context ().add_class ("font-weight-600");
-            due_image.get_style_context ().remove_class ("today");
+
+            due_image.get_style_context ().remove_class ("today-icon-button");
             due_image.get_style_context ().remove_class ("upcoming");
-            // due_image.get_style_context ().remove_class ("repeat-image");
-            
-            if (item.due_is_recurring == 1) {
-                due_image.gicon = new ThemedIcon ("planner-repeat-symbolic");
-                // due_image.get_style_context ().add_class ("repeat-image");
+
+            due_label.get_style_context ().remove_class ("today-label-button");
+            due_label.get_style_context ().remove_class ("upcoming-label-button");
+
+            repeat_image.get_style_context ().remove_class ("upcoming-label-button");
+
+            if (Planner.utils.is_today (date)) {
+                due_image.gicon = new ThemedIcon ("help-about-symbolic");
+                due_image.get_style_context ().add_class ("today-icon-button");
+                due_image.pixel_size = 10;
+
+                due_label.get_style_context ().add_class ("today-label-button");
+                repeat_image.get_style_context ().add_class ("today-label-button");
             } else {
-                if (Planner.utils.is_today (date)) {
-                    due_image.gicon = new ThemedIcon ("help-about-symbolic");
-                    due_image.get_style_context ().add_class ("today");
-                } else {
-                    due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-                    due_image.get_style_context ().add_class ("upcoming");
-                }    
+                due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                due_image.get_style_context ().add_class ("upcoming");
+                due_image.pixel_size = 16;
+
+                due_label.get_style_context ().add_class ("upcoming-label-button");
+                repeat_image.get_style_context ().add_class ("upcoming-label-button");
+            }
+
+            if (item.due_is_recurring == 1) {
+                repeat_revealer.reveal_child = true;
+            } else {
+                repeat_revealer.reveal_child = false;   
             }
         } else {
             due_label.label = _("Schedule");
-            get_style_context ().remove_class ("font-weight-600");
-            due_image.get_style_context ().remove_class ("today");
-            due_image.get_style_context ().remove_class ("upcoming");
             due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-            // due_image.get_style_context ().remove_class ("repeat-image");
-            // label_revealer.reveal_child = false;
+
+            due_image.get_style_context ().remove_class ("today-icon-button");
+            due_image.get_style_context ().remove_class ("upcoming");
+
+            due_label.get_style_context ().remove_class ("today-label-button");
+            due_label.get_style_context ().remove_class ("upcoming-label-button");
+
+            repeat_image.get_style_context ().remove_class ("upcoming-label-button");
+            repeat_image.get_style_context ().remove_class ("today-label-button");
+
+            repeat_revealer.reveal_child = false;
         }
     }
 

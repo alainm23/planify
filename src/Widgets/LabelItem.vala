@@ -44,6 +44,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         delete_button.can_focus = false;
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.halign = Gtk.Align.CENTER;
+        delete_button.margin_top = 1;
         delete_button.get_style_context ().add_class ("no-padding");
         delete_button.get_style_context ().add_class ("label-item-button");
         delete_button.image = delete_image;

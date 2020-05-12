@@ -42,6 +42,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Label duedate_preview_label;
     private Gtk.Image project_preview_image;
     private Gtk.Label project_preview_label;
+    private Gtk.Image duedate_repeat_image;
+    private Gtk.Revealer duedate_repeat_revealer;
     private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
     private Gtk.Grid duedate_preview_grid;
@@ -52,6 +54,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer duedate_preview_revealer;
     private Gtk.Box labels_preview_box;
     private Gtk.Box labels_edit_box;
+    private Gtk.Revealer labels_edit_revealer;
 
     private Gtk.Label reminder_preview_label;
     private Objects.Reminder? reminder = null;
@@ -227,8 +230,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Preview Icons
         project_preview_image = new Gtk.Image ();
-        project_preview_image.pixel_size = 9;
-        project_preview_image.margin_top = 1;
+        project_preview_image.pixel_size = 12;
         //project_preview_image.get_style_context ().add_class ("project-color-%s".printf (item.project_id.to_string ()));
 
         project_preview_label = new Gtk.Label (null);
@@ -249,10 +251,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         duedate_preview_image = new Gtk.Image ();
         duedate_preview_image.valign = Gtk.Align.CENTER;
-        duedate_preview_image.pixel_size = 13;
 
         duedate_preview_label = new Gtk.Label (null);
         duedate_preview_label.use_markup = true;
+
+        duedate_repeat_image = new Gtk.Image ();
+        duedate_repeat_image.valign = Gtk.Align.CENTER;
+        duedate_repeat_image.pixel_size = 9;
+        duedate_repeat_image.margin_top = 2;
+        duedate_repeat_image.gicon = new ThemedIcon ("media-playlist-repeat-symbolic");
+
+        duedate_repeat_revealer = new Gtk.Revealer ();
+        duedate_repeat_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        duedate_repeat_revealer.add (duedate_repeat_image);
 
         duedate_preview_grid = new Gtk.Grid ();
         duedate_preview_grid.column_spacing = 3;
@@ -261,7 +272,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_grid.valign = Gtk.Align.CENTER;
         duedate_preview_grid.add (duedate_preview_image);
         duedate_preview_grid.add (duedate_preview_label);
-        duedate_preview_grid.get_style_context ().add_class ("font-bold");
+        duedate_preview_grid.add (duedate_repeat_revealer);
 
         if (item.due_is_recurring == 1) {
             duedate_preview_image.gicon = new ThemedIcon ("view-refresh-symbolic");
@@ -283,9 +294,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var reminder_preview_image = new Gtk.Image ();
         reminder_preview_image.valign = Gtk.Align.CENTER;
-        reminder_preview_image.gicon = new ThemedIcon ("alarm-symbolic");
+        reminder_preview_image.gicon = new ThemedIcon ("notification-symbolic");
         reminder_preview_image.pixel_size = 13;
-        reminder_preview_image.get_style_context ().add_class ("dim-label");
 
         reminder_preview_label = new Gtk.Label (null);
         reminder_preview_label.use_markup = true;
@@ -307,8 +317,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checklist_preview_image.margin_end = 6;
         checklist_preview_image.gicon = new ThemedIcon ("emblem-default-symbolic");
         checklist_preview_image.pixel_size = 13;
-        checklist_preview_image.margin_top = 1;
-        checklist_preview_image.get_style_context ().add_class ("dim-label");
+        checklist_preview_image.margin_bottom = 1;
 
         checklist_preview_revealer = new Gtk.Revealer ();
         checklist_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -316,10 +325,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note
         var note_preview_image = new Gtk.Image ();
-        note_preview_image.gicon = new ThemedIcon ("emblem-documents-symbolic");
-        note_preview_image.pixel_size = 10;
+        note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
+        note_preview_image.pixel_size = 13;
         note_preview_image.margin_end = 6;
-        note_preview_image.get_style_context ().add_class ("dim-label");
 
         note_preview_revealer = new Gtk.Revealer ();
         note_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -328,6 +336,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Labels Preview
         labels_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_preview_box.margin_end = 6;
+        labels_preview_box.margin_bottom = 1;
 
         labels_preview_box_revealer = new Gtk.Revealer ();
         labels_preview_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -427,13 +436,21 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         */
 
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_edit_box.margin_start = 27;
+        labels_edit_box.margin_top = 12;
+        labels_edit_box.margin_bottom = 12;
+
+        labels_edit_revealer = new Gtk.Revealer ();
+        labels_edit_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        labels_edit_revealer.add (labels_edit_box);
 
         due_button = new Widgets.DueButton (item);
 
         var reminder_button = new Widgets.ReminderButton (item);
 
+        var priority_button = new Widgets.PriorityButton (item);
+
         var label_button = new Widgets.LabelButton (item.id);
-        label_button.margin_end = 3;
 
         var checklist_icon = new Gtk.Image ();
         checklist_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
@@ -471,10 +488,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.margin_bottom = 3;
         action_box.margin_end = 3;
         action_box.pack_start (due_button, false, true, 0);
-        action_box.pack_start (labels_edit_box, false, true, 0);
+        // action_box.pack_start (labels_edit_box, false, true, 0);
         action_box.pack_end (menu_button, false, false, 0);
         action_box.pack_end (reminder_button, false, true, 0);
-        // action_box.pack_end (delete_button, false, false, 0);
+        action_box.pack_end (priority_button, false, false, 0);
         action_box.pack_end (label_button, false, true, 0);
         action_box.pack_end (checklist_button, false, true, 0);
     
@@ -484,6 +501,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         bottom_box.pack_start (check_listbox, false, false, 0);
         bottom_box.pack_start (separator_revealer, false, false, 0);
         bottom_box.pack_start (new_checklist, false, false, 0);
+        bottom_box.pack_start (labels_edit_revealer, false, false, 0);
         bottom_box.pack_end (action_box, false, true, 0);
 
         bottom_revealer = new Gtk.Revealer ();
@@ -604,6 +622,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 labels_edit_box.show_all ();
 
                 labels_preview_box_revealer.reveal_child = true;
+                labels_edit_revealer.reveal_child = true;
                 labels_hashmap.set (label.id.to_string (), true);
                 check_preview_box ();
             }
@@ -613,6 +632,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (item.id == item_id) {
                 labels_hashmap.unset (label.id.to_string ());
                 labels_preview_box_revealer.reveal_child = labels_hashmap.size > 0;
+                labels_edit_revealer.reveal_child = labels_hashmap.size > 0;
                 check_preview_box ();
             }
         });
@@ -811,6 +831,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     }
 
                     check_priority_style ();
+                    priority_button.update_icon (item);
 
                     Timeout.add (250, () => {
                         save_off = false;
@@ -1183,6 +1204,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             labels_edit_box.show_all ();
 
             labels_preview_box_revealer.reveal_child = true;
+            labels_edit_revealer.reveal_child = true;
             labels_hashmap.set (label.id.to_string (), true);
 
             check_preview_box ();
@@ -1193,51 +1215,63 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
-            duedate_preview_image.get_style_context ().remove_class ("today");
-            duedate_preview_image.get_style_context ().remove_class ("upcoming");
-            duedate_preview_label.get_style_context ().remove_class ("upcoming");
-            duedate_preview_grid.get_style_context ().remove_class ("duedate-expired");
+            duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
+            duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
 
-            if (item.due_is_recurring == 1) {
+            duedate_preview_label.get_style_context ().remove_class ("today-label-button");
+            duedate_preview_label.get_style_context ().remove_class ("duedate-expired");
+            duedate_preview_label.get_style_context ().remove_class ("upcoming-label-button");
+
+            duedate_repeat_image.get_style_context ().remove_class ("today-label-button");
+            duedate_repeat_image.get_style_context ().remove_class ("duedate-expired");
+            duedate_repeat_image.get_style_context ().remove_class ("upcoming-label-button");
+
+            if (Planner.utils.is_today (date)) {
                 duedate_preview_image.visible = true;
                 duedate_preview_image.no_show_all = false;
                 duedate_preview_grid.margin_start = 0;
 
-                duedate_preview_image.gicon = new ThemedIcon ("planner-repeat-symbolic");
-                duedate_preview_grid.tooltip_text = item.due_string;
+                duedate_preview_image.gicon = new ThemedIcon ("help-about-symbolic");
+                duedate_preview_image.pixel_size = 9;
+                duedate_preview_image.get_style_context ().add_class ("today-icon-item");
+                duedate_preview_label.get_style_context ().add_class ("today-label-button");
+                duedate_repeat_image.get_style_context ().add_class ("today-label-button");
+            } else if (Planner.utils.is_before_today (date)) {
+                duedate_preview_image.visible = false;
+                duedate_preview_image.no_show_all = true;
+                duedate_preview_grid.margin_start = 3;
 
-                checked_button.active = false;
-                content_label.get_style_context ().remove_class ("label-line-through");
-                sensitive = true;
+                duedate_preview_label.get_style_context ().add_class ("duedate-expired");
+                duedate_repeat_image.get_style_context ().add_class ("duedate-expired");
             } else {
-                if (Planner.utils.is_today (date)) {
-                    duedate_preview_image.visible = true;
-                    duedate_preview_image.no_show_all = false;
-                    duedate_preview_grid.margin_start = 0;
+                duedate_preview_image.visible = false;
+                duedate_preview_image.no_show_all = true;
+                duedate_preview_grid.margin_start = 3;
 
-                    duedate_preview_image.gicon = new ThemedIcon ("help-about-symbolic");
-                    duedate_preview_image.get_style_context ().add_class ("today");
-                } else if (Planner.utils.is_before_today (date)) {
-                    duedate_preview_image.visible = false;
-                    duedate_preview_image.no_show_all = true;
-                    duedate_preview_grid.margin_start = 3;
+                duedate_preview_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                duedate_preview_image.pixel_size = 16;
+                duedate_preview_image.get_style_context ().add_class ("upcoming-label-button");
+                duedate_preview_label.get_style_context ().add_class ("upcoming-label-button");
+                duedate_repeat_image.get_style_context ().add_class ("upcoming-label-button");
+            }
 
-                    duedate_preview_grid.get_style_context ().add_class ("duedate-expired");
-                    duedate_preview_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-                } else {
-                    duedate_preview_image.visible = false;
-                    duedate_preview_image.no_show_all = true;
-                    duedate_preview_grid.margin_start = 3;
-
-                    duedate_preview_label.get_style_context ().add_class ("upcoming");
-                    duedate_preview_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-                }
+            if (item.due_is_recurring == 1) {
+                duedate_repeat_revealer.reveal_child = true;
+                duedate_repeat_image.tooltip_text = item.due_string;
+            } else {
+                duedate_repeat_revealer.reveal_child = false;
             }
         } else {
-            duedate_preview_grid.margin_start = 0;
-            duedate_preview_image.get_style_context ().remove_class ("today");
-            duedate_preview_image.get_style_context ().remove_class ("upcoming");
-            duedate_preview_image.get_style_context ().remove_class ("repeat-image");
+            duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
+            duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
+
+            duedate_preview_label.get_style_context ().remove_class ("today-label-button");
+            duedate_preview_label.get_style_context ().remove_class ("duedate-expired");
+            duedate_preview_label.get_style_context ().remove_class ("upcoming-label-button");
+
+            duedate_repeat_image.get_style_context ().remove_class ("today-label-button");
+            duedate_repeat_image.get_style_context ().remove_class ("duedate-expired");
+            duedate_repeat_image.get_style_context ().remove_class ("upcoming-label-button");
         }
     }
 
