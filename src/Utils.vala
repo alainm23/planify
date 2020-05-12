@@ -955,14 +955,22 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
-        Regex regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        Regex urlRegex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        Regex mailtoRegex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
         MatchInfo info;
         try {
             List<string> urls = new List<string>();
-            if (regex.match(text, 0, out info)) {
+            if (urlRegex.match(text, 0, out info)) {
                 do {
                     var url = info.fetch_named("url");
                     urls.append(url);
+                } while (info.next());
+            }
+            List<string> emails = new List<string>();
+            if (mailtoRegex.match(text, 0, out info)) {
+                do {
+                    var email = info.fetch_named("mailto");
+                    emails.append(email);
                 } while (info.next());
             }
             var converted = text;
@@ -970,6 +978,10 @@ public class Utils : GLib.Object {
                 var urlEncoded = url.replace("&", "&amp;");
                 var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
                 converted = converted.replace(url, urlAsLink);
+            });
+            emails.foreach((email) => {
+                var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
+                converted = converted.replace(email, emailAsLink);
             });
             return converted;
         } catch (GLib.RegexError ex) {
