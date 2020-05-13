@@ -1,108 +1,123 @@
 {
-  "app-id": "com.github.alainm23.planner",
-  "sdk": "org.gnome.Sdk",
-  "runtime": "org.gnome.Platform",
-  "runtime-version": "3.36",
-  "base": "io.elementary.BaseApp",
-  "base-version": "juno-19.08",
-  "command": "com.github.alainm23.planner",
-  "finish-args": [
-    "--share=network",
-    "--share=ipc",
-    "--device=dri",
-    "--socket=fallback-x11",
-    "--socket=wayland",
-    "--talk-name=org.gtk.vfs.*",
-    "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
-    "--talk-name=org.gnome.evolution.dataserver.Calendar7",
-    "--talk-name=org.gnome.evolution.dataserver.Sources5",
-    "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
-    "--talk-name=com.github.alainm23.planner",
-    "--talk-name=org.gnome.settings-daemon.plugins.media-keys",
-    "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
-    "--filesystem=xdg-run/dconf",
-    "--filesystem=~/.config/dconf:ro",
-    "--talk-name=ca.desrt.dconf",
-    "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
-  ],
-  "cleanup": [
-    "/include",
-    "/lib/pkgconfig",
-    "/man",
-    "/share/doc",
-    "/share/gtk-doc",
-    "/share/man",
-    "/share/pkgconfig",
-    "/share/vala",
-    "*.la",
-    "*.a"
-  ],
-  "modules": [
-    {
-      "name" : "libical",
-      "cleanup" : [
-          "/lib/cmake"
-      ],
-      "buildsystem" : "cmake-ninja",
-      "config-opts" : [
-      "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
-      "-DBUILD_SHARED_LIBS=On",
-      "-DICAL_BUILD_DOCS=False",
-      "-DWITH_CXX_BINDINGS=False"
-      ],
-      "sources" : [
+    "app-id": "com.github.alainm23.planner",
+    "sdk": "org.gnome.Sdk",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.36",
+    "base": "io.elementary.BaseApp",
+    "base-version": "juno-19.08",
+    "command": "com.github.alainm23.planner",
+    "finish-args": [
+      "--share=network",
+      "--share=ipc",
+      "--device=dri",
+      "--socket=fallback-x11",
+      "--socket=wayland",
+      "--talk-name=org.gtk.vfs.*",
+      "--filesystem=home",
+      "--filesystem=xdg-run/dconf",
+      "--filesystem=~/.config/dconf:ro",
+      "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
+      "--talk-name=org.gnome.evolution.dataserver.Calendar7",
+      "--talk-name=org.gnome.evolution.dataserver.Sources5",
+      "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
+      "--talk-name=org.gnome.settings-daemon.plugins.media-keys",
+      "--talk-name=com.github.alainm23.planner",
+      "--talk-name=ca.desrt.dconf",
+      "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    ],
+    "cleanup": [
+      "/include",
+      "/lib/pkgconfig",
+      "/man",
+      "/share/doc",
+      "/share/gtk-doc",
+      "/share/man",
+      "/share/pkgconfig",
+      "/share/vala",
+      "*.la",
+      "*.a"
+    ],
+    "modules": [
       {
-          "type" : "archive",
-          "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
-          "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
+        "name" : "libical",
+        "cleanup" : [
+            "/lib/cmake"
+        ],
+        "buildsystem" : "cmake-ninja",
+        "config-opts" : [
+        "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
+        "-DBUILD_SHARED_LIBS=On",
+        "-DICAL_BUILD_DOCS=False",
+        "-DWITH_CXX_BINDINGS=False"
+        ],
+        "sources" : [
+        {
+            "type" : "archive",
+            "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
+            "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
+        }
+        ]
+      },
+      {
+        "name": "intltool",
+        "cleanup": [ "*" ],
+        "sources": [
+          {
+            "type": "archive",
+            "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+            "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+          }
+        ]
+      },
+      {
+        "name": "evolution-data-server",
+        "buildsystem": "cmake-ninja",
+        "config-opts": [
+          "-DENABLE_UOA=OFF",
+          "-DENABLE_GTK=ON",
+          "-DENABLE_INTROSPECTION=ON",
+          "-DENABLE_VALA_BINDINGS=ON",
+          "-DENABLE_GOA=OFF",
+          "-DENABLE_OAUTH2=OFF",
+          "-DENABLE_WEATHER=OFF",
+          "-DENABLE_GOOGLE=OFF",
+          "-DENABLE_EXAMPLES=OFF",
+          "-DENABLE_INSTALLED_TESTS=OFF",
+          "-DENABLE_GTK_DOC=OFF",
+          "-DWITH_PRIVATE_DOCS=OFF",
+          "-DWITH_OPENLDAP=OFF",
+          "-DWITH_LIBDB=OFF"
+        ],
+        "sources" : [
+          {
+               "type": "archive",
+               "url": "https://download.gnome.org/sources/evolution-data-server/3.28/evolution-data-server-3.28.5.tar.xz",
+               "sha256": "d95348d27207cde4ff3209d16c9336fd2a97d958f4c563450ccdf2f7c07e8788"
+          }
+        ]
+      },
+      {
+        "name": "media-keys",
+        "buildsystem": "simple",
+        "build-commands": [
+            "install -D data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml",
+            "sed -i -e 's/@GETTEXT_PACKAGE@/gnome-settings-daemon/g' /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml"
+        ],
+        "sources" : [
+        {
+            "type" : "archive",
+            "url" : "https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz",
+            "sha256" : "e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748"
+        }
+        ]
+      },
+      {
+        "name": "planner",
+        "buildsystem": "meson",
+        "sources": [{
+          "type": "dir",
+          "path": "../.."
+        }]
       }
-      ]
-    },
-    {
-      "name": "intltool",
-      "cleanup": [ "*" ],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-          "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
-        }
-      ]
-    },
-    {
-      "name": "evolution-data-server",
-      "buildsystem": "cmake-ninja",
-      "config-opts": [
-        "-DENABLE_UOA=OFF",
-        "-DENABLE_GTK=ON",
-        "-DENABLE_INTROSPECTION=ON",
-        "-DENABLE_VALA_BINDINGS=ON",
-        "-DENABLE_GOA=OFF",
-        "-DENABLE_OAUTH2=OFF",
-        "-DENABLE_WEATHER=OFF",
-        "-DENABLE_GOOGLE=OFF",
-        "-DENABLE_EXAMPLES=OFF",
-        "-DENABLE_INSTALLED_TESTS=OFF",
-        "-DENABLE_GTK_DOC=OFF",
-        "-DWITH_PRIVATE_DOCS=OFF",
-        "-DWITH_OPENLDAP=OFF",
-        "-DWITH_LIBDB=OFF"
-      ],
-      "sources" : [
-        {
-             "type": "archive",
-             "url": "https://download.gnome.org/sources/evolution-data-server/3.28/evolution-data-server-3.28.5.tar.xz",
-             "sha256": "d95348d27207cde4ff3209d16c9336fd2a97d958f4c563450ccdf2f7c07e8788"
-        }
-      ]
-    },
-    {
-      "name": "planner",
-      "buildsystem": "meson",
-      "sources": [{
-        "type": "dir",
-        "path": "../.."
-      }]
-    }
-  ]
-}
+    ]
+  }
