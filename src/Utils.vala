@@ -786,10 +786,15 @@ public class Utils : GLib.Object {
     }
 
     public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT) { // vala-lint=naming-convention
+        var QUICKADD_COMMAND = "com.github.alainm23.planner.quick-add";
+        if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+            QUICKADD_COMMAND = "flatpak run --command=com.github.alainm23.planner.quick-add com.github.alainm23.planner";
+        }
+
         Services.CustomShortcutSettings.init ();
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
-            if (shortcut.command == "com.github.alainm23.planner.quick-add") {
+            if (shortcut.command == QUICKADD_COMMAND) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
                 has_shortcut = true;
                 return;
@@ -799,7 +804,7 @@ public class Utils : GLib.Object {
             var shortcut = Services.CustomShortcutSettings.create_shortcut ();
             if (shortcut != null) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);
-                Services.CustomShortcutSettings.edit_command (shortcut, "com.github.alainm23.planner.quick-add");
+                Services.CustomShortcutSettings.edit_command (shortcut, QUICKADD_COMMAND);
 
                 uint accelerator_key;
                 Gdk.ModifierType accelerator_mods;
@@ -815,7 +820,30 @@ public class Utils : GLib.Object {
             }
         }
     }
-    
+
+    public string get_os_info (string field) {
+        string return_value = "";
+        var file = File.new_for_path ("/etc/os-release");
+        try {
+            var osrel = new Gee.HashMap<string, string> ();
+            var dis = new DataInputStream (file.read ());
+            string line;
+            // Read lines until end of file (null) is reached
+            while ((line = dis.read_line (null)) != null) {
+                var osrel_component = line.split ("=", 2);
+                if (osrel_component.length == 2) {
+                    osrel[osrel_component[0]] = osrel_component[1].replace ("\"", "");
+                }
+            }
+
+            return_value = osrel[field];
+        } catch (Error e) {
+            warning ("Couldn't read os-release file, assuming elementary OS");
+        }
+        
+        return return_value;
+    }
+
     /*
         Tutorial project
     */
@@ -960,28 +988,28 @@ public class Utils : GLib.Object {
         MatchInfo info;
         try {
             List<string> urls = new List<string>();
-            if (urlRegex.match(text, 0, out info)) {
+            if (urlRegex.match (text, 0, out info)) {
                 do {
-                    var url = info.fetch_named("url");
-                    urls.append(url);
-                } while (info.next());
+                    var url = info.fetch_named ("url");
+                    urls.append (url);
+                } while (info.next ());
             }
             List<string> emails = new List<string>();
-            if (mailtoRegex.match(text, 0, out info)) {
+            if (mailtoRegex.match (text, 0, out info)) {
                 do {
-                    var email = info.fetch_named("mailto");
-                    emails.append(email);
-                } while (info.next());
+                    var email = info.fetch_named ("mailto");
+                    emails.append (email);
+                } while (info.next ());
             }
             var converted = text;
-            urls.foreach((url) => {
-                var urlEncoded = url.replace("&", "&amp;");
+            urls.foreach ((url) => {
+                var urlEncoded = url.replace ("&", "&amp;");
                 var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
-                converted = converted.replace(url, urlAsLink);
+                converted = converted.replace (url, urlAsLink);
             });
-            emails.foreach((email) => {
+            emails.foreach ((email) => {
                 var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
-                converted = converted.replace(email, emailAsLink);
+                converted = converted.replace (email, emailAsLink);
             });
             return converted;
         } catch (GLib.RegexError ex) {

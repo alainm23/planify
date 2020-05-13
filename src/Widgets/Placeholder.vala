@@ -44,7 +44,7 @@ public class Widgets.Placeholder : Gtk.Revealer {
         icon.get_style_context ().add_class ("dim-label");
 
         var title_label = new Gtk.Label (title);
-        title_label.margin_top = 6;
+        title_label.margin_top = 9;
         title_label.get_style_context ().add_class ("dim-label");
         title_label.get_style_context ().add_class ("h3");
 
