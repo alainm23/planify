@@ -22,6 +22,7 @@
 public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
     private Gtk.Label current_location_content;
     private Gtk.Grid location_grid;
+    private Gtk.Menu menu = null;
 
     public DatabaseSettings () {
         var database_header = new Gtk.Label (_("Database"));
@@ -46,17 +47,13 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         change_button.can_focus = false;
 
         var menu_button = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.MENU);
+        menu_button.can_focus = false;
 
         var button_grid = new Gtk.Grid ();
         button_grid.valign = Gtk.Align.CENTER;
-        button_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        button_grid.get_style_context ().add_class ("grid-linked");
         button_grid.add (change_button);
         button_grid.add (menu_button);
-            
-        var reset_default = new Gtk.Button.with_label(_("Reset to default"));
-        reset_default.can_focus = false;
-        reset_default.get_style_context ().add_class ("no-padding");
-        reset_default.valign = Gtk.Align.CENTER;
 
         var menu_icon = new Gtk.Image ();
         menu_icon.gicon = new ThemedIcon ("preferences-system-symbolic");
@@ -71,15 +68,6 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         current_location_box.pack_start (location_grid, false, false, 0);
         current_location_box.pack_end (button_grid, false, false, 0);
 
-        //  var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        //  button_box.margin_start = 12;
-        //  button_box.margin_end = 12;
-        //  button_box.margin_top = 6;
-        //  button_box.margin_bottom = 6;
-        //  button_box.hexpand = true;
-        //  button_box.pack_end (change_button, false, true, 0);
-        //  button_box.pack_end (reset_default, false, true,10);
-      
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_top = 12;
         main_box.get_style_context ().add_class ("view");
@@ -90,19 +78,48 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         
         add (main_box);
 
-        reset_default.clicked.connect (() => {
-            Planner.database.reset_database_path_to_default ();
+        menu_button.clicked.connect (() => {
+            if (menu == null) {
+                menu = new Gtk.Menu ();
+
+                var reset_default = new Gtk.MenuItem.with_label (_("Reset to default"))
+
+                menu.add (reset_default);
+                menu.show_all ();
+
+                reset_default.activate.connect (() => {
+                    var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                        _("Are you sure you want to restore the database location to default?"),
+                        _("The new database location will be: <b>%s</b>").printf (Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db"),
+                        "dialog-warning",
+                    Gtk.ButtonsType.CANCEL);
+        
+                    var remove_button = new Gtk.Button.with_label (_("Change"));
+                    remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+                    message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+        
+                    message_dialog.show_all ();
+        
+                    if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                        Planner.database.reset_database_path_to_default ();
+                    }
+        
+                    message_dialog.destroy ();
+                });
+            }
+            
+            menu.popup_at_pointer (null);
         });
 
         change_button.clicked.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Delete project"),
-                _("xxx"),
+                _("Are you sure you want to change the database location?"),
+                _("This process will move your database file to the selected location."),
                 "dialog-warning",
             Gtk.ButtonsType.CANCEL);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete"));
-            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            var remove_button = new Gtk.Button.with_label (_("Change"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
             message_dialog.show_all ();
@@ -124,7 +141,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                 filter.set_filter_name (_("Planner DB Files (sqlite)"));
                 dialog.add_filter (filter);
                 dialog.set_modal (true);
-                dialog.set_file(GLib.File.new_for_path(Planner.database.get_database_path()));
+                dialog.set_file (GLib.File.new_for_path (Planner.database.get_database_path ()));
                 dialog.response.connect (dialog_response);
                 dialog.show ();
             }
@@ -141,8 +158,8 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                 var filename = open_dialog.get_filename ();
                 var file = GLib.File.new_for_path (filename);
                 if (!file.query_exists()) {
-                    var old_file = GLib.File.new_for_path (Planner.database.get_database_path());
-                    old_file.copy(file, FileCopyFlags.ALL_METADATA, null, (current_num_bytes, total_num_bytes) => {
+                    var old_file = GLib.File.new_for_path (Planner.database.get_database_path ());
+                    old_file.copy (file, FileCopyFlags.ALL_METADATA, null, (current_num_bytes, total_num_bytes) => {
                         print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n",
                             current_num_bytes, total_num_bytes);
                     });

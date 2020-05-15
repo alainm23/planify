@@ -1100,3 +1100,11 @@ paned.horizontal > separator {
 .header {
     color: #3689e6;
 }
+
+.grid-linked button:last-child {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.grid-linked button:first-child {
+    border-radius: 4px 0px 0px 4px;
+}
