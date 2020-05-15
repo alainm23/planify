@@ -82,7 +82,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
             if (menu == null) {
                 menu = new Gtk.Menu ();
 
-                var reset_default = new Gtk.MenuItem.with_label (_("Reset to default"))
+                var reset_default = new Gtk.MenuItem.with_label (_("Reset to default"));
 
                 menu.add (reset_default);
                 menu.show_all ();
