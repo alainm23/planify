@@ -1016,4 +1016,42 @@ public class Utils : GLib.Object {
             return text;
         }
     }
+
+    public void parse_item_tags (Objects.Item item, string text) {
+        var clean_text = "";
+        Regex wordRegex = /\S+\s*/;
+        MatchInfo matchInfo;
+        
+        var matchText = text. strip ();
+        for (wordRegex.match (matchText, 0, out matchInfo) ; matchInfo.matches () ; matchInfo.next ()) {
+            var word = matchInfo.fetch (0);
+            var stripped =    word.strip ().down ();
+
+            switch (stripped) {
+                case "today":
+                    item.due_date = new GLib.DateTime.now_local ().to_string ();
+                    break;
+                case "tomorrow":
+                    item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+                    break;
+                case "p1":
+                    item.priority = 4;
+                    break;
+                case "p2":
+                    item.priority = 3;
+                    break;
+                case "p3":
+                    item.priority = 2;
+                    break;
+                case "p4":
+                    item.priority = 1;
+                    break;
+                default:
+                    clean_text+= word;
+                    break;
+            }
+        }
+
+        item.content = clean_text;
+    }
 }
