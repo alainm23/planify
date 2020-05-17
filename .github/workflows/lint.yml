@@ -1,3 +1,8 @@
+
+name: Lint
+
+on: [pull_request, push]
+
 jobs:
   lint:
 
@@ -9,4 +14,3 @@ jobs:
       with:
         dir: src/
         conf: .vala-lint.conf
-        fail: false
