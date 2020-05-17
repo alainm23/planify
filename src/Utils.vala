@@ -667,7 +667,7 @@ public class Utils : GLib.Object {
 
         return returned;
     }
-    
+
     //  public string get_recurrent_task_string (int id) {
     //      if (is_supported_language ()) {
 
@@ -700,7 +700,7 @@ public class Utils : GLib.Object {
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
         var provider = new Gtk.CssProvider ();
-        
+
         try {
             string base_color = "";
             string check_border_color = "";
@@ -840,7 +840,7 @@ public class Utils : GLib.Object {
         } catch (Error e) {
             warning ("Couldn't read os-release file, assuming elementary OS");
         }
-        
+
         return return_value;
     }
 

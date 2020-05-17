@@ -73,7 +73,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
         content_stack.add_named (content_label, "content_label");
         content_stack.add_named (content_entry, "content_entry");
-        
+
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
         delete_button.can_focus = false;

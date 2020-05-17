@@ -49,7 +49,7 @@ public class Widgets.DueProjectButton : Gtk.ToggleButton {
         due_label = new Gtk.Label (null);
         due_label.get_style_context ().add_class ("font-bold");
         due_label.use_markup = true;
-        
+
         label_revealer = new Gtk.Revealer ();
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         label_revealer.add (due_label);
@@ -132,7 +132,7 @@ public class Widgets.DueProjectButton : Gtk.ToggleButton {
     }
 
     public void update_date_text (Objects.Project project) {
-        
+
     }
 
     public void set_due (string date) {

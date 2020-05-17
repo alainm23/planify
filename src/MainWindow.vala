@@ -39,7 +39,7 @@ public class MainWindow : Gtk.Window {
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
-    
+
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -147,7 +147,7 @@ public class MainWindow : Gtk.Window {
                 // Init Progress Server
                 init_badge_count ();
                 init_progress_controller ();
-                
+
                 pane.sensitive_ui = true;
                 magic_button.reveal_child = true;
             }
@@ -203,7 +203,7 @@ public class MainWindow : Gtk.Window {
 
         Planner.todoist.first_sync_finished.connect (() => {
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-            
+
             // Create The New Inbox Project
             inbox_view =  null;
             go_view (0);

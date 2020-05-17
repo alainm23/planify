@@ -160,7 +160,7 @@ public class Planner : Gtk.Application {
 
         database.open_database ();
     }
-    
+
     public override int command_line (ApplicationCommandLine command_line) {
         bool silence_mode = false;
         OptionEntry[] options = new OptionEntry [1];

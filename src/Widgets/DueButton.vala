@@ -63,7 +63,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         due_label = new Gtk.Label (_("Schedule"));
         due_label.use_markup = true;
-        
+
         label_revealer = new Gtk.Revealer ();
         label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         label_revealer.add (due_label);
@@ -158,7 +158,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             if (item.due_is_recurring == 1) {
                 repeat_revealer.reveal_child = true;
             } else {
-                repeat_revealer.reveal_child = false;   
+                repeat_revealer.reveal_child = false;
             }
         } else {
             due_label.label = _("Schedule");

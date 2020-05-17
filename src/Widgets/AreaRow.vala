@@ -612,7 +612,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         }
 
         top_eventbox.get_style_context ().add_class ("highlight");
-        
         menu.popup_at_pointer (null);
     }
 

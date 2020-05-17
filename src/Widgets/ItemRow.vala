@@ -494,7 +494,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.pack_end (priority_button, false, false, 0);
         action_box.pack_end (label_button, false, true, 0);
         action_box.pack_end (checklist_button, false, true, 0);
-    
 
         var bottom_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         bottom_box.pack_start (note_stack, false, true, 0);
@@ -686,7 +685,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         Timeout.add (250, () => {
-            if (item.note.strip () == "") {  
+            if (item.note.strip () == "") {
                 note_stack.visible_child_name = "textview";
                 note_placeholder.visible = true;
                 note_placeholder.no_show_all = false;
@@ -703,7 +702,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
                 note_stack.visible_child_name = "textview";
                 note_textview.grab_focus ();
-                
+
                 return true;
             }
 
@@ -1306,7 +1305,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         today_menu.visible = visible;
         today_menu.no_show_all = !visible;
 
-        tomorrow_menu.visible = visible; 
+        tomorrow_menu.visible = visible;
         tomorrow_menu.no_show_all = !visible;
 
         date_separator.visible = visible;
