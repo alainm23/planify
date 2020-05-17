@@ -12,5 +12,4 @@ jobs:
     - uses: actions/checkout@v1
     - uses: elementary/actions/vala-lint@master
       with:
-        dir: src/
         conf: .vala-lint.conf
