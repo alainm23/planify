@@ -26,7 +26,6 @@ public class Widgets.NewSection : Gtk.Revealer {
 
     private Gtk.Entry name_entry;
 
-    public signal void new_item_hide ();
     public signal void cancel_activated ();
 
     public bool reveal {

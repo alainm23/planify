@@ -211,6 +211,10 @@ paned.horizontal > separator {
     background-color: transparent;
 }
 
+.project-row {
+    transition: all 250ms ease-in-out;
+}
+
 .project-row:selected:focus image {
     color: @pane_text_color;
 }

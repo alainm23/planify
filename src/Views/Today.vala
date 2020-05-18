@@ -22,8 +22,6 @@
 public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
-    // public Gtk.Revealer new_item_revealer;
-    // private Widgets.NewItem new_item;
     private Gtk.Stack view_stack;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
@@ -220,12 +218,7 @@ public class Views.Today : Gtk.EventBox {
                 return false;
             });
         });
-
-        //  new_item.new_item_hide.connect (() => {
-        //      new_item_revealer.reveal_child = false;
-        //      check_placeholder_view ();
-        //  });
-
+        
         date = new GLib.DateTime.now_local ();
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
         Planner.calendar_model.month_start = Util.get_start_of_month ();

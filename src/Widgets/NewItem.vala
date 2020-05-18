@@ -34,8 +34,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Entry content_entry;
     private Gtk.Revealer main_revealer;
 
-    public signal void new_item_hide ();
-
     public NewItem (int64 project_id, int64 section_id, int is_todoist, string due_date="") {
         Object (
             project_id: project_id,
@@ -134,29 +132,17 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         content_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                if (due_date == "") {
-                    main_revealer.reveal_child = false;
-
-                    Timeout.add (500, () => {
-                        destroy ();
-                        return false;
-                    });
-                } else {
-                    new_item_hide ();
-                }
+                hide_destroy ();
             }
 
             return false;
         });
 
         content_entry.focus_out_event.connect (() => {
-            if (submit_stack.visible_child_name != "spinner") {
-                main_revealer.reveal_child = false;
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
+            if (temp_id_mapping == 0) {
+                hide_destroy ();
             }
+
 
             return false;
         }); 
@@ -170,16 +156,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         cancel_button.clicked.connect (() => {
-            if (due_date == "") {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
-            } else {
-                new_item_hide ();
-            }
+            hide_destroy ();
         });
 
         Planner.todoist.item_added_started.connect ((id) => {
@@ -204,12 +181,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     index + 1
                 );
 
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
+                hide_destroy ();
             }
         });
 
@@ -226,6 +198,14 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.grab_focus ();
     }
 
+    private void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (500, () => {
+            destroy ();
+            return false;
+        });
+    }
+
     private void insert_item () {
         if (content_entry.text != "") {
             var item = new Objects.Item ();            
@@ -235,9 +215,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.due_date = due_date;
             Planner.utils.parse_item_tags (item, content_entry.text);
 
-            temp_id_mapping = Planner.utils.generate_id ();
-
             if (is_todoist == 1) {
+                temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, index, has_index, temp_id_mapping);
             } else {
                 item.id = Planner.utils.generate_id ();
@@ -255,12 +234,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                         index + 1
                     );
 
-                    main_revealer.reveal_child = false;
-
-                    Timeout.add (500, () => {
-                        destroy ();
-                        return false;
-                    });
+                    hide_destroy ();
                 }
             }
         }

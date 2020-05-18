@@ -426,6 +426,8 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) <= 0;
         }
 
+        
+        stmt.reset ();
         return returned;
     }
 
@@ -437,6 +439,7 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         stmt.step ();
+        stmt.reset ();
     }
 
     public bool project_exists (int64 id) {
@@ -453,6 +456,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -493,8 +497,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
+            stmt.reset ();
             return true;
         }
     }
@@ -525,6 +531,7 @@ public class Services.Database : GLib.Object {
             queue.date_added = stmt.column_text (4);
         }
 
+        stmt.reset ();
         return queue;
     }
 
@@ -555,6 +562,7 @@ public class Services.Database : GLib.Object {
             all.add (a);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -586,7 +594,8 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_text (5, queue.uuid);
         assert (res == Sqlite.OK);
 
-        res = stmt.step ();
+        stmt.step ();
+        stmt.reset ();
     }
 
     public void remove_queue (string uuid) {
@@ -607,6 +616,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public void clear_queue () {
@@ -624,6 +635,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public bool insert_CurTempIds (int64 id, string temp_id, string object) { // vala-lint=naming-convention
@@ -650,8 +663,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
+            stmt.reset ();
             return true;
         }
     }
@@ -674,6 +689,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public void clear_cur_temp_ids () {
@@ -691,6 +708,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public bool curTempIds_exists (int64 id) { // vala-lint=naming-convention
@@ -707,6 +726,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -730,6 +750,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_text (0);
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -769,6 +790,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public void add_int64_column (string table, string col, int64 default_value) {
@@ -786,6 +809,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     public void add_text_column (string table, string col, string default_value) {
@@ -803,6 +828,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
     }
 
     /*
@@ -839,9 +866,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
-            //area_added (area);
+            stmt.reset ();
             return true;
         }
     }
@@ -864,6 +892,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -910,9 +939,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             area_added (area);
+            stmt.reset ();
             return true;
         }
     }
@@ -943,6 +974,7 @@ public class Services.Database : GLib.Object {
             all.add (a);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -971,8 +1003,10 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
+            stmt.reset ();
             return true;
         } else {
+            stmt.reset ();
             return false;
         }
     }
@@ -998,7 +1032,7 @@ public class Services.Database : GLib.Object {
         }
 
         area_deleted (area);
-
+        stmt.reset ();
         return true;
     }
 
@@ -1036,6 +1070,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
+        stmt.reset ();
         return project;
     }
 
@@ -1060,6 +1095,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
 
     /*
@@ -1144,9 +1181,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             project_added (project);
+            stmt.reset ();
             return true;
         }
     }
@@ -1209,6 +1248,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             project_updated (project);
         }
+
+        stmt.reset ();
     }
 
     public void update_item_id (int64 current_id, int64 new_id) {
@@ -1249,6 +1290,8 @@ public class Services.Database : GLib.Object {
 
             res = stmt.step ();
         }
+
+        stmt.reset ();
     }
 
     public void update_section_id (int64 current_id, int64 new_id) {
@@ -1289,6 +1332,8 @@ public class Services.Database : GLib.Object {
 
             res = stmt.step ();
         }
+
+        stmt.reset ();
     }
 
     public void update_project_id (int64 current_id, int64 new_id) {
@@ -1348,6 +1393,8 @@ public class Services.Database : GLib.Object {
                 res = stmt.step ();
             }
         }
+
+        stmt.reset ();
     }
 
     public void delete_project (int64 id) {
@@ -1404,6 +1451,8 @@ public class Services.Database : GLib.Object {
                 }
             }
         }
+
+        stmt.reset ();
     }
 
     public bool move_project (Objects.Project project, int64 area_id) {
@@ -1447,8 +1496,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             project_moved (project);
+            stmt.reset ();
             return true;
         } else {
+            stmt.reset ();
             return false;
         }
     }
@@ -1496,6 +1547,7 @@ public class Services.Database : GLib.Object {
             all.add (p);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1539,6 +1591,7 @@ public class Services.Database : GLib.Object {
             all.add (p);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1556,6 +1609,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -1599,6 +1653,7 @@ public class Services.Database : GLib.Object {
             all.add (p);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1642,6 +1697,7 @@ public class Services.Database : GLib.Object {
             all.add (p);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1685,6 +1741,7 @@ public class Services.Database : GLib.Object {
             all.add (p);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1727,6 +1784,7 @@ public class Services.Database : GLib.Object {
             p.show_completed = stmt.column_int (16);
         }
 
+        stmt.reset ();
         return p;
     }
 
@@ -1754,6 +1812,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
     
     public void update_label_item_order (int64 id, int item_order) {
@@ -1777,6 +1837,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
 
     public int get_project_count (int64 id) {
@@ -1805,6 +1867,7 @@ public class Services.Database : GLib.Object {
         }
 
         update_project_count (id, items_0, items_1);
+        stmt.reset ();
         return items_0;
     }
 
@@ -1831,6 +1894,7 @@ public class Services.Database : GLib.Object {
             }
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -1854,6 +1918,7 @@ public class Services.Database : GLib.Object {
             }
         } 
 
+        stmt.reset ();
         return count;
     }
 
@@ -1877,6 +1942,7 @@ public class Services.Database : GLib.Object {
             }
         }
 
+        stmt.reset ();
         return count;
     }
 
@@ -1917,9 +1983,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             label_added (label);
+            stmt.reset ();
             return true;
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         }
     }
@@ -1953,6 +2021,7 @@ public class Services.Database : GLib.Object {
             all.add (l);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -1985,6 +2054,7 @@ public class Services.Database : GLib.Object {
             all.add (l);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -2016,6 +2086,7 @@ public class Services.Database : GLib.Object {
             l.is_todoist = stmt.column_int (6);
         }
 
+        stmt.reset ();
         return l;
     }
 
@@ -2036,9 +2107,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             label_deleted (label);
+            stmt.reset ();
             return true;
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         }
     }
@@ -2076,9 +2149,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             label_updated (label);
+            stmt.reset ();
             return true;
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         }
     }
@@ -2101,6 +2176,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -2158,9 +2234,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             section_added (section);
+            stmt.reset ();
             return true;
         }
     }
@@ -2199,6 +2277,7 @@ public class Services.Database : GLib.Object {
             s.note = stmt.column_text (11);
         }
 
+        stmt.reset ();
         return s;
     }
 
@@ -2240,6 +2319,7 @@ public class Services.Database : GLib.Object {
             all.add (s);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -2275,6 +2355,8 @@ public class Services.Database : GLib.Object {
         } else {
             print ("Error: %d: %s\n".printf (db.errcode (), db.errmsg ()));
         }
+
+        stmt.reset ();
     }
 
     public void delete_section (Objects.Section section) {
@@ -2313,6 +2395,8 @@ public class Services.Database : GLib.Object {
                 section_deleted (section);
             }
         }
+
+        stmt.reset ();
     }
 
     public bool move_section (Objects.Section section, int64 project_id) {
@@ -2336,6 +2420,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             section_moved (section, project_id, old_project_id);
@@ -2356,7 +2441,7 @@ public class Services.Database : GLib.Object {
             assert (res == Sqlite.OK);
 
             stmt.step ();
-
+            stmt.reset ();
             return true;
         }
     }
@@ -2382,6 +2467,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
 
     /*
@@ -2402,6 +2489,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -2515,6 +2603,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             if (has_index) {
@@ -2523,6 +2612,7 @@ public class Services.Database : GLib.Object {
                 item_added (item);
             }
 
+            stmt.reset ();
             return true;
         }
     }
@@ -2580,8 +2670,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             item_updated (item);
+            stmt.reset ();
             return true;
         } else {
+            stmt.reset ();
             return false;
         }
     }
@@ -2634,6 +2726,7 @@ public class Services.Database : GLib.Object {
             i.day_order = stmt.column_int (23);
         }
 
+        stmt.reset ();
         return i;
     }
 
@@ -2668,6 +2761,8 @@ public class Services.Database : GLib.Object {
                 item_uncompleted (item);
             }
         }
+
+        stmt.reset ();
     }
 
     public void update_item_recurring_due_date (Objects.Item item, int value=1) {
@@ -2701,6 +2796,8 @@ public class Services.Database : GLib.Object {
                 Planner.todoist.update_item (item);
             }
         }
+
+        stmt.reset ();
     }
 
     public void delete_item (Objects.Item item) {
@@ -2739,6 +2836,8 @@ public class Services.Database : GLib.Object {
                 item_deleted (item);
             }
         }
+
+        stmt.reset ();
     }
 
     public bool move_item (Objects.Item item, int64 project_id) {
@@ -2768,6 +2867,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             item_moved (item, project_id, old_project_id);
@@ -2788,7 +2888,7 @@ public class Services.Database : GLib.Object {
             assert (res == Sqlite.OK);
 
             stmt.step ();
-
+            stmt.reset ();
             return true;
         }
     }
@@ -2817,6 +2917,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
 
     public void update_check_order (Objects.Item item, int64 parent_id, int item_order) {
@@ -2843,6 +2945,8 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             //updated_playlist (playlist);
         }
+
+        stmt.reset ();
     }
 
     public bool set_due_item (Objects.Item item, bool new_date) {
@@ -2890,9 +2994,11 @@ public class Services.Database : GLib.Object {
                 }
             }
 
+            stmt.reset ();
             return true;
         }
 
+        stmt.reset ();
         return false;
     }
 
@@ -2916,6 +3022,7 @@ public class Services.Database : GLib.Object {
             size++;
         }
 
+        stmt.reset ();
         return size;
     }
 
@@ -2939,6 +3046,7 @@ public class Services.Database : GLib.Object {
             size++;
         }
 
+        stmt.reset ();
         return size;
     }
 
@@ -2962,6 +3070,7 @@ public class Services.Database : GLib.Object {
             size++;
         }
 
+        stmt.reset ();
         return size;
     }
 
@@ -2985,6 +3094,7 @@ public class Services.Database : GLib.Object {
             size++;
         }
 
+        stmt.reset ();
         return size;
     }
 
@@ -3040,6 +3150,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3095,6 +3206,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3150,6 +3262,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3202,6 +3315,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3257,6 +3371,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3312,6 +3427,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3367,6 +3483,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3422,6 +3539,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3477,6 +3595,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3532,6 +3651,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3587,6 +3707,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3642,6 +3763,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3701,6 +3823,7 @@ public class Services.Database : GLib.Object {
             //  }
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3758,6 +3881,7 @@ public class Services.Database : GLib.Object {
             }
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3813,6 +3937,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3865,6 +3990,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3921,6 +4047,7 @@ public class Services.Database : GLib.Object {
             all.add (i);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -3950,8 +4077,10 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             item_label_added (id, item_id, label);
+            stmt.reset ();
             return true;
         } else {
+            stmt.reset ();
             return false;
         }
     }
@@ -3986,6 +4115,7 @@ public class Services.Database : GLib.Object {
             all.add (l);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -4006,9 +4136,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             item_label_deleted (id, item_id, label);
+            stmt.reset ();
             return true;
         }
     }
@@ -4037,6 +4169,8 @@ public class Services.Database : GLib.Object {
         } else {
             item_section_moved (item, section_id, old_section_id);
         }
+
+        stmt.reset ();
     }
 
     // Reminders
@@ -4064,9 +4198,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             reminder_added (reminder);
+            stmt.reset ();
             return true;
         }
     }
@@ -4098,6 +4234,7 @@ public class Services.Database : GLib.Object {
             all.add (r);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -4125,6 +4262,7 @@ public class Services.Database : GLib.Object {
             returned.due_date = stmt.column_text (2);
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -4155,6 +4293,7 @@ public class Services.Database : GLib.Object {
             all.add (r);
         }
 
+        stmt.reset ();
         return all;
     }
 
@@ -4175,9 +4314,11 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
             return false;
         } else {
             reminder_deleted (id);
+            stmt.reset ();
             return true;
         }
     }
