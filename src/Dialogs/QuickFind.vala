@@ -745,10 +745,8 @@ namespace Synapse {
 
         PLACES = 1 << 8,
 
-        // FIXME: shouldn't this be FILES | INCLUDE_REMOTE?
         INTERNET = 1 << 9,
 
-        // FIXME: Text Query flag? kinda weird, why do we have this here?
         TEXT = 1 << 10,
 
         CONTACTS = 1 << 11,
@@ -840,7 +838,6 @@ namespace Synapse {
                     results[re] = Match.Score.GOOD;
                 } catch (RegexError err) { }
 
-                // FIXME: do something generic here
                 if (!(MatcherFlags.NO_REVERSED in match_flags)) {
                     if (escaped_words.length == 2) {
                         var reversed = "\\b(%s)".printf (
@@ -908,7 +905,7 @@ namespace Synapse {
 
             var sorted_results = new Gee.ArrayList<Gee.Map.Entry<Regex, int>> ();
             var entries = results.entries;
-            // FIXME: why it doesn't work without this?
+
             sorted_results.set_data ("entries-ref", entries);
             sorted_results.add_all (entries);
             sorted_results.sort ((a, b) => {
