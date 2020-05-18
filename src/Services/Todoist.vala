@@ -116,7 +116,7 @@ public class Services.Todoist : GLib.Object {
 
         Planner.database.reset.connect (() => {
             if (this.server_timeout != 0) {
-                Source.remove(this.server_timeout);
+                Source.remove (this.server_timeout);
                 this.server_timeout = 0;
             }
         });

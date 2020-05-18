@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public enum QuickFind_Result_Type {
+public enum QuickFindResultType {
     NONE,
     ITEM,
     PROJECT,
@@ -152,7 +152,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         placeholder_image.gicon = new ThemedIcon ("folder-saved-search-symbolic");
         placeholder_image.pixel_size = 32;
 
-        var placeholder_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels, ..."));
+        var placeholder_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels."));
         placeholder_label.wrap = true;
         placeholder_label.max_width_chars = 32;
         placeholder_label.justify = Gtk.Justification.CENTER;
@@ -192,7 +192,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         // Add Default Filters
         foreach (var label in Planner.database.get_all_labels ()) {
             var row = new SearchItem (
-                QuickFind_Result_Type.LABEL,
+                QuickFindResultType.LABEL,
                 label.to_json (),
                 search_entry.text
             );
@@ -203,7 +203,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         foreach (var priority in priorities) {
             var row = new SearchItem (
-                QuickFind_Result_Type.PRIORITY,
+                QuickFindResultType.PRIORITY,
                 priority,
                 search_entry.text
             );
@@ -212,7 +212,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             listbox.show_all ();
         }
         
-        QuickFind_Result_Type result_type = QuickFind_Result_Type.NONE;
+        QuickFindResultType result_type = QuickFindResultType.NONE;
         listbox.foreach ((widget) => {
             var row = (SearchItem) widget;
 
@@ -233,7 +233,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                 if (search_entry.text.down () == _("Labels").down ()) {
                     foreach (var label in Planner.database.get_all_labels ()) {
                         var row = new SearchItem (
-                            QuickFind_Result_Type.LABEL,
+                            QuickFindResultType.LABEL,
                             label.to_json (),
                             search_entry.text
                         );
@@ -246,7 +246,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                 foreach (string view in views) {
                     if (search_entry.text.down () in Planner.todoist.get_string_member_by_object (view, "name").down ()) {
                         var row = new SearchItem (
-                            QuickFind_Result_Type.VIEW,
+                            QuickFindResultType.VIEW,
                             view,
                             search_entry.text
                         );
@@ -260,7 +260,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                     if (search_entry.text.down () in Planner.todoist.get_string_member_by_object (priority, "name").down () ||
                     search_entry.text.down () in Planner.todoist.get_string_member_by_object (priority, "keywords").down ()) {
                         var row = new SearchItem (
-                            QuickFind_Result_Type.PRIORITY,
+                            QuickFindResultType.PRIORITY,
                             priority,
                             search_entry.text
                         );
@@ -273,7 +273,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                 foreach (var project in Planner.database.get_all_projects_by_search (search_entry.text)) {
                     if (project.inbox_project == 0) {
                         var row = new SearchItem (
-                            QuickFind_Result_Type.PROJECT,
+                            QuickFindResultType.PROJECT,
                             project.to_json (),
                             search_entry.text
                         );
@@ -285,7 +285,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
                 foreach (var label in Planner.database.get_labels_by_search (search_entry.text)) {
                     var row = new SearchItem (
-                        QuickFind_Result_Type.LABEL,
+                        QuickFindResultType.LABEL,
                         label.to_json (),
                         search_entry.text
                     );
@@ -296,7 +296,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
                 foreach (var item in Planner.database.get_items_by_search (search_entry.text)) {
                     var row = new SearchItem (
-                        QuickFind_Result_Type.ITEM,
+                        QuickFindResultType.ITEM,
                         item.to_json (),
                         search_entry.text
                     );
@@ -305,7 +305,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                     listbox.show_all ();
                 }
 
-                result_type = QuickFind_Result_Type.NONE;
+                result_type = QuickFindResultType.NONE;
                 listbox.foreach ((widget) => {
                     var row = (SearchItem) widget;
 
@@ -364,23 +364,23 @@ public class Dialogs.QuickFind : Gtk.Dialog {
     private void row_activated (Gtk.ListBoxRow row) {
         var item = (SearchItem) row;
 
-        if (item.result_type == QuickFind_Result_Type.PROJECT) {
+        if (item.result_type == QuickFindResultType.PROJECT) {
             Planner.instance.main_window.go_project (
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
-        } else if (item.result_type == QuickFind_Result_Type.VIEW) {
+        } else if (item.result_type == QuickFindResultType.VIEW) {
             Planner.instance.main_window.go_view (
                 (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
             );
-        } else if (item.result_type == QuickFind_Result_Type.ITEM) {
+        } else if (item.result_type == QuickFindResultType.ITEM) {
             Planner.instance.main_window.go_item (
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
-        } else if (item.result_type == QuickFind_Result_Type.LABEL) {
+        } else if (item.result_type == QuickFindResultType.LABEL) {
             Planner.instance.main_window.go_label (
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
-        } else if (item.result_type == QuickFind_Result_Type.PRIORITY) {
+        } else if (item.result_type == QuickFindResultType.PRIORITY) {
             Planner.instance.main_window.go_priority (
                 (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
             );
@@ -400,13 +400,13 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 }
 
 public class SearchItem : Gtk.ListBoxRow {
-    public QuickFind_Result_Type result_type { get; construct set; }
+    public QuickFindResultType result_type { get; construct set; }
 
     public Gtk.Label header_label;
     public string object { get; construct; }
     public string search_term { get; construct; }
 
-    public SearchItem (QuickFind_Result_Type result_type, string object, string search_term) {
+    public SearchItem (QuickFindResultType result_type, string object, string search_term) {
         Object (
             result_type: result_type,
             object: object,
@@ -416,7 +416,7 @@ public class SearchItem : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("searchitem-row");
-        if (result_type == QuickFind_Result_Type.ITEM) {
+        if (result_type == QuickFindResultType.ITEM) {
             header_label = new Gtk.Label (_("Tasks"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
@@ -451,7 +451,7 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (grid, 2, 0, 1, 1);
 
             add (main_grid);
-        } else if (result_type == QuickFind_Result_Type.PROJECT) {
+        } else if (result_type == QuickFindResultType.PROJECT) {
             header_label = new Gtk.Label (_("Projects"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
@@ -505,7 +505,7 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (grid, 2, 0, 1, 1);
 
             add (main_grid);
-        } else if (result_type == QuickFind_Result_Type.VIEW) {
+        } else if (result_type == QuickFindResultType.VIEW) {
             header_label = new Gtk.Label (_("Views"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
@@ -557,7 +557,7 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (grid, 2, 0, 1, 1);
 
             add (main_grid);
-        } else if (result_type == QuickFind_Result_Type.LABEL) {
+        } else if (result_type == QuickFindResultType.LABEL) {
             header_label = new Gtk.Label (_("Labels"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
@@ -598,7 +598,7 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (grid, 2, 0, 1, 1);
 
             add (main_grid);
-        } else if (result_type == QuickFind_Result_Type.PRIORITY) {
+        } else if (result_type == QuickFindResultType.PRIORITY) {
             header_label = new Gtk.Label (_("Priorities"));
             header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");

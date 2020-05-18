@@ -82,8 +82,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         top_box.row_spacing = 3;
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.attach (day_label,  0, 0, 1, 2);
-        top_box.attach (separator,  1, 0, 1, 1);
+        top_box.attach (day_label, 0, 0, 1, 2);
+        top_box.attach (separator, 1, 0, 1, 1);
         top_box.attach (date_label, 1, 1, 1, 1);
 
         var motion_grid = new Gtk.Grid ();

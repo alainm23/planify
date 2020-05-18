@@ -30,7 +30,7 @@ public class Widgets.ReminderRow : Gtk.ListBoxRow {
 
     construct {
         activatable = false;
-        selectable =  false;
+        selectable = false;
 
         var icon = new Gtk.Image ();
         icon.gicon = new ThemedIcon ("notification-symbolic");

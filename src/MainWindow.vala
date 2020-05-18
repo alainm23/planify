@@ -205,7 +205,7 @@ public class MainWindow : Gtk.Window {
             stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
             // Create The New Inbox Project
-            inbox_view =  null;
+            inbox_view = null;
             go_view (0);
 
             // Enable UI

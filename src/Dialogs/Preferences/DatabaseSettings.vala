@@ -42,7 +42,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
         location_grid.margin_end = 16;
         location_grid.tooltip_text = _("Current location: %s".printf (Planner.database.get_database_path ()));
 
-        var change_button = new Gtk.Button.with_label(_("Change"));
+        var change_button = new Gtk.Button.with_label (_("Change"));
         change_button.valign = Gtk.Align.CENTER;
         change_button.can_focus = false;
 
@@ -136,7 +136,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                 );
 
                 dialog.local_only = false; //allow for uri
-                var filter = new Gtk.FileFilter();
+                var filter = new Gtk.FileFilter ();
                 filter.add_pattern ("*.db");
                 filter.set_filter_name (_("Planner DB Files (sqlite)"));
                 dialog.add_filter (filter);
@@ -157,7 +157,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
             case Gtk.ResponseType.ACCEPT:
                 var filename = open_dialog.get_filename ();
                 var file = GLib.File.new_for_path (filename);
-                if (!file.query_exists()) {
+                if (!file.query_exists ()) {
                     var old_file = GLib.File.new_for_path (Planner.database.get_database_path ());
                     old_file.copy (file, FileCopyFlags.ALL_METADATA, null, (current_num_bytes, total_num_bytes) => {
                         print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n",

@@ -34,7 +34,7 @@ public class Widgets.Toast : Gtk.Revealer {
     private uint close_timeout = 0;
 
     private int64 _object_id = 0;
-    private string _object_type =  "";
+    private string _object_type = "";
     private string _undo_type = "";
     private string _undo_value = "";
 

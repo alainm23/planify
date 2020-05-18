@@ -24,7 +24,7 @@ public class Services.LabelsController : GLib.Object {
         Planner.database.opened.connect (this.init);
     }
 
-    private void init() {
+    private void init () {
         foreach (Objects.Label label in Planner.database.get_all_labels ()) {
             apply_styles (label.id, Planner.utils.get_color (label.color), label.color);
         }
