@@ -169,6 +169,11 @@ paned.horizontal > separator {
 */
 
 .pane-item {
+    padding-top:.2em;
+    padding-bottom:.2em;
+}
+    
+.pane-row:selected .pane-item {
     font-weight: 600;
 }
 
