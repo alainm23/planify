@@ -25,6 +25,9 @@ public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "0123456789";
 
+    private const string TODAY = _("today");
+    private const string TOMORROW = _("tomorrow");
+
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
@@ -1028,10 +1031,10 @@ public class Utils : GLib.Object {
             var stripped =    word.strip ().down ();
 
             switch (stripped) {
-                case "today":
+                case TODAY:
                     item.due_date = new GLib.DateTime.now_local ().to_string ();
                     break;
-                case "tomorrow":
+                case TOMORROW:
                     item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
                     break;
                 case "p1":
