@@ -26,7 +26,8 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Entry name_entry;
     private Gtk.Revealer action_revealer;
     private Gtk.TextView note_textview;
-    private Gtk.Label note_placeholder;
+    private Gtk.Stack note_stack;
+    private Gtk.Label note_label;
     private Gtk.Stack name_stack;
 
     private Gtk.ListBox listbox;
@@ -237,26 +238,36 @@ public class Views.Project : Gtk.EventBox {
         note_textview.tooltip_text = _("Add a description");
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
-        note_textview.margin_top = 6;
-        note_textview.margin_bottom = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.margin_start = 43;
-        note_textview.margin_end = 45;
-
-        note_placeholder = new Gtk.Label (_("Description"));
-        note_placeholder.opacity = 0.7;
-        note_textview.add (note_placeholder);
 
         note_textview.buffer.text = Planner.utils.line_break_to_space (project.note);
 
-        if (project.note != "") {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-        } else {
-            note_placeholder.visible = true;
-            note_placeholder.no_show_all = false;
-        }
+        // Note Label
+        note_label = new Gtk.Label ("");
+        this.update_note_label(project.note);
+        note_label.valign = Gtk.Align.START;
+        note_label.wrap = true;
+        note_label.wrap_mode = Pango.WrapMode.WORD;
+        note_label.xalign = 0;
+        note_label.yalign = 0;
+        note_label.margin_bottom = 3;
+        note_label.use_markup = true;
+
+        var note_eventbox = new Gtk.EventBox ();
+        note_eventbox.hexpand = true;
+        note_eventbox.add (note_label);
+
+        note_stack = new Gtk.Stack ();
+        note_stack.hexpand = true;
+        note_stack.margin_top = 6;
+        note_stack.margin_bottom = 6;
+        note_stack.margin_start = 42;
+        note_stack.margin_end = 43;
+        note_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        note_stack.vhomogeneous = false;
+        note_stack.add_named (note_eventbox, "label");
+        note_stack.add_named (note_textview, "textview");
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
@@ -377,7 +388,7 @@ public class Views.Project : Gtk.EventBox {
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (note_textview, false, false, 0);
+        main_box.pack_start (note_stack, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
@@ -475,24 +486,27 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
         note_textview.focus_out_event.connect (() => {
-            if (note_textview.buffer.text == "") {
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            }
+            note_stack.visible_child_name = "label";
+            this.update_note_label(note_textview.buffer.text);
 
             return false;
         }); 
 
         note_textview.buffer.changed.connect (() => {
             save (false);
+        });
+
+
+        note_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
+                note_stack.visible_child_name = "textview";
+                note_textview.grab_focus ();
+
+                return true;
+            }
+
+            return false;
         });
 
         section_button.toggled.connect (() => {
@@ -515,13 +529,7 @@ public class Views.Project : Gtk.EventBox {
                 name_entry.text = p.name;
                 note_textview.buffer.text = p.note;
 
-                if (note_textview.buffer.text != "") {
-                    note_placeholder.visible = false;
-                    note_placeholder.no_show_all = true;
-                } else {
-                    note_placeholder.visible = true;
-                    note_placeholder.no_show_all = false;
-                }
+                this.update_note_label( note_textview.buffer.text );
             }
         });
 
@@ -808,6 +816,16 @@ public class Views.Project : Gtk.EventBox {
                 }
             }
         });
+    }
+
+    private void update_note_label(string text) {
+        if (text == "") {
+            note_label.label = _("Description");
+            note_label.opacity = 0.7;
+        } else {
+            note_label.label = Planner.utils.get_markup_format (text);
+            note_label.opacity = 1.0;
+        }
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
