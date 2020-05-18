@@ -228,12 +228,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
     private void insert_item () {
         if (content_entry.text != "") {
-            var item = new Objects.Item ();
-            item.content = content_entry.text;
+            var item = new Objects.Item ();            
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
             item.due_date = due_date;
+            Planner.utils.parse_item_tags (item, content_entry.text);
 
             temp_id_mapping = Planner.utils.generate_id ();
 
