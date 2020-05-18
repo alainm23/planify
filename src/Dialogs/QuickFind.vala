@@ -47,8 +47,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             // width_request = 465;
             // height_request = 255;
         // } else {
-            width_request = 575;
-            height_request = 425;
+            width_request = 600;
+            height_request = 450;
         // }
 
         int window_x, window_y;

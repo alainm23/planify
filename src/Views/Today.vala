@@ -22,8 +22,8 @@
 public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
-    public Gtk.Revealer new_item_revealer;
-    private Widgets.NewItem new_item;
+    // public Gtk.Revealer new_item_revealer;
+    // private Widgets.NewItem new_item;
     private Gtk.Stack view_stack;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
@@ -90,20 +90,6 @@ public class Views.Today : Gtk.EventBox {
         view_stack.add_named (listbox, "listbox");
         view_stack.add_named (placeholder_view, "placeholder");
 
-        new_item = new Widgets.NewItem (
-            Planner.settings.get_int64 ("inbox-project"),
-            0,
-            Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist
-        );
-        new_item.margin_top = 6;
-        new_item.margin_start = 36;
-        new_item.margin_end = 32;
-        new_item.due_date = new GLib.DateTime.now_local ().to_string ();
-
-        new_item_revealer = new Gtk.Revealer ();
-        new_item_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        new_item_revealer.add (new_item);
-
         event_listbox = new Gtk.ListBox ();
         event_listbox.margin_top = 6;
         event_listbox.margin_start = 44;
@@ -123,7 +109,7 @@ public class Views.Today : Gtk.EventBox {
         box.margin_bottom = 3;
         box.margin_end = 3;
         box.pack_start (event_revealer, false, false, 0);
-        box.pack_start (new_item_revealer, false, false, 0);
+        // box.pack_start (new_item_revealer, false, false, 0);
         box.pack_start (view_stack, true, true, 0);
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -150,6 +136,10 @@ public class Views.Today : Gtk.EventBox {
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
+        });
+
+        listbox.remove.connect ((row) => {
+            check_placeholder_view ();
         });
 
         Planner.database.add_due_item.connect ((item) => {
@@ -231,10 +221,10 @@ public class Views.Today : Gtk.EventBox {
             });
         });
 
-        new_item.new_item_hide.connect (() => {
-            new_item_revealer.reveal_child = false;
-            check_placeholder_view ();
-        });
+        //  new_item.new_item_hide.connect (() => {
+        //      new_item_revealer.reveal_child = false;
+        //      check_placeholder_view ();
+        //  });
 
         date = new GLib.DateTime.now_local ();
         event_hashmap = new Gee.HashMap<string, Widgets.EventRow> ();
@@ -262,6 +252,19 @@ public class Views.Today : Gtk.EventBox {
                 remove_item_show_queue (row);
             }
         });
+    }
+
+    public void add_new_item () {
+        var new_item = new Widgets.NewItem (
+            Planner.settings.get_int64 ("inbox-project"),
+            0,
+            Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
+            new GLib.DateTime.now_local ().to_string ()
+        );
+
+        listbox.add (new_item);
+        listbox.show_all ();
+        view_stack.visible_child_name = "listbox";
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
@@ -407,16 +410,16 @@ public class Views.Today : Gtk.EventBox {
     //      }
     //  }
     
-    public void toggle_new_item () {
-        if (new_item_revealer.reveal_child) {
-            new_item_revealer.reveal_child = false;
-        } else {
-            new_item_revealer.reveal_child = true;
-            new_item.entry_grab_focus ();
+    //  public void toggle_new_item () {
+    //      if (new_item_revealer.reveal_child) {
+    //          new_item_revealer.reveal_child = false;
+    //      } else {
+    //          new_item_revealer.reveal_child = true;
+    //          new_item.entry_grab_focus ();
 
-            view_stack.visible_child_name = "listbox";
-        }
-    }
+    //          view_stack.visible_child_name = "listbox";
+    //      }
+    //  }
 
     private void check_placeholder_view () {
         if (Planner.database.get_all_today_items ().size > 0) {

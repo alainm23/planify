@@ -912,10 +912,10 @@ public class Views.Project : Gtk.EventBox {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
-        Gtk.drag_dest_set (note_textview, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        note_textview.drag_data_received.connect (on_drag_item_received);
-        note_textview.drag_motion.connect (on_drag_motion);
-        note_textview.drag_leave.connect (on_drag_leave);
+        Gtk.drag_dest_set (note_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        note_stack.drag_data_received.connect (on_drag_item_received);
+        note_stack.drag_motion.connect (on_drag_motion);
+        note_stack.drag_leave.connect (on_drag_leave);
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y,

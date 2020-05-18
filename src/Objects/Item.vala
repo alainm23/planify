@@ -101,10 +101,9 @@ public class Objects.Item : GLib.Object {
         });
     }
 
-    public Objects.Item get_duplicate () {
+    public void get_duplicate () {
         var item = new Objects.Item ();
 
-        item.id = Planner.utils.generate_id ();
         item.project_id = project_id;
         item.section_id = section_id;
         item.user_id = user_id;
@@ -122,7 +121,27 @@ public class Objects.Item : GLib.Object {
         item.due_lang = due_lang;
         item.due_is_recurring = due_is_recurring;
 
-        return item;
+        if (is_todoist == 1) {
+            var temp_id_mapping = Planner.utils.generate_id ();
+            Planner.todoist.item_added_completed.connect ((_temp_id_mapping) => {
+                if (temp_id_mapping == _temp_id_mapping) {
+                    Planner.notifications.send_notification (
+                        _("Duplicate task"),
+                        "edit-copy-symbolic"
+                    );
+                }
+            });
+
+            Planner.todoist.add_item (item, -1, false, temp_id_mapping);
+        } else {
+            item.id = Planner.utils.generate_id ();
+            if (Planner.database.insert_item (item, -1, false)) {
+                Planner.notifications.send_notification (
+                    _("Duplicate task"),
+                    "edit-copy-symbolic"
+                );
+            }
+        }
     }
 
     public void convert_to_project () {

@@ -682,20 +682,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_checklist_separator ();
         });
 
-        //  Timeout.add (250, () => {
-        //      if (item.note.strip () == "") {
-        //          note_stack.visible_child_name = "textview";
-        //          note_placeholder.visible = true;
-        //          note_placeholder.no_show_all = false;
-        //      } else {
-        //          note_stack.visible_child_name = "label";
-        //          note_placeholder.visible = false;
-        //          note_placeholder.no_show_all = true;
-        //      }
-
-        //      return false;
-        //  });
-
         note_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
                 note_stack.visible_child_name = "textview";
@@ -797,14 +783,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     content_entry.text = item.content;
                     content_label.label = Planner.utils.get_markup_format (item.content);
                     note_textview.buffer.text = item.note;
-
-                    //  if (note_textview.buffer.text == "") {
-                    //      note_placeholder.visible = true;
-                    //      note_placeholder.no_show_all = false;
-                    //  } else {
-                    //      note_placeholder.visible = false;
-                    //      note_placeholder.no_show_all = true;
-                    //  }
 
                     check_priority_style ();
                     priority_button.update_icon (item);
@@ -1441,7 +1419,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         menu.add (move_project_menu);
         menu.add (move_section_menu);
         menu.add (share_menu);
-        //menu.add (duplicate_menu);
+        menu.add (duplicate_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (delete_menu);
 
@@ -1476,7 +1454,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         duplicate_menu.activate.connect (() => {
-            Planner.database.insert_item (item.get_duplicate ());
+            item.get_duplicate ();
         });
 
         delete_menu.activate.connect (() => {

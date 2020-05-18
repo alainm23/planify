@@ -94,8 +94,7 @@ public class Services.Database : GLib.Object {
         }
 
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
-
-        // this.remove_trash ();
+        
         this.patch_database ();
         // fire signal to tell that the database is ready
         this.opened ();
@@ -302,7 +301,7 @@ public class Services.Database : GLib.Object {
                 date_completed      TEXT,
                 date_updated        TEXT,
                 is_todoist          INTEGER,
-                today_orden         INTEGER
+                day_order         INTEGER
             );
         """;
 

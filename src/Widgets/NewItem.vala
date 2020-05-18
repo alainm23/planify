@@ -36,11 +36,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
     public signal void new_item_hide ();
 
-    public NewItem (int64 project_id, int64 section_id, int is_todoist) {
+    public NewItem (int64 project_id, int64 section_id, int is_todoist, string due_date="") {
         Object (
             project_id: project_id,
             section_id: section_id,
-            is_todoist: is_todoist
+            is_todoist: is_todoist,
+            due_date: due_date
         );
     }
 
@@ -149,11 +150,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         content_entry.focus_out_event.connect (() => {
-            main_revealer.reveal_child = false;
-            Timeout.add (500, () => {
-                destroy ();
-                return false;
-            });
+            if (submit_stack.visible_child_name != "spinner") {
+                main_revealer.reveal_child = false;
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
+            }
 
             return false;
         }); 
@@ -188,35 +191,25 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Planner.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
-                submit_stack.visible_child_name = "label";
-                sensitive = true;
-                content_entry.text = "";
-
-                if (due_date == "") {
-                    bool last = true;
-                    if (has_index) {
-                        last = false;
-                    }
-
-                    Planner.utils.magic_button_activated (
-                        project_id,
-                        section_id,
-                        is_todoist,
-                        last,
-                        index + 1
-                    );
-
-                    main_revealer.reveal_child = false;
-
-                    Timeout.add (500, () => {
-                        destroy ();
-                        return false;
-                    });
-                } else {
-                    new_item_hide ();
+                bool last = true;
+                if (has_index) {
+                    last = false;
                 }
 
-                due_date = "";
+                Planner.utils.magic_button_activated (
+                    project_id,
+                    section_id,
+                    is_todoist,
+                    last,
+                    index + 1
+                );
+
+                main_revealer.reveal_child = false;
+
+                Timeout.add (500, () => {
+                    destroy ();
+                    return false;
+                });
             }
         });
 
@@ -249,33 +242,25 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             } else {
                 item.id = Planner.utils.generate_id ();
                 if (Planner.database.insert_item (item, index, has_index)) {
-                    content_entry.text = "";
-
-                    if (due_date == "") {
-                        bool last = true;
-                        if (has_index) {
-                            last = false;
-                        }
-
-                        Planner.utils.magic_button_activated (
-                            project_id,
-                            section_id,
-                            is_todoist,
-                            last,
-                            index + 1
-                        );
-
-                        main_revealer.reveal_child = false;
-
-                        Timeout.add (500, () => {
-                            destroy ();
-                            return false;
-                        });
-                    } else {
-                        new_item_hide ();
+                    bool last = true;
+                    if (has_index) {
+                        last = false;
                     }
 
-                    due_date = "";
+                    Planner.utils.magic_button_activated (
+                        project_id,
+                        section_id,
+                        is_todoist,
+                        last,
+                        index + 1
+                    );
+
+                    main_revealer.reveal_child = false;
+
+                    Timeout.add (500, () => {
+                        destroy ();
+                        return false;
+                    });
                 }
             }
         }

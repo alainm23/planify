@@ -236,7 +236,7 @@ public class MainWindow : Gtk.Window {
                     true
                 );
             } else if (stack.visible_child_name == "today-view") {
-                today_view.toggle_new_item ();
+                today_view.add_new_item ();
             } else if (stack.visible_child_name == "upcoming-view") {
 
             } else {
@@ -607,7 +607,7 @@ public class MainWindow : Gtk.Window {
                 last
             );
         } else if (stack.visible_child_name == "today-view") {
-            today_view.toggle_new_item ();
+            today_view.add_new_item ();
         } else if (stack.visible_child_name == "upcoming-view") {
 
         } else {
