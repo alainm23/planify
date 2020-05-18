@@ -34,7 +34,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.TextView note_textview;
     private Gtk.Label note_label;
     private Gtk.Stack note_stack;
-    private Gtk.Label note_placeholder;
     private Gtk.Revealer note_preview_revealer;
     private Gtk.Revealer bottom_revealer;
     private Gtk.Revealer main_revealer;
@@ -378,17 +377,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Note TextView
         note_textview = new Gtk.TextView ();
-        note_textview.height_request = 42;
-        note_textview.buffer.text = item.note;
+        note_textview.hexpand = true;
+        note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.height_request = 42;
         note_textview.get_style_context ().add_class ("textview");
-
-        note_placeholder = new Gtk.Label (_("Note"));
-        note_placeholder.opacity = 0.7;
-        note_textview.add (note_placeholder);
+        note_textview.buffer.text = item.note;
 
         // Note Label
-        note_label = new Gtk.Label (Planner.utils.get_markup_format (item.note));
+        note_label = new Gtk.Label ("");
+        update_note_label (item.note);
         note_label.valign = Gtk.Align.START;
         note_label.height_request = 42;
         note_label.wrap = true;
@@ -684,19 +682,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             check_checklist_separator ();
         });
 
-        Timeout.add (250, () => {
-            if (item.note.strip () == "") {
-                note_stack.visible_child_name = "textview";
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            } else {
-                note_stack.visible_child_name = "label";
-                note_placeholder.visible = false;
-                note_placeholder.no_show_all = true;
-            }
+        //  Timeout.add (250, () => {
+        //      if (item.note.strip () == "") {
+        //          note_stack.visible_child_name = "textview";
+        //          note_placeholder.visible = true;
+        //          note_placeholder.no_show_all = false;
+        //      } else {
+        //          note_stack.visible_child_name = "label";
+        //          note_placeholder.visible = false;
+        //          note_placeholder.no_show_all = true;
+        //      }
 
-            return false;
-        });
+        //      return false;
+        //  });
 
         note_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
@@ -711,41 +709,20 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         note_textview.buffer.changed.connect (() => {
             save (false);
-
-            if (note_textview.buffer.text == "") {
-                note_preview_revealer.reveal_child = false;
-            } else {
-                note_preview_revealer.reveal_child = true;
-            }
-
             check_preview_box ();
         });
 
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
         note_textview.focus_out_event.connect (() => {
-            note_label.label = Planner.utils.get_markup_format (note_textview.buffer.text); 
-
-            if (item.note.strip () == "") {
-                note_stack.visible_child_name = "textview";
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-            } else {
-                note_stack.visible_child_name = "label";
-                note_placeholder.visible = false;
-                note_placeholder.no_show_all = true;
-            }
+            note_stack.visible_child_name = "label";
+            update_note_label (note_textview.buffer.text);
 
             return false;
         });
 
         note_textview.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
+                note_stack.visible_child_name = "label";
+                update_note_label (note_textview.buffer.text);
                 hide_item ();
             }
 
@@ -821,13 +798,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     content_label.label = Planner.utils.get_markup_format (item.content);
                     note_textview.buffer.text = item.note;
 
-                    if (note_textview.buffer.text == "") {
-                        note_placeholder.visible = true;
-                        note_placeholder.no_show_all = false;
-                    } else {
-                        note_placeholder.visible = false;
-                        note_placeholder.no_show_all = true;
-                    }
+                    //  if (note_textview.buffer.text == "") {
+                    //      note_placeholder.visible = true;
+                    //      note_placeholder.no_show_all = false;
+                    //  } else {
+                    //      note_placeholder.visible = false;
+                    //      note_placeholder.no_show_all = true;
+                    //  }
 
                     check_priority_style ();
                     priority_button.update_icon (item);
@@ -1568,6 +1545,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             checked_button.get_style_context ().add_class ("priority-4");
         } else {
             checked_button.get_style_context ().add_class ("priority-1");
+        }
+    }
+
+    private void update_note_label (string text) {
+        if (text.strip () == "") {
+            note_label.label = _("Note");
+            note_label.opacity = 0.7;
+        } else {
+            note_label.label = Planner.utils.get_markup_format (text);
+            note_label.opacity = 1.0;
         }
     }
 

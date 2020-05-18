@@ -60,6 +60,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_label.halign = Gtk.Align.START;
         content_label.valign = Gtk.Align.CENTER;
         content_label.set_ellipsize (Pango.EllipsizeMode.END);
+        content_label.use_markup = true;
 
         content_entry = new Gtk.Entry ();
         content_entry.placeholder_text = _("Task name");
@@ -71,8 +72,8 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         content_stack = new Gtk.Stack ();
         content_stack.transition_type = Gtk.StackTransitionType.NONE;
-        content_stack.add_named (content_label, "content_label");
-        content_stack.add_named (content_entry, "content_entry");
+        content_stack.add_named (content_label, "label");
+        content_stack.add_named (content_entry, "entry");
 
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
@@ -167,13 +168,14 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         });
 
         content_entry.activate.connect (() => {
-            content_stack.visible_child_name = "content_label";
-            // activate (get_index ());
-            // print ("Index: %i\n".printf (get_index ()));
+            content_stack.visible_child_name = "label";
         });
 
         content_entry.focus_out_event.connect (() => {
-            content_stack.visible_child_name = "content_label";
+            content_stack.visible_child_name = "label";
+            content_label.label = Planner.utils.get_markup_format (item.content);
+            tooltip_text = item.content;
+            
             return false;
         });
 
@@ -248,14 +250,11 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private void save () {
         item.content = content_entry.text;
-        tooltip_text = item.content;
-        content_label.label = item.content;
-
         item.save ();
     }
 
     public void edit () {
-        content_stack.visible_child_name = "content_entry";
+        content_stack.visible_child_name = "entry";
         content_entry.grab_focus_without_selecting ();
         if (content_entry.cursor_position < content_entry.text_length) {
             content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);

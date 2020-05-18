@@ -148,6 +148,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             return false;
         });
 
+        content_entry.focus_out_event.connect (() => {
+            main_revealer.reveal_child = false;
+            Timeout.add (500, () => {
+                destroy ();
+                return false;
+            });
+
+            return false;
+        }); 
+
         content_entry.changed.connect (() => {
             if (content_entry.text != "") {
                 submit_button.sensitive = true;

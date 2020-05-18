@@ -95,7 +95,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.can_focus = false;
-        add_button.margin_start = 12;
+        add_button.margin_start = 15;
         add_button.tooltip_text = _("Add Task");
         add_button.get_style_context ().remove_class ("button");
         add_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -126,7 +126,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("no-padding");
 
         name_stack = new Gtk.Stack ();
-        name_stack.margin_start = 12;
+        name_stack.margin_start = 9;
         name_stack.hexpand = true;
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         name_stack.add_named (name_eventbox, "name_label");
@@ -593,12 +593,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         Planner.todoist.section_moved_completed.connect ((id) => {
             if (section.id == id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
+                sensitive = true;
             }
         });
 

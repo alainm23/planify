@@ -240,12 +240,11 @@ public class Views.Project : Gtk.EventBox {
         note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
-
-        note_textview.buffer.text = Planner.utils.line_break_to_space (project.note);
+        note_textview.buffer.text = project.note;
 
         // Note Label
         note_label = new Gtk.Label ("");
-        this.update_note_label(project.note);
+        update_note_label (project.note);
         note_label.valign = Gtk.Align.START;
         note_label.wrap = true;
         note_label.wrap_mode = Pango.WrapMode.WORD;
@@ -488,10 +487,19 @@ public class Views.Project : Gtk.EventBox {
 
         note_textview.focus_out_event.connect (() => {
             note_stack.visible_child_name = "label";
-            this.update_note_label(note_textview.buffer.text);
+            update_note_label (note_textview.buffer.text);
 
             return false;
         }); 
+
+        note_textview.key_release_event.connect ((key) => {
+            if (key.keyval == 65307) {
+                note_stack.visible_child_name = "label";
+                update_note_label (note_textview.buffer.text);
+            }
+
+            return false;
+        });
 
         note_textview.buffer.changed.connect (() => {
             save (false);
@@ -529,7 +537,7 @@ public class Views.Project : Gtk.EventBox {
                 name_entry.text = p.name;
                 note_textview.buffer.text = p.note;
 
-                this.update_note_label( note_textview.buffer.text );
+                update_note_label ( note_textview.buffer.text);
             }
         });
 
@@ -707,8 +715,6 @@ public class Views.Project : Gtk.EventBox {
 
         Planner.database.item_section_moved.connect ((i, section_id, old_section_id) => {
             Idle.add (() => {
-                print ("old_section_id: %s\n".printf (old_section_id.to_string ()));
-
                 if (old_section_id == 0) {
                     if (items_uncompleted_added.has_key (i.id.to_string ())) {
                         var row = items_uncompleted_added.get (i.id.to_string ());
@@ -818,8 +824,8 @@ public class Views.Project : Gtk.EventBox {
         });
     }
 
-    private void update_note_label(string text) {
-        if (text == "") {
+    private void update_note_label (string text) {
+        if (text.strip () == "") {
             note_label.label = _("Description");
             note_label.opacity = 0.7;
         } else {
