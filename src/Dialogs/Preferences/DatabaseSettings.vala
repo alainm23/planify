@@ -129,9 +129,9 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                     _("database location"), 
                     this as Gtk.Window, 
                     Gtk.FileChooserAction.SAVE,
-                    Gtk.Stock.CANCEL,
+                    _("_Cancel"),
                     Gtk.ResponseType.CANCEL,
-                    Gtk.Stock.OPEN,
+                    _("_Open"),
                     Gtk.ResponseType.ACCEPT
                 );
 
