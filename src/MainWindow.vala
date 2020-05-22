@@ -58,9 +58,13 @@ public class MainWindow : Gtk.Window {
 
         projects_loaded = new Gee.HashMap <string, bool> ();
 
+        var header_revealer = new Gtk.Revealer ();
+        header_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+
         sidebar_header = new Gtk.HeaderBar ();
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
+        sidebar_header.custom_title = header_revealer;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
         sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
@@ -77,6 +81,7 @@ public class MainWindow : Gtk.Window {
         check_button_layout ();
 
         var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        header_paned.wide_handle = true;
         header_paned.pack1 (sidebar_header, false, false);
         header_paned.pack2 (projectview_header, true, false);
 
@@ -93,15 +98,43 @@ public class MainWindow : Gtk.Window {
         notification_toast = new Widgets.Toast ();
         magic_button = new Widgets.MagicButton ();
 
+        var slim_mode_icon = new Gtk.Image ();
+        slim_mode_icon.gicon = new ThemedIcon ("pane-show-symbolic");
+        slim_mode_icon.pixel_size = 13;
+
+        var slim_mode_button = new Gtk.Button ();
+        slim_mode_button.image = slim_mode_icon;
+        slim_mode_button.get_style_context ().add_class ("dim-label");
+        slim_mode_button.valign = Gtk.Align.CENTER;
+
+        var slim_mode_revealer = new Gtk.Revealer ();
+        slim_mode_revealer.valign = Gtk.Align.CENTER;
+        slim_mode_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        slim_mode_revealer.add (slim_mode_button);
+        slim_mode_revealer.reveal_child = true;
+
+        sidebar_header.pack_end (slim_mode_revealer);
+
+        //  var slim_mode_handle = new Gtk.EventBox ();
+        //  slim_mode_handle.margin_bottom = 32;
+        //  slim_mode_handle.height_request = 164;
+        //  slim_mode_handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        //  slim_mode_handle.halign = Gtk.Align.START;
+        //  slim_mode_handle.valign = Gtk.Align.CENTER;
+        //  slim_mode_handle.above_child = false;
+        //  slim_mode_handle.add (slim_mode_revealer);
+
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
         projectview_overlay.add_overlay (magic_button);
         projectview_overlay.add_overlay (notification_toast);
+        /// projectview_overlay.add_overlay (slim_mode_handle);
         projectview_overlay.add (stack);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+        paned.wide_handle = true;
         paned.pack1 (pane, false, false);
-        paned.pack2 (projectview_overlay, true, true);
+        paned.pack2 (projectview_overlay, true, false);
 
         set_titlebar (header_paned);
         add (paned);
@@ -156,6 +189,22 @@ public class MainWindow : Gtk.Window {
         Planner.database.reset.connect (() => {
             stack.visible_child_name = "welcome-view";
         });
+
+        //  slim_mode_handle.enter_notify_event.connect ((event) => {
+        //      slim_mode_revealer.reveal_child = true;
+
+        //      return true;
+        //  });
+
+        //  slim_mode_handle.leave_notify_event.connect ((event) => {
+        //      if (event.detail == Gdk.NotifyType.INFERIOR) {
+        //          return false;
+        //      }
+
+        //      slim_mode_revealer.reveal_child = false;
+
+        //      return true;
+        //  });
 
         welcome_view.activated.connect ((index) => {
             if (index == 0) {

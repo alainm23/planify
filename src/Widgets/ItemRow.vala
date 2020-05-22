@@ -49,7 +49,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Box preview_box;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_preview_box_revealer;
-    private Gtk.Image duedate_preview_image;
+    // private Gtk.Image duedate_preview_image;
     private Gtk.Revealer duedate_preview_revealer;
     private Gtk.Box labels_preview_box;
     private Gtk.Box labels_edit_box;
@@ -248,8 +248,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         project_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         project_preview_revealer.add (project_preview_grid);
 
-        duedate_preview_image = new Gtk.Image ();
-        duedate_preview_image.valign = Gtk.Align.CENTER;
+        //  duedate_preview_image = new Gtk.Image ();
+        //  duedate_preview_image.valign = Gtk.Align.CENTER;
 
         duedate_preview_label = new Gtk.Label (null);
         duedate_preview_label.use_markup = true;
@@ -269,15 +269,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_grid.margin_end = 6;
         duedate_preview_grid.halign = Gtk.Align.CENTER;
         duedate_preview_grid.valign = Gtk.Align.CENTER;
-        duedate_preview_grid.add (duedate_preview_image);
+        //  duedate_preview_grid.add (duedate_preview_image);
         duedate_preview_grid.add (duedate_preview_label);
         duedate_preview_grid.add (duedate_repeat_revealer);
 
         if (item.due_is_recurring == 1) {
-            duedate_preview_image.gicon = new ThemedIcon ("view-refresh-symbolic");
+            // duedate_preview_image.gicon = new ThemedIcon ("view-refresh-symbolic");
             duedate_preview_grid.tooltip_text = item.due_string;
         } else {
-            duedate_preview_image.gicon = new ThemedIcon ("office-calendar-symbolic");
+            // duedate_preview_image.gicon = new ThemedIcon ("office-calendar-symbolic");
             duedate_preview_grid.tooltip_text = "";
         }
 
@@ -1169,8 +1169,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
-            duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
-            duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
+            //  duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
+            //  duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
 
             duedate_preview_label.get_style_context ().remove_class ("today-label-button");
             duedate_preview_label.get_style_context ().remove_class ("duedate-expired");
@@ -1181,30 +1181,30 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             duedate_repeat_image.get_style_context ().remove_class ("upcoming-label-button");
 
             if (Planner.utils.is_today (date)) {
-                duedate_preview_image.visible = true;
-                duedate_preview_image.no_show_all = false;
+                //  duedate_preview_image.visible = true;
+                //  duedate_preview_image.no_show_all = false;
                 duedate_preview_grid.margin_start = 0;
 
-                duedate_preview_image.gicon = new ThemedIcon ("help-about-symbolic");
-                duedate_preview_image.pixel_size = 9;
-                duedate_preview_image.get_style_context ().add_class ("today-icon-item");
+                //  duedate_preview_image.gicon = new ThemedIcon ("help-about-symbolic");
+                //  duedate_preview_image.pixel_size = 9;
+                //  duedate_preview_image.get_style_context ().add_class ("today-icon-item");
                 duedate_preview_label.get_style_context ().add_class ("today-label-button");
                 duedate_repeat_image.get_style_context ().add_class ("today-label-button");
             } else if (Planner.utils.is_before_today (date)) {
-                duedate_preview_image.visible = false;
-                duedate_preview_image.no_show_all = true;
+                //  duedate_preview_image.visible = false;
+                //  duedate_preview_image.no_show_all = true;
                 duedate_preview_grid.margin_start = 3;
 
                 duedate_preview_label.get_style_context ().add_class ("duedate-expired");
                 duedate_repeat_image.get_style_context ().add_class ("duedate-expired");
             } else {
-                duedate_preview_image.visible = false;
-                duedate_preview_image.no_show_all = true;
+                //  duedate_preview_image.visible = false;
+                //  duedate_preview_image.no_show_all = true;
                 duedate_preview_grid.margin_start = 3;
 
-                duedate_preview_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-                duedate_preview_image.pixel_size = 16;
-                duedate_preview_image.get_style_context ().add_class ("upcoming-label-button");
+                //  duedate_preview_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                //  duedate_preview_image.pixel_size = 16;
+                //  duedate_preview_image.get_style_context ().add_class ("upcoming-label-button");
                 duedate_preview_label.get_style_context ().add_class ("upcoming-label-button");
                 duedate_repeat_image.get_style_context ().add_class ("upcoming-label-button");
             }
@@ -1216,8 +1216,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 duedate_repeat_revealer.reveal_child = false;
             }
         } else {
-            duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
-            duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
+            //  duedate_preview_image.get_style_context ().remove_class ("today-icon-item");
+            //  duedate_preview_image.get_style_context ().remove_class ("upcoming-label-button");
 
             duedate_preview_label.get_style_context ().remove_class ("today-label-button");
             duedate_preview_label.get_style_context ().remove_class ("duedate-expired");

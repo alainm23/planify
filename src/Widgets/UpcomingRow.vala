@@ -26,9 +26,15 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     private Gtk.ListBox event_listbox;
     private Gtk.Revealer motion_revealer;
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
+    public Gee.ArrayList<Widgets.ItemRow?> items_list;
     private Gee.HashMap<string, Gtk.Widget> event_hashmap;
 
     private uint update_events_idle_source = 0;
+    private uint timeout = 0;
+    
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
+        {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
 
     public UpcomingRow (GLib.DateTime date) {
         Object (
@@ -39,7 +45,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     construct {
         can_focus = false;
         get_style_context ().add_class ("area-row");
-
+        items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_loaded = new Gee.HashMap<string, Widgets.ItemRow> ();
 
         var day_label = new Gtk.Label (date.format ("%d"));
@@ -82,10 +88,9 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         top_box.row_spacing = 3;
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.attach (day_label, 0, 0, 1, 2);
-        top_box.attach (separator, 1, 0, 1, 1);
-        top_box.attach (date_label, 1, 1, 1, 1);
-
+        top_box.add (day_label);
+        top_box.add (date_label);
+        
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -122,12 +127,13 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         main_box.hexpand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
-        // main_box.pack_start (separator, false, false, 0);
+        main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (event_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
         add (main_box);
         add_all_items ();
+        build_drag_and_drop ();
 
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
@@ -158,6 +164,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                     var row = new Widgets.ItemRow (item, "upcoming");
 
                     items_loaded.set (item.id.to_string (), row);
+                    items_list.add (row);
 
                     listbox.add (row);
                     listbox.show_all ();
@@ -207,6 +214,60 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             if (key == "calendar-enabled") {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
+        });
+    }
+    
+    private void build_drag_and_drop () {
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect (on_drag_data_received);
+    }
+
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.ItemRow target;
+        Widgets.ItemRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.ItemRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        if (target != null) {
+            source.get_parent ().remove (source);
+            items_list.remove (source);
+            
+            var due = new GLib.DateTime.from_iso8601 (source.item.due_date, new GLib.TimeZone.local ());
+            if (!Granite.DateTime.is_same_day (due, date)) {
+                source.item.due_date = date.to_string ();
+
+                Planner.database.set_due_item (source.item, false);
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.update_item (source.item);
+                }
+            } else {
+                listbox.insert (source, target.get_index () + 1);
+                items_list.insert (target.get_index () + 1, source);
+
+                listbox.show_all ();
+            }
+
+            update_item_order ();
+        }
+    }
+
+    private void update_item_order () {
+        timeout = Timeout.add (250, () => {
+            new Thread<void*> ("update_item_order", () => {
+                for (int index = 0; index < items_list.size; index++) {
+                    Planner.database.update_today_day_order (items_list [index].item, index);
+                }
+
+                return null;
+            });
+
+            return false;
         });
     }
 
@@ -287,6 +348,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         var row = new Widgets.ItemRow (item, "upcoming");
 
         items_loaded.set (item.id.to_string (), row);
+        items_list.add (row);
 
         listbox.add (row);
         listbox.show_all ();
@@ -297,6 +359,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             var row = new Widgets.ItemRow (item, "upcoming");
 
             items_loaded.set (item.id.to_string (), row);
+            items_list.add (row);
 
             listbox.add (row);
             listbox.show_all ();

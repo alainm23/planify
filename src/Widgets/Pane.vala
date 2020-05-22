@@ -262,7 +262,7 @@ public class Widgets.Pane : Gtk.EventBox {
         main_box.get_style_context ().add_class ("pane");
         main_box.pack_start (listbox_scrolled, true, true, 0);
         main_box.pack_end (action_box, false, false, 0);
-
+        
         var overlay = new Gtk.Overlay ();
         overlay.add_overlay (new_project);
         overlay.add (main_box);

@@ -26,13 +26,18 @@ public class Views.Today : Gtk.EventBox {
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
-    public Gee.ArrayList<Widgets.ItemRow?> items_opened;
+    public Gee.ArrayList<Widgets.ItemRow?> items_list;
 
     private uint update_events_idle_source = 0;
+    private uint timeout = 0;
     private GLib.DateTime date;
 
+    private const Gtk.TargetEntry[] TARGET_ENTRIES = {
+        {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     construct {
-        items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
+        items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         var icon_image = new Gtk.Image ();
@@ -123,6 +128,7 @@ public class Views.Today : Gtk.EventBox {
         add (main_box);
         add_all_items ();
         show_all ();
+        build_drag_and_drop ();
 
         // Check Placeholder view
         Timeout.add (125, () => {
@@ -147,6 +153,7 @@ public class Views.Today : Gtk.EventBox {
                     var row = new Widgets.ItemRow (item, "today");
 
                     items_loaded.set (item.id.to_string (), row);
+                    items_list.add (row);
 
                     listbox.add (row);
                     listbox.show_all ();
@@ -236,7 +243,7 @@ public class Views.Today : Gtk.EventBox {
 
         Planner.utils.add_item_show_queue_view.connect ((row, view) => {
             if (view == "today") {
-                items_opened.add (row);
+                // items_opened.add (row);
             }
         });
 
@@ -244,6 +251,49 @@ public class Views.Today : Gtk.EventBox {
             if (view == "today") {
                 remove_item_show_queue (row);
             }
+        });
+    }
+
+    private void build_drag_and_drop () {
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect (on_drag_data_received);
+    }
+
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.ItemRow target;
+        Widgets.ItemRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.ItemRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        if (target != null) {
+            source.get_parent ().remove (source);
+            items_list.remove (source);
+
+            listbox.insert (source, target.get_index () + 1);
+            items_list.insert (target.get_index () + 1, source);
+
+            listbox.show_all ();
+            update_item_order ();
+        }
+    }
+
+    private void update_item_order () {
+        timeout = Timeout.add (250, () => {
+            new Thread<void*> ("update_item_order", () => {
+                for (int index = 0; index < items_list.size; index++) {
+                    Planner.database.update_today_day_order (items_list [index].item, index);
+                }
+
+                return null;
+            });
+
+            return false;
         });
     }
 
@@ -261,21 +311,21 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
-        items_opened.remove (row);
+        // items_opened.remove (row);
     }
 
     public void hide_last_item () {
-        if (items_opened.size > 0) {
-            var last = items_opened [items_opened.size - 1];
-            remove_item_show_queue (last);
-            last.hide_item ();
+        //  if (items_opened.size > 0) {
+        //      var last = items_opened [items_opened.size - 1];
+        //      remove_item_show_queue (last);
+        //      last.hide_item ();
 
-            if (items_opened.size > 0) {
-                var focus = items_opened [items_opened.size - 1];
-                focus.grab_focus ();
-                focus.content_entry_focus ();
-            }
-        }
+        //      if (items_opened.size > 0) {
+        //          var focus = items_opened [items_opened.size - 1];
+        //          focus.grab_focus ();
+        //          focus.content_entry_focus ();
+        //      }
+        //  }
     }
 
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {
@@ -337,6 +387,7 @@ public class Views.Today : Gtk.EventBox {
         var row = new Widgets.ItemRow (item, "today");
 
         items_loaded.set (item.id.to_string (), row);
+        items_list.add (row);
 
         listbox.add (row);
         listbox.show_all ();
@@ -347,6 +398,7 @@ public class Views.Today : Gtk.EventBox {
             var row = new Widgets.ItemRow (item, "today");
 
             items_loaded.set (item.id.to_string (), row);
+            items_list.add (row);
 
             listbox.add (row);
             listbox.show_all ();

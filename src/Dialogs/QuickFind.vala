@@ -329,9 +329,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         });
 
         this.focus_out_event.connect (() => {
-            if (search_entry.text == "") {
-                popdown ();
-            }
+            popdown ();
 
             return false;
         });

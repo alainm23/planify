@@ -1117,3 +1117,10 @@ paned.horizontal > separator {
 .grid-linked button:first-child {
     border-radius: 4px 0px 0px 4px;
 }
+
+.slim-mode-button {
+    border: 1px solid shade (@bg_color, 0.95);
+    padding: 0px;
+    background: @bg_color;
+    border-radius: 4px;
+}

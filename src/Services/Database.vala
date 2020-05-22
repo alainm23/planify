@@ -2921,6 +2921,31 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
+    public void update_today_day_order (Objects.Item item, int day_order) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Items SET day_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, day_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.DONE) {
+
+        }
+
+        stmt.reset ();
+    }
+
     public void update_check_order (Objects.Item item, int64 parent_id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
@@ -3777,7 +3802,7 @@ public class Services.Database : GLib.Object {
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order
-            FROM Items WHERE checked = 0 AND due_date != '';
+            FROM Items WHERE checked = 0 AND due_date != '' ORDER BY day_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -3837,7 +3862,7 @@ public class Services.Database : GLib.Object {
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order
-            FROM Items WHERE checked = 0;
+            FROM Items WHERE checked = 0 ORDER BY day_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
