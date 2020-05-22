@@ -1028,7 +1028,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void check_preview_box () {
-        if (bottom_revealer.reveal_child == false) {
+        if (null != bottom_revealer && bottom_revealer.reveal_child == false) {
             preview_revealer.reveal_child = duedate_preview_revealer.reveal_child ||
             note_preview_revealer.reveal_child ||
             checklist_preview_revealer.reveal_child ||
