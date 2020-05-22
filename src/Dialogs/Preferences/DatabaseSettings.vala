@@ -166,7 +166,7 @@ public class Dialogs.Preferences.DatabaseSettings : Gtk.EventBox {
                 }
 
                 Planner.database.set_database_path (filename);
-                current_location_content.label = "<small>%s<small>".printf (filename);
+                current_location_content.label = "<small>%s</small>".printf (filename);
                 location_grid.tooltip_text = _("Current location: %s".printf (filename));
 
                 break;

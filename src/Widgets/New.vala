@@ -523,7 +523,6 @@ public class Widgets.New : Gtk.Revealer {
         action_bar.pack_start (cancel_button);
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.add (project_button);
         box.pack_start (project_button, false, false, 0);
         box.pack_start (area_button, false, false, 0);
         box.pack_end (action_bar, false, false, 0);
