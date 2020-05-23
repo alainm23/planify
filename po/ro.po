@@ -31,107 +31,107 @@ msgstr "Planner"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Acasă"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "Birou"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "Sarcină de lucru"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 #, fuzzy
 msgid "Important"
-msgstr "Convertește la Proiect"
+msgstr "Important"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "În aşteptare"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
-msgstr ""
+msgstr "Roşu de fructe"
 
 #: src/Utils.vala:195
 #, fuzzy
 msgid "Red"
-msgstr "Mi"
+msgstr "Roşu"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "Portocaliu"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "Galben"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "Verde măsliniu"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "Verde de lămâie"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "Verde de mentă"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "Turcoaz"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "Albastrul cerului"
 
 #: src/Utils.vala:204
 #, fuzzy
 msgid "Light Blue"
-msgstr "Mod noapte"
+msgstr "Albastru deschis"
 
 #: src/Utils.vala:205
 #, fuzzy
 msgid "Blue"
-msgstr "Afine"
+msgstr "Albastru"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "Strugure"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "Violet"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "Lavandă"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "Purpuriu"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "Somon"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
-msgstr ""
+msgstr "Cărbune"
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "Gri"
 
 #: src/Utils.vala:213
 msgid "Taupe"
-msgstr ""
+msgstr "Maro închis"
 
 #. vala-lint=line-length
 #: src/Utils.vala:574 src/Widgets/Pane.vala:72 src/Widgets/ItemRow.vala:1393
@@ -149,16 +149,16 @@ msgstr "Mâine"
 #: src/Utils.vala:790
 #, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Găsire rapidă"
+msgstr "Adăugare rapidă activată!"
 
 #: src/Utils.vala:791
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Încearcă %s pentru a activa. Poţi schimba din preferinţe"
 
 #: src/Utils.vala:807
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Noţiuni de bază"
 
 #: src/Utils.vala:808
 msgid ""
@@ -166,10 +166,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Acest proiect te va ajuta să înveţi bazele Planner şi noţiuni de început"
+"cu un sistem simplu de administrare a sarcinilor pentru a rămâne organizat în faţa"
+"a ce ai de făcut"
 
 #: src/Utils.vala:813
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Ţine pasul cu sarcinile de lucru"
 
 #: src/Utils.vala:814
 msgid ""
@@ -180,11 +183,17 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Aparent, creierele noastre sunt concepute pentru a ne gândi mereu "
+"la sarcinile neterminate. Util când ai un lucru la care lucrezi. Nu la fel de bun "
+"când ai 30+ sarcini care îţi cerr atenţia zilnic. De aceea "
+"primul pas spre a îţi organiza munca şi viaţa este să scoţi totul "
+"din cap într-o listă cu lucruri de făcut. De aici poţi începe să organizezi şi "
+"să prioritizezi astfel încât să ştii pe ce să te axezi şi când."
 
 #: src/Utils.vala:819
 #, fuzzy
 msgid "Adding new tasks"
-msgstr "Adaugă o sarcină nouă"
+msgstr "Adaugarea unei sarcini noi"
 
 #: src/Utils.vala:820
 msgid ""
@@ -192,10 +201,13 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Pentru a adăuga o sarcină nouă în Planner, apasă + urmat de tasta Enter.\n"
+"- Când sarcina este creată, apasă pe ea pentru a o edita, adăuga o "
+"notiţă sau alte câteva opţiuni."
 
 #: src/Utils.vala:826
 msgid "Due dates"
-msgstr ""
+msgstr "Datele sacadente"
 
 #: src/Utils.vala:827
 msgid ""
@@ -204,11 +216,15 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- Dacă ştii că ai de realizat o sarcină într-o zi anume, apasă pe "
+"iconiţa calendar şi selectează o dată.\n"
+"- Dacă vrei să ştergi data sacadentă, repetă procesul şi selectează "
+"\"nedatare\" ca opţiune."
 
 #: src/Utils.vala:833
 #, fuzzy
 msgid "How to use projects"
-msgstr "Convertește la Proiect"
+msgstr "Cum să foloseşti proiectele"
 
 #: src/Utils.vala:834
 msgid ""
@@ -222,16 +238,25 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Dacă plănuieşti o prezentare, pregătiri pentru un eveniment sau crearea "
+"unui website, creează un proiect astfel încât toate detaliile importante vor fi salvate "
+"într-un singur loc.\n"
+"- În meniul de navigare din stânga, în partea de jos, apasă simbolul + .\n"
+"- În meniul de setări, selectează 'Proiect' şi tastează numele noului "
+"proiect.\n"
+"- Selectează o sursă din meniul derulant.\n"
+"- (Opţional) Selectează o culoare diferită a proiectului din lista de culori.\n"
+"- Click pe Adaugă pentru a crea proiectul."
 
 #: src/Utils.vala:844
 #, fuzzy
 msgid "Sections"
-msgstr "Proiect Nou"
+msgstr "Secţiuni"
 
 #: src/Utils.vala:850
 #, fuzzy
 msgid "Add sections"
-msgstr "Locație"
+msgstr "Adaugă secţiuni"
 
 #: src/Utils.vala:851
 msgid ""
@@ -245,84 +270,94 @@ msgid ""
 "- At the top right of a project, click the + icon.\n"
 "- Type the name of your section and click Add."
 msgstr ""
+"- Un proiect mare este întotdeauna mai abordabil când îl împarţi în "
+"părţi uşor de administrat folosind secţiunile Planner.\n"
+"- Organizează-ţi proiectele cu secţiuni pentru a grupa sarcinile de lucru împreună şi a obţine "
+"o mai bună privire de ansamblu asupra a ce trbeuie făcut. Adaugă secţiuni proiectului tău, "
+"trage sarcinile de lucru relevante în secţiunile înc are îşi au locul, şi ai să progresezi mai "
+"mai uşor (faţă de a fi copleşit de o listă "
+"lungă).\n"
+"- În partea de sus-dreapta a proiectului, click pe iconiţa + .\n"
+"- Tastează numele secţiunii şi click pe Adaugă."
 
 #: src/Utils.vala:870
 #, fuzzy
 msgid "Create a new task"
-msgstr "Creaza un proiect nou"
+msgstr "Creaza o nouă sarcină de lucru"
 
 #: src/Utils.vala:871
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr ""
+msgstr "Creează o nouă sarcină de lucru în vârful liste (funcţionează doar în interiorul proiectelor)"
 
 #: src/Utils.vala:872
 #, fuzzy
 msgid "Create a new area"
-msgstr "Creaza un proiect nou"
+msgstr "Creează o zonă nouă"
 
 #: src/Utils.vala:873
 msgid "Create a new project"
-msgstr "Creaza un proiect nou"
+msgstr "Creează un proiect nou"
 
 #: src/Utils.vala:874
 #, fuzzy
 msgid "Create a new section"
-msgstr "Creaza un proiect nou"
+msgstr "Creaza o secţiune nouă"
 
 #: src/Utils.vala:875
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Deschide Intări"
 
 #: src/Utils.vala:876
 #, fuzzy
 msgid "Open Today"
-msgstr "Astăzi"
+msgstr "Deschide Astăzi"
 
 #: src/Utils.vala:877
 #, fuzzy
 msgid "Open Upcoming"
-msgstr "Urmează"
+msgstr "Deschide Urmează"
 
 #: src/Utils.vala:878
 msgid "Open Search"
-msgstr ""
+msgstr "Deschide Căutare"
 
 #: src/Utils.vala:879
 msgid "Manually sync"
-msgstr ""
+msgstr "Sincronizare Manuală"
 
 #: src/Utils.vala:880
 msgid "Quit"
-msgstr ""
+msgstr "Ieşi"
 
 #: src/Utils.vala:888
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Cererea este incorectă"
 
 #: src/Utils.vala:889
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"Autentificarea este necesară, şi nu a reuşit, sau nu a fost aprovizionată."
 
 #: src/Utils.vala:890
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Cererea este validă, dar pentru ceva ce e interzis"
 
 #: src/Utils.vala:891
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Resursa cerută nu a putu fi găsită"
 
 #: src/Utils.vala:892
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Utilizatorul a trimis prea multe cereri în timpul dat."
 
 #: src/Utils.vala:893
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Cererea a eşuat datorită unei erori de server"
 
 #: src/Utils.vala:894
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Serverul nu poate manevra cererea."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:964 src/Widgets/Pane.vala:71
@@ -339,7 +374,7 @@ msgstr "Pe acest calculator"
 #: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:133
 #, fuzzy
 msgid "Todoist Project"
-msgstr "Convertește la Proiect"
+msgstr "Proiect Todoist"
 
 #: src/Widgets/Pane.vala:71
 msgid ""
@@ -348,6 +383,10 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
+"Secţiunea Intrâri este locul implicit pentru a adăuga noi sarcini de lucru ca să le scoţi din minte "
+"rapid, iar apoi să te întorci şi să faci un plan ca să te ocupi de ele "
+"mai târziu. E o metodă grozavă de a îţi elibera mintea pentru a te axa pe orice "
+"faci acum."
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -355,6 +394,9 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"Secţiunea Astăzi îţi permite să vizionezi sarcinile pentru astăzi de-a lungul tuturor "
+"proiectelor tale. Verifică secţiunea asta zilnic pentru a realiza un plan realist de abordare "
+"a zilei."
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:73 src/Widgets/Pane.vala:403
@@ -368,15 +410,17 @@ msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
+"Planifică-ţi săptămâna în avans cu Secţiunea Urmează. Îţi prezintă totul din agenda "
+"ta pentru zilele următoare: programările şi evenimentele calendaristice."
 
 #: src/Widgets/Pane.vala:81
 #, fuzzy
 msgid "Add List"
-msgstr "Listă cu sarcini"
+msgstr "Adaugă Listă"
 
 #: src/Widgets/Pane.vala:197 src/Dialogs/QuickFind.vala:107
 msgid "Quick Find"
-msgstr "Găsire rapidă"
+msgstr "Găsire Rapidă"
 
 #: src/Widgets/Pane.vala:211
 msgid "Preferences"
@@ -384,11 +428,11 @@ msgstr "Preferințe"
 
 #: src/Widgets/Pane.vala:233 src/Widgets/Pane.vala:466
 msgid "Sync"
-msgstr ""
+msgstr "Sincronizare"
 
 #: src/Widgets/Pane.vala:470
 msgid "Offline mode is on"
-msgstr ""
+msgstr "Modul offline este activ"
 
 #: src/Widgets/Pane.vala:470
 msgid ""
@@ -396,6 +440,9 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"Se pare că nu eşti conectat la\n"
+"internet. Schimbările făcute în modul\n"
+"offline vor fi sincronizate la reconectare."
 
 #: src/Widgets/New.vala:64 src/Views/Inbox.vala:879 src/Views/Project.vala:1238
 #: src/Dialogs/ProjectSettings.vala:49
@@ -406,22 +453,22 @@ msgstr "Nume"
 #: src/Widgets/New.vala:88 src/Dialogs/ProjectSettings.vala:55
 #, fuzzy
 msgid "Description:"
-msgstr "Șterge Proiectul"
+msgstr "Descriere"
 
 #: src/Widgets/New.vala:106
 msgid "Folder:"
-msgstr ""
+msgstr "Fişier:"
 
 #: src/Widgets/New.vala:121 src/Dialogs/ProjectSettings.vala:97
 #, fuzzy
 msgid "Color:"
-msgstr "Culoare"
+msgstr "Culoare:"
 
 #: src/Widgets/New.vala:161 src/Widgets/NewItem.vala:86
 #: src/Widgets/ReminderButton.vala:236 src/Widgets/NewSection.vala:82
 #: src/Views/Inbox.vala:895 src/Views/Project.vala:1254
 msgid "Add"
-msgstr ""
+msgstr "Adaugă"
 
 #: src/Widgets/New.vala:166 src/Widgets/NewItem.vala:91
 #: src/Widgets/SectionRow.vala:160 src/Widgets/AreaRow.vala:167
@@ -429,32 +476,32 @@ msgstr ""
 #: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:900
 #: src/Views/Project.vala:208 src/Views/Project.vala:1259
 msgid "Cancel"
-msgstr "Oprește"
+msgstr "Anulează"
 
 #: src/Widgets/New.vala:313
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: src/Widgets/New.vala:388 src/Widgets/ProjectRow.vala:444
 msgid "No Folder"
-msgstr ""
+msgstr "Niciun Folder"
 
 #: src/Widgets/New.vala:461
 #, fuzzy
 msgid "Project"
-msgstr "Proiect Nou"
+msgstr "Proiect"
 
 #: src/Widgets/New.vala:466
 msgid "Start a new project, create a to do list, organize your notes."
-msgstr ""
+msgstr "Începe un nou proiect, creează o listă cu lucruri de făcut, organizează-ţi notiţele."
 
 #: src/Widgets/New.vala:492
 msgid "Folder"
-msgstr ""
+msgstr "Fişier"
 
 #: src/Widgets/New.vala:497
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr ""
+msgstr "Organizează-ţi proiectul în grupe şi menţine panoul curat."
 
 #: src/Widgets/New.vala:515 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:77
@@ -463,25 +510,25 @@ msgstr "Închide"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr ""
+msgstr "Fişier Nou"
 
 #: src/Widgets/ProjectRow.vala:111 src/Views/Inbox.vala:124
 #: src/Views/Project.vala:193
 #, fuzzy
 msgid "Project Menu"
-msgstr "Proiect Nou"
+msgstr "Meniul Proiectului"
 
 #: src/Widgets/ProjectRow.vala:129
 #, fuzzy
 msgid "Local Project"
-msgstr "Șterge Proiectul"
+msgstr "Proiect Local"
 
 #: src/Widgets/ProjectRow.vala:360 src/Widgets/ItemRow.vala:1304
 #: src/Widgets/ItemRow.vala:1324 src/Widgets/ItemRow.vala:1358
 #: src/Widgets/SectionRow.vala:969 src/Widgets/SectionRow.vala:1024
 #, fuzzy, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr "A fost mutată la <b>%s</b>"
+msgstr "Sarcină mutată la <b>%s</b>"
 
 #. get_style_context ().remove_class ("highlight");
 #: src/Widgets/ProjectRow.vala:500 src/Widgets/ItemRow.vala:1391
@@ -496,21 +543,21 @@ msgstr "Mută"
 #: src/Widgets/ProjectRow.vala:506 src/Widgets/ItemRow.vala:1412
 #: src/Widgets/SectionRow.vala:790
 msgid "Share"
-msgstr "Împartășește"
+msgstr "Distribuie"
 
 #: src/Widgets/ProjectRow.vala:510
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Trimite prin e-mail"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:511 src/Widgets/ItemRow.vala:1417
 #: src/Widgets/SectionRow.vala:795
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #: src/Widgets/ProjectRow.vala:517 src/Widgets/ItemRow.vala:1423
 msgid "Duplicate"
-msgstr "Crează duplicat"
+msgstr "Creează duplicat"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:519 src/Widgets/ProjectRow.vala:546
@@ -529,16 +576,16 @@ msgstr "Șterge proiectul"
 #: src/Widgets/AreaRow.vala:657 src/Views/Project.vala:1057
 #, fuzzy, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr "Sigur vrei să ștergi eticheta <b>%s</b>?"
+msgstr "Sigur vrei să ștergi <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:202
 #: src/Widgets/AreaRow.vala:140 src/Widgets/CheckRow.vala:65
 msgid "Task name"
-msgstr ""
+msgstr "Numele sarcinii de lucru"
 
 #: src/Widgets/ItemRow.vala:167
 msgid "Hide Details"
-msgstr ""
+msgstr "Ascunde detaliile"
 
 #: src/Widgets/ItemRow.vala:376 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
@@ -547,7 +594,7 @@ msgstr "Notiță"
 #: src/Widgets/ItemRow.vala:443
 #, fuzzy
 msgid "Add Checklist"
-msgstr "Listă cu sarcini"
+msgstr "Adaugă listă de verificare"
 
 #: src/Widgets/ItemRow.vala:450
 msgid "Delete Task"
@@ -561,55 +608,55 @@ msgstr "Setări"
 #: src/Widgets/ItemRow.vala:1337
 #, fuzzy
 msgid "No Section"
-msgstr "Proiect Nou"
+msgstr "Nici o secţiune"
 
 #: src/Widgets/ItemRow.vala:1390
 #, fuzzy
 msgid "Complete"
-msgstr "Sarcini Completate"
+msgstr "Completate"
 
 #: src/Widgets/ItemRow.vala:1399 src/Widgets/DueButton.vala:183
 #, fuzzy
 msgid "Undated"
-msgstr "Actualizează"
+msgstr "Nedatate"
 
 #: src/Widgets/ItemRow.vala:1404 src/Widgets/SectionRow.vala:786
 #, fuzzy
 msgid "Move to Project"
-msgstr "Convertește la Proiect"
+msgstr "Mută la Proiect"
 
 #: src/Widgets/ItemRow.vala:1408
 #, fuzzy
 msgid "Move to Section"
-msgstr "Locație"
+msgstr "Mută la secţiunea"
 
 #: src/Widgets/ItemRow.vala:1416
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/Widgets/ItemCompletedRow.vala:39
 msgid "Content"
-msgstr ""
+msgstr "Conţinut"
 
 #: src/Widgets/ItemCompletedRow.vala:45
 msgid "Due date"
-msgstr ""
+msgstr "Dată sacadentă"
 
 #: src/Widgets/ItemCompletedRow.vala:48
 #, fuzzy
 msgid "Date completed"
-msgstr "Ascunde sarcinile completate"
+msgstr "Data complectării"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:81 src/Widgets/SectionRow.vala:898
 #, fuzzy
 msgid "Display Tasks"
-msgstr "Toate Sarcinile"
+msgstr "Afişează sarcinile de lucru"
 
 #: src/Widgets/SectionRow.vala:93 src/Widgets/SectionRow.vala:903
 #, fuzzy
 msgid "Hiding Tasks"
-msgstr "Adaugă o sarcină nouă"
+msgstr "Ascundere sarcini"
 
 #: src/Widgets/SectionRow.vala:99 src/Widgets/SectionRow.vala:780
 #: src/Widgets/MagicButton.vala:32
@@ -620,78 +667,78 @@ msgstr "Adaugă o sarcină nouă"
 #: src/Widgets/SectionRow.vala:119 src/Widgets/NewSection.vala:70
 #, fuzzy
 msgid "Section name"
-msgstr "Numele proiectului"
+msgstr "Numele secţiuni"
 
 #: src/Widgets/SectionRow.vala:139 src/Widgets/AreaRow.vala:112
 #, fuzzy
 msgid "Section Menu"
-msgstr "Numele proiectului"
+msgstr "Meniul secţiunii"
 
 #. top_box.pack_end (settings_revealer, false, true, 0);
 #. top_box.pack_end (settings_revealer, false, false, 0);
 #: src/Widgets/SectionRow.vala:156 src/Widgets/AreaRow.vala:163
 #: src/Views/Project.vala:204 src/Dialogs/ProjectSettings.vala:159
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: src/Widgets/SectionRow.vala:192 src/Views/Project.vala:237
 #, fuzzy
 msgid "Add a description"
-msgstr "Locație"
+msgstr "Adaugă o descriere"
 
 #: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:247
 #, fuzzy
 msgid "Description"
-msgstr "Șterge Proiectul"
+msgstr "Descriere
 
 #: src/Widgets/SectionRow.vala:738 src/Widgets/SectionRow.vala:759
 #, fuzzy, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "A fost mutată la <b>%s</b>"
+msgstr "Secţiune mutată la <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:783
 msgid "Rename"
-msgstr ""
+msgstr "Redenumeşte"
 
 #: src/Widgets/SectionRow.vala:784
 #, fuzzy
 msgid "Add Note"
-msgstr "Adaugă un proiect nou"
+msgstr "Adaugă o notiţă"
 
 #: src/Widgets/SectionRow.vala:839
 #, fuzzy
 msgid "Delete section"
-msgstr "Șterge Proiectul"
+msgstr "Șterge secţiunea"
 
 #: src/Widgets/SectionRow.vala:857
 #, fuzzy
 msgid "Section deleted"
-msgstr "Numele proiectului"
+msgstr "Secţiune ştearsă"
 
 #: src/Widgets/DueButton.vala:52 src/Widgets/DueButton.vala:62
 #: src/Widgets/DueButton.vala:140
 msgid "Schedule"
-msgstr ""
+msgstr "Programează"
 
 #: src/Widgets/DueButton.vala:192
 msgid "Repeat"
-msgstr ""
+msgstr "Repetă"
 
 #: src/Widgets/DueButton.vala:215
 msgid "Every day"
-msgstr ""
+msgstr "Zilnic"
 
 #: src/Widgets/DueButton.vala:221
 msgid "Every week"
-msgstr ""
+msgstr "Săptămânal"
 
 #: src/Widgets/DueButton.vala:227
 msgid "Every month"
-msgstr ""
+msgstr "Lunar"
 
 #: src/Widgets/DueButton.vala:233
 msgid "Every year"
-msgstr ""
+msgstr "Anual"
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:733 src/Dialogs/QuickFind.vala:462
@@ -706,24 +753,26 @@ msgstr "Etichete"
 #: src/Widgets/LabelButton.vala:89 src/Widgets/LabelButton.vala:228
 #, fuzzy
 msgid "Using Labels"
-msgstr "Etichete"
+msgstr "Folosind Etichete"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:229
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Organizează listele cu sarcini cu etichete, apoi foloseşte-le să filtrezi şi "
+"să te concentrezi."
 
 #: src/Widgets/LabelButton.vala:108
 #, fuzzy
 msgid "Type a label"
-msgstr "Crează eticheta"
+msgstr "Tastează o etichetă"
 
 #: src/Widgets/LabelButton.vala:118 src/Widgets/LabelButton.vala:208
 #: src/Widgets/LabelButton.vala:226
 #, fuzzy
 msgid "Edit labels"
-msgstr "Modifică Eticheta"
+msgstr "Modifică Etichete"
 
 #: src/Widgets/LabelButton.vala:218
 #, fuzzy
@@ -732,65 +781,65 @@ msgstr "Adaugă o etichetă nouă"
 
 #: src/Widgets/LabelButton.vala:221
 msgid "Label not found"
-msgstr ""
+msgstr "Eticheta nu a fost găsită"
 
 #: src/Widgets/LabelButton.vala:222
 #, fuzzy, c-format
 msgid "Create '%s'"
-msgstr "Crează Sarcina"
+msgstr "Crează '%s'"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
-msgstr ""
+msgstr "Anulează"
 
 #: src/Widgets/Toast.vala:246
 #, fuzzy
 msgid "Task deleted"
-msgstr "Ascunde sarcinile completate"
+msgstr "Sarcină ştearsă"
 
 #: src/Widgets/Toast.vala:248
 #, fuzzy
 msgid "Task completed"
-msgstr "Ascunde sarcinile completate"
+msgstr "Sarcină completată"
 
 #: src/Widgets/Toast.vala:252
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Completată. Următoare apariţie: %s"
 
 #: src/Widgets/AreaRow.vala:89 src/Widgets/AreaRow.vala:406
 #, fuzzy
 msgid "Display Projects"
-msgstr "Proiect Nou"
+msgstr "Afişează proiectele"
 
 #: src/Widgets/AreaRow.vala:97 src/Widgets/AreaRow.vala:412
 #, fuzzy
 msgid "Hiding Projects"
-msgstr "Proiect Nou"
+msgstr "Ascund proiectele"
 
 #. top_eventbox.get_style_context ().remove_class ("highlight");
 #: src/Widgets/AreaRow.vala:627
 #, fuzzy
 msgid "Add project"
-msgstr "Convertește la Proiect"
+msgstr "Adaugă Proiect"
 
 #: src/Widgets/AreaRow.vala:656
 #, fuzzy
 msgid "Delete folder"
-msgstr "Șterge proiectul"
+msgstr "Șterge fişier"
 
 #: src/Widgets/AreaRow.vala:664
 #, fuzzy
 msgid "Delete projects"
-msgstr "Șterge proiectul"
+msgstr "Șterge proiectele"
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
-msgstr ""
+msgstr "Numele sarcinii secundare"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Elimină"
 
 #: src/Widgets/UpcomingRow.vala:66
 #, fuzzy
@@ -799,19 +848,19 @@ msgstr "Adaugă o sarcină nouă"
 
 #: src/Widgets/ReminderButton.vala:42
 msgid "Reminders"
-msgstr ""
+msgstr "Memento-uri"
 
 #: src/Widgets/ReminderButton.vala:165
 msgid "Add reminder"
-msgstr ""
+msgstr "Adaugă memento"
 
 #: src/Widgets/ReminderButton.vala:207
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr ""
+msgstr "Nu mai uita sarcinile vreodată! Setează Planner să îţi amintească."
 
 #: src/Widgets/ReminderButton.vala:227
 msgid "Time:"
-msgstr ""
+msgstr "Timp:"
 
 #: src/Widgets/NewLabel.vala:42
 #, fuzzy
@@ -861,39 +910,39 @@ msgstr "Nu te mai teme vreodată că vei uita lucruri"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
-msgstr ""
+msgstr "Iniţializare"
 
 #: src/Views/Welcome.vala:28
 msgid "Start working locally."
-msgstr ""
+msgstr "Începe să munceşti local"
 
 #: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:914
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
 msgid "Synchronize with your Todoist account and start working."
-msgstr ""
+msgstr "Sincronizează cu contul Todoist şi începe să lucrezi."
 
 #: src/Views/Inbox.vala:88 src/Views/Project.vala:149
 #: src/Views/Project.vala:157
 #, fuzzy
 msgid "Add Section"
-msgstr "Locație"
+msgstr "Adaugă secţiune"
 
 #: src/Views/Inbox.vala:96 src/Views/Project.vala:165
 msgid "Invite person"
-msgstr ""
+msgstr "Invită persoană"
 
 #: src/Views/Inbox.vala:105 src/Views/Project.vala:174
 #, fuzzy
 msgid "Project comments"
-msgstr "Numele proiectului"
+msgstr "Comentariile proiectului"
 
 #: src/Views/Inbox.vala:113 src/Views/Project.vala:182
 #, fuzzy
 msgid "Search task"
-msgstr "Împărtășește sarcina"
+msgstr "Caută sarcina"
 
 #: src/Views/Inbox.vala:247
 msgid "All clear"
@@ -902,7 +951,7 @@ msgstr "Liber"
 #: src/Views/Inbox.vala:248
 #, fuzzy
 msgid "Looks like everything's organized in the right place."
-msgstr "Totul pare în ordine. Apăsați + pentru a adăuga o sarcină."
+msgstr "Totul pare în ordine."
 
 #: src/Views/Inbox.vala:751 src/Views/Project.vala:997
 #, fuzzy
@@ -911,67 +960,67 @@ msgstr "Arată sarcinile completate"
 
 #: src/Views/Today.vala:81
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Ce sarcini ai în gând?"
 
 #: src/Views/Today.vala:82
 #, fuzzy
 msgid "Tap + to add a task for today."
-msgstr "Apasă + pentru a adăuga o sarcină"
+msgstr "Apasă + pentru a adăuga o sarcină pentru astăzi."
 
 #: src/Views/Project.vala:134 src/Views/Project.vala:798
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "Progres: %s"
 
 #: src/Views/Project.vala:363
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Ce vei obţine?"
 
 #: src/Views/Project.vala:364
 #, fuzzy
 msgid "Tap + to add a task to this project."
-msgstr "Apasă + pentru a adăuga o sarcină"
+msgstr "Apasă + pentru a adăuga o sarcină acestui proiect."
 
 #: src/Views/Project.vala:1187
 msgid "Productivity"
-msgstr ""
+msgstr "Productivitate"
 
 #: src/Views/Project.vala:1192
 msgid "Progress:"
-msgstr ""
+msgstr "Progres:"
 
 #: src/Views/Project.vala:1203
 msgid "Due date:"
-msgstr ""
+msgstr "Data sacadentă:"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
-msgstr ""
+msgstr "Se încarcă..."
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:137
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "Reţeau nu este valabilă"
 
 #: src/Dialogs/TodoistOAuth.vala:70
 msgid "Connect to the Internet to connect with Todoist"
-msgstr ""
+msgstr "Conectează-te la internet pentru a te conecta cu Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:103
 msgid "Synchronizing… Wait a moment please."
-msgstr ""
+msgstr "Sincronizare... Aşteaptă un moment."
 
 #: src/Dialogs/TodoistOAuth.vala:115
 msgid "Please enter your credentials…"
-msgstr ""
+msgstr "Introdu datele de logare..."
 
 #: src/Dialogs/ProjectSettings.vala:73
 msgid "Due:"
-msgstr ""
+msgstr "Până la:"
 
 #: src/Dialogs/ProjectSettings.vala:128
 msgid "Uploading changes…"
-msgstr ""
+msgstr "Încărcare schimbări..."
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:87
@@ -983,52 +1032,52 @@ msgstr "General"
 #: src/Dialogs/Preferences/Preferences.vala:90
 #: src/Dialogs/Preferences/Preferences.vala:209
 msgid "Homepage"
-msgstr ""
+msgstr "Pagina de pornire"
 
 #: src/Dialogs/Preferences/Preferences.vala:91
 #: src/Dialogs/Preferences/Preferences.vala:314
 #, fuzzy
 msgid "Badge Count"
-msgstr "Afișarea numărului de notificări"
+msgstr "Numărul de notificări"
 
 #: src/Dialogs/Preferences/Preferences.vala:92
 #: src/Dialogs/Preferences/Preferences.vala:387
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: src/Dialogs/Preferences/Preferences.vala:93
 #: src/Dialogs/Preferences/Preferences.vala:448
 #, fuzzy
 msgid "Quick Add"
-msgstr "Găsire rapidă"
+msgstr "Adăugare Rapidă"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Add-ons"
-msgstr ""
+msgstr "Add-on-uri"
 
 #: src/Dialogs/Preferences/Preferences.vala:113
 #: src/Dialogs/Preferences/Preferences.vala:1054
 #, fuzzy
 msgid "Calendar Events"
-msgstr "Evenimente din calendar"
+msgstr "Evenimente calendaristice"
 
 #: src/Dialogs/Preferences/Preferences.vala:115
 #: src/Dialogs/Preferences/Preferences.vala:461
 #: src/Dialogs/Preferences/Preferences.vala:859
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Scurtături la tastatură"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:130
 #: src/Dialogs/Preferences/Preferences.vala:1228
 msgid "About"
-msgstr ""
+msgstr "Despre"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1133
 msgid "Support & Credits"
-msgstr ""
+msgstr "Ajutor & Credite"
 
 #: src/Dialogs/Preferences/Preferences.vala:212
 msgid ""
@@ -1036,16 +1085,20 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Când deschizi Planner, asigură-te că vezi sarcinile cele mai "
+"importante. Pagina principală implicită e <b>Inbox</b> , dar o poţi "
+"schimba cu ce vrei tu."
+
 
 #: src/Dialogs/Preferences/Preferences.vala:244 src/Dialogs/QuickFind.vala:356
 #, fuzzy
 msgid "Projects"
-msgstr "Proiect Nou"
+msgstr "Proiecte"
 
 #: src/Dialogs/Preferences/Preferences.vala:317
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
-msgstr "Alege ce lucruri ar trebui numărate pentru afișare"
+msgstr "Alege ce lucruri ar trebui numărate pentru afișare pe iconiţă."
 
 #: src/Dialogs/Preferences/Preferences.vala:327
 msgid "None"
@@ -1053,28 +1106,30 @@ msgstr "Niciuna"
 
 #: src/Dialogs/Preferences/Preferences.vala:337
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Astăzi + Inbox"
 
 #: src/Dialogs/Preferences/Preferences.vala:390
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
+"Personalizează aspectul Planner alegând o temă care "
+"ţi se potriveşte."
 
 #: src/Dialogs/Preferences/Preferences.vala:400
 #, fuzzy
 msgid "Light"
-msgstr "Mod noapte"
+msgstr "Luminos"
 
 #: src/Dialogs/Preferences/Preferences.vala:404
 #, fuzzy
 msgid "Night"
-msgstr "Mod noapte"
+msgstr "Întunecat"
 
 #: src/Dialogs/Preferences/Preferences.vala:407
 #, fuzzy
 msgid "Dark Blue"
-msgstr "Afine"
+msgstr "Albastru închis"
 
 #: src/Dialogs/Preferences/Preferences.vala:451
 msgid ""
@@ -1082,11 +1137,14 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work."
 msgstr ""
+"Nu îţi fă griji legat de ce aplicaţie foloseşti. Poţi folosi o scurtătură "
+"pentru a deschide fereastra Adăugare Rapidă, unde poţi introduce o sarcină în lucru şi "
+"să te întorci rapid la muncă."
 
 #: src/Dialogs/Preferences/Preferences.vala:473
 #: src/Dialogs/Preferences/Preferences.vala:542
 msgid "Change"
-msgstr ""
+msgstr "Schimbă"
 
 #: src/Dialogs/Preferences/Preferences.vala:501
 #, fuzzy
@@ -1095,11 +1153,11 @@ msgstr "Șterge proiectul"
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Press keys…"
-msgstr ""
+msgstr "Apasă tastele..."
 
 #: src/Dialogs/Preferences/Preferences.vala:595
 msgid "DE Integration"
-msgstr ""
+msgstr "Integraţie cu DE"
 
 #: src/Dialogs/Preferences/Preferences.vala:599
 msgid "Run in background"
@@ -1111,18 +1169,21 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
+"Activează această setare să ţi Planner în background când "
+"se închide. Aceasta va lăsa Planner să continue să funcţioneze şi să trimită  "
+"notificări."
 
 #: src/Dialogs/Preferences/Preferences.vala:611
 msgid "Run on startup"
-msgstr ""
+msgstr "Rulează la pornire"
 
 #: src/Dialogs/Preferences/Preferences.vala:615
 msgid "Enable this setting to make Planner startup with the system."
-msgstr ""
+msgstr "Activează această setare ca Planner să pornească odată cu sistemul."
 
 #: src/Dialogs/Preferences/Preferences.vala:632
 msgid "Button layout"
-msgstr ""
+msgstr "Aşezarea butoanelor"
 
 #: src/Dialogs/Preferences/Preferences.vala:639
 msgid "Help"
@@ -1139,73 +1200,81 @@ msgstr "Creaza"
 
 #: src/Dialogs/Preferences/Preferences.vala:645
 msgid "Danger zone"
-msgstr ""
+msgstr "Zona periculoasă"
 
 #: src/Dialogs/Preferences/Preferences.vala:649
 #: src/Dialogs/Preferences/Preferences.vala:715
 msgid "Reset all"
-msgstr ""
+msgstr "Resetează tot"
 
 #: src/Dialogs/Preferences/Preferences.vala:649
 msgid "Reset"
-msgstr ""
+msgstr "Resetează"
 
 #: src/Dialogs/Preferences/Preferences.vala:699
 #, fuzzy
 msgid "Your tutorial project was created"
-msgstr "Creaza un proiect de tip Tutorial"
+msgstr "Proiectul de tip Tutorial a fost creat"
 
 #: src/Dialogs/Preferences/Preferences.vala:710
 #, fuzzy
 msgid "Are you sure you want to reset all?"
-msgstr "Sigur vrei sa ștergi această sarcină?"
+msgstr "Sigur vrei să resetezi totul?"
 
 #: src/Dialogs/Preferences/Preferences.vala:711
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr ""
+"Procesul va şterge toate datele stocate fără posibilitate de revenire"
+"la normal."
 
 #: src/Dialogs/Preferences/Preferences.vala:736
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
+"Economiseşte timp dozând sarcinile similare împreună folosind etichete. YVei putea să "
+"afişezi o listă cu sarcini cu orice etichetă în câteva secunde."
 
 #: src/Dialogs/Preferences/Preferences.vala:862
 msgid ""
 "All the shortcuts to save you time! Some can be used anywhere in the app, "
 "while others only work when adding or editing tasks."
 msgstr ""
+"Toate scurtăturile pentru a economisi timp! Unele pot fi folosite oriunde în aplicaţie, "
+"în timp ce altele merg doar la adăugarea sau editarea sarcinilor."
 
 #: src/Dialogs/Preferences/Preferences.vala:938
 #, c-format
 msgid "Last successful sync: %s"
-msgstr ""
+msgstr "Ultima sincronizare cu succes: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:947
 msgid "Sync server"
-msgstr ""
+msgstr "Serverul de sincronizare"
 
 #: src/Dialogs/Preferences/Preferences.vala:952
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Activează această setare ca Planner să sincronizeze cu contul tău "
+"Todoist la fiecare 15 minutes."
 
 #: src/Dialogs/Preferences/Preferences.vala:964
 #: src/Dialogs/Preferences/Preferences.vala:1019
 msgid "Log out"
-msgstr ""
+msgstr "Delogare"
 
 #: src/Dialogs/Preferences/Preferences.vala:1014
 #, fuzzy
 msgid "Are you sure you want to log out?"
-msgstr "Sigur vrei sa ștergi această sarcină?"
+msgstr "Sigur vrei să te deloghezi?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1015
 msgid "This process will close your Todoist session on this device."
-msgstr ""
+msgstr "Acest proces va închide toate sesiunile Todoist de pe acest device."
 
 #: src/Dialogs/Preferences/Preferences.vala:1057
 msgid ""
@@ -1214,6 +1283,10 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
+"Poţi conecta <b>Calendarul</b> la Planner pentru a vedea evenimentele şi "
+"lucrurile de făcut la un loc. Vei vedea evenimente personale şi "
+"împărtăşite la <b>Astăzi</b> şi <b>Urmează</b>. E de ajutor când "
+"administrezi ziua, şi saptămânda dinainte."
 
 #: src/Dialogs/Preferences/Preferences.vala:1068
 msgid "Enabled"
@@ -1225,20 +1298,25 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
+"Planner este dezvoltat cu ❤️ şi pasiune pentru Open Source. Totuşi, dacă "
+"îţi place Planner şi vrei să-i suporţi dezvoltarea, consideră donaţii "
+"prin:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1162
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Mulţumesc celor care au donat via Patreon sau Paypal. (Dacă vrei să "
+"apari aici vizitează-ne contul Patreon 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1242
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: src/Dialogs/Preferences/Preferences.vala:1243
 msgid "Follow"
-msgstr ""
+msgstr "Urmăreşte"
 
 #: src/Dialogs/Preferences/Preferences.vala:1244
 #, fuzzy
@@ -1247,7 +1325,7 @@ msgstr "Raportează o problemă"
 
 #: src/Dialogs/Preferences/Preferences.vala:1245
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Sugerează traduceri"
 
 #: src/Dialogs/Preferences/Preferences.vala:1356
 msgid "Disabled"
@@ -1255,7 +1333,7 @@ msgstr "Dezactivat"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr "Negru"
+msgstr "Înapoi"
 
 #: src/Dialogs/QuickFind.vala:88
 #, fuzzy
@@ -1265,11 +1343,11 @@ msgstr "Sarcini Completate"
 #: src/Dialogs/QuickFind.vala:93
 #, fuzzy
 msgid "Search"
-msgstr "Împărtășește sarcina"
+msgstr "Caută"
 
 #: src/Dialogs/QuickFind.vala:120
 msgid "Quickly switch projects and views, find tasks, search by labels, ..."
-msgstr ""
+msgstr "Schimbă rapid între proiecte, vionări, găseşte sarcini, caută după etichetă, ..."
 
 #: src/Dialogs/QuickFind.vala:321
 #, fuzzy
@@ -1278,24 +1356,24 @@ msgstr "Toate sarcinile"
 
 #: src/Dialogs/QuickFind.vala:410
 msgid "Views"
-msgstr ""
+msgstr "Vizualizări"
 
 #: src/Objects/Project.vala:105
 #, fuzzy
 msgid "The Project was copied to the Clipboard."
-msgstr "Proiectul tău e gata să fie partajat"
+msgstr "Proiectul tău a fost copiat în Clipboard"
 
 #: src/Objects/Item.vala:198 src/Objects/Item.vala:216
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "Sarcina a fost copiată în Clipboard."
 
 #: src/Objects/Section.vala:100
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "Secţiunea a fost copiată în Clipboard"
 
 #, fuzzy
 #~ msgid "Move to Folder"
-#~ msgstr "Convertește la Proiect"
+#~ msgstr "Mută în fişier"
 
 #, fuzzy
 #~ msgid "Inbox Menu"
@@ -1303,31 +1381,31 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "task"
-#~ msgstr "Sarcină Nouă"
+#~ msgstr "Sarcină"
 
 #, fuzzy
 #~ msgid "tasks"
-#~ msgstr "Toate sarcinile"
+#~ msgstr "Sarcini"
 
 #, fuzzy
 #~ msgid "Delete area"
-#~ msgstr "Șterge Eticheta"
+#~ msgstr "Șterge zona"
 
 #, fuzzy
 #~ msgid "Add note"
-#~ msgstr "Adaugă un proiect nou"
+#~ msgstr "Adaugă o notiţă"
 
 #, fuzzy
 #~ msgid "Create todoist project error"
-#~ msgstr "Creaza un proiect de tip Tutorial"
+#~ msgstr "Creaza un proiect todoist eronat"
 
 #, fuzzy
 #~ msgid "Update todoist project error"
-#~ msgstr "Convertește la Proiect"
+#~ msgstr "Actualizează proiectul eronat todoist"
 
 #, fuzzy
 #~ msgid "Delete todoist project error"
-#~ msgstr "Șterge proiectul"
+#~ msgstr "Șterge proiectul eronat todoist"
 
 #, fuzzy
 #~ msgid "Show completed task"
@@ -1342,7 +1420,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "development;task;tasks;project;todo;event;events;calendar;todoist;"
-#~ msgstr "development;task;tasks;project;todo;event;events;weather;calendar;"
+#~ msgstr "development;task;tasks;project;todo;event;events;calendar;todoist;"
 
 #~ msgid "Everyone needs a task manager and Planner adapts to anyone's needs"
 #~ msgstr ""
@@ -1351,7 +1429,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "How Planner works:"
-#~ msgstr "Cum funcționează Planner"
+#~ msgstr "Cum funcționează Planner:"
 
 #, fuzzy
 #~ msgid ""
@@ -1359,7 +1437,7 @@ msgstr ""
 #~ "When you add a task, it goes straight to your Inbox unless you specify "
 #~ "that the task goes into a project."
 #~ msgstr ""
-#~ "Intrările sunt lista implicită cu sarcini. Când adăugați o sarcină, "
+#~ "Strânge-ţi ideile - Intrările sunt lista implicită cu sarcini. Când adăugați o sarcină, "
 #~ "aceasta ajungedirect în Intrările tale dacă nu specifici să meargă într-"
 #~ "un proiect"
 
@@ -1368,7 +1446,7 @@ msgstr ""
 #~ "2. Get Organized - Create a project for each of your goals, then add the "
 #~ "steps to reach them. Review these regularly to stay on top of things."
 #~ msgstr ""
-#~ "Crează un proiect pentru fiecare țel al tău, și apoi adaugă pașii pentru "
+#~ "Organizează-te - Creează un proiect pentru fiecare țel al tău, și apoi adaugă pașii pentru "
 #~ "îndeplinirea fiecăruia.Revizuiește-i în mod regulat ca să fii sigur că "
 #~ "îți atingi scopul."
 
@@ -1377,7 +1455,7 @@ msgstr ""
 #~ "3. Calendar and Events - See your calendar events and plan your time "
 #~ "effectively. Planner will remind you on the right day."
 #~ msgstr ""
-#~ "Vezi evenimentele din calendar și planifică-ți timplul. Planner îti va "
+#~ "Calendar şi evenimente - Vezi evenimentele din calendar și planifică-ți timplul. Planner îti va "
 #~ "aminiti la momentul potrivit."
 
 #, fuzzy
@@ -1385,28 +1463,28 @@ msgstr ""
 #~ "4. Be even more organized - Add a duedate to your tasks, create labels, "
 #~ "use checklists."
 #~ msgstr ""
-#~ "Adaugă termene limită sarcinilor tale, crează eichete, folosește listele "
+#~ "Fi şi mai organizat - Adaugă termene limită sarcinilor tale, creează eichete, folosește listele "
 #~ "cu sarcini."
 
 #, fuzzy
 #~ msgid "⏲️ Reminders notifications"
-#~ msgstr "Notificări"
+#~ msgstr "⏲️ Notificări"
 
 #, fuzzy
 #~ msgid "🔍️ Quick Find"
-#~ msgstr "Găsire rapidă"
+#~ msgstr "🔍️ Găsire rapidă"
 
 #, fuzzy
 #~ msgid "🌙️ Night mode"
-#~ msgstr "Mod noapte"
+#~ msgstr "🌙️ Mod noapte"
 
 #, fuzzy
 #~ msgid "Planner 2 is here..."
-#~ msgstr "Planner"
+#~ msgstr "Planner 2 e aici..."
 
 #, fuzzy
 #~ msgid "Labels preview"
-#~ msgstr "Etichete"
+#~ msgstr "Previzualizare Etichete"
 
 #, fuzzy
 #~ msgid "Weather forecast"
@@ -1414,27 +1492,27 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Fix Notification error"
-#~ msgstr "Notificări"
+#~ msgstr "Reparată o eroare la notificări"
 
 #, fuzzy
 #~ msgid "Better reminder notifications"
-#~ msgstr "Notificări"
+#~ msgstr "Notificări mai bune"
 
 #, fuzzy
 #~ msgid "New task search"
-#~ msgstr "Sarcină Nouă"
+#~ msgstr "Funcţie nouă de căutare pentru sarcini"
 
 #, fuzzy
 #~ msgid "Fixing critical bug with creating tasks from the clipboard #19"
-#~ msgstr "Această sarcină a fost creată din memoria temporară"
+#~ msgstr "Reparată o eroare cu crearea de sarcini din memoria temporară"
 
 #, fuzzy
 #~ msgid "Adding new tooltips"
-#~ msgstr "Adaugă o sarcină nouă"
+#~ msgstr "Adaugate noi sfaturi"
 
 #, fuzzy
 #~ msgid "Hola Planner !!!"
-#~ msgstr "Cum funcționează Planner"
+#~ msgstr "Salutare Planner !!!"
 
 #~ msgid "Alain M."
 #~ msgstr "Alain M."
@@ -1444,19 +1522,19 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Colors"
-#~ msgstr "Culoare"
+#~ msgstr "Culoari"
 
 #, fuzzy
 #~ msgid "Project color"
-#~ msgstr "Proiect Nou"
+#~ msgstr "Culoare proiect"
 
 #, fuzzy
 #~ msgid "Move section"
-#~ msgstr "Locație"
+#~ msgstr "Mută secţiunea"
 
 #, fuzzy
 #~ msgid "Edit area"
-#~ msgstr "Modifică Eticheta"
+#~ msgstr "Modifică zona"
 
 #~ msgid "AM"
 #~ msgstr "AM"
@@ -1478,11 +1556,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Add a new subtask"
-#~ msgstr "Adaugă o sarcină nouă"
+#~ msgstr "Adaugă o sarcină secundară nouă"
 
 #, fuzzy
 #~ msgid "Move project"
-#~ msgstr "Partajează proiectul"
+#~ msgstr "Mută proiectul"
 
 #~ msgid "Priority: Low"
 #~ msgstr "Prioritate: Scăzută"
@@ -1492,22 +1570,22 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Clear sky"
-#~ msgstr "Golește"
+#~ msgstr "Cer senin"
 
 #~ msgid "%i°"
 #~ msgstr "%i°"
 
 #, fuzzy
 #~ msgid "Your project was exported correctly"
-#~ msgstr "Proiectul tău e gata să fie partajat"
+#~ msgstr "Proiectul tău a fost exportat cu succes"
 
 #, fuzzy
 #~ msgid "Your project was imported correctly"
-#~ msgstr "Proiectul tău e gata să fie partajat"
+#~ msgstr "Proiectul a fost importat cu succes"
 
 #, fuzzy
 #~ msgid "Import another project"
-#~ msgstr "Convertește la Proiect"
+#~ msgstr "Importă alt Proiect"
 
 #~ msgid "%A, %b %d"
 #~ msgstr "%A, %b %d"
@@ -1569,11 +1647,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Update issues"
-#~ msgstr "Actualizează"
+#~ msgstr "Cereri update"
 
 #, fuzzy
 #~ msgid "Are you sure you want to delete your Github account?"
-#~ msgstr "Sigur vrei sa ștergi această sarcină?"
+#~ msgstr "Sigur vrei sa ștergi contul de Github?"
 
 #~ msgid "Banana"
 #~ msgstr "Banană"
@@ -1651,7 +1729,7 @@ msgstr ""
 #~ msgstr "Pornește la Login"
 
 #~ msgid "Copy to clipboard"
-#~ msgstr "Copiază in memoria temporară"
+#~ msgstr "Copiază în memoria temporară"
 
 #~ msgid "Your project is ready to share"
 #~ msgstr "Proiectul tău e gata să fie partajat"
@@ -1664,11 +1742,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "Light background"
-#~ msgstr "Rulează în fundal"
+#~ msgstr "Fundal luminos"
 
 #, fuzzy
 #~ msgid "Dark background"
-#~ msgstr "Rulează în fundal"
+#~ msgstr "Fundal întunecat"
 
 #~ msgid "Menu"
 #~ msgstr "Meniu"
@@ -1705,7 +1783,7 @@ msgstr ""
 #~ msgstr "Mută sarcina"
 
 #~ msgid "You'll be notified %s at %s"
-#~ msgstr "Vei fi notificat"
+#~ msgstr "Vei fi notificat %s la %s"
 
 #~ msgid "Events"
 #~ msgstr "Evenimente"
@@ -1775,4 +1853,4 @@ msgstr ""
 #~ msgstr "4. Fii chiar și mai organizat"
 
 #~ msgid "5. Share your progress"
-#~ msgstr "Împărtășește progresul"
+#~ msgstr "Împărtășește-ţi progresul"
