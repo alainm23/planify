@@ -78,7 +78,7 @@ public class Widgets.Pane : Gtk.EventBox {
         add_button.halign = Gtk.Align.START;
         add_button.always_show_image = true;
         add_button.can_focus = false;
-        add_button.label = _("Add List");
+        add_button.label = _("Add Project");
         add_button.get_style_context ().add_class ("flat");
         add_button.get_style_context ().add_class ("font-bold");
         add_button.get_style_context ().add_class ("add-button");
