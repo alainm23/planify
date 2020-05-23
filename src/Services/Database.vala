@@ -48,8 +48,8 @@ public class Services.Database : GLib.Object {
     public signal void item_added_with_index (Objects.Item item, int index);
     public signal void item_updated (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
-    public signal void add_due_item (Objects.Item item);
-    public signal void update_due_item (Objects.Item item);
+    public signal void add_due_item (Objects.Item item, int index);
+    public signal void update_due_item (Objects.Item item, int index);
     public signal void remove_due_item (Objects.Item item);
     public signal void item_label_added (int64 id, int64 item_id, Objects.Label label);
     public signal void item_label_deleted (int64 id, int64 item_id, Objects.Label label);
@@ -2790,7 +2790,7 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
-            update_due_item (item);
+            update_due_item (item, -1);
 
             if (item.is_todoist == 1) {
                 Planner.todoist.update_item (item);
@@ -2974,7 +2974,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public bool set_due_item (Objects.Item item, bool new_date) {
+    public bool set_due_item (Objects.Item item, bool new_date, int index=-1) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -3010,12 +3010,12 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             if (new_date) {
-                add_due_item (item);
+                add_due_item (item, index);
             } else {
                 if (item.due_date == "") {
                     remove_due_item (item);
                 } else {
-                    update_due_item (item);
+                    update_due_item (item, index);
                 }
             }
 

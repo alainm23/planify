@@ -111,7 +111,7 @@ public class MainWindow : Gtk.Window {
         slim_mode_revealer.valign = Gtk.Align.CENTER;
         slim_mode_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         slim_mode_revealer.add (slim_mode_button);
-        slim_mode_revealer.reveal_child = true;
+        slim_mode_revealer.reveal_child = false;
 
         sidebar_header.pack_end (slim_mode_revealer);
 

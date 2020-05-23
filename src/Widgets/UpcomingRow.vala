@@ -25,6 +25,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
     private Gtk.Revealer motion_revealer;
+    private Gtk.Grid top_box;
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     private Gee.HashMap<string, Gtk.Widget> event_hashmap;
@@ -48,9 +49,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_loaded = new Gee.HashMap<string, Widgets.ItemRow> ();
 
-        var day_label = new Gtk.Label (date.format ("%d"));
+        var day_label = new Gtk.Label ("%s ‧ %s".printf (date.format ("%a"), Planner.utils.get_relative_date_from_date (date)));
         day_label.halign = Gtk.Align.START;
-        day_label.get_style_context ().add_class ("h2");
         day_label.get_style_context ().add_class ("font-bold");
         day_label.valign = Gtk.Align.CENTER;
         day_label.use_markup = true;
@@ -60,11 +60,11 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             day = _("Tomorrow");
         }
 
-        var date_label = new Gtk.Label ("<small>%s, %s</small>".printf (day, date.format ("%b")));
-        date_label.halign = Gtk.Align.START;
-        date_label.valign = Gtk.Align.START;
-        // date_label.get_style_context ().add_class ("dim-label");
-        date_label.use_markup = true;
+        //  var date_label = new Gtk.Label ("<small>%s, %s</small>".printf (day, ));
+        //  date_label.halign = Gtk.Align.START;
+        //  date_label.valign = Gtk.Align.START;
+        //  date_label.get_style_context ().add_class ("dim-label");
+        //  date_label.use_markup = true;
 
         var add_button = new Gtk.Button ();
         add_button.can_focus = false;
@@ -77,11 +77,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         add_button.get_style_context ().add_class ("hidden-button");
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.valign = Gtk.Align.END;
         separator.hexpand = true;
         separator.margin_top = 3;
+        separator.margin_start = 42;
+        separator.margin_end = 40;
 
-        var top_box = new Gtk.Grid ();
+        top_box = new Gtk.Grid ();
         top_box.margin_start = 42;
         top_box.margin_end = 40;
         top_box.column_spacing = 6;
@@ -89,9 +90,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.add (day_label);
-        top_box.add (date_label);
         
         var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 42;
+        motion_grid.margin_bottom = 0;
+        motion_grid.margin_end = 40;
+        motion_grid.margin_top = 12;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -140,11 +144,11 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             item.reveal_child = true;
         });
 
-        Planner.database.add_due_item.connect ((item) => {
+        Planner.database.add_due_item.connect ((item, index) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    add_item (item);
+                    add_item (item, index);
                 }
             }
         });
@@ -156,18 +160,13 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.database.update_due_item.connect ((item) => {
+        Planner.database.update_due_item.connect ((item, index) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
             if (Granite.DateTime.is_same_day (datetime, date)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var row = new Widgets.ItemRow (item, "upcoming");
-
-                    items_loaded.set (item.id.to_string (), row);
-                    items_list.add (row);
-
-                    listbox.add (row);
-                    listbox.show_all ();
+                    add_item (item, index);
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
@@ -220,6 +219,11 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
+
+        Gtk.drag_dest_set (top_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        top_box.drag_data_received.connect (on_drag_item_received);
+        top_box.drag_motion.connect (on_drag_magicbutton_motion);
+        top_box.drag_leave.connect (on_drag_magicbutton_leave);
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y,
@@ -242,7 +246,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             if (!Granite.DateTime.is_same_day (due, date)) {
                 source.item.due_date = date.to_string ();
 
-                Planner.database.set_due_item (source.item, false);
+                Planner.database.set_due_item (source.item, false, target.get_index () + 1);
                 if (source.item.is_todoist == 1) {
                     Planner.todoist.update_item (source.item);
                 }
@@ -255,6 +259,33 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
             update_item_order ();
         }
+    }
+
+    private void on_drag_item_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type) {
+        Widgets.ItemRow source;
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
+
+        source.get_parent ().remove (source);
+        items_list.remove (source);
+
+        var due = new GLib.DateTime.from_iso8601 (source.item.due_date, new GLib.TimeZone.local ());
+        if (!Granite.DateTime.is_same_day (due, date)) {
+            source.item.due_date = date.to_string ();
+
+            Planner.database.set_due_item (source.item, false, 0);
+            if (source.item.is_todoist == 1) {
+                Planner.todoist.update_item (source.item);
+            }
+        } else {
+            listbox.insert (source, 0);
+            items_list.insert (0, source);
+
+            listbox.show_all ();
+        }
+
+        update_item_order ();
     }
 
     private void update_item_order () {
@@ -271,6 +302,15 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         });
     }
 
+    public bool on_drag_magicbutton_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_revealer.reveal_child = true;
+        return true;
+    }
+
+    public void on_drag_magicbutton_leave (Gdk.DragContext context, uint time) {
+        motion_revealer.reveal_child = false;
+    }
+    
     private void add_event_model (E.Source source, Gee.Collection<ECal.Component> events) {
         foreach (var component in events) {
             if (Util.calcomp_is_on_day (component, date)) {
@@ -344,13 +384,19 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         return 0;
     }
 
-    private void add_item (Objects.Item item) {
+    private void add_item (Objects.Item item, int index=-1) {
         var row = new Widgets.ItemRow (item, "upcoming");
 
         items_loaded.set (item.id.to_string (), row);
-        items_list.add (row);
+        
+        if (index == -1) {
+            items_list.add (row);
+            listbox.add (row);
+        } else {
+            items_list.insert (index, row);
+            listbox.insert (row, index);
+        }
 
-        listbox.add (row);
         listbox.show_all ();
     }
 
