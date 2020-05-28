@@ -46,6 +46,9 @@
             "config-opts" : [
                 "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
                 "-DBUILD_SHARED_LIBS=On",
+                "-DGOBJECT_INTROSPECTION=true",
+                "-DICAL_GLIB_VAPI=true",
+                "-DICAL_GLIB=true",
                 "-DICAL_BUILD_DOCS=False",
                 "-DWITH_CXX_BINDINGS=False"
             ],
@@ -79,8 +82,8 @@
                 "-DENABLE_GOA=OFF",
                 "-DENABLE_GOOGLE=OFF",
                 "-DENABLE_EXAMPLES=OFF",
-                "-DENABLE_INTROSPECTION=OFF",
-                "-DENABLE_VALA_BINDINGS=OFF",
+                "-DENABLE_INTROSPECTION=ON",
+                "-DENABLE_VALA_BINDINGS=ON",
                 "-DENABLE_INSTALLED_TESTS=OFF",
                 "-DENABLE_GTK_DOC=OFF",
                 "-DWITH_PRIVATE_DOCS=OFF",
