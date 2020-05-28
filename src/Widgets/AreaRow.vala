@@ -115,6 +115,23 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.get_style_context ().add_class ("hidden-button");
 
+        var edit_image = new Gtk.Image ();
+        edit_image.gicon = new ThemedIcon ("edit-symbolic");
+        edit_image.pixel_size = 11;
+
+        var edit_button = new Gtk.Button ();
+        edit_button.can_focus = false;
+        edit_button.valign = Gtk.Align.CENTER;
+        edit_button.tooltip_text = _("Folder Menu");
+        edit_button.image = edit_image;
+        edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        edit_button.get_style_context ().add_class ("dim-label");
+        edit_button.get_style_context ().add_class ("edit-button");
+
+        var edit_revealer = new Gtk.Revealer ();
+        edit_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        edit_revealer.add (edit_button);
+
         var settings_revealer = new Gtk.Revealer ();
         settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         settings_revealer.add (settings_button);
@@ -133,7 +150,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         info_box.pack_start (name_label, false, false, 0);
-        info_box.pack_start (count_label, false, true, 0);
+        info_box.pack_start (edit_revealer, false, false, 0);
+        info_box.pack_end (count_label, false, false, 0);
 
         name_entry = new Gtk.Entry ();
         name_entry.width_chars = 16;
@@ -157,8 +175,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.margin_bottom = 1;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        // top_box.pack_end (settings_revealer, false, false, 0);
-        top_box.pack_end (hidden_revealer, false, false, 0);
+        top_box.pack_end (settings_revealer, false, false, 0);
+        // top_box.pack_end (hidden_revealer, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -296,17 +314,29 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.@2BUTTON_PRESS) {
-                action_revealer.reveal_child = true;
-                name_stack.visible_child_name = "name_entry";
+            if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
+                //  action_revealer.reveal_child = true;
+                //  name_stack.visible_child_name = "name_entry";
 
-                name_entry.grab_focus_without_selecting ();
-                if (name_entry.cursor_position < name_entry.text_length) {
-                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
-                }
+                //  name_entry.grab_focus_without_selecting ();
+                //  if (name_entry.cursor_position < name_entry.text_length) {
+                //      name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+                //  }
+            } else if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                toggle_hidden ();
             }
 
             return false;
+        });
+
+        edit_button.clicked.connect (() => {
+            action_revealer.reveal_child = true;
+            name_stack.visible_child_name = "name_entry";
+
+            name_entry.grab_focus_without_selecting ();
+            if (name_entry.cursor_position < name_entry.text_length) {
+                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+            }
         });
 
         settings_button.clicked.connect (() => {
@@ -329,6 +359,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_eventbox.enter_notify_event.connect ((event) => {
             hidden_revealer.reveal_child = true;
             settings_revealer.reveal_child = true;
+            edit_revealer.reveal_child = true;
 
             return true;
         });
@@ -340,6 +371,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
             hidden_revealer.reveal_child = false;
             settings_revealer.reveal_child = false;
+            edit_revealer.reveal_child = false;
 
             return true;
         });

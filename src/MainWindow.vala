@@ -287,7 +287,7 @@ public class MainWindow : Gtk.Window {
             } else if (stack.visible_child_name == "today-view") {
                 today_view.add_new_item ();
             } else if (stack.visible_child_name == "upcoming-view") {
-
+                Planner.utils.magic_button_clicked ("upcoming");
             } else {
                 var project = ((Views.Project) stack.get_child_by_name (stack.visible_child_name)).project;
                 Planner.utils.magic_button_activated (
@@ -475,7 +475,7 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (upcoming_view, "upcoming-view");
             }
 
-            magic_button.reveal_child = false;
+            magic_button.reveal_child = true;
             stack.visible_child_name = "upcoming-view";
         } else if (id == 3) {
             if (completed_view == null) {
@@ -484,7 +484,7 @@ public class MainWindow : Gtk.Window {
             }
 
             completed_view.add_all_items ();
-            magic_button.reveal_child = false;
+            magic_button.reveal_child = true;
             stack.visible_child_name = "completed-view";
         }
 

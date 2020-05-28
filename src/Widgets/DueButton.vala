@@ -127,31 +127,36 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     public void update_date_text (Objects.Item item) {
+        due_label.label = _("Schedule");
+        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+
+        due_image.get_style_context ().remove_class ("overdue");
+        due_image.get_style_context ().remove_class ("today");
+        due_image.get_style_context ().remove_class ("upcoming");
+
+        due_label.get_style_context ().remove_class ("font-weight-600");
+
+        repeat_revealer.reveal_child = false;
+
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             due_label.label = Planner.utils.get_relative_date_from_date (date);
-
-            due_image.get_style_context ().remove_class ("today-icon-button");
-            due_image.get_style_context ().remove_class ("upcoming");
-
-            due_label.get_style_context ().remove_class ("today-label-button");
-            due_label.get_style_context ().remove_class ("upcoming-label-button");
-
-            repeat_image.get_style_context ().remove_class ("upcoming-label-button");
+            due_label.get_style_context ().add_class ("font-weight-600");    
 
             if (Planner.utils.is_today (date)) {
                 due_image.gicon = new ThemedIcon ("help-about-symbolic");
-                due_image.get_style_context ().add_class ("today-icon-button");
-                due_image.pixel_size = 10;
+                due_image.get_style_context ().add_class ("today");
 
-                due_label.get_style_context ().add_class ("today-label-button");
                 repeat_image.get_style_context ().add_class ("today-label-button");
+            } else if (Planner.utils.is_overdue (date)) {
+                due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                due_image.get_style_context ().add_class ("overdue");
+
+                repeat_image.get_style_context ().add_class ("overdue");
             } else {
                 due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 due_image.get_style_context ().add_class ("upcoming");
-                due_image.pixel_size = 16;
 
-                due_label.get_style_context ().add_class ("upcoming-label-button");
                 repeat_image.get_style_context ().add_class ("upcoming-label-button");
             }
 
@@ -160,20 +165,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             } else {
                 repeat_revealer.reveal_child = false;
             }
-        } else {
-            due_label.label = _("Schedule");
-            due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-
-            due_image.get_style_context ().remove_class ("today-icon-button");
-            due_image.get_style_context ().remove_class ("upcoming");
-
-            due_label.get_style_context ().remove_class ("today-label-button");
-            due_label.get_style_context ().remove_class ("upcoming-label-button");
-
-            repeat_image.get_style_context ().remove_class ("upcoming-label-button");
-            repeat_image.get_style_context ().remove_class ("today-label-button");
-
-            repeat_revealer.reveal_child = false;
         }
     }
 

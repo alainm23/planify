@@ -423,9 +423,9 @@ paned.horizontal > separator {
     transition: all 250ms ease-in-out;
 }
 
-.project-textview text:focus {
+/* .project-textview text:focus {
     border-bottom: 1px solid #3689e6;
-}
+} */
 
 .note-grid {
     border: 1px solid @menu_separator;
@@ -757,7 +757,7 @@ paned.horizontal > separator {
     color: @text_color;
 }
 
-.duedate-expired {
+.overdue {
     color: #fa1955;
     font-weight: bold;
 }
@@ -932,6 +932,10 @@ paned.horizontal > separator {
 }
 .description text {
     background-color: shade (@base_color, 1.15);
+}
+
+.description-dialog text {
+    background-color: @bg_color;
 }
 
 .border-radius-4 {
@@ -1123,4 +1127,9 @@ paned.horizontal > separator {
     padding: 0px;
     background: @bg_color;
     border-radius: 4px;
+}
+
+.edit-button {
+    background: transparent;
+    padding: 0px;
 }

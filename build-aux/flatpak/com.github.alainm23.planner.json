@@ -15,7 +15,7 @@
         "--filesystem=home",
         "--talk-name=org.gtk.vfs.*",
         "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
-        "--talk-name=org.gnome.evolution.dataserver.Calendar7",
+        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
         "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
         "--talk-name=com.github.alainm23.planner",
@@ -49,11 +49,13 @@
                 "-DICAL_BUILD_DOCS=False",
                 "-DWITH_CXX_BINDINGS=False"
             ],
-            "sources" : [{
-                "type" : "archive",
-                "url" : "https://github.com/libical/libical/releases/download/v3.0.5/libical-3.0.5.tar.gz",
-                "sha256" : "7ad550c8c49c9b9983658e3ab3e68b1eee2439ec17b169a6b1e6ecb5274e78e6"
-            }]
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/libical/libical/releases/download/v3.0.8/libical-3.0.8.tar.gz",
+                    "sha256" : "09fecacaf75ba5a242159e3a9758a5446b5ce4d0ab684f98a7040864e1d1286f"
+                }
+            ]
         },
         {
             "name": "intltool",
@@ -65,29 +67,36 @@
             }]
         },
         {
-            "name": "evolution-data-server",
-            "buildsystem": "cmake-ninja",
-            "config-opts": [
-                "-DENABLE_UOA=OFF",
+            "name" : "evolution-data-server",
+            "buildsystem" : "cmake-ninja",
+            "cleanup" : [ "/share/GConf" ],
+            "config-opts" : [
+                "-DENABLE_FILE_LOCKING=fcntl",
+                "-DENABLE_DOT_LOCKING=OFF",
+                "-DENABLE_OAUTH2=ON",
                 "-DENABLE_GTK=ON",
-                "-DENABLE_INTROSPECTION=ON",
-                "-DENABLE_VALA_BINDINGS=ON",
+                "-DENABLE_UOA=OFF",
                 "-DENABLE_GOA=OFF",
-                "-DENABLE_OAUTH2=OFF",
-                "-DENABLE_WEATHER=OFF",
                 "-DENABLE_GOOGLE=OFF",
                 "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_INTROSPECTION=OFF",
+                "-DENABLE_VALA_BINDINGS=OFF",
                 "-DENABLE_INSTALLED_TESTS=OFF",
                 "-DENABLE_GTK_DOC=OFF",
                 "-DWITH_PRIVATE_DOCS=OFF",
+                "-DWITH_PHONENUMBER=OFF",
+                "-DWITH_SYSTEMDUSERUNITDIR=OFF",
+                "-DWITH_LIBDB=OFF",
                 "-DWITH_OPENLDAP=OFF",
-                "-DWITH_LIBDB=OFF"
+                "-DENABLE_WEATHER=OFF"
             ],
-            "sources" : [{
-                "type": "archive",
-                "url": "https://download.gnome.org/sources/evolution-data-server/3.28/evolution-data-server-3.28.5.tar.xz",
-                "sha256": "d95348d27207cde4ff3209d16c9336fd2a97d958f4c563450ccdf2f7c07e8788"
-            }]
+            "sources" : [
+               {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/evolution-data-server/3.36/evolution-data-server-3.36.0.tar.xz",
+                    "sha256": "d4d70e6658fb9e1f85639dcff315bbdddd3aa2de2ad069b1776af3fb9e9598ec"
+               }
+            ]
         },
         {
             "name": "media-keys",

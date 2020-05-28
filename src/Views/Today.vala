@@ -20,13 +20,18 @@
 */
 
 public class Views.Today : Gtk.EventBox {
-    private Gtk.ListBox listbox;
     private Gtk.ListBox event_listbox;
+    private Gtk.ListBox listbox;
+    private Gtk.ListBox overdue_listbox;
     private Gtk.Stack view_stack;
+    private Gtk.Revealer overdue_revealer;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
-    public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
-    public Gee.ArrayList<Widgets.ItemRow?> items_list;
+    
+    private Gee.HashMap <string, Widgets.ItemRow> items_loaded;
+    private Gee.HashMap <string, Widgets.ItemRow> overdues_loaded;
+    private Gee.ArrayList<Widgets.ItemRow?> items_list;
+    private Gee.ArrayList<Widgets.ItemRow?> overdue_list;
 
     private uint update_events_idle_source = 0;
     private uint timeout = 0;
@@ -38,7 +43,10 @@ public class Views.Today : Gtk.EventBox {
 
     construct {
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
+        overdue_list = new Gee.ArrayList<Widgets.ItemRow?> ();
+        
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
+        overdues_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -72,13 +80,50 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (date_label, false, false, 0);
 
         listbox = new Gtk.ListBox ();
-        listbox.expand = true;
         listbox.margin_start = 30;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
         listbox.margin_top = 6;
+
+        var overdue_label = new Gtk.Label (_("Overdue"));
+        overdue_label.get_style_context ().add_class ("font-bold");
+        overdue_label.halign = Gtk.Align.START;
+
+        overdue_listbox = new Gtk.ListBox ();
+        overdue_listbox.margin_start = 30;
+        overdue_listbox.get_style_context ().add_class ("listbox");
+        overdue_listbox.activate_on_single_click = true;
+        overdue_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        overdue_listbox.hexpand = true;
+
+        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        overdue_separator.hexpand = true;
+        overdue_separator.margin_top = 3;
+        overdue_separator.margin_start = 42;
+        overdue_separator.margin_end = 40;
+
+        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        overdue_header_box.margin_start = 42;
+        overdue_header_box.margin_end = 40;
+        overdue_header_box.pack_start (overdue_label);
+
+        var overdue_container_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        overdue_container_box.margin_top = 24;
+        overdue_container_box.add (overdue_header_box);
+        overdue_container_box.add (overdue_separator);
+        overdue_container_box.add (overdue_listbox);
+
+        overdue_revealer = new Gtk.Revealer ();
+        overdue_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        overdue_revealer.add (overdue_container_box);
+        overdue_revealer.reveal_child = true;
+
+        var listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        listbox_box.expand = true;
+        listbox_box.add (listbox);
+        listbox_box.add (overdue_revealer);
 
         var placeholder_view = new Widgets.Placeholder (
             _("What tasks are on your mind?"),
@@ -90,7 +135,7 @@ public class Views.Today : Gtk.EventBox {
         view_stack = new Gtk.Stack ();
         view_stack.expand = true;
         view_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        view_stack.add_named (listbox, "listbox");
+        view_stack.add_named (listbox_box, "listbox");
         view_stack.add_named (placeholder_view, "placeholder");
 
         event_listbox = new Gtk.ListBox ();
@@ -142,22 +187,25 @@ public class Views.Today : Gtk.EventBox {
             item.reveal_child = true;
         });
 
+        overdue_listbox.row_activated.connect ((row) => {
+            var item = ((Widgets.ItemRow) row);
+            item.reveal_child = true;
+        });
+
         listbox.remove.connect ((row) => {
             check_placeholder_view ();
         });
 
         Planner.database.add_due_item.connect ((item) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    var row = new Widgets.ItemRow (item, "today");
-
-                    items_loaded.set (item.id.to_string (), row);
-                    items_list.add (row);
-
-                    listbox.add (row);
-                    listbox.show_all ();
-
+                    add_item (item);
+                    check_placeholder_view ();
+                }
+            } else if (Planner.utils.is_overdue (datetime)) {
+                if (overdues_loaded.has_key (item.id.to_string ()) == false) {
+                    add_overdue_item (item);
                     check_placeholder_view ();
                 }
             }
@@ -167,22 +215,41 @@ public class Views.Today : Gtk.EventBox {
             if (items_loaded.has_key (item.id.to_string ())) {
                 items_loaded.get (item.id.to_string ()).hide_destroy ();
                 items_loaded.unset (item.id.to_string ());
+
+                check_placeholder_view ();
+            } else if (overdues_loaded.has_key (item.id.to_string ())) {
+                overdues_loaded.get (item.id.to_string ()).hide_destroy ();
+                overdues_loaded.unset (item.id.to_string ());
+                
                 check_placeholder_view ();
             }
         });
 
-        Planner.database.update_due_item.connect ((item) => {
+        Planner.database.update_due_item.connect ((item, index) => {
             var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
 
-            if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
+            if (Planner.utils.is_today (datetime)) {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
-                    add_item (item);
+                    add_item (item, index);
                     check_placeholder_view ();
                 }
             } else {
                 if (items_loaded.has_key (item.id.to_string ())) {
                     items_loaded.get (item.id.to_string ()).hide_destroy ();
                     items_loaded.unset (item.id.to_string ());
+                    check_placeholder_view ();
+                }
+            }
+
+            if (Planner.utils.is_overdue (datetime)) {
+                if (overdues_loaded.has_key (item.id.to_string ()) == false) {
+                    add_overdue_item (item);
+                    check_placeholder_view ();
+                }
+            } else {
+                if (overdues_loaded.has_key (item.id.to_string ())) {
+                    overdues_loaded.get (item.id.to_string ()).hide_destroy ();
+                    overdues_loaded.unset (item.id.to_string ());
                     check_placeholder_view ();
                 }
             }
@@ -193,6 +260,16 @@ public class Views.Today : Gtk.EventBox {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_today (datetime)) {
                     add_item (item);
+                    check_placeholder_view ();
+                } else if (Planner.utils.is_overdue (datetime)) {
+                    var row = new Widgets.ItemRow (item, "today");
+
+                    overdues_loaded.set (item.id.to_string (), row);
+                    overdue_list.add (row);
+
+                    overdue_listbox.add (row);
+                    overdue_listbox.show_all ();
+
                     check_placeholder_view ();
                 }
             }
@@ -214,7 +291,7 @@ public class Views.Today : Gtk.EventBox {
             Idle.add (() => {
                 if (items_loaded.has_key (item.id.to_string ()) == false) {
                     var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                    if (Planner.utils.is_today (datetime) || Planner.utils.is_before_today (datetime)) {
+                    if (Planner.utils.is_today (datetime) || Planner.utils.is_overdue (datetime)) {
                         if (items_loaded.has_key (item.id.to_string ()) == false) {
                             add_item (item);
                             check_placeholder_view ();
@@ -275,11 +352,28 @@ public class Views.Today : Gtk.EventBox {
             source.get_parent ().remove (source);
             items_list.remove (source);
 
-            listbox.insert (source, target.get_index () + 1);
-            items_list.insert (target.get_index () + 1, source);
+            var due = new GLib.DateTime.from_iso8601 (source.item.due_date, new GLib.TimeZone.local ());
+            if (Planner.utils.is_today (due) == false) {
+                source.item.due_date = new GLib.DateTime.now_local ().to_string ();
 
-            listbox.show_all ();
+                Planner.database.set_due_item (source.item, false, target.get_index () + 1);
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.update_item (source.item);
+                }
+            } else {
+                listbox.insert (source, target.get_index () + 1);
+                items_list.insert (target.get_index () + 1, source);
+
+                listbox.show_all ();
+            }
+
             update_item_order ();
+
+            //  listbox.insert (source, target.get_index () + 1);
+            //  items_list.insert (target.get_index () + 1, source);
+
+            //  listbox.show_all ();
+            //  update_item_order ();
         }
     }
 
@@ -383,14 +477,29 @@ public class Views.Today : Gtk.EventBox {
         }
     }
 
-    private void add_item (Objects.Item item) {
+    private void add_item (Objects.Item item, int index=-1) {
         var row = new Widgets.ItemRow (item, "today");
 
         items_loaded.set (item.id.to_string (), row);
-        items_list.add (row);
+        if (index == -1) {
+            items_list.add (row);
+            listbox.add (row);
+        } else {
+            items_list.insert (index, row);
+            listbox.insert (row, index);
+        }
 
-        listbox.add (row);
         listbox.show_all ();
+    }
+
+    private void add_overdue_item (Objects.Item item) {
+        var row = new Widgets.ItemRow (item, "today");
+
+        overdues_loaded.set (item.id.to_string (), row);
+        overdue_list.add (row);
+
+        overdue_listbox.add (row);
+        overdue_listbox.show_all ();   
     }
 
     private void add_all_items () {
@@ -402,6 +511,16 @@ public class Views.Today : Gtk.EventBox {
 
             listbox.add (row);
             listbox.show_all ();
+        }
+
+        foreach (var item in Planner.database.get_all_overdue_items ()) {
+            var row = new Widgets.ItemRow (item, "today");
+
+            overdues_loaded.set (item.id.to_string (), row);
+            overdue_list.add (row);
+
+            overdue_listbox.add (row);
+            overdue_listbox.show_all ();
         }
 
         //listbox.set_sort_func (sort_function);
@@ -467,10 +586,19 @@ public class Views.Today : Gtk.EventBox {
     //  }
 
     private void check_placeholder_view () {
-        if (Planner.database.get_all_today_items ().size > 0) {
+        var overdue_size = Planner.database.get_all_overdue_items ().size;
+
+        if (Planner.database.get_all_today_items ().size > 0 ||
+            overdue_size > 0) {
             view_stack.visible_child_name = "listbox";
         } else {
             view_stack.visible_child_name = "placeholder";
+        }
+
+        if (overdue_size > 0) {
+            overdue_revealer.reveal_child = true;
+        } else {
+            overdue_revealer.reveal_child = false;
         }
     }
 }

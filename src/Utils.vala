@@ -45,6 +45,7 @@ public class Utils : GLib.Object {
     public signal void magic_button_activated (int64 project_id, int64 section_id,
         int is_todoist, bool last, int index = 0
     );
+    public signal void magic_button_clicked (string view);
 
     public signal void add_item_show_queue (Widgets.ItemRow row);
     public signal void remove_item_show_queue (Widgets.ItemRow row);
@@ -478,7 +479,7 @@ public class Utils : GLib.Object {
         }
     }
 
-    public bool is_before_today (GLib.DateTime date) {
+    public bool is_overdue (GLib.DateTime date) {
         var now = get_format_date (new DateTime.now_local ());
 
         if (get_format_date (date).compare (now) == -1) {
@@ -577,7 +578,7 @@ public class Utils : GLib.Object {
             return _("Today");
         } else if (Planner.utils.is_tomorrow (date)) {
             return _("Tomorrow");
-        } else if (Planner.utils.is_before_today (date)) {
+        } else if (Planner.utils.is_overdue (date)) {
             return Granite.DateTime.get_relative_datetime (date);
         } else {
             return get_default_date_format_from_date (date);

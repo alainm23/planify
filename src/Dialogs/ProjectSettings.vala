@@ -56,9 +56,10 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         description_header.margin_top = 6;
 
         description_textview = new Gtk.TextView ();
-        description_textview.get_style_context ().add_class ("description");
+        description_textview.get_style_context ().add_class ("description-dialog");
         description_textview.margin = 6;
         description_textview.buffer.text = project.note;
+        description_textview.wrap_mode = Gtk.WrapMode.WORD;
 
         var description_scrolled = new Gtk.ScrolledWindow (null, null);
         description_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;

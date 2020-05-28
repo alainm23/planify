@@ -37,6 +37,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    private const Gtk.TargetEntry[] TARGET_ENTRIES_MAGIC_BUTTON = {
+        {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     public UpcomingRow (GLib.DateTime date) {
         Object (
             date: date
@@ -130,18 +134,40 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         main_box.margin_bottom = 48;
         main_box.hexpand = true;
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (event_revealer, false, false, 0);
+        main_box.pack_start (motion_revealer, false, false, 0);
         main_box.pack_start (listbox, false, false, 0);
 
         add (main_box);
         add_all_items ();
-        build_drag_and_drop ();
+        build_drag_and_drop (false);
 
         listbox.row_activated.connect ((row) => {
             var item = ((Widgets.ItemRow) row);
             item.reveal_child = true;
+        });
+
+        Planner.database.item_added.connect ((item) => {
+            if (item.due_date != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+                if (Granite.DateTime.is_same_day (datetime, date)) {
+                    if (items_loaded.has_key (item.id.to_string ()) == false) {
+                        add_item (item);
+                    }
+                }
+            }
+        });
+
+        Planner.database.item_added_with_index.connect ((item, index) => {
+            if (item.due_date != "") {
+                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+                if (Granite.DateTime.is_same_day (datetime, date)) {
+                    if (items_loaded.has_key (item.id.to_string ()) == false) {
+                        add_item (item, index);
+                    }
+                }
+            }
         });
 
         Planner.database.add_due_item.connect ((item, index) => {
@@ -202,6 +228,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             });
         });
 
+        Planner.utils.magic_button_clicked.connect ((view) => {
+            if (view == "upcoming" && Granite.DateTime.is_same_day (new DateTime.now_local ().add_days (1), date)) {
+                add_new_item (true);
+            }
+        });
+
         event_hashmap = new Gee.HashMap<string, Gtk.Widget> ();
 
         Planner.calendar_model.events_added.connect (add_event_model);
@@ -214,16 +246,54 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             }
         });
+
+        Planner.utils.drag_magic_button_activated.connect ((value) => {
+            build_drag_and_drop (value);
+        });
     }
     
-    private void build_drag_and_drop () {
+    private void build_drag_and_drop (bool value) {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
-        Gtk.drag_dest_set (top_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        top_box.drag_data_received.connect (on_drag_item_received);
-        top_box.drag_motion.connect (on_drag_magicbutton_motion);
-        top_box.drag_leave.connect (on_drag_magicbutton_leave);
+        top_box.drag_data_received.disconnect (on_drag_item_received);
+        top_box.drag_data_received.disconnect (on_drag_magic_button_received);
+
+        if (value) {
+            Gtk.drag_dest_set (top_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES_MAGIC_BUTTON, Gdk.DragAction.MOVE);
+            top_box.drag_data_received.connect (on_drag_magic_button_received);
+            top_box.drag_motion.connect (on_drag_magicbutton_motion);
+            top_box.drag_leave.connect (on_drag_magicbutton_leave);
+        } else {
+            Gtk.drag_dest_set (top_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+            top_box.drag_data_received.connect (on_drag_item_received);
+            top_box.drag_motion.connect (on_drag_magicbutton_motion);
+            top_box.drag_leave.connect (on_drag_magicbutton_leave);
+        }
+    }
+
+    private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        add_new_item ();
+    }
+
+    private void add_new_item (bool last=false) {
+        var new_item = new Widgets.NewItem (
+            Planner.settings.get_int64 ("inbox-project"),
+            0,
+            Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
+            date.to_string ()
+        );
+
+        if (last) {
+            listbox.add (new_item);
+        } else {
+            new_item.has_index = true;
+            new_item.index = 0;
+            listbox.insert (new_item, 0);
+        }
+
+        listbox.show_all ();
     }
 
     private void on_drag_data_received (Gdk.DragContext context, int x, int y,

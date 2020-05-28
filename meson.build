@@ -6,6 +6,8 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
+add_project_arguments('-DEDS_DISABLE_DEPRECATED', language: 'c')
+add_project_arguments('-DGOA_API_IS_SUBJECT_TO_CHANGE', language: 'c')
 
 conf_data = configuration_data()
 conf_data.set_quoted('PROJECT_NAME', meson.project_name())

@@ -238,7 +238,7 @@ public class Views.Project : Gtk.EventBox {
         note_textview.tooltip_text = _("Add a description");
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD;
+        note_textview.wrap_mode = Gtk.WrapMode.CHAR;
         note_textview.get_style_context ().add_class ("project-textview");
         note_textview.buffer.text = project.note;
 
@@ -247,10 +247,10 @@ public class Views.Project : Gtk.EventBox {
         update_note_label (project.note);
         note_label.valign = Gtk.Align.START;
         note_label.wrap = true;
-        note_label.wrap_mode = Pango.WrapMode.WORD;
+        note_label.wrap_mode = Pango.WrapMode.CHAR;
         note_label.xalign = 0;
         note_label.yalign = 0;
-        note_label.margin_bottom = 3;
+        note_label.margin_end = 3;
         note_label.use_markup = true;
 
         var note_eventbox = new Gtk.EventBox ();
@@ -489,6 +489,7 @@ public class Views.Project : Gtk.EventBox {
             note_stack.visible_child_name = "label";
             update_note_label (note_textview.buffer.text);
 
+            save (false);
             return false;
         }); 
 
@@ -500,11 +501,6 @@ public class Views.Project : Gtk.EventBox {
 
             return false;
         });
-
-        note_textview.buffer.changed.connect (() => {
-            save (false);
-        });
-
 
         note_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS) {
