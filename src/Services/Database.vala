@@ -48,6 +48,7 @@ public class Services.Database : GLib.Object {
     public signal void item_added_with_index (Objects.Item item, int index);
     public signal void item_updated (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
+    public signal void on_drag_item_deleted (Widgets.ItemRow row, int64 section_id);
     public signal void add_due_item (Objects.Item item, int index);
     public signal void update_due_item (Objects.Item item, int index);
     public signal void remove_due_item (Objects.Item item);

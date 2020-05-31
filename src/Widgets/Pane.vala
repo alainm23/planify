@@ -31,6 +31,7 @@ public class Widgets.Pane : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Gtk.ListBox project_listbox;
     private Gtk.ListBox area_listbox;
+    private Gtk.ScrolledWindow listbox_scrolled;
 
     private Gtk.Button add_button;
     private Gtk.Button sync_button;
@@ -187,7 +188,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
 
-        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
         listbox_scrolled.hexpand = true;
         listbox_scrolled.margin_bottom = 6;
@@ -333,6 +334,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
         Planner.database.area_added.connect ((area) => {
             var row = new Widgets.AreaRow (area);
+            row.scrolled = listbox_scrolled;
             row.destroy.connect (() => {
                 area_row_removed (row);
             });
@@ -365,6 +367,7 @@ public class Widgets.Pane : Gtk.EventBox {
         Planner.database.project_added.connect ((project) => {
             if (project.inbox_project == 0 && project.area_id == 0) {
                 var row = new Widgets.ProjectRow (project);
+                row.scrolled = listbox_scrolled;
                 row.destroy.connect (() => {
                     project_row_removed (row);
                 });
@@ -380,6 +383,7 @@ public class Widgets.Pane : Gtk.EventBox {
             Idle.add (() => {
                 if (project.area_id == 0) {
                     var row = new Widgets.ProjectRow (project);
+                    row.scrolled = listbox_scrolled;
                     row.destroy.connect (() => {
                         project_row_removed (row);
                     });
@@ -428,7 +432,6 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         search_button.clicked.connect (() => {
-            //  show_quick_find ();
             var dialog = new Dialogs.QuickFind ();
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
@@ -536,6 +539,7 @@ public class Widgets.Pane : Gtk.EventBox {
     public void add_all_projects () {
         foreach (var project in Planner.database.get_all_projects_no_area ()) {
             var row = new Widgets.ProjectRow (project);
+            row.scrolled = listbox_scrolled;
             row.destroy.connect (() => {
                 project_row_removed (row);
             });
@@ -546,9 +550,8 @@ public class Widgets.Pane : Gtk.EventBox {
             if (Planner.settings.get_boolean ("homepage-project")) {
                 if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
                     timeout = Timeout.add (125, () => {
+                        timeout = 0;
                         project_listbox.select_row (row);
-
-                        Source.remove (timeout);
                         return false;
                     });
                 }
@@ -561,6 +564,7 @@ public class Widgets.Pane : Gtk.EventBox {
     public void add_all_areas () {
         foreach (var area in Planner.database.get_all_areas ()) {
             var row = new Widgets.AreaRow (area);
+            row.scrolled = listbox_scrolled;
             row.destroy.connect (() => {
                 area_row_removed (row);
             });

@@ -193,19 +193,17 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     private void update_count (bool today=false) {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
-            timeout_id = 0;
         }
 
         timeout_id = Timeout.add (250, () => {
+            timeout_id = 0;
+
             if (item_base_name == "today") {
                 check_today_badge ();
             } else if (item_base_name == "inbox") {
                 check_inbox_badge ();
             }
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
-
+            
             return false;
         });
     }
@@ -265,9 +263,16 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
-        if (source.item.is_todoist == 1) {
-            Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
+        if (source.item.is_todoist == Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist) {
+            Planner.database.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
+            if (source.item.is_todoist == 1) {
+                Planner.todoist.move_item (source.item, Planner.settings.get_int64 ("inbox-project"));
+            }
+        } else {
+            Planner.notifications.send_notification (
+                _("Unable to move task"),
+                "mail-mark-junk-symbolic"
+            );
         }
     }
 

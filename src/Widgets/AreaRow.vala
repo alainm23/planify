@@ -21,6 +21,7 @@
 
 public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Objects.Area area { get; construct; }
+    public Gtk.ScrolledWindow scrolled { get; set; }
 
     private Gtk.Image area_image;
     private Gtk.Button hidden_button;
@@ -37,8 +38,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Revealer action_revealer;
     public Gtk.Revealer main_revealer;
     private Gtk.Menu menu = null;
+    private bool menu_visible = false;
 
     private uint timeout;
+    private uint timeout_id = 0;
+    private uint toggle_timeout = 0;
     public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
@@ -150,7 +154,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         var info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         info_box.pack_start (name_label, false, false, 0);
-        info_box.pack_start (edit_revealer, false, false, 0);
+        // info_box.pack_start (edit_revealer, false, false, 0);
         info_box.pack_end (count_label, false, false, 0);
 
         name_entry = new Gtk.Entry ();
@@ -204,6 +208,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_eventbox.margin_end = 5;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
+        top_eventbox.get_style_context ().add_class ("toogle-box");
 
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
@@ -314,16 +319,42 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.event.connect ((event) => {
-            if (event.type == Gdk.EventType.@3BUTTON_PRESS) {
-                //  action_revealer.reveal_child = true;
-                //  name_stack.visible_child_name = "name_entry";
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                if (timeout_id != 0) {
+                    Source.remove (timeout_id);
+                }
+    
+                timeout_id = Timeout.add (175, () => {
+                    timeout_id = 0;
 
-                //  name_entry.grab_focus_without_selecting ();
-                //  if (name_entry.cursor_position < name_entry.text_length) {
-                //      name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
-                //  }
-            } else if (event.type == Gdk.EventType.BUTTON_PRESS) {
-                toggle_hidden ();
+                    if (menu_visible == false) {
+                        toggle_hidden ();
+                    }
+                    return false;
+                });                
+            }
+
+            return false;
+        });
+
+        top_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.@2BUTTON_PRESS && evt.button == 1) {
+                if (timeout_id != 0) {
+                    Source.remove (timeout_id);
+                }
+
+                action_revealer.reveal_child = true;
+                name_stack.visible_child_name = "name_entry";
+
+                name_entry.grab_focus_without_selecting ();
+                if (name_entry.cursor_position < name_entry.text_length) {
+                    name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
+                }
+
+                return true;
+            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                activate_menu ();
+                return true;
             }
 
             return false;
@@ -341,15 +372,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         settings_button.clicked.connect (() => {
             activate_menu ();
-        });
-
-        button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
-                activate_menu ();
-                return true;
-            }
-
-            return false;
         });
 
         hidden_button.clicked.connect (() => {
@@ -380,6 +402,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (project.inbox_project == 0 && project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
+                    row.scrolled = scrolled;
                     row.destroy.connect (() => {
                         project_row_removed (row);
                     });
@@ -402,6 +425,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             Idle.add (() => {
                 if (project.area_id == area.id) {
                     var row = new Widgets.ProjectRow (project);
+                    row.scrolled = scrolled;
                     row.destroy.connect (() => {
                         project_row_removed (row);
                     });
@@ -432,6 +456,18 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void toggle_hidden () {
+        if (toggle_timeout != 0) {
+            Source.remove (timeout_id);
+            top_eventbox.get_style_context ().remove_class ("active");
+        }
+
+        top_eventbox.get_style_context ().add_class ("active");
+        toggle_timeout = Timeout.add (750, () => {
+            toggle_timeout = 0;
+            top_eventbox.get_style_context ().remove_class ("active");
+            return false;
+        });
+
         if (listbox_revealer.reveal_child) {
             listbox_revealer.reveal_child = false;
             hidden_button.get_style_context ().remove_class ("opened");
@@ -453,6 +489,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         foreach (Objects.Project project in Planner.database.get_all_projects_by_area (area.id)) {
             if (project.inbox_project == 0) {
                 var row = new Widgets.ProjectRow (project);
+                row.scrolled = scrolled;
                 row.destroy.connect (() => {
                     project_row_removed (row);
                 });
@@ -463,16 +500,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
                         if (timeout != 0) {
-                            Source.remove (timeout);
-                            timeout = 0;
+                            Source.remove (timeout);   
                         }
 
                         timeout = Timeout.add (125, () => {
-                            listbox.select_row (row);
-
-                            Source.remove (timeout);
                             timeout = 0;
-
+                            listbox.select_row (row);
                             return false;
                         });
                     }
@@ -524,6 +557,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+        }
+
         var row = ((Widgets.AreaRow) widget).top_eventbox;
 
         Gtk.Allocation alloc;
@@ -644,6 +681,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         }
 
         top_eventbox.get_style_context ().add_class ("highlight");
+        menu_visible = true;
         menu.popup_at_pointer (null);
     }
 
@@ -653,6 +691,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         menu.hide.connect (() => {
             top_eventbox.get_style_context ().remove_class ("highlight");
+            menu_visible = false;
         });
 
         var add_menu = new Widgets.ImageMenuItem (_("Add project"), "list-add-symbolic");

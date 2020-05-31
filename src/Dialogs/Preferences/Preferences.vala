@@ -759,6 +759,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         listbox.get_style_context ().add_class ("background");
         listbox.hexpand = true;
 
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.expand = true;
+        box_scrolled.add (listbox);
+
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABELS, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
             Widgets.LabelRow target;
@@ -795,20 +800,14 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         box.pack_start (description_label, false, false, 0);
         box.pack_start (new_label, false, true, 0);
-        box.pack_start (listbox, false, true, 0);
+        box.pack_start (box_scrolled, false, true, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-
-        var box_scrolled = new Gtk.ScrolledWindow (null, null);
-        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.expand = true;
-        box_scrolled.add (box);
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         main_box.expand = true;
 
         main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (box_scrolled, false, true, 0);
-
+        main_box.pack_start (box, false, true, 0);
         add_all_labels (listbox, box_scrolled);
 
         Planner.database.label_added.connect ((label) => {
@@ -840,6 +839,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
     private void update_label_order (Gtk.ListBox listbox) {
         timeout_id = Timeout.add (150, () => {
+            timeout_id = 0;
+
             new Thread<void*> ("update_label_order", () => {
                 listbox.foreach ((widget) => {
                     var row = (Gtk.ListBoxRow) widget;
@@ -856,10 +857,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
                 return null;
             });
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
-
+            
             return false;
         });
     }

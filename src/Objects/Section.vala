@@ -42,18 +42,16 @@ public class Objects.Section : GLib.Object {
     public void save (bool todoist=true) {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
-            timeout_id = 0;
         }
 
         timeout_id = Timeout.add (500, () => {
+            timeout_id = 0;
+
             Planner.database.update_section (this);
             if (is_todoist == 1 && todoist) {
                 Planner.todoist.update_section (this);
             }
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
-            
+                        
             return false;
         });
     }

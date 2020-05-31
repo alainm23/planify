@@ -110,7 +110,6 @@ public class Widgets.Toast : Gtk.Revealer {
         undo_button.clicked.connect (() => {
             if (timeout_id != 0) {
                 Source.remove (timeout_id);
-                timeout_id = 0;
             }
 
             reveal_child = false;
@@ -180,13 +179,14 @@ public class Widgets.Toast : Gtk.Revealer {
             run ();
 
             Source.remove (timeout_id);
-            timeout_id = 0;
 
             main_timeout = 250;
             reveal_child = false;
         }
 
         main_timeout_id = GLib.Timeout.add (main_timeout, () => {
+            main_timeout_id = 0;
+
             message_label.label = message;
 
             image_revealer.reveal_child = true;
@@ -196,25 +196,17 @@ public class Widgets.Toast : Gtk.Revealer {
             reveal_child = true;
 
             timeout_id = GLib.Timeout.add (2500, () => {
+                timeout_id = 0;
                 reveal_child = false;
 
                 close_timeout = GLib.Timeout.add (250, () => {
-                    message_label.label = "";
-
-                    Source.remove (close_timeout);
                     close_timeout = 0;
-
+                    message_label.label = "";
                     return false;
                 });
 
-                Source.remove (timeout_id);
-                timeout_id = 0;
-
                 return false;
             });
-
-            Source.remove (main_timeout_id);
-            main_timeout_id = 0;
 
             return false;
         });
@@ -226,13 +218,13 @@ public class Widgets.Toast : Gtk.Revealer {
             run ();
 
             Source.remove (timeout_id);
-            timeout_id = 0;
 
             reveal_child = false;
             main_timeout = 250;
         }
 
         main_timeout_id = GLib.Timeout.add (main_timeout, () => {
+            main_timeout_id = 0;
             _object_id = object_id;
             _object_type = object_type;
             _undo_type = undo_type;
@@ -255,27 +247,17 @@ public class Widgets.Toast : Gtk.Revealer {
             }
 
             timeout_id = GLib.Timeout.add (3500, () => {
+                timeout_id = 0;
                 run ();
 
                 reveal_child = false;
                 close_timeout = GLib.Timeout.add (250, () => {
-                    message_label.label = "";
-
-                    Source.remove (close_timeout);
                     close_timeout = 0;
-
+                    message_label.label = "";
                     return false;
                 });
-
-                Source.remove (timeout_id);
-                timeout_id = 0;
-
                 return false;
             });
-
-            Source.remove (main_timeout_id);
-            main_timeout_id = 0;
-
             return false;
         });
     }

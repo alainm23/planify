@@ -513,8 +513,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_end = 40;
-        motion_grid.margin_bottom = 6;
-        motion_grid.margin_top = 9;
+        motion_grid.margin_bottom = 3;
+        motion_grid.margin_top = 6;
         motion_grid.margin_start = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
@@ -1014,12 +1014,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_preview_box ();
 
         timeout_id = Timeout.add (250, () => {
-            activatable = true;
-            selectable = true;
-
-            Source.remove (timeout_id);
             timeout_id = 0;
 
+            activatable = true;
+            selectable = true;
             return false;
         });
     }

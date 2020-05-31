@@ -59,10 +59,11 @@ public class Objects.Item : GLib.Object {
     public void save () {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
-            timeout_id = 0;
         }
 
         timeout_id = Timeout.add (2500, () => {
+            timeout_id = 0;
+
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
             new Thread<void*> ("save_timeout", () => {
@@ -74,8 +75,6 @@ public class Objects.Item : GLib.Object {
                 return null;
             });
 
-            Source.remove (timeout_id);
-            timeout_id = 0;
             return false;
         });
     }
@@ -83,10 +82,10 @@ public class Objects.Item : GLib.Object {
     public void save_local () {
         if (timeout_id_2 != 0) {
             Source.remove (timeout_id_2);
-            timeout_id_2 = 0;
         }
 
         timeout_id_2 = Timeout.add (2500, () => {
+            timeout_id_2 = 0;
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 
             new Thread<void*> ("save_local_timeout", () => {
@@ -94,9 +93,7 @@ public class Objects.Item : GLib.Object {
 
                 return null;
             });
-
-            Source.remove (timeout_id_2);
-            timeout_id_2 = 0;
+            
             return false;
         });
     }

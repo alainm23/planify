@@ -1,4 +1,4 @@
-Build started at 2020-05-28T06:12:27.076821
+Build started at 2020-05-30T19:47:38.651906
 Main binary: /usr/bin/python3
 Build Options: -Dbuildtype=debug -Dbackend=ninja
 Python system: Linux
@@ -41,8 +41,8 @@ PKG_CONFIG_PATH:
 Called `/usr/bin/pkg-config glib-2.0 --libs` -> 0
 -lglib-2.0
 Running compile:
-Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmpk5qnmq5c
-Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmpk5qnmq5c/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmpk5qnmq5c/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 
+Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmpdun1r9i5
+Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmpdun1r9i5/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmpdun1r9i5/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 
 
 Code:
  #include<stdio.h>
@@ -63,8 +63,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmp36tmqxgf
-Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmp36tmqxgf/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmp36tmqxgf/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmpxyq7zhfi
+Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmpxyq7zhfi/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmpxyq7zhfi/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  
@@ -111,12 +111,12 @@ Dependency granite found: YES 5.4.0 (cached)
 Dependency sqlite3 found: YES 3.22.0 (cached)
 Dependency gtk+-3.0 found: YES 3.22.30 (cached)
 Dependency json-glib-1.0 found: YES 1.4.2 (cached)
-Dependency webkit2gtk-4.0 found: YES 2.28.1 (cached)
+Dependency webkit2gtk-4.0 found: YES 2.28.2 (cached)
 Dependency libedataserver-1.2 found: YES 3.28.5 (cached)
 Dependency libsoup-2.4 found: YES 2.62.1 (cached)
 Running compile:
-Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmpvner3_ty
-Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmpvner3_ty/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmpvner3_ty/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -lm -Wl,--end-group -Wl,--allow-shlib-undefined 
+Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmp_adc02u_
+Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmp_adc02u_/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmp_adc02u_/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -lm -Wl,--end-group -Wl,--allow-shlib-undefined 
 
 Code:
  int main(void) { return 0; }
@@ -134,8 +134,8 @@ Dependency gtk+-3.0 found: YES 3.22.30 (cached)
 Dependency json-glib-1.0 found: YES 1.4.2 (cached)
 Dependency libsoup-2.4 found: YES 2.62.1 (cached)
 Running compile:
-Working directory:  /tmp/tmpdscecnf4
-Command line:  valac /tmp/tmpdscecnf4/testfile.vala -C --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix 
+Working directory:  /tmp/tmpxn3qrqkd
+Command line:  valac /tmp/tmpxn3qrqkd/testfile.vala -C --pkg posix --pkg posix --pkg posix --pkg posix --pkg posix 
 
 Code:
  class MesonFindLibrary : Object { }
@@ -149,8 +149,8 @@ Build targets in project: 15
 
 Found ninja-1.8.2 at /usr/bin/ninja
 Running compile:
-Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmpi6q17yel
-Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmpi6q17yel/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmpi6q17yel/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+Working directory:  /home/alain/Proyectos/planner/builddir/meson-private/tmp96u9gbie
+Command line:  cc /home/alain/Proyectos/planner/builddir/meson-private/tmp96u9gbie/testfile.c -o /home/alain/Proyectos/planner/builddir/meson-private/tmp96u9gbie/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  

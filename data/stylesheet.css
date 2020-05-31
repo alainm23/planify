@@ -414,10 +414,6 @@ paned.horizontal > separator {
     -gtk-icon-shadow: 0 1px alpha (#000, 0.3);
 }
 
-.project-textview {
-    padding-bottom: 3px;
-}
-
 .project-textview text {
     background-color: @projectview_color;
     transition: all 250ms ease-in-out;
@@ -1132,4 +1128,26 @@ paned.horizontal > separator {
 .edit-button {
     background: transparent;
     padding: 0px;
+}
+
+@keyframes toggle-animation {
+    0% {
+    	box-shadow: none;
+        background-color: transparent;
+    }
+    50% {
+	    background-color: alpha (#3689e6, 0.094);
+    }
+    100% {
+	    box-shadow: none;   
+        background-color: transparent;
+    }
+}
+
+.toogle-box {
+    border-radius: 6px;
+}
+
+.toogle-box.active {
+    animation: toggle-animation 0.75s ease-in-out;
 }

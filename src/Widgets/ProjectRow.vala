@@ -21,7 +21,8 @@
 
 public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
-
+    public Gtk.ScrolledWindow scrolled { get; set; }
+    
     private Widgets.ProjectProgress project_progress;
     private Gtk.Label name_label;
     private Gtk.Label count_label;
@@ -39,6 +40,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private int count = 0;
     private uint timeout_id = 0;
+
+    private bool scroll_up = false;
+    private bool scrolling = false;
+    private bool should_scroll = false;
+    public Gtk.Adjustment vadjustment;
+
+    private const int SCROLL_STEP_SIZE = 5;
+    private const int SCROLL_DISTANCE = 30;
+    private const int SCROLL_DELAY = 50;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -290,10 +300,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private void update_count () {
         if (timeout_id != 0) {
             Source.remove (timeout_id);
-            timeout_id = 0;
         }
 
         timeout_id = Timeout.add (500, () => {
+            timeout_id = 0;
             count = Planner.database.get_count_items_by_project (project.id);
             check_count_label ();
 
@@ -302,9 +312,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 Planner.database.get_count_checked_items_by_project (project.id),
                 Planner.database.get_all_count_items_by_project (project.id)
             );
-
-            Source.remove (timeout_id);
-            timeout_id = 0;
+            
             return false;
         });
     }
@@ -352,17 +360,24 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        Planner.database.move_item (source.item, project.id);
-        if (source.item.is_todoist == 1) {
-            Planner.todoist.move_item (source.item, project.id);
-        }
+        if (source.item.is_todoist == project.is_todoist) {
+            Planner.database.move_item (source.item, project.id);
+            if (source.item.is_todoist == 1) {
+                Planner.todoist.move_item (source.item, project.id);
+            }
 
-        string move_template = _("Task moved to <b>%s</b>");
-        Planner.notifications.send_notification (
-            move_template.printf (
-                Planner.database.get_project_by_id (project.id).name
-            )
-        );
+            string move_template = _("Task moved to <b>%s</b>");
+            Planner.notifications.send_notification (
+                move_template.printf (
+                    Planner.database.get_project_by_id (project.id).name
+                )
+            );
+        } else {
+            Planner.notifications.send_notification (
+                _("Unable to move task"),
+                "mail-mark-junk-symbolic"
+            );
+        }
     }
 
     private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
@@ -407,6 +422,19 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
         reveal_drag_motion = true;
+        
+        int index = get_index ();
+        Gtk.Allocation alloc;
+        get_allocation (out alloc);
+
+        int real_y = (index * alloc.height) - alloc.height + y;
+        check_scroll (real_y);
+
+        if (should_scroll && !scrolling) {
+            scrolling = true;
+            Timeout.add (SCROLL_DELAY, scroll);
+        }
+
         return true;
     }
 
@@ -565,5 +593,42 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         share_markdown_menu.activate.connect (() => {
             project.share_markdown ();
         });
+    }
+
+    private void check_scroll (int y) {
+        vadjustment = scrolled.vadjustment;
+
+        if (vadjustment == null) {
+            return;
+        }
+
+        double vadjustment_min = vadjustment.value;
+        double vadjustment_max = vadjustment.page_size + vadjustment_min;
+        double show_min = double.max (0, y - SCROLL_DISTANCE);
+        double show_max = double.min (vadjustment.upper, y + SCROLL_DISTANCE);
+
+        if (vadjustment_min > show_min) {
+            should_scroll = true;
+            scroll_up = true;
+        } else if (vadjustment_max < show_max) {
+            should_scroll = true;
+            scroll_up = false;
+        } else {
+            should_scroll = false;
+        }
+    }
+
+    private bool scroll () {
+        if (should_scroll) {
+            if (scroll_up) {
+                vadjustment.value -= SCROLL_STEP_SIZE;
+            } else {
+                vadjustment.value += SCROLL_STEP_SIZE;
+            }
+        } else {
+            scrolling = false;
+        }
+
+        return should_scroll;
     }
 }
