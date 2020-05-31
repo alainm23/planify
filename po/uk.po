@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-05-30 20:36-0500\n"
-"PO-Revision-Date: 2020-04-06 17:23+0000\n"
-"Last-Translator: Andrey Serbovets <serbovets.translation@gmail.com>\n"
+"PO-Revision-Date: 2020-05-31 02:05+0000\n"
+"Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/Application.vala:244
 msgid "New area"
@@ -30,11 +30,11 @@ msgstr "Planner"
 
 #: src/Utils.vala:28
 msgid "today"
-msgstr ""
+msgstr "сьогодні"
 
 #: src/Utils.vala:29
 msgid "tomorrow"
-msgstr ""
+msgstr "завтра"
 
 #: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -46,7 +46,7 @@ msgstr "Офіс"
 
 #: src/Utils.vala:133 src/Utils.vala:146
 msgid "Errand"
-msgstr ""
+msgstr "Доручене"
 
 #: src/Utils.vala:134 src/Utils.vala:150
 msgid "Important"
@@ -54,11 +54,11 @@ msgstr "Важливе"
 
 #: src/Utils.vala:135 src/Utils.vala:154
 msgid "Pending"
-msgstr ""
+msgstr "Відкладене"
 
 #: src/Utils.vala:198
 msgid "Berry Red"
-msgstr ""
+msgstr "Ягідно-червоний"
 
 #: src/Utils.vala:199
 msgid "Red"
@@ -74,11 +74,11 @@ msgstr "Жовтий"
 
 #: src/Utils.vala:202
 msgid "Olive Green"
-msgstr ""
+msgstr "Оливковий"
 
 #: src/Utils.vala:203
 msgid "Lime Green"
-msgstr ""
+msgstr "Лаймовий"
 
 #: src/Utils.vala:204
 msgid "Green"
@@ -86,19 +86,19 @@ msgstr "Зелений"
 
 #: src/Utils.vala:205
 msgid "Mint Green"
-msgstr ""
+msgstr "М'ятний"
 
 #: src/Utils.vala:206
 msgid "Teal"
-msgstr ""
+msgstr "Синьо-зелений"
 
 #: src/Utils.vala:207
 msgid "Sky Blue"
-msgstr ""
+msgstr "Блакитний"
 
 #: src/Utils.vala:208
 msgid "Light Blue"
-msgstr ""
+msgstr "Світло-блакитний"
 
 #: src/Utils.vala:209
 msgid "Blue"
@@ -106,35 +106,35 @@ msgstr "Синій"
 
 #: src/Utils.vala:210
 msgid "Grape"
-msgstr ""
+msgstr "Виноградний"
 
 #: src/Utils.vala:211
 msgid "Violet"
-msgstr ""
+msgstr "Фіолетовий"
 
 #: src/Utils.vala:212
 msgid "Lavander"
-msgstr ""
+msgstr "Лавандовий"
 
 #: src/Utils.vala:213
 msgid "Magenta"
-msgstr ""
+msgstr "Пурпуровий"
 
 #: src/Utils.vala:214
 msgid "Salmon"
-msgstr ""
+msgstr "Лососевий"
 
 #: src/Utils.vala:215
 msgid "Charcoal"
-msgstr ""
+msgstr "Вугляний"
 
 #: src/Utils.vala:216
 msgid "Grey"
-msgstr ""
+msgstr "Сірий"
 
 #: src/Utils.vala:217
 msgid "Taupe"
-msgstr ""
+msgstr "Сіро-брунатний"
 
 #. vala-lint=line-length
 #: src/Utils.vala:578 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1345
@@ -142,25 +142,25 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:226
 #: src/Dialogs/Preferences/Preferences.vala:332 src/Dialogs/QuickFind.vala:75
 msgid "Today"
-msgstr ""
+msgstr "Сьогодні"
 
 #: src/Utils.vala:580 src/Widgets/Pane.vala:408 src/Widgets/ItemRow.vala:1348
 #: src/Widgets/DueButton.vala:198 src/Widgets/UpcomingRow.vala:64
 msgid "Tomorrow"
-msgstr ""
+msgstr "Завтра"
 
 #: src/Utils.vala:819
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Швидке додавання увімкнено!"
 
 #: src/Utils.vala:820
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Спробуйте %s, щоби увімкнути це. Ви зможете змінити це в налаштуваннях"
 
 #: src/Utils.vala:859
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Початок роботи"
 
 #: src/Utils.vala:860
 msgid ""
@@ -168,10 +168,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Цей проєкт допоможе вам дізнатися основні функції Planner та почати роботу з "
+"простою системою керування завданнями, щоби завжди бути організованим та "
+"памʼятати про всі ваші завдання."
 
 #: src/Utils.vala:865
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Стежте за вашими завданнями"
 
 #: src/Utils.vala:866
 msgid ""
@@ -182,10 +185,17 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"Виявляється, наш мозок, насправді, змушує нас думати про наші незавершені "
+"завдання. Це зручно, якщо ви працюєте над одним завданням. Але це не дуже "
+"дієво, коли у вас 30+ завдань, які одночасно потребують вашої уваги. Ось "
+"чому, першим кроком до організації вашої роботи й життя є переміщення всього "
+"з вашої голови до вашого переліку завдань. Звідси, ви можете почати "
+"організовувати та визначати пріоритети, щоби напевно знати, на чому і коли "
+"зосередитися."
 
 #: src/Utils.vala:871
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Додавайте нові завдання"
 
 #: src/Utils.vala:872
 msgid ""
@@ -193,10 +203,14 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
+"- Щоби додати нове завдання до Planner, просто натисніть + та натисніть "
+"Enter.\n"
+"- Коли ваше завдання створено, натисніть на завдання, щоби отримати "
+"можливість його редагувати, додати примітку або інші деталі."
 
 #: src/Utils.vala:878
 msgid "Due dates"
-msgstr ""
+msgstr "Визначайте терміни"
 
 #: src/Utils.vala:879
 msgid ""
@@ -205,10 +219,14 @@ msgid ""
 "- If you want to delete the due date, repeat the process and select the "
 "\"undate\" option."
 msgstr ""
+"- Якщо ви знаєте, що необхідно виконати завдання в певний день, натисніть на "
+"піктограму календаря і виберіть дату.\n"
+"- Якщо ви хочете видалити термін виконання, повторіть кроки та виберіть "
+"параметр \"Без дати\"."
 
 #: src/Utils.vala:885
 msgid "How to use projects"
-msgstr ""
+msgstr "Як користуватися проєктами"
 
 #: src/Utils.vala:886
 msgid ""
@@ -222,14 +240,23 @@ msgid ""
 "- (Optional) Select a different project color from the color list.\n"
 "- Click Add to create the project."
 msgstr ""
+"- Незалежно від того, чи плануєте ви презентацію, готуєтесь до події чи "
+"створюєте вебсайт, створіть проєкт, щоб усі важливі деталі було збережено в "
+"одному місці.\n"
+"- У меню навігації ліворуч, у нижній частині, натисніть на символ +.\n"
+"- У меню, яке зʼявиться, виберіть \"Проєкт\" і введіть назву вашого нового "
+"проєкту.\n"
+"- Виберіть джерело з розкривного меню.\n"
+"- (Додатково) Виберіть інший колір проєкту з переліку кольорів.\n"
+"- Натисніть кнопку Додати, щоби створити проєкт."
 
 #: src/Utils.vala:896
 msgid "Sections"
-msgstr ""
+msgstr "Розділи"
 
 #: src/Utils.vala:902
 msgid "Add sections"
-msgstr ""
+msgstr "Додати розділи"
 
 #: src/Utils.vala:903
 msgid ""
@@ -246,68 +273,68 @@ msgstr ""
 
 #: src/Utils.vala:922
 msgid "Create a new task"
-msgstr ""
+msgstr "Створити нове завдання"
 
 #: src/Utils.vala:923
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr ""
+msgstr "Створити нове завдання на початку переліку (доступно лише в проєктах)"
 
 #: src/Utils.vala:924
 msgid "Create a new area"
-msgstr ""
+msgstr "Створити нову теку"
 
 #: src/Utils.vala:925
 msgid "Create a new project"
-msgstr ""
+msgstr "Створити новий проєкт"
 
 #: src/Utils.vala:926
 msgid "Create a new section"
-msgstr ""
+msgstr "Створити новий розділ"
 
 #: src/Utils.vala:927
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Відкрити Вхідні"
 
 #: src/Utils.vala:928
 msgid "Open Today"
-msgstr ""
+msgstr "Відкрити Сьогодні"
 
 #: src/Utils.vala:929
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Відкрити Подальші"
 
 #: src/Utils.vala:930
 msgid "Open Search"
-msgstr ""
+msgstr "Відкрити пошук"
 
 #: src/Utils.vala:931
 msgid "Manually sync"
-msgstr ""
+msgstr "Синхронізація вручну"
 
 #: src/Utils.vala:932
 msgid "Quit"
-msgstr ""
+msgstr "Вихід"
 
 #: src/Utils.vala:940
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Хибний запит."
 
 #: src/Utils.vala:941
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Необхідна автентифікація, але вона не вдалась або ще не надана."
 
 #: src/Utils.vala:942
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Запит був дійсним, але чомусь доступ заборонено."
 
 #: src/Utils.vala:943
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Не вдалося знайти запитуваний ресурс."
 
 #: src/Utils.vala:944
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Користувач надіслав забагато запитів за відведений проміжок часу."
 
 #: src/Utils.vala:945
 msgid "The request failed due to a server error."
@@ -1023,7 +1050,6 @@ msgid "Night"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:405
-#, fuzzy
 msgid "Dark Blue"
 msgstr "Синій"
 
@@ -1187,9 +1213,8 @@ msgid "Website"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1246
-#, fuzzy
 msgid "Follow"
-msgstr "Жовтий"
+msgstr "Підписатися"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Report a Problem"
