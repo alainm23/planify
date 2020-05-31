@@ -1,5 +1,6 @@
 *~
 build/
+builddir/
 build-aux/flatpak/repo
 build-aux/flatpak/.flatpak-builder
 
