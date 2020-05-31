@@ -1,6 +1,0 @@
-[options]
-buildtype = debug
-backend = ninja
-
-[properties]
-

@@ -1,2 +1,0 @@
-/home/alain/Proyectos/planner/builddir/meson-private/cmake_libecal-2.0/CMakeFiles/rebuild_cache.dir
-/home/alain/Proyectos/planner/builddir/meson-private/cmake_libecal-2.0/CMakeFiles/edit_cache.dir
