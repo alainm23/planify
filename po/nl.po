@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-05-30 20:36-0500\n"
-"PO-Revision-Date: 2020-04-07 18:41+0000\n"
+"PO-Revision-Date: 2020-06-03 12:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/Application.vala:244
 msgid "New area"
@@ -28,14 +28,12 @@ msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Vandaag"
+msgstr "vandaag"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Morgen"
+msgstr "morgen"
 
 #: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -373,9 +371,8 @@ msgid "Todoist Project"
 msgstr "Todoist-project"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:377
-#, fuzzy
 msgid "Unable to move task"
-msgstr "Taak verwijderen"
+msgstr "Kan taak niet verplaatsen"
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -416,7 +413,6 @@ msgstr ""
 "kalendergebeurtenissen."
 
 #: src/Widgets/Pane.vala:82
-#, fuzzy
 msgid "Add Project"
 msgstr "Project toevoegen"
 
@@ -580,7 +576,6 @@ msgid "Task name"
 msgstr "Naam van taak"
 
 #: src/Widgets/ItemRow.vala:169
-#, fuzzy
 msgid "Hide Details"
 msgstr "Details tonen"
 
@@ -698,7 +693,7 @@ msgstr "De sectie is verwijderd"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:64
 #: src/Widgets/DueButton.vala:130
 msgid "Schedule"
-msgstr ""
+msgstr "Schema"
 
 #: src/Widgets/DueButton.vala:213
 msgid "Repeat"
@@ -731,15 +726,16 @@ msgid "labels"
 msgstr "labels"
 
 #: src/Widgets/LabelButton.vala:89 src/Widgets/LabelButton.vala:228
-#, fuzzy
 msgid "Using Labels"
-msgstr "Labels"
+msgstr "Het gebruik van labels"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:229
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Plak labels op je taken en gebruik ze als lijstfilter om zo gefocust te "
+"blijven."
 
 #: src/Widgets/LabelButton.vala:108
 msgid "Type a label"
@@ -751,18 +747,17 @@ msgid "Edit labels"
 msgstr "Labels aanpassen"
 
 #: src/Widgets/LabelButton.vala:218
-#, fuzzy
 msgid "Add label"
 msgstr "Label toevoegen"
 
 #: src/Widgets/LabelButton.vala:221
 msgid "Label not found"
-msgstr ""
+msgstr "Label niet gevonden"
 
 #: src/Widgets/LabelButton.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Toevoegen"
+msgstr "'%s' maken"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
@@ -790,9 +785,8 @@ msgid "Hiding Projects"
 msgstr "Projecten verbergen"
 
 #: src/Widgets/AreaRow.vala:129
-#, fuzzy
 msgid "Folder Menu"
-msgstr "Map"
+msgstr "Mapmenu"
 
 #: src/Widgets/AreaRow.vala:697
 msgid "Add project"
@@ -812,7 +806,7 @@ msgstr "Naam van bijkomende taak"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -829,6 +823,7 @@ msgstr "Herinnering toevoegen"
 #: src/Widgets/ReminderButton.vala:207
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"Laat Planner je een herinnering sturen en vergeet zo nooit meer een taak!"
 
 #: src/Widgets/ReminderButton.vala:227
 msgid "Time:"
@@ -925,7 +920,7 @@ msgstr "Afgeronde taken tonen"
 
 #: src/Views/Today.vala:90
 msgid "Overdue"
-msgstr ""
+msgstr "Verstreken"
 
 #: src/Views/Today.vala:129
 msgid "What tasks are on your mind?"
@@ -936,9 +931,9 @@ msgid "Tap + to add a task for today."
 msgstr "Klik op + om een taak toe te voegen voor vandaag."
 
 #: src/Views/Project.vala:139 src/Views/Project.vala:815
-#, fuzzy, c-format
+#, c-format
 msgid "Progress: %s"
-msgstr "Voortgang:"
+msgstr "Voortgang: %s"
 
 #: src/Views/Project.vala:384
 msgid "What will you accomplish?"
@@ -1088,13 +1083,12 @@ msgid "Night"
 msgstr "Donker"
 
 #: src/Dialogs/Preferences/Preferences.vala:405
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Luchtblauw"
+msgstr "Donkerblauw"
 
 #: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc (donker)"
 
 #: src/Dialogs/Preferences/Preferences.vala:459
 msgid ""
@@ -1294,40 +1288,34 @@ msgid "Back"
 msgstr "Terug"
 
 #: src/Dialogs/QuickFind.vala:89
-#, fuzzy
 msgid "Completed"
 msgstr "Afgerond"
 
 #: src/Dialogs/QuickFind.vala:98
-#, fuzzy
 msgid "Priority 1"
-msgstr "Prioriteit: laag"
+msgstr "Prioriteit 1"
 
 #: src/Dialogs/QuickFind.vala:106
-#, fuzzy
 msgid "Priority 2"
-msgstr "Prioriteit: laag"
+msgstr "Prioriteit 2"
 
 #: src/Dialogs/QuickFind.vala:114
-#, fuzzy
 msgid "Priority 3"
-msgstr "Prioriteit: laag"
+msgstr "Prioriteit 3"
 
 #: src/Dialogs/QuickFind.vala:122
-#, fuzzy
 msgid "Priority 4"
-msgstr "Prioriteit: laag"
+msgstr "Prioriteit 4"
 
 #: src/Dialogs/QuickFind.vala:127
 msgid "Search"
 msgstr "Zoeken"
 
 #: src/Dialogs/QuickFind.vala:155
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
-"Schakel snel tussen projecten en weergaven, zoek naar taken, zoek op "
-"labels, ..."
+"Schakel snel tussen projecten en weergaven, zoek naar taken en zoek op "
+"labels."
 
 #: src/Dialogs/QuickFind.vala:418
 msgid "Tasks"
@@ -1338,9 +1326,8 @@ msgid "Views"
 msgstr "Weergaven"
 
 #: src/Dialogs/QuickFind.vala:600
-#, fuzzy
 msgid "Priorities"
-msgstr "Prioriteit: laag"
+msgstr "Prioriteiten"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
