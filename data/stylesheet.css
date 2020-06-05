@@ -2,7 +2,7 @@
 @define-color check_border_color @border_color;
 @define-color projectview_color shade (#FFFFFF, 0.985);
 @define-color pane_color #F5F6F7;
-@define-color pane_selected_color rgb (210, 227, 253);
+@define-color pane_selected_color shade (@bg_color, 0.93);
 @define-color pane_text_color #333333;
 @define-color popover_background @projectview_color;
 @define-color row_selected_color shade (@check_border_color, 0.75);
@@ -1150,4 +1150,12 @@ paned.horizontal > separator {
 
 .toogle-box.active {
     animation: toggle-animation 0.75s ease-in-out;
+}
+
+.pane-due-button {
+    background-color: @pane_selected_color;
+    color: @text_color;
+    padding: 1px 6px 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
 }

@@ -952,15 +952,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             checked_button.active = false;
 
             if (item.due_is_recurring == 1) {
-                content_label.get_style_context ().add_class ("label-line-through");
-                sensitive = false;
+                Planner.database.update_item_recurring_due_date (item, +1);
+                Planner.notifications.send_undo_notification (item.id, "item", "reschedule", "");
+                //  content_label.get_style_context ().add_class ("label-line-through");
+                //  sensitive = false;
+                
+                //  checked_timeout = Timeout.add (750, () => {
+                //      content_label.get_style_context ().remove_class ("label-line-through");
+                //      sensitive = true;
 
-                checked_timeout = Timeout.add (750, () => {
-                    Planner.database.update_item_recurring_due_date (item, +1);
-                    Planner.notifications.send_undo_notification (item.id, "item", "reschedule", "");
 
-                    return false;
-                });
+
+                //      return false;
+                //  });
             } else {
                 item.checked = 1;
                 item.date_completed = new GLib.DateTime.now_local ().to_string ();

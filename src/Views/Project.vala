@@ -32,7 +32,6 @@ public class Views.Project : Gtk.EventBox {
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox section_listbox;
-    private Gtk.Revealer motion_item_revealer;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer motion_section_revealer;
 
@@ -43,10 +42,8 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Stack main_stack;
 
     private Gtk.Label progress_label;
-    private Gtk.Label duedate_label;
     private Gtk.LevelBar progress_bar;
-    private Gtk.LevelBar duedate_bar;
-
+    private Gtk.LevelBar due_bar;
     private Gtk.Entry section_name_entry;
     private Gtk.ToggleButton section_button;
     private Gtk.Popover new_section_popover = null;
@@ -58,6 +55,8 @@ public class Views.Project : Gtk.EventBox {
 
     private Gtk.Grid drop_section_grid;
     private Gtk.Revealer separate_revealer;
+    private Gtk.Revealer due_revealer;
+    private Gtk.Label due_label;
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
@@ -112,9 +111,7 @@ public class Views.Project : Gtk.EventBox {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var due_button = new Widgets.DueProjectButton (project);
-
-        var project_progress = new Widgets.ProjectProgress (10);
+        var project_progress = new Widgets.ProjectProgress (9);
         project_progress.margin = 2;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
@@ -135,14 +132,24 @@ public class Views.Project : Gtk.EventBox {
         progress_grid.valign = Gtk.Align.CENTER;
         progress_grid.halign = Gtk.Align.CENTER;
 
+        due_label = new Gtk.Label (null);
+        due_label.get_style_context ().add_class ("font-bold");
+
+        due_revealer = new Gtk.Revealer ();
+        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        due_revealer.add (due_label);
+        
+        var p_grid = new Gtk.Grid ();
+        p_grid.add (progress_grid);
+        p_grid.add (due_revealer);
+
         progress_button = new Gtk.ToggleButton ();
         progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
         progress_button.valign = Gtk.Align.CENTER;
         progress_button.halign = Gtk.Align.CENTER;
         progress_button.can_focus = false;
-        progress_button.margin_end = 3;
         progress_button.get_style_context ().add_class ("flat");
-        progress_button.add (progress_grid);
+        progress_button.add (p_grid);
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("go-jump-symbolic");
@@ -409,6 +416,7 @@ public class Views.Project : Gtk.EventBox {
         add_all_sections ();
         show_all ();
         check_listbox_margin ();
+        check_due_date ();
 
         // Check Placeholder view
         Timeout.add (125, () => {
@@ -545,6 +553,7 @@ public class Views.Project : Gtk.EventBox {
                 note_textview.buffer.text = p.note;
 
                 update_note_label (note_textview.buffer.text);
+                check_due_date ();
             }
         });
 
@@ -1217,8 +1226,18 @@ public class Views.Project : Gtk.EventBox {
             all
         );
 
+        // due_bar.value = get_due_progress ();
 
         progress_popover.show_all ();
+    }
+
+    private double get_due_progress () {
+        var date1 = new DateTime.now_local ();
+        var date2 = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
+
+        var d = (date2.to_unix () - date1.to_unix ()) / (60 * 60 * 24);
+        print ("Days: %s\n".printf (d.to_string ()));
+        return 1 - (1 / d);
     }
 
     public void build_progress_popover () {
@@ -1226,10 +1245,10 @@ public class Views.Project : Gtk.EventBox {
         progress_popover.get_style_context ().add_class ("popover-background");
         progress_popover.position = Gtk.PositionType.BOTTOM;
 
-        var productivity_labe = new Gtk.Label ("<small>%s</small>".printf (_("Productivity")));
-        productivity_labe.use_markup = true;
-        productivity_labe.get_style_context ().add_class ("dim-label");
-        productivity_labe.get_style_context ().add_class ("font-weight-600");
+        var productivity_label = new Gtk.Label ("<small>%s</small>".printf (_("Your Productivity")));
+        productivity_label.use_markup = true;
+        productivity_label.get_style_context ().add_class ("dim-label");
+        productivity_label.get_style_context ().add_class ("font-weight-600");
 
         var progress_header = new Granite.HeaderLabel (_("Progress:"));
         progress_label = new Gtk.Label (null);
@@ -1242,28 +1261,37 @@ public class Views.Project : Gtk.EventBox {
         progress_bar = new Gtk.LevelBar.for_interval (0, 1);
         progress_bar.hexpand = true;
 
-        var duedate_header = new Granite.HeaderLabel (_("Due date:"));
-        duedate_label = new Gtk.Label (null);
-        duedate_label.get_style_context ().add_class ("dim-label");
+        var due_header = new Granite.HeaderLabel (_("Duedate:"));
+        due_header.margin_top = 6;
+        due_bar = new Gtk.LevelBar.for_interval (0, 1);
+        due_bar.hexpand = true;
+        //  var last_7_days = new Granite.HeaderLabel (_("Completed in the last 7 days:"));
+        //  last_7_days.margin_top = 6;
 
-        var duedate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        duedate_box.margin_top = 6;
-        duedate_box.pack_start (duedate_header, false, false, 0);
-        duedate_box.pack_end (duedate_label, false, false, 0);
+        //  var day_01_label = new Gtk.Label ("Tue");
 
-        duedate_bar = new Gtk.LevelBar.for_interval (0, 1);
-        duedate_bar.hexpand = true;
+        //  var progress_01_bar = new Gtk.LevelBar.for_interval (0, 1);
+        //  progress_01_bar.hexpand = true;
+        //  progress_01_bar.valign = Gtk.Align.CENTER;
+
+        //  var progress_01_label = new Gtk.Label ("7");
+        //  progress_01_label.get_style_context ().add_class ("dim-label");
+
+        //  var progress_01_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        //  progress_01_box.pack_start (day_01_label, false, false, 0);
+        //  progress_01_box.pack_start (progress_01_bar, false, true, 0);
+        //  progress_01_box.pack_start (progress_01_label, false, false, 0);
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin = 12;
         popover_grid.margin_top = 6;
         popover_grid.width_request = 250;
-        popover_grid.add (productivity_labe);
+        popover_grid.add (productivity_label);
         popover_grid.add (progress_box);
         popover_grid.add (progress_bar);
-        // popover_grid.add (duedate_box);
-        // popover_grid.add (duedate_bar);
+        // popover_grid.add (due_header);
+        // popover_grid.add (due_bar);
 
         progress_popover.add (popover_grid);
 
@@ -1441,6 +1469,16 @@ public class Views.Project : Gtk.EventBox {
             separate_revealer.reveal_child = true;
         } else {
             separate_revealer.reveal_child = false;
+        }
+    }
+
+    void check_due_date () {
+        if (project.due_date == "") {
+            due_revealer.reveal_child = false;
+        } else {
+            due_revealer.reveal_child = true;
+            var due = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
+            due_label.label = Planner.utils.get_relative_date_from_date (due);
         }
     }
 }

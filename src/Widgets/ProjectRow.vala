@@ -37,6 +37,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer motion_revealer;
     public Gtk.Revealer main_revealer;
+    private Gtk.Label due_label;
 
     private int count = 0;
     private uint timeout_id = 0;
@@ -45,7 +46,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private bool scrolling = false;
     private bool should_scroll = false;
     public Gtk.Adjustment vadjustment;
-
+    private Gtk.Revealer menu_revealer;
+    private Gtk.Revealer due_revealer;
     private const int SCROLL_STEP_SIZE = 5;
     private const int SCROLL_DISTANCE = 30;
     private const int SCROLL_DELAY = 50;
@@ -129,6 +131,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_stack.add_named (count_revealer, "count_revealer");
         menu_stack.add_named (menu_button, "menu_button");
 
+        menu_revealer = new Gtk.Revealer ();
+        menu_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        menu_revealer.reveal_child = true;
+        menu_revealer.add (menu_stack);
+
         var source_icon = new Gtk.Image ();
         source_icon.valign = Gtk.Align.CENTER;
         source_icon.get_style_context ().add_class ("dim-label");
@@ -147,6 +154,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         source_revealer.add (source_icon);
 
+        due_label = new Gtk.Label (null);
+        due_label.use_markup = true;
+        due_label.valign = Gtk.Align.CENTER;
+        due_label.get_style_context ().add_class ("pane-due-button");
+
+        due_revealer = new Gtk.Revealer ();
+        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        due_revealer.add (due_label);
+
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.margin_start = 5;
@@ -154,7 +170,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
         handle_box.pack_start (source_revealer, false, false, 0);
-        handle_box.pack_end (menu_stack, false, false, 0);
+        handle_box.pack_end (menu_revealer, false, false, 0);
+        handle_box.pack_end (due_revealer, false, false, 0);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.get_style_context ().add_class ("grid-motion");
@@ -184,6 +201,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         add (main_revealer);
         apply_color (Planner.utils.get_color (project.color));
+        check_due_date ();
 
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
@@ -221,17 +239,19 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_button.clicked.connect (() => {
             activate_menu ();
         });
-
+  
         Planner.database.project_updated.connect ((p) => {
             if (project != null && p.id == project.id) {
                 project.name = p.name;
                 project.color = p.color;
                 project.note = p.note;
+                project.due_date = p.due_date;
 
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
                 apply_color (Planner.utils.get_color (p.color));
+                check_due_date ();
             }
         });
 
@@ -541,7 +561,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         share_list_menu.add (share_mail);
         share_list_menu.show_all ();
 
-        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
+        // var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.get_style_context ().add_class ("menu-danger");
@@ -631,4 +651,16 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         return should_scroll;
     }
+
+    private void check_due_date () {
+        if (project.due_date == "") {
+            due_revealer.reveal_child = false;
+            menu_revealer.reveal_child = true;
+        } else {
+            due_revealer.reveal_child = true;
+            menu_revealer.reveal_child = false;
+            var due = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
+            due_label.label = "<small>%s</small>".printf (Planner.utils.get_relative_date_from_date (due));
+        }
+    } 
 }

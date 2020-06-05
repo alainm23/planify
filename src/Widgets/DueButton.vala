@@ -146,18 +146,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             if (Planner.utils.is_today (date)) {
                 due_image.gicon = new ThemedIcon ("help-about-symbolic");
                 due_image.get_style_context ().add_class ("today");
-
-                repeat_image.get_style_context ().add_class ("today-label-button");
             } else if (Planner.utils.is_overdue (date)) {
                 due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 due_image.get_style_context ().add_class ("overdue");
-
-                repeat_image.get_style_context ().add_class ("overdue");
             } else {
                 due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 due_image.get_style_context ().add_class ("upcoming");
-
-                repeat_image.get_style_context ().add_class ("upcoming-label-button");
             }
 
             if (item.due_is_recurring == 1) {

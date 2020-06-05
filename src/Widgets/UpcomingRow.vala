@@ -99,7 +99,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         motion_grid.margin_start = 42;
         motion_grid.margin_bottom = 0;
         motion_grid.margin_end = 40;
-        motion_grid.margin_top = 12;
+        motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 

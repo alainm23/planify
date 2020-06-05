@@ -80,7 +80,6 @@ executable(
     'src/Widgets/NewSection.vala',
     'src/Widgets/Placeholder.vala',
     'src/Widgets/NewLabel.vala',
-    'src/Widgets/DueProjectButton.vala',
     'src/Widgets/PriorityButton.vala',
     
     'src/Widgets/Calendar/Calendar.vala',

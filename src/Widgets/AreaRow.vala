@@ -24,7 +24,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Gtk.ScrolledWindow scrolled { get; set; }
 
     private Gtk.Image area_image;
-    private Gtk.Button hidden_button;
     private Gtk.Button submit_button;
     private Gtk.Label name_label;
     private Gtk.Entry name_entry;
@@ -39,6 +38,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     public Gtk.Revealer main_revealer;
     private Gtk.Menu menu = null;
     private bool menu_visible = false;
+    private Gtk.Label count_label;
 
     private uint timeout;
     private uint timeout_id = 0;
@@ -86,76 +86,35 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             area_image.gicon = new ThemedIcon ("folder-open-outline");
         }
 
-        hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        hidden_button.can_focus = false;
-        hidden_button.halign = Gtk.Align.CENTER;
-        hidden_button.valign = Gtk.Align.CENTER;
-        hidden_button.tooltip_text = _("Display Projects");
-        hidden_button.get_style_context ().remove_class ("button");
-        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        hidden_button.get_style_context ().add_class ("hidden-button");
-        hidden_button.get_style_context ().add_class ("dim-label");
+        var menu_image = new Gtk.Image ();
+        menu_image.gicon = new ThemedIcon ("view-more-symbolic");
+        menu_image.pixel_size = 14;
 
-        if (area.collapsed == 1) {
-            hidden_button.get_style_context ().add_class ("opened");
-            hidden_button.tooltip_text = _("Hiding Projects");
-        }
+        var menu_button = new Gtk.Button ();
+        menu_button.can_focus = false;
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.tooltip_text = _("Section Menu");
+        menu_button.image = menu_image;
+        menu_button.get_style_context ().remove_class ("button");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("hidden-button");
 
-        var hidden_revealer = new Gtk.Revealer ();
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = false;
+        count_label = new Gtk.Label (Planner.database.get_project_count_by_area (area.id).to_string ());
+        count_label.valign = Gtk.Align.CENTER;
+        count_label.opacity = 0;
+        count_label.use_markup = true;
+        count_label.width_chars = 3;
 
-        var settings_image = new Gtk.Image ();
-        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_image.pixel_size = 14;
-
-        var settings_button = new Gtk.Button ();
-        settings_button.can_focus = false;
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.tooltip_text = _("Section Menu");
-        settings_button.image = settings_image;
-        settings_button.get_style_context ().remove_class ("button");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("hidden-button");
-
-        var edit_image = new Gtk.Image ();
-        edit_image.gicon = new ThemedIcon ("edit-symbolic");
-        edit_image.pixel_size = 11;
-
-        var edit_button = new Gtk.Button ();
-        edit_button.can_focus = false;
-        edit_button.valign = Gtk.Align.CENTER;
-        edit_button.tooltip_text = _("Folder Menu");
-        edit_button.image = edit_image;
-        edit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        edit_button.get_style_context ().add_class ("dim-label");
-        edit_button.get_style_context ().add_class ("edit-button");
-
-        var edit_revealer = new Gtk.Revealer ();
-        edit_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        edit_revealer.add (edit_button);
-
-        var settings_revealer = new Gtk.Revealer ();
-        settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        settings_revealer.add (settings_button);
-        settings_revealer.reveal_child = false;
+        var menu_stack = new Gtk.Stack ();
+        menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        menu_stack.add_named (count_label, "count_label");
+        menu_stack.add_named (menu_button, "menu_button");
 
         name_label = new Gtk.Label (area.name);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("pane-area");
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
-
-        var count_label = new Gtk.Label ("<small>%s</small>".printf (""));
-        count_label.valign = Gtk.Align.CENTER;
-        count_label.get_style_context ().add_class ("dim-label");
-        count_label.use_markup = true;
-
-        var info_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        info_box.pack_start (name_label, false, false, 0);
-        // info_box.pack_start (edit_revealer, false, false, 0);
-        info_box.pack_end (count_label, false, false, 0);
 
         name_entry = new Gtk.Entry ();
         name_entry.width_chars = 16;
@@ -170,7 +129,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_stack = new Gtk.Stack ();
         name_stack.margin_start = 9;
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
-        name_stack.add_named (info_box, "name_label");
+        name_stack.add_named (name_label, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -179,8 +138,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         top_box.margin_bottom = 1;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, false, 0);
-        // top_box.pack_end (hidden_revealer, false, false, 0);
+        top_box.pack_end (menu_stack, false, false, 0);
 
         submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -221,7 +179,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.add (listbox);
         listbox_revealer.reveal_child = false;
-
+        
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 6;
         separator.margin_end = 6;
@@ -273,6 +231,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         if (area.collapsed == 1) {
             listbox_revealer.reveal_child = true;
+            count_label.opacity = 0;
         }
 
         listbox.row_selected.connect ((row) => {
@@ -360,29 +319,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
             return false;
         });
 
-        edit_button.clicked.connect (() => {
-            action_revealer.reveal_child = true;
-            name_stack.visible_child_name = "name_entry";
-
-            name_entry.grab_focus_without_selecting ();
-            if (name_entry.cursor_position < name_entry.text_length) {
-                name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);
-            }
-        });
-
-        settings_button.clicked.connect (() => {
+        menu_button.clicked.connect (() => {
             activate_menu ();
         });
 
-        hidden_button.clicked.connect (() => {
-            toggle_hidden ();
-        });
-
         top_eventbox.enter_notify_event.connect ((event) => {
-            hidden_revealer.reveal_child = true;
-            settings_revealer.reveal_child = true;
-            edit_revealer.reveal_child = true;
-
+            menu_stack.visible_child_name = "menu_button";
             return true;
         });
 
@@ -391,9 +333,12 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            hidden_revealer.reveal_child = false;
-            settings_revealer.reveal_child = false;
-            edit_revealer.reveal_child = false;
+            menu_stack.visible_child_name = "count_label";
+            //  if (listbox_revealer.reveal_child) {
+            //      count_label.opacity = 0;
+            //  } else {
+            //      count_label.opacity = 0.7;
+            //  }
 
             return true;
         });
@@ -470,14 +415,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         if (listbox_revealer.reveal_child) {
             listbox_revealer.reveal_child = false;
-            hidden_button.get_style_context ().remove_class ("opened");
-            hidden_button.tooltip_text = _("Display Projects");
             area_image.gicon = new ThemedIcon ("folder-outline");
             area.collapsed = 0;
         } else {
             listbox_revealer.reveal_child = true;
-            hidden_button.get_style_context ().add_class ("opened");
-            hidden_button.tooltip_text = _("Hiding Projects");
             area_image.gicon = new ThemedIcon ("folder-open-outline");
             area.collapsed = 1;
         }

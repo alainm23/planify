@@ -617,9 +617,9 @@ public class Views.Inbox : Gtk.EventBox {
         items_opened.remove (row);
     }
 
-    private double get_percentage (int a, int b) {
-        return (double) a / (double) b;
-    }
+    //  private double get_percentage (int a, int b) {
+    //      return (double) a / (double) b;
+    //  }
 
     public void hide_last_item () {
         if (items_opened.size > 0) {

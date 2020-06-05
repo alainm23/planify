@@ -1104,6 +1104,29 @@ public class Services.Database : GLib.Object {
         Projects
     */
 
+    public int get_project_count_by_area (int64 id) {
+        int size = 0;
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT COUNT (*) FROM Projects WHERE area_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            size = stmt.column_int (0);
+        }
+
+        return size;
+    }
+
     public bool insert_project (Objects.Project project) {
         Sqlite.Statement stmt;
         string sql;
@@ -1460,7 +1483,6 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         string sql;
         int res;
-
         project.area_id = area_id;
 
         sql = """
@@ -2792,7 +2814,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
             update_due_item (item, -1);
-
             if (item.is_todoist == 1) {
                 Planner.todoist.update_item (item);
             }
