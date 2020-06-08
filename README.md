@@ -65,7 +65,7 @@ You'll need the following dependencies:
 * libsoup2.4-dev
 * libgranite-dev (>=0.5)
 * libwebkit2gtk-4.0-dev
-* libecal1.2-dev || libecal1.2-dev
+* libecal1.2-dev || libecal2.0-dev
 * libedataserver1.2-dev
 * libical-dev
 * meson
