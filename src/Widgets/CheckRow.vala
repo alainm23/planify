@@ -246,6 +246,18 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+
+        Planner.database.item_completed.connect ((i) => {
+            if (item.id == i.id) {
+                checked_button.active = true;
+            }
+        });
+
+        Planner.database.item_uncompleted.connect ((i) => {
+            if (item.id == i.id) {
+                checked_button.active = false;
+            }
+        });
     }
 
     private void save () {

@@ -42,6 +42,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Image project_preview_image;
     private Gtk.Label project_preview_label;
     private Gtk.Image duedate_repeat_image;
+    private Gtk.Label checklist_preview_label;
     private Gtk.Revealer duedate_repeat_revealer;
     private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
@@ -75,7 +76,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.SeparatorMenuItem date_separator;
     private Gtk.Menu menu = null;
 
-    private uint checked_timeout = 0;
     private uint timeout_id = 0;
     private bool save_off = false;
 
@@ -292,9 +292,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reminder = Planner.database.get_first_reminders_by_item (item.id);
 
         var reminder_preview_image = new Gtk.Image ();
-        reminder_preview_image.valign = Gtk.Align.CENTER;
         reminder_preview_image.gicon = new ThemedIcon ("notification-symbolic");
-        reminder_preview_image.pixel_size = 13;
+        reminder_preview_image.pixel_size = 11;
+        reminder_preview_image.valign = Gtk.Align.END;
+        reminder_preview_image.margin_bottom = 1;
 
         reminder_preview_label = new Gtk.Label (null);
         reminder_preview_label.use_markup = true;
@@ -313,20 +314,29 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         // Checklist
         var checklist_preview_image = new Gtk.Image ();
-        checklist_preview_image.margin_end = 6;
         checklist_preview_image.gicon = new ThemedIcon ("emblem-default-symbolic");
-        checklist_preview_image.pixel_size = 13;
+        checklist_preview_image.pixel_size = 11;
+        checklist_preview_image.valign = Gtk.Align.END;
         checklist_preview_image.margin_bottom = 1;
+
+        checklist_preview_label = new Gtk.Label (null);
+        checklist_preview_label.use_markup = true;
+
+        var checklist_preview_grid = new Gtk.Grid ();
+        checklist_preview_grid.column_spacing = 3;
+        checklist_preview_grid.margin_end = 6;
+        checklist_preview_grid.valign = Gtk.Align.CENTER;
+        checklist_preview_grid.add (checklist_preview_image);
+        checklist_preview_grid.add (checklist_preview_label);
 
         checklist_preview_revealer = new Gtk.Revealer ();
         checklist_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        checklist_preview_revealer.add (checklist_preview_image);
+        checklist_preview_revealer.add (checklist_preview_grid);
 
         // Note
         var note_preview_image = new Gtk.Image ();
         note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
-        note_preview_image.pixel_size = 11;
-        note_preview_image.margin_bottom = 2;
+        note_preview_image.pixel_size = 10;
         note_preview_image.margin_end = 6;
 
         note_preview_revealer = new Gtk.Revealer ();
@@ -552,7 +562,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-
+        update_checklist_progress ();
+        
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
@@ -1016,6 +1027,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         hidden_revealer.reveal_child = false;
 
         check_preview_box ();
+        update_checklist_progress ();
 
         timeout_id = Timeout.add (250, () => {
             timeout_id = 0;
@@ -1130,6 +1142,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item.save_local ();
             }
         }
+    }
+
+    private void update_checklist_progress () {
+        checklist_preview_label.label = "<small>%i/%i</small>".printf (
+            Planner.database.get_count_checked_items_by_parent (item.id),
+            Planner.database.get_all_count_items_by_parent (item.id)
+        );
     }
 
     private void add_all_checks () {

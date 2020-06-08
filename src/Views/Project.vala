@@ -1230,7 +1230,7 @@ public class Views.Project : Gtk.EventBox {
 
         progress_popover.show_all ();
     }
-
+    
     private double get_due_progress () {
         var date1 = new DateTime.now_local ();
         var date2 = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());

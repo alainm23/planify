@@ -2794,7 +2794,6 @@ public class Services.Database : GLib.Object {
         int res;
 
         GLib.DateTime next_due = Planner.utils.get_next_recurring_due_date (item, value);
-
         item.due_date = next_due.to_string ();
 
         sql = """
@@ -2814,6 +2813,18 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
             update_due_item (item, -1);
+            foreach (var check in Planner.database.get_all_cheks_by_item (item.id)) {
+                if (check.checked == 1) {
+                    check.checked = 0;
+                    check.date_completed = "";
+
+                    Planner.database.update_item_completed (check, false);
+                    if (item.is_todoist == 1) {
+                        Planner.todoist.item_complete (check);
+                    }
+                }
+            }
+            
             if (item.is_todoist == 1) {
                 Planner.todoist.update_item (item);
             }
@@ -3056,6 +3067,54 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id FROM Items WHERE project_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var size = 0;
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            size++;
+        }
+
+        stmt.reset ();
+        return size;
+    }
+
+    public int get_all_count_items_by_parent (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id FROM Items WHERE parent_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var size = 0;
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            size++;
+        }
+
+        stmt.reset ();
+        return size;
+    }
+
+    public int get_count_checked_items_by_parent (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id FROM Items WHERE parent_id = ? AND checked = 1;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
