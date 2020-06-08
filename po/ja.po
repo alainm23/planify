@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-05-30 20:36-0500\n"
-"PO-Revision-Date: 2020-03-29 00:26+0000\n"
+"PO-Revision-Date: 2020-06-08 04:41+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
 "translations/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/Application.vala:244
 msgid "New area"
@@ -28,12 +28,10 @@ msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
 msgstr "今日"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
 msgstr "明日"
 
@@ -169,6 +167,8 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"このプロジェクトを通して、Planner "
+"の基本操作を理解できます。シンプルなタスク管理システムを使って、整理され、するべきことが最優先の状態を維持した生活を始めましょう。"
 
 #: src/Utils.vala:865
 msgid "Keeping track of your tasks"
@@ -183,6 +183,10 @@ msgid ""
 "your head and onto your to-do list. From there you can begin to organize and "
 "prioritize so you know exactly what to focus on and when."
 msgstr ""
+"私たちヒトの脳は、未完了のタスクのことを考え続けるように神経が張り巡らされていると言われています。これは、作業が必要なことが1つなら都合がいいですが、"
+"30 以上ものタスクについて同時に考えなくてはいけない場合には不便です。だからこそ、作業と生活を整理する最初のステップは、いろいろなことを全部頭で考えるの"
+"をやめて、ToDo "
+"リストに書き出すことです。そうすれば、タスクを整理して優先順位をつけることができるので、いつ何に取り組まなくてはいけないのかを正確に把握できます。"
 
 #: src/Utils.vala:871
 msgid "Adding new tasks"
@@ -344,7 +348,7 @@ msgstr "Todoist プロジェクト"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:377
 msgid "Unable to move task"
-msgstr ""
+msgstr "タスクを移動できません"
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -353,6 +357,8 @@ msgid ""
 "later. It’s a great way to declutter your mind so you can focus on whatever "
 "you’re doing right now."
 msgstr ""
+"受信箱は、新しいタスクが追加されるデフォルトの場所です。まずは、タスクを頭で考えるのをやめて、あとで各タスクの詳細な計画を立てましょう。こうすることで、気"
+"持ちを整理でき、今すべきことに集中できます。"
 
 #: src/Widgets/Pane.vala:73
 msgid ""
@@ -360,6 +366,7 @@ msgid ""
 "projects. Check in here every morning to make a realistic plan to tackle "
 "your day."
 msgstr ""
+"“今日のタスク” では、すべてのプロジェクトに存在する期日が今日のタスクをすべて確認できます。毎朝これを確認して、現実的な一日の過ごし方を計画しましょう。"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:410
@@ -373,9 +380,9 @@ msgid ""
 "Plan your week ahead with the Upcoming view. It shows everything on your "
 "agenda for the coming days: scheduled to-dos and calendar events."
 msgstr ""
+"“次のタスク” で、この1週間の計画を立てましょう。ToDo リストと、カレンダーの予定で、明日以降の日程に登録されている項目がすべて表示されます。"
 
 #: src/Widgets/Pane.vala:82
-#, fuzzy
 msgid "Add Project"
 msgstr "プロジェクトを追加"
 
@@ -411,13 +418,12 @@ msgid "Name:"
 msgstr "名前:"
 
 #: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "説明"
+msgstr "説明:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
-msgstr ""
+msgstr "フォルダー:"
 
 #: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
 msgid "Color:"
@@ -443,7 +449,7 @@ msgstr "ローカル"
 
 #: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:472
 msgid "No Folder"
-msgstr ""
+msgstr "フォルダーがありません"
 
 #: src/Widgets/New.vala:462
 msgid "Project"
@@ -456,7 +462,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:493
 msgid "Folder"
-msgstr ""
+msgstr "フォルダー"
 
 #: src/Widgets/New.vala:498
 msgid "Organize your projects in groups and keep your panel clean."
@@ -469,7 +475,7 @@ msgstr "閉じる"
 
 #: src/Widgets/New.vala:580
 msgid "New folder"
-msgstr ""
+msgstr "新しいフォルダー"
 
 #: src/Widgets/ProjectRow.vala:121 src/Views/Inbox.vala:126
 #: src/Views/Project.vala:198
@@ -494,7 +500,7 @@ msgstr "編集"
 
 #: src/Widgets/ProjectRow.vala:529
 msgid "Move"
-msgstr ""
+msgstr "移動"
 
 #: src/Widgets/ProjectRow.vala:533 src/Widgets/ItemRow.vala:1364
 #: src/Widgets/SectionRow.vala:821
@@ -540,9 +546,8 @@ msgid "Task name"
 msgstr "タスク名"
 
 #: src/Widgets/ItemRow.vala:169
-#, fuzzy
 msgid "Hide Details"
-msgstr "詳細を表示"
+msgstr "詳細を非表示"
 
 #: src/Widgets/ItemRow.vala:460
 msgid "Add Checklist"
@@ -594,7 +599,7 @@ msgstr "期日"
 
 #: src/Widgets/ItemCompletedRow.vala:48
 msgid "Date completed"
-msgstr ""
+msgstr "完了した日"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:84 src/Widgets/SectionRow.vala:941
@@ -658,27 +663,27 @@ msgstr "セクションを削除しました"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:64
 #: src/Widgets/DueButton.vala:130
 msgid "Schedule"
-msgstr ""
+msgstr "スケジュール"
 
 #: src/Widgets/DueButton.vala:213
 msgid "Repeat"
-msgstr ""
+msgstr "繰り返し"
 
 #: src/Widgets/DueButton.vala:236
 msgid "Every day"
-msgstr ""
+msgstr "毎日"
 
 #: src/Widgets/DueButton.vala:242
 msgid "Every week"
-msgstr ""
+msgstr "毎週"
 
 #: src/Widgets/DueButton.vala:248
 msgid "Every month"
-msgstr ""
+msgstr "毎月"
 
 #: src/Widgets/DueButton.vala:254
 msgid "Every year"
-msgstr ""
+msgstr "毎年"
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:113
 #: src/Dialogs/Preferences/Preferences.vala:743 src/Dialogs/QuickFind.vala:233
@@ -691,15 +696,14 @@ msgid "labels"
 msgstr "ラベル"
 
 #: src/Widgets/LabelButton.vala:89 src/Widgets/LabelButton.vala:228
-#, fuzzy
 msgid "Using Labels"
-msgstr "ラベル"
+msgstr "ラベルの使用"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:229
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
-msgstr ""
+msgstr "ラベルを使って ToDo リストを分類すると、一覧を絞り込み表示して集中できます。"
 
 #: src/Widgets/LabelButton.vala:108
 msgid "Type a label"
@@ -711,27 +715,25 @@ msgid "Edit labels"
 msgstr "ラベルを編集"
 
 #: src/Widgets/LabelButton.vala:218
-#, fuzzy
 msgid "Add label"
 msgstr "ラベルを追加"
 
 #: src/Widgets/LabelButton.vala:221
 msgid "Label not found"
-msgstr ""
+msgstr "ラベルが見つかりません"
 
 #: src/Widgets/LabelButton.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "作成"
+msgstr "'%s' を作成"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
 msgstr "元に戻す"
 
 #: src/Widgets/Toast.vala:238
-#, fuzzy
 msgid "Task deleted"
-msgstr "タスクが完了しました"
+msgstr "タスクを削除しました"
 
 #: src/Widgets/Toast.vala:240
 msgid "Task completed"
@@ -740,7 +742,7 @@ msgstr "タスクが完了しました"
 #: src/Widgets/Toast.vala:244
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "完了しました。次回実行日: %s"
 
 #: src/Widgets/AreaRow.vala:93 src/Widgets/AreaRow.vala:474
 msgid "Display Projects"
@@ -751,18 +753,16 @@ msgid "Hiding Projects"
 msgstr "非表示のプロジェクト"
 
 #: src/Widgets/AreaRow.vala:129
-#, fuzzy
 msgid "Folder Menu"
-msgstr "プロジェクトメニュー"
+msgstr "フォルダーメニュー"
 
 #: src/Widgets/AreaRow.vala:697
 msgid "Add project"
 msgstr "プロジェクトを追加"
 
 #: src/Widgets/AreaRow.vala:726
-#, fuzzy
 msgid "Delete folder"
-msgstr "プロジェクトを削除"
+msgstr "フォルダーを削除"
 
 #: src/Widgets/AreaRow.vala:734
 msgid "Delete projects"
@@ -774,7 +774,7 @@ msgstr "サブタスク名"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -790,7 +790,7 @@ msgstr "リマインダーを追加"
 
 #: src/Widgets/ReminderButton.vala:207
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr ""
+msgstr "タスクを忘れないように、リマインダーを表示させましょう。"
 
 #: src/Widgets/ReminderButton.vala:227
 msgid "Time:"
@@ -838,7 +838,7 @@ msgstr "日"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
-msgstr ""
+msgstr "タスクを忘れる心配とおさらばしましょう"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
@@ -887,7 +887,7 @@ msgstr "完了済みを表示"
 
 #: src/Views/Today.vala:90
 msgid "Overdue"
-msgstr ""
+msgstr "期限切れ"
 
 #: src/Views/Today.vala:129
 msgid "What tasks are on your mind?"
@@ -900,7 +900,7 @@ msgstr "今日のタスクを追加するには、+ をタップしてくださ�
 #: src/Views/Project.vala:139 src/Views/Project.vala:815
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "進捗: %s"
 
 #: src/Views/Project.vala:384
 msgid "What will you accomplish?"
@@ -912,16 +912,15 @@ msgstr "このプロジェクトにタスクを追加するには、+ をタッ�
 
 #: src/Views/Project.vala:1229
 msgid "Productivity"
-msgstr ""
+msgstr "効率"
 
 #: src/Views/Project.vala:1234
 msgid "Progress:"
-msgstr ""
+msgstr "進捗:"
 
 #: src/Views/Project.vala:1245
-#, fuzzy
 msgid "Due date:"
-msgstr "期日"
+msgstr "期日:"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
@@ -1011,7 +1010,7 @@ msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
-msgstr ""
+msgstr "Planner を起動したら、最重要のタスクを確認するようにしましょう。デフォルトのホームページは<b>受信箱</b>ですが、変更可能です。"
 
 #: src/Dialogs/Preferences/Preferences.vala:243 src/Dialogs/QuickFind.vala:453
 msgid "Projects"
@@ -1048,13 +1047,12 @@ msgid "Night"
 msgstr "ダーク"
 
 #: src/Dialogs/Preferences/Preferences.vala:405
-#, fuzzy
 msgid "Dark Blue"
-msgstr "スカイブルー"
+msgstr "ダークブルー"
 
 #: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:459
 msgid ""
@@ -1062,6 +1060,8 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work."
 msgstr ""
+"使用中のアプリが何かを気にとめる必要はありません。ショートカットを使用して、“クイック追加” "
+"ウィンドウを開けます。ウィンドウが開いたら、保留中のタスクを入力して、すぐに作業に戻れます。"
 
 #: src/Dialogs/Preferences/Preferences.vala:481
 #: src/Dialogs/Preferences/Preferences.vala:550
@@ -1203,21 +1203,24 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
+"Planner は、❤️ と情熱を込めて、オープンソースで開発されています。しかし、Planner "
+"を愛用してくださっていて、開発を支援したい場合は、寄付をご検討ください。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1166
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Patreon や PayPal で寄付してくださった、すべての方に感謝いたします。(ここにご自身のクレジットを追加したい場合は、開発チームの "
+"Patreon アカウントを参照してください 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1245
 msgid "Website"
-msgstr ""
+msgstr "Web サイト"
 
 #: src/Dialogs/Preferences/Preferences.vala:1246
-#, fuzzy
 msgid "Follow"
-msgstr "黄"
+msgstr "フォローする"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Report a Problem"
@@ -1236,36 +1239,32 @@ msgid "Back"
 msgstr "戻る"
 
 #: src/Dialogs/QuickFind.vala:89
-#, fuzzy
 msgid "Completed"
 msgstr "完了"
 
 #: src/Dialogs/QuickFind.vala:98
 msgid "Priority 1"
-msgstr ""
+msgstr "優先順位 1"
 
 #: src/Dialogs/QuickFind.vala:106
 msgid "Priority 2"
-msgstr ""
+msgstr "優先順位 2"
 
 #: src/Dialogs/QuickFind.vala:114
 msgid "Priority 3"
-msgstr ""
+msgstr "優先順位 3"
 
 #: src/Dialogs/QuickFind.vala:122
 msgid "Priority 4"
-msgstr ""
+msgstr "優先順位 4"
 
 #: src/Dialogs/QuickFind.vala:127
 msgid "Search"
 msgstr "検索"
 
 #: src/Dialogs/QuickFind.vala:155
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
-msgstr ""
-"プロジェクトやビューを素早く切り替えたり、タスクを検索したり、ラベルで検索し"
-"たり…"
+msgstr "プロジェクトやビューを素早く切り替えたり、タスクを検索したり、ラベルで検索したりしましょう。"
 
 #: src/Dialogs/QuickFind.vala:418
 msgid "Tasks"
@@ -1277,16 +1276,15 @@ msgstr "ビュー"
 
 #: src/Dialogs/QuickFind.vala:600
 msgid "Priorities"
-msgstr ""
+msgstr "優先順位"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
 msgstr "プロジェクトをクリップボードにコピーしました。"
 
 #: src/Objects/Item.vala:126 src/Objects/Item.vala:137
-#, fuzzy
 msgid "Duplicate task"
-msgstr "複製"
+msgstr "タスクを複製"
 
 #: src/Objects/Item.vala:218 src/Objects/Item.vala:236
 msgid "The Task was copied to the Clipboard."
