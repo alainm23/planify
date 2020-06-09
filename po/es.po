@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-05-30 20:36-0500\n"
-"PO-Revision-Date: 2020-04-07 07:39+0000\n"
-"Last-Translator: Alain <alain23@protonmail.com>\n"
+"PO-Revision-Date: 2020-06-09 19:41+0000\n"
+"Last-Translator: Daniel <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: src/Application.vala:244
 msgid "New area"
@@ -29,14 +29,12 @@ msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Hoy"
+msgstr "hoy"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Mañana"
+msgstr "mañana"
 
 #: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -374,9 +372,8 @@ msgid "Todoist Project"
 msgstr "Proyecto de Todoist"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:377
-#, fuzzy
 msgid "Unable to move task"
-msgstr "Eliminar tarea"
+msgstr "No se pudo mover la tarea"
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -417,9 +414,8 @@ msgstr ""
 "calendario."
 
 #: src/Widgets/Pane.vala:82
-#, fuzzy
 msgid "Add Project"
-msgstr "Añadir proyecto"
+msgstr "Añadir Proyecto"
 
 #: src/Widgets/Pane.vala:202 src/Dialogs/QuickFind.vala:142
 msgid "Quick Find"
@@ -581,9 +577,8 @@ msgid "Task name"
 msgstr "Nombre de la tarea"
 
 #: src/Widgets/ItemRow.vala:169
-#, fuzzy
 msgid "Hide Details"
-msgstr "Ver detalles"
+msgstr "Ocultar detalles"
 
 #: src/Widgets/ItemRow.vala:460
 msgid "Add Checklist"
@@ -752,7 +747,6 @@ msgid "Edit labels"
 msgstr "Editar etiquetas"
 
 #: src/Widgets/LabelButton.vala:218
-#, fuzzy
 msgid "Add label"
 msgstr "Añadir etiqueta"
 
@@ -761,9 +755,9 @@ msgid "Label not found"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Crear tarea"
+msgstr "Crear «%s»"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
@@ -791,9 +785,8 @@ msgid "Hiding Projects"
 msgstr "Ocultar proyectos"
 
 #: src/Widgets/AreaRow.vala:129
-#, fuzzy
 msgid "Folder Menu"
-msgstr "Folder"
+msgstr "Menú de la carpeta"
 
 #: src/Widgets/AreaRow.vala:697
 msgid "Add project"
@@ -937,9 +930,9 @@ msgid "Tap + to add a task for today."
 msgstr "Toque + para añadir una tarea para hoy."
 
 #: src/Views/Project.vala:139 src/Views/Project.vala:815
-#, fuzzy, c-format
+#, c-format
 msgid "Progress: %s"
-msgstr "Progreso:"
+msgstr "Progreso: %s"
 
 #: src/Views/Project.vala:384
 msgid "What will you accomplish?"
@@ -1089,9 +1082,8 @@ msgid "Night"
 msgstr "Modo oscuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:405
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Azul cielo"
+msgstr "Azul oscuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Arc Dark"
@@ -1297,40 +1289,34 @@ msgid "Back"
 msgstr "Atrás"
 
 #: src/Dialogs/QuickFind.vala:89
-#, fuzzy
 msgid "Completed"
-msgstr "Completar"
+msgstr "Completado"
 
 #: src/Dialogs/QuickFind.vala:98
-#, fuzzy
 msgid "Priority 1"
-msgstr "Prioridad: Baja"
+msgstr "Prioridad 1"
 
 #: src/Dialogs/QuickFind.vala:106
-#, fuzzy
 msgid "Priority 2"
-msgstr "Prioridad: Baja"
+msgstr "Prioridad 2"
 
 #: src/Dialogs/QuickFind.vala:114
-#, fuzzy
 msgid "Priority 3"
-msgstr "Prioridad: Baja"
+msgstr "Prioridad 3"
 
 #: src/Dialogs/QuickFind.vala:122
-#, fuzzy
 msgid "Priority 4"
-msgstr "Prioridad: Baja"
+msgstr "Prioridad 4"
 
 #: src/Dialogs/QuickFind.vala:127
 msgid "Search"
 msgstr "Buscar"
 
 #: src/Dialogs/QuickFind.vala:155
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
 "Cambie rápidamente de proyecto y vistas, encuentre tareas, busque por "
-"etiquetas, ..."
+"etiquetas."
 
 #: src/Dialogs/QuickFind.vala:418
 msgid "Tasks"
@@ -1341,9 +1327,8 @@ msgid "Views"
 msgstr "Vistas"
 
 #: src/Dialogs/QuickFind.vala:600
-#, fuzzy
 msgid "Priorities"
-msgstr "Prioridad: Baja"
+msgstr "Prioridades"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
