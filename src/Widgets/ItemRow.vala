@@ -463,7 +463,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var checklist_icon = new Gtk.Image ();
         checklist_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
-        checklist_icon.pixel_size = 16;
+        checklist_icon.pixel_size = 13;
 
         var checklist_button = new Gtk.Button ();
         checklist_button.image = checklist_icon;
@@ -481,7 +481,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var menu_image = new Gtk.Image ();
         menu_image.gicon = new ThemedIcon ("view-more-symbolic");
-        menu_image.pixel_size = 14;
+        menu_image.pixel_size = 11;
 
         var menu_button = new Gtk.Button ();
         menu_button.image = menu_image;

@@ -47,7 +47,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         var reminder_image = new Gtk.Image ();
         reminder_image.valign = Gtk.Align.CENTER;
         reminder_image.gicon = new ThemedIcon ("notification-symbolic");
-        reminder_image.pixel_size = 16;
+        reminder_image.pixel_size = 13;
 
         reminder_label = new Gtk.Label (null);
         reminder_label.get_style_context ().add_class ("font-bold");
@@ -91,7 +91,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
     public void check_reminder_label (Objects.Reminder? first_reminder) {
         if (first_reminder != null) {
-            reminder_label.label = "%s %s".printf (
+            reminder_label.label = "<small>%s %s</small>".printf (
                 Planner.utils.get_relative_date_from_string (first_reminder.due_date),
                 Planner.utils.get_relative_time_from_string (first_reminder.due_date)
             );

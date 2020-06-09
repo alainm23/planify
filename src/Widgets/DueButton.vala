@@ -58,10 +58,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.pixel_size = 16;
+        due_image.pixel_size = 13;
         due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
-        due_label = new Gtk.Label (_("Schedule"));
+        due_label = new Gtk.Label ("<small>%s</small>".printf (_("Schedule")));
         due_label.use_markup = true;
 
         label_revealer = new Gtk.Revealer ();
@@ -127,7 +127,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     public void update_date_text (Objects.Item item) {
-        due_label.label = _("Schedule");
+        due_label.label = "<small>%s</small>".printf (_("Schedule"));
         due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
         due_image.get_style_context ().remove_class ("overdue");
@@ -140,7 +140,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            due_label.label = Planner.utils.get_relative_date_from_date (date);
+            due_label.label = "<small>%s</small>".printf (Planner.utils.get_relative_date_from_date (date));
             due_label.get_style_context ().add_class ("font-weight-600");    
 
             if (Planner.utils.is_today (date)) {

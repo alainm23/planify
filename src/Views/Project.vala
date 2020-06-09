@@ -135,13 +135,9 @@ public class Views.Project : Gtk.EventBox {
         due_label = new Gtk.Label (null);
         due_label.get_style_context ().add_class ("font-bold");
 
-        due_revealer = new Gtk.Revealer ();
-        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        due_revealer.add (due_label);
-        
         var p_grid = new Gtk.Grid ();
         p_grid.add (progress_grid);
-        p_grid.add (due_revealer);
+        p_grid.add (due_label);
 
         progress_button = new Gtk.ToggleButton ();
         progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
@@ -150,6 +146,10 @@ public class Views.Project : Gtk.EventBox {
         progress_button.can_focus = false;
         progress_button.get_style_context ().add_class ("flat");
         progress_button.add (p_grid);
+
+        due_revealer = new Gtk.Revealer ();
+        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        due_revealer.add (progress_button);
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("go-jump-symbolic");
@@ -241,7 +241,7 @@ public class Views.Project : Gtk.EventBox {
             // top_box.pack_end (comment_button, false, false, 0);
         }
         top_box.pack_end (section_button, false, false, 0);
-        top_box.pack_end (progress_button, false, false, 0);
+        top_box.pack_end (due_revealer, false, false, 0);
         // top_box.pack_end (due_button, false, false, 0);
 
         note_textview = new Gtk.TextView ();

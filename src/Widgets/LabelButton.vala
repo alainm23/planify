@@ -44,7 +44,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         var label_icon = new Gtk.Image ();
         label_icon.valign = Gtk.Align.CENTER;
         label_icon.gicon = new ThemedIcon ("tag-new-symbolic");
-        label_icon.pixel_size = 16;
+        label_icon.pixel_size = 13;
 
         var label = new Gtk.Label (_("labels"));
         label.get_style_context ().add_class ("pane-item");

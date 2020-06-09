@@ -38,7 +38,7 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
 
         priority_image = new Gtk.Image ();
         priority_image.gicon = new ThemedIcon ("priority-symbolic");
-        priority_image.pixel_size = 16;
+        priority_image.pixel_size = 13;
 
         add (priority_image);
 
