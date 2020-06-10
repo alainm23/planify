@@ -25,6 +25,8 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox overdue_listbox;
     private Gtk.Stack view_stack;
     private Gtk.Revealer overdue_revealer;
+    private Gtk.ToggleButton reschedule_button;
+    private Gtk.Popover reschedule_popover = null;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     
@@ -100,14 +102,20 @@ public class Views.Today : Gtk.EventBox {
 
         var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         overdue_separator.hexpand = true;
-        overdue_separator.margin_top = 3;
         overdue_separator.margin_start = 42;
         overdue_separator.margin_end = 40;
+
+        reschedule_button = new Gtk.ToggleButton.with_label (_("Reschedule"));
+        reschedule_button.get_style_context ().add_class ("flat");
+        reschedule_button.get_style_context ().add_class ("overdue-label");
+        reschedule_button.valign = Gtk.Align.CENTER;
+        reschedule_button.can_focus = false;
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         overdue_header_box.margin_start = 42;
         overdue_header_box.margin_end = 40;
-        overdue_header_box.pack_start (overdue_label);
+        overdue_header_box.pack_start (overdue_label, false, true, 0);
+        overdue_header_box.pack_end (reschedule_button, false, false, 0);
 
         var overdue_container_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         overdue_container_box.margin_top = 24;
@@ -180,6 +188,16 @@ public class Views.Today : Gtk.EventBox {
             check_placeholder_view ();
 
             return false;
+        });
+
+        reschedule_button.toggled.connect (() => {
+            if (reschedule_button.active) {
+                if (reschedule_popover == null) {
+                    create_reschedule_popover ();
+                }
+            }
+
+            reschedule_popover.popup ();
         });
 
         listbox.row_activated.connect ((row) => {
@@ -368,12 +386,6 @@ public class Views.Today : Gtk.EventBox {
             }
 
             update_item_order ();
-
-            //  listbox.insert (source, target.get_index () + 1);
-            //  items_list.insert (target.get_index () + 1, source);
-
-            //  listbox.show_all ();
-            //  update_item_order ();
         }
     }
 
@@ -522,21 +534,7 @@ public class Views.Today : Gtk.EventBox {
             overdue_listbox.add (row);
             overdue_listbox.show_all ();
         }
-
-        //listbox.set_sort_func (sort_function);
-        //listbox.set_header_func (update_headers);
     }
-
-    //  private int sort_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow row2) {
-    //      var i1 = ((Widgets.ItemRow) row1).item;
-    //      var i2 = ((Widgets.ItemRow) row2).item;
-
-    //      if (i1.project_id < i2.project_id) {
-    //          return -1;
-    //      } else {
-    //          return 1;
-    //      }
-    //  }
 
     private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
         var e1 = (Widgets.EventRow) child1;
@@ -556,35 +554,6 @@ public class Views.Today : Gtk.EventBox {
         return 0;
     }
 
-    //  private void update_headers (Gtk.ListBoxRow row, Gtk.ListBoxRow? before) {
-    //      var item = ((Widgets.ItemRow) row).item;
-    //      if (before != null) {
-    //          var item_before = ((Widgets.ItemRow) before).item;
-
-    //          if (item.project_id == item_before.project_id) {
-    //              row.set_header (null);
-    //              return;
-    //          }
-
-    //          if (item.project_id != item_before.project_id) {
-    //              row.set_header (get_header_project (item.project_id));
-    //          }
-    //      } else {
-    //          row.set_header (get_header_project (item.project_id));
-    //      }
-    //  }
-    
-    //  public void toggle_new_item () {
-    //      if (new_item_revealer.reveal_child) {
-    //          new_item_revealer.reveal_child = false;
-    //      } else {
-    //          new_item_revealer.reveal_child = true;
-    //          new_item.entry_grab_focus ();
-
-    //          view_stack.visible_child_name = "listbox";
-    //      }
-    //  }
-
     private void check_placeholder_view () {
         var overdue_size = Planner.database.get_all_overdue_items ().size;
 
@@ -599,6 +568,73 @@ public class Views.Today : Gtk.EventBox {
             overdue_revealer.reveal_child = true;
         } else {
             overdue_revealer.reveal_child = false;
+        }
+    }
+
+    private void create_reschedule_popover () {
+        reschedule_popover = new Gtk.Popover (reschedule_button);
+        reschedule_popover.position = Gtk.PositionType.BOTTOM;
+        reschedule_popover.get_style_context ().add_class ("popover-background");
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.margin_top = 6;
+        popover_grid.width_request = 235;
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.add (get_calendar_widget ());
+        popover_grid.show_all ();
+
+        reschedule_popover.add (popover_grid);
+
+        reschedule_popover.closed.connect (() => {
+            reschedule_button.active = false;
+        });
+    }
+
+    private Gtk.Widget get_calendar_widget () {
+        var today_button = new Widgets.ModelButton (_("Today"), "help-about-symbolic", "");
+        today_button.get_style_context ().add_class ("due-menuitem");
+        today_button.item_image.pixel_size = 14;
+        today_button.color = 0;
+        today_button.due_label = true;
+
+        var tomorrow_button = new Widgets.ModelButton (_("Tomorrow"), "x-office-calendar-symbolic", "");
+        tomorrow_button.get_style_context ().add_class ("due-menuitem");
+        tomorrow_button.item_image.pixel_size = 14;
+        tomorrow_button.color = 1;
+        tomorrow_button.due_label = true;
+
+        var calendar = new Widgets.Calendar.Calendar ();
+        calendar.hexpand = true;
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (today_button);
+        grid.add (tomorrow_button);
+        grid.add (calendar);
+        grid.show_all ();
+
+        today_button.clicked.connect (() => {
+            set_due (new GLib.DateTime.now_local ().to_string ());
+        });
+
+        tomorrow_button.clicked.connect (() => {
+            set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
+        });
+
+        calendar.selection_changed.connect ((date) => {
+            set_due (date.to_string ());
+        });
+
+        return grid;
+    }
+
+    private void set_due (string date) {
+        foreach (var item in Planner.database.get_all_overdue_items ()) {
+            item.due_date = date;
+            Planner.database.set_due_item (item, false);
+            if (item.is_todoist == 1) {
+                Planner.todoist.update_item (item);
+            }
         }
     }
 }

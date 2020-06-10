@@ -758,6 +758,10 @@ paned.horizontal > separator {
     font-weight: bold;
 }
 
+.overdue-label {
+    color: #fa1955;
+}
+
 .badge-expired {
     background-color: #ed5353;
     color: #ffffff;
