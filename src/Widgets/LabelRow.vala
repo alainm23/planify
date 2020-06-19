@@ -23,7 +23,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
     public Gtk.ScrolledWindow scrolled { get; set; }
 
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
     private Gtk.Label name_label;
     private Gtk.Stack name_stack;
 
@@ -38,6 +38,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     private bool scroll_up = false;
     private bool scrolling = false;
     private bool should_scroll = false;
+    private bool menu_opened = false;
     public Gtk.Adjustment vadjustment;
 
     private const int SCROLL_STEP_SIZE = 5;
@@ -77,7 +78,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_label.margin_start = 3;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.text = label.name;
         name_entry.placeholder_text = _("Home");
         name_entry.get_style_context ().add_class ("flat");
@@ -88,8 +89,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_stack = new Gtk.Stack ();
         name_stack.margin_bottom = 1;
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
-        name_stack.add_named (name_label, "name_label");
-        name_stack.add_named (name_entry, "name_entry");
+        // name_stack.add_named (name_label, "name_label");
+        // name_stack.add_named (name_entry, "name_entry");
 
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
         delete_button.valign = Gtk.Align.CENTER;
@@ -101,14 +102,25 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         buttons_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         buttons_revealer.add (delete_button);
 
+        var drag_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
+        drag_button.valign = Gtk.Align.CENTER;
+        drag_button.can_focus = false;
+        drag_button.get_style_context ().add_class ("flat");
+        drag_button.get_style_context ().add_class ("delete-check-button");
+
+        var drag_revealer = new Gtk.Revealer ();
+        drag_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        drag_revealer.add (drag_button);
+
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         box.margin_start = 6;
         box.margin_top = 3;
         box.margin_bottom = 3;
         box.margin_end = 6;
         box.pack_start (color_button, false, false, 0);
-        box.pack_start (name_stack, false, true, 0);
+        box.pack_start (name_entry, false, true, 0);
         box.pack_end (buttons_revealer, false, true, 0);
+        box.pack_end (drag_revealer, false, true, 0);
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin = 6;
@@ -180,17 +192,29 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         });
 
         name_entry.changed.connect (() => {
-            save ();
+            // save ();
         });
-
+        
         name_entry.activate.connect (() => {
-            name_stack.visible_child_name = "name_label";
+            // name_stack.visible_child_name = "name_label";
         });
 
         name_entry.focus_out_event.connect (() => {
-            name_stack.visible_child_name = "name_label";
+            save ();
+            // if (menu_opened == false) {
+                // name_stack.visible_child_name = "name_label";
+            // }
+
             return false;
         });
+
+        //  name_entry.insert_emoji.connect (() => {
+        //      print ("Emoji abierto\n");
+        //  });
+
+        //  name_entry.populate_popup.connect ((menu) => {
+        //      menu_opened = true;
+        //  });
 
         Planner.database.label_deleted.connect ((l) => {
             if (label.id == l.id) {
@@ -682,7 +706,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     }
 
     public void edit () {
-        name_stack.visible_child_name = "name_entry";
+        // name_stack.visible_child_name = "name_entry";
         name_entry.grab_focus_without_selecting ();
         if (name_entry.cursor_position < name_entry.text_length) {
             name_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) name_entry.text_length, false);

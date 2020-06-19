@@ -29,6 +29,7 @@ public enum QuickFindResultType {
 }
 
 public class Dialogs.QuickFind : Gtk.Dialog {
+    SearchItem current_item = null;
     public QuickFind () {
         Object (
             transient_for: Planner.instance.main_window,
@@ -47,8 +48,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             // width_request = 465;
             // height_request = 255;
         // } else {
-            width_request = 600;
-            height_request = 450;
+            width_request = 575;
+            height_request = 455;
         // }
 
         int window_x, window_y;
@@ -169,7 +170,6 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         placeholder_grid.show_all ();
 
         var listbox = new Gtk.ListBox ();
-        listbox.get_style_context ().add_class ("background");
         listbox.hexpand = true;
         listbox.set_placeholder (placeholder_grid);
 
@@ -181,11 +181,56 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_top = 6;
 
+        var up_label = new Gtk.Label ("<small>%s</small>".printf (_("UP")));
+        up_label.get_style_context ().add_class ("keycap");
+        up_label.use_markup = true;
+        up_label.valign = Gtk.Align.CENTER;
+
+        var down_label = new Gtk.Label ("<small>%s</small>".printf (_("DOWN")));
+        down_label.get_style_context ().add_class ("keycap");
+        down_label.use_markup = true;
+        down_label.valign = Gtk.Align.CENTER;
+
+        var enter_label = new Gtk.Label ("<small>%s</small>".printf (_("ENTER")));
+        enter_label.get_style_context ().add_class ("keycap");
+        enter_label.use_markup = true;
+        enter_label.valign = Gtk.Align.CENTER;
+
+        var esc_label = new Gtk.Label ("<small>%s</small>".printf (_("ESC")));
+        esc_label.get_style_context ().add_class ("keycap");
+        esc_label.use_markup = true;
+        esc_label.valign = Gtk.Align.CENTER;
+
+        var info_grid = new Gtk.Grid ();
+        info_grid.halign = Gtk.Align.CENTER;
+        info_grid.hexpand = true;
+        info_grid.column_spacing = 6;
+        info_grid.margin = 6;
+        info_grid.add (new Gtk.Label (_("Use")));
+        info_grid.add (up_label);
+        info_grid.add (down_label);
+        info_grid.add (new Gtk.Label (_("to navigate and")));
+        info_grid.add (enter_label);
+        info_grid.add (new Gtk.Label (_("to select,")));
+        info_grid.add (esc_label);
+        info_grid.add (new Gtk.Label (_("to close.")));
+
+        var info_revealer = new Gtk.Revealer ();
+        info_revealer.reveal_child = false;
+        info_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        info_revealer.add (info_grid);
+        info_revealer.reveal_child = true;
+
+        var action_bar = new Gtk.ActionBar ();
+        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
+        action_bar.add (info_revealer);
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_grid, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (listbox_scrolled, true, true, 0);
+        main_box.pack_end (action_bar, false, true, 0);
 
         get_content_area ().add (main_box);
 
@@ -230,6 +275,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
             if (search_entry.text.strip () != "") {
                 search_revealer.reveal_child = true;
+                info_revealer.reveal_child = false;
                 if (search_entry.text.down () == _("Labels").down ()) {
                     foreach (var label in Planner.database.get_all_labels ()) {
                         var row = new SearchItem (
@@ -357,6 +403,19 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
+
+        listbox.row_selected.connect ((row) => {
+            if (row != null) {
+                info_revealer.reveal_child = false;
+                
+                var item = (SearchItem) row;
+                item.shortcut_revealer.reveal_child = true;
+                if (current_item != null) {
+                    current_item.shortcut_revealer.reveal_child = false;
+                }
+                current_item = item;
+            }
+        });
     }
 
     private void row_activated (Gtk.ListBoxRow row) {
@@ -401,6 +460,7 @@ public class SearchItem : Gtk.ListBoxRow {
     public QuickFindResultType result_type { get; construct set; }
 
     public Gtk.Label header_label;
+    public Gtk.Revealer shortcut_revealer;
     public string object { get; construct; }
     public string search_term { get; construct; }
 
@@ -414,6 +474,19 @@ public class SearchItem : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("searchitem-row");
+        var shortcut_label = new Gtk.Label ("<small>%s</small>".printf (_("Enter")));
+        shortcut_label.get_style_context ().add_class ("keycap");
+        shortcut_label.use_markup = true;
+        shortcut_label.valign = Gtk.Align.CENTER;
+
+        shortcut_revealer = new Gtk.Revealer ();
+        shortcut_revealer.reveal_child = false;
+        shortcut_revealer.halign = Gtk.Align.END;
+        shortcut_revealer.hexpand = true;
+        shortcut_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        shortcut_revealer.add (shortcut_label);
+        shortcut_revealer.reveal_child = false;
+
         if (result_type == QuickFindResultType.ITEM) {
             header_label = new Gtk.Label (_("Tasks"));
             header_label.get_style_context ().add_class ("welcome");
@@ -433,15 +506,19 @@ public class SearchItem : Gtk.ListBoxRow {
                     search_term
                 )
             );
-            content_label.wrap = true;
+            content_label.ellipsize = Pango.EllipsizeMode.END;
             content_label.xalign = 0;
             content_label.use_markup = true;
+            content_label.tooltip_text = Planner.todoist.get_string_member_by_object (object, "content");
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 3;
+            grid.margin_start = 6;
+            grid.margin_end = 6;
             grid.column_spacing = 6;
             grid.add (checked_button);
             grid.add (content_label);
+            grid.add (shortcut_revealer);
 
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);
@@ -486,16 +563,19 @@ public class SearchItem : Gtk.ListBoxRow {
                     search_term
                 )
             );
-            content_label.wrap = true;
+            content_label.ellipsize = Pango.EllipsizeMode.END;
             content_label.xalign = 0;
             content_label.use_markup = true;
+            content_label.tooltip_text = Planner.todoist.get_string_member_by_object (object, "name");
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 3;
             grid.margin_start = 6;
+            grid.margin_end = 6;
             grid.column_spacing = 6;
             grid.add (progress_grid);
             grid.add (content_label);
+            grid.add (shortcut_revealer);
 
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);
@@ -538,17 +618,18 @@ public class SearchItem : Gtk.ListBoxRow {
                     search_term
                 )
             );
-            content_label.wrap = true;
+            content_label.ellipsize = Pango.EllipsizeMode.END;
             content_label.xalign = 0;
             content_label.use_markup = true;
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 3;
             grid.margin_start = 5;
             grid.column_spacing = 5;
             grid.add (icon);
             grid.add (content_label);
-
+            grid.add (shortcut_revealer);
+            
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);
             main_grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
@@ -579,16 +660,20 @@ public class SearchItem : Gtk.ListBoxRow {
                     search_term
                 )
             );
-            content_label.wrap = true;
+            content_label.ellipsize = Pango.EllipsizeMode.END;
             content_label.xalign = 0;
             content_label.use_markup = true;
             content_label.margin_bottom = 1;
+            content_label.tooltip_text = Planner.todoist.get_string_member_by_object (object, "name");
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 3;
+            grid.margin_start = 6;
+            grid.margin_end = 6;
             grid.column_spacing = 6;
             grid.add (icon);
             grid.add (content_label);
+            grid.add (shortcut_revealer);
 
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);
@@ -627,16 +712,18 @@ public class SearchItem : Gtk.ListBoxRow {
                     search_term
                 )
             );
-            content_label.wrap = true;
+            content_label.ellipsize = Pango.EllipsizeMode.END;
             content_label.xalign = 0;
             content_label.use_markup = true;
 
             var grid = new Gtk.Grid ();
-            grid.margin = 6;
+            grid.margin = 3;
             grid.margin_start = 5;
+            grid.margin_end = 6;
             grid.column_spacing = 5;
             grid.add (icon);
             grid.add (content_label);
+            grid.add (shortcut_revealer);
 
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);

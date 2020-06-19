@@ -32,7 +32,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Object (
             view: view,
             transient_for: Planner.instance.main_window,
-            deletable: false,
+            deletable: true,
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -56,7 +56,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
-        stack.add_named (get_keyboard_shortcuts_widget (), "keyboard_shortcuts");
         stack.add_named (get_calendar_widget (), "calendar");
         stack.add_named (get_about_widget (), "about");
         stack.add_named (get_fund_widget (), "fund");
@@ -72,8 +71,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack_scrolled.expand = true;
         stack_scrolled.add (stack);
 
-        get_content_area ().pack_start (stack_scrolled, true, true, 0);
-        add_button (_("Close"), Gtk.ResponseType.CLOSE);
+        var content_area = get_content_area ();
+        content_area.border_width = 0;
+        content_area.add (stack_scrolled);
+        
         Planner.utils.init_labels_color ();
 
         response.connect ((response_id) => {
@@ -186,7 +187,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         });
 
         shortcuts_item.activated.connect (() => {
-            stack.visible_child_name = "keyboard_shortcuts";
+            destroy ();
+
+            var dialog = new Dialogs.ShortcutsDialog ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
         });
 
         calendar_item.activated.connect (() => {
@@ -862,60 +867,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         });
     }
 
-    private Gtk.Widget get_keyboard_shortcuts_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("tag", _("Keyboard Shortcuts"));
-
-        var description_label = new Gtk.Label (
-            _("All the shortcuts to save you time! Some can be used anywhere in the app, while others only work when adding or editing tasks.") // vala-lint=line-length
-        );
-        description_label.margin = 6;
-        description_label.margin_bottom = 12;
-        description_label.margin_start = 12;
-        description_label.margin_end = 12;
-        description_label.justify = Gtk.Justification.FILL;
-        description_label.wrap = true;
-        description_label.xalign = 0;
-
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_bottom = 1;
-
-        var listbox = new Gtk.ListBox ();
-        listbox.valign = Gtk.Align.START;
-        listbox.activate_on_single_click = true;
-        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        listbox.expand = true;
-
-        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.hexpand = true;
-
-        foreach (var shortcut in Planner.utils.get_shortcuts ()) {
-            var row = new ShortcutRow (shortcut.name, shortcut.accels);
-            listbox.add (row);
-            listbox.show_all ();
-        }
-
-        box.pack_start (description_label, false, false, 0);
-        box.pack_start (separator, false, true, 0);
-        box.pack_start (listbox, false, true, 0);
-
-        var box_scrolled = new Gtk.ScrolledWindow (null, null);
-        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        box_scrolled.expand = true;
-        box_scrolled.add (box);
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        main_box.expand = true;
-
-        main_box.pack_start (top_box, false, false, 0);
-        main_box.pack_start (box_scrolled, false, true, 0);
-
-        top_box.back_activated.connect (() => {
-            stack.visible_child_name = "home";
-        });
-
-        return main_box;
-    }
-
     private Gtk.Widget get_todoist_widget () {
         var top_box = new Dialogs.Preferences.TopBox ("planner-todoist", _("Todoist"));
 
@@ -1342,18 +1293,26 @@ public class ShortcutLabel : Gtk.Grid {
     }
 
     public void update_accels (string[] accels) {
+        int index = 0;
         foreach (var child in this.get_children ()) {
             child.destroy ();
         }
 
         if (accels[0] != "") {
             foreach (unowned string accel in accels) {
+                index += 1;
                 if (accel == "") {
                     continue;
                 }
                 var label = new Gtk.Label (accel);
-                label.get_style_context ().add_class ("keycap");
+                label.get_style_context ().add_class ("keyboardkey");
                 add (label);
+
+                if (index < accels.length) {
+                    label = new Gtk.Label ("+");
+                    label.get_style_context ().add_class ("font-bold"); 
+                    add (label);
+                }
             }
         } else {
             var label = new Gtk.Label (_("Disabled"));

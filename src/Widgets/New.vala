@@ -20,10 +20,10 @@
 */
 
 public class Widgets.New : Gtk.Revealer {
-    public Gtk.Entry name_entry;
+    public Widgets.Entry name_entry;
     private Gtk.Button project_button;
     private Gtk.Button area_button;
-    private Gtk.TextView description_textview;
+    private Widgets.TextView description_textview;
     private Gtk.ToggleButton source_button;
     private Gtk.Image source_image;
     private Gtk.Popover source_popover = null;
@@ -64,7 +64,7 @@ public class Widgets.New : Gtk.Revealer {
         var name_header = new Granite.HeaderLabel (_("Name:"));
         name_header.margin_start = 6;
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.get_style_context ().add_class ("name-entry");
         name_entry.hexpand = true;
 
@@ -89,7 +89,7 @@ public class Widgets.New : Gtk.Revealer {
         var description_header = new Granite.HeaderLabel (_("Description:"));
         description_header.margin_start = 6;
 
-        description_textview = new Gtk.TextView ();
+        description_textview = new Widgets.TextView ();
         description_textview.get_style_context ().add_class ("description");
         description_textview.margin = 3;
         description_textview.wrap_mode = Gtk.WrapMode.WORD_CHAR;

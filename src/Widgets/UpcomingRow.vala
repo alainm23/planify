@@ -255,7 +255,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     private void build_drag_and_drop (bool value) {
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
-
         top_box.drag_data_received.disconnect (on_drag_item_received);
         top_box.drag_data_received.disconnect (on_drag_magic_button_received);
 

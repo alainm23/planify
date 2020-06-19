@@ -23,9 +23,9 @@ public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; construct; }
 
     private Gtk.Label name_label;
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
     private Gtk.Revealer action_revealer;
-    private Gtk.TextView note_textview;
+    private Widgets.TextView note_textview;
     private Gtk.Stack note_stack;
     private Gtk.Label note_label;
     private Gtk.Stack name_stack;
@@ -44,7 +44,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Label progress_label;
     private Gtk.LevelBar progress_bar;
     private Gtk.LevelBar due_bar;
-    private Gtk.Entry section_name_entry;
+    private Widgets.Entry section_name_entry;
     private Gtk.ToggleButton section_button;
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
@@ -97,7 +97,7 @@ public class Views.Project : Gtk.EventBox {
         name_eventbox.hexpand = true;
         name_eventbox.add (name_label);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("flat");
@@ -244,7 +244,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.pack_end (due_revealer, false, false, 0);
         // top_box.pack_end (due_button, false, false, 0);
 
-        note_textview = new Gtk.TextView ();
+        note_textview = new Widgets.TextView ();
         note_textview.tooltip_text = _("Add a description");
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
@@ -1307,7 +1307,7 @@ public class Views.Project : Gtk.EventBox {
 
         var name_label = new Granite.HeaderLabel (_("Name:"));
 
-        section_name_entry = new Gtk.Entry ();
+        section_name_entry = new Widgets.Entry ();
         section_name_entry.hexpand = true;
 
         var submit_button = new Gtk.Button ();
@@ -1414,7 +1414,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void insert_section () {
-        if (section_name_entry.text != "") {
+        if (section_name_entry.text.strip () != "") {
             var section = new Objects.Section ();
             section.name = section_name_entry.text;
             section.project_id = project.id;

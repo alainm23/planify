@@ -26,7 +26,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
     private Gtk.Label placeholder_label;
     private Gtk.Label subtitle_label;
     private Gtk.Popover popover = null;
-    private Gtk.Entry label_entry;
+    private Gtk.SearchEntry label_entry;
     private Gtk.ListBox listbox;
 
     public LabelButton (int64 item_id) {
@@ -242,6 +242,19 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 }
             }
         });
+
+        label_entry.focus_in_event.connect (handle_focus_in);
+        label_entry.focus_out_event.connect (update_on_leave);
+    }
+    
+    private bool handle_focus_in (Gdk.EventFocus event) {
+        Planner.event_bus.disconnect_typing_accel ();
+        return false;
+    }
+
+    public bool update_on_leave () {
+        Planner.event_bus.connect_typing_accel ();
+        return false;
     }
 
     private void create_assign () {

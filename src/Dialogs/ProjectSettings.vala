@@ -21,8 +21,8 @@
 
 public class Dialogs.ProjectSettings : Gtk.Dialog {
     public Objects.Project project { get; construct; }
-    private Gtk.Entry name_entry;
-    private Gtk.TextView description_textview;
+    private Widgets.Entry name_entry;
+    private Widgets.TextView description_textview;
     private Gtk.ListStore color_liststore;
     private Gtk.ComboBox color_combobox;
     private Gtk.Switch due_switch;
@@ -48,14 +48,14 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         var name_header = new Granite.HeaderLabel (_("Name:"));
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("border-radius-4");
 
         var description_header = new Granite.HeaderLabel (_("Description:"));
         description_header.margin_top = 6;
 
-        description_textview = new Gtk.TextView ();
+        description_textview = new Widgets.TextView ();
         description_textview.get_style_context ().add_class ("description-dialog");
         description_textview.margin = 6;
         description_textview.buffer.text = project.note;
@@ -71,7 +71,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         description_frame.get_style_context ().add_class ("border-radius-4");
         description_frame.add (description_scrolled);
 
-        var due_label = new Granite.HeaderLabel (_("Due:"));
+        var due_label = new Granite.HeaderLabel (_("Deadline:"));
 
         due_switch = new Gtk.Switch ();
         due_switch.valign = Gtk.Align.CENTER;

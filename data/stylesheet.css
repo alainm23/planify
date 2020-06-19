@@ -899,7 +899,7 @@ paned.horizontal > separator {
 }
 
 .searchitem-row:selected {
-    background-color: @pane_selected_color;
+    background-color: shade (@base_color, 0.87);
     color: @text_color;
 }
 
@@ -1163,3 +1163,34 @@ paned.horizontal > separator {
     border-radius: 4px;
     font-weight: 600;
 }
+
+.release-dialog {
+    background-color: @projectview_color;
+}
+
+.release-dialog headerbar {
+    background-color: @projectview_color;
+}
+
+.release-dialog textview text {
+    background-color: @projectview_color;
+}
+
+.release-dialog textview {
+    background-color: @projectview_color;
+}
+
+.release-dialog entry {
+    background: shade (@projectview_color, 0.98);
+}
+
+.keyboardkey {
+    color: #fff;
+    background: rgba(48,51,54,.85);
+    border-radius: .3em;
+    font-size: 85%;
+    text-shadow: 0 1px @text_shadow_color;
+    padding: 3px 6px 4px;
+    min-width: 12px;
+}
+

@@ -20,6 +20,7 @@
 */
 
 public class MainWindow : Gtk.Window {
+    public weak Planner app { get; construct; }
     public Gee.HashMap <string, bool> projects_loaded;
 
     private Widgets.Pane pane;
@@ -36,6 +37,7 @@ public class MainWindow : Gtk.Window {
     private Widgets.MagicButton magic_button;
     private Widgets.Toast notification_toast;
     private Services.DBusServer dbus_server;
+    public Services.ActionManager action_manager;
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
@@ -43,6 +45,7 @@ public class MainWindow : Gtk.Window {
     public MainWindow (Planner application) {
         Object (
             application: application,
+            app: application,
             icon_name: "com.github.alainm23.planner",
             title: _("Planner"),
             height_request: 400,
@@ -51,6 +54,8 @@ public class MainWindow : Gtk.Window {
     }
 
     construct {
+        action_manager = new Services.ActionManager (app, this);
+
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
             Planner.database.item_added (Planner.database.get_item_by_id (id));
@@ -668,6 +673,59 @@ public class MainWindow : Gtk.Window {
                 project.is_todoist,
                 last
             );
+        }
+    }
+
+    public void add_task_clipboard_action (string text) {
+        var item = new Objects.Item ();
+        item.content = text;       
+        item.section_id = 0;
+
+        var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
+
+        if (stack.visible_child_name == "inbox-view") {
+            item.project_id = inbox_project.id;
+            item.is_todoist = inbox_project.is_todoist;
+
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+            } else {
+                item.id = Planner.utils.generate_id ();
+                Planner.database.insert_item (item, -1, false);
+            }
+        } else if (stack.visible_child_name == "today-view") {
+            item.project_id = inbox_project.id;
+            item.is_todoist = inbox_project.is_todoist;
+            item.due_date = new GLib.DateTime.now_local ().to_string ();
+
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+            } else {
+                item.id = Planner.utils.generate_id ();
+                Planner.database.insert_item (item, -1, false);
+            }
+        } else if (stack.visible_child_name == "upcoming-view") {
+            item.project_id = inbox_project.id;
+            item.is_todoist = inbox_project.is_todoist;
+            item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+            } else {
+                item.id = Planner.utils.generate_id ();
+                Planner.database.insert_item (item, -1, false);
+            }
+        } else {
+            var project = ((Views.Project) stack.visible_child).project;
+            item.project_id = project.id;
+            item.is_todoist = project.is_todoist;
+
+            if (item.is_todoist == 1) {
+                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+            } else {
+                item.id = Planner.utils.generate_id ();
+                Planner.database.insert_item (item, -1, false);
+            }
         }
     }
 

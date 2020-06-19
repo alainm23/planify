@@ -27,6 +27,7 @@ public class Planner : Gtk.Application {
     public static Services.Database database;
     public static Services.Todoist todoist;
     public static Services.Notifications notifications;
+    public static Services.EventBus event_bus;
     public static Services.Calendar.CalendarModel calendar_model;
 
     public signal void go_view (string type, int64 id, int64 id_2);
@@ -46,10 +47,6 @@ public class Planner : Gtk.Application {
         Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
-        //  foreach (var lang in Intl.get_language_names ()) {
-        //      print ("Lang: %s\n".printf (lang));
-        //  }
-
         // Dir to Database
         utils = new Utils ();
         utils.create_dir_with_parents ("/com.github.alainm23.planner");
@@ -61,6 +58,7 @@ public class Planner : Gtk.Application {
         todoist = new Services.Todoist ();
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
+        event_bus = new Services.EventBus ();
     }
 
     public static Planner _instance = null;
@@ -157,8 +155,16 @@ public class Planner : Gtk.Application {
         }
 
         utils.set_quick_add_shortcut (quick_add_shortcut);
-
         database.open_database ();
+
+        if (settings.get_string ("version") != Constants.VERSION) {
+            var dialog = new Dialogs.ReleaseDialog ();
+            dialog.show_all ();
+            dialog.present ();
+
+            // Update the settings so we don't show the same dialog again.
+            settings.set_string ("version", Constants.VERSION);
+        }
     }
 
     public override int command_line (ApplicationCommandLine command_line) {
@@ -193,110 +199,11 @@ public class Planner : Gtk.Application {
     }
 
     private void build_shortcuts () {
-        var quit_action = new SimpleAction ("quit", null);
-        set_accels_for_action ("app.quit", {"<Control>q"});
-        quit_action.activate.connect (() => {
-            if (main_window != null) {
-                main_window.destroy ();
-            }
-        });
-
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
             Planner.instance.main_window.go_item (parameter.get_int64 ());
             activate ();
         });
-
-        var quick_find_action = new SimpleAction ("quick-find", null);
-        set_accels_for_action ("app.quick-find", {"<Control>f"});
-        quick_find_action.activate.connect (() => {
-            main_window.show_quick_find ();
-        });
-
-        var add_task = new SimpleAction ("add-task", null);
-        set_accels_for_action ("app.add-task", {"<Control>n"});
-        add_task.activate.connect (() => {
-            main_window.add_task_action (true);
-        });
-
-        var add_task_first = new SimpleAction ("add-task-first", null);
-        set_accels_for_action ("app.add-task-first", {"<Control><Shift>n"});
-        add_task_first.activate.connect (() => {
-            main_window.add_task_action (false);
-        });
-
-        var sync_manually = new SimpleAction ("sync-manually", null);
-        set_accels_for_action ("app.sync-manually", {"<Control>s"});
-        sync_manually.activate.connect (() => {
-            todoist.sync ();
-        });
-
-        var new_project = new SimpleAction ("new-project", null);
-        set_accels_for_action ("app.new-project", {"<Control><Shift>p"});
-        new_project.activate.connect (() => {
-            main_window.new_project ();
-        });
-
-        var new_area = new SimpleAction ("new-area", null);
-        set_accels_for_action ("app.new-area", {"<Control><Shift>a"});
-        new_area.activate.connect (() => {
-            var area = new Objects.Area ();
-            area.name = _("New area");
-            database.insert_area (area);
-        });
-
-        var new_section = new SimpleAction ("new-section", null);
-        set_accels_for_action ("app.new-section", {"<Control><Shift>s"});
-        new_section.activate.connect (() => {
-            main_window.new_section_action ();
-        });
-
-        var view_inbox = new SimpleAction ("view-inbox", null);
-        set_accels_for_action ("app.view-inbox", {"<Control>1"});
-        view_inbox.activate.connect (() => {
-            main_window.go_view (0);
-        });
-
-        var view_today = new SimpleAction ("view-today", null);
-        set_accels_for_action ("app.view-today", {"<Control>2"});
-        view_today.activate.connect (() => {
-            main_window.go_view (1);
-        });
-
-        var view_upcoming = new SimpleAction ("view-upcoming", null);
-        set_accels_for_action ("app.view-upcoming", {"<Control>3"});
-        view_upcoming.activate.connect (() => {
-            main_window.go_view (2);
-        });
-
-        var hide_item = new SimpleAction ("hide-item", null);
-        set_accels_for_action ("app.hide-item", {"Escape"});
-        hide_item.activate.connect (() => {
-            main_window.hide_item ();
-        });
-
-        //  var open_settings = new SimpleAction ("open-settings", null);
-        //  set_accels_for_action ("app.open-settings", {"<Control>p"});
-        //  open_settings.activate.connect (() => {
-        //      var dialog = new Dialogs.Preferences.Preferences ();
-        //      dialog.destroy.connect (Gtk.main_quit);
-        //      dialog.show_all ();
-        //  });
-
-        add_action (quit_action);
-        add_action (show_item);
-        add_action (quick_find_action);
-        add_action (add_task);
-        add_action (add_task_first);
-        add_action (sync_manually);
-        add_action (new_project);
-        add_action (new_area);
-        add_action (new_section);
-        add_action (view_inbox);
-        add_action (view_today);
-        add_action (view_upcoming);
-        add_action (hide_item);
-        // add_action (open_settings);
     }
 
     public static int main (string[] args) {

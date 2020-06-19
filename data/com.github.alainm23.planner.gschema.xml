@@ -69,16 +69,16 @@
         </key>
 
         <key name="window-position" type="(ii)">
-			<default>(-1, -1)</default>
-			<summary>Window position</summary>
-			<description>Most recent window position (x, y)</description>
-		</key>
+          <default>(-1, -1)</default>
+          <summary>Window position</summary>
+          <description>Most recent window position (x, y)</description>
+        </key>
 
-		<key name="window-size" type="(ii)">
-			<default>(1160, 795)</default>
-			<summary>Most recent window size</summary>
-			<description>Most recent window size (width, height)</description>
-		</key>
+        <key name="window-size" type="(ii)">
+          <default>(1160, 795)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
 
         <key name="pane-position" type="i">
             <default>255</default>
@@ -223,10 +223,17 @@
             <summary>Use the default database location</summary>
             <description>Whether to use the default location or use an alternative path.</description>
         </key>
+        
         <key name="database-location-path" type="s">
             <default>""</default>
             <summary>Database location</summary>
             <description>The location where all Planner data is stored.</description>
+        </key>
+
+        <key name="version" type="s">
+            <default>'0.0.0'</default>
+            <summary>The currently installed version.</summary>
+            <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
     </schema>
 </schemalist>

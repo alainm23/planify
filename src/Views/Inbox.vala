@@ -34,7 +34,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Revealer completed_revealer;
     private Gtk.Stack main_stack;
 
-    private Gtk.Entry section_name_entry;
+    private Widgets.Entry section_name_entry;
     private Gtk.ToggleButton section_button;
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
@@ -910,7 +910,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         var name_label = new Granite.HeaderLabel (_("Name:"));
 
-        section_name_entry = new Gtk.Entry ();
+        section_name_entry = new Widgets.Entry ();
         section_name_entry.hexpand = true;
 
         var submit_button = new Gtk.Button ();

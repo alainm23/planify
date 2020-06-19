@@ -46,6 +46,15 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.4" date="2020-06-10">
+      <description>
+        <p>Planner 2.4 for everyone – Priorities, Calendar events, Quick Add and more.</p>
+        <ul>
+          <li>Sort your folders by dragging and dropping.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.3.5" date="2020-04-30">
       <description>
         <p>Bug fixes and performance improvements</p>

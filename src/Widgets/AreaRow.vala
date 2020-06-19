@@ -26,7 +26,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private Gtk.Image area_image;
     private Gtk.Button submit_button;
     private Gtk.Label name_label;
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
     private Gtk.Stack name_stack;
     private Gtk.EventBox top_eventbox;
     private Gtk.ListBox listbox;
@@ -116,7 +116,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.width_chars = 16;
         name_entry.placeholder_text = _("Task name");
         name_entry.get_style_context ().add_class ("flat");

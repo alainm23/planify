@@ -20,6 +20,9 @@
 */
 
 public class MainWindow : Gtk.Window {
+    private const string TODAY = _("today");
+    private const string TOMORROW = _("tomorrow");
+
     private Gtk.Stack stack;
     private Gtk.Entry content_entry;
 
@@ -277,9 +280,9 @@ public class MainWindow : Gtk.Window {
             var item = new Item ();
             item.id = generate_id ();
             item.project_id = project.id;
-            item.content = content_entry.text;
             item.is_todoist = project.is_todoist;
-            
+            parse_item_tags (item, content_entry.text);
+
             if (project.inbox_project == 1) {
                 if (PlannerQuickAdd.database.get_project_by_id (PlannerQuickAdd.settings.get_int64 ("inbox-project")).is_todoist == 1) {
                     PlannerQuickAdd.database.add_todoist_item (item);
@@ -294,6 +297,44 @@ public class MainWindow : Gtk.Window {
                 }
             }
         }
+    }
+
+    private void parse_item_tags (Item item, string text) {
+        var clean_text = "";
+        Regex wordRegex = /\S+\s*/;
+        MatchInfo matchInfo;
+        
+        var matchText = text. strip ();
+        for (wordRegex.match (matchText, 0, out matchInfo) ; matchInfo.matches () ; matchInfo.next ()) {
+            var word = matchInfo.fetch (0);
+            var stripped = word.strip ().down ();
+
+            switch (stripped) {
+                case TODAY:
+                    item.due_date = new GLib.DateTime.now_local ().to_string ();
+                    break;
+                case TOMORROW:
+                    item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+                    break;
+                case "p1":
+                    item.priority = 4;
+                    break;
+                case "p2":
+                    item.priority = 3;
+                    break;
+                case "p3":
+                    item.priority = 2;
+                    break;
+                case "p4":
+                    item.priority = 1;
+                    break;
+                default:
+                    clean_text+= word;
+                    break;
+            }
+        }
+
+        item.content = clean_text;
     }
 
     public Project? get_project_selected () {

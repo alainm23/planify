@@ -22,7 +22,7 @@
 public class Widgets.NewLabel : Gtk.EventBox {
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton color_button;
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
 
     private Gtk.Revealer motion_revealer;
     private Gtk.Separator separator;
@@ -67,7 +67,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
 
         color_button.add (color_image);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.get_style_context ().add_class ("font-weight-600");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("check-entry");

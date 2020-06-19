@@ -25,7 +25,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Button hidden_button;
     private Gtk.Button add_button;
     private Gtk.Label name_label;
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
     private Gtk.Stack name_stack;
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer action_revealer;
@@ -34,7 +34,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.Revealer separator_revealer;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer motion_section_revealer;
-    private Gtk.TextView note_textview;
+    private Widgets.TextView note_textview;
     private Gtk.Label note_placeholder;
     private Gtk.Revealer note_revealer;
     private Gtk.Grid drop_section_grid;
@@ -118,7 +118,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.add (name_label);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.text = section.name;
         name_entry.hexpand = true;
         name_entry.placeholder_text = _("Section name");
@@ -194,11 +194,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         separator_revealer.add (separator);
         separator_revealer.reveal_child = true;
 
-        note_textview = new Gtk.TextView ();
+        note_textview = new Widgets.TextView ();
         note_textview.tooltip_text = _("Add a description");
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
-        // note_textview.margin_top = 3;
+        note_textview.margin_top = 6;
         note_textview.wrap_mode = Gtk.WrapMode.WORD;
         note_textview.get_style_context ().add_class ("project-textview");
         note_textview.margin_start = 42;

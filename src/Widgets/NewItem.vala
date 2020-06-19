@@ -31,7 +31,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
     private uint timeout_id = 0;
 
-    private Gtk.Entry content_entry;
+    private Widgets.Entry content_entry;
     private Gtk.Revealer main_revealer;
 
     public NewItem (int64 project_id, int64 section_id, int is_todoist, string due_date="") {
@@ -56,7 +56,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("checklist-border");
         checked_button.valign = Gtk.Align.CENTER;
 
-        content_entry = new Gtk.Entry ();
+        content_entry = new Widgets.Entry ();
         content_entry.hexpand = true;
         content_entry.margin_start = 4;
         content_entry.margin_bottom = 1;
@@ -138,10 +138,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         content_entry.focus_out_event.connect (() => {
-            if (temp_id_mapping == 0) {
-                hide_destroy ();
-            }
+            timeout_id = Timeout.add (250, () => {
+                timeout_id = 0;
 
+                if (temp_id_mapping == 0) {
+                    hide_destroy ();
+                }
+
+                return false;
+            });
 
             return false;
         }); 
@@ -206,16 +211,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     }
 
     private void insert_item () {
-        if (content_entry.text != "") {
+        if (timeout_id != 0) {
+            Source.remove (timeout_id);
+        }
+
+        if (content_entry.text.strip () != "") {
             var item = new Objects.Item ();            
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
             item.due_date = due_date;
             Planner.utils.parse_item_tags (item, content_entry.text);
+            temp_id_mapping = Planner.utils.generate_id ();
 
             if (is_todoist == 1) {
-                temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, index, has_index, temp_id_mapping);
             } else {
                 item.id = Planner.utils.generate_id ();

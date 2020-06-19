@@ -25,13 +25,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Button hidden_button;
     private Gtk.Revealer hidden_revealer;
     private Gtk.CheckButton checked_button;
-    private Gtk.Entry content_entry;
+    private Widgets.Entry content_entry;
     private Gtk.Label content_label;
     private Gtk.Revealer label_revealer;
     private Gtk.Revealer entry_revealer;
 
     private Gtk.Box top_box;
-    private Gtk.TextView note_textview;
+    private Widgets.TextView note_textview;
     private Gtk.Label note_label;
     private Gtk.Stack note_stack;
     private Gtk.Revealer note_preview_revealer;
@@ -200,7 +200,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         label_revealer.add (content_label);
         label_revealer.reveal_child = true;
 
-        content_entry = new Gtk.Entry ();
+        content_entry = new Widgets.Entry ();
         content_entry.valign = Gtk.Align.START;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
@@ -233,14 +233,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         //project_preview_image.get_style_context ().add_class ("project-color-%s".printf (item.project_id.to_string ()));
 
         project_preview_label = new Gtk.Label (null);
-        project_preview_label.get_style_context ().add_class ("pane-item");
         project_preview_label.use_markup = true;
 
         var project_preview_grid = new Gtk.Grid ();
         project_preview_grid.column_spacing = 3;
         project_preview_grid.margin_end = 6;
         project_preview_grid.halign = Gtk.Align.CENTER;
-        project_preview_grid.valign = Gtk.Align.CENTER;
+        project_preview_grid.valign = Gtk.Align.START;
         project_preview_grid.add (project_preview_image);
         project_preview_grid.add (project_preview_label);
 
@@ -268,7 +267,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_grid.column_spacing = 3;
         duedate_preview_grid.margin_end = 6;
         duedate_preview_grid.halign = Gtk.Align.CENTER;
-        duedate_preview_grid.valign = Gtk.Align.CENTER;
+        duedate_preview_grid.valign = Gtk.Align.START;
         //  duedate_preview_grid.add (duedate_preview_image);
         duedate_preview_grid.add (duedate_preview_label);
         duedate_preview_grid.add (duedate_repeat_revealer);
@@ -304,7 +303,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reminder_preview_grid.column_spacing = 3;
         reminder_preview_grid.margin_end = 6;
         reminder_preview_grid.halign = Gtk.Align.CENTER;
-        reminder_preview_grid.valign = Gtk.Align.CENTER;
+        reminder_preview_grid.valign = Gtk.Align.START;
         reminder_preview_grid.add (reminder_preview_image);
         reminder_preview_grid.add (reminder_preview_label);
 
@@ -325,7 +324,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var checklist_preview_grid = new Gtk.Grid ();
         checklist_preview_grid.column_spacing = 3;
         checklist_preview_grid.margin_end = 6;
-        checklist_preview_grid.valign = Gtk.Align.CENTER;
+        checklist_preview_grid.valign = Gtk.Align.START;
         checklist_preview_grid.add (checklist_preview_image);
         checklist_preview_grid.add (checklist_preview_label);
 
@@ -338,6 +337,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_preview_image.pixel_size = 10;
         note_preview_image.margin_end = 6;
+        note_preview_image.valign = Gtk.Align.CENTER;
 
         note_preview_revealer = new Gtk.Revealer ();
         note_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -346,7 +346,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Labels Preview
         labels_preview_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_preview_box.margin_end = 6;
-        labels_preview_box.margin_bottom = 1;
+        labels_preview_box.valign = Gtk.Align.START;
 
         labels_preview_box_revealer = new Gtk.Revealer ();
         labels_preview_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -387,7 +387,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         // Note TextView
-        note_textview = new Gtk.TextView ();
+        note_textview = new Widgets.TextView ();
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.CHAR;
@@ -400,6 +400,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         update_note_label (item.note);
         note_label.valign = Gtk.Align.START;
         note_label.height_request = 42;
+        note_label.margin_end = 3;
         note_label.wrap = true;
         note_label.wrap_mode = Pango.WrapMode.CHAR;
         note_label.xalign = 0;

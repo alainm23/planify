@@ -24,7 +24,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Label content_label;
-    private Gtk.Entry content_entry;
+    private Widgets.Entry content_entry;
     private Gtk.Stack content_stack;
     private Gtk.Revealer motion_revealer;
     private Gtk.Separator drag_separator;
@@ -62,7 +62,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         content_label.set_ellipsize (Pango.EllipsizeMode.END);
         content_label.use_markup = true;
 
-        content_entry = new Gtk.Entry ();
+        content_entry = new Widgets.Entry ();
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("check-entry");

@@ -24,7 +24,7 @@ public class Widgets.NewSection : Gtk.Revealer {
     public int is_todoist { get; set; }
     public int64 temp_id_mapping {get; set; default = 0; }
 
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
 
     public signal void cancel_activated ();
 
@@ -63,7 +63,7 @@ public class Widgets.NewSection : Gtk.Revealer {
         loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         loading_revealer.add (loading_spinner);
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.hexpand = true;
         name_entry.valign = Gtk.Align.CENTER;
         name_entry.placeholder_text = _("Section name");

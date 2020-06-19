@@ -26,7 +26,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
     public int is_todoist { get; construct; }
     public int64 temp_id_mapping {get; set; default = 0; }
 
-    private Gtk.Entry name_entry;
+    private Widgets.Entry name_entry;
     private Gtk.Revealer revealer;
 
     public bool reveal_child {
@@ -67,7 +67,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
         checked_button.get_style_context ().add_class ("checklist-check");
         checked_button.valign = Gtk.Align.CENTER;
 
-        name_entry = new Gtk.Entry ();
+        name_entry = new Widgets.Entry ();
         name_entry.hexpand = true;
         name_entry.margin_start = 6;
         name_entry.placeholder_text = _("Subtask name");

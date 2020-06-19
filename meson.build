@@ -1,6 +1,4 @@
-project('com.github.alainm23.planner',
-        'vala', 'c',
-        version: '2.3.5')
+project ('com.github.alainm23.planner', 'vala', 'c', version: '2.4')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -51,7 +49,9 @@ executable(
     'src/Services/Calendar/CalendarModel.vala',
     'src/Services/DBusServer.vala',
     'src/Services/CustomShortcutSettings.vala',
-
+    'src/Services/ActionManager.vala',
+    'src/Services/EventBus.vala',
+    
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',
     'src/Widgets/New.vala',
@@ -81,6 +81,8 @@ executable(
     'src/Widgets/Placeholder.vala',
     'src/Widgets/NewLabel.vala',
     'src/Widgets/PriorityButton.vala',
+    'src/Widgets/Entry.vala',
+    'src/Widgets/TextView.vala',
     
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -100,6 +102,8 @@ executable(
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',
     'src/Dialogs/QuickFind.vala',
+    'src/Dialogs/ShortcutsDialog.vala',
+    'src/Dialogs/ReleaseDialog.vala',
 
     'src/Dialogs/Preferences/Preferences.vala',
     'src/Dialogs/Preferences/ItemSelect.vala',

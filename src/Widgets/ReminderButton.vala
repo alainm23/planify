@@ -50,6 +50,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         reminder_image.pixel_size = 13;
 
         reminder_label = new Gtk.Label (null);
+        reminder_label.margin_bottom = 1;
         reminder_label.get_style_context ().add_class ("font-bold");
         reminder_label.use_markup = true;
 
