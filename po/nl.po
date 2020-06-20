@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-19 17:37-0500\n"
-"PO-Revision-Date: 2020-06-03 12:41+0000\n"
+"PO-Revision-Date: 2020-06-21 09:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -689,7 +689,7 @@ msgstr "De sectie is verwijderd"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:64
 #: src/Widgets/DueButton.vala:130
 msgid "Schedule"
-msgstr "Schema"
+msgstr "Planning"
 
 #: src/Widgets/DueButton.vala:207
 msgid "Repeat"
@@ -907,9 +907,8 @@ msgid "Overdue"
 msgstr "Verstreken"
 
 #: src/Views/Today.vala:108
-#, fuzzy
 msgid "Reschedule"
-msgstr "Schema"
+msgstr "Opnieuw inplannen"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -933,16 +932,14 @@ msgid "Tap + to add a task to this project."
 msgstr "Klik op + om een taak toe te voegen aan dit project."
 
 #: src/Views/Project.vala:1248
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Productiviteit"
+msgstr "Mijn productiviteit"
 
 #: src/Views/Project.vala:1253
 msgid "Progress:"
 msgstr "Voortgang:"
 
 #: src/Views/Project.vala:1264
-#, fuzzy
 msgid "Duedate:"
 msgstr "Einddatum:"
 
@@ -968,9 +965,8 @@ msgid "Please enter your credentials…"
 msgstr "Voer je inloggegevens in…"
 
 #: src/Dialogs/ProjectSettings.vala:74
-#, fuzzy
 msgid "Deadline:"
-msgstr "Deadline"
+msgstr "Deadline:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1302,39 +1298,39 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
-msgstr ""
+msgstr "OMHOOG"
 
 #: src/Dialogs/QuickFind.vala:189
 msgid "DOWN"
-msgstr ""
+msgstr "OMLAAG"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:199
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:209
 msgid "Use"
-msgstr ""
+msgstr "Gebruiken"
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "om te navigeren,"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "te selecteren,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "en te sluiten."
 
 #: src/Dialogs/QuickFind.vala:477
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:491
 msgid "Tasks"
