@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-19 17:37-0500\n"
-"PO-Revision-Date: 2020-03-01 03:33+0000\n"
-"Last-Translator: Safak GENISOL <bjksafak45@gmail.com>\n"
+"PO-Revision-Date: 2020-06-21 09:41+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -448,9 +448,8 @@ msgid "Name:"
 msgstr "İsim:"
 
 #: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Bölümü Sil"
+msgstr "Açıklama:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
@@ -760,9 +759,9 @@ msgid "Label not found"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:222
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Oluştur"
+msgstr "'%s' oluştur"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
@@ -950,9 +949,8 @@ msgid "Progress:"
 msgstr ""
 
 #: src/Views/Project.vala:1264
-#, fuzzy
 msgid "Duedate:"
-msgstr "Bitiş tarihi"
+msgstr "Bitiş tarihi:"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
