@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 17:37-0500\n"
+"POT-Creation-Date: 2020-06-22 10:58-0500\n"
 "PO-Revision-Date: 2020-06-14 14:41+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
@@ -713,7 +713,7 @@ msgstr "Каждый год"
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:748 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:640
+#: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "Метки"
 
@@ -1038,7 +1038,8 @@ msgstr ""
 "являются для вас наиболее важными. По умолчанию главной страницей является "
 "вкладка <b>\"Отложенные\"</b>, но вы можете сменить ее на нужную вам."
 
-#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:530
+#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:292
+#: src/Dialogs/QuickFind.vala:545
 msgid "Projects"
 msgstr "Проекты"
 
@@ -1332,19 +1333,19 @@ msgstr ""
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:477
+#: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:491
+#: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
 msgstr "Задачи"
 
-#: src/Dialogs/QuickFind.vala:587
+#: src/Dialogs/QuickFind.vala:602
 msgid "Views"
 msgstr "Вкладки"
 
-#: src/Dialogs/QuickFind.vala:685
+#: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
 msgstr "Приоритеты"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 17:37-0500\n"
+"POT-Creation-Date: 2020-06-22 10:58-0500\n"
 "PO-Revision-Date: 2020-04-29 14:25+0000\n"
 "Last-Translator: KSDT-SubFil <ecgpua@gmail.com>\n"
 "Language-Team: Filipino <https://hosted.weblate.org/projects/planner/"
@@ -723,7 +723,7 @@ msgstr "Taon-taon"
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:748 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:640
+#: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "Mga Label"
 
@@ -1046,7 +1046,8 @@ msgstr ""
 "pinakamahalaga. Ang default homepage ay iyong view ng <b>Inbox</b>, ngunit "
 "mababago mo ito sa kung alin ang nais mo."
 
-#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:530
+#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:292
+#: src/Dialogs/QuickFind.vala:545
 msgid "Projects"
 msgstr "Mga Proyekto"
 
@@ -1349,19 +1350,19 @@ msgstr ""
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:477
+#: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:491
+#: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
 msgstr "Gawain"
 
-#: src/Dialogs/QuickFind.vala:587
+#: src/Dialogs/QuickFind.vala:602
 msgid "Views"
 msgstr "View"
 
-#: src/Dialogs/QuickFind.vala:685
+#: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
 msgstr ""
 

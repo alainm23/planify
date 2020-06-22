@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-06-19 17:37-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-22 10:58-0500\n"
 "PO-Revision-Date: 2020-06-21 09:41+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
@@ -710,7 +710,7 @@ msgstr "Щороку"
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:748 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:640
+#: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "Мітки"
 
@@ -1034,7 +1034,8 @@ msgstr ""
 "завдання. Типова домашня сторінка – це ваша вкладка <b>Вхідні</b>, але ви "
 "можете налаштувати її як завгодно."
 
-#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:530
+#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:292
+#: src/Dialogs/QuickFind.vala:545
 msgid "Projects"
 msgstr "Проєкти"
 
@@ -1325,19 +1326,19 @@ msgstr ""
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:477
+#: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:491
+#: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
 msgstr "Завдання"
 
-#: src/Dialogs/QuickFind.vala:587
+#: src/Dialogs/QuickFind.vala:602
 msgid "Views"
 msgstr "Вкладки"
 
-#: src/Dialogs/QuickFind.vala:685
+#: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
 msgstr "Важливість"
 

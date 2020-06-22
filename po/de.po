@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 17:37-0500\n"
+"POT-Creation-Date: 2020-06-22 10:58-0500\n"
 "PO-Revision-Date: 2020-06-11 15:41+0000\n"
 "Last-Translator: Alex Kager <alex@monochromatic.cc>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
@@ -741,7 +741,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:748 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:640
+#: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "Etiketten"
 
@@ -1087,7 +1087,8 @@ msgstr ""
 "Aufgaben siehst. Die Standardseite ist der <b>Eingang</b> wo du, aber du "
 "kannst dies nach Belieben anpassen."
 
-#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:530
+#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:292
+#: src/Dialogs/QuickFind.vala:545
 #, fuzzy
 msgid "Projects"
 msgstr "Neues Projekt"
@@ -1385,20 +1386,20 @@ msgstr ""
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:477
+#: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:491
+#: src/Dialogs/QuickFind.vala:506
 #, fuzzy
 msgid "Tasks"
 msgstr "Alle Aufgaben"
 
-#: src/Dialogs/QuickFind.vala:587
+#: src/Dialogs/QuickFind.vala:602
 msgid "Views"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:685
+#: src/Dialogs/QuickFind.vala:700
 #, fuzzy
 msgid "Priorities"
 msgstr "Priorität: Niedrig"

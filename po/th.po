@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 17:37-0500\n"
+"POT-Creation-Date: 2020-06-22 10:58-0500\n"
 "PO-Revision-Date: 2020-03-23 03:48+0000\n"
 "Last-Translator: CHAIWIT PHONKHEN <5911110222@mutacth.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/planner/"
@@ -700,7 +700,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:39 src/Dialogs/Preferences/Preferences.vala:114
 #: src/Dialogs/Preferences/Preferences.vala:748 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:640
+#: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "ป้ายกำกับ"
 
@@ -1027,7 +1027,8 @@ msgstr ""
 "เมื่อคุณเปิดตัววางแผนตรวจสอบให้แน่ใจว่าคุณเห็นงานที่สำคัญที่สุด โฮมเพจเริ่มต้นคือมุมมอง <b> "
 "กล่องจดหมาย </b> ของคุณ แต่คุณสามารถเปลี่ยนเป็นอะไรก็ได้ที่คุณต้องการ"
 
-#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:530
+#: src/Dialogs/Preferences/Preferences.vala:248 src/Dialogs/QuickFind.vala:292
+#: src/Dialogs/QuickFind.vala:545
 msgid "Projects"
 msgstr "โปรเจค"
 
@@ -1325,19 +1326,19 @@ msgstr ""
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:477
+#: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:491
+#: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
 msgstr "งาน"
 
-#: src/Dialogs/QuickFind.vala:587
+#: src/Dialogs/QuickFind.vala:602
 msgid "Views"
 msgstr "มุมมอง"
 
-#: src/Dialogs/QuickFind.vala:685
+#: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
 msgstr ""
 

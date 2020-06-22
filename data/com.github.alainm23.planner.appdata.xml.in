@@ -46,7 +46,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.4" date="2020-06-19">
+    <release version="2.4" date="2020-06-22">
       <description>
         <p>What's new in v2.4</p>
         <p>Over the the past few months we’ve been working on Planner 2.4, a big update with great new features. Priorities, calendar events, Quick Add for all platforms and more.</p>
