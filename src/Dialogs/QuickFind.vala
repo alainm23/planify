@@ -289,6 +289,21 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                     }
                 }
 
+                if (search_entry.text.down () == _("Projects").down ()) {
+                    foreach (var project in Planner.database.get_all_projects ()) {
+                        if (project.inbox_project == 0) {
+                            var row = new SearchItem (
+                                QuickFindResultType.PROJECT,
+                                project.to_json (),
+                                search_entry.text
+                            );
+    
+                            listbox.add (row);
+                            listbox.show_all ();
+                        }
+                    }
+                }
+
                 foreach (string view in views) {
                     if (search_entry.text.down () in Planner.todoist.get_string_member_by_object (view, "name").down ()) {
                         var row = new SearchItem (

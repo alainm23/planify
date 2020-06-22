@@ -66,35 +66,55 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
         column.attach (new ShortcutLabel (shortcut_hint.split ("+")), 0, 7);
         column.attach (new NameLabel (_("Open Quick Add")), 1, 7);
 
+        var search_header = new Gtk.Label (_("Search"));
+        search_header.halign = Gtk.Align.START;
+        search_header.get_style_context ().add_class ("font-bold");
+        search_header.margin_top = 12;
+
+        column.attach (search_header, 1, 8);
+        column.attach (new ShortcutLabel ({"Ctrl", "f"}), 0, 9);
+        column.attach (new NameLabel (_("Open Quick Find")), 1, 9);
+        column.attach (new ShortcutLabel ({"any key"}), 0, 10);
+        column.attach (new NameLabel (_("Start typing to begin a search")), 1, 10);
+        column.attach (new ShortcutLabel ({"p1, p2, p3"}), 0, 11);
+        column.attach (new NameLabel (_("Filter by priorities")), 1, 11);
+        column.attach (new ShortcutLabel ({_("Labels")}), 0, 12);
+        column.attach (new NameLabel (_("Quick Find list for all labels")), 1, 12);
+        column.attach (new ShortcutLabel ({_("Projects")}), 0, 13);
+        column.attach (new NameLabel (_("Quick Find list for all projects")), 1, 13);
+        column.attach (new ShortcutLabel ({_("Completed")}), 0, 14);
+        column.attach (new NameLabel (_("Filter by all your completed tasks.")), 1, 14);
+
         var control_windows_header = new Gtk.Label (_("Control windows"));
         control_windows_header.halign = Gtk.Align.START;
         control_windows_header.get_style_context ().add_class ("font-bold");
         control_windows_header.margin_top = 12;
 
-        column.attach (control_windows_header, 1, 8);
-        column.attach (new ShortcutLabel ({"Ctrl", "q"}), 0, 9);
-        column.attach (new NameLabel (_("Quit")), 1, 9);
-        column.attach (new ShortcutLabel ({"Ctrl", ","}), 0, 10);
-        column.attach (new NameLabel (_("Open Preferences")), 1, 10);
-        column.attach (new ShortcutLabel ({"f1"}), 0, 11);
-        column.attach (new NameLabel (_("Open Keyboard Shortcuts")), 1, 11);
+        column.attach (control_windows_header, 1, 15);
+        column.attach (new ShortcutLabel ({"Ctrl", "q"}), 0, 16);
+        column.attach (new NameLabel (_("Quit")), 1, 16);
+        column.attach (new ShortcutLabel ({"Ctrl", ","}), 0, 17);
+        column.attach (new NameLabel (_("Open Preferences")), 1, 17);
+        column.attach (new ShortcutLabel ({"f1"}), 0, 18);
+        column.attach (new NameLabel (_("Open Keyboard Shortcuts")), 1, 18);
 
         var navigate_header = new Gtk.Label (_("Navigate"));
         navigate_header.halign = Gtk.Align.START;
         navigate_header.get_style_context ().add_class ("font-bold");
         navigate_header.margin_top = 12;
 
-        column.attach (navigate_header, 1, 12);
-        column.attach (new ShortcutLabel ({"Ctrl", "1"}), 0, 13);
-        column.attach (new NameLabel (_("Open Inbox")), 1, 13);
-        column.attach (new ShortcutLabel ({"Ctrl", "2"}), 0, 14);
-        column.attach (new NameLabel (_("Open Today")), 1, 14);
-        column.attach (new ShortcutLabel ({"Ctrl", "3"}), 0, 15);
-        column.attach (new NameLabel (_("Open Upcoming")), 1, 15);
-
+        column.attach (navigate_header, 1, 19);
+        column.attach (new ShortcutLabel ({"Ctrl", "1"}), 0, 20);
+        column.attach (new NameLabel (_("Open Inbox")), 1, 20);
+        column.attach (new ShortcutLabel ({"Ctrl", "2"}), 0, 21);
+        column.attach (new NameLabel (_("Open Today")), 1, 21);
+        column.attach (new ShortcutLabel ({"Ctrl", "3"}), 0, 22);
+        column.attach (new NameLabel (_("Open Upcoming")), 1, 22);
+        
         var grid = new Gtk.Grid ();
         grid.halign = Gtk.Align.CENTER;
         grid.column_spacing = 12;
+        grid.margin_bottom = 12;
         grid.hexpand = true;
         grid.attach (column, 0, 0);
 
