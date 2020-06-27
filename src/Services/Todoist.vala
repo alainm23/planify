@@ -170,7 +170,7 @@ public class Services.Todoist : GLib.Object {
         sync_started ();
         new Thread<void*> ("get_todoist_token", () => {
             try {
-                string code = url.split ("=") [2];
+                string code = url.split ("=") [1];
                 string response = "";
 
                 string command = "curl \"https://todoist.com/oauth/access_token\" ";
