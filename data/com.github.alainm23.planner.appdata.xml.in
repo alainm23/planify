@@ -46,11 +46,11 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.4.3" date="2020-06-28">
+    <release version="2.4.4" date="2020-06-28">
       <description>
         <p>General bug fixes and improvements.</p>
         <ul>
-          <li>Login failed with Todoist fixed</li>
+          <li>Login failed with Todoist fixed.</li>
           <li>Design improvement in task details.</li>
           <li>New and better designed icons.</li>
         </ul>

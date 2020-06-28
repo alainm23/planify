@@ -132,7 +132,11 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     public void update_date_text (Objects.Item item) {
         due_label.label = _("Schedule");
-        due_image.gicon = new ThemedIcon ("calendar-outline-light");
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            due_image.gicon = new ThemedIcon ("calendar-outline-light");
+        } else {
+            due_image.gicon = new ThemedIcon ("calendar-outline-dark");
+        }
 
         due_image.get_style_context ().remove_class ("overdue-label");
         due_image.get_style_context ().remove_class ("today");
