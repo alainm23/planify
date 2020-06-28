@@ -236,7 +236,7 @@ public class Widgets.New : Gtk.Revealer {
 
             return false;
         });
-
+        
         Planner.todoist.project_added_started.connect (() => {
             submit_button.sensitive = false;
             submit_stack.visible_child_name = "spinner";

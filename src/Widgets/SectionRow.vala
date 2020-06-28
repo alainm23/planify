@@ -52,6 +52,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
     public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    private bool entry_menu_opened = false;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -454,7 +455,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                     Source.remove (timeout_id);
                 }
     
-                timeout_id = Timeout.add (175, () => {
+                timeout_id = Timeout.add (250, () => {
                     timeout_id = 0;
 
                     if (menu_visible == false) {
@@ -505,14 +506,22 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         name_entry.focus_out_event.connect (() => {
-            // save (true);
-            // separator_revealer.reveal_child = true;
+            if (entry_menu_opened == false) {
+                save (true);
+                separator_revealer.reveal_child = true;
+            }
+        });
+
+        name_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
         });
 
         note_textview.focus_in_event.connect (() => {
             note_placeholder.visible = false;
             note_placeholder.no_show_all = true;
-            // separator_revealer.reveal_child = false;
 
             return false;
         });

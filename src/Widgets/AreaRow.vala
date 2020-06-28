@@ -44,6 +44,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
     private uint timeout_id = 0;
     private uint toggle_timeout = 0;
     public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
+    private bool entry_menu_opened = false;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -198,7 +199,6 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         drop_grid.margin_start = 6;
         drop_grid.margin_end = 6;
         drop_grid.height_request = 12;
-        //drop_grid.get_style_context ().add_class ("grid-motion");
 
         var motion_area_grid = new Gtk.Grid ();
         motion_area_grid.margin_start = 6;
@@ -264,7 +264,16 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         });
 
         name_entry.focus_out_event.connect (() => {
-            // save_area ();
+            if (entry_menu_opened == false) {
+                save_area ();
+            }
+        });
+
+        name_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
         });
 
         submit_button.clicked.connect (() => {
@@ -283,7 +292,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                     Source.remove (timeout_id);
                 }
     
-                timeout_id = Timeout.add (175, () => {
+                timeout_id = Timeout.add (250, () => {
                     timeout_id = 0;
 
                     if (menu_visible == false) {

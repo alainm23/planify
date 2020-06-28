@@ -29,6 +29,7 @@ public class MainWindow : Gtk.Window {
     private DBusClient dbus_client;
     private Gtk.ComboBox project_combobox;
     private Gtk.ListStore list_store;
+    private bool entry_menu_opened = false;
 
     public MainWindow (Gtk.Application application) {
         Object (
@@ -223,6 +224,13 @@ public class MainWindow : Gtk.Window {
         submit_button.clicked.connect (add_item);
         content_entry.activate.connect (add_item);
 
+        content_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
+        });
+
         PlannerQuickAdd.database.item_added_started.connect (() => {
             sensitive = false;
             submit_stack.visible_child_name = "spinner";
@@ -260,7 +268,8 @@ public class MainWindow : Gtk.Window {
         focus_out_event.connect ((event) => {
             if (Posix.isatty (Posix.STDIN_FILENO) == false &&
                 project_combobox.popup_shown == false &&
-                PlannerQuickAdd.database.is_adding == false) {
+                PlannerQuickAdd.database.is_adding == false &&
+                entry_menu_opened == false) {
                 hide ();
 
                 Timeout.add (500, () => {

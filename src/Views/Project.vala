@@ -63,8 +63,8 @@ public class Views.Project : Gtk.EventBox {
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
     public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
-
     private int64 temp_id_mapping { get; set; default = 0; }
+    private bool entry_menu_opened = false;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -491,7 +491,16 @@ public class Views.Project : Gtk.EventBox {
         });
 
         name_entry.focus_out_event.connect (() => {
-            // save (true);
+            if (entry_menu_opened == false) {
+                save (true);
+            }
+        });
+
+        name_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
         });
 
         settings_button.toggled.connect (() => {

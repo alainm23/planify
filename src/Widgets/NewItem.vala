@@ -33,6 +33,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
     private Widgets.Entry content_entry;
     private Gtk.Revealer main_revealer;
+    private bool entry_menu_opened = false;
 
     public NewItem (int64 project_id, int64 section_id, int is_todoist, string due_date="") {
         Object (
@@ -138,15 +139,17 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         content_entry.focus_out_event.connect (() => {
-            timeout_id = Timeout.add (250, () => {
-                timeout_id = 0;
-
-                if (temp_id_mapping == 0) {
-                    hide_destroy ();
-                }
-
-                return false;
-            });
+            if (entry_menu_opened == false) {
+                timeout_id = Timeout.add (250, () => {
+                    timeout_id = 0;
+    
+                    if (temp_id_mapping == 0) {
+                        hide_destroy ();
+                    }
+    
+                    return false;
+                });
+            }
 
             return false;
         }); 
@@ -195,6 +198,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 sensitive = true;
                 content_entry.text = "";
             }
+        });
+
+        content_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
         });
     }
 
