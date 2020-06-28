@@ -517,6 +517,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         change_button.get_style_context ().add_class ("no-padding");
         change_button.get_style_context ().add_class ("inbox");
         change_button.halign = Gtk.Align.END;
+        change_button.margin_end = 6;
 
         var save_last_switch = new Dialogs.Preferences.ItemSwitch (
             _("Save Last Selected Project"),
@@ -534,7 +535,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (save_last_switch, false, false, 0);
 
         shortcut_eventbox.enter_notify_event.connect ((event) => {
-            shortcut_stack.visible_child_name = "button";
+            // shortcut_stack.visible_child_name = "button";
             return true;
         });
 
@@ -544,7 +545,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             }
 
             if (keybinding_toggle_recording_button.active == false) {
-                shortcut_stack.visible_child_name = "accels";
+                // shortcut_stack.visible_child_name = "accels";
             }
 
             return true;
@@ -556,6 +557,17 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         save_last_switch.activated.connect ((value) => {
             Planner.settings.set_boolean ("quick-add-save-last-project", value);
+        });
+
+        change_button.clicked.connect (() => {
+            keybinding_toggle_recording_button.active = true;
+            shortcut_stack.visible_child_name = "button";
+
+            if (keybinding_toggle_recording_button.active) {
+                keybinding_toggle_recording_button.label = _ ("Press keys…");
+            } else {
+                keybinding_toggle_recording_button.label = _ ("Change");
+            }
         });
 
         keybinding_toggle_recording_button.toggled.connect (() => {
