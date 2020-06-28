@@ -48,12 +48,12 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
     }
 
-    public ActionRow (string name, string icon, string item_base_name, string tooltip_text) {
+    public ActionRow (string name, string icon, string item_base_name, string[]? accels) {
         Object (
             item_name: name,
             icon_name: icon,
             item_base_name: item_base_name,
-            tooltip_text: tooltip_text
+            tooltip_markup: Granite.markup_accel_tooltip (accels, name)
         );
     }
 
@@ -62,6 +62,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         margin_bottom = 3;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("action-row");
+
 
         icon = new Gtk.Image ();
         icon.halign = Gtk.Align.CENTER;

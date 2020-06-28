@@ -419,6 +419,28 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_stack.vhomogeneous = false;
         note_stack.add_named (note_eventbox, "label");
         note_stack.add_named (note_textview, "textview");
+        Gtk.drag_dest_set (note_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES_CHECK, Gdk.DragAction.MOVE);
+        note_stack.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
+            Widgets.CheckRow source;
+
+            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+            source = (Widgets.CheckRow) row;
+
+            if (source.item.parent_id != item.id) {
+                source.item.parent_id = item.id;
+
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.move_item_to_parent (source.item, item.id);
+                }
+            }
+
+            source.get_parent ().remove (source);
+
+            check_listbox.insert (source, 0);
+            check_listbox.show_all ();
+
+            update_check_order ();
+        });
 
         // Checklist ListBox
         check_listbox = new Gtk.ListBox ();

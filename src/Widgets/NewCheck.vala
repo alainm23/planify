@@ -105,7 +105,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
         name_entry.focus_out_event.connect (() => {
             if (name_entry.text != "") {
-                insert_item ();
+                // insert_item ();
                 // reveal_child = false;
             } else {
                 name_entry.text = "";
@@ -152,7 +152,6 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
             if (is_todoist == 0) {
                 item.id = Planner.utils.generate_id ();
-
                 if (Planner.database.insert_item (item)) {
                     name_entry.text = "";
                 }

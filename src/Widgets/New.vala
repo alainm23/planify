@@ -165,7 +165,6 @@ public class Widgets.New : Gtk.Revealer {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.tooltip_markup = Granite.markup_accel_tooltip ({"Esc"}, _("Close"));
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
@@ -517,7 +516,6 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("menuitem");
 
         var cancel_button = new Gtk.Button.with_label (_("Close"));
-        cancel_button.tooltip_markup = Granite.markup_accel_tooltip ({"Esc"}, _("Close"));
         cancel_button.get_style_context ().add_class ("planner-button");
         cancel_button.margin = 3;
         cancel_button.hexpand = true;
