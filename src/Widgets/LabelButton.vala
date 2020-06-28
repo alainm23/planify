@@ -22,7 +22,8 @@
 public class Widgets.LabelButton : Gtk.ToggleButton {
     public int64 item_id { get; construct; }
 
-    private Gtk.Image placeholder_image;
+    private Gtk.Image label_icon;
+    private Gtk.Image placeholder_image;    
     private Gtk.Label placeholder_label;
     private Gtk.Label subtitle_label;
     private Gtk.Popover popover = null;
@@ -41,10 +42,10 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
 
-        var label_icon = new Gtk.Image ();
+        label_icon = new Gtk.Image ();
         label_icon.valign = Gtk.Align.CENTER;
-        label_icon.gicon = new ThemedIcon ("tag-new-symbolic");
-        label_icon.pixel_size = 13;
+        label_icon.pixel_size = 16;
+        check_icon_style ();
 
         var label = new Gtk.Label (_("labels"));
         label.get_style_context ().add_class ("pane-item");
@@ -94,6 +95,20 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 label_entry.grab_focus ();
             }
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                check_icon_style ();
+            }
+        });
+    }
+
+    private void check_icon_style () {
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            label_icon.gicon = new ThemedIcon ("pricetag-outline-light");
+        } else {
+            label_icon.gicon = new ThemedIcon ("pricetag-outline-dark");
+        }
     }
 
     private void create_popover () {

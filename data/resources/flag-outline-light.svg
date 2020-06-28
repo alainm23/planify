@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="flag-outline.svg"
+   id="svg6"
+   version="1.1"
+   viewBox="0 0 16 16"
+   height="16"
+   width="16">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ionicons-v5-m</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg6"
+     inkscape:window-maximized="1"
+     inkscape:window-y="30"
+     inkscape:window-x="0"
+     inkscape:cy="8"
+     inkscape:cx="8"
+     inkscape:zoom="32.9375"
+     showgrid="false"
+     id="namedview8"
+     inkscape:window-height="705"
+     inkscape:window-width="1366"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <title
+     id="title2">ionicons-v5-m</title>
+  <path
+     id="path4"
+     style="fill:none;stroke:#666666;stroke-width:1px;stroke-linecap:round;stroke-miterlimit:10;stroke-opacity:1"
+     d="M 2.500005,14.5 V 2.129375 a 0.25,0.25 0 0 1 0.125,-0.215625 C 2.869068,1.770625 3.528755,1.5 5.000005,1.5 c 2,0 4.53125,1.5 6,1.5 a 6.2353126,6.2353126 0 0 0 2.413438,-0.492812 0.0625,0.0625 0 0 1 0.08656,0.05781 v 6.855 a 0.125,0.125 0 0 1 -0.07469,0.114062 c -0.2575,0.112813 -1.165,0.465938 -2.425313,0.465938 -1.5,0 -4,-1 -6,-1 -2,0 -2.5,0.5 -2.5,0.5" />
+</svg>

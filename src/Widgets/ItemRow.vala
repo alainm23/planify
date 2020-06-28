@@ -30,6 +30,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer label_revealer;
     private Gtk.Revealer entry_revealer;
 
+    private Gtk.Image menu_image;
+    private Gtk.Image checklist_icon;
+    private Gtk.Image reminder_preview_image;
+    private Gtk.Image checklist_preview_image;
     private Gtk.Box top_box;
     private Widgets.TextView note_textview;
     private Gtk.Label note_label;
@@ -247,9 +251,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         project_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         project_preview_revealer.add (project_preview_grid);
 
-        //  duedate_preview_image = new Gtk.Image ();
-        //  duedate_preview_image.valign = Gtk.Align.CENTER;
-
         duedate_preview_label = new Gtk.Label (null);
         duedate_preview_label.use_markup = true;
 
@@ -290,9 +291,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Reminder
         reminder = Planner.database.get_first_reminders_by_item (item.id);
 
-        var reminder_preview_image = new Gtk.Image ();
-        reminder_preview_image.gicon = new ThemedIcon ("notification-symbolic");
-        reminder_preview_image.pixel_size = 11;
+        reminder_preview_image = new Gtk.Image ();
+        reminder_preview_image.pixel_size = 12;
         reminder_preview_image.valign = Gtk.Align.END;
         reminder_preview_image.margin_bottom = 1;
 
@@ -312,9 +312,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reminder_preview_revealer.add (reminder_preview_grid);
 
         // Checklist
-        var checklist_preview_image = new Gtk.Image ();
-        checklist_preview_image.gicon = new ThemedIcon ("emblem-default-symbolic");
-        checklist_preview_image.pixel_size = 11;
+        checklist_preview_image = new Gtk.Image ();
+        checklist_preview_image.pixel_size = 12;
         checklist_preview_image.valign = Gtk.Align.END;
         checklist_preview_image.margin_bottom = 1;
 
@@ -462,9 +461,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         var label_button = new Widgets.LabelButton (item.id);
 
-        var checklist_icon = new Gtk.Image ();
-        checklist_icon.gicon = new ThemedIcon ("emblem-default-symbolic");
-        checklist_icon.pixel_size = 13;
+        checklist_icon = new Gtk.Image ();
+        checklist_icon.pixel_size = 16;
 
         var checklist_button = new Gtk.Button ();
         checklist_button.image = checklist_icon;
@@ -479,10 +477,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_button.get_style_context ().add_class ("flat");
         delete_button.get_style_context ().add_class ("item-action-button");
         delete_button.get_style_context ().add_class ("menu-danger");
-
-        var menu_image = new Gtk.Image ();
+        
+        menu_image = new Gtk.Image ();
         menu_image.gicon = new ThemedIcon ("view-more-symbolic");
-        menu_image.pixel_size = 11;
+        menu_image.pixel_size = 16;
+        check_icon_style ();
 
         var menu_button = new Gtk.Button ();
         menu_button.image = menu_image;
@@ -574,6 +573,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         add_all_checks ();
         add_all_labels ();
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                check_icon_style ();
+            }
+        });
 
         checklist_button.clicked.connect (() => {
             new_checklist.reveal_child = true;
@@ -1230,6 +1235,20 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
 
         check_preview_box ();
+    }
+
+    private void check_icon_style () {
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            checklist_icon.gicon = new ThemedIcon ("add-circle-outline-light");
+            menu_image.gicon = new ThemedIcon ("ellipsis-vertical-outline-light");
+            reminder_preview_image.gicon = new ThemedIcon ("notifications-outline-light");
+            checklist_preview_image.gicon = new ThemedIcon ("checkmark-circle-outline-light");
+        } else {
+            checklist_icon.gicon = new ThemedIcon ("add-circle-outline-dark");
+            menu_image.gicon = new ThemedIcon ("ellipsis-vertical-outline-dark");
+            reminder_preview_image.gicon = new ThemedIcon ("notifications-outline-dark");
+            checklist_preview_image.gicon = new ThemedIcon ("checkmark-circle-outline-dark");
+        }
     }
 
     private void activate_menu (bool visible=true) {

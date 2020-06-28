@@ -1023,12 +1023,12 @@ public class Utils : GLib.Object {
 
     public void parse_item_tags (Objects.Item item, string text) {
         var clean_text = "";
-        Regex wordRegex = /\S+\s*/;
-        MatchInfo matchInfo;
+        Regex word_regex = /\S+\s*/;
+        MatchInfo match_info;
         
-        var matchText = text. strip ();
-        for (wordRegex.match (matchText, 0, out matchInfo) ; matchInfo.matches () ; matchInfo.next ()) {
-            var word = matchInfo.fetch (0);
+        var match_text = text. strip ();
+        for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
+            var word = match_info.fetch (0);
             var stripped =    word.strip ().down ();
 
             switch (stripped) {

@@ -213,7 +213,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var settings_button = new Gtk.Button ();
         settings_button.margin_end = 1;
         settings_button.can_focus = false;
-        settings_button.tooltip_text = _("Preferences");
+        settings_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>s"}, _("Preferences"));
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.halign = Gtk.Align.CENTER;
         settings_button.get_style_context ().add_class ("settings-button");
@@ -469,7 +469,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var available = GLib.NetworkMonitor.get_default ().get_network_available ();
 
         if (available) {
-            sync_button.tooltip_text = _("Sync");
+            sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
             sync_button.image = sync_image;
         } else {
             sync_button.image = error_image;

@@ -23,6 +23,7 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
     public Objects.Item item { get; construct; }
     private Gtk.Popover popover = null;
     private Gtk.Image priority_image;
+    private Widgets.ModelButton priority_4_menu;
 
     public PriorityButton (Objects.Item item) {
         Object (
@@ -37,8 +38,7 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
         get_style_context ().add_class ("item-action-button");
 
         priority_image = new Gtk.Image ();
-        priority_image.gicon = new ThemedIcon ("priority-symbolic");
-        priority_image.pixel_size = 13;
+        priority_image.pixel_size = 16;
 
         add (priority_image);
 
@@ -48,27 +48,34 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
                     create_popover ();
                 }
 
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    priority_4_menu.item_image.gicon = new ThemedIcon ("flag-outline-light");
+                } else {
+                    priority_4_menu.item_image.gicon = new ThemedIcon ("flag-outline-dark");
+                }
+                
                 popover.popup ();
             }
         });
 
         update_icon (item);
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                update_icon (item);
+            }
+        });
     }
 
     public void update_icon (Objects.Item item) {
-        priority_image.get_style_context ().remove_class ("priority-1-icon");
-        priority_image.get_style_context ().remove_class ("priority-2-icon");
-        priority_image.get_style_context ().remove_class ("priority-3-icon");
-        priority_image.get_style_context ().remove_class ("priority-4-icon");
-
-        if (item.priority == 1) {
-            priority_image.get_style_context ().add_class ("priority-4-icon");
-        } else if (item.priority == 2) {
-            priority_image.get_style_context ().add_class ("priority-3-icon");
-        } else if (item.priority == 3) {
-            priority_image.get_style_context ().add_class ("priority-2-icon");
-        } else if (item.priority == 4) {
-            priority_image.get_style_context ().add_class ("priority-1-icon");
+        if (item.priority == 1 || item.priority == 0) {
+            if (Planner.settings.get_enum ("appearance") == 0) {
+                priority_image.gicon = new ThemedIcon ("flag-outline-light");
+            } else {
+                priority_image.gicon = new ThemedIcon ("flag-outline-dark");
+            }
+        } else {
+            priority_image.gicon = new ThemedIcon ("priority-%i".printf (item.priority));
         }
     }
 
@@ -88,17 +95,10 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
         popover.position = Gtk.PositionType.BOTTOM;
         popover.get_style_context ().add_class ("popover-background");
 
-        var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-symbolic", "");
-        priority_1_menu.item_image.get_style_context ().add_class ("priority-1-icon");
-
-        var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-symbolic", "");
-        priority_2_menu.item_image.get_style_context ().add_class ("priority-2-icon");
-        
-        var priority_3_menu = new Widgets.ModelButton (_("Priority 3"), "priority-symbolic", "");
-        priority_3_menu.item_image.get_style_context ().add_class ("priority-3-icon");
-
-        var priority_4_menu = new Widgets.ModelButton (_("Priority 4"), "priority-symbolic", "");
-        priority_4_menu.item_image.get_style_context ().add_class ("priority-4-icon");
+        var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-4", "");
+        var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-3", "");
+        var priority_3_menu = new Widgets.ModelButton (_("Priority 3"), "priority-2", "");
+        priority_4_menu = new Widgets.ModelButton (_("Priority 4"), "flag-outline-light", "");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;

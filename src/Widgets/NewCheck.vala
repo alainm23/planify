@@ -105,8 +105,8 @@ public class Widgets.NewCheck : Gtk.EventBox {
 
         name_entry.focus_out_event.connect (() => {
             if (name_entry.text != "") {
-                //insert_item ();
-                //reveal_child = false;
+                insert_item ();
+                // reveal_child = false;
             } else {
                 name_entry.text = "";
                 reveal_child = false;

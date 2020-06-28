@@ -58,10 +58,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
-        due_image.pixel_size = 13;
+        due_image.pixel_size = 16;
         due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
-        due_label = new Gtk.Label ("<small>%s</small>".printf (_("Schedule")));
+        due_label = new Gtk.Label (_("Schedule"));
         due_label.use_markup = true;
 
         label_revealer = new Gtk.Revealer ();
@@ -127,10 +127,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     public void update_date_text (Objects.Item item) {
-        due_label.label = "<small>%s</small>".printf (_("Schedule"));
-        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+        due_label.label = _("Schedule");
+        due_image.gicon = new ThemedIcon ("calendar-outline-light");
 
-        due_image.get_style_context ().remove_class ("overdue");
+        due_image.get_style_context ().remove_class ("overdue-label");
         due_image.get_style_context ().remove_class ("today");
         due_image.get_style_context ().remove_class ("upcoming");
 
@@ -140,17 +140,17 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            due_label.label = "<small>%s</small>".printf (Planner.utils.get_relative_date_from_date (date));
-            due_label.get_style_context ().add_class ("font-weight-600");    
+            due_label.label = "%s".printf (Planner.utils.get_relative_date_from_date (date));
+            // due_label.get_style_context ().add_class ("font-weight-600");    
 
             if (Planner.utils.is_today (date)) {
                 due_image.gicon = new ThemedIcon ("help-about-symbolic");
                 due_image.get_style_context ().add_class ("today");
             } else if (Planner.utils.is_overdue (date)) {
-                due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
-                due_image.get_style_context ().add_class ("overdue");
+                due_image.gicon = new ThemedIcon ("calendar-outline-light");
+                due_image.get_style_context ().add_class ("overdue-label");
             } else {
-                due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                due_image.gicon = new ThemedIcon ("calendar-outline-light");
                 due_image.get_style_context ().add_class ("upcoming");
             }
 

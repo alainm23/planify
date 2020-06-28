@@ -709,16 +709,19 @@ public class SearchItem : Gtk.ListBoxRow {
             icon.halign = Gtk.Align.CENTER;
             icon.valign = Gtk.Align.CENTER;
             icon.pixel_size = 16;
-            icon.gicon = new ThemedIcon ("priority-symbolic");
 
             if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
-                icon.get_style_context ().add_class ("priority-4-icon");
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    icon.gicon = new ThemedIcon ("flag-outline-light");
+                } else {
+                    icon.gicon = new ThemedIcon ("flag-outline-dark");
+                }
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
-                icon.get_style_context ().add_class ("priority-3-icon");
+                icon.gicon = new ThemedIcon ("priority-2");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
-                icon.get_style_context ().add_class ("priority-2-icon");
+                icon.gicon = new ThemedIcon ("priority-3");
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 4) {
-                icon.get_style_context ().add_class ("priority-1-icon");
+                icon.gicon = new ThemedIcon ("priority-4");
             }
 
             var content_label = new Gtk.Label (

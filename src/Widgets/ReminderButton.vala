@@ -22,6 +22,7 @@
 public class Widgets.ReminderButton : Gtk.ToggleButton {
     public Objects.Item item { get; construct; }
 
+    private Gtk.Image reminder_image;
     private Gtk.Popover popover = null;
     private Gtk.Stack stack;
     private Gtk.Label reminder_label;
@@ -44,14 +45,12 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
 
-        var reminder_image = new Gtk.Image ();
+        reminder_image = new Gtk.Image ();
         reminder_image.valign = Gtk.Align.CENTER;
-        reminder_image.gicon = new ThemedIcon ("notification-symbolic");
-        reminder_image.pixel_size = 13;
+        reminder_image.pixel_size = 16;
+        check_icon_style ();
 
         reminder_label = new Gtk.Label (null);
-        reminder_label.margin_bottom = 1;
-        reminder_label.get_style_context ().add_class ("font-bold");
         reminder_label.use_markup = true;
 
         label_revealer = new Gtk.Revealer ();
@@ -88,11 +87,25 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
                 check_reminder_label (first_reminder);
             }
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                check_icon_style ();
+            }
+        });
+    }
+
+    private void check_icon_style () {
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            reminder_image.gicon = new ThemedIcon ("notifications-outline-light");
+        } else {
+            reminder_image.gicon = new ThemedIcon ("notifications-outline-dark");
+        }
     }
 
     public void check_reminder_label (Objects.Reminder? first_reminder) {
         if (first_reminder != null) {
-            reminder_label.label = "<small>%s %s</small>".printf (
+            reminder_label.label = "%s %s".printf (
                 Planner.utils.get_relative_date_from_string (first_reminder.due_date),
                 Planner.utils.get_relative_time_from_string (first_reminder.due_date)
             );

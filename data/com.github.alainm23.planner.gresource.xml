@@ -9,7 +9,6 @@
     <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
     <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
     <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
-    <file alias="planner-calendar-symbolic.svg">resources/planner-calendar-symbolic.svg</file>
     <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
     <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
     <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
@@ -20,9 +19,29 @@
     <file alias="folder-outline.svg">resources/folder-outline.svg</file>
     <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
     <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
-    <file alias="planner-repeat-symbolic.svg">resources/planner-repeat-symbolic.svg</file>
-    <file alias="priority-symbolic.svg">resources/priority-symbolic.svg</file>
-    
+
+    <file alias="notifications-outline-light.svg">resources/notifications-outline-light.svg</file>
+    <file alias="notifications-outline-dark.svg">resources/notifications-outline-dark.svg</file>
+    <file alias="pricetag-outline-light.svg">resources/pricetag-outline-light.svg</file>
+    <file alias="pricetag-outline-dark.svg">resources/pricetag-outline-dark.svg</file>
+    <file alias="ellipsis-vertical-outline-light.svg">resources/ellipsis-vertical-outline-light.svg</file>
+    <file alias="ellipsis-vertical-outline-dark.svg">resources/ellipsis-vertical-outline-dark.svg</file>
+    <file alias="flag-outline-light.svg">resources/flag-outline-light.svg</file>
+    <file alias="flag-outline-dark.svg">resources/flag-outline-dark.svg</file>
+    <file alias="list-outline-light.svg">resources/list-outline-light.svg</file>
+    <file alias="list-outline-dark.svg">resources/list-outline-dark.svg</file>
+    <file alias="add-circle-outline-light.svg">resources/add-circle-outline-light.svg</file>
+    <file alias="add-circle-outline-dark.svg">resources/add-circle-outline-dark.svg</file>
+    <file alias="calendar-outline-light.svg">resources/calendar-outline-light.svg</file>
+    <file alias="calendar-outline-dark.svg">resources/calendar-outline-dark.svg</file>
+    <file alias="checkmark-circle-outline-light.svg">resources/checkmark-circle-outline-light.svg</file>
+    <file alias="checkmark-circle-outline-dark.svg">resources/checkmark-circle-outline-dark.svg</file>
+
+
+    <file alias="priority-4.svg">resources/priority-4.svg</file>
+    <file alias="priority-3.svg">resources/priority-3.svg</file>
+    <file alias="priority-2.svg">resources/priority-2.svg</file>
+
     <file alias="color-30.svg">resources/colors/color-30.svg</file>
     <file alias="color-31.svg">resources/colors/color-31.svg</file>
     <file alias="color-32.svg">resources/colors/color-32.svg</file>
