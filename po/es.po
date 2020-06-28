@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-09 19:41+0000\n"
-"Last-Translator: Daniel <riesp@pm.me>\n"
+"PO-Revision-Date: 2020-06-28 23:18+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -691,7 +691,7 @@ msgstr "Sección eliminada"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr ""
+msgstr "Programar"
 
 #: src/Widgets/DueButton.vala:213
 msgid "Repeat"
@@ -724,15 +724,16 @@ msgid "labels"
 msgstr "etiquetas"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
-msgstr "Etiquetas"
+msgstr "Uso de las etiquetas"
 
 #: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Categorice sus pendientes con etiquetas y utilícelas para filtrar sus listas "
+"y mantener la concentración."
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -749,7 +750,7 @@ msgstr "Añadir etiqueta"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
-msgstr ""
+msgstr "No se encontró la etiqueta"
 
 #: src/Widgets/LabelButton.vala:237
 #, c-format
@@ -791,7 +792,7 @@ msgstr "Nombre de subtarea"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Quitar"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -808,6 +809,7 @@ msgstr "Añadir recordatorio"
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"¡No vuelva a olvidar una tarea! Haga que Planner le envíe un recordatorio."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -904,11 +906,11 @@ msgstr "Mostrar completadas"
 
 #: src/Views/Today.vala:92
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasada"
 
 #: src/Views/Today.vala:108
 msgid "Reschedule"
-msgstr ""
+msgstr "Reprogramar"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
