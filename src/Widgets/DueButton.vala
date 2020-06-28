@@ -59,7 +59,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_image = new Gtk.Image ();
         due_image.valign = Gtk.Align.CENTER;
         due_image.pixel_size = 16;
-        due_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
 
         due_label = new Gtk.Label (_("Schedule"));
         due_label.use_markup = true;
@@ -124,6 +123,11 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         });
 
         update_date_text (item);
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                update_date_text (item);
+            }
+        });
     }
 
     public void update_date_text (Objects.Item item) {
@@ -134,23 +138,25 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_image.get_style_context ().remove_class ("today");
         due_image.get_style_context ().remove_class ("upcoming");
 
-        due_label.get_style_context ().remove_class ("font-weight-600");
-
         repeat_revealer.reveal_child = false;
 
         if (item.due_date != "") {
             var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
             due_label.label = "%s".printf (Planner.utils.get_relative_date_from_date (date));
-            // due_label.get_style_context ().add_class ("font-weight-600");    
 
             if (Planner.utils.is_today (date)) {
                 due_image.gicon = new ThemedIcon ("help-about-symbolic");
                 due_image.get_style_context ().add_class ("today");
             } else if (Planner.utils.is_overdue (date)) {
-                due_image.gicon = new ThemedIcon ("calendar-outline-light");
+                due_image.gicon = new ThemedIcon ("calendar-overdue");
                 due_image.get_style_context ().add_class ("overdue-label");
             } else {
-                due_image.gicon = new ThemedIcon ("calendar-outline-light");
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    due_image.gicon = new ThemedIcon ("calendar-outline-light");
+                } else {
+                    due_image.gicon = new ThemedIcon ("calendar-outline-dark");
+                }
+
                 due_image.get_style_context ().add_class ("upcoming");
             }
 

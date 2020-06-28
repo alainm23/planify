@@ -49,7 +49,7 @@ public class Dialogs.ReleaseDialog : Gtk.Dialog {
         var date = new DateTime.local (
             2020,
             06,
-            18, 0, 0, 0);
+            28, 0, 0, 0);
         var date_label = new Gtk.Label (Planner.utils.get_default_date_format_from_date (date));
         date_label.halign = Gtk.Align.START;
         date_label.use_markup = true;
@@ -92,21 +92,10 @@ public class Dialogs.ReleaseDialog : Gtk.Dialog {
         footer_grid.add (report_button);
 
         var release_info = new Widgets.TextView (); 
-        release_info.buffer.text = _("""What's new in v2.4
-Over the the past few months we’ve been working on Planner 2.4, a big update with great new features. Priorities, calendar events, Quick Add for all platforms and more.
-
-✓ Priority support: You can give your tasks one of four priority levels – 1 being the most important (marked as red) and 4 being everything else (no color).
-
-✓ Quick Add Improvements: Quick Add came to Plane a long time ago but unfortunately it only works on elementary OS. Thanks to Nils Asmussen and Bilal Elmoussaoui it works in Flatpak.
-⚠️ To make this possible we had to make some changes in flatpak and it's possible that the synchronization with Todoist doesn't work, to solve this you can re-login to your Todoist account from the preferences.
-
-✓ Project Deadline: Assign a deadline to your projects
-✓ Links Everywhere: The app now handles links consistently in all places: inside the title, inside notes, and inside checklist items.
-✓ Quick Find Improvements: The design and performance were also improved by making the searches faster.
-✓ Welcome Dark Blue & Arc Dark.
-✓ Keyboard Shortcuts Improvements: New and improved keyboard shortcuts.
-✓ Today & Upcoming Improvements: Reorder or reschedule your tasks more quickly.
-✓ Calendar events: View your calendar events correctly on all platforms. """);
+        release_info.buffer.text = _("""General bug fixes and improvements.
+✓ Login failed with Todoist fixed
+✓ Design improvement in task details.
+✓ New and better designed icons.""");
         release_info.pixels_below_lines = 3;
         release_info.border_width = 12;
         release_info.wrap_mode = Gtk.WrapMode.WORD;

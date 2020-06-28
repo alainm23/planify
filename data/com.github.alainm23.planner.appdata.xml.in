@@ -46,6 +46,26 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.4.3" date="2020-06-28">
+      <description>
+        <p>General bug fixes and improvements.</p>
+        <ul>
+          <li>Login failed with Todoist fixed</li>
+          <li>Design improvement in task details.</li>
+          <li>New and better designed icons.</li>
+        </ul>
+        <p>Special thanks to 'Eddie Vassallo' for becoming our new Gold Tier Patrons and supporting the development of Planner.</p>
+        <p>Special thanks to 'Robert Zelník' for becoming our new silver tier patrons and supporting the development of Planner.</p>
+        <p>🌟️ Thank you to our silver members for supporting the development of Planner. 🌟️</p>
+        <ul>
+          <li>Cal</li>
+          <li>I Sutter</li>
+          <li>The Linux Experiment</li>
+          <li>Wout</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.4.2" date="2020-06-22">
       <description>
         <p>What's new in v2.4</p>

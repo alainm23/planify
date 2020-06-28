@@ -36,7 +36,7 @@
     <file alias="calendar-outline-dark.svg">resources/calendar-outline-dark.svg</file>
     <file alias="checkmark-circle-outline-light.svg">resources/checkmark-circle-outline-light.svg</file>
     <file alias="checkmark-circle-outline-dark.svg">resources/checkmark-circle-outline-dark.svg</file>
-
+    <file alias="calendar-overdue.svg">resources/calendar-overdue.svg</file>
 
     <file alias="priority-4.svg">resources/priority-4.svg</file>
     <file alias="priority-3.svg">resources/priority-3.svg</file>

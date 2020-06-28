@@ -463,7 +463,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var info_box = new Dialogs.Preferences.TopBox ("night-light", _("Quick Add"));
 
         var description_label = new Gtk.Label (
-            _("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work.") // vala-lint=line-length
+            _("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work. You can change the keyboard shortcut whenever you want.") // vala-lint=line-length
         );
         description_label.margin = 6;
         description_label.margin_bottom = 6;
@@ -507,22 +507,30 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         shortcut_v_box.get_style_context ().add_class ("preferences-view");
         shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         shortcut_v_box.add (shortcut_box);
-        //shortcut_v_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var shortcut_eventbox = new Gtk.EventBox ();
         shortcut_eventbox.add (shortcut_v_box);
+
+        var change_button = new Gtk.Button.with_label (_("Change Keyboard Shortcut"));
+        change_button.can_focus = false;
+        change_button.get_style_context ().add_class ("flat");
+        change_button.get_style_context ().add_class ("no-padding");
+        change_button.get_style_context ().add_class ("inbox");
+        change_button.halign = Gtk.Align.END;
 
         var save_last_switch = new Dialogs.Preferences.ItemSwitch (
             _("Save Last Selected Project"),
             Planner.settings.get_boolean ("quick-add-save-last-project")
         );
-        //save_last_switch.margin_top = 6;
+        save_last_switch.margin_top = 6;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (shortcut_eventbox, false, false, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (change_button, false, false, 0);
         main_box.pack_start (save_last_switch, false, false, 0);
 
         shortcut_eventbox.enter_notify_event.connect ((event) => {

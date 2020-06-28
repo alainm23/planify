@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="calendar-overdue.svg"
+   id="svg30"
+   version="1.1"
+   viewBox="0 0 16 16"
+   height="16"
+   width="16">
+  <metadata
+     id="metadata36">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>ionicons-v5-e</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs34" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg30"
+     inkscape:window-maximized="1"
+     inkscape:window-y="30"
+     inkscape:window-x="0"
+     inkscape:cy="8"
+     inkscape:cx="7.9240987"
+     inkscape:zoom="32.9375"
+     showgrid="false"
+     id="namedview32"
+     inkscape:window-height="705"
+     inkscape:window-width="1366"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
+  <title
+     id="title2">ionicons-v5-e</title>
+  <rect
+     id="rect4"
+     style="fill:none;stroke:#fa1955;stroke-width:1px;stroke-linejoin:round;stroke-opacity:1"
+     ry="1.5"
+     rx="1.5"
+     height="12"
+     width="13"
+     y="2.5"
+     x="1.5" />
+  <path
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="path6"
+     d="M 12.431875,2.5 H 3.568125 C 2.427813,2.5 1.5,3.442188 1.5,4.6 V 6.5 H 2 C 2,6 2.5,5.5 3,5.5 h 10 c 0.5,0 1,0.5 1,1 h 0.5 V 4.6 c 0,-1.157812 -0.927813,-2.1 -2.068125,-2.1 z" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle8"
+     r="0.75"
+     cy="7.25"
+     cx="9.25" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle10"
+     r="0.75"
+     cy="7.25"
+     cx="11.75" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle12"
+     r="0.75"
+     cy="9.75"
+     cx="9.25" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle14"
+     r="0.75"
+     cy="9.75"
+     cx="11.75" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle16"
+     r="0.75"
+     cy="9.75"
+     cx="4.25" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle18"
+     r="0.75"
+     cy="9.75"
+     cx="6.75" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle20"
+     r="0.75"
+     cy="12.25"
+     cx="4.25" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle22"
+     r="0.75"
+     cy="12.25"
+     cx="6.75" />
+  <circle
+     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
+     id="circle24"
+     r="0.75"
+     cy="12.25"
+     cx="9.25" />
+  <line
+     id="line26"
+     style="fill:none;stroke:#fa1955;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     y2="2.5"
+     x2="4"
+     y1="1.5"
+     x1="4" />
+  <line
+     id="line28"
+     style="fill:none;fill-opacity:1;stroke:#fa1955;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     y2="2.5"
+     x2="12"
+     y1="1.5"
+     x1="12" />
+</svg>
