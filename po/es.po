@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
 "PO-Revision-Date: 2020-06-29 00:03+0000\n"
-"Last-Translator: Matias Bella <matias.bella@hotmail.com>\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -937,9 +937,8 @@ msgid "Tap + to add a task to this project."
 msgstr "Toque + para añadir una tarea."
 
 #: src/Views/Project.vala:1257
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Productividad"
+msgstr "Su productividad"
 
 #: src/Views/Project.vala:1262
 msgid "Progress:"
@@ -965,11 +964,11 @@ msgstr "Conéctese a internet para conectarse con Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:103
 msgid "Synchronizing… Wait a moment please."
-msgstr "Sincronizando… Por favor, espere un momento."
+msgstr "Sincronizando… Aguarde un momento."
 
 #: src/Dialogs/TodoistOAuth.vala:114
 msgid "Please enter your credentials…"
-msgstr "Por favor, introduzca sus credenciales…"
+msgstr "Proporcione sus datos de acceso…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
