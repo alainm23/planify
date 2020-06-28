@@ -213,7 +213,7 @@ public class Widgets.Pane : Gtk.EventBox {
         var settings_button = new Gtk.Button ();
         settings_button.margin_end = 1;
         settings_button.can_focus = false;
-        settings_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>s"}, _("Preferences"));
+        settings_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>,"}, _("Preferences"));
         settings_button.valign = Gtk.Align.CENTER;
         settings_button.halign = Gtk.Align.CENTER;
         settings_button.get_style_context ().add_class ("settings-button");

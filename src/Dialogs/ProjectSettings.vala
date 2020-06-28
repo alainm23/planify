@@ -154,7 +154,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.show_all ();
 
         get_content_area ().add (grid);
-
         add_button (_("Close"), Gtk.ResponseType.CLOSE);
 
         var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);

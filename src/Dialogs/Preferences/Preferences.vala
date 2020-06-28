@@ -32,7 +32,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Object (
             view: view,
             transient_for: Planner.instance.main_window,
-            deletable: true,
+            deletable: false,
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -74,6 +74,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var content_area = get_content_area ();
         content_area.border_width = 0;
         content_area.add (stack_scrolled);
+
+        add_button (_("Close"), Gtk.ResponseType.CLOSE);
         
         Planner.utils.init_labels_color ();
 
