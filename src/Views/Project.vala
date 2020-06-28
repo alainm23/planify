@@ -158,7 +158,7 @@ public class Views.Project : Gtk.EventBox {
         section_button = new Gtk.ToggleButton ();
         section_button.valign = Gtk.Align.CENTER;
         section_button.halign = Gtk.Align.CENTER;
-        section_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl><Shift>S"}, _("Add Section"));
+        section_button.tooltip_markup = Granite.markup_accel_tooltip ({"s"}, _("Add Section"));
         section_button.can_focus = false;
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);

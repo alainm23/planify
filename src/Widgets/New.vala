@@ -165,6 +165,7 @@ public class Widgets.New : Gtk.Revealer {
         submit_button.add (submit_stack);
 
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.tooltip_markup = Granite.markup_accel_tooltip ({"Esc"}, _("Close"));
         cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
@@ -478,6 +479,7 @@ public class Widgets.New : Gtk.Revealer {
         project_button = new Gtk.Button ();
         project_button.margin_top = 6;
         project_button.add (project_grid);
+        project_button.tooltip_markup = Granite.markup_accel_tooltip ({"p"}, _("Add Project"));
         project_button.get_style_context ().add_class ("fancy-turn-animation");
         project_button.get_style_context ().remove_class ("button");
         project_button.get_style_context ().add_class ("flat");
@@ -508,12 +510,14 @@ public class Widgets.New : Gtk.Revealer {
 
         area_button = new Gtk.Button ();
         area_button.add (area_grid);
+        area_button.tooltip_markup = Granite.markup_accel_tooltip ({"f"}, _("Add Folder"));
         area_button.get_style_context ().add_class ("fancy-turn-animation");
         area_button.get_style_context ().remove_class ("button");
         area_button.get_style_context ().add_class ("flat");
         area_button.get_style_context ().add_class ("menuitem");
 
         var cancel_button = new Gtk.Button.with_label (_("Close"));
+        cancel_button.tooltip_markup = Granite.markup_accel_tooltip ({"Esc"}, _("Close"));
         cancel_button.get_style_context ().add_class ("planner-button");
         cancel_button.margin = 3;
         cancel_button.hexpand = true;
