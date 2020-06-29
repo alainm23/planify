@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-04-13 09:11+0000\n"
+"PO-Revision-Date: 2020-06-29 00:03+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
@@ -17,21 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
-msgstr ""
+msgstr "Planificador"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Avui"
+msgstr "avui"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Demà"
+msgstr "demà"
 
 #: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -111,7 +109,7 @@ msgstr "Violat"
 
 #: src/Utils.vala:212
 msgid "Lavander"
-msgstr ""
+msgstr "Lavanda"
 
 #: src/Utils.vala:213
 msgid "Magenta"
@@ -127,11 +125,11 @@ msgstr "Carbó"
 
 #: src/Utils.vala:216
 msgid "Grey"
-msgstr ""
+msgstr "Gris"
 
 #: src/Utils.vala:217
 msgid "Taupe"
-msgstr ""
+msgstr "Taup"
 
 #. vala-lint=line-length
 #: src/Utils.vala:578 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1388
@@ -166,10 +164,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Aquest projecte us ajudarà a aprendre els conceptes bàsics del Planner i a "
+"començar amb un sistema simple de gestió de tasques per a mantenir-vos "
+"organitzat i en control de tot el que teniu a fer."
 
 #: src/Utils.vala:865
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "Estigueu al dia de les vostres tasques"
 
 #: src/Utils.vala:866
 msgid ""
@@ -197,7 +198,7 @@ msgstr ""
 
 #: src/Utils.vala:878
 msgid "Due dates"
-msgstr ""
+msgstr "Dates límit"
 
 #: src/Utils.vala:879
 msgid ""

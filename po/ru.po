@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-14 14:41+0000\n"
+"PO-Revision-Date: 2020-06-29 00:03+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -908,9 +908,8 @@ msgid "Overdue"
 msgstr "Просрочено"
 
 #: src/Views/Today.vala:108
-#, fuzzy
 msgid "Reschedule"
-msgstr "Расписание"
+msgstr "Перепланировать"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -934,16 +933,14 @@ msgid "Tap + to add a task to this project."
 msgstr "Нажмите \"+\", чтобы добавить задачу в этот проект."
 
 #: src/Views/Project.vala:1257
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Продуктивность"
+msgstr "Ваша продуктивность"
 
 #: src/Views/Project.vala:1262
 msgid "Progress:"
 msgstr "Прогресс:"
 
 #: src/Views/Project.vala:1273
-#, fuzzy
 msgid "Duedate:"
 msgstr "Срок выполнения:"
 
@@ -970,7 +967,7 @@ msgstr "Пожалуйста, введите ваши данные…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Срок выполнения:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"

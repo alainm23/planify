@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-21 09:41+0000\n"
+"PO-Revision-Date: 2020-06-29 00:03+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -905,9 +905,8 @@ msgid "Overdue"
 msgstr "Прострочено"
 
 #: src/Views/Today.vala:108
-#, fuzzy
 msgid "Reschedule"
-msgstr "Графік"
+msgstr "Змінити розклад"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -931,9 +930,8 @@ msgid "Tap + to add a task to this project."
 msgstr "Натисніть +, щоби додати завдання до цього проєкту."
 
 #: src/Views/Project.vala:1257
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Продуктивність"
+msgstr "Ваша продуктивність"
 
 #: src/Views/Project.vala:1262
 msgid "Progress:"
@@ -966,7 +964,7 @@ msgstr "Будь ласка, введіть ваші облікові дані�
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Термін:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1079,7 +1077,6 @@ msgid "Arc Dark"
 msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1087,7 +1084,8 @@ msgid ""
 msgstr ""
 "Не хвилюйтеся про те, яким застосунком ви користуєтеся у цю мить. Ви можете "
 "відкрити вікно швидкого додавання комбінацією клавіш, швидко додати чергове "
-"завдання та одразу повернутися до роботи."
+"завдання та одразу повернутися до роботи. Ви можете змінити комбінацію "
+"клавіш коли завгодно."
 
 #: src/Dialogs/Preferences/Preferences.vala:488
 #: src/Dialogs/Preferences/Preferences.vala:565
@@ -1095,9 +1093,8 @@ msgid "Change"
 msgstr "Змінити"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Комбінації клавіш"
+msgstr "Змінити комбінації клавіш"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
@@ -1303,39 +1300,39 @@ msgstr "Швидко перемикайте проєкти та вкладки, 
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
-msgstr ""
+msgstr "ВГОРУ"
 
 #: src/Dialogs/QuickFind.vala:189
 msgid "DOWN"
-msgstr ""
+msgstr "ВНИЗ"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:199
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:209
 msgid "Use"
-msgstr ""
+msgstr "Натисніть"
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "щоби виділити та"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "щоби вибрати,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "щоби закрити."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
-msgstr ""
+msgstr "Ввести"
 
 #: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"

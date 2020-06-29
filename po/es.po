@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-28 23:18+0000\n"
+"PO-Revision-Date: 2020-06-29 00:03+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
@@ -239,12 +239,15 @@ msgid ""
 msgstr ""
 "- Ya sea que esté planeando una presentación, preparándose para un evento o "
 "creando un sitio web, cree un proyecto para que todos los detalles "
-"importantes se guarden en un lugar central.\n"
+"importantes se guarden en un solo lugar.\n"
 "- En el menú de navegación a la izquierda, en la parte inferior, haga clic "
 "en el símbolo +.\n"
 "- En el menú de opciones, seleccione 'Proyecto' y escriba el nombre de su "
 "nuevo proyecto.\n"
-"- Seleccione una fuente del menú desplegable."
+"- Seleccione una fuente del menú desplegable.\n"
+"- (Opcional) Elija un color de proyecto diferente desde la lista de colores."
+"\n"
+"- Haga click en Añadir para crear su proyecto."
 
 #: src/Utils.vala:896
 msgid "Sections"
@@ -451,7 +454,7 @@ msgstr "Descripción:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
-msgstr "Folder:"
+msgstr "Carpeta:"
 
 #: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
 msgid "Color:"
@@ -490,7 +493,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:493
 msgid "Folder"
-msgstr "Folder"
+msgstr "Carpeta"
 
 #: src/Widgets/New.vala:498
 msgid "Organize your projects in groups and keep your panel clean."
@@ -934,9 +937,8 @@ msgid "Tap + to add a task to this project."
 msgstr "Toque + para añadir una tarea."
 
 #: src/Views/Project.vala:1257
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Productividad"
+msgstr "Su productividad"
 
 #: src/Views/Project.vala:1262
 msgid "Progress:"
@@ -962,16 +964,15 @@ msgstr "Conéctese a internet para conectarse con Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:103
 msgid "Synchronizing… Wait a moment please."
-msgstr "Sincronizando… Por favor, espere un momento."
+msgstr "Sincronizando… Aguarde un momento."
 
 #: src/Dialogs/TodoistOAuth.vala:114
 msgid "Please enter your credentials…"
-msgstr "Por favor, introduzca sus credenciales…"
+msgstr "Proporcione sus datos de acceso…"
 
 #: src/Dialogs/ProjectSettings.vala:74
-#, fuzzy
 msgid "Deadline:"
-msgstr "Fecha limite"
+msgstr "Fecha limite:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1084,7 +1085,6 @@ msgid "Arc Dark"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1092,7 +1092,8 @@ msgid ""
 msgstr ""
 "No se preocupe por la aplicación que esté usando. Puede usar un atajo de "
 "teclado para abrir la ventana Añadir Rápido, donde puede introducir una "
-"tarea pendiente y volver rápidamente al trabajo."
+"tarea pendiente y volver rápidamente al trabajo. Puede cambiar el atajo "
+"siempre que lo desee."
 
 #: src/Dialogs/Preferences/Preferences.vala:488
 #: src/Dialogs/Preferences/Preferences.vala:565
@@ -1100,9 +1101,8 @@ msgid "Change"
 msgstr "Cambiar"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Atajos de teclado"
+msgstr "Cambiar atajo de teclado"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
@@ -1261,7 +1261,7 @@ msgstr "Página web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1207
 msgid "Follow"
-msgstr "Sigue"
+msgstr "Siguanos"
 
 #: src/Dialogs/Preferences/Preferences.vala:1208
 msgid "Report a Problem"
@@ -1311,35 +1311,35 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
-msgstr ""
+msgstr "ARRIBA"
 
 #: src/Dialogs/QuickFind.vala:189
 msgid "DOWN"
-msgstr ""
+msgstr "ABAJO"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
-msgstr ""
+msgstr "RETORNO"
 
 #: src/Dialogs/QuickFind.vala:199
 msgid "ESC"
-msgstr ""
+msgstr "ESCAPE"
 
 #: src/Dialogs/QuickFind.vala:209
 msgid "Use"
-msgstr ""
+msgstr "Use"
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "para navegar y"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "para seleccionar,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "para salir."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
