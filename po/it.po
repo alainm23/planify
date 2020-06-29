@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-04-08 06:08+0000\n"
-"Last-Translator: anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2020-07-01 08:41+0000\n"
+"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -373,7 +373,7 @@ msgstr "Progetto Todoist"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
-msgstr ""
+msgstr "Impossibile spostare l'attività"
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -534,7 +534,7 @@ msgstr "Modifica"
 
 #: src/Widgets/ProjectRow.vala:549
 msgid "Move"
-msgstr ""
+msgstr "Sposta"
 
 #: src/Widgets/ProjectRow.vala:553 src/Widgets/ItemRow.vala:1407
 #: src/Widgets/SectionRow.vala:830
@@ -698,7 +698,7 @@ msgstr "Sezione cancellata"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr ""
+msgstr "Pianifica"
 
 #: src/Widgets/DueButton.vala:213
 msgid "Repeat"
@@ -740,6 +740,8 @@ msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Classificare le cose da fare con le etichette, quindi usale per filtrare le "
+"tue liste e concentrarsi."
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -757,7 +759,7 @@ msgstr "Aggiungi Etichetta"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
-msgstr ""
+msgstr "Etichetta non trovata"
 
 #: src/Widgets/LabelButton.vala:237
 #, fuzzy, c-format
@@ -799,7 +801,7 @@ msgstr "Nome della sottoattività"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -816,6 +818,8 @@ msgstr "Aggiungi promemoria"
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"Non dimenticare mai più un compito! Chiedi a Planner di inviarti un "
+"promemoria."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -912,11 +916,11 @@ msgstr "Mostra completati"
 
 #: src/Views/Today.vala:92
 msgid "Overdue"
-msgstr ""
+msgstr "In ritardo"
 
 #: src/Views/Today.vala:108
 msgid "Reschedule"
-msgstr ""
+msgstr "Riprogrammare"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -976,7 +980,7 @@ msgstr "Per cortesia inserisci le credenziali…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Scadenza:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1087,7 +1091,7 @@ msgstr "Blu Cielo"
 
 #: src/Dialogs/Preferences/Preferences.vala:415
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
 #, fuzzy
@@ -1294,19 +1298,19 @@ msgstr "Completa"
 
 #: src/Dialogs/QuickFind.vala:99
 msgid "Priority 1"
-msgstr ""
+msgstr "Priorità 1"
 
 #: src/Dialogs/QuickFind.vala:107
 msgid "Priority 2"
-msgstr ""
+msgstr "Priorità 2"
 
 #: src/Dialogs/QuickFind.vala:115
 msgid "Priority 3"
-msgstr ""
+msgstr "Priorità 3"
 
 #: src/Dialogs/QuickFind.vala:123
 msgid "Priority 4"
-msgstr ""
+msgstr "Priorità 4"
 
 #: src/Dialogs/QuickFind.vala:128
 msgid "Search"
@@ -1320,11 +1324,11 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
-msgstr ""
+msgstr "SU"
 
 #: src/Dialogs/QuickFind.vala:189
 msgid "DOWN"
-msgstr ""
+msgstr "GIÙ"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
@@ -1340,15 +1344,15 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "per navigare e"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "selezionare,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "per chiudere."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
@@ -1364,7 +1368,7 @@ msgstr "Visualizzazioni"
 
 #: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
-msgstr ""
+msgstr "Priorità"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
