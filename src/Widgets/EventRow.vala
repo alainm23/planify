@@ -44,16 +44,35 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     construct {
         get_style_context ().add_class ("item-row");
-        start_time = Util.ical_to_date_time (component.get_dtstart ());
+
+        var dt_start = component.get_dtstart ();
         end_time = Util.ical_to_date_time (component.get_dtend ());
+        
+        if (dt_start.is_date ()) {
+            // Don't convert timezone for date with only day info, leave it at midnight UTC
+            start_time = Util.ical_to_date_time (dt_start);
+        } else {
+            start_time = Util.ical_to_date_time (dt_start).to_local ();
+        }
+
+        var dt_end = component.get_dtend ();
+        if (dt_end.is_date ()) {
+            // Don't convert timezone for date with only day info, leave it at midnight UTC
+            end_time = Util.ical_to_date_time (dt_end);
+        } else {
+            end_time = Util.ical_to_date_time (dt_end).to_local ();
+        }
+
+        //  start_time = Util.ical_to_date_time (component.get_dtstart ());
+        //  end_time = Util.ical_to_date_time (component.get_dtend ());
 
         if (end_time != null && Util.is_the_all_day (start_time, end_time)) {
             is_allday = true;
         }
 
         color_grid = new Gtk.Grid ();
-        color_grid.width_request = 10;
-        color_grid.height_request = 10;
+        color_grid.width_request = 3;
+        color_grid.height_request = 12;
         color_grid.valign = Gtk.Align.CENTER;
         color_grid.halign = Gtk.Align.CENTER;
         color_grid.get_style_context ().add_class ("event-%s".printf (component.get_uid ()));
@@ -129,7 +148,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         string color_css = """
             .event-%s {
                 background-color: %s;
-                border-radius: 50%;
+                border-radius: 1px;
             }
         """;
 

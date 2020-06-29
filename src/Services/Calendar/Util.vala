@@ -38,15 +38,62 @@ namespace Util {
      * Converts the given ICal.Time to a DateTime.
      */
     public TimeZone timezone_from_ical (ICal.Time date) {
+        // Special case: return default UTC time zone for all-day events
+        if (date.is_date ()) {
+            debug ("Given date is 'DATE' type, not 'DATE_TIME': Using timezone UTC");
+            return new GLib.TimeZone.utc ();
+        }
+
+        // Otherwise, get timezone from ICal
+        unowned ICal.Timezone? timezone = null;
+        var tzid = date.get_tzid ();
+        // First, try using the tzid property
+        if (tzid != null) {
+            /* Standard city names are usable directly by GLib, so we can bypass
+            * the ICal scaffolding completely and just return a new
+            * GLib.TimeZone here. This method also preserves all the timezone
+            * information, like going in/out of daylight savings, which parsing
+            * from UTC offset does not.
+            * Note, this can't recover from failure, since GLib.TimeZone
+            * constructor doesn't communicate failure information. This block
+            * will always return a GLib.TimeZone, which will be UTC if parsing
+            * fails for some reason.
+            */
+
+            var prefix = "/freeassociation.sourceforge.net/";
+            if (tzid.has_prefix (prefix)) {
+                // TZID has prefix "/freeassociation.sourceforge.net/",
+                // indicating a libical TZID.
+                return new GLib.TimeZone (tzid.offset (prefix.length));
+            } else {
+                // TZID does not have libical prefix, indicating an Olson
+                // standard city name.
+                return new GLib.TimeZone (tzid);
+            }
+        }
+
+        // If tzid fails, try ICal.Time.get_timezone ()
+        if (timezone == null && date.get_timezone () != null) {
+            timezone = date.get_timezone ();
+        }
+
+        // If nothing else works (timezone is still null), default to UTC
+        if (timezone == null) {
+            debug ("Date has no timezone info: defaulting to UTC");
+            return new GLib.TimeZone.utc ();
+        }
+
+        // Get UTC offset and format for GLib.TimeZone constructor
         int is_daylight;
-        var interval = date.get_timezone ().get_utc_offset (null, out is_daylight);
+        int interval = timezone.get_utc_offset (date, out is_daylight);
+
         bool is_positive = interval >= 0;
         interval = interval.abs ();
         var hours = (interval / 3600);
         var minutes = (interval % 3600) / 60;
         var hour_string = "%s%02d:%02d".printf (is_positive ? "+" : "-", hours, minutes);
 
-        return new TimeZone (hour_string);
+        return new GLib.TimeZone (hour_string);
     }
 
     /**
