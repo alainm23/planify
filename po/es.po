@@ -1102,7 +1102,7 @@ msgstr "Cambiar"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
 msgid "Change Keyboard Shortcut"
-msgstr "Cambiar Atajos de teclado"
+msgstr "Cambiar atajo de teclado"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
