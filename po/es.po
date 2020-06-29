@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
 "PO-Revision-Date: 2020-07-01 08:41+0000\n"
-"Last-Translator: Matias Bella <matias.bella@hotmail.com>\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -971,11 +971,11 @@ msgstr "Proporcione sus datos de acceso…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr "Fecha limite:"
+msgstr "Fecha límite:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
-msgstr "Subiendo cambios…"
+msgstr "Cargando cambios…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:89
@@ -1081,7 +1081,7 @@ msgstr "Azul oscuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:415
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc oscuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
 msgid ""
@@ -1260,11 +1260,11 @@ msgstr "Página web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1207
 msgid "Follow"
-msgstr "Siguanos"
+msgstr "Seguir"
 
 #: src/Dialogs/Preferences/Preferences.vala:1208
 msgid "Report a Problem"
-msgstr "Reportar un problema"
+msgstr "Informar de un problema"
 
 #: src/Dialogs/Preferences/Preferences.vala:1209
 msgid "Suggest Translations"
@@ -1272,7 +1272,7 @@ msgstr "Sugerir traducciones"
 
 #: src/Dialogs/Preferences/Preferences.vala:1328
 msgid "Disabled"
-msgstr "Deshabilitado"
+msgstr "Desactivado"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
@@ -1318,7 +1318,7 @@ msgstr "ABAJO"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
-msgstr "RETORNO"
+msgstr "INTRO"
 
 #: src/Dialogs/QuickFind.vala:199
 msgid "ESC"
@@ -1342,7 +1342,7 @@ msgstr "para salir."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
-msgstr ""
+msgstr "Intro"
 
 #: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
@@ -1358,7 +1358,7 @@ msgstr "Prioridades"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
-msgstr "El proyecto ha sido copiado al portapapeles."
+msgstr "Se ha copiado el proyecto en el portapapeles."
 
 #: src/Objects/Item.vala:126 src/Objects/Item.vala:137
 msgid "Duplicate task"
@@ -1366,11 +1366,11 @@ msgstr "Duplicar tarea"
 
 #: src/Objects/Item.vala:218 src/Objects/Item.vala:236
 msgid "The Task was copied to the Clipboard."
-msgstr "La tarea ha sido copiada al portapapeles."
+msgstr "Se ha copiado la tarea en el portapapeles."
 
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
-msgstr "La sección ha sido copiada al portapapeles."
+msgstr "Se ha copiado la sección en el portapapeles."
 
 #~ msgid "New area"
 #~ msgstr "Nueva área"
