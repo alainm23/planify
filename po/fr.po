@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-04-14 16:11+0000\n"
-"Last-Translator: Mattherix <mattherix@protonmail.com>\n"
+"PO-Revision-Date: 2020-07-01 08:41+0000\n"
+"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -580,9 +580,8 @@ msgid "Task name"
 msgstr "Nom de la tâche"
 
 #: src/Widgets/ItemRow.vala:173
-#, fuzzy
 msgid "Hide Details"
-msgstr "Afficher les détails"
+msgstr "Masquer les détails"
 
 #: src/Widgets/ItemRow.vala:469
 msgid "Add Checklist"
@@ -701,7 +700,7 @@ msgstr "Section supprimée"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr ""
+msgstr "Planifier"
 
 #: src/Widgets/DueButton.vala:213
 msgid "Repeat"
@@ -734,15 +733,16 @@ msgid "labels"
 msgstr "étiquettes"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
-msgstr "Étiquettes"
+msgstr "En utilisant des étiquettes"
 
 #: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Catégorisez vos listes avec des étiquettes, puis utilisez-les pour les "
+"filtrer et rester concentré."
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -754,18 +754,17 @@ msgid "Edit labels"
 msgstr "Modifier les étiquettes"
 
 #: src/Widgets/LabelButton.vala:233
-#, fuzzy
 msgid "Add label"
 msgstr "Ajouter une Étiquette"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
-msgstr ""
+msgstr "Étiquette non trouvée"
 
 #: src/Widgets/LabelButton.vala:237
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Créer une tâche"
+msgstr "Créer « %s »"
 
 #: src/Widgets/Toast.vala:80
 msgid "Undo"
@@ -802,7 +801,7 @@ msgstr "Nom de la sous-tâche"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -819,6 +818,8 @@ msgstr "Ajouter un rappel"
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"N'oubliez plus jamais vos tâches ! Demandez à Planner de vous envoyer des "
+"rappels."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -919,7 +920,7 @@ msgstr ""
 
 #: src/Views/Today.vala:108
 msgid "Reschedule"
-msgstr ""
+msgstr "Replanifier"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -930,9 +931,9 @@ msgid "Tap + to add a task for today."
 msgstr "Cliquez sur + pour ajouter une tâche."
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:833
-#, fuzzy, c-format
+#, c-format
 msgid "Progress: %s"
-msgstr "Progression :"
+msgstr "Progression : %s"
 
 #: src/Views/Project.vala:391
 msgid "What will you accomplish?"
@@ -978,9 +979,8 @@ msgid "Please enter your credentials…"
 msgstr "Veuillez saisir vos identifiants…"
 
 #: src/Dialogs/ProjectSettings.vala:74
-#, fuzzy
 msgid "Deadline:"
-msgstr "Date limite"
+msgstr "Date limite :"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1086,9 +1086,8 @@ msgid "Night"
 msgstr "Sombre"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Bleu ciel"
+msgstr "Bleu foncé"
 
 #: src/Dialogs/Preferences/Preferences.vala:415
 msgid "Arc Dark"
@@ -1294,9 +1293,8 @@ msgid "Back"
 msgstr "Retour"
 
 #: src/Dialogs/QuickFind.vala:90
-#, fuzzy
 msgid "Completed"
-msgstr "Marquer comme terminé"
+msgstr "Terminé"
 
 #: src/Dialogs/QuickFind.vala:99
 #, fuzzy
@@ -1323,11 +1321,10 @@ msgid "Search"
 msgstr "Rechercher"
 
 #: src/Dialogs/QuickFind.vala:156
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
 "Changez rapidement de projets et de vues, trouvez des tâches, recherchez par "
-"étiquettes…"
+"étiquettes."
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
@@ -1347,19 +1344,19 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:209
 msgid "Use"
-msgstr ""
+msgstr "Utilisez"
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "pour naviguer et"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "pour sélectionner,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "pour fermer."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"

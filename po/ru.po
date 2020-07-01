@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-29 00:03+0000\n"
+"PO-Revision-Date: 2020-07-01 08:41+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -507,7 +507,7 @@ msgstr "Новая папка"
 #: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:126
 #: src/Views/Project.vala:205
 msgid "Project Menu"
-msgstr "Меню проектов"
+msgstr "Меню проекта"
 
 #: src/Widgets/ProjectRow.vala:146
 msgid "Local Project"
@@ -575,7 +575,7 @@ msgstr "Скрыть детали"
 
 #: src/Widgets/ItemRow.vala:469
 msgid "Add Checklist"
-msgstr "Добавить контрольный список"
+msgstr "Добавить список"
 
 #: src/Widgets/ItemRow.vala:476
 msgid "Delete Task"
@@ -583,11 +583,11 @@ msgstr "Удалить Задачу"
 
 #: src/Widgets/ItemRow.vala:490
 msgid "Task Menu"
-msgstr "Меню задач"
+msgstr "Меню задачи"
 
 #: src/Widgets/ItemRow.vala:1332
 msgid "No Section"
-msgstr "Нет раздела"
+msgstr "Без раздела"
 
 #: src/Widgets/ItemRow.vala:1385
 msgid "Complete"
@@ -603,7 +603,7 @@ msgstr "Переместить в проект"
 
 #: src/Widgets/ItemRow.vala:1403
 msgid "Move to Section"
-msgstr "Переместить в Раздел"
+msgstr "Переместить в раздел"
 
 #: src/Widgets/ItemRow.vala:1411
 msgid "Text"
@@ -641,7 +641,7 @@ msgstr "Спрятать Задачи"
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:820
 #: src/Widgets/MagicButton.vala:32
 msgid "Add Task"
-msgstr "Добавить Задачу"
+msgstr "Добавить задачу"
 
 #: src/Widgets/SectionRow.vala:125 src/Widgets/NewSection.vala:69
 msgid "Section name"
@@ -649,7 +649,7 @@ msgstr "Название раздела"
 
 #: src/Widgets/SectionRow.vala:145 src/Widgets/AreaRow.vala:97
 msgid "Section Menu"
-msgstr "Меню разделов"
+msgstr "Меню раздела"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #. top_box.margin_top = 6;
@@ -877,7 +877,7 @@ msgstr "Синхронизируйте с вашим аккаунтом Todoist 
 #: src/Views/Inbox.vala:90 src/Views/Project.vala:161
 #: src/Views/Project.vala:169
 msgid "Add Section"
-msgstr "Добавить Раздел"
+msgstr "Добавить раздел"
 
 #: src/Views/Inbox.vala:98 src/Views/Project.vala:177
 msgid "Invite person"
