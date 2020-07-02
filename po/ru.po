@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
 "PO-Revision-Date: 2020-07-04 22:41+0000\n"
-"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
+"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -998,7 +998,7 @@ msgstr "Тема"
 #: src/Dialogs/Preferences/Preferences.vala:95
 #: src/Dialogs/Preferences/Preferences.vala:463
 msgid "Quick Add"
-msgstr "Быстрое Добавление"
+msgstr "Быстрое добавление"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:111
@@ -1080,7 +1080,6 @@ msgid "Arc Dark"
 msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1096,13 +1095,12 @@ msgid "Change"
 msgstr "Изменить"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
 msgstr "Горячие клавиши"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
-msgstr "Сохранить Последний Выбранный Проект"
+msgstr "Сохранить последний выбранный проект"
 
 #: src/Dialogs/Preferences/Preferences.vala:563
 msgid "Press keys…"
