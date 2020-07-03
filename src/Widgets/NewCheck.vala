@@ -156,7 +156,7 @@ public class Widgets.NewCheck : Gtk.EventBox {
                     name_entry.text = "";
                 }
             } else {
-                Planner.todoist.add_item (item, 0, false, temp_id_mapping);
+                Planner.todoist.add_item (item, 0, temp_id_mapping);
             }
         }
     }

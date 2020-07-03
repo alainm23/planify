@@ -20,12 +20,13 @@
 */
 
 public class Widgets.NewItem : Gtk.ListBoxRow {
-    public int64 project_id { get; set; }
-    public int64 section_id { get; set; }
-    public int is_todoist { get; set; }
-    public int index { get; set; default = 0; }
+    public int64 project_id { get; construct; }
+    public int64 section_id { get; construct; }
+    public int is_todoist { get; construct; }
+    public int index { get; construct; }
     public bool has_index { get; set; default = false; }
     public string due_date { get; set; default = ""; }
+    public Gtk.ListBox? listbox { get; construct; }
 
     public int64 temp_id_mapping {get; set; default = 0; }
 
@@ -35,12 +36,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private bool entry_menu_opened = false;
 
-    public NewItem (int64 project_id, int64 section_id, int is_todoist, string due_date="") {
+    public NewItem (int64 project_id, int64 section_id, 
+                    int is_todoist, string due_date="", 
+                    int index, Gtk.ListBox? listbox=null) {
         Object (
             project_id: project_id,
             section_id: section_id,
             is_todoist: is_todoist,
-            due_date: due_date
+            due_date: due_date,
+            index: index,
+            listbox: listbox
         );
     }
 
@@ -49,7 +54,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         activatable = false;
         selectable = false;
         get_style_context ().add_class ("item-row");
-        margin_end = 42;
+        margin_end = 6;
         margin_start = 6;
 
         var checked_button = new Gtk.CheckButton ();
@@ -175,19 +180,27 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         Planner.todoist.item_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
-                bool last = true;
-                if (has_index) {
-                    last = false;
+                var i = index;
+                if (i != -1) {
+                    i++;
                 }
 
-                Planner.utils.magic_button_activated (
+                var new_item = new Widgets.NewItem (
                     project_id,
                     section_id,
                     is_todoist,
-                    last,
-                    index + 1
+                    due_date,
+                    i,
+                    listbox
                 );
 
+                if (index == -1) {
+                    listbox.add (new_item);
+                } else {
+                    listbox.insert (new_item, i);
+                }
+
+                listbox.show_all ();
                 hide_destroy ();
             }
         });
@@ -235,22 +248,32 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             temp_id_mapping = Planner.utils.generate_id ();
 
             if (is_todoist == 1) {
-                Planner.todoist.add_item (item, index, has_index, temp_id_mapping);
+                Planner.todoist.add_item (item, index, temp_id_mapping);
             } else {
                 item.id = Planner.utils.generate_id ();
-                if (Planner.database.insert_item (item, index, has_index)) {
-                    bool last = true;
-                    if (has_index) {
-                        last = false;
+                if (Planner.database.insert_item (item, index)) {
+                    var i = index;
+                    if (i != -1) {
+                        i++;
                     }
 
-                    Planner.utils.magic_button_activated (
+                    var new_item = new Widgets.NewItem (
                         project_id,
                         section_id,
                         is_todoist,
-                        last,
-                        index + 1
+                        due_date,
+                        i,
+                        listbox
                     );
+
+                    if (index == -1) {
+                        listbox.add (new_item);
+                    } else {
+                        listbox.insert (new_item, i);
+                    }
+
+                    listbox.show_all ();
+                    hide_destroy ();
 
                     hide_destroy ();
                 }

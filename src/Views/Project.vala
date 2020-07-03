@@ -280,6 +280,7 @@ public class Views.Project : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
+        listbox.margin_end = 32;
         listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
@@ -577,7 +578,7 @@ public class Views.Project : Gtk.EventBox {
             }
         });
 
-        Planner.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item, index) => {
             if (project.id == item.project_id && item.section_id == 0 && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
                 row.destroy.connect (() => {
@@ -585,31 +586,38 @@ public class Views.Project : Gtk.EventBox {
                 });
 
                 items_uncompleted_added.set (item.id.to_string (), row);
-                listbox.add (row);
-                items_list.add (row);
 
+                if (index == -1){
+                    listbox.add (row);
+                    items_list.add (row);
+                } else {
+                    listbox.insert (row, index);
+                    items_list.insert (index, row);
+                }
+                
                 listbox.show_all ();
                 check_placeholder_view ();
                 check_listbox_margin ();
+                update_item_order ();
             }
         });
 
-        Planner.database.item_added_with_index.connect ((item, index) => {
-            if (project.id == item.project_id && item.section_id == 0) {
-                var row = new Widgets.ItemRow (item);
-                row.destroy.connect (() => {
-                    item_row_removed (row);
-                });
+        //  Planner.database.item_added_with_index.connect ((item, index) => {
+        //      if (project.id == item.project_id && item.section_id == 0) {
+        //          var row = new Widgets.ItemRow (item);
+        //          row.destroy.connect (() => {
+        //              item_row_removed (row);
+        //          });
 
-                items_uncompleted_added.set (item.id.to_string (), row);
-                listbox.insert (row, index);
-                items_list.insert (index, row);
+        //          items_uncompleted_added.set (item.id.to_string (), row);
+        //          listbox.insert (row, index);
+        //          items_list.insert (index, row);
 
-                listbox.show_all ();
-                check_placeholder_view ();
-                check_listbox_margin ();
-            }
-        });
+        //          listbox.show_all ();
+        //          check_placeholder_view ();
+        //          check_listbox_margin ();
+        //      }
+        //  });
 
         Planner.database.show_undo_item.connect ((item, type) => {
             if (project.id == item.project_id) {
@@ -675,24 +683,9 @@ public class Views.Project : Gtk.EventBox {
             });
         });
 
-        Planner.utils.magic_button_activated.connect ((project_id, section_id, is_todoist, last, index) => {
+        Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
             if (project.id == project_id && section_id == 0) {
-                var new_item = new Widgets.NewItem (
-                    project_id,
-                    section_id,
-                    is_todoist
-                );
-
-                if (last) {
-                    listbox.add (new_item);
-                } else {
-                    new_item.has_index = true;
-                    new_item.index = index;
-                    listbox.insert (new_item, index);
-                }
-
-                listbox.show_all ();
-                main_stack.visible_child_name = "project";
+                add_new_item (index);
             }
         });
 
@@ -1019,7 +1012,7 @@ public class Views.Project : Gtk.EventBox {
             Source.remove (timeout);
         }
 
-        timeout = Timeout.add (250, () => {
+        timeout = Timeout.add (1000, () => {
             timeout = 0;
             
             new Thread<void*> ("update_item_order", () => {
@@ -1489,5 +1482,25 @@ public class Views.Project : Gtk.EventBox {
             var due = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
             due_label.label = Planner.utils.get_relative_date_from_date (due);
         }
+    }
+
+    public void add_new_item (int index=-1) {
+        var new_item = new Widgets.NewItem (
+            project.id,
+            0,
+            project.is_todoist,
+            "",
+            index,
+            listbox
+        );
+        
+        if (index == -1) {
+            listbox.add (new_item);
+        } else {
+            listbox.insert (new_item, index);
+        }
+
+        listbox.show_all ();
+        main_stack.visible_child_name = "project";
     }
 }

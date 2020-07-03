@@ -29,9 +29,7 @@ public class Views.Priority : Gtk.EventBox {
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
-        icon_image.gicon = new ThemedIcon ("priority-symbolic");
         icon_image.pixel_size = 16;
-        // icon_image.margin_top = 1;
 
         var title_label = new Gtk.Label ( null);
         title_label.get_style_context ().add_class ("title-label");
@@ -50,6 +48,7 @@ public class Views.Priority : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.expand = true;
+        listbox.margin_end = 32;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -64,11 +63,11 @@ public class Views.Priority : Gtk.EventBox {
         box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
         box_scrolled.expand = true;
         box_scrolled.add (g);
-
+        
         var placeholder_view = new Widgets.Placeholder (
             _("All clear"),
             _("No tasks in this filter at the moment."),
-            "priority-symbolic"
+            "edit-flag-symbolic"
         );
         placeholder_view.reveal_child = true;
 
@@ -88,24 +87,23 @@ public class Views.Priority : Gtk.EventBox {
 
         notify["priority"].connect (() => {
             items_loaded.clear ();
-
-            icon_image.get_style_context ().remove_class ("priority-1-icon");
-            icon_image.get_style_context ().remove_class ("priority-2-icon");
-            icon_image.get_style_context ().remove_class ("priority-3-icon");
-            icon_image.get_style_context ().remove_class ("priority-4-icon");
-
+            
             if (priority == 1) {
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    icon_image.gicon = new ThemedIcon ("flag-outline-light");
+                } else {
+                    icon_image.gicon = new ThemedIcon ("flag-outline-dark");
+                }
                 title_label.label = "<b>%s</b>".printf (_("Priority 4"));
-                icon_image.get_style_context ().add_class ("priority-4-icon");
             } else if (priority == 2) {
+                icon_image.gicon = new ThemedIcon ("priority-2");
                 title_label.label = "<b>%s</b>".printf (_("Priority 3"));
-                icon_image.get_style_context ().add_class ("priority-3-icon");
             } else if (priority == 3) {
+                icon_image.gicon = new ThemedIcon ("priority-3");
                 title_label.label = "<b>%s</b>".printf (_("Priority 2"));
-                icon_image.get_style_context ().add_class ("priority-2-icon");
             } else if (priority == 4) {
+                icon_image.gicon = new ThemedIcon ("priority-4");
                 title_label.label = "<b>%s</b>".printf (_("Priority 1"));
-                icon_image.get_style_context ().add_class ("priority-1-icon");
             }
 
             foreach (unowned Gtk.Widget child in listbox.get_children ()) {

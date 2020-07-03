@@ -50,6 +50,10 @@ public class Widgets.MagicButton : Gtk.Revealer {
         magic_button.clicked.connect (() => {
             clicked ();
         });
+
+        Planner.event_bus.magic_button_visible.connect ((visible) => {
+            reveal_child = visible;
+        });
     }
 
     private void build_drag_and_drop () {
@@ -86,7 +90,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
         Gtk.drag_set_icon_surface (context, surface);
         reveal_child = false;
 
-        Planner.utils.drag_magic_button_activated (true);
+        Planner.event_bus.drag_magic_button_activated (true);
     }
 
     private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
@@ -101,6 +105,6 @@ public class Widgets.MagicButton : Gtk.Revealer {
 
     public void on_drag_end (Gdk.DragContext context) {
         reveal_child = true;
-        Planner.utils.drag_magic_button_activated (false);
+        Planner.event_bus.drag_magic_button_activated (false);
     }
 }

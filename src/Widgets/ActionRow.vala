@@ -147,9 +147,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
                 update_count ();
             });
 
-            Planner.database.item_added_with_index.connect ((item) => {
-                update_count ();
-            });
+            //  Planner.database.item_added_with_index.connect ((item) => {
+            //      update_count ();
+            //  });
 
             Planner.database.item_completed.connect ((item) => {
                 update_count ();

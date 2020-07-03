@@ -1969,7 +1969,7 @@ public class Services.Todoist : GLib.Object {
         Items
     */
 
-    public void add_item (Objects.Item item, int index, bool has_index, int64 temp_id_mapping) {
+    public void add_item (Objects.Item item, int index, int64 temp_id_mapping) {
         item_added_started (temp_id_mapping);
         new Thread<void*> ("todoist_add_project", () => {
             string temp_id = Planner.utils.generate_string ();
@@ -2000,7 +2000,7 @@ public class Services.Todoist : GLib.Object {
 
                             item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Planner.database.insert_item (item, index, has_index)) {
+                            if (Planner.database.insert_item (item, index)) {
                                 item_added_completed (temp_id_mapping);
                             }
                         } else {
@@ -2037,7 +2037,7 @@ public class Services.Todoist : GLib.Object {
                         queue.query = "item_add";
                         queue.args = item.to_json ();
 
-                        if (Planner.database.insert_item (item, index, has_index) &&
+                        if (Planner.database.insert_item (item, index) &&
                             Planner.database.insert_queue (queue) &&
                             Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
                             item_added_completed (temp_id_mapping);

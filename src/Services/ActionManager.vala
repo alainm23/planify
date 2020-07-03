@@ -137,11 +137,11 @@ public class Services.ActionManager : Object {
     }
 
     private void action_add_task () {
-        window.add_task_action (true);
+        window.add_task_action (-1);
     }
 
     private void action_add_task_top () {
-        window.add_task_action (false);
+        window.add_task_action (0);
     }
 
     private void action_open_search () {

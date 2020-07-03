@@ -129,10 +129,10 @@ public class Objects.Item : GLib.Object {
                 }
             });
 
-            Planner.todoist.add_item (item, -1, false, temp_id_mapping);
+            Planner.todoist.add_item (item, -1, temp_id_mapping);
         } else {
             item.id = Planner.utils.generate_id ();
-            if (Planner.database.insert_item (item, -1, false)) {
+            if (Planner.database.insert_item (item, -1)) {
                 Planner.notifications.send_notification (
                     _("Duplicate task"),
                     "edit-copy-symbolic"

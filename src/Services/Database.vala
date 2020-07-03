@@ -44,8 +44,8 @@ public class Services.Database : GLib.Object {
     public signal void section_moved (Objects.Section section, int64 project_id, int64 old_project_id);
     public signal void section_id_updated (int64 current_id, int64 new_id);
 
-    public signal void item_added (Objects.Item item);
-    public signal void item_added_with_index (Objects.Item item, int index);
+    public signal void item_added (Objects.Item item, int index);
+    // public signal void item_added_with_index (Objects.Item item, int index);
     public signal void item_updated (Objects.Item item);
     public signal void item_deleted (Objects.Item item);
     public signal void on_drag_item_deleted (Widgets.ItemRow row, int64 section_id);
@@ -431,18 +431,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
         return returned;
     }
-
-    public void remove_trash () {
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("DELETE FROM Items WHERE NOT EXISTS (SELECT * FROM Projects WHERE Items.project_id = Projects.id)",
-             -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        stmt.step ();
-        stmt.reset ();
-    }
-
+    
     public bool project_exists (int64 id) {
         bool returned = false;
         Sqlite.Statement stmt;
@@ -1833,7 +1822,7 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
-            //updated_playlist (playlist);
+            
         }
 
         stmt.reset ();
@@ -2516,12 +2505,12 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public bool insert_item (Objects.Item item, int index=0, bool has_index=false) {
+    public bool insert_item (Objects.Item item, int index=-1) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
-        if (has_index == false) {
+        if (index == -1) {
             sql = """
                 SELECT COUNT (*) FROM Items WHERE project_id = ? AND section_id = ?;
             """;
@@ -2629,12 +2618,7 @@ public class Services.Database : GLib.Object {
             stmt.reset ();
             return false;
         } else {
-            if (has_index) {
-                item_added_with_index (item, index);
-            } else {
-                item_added (item);
-            }
-
+            item_added (item, index);
             stmt.reset ();
             return true;
         }

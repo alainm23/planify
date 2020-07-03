@@ -41,10 +41,6 @@ public class Utils : GLib.Object {
     public signal void clock_format_changed ();
 
     public signal void drag_item_activated (bool active);
-    public signal void drag_magic_button_activated (bool active);
-    public signal void magic_button_activated (int64 project_id, int64 section_id,
-        int is_todoist, bool last, int index = 0
-    );
     public signal void magic_button_clicked (string view);
 
     public signal void add_item_show_queue (Widgets.ItemRow row);

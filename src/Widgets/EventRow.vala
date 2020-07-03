@@ -62,10 +62,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         } else {
             end_time = Util.ical_to_date_time (dt_end).to_local ();
         }
-
-        //  start_time = Util.ical_to_date_time (component.get_dtstart ());
-        //  end_time = Util.ical_to_date_time (component.get_dtend ());
-
+        
         if (end_time != null && Util.is_the_all_day (start_time, end_time)) {
             is_allday = true;
         }

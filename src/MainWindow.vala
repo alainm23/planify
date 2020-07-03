@@ -58,7 +58,7 @@ public class MainWindow : Gtk.Window {
 
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
-            Planner.database.item_added (Planner.database.get_item_by_id (id));
+            Planner.database.item_added (Planner.database.get_item_by_id (id), -1);
         });
 
         projects_loaded = new Gee.HashMap <string, bool> ();
@@ -140,7 +140,7 @@ public class MainWindow : Gtk.Window {
         paned.wide_handle = true;
         paned.pack1 (pane, false, false);
         paned.pack2 (projectview_overlay, true, false);
-
+        
         set_titlebar (header_paned);
         add (paned);
 
@@ -283,24 +283,14 @@ public class MainWindow : Gtk.Window {
 
         magic_button.clicked.connect (() => {
             if (stack.visible_child_name == "inbox-view") {
-                Planner.utils.magic_button_activated (
-                    Planner.settings.get_int64 ("inbox-project"),
-                    0,
-                    Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-                    true
-                );
+                inbox_view.add_new_item (-1);
             } else if (stack.visible_child_name == "today-view") {
-                today_view.add_new_item ();
+                today_view.add_new_item (-1);
             } else if (stack.visible_child_name == "upcoming-view") {
                 Planner.utils.magic_button_clicked ("upcoming");
             } else {
-                var project = ((Views.Project) stack.get_child_by_name (stack.visible_child_name)).project;
-                Planner.utils.magic_button_activated (
-                    project.id,
-                    0,
-                    project.is_todoist,
-                    true
-                );
+                var project = ((Views.Project) stack.get_child_by_name (stack.visible_child_name));
+                project.add_new_item (-1);
             }
         });
 
@@ -367,20 +357,34 @@ public class MainWindow : Gtk.Window {
                 check_button_layout ();
             }
         });
+
+        key_press_event.connect ((event) => {
+            if (event.keyval == 65507) {
+                Planner.event_bus.ctrl_pressed = true;
+                Planner.event_bus.ctrl_press ();
+            }
+
+            return false;
+        });
+        
+        key_release_event.connect ((event) => {
+            if (event.keyval == 65507) {
+                Planner.event_bus.ctrl_pressed = false;
+                Planner.event_bus.ctrl_release ();
+            }
+            
+            return false;
+        });
     }
 
     public void init_progress_controller () {
-        /*
-        *  Item events
-        */
-
         Planner.database.item_added.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
 
-        Planner.database.item_added_with_index.connect ((item, index) => {
-            Planner.database.check_project_count (item.project_id);
-        });
+        //  Planner.database.item_added_with_index.connect ((item, index) => {
+        //      Planner.database.check_project_count (item.project_id);
+        //  });
 
         Planner.database.item_updated.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
@@ -549,9 +553,9 @@ public class MainWindow : Gtk.Window {
             set_badge_visible ();
         });
 
-        Planner.database.item_added_with_index.connect (() => {
-            set_badge_visible ();
-        });
+        //  Planner.database.item_added_with_index.connect (() => {
+        //      set_badge_visible ();
+        //  });
 
         Planner.database.item_deleted.connect ((item) => {
             set_badge_visible ();
@@ -653,25 +657,31 @@ public class MainWindow : Gtk.Window {
         });
     }
 
-    public void add_task_action (bool last) {
+    public void add_task_action (int index) {
         if (stack.visible_child_name == "inbox-view") {
-            Planner.utils.magic_button_activated (
-                Planner.settings.get_int64 ("inbox-project"),
-                0,
-                Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-                last
-            );
+            inbox_view.add_new_item (index);
         } else if (stack.visible_child_name == "today-view") {
-            today_view.add_new_item ();
+            today_view.add_new_item (index);
         } else if (stack.visible_child_name == "upcoming-view") {
-
+            var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
+            
+            Planner.event_bus.magic_button_activated (
+                inbox_project.id,
+                0,
+                inbox_project.is_todoist,
+                index,
+                "upcoming",
+                new DateTime.now_local ().add_days (1).to_string ()
+            );
         } else {
             var project = ((Views.Project) stack.visible_child).project;
-            Planner.utils.magic_button_activated (
+            Planner.event_bus.magic_button_activated (
                 project.id,
                 0,
                 project.is_todoist,
-                last
+                index,
+                "project",
+                ""
             );
         }
     }
@@ -688,10 +698,10 @@ public class MainWindow : Gtk.Window {
             item.is_todoist = inbox_project.is_todoist;
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
             } else {
                 item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1, false);
+                Planner.database.insert_item (item, -1);
             }
         } else if (stack.visible_child_name == "today-view") {
             item.project_id = inbox_project.id;
@@ -699,10 +709,10 @@ public class MainWindow : Gtk.Window {
             item.due_date = new GLib.DateTime.now_local ().to_string ();
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
             } else {
                 item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1, false);
+                Planner.database.insert_item (item, -1);
             }
         } else if (stack.visible_child_name == "upcoming-view") {
             item.project_id = inbox_project.id;
@@ -710,10 +720,10 @@ public class MainWindow : Gtk.Window {
             item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
             } else {
                 item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1, false);
+                Planner.database.insert_item (item, -1);
             }
         } else {
             var project = ((Views.Project) stack.visible_child).project;
@@ -721,10 +731,10 @@ public class MainWindow : Gtk.Window {
             item.is_todoist = project.is_todoist;
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, false, Planner.utils.generate_id ());
+                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
             } else {
                 item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1, false);
+                Planner.database.insert_item (item, -1);
             }
         }
     }

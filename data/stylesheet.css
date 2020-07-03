@@ -273,7 +273,7 @@ paned.horizontal > separator {
     padding-top: 6px;
     padding-left: 6px;
     margin-left: 6px;
-    margin-right: 40px;
+    margin-right: 8px;
 }
 
 /*
@@ -790,7 +790,11 @@ paned.horizontal > separator {
 }
 
 .checklist-check check {
-    border: 1.3px solid #3689e6;
+    border: 1px solid @check_border_color;
+}
+
+.checklist-check check:checked {
+    border-color: shade (#3689e6, 0.9);
 }
 
 .label-row {
@@ -1194,3 +1198,7 @@ paned.horizontal > separator {
     min-width: 12px;
 }
 
+.item-ctrl-selected {
+    background-color: @pane_selected_color;
+    border-radius: 6px;
+}

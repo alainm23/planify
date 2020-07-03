@@ -54,6 +54,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Box preview_box;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer labels_preview_box_revealer;
+    private Gtk.Grid handle_grid;
     // private Gtk.Image duedate_preview_image;
     private Gtk.Revealer duedate_preview_revealer;
     private Gtk.Box labels_preview_box;
@@ -107,6 +108,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
         get {
             return bottom_revealer.reveal_child;
+        }
+    }
+
+    public bool item_selected {
+        set {
+            if (value) {
+                handle_grid.get_style_context ().add_class ("item-ctrl-selected");
+            } else {
+                handle_grid.get_style_context ().remove_class ("item-ctrl-selected");
+            }
         }
     }
 
@@ -544,7 +555,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         */
 
         var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_end = 40;
         motion_grid.margin_bottom = 3;
         motion_grid.margin_top = 6;
         motion_grid.margin_start = 6;
@@ -563,20 +573,20 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.add (preview_revealer);
         main_grid.add (bottom_revealer);
 
-        var grid = new Gtk.Grid ();
-        grid.hexpand = true;
-        grid.margin_start = 6;
-        grid.margin_top = 3;
-        grid.orientation = Gtk.Orientation.VERTICAL;
+        handle_grid = new Gtk.Grid ();
+        handle_grid.hexpand = true;
+        handle_grid.margin_start = 6;
+        handle_grid.margin_top = 3;
+        handle_grid.orientation = Gtk.Orientation.VERTICAL;
 
-        grid.add (main_grid);
-        grid.add (motion_revealer);
+        handle_grid.add (main_grid);
+        handle_grid.add (motion_revealer);
 
         var handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         handle.expand = true;
         handle.above_child = false;
-        handle.add (grid);
+        handle.add (handle_grid);
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
@@ -607,6 +617,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         content_entry.key_release_event.connect ((key) => {
+            // print ("keyval: %i\n".printf ((int32) key.keyval));
             if (key.keyval == 65307) {
                 hide_item ();
             }
@@ -622,7 +633,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             save ();
         });
 
-        Planner.utils.drag_magic_button_activated.connect ((value) => {
+        Planner.event_bus.drag_magic_button_activated.connect ((value) => {
             build_drag_and_drop (value);
         });
 
@@ -1092,12 +1103,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint target_type, uint time) {
-        Planner.utils.magic_button_activated (
+        Planner.event_bus.magic_button_activated (
             item.project_id,
             item.section_id,
             item.is_todoist,
-            false,
-            this.get_index () + 1
+            this.get_index () + 1,
+            view,
+            item.due_date
         );
     }
 

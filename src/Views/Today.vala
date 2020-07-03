@@ -83,6 +83,7 @@ public class Views.Today : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
+        listbox.margin_end = 32;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -273,11 +274,11 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
-        Planner.database.item_added.connect ((item) => {
+        Planner.database.item_added.connect ((item, index) => {
             if (item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_today (datetime)) {
-                    add_item (item);
+                    add_item (item, index);
                     check_placeholder_view ();
                 } else if (Planner.utils.is_overdue (datetime)) {
                     var row = new Widgets.ItemRow (item, "today");
@@ -289,7 +290,14 @@ public class Views.Today : Gtk.EventBox {
                     overdue_listbox.show_all ();
 
                     check_placeholder_view ();
+                    update_item_order ();
                 }
+            }
+        });
+
+        Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index, view, due_date) => {
+            if (view == "today") {
+                add_new_item (index);
             }
         });
 
@@ -390,7 +398,11 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void update_item_order () {
-        timeout = Timeout.add (250, () => {
+        if (timeout != 0) {
+            Source.remove (timeout);
+        }
+
+        timeout = Timeout.add (1000, () => {
             new Thread<void*> ("update_item_order", () => {
                 for (int index = 0; index < items_list.size; index++) {
                     Planner.database.update_today_day_order (items_list [index].item, index);
@@ -403,15 +415,22 @@ public class Views.Today : Gtk.EventBox {
         });
     }
 
-    public void add_new_item () {
+    public void add_new_item (int index=-1) {
         var new_item = new Widgets.NewItem (
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            new GLib.DateTime.now_local ().to_string ()
+            new GLib.DateTime.now_local ().to_string (),
+            index,
+            listbox
         );
 
-        listbox.add (new_item);
+        if (index == -1) {
+            listbox.add (new_item);
+        } else {
+            listbox.insert (new_item, index);
+        }
+
         listbox.show_all ();
         view_stack.visible_child_name = "listbox";
     }

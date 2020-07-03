@@ -110,6 +110,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         listbox = new Gtk.ListBox ();
         listbox.valign = Gtk.Align.START;
         listbox.margin_start = 32;
+        listbox.margin_end = 32;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -148,18 +149,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             item.reveal_child = true;
         });
 
-        Planner.database.item_added.connect ((item) => {
-            if (item.due_date != "") {
-                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                if (Granite.DateTime.is_same_day (datetime, date)) {
-                    if (items_loaded.has_key (item.id.to_string ()) == false) {
-                        add_item (item);
-                    }
-                }
-            }
-        });
-
-        Planner.database.item_added_with_index.connect ((item, index) => {
+        Planner.database.item_added.connect ((item, index) => {
             if (item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Granite.DateTime.is_same_day (datetime, date)) {
@@ -167,6 +157,13 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                         add_item (item, index);
                     }
                 }
+            }
+        });
+
+        Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index, view, due_date) => {
+            var datetime = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+            if (view == "upcoming" && Granite.DateTime.is_same_day (datetime, date)) {
+                add_new_item (index);
             }
         });
 
@@ -230,7 +227,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         Planner.utils.magic_button_clicked.connect ((view) => {
             if (view == "upcoming" && Granite.DateTime.is_same_day (new DateTime.now_local ().add_days (1), date)) {
-                add_new_item (true);
+                add_new_item (0);
             }
         });
 
@@ -247,7 +244,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.utils.drag_magic_button_activated.connect ((value) => {
+        Planner.event_bus.drag_magic_button_activated.connect ((value) => {
             build_drag_and_drop (value);
         });
     }
@@ -273,23 +270,23 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
     private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint target_type, uint time) {
-        add_new_item ();
+        add_new_item (0);
     }
 
-    private void add_new_item (bool last=false) {
+    private void add_new_item (int index=-1) {
         var new_item = new Widgets.NewItem (
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            date.to_string ()
+            date.to_string (),
+            index,
+            listbox
         );
-
-        if (last) {
+        
+        if (index == -1) {
             listbox.add (new_item);
         } else {
-            new_item.has_index = true;
-            new_item.index = 0;
-            listbox.insert (new_item, 0);
+            listbox.insert (new_item, index);
         }
 
         listbox.show_all ();
@@ -358,7 +355,11 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     }
 
     private void update_item_order () {
-        timeout = Timeout.add (250, () => {
+        if (timeout != 0) {
+            Source.remove (timeout);
+        }
+
+        timeout = Timeout.add (1000, () => {
             new Thread<void*> ("update_item_order", () => {
                 for (int index = 0; index < items_list.size; index++) {
                     Planner.database.update_today_day_order (items_list [index].item, index);
@@ -467,6 +468,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         }
 
         listbox.show_all ();
+        update_item_order ();
     }
 
     private void add_all_items () {
