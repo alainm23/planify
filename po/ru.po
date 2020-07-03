@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-07-01 08:41+0000\n"
-"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
+"PO-Revision-Date: 2020-07-04 22:41+0000\n"
+"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -468,7 +468,7 @@ msgstr "Добавить"
 #: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:932
 #: src/Views/Project.vala:220 src/Views/Project.vala:1338
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "Отмена"
 
 #: src/Widgets/New.vala:314
 msgid "Local"
