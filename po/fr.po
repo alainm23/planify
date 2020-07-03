@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-07-02 17:10+0000\n"
+"PO-Revision-Date: 2020-07-04 22:41+0000\n"
 "Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
@@ -1109,7 +1109,7 @@ msgstr "Changer de Raccourcis Clavier"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
-msgstr "Sauvegarder le dernier Projet sélectionné"
+msgstr "Sauvegarder dans le dernier Projet sélectionné"
 
 #: src/Dialogs/Preferences/Preferences.vala:563
 msgid "Press keys…"
