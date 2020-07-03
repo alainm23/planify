@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-06-21 09:41+0000\n"
+"PO-Revision-Date: 2020-07-01 08:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -1080,14 +1080,14 @@ msgid "Arc Dark"
 msgstr "Arc (donker)"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
-"Je kunt het venster 'Snel toevoegen' met de sneltoets makkelijk openen "
-"vanuit elke toepassing. Voeg een taak toe en ga snel weer aan het werk."
+"Het maakt niet uit welke in welke toepassing je zit: je kunt het venster "
+"'Snel toevoegen' met de sneltoets makkelijk openen vanuit elke toepassing. "
+"Voeg een taak toe en ga snel weer aan het werk."
 
 #: src/Dialogs/Preferences/Preferences.vala:488
 #: src/Dialogs/Preferences/Preferences.vala:565
@@ -1095,9 +1095,8 @@ msgid "Change"
 msgstr "Aanpassen"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Sneltoetsen"
+msgstr "Sneltoets aanpassen"
 
 #: src/Dialogs/Preferences/Preferences.vala:522
 msgid "Save Last Selected Project"
