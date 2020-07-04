@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-06-28 10:08-0500\n"
-"PO-Revision-Date: 2020-05-14 19:41-0300\n"
-"Last-Translator: Gleisson J. J. Cardoso <gleissoncg2@gmail.com>\n"
+"PO-Revision-Date: 2020-07-04 22:41+0000\n"
+"Last-Translator: Augusto Camargos <augustocamargos@outlook.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,21 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
 msgstr "Planner"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Hoje"
+msgstr "hoje"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Amanhã"
+msgstr "amanhã"
 
 #: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -324,7 +322,7 @@ msgstr "Cancelar"
 
 #: src/Utils.vala:940
 msgid "The request was incorrect."
-msgstr "A requisição  incorreta."
+msgstr "Requisição incorreta."
 
 #: src/Utils.vala:941
 msgid ""
@@ -369,9 +367,8 @@ msgid "Todoist Project"
 msgstr "Projeto Todoist"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
-#, fuzzy
 msgid "Unable to move task"
-msgstr "Excluir tarefa"
+msgstr "Não foi possível mover tarefa"
 
 #: src/Widgets/Pane.vala:72
 msgid ""
@@ -412,7 +409,6 @@ msgstr ""
 "calendário."
 
 #: src/Widgets/Pane.vala:82
-#, fuzzy
 msgid "Add Project"
 msgstr "Adicionar projeto"
 
@@ -663,7 +659,7 @@ msgstr "Salvar"
 
 #: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
 msgid "Add a description"
-msgstr "Adicionar uma descrição"
+msgstr "Adicionar descrição"
 
 #: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:856
 msgid "Description"
@@ -909,12 +905,11 @@ msgstr "Exibir Concluídas"
 
 #: src/Views/Today.vala:92
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasado"
 
 #: src/Views/Today.vala:108
-#, fuzzy
 msgid "Reschedule"
-msgstr "Cronograma"
+msgstr "Reagendar"
 
 #: src/Views/Today.vala:137
 msgid "What tasks are on your mind?"
@@ -922,7 +917,7 @@ msgstr "Que tarefas estão em sua mente?"
 
 #: src/Views/Today.vala:138
 msgid "Tap + to add a task for today."
-msgstr "Toque + para adicionar uma tarefa para Hoje."
+msgstr "Toque + para adicionar uma tarefa para hoje."
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:833
 #, c-format
@@ -938,18 +933,16 @@ msgid "Tap + to add a task to this project."
 msgstr "Toque + para adicionar uma tarefa para este projeto."
 
 #: src/Views/Project.vala:1257
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Produtividade"
+msgstr "Sua produtividade"
 
 #: src/Views/Project.vala:1262
 msgid "Progress:"
 msgstr "Progresso:"
 
 #: src/Views/Project.vala:1273
-#, fuzzy
 msgid "Duedate:"
-msgstr "Data de vencimento:"
+msgstr "Prazo:"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:122
 msgid "Loading…"
@@ -973,9 +966,8 @@ msgid "Please enter your credentials…"
 msgstr "Por favor entre com suas credenciais…"
 
 #: src/Dialogs/ProjectSettings.vala:74
-#, fuzzy
 msgid "Deadline:"
-msgstr "Prazo limite"
+msgstr "Prazo:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1084,10 +1076,9 @@ msgstr "Azul Escuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:415
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1103,7 +1094,6 @@ msgid "Change"
 msgstr "Mudar"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
 msgstr "Atalhos do Teclado"
 
@@ -1117,7 +1107,7 @@ msgstr "Pressione as teclas…"
 
 #: src/Dialogs/Preferences/Preferences.vala:618
 msgid "DE Integration"
-msgstr "Integração DE"
+msgstr "Integração com ambiente gráfico"
 
 #: src/Dialogs/Preferences/Preferences.vala:622
 msgid "Run in background"
@@ -1129,8 +1119,8 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
-"Ative essa opção para manter a execução do Planner em segundo plano quando "
-"ele for fechado. Isso fará com que o Planner continue atualizando e enviando "
+"Ative essa opção para manter o Planner rodando em segundo plano quando ele "
+"for fechado. Isso fará com que o Planner continue atualizando e enviando "
 "lembretes de notificações."
 
 #: src/Dialogs/Preferences/Preferences.vala:634
@@ -1287,71 +1277,66 @@ msgid "Completed"
 msgstr "Completada"
 
 #: src/Dialogs/QuickFind.vala:99
-#, fuzzy
 msgid "Priority 1"
-msgstr "Prioridade: Baixa"
+msgstr "Prioridade baixa"
 
 #: src/Dialogs/QuickFind.vala:107
-#, fuzzy
 msgid "Priority 2"
-msgstr "Prioridade: Baixa"
+msgstr "Prioridade média-baixa"
 
 #: src/Dialogs/QuickFind.vala:115
-#, fuzzy
 msgid "Priority 3"
-msgstr "Prioridade: Baixa"
+msgstr "Prioridade média"
 
 #: src/Dialogs/QuickFind.vala:123
-#, fuzzy
 msgid "Priority 4"
-msgstr "Prioridade: Baixa"
+msgstr "Prioridade alta"
 
 #: src/Dialogs/QuickFind.vala:128
 msgid "Search"
 msgstr "Buscar"
 
 #: src/Dialogs/QuickFind.vala:156
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
-"Alterne rapidamente projetos e visualizações, encontre tarefas, pesquise por "
-"etiquetas, ..."
+"Alterne rapidamente projetos e visualizações, encontre tarefas e pesquise "
+"por etiquetas."
 
 #: src/Dialogs/QuickFind.vala:184
 msgid "UP"
-msgstr ""
+msgstr "SETA PARA CIMA"
 
 #: src/Dialogs/QuickFind.vala:189
 msgid "DOWN"
-msgstr ""
+msgstr "SETA PARA BAIXO"
 
 #: src/Dialogs/QuickFind.vala:194
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:199
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:209
 msgid "Use"
-msgstr ""
+msgstr "Use"
 
 #: src/Dialogs/QuickFind.vala:212
 msgid "to navigate and"
-msgstr ""
+msgstr "para navegar e"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to select,"
-msgstr ""
+msgstr "para selecionar,"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to close."
-msgstr ""
+msgstr "para fechar."
 
 #: src/Dialogs/QuickFind.vala:492
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:506
 msgid "Tasks"
@@ -1362,9 +1347,8 @@ msgid "Views"
 msgstr "Visualizações"
 
 #: src/Dialogs/QuickFind.vala:700
-#, fuzzy
 msgid "Priorities"
-msgstr "Prioridade: Baixa"
+msgstr "Prioridades"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
