@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-03-01 03:33+0000\n"
 "Last-Translator: Ethan Chen <ethan42411@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1272,8 +1272,9 @@ msgid "The Project was copied to the Clipboard."
 msgstr "此專案已被複製到剪貼簿。"
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Duplicate task"
-msgstr ""
+#, fuzzy
+msgid "Task duplicate"
+msgstr "工作已完成"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."

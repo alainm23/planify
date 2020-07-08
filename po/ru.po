@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-07-04 22:41+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
@@ -1333,7 +1333,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Проект был скопирован в буфер обмена."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Duplicate task"
+#, fuzzy
+msgid "Task duplicate"
 msgstr "Дубликат"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
@@ -1343,6 +1344,9 @@ msgstr "Задача была скопирована в буфер обмена.
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "Раздел был скопирован в буфер обмена."
+
+#~ msgid "Duplicate task"
+#~ msgstr "Дубликат"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

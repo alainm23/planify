@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-06-21 09:41+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
@@ -1346,7 +1346,7 @@ msgstr "Plan Panoya kopyalandı."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
 #, fuzzy
-msgid "Duplicate task"
+msgid "Task duplicate"
 msgstr "Çoğaltmak"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
@@ -1356,6 +1356,10 @@ msgstr "Görev Panoya kopyalandı."
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "Bölüm Panoya kopyalandı."
+
+#, fuzzy
+#~ msgid "Duplicate task"
+#~ msgstr "Çoğaltmak"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

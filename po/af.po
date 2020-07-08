@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-04-03 19:16+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/planner/"
@@ -1311,8 +1311,9 @@ msgid "The Project was copied to the Clipboard."
 msgstr ""
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Duplicate task"
-msgstr ""
+#, fuzzy
+msgid "Task duplicate"
+msgstr "Taaknaam"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."

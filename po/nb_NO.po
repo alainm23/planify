@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-06-02 08:41+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
@@ -1367,8 +1367,8 @@ msgstr "Prosjektet ble kopiert til utklippstavlen."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
 #, fuzzy
-msgid "Duplicate task"
-msgstr "Dupliser gjøremål"
+msgid "Task duplicate"
+msgstr "Dupliser"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 #, fuzzy
@@ -1379,6 +1379,10 @@ msgstr "Gjøremål kopiert til utklippstavle."
 #, fuzzy
 msgid "The Section was copied to the Clipboard."
 msgstr "Avsnitt kopiert til utklippstavle."
+
+#, fuzzy
+#~ msgid "Duplicate task"
+#~ msgstr "Dupliser gjøremål"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

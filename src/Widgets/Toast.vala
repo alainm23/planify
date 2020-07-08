@@ -110,9 +110,7 @@ public class Widgets.Toast : Gtk.Revealer {
                 var item = Planner.database.get_item_by_id (
                     Planner.todoist.get_int_member_by_object (query, "object_id")
                 );
-
-                print ("id: %s\n".printf (item.id.to_string ()));
-
+                
                 if (item.id != 0) {
                     if (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete") {
                         Planner.database.show_undo_item (item, "item_delete");

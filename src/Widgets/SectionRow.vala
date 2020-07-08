@@ -325,7 +325,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             var row = ((Widgets.ItemRow) r);
 
             if (Planner.event_bus.ctrl_pressed) {
-                Planner.event_bus.select_item (row);
+                // Planner.event_bus.select_item (row);
             } else {
                 row.reveal_child = true;
                 Planner.event_bus.valid_select_item (row);

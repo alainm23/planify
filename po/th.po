@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-03-23 03:48+0000\n"
 "Last-Translator: CHAIWIT PHONKHEN <5911110222@mutacth.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/planner/"
@@ -1335,7 +1335,7 @@ msgstr "โปรเจคถูกคัดลอกไปยังคลิป
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
 #, fuzzy
-msgid "Duplicate task"
+msgid "Task duplicate"
 msgstr "ทำสำเนา"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
@@ -1345,6 +1345,10 @@ msgstr "งานถูกคัดลอกไปยังคลิปบอร
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "คัดลอกหมวดไปยังคลิปบอร์ดแล้ว"
+
+#, fuzzy
+#~ msgid "Duplicate task"
+#~ msgstr "ทำสำเนา"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

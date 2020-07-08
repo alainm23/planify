@@ -48,8 +48,8 @@ public class Dialogs.ReleaseDialog : Gtk.Dialog {
 
         var date = new DateTime.local (
             2020,
-            06,
-            28, 0, 0, 0);
+            7,
+            8, 0, 0, 0);
         var date_label = new Gtk.Label (Planner.utils.get_default_date_format_from_date (date));
         date_label.halign = Gtk.Align.START;
         date_label.use_markup = true;
@@ -93,9 +93,7 @@ public class Dialogs.ReleaseDialog : Gtk.Dialog {
 
         var release_info = new Widgets.TextView (); 
         release_info.buffer.text = _("""General bug fixes and improvements.
-✓ Login failed with Todoist fixed
-✓ Design improvement in task details.
-✓ New and better designed icons.""");
+✓ Fixed a critical bug where tasks disappear unexpectedly.""");
         release_info.pixels_below_lines = 3;
         release_info.border_width = 12;
         release_info.wrap_mode = Gtk.WrapMode.WORD;

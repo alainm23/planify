@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-07-04 22:41+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
@@ -1322,8 +1322,9 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Projekt je kopiran u međuspremnik."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Duplicate task"
-msgstr "Dupliciraj zadatak"
+#, fuzzy
+msgid "Task duplicate"
+msgstr "Dupliciraj"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
@@ -1332,6 +1333,9 @@ msgstr "Zadatak je kopiran u međuspremnik."
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "Odjeljak je kopiran u međuspremnik."
+
+#~ msgid "Duplicate task"
+#~ msgstr "Dupliciraj zadatak"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

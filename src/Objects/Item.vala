@@ -122,7 +122,7 @@ public class Objects.Item : GLib.Object {
             var temp_id_mapping = Planner.utils.generate_id ();
             Planner.todoist.item_added_completed.connect ((_temp_id_mapping) => {
                 if (temp_id_mapping == _temp_id_mapping) {
-                    Planner.notifications.send_notification (_("Duplicate task"));
+                    Planner.notifications.send_notification (_("Task duplicate"));
                 }
             });
 
@@ -131,7 +131,7 @@ public class Objects.Item : GLib.Object {
             item.id = Planner.utils.generate_id ();
             if (Planner.database.insert_item (item, -1)) {
                 Planner.notifications.send_notification (
-                    _("Duplicate task")
+                    _("Task duplicate")
                 );
             }
         }

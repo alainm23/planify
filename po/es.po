@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-07-01 08:41+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
@@ -1338,8 +1338,9 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Se ha copiado el proyecto en el portapapeles."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Duplicate task"
-msgstr "Duplicar tarea"
+#, fuzzy
+msgid "Task duplicate"
+msgstr "Duplicar"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
@@ -1348,6 +1349,9 @@ msgstr "Se ha copiado la tarea en el portapapeles."
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "Se ha copiado la sección en el portapapeles."
+
+#~ msgid "Duplicate task"
+#~ msgstr "Duplicar tarea"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-08 13:03-0500\n"
+"POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-02-28 09:14+0000\n"
 "Last-Translator: Long Nguyen <stoostranger@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/"
@@ -1340,7 +1340,7 @@ msgstr "Kế hoạch đã được sao chép vào Clipboard."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
 #, fuzzy
-msgid "Duplicate task"
+msgid "Task duplicate"
 msgstr "Sao chép"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
@@ -1350,6 +1350,10 @@ msgstr "Việc cần làm đã được sao chép vào Clipboard."
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "Phần này đã được lưu vào Clipboard."
+
+#, fuzzy
+#~ msgid "Duplicate task"
+#~ msgstr "Sao chép"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "
