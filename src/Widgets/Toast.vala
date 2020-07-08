@@ -126,7 +126,7 @@ public class Widgets.Toast : Gtk.Revealer {
                         }
     
                         Planner.database.show_undo_item (item, "item_complete");
-                    }  else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule") {
+                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule") {
                         Planner.database.update_item_recurring_due_date (item, -1);
                     }
                 }

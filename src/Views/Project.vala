@@ -587,7 +587,7 @@ public class Views.Project : Gtk.EventBox {
 
                 items_uncompleted_added.set (item.id.to_string (), row);
 
-                if (index == -1){
+                if (index == -1) {
                     listbox.add (row);
                     items_list.add (row);
                 } else {

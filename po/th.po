@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-28 10:08-0500\n"
+"POT-Creation-Date: 2020-07-08 13:03-0500\n"
 "PO-Revision-Date: 2020-03-23 03:48+0000\n"
 "Last-Translator: CHAIWIT PHONKHEN <5911110222@mutacth.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/planner/"
@@ -33,134 +33,134 @@ msgstr "วันนี้"
 msgid "tomorrow"
 msgstr "พรุ่งนี้"
 
-#: src/Utils.vala:131 src/Utils.vala:138 src/Widgets/LabelRow.vala:82
+#: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
 msgstr "โฮม"
 
-#: src/Utils.vala:132 src/Utils.vala:142
+#: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
 msgstr "ออฟฟิศ"
 
-#: src/Utils.vala:133 src/Utils.vala:146
+#: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
 msgstr "กิจการพิเศษ"
 
-#: src/Utils.vala:134 src/Utils.vala:150
+#: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
 msgstr "สำคัญ"
 
-#: src/Utils.vala:135 src/Utils.vala:154
+#: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
 msgstr "รอดำเนินการ"
 
-#: src/Utils.vala:198
+#: src/Utils.vala:194
 msgid "Berry Red"
 msgstr "เบอร์รี่ แดง"
 
-#: src/Utils.vala:199
+#: src/Utils.vala:195
 msgid "Red"
 msgstr "แดง"
 
-#: src/Utils.vala:200
+#: src/Utils.vala:196
 msgid "Orange"
 msgstr "ส้ม"
 
-#: src/Utils.vala:201
+#: src/Utils.vala:197
 msgid "Yellow"
 msgstr "เหลือง"
 
-#: src/Utils.vala:202
+#: src/Utils.vala:198
 msgid "Olive Green"
 msgstr "เขียวเข้ม"
 
-#: src/Utils.vala:203
+#: src/Utils.vala:199
 msgid "Lime Green"
 msgstr "เขียวอ่อน"
 
-#: src/Utils.vala:204
+#: src/Utils.vala:200
 msgid "Green"
 msgstr "เขียว"
 
-#: src/Utils.vala:205
+#: src/Utils.vala:201
 msgid "Mint Green"
 msgstr "เขียวมิ้นท์"
 
-#: src/Utils.vala:206
+#: src/Utils.vala:202
 msgid "Teal"
 msgstr "น้ำเงินอมเขียว"
 
-#: src/Utils.vala:207
+#: src/Utils.vala:203
 msgid "Sky Blue"
 msgstr "ฟ้า"
 
-#: src/Utils.vala:208
+#: src/Utils.vala:204
 msgid "Light Blue"
 msgstr "ฟ้าอ่อน"
 
-#: src/Utils.vala:209
+#: src/Utils.vala:205
 msgid "Blue"
 msgstr "น้ำเงิน"
 
-#: src/Utils.vala:210
+#: src/Utils.vala:206
 msgid "Grape"
 msgstr "องุ่น"
 
-#: src/Utils.vala:211
+#: src/Utils.vala:207
 msgid "Violet"
 msgstr "ม่วง"
 
-#: src/Utils.vala:212
+#: src/Utils.vala:208
 msgid "Lavander"
 msgstr "ลาวันเดอร์"
 
-#: src/Utils.vala:213
+#: src/Utils.vala:209
 msgid "Magenta"
 msgstr "บานเย็น"
 
-#: src/Utils.vala:214
+#: src/Utils.vala:210
 msgid "Salmon"
 msgstr "แซลมอน"
 
-#: src/Utils.vala:215
+#: src/Utils.vala:211
 msgid "Charcoal"
 msgstr "สีถ่าน"
 
-#: src/Utils.vala:216
+#: src/Utils.vala:212
 msgid "Grey"
 msgstr "เทา"
 
-#: src/Utils.vala:217
+#: src/Utils.vala:213
 msgid "Taupe"
 msgstr "น้ำตาลอมเทา"
 
 #. vala-lint=line-length
-#: src/Utils.vala:578 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1388
-#: src/Widgets/DueButton.vala:192 src/Views/Today.vala:59
-#: src/Views/Today.vala:594 src/Dialogs/Preferences/Preferences.vala:233
+#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1422
+#: src/Widgets/DueButton.vala:196 src/Views/Today.vala:59
+#: src/Views/Today.vala:613 src/Dialogs/Preferences/Preferences.vala:233
 #: src/Dialogs/Preferences/Preferences.vala:339 src/Dialogs/QuickFind.vala:76
 msgid "Today"
 msgstr "วันนี้"
 
-#: src/Utils.vala:580 src/Widgets/Pane.vala:408 src/Widgets/ItemRow.vala:1391
-#: src/Widgets/DueButton.vala:198 src/Widgets/UpcomingRow.vala:64
-#: src/Views/Today.vala:600
+#: src/Utils.vala:576 src/Widgets/Pane.vala:408 src/Widgets/ItemRow.vala:1425
+#: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
+#: src/Views/Today.vala:619
 msgid "Tomorrow"
 msgstr "พรุ่งนี้"
 
-#: src/Utils.vala:819
+#: src/Utils.vala:815
 msgid "Quick Add Activated!"
 msgstr "เพิ่มการเปิดใช้งานด่วน!"
 
-#: src/Utils.vala:820
+#: src/Utils.vala:816
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "ลอง %s เพื่อเปิดใช้งาน คุณสามารถเปลี่ยนได้จากการตั้งค่า"
 
-#: src/Utils.vala:859
+#: src/Utils.vala:855
 msgid "🚀️ Getting Started"
 msgstr "🚀️เริ่มต้นใช้งาน"
 
-#: src/Utils.vala:860
+#: src/Utils.vala:856
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -169,11 +169,11 @@ msgstr ""
 "โครงการนี้จะช่วยให้คุณเรียนรู้พื้นฐานของ Planner และเริ่มต้นด้วยระบบการจัดการงานง่าย ๆ "
 "เพื่อจัดระเบียบและเหนือสิ่งอื่นใดที่คุณต้องทำ"
 
-#: src/Utils.vala:865
+#: src/Utils.vala:861
 msgid "Keeping track of your tasks"
 msgstr "ติดตามงานของคุณ"
 
-#: src/Utils.vala:866
+#: src/Utils.vala:862
 msgid ""
 "It turns out, our brains are actually wired to keep us thinking about our "
 "unfinished tasks. Handy when you have one thing you need to work on. Not so "
@@ -188,11 +188,11 @@ msgstr ""
 "นั่นเป็นเหตุผลที่ขั้นตอนแรกในการจัดระเบียบงานและชีวิตของคุณคือการนำทุกสิ่งออกจากหัวและลงในรายการที่ต้องทำ "
 "จากตรงนั้นคุณสามารถเริ่มต้นจัดระเบียบและจัดลำดับความสำคัญเพื่อให้คุณรู้ว่าต้องให้ความสำคัญกับอะไรและเมื่อใด"
 
-#: src/Utils.vala:871
+#: src/Utils.vala:867
 msgid "Adding new tasks"
 msgstr "เพิ่มงานใหม่"
 
-#: src/Utils.vala:872
+#: src/Utils.vala:868
 msgid ""
 "- To add a new task to Planner, just click + and press Enter.\n"
 "- When your task is created, click on the task to be able to edit it, add a "
@@ -201,11 +201,11 @@ msgstr ""
 "- เมื่อต้องการเพิ่มงานใหม่ให้กับ Planner เพียงคลิก + แล้วกด Enter\n"
 "- เมื่องานของคุณถูกสร้างขึ้นให้คลิกที่งานเพื่อให้สามารถแก้ไขได้เพิ่มบันทึกหรือตัวเลือกอื่น ๆ"
 
-#: src/Utils.vala:878
+#: src/Utils.vala:874
 msgid "Due dates"
 msgstr "วันครบกําหนด"
 
-#: src/Utils.vala:879
+#: src/Utils.vala:875
 msgid ""
 "- If you know you need to have the task done on a certain day, click on the "
 "calendar icon and select a date.\n"
@@ -215,11 +215,11 @@ msgstr ""
 "- ถ้าคุณรู้ว่าคุณต้องมีงานทําในวันหนึ่งให้คลิกที่ไอคอนปฏิทินและเลือกวันที่\n"
 "- ถ้าคุณต้องการที่จะลบวันครบกําหนดให้ทําซ้ําขั้นตอนนี้และเลือกตัวเลือก \"undate\""
 
-#: src/Utils.vala:885
+#: src/Utils.vala:881
 msgid "How to use projects"
 msgstr "วิธีใช้โปรเจค"
 
-#: src/Utils.vala:886
+#: src/Utils.vala:882
 msgid ""
 "- Whether you’re planning a presentation, preparing for an event or creating "
 "a website, create a project so all the important details are saved in one "
@@ -239,15 +239,15 @@ msgstr ""
 "- (อุปกรณ์เสริม) เลือกสีโครงการที่แตกต่างกันจากรายการสี\n"
 "- คลิกเพิ่มเพื่อสร้างโปรเจค"
 
-#: src/Utils.vala:896
+#: src/Utils.vala:892
 msgid "Sections"
 msgstr "ส่วน"
 
-#: src/Utils.vala:902
+#: src/Utils.vala:898
 msgid "Add sections"
 msgstr "เพิ่มส่วน"
 
-#: src/Utils.vala:903
+#: src/Utils.vala:899
 msgid ""
 "- It’s always easier to take on a big project when you split it into easily "
 "manageable parts using Planner’s sections.\n"
@@ -266,117 +266,98 @@ msgstr ""
 "- ที่ด้านบนขวาของโปรเจคให้คลิกไอคอน +\n"
 "- พิมพ์ชื่อส่วนของคุณแล้วคลิกเพิ่ม"
 
-#: src/Utils.vala:922
+#: src/Utils.vala:918
 msgid "Create a new task"
 msgstr "สร้างงานใหม่"
 
-#: src/Utils.vala:923
+#: src/Utils.vala:919
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr "สร้างงานใหม่ที่ด้านบนของรายการ (ทํางานภายในโปรเจคเท่านั้น)"
 
-#: src/Utils.vala:924
+#: src/Utils.vala:920
 msgid "Create a new area"
 msgstr "สร้างพื้นที่ใหม่"
 
-#: src/Utils.vala:925
+#: src/Utils.vala:921
 msgid "Create a new project"
 msgstr "สร้างโปรเจคใหม่"
 
-#: src/Utils.vala:926
+#: src/Utils.vala:922
 msgid "Create a new section"
 msgstr "สร้างหัวข้อใหม่"
 
-#: src/Utils.vala:927
+#: src/Utils.vala:923
 msgid "Open the Inbox"
 msgstr "เปิดกล่องขาเข้า"
 
-#: src/Utils.vala:928
+#: src/Utils.vala:924
 msgid "Open Today"
 msgstr "เปิดวันนี้"
 
-#: src/Utils.vala:929
+#: src/Utils.vala:925
 msgid "Open Upcoming"
 msgstr "เปิดเร็วๆนี้"
 
-#: src/Utils.vala:930
+#: src/Utils.vala:926
 msgid "Open Search"
 msgstr "เปิดการค้นหา"
 
-#: src/Utils.vala:931
+#: src/Utils.vala:927
 msgid "Manually sync"
 msgstr "ซิงค์ด้วยตนเอง"
 
-#: src/Utils.vala:932
+#: src/Utils.vala:928
 msgid "Quit"
 msgstr "ออก"
 
-#: src/Utils.vala:940
+#: src/Utils.vala:936
 msgid "The request was incorrect."
 msgstr "การร้องขอไม่ถูกต้อง"
 
-#: src/Utils.vala:941
+#: src/Utils.vala:937
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "ต้องรับรองความถูกต้อง และล้มเหลว หรือยังไม่ได้ระบุ"
 
-#: src/Utils.vala:942
+#: src/Utils.vala:938
 msgid "The request was valid, but for something that is forbidden."
 msgstr "คำขอนั้นถูกต้อง แต่มีบางอย่างไม่เป็นไปตามข้อกำหนด"
 
-#: src/Utils.vala:943
+#: src/Utils.vala:939
 msgid "The requested resource could not be found."
 msgstr "ไม่พบทรัพยากรที่ร้องขอ"
 
-#: src/Utils.vala:944
+#: src/Utils.vala:940
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "ผู้ใช้ได้ส่งการร้องขอจํานวนมากเกินไปในเวลาที่กําหนด"
 
-#: src/Utils.vala:945
+#: src/Utils.vala:941
 msgid "The request failed due to a server error."
 msgstr "การร้องขอล้มเหลวเนื่องจากเกิดข้อผิดพลาดของเซิร์ฟเวอร์"
 
-#: src/Utils.vala:946
+#: src/Utils.vala:942
 msgid "The server is currently unable to handle the request."
 msgstr "เซิร์ฟเวอร์ไม่สามารถจัดการตามคำขอได้ในขณะนี้"
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:1046 src/Widgets/Pane.vala:72
-#: src/Widgets/ItemRow.vala:1290 src/Widgets/SectionRow.vala:764
-#: src/Views/Inbox.vala:79 src/Dialogs/Preferences/Preferences.vala:229
+#: src/Services/Database.vala:1035 src/Widgets/Pane.vala:72
+#: src/Widgets/ItemRow.vala:1324 src/Widgets/SectionRow.vala:750
+#: src/Views/Inbox.vala:82 src/Dialogs/Preferences/Preferences.vala:229
 #: src/Dialogs/Preferences/Preferences.vala:336 src/Dialogs/QuickFind.vala:69
 msgid "Inbox"
 msgstr "กล่องขาเข้า"
 
-#: src/Services/Calendar/Util.vala:227
+#: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
 msgstr "บนคอมพิวเตอร์นี้"
 
-#: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:150
+#: src/Widgets/ActionRow.vala:84 src/Widgets/ProjectRow.vala:150
 msgid "Todoist Project"
 msgstr "โปรเจคที่ต้องทำ"
 
-#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
+#: src/Widgets/ActionRow.vala:274 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
 msgstr ""
-
-#: src/Widgets/Pane.vala:72
-msgid ""
-"Your Inbox is the default place to add new tasks so you can get them out of "
-"your head quickly, then come back and make a plan to take care of them "
-"later. It’s a great way to declutter your mind so you can focus on whatever "
-"you’re doing right now."
-msgstr ""
-"กล่องจดหมายเข้าของคุณเป็นสถานที่เริ่มต้นในการเพิ่มงานใหม่เพื่อให้คุณสามารถนำงานออกจากหัวของคุณได้อย่างรวดเร็วจากนั้นกลับมาและวางแผนที่จะดูแลในภายหลัง "
-"เป็นวิธีที่ดีในการแยกความคิดของคุณออกเพื่อให้คุณสามารถมุ่งเน้นไปที่สิ่งที่คุณกำลังทำอยู่ตอนนี้"
-
-#: src/Widgets/Pane.vala:73
-msgid ""
-"The Today view lets you see all the tasks due today across all your "
-"projects. Check in here every morning to make a realistic plan to tackle "
-"your day."
-msgstr ""
-"มุมมองวันนี้ช่วยให้คุณดูงานทั้งหมดครบกําหนดวันนี้ในโปรเจคทั้งหมดของคุณ "
-"เช็คอินที่นี่ทุกเช้าเพื่อวางแผนเพื่อรับมือกับวันของคุณ"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:410
@@ -385,15 +366,7 @@ msgstr ""
 msgid "Upcoming"
 msgstr "ใกล้เข้ามาแล้ว"
 
-#: src/Widgets/Pane.vala:74
-msgid ""
-"Plan your week ahead with the Upcoming view. It shows everything on your "
-"agenda for the coming days: scheduled to-dos and calendar events."
-msgstr ""
-"วางแผนสัปดาห์ของคุณล่วงหน้าด้วยมุมมองที่จะเกิดขึ้น แสดงทุกอย่างคุณสําหรับวันข้างหน้า: "
-"กําหนดสิ่งที่ต้องทําและกิจกรรมในปฏิทิน"
-
-#: src/Widgets/Pane.vala:82
+#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
 #, fuzzy
 msgid "Add Project"
 msgstr "เพิ่มโปรเจค"
@@ -424,7 +397,7 @@ msgstr ""
 "อินเทอร์เน็ต การเปลี่ยนแปลงที่คุณทําในแบบออฟไลน์\n"
 "และซิงค์เมื่อคุณเชื่อมต่อใหม่"
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:911 src/Views/Project.vala:1317
+#: src/Widgets/New.vala:64 src/Views/Inbox.vala:928 src/Views/Project.vala:1310
 #: src/Dialogs/ProjectSettings.vala:49
 msgid "Name:"
 msgstr "ชื่อ:"
@@ -442,17 +415,17 @@ msgstr ""
 msgid "Color:"
 msgstr "สี:"
 
-#: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:86
+#: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
 #: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
-#: src/Views/Inbox.vala:927 src/Views/Project.vala:1333
+#: src/Views/Inbox.vala:944 src/Views/Project.vala:1326
 msgid "Add"
 msgstr "เพิ่ม"
 
-#: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:91
+#: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:96
 #: src/Widgets/SectionRow.vala:166 src/Widgets/AreaRow.vala:148
 #: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:932
-#: src/Views/Project.vala:220 src/Views/Project.vala:1338
+#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:949
+#: src/Views/Project.vala:220 src/Views/Project.vala:1331
 msgid "Cancel"
 msgstr "ยกเลิก"
 
@@ -460,7 +433,7 @@ msgstr "ยกเลิก"
 msgid "Local"
 msgstr "โลคอล"
 
-#: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:492
+#: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:491
 msgid "No Folder"
 msgstr ""
 
@@ -472,24 +445,29 @@ msgstr "โปรเจค"
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr "เริ่มโปรเจคใหม่, สร้างสิ่งที่ต้องทํา รายการ, จัดระเบียบบันทึกย่อของคุณ"
 
-#: src/Widgets/New.vala:493
+#: src/Widgets/New.vala:494
 msgid "Folder"
 msgstr ""
 
-#: src/Widgets/New.vala:498
+#: src/Widgets/New.vala:499
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr "จัดระเบียบโปรเจคของคุณในกลุ่มและทำให้พาเนลของคุณดูสะอาด"
 
-#: src/Widgets/New.vala:516 src/Dialogs/ProjectSettings.vala:157
+#: src/Widgets/New.vala:512
+#, fuzzy
+msgid "Add Folder"
+msgstr "เพิ่มหมายเหตุ"
+
+#: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
 msgid "Close"
 msgstr "ปิด"
 
-#: src/Widgets/New.vala:580
+#: src/Widgets/New.vala:582
 msgid "New folder"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:126
+#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:129
 #: src/Views/Project.vala:205
 msgid "Project Menu"
 msgstr "เมนูโปรเจค"
@@ -498,108 +476,123 @@ msgstr "เมนูโปรเจค"
 msgid "Local Project"
 msgstr "โปรเจค Local"
 
-#: src/Widgets/ProjectRow.vala:389 src/Widgets/ItemRow.vala:1299
-#: src/Widgets/ItemRow.vala:1319 src/Widgets/ItemRow.vala:1353
-#: src/Widgets/SectionRow.vala:1021 src/Widgets/SectionRow.vala:1077
+#: src/Widgets/ProjectRow.vala:389 src/Widgets/ItemRow.vala:1333
+#: src/Widgets/ItemRow.vala:1353 src/Widgets/ItemRow.vala:1387
+#: src/Widgets/SectionRow.vala:1007 src/Widgets/SectionRow.vala:1064
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "ย้ายงานไปที่ <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:548 src/Widgets/ItemRow.vala:1386
-#: src/Widgets/AreaRow.vala:650 src/Views/Project.vala:1042
+#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1420
+#: src/Widgets/AreaRow.vala:651 src/Views/Project.vala:1035
 msgid "Edit"
 msgstr "แก้ไข"
 
-#: src/Widgets/ProjectRow.vala:549
+#: src/Widgets/ProjectRow.vala:548
 msgid "Move"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:553 src/Widgets/ItemRow.vala:1407
-#: src/Widgets/SectionRow.vala:830
+#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1441
+#: src/Widgets/SectionRow.vala:816
 msgid "Share"
 msgstr "แบ่งปัน"
 
-#: src/Widgets/ProjectRow.vala:557
+#: src/Widgets/ProjectRow.vala:556
 msgid "Send by e-mail"
 msgstr "ส่งทางอีเมล"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:558 src/Widgets/ItemRow.vala:1412
-#: src/Widgets/SectionRow.vala:835
+#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1446
+#: src/Widgets/SectionRow.vala:821
 msgid "Markdown"
 msgstr ""
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:566 src/Widgets/ProjectRow.vala:593
-#: src/Widgets/ItemRow.vala:1419 src/Widgets/SectionRow.vala:841
-#: src/Widgets/SectionRow.vala:884 src/Widgets/AreaRow.vala:651
-#: src/Widgets/AreaRow.vala:689 src/Widgets/CheckRow.vala:81
-#: src/Views/Project.vala:1045 src/Views/Project.vala:1118
+#: src/Widgets/ProjectRow.vala:565 src/Widgets/ProjectRow.vala:592
+#: src/Widgets/ItemRow.vala:1453 src/Widgets/SectionRow.vala:827
+#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:652
+#: src/Widgets/AreaRow.vala:690 src/Widgets/CheckRow.vala:81
+#: src/Views/Project.vala:1038 src/Views/Project.vala:1111
 msgid "Delete"
 msgstr "ลบ"
 
-#: src/Widgets/ProjectRow.vala:588 src/Views/Project.vala:1113
+#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1106
 msgid "Delete project"
 msgstr "ลบโปรเจค"
 
-#: src/Widgets/ProjectRow.vala:589 src/Widgets/SectionRow.vala:880
-#: src/Widgets/AreaRow.vala:677 src/Views/Project.vala:1114
+#: src/Widgets/ProjectRow.vala:588 src/Widgets/SectionRow.vala:866
+#: src/Widgets/AreaRow.vala:678 src/Views/Project.vala:1107
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการลบ<b>%s</b>?"
 
-#: src/Widgets/NewItem.vala:64 src/Widgets/ItemRow.vala:209
+#: src/Widgets/NewItem.vala:69 src/Widgets/ItemRow.vala:220
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
 msgid "Task name"
 msgstr "ชื่องาน"
 
-#: src/Widgets/ItemRow.vala:173
+#: src/Widgets/ItemRow.vala:184
 #, fuzzy
 msgid "Hide Details"
 msgstr "ดูรายละเอียด"
 
-#: src/Widgets/ItemRow.vala:469
+#: src/Widgets/ItemRow.vala:502
 msgid "Add Checklist"
 msgstr "เพิ่มรายการตรวจสอบ"
 
-#: src/Widgets/ItemRow.vala:476
+#: src/Widgets/ItemRow.vala:509
 msgid "Delete Task"
 msgstr "ลบงาน"
 
-#: src/Widgets/ItemRow.vala:490
+#: src/Widgets/ItemRow.vala:523
 msgid "Task Menu"
 msgstr "เมนูงาน"
 
-#: src/Widgets/ItemRow.vala:1332
+#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1506
+#, fuzzy
+msgid "Task deleted"
+msgstr "งานที่เสร็จสมบูรณ์"
+
+#: src/Widgets/ItemRow.vala:1012
+#, c-format
+msgid "Completed. Next occurrence: %s"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:1025
+#, fuzzy
+msgid "1 task completed"
+msgstr "งานที่เสร็จสมบูรณ์"
+
+#: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
 msgstr "ไม่มีหมวดหมู่"
 
-#: src/Widgets/ItemRow.vala:1385
+#: src/Widgets/ItemRow.vala:1419
 msgid "Complete"
 msgstr "เสร็จ สมบูรณ์"
 
-#: src/Widgets/ItemRow.vala:1394 src/Widgets/DueButton.vala:204
+#: src/Widgets/ItemRow.vala:1428 src/Widgets/DueButton.vala:208
 msgid "Undated"
 msgstr "ยังไม่ได้ลงวันที่"
 
-#: src/Widgets/ItemRow.vala:1399 src/Widgets/SectionRow.vala:826
+#: src/Widgets/ItemRow.vala:1433 src/Widgets/SectionRow.vala:812
 msgid "Move to Project"
 msgstr "ย้ายไปยังโปรเจค"
 
-#: src/Widgets/ItemRow.vala:1403
+#: src/Widgets/ItemRow.vala:1437
 msgid "Move to Section"
 msgstr "ย้ายไปยังหมวด"
 
-#: src/Widgets/ItemRow.vala:1411
+#: src/Widgets/ItemRow.vala:1445
 msgid "Text"
 msgstr "ข้อความ"
 
-#: src/Widgets/ItemRow.vala:1418
+#: src/Widgets/ItemRow.vala:1452
 msgid "Duplicate"
 msgstr "ทำสำเนา"
 
-#: src/Widgets/ItemRow.vala:1541 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:1578 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
 msgstr "หมายเหตุ"
 
@@ -616,15 +609,15 @@ msgid "Date completed"
 msgstr "วันที่แล้วเสร็จ"
 
 #. hidden_button.margin_end = 6;
-#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:950
+#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:936
 msgid "Display Tasks"
 msgstr "แสดงงาน"
 
-#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:955
+#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:941
 msgid "Hiding Tasks"
 msgstr "ซ่อนงาน"
 
-#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:820
+#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:806
 #: src/Widgets/MagicButton.vala:32
 msgid "Add Task"
 msgstr "เพิ่มงาน"
@@ -649,28 +642,28 @@ msgstr "บันทึก"
 msgid "Add a description"
 msgstr "เพิ่มคําอธิบาย"
 
-#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:856
+#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:849
 msgid "Description"
 msgstr "คำอธิบาย"
 
-#: src/Widgets/SectionRow.vala:771 src/Widgets/SectionRow.vala:792
+#: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "หมวดถูกย้ายไปยัง <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:823
+#: src/Widgets/SectionRow.vala:809
 msgid "Rename"
 msgstr "เปลี่ยนชื่อ"
 
-#: src/Widgets/SectionRow.vala:824
+#: src/Widgets/SectionRow.vala:810
 msgid "Add Note"
 msgstr "เพิ่มหมายเหตุ"
 
-#: src/Widgets/SectionRow.vala:879
+#: src/Widgets/SectionRow.vala:865
 msgid "Delete section"
 msgstr "ลบหมวด"
 
-#: src/Widgets/SectionRow.vala:897
+#: src/Widgets/SectionRow.vala:883
 msgid "Section deleted"
 msgstr "ลบหมวดแล้ว"
 
@@ -679,28 +672,28 @@ msgstr "ลบหมวดแล้ว"
 msgid "Schedule"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:213
+#: src/Widgets/DueButton.vala:217
 msgid "Repeat"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:236
+#: src/Widgets/DueButton.vala:240
 msgid "Every day"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:242
+#: src/Widgets/DueButton.vala:246
 msgid "Every week"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:248
+#: src/Widgets/DueButton.vala:252
 msgid "Every month"
 msgstr ""
 
-#: src/Widgets/DueButton.vala:254
+#: src/Widgets/DueButton.vala:258
 msgid "Every year"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:116
-#: src/Dialogs/Preferences/Preferences.vala:758 src/Dialogs/QuickFind.vala:279
+#: src/Dialogs/Preferences/Preferences.vala:767 src/Dialogs/QuickFind.vala:279
 #: src/Dialogs/QuickFind.vala:655
 msgid "Labels"
 msgstr "ป้ายกำกับ"
@@ -743,34 +736,20 @@ msgstr ""
 msgid "Create '%s'"
 msgstr "สร้าง"
 
-#: src/Widgets/Toast.vala:80
+#: src/Widgets/Toast.vala:68
 msgid "Undo"
 msgstr "เลิกทำ"
 
-#: src/Widgets/Toast.vala:238
-#, fuzzy
-msgid "Task deleted"
-msgstr "งานที่เสร็จสมบูรณ์"
-
-#: src/Widgets/Toast.vala:240
-msgid "Task completed"
-msgstr "งานที่เสร็จสมบูรณ์"
-
-#: src/Widgets/Toast.vala:244
-#, c-format
-msgid "Completed. Next occurrence: %s"
-msgstr ""
-
-#: src/Widgets/AreaRow.vala:647
+#: src/Widgets/AreaRow.vala:648
 msgid "Add project"
 msgstr "เพิ่มโปรเจค"
 
-#: src/Widgets/AreaRow.vala:676
+#: src/Widgets/AreaRow.vala:677
 #, fuzzy
 msgid "Delete folder"
 msgstr "ลบโปรเจค"
 
-#: src/Widgets/AreaRow.vala:684
+#: src/Widgets/AreaRow.vala:685
 msgid "Delete projects"
 msgstr "ลบโปรเจค"
 
@@ -854,7 +833,7 @@ msgstr "เมื่อเริ่มการทำงาน"
 msgid "Start working locally."
 msgstr "เริ่มทํางานภายในเครื่อง"
 
-#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:881
+#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:890
 #, fuzzy
 msgid "Todoist"
 msgstr "Todoist"
@@ -863,74 +842,74 @@ msgstr "Todoist"
 msgid "Synchronize with your Todoist account and start working."
 msgstr "ซิงโครไนซ์กับบัญชี Todoist ของคุณและเริ่มทํางาน"
 
-#: src/Views/Inbox.vala:90 src/Views/Project.vala:161
+#: src/Views/Inbox.vala:93 src/Views/Project.vala:161
 #: src/Views/Project.vala:169
 msgid "Add Section"
 msgstr "เพิ่มหมวด"
 
-#: src/Views/Inbox.vala:98 src/Views/Project.vala:177
+#: src/Views/Inbox.vala:101 src/Views/Project.vala:177
 msgid "Invite person"
 msgstr "เชิญบุคคล"
 
-#: src/Views/Inbox.vala:107 src/Views/Project.vala:186
+#: src/Views/Inbox.vala:110 src/Views/Project.vala:186
 msgid "Project comments"
 msgstr "ความคิดเห็นของโปรเจค"
 
-#: src/Views/Inbox.vala:115 src/Views/Project.vala:194
+#: src/Views/Inbox.vala:118 src/Views/Project.vala:194
 msgid "Search task"
 msgstr "ค้นหางาน"
 
-#: src/Views/Inbox.vala:281
+#: src/Views/Inbox.vala:285
 msgid "All clear"
 msgstr "เคลียร์ทั้งหมด"
 
-#: src/Views/Inbox.vala:282
+#: src/Views/Inbox.vala:286
 #, fuzzy
 msgid "Looks like everything's organized in the right place."
 msgstr "ดูเหมือนว่าทุกอย่างถูกจัดเตรียมไว้อย่างดี"
 
-#: src/Views/Inbox.vala:784 src/Views/Project.vala:1054
+#: src/Views/Inbox.vala:801 src/Views/Project.vala:1047
 msgid "Show Completed"
 msgstr "แสดงเสร็จสมบูรณ์"
 
-#: src/Views/Today.vala:92
+#: src/Views/Today.vala:93
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Today.vala:108
+#: src/Views/Today.vala:109
 msgid "Reschedule"
 msgstr ""
 
-#: src/Views/Today.vala:137
+#: src/Views/Today.vala:138
 msgid "What tasks are on your mind?"
 msgstr "งานมีอะไรอยู่ในใจของคุณ?"
 
-#: src/Views/Today.vala:138
+#: src/Views/Today.vala:139
 msgid "Tap + to add a task for today."
 msgstr "แตะ + เพื่อเพิ่มงานสําหรับวันนี้"
 
-#: src/Views/Project.vala:143 src/Views/Project.vala:833
+#: src/Views/Project.vala:143 src/Views/Project.vala:826
 #, c-format
 msgid "Progress: %s"
 msgstr ""
 
-#: src/Views/Project.vala:391
+#: src/Views/Project.vala:392
 msgid "What will you accomplish?"
 msgstr ""
 
-#: src/Views/Project.vala:392
+#: src/Views/Project.vala:393
 msgid "Tap + to add a task to this project."
 msgstr "แตะ + เพื่อเพิ่มงานลงในโปรเจคนี้"
 
-#: src/Views/Project.vala:1257
+#: src/Views/Project.vala:1250
 msgid "Your Productivity"
 msgstr ""
 
-#: src/Views/Project.vala:1262
+#: src/Views/Project.vala:1255
 msgid "Progress:"
 msgstr ""
 
-#: src/Views/Project.vala:1273
+#: src/Views/Project.vala:1266
 #, fuzzy
 msgid "Duedate:"
 msgstr "วันครบกําหนด"
@@ -967,7 +946,7 @@ msgstr "กำลังอัปโหลดการเปลี่ยนแป
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:89
 #: src/Dialogs/Preferences/Preferences.vala:96
-#: src/Dialogs/Preferences/Preferences.vala:615
+#: src/Dialogs/Preferences/Preferences.vala:627
 msgid "General"
 msgstr "ทั่ว ไป"
 
@@ -998,7 +977,7 @@ msgid "Add-ons"
 msgstr "ส่วนประกอบเพิ่มเติม"
 
 #: src/Dialogs/Preferences/Preferences.vala:115
-#: src/Dialogs/Preferences/Preferences.vala:1020
+#: src/Dialogs/Preferences/Preferences.vala:1029
 msgid "Calendar Events"
 msgstr "กิจกรรมในปฏิทิน"
 
@@ -1009,12 +988,12 @@ msgstr "แป้นพิมพ์ลัด"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:132
-#: src/Dialogs/Preferences/Preferences.vala:1192
+#: src/Dialogs/Preferences/Preferences.vala:1201
 msgid "About"
 msgstr "เกี่ยวกับ"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
-#: src/Dialogs/Preferences/Preferences.vala:1098
+#: src/Dialogs/Preferences/Preferences.vala:1107
 msgid "Support & Credits"
 msgstr "สนับสนุน & เครดิต"
 
@@ -1081,7 +1060,8 @@ msgstr ""
 "'เพิ่มอย่างรวดเร็ว' ซึ่งคุณสามารถป้อนงานที่ค้างอยู่และกลับไปทํางานได้อย่างรวดเร็ว"
 
 #: src/Dialogs/Preferences/Preferences.vala:488
-#: src/Dialogs/Preferences/Preferences.vala:565
+#: src/Dialogs/Preferences/Preferences.vala:569
+#: src/Dialogs/Preferences/Preferences.vala:577
 msgid "Change"
 msgstr "เปลี่ยน"
 
@@ -1090,23 +1070,24 @@ msgstr "เปลี่ยน"
 msgid "Change Keyboard Shortcut"
 msgstr "แป้นพิมพ์ลัด"
 
-#: src/Dialogs/Preferences/Preferences.vala:522
+#: src/Dialogs/Preferences/Preferences.vala:523
 msgid "Save Last Selected Project"
 msgstr "บันทึกโปรเจคที่เลือกล่าสุด"
 
-#: src/Dialogs/Preferences/Preferences.vala:563
+#: src/Dialogs/Preferences/Preferences.vala:567
+#: src/Dialogs/Preferences/Preferences.vala:575
 msgid "Press keys…"
 msgstr "กด ปุ่ม …"
 
-#: src/Dialogs/Preferences/Preferences.vala:618
+#: src/Dialogs/Preferences/Preferences.vala:630
 msgid "DE Integration"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:622
+#: src/Dialogs/Preferences/Preferences.vala:634
 msgid "Run in background"
 msgstr "ทํางานในพื้นหลัง"
 
-#: src/Dialogs/Preferences/Preferences.vala:626
+#: src/Dialogs/Preferences/Preferences.vala:638
 #, fuzzy
 msgid ""
 "Enable this setting to keep Planner running in the background when it "
@@ -1116,59 +1097,59 @@ msgstr ""
 "เปิดใช้งานการตั้งค่านี้เพื่อให้ Planner ทำงานในพื้นหลังเมื่อปิด สิ่งนี้จะช่วยให้ Planner "
 "ทำการอัปเดตและส่งการแจ้งเตือนต่อไป"
 
-#: src/Dialogs/Preferences/Preferences.vala:634
+#: src/Dialogs/Preferences/Preferences.vala:646
 msgid "Run on startup"
 msgstr "ทำงานเมื่อเริ่มต้น"
 
-#: src/Dialogs/Preferences/Preferences.vala:638
+#: src/Dialogs/Preferences/Preferences.vala:650
 msgid "Enable this setting to make Planner startup with the system."
 msgstr "เปิดใช้งานการตั้งค่านี้เพื่อเริ่มต้น Planner กับระบบ"
 
-#: src/Dialogs/Preferences/Preferences.vala:655
+#: src/Dialogs/Preferences/Preferences.vala:667
 msgid "Button layout"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:664
+#: src/Dialogs/Preferences/Preferences.vala:676
 msgid "Help"
 msgstr "วิธีใช้"
 
-#: src/Dialogs/Preferences/Preferences.vala:668
+#: src/Dialogs/Preferences/Preferences.vala:680
 msgid "Create tutorial project"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:668
+#: src/Dialogs/Preferences/Preferences.vala:680
 msgid "Create"
 msgstr "สร้าง"
 
-#: src/Dialogs/Preferences/Preferences.vala:670
+#: src/Dialogs/Preferences/Preferences.vala:682
 msgid "Danger zone"
 msgstr "โซนอันตราย"
 
-#: src/Dialogs/Preferences/Preferences.vala:675
-#: src/Dialogs/Preferences/Preferences.vala:740
+#: src/Dialogs/Preferences/Preferences.vala:687
+#: src/Dialogs/Preferences/Preferences.vala:749
 msgid "Reset all"
 msgstr "รีเซ็ตทั้งหมด"
 
-#: src/Dialogs/Preferences/Preferences.vala:675
+#: src/Dialogs/Preferences/Preferences.vala:687
 msgid "Reset"
 msgstr "รีเซ็ต"
 
-#: src/Dialogs/Preferences/Preferences.vala:724
+#: src/Dialogs/Preferences/Preferences.vala:735
 msgid "Your tutorial project was created"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:735
+#: src/Dialogs/Preferences/Preferences.vala:744
 msgid "Are you sure you want to reset all?"
 msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการรีเซ็ตการตั้งค่าทั้งหมด"
 
-#: src/Dialogs/Preferences/Preferences.vala:736
+#: src/Dialogs/Preferences/Preferences.vala:745
 #, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr "กระบวนการนี้จะลบข้อมูลที่เก็บไว้ทั้งหมดโดยไม่สามารถยกเลิกได้"
 
-#: src/Dialogs/Preferences/Preferences.vala:761
+#: src/Dialogs/Preferences/Preferences.vala:770
 #, fuzzy
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
@@ -1177,16 +1158,16 @@ msgstr ""
 "ประหยัดเวลาด้วยการรวมงานที่คล้ายกันเข้าด้วยกันโดยใช้ป้ายกำกับ "
 "คุณจะสามารถดึงรายการงานทั้งหมดด้วยป้ายกำกับที่กำหนดภายในไม่กี่วินาที"
 
-#: src/Dialogs/Preferences/Preferences.vala:905
+#: src/Dialogs/Preferences/Preferences.vala:914
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "การซิงค์สำเร็จครั้งล่าสุด: %s"
 
-#: src/Dialogs/Preferences/Preferences.vala:914
+#: src/Dialogs/Preferences/Preferences.vala:923
 msgid "Sync server"
 msgstr "ซิงค์เซิร์ฟเวอร์"
 
-#: src/Dialogs/Preferences/Preferences.vala:919
+#: src/Dialogs/Preferences/Preferences.vala:928
 #, fuzzy
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
@@ -1195,21 +1176,21 @@ msgstr ""
 "เปิดใช้งานการตั้งค่านี้เพื่อให้โปรแกรมวางแผนจะซิงโครไนซ์กับบัญชี Todoist ของคุณโดยอัตโนมัติทุกๆ "
 "15 นาที"
 
-#: src/Dialogs/Preferences/Preferences.vala:931
-#: src/Dialogs/Preferences/Preferences.vala:986
+#: src/Dialogs/Preferences/Preferences.vala:940
+#: src/Dialogs/Preferences/Preferences.vala:995
 msgid "Log out"
 msgstr "ออกจากระบบ"
 
-#: src/Dialogs/Preferences/Preferences.vala:981
+#: src/Dialogs/Preferences/Preferences.vala:990
 msgid "Are you sure you want to log out?"
 msgstr "คุณแน่ใจว่าคุณต้องการที่จะออกจากระบบ?"
 
-#: src/Dialogs/Preferences/Preferences.vala:982
+#: src/Dialogs/Preferences/Preferences.vala:991
 #, fuzzy
 msgid "This process will close your Todoist session on this device."
 msgstr "กระบวนการนี้จะปิดเซสชัน Todoist ของคุณบนอุปกรณ์นี้"
 
-#: src/Dialogs/Preferences/Preferences.vala:1023
+#: src/Dialogs/Preferences/Preferences.vala:1032
 #, fuzzy
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
@@ -1222,11 +1203,11 @@ msgstr ""
 "คุณจะเห็นเหตุการณ์จากปฏิทินส่วนบุคคลและปฏิทินที่แชร์ใน <b>วันนี้</b>และ<b>กําลังจะมาถึง</b> "
 "ซึ่งมีประโยชน์เมื่อคุณจัดการวันของคุณและในขณะที่คุณวางแผนสัปดาห์ข้างหน้า"
 
-#: src/Dialogs/Preferences/Preferences.vala:1034
+#: src/Dialogs/Preferences/Preferences.vala:1043
 msgid "Enabled"
 msgstr "เปิดใช้งาน"
 
-#: src/Dialogs/Preferences/Preferences.vala:1101
+#: src/Dialogs/Preferences/Preferences.vala:1110
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
@@ -1235,7 +1216,7 @@ msgstr ""
 "Planner ถูกพัฒนาด้วย ❤️ และความรักสําหรับโอเพนซอร์ส "
 "อย่างไรก็ตามหากคุณต้องการวางแผนและต้องการสนับสนุนการพัฒนาของการพิจารณาบริจาคผ่าน:"
 
-#: src/Dialogs/Preferences/Preferences.vala:1127
+#: src/Dialogs/Preferences/Preferences.vala:1136
 #, fuzzy
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
@@ -1244,24 +1225,24 @@ msgstr ""
 "ขอขอบคุณผู้บริจาคเงินผ่าน Patreon หรือ PayPal (หากคุณต้องการให้ปรากฏที่นี่เยี่ยมชมบัญชี "
 "Patreon ของเรา😉️)"
 
-#: src/Dialogs/Preferences/Preferences.vala:1206
+#: src/Dialogs/Preferences/Preferences.vala:1215
 msgid "Website"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:1207
+#: src/Dialogs/Preferences/Preferences.vala:1216
 #, fuzzy
 msgid "Follow"
 msgstr "เหลือง"
 
-#: src/Dialogs/Preferences/Preferences.vala:1208
+#: src/Dialogs/Preferences/Preferences.vala:1217
 msgid "Report a Problem"
 msgstr "รายงานปัญหา"
 
-#: src/Dialogs/Preferences/Preferences.vala:1209
+#: src/Dialogs/Preferences/Preferences.vala:1218
 msgid "Suggest Translations"
 msgstr "แนะนำการแปล"
 
-#: src/Dialogs/Preferences/Preferences.vala:1328
+#: src/Dialogs/Preferences/Preferences.vala:1337
 #, fuzzy
 msgid "Disabled"
 msgstr "ปิด"
@@ -1352,18 +1333,42 @@ msgstr ""
 msgid "The Project was copied to the Clipboard."
 msgstr "โปรเจคถูกคัดลอกไปยังคลิปบอร์ด"
 
-#: src/Objects/Item.vala:126 src/Objects/Item.vala:137
+#: src/Objects/Item.vala:125 src/Objects/Item.vala:134
 #, fuzzy
 msgid "Duplicate task"
 msgstr "ทำสำเนา"
 
-#: src/Objects/Item.vala:218 src/Objects/Item.vala:236
+#: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
 msgstr "งานถูกคัดลอกไปยังคลิปบอร์ด"
 
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "คัดลอกหมวดไปยังคลิปบอร์ดแล้ว"
+
+#~ msgid ""
+#~ "Your Inbox is the default place to add new tasks so you can get them out "
+#~ "of your head quickly, then come back and make a plan to take care of them "
+#~ "later. It’s a great way to declutter your mind so you can focus on "
+#~ "whatever you’re doing right now."
+#~ msgstr ""
+#~ "กล่องจดหมายเข้าของคุณเป็นสถานที่เริ่มต้นในการเพิ่มงานใหม่เพื่อให้คุณสามารถนำงานออกจากหัวของคุณได้อย่างรวดเร็วจากนั้นกลับมาและวางแผนที่จะดูแลในภายหลัง "
+#~ "เป็นวิธีที่ดีในการแยกความคิดของคุณออกเพื่อให้คุณสามารถมุ่งเน้นไปที่สิ่งที่คุณกำลังทำอยู่ตอนนี้"
+
+#~ msgid ""
+#~ "The Today view lets you see all the tasks due today across all your "
+#~ "projects. Check in here every morning to make a realistic plan to tackle "
+#~ "your day."
+#~ msgstr ""
+#~ "มุมมองวันนี้ช่วยให้คุณดูงานทั้งหมดครบกําหนดวันนี้ในโปรเจคทั้งหมดของคุณ "
+#~ "เช็คอินที่นี่ทุกเช้าเพื่อวางแผนเพื่อรับมือกับวันของคุณ"
+
+#~ msgid ""
+#~ "Plan your week ahead with the Upcoming view. It shows everything on your "
+#~ "agenda for the coming days: scheduled to-dos and calendar events."
+#~ msgstr ""
+#~ "วางแผนสัปดาห์ของคุณล่วงหน้าด้วยมุมมองที่จะเกิดขึ้น แสดงทุกอย่างคุณสําหรับวันข้างหน้า: "
+#~ "กําหนดสิ่งที่ต้องทําและกิจกรรมในปฏิทิน"
 
 #~ msgid "New area"
 #~ msgstr "พื้นที่ใหม่"
