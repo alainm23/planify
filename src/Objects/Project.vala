@@ -101,8 +101,7 @@ public class Objects.Project : GLib.Object {
     public void share_markdown () {
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
         Planner.notifications.send_notification (
-            _("The Project was copied to the Clipboard."),
-            "edit-copy-symbolic"
+            _("The Project was copied to the Clipboard.")
         );
     }
 

@@ -122,10 +122,7 @@ public class Objects.Item : GLib.Object {
             var temp_id_mapping = Planner.utils.generate_id ();
             Planner.todoist.item_added_completed.connect ((_temp_id_mapping) => {
                 if (temp_id_mapping == _temp_id_mapping) {
-                    Planner.notifications.send_notification (
-                        _("Duplicate task"),
-                        "edit-copy-symbolic"
-                    );
+                    Planner.notifications.send_notification (_("Duplicate task"));
                 }
             });
 
@@ -134,8 +131,7 @@ public class Objects.Item : GLib.Object {
             item.id = Planner.utils.generate_id ();
             if (Planner.database.insert_item (item, -1)) {
                 Planner.notifications.send_notification (
-                    _("Duplicate task"),
-                    "edit-copy-symbolic"
+                    _("Duplicate task")
                 );
             }
         }
@@ -215,8 +211,7 @@ public class Objects.Item : GLib.Object {
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
         Planner.notifications.send_notification (
-            _("The Task was copied to the Clipboard."),
-            "edit-copy-symbolic"
+            _("The Task was copied to the Clipboard.")
         );
     }
 
@@ -233,8 +228,7 @@ public class Objects.Item : GLib.Object {
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
         Planner.notifications.send_notification (
-            _("The Task was copied to the Clipboard."),
-            "edit-copy-symbolic"
+            _("The Task was copied to the Clipboard.")
         );
     }
 

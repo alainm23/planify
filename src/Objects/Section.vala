@@ -95,8 +95,7 @@ public class Objects.Section : GLib.Object {
 
         Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (text, -1);
         Planner.notifications.send_notification (
-            _("The Section was copied to the Clipboard."),
-            "edit-copy-symbolic"
+            _("The Section was copied to the Clipboard.")
         );
     }
 

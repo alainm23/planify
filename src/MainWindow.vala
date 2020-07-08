@@ -35,7 +35,7 @@ public class MainWindow : Gtk.Window {
     private Views.Priority priority_view = null;
 
     private Widgets.MagicButton magic_button;
-    private Widgets.Toast notification_toast;
+    // private Widgets.Toast notification_toast;
     private Services.DBusServer dbus_server;
     public Services.ActionManager action_manager;
 
@@ -100,7 +100,12 @@ public class MainWindow : Gtk.Window {
 
         stack.add_named (welcome_view, "welcome-view");
 
-        notification_toast = new Widgets.Toast ();
+        var notifications_grid = new Gtk.Grid ();
+        notifications_grid.orientation = Gtk.Orientation.VERTICAL;
+        notifications_grid.margin_bottom = 12;
+        notifications_grid.halign = Gtk.Align.CENTER;
+        notifications_grid.valign = Gtk.Align.END;
+
         magic_button = new Widgets.MagicButton ();
 
         var slim_mode_icon = new Gtk.Image ();
@@ -132,7 +137,7 @@ public class MainWindow : Gtk.Window {
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
         projectview_overlay.add_overlay (magic_button);
-        projectview_overlay.add_overlay (notification_toast);
+        projectview_overlay.add_overlay (notifications_grid);
         /// projectview_overlay.add_overlay (slim_mode_handle);
         projectview_overlay.add (stack);
 
@@ -149,6 +154,22 @@ public class MainWindow : Gtk.Window {
         get_style_context ().add_class ("rounded");
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
+
+        Planner.notifications.send_notification.connect ((message) => {
+            var notification = new Widgets.Toast (message);
+            notifications_grid.add (notification);
+            notifications_grid.show_all ();
+
+            notification.send_notification ();
+        });
+
+        Planner.notifications.send_undo_notification.connect ((message, query) => {
+            var notification = new Widgets.Toast (message, query);
+            notifications_grid.add (notification);
+            notifications_grid.show_all ();
+
+            notification.send_notification ();
+        });
 
         Planner.database.opened.connect (() => {
             if (Planner.database.is_database_empty ()) {

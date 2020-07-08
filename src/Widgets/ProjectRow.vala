@@ -394,8 +394,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             );
         } else {
             Planner.notifications.send_notification (
-                _("Unable to move task"),
-                "mail-mark-junk-symbolic"
+                _("Unable to move task")
             );
         }
     }

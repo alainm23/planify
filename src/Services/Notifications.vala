@@ -20,9 +20,8 @@
 */
 
 public class Services.Notifications : GLib.Object {
-    private const string DELETE_TEMPLATE = "(%i) %s deleted";
-    public signal void send_notification (string message, string icon="notification-symbolic");
-    public signal void send_undo_notification (int64 object_id, string object_type, string undo_type, string undo_value = "");
+    public signal void send_notification (string message);
+    public signal void send_undo_notification (string message, string query);
 
     private uint server_timeout = 0;
 

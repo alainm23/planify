@@ -187,8 +187,7 @@ public class Services.ActionManager : Object {
             window.add_task_clipboard_action (text);
         } else {
             Planner.notifications.send_notification (
-                _("Empty clipboard, copy some text and try again"),
-                "edit-paste-symbolic"
+                _("Empty clipboard, copy some text and try again")
             );
         }
     }

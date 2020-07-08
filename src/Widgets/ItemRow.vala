@@ -686,7 +686,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         delete_button.clicked.connect (() => {
-            Planner.notifications.send_undo_notification (item.id, "item", "delete", "");
+            Planner.notifications.send_undo_notification (
+                _("Task deleted"),
+                Planner.utils.build_undo_object ("item_delete", "item", item.id, "", "")
+            );
             main_revealer.reveal_child = false;
         });
 
@@ -705,7 +708,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 main_revealer.reveal_child = true;
             }
 
-            if (type == "complete") {
+            if (type == "item_complete") {
                 item.checked = 0;
                 item.date_completed = "";
             }
@@ -1002,19 +1005,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             checked_button.active = false;
 
             if (item.due_is_recurring == 1) {
+                GLib.DateTime next_due = Planner.utils.get_next_recurring_due_date (item, +1);
+
                 Planner.database.update_item_recurring_due_date (item, +1);
-                Planner.notifications.send_undo_notification (item.id, "item", "reschedule", "");
-                //  content_label.get_style_context ().add_class ("label-line-through");
-                //  sensitive = false;
-                
-                //  checked_timeout = Timeout.add (750, () => {
-                //      content_label.get_style_context ().remove_class ("label-line-through");
-                //      sensitive = true;
-
-
-
-                //      return false;
-                //  });
+                Planner.notifications.send_undo_notification (
+                    _("Completed. Next occurrence: %s".printf (Planner.utils.get_default_date_format_from_date (next_due))),
+                    Planner.utils.build_undo_object ("item_reschedule", "item", item.id, "", "")
+                );
             } else {
                 item.checked = 1;
                 item.date_completed = new GLib.DateTime.now_local ().to_string ();
@@ -1024,7 +1021,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     Planner.todoist.item_complete (item);
                 }
 
-                Planner.notifications.send_undo_notification (item.id, "item", "complete", "");
+                Planner.notifications.send_undo_notification (
+                    _("1 task completed"),
+                    Planner.utils.build_undo_object ("item_complete", "item", item.id, "", "")
+                );
                 main_revealer.reveal_child = false;
             }
         }
@@ -1502,7 +1502,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         delete_menu.activate.connect (() => {
-            Planner.notifications.send_undo_notification (item.id, "item", "delete", "");
+            Planner.notifications.send_undo_notification (
+                _("Task deleted"),
+                Planner.utils.build_undo_object ("item_delete", "item", item.id, "", "")
+            );
             main_revealer.reveal_child = false;
         });
     }

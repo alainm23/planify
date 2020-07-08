@@ -20,29 +20,26 @@
 */
 
 public class Widgets.Toast : Gtk.Revealer {
-    private Gtk.Image notification_image;
-    private Gtk.Revealer image_revealer;
+    public string query { get; construct; }
+    public string title { get; construct; }
 
     private Gtk.Label message_label;
     private Gtk.Button undo_button;
-    private Gtk.Revealer undo_revealer;
-
-    private uint main_timeout_id = 0;
-    private int main_timeout = 0;
 
     private uint timeout_id = 0;
-    private uint close_timeout = 0;
+    private uint duration = 2000;
 
-    private int64 _object_id = 0;
-    private string _object_type = "";
-    private string _undo_type = "";
-    private string _undo_value = "";
+    public Toast (string title, string query="") {
+        Object (
+            title: title,
+            query: query
+        );
+    }
 
     construct {
-        margin_bottom = 6;
         halign = Gtk.Align.CENTER;
-        valign = Gtk.Align.END;
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        reveal_child = false;
 
         var close_image = new Gtk.Image ();
         close_image.gicon = new ThemedIcon ("close-symbolic");
@@ -60,34 +57,29 @@ public class Widgets.Toast : Gtk.Revealer {
         close_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         close_revealer.add (close_button);
 
-        notification_image = new Gtk.Image ();
-        notification_image.valign = Gtk.Align.CENTER;
-        notification_image.pixel_size = 13;
-        notification_image.get_style_context ().add_class ("notification-image");
-
-        image_revealer = new Gtk.Revealer ();
-        image_revealer.transition_duration = 0;
-        image_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        image_revealer.add (notification_image);
-
-        message_label = new Gtk.Label (null);
+        message_label = new Gtk.Label (title);
         message_label.get_style_context ().add_class ("font-weight-600");
         message_label.use_markup = true;
+        message_label.margin_start = 6;
 
         undo_button = new Gtk.Button ();
         undo_button.margin_start = 6;
         undo_button.valign = Gtk.Align.CENTER;
         undo_button.label = _("Undo");
 
-        undo_revealer = new Gtk.Revealer ();
+        var undo_revealer = new Gtk.Revealer ();
         undo_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         undo_revealer.transition_duration = 0;
         undo_revealer.add (undo_button);
 
+        if (query != "") {
+            undo_revealer.reveal_child = true;
+            duration = 3500;
+        }
+
         var notification_box = new Gtk.Grid ();
         notification_box.column_spacing = 6;
         notification_box.valign = Gtk.Align.CENTER;
-        notification_box.add (image_revealer);
         notification_box.add (message_label);
         notification_box.add (undo_revealer);
 
@@ -106,47 +98,49 @@ public class Widgets.Toast : Gtk.Revealer {
         notification_eventbox.add (notification_overlay);
 
         add (notification_eventbox);
-
+        
         undo_button.clicked.connect (() => {
+            reveal_child = false;
             if (timeout_id != 0) {
                 Source.remove (timeout_id);
+                timeout_id = 0;
             }
+            
+            if (Planner.todoist.get_string_member_by_object (query, "object_type") == "item") {
+                var item = Planner.database.get_item_by_id (
+                    Planner.todoist.get_int_member_by_object (query, "object_id")
+                );
 
-            reveal_child = false;
+                print ("id: %s\n".printf (item.id.to_string ()));
 
-            if (_object_id != 0 && _undo_type != "") {
-                if (_object_type == "item") {
-                    var item = Planner.database.get_item_by_id (_object_id);
-
-                    if (_undo_type == "delete") {
-                        Planner.database.show_undo_item (item, _undo_type);
-                    } else if (_undo_type == "complete") {
+                if (item.id != 0) {
+                    if (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete") {
+                        Planner.database.show_undo_item (item, "item_delete");
+                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_complete") {
                         item.checked = 0;
                         item.date_completed = "";
-
+    
                         Planner.database.update_item_completed (item);
                         if (item.is_todoist == 1) {
                             Planner.todoist.item_uncomplete (item);
                         }
-
-                        Planner.database.show_undo_item (item, _undo_type);
-                    } else if (_undo_type == "reschedule") {
+    
+                        Planner.database.show_undo_item (item, "item_complete");
+                    }  else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule") {
                         Planner.database.update_item_recurring_due_date (item, -1);
                     }
                 }
             }
-
-            _object_id = 0;
-            _object_type = "";
-            _undo_type = "";
-            _undo_value = "";
-
-            // Planner.database.clear_item_to_delete ();
         });
 
         close_button.clicked.connect (() => {
             reveal_child = false;
-            run ();
+            if (timeout_id != 0) {
+                Source.remove (timeout_id);
+                timeout_id = 0;
+            }
+
+            run_query ();
         });
 
         notification_eventbox.enter_notify_event.connect ((event) => {
@@ -160,127 +154,43 @@ public class Widgets.Toast : Gtk.Revealer {
             }
 
             close_revealer.reveal_child = false;
-
             return true;
         });
-
-        Planner.notifications.send_notification.connect ((message, icon) => {
-            send_simple_notification (message, icon);
-        });
-
-        Planner.notifications.send_undo_notification.connect ((object_id, object_type, undo_type, undo_value) => {
-            send_undo_notification (object_id, object_type, undo_type, undo_value);
-        });
     }
 
-    public void send_simple_notification (string message, string icon) {
-        main_timeout = 0;
-        if (timeout_id != 0) {
-            run ();
-
-            Source.remove (timeout_id);
-
-            main_timeout = 250;
-            reveal_child = false;
-        }
-
-        main_timeout_id = GLib.Timeout.add (main_timeout, () => {
-            main_timeout_id = 0;
-
-            message_label.label = message;
-
-            image_revealer.reveal_child = true;
-            undo_revealer.reveal_child = false;
-            notification_image.gicon = new ThemedIcon (icon);
-
+    public void send_notification () {
+        if (!child_revealed) {
             reveal_child = true;
 
-            timeout_id = GLib.Timeout.add (2500, () => {
-                timeout_id = 0;
+            timeout_id = GLib.Timeout.add (duration, () => {
                 reveal_child = false;
+                timeout_id = 0;
 
-                close_timeout = GLib.Timeout.add (250, () => {
-                    close_timeout = 0;
-                    message_label.label = "";
-                    return false;
-                });
-
+                run_query ();
                 return false;
             });
-
-            return false;
-        });
-    }
-
-    public void send_undo_notification (int64 object_id, string object_type, string undo_type, string undo_value = "") {
-        main_timeout = 0;
-        if (timeout_id != 0) {
-            run ();
-
-            Source.remove (timeout_id);
-
-            reveal_child = false;
-            main_timeout = 250;
         }
-
-        main_timeout_id = GLib.Timeout.add (main_timeout, () => {
-            main_timeout_id = 0;
-            _object_id = object_id;
-            _object_type = object_type;
-            _undo_type = undo_type;
-            _undo_value = undo_value;
-
-            image_revealer.reveal_child = false;
-            undo_revealer.reveal_child = true;
-            reveal_child = true;
-
-            if (_undo_type == "delete") {
-                message_label.label = _("Task deleted");
-            } else if (_undo_type == "complete") {
-                message_label.label = _("Task completed");
-            } else if (_undo_type == "reschedule") {
-                var item = Planner.database.get_item_by_id (_object_id);
-
-                message_label.label = _("Completed. Next occurrence: %s".printf (
-                    Planner.utils.get_default_date_format_from_string (item.due_date)
-                ));
-            }
-
-            timeout_id = GLib.Timeout.add (3500, () => {
-                timeout_id = 0;
-                run ();
-
-                reveal_child = false;
-                close_timeout = GLib.Timeout.add (250, () => {
-                    close_timeout = 0;
-                    message_label.label = "";
-                    return false;
-                });
-                return false;
-            });
-            return false;
-        });
     }
 
-    private void run () {
-        if (_object_id != 0 && _undo_type != "") {
-            if (_object_type == "item") {
-                var item = Planner.database.get_item_by_id (_object_id);
+    private void run_query () {
+        if (query != "") {
+            if (Planner.todoist.get_string_member_by_object (query, "object_type") == "item") {
+                var item = Planner.database.get_item_by_id (
+                    Planner.todoist.get_int_member_by_object (query, "object_id")
+                );
 
-                if (_undo_type == "delete") {
-                    Planner.database.delete_item (item);
-                    if (item.is_todoist == 1) {
-                        Planner.todoist.add_delete_item (item);
+                if (item.id != 0) {
+                    if (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete") {
+                        Planner.database.delete_item (item);
+                        if (item.is_todoist == 1) {
+                            Planner.todoist.add_delete_item (item);
+                        }
+                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_complete") {
+                        Planner.database.item_completed (item);
                     }
-                } else if (_undo_type == "complete") {
-                    Planner.database.item_completed (item);
                 }
             }
-
-            _object_id = 0;
-            _object_type = "";
-            _undo_type = "";
-            _undo_value = "";
         }
     }
+
 }
