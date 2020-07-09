@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: 2020-07-01 08:41+0000\n"
+"PO-Revision-Date: 2020-07-10 21:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -465,9 +465,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Deel je projecten in in groepen om je paneel overzichtelijk te houden."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Map"
+msgstr "Map toevoegen"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
@@ -569,9 +568,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Afgerond. Wordt herhaald op %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Taak afgerond"
+msgstr "1 taak afgerond"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -1333,9 +1331,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Het project is gekopieerd naar het klembord."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Klonen"
+msgstr "Taak bestaat al"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
