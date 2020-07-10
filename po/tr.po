@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: 2020-06-21 09:41+0000\n"
+"PO-Revision-Date: 2020-07-10 21:41+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -24,14 +24,12 @@ msgid "Planner"
 msgstr "Planlayıcı"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Bugün"
+msgstr "bugün"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Yarın"
+msgstr "yarın"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -371,7 +369,7 @@ msgstr "Todoist Planı"
 
 #: src/Widgets/ActionRow.vala:274 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
-msgstr ""
+msgstr "Görev taşınamadı"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:410
@@ -381,7 +379,6 @@ msgid "Upcoming"
 msgstr "Yaklaşan"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
-#, fuzzy
 msgid "Add Project"
 msgstr "Plan Ekle"
 
@@ -422,7 +419,7 @@ msgstr "Açıklama:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
-msgstr ""
+msgstr "Klasör:"
 
 #: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
 msgid "Color:"
@@ -448,7 +445,7 @@ msgstr "Yerel"
 
 #: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:491
 msgid "No Folder"
-msgstr ""
+msgstr "Klasör Yok"
 
 #: src/Widgets/New.vala:462
 msgid "Project"
@@ -462,16 +459,15 @@ msgstr ""
 
 #: src/Widgets/New.vala:494
 msgid "Folder"
-msgstr ""
+msgstr "Klasör"
 
 #: src/Widgets/New.vala:499
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Planlarınızı gruplar halinde düzenleyin ve panelinizi temiz tutun."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Not ekle"
+msgstr "Klasör Ekle"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
@@ -480,7 +476,7 @@ msgstr "Kapat"
 
 #: src/Widgets/New.vala:582
 msgid "New folder"
-msgstr ""
+msgstr "Yeni klasör"
 
 #: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:129
 #: src/Views/Project.vala:205
@@ -505,7 +501,7 @@ msgstr "Düzenle"
 
 #: src/Widgets/ProjectRow.vala:548
 msgid "Move"
-msgstr ""
+msgstr "Taşı"
 
 #: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1441
 #: src/Widgets/SectionRow.vala:816
@@ -548,9 +544,8 @@ msgid "Task name"
 msgstr "Görev adı"
 
 #: src/Widgets/ItemRow.vala:184
-#, fuzzy
 msgid "Hide Details"
-msgstr "Detayları Göster"
+msgstr "Ayrıntıları Gizle"
 
 #: src/Widgets/ItemRow.vala:502
 msgid "Add Checklist"
@@ -565,19 +560,17 @@ msgid "Task Menu"
 msgstr "Görev Menüsü"
 
 #: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1506
-#, fuzzy
 msgid "Task deleted"
-msgstr "Görev tamamlandı"
+msgstr "Görev silindi"
 
 #: src/Widgets/ItemRow.vala:1012
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Tamamlandı. Sonraki olay: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Görev tamamlandı"
+msgstr "1 görev tamamlandı"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -653,14 +646,12 @@ msgid "Save"
 msgstr "Kaydet"
 
 #: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
-#, fuzzy
 msgid "Add a description"
-msgstr "Bölüm Ekle"
+msgstr "Açıklama ekle"
 
 #: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:849
-#, fuzzy
 msgid "Description"
-msgstr "Bölümü Sil"
+msgstr "Açıklama"
 
 #: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
 #, c-format
@@ -669,12 +660,11 @@ msgstr "Bölüm taşındı <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:809
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden Adlandır"
 
 #: src/Widgets/SectionRow.vala:810
-#, fuzzy
 msgid "Add Note"
-msgstr "Not ekle"
+msgstr "Not Ekle"
 
 #: src/Widgets/SectionRow.vala:865
 msgid "Delete section"
@@ -687,27 +677,27 @@ msgstr "Bölüm silindi"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr ""
+msgstr "Zamanlama"
 
 #: src/Widgets/DueButton.vala:217
 msgid "Repeat"
-msgstr ""
+msgstr "Tekrarla"
 
 #: src/Widgets/DueButton.vala:240
 msgid "Every day"
-msgstr ""
+msgstr "Her gün"
 
 #: src/Widgets/DueButton.vala:246
 msgid "Every week"
-msgstr ""
+msgstr "Her hafta"
 
 #: src/Widgets/DueButton.vala:252
 msgid "Every month"
-msgstr ""
+msgstr "Her ay"
 
 #: src/Widgets/DueButton.vala:258
 msgid "Every year"
-msgstr ""
+msgstr "Her yıl"
 
 #: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:116
 #: src/Dialogs/Preferences/Preferences.vala:767 src/Dialogs/QuickFind.vala:279
@@ -720,7 +710,6 @@ msgid "labels"
 msgstr "etiketler"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
 msgstr "Etiketler"
 
@@ -729,6 +718,8 @@ msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Yapılacaklarınızı Etiketler ile kategorilere ayırın, daha sonra "
+"listelerinizi filtrelemek için kullanın ve odakta kalın."
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -740,13 +731,12 @@ msgid "Edit labels"
 msgstr "Etiketleri düzenle"
 
 #: src/Widgets/LabelButton.vala:233
-#, fuzzy
 msgid "Add label"
-msgstr "Etiket Ekle"
+msgstr "Etiket ekle"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
-msgstr ""
+msgstr "Etiket bulunamadı"
 
 #: src/Widgets/LabelButton.vala:237
 #, c-format
@@ -762,9 +752,8 @@ msgid "Add project"
 msgstr "Plan Ekle"
 
 #: src/Widgets/AreaRow.vala:677
-#, fuzzy
 msgid "Delete folder"
-msgstr "Planı Sil"
+msgstr "Klasörü sil"
 
 #: src/Widgets/AreaRow.vala:685
 msgid "Delete projects"
@@ -776,7 +765,7 @@ msgstr "Alt görev adı"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -793,6 +782,8 @@ msgstr "Hatırlatıcı Ekle"
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"Bir daha asla bir görevi unutmayın! Planner'in size bir hatırlatma "
+"göndermesini isteyin."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -906,7 +897,7 @@ msgstr "Bugün için bir görev eklemek için + işaretine dokunun."
 #: src/Views/Project.vala:143 src/Views/Project.vala:826
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "İlerleme: %s"
 
 #: src/Views/Project.vala:392
 msgid "What will you accomplish?"
@@ -922,7 +913,7 @@ msgstr ""
 
 #: src/Views/Project.vala:1255
 msgid "Progress:"
-msgstr ""
+msgstr "İlerleme:"
 
 #: src/Views/Project.vala:1266
 msgid "Duedate:"
@@ -1055,16 +1046,14 @@ msgid "Night"
 msgstr "Koyu"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Gökyüzü Mavisi"
+msgstr "Koyu Mavi"
 
 #: src/Dialogs/Preferences/Preferences.vala:415
 msgid "Arc Dark"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:466
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1072,7 +1061,8 @@ msgid ""
 msgstr ""
 "Hangi uygulamayı kullandığınız konusunda endişelenmeyin. Bekleyen bir görev "
 "girip hemen işe dönebileceğiniz Hızlı Ekle penceresini açmak için bir klavye "
-"kısayolu kullanabilirsiniz."
+"kısayolu kullanabilirsiniz. Klavye kısayolunu istediğiniz zaman "
+"değiştirebilirsiniz."
 
 #: src/Dialogs/Preferences/Preferences.vala:488
 #: src/Dialogs/Preferences/Preferences.vala:569
@@ -1081,9 +1071,8 @@ msgid "Change"
 msgstr "Değişiklik"
 
 #: src/Dialogs/Preferences/Preferences.vala:514
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Klavye Kısayolları"
+msgstr "Klavye Kısayolunu Değiştir"
 
 #: src/Dialogs/Preferences/Preferences.vala:523
 msgid "Save Last Selected Project"
@@ -1238,12 +1227,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1215
 msgid "Website"
-msgstr ""
+msgstr "İnternet Sitesi"
 
 #: src/Dialogs/Preferences/Preferences.vala:1216
-#, fuzzy
 msgid "Follow"
-msgstr "Sarı"
+msgstr "Takip Et"
 
 #: src/Dialogs/Preferences/Preferences.vala:1217
 msgid "Report a Problem"
@@ -1262,7 +1250,6 @@ msgid "Back"
 msgstr "Geri"
 
 #: src/Dialogs/QuickFind.vala:90
-#, fuzzy
 msgid "Completed"
 msgstr "Tamamlandı"
 
@@ -1283,9 +1270,8 @@ msgid "Priority 4"
 msgstr ""
 
 #: src/Dialogs/QuickFind.vala:128
-#, fuzzy
 msgid "Search"
-msgstr "Aramayı Aç"
+msgstr "Ara"
 
 #: src/Dialogs/QuickFind.vala:156
 msgid "Quickly switch projects and views, find tasks, search by labels."
@@ -1328,13 +1314,12 @@ msgid "Enter"
 msgstr ""
 
 #: src/Dialogs/QuickFind.vala:506
-#, fuzzy
 msgid "Tasks"
 msgstr "Görevler"
 
 #: src/Dialogs/QuickFind.vala:602
 msgid "Views"
-msgstr ""
+msgstr "Görünümler"
 
 #: src/Dialogs/QuickFind.vala:700
 msgid "Priorities"
@@ -1345,9 +1330,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Plan Panoya kopyalandı."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Çoğaltmak"
+msgstr "Yinelenen görev"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."

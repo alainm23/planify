@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: 2020-07-01 08:41+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2020-07-10 21:41+0000\n"
+"Last-Translator: Daniel <riesp@pm.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -469,9 +469,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organice sus proyectos en grupos y mantenga limpio su panel."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Carpeta"
+msgstr "Añadir carpeta"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
