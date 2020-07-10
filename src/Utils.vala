@@ -983,20 +983,11 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
-        string t = get_url_mailto_format (text);
-        t = get_markdown_to_markup (t, "___", "___");
-        t = get_markdown_to_markup (t, "***", "***");
-        t = get_markdown_to_markup (t, "**", "b");
-        t = get_markdown_to_markup (t, "__", "b");
-        t = get_markdown_to_markup (t, "*", "i");
-        t = get_markdown_to_markup (t, "_", "i");
-
-        return t;
-    }
-
-    public string get_url_mailto_format (string text) {
         Regex urlRegex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
         Regex mailtoRegex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
+        Regex italicboldRegex = /\*\*\*(.*?)\*\*\*/;
+        Regex bold1toRegex = /\*\*(.*?)\*\*/;
+        Regex italic1toRegex = /\*(.*?)\*/;
 
         MatchInfo info;
         try {
@@ -1014,6 +1005,24 @@ public class Utils : GLib.Object {
                     emails.append (email);
                 } while (info.next ());
             }
+            Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
+            if (bold1toRegex.match (text, 0, out info)) {
+                do {
+                    bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown>();
+            if (italic1toRegex.match (text, 0, out info)) {
+                do {
+                    italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+            Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown>();
+            if (italicboldRegex.match (text, 0, out info)) {
+                do {
+                    italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
 
             var converted = text;
             urls.foreach ((url) => {
@@ -1025,6 +1034,18 @@ public class Utils : GLib.Object {
                 var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
                 converted = converted.replace (email, emailAsLink);
             });
+            foreach (RegexMarkdown m in italic_bold) {
+                string format = "<i><b>"+m.text+"</b></i>";
+                converted = converted.replace (m.match, format);
+            }
+            foreach (RegexMarkdown m in bolds_01) {
+                string format = "<b>"+m.text+"</b>";
+                converted = converted.replace (m.match, format);
+            }
+            foreach (RegexMarkdown m in italics_01) {
+                string format = "<i>"+m.text+"</i>";
+                converted = converted.replace (m.match, format);
+            }
 
             return converted;
         } catch (GLib.RegexError ex) {
@@ -1127,5 +1148,14 @@ public class Utils : GLib.Object {
         generator.set_root (root);
         
         return generator.to_data (null);
+    }
+}
+
+public class RegexMarkdown {
+    public string match { get; set; }
+    public string text { get; set; }
+    public RegexMarkdown (string match, string text) {
+        this.match = match;
+        this.text = text;
     }
 }
