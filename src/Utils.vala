@@ -983,48 +983,61 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
-        Regex urlRegex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
-        Regex mailtoRegex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
-        Regex italicboldRegex = /\*\*\*(.*?)\*\*\*/;
-        Regex bold1toRegex = /\*\*(.*?)\*\*/;
-        Regex italic1toRegex = /\*(.*?)\*/;
+        Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        Regex link_regex = /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/;
+        Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
+        Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
+        Regex bold_regex = /\*\*(.*?)\*\*/;
+        Regex italic_regex = /\*(.*?)\*/;
 
         MatchInfo info;
         try {
             List<string> urls = new List<string>();
-            if (urlRegex.match (text, 0, out info)) {
+            if (url_regex.match (text, 0, out info)) {
                 do {
                     var url = info.fetch_named ("url");
                     urls.append (url);
                 } while (info.next ());
             }
             List<string> emails = new List<string>();
-            if (mailtoRegex.match (text, 0, out info)) {
+            if (mailto_regex.match (text, 0, out info)) {
                 do {
                     var email = info.fetch_named ("mailto");
                     emails.append (email);
                 } while (info.next ());
             }
+            Gee.ArrayList<RegexMarkdown> links = new Gee.ArrayList<RegexMarkdown>();
+            if (link_regex.match (text, 0, out info)) {
+                do {
+                    links.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
+                } while (info.next ());
+            }
             Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
-            if (bold1toRegex.match (text, 0, out info)) {
+            if (bold_regex.match (text, 0, out info)) {
                 do {
                     bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
                 } while (info.next ());
             }
             Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown>();
-            if (italic1toRegex.match (text, 0, out info)) {
+            if (italic_regex.match (text, 0, out info)) {
                 do {
                     italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
                 } while (info.next ());
             }
             Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown>();
-            if (italicboldRegex.match (text, 0, out info)) {
+            if (italic_bold_regex.match (text, 0, out info)) {
                 do {
                     italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
                 } while (info.next ());
             }
 
             var converted = text;
+            foreach (RegexMarkdown m in links) {
+                string name = m.text;
+                string url = m.extra.replace ("&", "&amp;");
+                var urlAsLink = @"<a href=\"$url\">$name</a>";
+                converted = converted.replace (m.match, urlAsLink);
+            }
             urls.foreach ((url) => {
                 var urlEncoded = url.replace ("&", "&amp;");
                 var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
@@ -1154,8 +1167,10 @@ public class Utils : GLib.Object {
 public class RegexMarkdown {
     public string match { get; set; }
     public string text { get; set; }
-    public RegexMarkdown (string match, string text) {
+    public string extra { get; set; }
+    public RegexMarkdown (string match, string text, string extra="") {
         this.match = match;
         this.text = text;
+        this.extra = extra;
     }
 }
