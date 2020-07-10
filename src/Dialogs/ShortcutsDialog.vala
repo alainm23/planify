@@ -30,6 +30,7 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
     }
 
     construct {
+        Planner.event_bus.unselect_all ();
         get_style_context ().add_class ("release-dialog");
         width_request = 525;
         height_request = 600;

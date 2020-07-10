@@ -315,6 +315,8 @@ public class Widgets.Pane : Gtk.EventBox {
 
         listbox.row_selected.connect ((row) => {
             if (row != null) {
+                Planner.event_bus.unselect_all ();
+
                 activated (row.get_index ());
                 Planner.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
@@ -323,6 +325,8 @@ public class Widgets.Pane : Gtk.EventBox {
 
         project_listbox.row_selected.connect ((row) => {
             if (row != null) {
+                Planner.event_bus.unselect_all ();
+                
                 var project = ((Widgets.ProjectRow) row).project;
                 Planner.utils.pane_project_selected (project.id, 0);
             }

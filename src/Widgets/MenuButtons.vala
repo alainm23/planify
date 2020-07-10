@@ -216,3 +216,24 @@ public class Widgets.PopoverButton : Gtk.Button {
         add (grid);
     }
 }
+
+public class Widgets.ToggleButton : Gtk.ToggleButton {
+    public ToggleButton (string title, string icon) {
+        var image = new Gtk.Image ();
+        image.valign = Gtk.Align.CENTER;
+        image.pixel_size = 16;
+        image.gicon = new ThemedIcon (icon);
+
+        var label = new Gtk.Label (title);
+        label.use_markup = true;
+
+
+        var grid = new Gtk.Grid ();
+        grid.halign = Gtk.Align.CENTER;
+        grid.valign = Gtk.Align.CENTER;
+        grid.add (image);
+        grid.add (label);
+
+        add (grid);
+    }
+}

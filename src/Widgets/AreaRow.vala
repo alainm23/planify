@@ -237,6 +237,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         listbox.row_selected.connect ((row) => {
             if (row != null) {
+                Planner.event_bus.unselect_all ();
+                
                 var project = ((Widgets.ProjectRow) row).project;
                 Planner.utils.pane_project_selected (project.id, area.id);
             }

@@ -27,6 +27,7 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.ListBox section_listbox;
     private Gtk.Revealer motion_revealer;
     private Gtk.Revealer motion_section_revealer;
+    private Gtk.Label select_count_label;
 
     private Gtk.ModelButton show_completed_button;
     private Gtk.Switch show_completed_switch;
@@ -42,14 +43,12 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
     private Gtk.Revealer separate_revealer;
     private Gtk.Grid drop_section_grid;
-    private Gtk.Revealer select_bar = null;
 
     private uint timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
     public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
-    public Gee.HashMap<string, Widgets.ItemRow> items_selected;
     private int64 temp_id_mapping { get; set; default = 0; }
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
@@ -69,7 +68,6 @@ public class Views.Inbox : Gtk.EventBox {
     construct {
         items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
-        items_selected = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
         
@@ -300,17 +298,7 @@ public class Views.Inbox : Gtk.EventBox {
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
-        select_bar = new Gtk.Revealer ();
-        select_bar.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        select_bar.halign = Gtk.Align.CENTER;
-        select_bar.valign = Gtk.Align.END;
-        select_bar.add (build_select_bar ());
-
-        var main_overlay = new Gtk.Overlay ();
-        main_overlay.add_overlay (select_bar);
-        main_overlay.add (main_box);
-
-        add (main_overlay);
+        add (main_box);
 
         build_drag_and_drop ();
         add_all_items ();
@@ -332,32 +320,10 @@ public class Views.Inbox : Gtk.EventBox {
             var row = ((Widgets.ItemRow) r);
 
             if (Planner.event_bus.ctrl_pressed) {
-                // Planner.event_bus.select_item (row);
+                Planner.event_bus.select_item (row);
             } else {
                 row.reveal_child = true;
-                Planner.event_bus.valid_select_item (row);
-            }
-        });
-
-        Planner.event_bus.select_item.connect ((row) => {
-            if (project.id == row.item.project_id) {
-                if (items_selected.has_key (row.item.id.to_string ())) {
-                    items_selected.unset (row.item.id.to_string ());
-                    row.item_selected = false;
-                } else {
-                    items_selected.set (row.item.id.to_string (), row);
-                    row.item_selected = true;
-                }
-
-                check_select_bar ();
-            }
-        });
-
-        Planner.event_bus.valid_select_item.connect ((row) => {
-            if (project.id == row.item.project_id) {
-                if (items_selected.size > 0) {
-                    unselect_all ();
-                }
+                Planner.event_bus.unselect_all ();
             }
         });
 
@@ -1110,83 +1076,5 @@ public class Views.Inbox : Gtk.EventBox {
 
         listbox.show_all ();
         main_stack.visible_child_name = "project";
-    }   
-
-    private void unselect_all () {
-        foreach (string key in items_selected.keys) {
-            items_selected.get (key).item_selected = false;
-        }
-
-        items_selected.clear ();
-        select_bar.reveal_child = false;
-        Planner.event_bus.magic_button_visible (true);
-        Planner.event_bus.connect_typing_accel ();
-    }
-
-    private void check_select_bar () {
-        if (items_selected.size > 0) {
-            select_bar.reveal_child = true;
-            Planner.event_bus.magic_button_visible (false);
-            Planner.event_bus.disconnect_typing_accel ();
-        } else {
-            select_bar.reveal_child = false;
-            Planner.event_bus.magic_button_visible (true);
-            Planner.event_bus.connect_typing_accel ();
-        }
-    }
-
-    private Gtk.Widget build_select_bar () {
-        var close_image = new Gtk.Image ();
-        close_image.gicon = new ThemedIcon ("close-symbolic");
-        close_image.pixel_size = 12;
-
-        var close_button = new Gtk.Button ();
-        close_button.image = close_image;
-        close_button.valign = Gtk.Align.START;
-        close_button.halign = Gtk.Align.START;
-        close_button.get_style_context ().add_class ("close-button");
-
-        var close_revealer = new Gtk.Revealer ();
-        close_revealer.valign = Gtk.Align.START;
-        close_revealer.halign = Gtk.Align.START;
-        close_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        close_revealer.add (close_button);
-
-        var notification_box = new Gtk.Grid ();
-        notification_box.column_spacing = 6;
-        notification_box.valign = Gtk.Align.CENTER;
-
-        var notification_frame = new Gtk.Frame (null);
-        notification_frame.margin = 9;
-        notification_frame.width_request = 200;
-        notification_frame.height_request = 24;
-        notification_frame.get_style_context ().add_class ("app-notification");
-        notification_frame.add (notification_box);
-
-        var notification_overlay = new Gtk.Overlay ();
-        notification_overlay.add_overlay (close_revealer);
-        notification_overlay.add (notification_frame);
-
-        var notification_eventbox = new Gtk.EventBox ();
-        notification_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        notification_eventbox.above_child = false;
-        notification_eventbox.add (notification_overlay);
-
-        notification_eventbox.enter_notify_event.connect ((event) => {
-            close_revealer.reveal_child = true;
-            return true;
-        });
-
-        notification_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            close_revealer.reveal_child = false;
-
-            return true;
-        });
-
-        return notification_eventbox;
     }
 }

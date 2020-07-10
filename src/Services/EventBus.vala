@@ -41,7 +41,7 @@ public class Services.EventBus : Object {
     public signal void ctrl_release ();
     public bool ctrl_pressed { get; set; default = false; }
     public signal void select_item (Widgets.ItemRow row);
-    public signal void valid_select_item (Widgets.ItemRow row);
+    public signal void unselect_all ();
     
     public void test (string caller_id) {
         debug (@"Test from EventBus called by $(caller_id)");

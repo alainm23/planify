@@ -1406,6 +1406,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             move_section_menu.no_show_all = true;
         }
 
+        handle_grid.get_style_context ().add_class ("highlight");
+
         projects_menu.show_all ();
         sections_menu.show_all ();
 
@@ -1415,6 +1417,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private void build_context_menu (Objects.Item item) {
         menu = new Gtk.Menu ();
         menu.width_request = 235;
+
+        menu.hide.connect (() => {
+            handle_grid.get_style_context ().remove_class ("highlight");
+        });
 
         var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");
         edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");

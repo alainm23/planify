@@ -42,6 +42,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
     }
 
     construct {
+        Planner.event_bus.unselect_all ();
         get_style_context ().add_class ("quick-find-dialog");
         // if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             // get_style_context ().add_class ("dialog-patch");

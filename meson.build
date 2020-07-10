@@ -83,7 +83,8 @@ executable(
     'src/Widgets/PriorityButton.vala',
     'src/Widgets/Entry.vala',
     'src/Widgets/TextView.vala',
-    
+    'src/Widgets/MultiSelectToolbar.vala',
+
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',

@@ -41,6 +41,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
     }
 
     construct {
+        Planner.event_bus.unselect_all ();
         width_request = 525;
         height_request = 600;
 

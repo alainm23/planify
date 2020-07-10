@@ -36,6 +36,7 @@ public class MainWindow : Gtk.Window {
 
     private Widgets.MagicButton magic_button;
     // private Widgets.Toast notification_toast;
+    private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
     public Services.ActionManager action_manager;
 
@@ -134,11 +135,13 @@ public class MainWindow : Gtk.Window {
         //  slim_mode_handle.above_child = false;
         //  slim_mode_handle.add (slim_mode_revealer);
 
+        multiselect_toolbar = new Widgets.MultiSelectToolbar ();
+
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
         projectview_overlay.add_overlay (magic_button);
         projectview_overlay.add_overlay (notifications_grid);
-        /// projectview_overlay.add_overlay (slim_mode_handle);
+        projectview_overlay.add_overlay (multiselect_toolbar);
         projectview_overlay.add (stack);
 
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);

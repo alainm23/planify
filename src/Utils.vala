@@ -983,8 +983,21 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
+        string t = get_url_mailto_format (text);
+        t = get_markdown_to_markup (t, "___", "___");
+        t = get_markdown_to_markup (t, "***", "***");
+        t = get_markdown_to_markup (t, "**", "b");
+        t = get_markdown_to_markup (t, "__", "b");
+        t = get_markdown_to_markup (t, "*", "i");
+        t = get_markdown_to_markup (t, "_", "i");
+
+        return t;
+    }
+
+    public string get_url_mailto_format (string text) {
         Regex urlRegex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
         Regex mailtoRegex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
+
         MatchInfo info;
         try {
             List<string> urls = new List<string>();
@@ -1001,6 +1014,7 @@ public class Utils : GLib.Object {
                     emails.append (email);
                 } while (info.next ());
             }
+
             var converted = text;
             urls.foreach ((url) => {
                 var urlEncoded = url.replace ("&", "&amp;");
@@ -1011,10 +1025,35 @@ public class Utils : GLib.Object {
                 var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
                 converted = converted.replace (email, emailAsLink);
             });
+
             return converted;
         } catch (GLib.RegexError ex) {
             return text;
         }
+    }
+
+    public string get_markdown_to_markup (string text, string identifier, string htmltag) {
+        var array = text.split (identifier);
+        string previous = "";
+        int previous_i;
+        for (int i = 0; i < array.length; i++) {
+            if (i % 2 == 1) {
+                //odd number
+            } else if (i != 0) {
+                previous_i = i - 1;
+                if (htmltag == "***" || htmltag == "___") {
+                    array [previous_i] = "<i><b>"+previous+"</b></i>";
+                } else {
+                    array [previous_i] = "<"+htmltag+">"+previous+"</"+htmltag+">";
+                }
+            }
+            previous = array[i];
+        }
+        var newtext = "";
+        for (int i = 0; i < array.length; i++) {
+            newtext += array[i];
+        }
+        return newtext;
     }
 
     public void parse_item_tags (Objects.Item item, string text) {
