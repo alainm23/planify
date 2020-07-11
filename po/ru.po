@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: 2020-07-04 22:41+0000\n"
+"PO-Revision-Date: 2020-07-15 15:23+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -465,9 +465,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Упорядочьте ваши проекты в группы и сохраняйте вашу панель чистой."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Папка"
+msgstr "Добавить папку"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
@@ -569,9 +568,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Выполнено. Следующее событие: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Задача выполнена"
+msgstr "1 задача выполнена"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -1333,9 +1331,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Проект был скопирован в буфер обмена."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Дубликат"
+msgstr "Дубликат задачи"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
