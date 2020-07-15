@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
 "PO-Revision-Date: 2020-07-15 15:23+0000\n"
-"Last-Translator: Yannick A. <yannick.armand@protonmail.com>\n"
+"Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -1342,9 +1342,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Le Projet a été copié dans le Presse-Papier."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Duplication de tâche"
+msgstr "Tache dupliquée"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
