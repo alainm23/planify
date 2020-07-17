@@ -725,7 +725,7 @@ public class MainWindow : Gtk.Window {
                 var temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard..."),
+                    _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
                 );
             } else {
@@ -741,7 +741,7 @@ public class MainWindow : Gtk.Window {
                 var temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard..."),
+                    _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
                 );
             } else {
@@ -757,7 +757,7 @@ public class MainWindow : Gtk.Window {
                 var temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard..."),
+                    _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
                 );
             } else {
@@ -773,7 +773,7 @@ public class MainWindow : Gtk.Window {
                 var temp_id_mapping = Planner.utils.generate_id ();
                 Planner.todoist.add_item (item, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard..."),
+                    _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
                 );
             } else {
