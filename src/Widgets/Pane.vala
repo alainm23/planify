@@ -177,8 +177,9 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.vexpand = true;
 
         var listbox_grid = new Gtk.Grid ();
-        listbox_grid.margin_start = 15;
-        listbox_grid.margin_end = 16;
+        listbox_grid.margin_start = 6;
+        listbox_grid.margin_top = 3;
+        listbox_grid.margin_end = 6;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (listbox);
         listbox_grid.add (drop_project_grid);
@@ -211,7 +212,6 @@ public class Widgets.Pane : Gtk.EventBox {
         search_button.image = search_image;
 
         var settings_button = new Gtk.Button ();
-        settings_button.margin_end = 1;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Preferences");
         settings_button.valign = Gtk.Align.CENTER;
@@ -251,9 +251,9 @@ public class Widgets.Pane : Gtk.EventBox {
         header_box.pack_start (settings_button, false, false, 0);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_end = 22;
+        action_box.margin_end = 9;
         action_box.margin_bottom = 6;
-        action_box.margin_start = 19;
+        action_box.margin_start = 9;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
         action_box.pack_end (header_box, false, false, 0);
@@ -333,6 +333,7 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         add_button.clicked.connect (() => {
+            Planner.event_bus.unselect_all ();
             new_project.reveal = true;
         });
 

@@ -722,7 +722,12 @@ public class MainWindow : Gtk.Window {
             item.is_todoist = inbox_project.is_todoist;
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
+                var temp_id_mapping = Planner.utils.generate_id ();
+                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.notifications.send_undo_notification (
+                    _("Adding task from clipboard..."),
+                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
+                );
             } else {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
@@ -733,7 +738,12 @@ public class MainWindow : Gtk.Window {
             item.due_date = new GLib.DateTime.now_local ().to_string ();
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
+                var temp_id_mapping = Planner.utils.generate_id ();
+                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.notifications.send_undo_notification (
+                    _("Adding task from clipboard..."),
+                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
+                );
             } else {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
@@ -744,7 +754,12 @@ public class MainWindow : Gtk.Window {
             item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
+                var temp_id_mapping = Planner.utils.generate_id ();
+                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.notifications.send_undo_notification (
+                    _("Adding task from clipboard..."),
+                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
+                );
             } else {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
@@ -755,7 +770,12 @@ public class MainWindow : Gtk.Window {
             item.is_todoist = project.is_todoist;
 
             if (item.is_todoist == 1) {
-                Planner.todoist.add_item (item, -1, Planner.utils.generate_id ());
+                var temp_id_mapping = Planner.utils.generate_id ();
+                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.notifications.send_undo_notification (
+                    _("Adding task from clipboard..."),
+                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping, "", "")
+                );
             } else {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
@@ -777,6 +797,8 @@ public class MainWindow : Gtk.Window {
     }
 
     public void hide_item () {
+        Planner.event_bus.unselect_all ();
+
         if (pane.visible_new_widget ()) {
             pane.set_visible_new_widget (false);
         } else {

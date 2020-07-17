@@ -474,6 +474,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         description_label.wrap = true;
         description_label.xalign = 0;
 
+        var enabled_switch = new Dialogs.Preferences.ItemSwitch (_("Enabled"), Planner.settings.get_boolean ("quick-add-enabled"));
+
         var shortcut_label = new Gtk.Label (_("Keyboard Shortcuts"));
         shortcut_label.get_style_context ().add_class ("font-weight-600");
 
@@ -530,6 +532,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.expand = true;
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
+        main_box.pack_start (enabled_switch, false, false, 0);
         main_box.pack_start (shortcut_eventbox, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (change_button, false, false, 0);

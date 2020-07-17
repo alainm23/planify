@@ -59,7 +59,6 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
 
     construct {
         margin_start = margin_end = 6;
-        margin_bottom = 3;
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("action-row");
 
@@ -68,7 +67,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         icon.halign = Gtk.Align.CENTER;
         icon.valign = Gtk.Align.CENTER;
         icon.gicon = new ThemedIcon (icon_name);
-        icon.pixel_size = 16;
+        icon.pixel_size = 14;
 
         title_name = new Gtk.Label (item_name);
         title_name.margin_bottom = 1;

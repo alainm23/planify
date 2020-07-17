@@ -88,8 +88,14 @@
         
         <key name="calendar-enabled" type="b">
             <default>true</default>
-            <summary>enabled enabled</summary>
-            <description>enabled enabled</description>
+            <summary>Calendar enabled</summary>
+            <description>Calendar enabled</description>
+        </key>
+
+        <key name="quick-add-enabled" type="b">
+            <default>true</default>
+            <summary>Quick Add enabled</summary>
+            <description>Quick Add enabled</description>
         </key>
 
         <key name="calendar-sources-disabled" type="as">

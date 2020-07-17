@@ -1052,9 +1052,9 @@ public class Views.Inbox : Gtk.EventBox {
 
     private void check_listbox_margin () {
         if (items_uncompleted_added.size > 0 || items_completed_added.size > 0) {
-            separate_revealer.reveal_child = true;
+            // separate_revealer.reveal_child = true;
         } else {
-            separate_revealer.reveal_child = false;
+            // separate_revealer.reveal_child = false;
         }
     }
 

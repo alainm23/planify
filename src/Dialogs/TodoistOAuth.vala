@@ -107,6 +107,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
+                debug ("access_denied");
                 destroy ();
             }
 

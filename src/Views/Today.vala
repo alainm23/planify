@@ -201,14 +201,26 @@ public class Views.Today : Gtk.EventBox {
             reschedule_popover.popup ();
         });
 
-        listbox.row_activated.connect ((row) => {
-            var item = ((Widgets.ItemRow) row);
-            item.reveal_child = true;
+        listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            if (Planner.event_bus.ctrl_pressed) {
+                Planner.event_bus.select_item (row);
+            } else {
+                row.reveal_child = true;
+                Planner.event_bus.unselect_all ();
+            }
         });
 
-        overdue_listbox.row_activated.connect ((row) => {
-            var item = ((Widgets.ItemRow) row);
-            item.reveal_child = true;
+        overdue_listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            if (Planner.event_bus.ctrl_pressed) {
+                Planner.event_bus.select_item (row);
+            } else {
+                row.reveal_child = true;
+                Planner.event_bus.unselect_all ();
+            }
         });
 
         listbox.remove.connect ((row) => {

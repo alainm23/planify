@@ -72,14 +72,60 @@ public class Widgets.Toast : Gtk.Revealer {
         undo_revealer.transition_duration = 0;
         undo_revealer.add (undo_button);
 
-        if (query != "") {
+        var loading_spinner = new Gtk.Spinner ();
+        loading_spinner.margin_start = 6;
+        loading_spinner.start ();
+        
+        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        loading_revealer.transition_duration = 0;
+        loading_revealer.add (loading_spinner);
+
+        if (query != "" &&
+            (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete" ||
+            Planner.todoist.get_string_member_by_object (query, "type") == "item_complete" ||
+            Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule")) {
             undo_revealer.reveal_child = true;
             duration = 3500;
+        } else if (query != "" &&
+            (Planner.todoist.get_string_member_by_object (query, "type") == "item_duplicate" ||
+            Planner.todoist.get_string_member_by_object (query, "type") == "item_add_from_clipboard")) {
+            loading_revealer.reveal_child = true;
+            duration = -1;
+
+            Planner.todoist.item_added_completed.connect ((_temp_id_mapping) => {
+                if (Planner.todoist.get_int_member_by_object (query, "object_id") == _temp_id_mapping) {
+                    reveal_child = false;
+
+                    if (Planner.todoist.get_string_member_by_object (query, "type") == "item_duplicate") {
+                        Planner.notifications.send_notification (_("Task duplicate"));
+                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_add_from_clipboard") {
+                        Planner.notifications.send_notification (_("Task added from clipboard"));
+                    }
+
+                    GLib.Timeout.add (transition_duration, () => {
+                        destroy ();
+                        return false;
+                    });
+                }
+            });
+
+            Planner.todoist.item_added_error.connect ((_temp_id_mapping) => {
+                if (Planner.todoist.get_int_member_by_object (query, "object_id") == _temp_id_mapping) {
+                    reveal_child = false;
+                    debug ("Error duplicate or add task");
+                    GLib.Timeout.add (transition_duration, () => {
+                        destroy ();
+                        return false;
+                    });
+                }
+            });
         }
 
         var notification_box = new Gtk.Grid ();
         notification_box.column_spacing = 6;
         notification_box.valign = Gtk.Align.CENTER;
+        notification_box.add (loading_revealer);
         notification_box.add (message_label);
         notification_box.add (undo_revealer);
 
@@ -129,6 +175,11 @@ public class Widgets.Toast : Gtk.Revealer {
                     }
                 }
             }
+
+            GLib.Timeout.add (transition_duration, () => {
+                destroy ();
+                return false;
+            });
         });
 
         close_button.clicked.connect (() => {
@@ -142,7 +193,10 @@ public class Widgets.Toast : Gtk.Revealer {
         });
 
         notification_eventbox.enter_notify_event.connect ((event) => {
-            close_revealer.reveal_child = true;
+            if (duration != -1) {
+                close_revealer.reveal_child = true;
+            }
+
             return true;
         });
 
@@ -160,13 +214,15 @@ public class Widgets.Toast : Gtk.Revealer {
         if (!child_revealed) {
             reveal_child = true;
 
-            timeout_id = GLib.Timeout.add (duration, () => {
-                reveal_child = false;
-                timeout_id = 0;
-
-                run_query ();
-                return false;
-            });
+            if (duration != -1) {
+                timeout_id = GLib.Timeout.add (duration, () => {
+                    reveal_child = false;
+                    timeout_id = 0;
+    
+                    run_query ();
+                    return false;
+                });
+            }
         }
     }
 
@@ -189,6 +245,10 @@ public class Widgets.Toast : Gtk.Revealer {
                 }
             }
         }
-    }
 
+        GLib.Timeout.add (transition_duration, () => {
+            destroy ();
+            return false;
+        });
+    }
 }

@@ -114,9 +114,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     public bool item_selected {
         set {
             if (value) {
-                handle_grid.get_style_context ().add_class ("item-ctrl-selected");
+                handle_grid.get_style_context ().add_class ("highlight");
             } else {
-                handle_grid.get_style_context ().remove_class ("item-ctrl-selected");
+                handle_grid.get_style_context ().remove_class ("highlight");
             }
         }
     }

@@ -532,8 +532,8 @@ paned.horizontal > separator {
         inset 0px -1px 6px -15px #3689e6,
 	inset 0px 0px 0px 1.75px alpha (#3689e6, 0.75);
     color: @text_color;
-    background-color: transparent;
     border-radius: 6px;
+    background-color: alpha (#3689e6, 0.1);
 }
 
 .item-action-button {
@@ -1217,5 +1217,9 @@ paned.horizontal > separator {
 }
 
 .multi-select-toolbar-button label {
+    color: @bg_color;
+}
+
+.app-notification spinner {
     color: @bg_color;
 }

@@ -81,6 +81,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
         action_accelerators.set (ACTION_VIEW_UPCOMING, "<Control>3");
+        action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_TOP, "q");
@@ -88,7 +89,6 @@ public class Services.ActionManager : Object {
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
         typing_accelerators.set (ACTION_NEW_FOLDER, "f");
-        typing_accelerators.set (ACTION_ESC, "Escape");
     }
 
     construct {
@@ -153,16 +153,20 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
+        Planner.event_bus.unselect_all ();
         window.new_project ();
     }
 
     private void action_new_folder () {
+        Planner.event_bus.unselect_all ();
+
         var area = new Objects.Area ();
         area.name = _("New area");
         Planner.database.insert_area (area);
     }
 
     private void action_new_section () {
+        Planner.event_bus.unselect_all ();
         window.new_section_action ();
     }
 
