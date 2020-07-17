@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-07-08 13:24-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-16 20:49-0500\n"
 "PO-Revision-Date: 2020-07-10 21:41+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
@@ -19,9 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
 
-#: src/MainWindow.vala:50
+#: src/MainWindow.vala:51
 msgid "Planner"
 msgstr "Planner"
+
+#: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
+#: src/MainWindow.vala:776
+msgid "Adding task from clipboard…"
+msgstr ""
 
 #: src/Utils.vala:28
 msgid "today"
@@ -132,16 +137,16 @@ msgid "Taupe"
 msgstr "Taupe"
 
 #. vala-lint=line-length
-#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1422
+#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1428
 #: src/Widgets/DueButton.vala:196 src/Views/Today.vala:59
-#: src/Views/Today.vala:613 src/Dialogs/Preferences/Preferences.vala:233
-#: src/Dialogs/Preferences/Preferences.vala:339 src/Dialogs/QuickFind.vala:76
+#: src/Views/Today.vala:625 src/Dialogs/Preferences/Preferences.vala:234
+#: src/Dialogs/Preferences/Preferences.vala:340 src/Dialogs/QuickFind.vala:77
 msgid "Today"
 msgstr "Vandaag"
 
-#: src/Utils.vala:576 src/Widgets/Pane.vala:408 src/Widgets/ItemRow.vala:1425
+#: src/Utils.vala:576 src/Widgets/Pane.vala:413 src/Widgets/ItemRow.vala:1431
 #: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
-#: src/Views/Today.vala:619
+#: src/Views/Today.vala:631
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -354,8 +359,8 @@ msgstr "De server kan het verzoek momenteel niet behandelen."
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
 #: src/Services/Database.vala:1035 src/Widgets/Pane.vala:72
 #: src/Widgets/ItemRow.vala:1324 src/Widgets/SectionRow.vala:750
-#: src/Views/Inbox.vala:82 src/Dialogs/Preferences/Preferences.vala:229
-#: src/Dialogs/Preferences/Preferences.vala:336 src/Dialogs/QuickFind.vala:69
+#: src/Views/Inbox.vala:80 src/Dialogs/Preferences/Preferences.vala:230
+#: src/Dialogs/Preferences/Preferences.vala:337 src/Dialogs/QuickFind.vala:70
 msgid "Inbox"
 msgstr "Postvak IN"
 
@@ -363,18 +368,18 @@ msgstr "Postvak IN"
 msgid "On this computer"
 msgstr "Op deze computer"
 
-#: src/Widgets/ActionRow.vala:84 src/Widgets/ProjectRow.vala:150
+#: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:150
 msgid "Todoist Project"
 msgstr "Todoist-project"
 
-#: src/Widgets/ActionRow.vala:274 src/Widgets/ProjectRow.vala:397
+#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
 msgstr "Kan taak niet verplaatsen"
 
 #. vala-lint=line-length
-#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:410
-#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:236
-#: src/Dialogs/QuickFind.vala:83
+#: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
+#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:237
+#: src/Dialogs/QuickFind.vala:84
 msgid "Upcoming"
 msgstr "Aankomend"
 
@@ -382,7 +387,7 @@ msgstr "Aankomend"
 msgid "Add Project"
 msgstr "Project toevoegen"
 
-#: src/Widgets/Pane.vala:202 src/Dialogs/QuickFind.vala:143
+#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
 msgid "Quick Find"
 msgstr "Snel zoeken"
 
@@ -390,15 +395,15 @@ msgstr "Snel zoeken"
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/Widgets/Pane.vala:238 src/Widgets/Pane.vala:472
+#: src/Widgets/Pane.vala:238 src/Widgets/Pane.vala:477
 msgid "Sync"
 msgstr "Synchroniseren"
 
-#: src/Widgets/Pane.vala:476
+#: src/Widgets/Pane.vala:481
 msgid "Offline mode is on"
 msgstr "Je werkt offline"
 
-#: src/Widgets/Pane.vala:476
+#: src/Widgets/Pane.vala:481
 msgid ""
 "Looks like you'are not connected to the\n"
 "internet. Changes you make in offline\n"
@@ -408,7 +413,7 @@ msgstr ""
 "internet. De aanpassingen die je nu doet, worden\n"
 "gesynchroniseerd zodra je verbonden bent."
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:928 src/Views/Project.vala:1310
+#: src/Widgets/New.vala:64 src/Views/Inbox.vala:894 src/Views/Project.vala:1316
 #: src/Dialogs/ProjectSettings.vala:49
 msgid "Name:"
 msgstr "Naam:"
@@ -427,15 +432,15 @@ msgstr "Kleur:"
 
 #: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
 #: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
-#: src/Views/Inbox.vala:944 src/Views/Project.vala:1326
+#: src/Views/Inbox.vala:910 src/Views/Project.vala:1332
 msgid "Add"
 msgstr "Toevoegen"
 
 #: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:96
 #: src/Widgets/SectionRow.vala:166 src/Widgets/AreaRow.vala:148
 #: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:949
-#: src/Views/Project.vala:220 src/Views/Project.vala:1331
+#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:915
+#: src/Views/Project.vala:220 src/Views/Project.vala:1337
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -469,7 +474,7 @@ msgid "Add Folder"
 msgstr "Map toevoegen"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
-#: src/Dialogs/Preferences/Preferences.vala:78
+#: src/Dialogs/Preferences/Preferences.vala:79
 msgid "Close"
 msgstr "Sluiten"
 
@@ -477,7 +482,7 @@ msgstr "Sluiten"
 msgid "New folder"
 msgstr "Nieuwe map"
 
-#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:129
+#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:127
 #: src/Views/Project.vala:205
 msgid "Project Menu"
 msgstr "Projectmenu"
@@ -493,8 +498,8 @@ msgstr "Lokaal project"
 msgid "Task moved to <b>%s</b>"
 msgstr "De taak is verplaatst naar <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1420
-#: src/Widgets/AreaRow.vala:651 src/Views/Project.vala:1035
+#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1426
+#: src/Widgets/AreaRow.vala:653 src/Views/Project.vala:1041
 msgid "Edit"
 msgstr "Bewerken"
 
@@ -502,7 +507,7 @@ msgstr "Bewerken"
 msgid "Move"
 msgstr "Verplaatsen"
 
-#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1441
+#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1447
 #: src/Widgets/SectionRow.vala:816
 msgid "Share"
 msgstr "Delen"
@@ -512,7 +517,7 @@ msgid "Send by e-mail"
 msgstr "Versturen per e-mail"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1446
+#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1452
 #: src/Widgets/SectionRow.vala:821
 msgid "Markdown"
 msgstr "Markdown"
@@ -520,19 +525,19 @@ msgstr "Markdown"
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Widgets/ProjectRow.vala:565 src/Widgets/ProjectRow.vala:592
-#: src/Widgets/ItemRow.vala:1453 src/Widgets/SectionRow.vala:827
-#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:652
-#: src/Widgets/AreaRow.vala:690 src/Widgets/CheckRow.vala:81
-#: src/Views/Project.vala:1038 src/Views/Project.vala:1111
+#: src/Widgets/ItemRow.vala:1459 src/Widgets/SectionRow.vala:827
+#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:654
+#: src/Widgets/AreaRow.vala:692 src/Widgets/CheckRow.vala:81
+#: src/Views/Project.vala:1044 src/Views/Project.vala:1117
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1106
+#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1112
 msgid "Delete project"
 msgstr "Project verwijderen"
 
 #: src/Widgets/ProjectRow.vala:588 src/Widgets/SectionRow.vala:866
-#: src/Widgets/AreaRow.vala:678 src/Views/Project.vala:1107
+#: src/Widgets/AreaRow.vala:680 src/Views/Project.vala:1113
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Weet je zeker dat je <b>%s</b> wilt verwijderen?"
@@ -558,7 +563,7 @@ msgstr "Taak verwijderen"
 msgid "Task Menu"
 msgstr "Taakmenu"
 
-#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1506
+#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1512
 msgid "Task deleted"
 msgstr "Taak verwijderd"
 
@@ -575,31 +580,31 @@ msgstr "1 taak afgerond"
 msgid "No Section"
 msgstr "Geen sectie"
 
-#: src/Widgets/ItemRow.vala:1419
+#: src/Widgets/ItemRow.vala:1425
 msgid "Complete"
 msgstr "Afgerond"
 
-#: src/Widgets/ItemRow.vala:1428 src/Widgets/DueButton.vala:208
+#: src/Widgets/ItemRow.vala:1434 src/Widgets/DueButton.vala:208
 msgid "Undated"
 msgstr "Geen einddatum"
 
-#: src/Widgets/ItemRow.vala:1433 src/Widgets/SectionRow.vala:812
+#: src/Widgets/ItemRow.vala:1439 src/Widgets/SectionRow.vala:812
 msgid "Move to Project"
 msgstr "Verplaatsen naar project"
 
-#: src/Widgets/ItemRow.vala:1437
+#: src/Widgets/ItemRow.vala:1443
 msgid "Move to Section"
 msgstr "Verplaatsen naar sectie"
 
-#: src/Widgets/ItemRow.vala:1445
+#: src/Widgets/ItemRow.vala:1451
 msgid "Text"
 msgstr "Tekst"
 
-#: src/Widgets/ItemRow.vala:1452
+#: src/Widgets/ItemRow.vala:1458
 msgid "Duplicate"
 msgstr "Klonen"
 
-#: src/Widgets/ItemRow.vala:1578 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:1584 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
 msgstr "Aantekening"
 
@@ -648,7 +653,7 @@ msgstr "Opslaan"
 msgid "Add a description"
 msgstr "Beschrijving toevoegen"
 
-#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:849
+#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -698,9 +703,9 @@ msgstr "Elke maand"
 msgid "Every year"
 msgstr "Elk jaar"
 
-#: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:116
-#: src/Dialogs/Preferences/Preferences.vala:767 src/Dialogs/QuickFind.vala:279
-#: src/Dialogs/QuickFind.vala:655
+#: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:117
+#: src/Dialogs/Preferences/Preferences.vala:771 src/Dialogs/QuickFind.vala:280
+#: src/Dialogs/QuickFind.vala:656
 msgid "Labels"
 msgstr "Labels"
 
@@ -746,15 +751,24 @@ msgstr "'%s' maken"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: src/Widgets/AreaRow.vala:648
+#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
+msgid "Task duplicate"
+msgstr "Taak bestaat al"
+
+#: src/Widgets/Toast.vala:103
+#, fuzzy
+msgid "Task added from clipboard"
+msgstr "De taak is gekopieerd naar het klembord."
+
+#: src/Widgets/AreaRow.vala:650
 msgid "Add project"
 msgstr "Project toevoegen"
 
-#: src/Widgets/AreaRow.vala:677
+#: src/Widgets/AreaRow.vala:679
 msgid "Delete folder"
 msgstr "Map verwijderen"
 
-#: src/Widgets/AreaRow.vala:685
+#: src/Widgets/AreaRow.vala:687
 msgid "Delete projects"
 msgstr "Projecten verwijderen"
 
@@ -839,7 +853,7 @@ msgstr "Opstarten"
 msgid "Start working locally."
 msgstr "Lokaal werken."
 
-#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:890
+#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:894
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -847,32 +861,32 @@ msgstr "Todoist"
 msgid "Synchronize with your Todoist account and start working."
 msgstr "Synchroniseer je Todoist-account en ga daarmee aan de slag."
 
-#: src/Views/Inbox.vala:93 src/Views/Project.vala:161
+#: src/Views/Inbox.vala:91 src/Views/Project.vala:161
 #: src/Views/Project.vala:169
 msgid "Add Section"
 msgstr "Sectie toevoegen"
 
-#: src/Views/Inbox.vala:101 src/Views/Project.vala:177
+#: src/Views/Inbox.vala:99 src/Views/Project.vala:177
 msgid "Invite person"
 msgstr "Persoon uitnodigen"
 
-#: src/Views/Inbox.vala:110 src/Views/Project.vala:186
+#: src/Views/Inbox.vala:108 src/Views/Project.vala:186
 msgid "Project comments"
 msgstr "Projectaantekeningen"
 
-#: src/Views/Inbox.vala:118 src/Views/Project.vala:194
+#: src/Views/Inbox.vala:116 src/Views/Project.vala:194
 msgid "Search task"
 msgstr "Taak zoeken"
 
-#: src/Views/Inbox.vala:285
+#: src/Views/Inbox.vala:283
 msgid "All clear"
 msgstr "Opgeruimd staat netjes"
 
-#: src/Views/Inbox.vala:286
+#: src/Views/Inbox.vala:284
 msgid "Looks like everything's organized in the right place."
 msgstr "Het lijkt erop dat alles goed georganiseerd is."
 
-#: src/Views/Inbox.vala:801 src/Views/Project.vala:1047
+#: src/Views/Inbox.vala:767 src/Views/Project.vala:1053
 msgid "Show Completed"
 msgstr "Afgeronde taken tonen"
 
@@ -892,7 +906,7 @@ msgstr "Welke taken heb je in gedachten?"
 msgid "Tap + to add a task for today."
 msgstr "Klik op + om een taak toe te voegen voor vandaag."
 
-#: src/Views/Project.vala:143 src/Views/Project.vala:826
+#: src/Views/Project.vala:143 src/Views/Project.vala:832
 #, c-format
 msgid "Progress: %s"
 msgstr "Voortgang: %s"
@@ -905,24 +919,24 @@ msgstr "Wat hoop je te bereiken?"
 msgid "Tap + to add a task to this project."
 msgstr "Klik op + om een taak toe te voegen aan dit project."
 
-#: src/Views/Project.vala:1250
+#: src/Views/Project.vala:1256
 msgid "Your Productivity"
 msgstr "Mijn productiviteit"
 
-#: src/Views/Project.vala:1255
+#: src/Views/Project.vala:1261
 msgid "Progress:"
 msgstr "Voortgang:"
 
-#: src/Views/Project.vala:1266
+#: src/Views/Project.vala:1272
 msgid "Duedate:"
 msgstr "Einddatum:"
 
-#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:122
+#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
 msgstr "Bezig met laden…"
 
 #. Alert
-#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:136
+#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:137
 msgid "Network Is Not Available"
 msgstr "Geen internetverbinding"
 
@@ -934,7 +948,7 @@ msgstr "Maak verbinding met internet om Todoist te koppelen"
 msgid "Synchronizing… Wait a moment please."
 msgstr "Bezig met synchroniseren…"
 
-#: src/Dialogs/TodoistOAuth.vala:114
+#: src/Dialogs/TodoistOAuth.vala:115
 msgid "Please enter your credentials…"
 msgstr "Voer je inloggegevens in…"
 
@@ -947,59 +961,59 @@ msgid "Uploading changes…"
 msgstr "Bezig met uploaden van aanpassingen…"
 
 #. General
-#: src/Dialogs/Preferences/Preferences.vala:89
-#: src/Dialogs/Preferences/Preferences.vala:96
-#: src/Dialogs/Preferences/Preferences.vala:627
+#: src/Dialogs/Preferences/Preferences.vala:90
+#: src/Dialogs/Preferences/Preferences.vala:97
+#: src/Dialogs/Preferences/Preferences.vala:631
 msgid "General"
 msgstr "Algemeen"
 
-#: src/Dialogs/Preferences/Preferences.vala:92
-#: src/Dialogs/Preferences/Preferences.vala:215
+#: src/Dialogs/Preferences/Preferences.vala:93
+#: src/Dialogs/Preferences/Preferences.vala:216
 msgid "Homepage"
 msgstr "Startpagina"
 
-#: src/Dialogs/Preferences/Preferences.vala:93
-#: src/Dialogs/Preferences/Preferences.vala:319
+#: src/Dialogs/Preferences/Preferences.vala:94
+#: src/Dialogs/Preferences/Preferences.vala:320
 msgid "Badge Count"
 msgstr "Meldingsteller"
 
-#: src/Dialogs/Preferences/Preferences.vala:94
-#: src/Dialogs/Preferences/Preferences.vala:392
+#: src/Dialogs/Preferences/Preferences.vala:95
+#: src/Dialogs/Preferences/Preferences.vala:393
 msgid "Theme"
 msgstr "Thema"
 
-#: src/Dialogs/Preferences/Preferences.vala:95
-#: src/Dialogs/Preferences/Preferences.vala:463
+#: src/Dialogs/Preferences/Preferences.vala:96
+#: src/Dialogs/Preferences/Preferences.vala:464
 msgid "Quick Add"
 msgstr "Snel toevoegen"
 
 #. Addons
-#: src/Dialogs/Preferences/Preferences.vala:111
+#: src/Dialogs/Preferences/Preferences.vala:112
 msgid "Add-ons"
 msgstr "Uitbreidingen"
 
-#: src/Dialogs/Preferences/Preferences.vala:115
-#: src/Dialogs/Preferences/Preferences.vala:1029
+#: src/Dialogs/Preferences/Preferences.vala:116
+#: src/Dialogs/Preferences/Preferences.vala:1033
 msgid "Calendar Events"
 msgstr "Kalendergebeurtenissen"
 
-#: src/Dialogs/Preferences/Preferences.vala:117
-#: src/Dialogs/Preferences/Preferences.vala:476
+#: src/Dialogs/Preferences/Preferences.vala:118
+#: src/Dialogs/Preferences/Preferences.vala:479
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
 #. Others
-#: src/Dialogs/Preferences/Preferences.vala:132
-#: src/Dialogs/Preferences/Preferences.vala:1201
+#: src/Dialogs/Preferences/Preferences.vala:133
+#: src/Dialogs/Preferences/Preferences.vala:1205
 msgid "About"
 msgstr "Over"
 
-#: src/Dialogs/Preferences/Preferences.vala:133
-#: src/Dialogs/Preferences/Preferences.vala:1107
+#: src/Dialogs/Preferences/Preferences.vala:134
+#: src/Dialogs/Preferences/Preferences.vala:1111
 msgid "Support & Credits"
 msgstr "Ondersteuning en dankwoord"
 
-#: src/Dialogs/Preferences/Preferences.vala:218
+#: src/Dialogs/Preferences/Preferences.vala:219
 msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
@@ -1009,50 +1023,50 @@ msgstr ""
 "zijn zodra je Planner opent. Standaard wordt <b>Postvak IN</b> getoond, maar "
 "je kunt zelf een andere pagina kiezen."
 
-#: src/Dialogs/Preferences/Preferences.vala:250 src/Dialogs/QuickFind.vala:292
-#: src/Dialogs/QuickFind.vala:545
+#: src/Dialogs/Preferences/Preferences.vala:251 src/Dialogs/QuickFind.vala:293
+#: src/Dialogs/QuickFind.vala:546
 msgid "Projects"
 msgstr "Projecten"
 
-#: src/Dialogs/Preferences/Preferences.vala:322
+#: src/Dialogs/Preferences/Preferences.vala:323
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
 "KIes welke items moeten worden geteld op de badge van het "
 "toepassingspictogram."
 
-#: src/Dialogs/Preferences/Preferences.vala:332
+#: src/Dialogs/Preferences/Preferences.vala:333
 msgid "None"
 msgstr "Geen"
 
-#: src/Dialogs/Preferences/Preferences.vala:342
+#: src/Dialogs/Preferences/Preferences.vala:343
 msgid "Today + Inbox"
 msgstr "Vandaag en Postvak IN"
 
-#: src/Dialogs/Preferences/Preferences.vala:395
+#: src/Dialogs/Preferences/Preferences.vala:396
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
 "Pas het uiterlijk van Planner aan door een thema te kiezen dat bij jou past."
 
-#: src/Dialogs/Preferences/Preferences.vala:405
+#: src/Dialogs/Preferences/Preferences.vala:406
 msgid "Light"
 msgstr "Licht"
 
-#: src/Dialogs/Preferences/Preferences.vala:409
+#: src/Dialogs/Preferences/Preferences.vala:410
 msgid "Night"
 msgstr "Donker"
 
-#: src/Dialogs/Preferences/Preferences.vala:412
+#: src/Dialogs/Preferences/Preferences.vala:413
 msgid "Dark Blue"
 msgstr "Donkerblauw"
 
-#: src/Dialogs/Preferences/Preferences.vala:415
+#: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
 msgstr "Arc (donker)"
 
-#: src/Dialogs/Preferences/Preferences.vala:466
+#: src/Dialogs/Preferences/Preferences.vala:467
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1062,34 +1076,39 @@ msgstr ""
 "'Snel toevoegen' met de sneltoets makkelijk openen vanuit elke toepassing. "
 "Voeg een taak toe en ga snel weer aan het werk."
 
-#: src/Dialogs/Preferences/Preferences.vala:488
-#: src/Dialogs/Preferences/Preferences.vala:569
-#: src/Dialogs/Preferences/Preferences.vala:577
+#: src/Dialogs/Preferences/Preferences.vala:477
+#: src/Dialogs/Preferences/Preferences.vala:1047
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/Dialogs/Preferences/Preferences.vala:491
+#: src/Dialogs/Preferences/Preferences.vala:573
+#: src/Dialogs/Preferences/Preferences.vala:581
 msgid "Change"
 msgstr "Aanpassen"
 
-#: src/Dialogs/Preferences/Preferences.vala:514
+#: src/Dialogs/Preferences/Preferences.vala:517
 msgid "Change Keyboard Shortcut"
 msgstr "Sneltoets aanpassen"
 
-#: src/Dialogs/Preferences/Preferences.vala:523
+#: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
 msgstr "Laatst geselecteerd project opslaan"
 
-#: src/Dialogs/Preferences/Preferences.vala:567
-#: src/Dialogs/Preferences/Preferences.vala:575
+#: src/Dialogs/Preferences/Preferences.vala:571
+#: src/Dialogs/Preferences/Preferences.vala:579
 msgid "Press keys…"
 msgstr "Druk op een toetscombinatie…"
 
-#: src/Dialogs/Preferences/Preferences.vala:630
+#: src/Dialogs/Preferences/Preferences.vala:634
 msgid "DE Integration"
 msgstr "Werkomgevingsintegratie"
 
-#: src/Dialogs/Preferences/Preferences.vala:634
+#: src/Dialogs/Preferences/Preferences.vala:638
 msgid "Run in background"
 msgstr "Uitvoeren op achtergrond"
 
-#: src/Dialogs/Preferences/Preferences.vala:638
+#: src/Dialogs/Preferences/Preferences.vala:642
 msgid ""
 "Enable this setting to keep Planner running in the background when it "
 "closes. This will allow Planner to continue updating and sending reminder "
@@ -1099,52 +1118,52 @@ msgstr ""
 "nadat je het venster hebt gesloten. Zo kan Planner bijgewerkt blijven worden "
 "en je herinneringen sturen."
 
-#: src/Dialogs/Preferences/Preferences.vala:646
+#: src/Dialogs/Preferences/Preferences.vala:650
 msgid "Run on startup"
 msgstr "Automatisch opstarten"
 
-#: src/Dialogs/Preferences/Preferences.vala:650
+#: src/Dialogs/Preferences/Preferences.vala:654
 msgid "Enable this setting to make Planner startup with the system."
 msgstr "Met deze optie zorg je er voor dat Planner automatisch opstart."
 
-#: src/Dialogs/Preferences/Preferences.vala:667
+#: src/Dialogs/Preferences/Preferences.vala:671
 msgid "Button layout"
 msgstr "Knopindeling"
 
-#: src/Dialogs/Preferences/Preferences.vala:676
+#: src/Dialogs/Preferences/Preferences.vala:680
 msgid "Help"
 msgstr "Hulp"
 
-#: src/Dialogs/Preferences/Preferences.vala:680
+#: src/Dialogs/Preferences/Preferences.vala:684
 msgid "Create tutorial project"
 msgstr "Voorbeeldproject toevoegen"
 
-#: src/Dialogs/Preferences/Preferences.vala:680
+#: src/Dialogs/Preferences/Preferences.vala:684
 msgid "Create"
 msgstr "Toevoegen"
 
-#: src/Dialogs/Preferences/Preferences.vala:682
+#: src/Dialogs/Preferences/Preferences.vala:686
 msgid "Danger zone"
 msgstr "Gevarenzone"
 
-#: src/Dialogs/Preferences/Preferences.vala:687
-#: src/Dialogs/Preferences/Preferences.vala:749
+#: src/Dialogs/Preferences/Preferences.vala:691
+#: src/Dialogs/Preferences/Preferences.vala:753
 msgid "Reset all"
 msgstr "Standaardwaarden herstellen"
 
-#: src/Dialogs/Preferences/Preferences.vala:687
+#: src/Dialogs/Preferences/Preferences.vala:691
 msgid "Reset"
 msgstr "Standaardwaarden"
 
-#: src/Dialogs/Preferences/Preferences.vala:735
+#: src/Dialogs/Preferences/Preferences.vala:739
 msgid "Your tutorial project was created"
 msgstr "Je voorbeeldproject is aangemaakt"
 
-#: src/Dialogs/Preferences/Preferences.vala:744
+#: src/Dialogs/Preferences/Preferences.vala:748
 msgid "Are you sure you want to reset all?"
 msgstr "Weet je zeker dat je alle standaardwaarden wilt herstellen?"
 
-#: src/Dialogs/Preferences/Preferences.vala:745
+#: src/Dialogs/Preferences/Preferences.vala:749
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
@@ -1152,7 +1171,7 @@ msgstr ""
 "Alle informatie wordt hierdoor verwijderd, en kan niet ongedaan worden "
 "gemaakt."
 
-#: src/Dialogs/Preferences/Preferences.vala:770
+#: src/Dialogs/Preferences/Preferences.vala:774
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
@@ -1160,16 +1179,16 @@ msgstr ""
 "Bespaar tijd door vergelijkbare taken te groeperen middels labels. Met een "
 "paar muisklikken kun je een overzicht krijgen van alle taken met dat label."
 
-#: src/Dialogs/Preferences/Preferences.vala:914
+#: src/Dialogs/Preferences/Preferences.vala:918
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "Gesynchroniseerd op: %s"
 
-#: src/Dialogs/Preferences/Preferences.vala:923
+#: src/Dialogs/Preferences/Preferences.vala:927
 msgid "Sync server"
 msgstr "Synchronisatieserver"
 
-#: src/Dialogs/Preferences/Preferences.vala:928
+#: src/Dialogs/Preferences/Preferences.vala:932
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
@@ -1177,20 +1196,20 @@ msgstr ""
 "Schakel dit in om Planner elke 15 minuten automatisch te synchroniseren met "
 "je Todoist-account."
 
-#: src/Dialogs/Preferences/Preferences.vala:940
-#: src/Dialogs/Preferences/Preferences.vala:995
+#: src/Dialogs/Preferences/Preferences.vala:944
+#: src/Dialogs/Preferences/Preferences.vala:999
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: src/Dialogs/Preferences/Preferences.vala:990
+#: src/Dialogs/Preferences/Preferences.vala:994
 msgid "Are you sure you want to log out?"
 msgstr "Weet je zeker dat je wilt uitloggen?"
 
-#: src/Dialogs/Preferences/Preferences.vala:991
+#: src/Dialogs/Preferences/Preferences.vala:995
 msgid "This process will close your Todoist session on this device."
 msgstr "Hierdoor wordt de Todoist-sessie op dit apparaat afgesloten."
 
-#: src/Dialogs/Preferences/Preferences.vala:1032
+#: src/Dialogs/Preferences/Preferences.vala:1036
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -1202,11 +1221,7 @@ msgstr ""
 "zowel persoonlijke als gedeelde kalenders op de pagina's <b>Vandaag</b> en "
 "<b>Upcoming</b>. Dit is een handige manier om je dag (en je week) te plannen."
 
-#: src/Dialogs/Preferences/Preferences.vala:1043
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/Dialogs/Preferences/Preferences.vala:1110
+#: src/Dialogs/Preferences/Preferences.vala:1114
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
@@ -1216,7 +1231,7 @@ msgstr ""
 "gebruikt, overweeg dan een donatie te doen om de ontwikkeling ervan te "
 "steunen:"
 
-#: src/Dialogs/Preferences/Preferences.vala:1136
+#: src/Dialogs/Preferences/Preferences.vala:1140
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
@@ -1224,23 +1239,23 @@ msgstr ""
 "Met dank aan allen die een donatie hebben gedaan via Patreon of PayPal. (als "
 "jij hier ook vermeld wilt worden, ga dan naar onze Patreon-pagina 😉️)"
 
-#: src/Dialogs/Preferences/Preferences.vala:1215
+#: src/Dialogs/Preferences/Preferences.vala:1219
 msgid "Website"
 msgstr "Website"
 
-#: src/Dialogs/Preferences/Preferences.vala:1216
+#: src/Dialogs/Preferences/Preferences.vala:1220
 msgid "Follow"
 msgstr "Volgen"
 
-#: src/Dialogs/Preferences/Preferences.vala:1217
+#: src/Dialogs/Preferences/Preferences.vala:1221
 msgid "Report a Problem"
 msgstr "Meld een probleem"
 
-#: src/Dialogs/Preferences/Preferences.vala:1218
+#: src/Dialogs/Preferences/Preferences.vala:1222
 msgid "Suggest Translations"
 msgstr "Vertalingen aandragen"
 
-#: src/Dialogs/Preferences/Preferences.vala:1337
+#: src/Dialogs/Preferences/Preferences.vala:1341
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
@@ -1248,81 +1263,81 @@ msgstr "Uitgeschakeld"
 msgid "Back"
 msgstr "Terug"
 
-#: src/Dialogs/QuickFind.vala:90
+#: src/Dialogs/QuickFind.vala:91
 msgid "Completed"
 msgstr "Afgerond"
 
-#: src/Dialogs/QuickFind.vala:99
+#: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
 msgstr "Prioriteit 1"
 
-#: src/Dialogs/QuickFind.vala:107
+#: src/Dialogs/QuickFind.vala:108
 msgid "Priority 2"
 msgstr "Prioriteit 2"
 
-#: src/Dialogs/QuickFind.vala:115
+#: src/Dialogs/QuickFind.vala:116
 msgid "Priority 3"
 msgstr "Prioriteit 3"
 
-#: src/Dialogs/QuickFind.vala:123
+#: src/Dialogs/QuickFind.vala:124
 msgid "Priority 4"
 msgstr "Prioriteit 4"
 
-#: src/Dialogs/QuickFind.vala:128
+#: src/Dialogs/QuickFind.vala:129
 msgid "Search"
 msgstr "Zoeken"
 
-#: src/Dialogs/QuickFind.vala:156
+#: src/Dialogs/QuickFind.vala:157
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
 "Schakel snel tussen projecten en weergaven, zoek naar taken en zoek op "
 "labels."
 
-#: src/Dialogs/QuickFind.vala:184
+#: src/Dialogs/QuickFind.vala:185
 msgid "UP"
 msgstr "OMHOOG"
 
-#: src/Dialogs/QuickFind.vala:189
+#: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
 msgstr "OMLAAG"
 
-#: src/Dialogs/QuickFind.vala:194
+#: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
 msgstr "ENTER"
 
-#: src/Dialogs/QuickFind.vala:199
+#: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
 msgstr "ESC"
 
-#: src/Dialogs/QuickFind.vala:209
+#: src/Dialogs/QuickFind.vala:210
 msgid "Use"
 msgstr "Gebruiken"
 
-#: src/Dialogs/QuickFind.vala:212
+#: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
 msgstr "om te navigeren,"
 
-#: src/Dialogs/QuickFind.vala:214
+#: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
 msgstr "te selecteren,"
 
-#: src/Dialogs/QuickFind.vala:216
+#: src/Dialogs/QuickFind.vala:217
 msgid "to close."
 msgstr "en te sluiten."
 
-#: src/Dialogs/QuickFind.vala:492
+#: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
 msgstr "Enter"
 
-#: src/Dialogs/QuickFind.vala:506
+#: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
 msgstr "Taken"
 
-#: src/Dialogs/QuickFind.vala:602
+#: src/Dialogs/QuickFind.vala:603
 msgid "Views"
 msgstr "Weergaven"
 
-#: src/Dialogs/QuickFind.vala:700
+#: src/Dialogs/QuickFind.vala:701
 msgid "Priorities"
 msgstr "Prioriteiten"
 
@@ -1330,20 +1345,18 @@ msgstr "Prioriteiten"
 msgid "The Project was copied to the Clipboard."
 msgstr "Het project is gekopieerd naar het klembord."
 
-#: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-msgid "Task duplicate"
-msgstr "Taak bestaat al"
+#: src/Objects/Item.vala:125
+#, fuzzy
+msgid "Duplicating task…"
+msgstr "Taak klonen"
 
-#: src/Objects/Item.vala:214 src/Objects/Item.vala:231
+#: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
 msgstr "De taak is gekopieerd naar het klembord."
 
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
 msgstr "De sectie is gekopieerd naar het klembord."
-
-#~ msgid "Duplicate task"
-#~ msgstr "Taak klonen"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "
