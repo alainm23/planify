@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
 "PO-Revision-Date: 2020-07-18 22:44+0000\n"
-"Last-Translator: Nikita Epifanov <nikgreens@protonmail.com>\n"
+"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -27,7 +27,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Добавление задачи из буфера обмена…"
 
 #: src/Utils.vala:28
 msgid "today"
@@ -602,7 +602,7 @@ msgstr "Текст"
 
 #: src/Widgets/ItemRow.vala:1458
 msgid "Duplicate"
-msgstr "Дубликат"
+msgstr "Продублировать"
 
 #: src/Widgets/ItemRow.vala:1584 src/Widgets/ItemCompletedRow.vala:41
 msgid "Note"
@@ -753,12 +753,11 @@ msgstr "Отменить"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
 msgid "Task duplicate"
-msgstr "Дубликат задачи"
+msgstr "Задача продублирована"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "Задача была скопирована в буфер обмена."
+msgstr "Задача добавлена из буфера обмена"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -1346,9 +1345,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Проект был скопирован в буфер обмена."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Дубликат"
+msgstr "Дублирование задачи…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
