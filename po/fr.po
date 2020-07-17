@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: 2020-07-04 22:41+0000\n"
+"PO-Revision-Date: 2020-07-15 15:23+0000\n"
 "Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
@@ -470,9 +470,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organisez vos projets en groupes et gardez votre panneau propre."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Dossier"
+msgstr "Ajouter un dossier"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:78
@@ -574,9 +573,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Tâche terminée. Prochaine occurrence : %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Tâches complétées"
+msgstr "1 tâche complétée"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -1344,9 +1342,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Le Projet a été copié dans le Presse-Papier."
 
 #: src/Objects/Item.vala:125 src/Objects/Item.vala:134
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Dupliquer"
+msgstr "Tache dupliquée"
 
 #: src/Objects/Item.vala:214 src/Objects/Item.vala:231
 msgid "The Task was copied to the Clipboard."
