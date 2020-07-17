@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-10 21:41+0000\n"
+"PO-Revision-Date: 2020-07-18 22:44+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -26,7 +26,7 @@ msgstr "Planlayıcı"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Panodan görev ekleniyor…"
 
 #: src/Utils.vala:28
 msgid "today"
@@ -757,9 +757,8 @@ msgid "Task duplicate"
 msgstr "Yinelenen görev"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "Görev Panoya kopyalandı."
+msgstr "Görev panodan eklendi"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -1345,9 +1344,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Plan Panoya kopyalandı."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Çoğaltmak"
+msgstr "Görev çoğaltılıyor…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
