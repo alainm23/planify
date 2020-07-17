@@ -3,31 +3,34 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-08 13:24-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-07-17 01:47+0000\n"
+"Last-Translator: Osaid makhalfih <osaid.m1@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/planner/"
+"translations/ar/>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
-msgstr ""
+msgstr "مُخطط"
 
 #: src/Utils.vala:28
 msgid "today"
-msgstr ""
+msgstr "اليوم"
 
 #: src/Utils.vala:29
 msgid "tomorrow"
-msgstr ""
+msgstr "غداً"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -39,83 +42,83 @@ msgstr ""
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "مهمة"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "مُهم"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "عالق"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
-msgstr ""
+msgstr "التوت الأحمر"
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "احمر"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "برتقالي"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "اصفر"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "اخضر زيتي"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "اخضر ليموني"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "اخضر"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "اخضر نعناعي"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "أزرق مخضر"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "أزرق سماوي"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "أزرق فاتح"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "أزرق"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "عنب"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "بنفسجي"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "أرجواني شاحب"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "أرجواني"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "سلمون"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
@@ -123,7 +126,7 @@ msgstr ""
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "رمادي"
 
 #: src/Utils.vala:213
 msgid "Taupe"
