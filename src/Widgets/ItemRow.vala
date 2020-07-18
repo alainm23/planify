@@ -569,6 +569,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.hexpand = true;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.get_style_context ().add_class ("transition");
+        main_grid.margin_bottom = 3;
         main_grid.add (top_box);
         main_grid.add (preview_revealer);
         main_grid.add (bottom_revealer);

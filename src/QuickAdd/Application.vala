@@ -128,8 +128,11 @@ public class PlannerQuickAdd : Gtk.Application {
         // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+        
         // Dark Mode
-        // Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.get_boolean ("prefer-dark-style");
+        if (settings.get_enum ("appearance") != 0) {
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+        }
     }
 }
 
