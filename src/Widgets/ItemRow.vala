@@ -187,7 +187,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         hidden_revealer = new Gtk.Revealer ();
         hidden_revealer.valign = Gtk.Align.START;
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        hidden_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         hidden_revealer.add (hidden_button);
 
         checked_button = new Gtk.CheckButton ();

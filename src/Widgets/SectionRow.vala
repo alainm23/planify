@@ -736,6 +736,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     private void activate_menu () {
+        Planner.event_bus.unselect_all ();
+        
         if (menu == null) {
             build_context_menu (section);
         }
@@ -1029,6 +1031,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     public void add_new_item (int index=-1) {
+        Planner.event_bus.unselect_all ();
+
         var new_item = new Widgets.NewItem (
             section.project_id,
             section.id,

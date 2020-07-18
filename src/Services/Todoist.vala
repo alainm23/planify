@@ -437,6 +437,7 @@ public class Services.Todoist : GLib.Object {
                         //      "applications-development",
                         //      Gtk.ButtonsType.CLOSE
                         //  );
+
                         //  message_dialog.show_error_details ((string) mess.response_body.flatten ().data);
 
                         //  message_dialog.run ();
@@ -562,6 +563,12 @@ public class Services.Todoist : GLib.Object {
                                 } else {
                                     if ((int32) object.get_int_member ("checked") != i.checked) {
                                         i.checked = (int32) object.get_int_member ("checked");
+                                        if ((int32) object.get_int_member ("checked") == 0) {
+                                            i.date_completed = "";
+                                        } else {
+                                            i.date_completed = new GLib.DateTime.from_iso8601 (object.get_string_member ("date_completed"), new GLib.TimeZone.local ()).to_string ();
+                                        }
+                                        
                                         Planner.database.update_item_completed (i);
                                     }
 

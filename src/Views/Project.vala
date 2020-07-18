@@ -292,7 +292,8 @@ public class Views.Project : Gtk.EventBox {
         listbox.hexpand = true;
 
         completed_listbox = new Gtk.ListBox ();
-        completed_listbox.margin_start = 38;
+        completed_listbox.margin_start = 30;
+        completed_listbox.margin_end = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;
@@ -511,6 +512,8 @@ public class Views.Project : Gtk.EventBox {
         });
 
         settings_button.toggled.connect (() => {
+            Planner.event_bus.unselect_all ();
+
             if (settings_button.active) {
                 if (popover == null) {
                     create_popover ();
@@ -549,10 +552,12 @@ public class Views.Project : Gtk.EventBox {
         });
 
         section_button.toggled.connect (() => {
+            Planner.event_bus.unselect_all ();
             open_new_section ();
         });
 
         progress_button.toggled.connect (() => {
+            Planner.event_bus.unselect_all ();
             open_progress_popover ();
         });
 

@@ -50,7 +50,8 @@ public class Views.Completed : Gtk.EventBox {
         listbox = new Gtk.ListBox ();
         listbox.margin_bottom = 32;
         listbox.expand = true;
-        listbox.margin_start = 38;
+        listbox.margin_end = 32;
+        listbox.margin_start = 30;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
