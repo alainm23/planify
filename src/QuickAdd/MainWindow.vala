@@ -139,6 +139,10 @@ public class MainWindow : Gtk.Window {
             }
         }
 
+        if (project_combobox.active == -1 && PlannerQuickAdd.settings.get_boolean ("quick-add-save-last-project") == true) {
+            project_combobox.set_active_iter (inbox_iter);
+        }
+
         var pixbuf_cell = new Gtk.CellRendererPixbuf ();
         project_combobox.pack_start (pixbuf_cell, false);
         project_combobox.add_attribute (pixbuf_cell, "icon-name", 2);

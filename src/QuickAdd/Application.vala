@@ -21,6 +21,8 @@
 
 public class PlannerQuickAdd : Gtk.Application {
     private const string CSS = """
+        @define-color base_color %s;    
+    
         entry {
             caret-color: #3689e6;
         }
@@ -108,19 +110,6 @@ public class PlannerQuickAdd : Gtk.Application {
             }
         });
 
-        // CSS provider
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            provider.load_from_data (CSS, CSS.length);
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } catch (Error e) {
-            debug (e.message);
-        }
-
         // Default Icon Theme
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");
@@ -130,8 +119,32 @@ public class PlannerQuickAdd : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
         
         // Dark Mode
-        if (settings.get_enum ("appearance") != 0) {
+        int appearance_mode = settings.get_enum ("appearance");
+        string base_color = "white";
+        if (appearance_mode == 0) {
+            base_color = "white";
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+        } else if (appearance_mode == 1) {
+            base_color = "#282828";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+        } else if (appearance_mode == 2) {
+            base_color = "#15151B";
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+        } else if (appearance_mode == 3) {
+            base_color = "#353945";
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+        }
+
+        // CSS provider
+        var provider = new Gtk.CssProvider ();
+        try {
+            provider.load_from_data (CSS.printf (base_color), CSS.length);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (Error e) {
+            debug (e.message);
         }
     }
 }
