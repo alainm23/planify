@@ -6,132 +6,135 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-07-19 01:00+0000\n"
+"Last-Translator: Heart & Soul <shenzhe100@126.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"planner/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "任务清单"
 
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "从剪贴板中添加任务...…"
 
 #: src/Utils.vala:28
 msgid "today"
-msgstr ""
+msgstr "今日"
 
 #: src/Utils.vala:29
 msgid "tomorrow"
-msgstr ""
+msgstr "明日"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "家"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "办公"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "任务"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "重要"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "即将发生"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
-msgstr ""
+msgstr "番茄红"
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "红色"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "橙色"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "黄色"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "橄榄绿"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "淡绿色"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "绿色"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "薄荷绿"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "青色"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "天空蓝"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "亮蓝色"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "蓝色"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "葡萄紫"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "紫色"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "蓝紫色"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "洋红色"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "橙红色"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
-msgstr ""
+msgstr "深灰色"
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "灰色"
 
 #: src/Utils.vala:213
 msgid "Taupe"
-msgstr ""
+msgstr "灰褐色"
 
 #. vala-lint=line-length
 #: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1428
@@ -139,37 +142,37 @@ msgstr ""
 #: src/Views/Today.vala:625 src/Dialogs/Preferences/Preferences.vala:234
 #: src/Dialogs/Preferences/Preferences.vala:340 src/Dialogs/QuickFind.vala:77
 msgid "Today"
-msgstr ""
+msgstr "今天"
 
 #: src/Utils.vala:576 src/Widgets/Pane.vala:413 src/Widgets/ItemRow.vala:1431
 #: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
 #: src/Views/Today.vala:631
 msgid "Tomorrow"
-msgstr ""
+msgstr "明天"
 
 #: src/Utils.vala:815
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "快速添加活动!"
 
 #: src/Utils.vala:816
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "你可以从参数中将%s设为活动状态"
 
 #: src/Utils.vala:855
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ 让我们开始"
 
 #: src/Utils.vala:856
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
-msgstr ""
+msgstr "这个任务将帮助你学习关于本应用的基本操作并且开始使用一个简单的任务管理系统来组织你所需要去做的任何事情。"
 
 #: src/Utils.vala:861
 msgid "Keeping track of your tasks"
-msgstr ""
+msgstr "留下任务的痕迹"
 
 #: src/Utils.vala:862
 msgid ""
