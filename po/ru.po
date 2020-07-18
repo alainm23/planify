@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-15 15:23+0000\n"
-"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
+"PO-Revision-Date: 2020-07-18 22:44+0000\n"
+"Last-Translator: Nikita Epifanov <nikgreens@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -1295,39 +1295,39 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "ВВЕРХ"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "ВНИЗ"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "Использовать"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr ""
+msgstr "чтобы выделить и"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "чтобы выбрать,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "чтобы закрыть."
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "Ввести"
 
 #: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
