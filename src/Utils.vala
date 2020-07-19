@@ -1006,12 +1006,12 @@ public class Utils : GLib.Object {
                     emails.append (email);
                 } while (info.next ());
             }
-            Gee.ArrayList<RegexMarkdown> links = new Gee.ArrayList<RegexMarkdown>();
-            if (link_regex.match (text, 0, out info)) {
-                do {
-                    links.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
-                } while (info.next ());
-            }
+            //  Gee.ArrayList<RegexMarkdown> links = new Gee.ArrayList<RegexMarkdown>();
+            //  if (link_regex.match (text, 0, out info)) {
+            //      do {
+            //          links.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
+            //      } while (info.next ());
+            //  }
             Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
             if (bold_regex.match (text, 0, out info)) {
                 do {
@@ -1032,12 +1032,12 @@ public class Utils : GLib.Object {
             }
 
             var converted = text;
-            foreach (RegexMarkdown m in links) {
-                string name = m.text;
-                string url = m.extra.replace ("&", "&amp;");
-                var urlAsLink = @"<a href=\"$url\">$name</a>";
-                converted = converted.replace (m.match, urlAsLink);
-            }
+            //  foreach (RegexMarkdown m in links) {
+            //      string name = m.text;
+            //      string url = m.extra.replace ("&", "&amp;");
+            //      var urlAsLink = @"<a href=\"$url\">$name</a>";
+            //      converted = converted.replace (m.match, urlAsLink);
+            //  }
             urls.foreach ((url) => {
                 var urlEncoded = url.replace ("&", "&amp;");
                 var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";

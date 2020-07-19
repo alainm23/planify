@@ -113,7 +113,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.add (action_grid);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (main_grid);
         main_revealer.reveal_child = false;
 
@@ -144,7 +144,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         content_entry.focus_out_event.connect (() => {
-            if (entry_menu_opened == false) {
+            if (entry_menu_opened == false && content_entry.text.strip () == "") {
                 timeout_id = Timeout.add (250, () => {
                     timeout_id = 0;
     
