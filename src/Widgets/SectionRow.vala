@@ -251,7 +251,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.drag_data_received.connect (on_drag_data_received);
 
         completed_listbox = new Gtk.ListBox ();
-        completed_listbox.margin_start = 38;
+        completed_listbox.margin_start = 30;
+        completed_listbox.margin_end = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
         completed_listbox.activate_on_single_click = true;

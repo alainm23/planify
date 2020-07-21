@@ -21,6 +21,8 @@
 
 public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
+    private Gtk.Menu menu = null;
+    private Gtk.Box main_box;
     public string view { get; construct; }
 
     private Gtk.Revealer main_revealer;
@@ -76,6 +78,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9);
         bottom_box.hexpand = true;
         bottom_box.margin_start = 28;
+        bottom_box.margin_bottom = 3;
         bottom_box.pack_start (completed_label, false, false, 0);
 
         if (view == "completed") {
@@ -111,16 +114,22 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_label, false, false, 0);
 
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.margin_top = 6;
         main_box.margin_start = 6;
         main_box.pack_start (box, false, true, 0);
         main_box.pack_start (bottom_box, false, false, 0);
 
+        var handle = new Gtk.EventBox ();
+        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        handle.expand = true;
+        handle.above_child = false;
+        handle.add (main_box);
+
         main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (main_box);
+        main_revealer.add (handle);
 
         add (main_revealer);
 
@@ -145,8 +154,86 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
                 return false;
             });
         });
+
+        button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                activate_menu ();
+                return true;
+            }
+
+            return false;
+        });
+
+        Planner.database.item_deleted.connect ((i) => {
+            Idle.add (() => {
+                if (item.id == i.id) {
+                    destroy ();
+                }
+
+                return false;
+            });
+        });
     }
 
+    private void activate_menu () {
+        if (menu == null) {
+            build_context_menu (item);
+        }
+
+        main_box.get_style_context ().add_class ("highlight");
+        menu.popup_at_pointer (null);
+    }
+
+    private void build_context_menu (Objects.Item item) {
+        menu = new Gtk.Menu ();
+        menu.width_request = 235;
+
+        menu.hide.connect (() => {
+            main_box.get_style_context ().remove_class ("highlight");
+        });
+
+        var uncomplete_menu = new Widgets.ImageMenuItem (_("Mark Incomplete"), "emblem-default-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        delete_menu.get_style_context ().add_class ("menu-danger");
+
+        menu.add (uncomplete_menu);
+        menu.add (delete_menu);
+        menu.show_all ();
+
+        uncomplete_menu.activate.connect (() => {
+            item.checked = 0;
+            item.date_completed = "";
+
+            Planner.database.update_item_completed (item);
+            if (item.is_todoist == 1) {
+                Planner.todoist.item_uncomplete (item);
+            }
+        });
+
+        delete_menu.activate.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Delete task"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (item.content)),
+                "user-trash-full",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                Planner.database.delete_item (item);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.add_delete_item (item);
+                }
+            }
+
+            message_dialog.destroy ();
+        });
+    }
+    
     public void hide_destroy () {
         main_revealer.reveal_child = false;
 

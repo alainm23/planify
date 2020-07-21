@@ -30,6 +30,8 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
     private Gtk.SearchEntry label_entry;
     private Gtk.ListBox listbox;
 
+    public signal void closed ();
+
     public LabelButton (int64 item_id) {
         Object (
             item_id: item_id
@@ -176,6 +178,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 dialog.show_all ();
 
                 popover.popdown ();
+                closed ();
             } else {
                 create_assign ();
             }
@@ -190,6 +193,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
                 if (Planner.database.add_item_label (item_id, label)) {
                     popover.popdown ();
+                    closed ();
                 }
 
                 return false;
@@ -207,6 +211,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             var label = ((Widgets.LabelPopoverRow) row).label;
             if (Planner.database.add_item_label (item_id, label)) {
                 popover.popdown ();
+                closed ();
             }
         });
 
@@ -250,6 +255,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
                 if (Planner.database.add_item_label (item_id, label)) {
                     popover.popdown ();
+                    closed ();
                 }
             } else {
                 if (edit_add_icon.icon_name == "list-add-symbolic") {
@@ -281,6 +287,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             if (Planner.database.add_item_label (item_id, label)) {
                 popover.popdown ();
                 this.active = false;
+                closed ();
             }
         }
     }
