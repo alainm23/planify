@@ -47,6 +47,6 @@ public class Services.EventBus : Object {
         debug (@"Test from EventBus called by $(caller_id)");
     }
 
-    // Generla
+    // DateTime Events
     public signal void day_changed ();
 }
