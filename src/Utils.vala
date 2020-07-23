@@ -785,7 +785,7 @@ public class Utils : GLib.Object {
         }
     }
 
-    public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT) { // vala-lint=naming-convention
+    public void set_quick_add_shortcut (string QUICK_ADD_SHORTCUT, bool enabled) { // vala-lint=naming-convention
         var QUICKADD_COMMAND = "com.github.alainm23.planner.quick-add";
         if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             QUICKADD_COMMAND = "flatpak run --command=com.github.alainm23.planner.quick-add com.github.alainm23.planner";
@@ -795,12 +795,17 @@ public class Utils : GLib.Object {
         bool has_shortcut = false;
         foreach (var shortcut in Services.CustomShortcutSettings.list_custom_shortcuts ()) {
             if (shortcut.command == QUICKADD_COMMAND) {
-                Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
+                if (enabled) {
+                    Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, QUICK_ADD_SHORTCUT);
+                } else {
+                    Services.CustomShortcutSettings.edit_shortcut (shortcut.relocatable_schema, "");
+                }
+                
                 has_shortcut = true;
                 return;
             }
         }
-        if (!has_shortcut) {
+        if (!has_shortcut && enabled) {
             var shortcut = Services.CustomShortcutSettings.create_shortcut ();
             if (shortcut != null) {
                 Services.CustomShortcutSettings.edit_shortcut (shortcut, QUICK_ADD_SHORTCUT);

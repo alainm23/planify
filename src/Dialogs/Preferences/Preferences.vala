@@ -475,6 +475,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         description_label.xalign = 0;
 
         var enabled_switch = new Dialogs.Preferences.ItemSwitch (_("Enabled"), Planner.settings.get_boolean ("quick-add-enabled"));
+        enabled_switch.margin_top = 6;
 
         var shortcut_label = new Gtk.Label (_("Keyboard Shortcuts"));
         shortcut_label.get_style_context ().add_class ("font-weight-600");
@@ -528,15 +529,24 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         );
         save_last_switch.margin_top = 6;
 
+        var revealer_box = new Gtk.Grid ();
+        revealer_box.orientation = Gtk.Orientation.VERTICAL;
+        revealer_box.add (shortcut_eventbox);
+        revealer_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        revealer_box.add (change_button);
+        revealer_box.add (save_last_switch);
+
+        var box_revealer = new Gtk.Revealer ();
+        box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        box_revealer.add (revealer_box);
+        box_revealer.reveal_child = Planner.settings.get_boolean ("quick-add-enabled");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
         main_box.pack_start (enabled_switch, false, false, 0);
-        main_box.pack_start (shortcut_eventbox, false, false, 0);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-        main_box.pack_start (change_button, false, false, 0);
-        main_box.pack_start (save_last_switch, false, false, 0);
+        main_box.pack_start (box_revealer, false, false, 0);
 
         shortcut_eventbox.enter_notify_event.connect ((event) => {
             // shortcut_stack.visible_child_name = "button";
@@ -606,7 +616,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         });
 
         Planner.settings.changed.connect ((key) => {
-            if (key == "quick-add-shortcut") {
+            if (key == "quick-add-shortcut" || key == "quick-add-enabled") {
+                box_revealer.reveal_child = Planner.settings.get_boolean ("quick-add-enabled");
+
                 string _keys = Planner.settings.get_string ("quick-add-shortcut");
                 uint _accelerator_key;
                 Gdk.ModifierType _accelerator_mods;
@@ -616,8 +628,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
                 accels.update_accels (_shortcut_hint.split ("+"));
 
                 // Set shortcut
-                Planner.utils.set_quick_add_shortcut (_keys);
+                Planner.utils.set_quick_add_shortcut (_keys, Planner.settings.get_boolean ("quick-add-enabled"));
             }
+        });
+
+        enabled_switch.activated.connect ((val) => {
+            Planner.settings.set_boolean ("quick-add-enabled", val);
         });
 
         return main_box;

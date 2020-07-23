@@ -46,4 +46,7 @@ public class Services.EventBus : Object {
     public void test (string caller_id) {
         debug (@"Test from EventBus called by $(caller_id)");
     }
+
+    // Generla
+    public signal void day_changed ();
 }

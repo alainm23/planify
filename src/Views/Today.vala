@@ -96,6 +96,7 @@ public class Views.Today : Gtk.EventBox {
 
         overdue_listbox = new Gtk.ListBox ();
         overdue_listbox.margin_start = 30;
+        overdue_listbox.margin_end = 32;
         overdue_listbox.get_style_context ().add_class ("listbox");
         overdue_listbox.activate_on_single_click = true;
         overdue_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -189,6 +190,10 @@ public class Views.Today : Gtk.EventBox {
             check_placeholder_view ();
 
             return false;
+        });
+
+        Planner.event_bus.day_changed.connect (() => {
+            add_all_items ();
         });
 
         reschedule_button.toggled.connect (() => {
@@ -546,6 +551,18 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void add_all_items () {
+        items_loaded.clear ();
+        items_list.clear ();
+        listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
+
+        overdues_loaded.clear ();
+        overdue_list.clear ();
+        overdue_listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
+
         foreach (var item in Planner.database.get_all_today_items ()) {
             var row = new Widgets.ItemRow (item, "today");
 
@@ -565,6 +582,8 @@ public class Views.Today : Gtk.EventBox {
             overdue_listbox.add (row);
             overdue_listbox.show_all ();
         }
+
+        check_placeholder_view ();
     }
 
     private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {

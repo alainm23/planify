@@ -150,11 +150,11 @@ public class Planner : Gtk.Application {
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
         if (quick_add_shortcut == "") {
-            quick_add_shortcut = "<Primary>Tab";
+            quick_add_shortcut = "<Alt>space";
             settings.set_string ("quick-add-shortcut", quick_add_shortcut);
         }
 
-        utils.set_quick_add_shortcut (quick_add_shortcut);
+        utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
         database.open_database ();
 
         if (settings.get_string ("version") != Constants.VERSION) {

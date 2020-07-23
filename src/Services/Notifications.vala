@@ -24,7 +24,7 @@ public class Services.Notifications : GLib.Object {
     public signal void send_undo_notification (string message, string query);
 
     private uint server_timeout = 0;
-
+    private GLib.DateTime current_date = new GLib.DateTime.now_local ();
     construct {
         Planner.database.reset.connect (() => {
             if (server_timeout != 0) {
@@ -37,6 +37,12 @@ public class Services.Notifications : GLib.Object {
         server_timeout = Timeout.add_seconds (1 * 60, () => {
             server_timeout = 0;
 
+            // Check Day Changed
+            if (!Granite.DateTime.is_same_day (current_date, new GLib.DateTime.now_local ())) {
+                Planner.event_bus.day_changed ();
+            }
+            current_date = new GLib.DateTime.now_local ();
+            
             foreach (var reminder in Planner.database.get_reminders ()) {
                 if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
                     var notification = new Notification (reminder.project_name);

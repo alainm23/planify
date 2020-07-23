@@ -774,7 +774,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item.due_lang = i.due_lang;
 
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-
                 duedate_preview_label.label = "<small>%s</small>".printf (
                     Planner.utils.get_relative_date_from_date (datetime)
                 );
@@ -989,6 +988,16 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     return false;
                 });
             }
+        });
+
+        Planner.event_bus.day_changed.connect (() => {
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+            duedate_preview_label.label = "<small>%s</small>".printf (
+                Planner.utils.get_relative_date_from_date (datetime)
+            );
+            
+            check_duedate_style ();
+            due_button.update_date_text (item);
         });
     }
 

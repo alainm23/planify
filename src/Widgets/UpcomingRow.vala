@@ -155,6 +155,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             }
         });
 
+        Planner.event_bus.day_changed.connect (() => {
+            add_all_items ();
+        });
+        
         Planner.database.item_added.connect ((item, index) => {
             if (item.due_date != "") {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
@@ -478,6 +482,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
     }
 
     private void add_all_items () {
+        items_loaded.clear ();
+        items_list.clear ();
+        listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
+
         foreach (var item in Planner.database.get_items_by_date (date)) {
             var row = new Widgets.ItemRow (item, "upcoming");
 
