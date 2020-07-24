@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
 "PO-Revision-Date: 2020-07-25 14:41+0000\n"
-"Last-Translator: David Chocholatý <chocholaty.david0@gmail.com>\n"
+"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -677,7 +677,7 @@ msgstr "Sekce odstraněna"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr ""
+msgstr "Naplánovat"
 
 #: src/Widgets/DueButton.vala:217
 msgid "Repeat"
@@ -890,7 +890,7 @@ msgstr "Opoždění"
 
 #: src/Views/Today.vala:109
 msgid "Reschedule"
-msgstr ""
+msgstr "Přeplánovat"
 
 #: src/Views/Today.vala:138
 msgid "What tasks are on your mind?"
@@ -1302,7 +1302,7 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "Použít"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
