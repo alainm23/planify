@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-04-14 16:11+0000\n"
-"Last-Translator: 12people <contact.mirek@protonmail.com>\n"
+"PO-Revision-Date: 2020-07-24 13:47+0000\n"
+"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -26,7 +26,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Přidávání úkolu ze schránky..."
 
 #: src/Utils.vala:28
 #, fuzzy
@@ -373,7 +373,7 @@ msgstr "Projekt z Todoistu"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
-msgstr ""
+msgstr "Úkol nelze přesunout"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
@@ -469,9 +469,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organizujte své projekty pomocí skupin a udržujte si čistý panel."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Složka"
+msgstr "Přidat složku"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:79
@@ -505,7 +504,7 @@ msgstr "Upravit"
 
 #: src/Widgets/ProjectRow.vala:548
 msgid "Move"
-msgstr ""
+msgstr "Přesunout"
 
 #: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1447
 #: src/Widgets/SectionRow.vala:816
@@ -548,9 +547,8 @@ msgid "Task name"
 msgstr "Název úkolu"
 
 #: src/Widgets/ItemRow.vala:184
-#, fuzzy
 msgid "Hide Details"
-msgstr "Zobrazit podrobnosti"
+msgstr "Skrýt podrobnosti"
 
 #: src/Widgets/ItemRow.vala:502
 msgid "Add Checklist"
@@ -742,7 +740,7 @@ msgstr "Přidat štítek"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
-msgstr ""
+msgstr "Štítek nebyl nalezen"
 
 #: src/Widgets/LabelButton.vala:237
 #, fuzzy, c-format
@@ -781,7 +779,7 @@ msgstr "Název podúkolu"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: src/Widgets/UpcomingRow.vala:76
 msgid "Add task"
@@ -894,7 +892,7 @@ msgstr "Zobrazit hotové"
 
 #: src/Views/Today.vala:93
 msgid "Overdue"
-msgstr ""
+msgstr "Opoždění"
 
 #: src/Views/Today.vala:109
 msgid "Reschedule"
@@ -1273,19 +1271,19 @@ msgstr "Hotové"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
-msgstr ""
+msgstr "Priorita 1"
 
 #: src/Dialogs/QuickFind.vala:108
 msgid "Priority 2"
-msgstr ""
+msgstr "Priorita 2"
 
 #: src/Dialogs/QuickFind.vala:116
 msgid "Priority 3"
-msgstr ""
+msgstr "Priorita 3"
 
 #: src/Dialogs/QuickFind.vala:124
 msgid "Priority 4"
-msgstr ""
+msgstr "Priorita 4"
 
 #: src/Dialogs/QuickFind.vala:129
 msgid "Search"
