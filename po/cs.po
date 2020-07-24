@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-24 13:47+0000\n"
+"PO-Revision-Date: 2020-07-25 14:41+0000\n"
 "Last-Translator: David Chocholatý <chocholaty.david0@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -26,7 +26,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr "Přidávání úkolu ze schránky..."
+msgstr "Přidávání úkolu ze schránky…"
 
 #: src/Utils.vala:28
 msgid "today"
@@ -371,7 +371,7 @@ msgstr "Projekt z Todoistu"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
-msgstr "Úkol se nepodařilo přesunout "
+msgstr "Úkol se nepodařilo přesunout"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
@@ -710,15 +710,16 @@ msgid "labels"
 msgstr "štítky"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
-msgstr "Štítky"
+msgstr "Používání štítků"
 
 #: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Seřaďte vaše úkoly použitím štítků, potom je používejte pro filtrování "
+"vašich listů a zaměření pozornosti."
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -788,7 +789,7 @@ msgstr "Přidat připomínku"
 
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr ""
+msgstr "Už nikdy nezapomeňte na úkol! Nechte Planner vám poslat připomínku."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -947,7 +948,7 @@ msgstr "Zadejte prosím přihlašovací údaje…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Termín:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1051,9 +1052,8 @@ msgid "Night"
 msgstr "Tmavý"
 
 #: src/Dialogs/Preferences/Preferences.vala:413
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Oblohově modrá"
+msgstr "Tmavě modrá"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
@@ -1255,9 +1255,8 @@ msgid "Back"
 msgstr "Zpět"
 
 #: src/Dialogs/QuickFind.vala:91
-#, fuzzy
 msgid "Completed"
-msgstr "Hotové"
+msgstr "Hotovo"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
@@ -1331,7 +1330,7 @@ msgstr "Pohledy"
 
 #: src/Dialogs/QuickFind.vala:701
 msgid "Priorities"
-msgstr ""
+msgstr "Priority"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
@@ -1339,7 +1338,7 @@ msgstr "Projekt byl zkopírován do schránky."
 
 #: src/Objects/Item.vala:125
 msgid "Duplicating task…"
-msgstr "Duplikování úkolu..."
+msgstr "Duplikování úkolu…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
