@@ -371,7 +371,7 @@ msgstr "Projekt z Todoistu"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
 msgid "Unable to move task"
-msgstr "Úkol nelze přesunout"
+msgstr "Úkol se nepodařilo přesunout "
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
