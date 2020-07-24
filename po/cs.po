@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
 "PO-Revision-Date: 2020-07-24 13:47+0000\n"
-"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
+"Last-Translator: David Chocholatý <chocholaty.david0@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -29,14 +29,12 @@ msgid "Adding task from clipboard…"
 msgstr "Přidávání úkolu ze schránky..."
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "Dnes"
+msgstr "dnes"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
-msgstr "Zítra"
+msgstr "zítra"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -383,7 +381,6 @@ msgid "Upcoming"
 msgstr "Nadcházející"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
-#, fuzzy
 msgid "Add Project"
 msgstr "Přidat projekt"
 
@@ -572,9 +569,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Hotovo. Další položka: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Úkol hotový"
+msgstr "1 úkol dokončen"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -734,7 +730,6 @@ msgid "Edit labels"
 msgstr "Upravit štítky"
 
 #: src/Widgets/LabelButton.vala:233
-#, fuzzy
 msgid "Add label"
 msgstr "Přidat štítek"
 
@@ -743,23 +738,21 @@ msgid "Label not found"
 msgstr "Štítek nebyl nalezen"
 
 #: src/Widgets/LabelButton.vala:237
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Vytvořit"
+msgstr "Vytvořit '%s'"
 
 #: src/Widgets/Toast.vala:68
 msgid "Undo"
 msgstr "Vrátit zpět"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Duplikovat"
+msgstr "Duplikovat úkol"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "Úkol byl zkopírován do schránky."
+msgstr "Úkol byl zkopírován do schránky"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -907,9 +900,9 @@ msgid "Tap + to add a task for today."
 msgstr "Klikněte na +, abyste přidal/a úkol na dnešek."
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:832
-#, fuzzy, c-format
+#, c-format
 msgid "Progress: %s"
-msgstr "Postup:"
+msgstr "Postup: %s"
 
 #: src/Views/Project.vala:392
 msgid "What will you accomplish?"
@@ -920,16 +913,14 @@ msgid "Tap + to add a task to this project."
 msgstr "Klikněte na +, abyste přidal/a úkol do tohoto projektu."
 
 #: src/Views/Project.vala:1256
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Produktivita"
+msgstr "Vaše produktivita"
 
 #: src/Views/Project.vala:1261
 msgid "Progress:"
 msgstr "Postup:"
 
 #: src/Views/Project.vala:1272
-#, fuzzy
 msgid "Duedate:"
 msgstr "Do dne:"
 
@@ -1069,7 +1060,6 @@ msgid "Arc Dark"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:467
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
@@ -1077,7 +1067,8 @@ msgid ""
 msgstr ""
 "Nezáleží na tom, jakou aplikaci zrovna používáte. Můžete použít klávesovou "
 "zkratku, abyste otevřel/a okno Rychlého přidání, v němž můžete zadat "
-"plánovanou úlohu a rychle se vrátit k práci."
+"plánovanou úlohu a rychle se vrátit k práci. Klávesovou zkratku můžete "
+"kdykoliv změnit."
 
 #: src/Dialogs/Preferences/Preferences.vala:477
 #: src/Dialogs/Preferences/Preferences.vala:1047
@@ -1091,9 +1082,8 @@ msgid "Change"
 msgstr "Změnit"
 
 #: src/Dialogs/Preferences/Preferences.vala:517
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Klávesové zkratky"
+msgstr "Změnit klávesovou zkratku"
 
 #: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
@@ -1290,11 +1280,10 @@ msgid "Search"
 msgstr "Hledat"
 
 #: src/Dialogs/QuickFind.vala:157
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
-"Rychle přepněte mezi projekty a pohledy, najděte úkoly, vyhledejte dle "
-"štítků, ..."
+"Rychle přepínejte mezi projekty a pohledy, najděte úkoly a vyhledávejte dle "
+"štítků."
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
@@ -1349,9 +1338,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Projekt byl zkopírován do schránky."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Duplikovat"
+msgstr "Duplikování úkolu..."
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
