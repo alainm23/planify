@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-26 07:19+0000\n"
-"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
+"PO-Revision-Date: 2020-07-27 07:41+0000\n"
+"Last-Translator: David Chocholatý <chocholaty.david0@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -718,7 +718,7 @@ msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
-"Seřaďte vaše úkoly použitím štítků, potom je používejte pro filtrování "
+"Organizujte vaše úkoly použitím štítků, potom je používejte pro filtrování "
 "vašich listů a zaměření pozornosti."
 
 #: src/Widgets/LabelButton.vala:123
@@ -1057,7 +1057,7 @@ msgstr "Tmavě modrá"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
-msgstr "Arc Tmavý"
+msgstr "Arc tmavý"
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid ""
@@ -1286,19 +1286,19 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "Šipka nahoru"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "Šipka dolů"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
-msgstr ""
+msgstr "Escape"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
@@ -1306,19 +1306,19 @@ msgstr "Použít"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr ""
+msgstr "pro navigaci a"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "pro výběr,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "pro uzavření."
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "Vstoupit"
 
 #: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
