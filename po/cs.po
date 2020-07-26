@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-25 14:41+0000\n"
+"PO-Revision-Date: 2020-07-26 07:19+0000\n"
 "Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
@@ -1057,7 +1057,7 @@ msgstr "Tmavě modrá"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc Tmavý"
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid ""
