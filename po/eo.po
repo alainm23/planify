@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-15 15:23+0000\n"
-"Last-Translator: Aditya Tulahalli <adityatulahalli@gmail.com>\n"
+"PO-Revision-Date: 2020-08-01 11:13+0000\n"
+"Last-Translator: Yannick A. <yannick.armand@protonmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
 "Language: eo\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
